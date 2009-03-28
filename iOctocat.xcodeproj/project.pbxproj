@@ -338,21 +338,22 @@
 			};
 			name = Release;
 		};
-		6FB7FECD0F7E2D1A00E8D702 /* Distribution */ = {
+		6F77CD830F7E9DF2009A0213 /* App Store Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "12B61C84-0EE5-49AB-8C64-13197FA6BD20";
 				SDKROOT = iphoneos2.2.1;
 			};
-			name = Distribution;
+			name = "App Store Distribution";
 		};
-		6FB7FECE0F7E2D1A00E8D702 /* Distribution */ = {
+		6F77CD840F7E9DF2009A0213 /* App Store Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -362,7 +363,34 @@
 				INFOPLIST_FILE = Info.plist;
 				PRODUCT_NAME = iOctocat;
 			};
-			name = Distribution;
+			name = "App Store Distribution";
+		};
+		6FB7FECD0F7E2D1A00E8D702 /* Ad Hoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				PRODUCT_NAME = iOctocat;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DEC69AA4-5023-4EB6-A7C8-4DB031D2EA62";
+				SDKROOT = iphoneos2.2.1;
+			};
+			name = "Ad Hoc Distribution";
+		};
+		6FB7FECE0F7E2D1A00E8D702 /* Ad Hoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = iOctocat;
+			};
+			name = "Ad Hoc Distribution";
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -403,7 +431,8 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				6FB7FECE0F7E2D1A00E8D702 /* Distribution */,
+				6FB7FECE0F7E2D1A00E8D702 /* Ad Hoc Distribution */,
+				6F77CD840F7E9DF2009A0213 /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -413,7 +442,8 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				6FB7FECD0F7E2D1A00E8D702 /* Distribution */,
+				6FB7FECD0F7E2D1A00E8D702 /* Ad Hoc Distribution */,
+				6F77CD830F7E9DF2009A0213 /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -13,8 +13,8 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
+		6F1DC3510F7E4E6A00FCD26D /* iTunesArtWork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
-		6FB7FEA50F7E2C4D00E8D702 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA30F7E2C4D00E8D702 /* iTunesArtwork */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEAC0F7E2C8700E8D702 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEAA0F7E2C8700E8D702 /* RootViewController.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
@@ -32,8 +32,8 @@
 		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtWork.png; path = Images/iTunesArtWork.png; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
-		6FB7FEA30F7E2C4D00E8D702 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Images/iTunesArtwork; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEAA0F7E2C8700E8D702 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = IBFiles/RootViewController.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 				6FB7FEA20F7E2C4D00E8D702 /* Icon.png */,
 				6FB7FEEA0F7E31AC00E8D702 /* Default.png */,
 				6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */,
-				6FB7FEA30F7E2C4D00E8D702 /* iTunesArtwork */,
+				6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -186,11 +186,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */,
-				6FB7FEA50F7E2C4D00E8D702 /* iTunesArtwork in Resources */,
 				6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */,
 				6FB7FEAC0F7E2C8700E8D702 /* RootViewController.xib in Resources */,
 				6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */,
 				6FB7FEED0F7E31AC00E8D702 /* NoConnection.png in Resources */,
+				6F1DC3510F7E4E6A00FCD26D /* iTunesArtWork.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +266,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

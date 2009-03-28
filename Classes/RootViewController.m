@@ -1,5 +1,6 @@
 #import "AppConstants.h"
 #import "RootViewController.h"
+#import "WebViewController.h"
 #import "iOctocatAppDelegate.h"
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
@@ -83,15 +84,16 @@
     }
 	GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
 	[cell setEntry:entry];
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+    GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
+	WebViewController *webController = [[WebViewController alloc] initWithURL:entry.linkURL];
+	webController.title = entry.title;
+	[self.navigationController pushViewController:webController animated:YES];
+	[webController release];
+	
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

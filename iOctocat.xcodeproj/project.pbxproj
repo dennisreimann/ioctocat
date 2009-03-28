@@ -14,6 +14,7 @@
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		6F1DC3510F7E4E6A00FCD26D /* iTunesArtWork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */; };
+		6F1DC36F0F7E4F5200FCD26D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F1DC36E0F7E4F5200FCD26D /* SystemConfiguration.framework */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEAC0F7E2C8700E8D702 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEAA0F7E2C8700E8D702 /* RootViewController.xib */; };
@@ -33,6 +34,7 @@
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtWork.png; path = Images/iTunesArtWork.png; sourceTree = "<group>"; };
+		6F1DC36E0F7E4F5200FCD26D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEAA0F7E2C8700E8D702 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = IBFiles/RootViewController.xib; sourceTree = "<group>"; };
@@ -49,6 +51,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
+				6F1DC36F0F7E4F5200FCD26D /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,6 +112,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F1DC36E0F7E4F5200FCD26D /* SystemConfiguration.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,

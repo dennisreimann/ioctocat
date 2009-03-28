@@ -4,9 +4,9 @@
 @class GHFeed, GHFeedEntry;
 
 @interface RootViewController : UITableViewController {
-	IBOutlet UIActivityIndicatorView *activityView;
 	GHFeed *feed;
   @private
+	IBOutlet UIActivityIndicatorView *activityView;
 	NSMutableString *currentElementValue;
 	NSDateFormatter *dateFormatter;
 	GHFeedEntry *currentEntry;

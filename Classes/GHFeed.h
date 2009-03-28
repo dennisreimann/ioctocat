@@ -9,4 +9,6 @@
 @property (nonatomic, retain) NSURL *url;
 @property (nonatomic, retain) NSMutableArray *entries;
 
+- (id)initWithURL:(NSURL *)theURL;
+
 @end

@@ -71,11 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
+				6F1DC4A30F7E5D2200FCD26D /* Controller */,
 				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
-				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
-				28C286E00D94DF7D0034E888 /* RootViewController.m */,
-				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
-				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -141,6 +138,17 @@
 				6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */,
 			);
 			name = Domain;
+			sourceTree = "<group>";
+		};
+		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
+				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
+				28C286DF0D94DF7D0034E888 /* RootViewController.h */,
+				28C286E00D94DF7D0034E888 /* RootViewController.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
@@ -302,6 +310,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-DDEBUG=1";
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				SDKROOT = iphoneos2.2.1;

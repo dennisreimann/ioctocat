@@ -4,3 +4,4 @@
 
 // tables
 #define kStandardCellIdentifier @"StandardCell"
+#define kFeedEntryCellIdentifier @"FeedEntryCell"

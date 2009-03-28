@@ -3,7 +3,6 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 
-
 @interface iOctocatAppDelegate (PrivateMethods)
 
 - (void)displayNoConnectionView;
@@ -15,7 +14,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	if (self.isDataSourceAvailable) {
-		[window addSubview:[navigationController view]];
+		[window addSubview:navigationController.view];
     } else {
 		[self displayNoConnectionView];
 	}

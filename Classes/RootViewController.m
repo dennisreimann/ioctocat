@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"News Feed";
+	self.title = @"My GitHub News Feed";
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];

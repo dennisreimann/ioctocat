@@ -6,7 +6,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"iOctocat";
+	self.title = @"News Feed";
 }
 
 #pragma mark -

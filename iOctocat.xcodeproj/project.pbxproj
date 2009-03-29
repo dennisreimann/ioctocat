@@ -34,6 +34,10 @@
 		6FB7FEAC0F7E2C8700E8D702 /* RootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEAA0F7E2C8700E8D702 /* RootViewController.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
 		6FB7FEED0F7E31AC00E8D702 /* NoConnection.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */; };
+		6FCE4D280F7FD48700451D6E /* commit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D240F7FD48700451D6E /* commit.png */; };
+		6FCE4D290F7FD48700451D6E /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D250F7FD48700451D6E /* delete.png */; };
+		6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D260F7FD48700451D6E /* follow.png */; };
+		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +77,10 @@
 		6FB7FEAA0F7E2C8700E8D702 /* RootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RootViewController.xib; path = IBFiles/RootViewController.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoConnection.png; path = Images/NoConnection.png; sourceTree = "<group>"; };
+		6FCE4D240F7FD48700451D6E /* commit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit.png; path = Images/Icons/commit.png; sourceTree = "<group>"; };
+		6FCE4D250F7FD48700451D6E /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Images/Icons/delete.png; sourceTree = "<group>"; };
+		6FCE4D260F7FD48700451D6E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = Images/Icons/follow.png; sourceTree = "<group>"; };
+		6FCE4D270F7FD48700451D6E /* gist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gist.png; path = Images/Icons/gist.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +198,10 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6FCE4D240F7FD48700451D6E /* commit.png */,
+				6FCE4D250F7FD48700451D6E /* delete.png */,
+				6FCE4D260F7FD48700451D6E /* follow.png */,
+				6FCE4D270F7FD48700451D6E /* gist.png */,
 				6F1DC6430F7E8BDA00FCD26D /* watch.png */,
 				6F1DC5BE0F7E7F4600FCD26D /* comment.png */,
 				6F1DC5BF0F7E7F4600FCD26D /* create.png */,
@@ -289,6 +301,10 @@
 				6F1DC5CB0F7E7F4600FCD26D /* wiki.png in Resources */,
 				6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */,
 				6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */,
+				6FCE4D280F7FD48700451D6E /* commit.png in Resources */,
+				6FCE4D290F7FD48700451D6E /* delete.png in Resources */,
+				6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */,
+				6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

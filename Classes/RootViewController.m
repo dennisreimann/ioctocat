@@ -133,16 +133,24 @@
 		currentEntry.entryID = value;
 		if ([event hasPrefix:@"Fork"]) {
 			currentEntry.eventType = @"fork";
+		} else if ([event hasPrefix:@"Follow"]) {
+			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {
 			currentEntry.eventType = @"comment";
+		} else if ([event hasPrefix:@"Commit"]) {
+			currentEntry.eventType = @"commit";
 		} else if ([event hasPrefix:@"Watch"]) {
 			currentEntry.eventType = @"watch";
+		} else if ([event hasPrefix:@"Delete"]) {
+			currentEntry.eventType = @"delete";
 		} else if ([event hasPrefix:@"Create"]) {
 			currentEntry.eventType = @"create";
 		} else if ([event hasPrefix:@"ForkApply"]) {
 			currentEntry.eventType = @"merge";
 		} else if ([event hasPrefix:@"Push"]) {
 			currentEntry.eventType = @"push";
+		} else if ([event hasPrefix:@"Gist"]) {
+			currentEntry.eventType = @"gist";
 		} else if ([event hasPrefix:@"Wiki"]) {
 			currentEntry.eventType = @"wiki";
 		} else {

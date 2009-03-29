@@ -1,7 +1,7 @@
 h1. iOctocat
 
 iOctocat is a GitHub client for the iPhone.
-Currently the application is in a early stage and there is nothing
+Currently the application is in an early stage and there is nothing
 to see but your private timeline and your activity feed, yet.
 
 My approach is to keep it very minimalistic, but there are a 

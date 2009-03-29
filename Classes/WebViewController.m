@@ -25,14 +25,17 @@
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	[activityView startAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	[activityView stopAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[activityView stopAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	NSString *errorMessage = [error localizedDescription];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];

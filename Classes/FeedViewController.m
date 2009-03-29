@@ -22,21 +22,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"My GitHub News Feed";
+	self.title = @"My GitHub Feeds";
 	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView:activityView];
 	self.navigationItem.rightBarButtonItem = loadingView;
 	[loadingView release];
-	// Load the feed
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	NSString *url = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
-	NSURL *feedURL = [NSURL URLWithString:url];
-	feed = [[GHFeed alloc] initWithURL:feedURL];
+	self.tableView.tableHeaderView = feedControlView;
 	dateFormatter = [[NSDateFormatter alloc] init];
 	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss"; // ISO8601
-	[self startParsingFeed];
+	// Load settings
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	username = [[defaults stringForKey:kUsernameDefaultsKey] retain];
+	token = [[defaults stringForKey:kTokenDefaultsKey] retain];
+	// Set the switch
+	feedControl.selectedSegmentIndex = 0;
 }
+
+#pragma mark -
+#pragma mark Feed parsing
 
 - (void)startParsingFeed {
 	[activityView startAnimating];
@@ -64,6 +66,25 @@
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[activityView stopAnimating];
 	[self.tableView reloadData];
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (IBAction)switchChanged:(id)sender {
+	// Load the feed
+	NSString *url;
+	if (feedControl.selectedSegmentIndex == 0) {
+		url = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
+	} else {
+		url = [NSString stringWithFormat:@"https://github.com/%@.private.actor.atom?token=%@", username, token];
+	}
+	NSURL *feedURL = [NSURL URLWithString:url];
+	// Clear the old state
+	[feed release];
+	feed = [[GHFeed alloc] initWithURL:feedURL];
+	[self.tableView reloadData];
+	[self startParsingFeed];
 }
 
 #pragma mark -
@@ -208,6 +229,10 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[username release];
+	[token release];
+	[feedControlView release];
+	[feedControl release];
 	[activityView release];
 	[dateFormatter release];
 	[currentElementValue release];

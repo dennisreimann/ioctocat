@@ -178,10 +178,10 @@
 		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				6FCE4D860F7FE16A00451D6E /* FeedViewController.h */,
-				6FCE4D870F7FE16A00451D6E /* FeedViewController.m */,
 				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
+				6FCE4D860F7FE16A00451D6E /* FeedViewController.h */,
+				6FCE4D870F7FE16A00451D6E /* FeedViewController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebViewController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
 			);

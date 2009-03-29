@@ -1,5 +1,5 @@
 #import "iOctocatAppDelegate.h"
-#import "RootViewController.h"
+#import "FeedViewController.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 
 

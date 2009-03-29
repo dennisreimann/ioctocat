@@ -43,6 +43,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	if (webView.loading) [webView stopLoading];
 	webView.delegate = nil;
 	[url release];
 	[activityView release];

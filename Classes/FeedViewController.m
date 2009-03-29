@@ -1,5 +1,5 @@
 #import "AppConstants.h"
-#import "RootViewController.h"
+#import "FeedViewController.h"
 #import "WebViewController.h"
 #import "iOctocatAppDelegate.h"
 #import "GHFeed.h"
@@ -7,7 +7,7 @@
 #import "GHFeedEntryCell.h"
 
 
-@interface RootViewController (PrivateMethods)
+@interface FeedViewController (PrivateMethods)
 
 - (void)startParsingFeed;
 - (void)parseFeed;
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation RootViewController
+@implementation FeedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

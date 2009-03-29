@@ -38,6 +38,7 @@
 		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
 		6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* FeedViewController.m */; };
 		6FCE4D900F7FE1BC00451D6E /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */; };
+		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		6FCE4D860F7FE16A00451D6E /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		6FCE4D870F7FE16A00451D6E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedViewController.xib; path = IBFiles/FeedViewController.xib; sourceTree = "<group>"; };
+		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -198,6 +200,7 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6FCE4DB60F7FE5C600451D6E /* member.png */,
 				6FCE4D240F7FD48700451D6E /* commit.png */,
 				6FCE4D250F7FD48700451D6E /* delete.png */,
 				6FCE4D260F7FD48700451D6E /* follow.png */,
@@ -305,6 +308,7 @@
 				6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */,
 				6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */,
 				6FCE4D900F7FE1BC00451D6E /* FeedViewController.xib in Resources */,
+				6FCE4DB70F7FE5C600451D6E /* member.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

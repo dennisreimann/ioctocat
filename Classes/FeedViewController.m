@@ -147,6 +147,8 @@
 			currentEntry.eventType = @"create";
 		} else if ([event hasPrefix:@"ForkApply"]) {
 			currentEntry.eventType = @"merge";
+		} else if ([event hasPrefix:@"Member"]) {
+			currentEntry.eventType = @"member";
 		} else if ([event hasPrefix:@"Push"]) {
 			currentEntry.eventType = @"push";
 		} else if ([event hasPrefix:@"Gist"]) {

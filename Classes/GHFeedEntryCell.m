@@ -11,7 +11,8 @@
 	titleLabel.text = entry.title;
 	// Date
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"MMMM d, yyyy - H:mm";
+	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 	dateLabel.text = [dateFormatter stringFromDate:entry.date];
 	[dateFormatter release];
 	// Icon

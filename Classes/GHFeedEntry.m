@@ -5,6 +5,10 @@
 
 @synthesize entryID, eventType, date, linkURL, title, content, authorName;
 
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];
+}
+
 #pragma mark -
 #pragma mark Cleanup
 

@@ -4,17 +4,14 @@
 @class GHFeed, GHFeedEntry;
 
 @interface FeedViewController : UITableViewController {
-	GHFeed *feed;
   @private
 	IBOutlet UIActivityIndicatorView *activityView;
 	IBOutlet UIView *feedControlView;
 	IBOutlet UISegmentedControl *feedControl;
-	NSString *username;
-	NSString *token;
-	NSMutableString *currentElementValue;
-	NSDateFormatter *dateFormatter;
-	GHFeedEntry *currentEntry;
+	NSArray *feeds;
 }
+
+@property (nonatomic, readonly) GHFeed *currentFeed;
 
 - (IBAction)switchChanged:(id)sender;
 

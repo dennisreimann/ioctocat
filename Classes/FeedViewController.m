@@ -23,68 +23,55 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"My GitHub Feeds";
-	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-	self.navigationItem.rightBarButtonItem = loadingView;
-	[loadingView release];
+	// Add activity indicator to navbar
+	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+	self.navigationItem.rightBarButtonItem = loadingItem;
+	[loadingItem release];
 	self.tableView.tableHeaderView = feedControlView;
-	dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss"; // ISO8601
 	// Load settings
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	username = [[defaults stringForKey:kUsernameDefaultsKey] retain];
-	token = [[defaults stringForKey:kTokenDefaultsKey] retain];
-	// Set the switch
+	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+	// Setup feeds
+	NSString *newsAddress = [NSString stringWithFormat:kNewsFeedFormat, username, token];
+	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];
+	NSURL *newsFeedURL = [NSURL URLWithString:newsAddress];
+	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
+	GHFeed *newsFeed = [[GHFeed alloc] initWithURL:newsFeedURL];
+	GHFeed *activityFeed = [[GHFeed alloc] initWithURL:activityFeedURL];
+	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
+	[newsFeed release];
+	[activityFeed release];
+	// Set the switch and load the first feed
 	feedControl.selectedSegmentIndex = 0;
-}
-
-#pragma mark -
-#pragma mark Feed parsing
-
-- (void)startParsingFeed {
-	[activityView startAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[self performSelectorInBackground:@selector(parseFeed) withObject:nil];
-}
-
-- (void)parseFeed {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:feed.url];
-	[parser setDelegate:self];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[pool release];
-}
-
-- (void)addEntryToFeed:(GHFeedEntry *)anEntry {
-	[feed.entries addObject:anEntry];
-}
-
-- (void)finishedParsingFeed {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[activityView stopAnimating];
-	[self.tableView reloadData];
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-	// Load the feed
-	NSString *url;
-	if (feedControl.selectedSegmentIndex == 0) {
-		url = [NSString stringWithFormat:@"https://github.com/%@.private.atom?token=%@", username, token];
-	} else {
-		url = [NSString stringWithFormat:@"https://github.com/%@.private.actor.atom?token=%@", username, token];
-	}
-	NSURL *feedURL = [NSURL URLWithString:url];
-	// Clear the old state
-	[feed release];
-	feed = [[GHFeed alloc] initWithURL:feedURL];
 	[self.tableView reloadData];
+	if (self.currentFeed.isLoaded) return;
 	[self startParsingFeed];
+}
+
+- (void)startParsingFeed {
+	[activityView startAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	[self.currentFeed addObserver:self forKeyPath:@"isLoaded" options:NSKeyValueObservingOptionNew context:nil];
+	[self.currentFeed performSelectorInBackground:@selector(parseFeed) withObject:nil];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:@"isLoaded"]) {
+		[self finishedParsingFeed];
+	}
+}
+
+- (void)finishedParsingFeed {
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[activityView stopAnimating];
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -95,7 +82,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return feed.entries.count;
+    return self.currentFeed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -103,13 +90,13 @@
     if (cell == nil) {
         cell = [self feedEntryCellFromNib];
     }
-	GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
+	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
 	[cell setEntry:entry];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
+    GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
 	WebViewController *webController = [[WebViewController alloc] initWithURL:entry.linkURL];
 	webController.title = entry.title;
 	[self.navigationController pushViewController:webController animated:YES];
@@ -122,90 +109,11 @@
 }
 
 #pragma mark -
-#pragma mark NSXMLParser delegation methods
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
-	if ([elementName isEqualToString:@"entry"]) {
-		currentEntry = [[GHFeedEntry alloc] init];
-	} else if ([elementName isEqualToString:@"link"]) {
-		NSString *url = [attributeDict valueForKey:@"href"];
-		currentEntry.linkURL = ([url isEqualToString:@""]) ? nil : [NSURL URLWithString:url];
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
-	if (!currentElementValue) {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		currentElementValue = [[NSMutableString alloc] initWithString:string];
-	} else {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-		[currentElementValue appendString:string];
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	if ([elementName isEqualToString:@"entry"]) {
-		[self performSelectorOnMainThread:@selector(addEntryToFeed:) withObject:currentEntry waitUntilDone:NO];
-		[currentEntry release];
-		currentEntry = nil;
-	} else if ([elementName isEqualToString:@"id"]) {
-		NSString *value = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSString *event = [value substringFromIndex:20];
-		currentEntry.entryID = value;
-		if ([event hasPrefix:@"Fork"]) {
-			currentEntry.eventType = @"fork";
-		} else if ([event hasPrefix:@"Follow"]) {
-			currentEntry.eventType = @"follow";
-		} else if ([event hasPrefix:@"CommitComment"]) {
-			currentEntry.eventType = @"comment";
-		} else if ([event hasPrefix:@"Commit"]) {
-			currentEntry.eventType = @"commit";
-		} else if ([event hasPrefix:@"Watch"]) {
-			currentEntry.eventType = @"watch";
-		} else if ([event hasPrefix:@"Delete"]) {
-			currentEntry.eventType = @"delete";
-		} else if ([event hasPrefix:@"Create"]) {
-			currentEntry.eventType = @"create";
-		} else if ([event hasPrefix:@"ForkApply"]) {
-			currentEntry.eventType = @"merge";
-		} else if ([event hasPrefix:@"Member"]) {
-			currentEntry.eventType = @"member";
-		} else if ([event hasPrefix:@"Push"]) {
-			currentEntry.eventType = @"push";
-		} else if ([event hasPrefix:@"Gist"]) {
-			currentEntry.eventType = @"gist";
-		} else if ([event hasPrefix:@"Wiki"]) {
-			currentEntry.eventType = @"wiki";
-		} else {
-			currentEntry.eventType = nil;
-		}
-	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [dateFormatter dateFromString:currentElementValue];
-	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
-		[currentEntry setValue:currentElementValue forKey:elementName];
-	} else if ([elementName isEqualToString:@"name"]) {
-		currentEntry.authorName = currentElementValue;
-	} 
-	[currentElementValue release];
-	currentElementValue = nil;
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[self finishedParsingFeed];
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	#ifdef DEBUG
-	NSLog(@"Parsing error: %@", [parseError localizedDescription]);
-	#endif
-	// Let's just assume it's an authentication error
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
-}
-
-#pragma mark -
 #pragma mark Helpers
+
+- (GHFeed *)currentFeed {
+	return [feeds objectAtIndex:feedControl.selectedSegmentIndex];
+}
 
 - (GHFeedEntryCell *)feedEntryCellFromNib {
 	NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"GHFeedEntryCell" owner:self options:nil];
@@ -229,18 +137,12 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[username release];
-	[token release];
+	[feeds release];
 	[feedControlView release];
 	[feedControl release];
 	[activityView release];
-	[dateFormatter release];
-	[currentElementValue release];
-	[currentEntry release];
-	[feed release];
     [super dealloc];
 }
-
 
 @end
 

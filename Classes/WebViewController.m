@@ -12,9 +12,11 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	UIBarButtonItem *loadingView = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-	self.navigationItem.rightBarButtonItem = loadingView;
-	[loadingView release];
+	// Add activity indicator to navbar
+	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
+	self.navigationItem.rightBarButtonItem = loadingItem;
+	[loadingItem release];
+	// Start loading the website
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 	[webView loadRequest:request];
 	[request release];

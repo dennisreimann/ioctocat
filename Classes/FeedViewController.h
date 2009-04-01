@@ -9,6 +9,7 @@
 	IBOutlet UIView *feedControlView;
 	IBOutlet UISegmentedControl *feedControl;
 	NSArray *feeds;
+	NSUInteger loadCounter;
 }
 
 @property (nonatomic, readonly) GHFeed *currentFeed;

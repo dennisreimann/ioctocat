@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"My GitHub Feeds";
+	loadCounter = 0;
 	// Add activity indicator to navbar
 	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
 	self.navigationItem.rightBarButtonItem = loadingItem;
@@ -61,21 +62,27 @@
 }
 
 - (void)startParsingFeed {
+	loadCounter += 1;
 	[activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[self.currentFeed addObserver:self forKeyPath:@"isLoaded" options:NSKeyValueObservingOptionNew context:nil];
+	[self.currentFeed addObserver:self forKeyPath:kFeedLoadedKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.currentFeed performSelectorInBackground:@selector(loadFeed) withObject:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:@"isLoaded"]) {
+	if ([keyPath isEqualToString:kFeedLoadedKeyPath]) {
+		[object removeObserver:self forKeyPath:kFeedLoadedKeyPath];
 		[self finishedParsingFeed];
 	}
 }
 
 - (void)finishedParsingFeed {
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[activityView stopAnimating];
+	loadCounter -= 1;
+	NSLog(@"%d", loadCounter);
+	if (loadCounter == 0) {
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+		[activityView stopAnimating];
+	}
 	[self.tableView reloadData];
 }
 

@@ -9,10 +9,8 @@
 
 @interface FeedViewController (PrivateMethods)
 
-- (void)startParsingFeed;
-- (void)parseFeed;
-- (void)addEntryToFeed:(GHFeedEntry *)anEntry;
-- (void)finishedParsingFeed;
+- (void)feedParsingStarted;
+- (void)feedParsingFinished;
 - (GHFeedEntryCell *)feedEntryCellFromNib;
 
 @end
@@ -40,6 +38,8 @@
 	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
 	GHFeed *newsFeed = [[GHFeed alloc] initWithURL:newsFeedURL];
 	GHFeed *activityFeed = [[GHFeed alloc] initWithURL:activityFeedURL];
+	[newsFeed addObserver:self forKeyPath:kFeedLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[activityFeed addObserver:self forKeyPath:kFeedLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	[newsFeed release];
 	[activityFeed release];
@@ -53,37 +53,32 @@
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
 	if (self.currentFeed.isLoaded) return;
-	[self startParsingFeed];
+	[self.currentFeed loadFeed];
 }
 
 - (IBAction)reloadFeed:(id)sender {
-	[self.currentFeed unloadFeed];
-	[self startParsingFeed];
-}
-
-- (void)startParsingFeed {
-	loadCounter += 1;
-	[activityView startAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-	[self.currentFeed addObserver:self forKeyPath:kFeedLoadedKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.currentFeed performSelectorInBackground:@selector(loadFeed) withObject:nil];
+	[self.currentFeed loadFeed];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kFeedLoadedKeyPath]) {
-		[object removeObserver:self forKeyPath:kFeedLoadedKeyPath];
-		[self finishedParsingFeed];
+	if ([keyPath isEqualToString:kFeedLoadingKeyPath]) {
+		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
+		(isLoading == YES) ? [self feedParsingStarted] : [self feedParsingFinished];
 	}
 }
 
-- (void)finishedParsingFeed {
-	loadCounter -= 1;
-	NSLog(@"%d", loadCounter);
-	if (loadCounter == 0) {
-		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-		[activityView stopAnimating];
-	}
+- (void)feedParsingStarted {
+	loadCounter += 1;
+	[activityView startAnimating];
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+}
+
+- (void)feedParsingFinished {
 	[self.tableView reloadData];
+	loadCounter -= 1;
+	if (loadCounter > 0) return;
+	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	[activityView stopAnimating];
 }
 
 #pragma mark -

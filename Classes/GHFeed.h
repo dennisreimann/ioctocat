@@ -5,6 +5,7 @@
 
 @interface GHFeed : NSObject {
 	BOOL isLoaded;
+	BOOL isLoading;
   @private
 	NSURL *url;
 	NSMutableArray *entries;
@@ -16,9 +17,9 @@
 @property (nonatomic, retain) NSURL *url;
 @property (nonatomic, retain) NSMutableArray *entries;
 @property (nonatomic, readwrite) BOOL isLoaded;
+@property (nonatomic, readwrite) BOOL isLoading;
 
 - (id)initWithURL:(NSURL *)theURL;
 - (void)loadFeed;
-- (void)unloadFeed;
 
 @end

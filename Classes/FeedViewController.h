@@ -14,5 +14,6 @@
 @property (nonatomic, readonly) GHFeed *currentFeed;
 
 - (IBAction)switchChanged:(id)sender;
+- (IBAction)reloadFeed:(id)sender;
 
 @end

@@ -39,6 +39,8 @@
 		6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* FeedViewController.m */; };
 		6FCE4D900F7FE1BC00451D6E /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
+		6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */; };
+		6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +85,8 @@
 		6FCE4D870F7FE16A00451D6E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedViewController.xib; path = IBFiles/FeedViewController.xib; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
+		6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonNormal.png; path = Images/ReloadButtonNormal.png; sourceTree = "<group>"; };
+		6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonHighlighted.png; path = Images/ReloadButtonHighlighted.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +228,8 @@
 				6FB7FEEA0F7E31AC00E8D702 /* Default.png */,
 				6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */,
 				6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */,
+				6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */,
+				6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -309,6 +315,8 @@
 				6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */,
 				6FCE4D900F7FE1BC00451D6E /* FeedViewController.xib in Resources */,
 				6FCE4DB70F7FE5C600451D6E /* member.png in Resources */,
+				6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */,
+				6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,7 +22,7 @@
 #pragma mark -
 #pragma mark Feed parsing
 
-- (void)parseFeed {
+- (void)loadFeed {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
 	[parser setDelegate:self];
@@ -32,6 +32,11 @@
 	[parser parse];
 	[parser release];
 	[pool release];
+}
+
+- (void)unloadFeed {
+	self.entries = [NSMutableArray array];
+	self.isLoaded = NO;
 }
 
 - (void)finishedParsing {

@@ -55,11 +55,16 @@
 	[self startParsingFeed];
 }
 
+- (IBAction)reloadFeed:(id)sender {
+	[self.currentFeed unloadFeed];
+	[self startParsingFeed];
+}
+
 - (void)startParsingFeed {
 	[activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 	[self.currentFeed addObserver:self forKeyPath:@"isLoaded" options:NSKeyValueObservingOptionNew context:nil];
-	[self.currentFeed performSelectorInBackground:@selector(parseFeed) withObject:nil];
+	[self.currentFeed performSelectorInBackground:@selector(loadFeed) withObject:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

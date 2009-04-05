@@ -15,3 +15,4 @@
 // KVO
 #define kFeedLoadingKeyPath @"isLoading"
 #define kUserLoadingKeyPath @"isLoading"
+#define kUserGravatarImageKeyPath @"gravatar.image"

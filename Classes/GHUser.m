@@ -1,6 +1,7 @@
 #import "AppConstants.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "Gravatar.h"
 
 
 @interface GHUser (PrivateMethods)
@@ -13,7 +14,7 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, repositories, isLoaded, isLoading;
+@synthesize name, login, email, company, blogURL, location, gravatar, repositories, isLoaded, isLoading;
 
 - (id)initWithLogin:(NSString *)theLogin {
 	if (self = [super init]) {
@@ -53,6 +54,10 @@
 }
 
 - (void)finishedLoading {
+	Gravatar *aGravatar = [[Gravatar alloc] initWithEmail:self.email andSize:50];
+	self.gravatar = aGravatar;
+	[aGravatar release];
+	[self.gravatar loadImage];
 	self.isLoaded = YES;
 	self.isLoading = NO;
 }
@@ -130,6 +135,7 @@
 	[company release];
 	[blogURL release];
 	[location release];
+	[gravatar release];
 	[repositories release];
 	[currentElementValue release];
 	[currentRepository release];

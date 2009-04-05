@@ -4,6 +4,7 @@
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
+#import "Gravatar.h"
 
 
 @interface UserViewController (PrivateMethods)
@@ -29,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[user addObserver:self forKeyPath:kUserLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kUserGravatarImageKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self userLoadingFinished] : [user loadDetails];
 	self.title = user.login;
 	// Table header
@@ -48,6 +50,8 @@
 	if ([keyPath isEqualToString:kUserLoadingKeyPath]) {
 		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
 		(isLoading == YES) ? [self userLoadingStarted] : [self userLoadingFinished];
+	} else if ([keyPath isEqualToString:kUserGravatarImageKeyPath]) {
+		gravatarView.image = user.gravatar.image;
 	}
 }
 
@@ -59,6 +63,7 @@
 - (void)userLoadingFinished {
 	nameLabel.text = user.name;
 	companyLabel.text = user.company;
+	gravatarView.image = user.gravatar.image;
 	[self.tableView reloadData];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[activityView stopAnimating];

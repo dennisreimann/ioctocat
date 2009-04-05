@@ -1,5 +1,6 @@
 #import "AppConstants.h"
 #import "UserViewController.h"
+#import "WebViewController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
@@ -9,7 +10,7 @@
 
 - (void)userLoadingStarted;
 - (void)userLoadingFinished;
-- (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)contentTextForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (LabeledCell *)labeledCellFromNib;
 
@@ -71,15 +72,9 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSInteger count = 0;
+	NSInteger count;
 	if (section == 0) {
-		if (user.isLoaded) {
-			if (user.location) count += 1;
-			if (user.email) count += 1;
-			if (user.blogURL) count += 1;
-		} else {
-			count = 1;
-		}
+		count = (user.isLoaded) ? 3 : 1;
 	} else if (section == 1) {
 		count = user.repositories.count;
 	}
@@ -99,9 +94,10 @@
 		if (cell == nil) {
 			cell = [self labeledCellFromNib];
 		}
-		cell.label.text = [self labelTextForRowAtIndexPath:indexPath];
-		cell.content.text = [self textForRowAtIndexPath:indexPath];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		[cell setLabelText:[self labelTextForRowAtIndexPath:indexPath]];
+		[cell setContentText:[self contentTextForRowAtIndexPath:indexPath]];
+		cell.selectionStyle = cell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	} else {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
@@ -109,27 +105,47 @@
 			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
 		}
 		cell.font = [UIFont systemFontOfSize:16.0f];
-		cell.text = [self textForRowAtIndexPath:indexPath];
+		cell.text = [self contentTextForRowAtIndexPath:indexPath];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
+	}
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	if (section == 0 && row == 0) {
+		NSString *locationQuery = [user.location stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+		NSString *url = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", locationQuery];
+		NSURL *locationURL = [NSURL URLWithString:url];
+		[[UIApplication sharedApplication] openURL:locationURL];
+	} else if (section == 0 && row == 1) {
+		WebViewController *webController = [[WebViewController alloc] initWithURL:user.blogURL];
+		[self.navigationController pushViewController:webController animated:YES];
+		[webController release];
+	} else if (section == 0 && row == 2) {
+		NSString *mailString = [[NSString alloc] initWithFormat:@"mailto:?to=@%", user.email];
+		NSURL *mailURL = [[NSURL alloc] initWithString:mailString];
+		[mailString release];
+		[[UIApplication sharedApplication] openURL:mailURL];
+		[mailURL release];
 	}
 }
 
 #pragma mark -
 #pragma mark Helpers
 
-- (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)contentTextForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	NSString *text;
 	if (section == 0) {
 		if (user.isLoaded) {
-			if (row == 0 && user.location) {
-				text = user.location;
-			} else if ((row == 0 && !user.location) || (row == 1 && user.email && user.location)) {
-				text = user.email;
-			} else if ((row == 0 && !user.location && !user.email) || (row == 1 && (!user.location || !user.email)) || row == 2) {
-				text = [user.blogURL host];
+			switch (row) {
+				case 0: return user.location;
+				case 1: return [user.blogURL host];
+				case 2: return user.email;
+				default: return @"";
 			}
 		} else {
 			text = @"Loading details...";
@@ -144,19 +160,16 @@
 - (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
-	NSString *text;
 	if (section == 0) {
-		if (row == 0 && user.location) {
-			text = @"Location";
-		} else if ((row == 0 && !user.location) || (row == 1 && user.email && user.location)) {
-			text = @"E-Mail";
-		} else if ((row == 0 && !user.location && !user.email) || (row == 1 && (!user.location || !user.email)) || row == 2) {
-			text = @"Blog";
+		switch (row) {
+			case 0: return @"Location";
+			case 1: return @"Blog";
+			case 2: return @"E-Mail";
+			default: return @"";
 		}
 	} else {
-		text = @"";
+		return @"";
 	}
-	return text;
 }
 
 - (LabeledCell *)labeledCellFromNib {

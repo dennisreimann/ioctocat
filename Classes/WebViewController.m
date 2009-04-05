@@ -12,6 +12,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.title = [url absoluteString];
 	// Add activity indicator to navbar
 	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
 	self.navigationItem.rightBarButtonItem = loadingItem;

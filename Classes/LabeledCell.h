@@ -2,11 +2,15 @@
 
 
 @interface LabeledCell : UITableViewCell {
+	BOOL hasContent;
+  @private
 	IBOutlet UILabel *label;
 	IBOutlet UILabel *content;
 }
 
-@property (nonatomic, readonly) UILabel *label;
-@property (nonatomic, readonly) UILabel *content;
+@property (nonatomic, readonly) BOOL hasContent;
+
+- (void)setLabelText:(NSString *)text;
+- (void)setContentText:(NSString *)text;
 
 @end

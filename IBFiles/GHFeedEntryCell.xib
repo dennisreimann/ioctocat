@@ -54,7 +54,7 @@
 							<object class="IBUILabel" id="579488512">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{40, 23}, {255, 43}}</string>
+								<string key="NSFrame">{{40, 23}, {240, 43}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -80,7 +80,7 @@
 							<object class="IBUILabel" id="813831787">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{40, 5}, {255, 21}}</string>
+								<string key="NSFrame">{{40, 5}, {240, 21}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -100,7 +100,7 @@
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 							</object>
 						</object>
-						<string key="NSFrameSize">{297, 70}</string>
+						<string key="NSFrameSize">{281, 70}</string>
 						<reference key="NSSuperview" ref="597012738"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -120,7 +120,7 @@
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-				<int key="IBUIAccessoryType">1</int>
+				<int key="IBUIAccessoryType">2</int>
 				<reference key="IBUIContentView" ref="110279202"/>
 				<string key="IBUIReuseIdentifier">FeedEntryCell</string>
 			</object>

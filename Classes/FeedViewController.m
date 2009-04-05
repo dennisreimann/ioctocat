@@ -1,10 +1,12 @@
 #import "AppConstants.h"
+#import "iOctocatAppDelegate.h"
 #import "FeedViewController.h"
 #import "WebViewController.h"
-#import "iOctocatAppDelegate.h"
+#import "UserViewController.h"
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
 #import "GHFeedEntryCell.h"
+#import "GHUser.h"
 
 
 @interface FeedViewController (PrivateMethods)
@@ -108,7 +110,13 @@
 	webController.title = entry.title;
 	[self.navigationController pushViewController:webController animated:YES];
 	[webController release];
-	
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
+	UserViewController *userController = [[UserViewController alloc] initWithUser:entry.user];
+	[self.navigationController pushViewController:userController animated:YES];
+	[userController release];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

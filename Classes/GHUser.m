@@ -5,7 +5,6 @@
 
 @interface GHUser (PrivateMethods)
 
-- (void)loadUser;
 - (void)parseXML;
 - (void)finishedLoading;
 
@@ -14,13 +13,14 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, repositories, isLoaded;
+@synthesize name, login, email, company, blogURL, location, repositories, isLoaded, isLoading;
 
 - (id)initWithLogin:(NSString *)theLogin {
 	if (self = [super init]) {
 		self.login = theLogin;
 		self.repositories = [NSMutableArray array];
 		self.isLoaded = NO;
+		self.isLoading = NO;
 	}
 	return self;
 }
@@ -30,10 +30,11 @@
 }
 
 #pragma mark -
-#pragma mark Feed parsing
+#pragma mark XML parsing
 
-- (void)loadUser {
+- (void)loadDetails {
 	self.isLoaded = NO;
+	self.isLoading = YES;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 
@@ -53,13 +54,14 @@
 
 - (void)finishedLoading {
 	self.isLoaded = YES;
+	self.isLoading = NO;
 }
 
 #pragma mark -
 #pragma mark NSXMLParser delegation methods
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
-	if ([elementName isEqualToString:@"repository"]) {
+	if ([elementName isEqualToString:@"repositories"]) {
 		self.repositories = [NSMutableArray array];
 	} else if ([elementName isEqualToString:@"repository"]) {
 		currentRepository = [[GHRepository alloc] init];
@@ -68,21 +70,21 @@
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
+	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	if (!currentElementValue) {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		currentElementValue = [[NSMutableString alloc] initWithString:string];
 	} else {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		[currentElementValue appendString:string];
 	}
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	// User
-	if ((currentRepository == nil && [elementName isEqualToString:@"name"]) || [elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
-		[self setValue:currentElementValue forKey:elementName];
+	if ((!currentRepository && [elementName isEqualToString:@"name"]) || [elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
+		NSString *value = ([currentElementValue isEqualToString:@""]) ? nil : currentElementValue;
+		[self setValue:value forKey:elementName];
 	} else if ([elementName isEqualToString:@"blog"]) {
-		self.blogURL = [NSURL URLWithString:currentElementValue];
+		self.blogURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} 
 	// Repositories
 	else if ([elementName isEqualToString:@"repository"]) {
@@ -92,9 +94,9 @@
 	} else if ([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"description"]) {
 		[currentRepository setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"url"]) {
-		currentRepository.githubURL = [NSURL URLWithString:currentElementValue];
+		currentRepository.githubURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"homepage"]) {
-		currentRepository.homepageURL = [NSURL URLWithString:currentElementValue];
+		currentRepository.homepageURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"fork"]) {
 		currentRepository.isFork = [currentElementValue boolValue];
 	} else if ([elementName isEqualToString:@"private"]) {

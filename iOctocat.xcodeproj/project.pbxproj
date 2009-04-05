@@ -34,6 +34,10 @@
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
 		6FB7FEED0F7E31AC00E8D702 /* NoConnection.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */; };
+		6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserViewController.m */; };
+		6FC95F230F89069000FC0968 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F220F89069000FC0968 /* User.xib */; };
+		6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */; };
+		6FC960D60F89307E00FC0968 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC960D50F89307E00FC0968 /* LabeledCell.xib */; };
 		6FCE4D280F7FD48700451D6E /* commit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D240F7FD48700451D6E /* commit.png */; };
 		6FCE4D290F7FD48700451D6E /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D250F7FD48700451D6E /* delete.png */; };
 		6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D260F7FD48700451D6E /* follow.png */; };
@@ -83,6 +87,11 @@
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoConnection.png; path = Images/NoConnection.png; sourceTree = "<group>"; };
+		6FC95F1D0F8905F500FC0968 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
+		6FC95F1E0F8905F500FC0968 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		6FC95F220F89069000FC0968 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = User.xib; sourceTree = "<group>"; };
+		6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserTableHeadBackground.png; path = Images/UserTableHeadBackground.png; sourceTree = "<group>"; };
+		6FC960D50F89307E00FC0968 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabeledCell.xib; sourceTree = "<group>"; };
 		6FCE4D240F7FD48700451D6E /* commit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit.png; path = Images/Icons/commit.png; sourceTree = "<group>"; };
 		6FCE4D250F7FD48700451D6E /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Images/Icons/delete.png; sourceTree = "<group>"; };
 		6FCE4D260F7FD48700451D6E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = Images/Icons/follow.png; sourceTree = "<group>"; };
@@ -198,6 +207,8 @@
 				6FCE4D870F7FE16A00451D6E /* FeedViewController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebViewController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
+				6FC95F1D0F8905F500FC0968 /* UserViewController.h */,
+				6FC95F1E0F8905F500FC0968 /* UserViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -240,6 +251,7 @@
 				6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */,
 				6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */,
 				6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */,
+				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -250,7 +262,9 @@
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */,
 				6F1DC5270F7E723600FCD26D /* GHFeedEntryCell.xib */,
+				6FC960D50F89307E00FC0968 /* LabeledCell.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
+				6FC95F220F89069000FC0968 /* User.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -327,6 +341,9 @@
 				6FCE4DB70F7FE5C600451D6E /* member.png in Resources */,
 				6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */,
 				6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */,
+				6FC95F230F89069000FC0968 /* User.xib in Resources */,
+				6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */,
+				6FC960D60F89307E00FC0968 /* LabeledCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +363,7 @@
 				6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */,
 				6F35BD390F88B01900E978CD /* GHUser.m in Sources */,
 				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
+				6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

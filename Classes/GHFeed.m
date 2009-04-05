@@ -75,11 +75,10 @@
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
+	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	if (!currentElementValue) {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 		currentElementValue = [[NSMutableString alloc] initWithString:string];
 	} else {
-		string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 		[currentElementValue appendString:string];
 	}
 }
@@ -90,9 +89,8 @@
 		[currentEntry release];
 		currentEntry = nil;
 	} else if ([elementName isEqualToString:@"id"]) {
-		NSString *value = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSString *event = [value substringFromIndex:20];
-		currentEntry.entryID = value;
+		currentEntry.entryID = currentElementValue;
+		NSString *event = [currentElementValue substringFromIndex:20];
 		if ([event hasPrefix:@"Fork"]) {
 			currentEntry.eventType = @"fork";
 		} else if ([event hasPrefix:@"Follow"]) {

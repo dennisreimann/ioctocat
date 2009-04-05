@@ -12,6 +12,7 @@
 	NSURL *blogURL;
 	NSMutableArray *repositories;
 	BOOL isLoaded;
+	BOOL isLoading;
   @private
 	NSMutableString *currentElementValue;
 	GHRepository *currentRepository;
@@ -25,7 +26,9 @@
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) NSMutableArray *repositories;
 @property (nonatomic, readwrite) BOOL isLoaded;
+@property (nonatomic, readwrite) BOOL isLoading;
 
 - (id)initWithLogin:(NSString *)theLogin;
+- (void)loadDetails;
 
 @end

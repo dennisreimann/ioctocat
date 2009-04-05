@@ -4,6 +4,7 @@
 
 // tables
 #define kStandardCellIdentifier @"StandardCell"
+#define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
 
 // URLs
@@ -13,3 +14,4 @@
 
 // KVO
 #define kFeedLoadingKeyPath @"isLoading"
+#define kUserLoadingKeyPath @"isLoading"

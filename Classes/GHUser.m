@@ -91,9 +91,10 @@
 		currentRepository = nil;
 	} else if ([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"description"]) {
 		[currentRepository setValue:currentElementValue forKey:elementName];
-	} else if ([elementName isEqualToString:@"url"] || [elementName isEqualToString:@"homepage"]) {
-		NSURL *url = [NSURL URLWithString:currentElementValue];
-		[currentRepository setValue:url forKey:elementName];
+	} else if ([elementName isEqualToString:@"url"]) {
+		currentRepository.githubURL = [NSURL URLWithString:currentElementValue];
+	} else if ([elementName isEqualToString:@"homepage"]) {
+		currentRepository.homepageURL = [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"fork"]) {
 		currentRepository.isFork = [currentElementValue boolValue];
 	} else if ([elementName isEqualToString:@"private"]) {

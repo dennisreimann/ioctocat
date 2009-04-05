@@ -1,12 +1,13 @@
 #import "GHFeedEntry.h"
+#import "GHUser.h"
 
 
 @implementation GHFeedEntry
 
-@synthesize entryID, eventType, date, linkURL, title, content, authorName;
+@synthesize entryID, eventType, date, linkURL, title, content, user, feed;
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];
+    return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' user:'%@'>", entryID, eventType, title, user];
 }
 
 #pragma mark -
@@ -19,7 +20,8 @@
 	[linkURL release];
 	[title release];
 	[content release];
-	[authorName release];
+	[user release];
+	[feed release];
     [super dealloc];
 }
 

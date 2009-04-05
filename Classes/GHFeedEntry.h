@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 
 
+@class GHUser, GHFeed;
+
 @interface GHFeedEntry : NSObject {
 	NSString *entryID;
 	NSString *eventType;
@@ -8,7 +10,8 @@
 	NSURL *linkURL;
 	NSString *title;
 	NSString *content;
-	NSString *authorName;
+	GHUser *user;
+	GHFeed *feed;
 }
 
 @property (nonatomic, retain) NSString *entryID;
@@ -17,6 +20,7 @@
 @property (nonatomic, retain) NSURL *linkURL;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *content;
-@property (nonatomic, retain) NSString *authorName;
+@property (nonatomic, retain) GHUser *user;
+@property (nonatomic, retain) GHFeed *feed;
 
 @end

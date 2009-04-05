@@ -1,5 +1,6 @@
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
+#import "GHUser.h"
 
 
 @interface GHFeed (PrivateMethods)
@@ -66,6 +67,7 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"entry"]) {
 		currentEntry = [[GHFeedEntry alloc] init];
+		currentEntry.feed = self;
 	} else if ([elementName isEqualToString:@"link"]) {
 		NSString *href = [attributeDict valueForKey:@"href"];
 		currentEntry.linkURL = ([href isEqualToString:@""]) ? nil : [NSURL URLWithString:href];
@@ -123,7 +125,9 @@
 	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {
-		currentEntry.authorName = currentElementValue;
+		GHUser *user = [[GHUser alloc] initWithLogin:currentElementValue];
+		currentEntry.user = user;
+		[user release];
 	} 
 	[currentElementValue release];
 	currentElementValue = nil;

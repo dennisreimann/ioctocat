@@ -28,6 +28,8 @@
 		6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* watch.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebViewController.m */; };
+		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
+		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
@@ -73,6 +75,10 @@
 		6F1DC6590F7E8D6900FCD26D /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WebView.xib; path = IBFiles/WebView.xib; sourceTree = "<group>"; };
 		6F1DC6720F7E8E1900FCD26D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		6F1DC6730F7E8E1900FCD26D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		6F35BD370F88B01900E978CD /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
+		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
+		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
+		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepository.m; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -175,6 +181,10 @@
 				6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */,
 				6F1DC4470F7E5AA000FCD26D /* GHFeedEntry.h */,
 				6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */,
+				6F35BD370F88B01900E978CD /* GHUser.h */,
+				6F35BD380F88B01900E978CD /* GHUser.m */,
+				6F35BD520F88B06200E978CD /* GHRepository.h */,
+				6F35BD530F88B06200E978CD /* GHRepository.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -334,6 +344,8 @@
 				6F1DC5300F7E727C00FCD26D /* GHFeedEntryCell.m in Sources */,
 				6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */,
 				6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */,
+				6F35BD390F88B01900E978CD /* GHUser.m in Sources */,
+				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

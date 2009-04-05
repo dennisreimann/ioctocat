@@ -38,6 +38,7 @@
 		6FC95F230F89069000FC0968 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F220F89069000FC0968 /* User.xib */; };
 		6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */; };
 		6FC960D60F89307E00FC0968 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC960D50F89307E00FC0968 /* LabeledCell.xib */; };
+		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCE4D280F7FD48700451D6E /* commit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D240F7FD48700451D6E /* commit.png */; };
 		6FCE4D290F7FD48700451D6E /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D250F7FD48700451D6E /* delete.png */; };
 		6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D260F7FD48700451D6E /* follow.png */; };
@@ -92,6 +93,8 @@
 		6FC95F220F89069000FC0968 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = User.xib; sourceTree = "<group>"; };
 		6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserTableHeadBackground.png; path = Images/UserTableHeadBackground.png; sourceTree = "<group>"; };
 		6FC960D50F89307E00FC0968 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabeledCell.xib; sourceTree = "<group>"; };
+		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
+		6FC9610B0F8935DC00FC0968 /* LabeledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabeledCell.m; sourceTree = "<group>"; };
 		6FCE4D240F7FD48700451D6E /* commit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit.png; path = Images/Icons/commit.png; sourceTree = "<group>"; };
 		6FCE4D250F7FD48700451D6E /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Images/Icons/delete.png; sourceTree = "<group>"; };
 		6FCE4D260F7FD48700451D6E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = Images/Icons/follow.png; sourceTree = "<group>"; };
@@ -218,6 +221,8 @@
 			children = (
 				6F1DC52E0F7E727C00FCD26D /* GHFeedEntryCell.h */,
 				6F1DC52F0F7E727C00FCD26D /* GHFeedEntryCell.m */,
+				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
+				6FC9610B0F8935DC00FC0968 /* LabeledCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -364,6 +369,7 @@
 				6F35BD390F88B01900E978CD /* GHUser.m in Sources */,
 				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
 				6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */,
+				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,6 +2,7 @@
 #import "UserViewController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "LabeledCell.h"
 
 
 @interface UserViewController (PrivateMethods)
@@ -9,6 +10,8 @@
 - (void)userLoadingStarted;
 - (void)userLoadingFinished;
 - (NSString *)textForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (LabeledCell *)labeledCellFromNib;
 
 @end
 
@@ -91,14 +94,25 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
-    }
-	cell.font = [UIFont systemFontOfSize:16.0f];
-	cell.text = [self textForRowAtIndexPath:indexPath];
-	cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    if (user.isLoaded && indexPath.section == 0) {
+		LabeledCell *cell = (LabeledCell *)[tableView dequeueReusableCellWithIdentifier:kLabeledCellIdentifier];
+		if (cell == nil) {
+			cell = [self labeledCellFromNib];
+		}
+		cell.label.text = [self labelTextForRowAtIndexPath:indexPath];
+		cell.content.text = [self textForRowAtIndexPath:indexPath];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		return cell;
+	} else {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
+		}
+		cell.font = [UIFont systemFontOfSize:16.0f];
+		cell.text = [self textForRowAtIndexPath:indexPath];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		return cell;
+	}
 }
 
 #pragma mark -
@@ -125,6 +139,42 @@
 		text = repository.name;
 	}
 	return text;
+}
+
+- (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSUInteger section = indexPath.section;
+	NSUInteger row = indexPath.row;
+	NSString *text;
+	if (section == 0) {
+		if (row == 0 && user.location) {
+			text = @"Location";
+		} else if ((row == 0 && !user.location) || (row == 1 && user.email && user.location)) {
+			text = @"E-Mail";
+		} else if ((row == 0 && !user.location && !user.email) || (row == 1 && (!user.location || !user.email)) || row == 2) {
+			text = @"Blog";
+		}
+	} else {
+		text = @"";
+	}
+	return text;
+}
+
+- (LabeledCell *)labeledCellFromNib {
+	NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"LabeledCell" owner:self options:nil];
+	NSEnumerator *nibEnumerator = [nibContents objectEnumerator];
+	NSObject *nibItem = nil;
+	LabeledCell *cell = nil;
+	while ((nibItem = [nibEnumerator nextObject]) != nil) {
+		if ([nibItem isKindOfClass:[LabeledCell class]]) {
+			cell = (LabeledCell *)nibItem;
+			if ([cell.reuseIdentifier isEqualToString:kLabeledCellIdentifier]) {
+				break;
+			} else {
+				cell = nil;
+			}
+		}
+	}
+	return cell;
 }
 
 #pragma mark -

@@ -123,9 +123,7 @@
 	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {
-		GHUser *user = [[GHUser alloc] initWithLogin:currentElementValue];
-		currentEntry.user = user;
-		[user release];
+		currentEntry.authorName = currentElementValue;
 	} 
 	[currentElementValue release];
 	currentElementValue = nil;

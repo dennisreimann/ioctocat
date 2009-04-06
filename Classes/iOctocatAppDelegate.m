@@ -12,8 +12,11 @@
 
 @implementation iOctocatAppDelegate
 
+@synthesize users;
+
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	if (self.isDataSourceAvailable) {
+		self.users = [NSMutableDictionary dictionary];
 		[window addSubview:navigationController.view];
     } else {
 		[self displayNoConnectionView];
@@ -49,6 +52,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[users release];
 	[navigationController release];
 	[window release];
 	[super dealloc];

@@ -14,6 +14,8 @@
 - (void)feedParsingStarted;
 - (void)feedParsingFinished;
 - (GHFeedEntryCell *)feedEntryCellFromNib;
+- (GHUser *)findUser:(NSString *)userLogin;
+- (void)addUser:(GHUser *)theUser;
 
 @end
 
@@ -114,7 +116,12 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	UserViewController *userController = [[UserViewController alloc] initWithUser:entry.user];
+	GHUser *user = [self findUser:entry.authorName];
+	if (user == nil) {
+        user = [[[GHUser alloc] initWithLogin:entry.authorName] autorelease];
+		[self addUser:user];
+    }
+	UserViewController *userController = [[UserViewController alloc] initWithUser:user];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
 }
@@ -146,6 +153,16 @@
 		}
 	}
 	return cell;
+}
+
+- (GHUser *)findUser:(NSString *)userLogin {
+	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	return [appDelegate.users objectForKey:userLogin];
+}
+
+- (void)addUser:(GHUser *)theUser {
+	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	[appDelegate.users setObject:theUser forKey:theUser.login];
 }
 
 #pragma mark -

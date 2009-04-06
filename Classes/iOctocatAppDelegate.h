@@ -2,6 +2,7 @@
 
 
 @interface iOctocatAppDelegate : NSObject <UIApplicationDelegate> {
+	NSMutableDictionary *users;
   @private
     IBOutlet UIWindow *window;
     IBOutlet UINavigationController *navigationController;
@@ -9,6 +10,7 @@
 }
 
 @property (nonatomic, readonly) BOOL isDataSourceAvailable;
+@property (nonatomic, retain) NSMutableDictionary *users;
 
 @end
 

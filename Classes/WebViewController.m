@@ -23,6 +23,12 @@
 	[request release];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[webView stopLoading];
+	webView.delegate = nil;
+}
+
 #pragma mark -
 #pragma mark UIWebView delegation methods
 
@@ -49,8 +55,6 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	if (webView.loading) [webView stopLoading];
-	webView.delegate = nil;
 	[url release];
 	[activityView release];
 	[webView release];

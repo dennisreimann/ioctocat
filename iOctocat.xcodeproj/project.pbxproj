@@ -422,7 +422,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "12B61C84-0EE5-49AB-8C64-13197FA6BD20";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AA335E7-26F6-40AF-9191-E62111D82138";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "App Store Distribution";

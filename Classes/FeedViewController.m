@@ -61,6 +61,7 @@
 }
 
 - (IBAction)reloadFeed:(id)sender {
+	if (self.currentFeed.isLoading) return;
 	[self.currentFeed loadFeed];
 }
 

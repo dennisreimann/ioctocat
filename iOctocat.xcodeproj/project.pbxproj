@@ -49,6 +49,7 @@
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 		6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */; };
 		6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */; };
+		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -108,6 +109,7 @@
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
 		6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonNormal.png; path = Images/ReloadButtonNormal.png; sourceTree = "<group>"; };
 		6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonHighlighted.png; path = Images/ReloadButtonHighlighted.png; sourceTree = "<group>"; };
+		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6F1DC39A0F7E52F000FCD26D /* Settings.bundle */,
+				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
 			);
 			comments = "Open Source iPhone app for the awesome GitHub.com";
 			name = CustomTemplate;
@@ -354,6 +357,7 @@
 				6FC95F230F89069000FC0968 /* User.xib in Resources */,
 				6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */,
 				6FC960D60F89307E00FC0968 /* LabeledCell.xib in Resources */,
+				6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,13 +443,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DEC69AA4-5023-4EB6-A7C8-4DB031D2EA62";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7CFDB06C-C3D4-47ED-B1DD-0798CDB65F65";
 				SDKROOT = iphoneos2.2.1;
 			};
 			name = "Ad Hoc Distribution";

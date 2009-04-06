@@ -1,19 +1,12 @@
 h1. iOctocat
 
-iOctocat is a GitHub client for the iPhone.
-Currently the application is in an early stage and there is nothing
-to see but your private timeline and your activity feed, yet.
-
-My approach is to keep it very minimalistic, but there are a 
-few more features on the TODO list...
-
-h2. TODO
-
-* Profile View 
-* Repository Details
-* Repository Watchlist
-
-h2. Features so far
+iOctocat is a minimalistic GitHub client for the iPhone.
+Currently the application offers the following features:
 
 * My Private News Feed
 * My Activity Feed
+* Profile View
+
+Things that are about to be added to the feature set:
+
+* Repository Details

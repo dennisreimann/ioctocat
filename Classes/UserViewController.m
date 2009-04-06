@@ -34,8 +34,6 @@
 	(user.isLoaded) ? [self userLoadingFinished] : [user loadDetails];
 	self.title = user.login;
 	// Table header
-	UIImage *headerBackgroundImage = [UIImage imageNamed:@"UserTableHeadBackground.png"];
-	tableHeaderView.backgroundColor = [UIColor colorWithPatternImage:headerBackgroundImage];
 	self.tableView.tableHeaderView = tableHeaderView;
     // Add activity indicator to navbar
 	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];

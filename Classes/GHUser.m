@@ -54,10 +54,7 @@
 }
 
 - (void)finishedLoading {
-	Gravatar *aGravatar = [[Gravatar alloc] initWithEmail:self.email andSize:50];
-	self.gravatar = aGravatar;
-	[aGravatar release];
-	[self.gravatar loadImage];
+	self.gravatar = (self.email) ? [Gravatar gravatarWithEmail:self.email andSize:44] : nil;
 	self.isLoaded = YES;
 	self.isLoading = NO;
 }

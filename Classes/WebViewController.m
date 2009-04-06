@@ -45,16 +45,14 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	NSString *errorMessage = [error localizedDescription];
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Connection error" message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
 }
 
 #pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[webView stopLoading];
+	webView.delegate = nil;
 	[url release];
 	[activityView release];
 	[webView release];

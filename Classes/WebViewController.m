@@ -24,25 +24,25 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
 	[webView stopLoading];
 	webView.delegate = nil;
+	[super viewWillDisappear:animated];
 }
 
 #pragma mark -
 #pragma mark UIWebView delegation methods
 
-- (void)webViewDidStartLoad:(UIWebView *)webView {
+- (void)webViewDidStartLoad:(UIWebView *)webview {
 	[activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
+- (void)webViewDidFinishLoad:(UIWebView *)webview {
 	[activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+- (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
 	[activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -51,6 +51,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[self webViewDidFinishLoad:webView];
 	[webView stopLoading];
 	webView.delegate = nil;
 	[url release];
@@ -58,5 +59,6 @@
 	[webView release];
     [super dealloc];
 }
+
 
 @end

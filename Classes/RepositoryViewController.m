@@ -41,32 +41,6 @@
 }
 
 #pragma mark -
-#pragma mark Actions
-
-//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-//	if ([keyPath isEqualToString:kUserLoadingKeyPath]) {
-//		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
-//		(isLoading == YES) ? [self userLoadingStarted] : [self userLoadingFinished];
-//	} else if ([keyPath isEqualToString:kUserGravatarImageKeyPath]) {
-//		gravatarView.image = user.gravatar.image;
-//	}
-//}
-//
-//- (void)userLoadingStarted {
-//	[activityView startAnimating];
-//	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-//}
-//
-//- (void)userLoadingFinished {
-//	nameLabel.text = user.name;
-//	companyLabel.text = user.company;
-//	gravatarView.image = user.gravatar.image;
-//	[self.tableView reloadData];
-//	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-//	[activityView stopAnimating];
-//}
-
-#pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

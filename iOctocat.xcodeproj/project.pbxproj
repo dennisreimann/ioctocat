@@ -30,14 +30,15 @@
 		6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebViewController.m */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40840F90B25F00427ED7 /* Feeds.xib */; };
+		6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40850F90B25F00427ED7 /* LabeledCell.xib */; };
+		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
 		6FB7FEED0F7E31AC00E8D702 /* NoConnection.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */; };
 		6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserViewController.m */; };
-		6FC95F230F89069000FC0968 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F220F89069000FC0968 /* User.xib */; };
 		6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */; };
-		6FC960D60F89307E00FC0968 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC960D50F89307E00FC0968 /* LabeledCell.xib */; };
 		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCAF1660F895756005E1173 /* Gravatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* Gravatar.m */; };
 		6FCE4D280F7FD48700451D6E /* commit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D240F7FD48700451D6E /* commit.png */; };
@@ -45,7 +46,6 @@
 		6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D260F7FD48700451D6E /* follow.png */; };
 		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
 		6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* FeedViewController.m */; };
-		6FCE4D900F7FE1BC00451D6E /* FeedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 		6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */; };
 		6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */; };
@@ -86,15 +86,16 @@
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepository.m; sourceTree = "<group>"; };
+		6F5A40840F90B25F00427ED7 /* Feeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Feeds.xib; path = IBFiles/Feeds.xib; sourceTree = "<group>"; };
+		6F5A40850F90B25F00427ED7 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LabeledCell.xib; path = IBFiles/LabeledCell.xib; sourceTree = "<group>"; };
+		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoConnection.png; path = Images/NoConnection.png; sourceTree = "<group>"; };
 		6FC95F1D0F8905F500FC0968 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		6FC95F1E0F8905F500FC0968 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
-		6FC95F220F89069000FC0968 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = User.xib; sourceTree = "<group>"; };
 		6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserTableHeadBackground.png; path = Images/UserTableHeadBackground.png; sourceTree = "<group>"; };
-		6FC960D50F89307E00FC0968 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LabeledCell.xib; sourceTree = "<group>"; };
 		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
 		6FC9610B0F8935DC00FC0968 /* LabeledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabeledCell.m; sourceTree = "<group>"; };
 		6FCAF1640F895756005E1173 /* Gravatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gravatar.h; sourceTree = "<group>"; };
@@ -105,7 +106,6 @@
 		6FCE4D270F7FD48700451D6E /* gist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gist.png; path = Images/Icons/gist.png; sourceTree = "<group>"; };
 		6FCE4D860F7FE16A00451D6E /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		6FCE4D870F7FE16A00451D6E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
-		6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedViewController.xib; path = IBFiles/FeedViewController.xib; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
 		6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonNormal.png; path = Images/ReloadButtonNormal.png; sourceTree = "<group>"; };
 		6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonHighlighted.png; path = Images/ReloadButtonHighlighted.png; sourceTree = "<group>"; };
@@ -273,11 +273,11 @@
 			isa = PBXGroup;
 			children = (
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
-				6FCE4D8F0F7FE1BC00451D6E /* FeedViewController.xib */,
+				6F5A40840F90B25F00427ED7 /* Feeds.xib */,
+				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F1DC5270F7E723600FCD26D /* GHFeedEntryCell.xib */,
-				6FC960D50F89307E00FC0968 /* LabeledCell.xib */,
+				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
-				6FC95F220F89069000FC0968 /* User.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -350,14 +350,14 @@
 				6FCE4D290F7FD48700451D6E /* delete.png in Resources */,
 				6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */,
 				6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */,
-				6FCE4D900F7FE1BC00451D6E /* FeedViewController.xib in Resources */,
 				6FCE4DB70F7FE5C600451D6E /* member.png in Resources */,
 				6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */,
 				6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */,
-				6FC95F230F89069000FC0968 /* User.xib in Resources */,
 				6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */,
-				6FC960D60F89307E00FC0968 /* LabeledCell.xib in Resources */,
 				6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */,
+				6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */,
+				6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */,
+				6F5A40890F90B25F00427ED7 /* User.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

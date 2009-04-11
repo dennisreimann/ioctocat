@@ -10,6 +10,7 @@
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UILabel *contentLabel;
 	IBOutlet UIImageView *iconView;
+	IBOutlet UIImageView *gravatarView;
 }
 
 - (void)setEntry:(GHFeedEntry *)anEntry;

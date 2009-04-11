@@ -1,5 +1,6 @@
 #import "iOctocatAppDelegate.h"
 #import "FeedViewController.h"
+#import "GHUser.h"
 #import <SystemConfiguration/SystemConfiguration.h>
 
 
@@ -46,6 +47,15 @@
 	noConnectionView.frame = noConnectionViewFrame;
 	[window addSubview:noConnectionView];
 	[noConnectionView release];
+}
+
+- (GHUser *)userWithLogin:(NSString *)theUsername {
+	GHUser *user = [users objectForKey:theUsername];
+	if (user == nil) {
+		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
+		[users setObject:user forKey:theUsername];
+	}
+	return user;
 }
 
 #pragma mark -

@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
 
 
+@class GHUser;
+
 @interface iOctocatAppDelegate : NSObject <UIApplicationDelegate> {
 	NSMutableDictionary *users;
   @private
@@ -11,6 +13,8 @@
 
 @property (nonatomic, readonly) BOOL isDataSourceAvailable;
 @property (nonatomic, retain) NSMutableDictionary *users;
+
+- (GHUser *)userWithLogin:(NSString *)theUsername;
 
 @end
 

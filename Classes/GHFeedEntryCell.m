@@ -1,5 +1,7 @@
 #import "GHFeedEntryCell.h"
 #import "GHFeedEntry.h"
+#import "GHUser.h"
+#import "Gravatar.h"
 
 
 @implementation GHFeedEntryCell
@@ -18,6 +20,8 @@
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];
 	iconView.image = [UIImage imageNamed:icon];
+	// Gravatar
+	gravatarView.image = entry.user.gravatar.image;
 }
 
 #pragma mark -
@@ -28,6 +32,7 @@
 	[dateLabel release];
 	[titleLabel release];
 	[contentLabel release];
+	[gravatarView release];
 	[iconView release];
     [super dealloc];
 }

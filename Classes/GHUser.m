@@ -22,6 +22,7 @@
 		self.repositories = [NSMutableArray array];
 		self.isLoaded = NO;
 		self.isLoading = NO;
+		self.gravatar = [Gravatar gravatarWithEmail:self.email andSize:44];
 	}
 	return self;
 }
@@ -54,7 +55,7 @@
 }
 
 - (void)finishedLoading {
-	self.gravatar = (self.email) ? [Gravatar gravatarWithEmail:self.email andSize:44] : nil;
+	self.gravatar = [Gravatar gravatarWithEmail:self.email andSize:44];
 	self.isLoaded = YES;
 	self.isLoading = NO;
 }

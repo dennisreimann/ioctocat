@@ -33,6 +33,7 @@
 		6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40840F90B25F00427ED7 /* Feeds.xib */; };
 		6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40850F90B25F00427ED7 /* LabeledCell.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
+		6F5A40F80F90BAA300427ED7 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
@@ -89,6 +90,7 @@
 		6F5A40840F90B25F00427ED7 /* Feeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Feeds.xib; path = IBFiles/Feeds.xib; sourceTree = "<group>"; };
 		6F5A40850F90B25F00427ED7 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LabeledCell.xib; path = IBFiles/LabeledCell.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
+		6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -131,10 +133,10 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
 				6F1DC52B0F7E725500FCD26D /* View */,
-				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -265,6 +267,7 @@
 				6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */,
 				6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */,
 				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
+				6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */,
 				6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */,
 				6F5A40890F90B25F00427ED7 /* User.xib in Resources */,
+				6F5A40F80F90BAA300427ED7 /* DefaultGravatar.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class GHFeed;
+@class GHFeed, GHUser;
 
 @interface GHFeedEntry : NSObject {
 	NSString *entryID;
@@ -22,5 +22,6 @@
 @property (nonatomic, retain) NSString *content;
 @property (nonatomic, retain) NSString *authorName; 
 @property (nonatomic, retain) GHFeed *feed;
+@property (nonatomic, readonly) GHUser *user;
 
 @end

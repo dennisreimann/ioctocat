@@ -44,17 +44,30 @@
 							<object class="IBUIImageView" id="455427023">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 8}, {16, 16}}</string>
+								<string key="NSFrame">{{24, 9}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 							</object>
+							<object class="IBUIImageView" id="21216944">
+								<reference key="NSNextResponder" ref="110279202"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{8, 30}, {32, 32}}</string>
+								<reference key="NSSuperview" ref="110279202"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">DefaultGravatar.png</string>
+								</object>
+							</object>
 							<object class="IBUILabel" id="579488512">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{40, 23}, {240, 43}}</string>
+								<string key="NSFrame">{{50, 23}, {230, 43}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -80,7 +93,7 @@
 							<object class="IBUILabel" id="813831787">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{40, 5}, {240, 21}}</string>
+								<string key="NSFrame">{{50, 5}, {230, 21}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -152,6 +165,14 @@
 					</object>
 					<int key="connectionID">12</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">gravatarView</string>
+						<reference key="source" ref="597012738"/>
+						<reference key="destination" ref="21216944"/>
+					</object>
+					<int key="connectionID">14</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -180,9 +201,10 @@
 						<reference key="object" ref="597012738"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="455427023"/>
 							<reference ref="579488512"/>
 							<reference ref="813831787"/>
+							<reference ref="455427023"/>
+							<reference ref="21216944"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -201,6 +223,11 @@
 						<reference key="object" ref="813831787"/>
 						<reference key="parent" ref="597012738"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">13</int>
+						<reference key="object" ref="21216944"/>
+						<reference key="parent" ref="597012738"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -209,6 +236,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-2.CustomClassName</string>
 					<string>11.IBPluginDependency</string>
+					<string>13.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
@@ -219,8 +247,9 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>GHFeedEntryCell</string>
-					<string>{{21, 641}, {320, 70}}</string>
+					<string>{{629, 959}, {320, 70}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -246,7 +275,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">12</int>
+			<int key="maxID">14</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -260,6 +289,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>contentLabel</string>
 							<string>dateLabel</string>
+							<string>gravatarView</string>
 							<string>iconView</string>
 							<string>titleLabel</string>
 						</object>
@@ -267,6 +297,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UILabel</string>
 							<string>UILabel</string>
+							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UILabel</string>
 						</object>

@@ -1,5 +1,6 @@
 #import "GHFeedEntry.h"
-
+#import "GHUser.h"
+#import "iOctocatAppDelegate.h"
 
 @implementation GHFeedEntry
 
@@ -7,6 +8,12 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];
+}
+
+- (GHUser *)user {
+	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	GHUser *user = [appDelegate userWithLogin:authorName];
+	return user;
 }
 
 #pragma mark -

@@ -34,6 +34,11 @@
 		6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40850F90B25F00427ED7 /* LabeledCell.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
 		6F5A40F80F90BAA300427ED7 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */; };
+		6F5A41750F90C38300427ED7 /* RepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryViewController.m */; };
+		6F5A41790F90C42800427ED7 /* Repository.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A41780F90C42800427ED7 /* Repository.xib */; };
+		6F5A42040F90CCE200427ED7 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A42030F90CCE200427ED7 /* TextCell.xib */; };
+		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
+		6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
@@ -91,6 +96,13 @@
 		6F5A40850F90B25F00427ED7 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LabeledCell.xib; path = IBFiles/LabeledCell.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
 		6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
+		6F5A41730F90C38300427ED7 /* RepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryViewController.h; sourceTree = "<group>"; };
+		6F5A41740F90C38300427ED7 /* RepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryViewController.m; sourceTree = "<group>"; };
+		6F5A41780F90C42800427ED7 /* Repository.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repository.xib; path = IBFiles/Repository.xib; sourceTree = "<group>"; };
+		6F5A42030F90CCE200427ED7 /* TextCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextCell.xib; sourceTree = "<group>"; };
+		6F5A420C0F90CE0500427ED7 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
+		6F5A420D0F90CE0500427ED7 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
+		6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RepositoryTableHeadBackground.png; path = Images/RepositoryTableHeadBackground.png; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -222,6 +234,8 @@
 				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserViewController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserViewController.m */,
+				6F5A41730F90C38300427ED7 /* RepositoryViewController.h */,
+				6F5A41740F90C38300427ED7 /* RepositoryViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -233,6 +247,8 @@
 				6F1DC52F0F7E727C00FCD26D /* GHFeedEntryCell.m */,
 				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
 				6FC9610B0F8935DC00FC0968 /* LabeledCell.m */,
+				6F5A420C0F90CE0500427ED7 /* TextCell.h */,
+				6F5A420D0F90CE0500427ED7 /* TextCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -267,6 +283,7 @@
 				6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */,
 				6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */,
 				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
+				6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */,
 				6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */,
 			);
 			name = Images;
@@ -278,8 +295,10 @@
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6F5A40840F90B25F00427ED7 /* Feeds.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
+				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				6F1DC5270F7E723600FCD26D /* GHFeedEntryCell.xib */,
 				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
+				6F5A42030F90CCE200427ED7 /* TextCell.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 			);
 			name = IBFiles;
@@ -362,6 +381,9 @@
 				6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */,
 				6F5A40890F90B25F00427ED7 /* User.xib in Resources */,
 				6F5A40F80F90BAA300427ED7 /* DefaultGravatar.png in Resources */,
+				6F5A41790F90C42800427ED7 /* Repository.xib in Resources */,
+				6F5A42040F90CCE200427ED7 /* TextCell.xib in Resources */,
+				6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +406,8 @@
 				6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */,
 				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
 				6FCAF1660F895756005E1173 /* Gravatar.m in Sources */,
+				6F5A41750F90C38300427ED7 /* RepositoryViewController.m in Sources */,
+				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,10 +448,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AA335E7-26F6-40AF-9191-E62111D82138";
-				SDKROOT = iphoneos2.2.1;
+				SDKROOT = iphoneos2.0;
 			};
 			name = "App Store Distribution";
 		};

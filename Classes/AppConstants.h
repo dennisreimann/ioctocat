@@ -4,8 +4,11 @@
 
 // tables
 #define kStandardCellIdentifier @"StandardCell"
+#define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
+#define kTextCellFontSize 14.0f
+#define kTextCellTextLabelTag 1
 
 // URLs
 #define kNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"

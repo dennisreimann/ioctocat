@@ -7,7 +7,7 @@
 	GHUser *user;
 	NSString *name;
 	NSString *owner;
-	NSString *description;
+	NSString *descriptionText;
 	NSURL *githubURL;
 	NSURL *homepageURL;
 	BOOL isPrivate;
@@ -19,7 +19,7 @@
 @property (nonatomic, retain) GHUser *user;
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSString *owner;
-@property (nonatomic, retain) NSString *description;
+@property (nonatomic, retain) NSString *descriptionText;
 @property (nonatomic, retain) NSURL *githubURL;
 @property (nonatomic, retain) NSURL *homepageURL;
 @property (nonatomic, readwrite) BOOL isPrivate;

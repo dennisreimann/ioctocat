@@ -10,10 +10,10 @@
 
 @implementation GHRepository
 
-@synthesize user, name, owner, description, githubURL, homepageURL, isPrivate, isFork, forks, watchers;
+@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers;
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' description:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, description, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
+    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
 }
 
 #pragma mark -
@@ -23,7 +23,7 @@
 	[user release];
 	[name release];
 	[owner release];
-	[description release];
+	[descriptionText release];
 	[githubURL release];
 	[homepageURL release];
     [super dealloc];

@@ -94,8 +94,10 @@
 		[repositories addObject:currentRepository];
 		[currentRepository release];
 		currentRepository = nil;
-	} else if ([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"description"]) {
+	} else if ([elementName isEqualToString:@"name"]) {
 		[currentRepository setValue:currentElementValue forKey:elementName];
+	} else if ([elementName isEqualToString:@"description"]) {
+		currentRepository.descriptionText = currentElementValue;
 	} else if ([elementName isEqualToString:@"url"]) {
 		currentRepository.githubURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"homepage"]) {

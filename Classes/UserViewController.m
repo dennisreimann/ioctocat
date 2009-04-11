@@ -1,5 +1,6 @@
 #import "AppConstants.h"
 #import "UserViewController.h"
+#import "RepositoryViewController.h"
 #import "WebViewController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
@@ -109,7 +110,8 @@
 		}
 		cell.font = [UIFont systemFontOfSize:16.0f];
 		cell.text = [self contentTextForRowAtIndexPath:indexPath];
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	}
 }
@@ -132,6 +134,11 @@
 		[mailString release];
 		[[UIApplication sharedApplication] openURL:mailURL];
 		[mailURL release];
+	} else if (section == 1) {
+		GHRepository *repo = [user.repositories objectAtIndex:indexPath.row];
+		RepositoryViewController *repoController = [[RepositoryViewController alloc] initWithRepository:repo];
+		[self.navigationController pushViewController:repoController animated:YES];
+		[repoController release];
 	}
 }
 

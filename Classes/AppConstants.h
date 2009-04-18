@@ -7,13 +7,11 @@
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
-#define kTextCellFontSize 14.0f
-#define kTextCellTextLabelTag 1
 
 // URLs
 #define kNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
 #define kActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
-#define kUserXMLFormat @"http://github.com/api/v1/xml/%@"
+#define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
 
 // KVO
 #define kFeedLoadingKeyPath @"isLoading"

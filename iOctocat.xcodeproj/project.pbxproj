@@ -30,6 +30,14 @@
 		6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebViewController.m */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */; };
+		6F5652D00F99C1BF001B6703 /* TabBarRepos.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */; };
+		6F5652D90F99C81A001B6703 /* Repositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652D80F99C81A001B6703 /* Repositories.xib */; };
+		6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */; };
+		6F5653030F99CB52001B6703 /* issues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issues.png */; };
+		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
+		6F5653070F99CB62001B6703 /* public.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653050F99CB62001B6703 /* public.png */; };
+		6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */; };
 		6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40840F90B25F00427ED7 /* Feeds.xib */; };
 		6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40850F90B25F00427ED7 /* LabeledCell.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
@@ -92,6 +100,15 @@
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepository.m; sourceTree = "<group>"; };
+		6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarFeeds.png; path = Images/TabBarFeeds.png; sourceTree = "<group>"; };
+		6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarRepos.png; path = Images/TabBarRepos.png; sourceTree = "<group>"; };
+		6F5652D80F99C81A001B6703 /* Repositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Repositories.xib; sourceTree = "<group>"; };
+		6F5652DF0F99C85C001B6703 /* RepositoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesViewController.h; sourceTree = "<group>"; };
+		6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesViewController.m; sourceTree = "<group>"; };
+		6F5653020F99CB52001B6703 /* issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues.png; path = Images/Icons/issues.png; sourceTree = "<group>"; };
+		6F5653040F99CB62001B6703 /* private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = private.png; path = Images/Icons/private.png; sourceTree = "<group>"; };
+		6F5653050F99CB62001B6703 /* public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public.png; path = Images/Icons/public.png; sourceTree = "<group>"; };
+		6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryCellBackground.png; path = Images/FeedEntryCellBackground.png; sourceTree = "<group>"; };
 		6F5A40840F90B25F00427ED7 /* Feeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Feeds.xib; path = IBFiles/Feeds.xib; sourceTree = "<group>"; };
 		6F5A40850F90B25F00427ED7 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LabeledCell.xib; path = IBFiles/LabeledCell.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
@@ -234,6 +251,8 @@
 				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserViewController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserViewController.m */,
+				6F5652DF0F99C85C001B6703 /* RepositoriesViewController.h */,
+				6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */,
 				6F5A41730F90C38300427ED7 /* RepositoryViewController.h */,
 				6F5A41740F90C38300427ED7 /* RepositoryViewController.m */,
 			);
@@ -256,6 +275,9 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6F5653040F99CB62001B6703 /* private.png */,
+				6F5653050F99CB62001B6703 /* public.png */,
+				6F5653020F99CB52001B6703 /* issues.png */,
 				6FCE4DB60F7FE5C600451D6E /* member.png */,
 				6FCE4D240F7FD48700451D6E /* commit.png */,
 				6FCE4D250F7FD48700451D6E /* delete.png */,
@@ -284,7 +306,10 @@
 				6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */,
 				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
 				6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */,
+				6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */,
 				6F5A40F70F90BAA300427ED7 /* DefaultGravatar.png */,
+				6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */,
+				6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -300,6 +325,7 @@
 				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
 				6F5A42030F90CCE200427ED7 /* TextCell.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
+				6F5652D80F99C81A001B6703 /* Repositories.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -384,6 +410,13 @@
 				6F5A41790F90C42800427ED7 /* Repository.xib in Resources */,
 				6F5A42040F90CCE200427ED7 /* TextCell.xib in Resources */,
 				6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */,
+				6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */,
+				6F5652D00F99C1BF001B6703 /* TabBarRepos.png in Resources */,
+				6F5652D90F99C81A001B6703 /* Repositories.xib in Resources */,
+				6F5653030F99CB52001B6703 /* issues.png in Resources */,
+				6F5653060F99CB62001B6703 /* private.png in Resources */,
+				6F5653070F99CB62001B6703 /* public.png in Resources */,
+				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +441,7 @@
 				6FCAF1660F895756005E1173 /* Gravatar.m in Sources */,
 				6F5A41750F90C38300427ED7 /* RepositoryViewController.m in Sources */,
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
+				6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

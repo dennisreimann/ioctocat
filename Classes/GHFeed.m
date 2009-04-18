@@ -93,6 +93,8 @@
 		NSString *event = [currentElementValue substringFromIndex:20];
 		if ([event hasPrefix:@"Fork"]) {
 			currentEntry.eventType = @"fork";
+		} else if ([event hasPrefix:@"Issues"]) {
+			currentEntry.eventType = @"issues";
 		} else if ([event hasPrefix:@"Follow"]) {
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {

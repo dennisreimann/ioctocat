@@ -30,7 +30,6 @@ NSString *md5(NSString *str) {
 	if ((self = [super init])) {
 		email = [theEmail retain];
 		size = theSize;
-		self.image = [UIImage imageNamed:@"DefaultGravatar.png"];
 		if (email) [self performSelectorInBackground:@selector(loadImage) withObject:nil];
 	}
 	return self;

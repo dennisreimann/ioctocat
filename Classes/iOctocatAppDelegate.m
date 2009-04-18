@@ -18,7 +18,7 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	if (self.isDataSourceAvailable) {
 		self.users = [NSMutableDictionary dictionary];
-		[window addSubview:navigationController.view];
+		[window addSubview:tabBarController.view];
     } else {
 		[self displayNoConnectionView];
 	}
@@ -63,7 +63,7 @@
 
 - (void)dealloc {
 	[users release];
-	[navigationController release];
+	[tabBarController release];
 	[window release];
 	[super dealloc];
 }

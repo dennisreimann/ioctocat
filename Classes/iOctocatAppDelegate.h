@@ -7,7 +7,7 @@
 	NSMutableDictionary *users;
   @private
     IBOutlet UIWindow *window;
-    IBOutlet UINavigationController *navigationController;
+    IBOutlet UITabBarController *tabBarController;
 	BOOL isDataSourceAvailable;
 }
 

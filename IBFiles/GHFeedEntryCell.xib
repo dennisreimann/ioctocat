@@ -41,6 +41,20 @@
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIImageView" id="1037056281">
+								<reference key="NSNextResponder" ref="110279202"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrameSize">{320, 70}</string>
+								<reference key="NSSuperview" ref="110279202"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<int key="IBUIContentMode">4</int>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">FeedEntryCellBackground.png</string>
+								</object>
+							</object>
 							<object class="IBUIImageView" id="455427023">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
@@ -54,15 +68,11 @@
 							<object class="IBUIImageView" id="21216944">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 30}, {32, 32}}</string>
+								<string key="NSFrame">{{10, 32}, {28, 28}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">DefaultGravatar.png</string>
-								</object>
 							</object>
 							<object class="IBUILabel" id="579488512">
 								<reference key="NSNextResponder" ref="110279202"/>
@@ -205,6 +215,7 @@
 							<reference ref="813831787"/>
 							<reference ref="455427023"/>
 							<reference ref="21216944"/>
+							<reference ref="1037056281"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -228,6 +239,11 @@
 						<reference key="object" ref="21216944"/>
 						<reference key="parent" ref="597012738"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">15</int>
+						<reference key="object" ref="1037056281"/>
+						<reference key="parent" ref="597012738"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -237,6 +253,7 @@
 					<string>-2.CustomClassName</string>
 					<string>11.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
+					<string>15.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
@@ -246,6 +263,7 @@
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>GHFeedEntryCell</string>
@@ -275,7 +293,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">14</int>
+			<int key="maxID">15</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

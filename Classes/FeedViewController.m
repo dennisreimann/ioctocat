@@ -21,12 +21,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"My GitHub Feeds";
+	self.title = @"My Feeds";
 	loadCounter = 0;
 	// Add activity indicator to navbar
-	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-	self.navigationItem.rightBarButtonItem = loadingItem;
-	[loadingItem release];
 	self.tableView.tableHeaderView = feedControlView;
 	// Load settings
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -71,6 +68,7 @@
 
 - (void)feedParsingStarted {
 	loadCounter += 1;
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 	[activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
@@ -79,6 +77,7 @@
 	[self.tableView reloadData];
 	loadCounter -= 1;
 	if (loadCounter > 0) return;
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadFeed:)] autorelease];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[activityView stopAnimating];
 }
@@ -112,7 +111,7 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	UserViewController *userController = [[UserViewController alloc] initWithUser:entry.user];
+	UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:entry.user];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
 }

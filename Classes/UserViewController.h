@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHUser;
+@class GHUser, LabeledCell;
 
 @interface UserViewController : UITableViewController {
   @private
@@ -10,6 +10,13 @@
 	IBOutlet UIImageView *gravatarView;
 	IBOutlet UILabel *nameLabel;
 	IBOutlet UILabel *companyLabel;
+	IBOutlet UILabel *locationLabel;
+	IBOutlet UILabel *blogLabel;
+	IBOutlet UILabel *emailLabel;
+	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet LabeledCell *locationCell;
+	IBOutlet LabeledCell *blogCell;
+	IBOutlet LabeledCell *emailCell;
 	IBOutlet UIActivityIndicatorView *activityView;
 }
 

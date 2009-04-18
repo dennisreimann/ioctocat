@@ -12,9 +12,6 @@
 
 - (void)userLoadingStarted;
 - (void)userLoadingFinished;
-- (NSString *)contentTextForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (LabeledCell *)labeledCellFromNib;
 
 @end
 
@@ -34,12 +31,8 @@
 	[user addObserver:self forKeyPath:kUserGravatarImageKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self userLoadingFinished] : [user loadDetails];
 	self.title = user.login;
-	// Table header
 	self.tableView.tableHeaderView = tableHeaderView;
-    // Add activity indicator to navbar
-	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-	self.navigationItem.rightBarButtonItem = loadingItem;
-	[loadingItem release];
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 }
 
 #pragma mark -
@@ -63,6 +56,9 @@
 	nameLabel.text = user.name;
 	companyLabel.text = user.company;
 	gravatarView.image = user.gravatar.image;
+	[locationCell setContentText:user.location];
+	[blogCell setContentText:[user.blogURL host]];
+	[emailCell setContentText:user.email];
 	[self.tableView reloadData];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 	[activityView stopAnimating];
@@ -79,7 +75,7 @@
 	NSInteger count;
 	if (section == 0) {
 		count = (user.isLoaded) ? 3 : 1;
-	} else if (section == 1) {
+	} else {
 		count = user.repositories.count;
 	}
 	return count;
@@ -93,24 +89,24 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (user.isLoaded && indexPath.section == 0) {
-		LabeledCell *cell = (LabeledCell *)[tableView dequeueReusableCellWithIdentifier:kLabeledCellIdentifier];
-		if (cell == nil) {
-			cell = [self labeledCellFromNib];
+	if (!user.isLoaded) return loadingCell;
+	if (indexPath.section == 0) {
+		LabeledCell *cell;
+		switch (indexPath.row) {
+			case 0: cell = locationCell; break;
+			case 1: cell = blogCell; break;
+			case 2: cell = emailCell; break;
 		}
-		[cell setLabelText:[self labelTextForRowAtIndexPath:indexPath]];
-		[cell setContentText:[self contentTextForRowAtIndexPath:indexPath]];
 		cell.selectionStyle = cell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	} else {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
-		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
-		}
+		GHRepository *repository = [user.repositories objectAtIndex:indexPath.row];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.font = [UIFont systemFontOfSize:16.0f];
-		cell.text = [self contentTextForRowAtIndexPath:indexPath];
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		cell.text = repository.name;
+		cell.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	}
@@ -119,16 +115,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (section == 0 && row == 0) {
+	if (section == 0 && row == 0 && user.location) {
 		NSString *locationQuery = [user.location stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		NSString *url = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", locationQuery];
 		NSURL *locationURL = [NSURL URLWithString:url];
 		[[UIApplication sharedApplication] openURL:locationURL];
-	} else if (section == 0 && row == 1) {
+	} else if (section == 0 && row == 1 && user.blogURL) {
 		WebViewController *webController = [[WebViewController alloc] initWithURL:user.blogURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
-	} else if (section == 0 && row == 2) {
+	} else if (section == 0 && row == 2 && user.email) {
 		NSString *mailString = [[NSString alloc] initWithFormat:@"mailto:?to=@%", user.email];
 		NSURL *mailURL = [[NSURL alloc] initWithString:mailString];
 		[mailString release];
@@ -143,64 +139,6 @@
 }
 
 #pragma mark -
-#pragma mark Helpers
-
-- (NSString *)contentTextForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSUInteger section = indexPath.section;
-	NSUInteger row = indexPath.row;
-	NSString *text;
-	if (section == 0) {
-		if (user.isLoaded) {
-			switch (row) {
-				case 0: return user.location;
-				case 1: return [user.blogURL host];
-				case 2: return user.email;
-				default: return @"";
-			}
-		} else {
-			text = @"Loading details...";
-		}
-	} else {
-		GHRepository *repository = [user.repositories objectAtIndex:row];
-		text = repository.name;
-	}
-	return text;
-}
-
-- (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSUInteger section = indexPath.section;
-	NSUInteger row = indexPath.row;
-	if (section == 0) {
-		switch (row) {
-			case 0: return @"Location";
-			case 1: return @"Blog";
-			case 2: return @"E-Mail";
-			default: return @"";
-		}
-	} else {
-		return @"";
-	}
-}
-
-- (LabeledCell *)labeledCellFromNib {
-	NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"LabeledCell" owner:self options:nil];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator];
-	NSObject *nibItem = nil;
-	LabeledCell *cell = nil;
-	while ((nibItem = [nibEnumerator nextObject]) != nil) {
-		if ([nibItem isKindOfClass:[LabeledCell class]]) {
-			cell = (LabeledCell *)nibItem;
-			if ([cell.reuseIdentifier isEqualToString:kLabeledCellIdentifier]) {
-				break;
-			} else {
-				cell = nil;
-			}
-		}
-	}
-	return cell;
-}
-
-#pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
@@ -208,6 +146,13 @@
 	[tableHeaderView release];
 	[nameLabel release];
 	[companyLabel release];
+	[locationLabel release];
+	[blogLabel release];
+	[emailLabel release];
+	[locationCell release];
+	[blogCell release];
+	[emailCell release];
+	[loadingCell release];
 	[activityView release];
     [super dealloc];
 }

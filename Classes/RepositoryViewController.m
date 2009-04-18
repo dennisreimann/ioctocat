@@ -10,11 +10,6 @@
 
 @interface RepositoryViewController (PrivateMethods)
 
-- (NSString *)contentTextForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath;
-- (LabeledCell *)labeledCellFromNib;
-- (TextCell *)textCellFromNib;
-
 @end
 
 
@@ -30,14 +25,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = repository.name;
+	self.tableView.tableHeaderView = tableHeaderView;
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 	// Table header
 	nameLabel.text = repository.name;
 	numbersLabel.text = [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"];
-	self.tableView.tableHeaderView = tableHeaderView;
-    // Add activity indicator to navbar
-	UIBarButtonItem *loadingItem = [[UIBarButtonItem alloc] initWithCustomView:activityView];
-	self.navigationItem.rightBarButtonItem = loadingItem;
-	[loadingItem release];
+	[ownerCell setContentText:repository.user.name];
+	[websiteCell setContentText:[repository.homepageURL host]];
+	[descriptionCell setContentText:repository.descriptionText];
 }
 
 #pragma mark -
@@ -52,30 +47,23 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row != 2) {
-		LabeledCell *cell = (LabeledCell *)[tableView dequeueReusableCellWithIdentifier:kLabeledCellIdentifier];
-		if (cell == nil) {
-			cell = [self labeledCellFromNib];
-		}
-		[cell setLabelText:[self labelTextForRowAtIndexPath:indexPath]];
-		[cell setContentText:[self contentTextForRowAtIndexPath:indexPath]];
-		cell.selectionStyle = cell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-		return cell;
-	} else {
-		TextCell *cell = (TextCell *)[tableView dequeueReusableCellWithIdentifier:kTextCellIdentifier];
-		if (cell == nil) {
-			cell = [self textCellFromNib];
-		}
-		[cell setContentText:[self contentTextForRowAtIndexPath:indexPath]];
-		return cell;
+    UITableViewCell *cell;
+	switch (indexPath.row) {
+		case 0: cell = ownerCell; break;
+		case 1: cell = websiteCell; break;
+		case 2: cell = descriptionCell; break;
 	}
+	if (indexPath.row != 2) {
+		cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+		cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	}
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger row = indexPath.row;
 	if (row == 0) {
-		UserViewController *userController = [[UserViewController alloc] initWithUser:repository.user];
+		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:repository.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
 	} else if (row == 1) {
@@ -87,68 +75,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 2) {
-		TextCell *textCell = (TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-		return textCell.height;
+		return [(TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] height];
 	} else {
 		return 44.0f;
 	}
-}
-
-#pragma mark -
-#pragma mark Helpers
-
-- (NSString *)contentTextForRowAtIndexPath:(NSIndexPath *)indexPath {
-	switch (indexPath.row) {
-		case 0: return repository.user.name;
-		case 1: return [repository.homepageURL host];
-		case 2: return repository.descriptionText;
-		default: return @"";
-	}
-}
-
-- (NSString *)labelTextForRowAtIndexPath:(NSIndexPath *)indexPath {
-	switch (indexPath.row) {
-		case 0: return @"Owner";
-		case 1: return @"Website";
-		case 2: return @"Description";
-		default: return @"";
-	}
-}
-
-- (LabeledCell *)labeledCellFromNib {
-	NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:kLabeledCellIdentifier owner:self options:nil];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator];
-	NSObject *nibItem = nil;
-	LabeledCell *cell = nil;
-	while ((nibItem = [nibEnumerator nextObject]) != nil) {
-		if ([nibItem isKindOfClass:[LabeledCell class]]) {
-			cell = (LabeledCell *)nibItem;
-			if ([cell.reuseIdentifier isEqualToString:kLabeledCellIdentifier]) {
-				break;
-			} else {
-				cell = nil;
-			}
-		}
-	}
-	return cell;
-}
-
-- (TextCell *)textCellFromNib {
-	NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:kTextCellIdentifier owner:self options:nil];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator];
-	NSObject *nibItem = nil;
-	TextCell *cell = nil;
-	while ((nibItem = [nibEnumerator nextObject]) != nil) {
-		if ([nibItem isKindOfClass:[TextCell class]]) {
-			cell = (TextCell *)nibItem;
-			if ([cell.reuseIdentifier isEqualToString:kTextCellIdentifier]) {
-				break;
-			} else {
-				cell = nil;
-			}
-		}
-	}
-	return cell;
 }
 
 #pragma mark -
@@ -159,6 +89,13 @@
 	[tableHeaderView release];
 	[nameLabel release];
 	[numbersLabel release];
+	[ownerLabel release];
+	[websiteLabel release];
+	[descriptionLabel release];
+	[loadingCell release];
+	[ownerCell release];
+	[websiteCell release];
+	[descriptionCell release];
 	[activityView release];
     [super dealloc];
 }

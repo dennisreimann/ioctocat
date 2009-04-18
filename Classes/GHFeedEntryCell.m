@@ -7,9 +7,8 @@
 @implementation GHFeedEntryCell
 
 - (void)setEntry:(GHFeedEntry *)anEntry {
-	GHFeedEntry *newEntry = [anEntry retain];
 	[entry release];
-	entry = newEntry;
+	entry = [anEntry retain];
 	titleLabel.text = entry.title;
 	// Date
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

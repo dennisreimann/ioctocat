@@ -23,7 +23,6 @@
     [super viewDidLoad];
 	self.title = @"My Feeds";
 	loadCounter = 0;
-	// Add activity indicator to navbar
 	self.tableView.tableHeaderView = feedControlView;
 	// Load settings
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

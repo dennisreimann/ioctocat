@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHRepository;
+@class GHRepository, TextCell, LabeledCell;
 
 @interface RepositoryViewController : UITableViewController {
   @private
@@ -9,6 +9,13 @@
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UILabel *nameLabel;
 	IBOutlet UILabel *numbersLabel;
+	IBOutlet UILabel *ownerLabel;
+	IBOutlet UILabel *websiteLabel;
+	IBOutlet UILabel *descriptionLabel;
+	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet LabeledCell *ownerCell;
+	IBOutlet LabeledCell *websiteCell;
+	IBOutlet TextCell *descriptionCell;
 	IBOutlet UIActivityIndicatorView *activityView;
 }
 

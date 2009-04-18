@@ -4,6 +4,7 @@
 
 // tables
 #define kStandardCellIdentifier @"StandardCell"
+#define kRepositoryCellIdentifier @"RepositoryCell"
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
@@ -11,7 +12,7 @@
 // URLs
 #define kNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
 #define kActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
-#define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
+#define kUserXMLFormat @"https://github.com/api/v1/xml/%@"
 
 // KVO
 #define kFeedLoadingKeyPath @"isLoading"

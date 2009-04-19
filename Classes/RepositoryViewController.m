@@ -6,9 +6,14 @@
 #import "RepositoryViewController.h"
 #import "UserViewController.h"
 #import "WebViewController.h"
+#import "iOctocatAppDelegate.h"
 
 
 @interface RepositoryViewController (PrivateMethods)
+
+- (void)repositoryLoadingStarted;
+- (void)repositoryLoadingFinished;
+- (void)displayRepository;
 
 @end
 
@@ -24,15 +29,29 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[repository addObserver:self forKeyPath:kRepoLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
-	// Table header
+	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (void)displayRepository {
 	nameLabel.text = repository.name;
 	numbersLabel.text = [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"];
-	[ownerCell setContentText:repository.user.name];
+	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
+	[self.tableView reloadData];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:kRepoLoadingKeyPath]) {
+		[self displayRepository];
+	}
 }
 
 #pragma mark -
@@ -43,11 +62,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (!repository.isLoaded) return 1;
 	return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell;
+	if (!repository.isLoaded) return loadingCell;
+	UITableViewCell *cell;
 	switch (indexPath.row) {
 		case 0: cell = ownerCell; break;
 		case 1: cell = websiteCell; break;
@@ -85,6 +106,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[repository removeObserver:self forKeyPath:kRepoLoadingKeyPath];
 	[repository release];
 	[tableHeaderView release];
 	[nameLabel release];

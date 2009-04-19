@@ -12,6 +12,7 @@
 	NSString *content;
 	NSString *authorName;
 	GHFeed *feed;
+	id eventItem;
 }
 
 @property (nonatomic, retain) NSString *entryID;
@@ -22,6 +23,7 @@
 @property (nonatomic, retain) NSString *content;
 @property (nonatomic, retain) NSString *authorName; 
 @property (nonatomic, retain) GHFeed *feed;
+@property (nonatomic, retain) id eventItem;
 @property (nonatomic, readonly) GHUser *user;
 
 @end

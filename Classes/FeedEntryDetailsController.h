@@ -3,7 +3,7 @@
 
 @class GHFeedEntry;
 
-@interface FeedEntryDetailsController : UIViewController <UIWebViewDelegate> {
+@interface FeedEntryDetailsController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
 	GHFeedEntry *entry;
   @private
 	IBOutlet UILabel *dateLabel;
@@ -16,6 +16,6 @@
 @property (nonatomic, retain) GHFeedEntry *entry;
 
 - (id)initWithFeedEntry:(GHFeedEntry *)theEntry;
-- (IBAction)showUser:(id)sender;
+- (IBAction)showActions:(id)sender;
 
 @end

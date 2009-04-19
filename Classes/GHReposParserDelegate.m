@@ -33,10 +33,12 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"repository"]) {
+		currentRepository.isLoaded = YES;
+		currentRepository.isLoading = NO;
 		[repositories addObject:currentRepository];
 		[currentRepository release];
 		currentRepository = nil;
-	} else if ([elementName isEqualToString:@"name"]) {
+	} else if ([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"owner"]) {
 		[currentRepository setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"description"]) {
 		currentRepository.descriptionText = currentElementValue;

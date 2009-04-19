@@ -1,7 +1,10 @@
 #import "FeedEntryDetailsController.h"
+#import "RepositoryViewController.h"
 #import "UserViewController.h"
+#import "WebViewController.h"
 #import "GHFeedEntry.h"
 #import "GHUser.h"
+#import "GHRepository.h"
 #import "Gravatar.h"
 
 
@@ -47,10 +50,39 @@
 #pragma mark -
 #pragma mark Actions
 
-- (IBAction)showUser:(id)sender {
-	UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:entry.user];
-	[self.navigationController pushViewController:userController animated:YES];
-	[userController release];
+- (IBAction)showActions:(id)sender {
+	id eventItem = entry.eventItem;
+	NSString *eventItemTitle = nil;
+	if ([eventItem isKindOfClass:[GHRepository class]]) {
+		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHRepository *)eventItem name]];
+	} else if ([eventItem isKindOfClass:[GHUser class]]) {
+		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHUser *)eventItem login]];
+	}
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View on GitHub", [NSString stringWithFormat:@"Show %@", entry.authorName], eventItemTitle, nil];
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+		WebViewController *webController = [[WebViewController alloc] initWithURL:entry.linkURL];
+		[self.navigationController pushViewController:webController animated:YES];
+		[webController release];
+	} else if (buttonIndex == 1) {
+		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:entry.user];
+		[self.navigationController pushViewController:userController animated:YES];
+		[userController release];
+	} else if (buttonIndex == 2) {
+		if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
+			RepositoryViewController *repoController = [[RepositoryViewController alloc] initWithRepository:(GHRepository *)entry.eventItem];
+			[self.navigationController pushViewController:repoController animated:YES];
+			[repoController release];
+		} else if ([entry.eventItem isKindOfClass:[GHUser class]]) {
+			UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:(GHUser *)entry.eventItem];
+			[self.navigationController pushViewController:userController animated:YES];
+			[userController release];
+		}
+	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -63,7 +95,6 @@
 #pragma mark UIWebView delegation methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	DebugLog(@"%@", request);
 	return YES;
 }
 

@@ -21,3 +21,4 @@
 #define kUserLoadingKeyPath @"isLoading"
 #define kUserReposLoadingKeyPath @"isReposLoading"
 #define kUserGravatarImageKeyPath @"gravatar.image"
+#define kRepoLoadingKeyPath @"isLoading"

@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
+			<integer value="21"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -120,10 +120,10 @@
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 								<int key="IBUINumberOfLines">2</int>
 							</object>
-							<object class="IBUIButton" id="939807459">
+							<object class="IBUIButton" id="914739479">
 								<reference key="NSNextResponder" ref="206194869"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{292, 42}, {18, 19}}</string>
+								<string key="NSFrame">{{288, 29}, {18, 19}}</string>
 								<reference key="NSSuperview" ref="206194869"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -136,7 +136,7 @@
 								</object>
 								<int key="IBUIButtonType">4</int>
 								<bool key="IBUIShowsTouchWhenHighlighted">YES</bool>
-								<object class="NSColor" key="IBUIHighlightedTitleColor" id="224259310">
+								<object class="NSColor" key="IBUIHighlightedTitleColor" id="271602084">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEAA</bytes>
 								</object>
@@ -162,7 +162,7 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{0, 90}, {320, 277}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
-						<reference key="IBUIBackgroundColor" ref="224259310"/>
+						<reference key="IBUIBackgroundColor" ref="271602084"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
@@ -242,12 +242,12 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">showUser:</string>
-						<reference key="source" ref="939807459"/>
+						<string key="label">showActions:</string>
+						<reference key="source" ref="914739479"/>
 						<reference key="destination" ref="372490531"/>
 						<int key="IBEventType">7</int>
 					</object>
-					<int key="connectionID">22</int>
+					<int key="connectionID">23</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -292,7 +292,7 @@
 							<reference ref="105931350"/>
 							<reference ref="360035783"/>
 							<reference ref="521488189"/>
-							<reference ref="939807459"/>
+							<reference ref="914739479"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -328,7 +328,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">21</int>
-						<reference key="object" ref="939807459"/>
+						<reference key="object" ref="914739479"/>
 						<reference key="parent" ref="206194869"/>
 					</object>
 				</object>
@@ -388,7 +388,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">23</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -397,7 +397,7 @@
 					<string key="className">FeedEntryDetailsController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">showUser:</string>
+						<string key="NS.key.0">showActions:</string>
 						<string key="NS.object.0">id</string>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">

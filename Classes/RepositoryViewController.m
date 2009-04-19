@@ -1,4 +1,3 @@
-#import "AppConstants.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
@@ -32,7 +31,6 @@
 	[repository addObserver:self forKeyPath:kRepoLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
 }
 
@@ -41,16 +39,17 @@
 
 - (void)displayRepository {
 	nameLabel.text = repository.name;
-	numbersLabel.text = [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"];
+	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
-	[self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kRepoLoadingKeyPath]) {
-		[self displayRepository];
+		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
+		if (!isLoading) [self displayRepository];
+		[self.tableView reloadData];
 	}
 }
 
@@ -83,11 +82,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger row = indexPath.row;
-	if (row == 0) {
+	if (row == 0 && repository.user) {
 		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:repository.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
-	} else if (row == 1) {
+	} else if (row == 1 && repository.homepageURL) {
 		WebViewController *webController = [[WebViewController alloc] initWithURL:repository.homepageURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
@@ -118,7 +117,6 @@
 	[ownerCell release];
 	[websiteCell release];
 	[descriptionCell release];
-	[activityView release];
     [super dealloc];
 }
 

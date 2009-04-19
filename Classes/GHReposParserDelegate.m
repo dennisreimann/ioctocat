@@ -63,10 +63,6 @@
 	[target performSelectorOnMainThread:selector withObject:repositories waitUntilDone:YES];
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	[target performSelectorOnMainThread:selector withObject:parseError waitUntilDone:YES];
-}
-
 #pragma mark -
 #pragma mark Cleanup
 

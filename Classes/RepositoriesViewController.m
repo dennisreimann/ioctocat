@@ -1,6 +1,5 @@
 #import "RepositoriesViewController.h"
 #import "RepositoryViewController.h"
-#import "AppConstants.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GHReposParserDelegate.h"

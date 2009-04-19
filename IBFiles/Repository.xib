@@ -47,14 +47,6 @@
 				<float key="IBUISectionHeaderHeight">1.000000e+01</float>
 				<float key="IBUISectionFooterHeight">1.000000e+01</float>
 			</object>
-			<object class="IBUIActivityIndicatorView" id="214217679">
-				<nil key="NSNextResponder"/>
-				<int key="NSvFlags">-2147483356</int>
-				<string key="NSFrame">{{34, 34}, {20, 20}}</string>
-				<bool key="IBUIOpaque">NO</bool>
-				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-				<bool key="IBUIUserInteractionEnabled">NO</bool>
-			</object>
 			<object class="IBUIView" id="1002873168">
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
@@ -535,14 +527,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">activityView</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="214217679"/>
-					</object>
-					<int key="connectionID">43</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">loadingCell</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="461708602"/>
@@ -586,11 +570,6 @@
 							<reference ref="1013829266"/>
 							<reference ref="412962912"/>
 						</object>
-						<reference key="parent" ref="360949347"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">8</int>
-						<reference key="object" ref="214217679"/>
 						<reference key="parent" ref="360949347"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -715,7 +694,6 @@
 					<string>44.IBPluginDependency</string>
 					<string>45.IBPluginDependency</string>
 					<string>46.IBPluginDependency</string>
-					<string>8.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -743,7 +721,6 @@
 					<string>{{221, 620}, {320, 80}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{687, 971}, {320, 44}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -802,7 +779,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>activityView</string>
 							<string>descriptionCell</string>
 							<string>descriptionLabel</string>
 							<string>loadingCell</string>
@@ -816,7 +792,6 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UIActivityIndicatorView</string>
 							<string>TextCell</string>
 							<string>UILabel</string>
 							<string>UITableViewCell</string>

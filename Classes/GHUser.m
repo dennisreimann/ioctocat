@@ -118,11 +118,9 @@
 	[self performSelectorOnMainThread:@selector(finishedLoading) withObject:nil waitUntilDone:NO];
 }
 
-#ifdef DEBUG
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	NSLog(@"Parsing error: %@", [parseError localizedDescription]);
+	DebugLog(@"Parsing error: %@", [parseError localizedDescription]);
 }
-#endif
 
 #pragma mark -
 #pragma mark Cleanup

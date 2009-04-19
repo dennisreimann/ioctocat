@@ -19,7 +19,6 @@
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;
-	IBOutlet UIActivityIndicatorView *activityView;
 }
 
 - (id)initWithUser:(GHUser *)theUser;

@@ -1,4 +1,3 @@
-#import "AppConstants.h"
 #import "UserViewController.h"
 #import "RepositoryViewController.h"
 #import "WebViewController.h"
@@ -35,14 +34,13 @@
 	if (!user.isReposLoaded) [user loadRepositories];
 	self.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 }
 
 #pragma mark -
 #pragma mark Actions
 
 - (void)displayUser {
-	nameLabel.text = user.name;
+	nameLabel.text = user.name ? user.name :user.login;
 	companyLabel.text = user.company;
 	gravatarView.image = user.gravatar.image;
 	[locationCell setContentText:user.location];
@@ -158,7 +156,6 @@
 	[loadingUserCell release];
 	[loadingReposCell release];
 	[noPublicReposCell release];
-	[activityView release];
     [super dealloc];
 }
 

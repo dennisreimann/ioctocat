@@ -16,7 +16,6 @@
 	IBOutlet LabeledCell *ownerCell;
 	IBOutlet LabeledCell *websiteCell;
 	IBOutlet TextCell *descriptionCell;
-	IBOutlet UIActivityIndicatorView *activityView;
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository;

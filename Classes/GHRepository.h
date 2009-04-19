@@ -15,8 +15,6 @@
 	BOOL isFork;
 	BOOL isLoaded;
 	BOOL isLoading;
-  @private
-	NSMutableString *currentElementValue;
 }
 
 @property (nonatomic, retain) NSString *name;

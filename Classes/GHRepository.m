@@ -1,4 +1,3 @@
-#import "AppConstants.h"
 #import "GHRepository.h"
 #import "GHUser.h"
 

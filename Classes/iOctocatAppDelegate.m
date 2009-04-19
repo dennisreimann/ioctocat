@@ -24,6 +24,22 @@
 	}
 }
 
+// Use this to add credentials (for instance via email) by opening a link:
+// githubauth://username:apitoken@github.com
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+	if (!url) return NO;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setValue:[url user] forKey:kUsernameDefaultsKey];
+	[defaults setValue:[url password] forKey:kTokenDefaultsKey];
+	[defaults synchronize];
+	// Inform the user
+	NSString *message = [NSString stringWithFormat:@"You will be authenticated with the following credentials:\nUsername: %@\nAPI Token: %@", [defaults valueForKey:kUsernameDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+	return YES;
+}
+
 - (BOOL)isDataSourceAvailable {
     static BOOL checkNetwork = YES;
     if (checkNetwork) {

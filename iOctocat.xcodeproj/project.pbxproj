@@ -47,6 +47,7 @@
 		6F5A42040F90CCE200427ED7 /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A42030F90CCE200427ED7 /* TextCell.xib */; };
 		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */; };
+		6F72FA880F9B3D750069F092 /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FA870F9B3D750069F092 /* DebugLog.m */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
@@ -79,7 +80,7 @@
 		6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtWork.png; path = Images/iTunesArtWork.png; sourceTree = "<group>"; };
 		6F1DC36E0F7E4F5200FCD26D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
+		6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppConstants.h; path = Classes/AppConstants.h; sourceTree = "<group>"; };
 		6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeed.h; sourceTree = "<group>"; };
 		6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeed.m; sourceTree = "<group>"; };
 		6F1DC4470F7E5AA000FCD26D /* GHFeedEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedEntry.h; sourceTree = "<group>"; };
@@ -121,6 +122,8 @@
 		6F5A420C0F90CE0500427ED7 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
 		6F5A420D0F90CE0500427ED7 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
 		6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RepositoryTableHeadBackground.png; path = Images/RepositoryTableHeadBackground.png; sourceTree = "<group>"; };
+		6F72FA860F9B3D750069F092 /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
+		6F72FA870F9B3D750069F092 /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -165,7 +168,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
 				6F1DC52B0F7E725500FCD26D /* View */,
@@ -200,6 +202,9 @@
 			isa = PBXGroup;
 			children = (
 				28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */,
+				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
+				6F72FA860F9B3D750069F092 /* DebugLog.h */,
+				6F72FA870F9B3D750069F092 /* DebugLog.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -448,6 +453,7 @@
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
 				6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */,
 				6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */,
+				6F72FA880F9B3D750069F092 /* DebugLog.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

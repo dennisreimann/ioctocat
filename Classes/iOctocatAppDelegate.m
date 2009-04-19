@@ -33,8 +33,8 @@
 	[defaults setValue:[url password] forKey:kTokenDefaultsKey];
 	[defaults synchronize];
 	// Inform the user
-	NSString *message = [NSString stringWithFormat:@"You will be authenticated with the following credentials:\nUsername: %@\nAPI Token: %@", [defaults valueForKey:kUsernameDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	NSString *message = [NSString stringWithFormat:@"Username: %@\nAPI Token: %@", [defaults valueForKey:kUsernameDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New credentials" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
 	return YES;

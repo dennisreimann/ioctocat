@@ -18,7 +18,6 @@
 		6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */; };
 		6F1DC4490F7E5AA000FCD26D /* GHFeedEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */; };
 		6F1DC5280F7E723600FCD26D /* GHFeedEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5270F7E723600FCD26D /* GHFeedEntryCell.xib */; };
-		6F1DC5300F7E727C00FCD26D /* GHFeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC52F0F7E727C00FCD26D /* GHFeedEntryCell.m */; };
 		6F1DC5C50F7E7F4600FCD26D /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5BE0F7E7F4600FCD26D /* comment.png */; };
 		6F1DC5C60F7E7F4600FCD26D /* create.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5BF0F7E7F4600FCD26D /* create.png */; };
 		6F1DC5C70F7E7F4600FCD26D /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5C00F7E7F4600FCD26D /* fork.png */; };
@@ -48,6 +47,11 @@
 		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */; };
 		6F72FA880F9B3D750069F092 /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FA870F9B3D750069F092 /* DebugLog.m */; };
+		6F72FAE10F9B45FF0069F092 /* FeedEntryDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FAE00F9B45FF0069F092 /* FeedEntryDetails.xib */; };
+		6F72FAE80F9B47730069F092 /* FeedEntryDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */; };
+		6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */; };
+		6F72FB2F0F9B53810069F092 /* GHFeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* GHFeedEntryCell.m */; };
+		6F72FB600F9B5A5B0069F092 /* styles.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB5F0F9B5A5B0069F092 /* styles.html */; };
 		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
@@ -63,8 +67,6 @@
 		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
 		6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* FeedViewController.m */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
-		6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */; };
-		6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 /* End PBXBuildFile section */
 
@@ -87,7 +89,6 @@
 		6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedEntry.m; sourceTree = "<group>"; };
 		6F1DC5270F7E723600FCD26D /* GHFeedEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = GHFeedEntryCell.xib; path = IBFiles/GHFeedEntryCell.xib; sourceTree = "<group>"; };
 		6F1DC52E0F7E727C00FCD26D /* GHFeedEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedEntryCell.h; sourceTree = "<group>"; };
-		6F1DC52F0F7E727C00FCD26D /* GHFeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedEntryCell.m; sourceTree = "<group>"; };
 		6F1DC5BE0F7E7F4600FCD26D /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comment.png; path = Images/Icons/comment.png; sourceTree = "<group>"; };
 		6F1DC5BF0F7E7F4600FCD26D /* create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create.png; path = Images/Icons/create.png; sourceTree = "<group>"; };
 		6F1DC5C00F7E7F4600FCD26D /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fork.png; path = Images/Icons/fork.png; sourceTree = "<group>"; };
@@ -124,6 +125,12 @@
 		6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RepositoryTableHeadBackground.png; path = Images/RepositoryTableHeadBackground.png; sourceTree = "<group>"; };
 		6F72FA860F9B3D750069F092 /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		6F72FA870F9B3D750069F092 /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugLog.m; sourceTree = "<group>"; };
+		6F72FAE00F9B45FF0069F092 /* FeedEntryDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FeedEntryDetails.xib; sourceTree = "<group>"; };
+		6F72FAE60F9B47730069F092 /* FeedEntryDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedEntryDetailsController.h; sourceTree = "<group>"; };
+		6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryDetailsController.m; sourceTree = "<group>"; };
+		6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryDetailsHeadBackground.png; path = Images/FeedEntryDetailsHeadBackground.png; sourceTree = "<group>"; };
+		6F72FB2E0F9B53810069F092 /* GHFeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedEntryCell.m; sourceTree = "<group>"; };
+		6F72FB5F0F9B5A5B0069F092 /* styles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = styles.html; sourceTree = "<group>"; };
 		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
@@ -144,8 +151,6 @@
 		6FCE4D860F7FE16A00451D6E /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
 		6FCE4D870F7FE16A00451D6E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
-		6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonNormal.png; path = Images/ReloadButtonNormal.png; sourceTree = "<group>"; };
-		6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ReloadButtonHighlighted.png; path = Images/ReloadButtonHighlighted.png; sourceTree = "<group>"; };
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -216,6 +221,7 @@
 				6FB7FEA60F7E2C7500E8D702 /* IBFiles */,
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				6F72FB5F0F9B5A5B0069F092 /* styles.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -257,6 +263,8 @@
 				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
 				6FCE4D860F7FE16A00451D6E /* FeedViewController.h */,
 				6FCE4D870F7FE16A00451D6E /* FeedViewController.m */,
+				6F72FAE60F9B47730069F092 /* FeedEntryDetailsController.h */,
+				6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebViewController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserViewController.h */,
@@ -273,7 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				6F1DC52E0F7E727C00FCD26D /* GHFeedEntryCell.h */,
-				6F1DC52F0F7E727C00FCD26D /* GHFeedEntryCell.m */,
+				6F72FB2E0F9B53810069F092 /* GHFeedEntryCell.m */,
 				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
 				6FC9610B0F8935DC00FC0968 /* LabeledCell.m */,
 				6F5A420C0F90CE0500427ED7 /* TextCell.h */,
@@ -307,13 +315,12 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */,
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6FB7FEA20F7E2C4D00E8D702 /* Icon.png */,
 				6FB7FEEA0F7E31AC00E8D702 /* Default.png */,
 				6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */,
 				6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */,
-				6FD3C79C0F83E68200855A10 /* ReloadButtonNormal.png */,
-				6FD3C7A70F83E84F00855A10 /* ReloadButtonHighlighted.png */,
 				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
 				6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */,
 				6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */,
@@ -336,6 +343,7 @@
 				6F5A42030F90CCE200427ED7 /* TextCell.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6F5652D80F99C81A001B6703 /* Repositories.xib */,
+				6F72FAE00F9B45FF0069F092 /* FeedEntryDetails.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -409,8 +417,6 @@
 				6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */,
 				6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */,
 				6FCE4DB70F7FE5C600451D6E /* member.png in Resources */,
-				6FD3C79D0F83E68200855A10 /* ReloadButtonNormal.png in Resources */,
-				6FD3C7A80F83E84F00855A10 /* ReloadButtonHighlighted.png in Resources */,
 				6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */,
 				6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */,
 				6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */,
@@ -427,6 +433,9 @@
 				6F5653060F99CB62001B6703 /* private.png in Resources */,
 				6F5653070F99CB62001B6703 /* public.png in Resources */,
 				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,
+				6F72FAE10F9B45FF0069F092 /* FeedEntryDetails.xib in Resources */,
+				6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */,
+				6F72FB600F9B5A5B0069F092 /* styles.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,7 +450,6 @@
 				1D3623260D0F684500981E51 /* iOctocatAppDelegate.m in Sources */,
 				6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */,
 				6F1DC4490F7E5AA000FCD26D /* GHFeedEntry.m in Sources */,
-				6F1DC5300F7E727C00FCD26D /* GHFeedEntryCell.m in Sources */,
 				6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */,
 				6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */,
 				6F35BD390F88B01900E978CD /* GHUser.m in Sources */,
@@ -454,6 +462,8 @@
 				6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */,
 				6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */,
 				6F72FA880F9B3D750069F092 /* DebugLog.m in Sources */,
+				6F72FAE80F9B47730069F092 /* FeedEntryDetailsController.m in Sources */,
+				6F72FB2F0F9B53810069F092 /* GHFeedEntryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

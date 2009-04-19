@@ -1,6 +1,7 @@
 #import "FeedViewController.h"
 #import "WebViewController.h"
 #import "UserViewController.h"
+#import "FeedEntryDetailsController.h"
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
 #import "GHFeedEntryCell.h"
@@ -102,10 +103,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	WebViewController *webController = [[WebViewController alloc] initWithURL:entry.linkURL];
-	webController.title = entry.title;
-	[self.navigationController pushViewController:webController animated:YES];
-	[webController release];
+	FeedEntryDetailsController *entryController = [[FeedEntryDetailsController alloc] initWithFeedEntry:entry];
+	[self.navigationController pushViewController:entryController animated:YES];
+	[entryController release];
+	
+//	WebViewController *webController = [[WebViewController alloc] initWithURL:entry.linkURL];
+//	webController.title = entry.title;
+//	[self.navigationController pushViewController:webController animated:YES];
+//	[webController release];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

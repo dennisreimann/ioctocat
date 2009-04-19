@@ -2,6 +2,7 @@
 #import "GHUser.h"
 #import "iOctocatAppDelegate.h"
 
+
 @implementation GHFeedEntry
 
 @synthesize entryID, eventType, date, linkURL, title, content, authorName, feed;

@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class GHRepository, Gravatar;
+@class Gravatar;
 
 @interface GHUser : NSObject {
 	NSString *name;
@@ -11,12 +11,13 @@
 	NSString *location;
 	NSURL *blogURL;
 	Gravatar *gravatar;
-	NSMutableArray *repositories;
+	NSArray *repositories;
 	BOOL isLoaded;
 	BOOL isLoading;
+	BOOL isReposLoaded;
+	BOOL isReposLoading;
   @private
 	NSMutableString *currentElementValue;
-	GHRepository *currentRepository;
 }
 
 @property (nonatomic, retain) NSString *name;
@@ -26,11 +27,14 @@
 @property (nonatomic, retain) NSString *location;
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) Gravatar *gravatar;
-@property (nonatomic, retain) NSMutableArray *repositories;
+@property (nonatomic, retain) NSArray *repositories;
 @property (nonatomic, readwrite) BOOL isLoaded;
 @property (nonatomic, readwrite) BOOL isLoading;
+@property (nonatomic, readwrite) BOOL isReposLoaded;
+@property (nonatomic, readwrite) BOOL isReposLoading;
 
 - (id)initWithLogin:(NSString *)theLogin;
-- (void)loadDetails;
+- (void)loadUser;
+- (void)loadRepositories;
 
 @end

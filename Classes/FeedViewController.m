@@ -12,7 +12,6 @@
 
 - (void)feedParsingStarted;
 - (void)feedParsingFinished;
-- (GHFeedEntryCell *)feedEntryCellFromNib;
 
 @end
 
@@ -94,9 +93,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     GHFeedEntryCell *cell = (GHFeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
-    if (cell == nil) cell = [self feedEntryCellFromNib];
-	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	[cell setEntry:entry];
+    if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"GHFeedEntryCell" owner:self options:nil];
+		cell = feedEntryCell;
+	}
+	cell.entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
     return cell;
 }
 
@@ -124,24 +125,6 @@
 
 - (GHFeed *)currentFeed {
 	return [feeds objectAtIndex:feedControl.selectedSegmentIndex];
-}
-
-- (GHFeedEntryCell *)feedEntryCellFromNib {
-	NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"GHFeedEntryCell" owner:self options:nil];
-	NSEnumerator *nibEnumerator = [nibContents objectEnumerator];
-	NSObject *nibItem = nil;
-	GHFeedEntryCell *cell = nil;
-	while ((nibItem = [nibEnumerator nextObject]) != nil) {
-		if ([nibItem isKindOfClass:[GHFeedEntryCell class]]) {
-			cell = (GHFeedEntryCell *)nibItem;
-			if ([cell.reuseIdentifier isEqualToString:kFeedEntryCellIdentifier]) {
-				break;
-			} else {
-				cell = nil;
-			}
-		}
-	}
-	return cell;
 }
 
 #pragma mark -

@@ -12,6 +12,7 @@
 
 - (void)userLoadingStarted;
 - (void)userLoadingFinished;
+- (void)displayUser;
 
 @end
 
@@ -29,7 +30,9 @@
     [super viewDidLoad];
 	[user addObserver:self forKeyPath:kUserLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarImageKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(user.isLoaded) ? [self userLoadingFinished] : [user loadDetails];
+	[user addObserver:self forKeyPath:kUserReposLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	(user.isLoaded) ? [self displayUser] : [user loadUser];
+	if (!user.isReposLoaded) [user loadRepositories];
 	self.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
@@ -38,58 +41,51 @@
 #pragma mark -
 #pragma mark Actions
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kUserLoadingKeyPath]) {
-		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
-		(isLoading == YES) ? [self userLoadingStarted] : [self userLoadingFinished];
-	} else if ([keyPath isEqualToString:kUserGravatarImageKeyPath]) {
-		gravatarView.image = user.gravatar.image;
-	}
-}
-
-- (void)userLoadingStarted {
-	[activityView startAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-}
-
-- (void)userLoadingFinished {
+- (void)displayUser {
 	nameLabel.text = user.name;
 	companyLabel.text = user.company;
 	gravatarView.image = user.gravatar.image;
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
 	[emailCell setContentText:user.email];
-	[self.tableView reloadData];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[activityView stopAnimating];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:kUserGravatarImageKeyPath]) {
+		gravatarView.image = user.gravatar.image;
+	} else if ([keyPath isEqualToString:kUserLoadingKeyPath]) {
+		[self displayUser];
+		[self.tableView reloadData];
+	} else if ([keyPath isEqualToString:kUserReposLoadingKeyPath]) {
+		[self.tableView reloadData];
+	}
 }
 
 #pragma mark -
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (user.isLoaded && user.repositories.count > 0) ? 2 : 1;
+    if (!user.isLoaded) return 1;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSInteger count;
-	if (section == 0) {
-		count = (user.isLoaded) ? 3 : 1;
-	} else {
-		count = user.repositories.count;
-	}
-	return count;
+	if (!user.isLoaded) return 1;
+	if (section == 0) return 3;
+	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
+	if (section == 1) return user.repositories.count;
+	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	switch (section) {
-		case 1: return @"Repositories";
+		case 1: return @"Public Repositories";
 		default: return @"";
 	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!user.isLoaded) return loadingCell;
+	if (!user.isLoaded) return loadingUserCell;
 	if (indexPath.section == 0) {
 		LabeledCell *cell;
 		switch (indexPath.row) {
@@ -100,7 +96,10 @@
 		cell.selectionStyle = cell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
-	} else {
+	}
+	if (!user.isReposLoaded) return loadingReposCell;
+	if (indexPath.section == 1 && user.repositories.count == 0) return noPublicReposCell;
+	if (indexPath.section == 1) {
 		GHRepository *repository = [user.repositories objectAtIndex:indexPath.row];
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
@@ -110,6 +109,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	}
+	return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -142,6 +142,9 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[user removeObserver:self forKeyPath:kUserLoadingKeyPath];
+	[user removeObserver:self forKeyPath:kUserGravatarImageKeyPath];
+	[user removeObserver:self forKeyPath:kUserReposLoadingKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -152,7 +155,9 @@
 	[locationCell release];
 	[blogCell release];
 	[emailCell release];
-	[loadingCell release];
+	[loadingUserCell release];
+	[loadingReposCell release];
+	[noPublicReposCell release];
 	[activityView release];
     [super dealloc];
 }

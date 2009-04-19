@@ -13,7 +13,9 @@
 	IBOutlet UILabel *locationLabel;
 	IBOutlet UILabel *blogLabel;
 	IBOutlet UILabel *emailLabel;
-	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet UITableViewCell *loadingUserCell;
+	IBOutlet UITableViewCell *loadingReposCell;
+	IBOutlet UITableViewCell *noPublicReposCell;
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;

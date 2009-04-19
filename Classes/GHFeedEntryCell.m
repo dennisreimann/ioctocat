@@ -6,6 +6,8 @@
 
 @implementation GHFeedEntryCell
 
+@synthesize entry;
+
 - (void)setEntry:(GHFeedEntry *)anEntry {
 	[entry release];
 	entry = [anEntry retain];

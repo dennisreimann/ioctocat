@@ -4,8 +4,8 @@
 @class GHFeedEntry;
 
 @interface GHFeedEntryCell : UITableViewCell {
-  @private
 	GHFeedEntry *entry;
+  @private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UILabel *contentLabel;
@@ -13,6 +13,6 @@
 	IBOutlet UIImageView *gravatarView;
 }
 
-- (void)setEntry:(GHFeedEntry *)anEntry;
+@property (nonatomic, retain) GHFeedEntry *entry;
 
 @end

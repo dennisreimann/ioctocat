@@ -27,7 +27,7 @@
 	NSString *stylePath = [[NSBundle mainBundle] pathForResource:@"styles" ofType:@"html"];
 	NSString *style = [NSString stringWithContentsOfFile:stylePath encoding:NSUTF8StringEncoding error:nil];
 	NSString *html = [NSString stringWithFormat:@"%@%@", style, entry.content];
-	[contentView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://github.com/"]];
+	[contentView loadHTMLString:html baseURL:nil];
 	// Date
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
@@ -95,7 +95,7 @@
 #pragma mark UIWebView delegation methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	return YES;
+	return [[[request URL] absoluteString] isEqualToString:@"about:blank"];
 }
 
 #pragma mark -

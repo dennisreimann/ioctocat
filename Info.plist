@@ -21,18 +21,18 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
-	  <array>
-	    <dict>
-	      <key>CFBundleURLName</key>
-	      <string>Gitub Authentication</string>
-	      <key>CFBundleURLSchemes</key>
-	      <array>
-	        <string>githubauth</string>
-	      </array>
-	    </dict>
-	  </array>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Gitub Authentication</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>githubauth</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>0.5.0</string>
+	<string>0.7.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>

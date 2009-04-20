@@ -6,7 +6,13 @@ Currently the application offers the following features:
 * My Private News Feed
 * My Activity Feed
 * Profile View
+* My Repositories
+* Repository Details
 
 Things that are about to be added to the feature set:
-
-* Repository Details
+* My Repository Watchlist
+* Repository watching
+* My Network
+* User following
+* Recent Commits on Repository
+* Commit Details

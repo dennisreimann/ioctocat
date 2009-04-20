@@ -7,6 +7,7 @@
 @interface iOctocatAppDelegate (PrivateMethods)
 
 - (void)displayNoConnectionView;
+- (void)cacheGravatar:(UIImage *)theGravatar forUser:(GHUser *)theUser;
 
 @end
 
@@ -76,7 +77,6 @@
 	GHUser *user = [users objectForKey:theUsername];
 	if (user == nil) {
 		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
-		[user loadUser];
 		[users setObject:user forKey:theUsername];
 	}
 	return user;
@@ -86,8 +86,8 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[users release];
 	[tabBarController release];
+	[users release];
 	[window release];
 	[super dealloc];
 }

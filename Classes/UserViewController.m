@@ -4,7 +4,7 @@
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
-#import "Gravatar.h"
+#import "GravatarLoader.h"
 
 
 @interface UserViewController (PrivateMethods)
@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[user addObserver:self forKeyPath:kUserLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kUserGravatarImageKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserReposLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.isReposLoaded) [user loadRepositories];
@@ -42,15 +42,15 @@
 - (void)displayUser {
 	nameLabel.text = user.name ? user.name :user.login;
 	companyLabel.text = user.company;
-	gravatarView.image = user.gravatar.image;
+	gravatarView.image = user.gravatar;
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
 	[emailCell setContentText:user.email];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kUserGravatarImageKeyPath]) {
-		gravatarView.image = user.gravatar.image;
+	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
+		gravatarView.image = user.gravatar;
 	} else if ([keyPath isEqualToString:kUserLoadingKeyPath]) {
 		[self displayUser];
 		[self.tableView reloadData];
@@ -141,7 +141,7 @@
 
 - (void)dealloc {
 	[user removeObserver:self forKeyPath:kUserLoadingKeyPath];
-	[user removeObserver:self forKeyPath:kUserGravatarImageKeyPath];
+	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[user removeObserver:self forKeyPath:kUserReposLoadingKeyPath];
 	[user release];
 	[tableHeaderView release];

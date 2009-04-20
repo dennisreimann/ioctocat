@@ -1,5 +1,5 @@
 #import <CommonCrypto/CommonDigest.h>
-#import "Gravatar.h"
+#import "GravatarLoader.h"
 
 
 // This solution to generate a MD5 hash originates from the Apple Developer Forums.
@@ -14,41 +14,41 @@ NSString *md5(NSString *str) {
 } 
 
 
-@interface Gravatar (PrivateMethods)
+@interface GravatarLoader (PrivateMethods)
 
-- (void)loadImage;
-- (void)loadedImage:(UIImage *)theImage;
+- (void)requestWithArgs:(NSArray *)theArgs;
 
 @end
 
 
-@implementation Gravatar
+@implementation GravatarLoader
 
-@synthesize image;
-
-- (id)initWithEmail:(NSString *)theEmail andSize:(NSUInteger)theSize {
-	if ((self = [super init])) {
-		email = [theEmail retain];
-		size = theSize;
-		if (email) [self performSelectorInBackground:@selector(loadImage) withObject:nil];
+- (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle {
+	if (self = [super init]) {
+		target = [theTarget retain];
+		handle = theHandle;
 	}
 	return self;
-}
-
-+ (id)gravatarWithEmail:(NSString *)theEmail andSize:(NSUInteger)theSize {
-	return [[[Gravatar alloc] initWithEmail:theEmail andSize:theSize] autorelease];
 }
 
 #pragma mark -
 #pragma mark Gravatar loading
 
-- (void)loadImage {
+- (void)loadEmail:(NSString *)theEmail withSize:(NSInteger)theSize {
+	NSArray *args = [[NSArray alloc] initWithObjects:theEmail, [NSNumber numberWithInteger:theSize], nil];
+	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
+	[args release];
+}
+
+- (void)requestWithArgs:(NSArray *)theArgs {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSString *email = [theArgs objectAtIndex:0];
+	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
 	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d", md5(email), size];
 	NSURL *gravatarURL = [NSURL URLWithString:url];
 	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
-	[self performSelectorOnMainThread:@selector(setImage:) withObject:gravatarImage waitUntilDone:NO];
+	[target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
 	[pool release];
 }
 
@@ -56,8 +56,7 @@ NSString *md5(NSString *str) {
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[email release];
-	[image release];
+	[target release];
 	[super dealloc];
 }
 

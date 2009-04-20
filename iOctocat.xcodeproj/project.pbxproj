@@ -60,7 +60,7 @@
 		6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserViewController.m */; };
 		6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */; };
 		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
-		6FCAF1660F895756005E1173 /* Gravatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* Gravatar.m */; };
+		6FCAF1660F895756005E1173 /* GravatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* GravatarLoader.m */; };
 		6FCE4D280F7FD48700451D6E /* commit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D240F7FD48700451D6E /* commit.png */; };
 		6FCE4D290F7FD48700451D6E /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D250F7FD48700451D6E /* delete.png */; };
 		6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D260F7FD48700451D6E /* follow.png */; };
@@ -142,8 +142,8 @@
 		6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserTableHeadBackground.png; path = Images/UserTableHeadBackground.png; sourceTree = "<group>"; };
 		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
 		6FC9610B0F8935DC00FC0968 /* LabeledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabeledCell.m; sourceTree = "<group>"; };
-		6FCAF1640F895756005E1173 /* Gravatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Gravatar.h; sourceTree = "<group>"; };
-		6FCAF1650F895756005E1173 /* Gravatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Gravatar.m; sourceTree = "<group>"; };
+		6FCAF1640F895756005E1173 /* GravatarLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GravatarLoader.h; sourceTree = "<group>"; };
+		6FCAF1650F895756005E1173 /* GravatarLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GravatarLoader.m; sourceTree = "<group>"; };
 		6FCE4D240F7FD48700451D6E /* commit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit.png; path = Images/Icons/commit.png; sourceTree = "<group>"; };
 		6FCE4D250F7FD48700451D6E /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Images/Icons/delete.png; sourceTree = "<group>"; };
 		6FCE4D260F7FD48700451D6E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = Images/Icons/follow.png; sourceTree = "<group>"; };
@@ -248,10 +248,10 @@
 				6F35BD380F88B01900E978CD /* GHUser.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
-				6FCAF1640F895756005E1173 /* Gravatar.h */,
-				6FCAF1650F895756005E1173 /* Gravatar.m */,
 				6FC647270F9B165E00FE39F6 /* GHReposParserDelegate.h */,
 				6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */,
+				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
+				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -456,7 +456,7 @@
 				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
 				6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */,
 				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
-				6FCAF1660F895756005E1173 /* Gravatar.m in Sources */,
+				6FCAF1660F895756005E1173 /* GravatarLoader.m in Sources */,
 				6F5A41750F90C38300427ED7 /* RepositoryViewController.m in Sources */,
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
 				6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */,

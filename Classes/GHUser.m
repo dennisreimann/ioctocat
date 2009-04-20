@@ -1,6 +1,6 @@
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "Gravatar.h"
+#import "GravatarLoader.h"
 #import "GHReposParserDelegate.h"
 
 
@@ -24,6 +24,8 @@
 		self.isLoading = NO;
 		self.isReposLoaded = NO;
 		self.isReposLoading = NO;
+		self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
+		gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(setLoadedGravatar:)];
 	}
 	return self;
 }
@@ -65,7 +67,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *url = [NSString stringWithFormat:kUserReposFormat, login, @""];
 	NSURL *reposURL = [NSURL URLWithString:url];
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(setRepositories:)];
+	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(setLoadedRepositories:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:reposURL];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -78,16 +80,37 @@
 }
 
 - (void)finishedLoading {
-	self.gravatar = self.email ? [Gravatar gravatarWithEmail:self.email andSize:44] : nil;
 	self.isLoaded = YES;
 	self.isLoading = NO;
 }
 
-- (void)setRepositories:(NSArray *)theRepositories {
-	[repositories release];
-	repositories = [theRepositories retain];
+- (void)setLoadedRepositories:(NSArray *)theRepositories {
+	self.repositories = theRepositories;
 	self.isReposLoaded = YES;
 	self.isReposLoading = NO;
+}
+
+#pragma mark -
+#pragma mark Gravatar
+
+- (void)setEmail:(NSString *)theEmail {
+	[theEmail retain];
+	[email release];
+	email = theEmail;
+	if (email) [gravatarLoader loadEmail:email withSize:44];
+}
+
+- (void)setLoadedGravatar:(UIImage *)theImage {
+	if (![theImage isKindOfClass:[UIImage class]]) return;
+	self.gravatar = theImage;
+	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];
+}
+
+- (NSString *)cachedGravatarPath {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
+	return [documentsPath stringByAppendingPathComponent:imageName];
 }
 
 #pragma mark -
@@ -135,6 +158,7 @@
 	[gravatar release];
 	[repositories release];
 	[currentElementValue release];
+	[gravatarLoader release];
     [super dealloc];
 }
 

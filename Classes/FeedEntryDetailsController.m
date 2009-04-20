@@ -5,7 +5,7 @@
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "Gravatar.h"
+#import "GravatarLoader.h"
 
 
 @implementation FeedEntryDetailsController
@@ -21,7 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[entry.user addObserver:self forKeyPath:kUserGravatarImageKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [entry.eventType capitalizedString];
 	titleLabel.text = entry.title;
 	NSString *stylePath = [[NSBundle mainBundle] pathForResource:@"styles" ofType:@"html"];
@@ -38,7 +38,7 @@
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
-	gravatarView.image = entry.user.gravatar.image;
+	gravatarView.image = entry.user.gravatar;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -86,8 +86,8 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kUserGravatarImageKeyPath]) {
-		gravatarView.image = entry.user.gravatar.image;
+	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
+		gravatarView.image = entry.user.gravatar;
 	}
 }
 
@@ -105,7 +105,7 @@
 	[contentView stopLoading];
 	contentView.delegate = nil;
 	[contentView release];
-	[entry.user removeObserver:self forKeyPath:kUserGravatarImageKeyPath];
+	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[entry release];
 	[dateLabel release];
 	[titleLabel release];

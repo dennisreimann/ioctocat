@@ -12,6 +12,7 @@ h3 {
 	margin: 1.5em 0 .5em 0;
 	font-family: Lucida Grande;      
 }
+
 p {
 	margin: 0 0 .75em 0;
 }
@@ -26,14 +27,18 @@ a {
 	font-family: Lucida Grande;
 }
 
+em {
+	color: #999;
+}
+
 img {
 	border: 0;
 }
 
 #main {
-	width: 52em;
+	width: 385px;
 	margin: 3em auto 2em;
-	padding: 0 2em;
+	padding: 0 3em;
 	text-align: justify;
 }
 
@@ -45,16 +50,20 @@ img {
 }
 
 ul#screenshots {
-	width: 100%;
+	position: relative;
+	width: 385px;
+	height: 740px;
 	overflow: hidden;
 	list-style: none;
-	margin: 0;
+	margin: 1.5em 0;
+	background: #FFF url('../images/iphone.jpg') no-repeat;
 }
 
 #screenshots li {
-	float: left;
-	margin: 0 2em 2em 0;
-	border: 1px solid #CCC;
+	position: absolute;
+	top: 132px;
+	left: 34px;
+	display: none;
 }
 
 #screenshots img {

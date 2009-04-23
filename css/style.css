@@ -1,0 +1,63 @@
+* { 
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font: 85%/1.5 normal helvetica, arial, clean, sans-serif;
+}
+
+h2,
+h3 {
+	margin: 1.5em 0 .5em 0;
+	font-family: Lucida Grande;      
+}
+p {
+	margin: 0 0 .75em 0;
+}
+
+ul,
+ol {
+	margin-left: 1em;
+}
+
+a {
+	color: #BBB;
+	font-family: Lucida Grande;
+}
+
+img {
+	border: 0;
+}
+
+#main {
+	width: 52em;
+	margin: 3em auto 2em;
+	padding: 0 2em;
+	text-align: justify;
+}
+
+#ribbon {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: 0;
+}
+
+ul#screenshots {
+	width: 100%;
+	overflow: hidden;
+	list-style: none;
+	margin: 0;
+}
+
+#screenshots li {
+	float: left;
+	margin: 0 2em 2em 0;
+	border: 1px solid #CCC;
+}
+
+#screenshots img {
+	display: block;
+}
+

@@ -8,8 +8,10 @@ body {
 }
 
 h2,
-h3 {
+h3,
+h4 {
 	margin: 1.5em 0 .5em 0;
+	border-bottom: 1px solid #DDD;
 	font-family: Lucida Grande;
 	letter-spacing: -0.05em;
 	color: #666;
@@ -24,8 +26,17 @@ ol {
 	margin: 0 0 1.5em 1.5em;
 }
 
-a {
-	color: #BBB;
+a:link,
+a:visited {
+	color: #4183C4;
+	text-decoration: none;
+}
+
+a:focus,
+a:hover,
+a:active {
+	color: #94BFEA;
+	text-decoration: underline;
 }
 
 em {
@@ -37,9 +48,21 @@ img {
 }
 
 #main {
-	width: 385px;
+	width: 650px;
+	overflow: hidden;
 	margin: 3em auto 2em;
 	padding: 0 3em;
+}
+
+#content {
+	float: left;
+	width: 385px;
+}
+
+#sidebar {
+	float: right;
+	width: 230px;
+	padding-top: 7em;
 }
 
 #ribbon {
@@ -70,3 +93,16 @@ ul#screenshots {
 	display: block;
 }
 
+ul#twitter_update_list {
+	margin: 0;
+	list-style: none;
+	font-size: .9em;
+}
+
+#twitter_update_list li {
+	padding: .5em 0;
+}
+
+#twitter_update_list a {
+	color: #666;
+}

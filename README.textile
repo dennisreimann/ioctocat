@@ -1,15 +1,7 @@
 h1. iOctocat
 
-iOctocat is a GitHub client for the iPhone.
+… is a GitHub app for the iPhone.
 It is open source and will be available on the App Store soon.
-
-The current feature set includes:
-
-* My Private News Feed
-* My Activity Feed
-* My Repositories
-* Repository Details
-* User Profile View
 
 For further information visit "the project website":http://dbloete.github.com/ioctocat
 or "the wiki":http://wiki.github.com/dbloete/ioctocat.

@@ -1,14 +1,10 @@
 #import "iOctocatAppDelegate.h"
 #import "FeedViewController.h"
 #import "GHUser.h"
-#import <SystemConfiguration/SystemConfiguration.h>
 
 
-@interface iOctocatAppDelegate (PrivateMethods)
-
+@interface iOctocatAppDelegate ()
 - (void)displayNoConnectionView;
-- (void)cacheGravatar:(UIImage *)theGravatar forUser:(GHUser *)theUser;
-
 @end
 
 
@@ -45,13 +41,10 @@
     static BOOL checkNetwork = YES;
     if (checkNetwork) {
         checkNetwork = NO;
-		const char *hostName = "github.com";
-        Boolean success;
-        SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, hostName);
-        SCNetworkReachabilityFlags flags;
-        success = SCNetworkReachabilityGetFlags(reachability, &flags);
-        isDataSourceAvailable = success && (flags & (kSCNetworkFlagsReachable)) && !(flags & kSCNetworkFlagsConnectionRequired);
-        CFRelease(reachability);
+		NSURL *testURL = [NSURL URLWithString:kConnectivityCheckURL];
+		NSURLRequest *testRequest = [NSURLRequest requestWithURL:testURL];
+		NSURLConnection *testConnection = [NSURLConnection sendSynchronousRequest:testRequest returningResponse:nil error:NULL];
+		isDataSourceAvailable = (testConnection != nil);
     }
     return isDataSourceAvailable;
 }

@@ -8,6 +8,7 @@
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
+#define kCommitCellIdentifier @"CommitCell"
 
 // URLs
 #define kConnectivityCheckURL @"http://github.com/robots.txt"
@@ -16,6 +17,7 @@
 #define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
 #define kUserReposFormat @"https://github.com/api/v2/xml/repos/show/%@?token=%@"
 #define kRepoXMLFormat @"https://github.com/api/v2/xml/repos/show/%@/%@"
+#define kRepoCommitsXMLFormat @"https://github.com/api/v2/xml/commits/list/%@/%@/%@"
 
 // KVO
 #define kFeedLoadingKeyPath @"isLoading"
@@ -23,3 +25,4 @@
 #define kUserReposLoadingKeyPath @"isReposLoading"
 #define kUserGravatarKeyPath @"gravatar"
 #define kRepoLoadingKeyPath @"isLoading"
+#define kRepoRecentCommitsLoadingKeyPath @"isRecentCommitsLoading"

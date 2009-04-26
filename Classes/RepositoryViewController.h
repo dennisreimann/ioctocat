@@ -13,6 +13,8 @@
 	IBOutlet UILabel *websiteLabel;
 	IBOutlet UILabel *descriptionLabel;
 	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet UITableViewCell *loadingRecentCommitsCell;
+	IBOutlet UITableViewCell *noRecentCommitsCell;
 	IBOutlet LabeledCell *ownerCell;
 	IBOutlet LabeledCell *websiteCell;
 	IBOutlet TextCell *descriptionCell;

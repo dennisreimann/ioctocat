@@ -2,17 +2,19 @@
 #import "GHUser.h"
 #import "iOctocatAppDelegate.h"
 #import "GHReposParserDelegate.h"
+#import "GHCommitsParserDelegate.h"
 
 
 @interface GHRepository ()
 - (void)parseXML;
-- (void)loadedRepositories:(NSArray *)theRepositories;
+- (void)parseRecentCommitsXML;
 @end
 
 
 @implementation GHRepository
 
-@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers, isLoaded, isLoading;
+@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers;
+@synthesize recentCommits, isLoaded, isLoading, isRecentCommitsLoaded, isRecentCommitsLoading;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	if (self = [super init]) {
@@ -20,6 +22,8 @@
 		self.name = theName;
 		self.isLoaded = NO;
 		self.isLoading = NO;
+		self.isRecentCommitsLoaded = NO;
+		self.isRecentCommitsLoading = NO;
 	}
 	return self;
 }
@@ -32,6 +36,9 @@
 	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return [appDelegate userWithLogin:owner];
 }
+
+#pragma mark -
+#pragma mark Repository loading
 
 - (void)loadRepository {
 	self.isLoaded = NO;
@@ -70,6 +77,38 @@
 }
 
 #pragma mark -
+#pragma mark Commit loading
+
+- (void)loadRecentCommits {
+	self.isRecentCommitsLoaded = NO;
+	self.isRecentCommitsLoading = YES;
+	[self performSelectorInBackground:@selector(parseRecentCommitsXML) withObject:nil];
+}
+
+- (void)parseRecentCommitsXML {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSString *url = [NSString stringWithFormat:kRepoCommitsXMLFormat, owner, name, @"master"];
+	NSURL *commitsURL = [NSURL URLWithString:url];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:commitsURL];
+	GHCommitsParserDelegate *parserDelegate = [[GHCommitsParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRecentCommits:)];
+	[parser setDelegate:parserDelegate];
+	[parser setShouldProcessNamespaces:NO];
+	[parser setShouldReportNamespacePrefixes:NO];
+	[parser setShouldResolveExternalEntities:NO];
+	[parser parse];
+	[parser release];
+	[parserDelegate release];
+	[pool release];
+}
+
+- (void)loadedRecentCommits:(NSArray *)theCommits {
+	if (theCommits.count == 0) return;
+	self.recentCommits = theCommits;
+	self.isRecentCommitsLoaded = YES;
+	self.isRecentCommitsLoading = NO;
+}
+
+#pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
@@ -78,6 +117,7 @@
 	[descriptionText release];
 	[githubURL release];
 	[homepageURL release];
+	[recentCommits release];
     [super dealloc];
 }
 

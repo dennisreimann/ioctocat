@@ -1,5 +1,6 @@
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHCommit.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
 #import "RepositoryViewController.h"
@@ -9,8 +10,6 @@
 
 
 @interface RepositoryViewController ()
-- (void)repositoryLoadingStarted;
-- (void)repositoryLoadingFinished;
 - (void)displayRepository;
 @end
 
@@ -27,9 +26,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[repository addObserver:self forKeyPath:kRepoLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository addObserver:self forKeyPath:kRepoRecentCommitsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
+	if (!repository.isRecentCommitsLoaded) [repository loadRecentCommits];
 }
 
 #pragma mark -
@@ -48,6 +49,8 @@
 		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
 		if (!isLoading) [self displayRepository];
 		[self.tableView reloadData];
+	} else if ([keyPath isEqualToString:kRepoRecentCommitsLoadingKeyPath]) {
+		[self.tableView reloadData];
 	}
 }
 
@@ -55,30 +58,53 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	if (!repository.isLoaded) return 1;
+    return 2;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == 0) return @"";
+	return @"Recent commits on master";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
-	return 3;
+	if (section == 0) return 3;
+	if (!repository.isRecentCommitsLoaded || repository.recentCommits.count == 0) return 1;
+	return repository.recentCommits.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!repository.isLoaded) return loadingCell;
-	UITableViewCell *cell;
-	switch (indexPath.row) {
-		case 0: cell = ownerCell; break;
-		case 1: cell = websiteCell; break;
-		case 2: cell = descriptionCell; break;
+	if (indexPath.section == 0) {
+		UITableViewCell *cell;
+		switch (indexPath.row) {
+			case 0: cell = ownerCell; break;
+			case 1: cell = websiteCell; break;
+			case 2: cell = descriptionCell; break;
+		}
+		if (indexPath.row != 2) {
+			cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+			cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		}
+		return cell;
 	}
-	if (indexPath.row != 2) {
-		cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-		cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	if (!repository.isRecentCommitsLoaded) return loadingRecentCommitsCell;
+	if (indexPath.section == 1 && repository.recentCommits.count == 0) return noRecentCommitsCell;
+	if (indexPath.section == 1) {
+		GHCommit *commit = [repository.recentCommits objectAtIndex:indexPath.row];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
+		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kCommitCellIdentifier] autorelease];
+		cell.font = [UIFont systemFontOfSize:14.0f];
+		cell.text = commit.message;
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		return cell;
 	}
-	return cell;
+	return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 1) return;
 	NSInteger row = indexPath.row;
 	if (row == 0 && repository.user) {
 		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:repository.user];
@@ -92,11 +118,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row == 2) {
-		return [(TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] height];
-	} else {
-		return 44.0f;
-	}
+	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] height];
+	return 44.0f;
 }
 
 #pragma mark -
@@ -104,6 +127,7 @@
 
 - (void)dealloc {
 	[repository removeObserver:self forKeyPath:kRepoLoadingKeyPath];
+	[repository removeObserver:self	forKeyPath:kRepoRecentCommitsLoadingKeyPath];
 	[repository release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -115,6 +139,8 @@
 	[ownerCell release];
 	[websiteCell release];
 	[descriptionCell release];
+	[loadingRecentCommitsCell release];
+	[noRecentCommitsCell release];
     [super dealloc];
 }
 

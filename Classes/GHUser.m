@@ -142,7 +142,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	DebugLog(@"Parsing error: %@", [parseError localizedDescription]);
+	DebugLog(@"Parsing error: %@", parseError);
 }
 
 #pragma mark -

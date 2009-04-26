@@ -72,10 +72,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	switch (section) {
-		case 1: return @"Public Repositories";
-		default: return @"";
-	}
+	if (section == 0) return @"";
+	return @"Public Repositories";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

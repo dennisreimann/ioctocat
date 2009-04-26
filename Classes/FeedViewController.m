@@ -8,11 +8,9 @@
 #import "GHUser.h"
 
 
-@interface FeedViewController (PrivateMethods)
-
+@interface FeedViewController ()
 - (void)feedParsingStarted;
 - (void)feedParsingFinished;
-
 @end
 
 

@@ -3,10 +3,8 @@
 #import "GHUser.h"
 
 
-@interface GHFeed (PrivateMethods)
-
+@interface GHFeed ()
 - (void)parseFeed;
-
 @end
 
 

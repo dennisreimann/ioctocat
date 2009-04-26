@@ -8,12 +8,10 @@
 #import "iOctocatAppDelegate.h"
 
 
-@interface RepositoryViewController (PrivateMethods)
-
+@interface RepositoryViewController ()
 - (void)repositoryLoadingStarted;
 - (void)repositoryLoadingFinished;
 - (void)displayRepository;
-
 @end
 
 

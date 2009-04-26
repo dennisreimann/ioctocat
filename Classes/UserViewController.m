@@ -7,12 +7,8 @@
 #import "GravatarLoader.h"
 
 
-@interface UserViewController (PrivateMethods)
-
-- (void)userLoadingStarted;
-- (void)userLoadingFinished;
+@interface UserViewController ()
 - (void)displayUser;
-
 @end
 
 
@@ -40,7 +36,7 @@
 #pragma mark Actions
 
 - (void)displayUser {
-	nameLabel.text = user.name ? user.name :user.login;
+	nameLabel.text = user.name ? user.name : user.login;
 	companyLabel.text = user.company;
 	gravatarView.image = user.gravatar;
 	[locationCell setContentText:user.location];

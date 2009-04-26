@@ -4,12 +4,10 @@
 #import "GHReposParserDelegate.h"
 
 
-@interface GHUser (PrivateMethods)
-
+@interface GHUser ()
 - (void)parseXML;
 - (void)parseReposXML;
 - (void)finishedLoading;
-
 @end
 
 
@@ -127,7 +125,9 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	// User
-	if ([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
+	if ([elementName isEqualToString:@"name"] && !name) {
+		self.name = currentElementValue;
+	} else if ([elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
 		NSString *value = ([currentElementValue isEqualToString:@""]) ? nil : currentElementValue;
 		[self setValue:value forKey:elementName];
 	} else if ([elementName isEqualToString:@"blog"]) {

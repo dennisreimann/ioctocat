@@ -4,11 +4,9 @@
 #import "GHReposParserDelegate.h"
 
 
-@interface GHRepository (PrivateMethods)
-
+@interface GHRepository ()
 - (void)parseXML;
 - (void)loadedRepositories:(NSArray *)theRepositories;
-
 @end
 
 

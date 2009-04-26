@@ -14,10 +14,8 @@ NSString *md5(NSString *str) {
 } 
 
 
-@interface GravatarLoader (PrivateMethods)
-
+@interface GravatarLoader ()
 - (void)requestWithArgs:(NSArray *)theArgs;
-
 @end
 
 

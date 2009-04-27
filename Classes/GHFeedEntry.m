@@ -20,6 +20,11 @@
 - (id)eventItem {
 	if (eventItem) return eventItem;
 	if ([eventType isEqualToString:@"fork"]) {
+		NSArray *comps1 = [title componentsSeparatedByString:@" forked "];
+		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
+		NSString *owner = [comps2 objectAtIndex:0];
+		NSString *name = [comps2 objectAtIndex:1];
+		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	} else if ([eventType isEqualToString:@"issues"] || [eventType isEqualToString:@"comment"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" on "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
@@ -49,6 +54,12 @@
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	} else if ([eventType isEqualToString:@"gist"]) {
 	} else if ([eventType isEqualToString:@"wiki"]) {
+		NSArray *comps1 = [title componentsSeparatedByString:@" in the "];
+		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" wiki"];
+		NSArray *comps3 = [[comps2 objectAtIndex:0] componentsSeparatedByString:@"/"];
+		NSString *owner = [comps3 objectAtIndex:0];
+		NSString *name = [comps3 objectAtIndex:1];
+		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	}
 	return eventItem;
 }

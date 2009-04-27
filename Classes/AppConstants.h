@@ -27,3 +27,4 @@
 #define kRepoLoadingKeyPath @"isLoading"
 #define kRepoRecentCommitsLoadingKeyPath @"isRecentCommitsLoading"
 #define kResourceStatusKeyPath @"status"
+#define kRepositoriesStatusKeyPath @"repositoriesStatus"

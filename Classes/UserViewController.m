@@ -15,9 +15,8 @@
 @implementation UserViewController
 
 - (id)initWithUser:(GHUser *)theUser {
-    if (self = [super initWithNibName:@"User" bundle:nil]) {
-		user = [theUser retain];
-    }
+    [super initWithNibName:@"User" bundle:nil];
+	user = [theUser retain];
     return self;
 }
 
@@ -25,7 +24,7 @@
     [super viewDidLoad];
 	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kUserReposLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.isReposLoaded) [user loadRepositories];
 	self.title = user.login;
@@ -50,7 +49,7 @@
 	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		[self displayUser];
 		[self.tableView reloadData];
-	} else if ([keyPath isEqualToString:kUserReposLoadingKeyPath]) {
+	} else if ([keyPath isEqualToString:kRepositoriesStatusKeyPath]) {
 		[self.tableView reloadData];
 	}
 }
@@ -136,7 +135,7 @@
 - (void)dealloc {
 	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[user removeObserver:self forKeyPath:kUserReposLoadingKeyPath];
+	[user removeObserver:self forKeyPath:kRepositoriesStatusKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];

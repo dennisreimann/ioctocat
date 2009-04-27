@@ -4,9 +4,8 @@
 @implementation WebViewController
 
 - (id)initWithURL:(NSURL *)theURL {
-    if (self = [super initWithNibName:@"WebView" bundle:nil]) {
-        url = [theURL retain];
-    }
+    [super initWithNibName:@"WebView" bundle:nil];
+	url = [theURL retain];
     return self;
 }
 

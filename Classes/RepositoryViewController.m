@@ -17,9 +17,8 @@
 @implementation RepositoryViewController
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-    if (self = [super initWithNibName:@"Repository" bundle:nil]) {
-		repository = [theRepository retain];
-    }
+    [super initWithNibName:@"Repository" bundle:nil];
+	repository = [theRepository retain];
     return self;
 }
 

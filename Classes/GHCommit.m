@@ -6,9 +6,8 @@
 @synthesize commitID, tree, message, commitURL, authorName, authorEmail, committerName, committerEmail, committedDate, authoredDate;
 
 - (id)initWithCommitID:(NSString *)theCommitID {
-	if (self = [super init]) {
-		self.commitID = theCommitID;
-	}
+	[super init];
+	self.commitID = theCommitID;
 	return self;
 }
 

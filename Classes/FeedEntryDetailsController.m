@@ -13,9 +13,8 @@
 @synthesize entry;
 
 - (id)initWithFeedEntry:(GHFeedEntry *)theEntry {
-    if (self = [super initWithNibName:@"FeedEntryDetails" bundle:nil]) {
-        self.entry = theEntry;
-    }
+    [super initWithNibName:@"FeedEntryDetails" bundle:nil];
+	self.entry = theEntry;
     return self;
 }
 

@@ -22,10 +22,9 @@ NSString *md5(NSString *str) {
 @implementation GravatarLoader
 
 - (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle {
-	if (self = [super init]) {
-		target = [theTarget retain];
-		handle = theHandle;
-	}
+	[super init];
+	target = [theTarget retain];
+	handle = theHandle;
 	return self;
 }
 

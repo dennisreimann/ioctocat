@@ -17,13 +17,12 @@
 @synthesize forks, watchers, recentCommits, isRecentCommitsLoaded, isRecentCommitsLoading;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	if (self = [super init]) {
-		self.owner = theOwner;
-		self.name = theName;
-		self.status = GHResourceStatusNotLoaded;
-		self.isRecentCommitsLoaded = NO;
-		self.isRecentCommitsLoading = NO;
-	}
+	[super init];
+	self.owner = theOwner;
+	self.name = theName;
+	self.status = GHResourceStatusNotLoaded;
+	self.isRecentCommitsLoaded = NO;
+	self.isRecentCommitsLoading = NO;
 	return self;
 }
 

@@ -70,6 +70,7 @@
 		6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* FeedViewController.m */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
+		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,8 @@
 		6FCE4D870F7FE16A00451D6E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsersParserDelegate.h; sourceTree = "<group>"; };
+		6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsersParserDelegate.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -245,6 +248,7 @@
 		6F1DC4410F7E5A7E00FCD26D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				6FF6EB2D0FA61115000679FA /* Parser */,
 				6F14B6480FA5F37500F74B4C /* GHResource.h */,
 				6F14B6490FA5F37500F74B4C /* GHResource.m */,
 				6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */,
@@ -257,10 +261,6 @@
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
 				6FC465160F9D1445003A8E7B /* GHCommit.m */,
-				6FC647270F9B165E00FE39F6 /* GHReposParserDelegate.h */,
-				6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */,
-				6FC465100F9D141D003A8E7B /* GHCommitsParserDelegate.h */,
-				6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */,
 				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
 				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
@@ -357,6 +357,19 @@
 				6F72FAE00F9B45FF0069F092 /* FeedEntryDetails.xib */,
 			);
 			name = IBFiles;
+			sourceTree = "<group>";
+		};
+		6FF6EB2D0FA61115000679FA /* Parser */ = {
+			isa = PBXGroup;
+			children = (
+				6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */,
+				6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */,
+				6FC647270F9B165E00FE39F6 /* GHReposParserDelegate.h */,
+				6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */,
+				6FC465100F9D141D003A8E7B /* GHCommitsParserDelegate.h */,
+				6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */,
+			);
+			name = Parser;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -478,6 +491,7 @@
 				6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */,
 				6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */,
 				6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */,
+				6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

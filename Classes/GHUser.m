@@ -2,28 +2,32 @@
 #import "GHRepository.h"
 #import "GravatarLoader.h"
 #import "GHReposParserDelegate.h"
+#import "GHUsersParserDelegate.h"
 
 
 @interface GHUser ()
 - (void)parseXML;
 - (void)parseReposXML;
-- (void)finishedLoading;
 @end
 
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar, repositories, isReposLoaded, isReposLoading;
+@synthesize name, login, email, company, blogURL, location, gravatar;
+@synthesize repositoriesStatus, repositories;
+
+- (id)init {
+	[super init];
+	self.status = GHResourceStatusNotLoaded;
+	self.repositoriesStatus = GHResourceStatusNotLoaded;
+	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(setLoadedGravatar:)];
+	return self;
+}
 
 - (id)initWithLogin:(NSString *)theLogin {
-	if (self = [super init]) {
-		self.login = theLogin;
-		self.status = GHResourceStatusNotLoaded;
-		self.isReposLoaded = NO;
-		self.isReposLoading = NO;
-		self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
-		gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(setLoadedGravatar:)];
-	}
+	[self init];
+	self.login = theLogin;
+	self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
 	return self;
 }
 
@@ -32,31 +36,56 @@
 }
 
 #pragma mark -
-#pragma mark XML parsing
+#pragma mark User loading
 
 - (void)loadUser {
 	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 
-- (void)loadRepositories {
-	self.isReposLoaded = NO;
-	self.isReposLoading = YES;
-	[self performSelectorInBackground:@selector(parseReposXML) withObject:nil];
-}
-
 - (void)parseXML {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *url = [NSString stringWithFormat:kUserXMLFormat, login];
 	NSURL *userURL = [NSURL URLWithString:url];
+	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];
-	[parser setDelegate:self];
+	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
 	[parser setShouldResolveExternalEntities:NO];
 	[parser parse];
 	[parser release];
+	[parserDelegate release];
 	[pool release];
+}
+
+- (void)loadedUsers:(NSArray *)theUsers {
+	if (theUsers.count == 0) return;
+	GHUser *user = [theUsers objectAtIndex:0];
+	self.login = user.login;
+	self.name = user.name;
+	self.email = user.email;
+	self.company = user.company;
+	self.location = user.location;
+	self.blogURL = user.blogURL;
+	self.status = GHResourceStatusLoaded;
+	if (email) [gravatarLoader loadEmail:email withSize:44];
+}
+
+#pragma mark -
+#pragma mark Repository loading
+
+- (BOOL)isReposLoading {
+	return repositoriesStatus == GHResourceStatusLoading;
+}
+
+- (BOOL)isReposLoaded {
+	return repositoriesStatus == GHResourceStatusLoaded;
+}
+
+- (void)loadRepositories {
+	self.repositoriesStatus = GHResourceStatusLoading;
+	[self performSelectorInBackground:@selector(parseReposXML) withObject:nil];
 }
 
 - (void)parseReposXML {
@@ -75,25 +104,13 @@
 	[pool release];
 }
 
-- (void)finishedLoading {
-	self.status = GHResourceStatusLoaded;
-}
-
 - (void)setLoadedRepositories:(NSArray *)theRepositories {
 	self.repositories = theRepositories;
-	self.isReposLoaded = YES;
-	self.isReposLoading = NO;
+	self.repositoriesStatus = GHResourceStatusLoaded;
 }
 
 #pragma mark -
 #pragma mark Gravatar
-
-- (void)setEmail:(NSString *)theEmail {
-	[theEmail retain];
-	[email release];
-	email = theEmail;
-	if (email) [gravatarLoader loadEmail:email withSize:44];
-}
 
 - (void)setLoadedGravatar:(UIImage *)theImage {
 	if (![theImage isKindOfClass:[UIImage class]]) return;
@@ -109,40 +126,6 @@
 }
 
 #pragma mark -
-#pragma mark NSXMLParser delegation methods
-
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
-	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	if (!currentElementValue) {
-		currentElementValue = [[NSMutableString alloc] initWithString:string];
-	} else {
-		[currentElementValue appendString:string];
-	}
-}
-
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
-	// User
-	if ([elementName isEqualToString:@"name"] && !name) {
-		self.name = currentElementValue;
-	} else if ([elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
-		NSString *value = ([currentElementValue isEqualToString:@""]) ? nil : currentElementValue;
-		[self setValue:value forKey:elementName];
-	} else if ([elementName isEqualToString:@"blog"]) {
-		self.blogURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
-	}
-	[currentElementValue release];
-	currentElementValue = nil;
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[self performSelectorOnMainThread:@selector(finishedLoading) withObject:nil waitUntilDone:NO];
-}
-
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	DebugLog(@"Parsing error: %@", parseError);
-}
-
-#pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
@@ -154,7 +137,6 @@
 	[location release];
 	[gravatar release];
 	[repositories release];
-	[currentElementValue release];
 	[gravatarLoader release];
     [super dealloc];
 }

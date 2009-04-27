@@ -13,13 +13,12 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar, repositories, isLoaded, isLoading, isReposLoaded, isReposLoading;
+@synthesize name, login, email, company, blogURL, location, gravatar, repositories, isReposLoaded, isReposLoading;
 
 - (id)initWithLogin:(NSString *)theLogin {
 	if (self = [super init]) {
 		self.login = theLogin;
-		self.isLoaded = NO;
-		self.isLoading = NO;
+		self.status = GHResourceStatusNotLoaded;
 		self.isReposLoaded = NO;
 		self.isReposLoading = NO;
 		self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
@@ -36,8 +35,7 @@
 #pragma mark XML parsing
 
 - (void)loadUser {
-	self.isLoaded = NO;
-	self.isLoading = YES;
+	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 
@@ -78,8 +76,7 @@
 }
 
 - (void)finishedLoading {
-	self.isLoaded = YES;
-	self.isLoading = NO;
+	self.status = GHResourceStatusLoaded;
 }
 
 - (void)setLoadedRepositories:(NSArray *)theRepositories {

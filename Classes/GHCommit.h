@@ -1,7 +1,8 @@
 #import <Foundation/Foundation.h>
+#import "GHResource.h"
 
 
-@interface GHCommit : NSObject {
+@interface GHCommit : GHResource {
 	NSString *commitID;
 	NSString *tree;
 	NSString *message;

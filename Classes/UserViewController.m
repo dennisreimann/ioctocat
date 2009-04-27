@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[user addObserver:self forKeyPath:kUserLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserReposLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
@@ -47,7 +47,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
-	} else if ([keyPath isEqualToString:kUserLoadingKeyPath]) {
+	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		[self displayUser];
 		[self.tableView reloadData];
 	} else if ([keyPath isEqualToString:kUserReposLoadingKeyPath]) {
@@ -134,7 +134,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[user removeObserver:self forKeyPath:kUserLoadingKeyPath];
+	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[user removeObserver:self forKeyPath:kUserReposLoadingKeyPath];
 	[user release];

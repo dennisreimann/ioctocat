@@ -25,7 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[repository addObserver:self forKeyPath:kRepoLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository addObserver:self forKeyPath:kRepoRecentCommitsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
@@ -45,9 +45,8 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kRepoLoadingKeyPath]) {
-		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
-		if (!isLoading) [self displayRepository];
+	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		if (repository.isLoaded) [self displayRepository];
 		[self.tableView reloadData];
 	} else if ([keyPath isEqualToString:kRepoRecentCommitsLoadingKeyPath]) {
 		[self.tableView reloadData];
@@ -126,7 +125,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[repository removeObserver:self forKeyPath:kRepoLoadingKeyPath];
+	[repository removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[repository removeObserver:self	forKeyPath:kRepoRecentCommitsLoadingKeyPath];
 	[repository release];
 	[tableHeaderView release];

@@ -1,9 +1,10 @@
 #import <Foundation/Foundation.h>
+#import "GHResource.h"
 
 
 @class GHUser;
 
-@interface GHRepository : NSObject {
+@interface GHRepository : GHResource {
 	NSString *name;
 	NSString *owner;
 	NSString *descriptionText;
@@ -14,8 +15,6 @@
 	NSArray *recentCommits;
 	BOOL isPrivate;
 	BOOL isFork;
-	BOOL isLoaded;
-	BOOL isLoading;
 	BOOL isRecentCommitsLoaded;
 	BOOL isRecentCommitsLoading;
 }
@@ -30,8 +29,6 @@
 @property (nonatomic, readwrite) NSInteger watchers;
 @property (nonatomic, readwrite) BOOL isPrivate;
 @property (nonatomic, readwrite) BOOL isFork;
-@property (nonatomic, readwrite) BOOL isLoaded;
-@property (nonatomic, readwrite) BOOL isLoading;
 @property (nonatomic, readwrite) BOOL isRecentCommitsLoaded;
 @property (nonatomic, readwrite) BOOL isRecentCommitsLoading;
 @property (nonatomic, readonly) GHUser *user;

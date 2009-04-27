@@ -13,15 +13,14 @@
 
 @implementation GHRepository
 
-@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers;
-@synthesize recentCommits, isLoaded, isLoading, isRecentCommitsLoaded, isRecentCommitsLoading;
+@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork;
+@synthesize forks, watchers, recentCommits, isRecentCommitsLoaded, isRecentCommitsLoading;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	if (self = [super init]) {
 		self.owner = theOwner;
 		self.name = theName;
-		self.isLoaded = NO;
-		self.isLoading = NO;
+		self.status = GHResourceStatusNotLoaded;
 		self.isRecentCommitsLoaded = NO;
 		self.isRecentCommitsLoading = NO;
 	}
@@ -29,7 +28,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository isLoaded:'%@' name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", isLoaded ? @"YES" : @"NO", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
+    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
 }
 
 - (GHUser *)user {
@@ -41,8 +40,7 @@
 #pragma mark Repository loading
 
 - (void)loadRepository {
-	self.isLoaded = NO;
-	self.isLoading = YES;
+	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 
@@ -72,8 +70,7 @@
 	self.isPrivate = repo.isPrivate;
 	self.forks = repo.forks;
 	self.watchers = repo.watchers;
-	self.isLoaded = YES;
-	self.isLoading = NO;
+	self.status = GHResourceStatusLoaded;
 }
 
 #pragma mark -

@@ -1,9 +1,10 @@
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#import "GHResource.h"
 
 
 @class GravatarLoader;
 
-@interface GHUser : NSObject {
+@interface GHUser : GHResource {
 	NSString *name;
 	NSString *login;
 	NSString *email;
@@ -12,8 +13,6 @@
 	NSURL *blogURL;
 	UIImage *gravatar;
 	NSArray *repositories;
-	BOOL isLoaded;
-	BOOL isLoading;
 	BOOL isReposLoaded;
 	BOOL isReposLoading;
   @private
@@ -29,8 +28,6 @@
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) UIImage *gravatar;
 @property (nonatomic, retain) NSArray *repositories;
-@property (nonatomic, readwrite) BOOL isLoaded;
-@property (nonatomic, readwrite) BOOL isLoading;
 @property (nonatomic, readwrite) BOOL isReposLoaded;
 @property (nonatomic, readwrite) BOOL isReposLoading;
 @property (nonatomic, readonly) NSString *cachedGravatarPath;

@@ -1,11 +1,10 @@
 #import <Foundation/Foundation.h>
+#import "GHResource.h"
 
 
 @class GHFeedEntry;
 
-@interface GHFeed : NSObject {
-	BOOL isLoaded;
-	BOOL isLoading;
+@interface GHFeed : GHResource {
   @private
 	NSURL *url;
 	NSMutableArray *entries;
@@ -16,8 +15,6 @@
 
 @property (nonatomic, retain) NSURL *url;
 @property (nonatomic, retain) NSMutableArray *entries;
-@property (nonatomic, readwrite) BOOL isLoaded;
-@property (nonatomic, readwrite) BOOL isLoading;
 
 - (id)initWithURL:(NSURL *)theURL;
 - (void)loadFeed;

@@ -32,8 +32,8 @@
 	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
 	GHFeed *newsFeed = [[GHFeed alloc] initWithURL:newsFeedURL];
 	GHFeed *activityFeed = [[GHFeed alloc] initWithURL:activityFeedURL];
-	[newsFeed addObserver:self forKeyPath:kFeedLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[activityFeed addObserver:self forKeyPath:kFeedLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[newsFeed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[activityFeed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	[newsFeed release];
 	[activityFeed release];
@@ -56,9 +56,8 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kFeedLoadingKeyPath]) {
-		BOOL isLoading = [[change valueForKey:NSKeyValueChangeNewKey] boolValue];
-		(isLoading == YES) ? [self feedParsingStarted] : [self feedParsingFinished];
+	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		[(GHFeed *)object isLoading] ? [self feedParsingStarted] : [self feedParsingFinished];
 	}
 }
 

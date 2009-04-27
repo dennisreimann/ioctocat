@@ -12,6 +12,7 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
+		6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F14B6490FA5F37500F74B4C /* GHResource.m */; };
 		6F1DC3510F7E4E6A00FCD26D /* iTunesArtWork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */; };
 		6F1DC39B0F7E52F000FCD26D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC39A0F7E52F000FCD26D /* Settings.bundle */; };
 		6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */; };
@@ -80,6 +81,8 @@
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6F14B6480FA5F37500F74B4C /* GHResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHResource.h; sourceTree = "<group>"; };
+		6F14B6490FA5F37500F74B4C /* GHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHResource.m; sourceTree = "<group>"; };
 		6F1DC3500F7E4E6A00FCD26D /* iTunesArtWork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = iTunesArtWork.png; path = Images/iTunesArtWork.png; sourceTree = "<group>"; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppConstants.h; path = Classes/AppConstants.h; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 		6F1DC4410F7E5A7E00FCD26D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				6F14B6480FA5F37500F74B4C /* GHResource.h */,
+				6F14B6490FA5F37500F74B4C /* GHResource.m */,
 				6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */,
 				6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */,
 				6F1DC4470F7E5AA000FCD26D /* GHFeedEntry.h */,
@@ -472,6 +477,7 @@
 				6F72FB2F0F9B53810069F092 /* GHFeedEntryCell.m in Sources */,
 				6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */,
 				6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */,
+				6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

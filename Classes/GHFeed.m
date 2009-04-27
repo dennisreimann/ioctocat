@@ -10,20 +10,19 @@
 
 @implementation GHFeed
 
-@synthesize url, entries, isLoaded, isLoading;
+@synthesize url, entries;
 
 - (id)initWithURL:(NSURL *)theURL {
 	if (self = [super init]) {
 		self.url = theURL;
 		self.entries = [NSMutableArray array];
-		self.isLoaded = NO;
-		self.isLoading = NO;
+		self.status = GHResourceStatusNotLoaded;
 	}
 	return self;
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHFeed url:'%@' isLoading:'%@'>", url, isLoading ? @"YES" : @"NO"];
+    return [NSString stringWithFormat:@"<GHFeed url:'%@'>", url];
 }
 
 #pragma mark -
@@ -31,8 +30,7 @@
 
 - (void)loadFeed {
 	if (self.isLoading) return;
-	self.isLoaded = NO;
-	self.isLoading = YES;
+	self.status = GHResourceStatusLoading;
 	self.entries = [NSMutableArray array];
 	[self performSelectorInBackground:@selector(parseFeed) withObject:nil];
 }
@@ -50,8 +48,7 @@
 }
 
 - (void)finishedParsing {
-	self.isLoading = NO;
-	self.isLoaded = YES;
+	self.status = GHResourceStatusLoaded;
 }
 
 #pragma mark -

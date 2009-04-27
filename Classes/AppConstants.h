@@ -26,3 +26,4 @@
 #define kUserGravatarKeyPath @"gravatar"
 #define kRepoLoadingKeyPath @"isLoading"
 #define kRepoRecentCommitsLoadingKeyPath @"isRecentCommitsLoading"
+#define kResourceStatusKeyPath @"status"

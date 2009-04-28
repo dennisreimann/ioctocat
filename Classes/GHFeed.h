@@ -1,8 +1,7 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
+#import "GHFeedEntry.h"
 
-
-@class GHFeedEntry;
 
 @interface GHFeed : GHResource {
   @private

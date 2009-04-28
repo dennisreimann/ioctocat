@@ -1,5 +1,4 @@
 #import "GHFeedEntry.h"
-#import "GHUser.h"
 #import "GHRepository.h"
 #import "iOctocatAppDelegate.h"
 

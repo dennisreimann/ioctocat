@@ -7,6 +7,8 @@
 #import "UserViewController.h"
 #import "WebViewController.h"
 #import "iOctocatAppDelegate.h"
+#import "GHFeedEntryCell.h"
+#import "FeedEntryDetailsController.h"
 
 
 @interface RepositoryViewController ()
@@ -25,11 +27,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[repository addObserver:self forKeyPath:kRepoRecentCommitsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository addObserver:self forKeyPath:kRepoRecentCommitsStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
-	if (!repository.isRecentCommitsLoaded) [repository loadRecentCommits];
 }
 
 #pragma mark -
@@ -41,6 +42,7 @@
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
+	if (!repository.recentCommits.isLoaded) [repository.recentCommits loadEntries];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -53,8 +55,9 @@
 			[alert show];
 			[alert release];
 		}
-	} else if ([keyPath isEqualToString:kRepoRecentCommitsLoadingKeyPath]) {
-		[self.tableView reloadData];
+	} else if ([keyPath isEqualToString:kRepoRecentCommitsStatusKeyPath]) {
+		repository.recentCommits;
+		if (repository.recentCommits.isLoaded) [self.tableView reloadData];
 	}
 }
 
@@ -73,9 +76,9 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
-	if (section == 0) return 3;
-	if (!repository.isRecentCommitsLoaded || repository.recentCommits.count == 0) return 1;
-	return repository.recentCommits.count;
+	if (section == 0) return descriptionCell.hasContent ? 3 : 2;
+	if (!repository.recentCommits.isLoaded || repository.recentCommits.entries.count == 0) return 1;
+	return repository.recentCommits.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,37 +96,43 @@
 		}
 		return cell;
 	}
-	if (!repository.isRecentCommitsLoaded) return loadingRecentCommitsCell;
-	if (indexPath.section == 1 && repository.recentCommits.count == 0) return noRecentCommitsCell;
+	if (!repository.recentCommits.isLoaded) return loadingRecentCommitsCell;
+	if (indexPath.section == 1 && repository.recentCommits.entries.count == 0) return noRecentCommitsCell;
 	if (indexPath.section == 1) {
-		GHCommit *commit = [repository.recentCommits objectAtIndex:indexPath.row];
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
-		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kCommitCellIdentifier] autorelease];
-		cell.font = [UIFont systemFontOfSize:14.0f];
-		cell.text = commit.message;
-		cell.accessoryType = UITableViewCellAccessoryNone;
+		GHFeedEntryCell *cell = (GHFeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
+		if (cell == nil) {
+			[[NSBundle mainBundle] loadNibNamed:@"GHFeedEntryCell" owner:self options:nil];
+			cell = feedEntryCell;
+		}
+		cell.entry = [repository.recentCommits.entries objectAtIndex:indexPath.row];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	}
 	return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 1) return;
+	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (row == 0 && repository.user) {
+	if (section == 0 && row == 0 && repository.user) {
 		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:repository.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
-	} else if (row == 1 && repository.homepageURL) {
+	} else if (section == 0 && row == 1 && repository.homepageURL) {
 		WebViewController *webController = [[WebViewController alloc] initWithURL:repository.homepageURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
+	} else if (section == 1 && repository.recentCommits.entries.count > 0) {
+		GHFeedEntry *entry = [repository.recentCommits.entries objectAtIndex:indexPath.row];
+		FeedEntryDetailsController *entryController = [[FeedEntryDetailsController alloc] initWithFeedEntry:entry];
+		[self.navigationController pushViewController:entryController animated:YES];
+		[entryController release];
 	}
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] height];
-	return 44.0f;
+	return [(UITableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] frame].size.height;
 }
 
 #pragma mark -
@@ -131,7 +140,7 @@
 
 - (void)dealloc {
 	[repository removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[repository removeObserver:self	forKeyPath:kRepoRecentCommitsLoadingKeyPath];
+	[repository removeObserver:self	forKeyPath:kRepoRecentCommitsStatusKeyPath];
 	[repository release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -143,6 +152,7 @@
 	[ownerCell release];
 	[websiteCell release];
 	[descriptionCell release];
+	[feedEntryCell release];
 	[loadingRecentCommitsCell release];
 	[noRecentCommitsCell release];
     [super dealloc];

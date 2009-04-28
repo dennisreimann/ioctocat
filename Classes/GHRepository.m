@@ -1,5 +1,4 @@
 #import "GHRepository.h"
-#import "GHUser.h"
 #import "iOctocatAppDelegate.h"
 #import "GHReposParserDelegate.h"
 #import "GHCommitsParserDelegate.h"
@@ -7,23 +6,33 @@
 
 @interface GHRepository ()
 - (void)parseXML;
-- (void)parseRecentCommitsXML;
 @end
 
 
 @implementation GHRepository
 
-@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork;
-@synthesize forks, watchers, recentCommits, isRecentCommitsLoaded, isRecentCommitsLoading;
+@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers, recentCommits;
+
+- (id)init {
+	[super init];
+	self.status = GHResourceStatusNotLoaded;
+	return self;
+}
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	[super init];
+	[self init];
+	[self setOwner:theOwner andName:theName];
+	return self;
+}
+
+- (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-	self.status = GHResourceStatusNotLoaded;
-	self.isRecentCommitsLoaded = NO;
-	self.isRecentCommitsLoading = NO;
-	return self;
+	NSString *commitFeedURLString = [NSString stringWithFormat:kRepoFeedFormat, owner, name];
+	NSURL *commitFeedURL = [NSURL URLWithString:commitFeedURLString];
+	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
+	self.recentCommits = commitFeed;
+	[commitFeed release];
 }
 
 - (NSString *)description {
@@ -78,38 +87,6 @@
 		self.watchers = repo.watchers;
 		self.status = GHResourceStatusLoaded;
 	}
-}
-
-#pragma mark -
-#pragma mark Commit loading
-
-- (void)loadRecentCommits {
-	self.isRecentCommitsLoaded = NO;
-	self.isRecentCommitsLoading = YES;
-	[self performSelectorInBackground:@selector(parseRecentCommitsXML) withObject:nil];
-}
-
-- (void)parseRecentCommitsXML {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *url = [NSString stringWithFormat:kRepoCommitsXMLFormat, owner, name, @"master"];
-	NSURL *commitsURL = [NSURL URLWithString:url];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:commitsURL];
-	GHCommitsParserDelegate *parserDelegate = [[GHCommitsParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRecentCommits:)];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)loadedRecentCommits:(NSArray *)theCommits {
-	if (theCommits.count == 0) return;
-	self.recentCommits = theCommits;
-	self.isRecentCommitsLoaded = YES;
-	self.isRecentCommitsLoading = NO;
 }
 
 #pragma mark -

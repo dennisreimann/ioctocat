@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
+#import "GHUser.h"
 
-
-@class GHFeed, GHUser;
 
 @interface GHFeedEntry : NSObject {
 	NSString *entryID;

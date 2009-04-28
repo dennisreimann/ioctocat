@@ -33,6 +33,9 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"repository"]) {
+		// FIXME This is an evil hack to get the feed URL set right
+		[currentRepository setOwner:currentRepository.owner andName:currentRepository.name];
+		// EMXIF
 		currentRepository.status = GHResourceStatusLoaded;
 		[repositories addObject:currentRepository];
 		[currentRepository release];

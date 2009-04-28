@@ -52,7 +52,7 @@
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {
 			currentEntry.eventType = @"comment";
-		} else if ([event hasPrefix:@"Commit"]) {
+		} else if ([event hasPrefix:@"Commit"] || [event hasPrefix:@"Grit::Commit"]) {
 			currentEntry.eventType = @"commit";
 		} else if ([event hasPrefix:@"Watch"]) {
 			currentEntry.eventType = @"watch";

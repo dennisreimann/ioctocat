@@ -2,10 +2,10 @@
 
 
 @interface LabeledCell : UITableViewCell {
-	BOOL hasContent;
   @private
 	IBOutlet UILabel *label;
 	IBOutlet UILabel *content;
+	BOOL hasContent;
 }
 
 @property (nonatomic, readonly) BOOL hasContent;

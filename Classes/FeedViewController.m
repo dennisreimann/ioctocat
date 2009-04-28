@@ -47,17 +47,28 @@
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
 	if (self.currentFeed.isLoaded) return;
-	[self.currentFeed loadFeed];
+	[self.currentFeed loadEntries];
 }
 
 - (IBAction)reloadFeed:(id)sender {
 	if (self.currentFeed.isLoading) return;
-	[self.currentFeed loadFeed];
+	[self.currentFeed loadEntries];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
-		[(GHFeed *)object isLoading] ? [self feedParsingStarted] : [self feedParsingFinished];
+		GHFeed *feed = (GHFeed *)object;
+		if (feed.isLoading) {
+			[self feedParsingStarted];
+		} else {
+			[self feedParsingFinished];
+			if (feed.error) {
+				// Let's just assume it's an authentication error
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+				[alert release];
+			}
+		}
 	}
 }
 

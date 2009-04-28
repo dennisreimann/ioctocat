@@ -10,6 +10,7 @@
 	NSMutableArray *entries;
 	NSMutableString *currentElementValue;
 	NSDateFormatter *dateFormatter;
+	NSError *error;
 	GHFeedEntry *currentEntry;
 }
 

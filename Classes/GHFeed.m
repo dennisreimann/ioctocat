@@ -28,8 +28,9 @@
 #pragma mark -
 #pragma mark Feed parsing
 
-- (void)loadFeed {
+- (void)loadEntries {
 	if (self.isLoading) return;
+	self.error = nil;
 	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseFeed) withObject:nil];
 }
@@ -48,9 +49,14 @@
 	[pool release];
 }
 
-- (void)loadedEntries:(NSArray *)theEntries {
-	self.entries = theEntries;
-	self.status = GHResourceStatusLoaded;
+- (void)loadedEntries:(id)theResult {
+	if ([theResult isKindOfClass:[NSError class]]) {
+		self.error = theResult;
+		self.status = GHResourceStatusNotLoaded;
+	} else {
+		self.entries = theResult;
+		self.status = GHResourceStatusLoaded;
+	}
 }
 
 #pragma mark -

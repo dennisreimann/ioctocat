@@ -14,8 +14,6 @@
 	return self;
 }
 
-
-
 #pragma mark -
 #pragma mark NSXMLParser delegation methods
 
@@ -86,18 +84,13 @@
 	currentElementValue = nil;
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[target performSelectorOnMainThread:selector withObject:entries waitUntilDone:YES];
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+	error = [parseError retain];
 }
 
-// FIXME It's not quite perfect that the error handling is part
-// of the model layer. This should happen in the controller.
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	DebugLog(@"Parsing error: %@", parseError);
-	// Let's just assume it's an authentication error
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+- (void)parserDidEndDocument:(NSXMLParser *)parser {
+	id result = error ? (id)error : (id)entries;
+	[target performSelectorOnMainThread:selector withObject:result waitUntilDone:NO];
 }
 
 #pragma mark -
@@ -105,6 +98,7 @@
 
 - (void)dealloc {
 	[entries release];
+	[error release];
 	[currentEntry release];
 	[currentElementValue release];
 	[dateFormatter release];

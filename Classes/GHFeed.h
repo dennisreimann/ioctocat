@@ -14,6 +14,7 @@
 @property (nonatomic, retain) NSArray *entries;
 
 - (id)initWithURL:(NSURL *)theURL;
-- (void)loadFeed;
+- (void)loadEntries;
+- (void)loadedEntries:(id)theResult;
 
 @end

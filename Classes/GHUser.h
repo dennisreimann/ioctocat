@@ -33,9 +33,9 @@
 
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)loadUser;
+- (void)loadedUsers:(id)theResult;
 - (void)loadRepositories;
-- (void)loadedUsers:(NSArray *)theUsers;
-- (void)setLoadedRepositories:(NSArray *)theRepositories;
-- (void)setLoadedGravatar:(UIImage *)theImage;
+- (void)loadedRepositories:(NSArray *)theRepositories;
+- (void)loadedGravatar:(UIImage *)theImage;
 
 @end

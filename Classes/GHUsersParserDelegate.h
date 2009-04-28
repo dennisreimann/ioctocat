@@ -7,6 +7,7 @@
   @private
 	id target;
 	SEL selector;
+	NSError *error;
 	NSMutableArray *users;
 	NSMutableString *currentElementValue;
 	GHUser *currentUser;

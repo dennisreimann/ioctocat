@@ -16,6 +16,7 @@
 #define kActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
 #define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
 #define kUserReposFormat @"https://github.com/api/v2/xml/repos/show/%@?token=%@"
+#define kUserSearchFormat @"https://github.com/api/v2/xml/user/search/%@"
 #define kUserFeedFormat @"http://github.com/%@.atom"
 #define kRepoXMLFormat @"https://github.com/api/v2/xml/repos/show/%@/%@"
 #define kRepoFeedFormat @"http://github.com/feeds/%@/commits/%@/master"

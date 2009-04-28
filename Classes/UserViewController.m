@@ -47,8 +47,15 @@
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
-		[self displayUser];
-		[self.tableView reloadData];
+		if (user.isLoaded) {
+			[self displayUser];
+			[self.tableView reloadData];
+		} else if (user.error) {
+			NSString *message = [NSString stringWithFormat:@"Could not load the user %@", user.login];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
 	} else if ([keyPath isEqualToString:kRepositoriesStatusKeyPath]) {
 		[self.tableView reloadData];
 	}

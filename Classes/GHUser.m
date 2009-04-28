@@ -20,7 +20,7 @@
 	[super init];
 	self.status = GHResourceStatusNotLoaded;
 	self.repositoriesStatus = GHResourceStatusNotLoaded;
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(setLoadedGravatar:)];
+	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
 
@@ -40,14 +40,15 @@
 
 - (void)loadUser {
 	if (self.isLoading) return;
+	self.error = nil;
 	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 
 - (void)parseXML {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *url = [NSString stringWithFormat:kUserXMLFormat, login];
-	NSURL *userURL = [NSURL URLWithString:url];
+	NSString *userURLString = [NSString stringWithFormat:kUserXMLFormat, login];
+	NSURL *userURL = [NSURL URLWithString:userURLString];
 	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];
 	[parser setDelegate:parserDelegate];
@@ -60,17 +61,23 @@
 	[pool release];
 }
 
-- (void)loadedUsers:(NSArray *)theUsers {
-	if (theUsers.count == 0) return;
-	GHUser *user = [theUsers objectAtIndex:0];
-	self.login = user.login;
-	self.name = user.name;
-	self.email = user.email;
-	self.company = user.company;
-	self.location = user.location;
-	self.blogURL = user.blogURL;
-	self.status = GHResourceStatusLoaded;
-	if (email) [gravatarLoader loadEmail:email withSize:44];
+- (void)loadedUsers:(id)theResult {
+	if ([theResult isKindOfClass:[NSError class]]) {
+		self.error = theResult;
+		self.status = GHResourceStatusNotLoaded;
+	} else {
+		self.status = GHResourceStatusLoaded;
+		if ([(NSArray *)theResult count] == 0) return;
+		GHUser *user = [(NSArray *)theResult objectAtIndex:0];
+		self.login = user.login;
+		self.name = user.name;
+		self.email = user.email;
+		self.company = user.company;
+		self.location = user.location;
+		self.blogURL = user.blogURL;
+		self.status = GHResourceStatusLoaded;
+		if (email) [gravatarLoader loadEmail:email withSize:44];
+	}
 }
 
 #pragma mark -
@@ -93,7 +100,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *url = [NSString stringWithFormat:kUserReposFormat, login, @""];
 	NSURL *reposURL = [NSURL URLWithString:url];
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(setLoadedRepositories:)];
+	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:reposURL];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -105,7 +112,7 @@
 	[pool release];
 }
 
-- (void)setLoadedRepositories:(NSArray *)theRepositories {
+- (void)loadedRepositories:(NSArray *)theRepositories {
 	self.repositories = theRepositories;
 	self.repositoriesStatus = GHResourceStatusLoaded;
 }
@@ -113,7 +120,7 @@
 #pragma mark -
 #pragma mark Gravatar
 
-- (void)setLoadedGravatar:(UIImage *)theImage {
+- (void)loadedGravatar:(UIImage *)theImage {
 	if (![theImage isKindOfClass:[UIImage class]]) return;
 	self.gravatar = theImage;
 	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];

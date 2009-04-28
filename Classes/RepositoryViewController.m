@@ -49,7 +49,7 @@
 	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (repository.isLoaded) {
 			[self displayRepository];
-			if (!repository.error) return;
+		} else if (repository.error) {
 			// Let's just assume it's an authentication error
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];

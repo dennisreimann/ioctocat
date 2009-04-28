@@ -39,6 +39,7 @@
 #pragma mark Repository loading
 
 - (void)loadRepository {
+	if (self.isLoading) return;
 	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }

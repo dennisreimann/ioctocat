@@ -39,6 +39,7 @@
 #pragma mark User loading
 
 - (void)loadUser {
+	if (self.isLoading) return;
 	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }

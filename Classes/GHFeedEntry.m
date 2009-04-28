@@ -6,7 +6,7 @@
 
 @implementation GHFeedEntry
 
-@synthesize entryID, eventType, eventItem, date, linkURL, title, content, authorName, feed;
+@synthesize entryID, eventType, eventItem, date, linkURL, title, content, authorName;
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];
@@ -76,7 +76,6 @@
 	[title release];
 	[content release];
 	[authorName release];
-	[feed release];
     [super dealloc];
 }
 

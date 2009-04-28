@@ -214,6 +214,7 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
 				6F1DC39A0F7E52F000FCD26D /* Settings.bundle */,
 			);
 			comments = "Open Source iPhone app for the awesome GitHub.com";
@@ -238,7 +239,6 @@
 				6FB7FEA60F7E2C7500E8D702 /* IBFiles */,
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 				6F74DD8B0FA76CE000FD90AB /* README.textile */,
 				6F72FB5F0F9B5A5B0069F092 /* styles.html */,

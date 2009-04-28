@@ -7,10 +7,10 @@
   @private
 	id target;
 	SEL selector;
+	NSError *error;
 	NSMutableArray *entries;
 	NSMutableString *currentElementValue;
 	NSDateFormatter *dateFormatter;
-	NSError *error;
 	GHFeedEntry *currentEntry;
 }
 

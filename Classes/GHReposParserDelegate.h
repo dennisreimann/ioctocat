@@ -7,6 +7,7 @@
   @private
 	id target;
 	SEL selector;
+	NSError *error;
 	NSMutableArray *repositories;
 	NSMutableString *currentElementValue;
 	GHRepository *currentRepository;

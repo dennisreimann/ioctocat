@@ -40,6 +40,7 @@
 
 - (void)loadRepository {
 	if (self.isLoading) return;
+	self.error = nil;
 	self.status = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
@@ -60,17 +61,23 @@
 	[pool release];
 }
 
-- (void)loadedRepositories:(NSArray *)theRepositories {
-	if (theRepositories.count == 0) return;
-	GHRepository *repo = [theRepositories objectAtIndex:0];
-	self.descriptionText = repo.descriptionText;
-	self.githubURL = repo.githubURL;
-	self.homepageURL = repo.homepageURL;
-	self.isFork = repo.isFork;
-	self.isPrivate = repo.isPrivate;
-	self.forks = repo.forks;
-	self.watchers = repo.watchers;
-	self.status = GHResourceStatusLoaded;
+- (void)loadedRepositories:(id)theResult {
+	if ([theResult isKindOfClass:[NSError class]]) {
+		self.error = theResult;
+		self.status = GHResourceStatusNotLoaded;
+	} else {
+		self.status = GHResourceStatusLoaded;
+		if ([(NSArray *)theResult count] == 0) return;
+		GHRepository *repo = [(NSArray *)theResult objectAtIndex:0];
+		self.descriptionText = repo.descriptionText;
+		self.githubURL = repo.githubURL;
+		self.homepageURL = repo.homepageURL;
+		self.isFork = repo.isFork;
+		self.isPrivate = repo.isPrivate;
+		self.forks = repo.forks;
+		self.watchers = repo.watchers;
+		self.status = GHResourceStatusLoaded;
+	}
 }
 
 #pragma mark -

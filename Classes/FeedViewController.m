@@ -62,12 +62,11 @@
 			[self feedParsingStarted];
 		} else {
 			[self feedParsingFinished];
-			if (feed.error) {
-				// Let's just assume it's an authentication error
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-				[alert release];
-			}
+			if (!feed.error) return;
+			// Let's just assume it's an authentication error
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 		}
 	}
 }

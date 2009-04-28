@@ -85,6 +85,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+	DebugLog(@"Parsing error: %@", parseError);
 	error = [parseError retain];
 }
 
@@ -92,6 +93,7 @@
 	id result = error ? (id)error : (id)entries;
 	[target performSelectorOnMainThread:selector withObject:result waitUntilDone:NO];
 }
+
 
 #pragma mark -
 #pragma mark Cleanup

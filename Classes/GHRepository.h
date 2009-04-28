@@ -35,7 +35,7 @@
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)loadRepository;
-- (void)loadedRepositories:(NSArray *)theRepositories;
+- (void)loadedRepositories:(id)theResult;
 - (void)loadRecentCommits;
 - (void)loadedRecentCommits:(NSArray *)theCommits;
 

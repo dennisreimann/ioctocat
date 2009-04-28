@@ -25,7 +25,7 @@
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	NSString *url = [NSString stringWithFormat:kUserReposFormat, username, token];
 	NSURL *reposURL = [NSURL URLWithString:url];
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(setRepositories:)];
+	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:reposURL];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -37,11 +37,18 @@
 	[pool release];
 }
 
-- (void)setRepositories:(NSArray *)theRepositories {
-	self.privateRepositories = [NSMutableArray array];
-	self.publicRepositories = [NSMutableArray array];
-	for (GHRepository *repo in theRepositories) {
-		(repo.isPrivate) ? [privateRepositories addObject:repo] : [publicRepositories addObject:repo];
+- (void)loadedRepositories:(id)theResult {
+	if ([theResult isKindOfClass:[NSError class]]) {
+		// Let's just assume it's an authentication error
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	} else {
+		self.privateRepositories = [NSMutableArray array];
+		self.publicRepositories = [NSMutableArray array];
+		for (GHRepository *repo in theResult) {
+			(repo.isPrivate) ? [privateRepositories addObject:repo] : [publicRepositories addObject:repo];
+		}
 	}
 	isLoaded = YES;
 	[self.tableView reloadData];

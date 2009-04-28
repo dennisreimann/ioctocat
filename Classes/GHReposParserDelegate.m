@@ -58,18 +58,21 @@
 	currentElementValue = nil;
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[target performSelectorOnMainThread:selector withObject:repositories waitUntilDone:YES];
-}
-
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
 	DebugLog(@"Parsing error: %@", parseError);
+	error = [parseError retain];
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser {
+	id result = error ? (id)error : (id)repositories;
+	[target performSelectorOnMainThread:selector withObject:result waitUntilDone:NO];
 }
 
 #pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[error release];
 	[repositories release];
 	[currentElementValue release];
 	[currentRepository release];

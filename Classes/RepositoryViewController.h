@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHRepository, GHFeedEntryCell, TextCell, LabeledCell;
+@class GHRepository, GHUser, GHFeedEntryCell, TextCell, LabeledCell;
 
 @interface RepositoryViewController : UITableViewController {
   @private
@@ -9,6 +9,7 @@
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UILabel *nameLabel;
 	IBOutlet UILabel *numbersLabel;
+	IBOutlet UIButton *watchButton;
 	IBOutlet UILabel *ownerLabel;
 	IBOutlet UILabel *websiteLabel;
 	IBOutlet UILabel *descriptionLabel;
@@ -21,6 +22,9 @@
 	IBOutlet TextCell *descriptionCell;
 }
 
+@property (nonatomic, readonly) GHUser *currentUser;
+
 - (id)initWithRepository:(GHRepository *)theRepository;
+- (IBAction)toggleWatching:(id)sender;
 
 @end

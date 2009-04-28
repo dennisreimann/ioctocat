@@ -35,6 +35,18 @@
     return [NSString stringWithFormat:@"<GHUser login:'%@' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@'>", login, name, email, company, location, blogURL];
 }
 
+// FIXME Currently just stubbed out, see the issue:
+// http://github.com/dbloete/ioctocat/issues#issue/5
+- (BOOL)isFollowing:(GHUser *)anUser {
+	return NO;
+}
+
+// FIXME Currently just stubbed out, see the issue:
+// http://github.com/dbloete/ioctocat/issues#issue/6
+- (BOOL)isWatching:(GHRepository *)aRepository {
+	return NO;
+}
+
 #pragma mark -
 #pragma mark User loading
 

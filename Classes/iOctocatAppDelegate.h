@@ -14,7 +14,7 @@
 @property (nonatomic, readonly) BOOL isDataSourceAvailable;
 @property (nonatomic, retain) NSMutableDictionary *users;
 
-- (GHUser *)user;
+- (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
 
 @end

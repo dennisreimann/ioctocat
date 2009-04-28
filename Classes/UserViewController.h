@@ -8,6 +8,7 @@
 	GHUser *user;
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UIImageView *gravatarView;
+	IBOutlet UIButton *followButton;
 	IBOutlet UILabel *nameLabel;
 	IBOutlet UILabel *companyLabel;
 	IBOutlet UILabel *locationLabel;
@@ -21,6 +22,9 @@
 	IBOutlet LabeledCell *emailCell;
 }
 
+@property (nonatomic, readonly) GHUser *currentUser;
+
 - (id)initWithUser:(GHUser *)theUser;
+- (IBAction)toggleFollowing:(id)sender;
 
 @end

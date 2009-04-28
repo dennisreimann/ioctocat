@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GravatarLoader;
+@class GravatarLoader, GHRepository;
 
 @interface GHUser : GHResource {
 	NSString *name;
@@ -37,5 +37,7 @@
 - (void)loadRepositories;
 - (void)loadedRepositories:(NSArray *)theRepositories;
 - (void)loadedGravatar:(UIImage *)theImage;
+- (BOOL)isFollowing:(GHUser *)anUser;
+- (BOOL)isWatching:(GHRepository *)aRepository;
 
 @end

@@ -5,6 +5,7 @@
 #import "GHRepository.h"
 #import "LabeledCell.h"
 #import "GravatarLoader.h"
+#import "iOctocatAppDelegate.h"
 
 
 @interface UserViewController ()
@@ -31,6 +32,11 @@
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
+- (GHUser *)currentUser {
+	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	return appDelegate.currentUser;
+}
+
 #pragma mark -
 #pragma mark Actions
 
@@ -41,6 +47,12 @@
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
 	[emailCell setContentText:user.email];
+	// FIXME Following needs to be implemented, see issue:
+	// http://github.com/dbloete/ioctocat/issues#issue/3
+//	if ([self.currentUser isEqual:user]) return;
+//	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
+//	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+//	followButton.hidden = NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -59,6 +71,16 @@
 	} else if ([keyPath isEqualToString:kRepositoriesStatusKeyPath]) {
 		[self.tableView reloadData];
 	}
+}
+
+- (IBAction)toggleFollowing:(id)sender {
+	UIImage *buttonImage;
+	if ([self.currentUser isFollowing:user]) {
+		buttonImage = [UIImage imageNamed:@"UnfollowButton.png"];
+	} else {
+		buttonImage = [UIImage imageNamed:@"FollowButton.png"];
+	}
+	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
 }
 
 #pragma mark -
@@ -156,6 +178,7 @@
 	[loadingUserCell release];
 	[loadingReposCell release];
 	[noPublicReposCell release];
+	[followButton release];
     [super dealloc];
 }
 

@@ -59,8 +59,7 @@
 	[noConnectionView release];
 }
 
-
-- (GHUser *)user {
+- (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults valueForKey:kUsernameDefaultsKey];
 	return ([username isEqualToString:@""]) ? nil : [self userWithLogin:username];

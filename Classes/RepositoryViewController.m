@@ -33,6 +33,11 @@
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
 }
 
+- (GHUser *)currentUser {
+	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	return appDelegate.currentUser;
+}
+
 #pragma mark -
 #pragma mark Actions
 
@@ -43,6 +48,11 @@
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
 	if (!repository.recentCommits.isLoaded) [repository.recentCommits loadEntries];
+	// FIXME Watching needs to be implemented, see issue:
+	// http://github.com/dbloete/ioctocat/issues#issue/4
+//	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isWatching:repository] ? @"UnwatchButton.png" : @"WatchButton.png")];
+//	[watchButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+//	watchButton.hidden = NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -59,6 +69,16 @@
 		repository.recentCommits;
 		if (repository.recentCommits.isLoaded) [self.tableView reloadData];
 	}
+}
+
+- (IBAction)toggleWatching:(id)sender {
+	UIImage *buttonImage;
+	if ([self.currentUser isWatching:repository]) {
+		buttonImage = [UIImage imageNamed:@"UnwatchButton.png"];
+	} else {
+		buttonImage = [UIImage imageNamed:@"WatchButton.png"];
+	}
+	[watchButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
 }
 
 #pragma mark -
@@ -145,6 +165,7 @@
 	[tableHeaderView release];
 	[nameLabel release];
 	[numbersLabel release];
+	[watchButton release];
 	[ownerLabel release];
 	[websiteLabel release];
 	[descriptionLabel release];

@@ -7,7 +7,7 @@
 #import "UserViewController.h"
 #import "WebViewController.h"
 #import "iOctocatAppDelegate.h"
-#import "GHFeedEntryCell.h"
+#import "FeedEntryCell.h"
 #import "FeedEntryDetailsController.h"
 
 
@@ -119,9 +119,9 @@
 	if (!repository.recentCommits.isLoaded) return loadingRecentCommitsCell;
 	if (indexPath.section == 1 && repository.recentCommits.entries.count == 0) return noRecentCommitsCell;
 	if (indexPath.section == 1) {
-		GHFeedEntryCell *cell = (GHFeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
+		FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
 		if (cell == nil) {
-			[[NSBundle mainBundle] loadNibNamed:@"GHFeedEntryCell" owner:self options:nil];
+			[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
 			cell = feedEntryCell;
 		}
 		cell.entry = [repository.recentCommits.entries objectAtIndex:indexPath.row];

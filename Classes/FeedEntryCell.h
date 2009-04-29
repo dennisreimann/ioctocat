@@ -3,7 +3,7 @@
 
 @class GHFeedEntry;
 
-@interface GHFeedEntryCell : UITableViewCell {
+@interface FeedEntryCell : UITableViewCell {
 	GHFeedEntry *entry;
   @private
 	IBOutlet UILabel *dateLabel;

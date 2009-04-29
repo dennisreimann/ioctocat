@@ -4,7 +4,7 @@
 #import "FeedEntryDetailsController.h"
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
-#import "GHFeedEntryCell.h"
+#import "FeedEntryCell.h"
 #import "GHUser.h"
 
 
@@ -95,13 +95,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.currentFeed.entries.count;
+    return (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) ? 1 : self.currentFeed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    GHFeedEntryCell *cell = (GHFeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
+    if (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) return noEntriesCell;
+	FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
     if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"GHFeedEntryCell" owner:self options:nil];
+		[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
 		cell = feedEntryCell;
 	}
 	cell.entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
@@ -138,6 +139,8 @@
 
 - (void)dealloc {
 	[feeds release];
+	[noEntriesCell release];
+	[feedEntryCell release];
 	[feedControlView release];
 	[feedControl release];
 	[activityView release];

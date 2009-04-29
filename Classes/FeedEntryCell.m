@@ -1,10 +1,10 @@
-#import "GHFeedEntryCell.h"
+#import "FeedEntryCell.h"
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GravatarLoader.h"
 
 
-@implementation GHFeedEntryCell
+@implementation FeedEntryCell
 
 @synthesize entry;
 

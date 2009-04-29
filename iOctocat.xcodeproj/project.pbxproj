@@ -43,7 +43,7 @@
 		6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */; };
 		6F72FAE80F9B47730069F092 /* FeedEntryDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */; };
 		6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */; };
-		6F72FB2F0F9B53810069F092 /* GHFeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* GHFeedEntryCell.m */; };
+		6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */; };
 		6F72FB600F9B5A5B0069F092 /* styles.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB5F0F9B5A5B0069F092 /* styles.html */; };
 		6F74DD7A0FA76C8700FD90AB /* FeedEntryDetails.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD770FA76C8700FD90AB /* FeedEntryDetails.xib */; };
 		6F74DD7B0FA76C8700FD90AB /* Repositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD780FA76C8700FD90AB /* Repositories.xib */; };
@@ -93,7 +93,7 @@
 		6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeed.m; sourceTree = "<group>"; };
 		6F1DC4470F7E5AA000FCD26D /* GHFeedEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedEntry.h; sourceTree = "<group>"; };
 		6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedEntry.m; sourceTree = "<group>"; };
-		6F1DC52E0F7E727C00FCD26D /* GHFeedEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedEntryCell.h; sourceTree = "<group>"; };
+		6F1DC52E0F7E727C00FCD26D /* FeedEntryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedEntryCell.h; sourceTree = "<group>"; };
 		6F1DC5BE0F7E7F4600FCD26D /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comment.png; path = Images/Icons/comment.png; sourceTree = "<group>"; };
 		6F1DC5BF0F7E7F4600FCD26D /* create.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = create.png; path = Images/Icons/create.png; sourceTree = "<group>"; };
 		6F1DC5C00F7E7F4600FCD26D /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fork.png; path = Images/Icons/fork.png; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		6F72FAE60F9B47730069F092 /* FeedEntryDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedEntryDetailsController.h; sourceTree = "<group>"; };
 		6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryDetailsController.m; sourceTree = "<group>"; };
 		6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryDetailsHeadBackground.png; path = Images/FeedEntryDetailsHeadBackground.png; sourceTree = "<group>"; };
-		6F72FB2E0F9B53810069F092 /* GHFeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedEntryCell.m; sourceTree = "<group>"; };
+		6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryCell.m; sourceTree = "<group>"; };
 		6F72FB5F0F9B5A5B0069F092 /* styles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = styles.html; sourceTree = "<group>"; };
 		6F74DD770FA76C8700FD90AB /* FeedEntryDetails.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntryDetails.xib; path = IBFiles/FeedEntryDetails.xib; sourceTree = "<group>"; };
 		6F74DD780FA76C8700FD90AB /* Repositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repositories.xib; path = IBFiles/Repositories.xib; sourceTree = "<group>"; };
@@ -214,7 +214,6 @@
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
 				6F1DC39A0F7E52F000FCD26D /* Settings.bundle */,
 			);
 			comments = "Open Source iPhone app for the awesome GitHub.com";
@@ -239,6 +238,7 @@
 				6FB7FEA60F7E2C7500E8D702 /* IBFiles */,
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 				6F74DD8B0FA76CE000FD90AB /* README.textile */,
 				6F72FB5F0F9B5A5B0069F092 /* styles.html */,
@@ -302,8 +302,8 @@
 		6F1DC52B0F7E725500FCD26D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				6F1DC52E0F7E727C00FCD26D /* GHFeedEntryCell.h */,
-				6F72FB2E0F9B53810069F092 /* GHFeedEntryCell.m */,
+				6F1DC52E0F7E727C00FCD26D /* FeedEntryCell.h */,
+				6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */,
 				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
 				6FC9610B0F8935DC00FC0968 /* LabeledCell.m */,
 				6F5A420C0F90CE0500427ED7 /* TextCell.h */,
@@ -527,7 +527,7 @@
 				6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */,
 				6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */,
 				6F72FAE80F9B47730069F092 /* FeedEntryDetailsController.m in Sources */,
-				6F72FB2F0F9B53810069F092 /* GHFeedEntryCell.m in Sources */,
+				6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */,
 				6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */,
 				6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */,
 				6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */,
@@ -594,7 +594,7 @@
 			};
 			name = "App Store Distribution";
 		};
-		6FB7FECD0F7E2D1A00E8D702 /* Ad Hoc Distribution */ = {
+		6FC806440FA868D1008D2DA6 /* Ad Hoc Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -610,7 +610,7 @@
 			};
 			name = "Ad Hoc Distribution";
 		};
-		6FB7FECE0F7E2D1A00E8D702 /* Ad Hoc Distribution */ = {
+		6FC806450FA868D1008D2DA6 /* Ad Hoc Distribution */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -661,7 +661,7 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				6FB7FECE0F7E2D1A00E8D702 /* Ad Hoc Distribution */,
+				6FC806450FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD840F7E9DF2009A0213 /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -672,7 +672,7 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				6FB7FECD0F7E2D1A00E8D702 /* Ad Hoc Distribution */,
+				6FC806440FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD830F7E9DF2009A0213 /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;

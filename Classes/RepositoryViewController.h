@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHRepository, GHUser, GHFeedEntryCell, TextCell, LabeledCell;
+@class GHRepository, GHUser, FeedEntryCell, TextCell, LabeledCell;
 
 @interface RepositoryViewController : UITableViewController {
   @private
@@ -16,7 +16,7 @@
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *loadingRecentCommitsCell;
 	IBOutlet UITableViewCell *noRecentCommitsCell;
-	IBOutlet GHFeedEntryCell *feedEntryCell;
+	IBOutlet FeedEntryCell *feedEntryCell;
 	IBOutlet LabeledCell *ownerCell;
 	IBOutlet LabeledCell *websiteCell;
 	IBOutlet TextCell *descriptionCell;

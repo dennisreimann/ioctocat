@@ -1,14 +1,15 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHFeed, GHFeedEntry, GHFeedEntryCell;
+@class GHFeed, GHFeedEntry, FeedEntryCell;
 
 @interface FeedViewController : UITableViewController {
   @private
 	IBOutlet UIActivityIndicatorView *activityView;
 	IBOutlet UIView *feedControlView;
 	IBOutlet UISegmentedControl *feedControl;
-	IBOutlet GHFeedEntryCell *feedEntryCell;
+	IBOutlet UITableViewCell *noEntriesCell;
+	IBOutlet FeedEntryCell *feedEntryCell;
 	NSArray *feeds;
 	NSUInteger loadCounter;
 }

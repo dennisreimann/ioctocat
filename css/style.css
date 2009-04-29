@@ -7,6 +7,13 @@ body {
 	font: 85%/1.5 normal helvetica, arial, clean, sans-serif;
 }
 
+h1 {
+	font-size: 2.2em;
+	font-family: Lucida Grande;
+	letter-spacing: -0.05em;
+	color: #000;
+}
+
 h2,
 h3,
 h4 {
@@ -41,6 +48,7 @@ a:active {
 
 em {
 	color: #999;
+	font-size: .9em;
 }
 
 img {
@@ -62,7 +70,7 @@ img {
 #sidebar {
 	float: right;
 	width: 230px;
-	padding-top: 7em;
+	padding-top: 0em;
 }
 
 #ribbon {

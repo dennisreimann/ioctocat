@@ -1,9 +1,8 @@
 h1. iOctocat
 
-… is a GitHub app for the iPhone.
-It is open source and will be available on the App Store soon.
+… is a GitHub app for the iPhone and iPod Touch. It is open source and "available on the App Store":http://itunes.com/apps/ioctocat
 
 For further information visit "the project website":http://dbloete.github.com/ioctocat
 or "the wiki":http://wiki.github.com/dbloete/ioctocat.
 
-Your participation is welcome - feel free to fork and add missing features :)
+Your participation is welcome - feel free to fork, add missing features or "report issues":http://github.com/dbloete/ioctocat/issues :)

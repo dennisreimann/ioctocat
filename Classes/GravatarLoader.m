@@ -39,8 +39,8 @@ NSString *md5(NSString *str) {
 
 - (void)requestWithArgs:(NSArray *)theArgs {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	#Lowercase the email since SteveJobs@apple.com and stevejobs@apple.com are
-	# the same person but gravatar only recognizes the md5 of the latter
+	// Lowercase the email since SteveJobs@apple.com and stevejobs@apple.com are
+	// the same person but gravatar only recognizes the md5 of the latter
 	NSString *email = [[theArgs objectAtIndex:0] lowercaseString];
 	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
 	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d", md5(email), size];

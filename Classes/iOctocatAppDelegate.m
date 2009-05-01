@@ -22,7 +22,7 @@
 }
 
 // Use this to add credentials (for instance via email) by opening a link:
-// githubauth://username:apitoken@github.com
+// <githubauth://username:apitoken@github.com>
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 	if (!url) return NO;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

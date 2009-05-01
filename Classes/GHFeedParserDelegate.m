@@ -10,7 +10,7 @@
 	target = theTarget;
 	selector = theSelector;
 	dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 	return self;
 }
 

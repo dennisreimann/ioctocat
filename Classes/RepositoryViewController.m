@@ -47,6 +47,7 @@
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
+	//[issueCell setContentText:@"No Issues"];
 	if (!repository.recentCommits.isLoaded) [repository.recentCommits loadEntries];
 	// FIXME Watching needs to be implemented, see issue:
 	// http://github.com/dbloete/ioctocat/issues#issue/4
@@ -96,7 +97,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
-	if (section == 0) return descriptionCell.hasContent ? 3 : 2;
+	if (section == 0) return descriptionCell.hasContent ? 4 : 3;
+//	if (section == 0) return descriptionCell.hasContent ? 3 : 2;	
 	if (!repository.recentCommits.isLoaded || repository.recentCommits.entries.count == 0) return 1;
 	return repository.recentCommits.entries.count;
 }
@@ -108,9 +110,10 @@
 		switch (indexPath.row) {
 			case 0: cell = ownerCell; break;
 			case 1: cell = websiteCell; break;
-			case 2: cell = descriptionCell; break;
+			case 2: cell = issueCell; break;				
+			case 3: cell = descriptionCell; break;			
 		}
-		if (indexPath.row != 2) {
+		if (indexPath.row != 3) {
 			cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 			cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		}
@@ -169,9 +172,11 @@
 	[ownerLabel release];
 	[websiteLabel release];
 	[descriptionLabel release];
+	[issueLabel release];	
 	[loadingCell release];
 	[ownerCell release];
 	[websiteCell release];
+	[issueCell release];
 	[descriptionCell release];
 	[feedEntryCell release];
 	[loadingRecentCommitsCell release];

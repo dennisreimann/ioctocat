@@ -92,6 +92,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSArray *repos = (indexPath.section == 0) ? privateRepositories : publicRepositories;
+	if (repos.count == 0) return;
 	GHRepository *repo = [repos objectAtIndex:indexPath.row];
 	RepositoryViewController *repoController = [[RepositoryViewController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];

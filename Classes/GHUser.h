@@ -13,6 +13,10 @@
 	NSURL *blogURL;
 	UIImage *gravatar;
 	NSArray *repositories;
+	NSUInteger publicGistCount;
+	NSUInteger privateGistCount;
+	NSUInteger publicRepoCount;
+	NSUInteger privateRepoCount;
   @private
 	GravatarLoader *gravatarLoader;
 	GHResourceStatus repositoriesStatus;
@@ -29,7 +33,11 @@
 @property (nonatomic, readonly) NSString *cachedGravatarPath;
 @property (nonatomic, readonly) BOOL isReposLoaded;
 @property (nonatomic, readonly) BOOL isReposLoading;
-@property (nonatomic, readwrite) GHResourceStatus repositoriesStatus;
+@property (nonatomic) GHResourceStatus repositoriesStatus;
+@property (nonatomic) NSUInteger publicGistCount;
+@property (nonatomic) NSUInteger privateGistCount;
+@property (nonatomic) NSUInteger publicRepoCount;
+@property (nonatomic) NSUInteger privateRepoCount;
 
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)loadUser;

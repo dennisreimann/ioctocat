@@ -41,6 +41,14 @@
 	} else if ([elementName isEqualToString:@"login"] || [elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
 		NSString *value = ([currentElementValue isEqualToString:@""]) ? nil : currentElementValue;
 		[currentUser setValue:value forKey:elementName];
+	} else if ([elementName isEqualToString:@"public-gist-count"]) {
+		currentUser.publicGistCount = [currentElementValue integerValue];
+	} else if ([elementName isEqualToString:@"private-gist-count"]) {
+		currentUser.privateGistCount = [currentElementValue integerValue];
+	} else if ([elementName isEqualToString:@"public-repo-count"]) {
+		currentUser.publicRepoCount = [currentElementValue integerValue];
+	} else if ([elementName isEqualToString:@"total-private-repo-count"]) {
+		currentUser.privateRepoCount = [currentElementValue integerValue];
 	} else if ([elementName isEqualToString:@"blog"]) {
 		currentUser.blogURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	}

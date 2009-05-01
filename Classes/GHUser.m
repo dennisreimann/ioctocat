@@ -13,8 +13,8 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar;
-@synthesize repositoriesStatus, repositories;
+@synthesize name, login, email, company, blogURL, location, gravatar, repositoriesStatus, repositories;
+@synthesize publicGistCount, privateGistCount, publicRepoCount, privateRepoCount;
 
 - (id)init {
 	[super init];
@@ -32,7 +32,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUser login:'%@' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@'>", login, name, email, company, location, blogURL];
+    return [NSString stringWithFormat:@"<GHUser login:'%@' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
 }
 
 // FIXME Currently just stubbed out, see the issue:
@@ -87,6 +87,10 @@
 		self.company = user.company;
 		self.location = user.location;
 		self.blogURL = user.blogURL;
+		self.publicGistCount = user.publicGistCount;
+		self.privateGistCount = user.privateGistCount;
+		self.publicRepoCount = user.publicRepoCount;
+		self.privateRepoCount = user.privateRepoCount;
 		self.status = GHResourceStatusLoaded;
 		if (email) [gravatarLoader loadEmail:email withSize:44];
 	}

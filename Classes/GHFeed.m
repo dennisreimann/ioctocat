@@ -1,6 +1,7 @@
 #import "GHFeed.h"
 #import "GHFeedParserDelegate.h"
 #import "GHUser.h"
+#import "ASIFormDataRequest.h"
 
 
 @interface GHFeed ()
@@ -36,8 +37,17 @@
 
 - (void)parseFeed {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url] autorelease];
+	[request setPostValue:username forKey:@"login"];
+	[request setPostValue:token forKey:@"token"];	
+	[request start];	
+
 	GHFeedParserDelegate *parserDelegate = [[GHFeedParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedEntries:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];

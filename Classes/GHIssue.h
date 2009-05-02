@@ -29,8 +29,4 @@
 
 
 
-- (id)initWithIssueID:(NSString *)theIssueID;
-- (void)loadIssues;
-- (void)loadedIssues:(id)theResult;
-
 @end

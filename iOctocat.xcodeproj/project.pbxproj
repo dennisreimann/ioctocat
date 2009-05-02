@@ -81,6 +81,9 @@
 		8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* OpenIssueCell.m */; };
 		8C6AA00C0FAC110300A99483 /* issues_opened.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6AA00B0FAC110300A99483 /* issues_opened.png */; };
 		8C6AA10D0FAC1BA800A99483 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6AA10C0FAC1BA800A99483 /* Icon.png */; };
+		8C6AA15A0FAC213700A99483 /* IssueDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6AA1590FAC213700A99483 /* IssueDetail.xib */; };
+		8C6AA15F0FAC22B000A99483 /* IssueDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */; };
+		8C6AA2600FAC2A2C00A99483 /* upvote.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6AA25F0FAC2A2C00A99483 /* upvote.png */; };
 		8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
 		8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
 		8CFBCFAE0FAB8A3100A2C37A /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
@@ -195,6 +198,10 @@
 		8C6A9EA20FABF1D900A99483 /* OpenIssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenIssueCell.m; sourceTree = "<group>"; };
 		8C6AA00B0FAC110300A99483 /* issues_opened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issues_opened.png; sourceTree = "<group>"; };
 		8C6AA10C0FAC1BA800A99483 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		8C6AA1590FAC213700A99483 /* IssueDetail.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueDetail.xib; sourceTree = "<group>"; };
+		8C6AA15D0FAC22B000A99483 /* IssueDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueDetailController.h; sourceTree = "<group>"; };
+		8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDetailController.m; sourceTree = "<group>"; };
+		8C6AA25F0FAC2A2C00A99483 /* upvote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = upvote.png; sourceTree = "<group>"; };
 		8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
 		8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
@@ -338,6 +345,8 @@
 				6F5A41740F90C38300427ED7 /* RepositoryViewController.m */,
 				6F5652DF0F99C85C001B6703 /* RepositoriesViewController.h */,
 				6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */,
+				8C6AA15D0FAC22B000A99483 /* IssueDetailController.h */,
+				8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -360,6 +369,7 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				8C6AA25F0FAC2A2C00A99483 /* upvote.png */,
 				6F5653040F99CB62001B6703 /* private.png */,
 				8C6AA00B0FAC110300A99483 /* issues_opened.png */,
 				6F5653050F99CB62001B6703 /* public.png */,
@@ -429,6 +439,7 @@
 				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
 				6F74DD790FA76C8700FD90AB /* TextCell.xib */,
 				8C6A9E9B0FABF17A00A99483 /* OpenIssueCell.xib */,
+				8C6AA1590FAC213700A99483 /* IssueDetail.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -569,6 +580,8 @@
 				8C6A9E9C0FABF17A00A99483 /* OpenIssueCell.xib in Resources */,
 				8C6AA00C0FAC110300A99483 /* issues_opened.png in Resources */,
 				8C6AA10D0FAC1BA800A99483 /* Icon.png in Resources */,
+				8C6AA15A0FAC213700A99483 /* IssueDetail.xib in Resources */,
+				8C6AA2600FAC2A2C00A99483 /* upvote.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +623,7 @@
 				8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */,
 				8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */,
 				8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */,
+				8C6AA15F0FAC22B000A99483 /* IssueDetailController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

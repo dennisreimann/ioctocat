@@ -29,6 +29,8 @@
 #define kUserUnfollowFormat @"https://github.com/api/v2/xml/user/unfollow/%@?token=%@"
 #define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
 
+// Issue URL
+#define kViewIssueOnGithub @"http://github.com/%@/%@/issues#issue/%@"
 
 // Issue States
 #define kIssueOpen @"open"

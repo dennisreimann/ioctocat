@@ -9,6 +9,7 @@
 #import "iOctocatAppDelegate.h"
 #import "FeedEntryCell.h"
 #import "FeedEntryDetailsController.h"
+#import "IssueDetailController.h"
 #import "OpenIssueCell.h"
 
 
@@ -191,6 +192,11 @@
 		FeedEntryDetailsController *entryController = [[FeedEntryDetailsController alloc] initWithFeedEntry:entry];
 		[self.navigationController pushViewController:entryController animated:YES];
 		[entryController release];
+	} else if (section == 1 && repository.issues.entries.count > 0) {
+		GHIssue *issue = [repository.issues.entries objectAtIndex:indexPath.row];
+		IssueDetailController *issueController = [[IssueDetailController alloc] initWithIssue:issue andRepository: repository.name];
+		[self.navigationController pushViewController:issueController animated:YES];
+		[issueController release];
 	}
 }
 

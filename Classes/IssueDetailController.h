@@ -1,11 +1,9 @@
 #import <UIKit/UIKit.h>
+#import "GHIssue.h"
 
-
-@class GHIssue;
 
 @interface IssueDetailController : UIViewController <UIActionSheetDelegate> {
 	GHIssue *issue;
-    NSString *repository;
   @private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *voteLabel;    
@@ -15,8 +13,7 @@
 }
 
 @property (nonatomic, retain) GHIssue *issue;
-@property (nonatomic, retain) NSString *repository;
 
-- (id)initWithIssue:(GHIssue *)theIssue andRepository:(NSString *)theRepo;
+- (id)initWithIssue:(GHIssue *)theIssue;
 
 @end

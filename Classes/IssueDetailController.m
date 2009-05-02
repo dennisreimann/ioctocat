@@ -2,19 +2,17 @@
 #import "RepositoryViewController.h"
 #import "UserViewController.h"
 #import "WebViewController.h"
-#import "GHIssue.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 
 
 @implementation IssueDetailController
 
-@synthesize issue, repository;
+@synthesize issue;
 
-- (id)initWithIssue:(GHIssue *)theIssue andRepository:(NSString *)theRepo {    
+- (id)initWithIssue:(GHIssue *)theIssue {    
     [super initWithNibName:@"IssueDetail" bundle:nil];
 	self.issue = theIssue;
-    self.repository = theRepo;
     return self;
 }
 
@@ -39,8 +37,8 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[contentView release];
 	[issue release];
+	[contentView release];
 	[dateLabel release];
 	[titleLabel release];
     [voteLabel release];

@@ -14,12 +14,8 @@
 	IBOutlet UILabel *websiteLabel;
 	IBOutlet UILabel *descriptionLabel;
 	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *loadingRecentCommitsCell;
-    IBOutlet UITableViewCell *loadingOpenIssuesCell;
-	IBOutlet UITableViewCell *noRecentCommitsCell;
-    IBOutlet UITableViewCell *noOpenIssuesCell;
-	IBOutlet FeedEntryCell *feedEntryCell;
-    IBOutlet OpenIssueCell *issuesCell;    
+	IBOutlet UITableViewCell *commitsCell;
+    IBOutlet UITableViewCell *issuesCell;
 	IBOutlet LabeledCell *ownerCell;
 	IBOutlet LabeledCell *websiteCell;
 	IBOutlet TextCell *descriptionCell;

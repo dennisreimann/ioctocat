@@ -6,7 +6,6 @@
 	IBOutlet UITableViewCell *loadingReposCell;
 	IBOutlet UITableViewCell *noPublicReposCell;
 	IBOutlet UITableViewCell *noPrivateReposCell;
-	IBOutlet UIActivityIndicatorView *activityView;
 	NSMutableArray *publicRepositories;
 	NSMutableArray *privateRepositories;
 	BOOL isLoaded;

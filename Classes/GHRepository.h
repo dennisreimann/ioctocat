@@ -17,7 +17,6 @@
 	BOOL isFork;
 	GHFeed *recentCommits;
     GHIssues *issues;
-
 }
 
 @property (nonatomic, retain) NSString *name;

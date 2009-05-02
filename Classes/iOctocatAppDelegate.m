@@ -13,9 +13,9 @@
 @synthesize users;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults valueForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults valueForKey:kTokenDefaultsKey];
+//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//	NSString *username = [defaults valueForKey:kUsernameDefaultsKey];
+//	NSString *token = [defaults valueForKey:kTokenDefaultsKey];
 	if (self.isDataSourceAvailable) {
 		self.users = [NSMutableDictionary dictionary];
 		[window addSubview:tabBarController.view];

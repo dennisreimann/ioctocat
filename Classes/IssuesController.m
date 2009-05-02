@@ -13,8 +13,24 @@
 }
 
 - (void)viewDidLoad {
+    NSArray *segmentTextContent = [NSArray arrayWithObjects:@"Open", @"", @"Closed", nil];
+	UISegmentedControl* segmentedControl = [[UISegmentedControl alloc] initWithItems:segmentTextContent];
+	segmentedControl.selectedSegmentIndex = 0;
+	segmentedControl.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+	segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	[segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+	[segmentedControl setWidth:1 forSegmentAtIndex:1];
+	[segmentedControl setEnabled:NO forSegmentAtIndex:1];
+	self.navigationItem.titleView = segmentedControl;
+	[segmentedControl release];
     [super viewDidLoad];
 	if (!issues.isLoaded) [issues loadIssues];
+}
+
+- (void) segmentAction:(id)sender {
+	UISegmentedControl* segCtl = sender;
+    [issues reloadForState:(( ( segCtl.selectedSegmentIndex == 0 ) ? @"open" : @"closed" ) )];
+    [self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

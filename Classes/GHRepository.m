@@ -40,9 +40,9 @@
 	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
 	self.recentCommits = commitFeed;
 	[commitFeed release];
-	NSURL *issuesURL = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, theOwner,  theName, @"open"]];
-	GHIssues *issuesList = [[GHIssues alloc] initWithURL:issuesURL];
-	self.issues = issuesList;
+
+	GHIssues *issuesList = [[GHIssues alloc] initWithOwner:theOwner andRepository:theName andState:@"open"];
+    self.issues = issuesList;
     [issuesList release];
 }
 

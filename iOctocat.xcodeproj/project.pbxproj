@@ -50,7 +50,7 @@
 		6F74DD7C0FA76C8700FD90AB /* TextCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD790FA76C8700FD90AB /* TextCell.xib */; };
 		6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */; };
 		6F74DD900FA76D1A00FD90AB /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */; };
-		6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png */; };
+		6FB7FEA40F7E2C4D00E8D702 /* Icon.png.old in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA20F7E2C4D00E8D702 /* Icon.png.old */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEA0F7E31AC00E8D702 /* Default.png */; };
 		6FB7FEED0F7E31AC00E8D702 /* NoConnection.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */; };
@@ -80,6 +80,7 @@
 		8C6A9E9C0FABF17A00A99483 /* OpenIssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C6A9E9B0FABF17A00A99483 /* OpenIssueCell.xib */; };
 		8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* OpenIssueCell.m */; };
 		8C6AA00C0FAC110300A99483 /* issues_opened.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6AA00B0FAC110300A99483 /* issues_opened.png */; };
+		8C6AA10D0FAC1BA800A99483 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C6AA10C0FAC1BA800A99483 /* Icon.png */; };
 		8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
 		8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
 		8CFBCFAE0FAB8A3100A2C37A /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
@@ -150,7 +151,7 @@
 		6F74DD8B0FA76CE000FD90AB /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
 		6F74DD8E0FA76D1A00FD90AB /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugLog.h; path = Classes/DebugLog.h; sourceTree = "<group>"; };
 		6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugLog.m; path = Classes/DebugLog.m; sourceTree = "<group>"; };
-		6FB7FEA20F7E2C4D00E8D702 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
+		6FB7FEA20F7E2C4D00E8D702 /* Icon.png.old */ = {isa = PBXFileReference; lastKnownFileType = file; name = Icon.png.old; path = Images/Icon.png.old; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB7FEEA0F7E31AC00E8D702 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = NoConnection.png; path = Images/NoConnection.png; sourceTree = "<group>"; };
@@ -193,6 +194,7 @@
 		8C6A9EA10FABF1D900A99483 /* OpenIssueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenIssueCell.h; sourceTree = "<group>"; };
 		8C6A9EA20FABF1D900A99483 /* OpenIssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenIssueCell.m; sourceTree = "<group>"; };
 		8C6AA00B0FAC110300A99483 /* issues_opened.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = issues_opened.png; sourceTree = "<group>"; };
+		8C6AA10C0FAC1BA800A99483 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
 		8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
@@ -401,11 +403,12 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				8C6AA10C0FAC1BA800A99483 /* Icon.png */,
 				6F74DD760FA76C5300FD90AB /* Tabs */,
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6FD61A050FA7AB0A008C751B /* Buttons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
-				6FB7FEA20F7E2C4D00E8D702 /* Icon.png */,
+				6FB7FEA20F7E2C4D00E8D702 /* Icon.png.old */,
 				6FB7FEEA0F7E31AC00E8D702 /* Default.png */,
 				6FB7FEEB0F7E31AC00E8D702 /* NoConnection.png */,
 			);
@@ -522,7 +525,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FB7FEA40F7E2C4D00E8D702 /* Icon.png in Resources */,
+				6FB7FEA40F7E2C4D00E8D702 /* Icon.png.old in Resources */,
 				6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */,
 				6FB7FEEC0F7E31AC00E8D702 /* Default.png in Resources */,
 				6FB7FEED0F7E31AC00E8D702 /* NoConnection.png in Resources */,
@@ -565,6 +568,7 @@
 				6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */,
 				8C6A9E9C0FABF17A00A99483 /* OpenIssueCell.xib in Resources */,
 				8C6AA00C0FAC110300A99483 /* issues_opened.png in Resources */,
+				8C6AA10D0FAC1BA800A99483 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

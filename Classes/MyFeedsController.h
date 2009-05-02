@@ -5,10 +5,10 @@
 
 @interface MyFeedsController : UITableViewController {
   @private
-	IBOutlet UIActivityIndicatorView *activityView;
-	IBOutlet UIView *feedControlView;
 	IBOutlet UISegmentedControl *feedControl;
+	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noEntriesCell;
+	IBOutlet UIBarButtonItem *reloadButton;
 	IBOutlet FeedEntryCell *feedEntryCell;
 	NSArray *feeds;
 	NSUInteger loadCounter;

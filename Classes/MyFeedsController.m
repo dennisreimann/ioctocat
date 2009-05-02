@@ -20,7 +20,6 @@
     [super viewDidLoad];
 	self.title = @"My Feeds";
 	loadCounter = 0;
-	self.tableView.tableHeaderView = feedControlView;
 	// Load settings
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
@@ -73,18 +72,14 @@
 
 - (void)feedParsingStarted {
 	loadCounter += 1;
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
-	[activityView startAnimating];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	reloadButton.enabled = NO;
 }
 
 - (void)feedParsingFinished {
 	[self.tableView reloadData];
 	loadCounter -= 1;
 	if (loadCounter > 0) return;
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(reloadFeed:)] autorelease];
-	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-	[activityView stopAnimating];
+	reloadButton.enabled = YES;
 }
 
 #pragma mark -
@@ -95,11 +90,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) ? 1 : self.currentFeed.entries.count;
+    return (!self.currentFeed.isLoaded || self.currentFeed.entries.count == 0) ? 1 : self.currentFeed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) return noEntriesCell;
+    if (!self.currentFeed.isLoaded) return loadingCell;
+    if (self.currentFeed.entries.count == 0) return noEntriesCell;
 	FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
     if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
@@ -123,10 +119,6 @@
 	[userController release];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return 70.0f;
-}
-
 #pragma mark -
 #pragma mark Helpers
 
@@ -141,9 +133,8 @@
 	[feeds release];
 	[noEntriesCell release];
 	[feedEntryCell release];
-	[feedControlView release];
+	[reloadButton release];
 	[feedControl release];
-	[activityView release];
     [super dealloc];
 }
 

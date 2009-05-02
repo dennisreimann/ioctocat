@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHRepository, GHUser, FeedEntryCell, TextCell, LabeledCell, OpenIssueCell;
+@class GHRepository, GHUser, FeedEntryCell, TextCell, LabeledCell, IssueCell;
 
 @interface RepositoryController : UITableViewController {
   @private

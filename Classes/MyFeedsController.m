@@ -1,5 +1,5 @@
 #import "MyFeedsController.h"
-#import "WebViewController.h"
+#import "WebController.h"
 #import "UserController.h"
 #import "FeedEntryController.h"
 #import "GHFeed.h"

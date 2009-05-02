@@ -8,9 +8,9 @@
 #import "WebController.h"
 #import "iOctocatAppDelegate.h"
 #import "FeedEntryCell.h"
-#import "FeedEntryDetailsController.h"
+#import "FeedEntryController.h"
 #import "IssueController.h"
-#import "OpenIssueCell.h"
+#import "IssueCell.h"
 #import "RecentCommitsController.h"
 #import "IssuesController.h"
 

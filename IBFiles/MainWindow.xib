@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="62"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -48,16 +49,17 @@
 			<object class="IBUITabBarController" id="71694266">
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-				<object class="IBUINavigationController" key="IBUISelectedViewController" id="988941830">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="1071969642">
-						<string key="IBUITitle">My Feeds</string>
+				<object class="IBUINavigationController" key="IBUISelectedViewController" id="895352596">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="889727295">
+						<string key="IBUITitle">My Repositories</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">TabBarFeeds.png</string>
+							<string key="NSResourceName">TabBarRepos.png</string>
 						</object>
+						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="71694266"/>
-					<object class="IBUINavigationBar" key="IBUINavigationBar" id="252898845">
+					<object class="IBUINavigationBar" key="IBUINavigationBar" id="243529165">
 						<nil key="NSNextResponder"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{320, 44}</string>
@@ -67,28 +69,29 @@
 					</object>
 					<object class="NSMutableArray" key="IBUIViewControllers">
 						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="IBUIViewController" id="456471521">
-							<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
+						<object class="IBUIViewController" id="316736902">
+							<object class="IBUINavigationItem" key="IBUINavigationItem" id="267158943">
+								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Item</string>
 							</object>
-							<reference key="IBUIParentViewController" ref="988941830"/>
-							<string key="IBUINibName">Feeds</string>
+							<reference key="IBUIParentViewController" ref="895352596"/>
+							<string key="IBUINibName">MyRepositories</string>
 						</object>
 					</object>
 				</object>
 				<object class="NSMutableArray" key="IBUIViewControllers">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<reference ref="988941830"/>
-					<object class="IBUINavigationController" id="895352596">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="889727295">
-							<string key="IBUITitle">My Repositories</string>
+					<object class="IBUINavigationController" id="988941830">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1071969642">
+							<string key="IBUITitle">My Feeds</string>
 							<object class="NSCustomResource" key="IBUIImage">
 								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">TabBarRepos.png</string>
+								<string key="NSResourceName">TabBarFeeds.png</string>
 							</object>
+							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="71694266"/>
-						<object class="IBUINavigationBar" key="IBUINavigationBar" id="243529165">
+						<object class="IBUINavigationBar" key="IBUINavigationBar" id="252898845">
 							<nil key="NSNextResponder"/>
 							<int key="NSvFlags">256</int>
 							<string key="NSFrameSize">{320, 44}</string>
@@ -98,15 +101,16 @@
 						</object>
 						<object class="NSMutableArray" key="IBUIViewControllers">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIViewController" id="316736902">
-								<object class="IBUINavigationItem" key="IBUINavigationItem" id="267158943">
+							<object class="IBUIViewController" id="456471521">
+								<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
 									<string key="IBUITitle">Item</string>
 								</object>
-								<reference key="IBUIParentViewController" ref="895352596"/>
-								<string key="IBUINibName">Repositories</string>
+								<reference key="IBUIParentViewController" ref="988941830"/>
+								<string key="IBUINibName">MyFeeds</string>
 							</object>
 						</object>
 					</object>
+					<reference ref="895352596"/>
 				</object>
 				<object class="IBUITabBar" key="IBUITabBar" id="447710804">
 					<nil key="NSNextResponder"/>
@@ -341,6 +345,31 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
+					<string key="className">FeedEntryCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>dateLabel</string>
+							<string>gravatarView</string>
+							<string>iconView</string>
+							<string>titleLabel</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UILabel</string>
+							<string>UIImageView</string>
+							<string>UIImageView</string>
+							<string>UILabel</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/FeedEntryCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
 					<string key="className">MyFeedsController</string>
 					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="actions">
@@ -363,17 +392,52 @@
 							<string>activityView</string>
 							<string>feedControl</string>
 							<string>feedControlView</string>
+							<string>feedEntryCell</string>
+							<string>noEntriesCell</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIActivityIndicatorView</string>
 							<string>UISegmentedControl</string>
 							<string>UIView</string>
+							<string>FeedEntryCell</string>
+							<string>UITableViewCell</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/MyFeedsController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MyFeedsController</string>
+					<string key="superclassName">UITableViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MyRepositoriesController</string>
+					<string key="superclassName">UITableViewController</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>loadingReposCell</string>
+							<string>noPrivateReposCell</string>
+							<string>noPublicReposCell</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UITableViewCell</string>
+							<string>UITableViewCell</string>
+							<string>UITableViewCell</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/MyRepositoriesController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

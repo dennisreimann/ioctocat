@@ -32,9 +32,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!issues.isLoaded) return loadingIssuesCell;
 	if (issues.entries.count == 0) return noIssuesCell;
-	OpenIssueCell *cell = (OpenIssueCell *)[tableView dequeueReusableCellWithIdentifier:kOpenIssueCellIdentifier];
+	IssueCell *cell = (IssueCell *)[tableView dequeueReusableCellWithIdentifier:kIssueCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"OpenIssueCell" owner:self options:nil];
+		[[NSBundle mainBundle] loadNibNamed:@"IssueCell" owner:self options:nil];
 		cell = issueCell;
 	}
 	cell.issue = [issues.entries objectAtIndex:indexPath.row];

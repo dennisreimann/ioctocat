@@ -32,9 +32,6 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Cleanup
-
 - (void)dealloc {
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[entry release];

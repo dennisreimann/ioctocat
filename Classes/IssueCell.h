@@ -3,9 +3,9 @@
 
 @class GHIssue;
 
-@interface OpenIssueCell : UITableViewCell {
+@interface IssueCell : UITableViewCell {
 	GHIssue *issue;
-@private
+  @private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
     IBOutlet UILabel *detailLabel;

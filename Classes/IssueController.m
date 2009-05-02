@@ -1,7 +1,7 @@
 #import "IssueController.h"
-#import "RepositoryViewController.h"
-#import "UserViewController.h"
-#import "WebViewController.h"
+#import "RepositoryController.h"
+#import "UserController.h"
+#import "WebController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 
@@ -11,7 +11,7 @@
 @synthesize issue;
 
 - (id)initWithIssue:(GHIssue *)theIssue {    
-    [super initWithNibName:@"IssueDetail" bundle:nil];
+    [super initWithNibName:@"Issue" bundle:nil];
 	self.issue = theIssue;
     return self;
 }
@@ -29,7 +29,7 @@
 	dateLabel.text = [dateFormatter stringFromDate:issue.created];
 	[dateFormatter release];
 	// Icon
-	NSString *icon = [NSString stringWithFormat:@"%@.png", @"issues_opened"];
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
 }
 

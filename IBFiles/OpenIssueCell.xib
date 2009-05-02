@@ -44,7 +44,7 @@
 							<object class="IBUIImageView" id="656700106">
 								<reference key="NSNextResponder" ref="319489783"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 16}, {16, 16}}</string>
+								<string key="NSFrame">{{8, 17}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="319489783"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -54,7 +54,7 @@
 							<object class="IBUILabel" id="1071034852">
 								<reference key="NSNextResponder" ref="319489783"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{86, 23}, {123, 21}}</string>
+								<string key="NSFrame">{{86, 23}, {197, 21}}</string>
 								<reference key="NSSuperview" ref="319489783"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -102,7 +102,7 @@
 							<object class="IBUILabel" id="1058542969">
 								<reference key="NSNextResponder" ref="319489783"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 9}, {230, 20}}</string>
+								<string key="NSFrame">{{33, 9}, {250, 20}}</string>
 								<reference key="NSSuperview" ref="319489783"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -126,7 +126,7 @@
 								<int key="IBUINumberOfLines">2</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{281, 50}</string>
+						<string key="NSFrameSize">{297, 50}</string>
 						<reference key="NSSuperview" ref="77145793"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -146,7 +146,7 @@
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-				<int key="IBUIAccessoryType">2</int>
+				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="319489783"/>
 				<string key="IBUIReuseIdentifier">OpenIssueCell</string>
 			</object>
@@ -154,14 +154,6 @@
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">issuesCell</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="77145793"/>
-					</object>
-					<int key="connectionID">4</int>
-				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">iconView</string>
@@ -185,6 +177,14 @@
 						<reference key="destination" ref="1071034852"/>
 					</object>
 					<int key="connectionID">14</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">issueCell</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="77145793"/>
+					</object>
+					<int key="connectionID">15</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -259,7 +259,7 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>RepositoryViewController</string>
+					<string>IssuesController</string>
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -290,55 +290,32 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">14</int>
+			<int key="maxID">15</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FeedEntryCell</string>
-					<string key="superclassName">UITableViewCell</string>
+					<string key="className">IssuesController</string>
+					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>dateLabel</string>
-							<string>gravatarView</string>
-							<string>iconView</string>
-							<string>titleLabel</string>
+							<string>issueCell</string>
+							<string>loadingIssuesCell</string>
+							<string>noIssuesCell</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UILabel</string>
-							<string>UIImageView</string>
-							<string>UIImageView</string>
-							<string>UILabel</string>
+							<string>OpenIssueCell</string>
+							<string>UITableViewCell</string>
+							<string>UITableViewCell</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/FeedEntryCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">LabeledCell</string>
-					<string key="superclassName">UITableViewCell</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSMutableArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>content</string>
-							<string>label</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UILabel</string>
-							<string>UILabel</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/LabeledCell.h</string>
+						<string key="minorKey">Classes/IssuesController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
@@ -368,75 +345,10 @@
 						<string key="minorKey">Classes/OpenIssueCell.h</string>
 					</object>
 				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">RepositoryViewController</string>
-					<string key="superclassName">UITableViewController</string>
-					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">toggleWatching:</string>
-						<string key="NS.object.0">id</string>
-					</object>
-					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSMutableArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>descriptionCell</string>
-							<string>descriptionLabel</string>
-							<string>feedEntryCell</string>
-							<string>issuesCell</string>
-							<string>loadingCell</string>
-							<string>loadingOpenIssuesCell</string>
-							<string>loadingRecentCommitsCell</string>
-							<string>nameLabel</string>
-							<string>noRecentCommitsCell</string>
-							<string>numbersLabel</string>
-							<string>ownerCell</string>
-							<string>ownerLabel</string>
-							<string>tableHeaderView</string>
-							<string>watchButton</string>
-							<string>websiteCell</string>
-							<string>websiteLabel</string>
-						</object>
-						<object class="NSMutableArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>TextCell</string>
-							<string>UILabel</string>
-							<string>FeedEntryCell</string>
-							<string>OpenIssueCell</string>
-							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UILabel</string>
-							<string>UITableViewCell</string>
-							<string>UILabel</string>
-							<string>LabeledCell</string>
-							<string>UILabel</string>
-							<string>UIView</string>
-							<string>UIButton</string>
-							<string>LabeledCell</string>
-							<string>UILabel</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/RepositoryViewController.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TextCell</string>
-					<string key="superclassName">UITableViewCell</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">contentTextLabel</string>
-						<string key="NS.object.0">UILabel</string>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/TextCell.h</string>
-					</object>
-				</object>
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">iOctocat.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../iOctocat.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>

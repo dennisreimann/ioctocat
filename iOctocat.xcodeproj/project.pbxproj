@@ -78,6 +78,10 @@
 		6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A080FA7AB26008C751B /* UnwatchButton.png */; };
 		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
 		6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
+		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
+		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
+		6FED83010FACB91000BE5C81 /* RecentCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* RecentCommitsController.m */; };
+		6FED83A50FACC2FF00BE5C81 /* RecentCommits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED83A40FACC2FF00BE5C81 /* RecentCommits.xib */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
 		8C6A99E50FABCFC200A99483 /* GHIssuesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */; };
@@ -192,6 +196,12 @@
 		6FD61A090FA7AB26008C751B /* WatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WatchButton.png; path = Images/Buttons/WatchButton.png; sourceTree = "<group>"; };
 		6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHResourcesParserDelegate.h; sourceTree = "<group>"; };
 		6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHResourcesParserDelegate.m; sourceTree = "<group>"; };
+		6FED82950FACA1E700BE5C81 /* IssuesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesController.h; sourceTree = "<group>"; };
+		6FED82960FACA1E700BE5C81 /* IssuesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesController.m; sourceTree = "<group>"; };
+		6FED82990FACA2F000BE5C81 /* Issues.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issues.xib; path = IBFiles/Issues.xib; sourceTree = "<group>"; };
+		6FED82FF0FACB91000BE5C81 /* RecentCommitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentCommitsController.h; sourceTree = "<group>"; };
+		6FED83000FACB91000BE5C81 /* RecentCommitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentCommitsController.m; sourceTree = "<group>"; };
+		6FED83A40FACC2FF00BE5C81 /* RecentCommits.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RecentCommits.xib; path = IBFiles/RecentCommits.xib; sourceTree = "<group>"; };
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsersParserDelegate.h; sourceTree = "<group>"; };
 		6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsersParserDelegate.m; sourceTree = "<group>"; };
@@ -344,12 +354,16 @@
 				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserViewController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserViewController.m */,
-				6F5A41730F90C38300427ED7 /* RepositoryViewController.h */,
-				6F5A41740F90C38300427ED7 /* RepositoryViewController.m */,
 				6F5652DF0F99C85C001B6703 /* RepositoriesViewController.h */,
 				6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */,
+				6F5A41730F90C38300427ED7 /* RepositoryViewController.h */,
+				6F5A41740F90C38300427ED7 /* RepositoryViewController.m */,
+				6FED82950FACA1E700BE5C81 /* IssuesController.h */,
+				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
 				8C6AA15D0FAC22B000A99483 /* IssueDetailController.h */,
 				8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */,
+				6FED82FF0FACB91000BE5C81 /* RecentCommitsController.h */,
+				6FED83000FACB91000BE5C81 /* RecentCommitsController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -431,18 +445,17 @@
 		6FB7FEA60F7E2C7500E8D702 /* IBFiles */ = {
 			isa = PBXGroup;
 			children = (
-				6F1BCBE70FAC589C00D66E02 /* IssueDetail.xib */,
-				6F1BCBE80FAC589C00D66E02 /* OpenIssueCell.xib */,
+				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6F5A40840F90B25F00427ED7 /* Feeds.xib */,
-				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6F74DD770FA76C8700FD90AB /* FeedEntryDetails.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F74DD780FA76C8700FD90AB /* Repositories.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
-				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
-				6F74DD790FA76C8700FD90AB /* TextCell.xib */,
+				6FED82990FACA2F000BE5C81 /* Issues.xib */,
+				6F1BCBE70FAC589C00D66E02 /* IssueDetail.xib */,
+				6FED83A40FACC2FF00BE5C81 /* RecentCommits.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -456,6 +469,17 @@
 				6FD61A090FA7AB26008C751B /* WatchButton.png */,
 			);
 			name = Buttons;
+			sourceTree = "<group>";
+		};
+		6FED82980FACA2AE00BE5C81 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6F1BCBE80FAC589C00D66E02 /* OpenIssueCell.xib */,
+				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
+				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
+				6F74DD790FA76C8700FD90AB /* TextCell.xib */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		6FF6EB2D0FA61115000679FA /* Parser */ = {
@@ -587,6 +611,8 @@
 				6F1BCBE90FAC589C00D66E02 /* IssueDetail.xib in Resources */,
 				6F1BCBEA0FAC589C00D66E02 /* OpenIssueCell.xib in Resources */,
 				6F1BCC310FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png in Resources */,
+				6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */,
+				6FED83A50FACC2FF00BE5C81 /* RecentCommits.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,6 +656,8 @@
 				8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */,
 				8C6AA15F0FAC22B000A99483 /* IssueDetailController.m in Sources */,
 				6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */,
+				6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */,
+				6FED83010FACB91000BE5C81 /* RecentCommitsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

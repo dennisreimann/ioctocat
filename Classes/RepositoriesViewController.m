@@ -14,10 +14,8 @@
     [super viewDidLoad];
 	isLoaded = NO;
 	self.title = @"My Repositories";
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
-
 
 - (void)parseXML {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -108,7 +106,6 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[activityView release];
 	[noPublicReposCell release];
 	[noPrivateReposCell release];
 	[publicRepositories release];

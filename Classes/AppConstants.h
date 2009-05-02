@@ -8,6 +8,8 @@
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
+#define kOpenIssueCellIdentifier @"OpenIssue"
+
 #define kCommitCellIdentifier @"CommitCell"
 
 // URLs
@@ -25,6 +27,12 @@
 #define kRepoUnwatchFormat @"https://github.com/api/v2/xml/repos/watch/%@/%@?token=%@"
 #define kUserFollowFormat @"https://github.com/api/v2/xml/user/follow/%@?token=%@"
 #define kUserUnfollowFormat @"https://github.com/api/v2/xml/user/unfollow/%@?token=%@"
+#define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
+
+
+// Issue States
+#define kIssueOpen @"open"
+#define kIssueClosed @"closed"
 
 // KVO
 #define kResourceStatusKeyPath @"status"

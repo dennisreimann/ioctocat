@@ -16,7 +16,7 @@
 }
 
 - (BOOL)hasContent {
-	return ![contentTextLabel.text isEqualToString:@""];
+	return !(contentTextLabel.text == nil || [contentTextLabel.text isEqualToString:@""]);
 }
 
 #pragma mark -

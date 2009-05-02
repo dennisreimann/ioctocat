@@ -11,7 +11,7 @@
 
 @implementation GHRepository
 
-@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers, recentCommits;
+@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers, recentCommits, issues;
 
 - (id)init {
 	[super init];
@@ -25,6 +25,9 @@
 	return self;
 }
 
+
+
+
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
@@ -33,6 +36,14 @@
 	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
 	self.recentCommits = commitFeed;
 	[commitFeed release];
+    
+
+    
+	NSURL *issuesURL = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, theOwner,  theName, @"open"]];
+	GHIssues *issuesList = [[GHIssues alloc] initWithURL:issuesURL];
+	self.issues = issuesList;    
+    [issuesList release];            
+    
 }
 
 - (NSString *)description {
@@ -99,6 +110,7 @@
 	[githubURL release];
 	[homepageURL release];
 	[recentCommits release];
+    [issues release];
     [super dealloc];
 }
 

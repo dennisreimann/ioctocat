@@ -2,6 +2,7 @@
 #import "GHResource.h"
 #import "GHUser.h"
 #import "GHFeed.h"
+#import "GHIssues.h"
 
 
 @interface GHRepository : GHResource {
@@ -15,6 +16,8 @@
 	BOOL isPrivate;
 	BOOL isFork;
 	GHFeed *recentCommits;
+    GHIssues *issues;
+
 }
 
 @property (nonatomic, retain) NSString *name;
@@ -28,6 +31,7 @@
 @property (nonatomic, readwrite) BOOL isPrivate;
 @property (nonatomic, readwrite) BOOL isFork;
 @property (nonatomic, readonly) GHUser *user;
+@property (nonatomic, retain) GHIssues *issues;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;

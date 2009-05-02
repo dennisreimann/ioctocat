@@ -77,6 +77,7 @@
 		6FD61A0B0FA7AB26008C751B /* UnfollowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A070FA7AB26008C751B /* UnfollowButton.png */; };
 		6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A080FA7AB26008C751B /* UnwatchButton.png */; };
 		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
+		6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
 		8C6A99E50FABCFC200A99483 /* GHIssuesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */; };
@@ -189,6 +190,8 @@
 		6FD61A070FA7AB26008C751B /* UnfollowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnfollowButton.png; path = Images/Buttons/UnfollowButton.png; sourceTree = "<group>"; };
 		6FD61A080FA7AB26008C751B /* UnwatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnwatchButton.png; path = Images/Buttons/UnwatchButton.png; sourceTree = "<group>"; };
 		6FD61A090FA7AB26008C751B /* WatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WatchButton.png; path = Images/Buttons/WatchButton.png; sourceTree = "<group>"; };
+		6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHResourcesParserDelegate.h; sourceTree = "<group>"; };
+		6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHResourcesParserDelegate.m; sourceTree = "<group>"; };
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsersParserDelegate.h; sourceTree = "<group>"; };
 		6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsersParserDelegate.m; sourceTree = "<group>"; };
@@ -458,6 +461,8 @@
 		6FF6EB2D0FA61115000679FA /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */,
+				6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */,
 				6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */,
 				6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */,
 				6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */,
@@ -476,12 +481,12 @@
 			isa = PBXGroup;
 			children = (
 				8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */,
+				8CFBCFA90FAB8A3100A2C37A /* NSHTTPCookieAdditions.m */,
+				8CFBCFAA0FAB8A3100A2C37A /* ASIFormDataRequest.h */,
 				8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */,
 				8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */,
 				8CFBCFA70FAB8A3100A2C37A /* ASIHTTPRequest.h */,
 				8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */,
-				8CFBCFA90FAB8A3100A2C37A /* NSHTTPCookieAdditions.m */,
-				8CFBCFAA0FAB8A3100A2C37A /* ASIFormDataRequest.h */,
 				8CFBCFAB0FAB8A3100A2C37A /* ASINetworkQueue.h */,
 			);
 			name = ASIHTTPRequest;
@@ -624,6 +629,7 @@
 				8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */,
 				8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */,
 				8C6AA15F0FAC22B000A99483 /* IssueDetailController.m in Sources */,
+				6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,19 +1,13 @@
 #import <Foundation/Foundation.h>
+#import "GHResourcesParserDelegate.h"
 
 
 @class GHFeedEntry;
 
-@interface GHFeedParserDelegate : NSObject {
+@interface GHFeedParserDelegate : GHResourcesParserDelegate {
   @private
-	id target;
-	SEL selector;
-	NSError *error;
-	NSMutableArray *entries;
-	NSMutableString *currentElementValue;
 	NSDateFormatter *dateFormatter;
 	GHFeedEntry *currentEntry;
 }
-
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector;
 
 @end

@@ -4,19 +4,11 @@
 
 @implementation GHFeedParserDelegate
 
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
-	[super init];
-	entries = [[NSMutableArray alloc] init];
-	target = theTarget;
-	selector = theSelector;
+- (void)parserDidStartDocument:(NSXMLParser *)parser {
+	[super parserDidStartDocument:parser];
 	dateFormatter = [[NSDateFormatter alloc] init];
 	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	return self;
 }
-
-#pragma mark -
-#pragma mark NSXMLParser delegation methods
-
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"entry"]) {
@@ -27,18 +19,9 @@
 	}
 }
 
-- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
-	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-	if (!currentElementValue) {
-		currentElementValue = [[NSMutableString alloc] initWithString:string];
-	} else {
-		[currentElementValue appendString:string];
-	}
-}
-
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"entry"]) {
-		[entries addObject:currentEntry];
+		[resources addObject:currentEntry];
 		[currentEntry release];
 		currentEntry = nil;
 	} else if ([elementName isEqualToString:@"id"]) {
@@ -84,25 +67,17 @@
 	currentElementValue = nil;
 }
 
-- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	DebugLog(@"Parsing error: %@", parseError);
-	error = [parseError retain];
-}
-
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
-	id result = error ? (id)error : (id)entries;
-	[target performSelectorOnMainThread:selector withObject:result waitUntilDone:NO];
+	[super parserDidEndDocument:parser];
+	[dateFormatter release];
+	dateFormatter = nil;
 }
-
 
 #pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[entries release];
-	[error release];
 	[currentEntry release];
-	[currentElementValue release];
 	[dateFormatter release];
     [super dealloc];
 }

@@ -1,23 +1,12 @@
 #import <Foundation/Foundation.h>
+#import "GHResourcesParserDelegate.h"
+#import "GHIssue.h"
 
 
-@class GHIssue;
-
-@interface GHIssuesParserDelegate : NSObject {
-@private
-	id target;
-	SEL selector;
-    NSMutableArray *entries;
+@interface GHIssuesParserDelegate : GHResourcesParserDelegate {
+  @private
     GHIssue *currentIssue;
-	NSError *error;
     NSDateFormatter *dateFormatter;
-
-	NSMutableString *currentElementValue;
-    
-
-
 }
-
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector;
 
 @end

@@ -3,7 +3,7 @@
 
 @class GHRepository, GHUser, FeedEntryCell, TextCell, LabeledCell, OpenIssueCell;
 
-@interface RepositoryViewController : UITableViewController {
+@interface RepositoryController : UITableViewController {
   @private
 	GHRepository *repository;
 	IBOutlet UIView *tableHeaderView;

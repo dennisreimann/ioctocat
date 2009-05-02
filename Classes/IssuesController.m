@@ -1,5 +1,5 @@
 #import "IssuesController.h"
-#import "IssueDetailController.h"
+#import "IssueController.h"
 
 
 @implementation IssuesController
@@ -44,7 +44,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (issues.entries.count == 0) return;
 	GHIssue *issue = [issues.entries objectAtIndex:indexPath.row];
-	IssueDetailController *issueController = [[IssueDetailController alloc] initWithIssue:issue];
+	IssueController *issueController = [[IssueController alloc] initWithIssue:issue];
 	[self.navigationController pushViewController:issueController animated:YES];
 	[issueController release];
 }

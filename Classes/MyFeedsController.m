@@ -1,20 +1,20 @@
-#import "FeedViewController.h"
+#import "MyFeedsController.h"
 #import "WebViewController.h"
-#import "UserViewController.h"
-#import "FeedEntryDetailsController.h"
+#import "UserController.h"
+#import "FeedEntryController.h"
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
 #import "GHUser.h"
 
 
-@interface FeedViewController ()
+@interface MyFeedsController ()
 - (void)feedParsingStarted;
 - (void)feedParsingFinished;
 @end
 
 
-@implementation FeedViewController
+@implementation MyFeedsController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -111,14 +111,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	FeedEntryDetailsController *entryController = [[FeedEntryDetailsController alloc] initWithFeedEntry:entry];
+	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:entry.user];
+	UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
 }

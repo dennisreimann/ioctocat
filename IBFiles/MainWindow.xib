@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="60"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -56,7 +55,6 @@
 							<string key="NSClassName">NSImage</string>
 							<string key="NSResourceName">TabBarFeeds.png</string>
 						</object>
-						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="71694266"/>
 					<object class="IBUINavigationBar" key="IBUINavigationBar" id="252898845">
@@ -71,7 +69,6 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="IBUIViewController" id="456471521">
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
-								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Item</string>
 							</object>
 							<reference key="IBUIParentViewController" ref="988941830"/>
@@ -89,7 +86,6 @@
 								<string key="NSClassName">NSImage</string>
 								<string key="NSResourceName">TabBarRepos.png</string>
 							</object>
-							<reference key="IBUITabBar"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="71694266"/>
 						<object class="IBUINavigationBar" key="IBUINavigationBar" id="243529165">
@@ -315,8 +311,8 @@
 					<string>{{549, 548}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>FeedViewController</string>
-					<string>RepositoriesViewController</string>
+					<string>MyFeedsController</string>
+					<string>MyRepositoriesController</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -345,7 +341,7 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FeedViewController</string>
+					<string key="className">MyFeedsController</string>
 					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -376,16 +372,16 @@
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/FeedViewController.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">RepositoriesViewController</string>
+					<string key="className">MyRepositoriesController</string>
 					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/RepositoriesViewController.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

@@ -1,14 +1,14 @@
-#import "FeedEntryDetailsController.h"
-#import "RepositoryViewController.h"
-#import "UserViewController.h"
-#import "WebViewController.h"
+#import "FeedEntryController.h"
+#import "RepositoryController.h"
+#import "UserController.h"
+#import "WebController.h"
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GravatarLoader.h"
 
 
-@implementation FeedEntryDetailsController
+@implementation FeedEntryController
 
 @synthesize entry;
 
@@ -64,20 +64,20 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		WebViewController *webController = [[WebViewController alloc] initWithURL:entry.linkURL];
+		WebController *webController = [[WebController alloc] initWithURL:entry.linkURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (buttonIndex == 1) {
-		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:entry.user];
+		UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
 	} else if (buttonIndex == 2) {
 		if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
-			RepositoryViewController *repoController = [[RepositoryViewController alloc] initWithRepository:(GHRepository *)entry.eventItem];
+			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:(GHRepository *)entry.eventItem];
 			[self.navigationController pushViewController:repoController animated:YES];
 			[repoController release];
 		} else if ([entry.eventItem isKindOfClass:[GHUser class]]) {
-			UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:(GHUser *)entry.eventItem];
+			UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
 			[self.navigationController pushViewController:userController animated:YES];
 			[userController release];
 		}

@@ -1,4 +1,4 @@
-#import "IssueDetailController.h"
+#import "IssueController.h"
 #import "RepositoryViewController.h"
 #import "UserViewController.h"
 #import "WebViewController.h"
@@ -6,7 +6,7 @@
 #import "GHRepository.h"
 
 
-@implementation IssueDetailController
+@implementation IssueController
 
 @synthesize issue;
 
@@ -18,7 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Issue Details";
+	self.title = @"Issue";
 	titleLabel.text = issue.title;
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
     [contentView setText:issue.body];

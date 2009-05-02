@@ -3,7 +3,7 @@
 
 @class GHFeed, GHFeedEntry, FeedEntryCell;
 
-@interface FeedViewController : UITableViewController {
+@interface MyFeedsController : UITableViewController {
   @private
 	IBOutlet UIActivityIndicatorView *activityView;
 	IBOutlet UIView *feedControlView;

@@ -12,11 +12,11 @@
 	NSString *location;
 	NSURL *blogURL;
 	UIImage *gravatar;
-	NSArray *repositories;
 	NSUInteger publicGistCount;
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
+	NSArray *repositories;
   @private
 	GravatarLoader *gravatarLoader;
 	GHResourceStatus repositoriesStatus;

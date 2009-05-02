@@ -1,5 +1,5 @@
 #import "RecentCommitsController.h"
-#import "FeedEntryDetailsController.h"
+#import "FeedEntryController.h"
 
 
 @implementation RecentCommitsController
@@ -45,7 +45,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (recentCommits.entries.count == 0) return;
 	GHFeedEntry *entry = [recentCommits.entries objectAtIndex:indexPath.row];
-	FeedEntryDetailsController *entryController = [[FeedEntryDetailsController alloc] initWithFeedEntry:entry];
+	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }

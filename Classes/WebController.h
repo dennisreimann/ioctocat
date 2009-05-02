@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface WebViewController : UIViewController <UIWebViewDelegate> {
+@interface WebController : UIViewController <UIWebViewDelegate> {
   @private
 	NSURL *url;
 	IBOutlet UIWebView *webView;

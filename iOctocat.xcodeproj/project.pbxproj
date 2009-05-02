@@ -31,12 +31,12 @@
 		6F1DC5CB0F7E7F4600FCD26D /* wiki.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5C40F7E7F4600FCD26D /* wiki.png */; };
 		6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* watch.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
-		6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebViewController.m */; };
+		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
 		6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */; };
 		6F5652D00F99C1BF001B6703 /* TabBarRepos.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */; };
-		6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */; };
+		6F5652E10F99C85C001B6703 /* MyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issues.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
 		6F5653070F99CB62001B6703 /* public.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653050F99CB62001B6703 /* public.png */; };
@@ -44,11 +44,11 @@
 		6F5A40870F90B25F00427ED7 /* Feeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40840F90B25F00427ED7 /* Feeds.xib */; };
 		6F5A40880F90B25F00427ED7 /* LabeledCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40850F90B25F00427ED7 /* LabeledCell.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
-		6F5A41750F90C38300427ED7 /* RepositoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryViewController.m */; };
+		6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
 		6F5A41790F90C42800427ED7 /* Repository.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A41780F90C42800427ED7 /* Repository.xib */; };
 		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */; };
-		6F72FAE80F9B47730069F092 /* FeedEntryDetailsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */; };
+		6F72FAE80F9B47730069F092 /* FeedEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryController.m */; };
 		6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */; };
 		6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */; };
 		6F72FB600F9B5A5B0069F092 /* styles.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB5F0F9B5A5B0069F092 /* styles.html */; };
@@ -62,7 +62,7 @@
 		6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */; };
-		6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserViewController.m */; };
+		6FC95F1F0F8905F500FC0968 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
 		6FC95F280F8908ED00FC0968 /* UserTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */; };
 		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCAF1660F895756005E1173 /* GravatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* GravatarLoader.m */; };
@@ -70,7 +70,7 @@
 		6FCE4D290F7FD48700451D6E /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D250F7FD48700451D6E /* delete.png */; };
 		6FCE4D2A0F7FD48700451D6E /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D260F7FD48700451D6E /* follow.png */; };
 		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
-		6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* FeedViewController.m */; };
+		6FCE4D880F7FE16A00451D6E /* MyFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 		6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
 		6FD61A0A0FA7AB26008C751B /* FollowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A060FA7AB26008C751B /* FollowButton.png */; };
@@ -88,7 +88,7 @@
 		8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
 		8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
 		8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* OpenIssueCell.m */; };
-		8C6AA15F0FAC22B000A99483 /* IssueDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */; };
+		8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
 		8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
 		8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
 		8CFBCFAE0FAB8A3100A2C37A /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
@@ -130,16 +130,16 @@
 		6F1DC5C40F7E7F4600FCD26D /* wiki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = wiki.png; path = Images/Icons/wiki.png; sourceTree = "<group>"; };
 		6F1DC6430F7E8BDA00FCD26D /* watch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = watch.png; path = Images/Icons/watch.png; sourceTree = "<group>"; };
 		6F1DC6590F7E8D6900FCD26D /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WebView.xib; path = IBFiles/WebView.xib; sourceTree = "<group>"; };
-		6F1DC6720F7E8E1900FCD26D /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
-		6F1DC6730F7E8E1900FCD26D /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
+		6F1DC6720F7E8E1900FCD26D /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
+		6F1DC6730F7E8E1900FCD26D /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
 		6F35BD370F88B01900E978CD /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepository.m; sourceTree = "<group>"; };
 		6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarFeeds.png; path = Images/TabBarFeeds.png; sourceTree = "<group>"; };
 		6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarRepos.png; path = Images/TabBarRepos.png; sourceTree = "<group>"; };
-		6F5652DF0F99C85C001B6703 /* RepositoriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesViewController.h; sourceTree = "<group>"; };
-		6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesViewController.m; sourceTree = "<group>"; };
+		6F5652DF0F99C85C001B6703 /* MyRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRepositoriesController.h; sourceTree = "<group>"; };
+		6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRepositoriesController.m; sourceTree = "<group>"; };
 		6F5653020F99CB52001B6703 /* issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues.png; path = Images/Icons/issues.png; sourceTree = "<group>"; };
 		6F5653040F99CB62001B6703 /* private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = private.png; path = Images/Icons/private.png; sourceTree = "<group>"; };
 		6F5653050F99CB62001B6703 /* public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public.png; path = Images/Icons/public.png; sourceTree = "<group>"; };
@@ -147,14 +147,14 @@
 		6F5A40840F90B25F00427ED7 /* Feeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Feeds.xib; path = IBFiles/Feeds.xib; sourceTree = "<group>"; };
 		6F5A40850F90B25F00427ED7 /* LabeledCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LabeledCell.xib; path = IBFiles/LabeledCell.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
-		6F5A41730F90C38300427ED7 /* RepositoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryViewController.h; sourceTree = "<group>"; };
-		6F5A41740F90C38300427ED7 /* RepositoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryViewController.m; sourceTree = "<group>"; };
+		6F5A41730F90C38300427ED7 /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
+		6F5A41740F90C38300427ED7 /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
 		6F5A41780F90C42800427ED7 /* Repository.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repository.xib; path = IBFiles/Repository.xib; sourceTree = "<group>"; };
 		6F5A420C0F90CE0500427ED7 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
 		6F5A420D0F90CE0500427ED7 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
 		6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RepositoryTableHeadBackground.png; path = Images/RepositoryTableHeadBackground.png; sourceTree = "<group>"; };
-		6F72FAE60F9B47730069F092 /* FeedEntryDetailsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedEntryDetailsController.h; sourceTree = "<group>"; };
-		6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryDetailsController.m; sourceTree = "<group>"; };
+		6F72FAE60F9B47730069F092 /* FeedEntryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedEntryController.h; sourceTree = "<group>"; };
+		6F72FAE70F9B47730069F092 /* FeedEntryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryController.m; sourceTree = "<group>"; };
 		6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryDetailsHeadBackground.png; path = Images/FeedEntryDetailsHeadBackground.png; sourceTree = "<group>"; };
 		6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryCell.m; sourceTree = "<group>"; };
 		6F72FB5F0F9B5A5B0069F092 /* styles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = styles.html; sourceTree = "<group>"; };
@@ -174,8 +174,8 @@
 		6FC465160F9D1445003A8E7B /* GHCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCommit.m; sourceTree = "<group>"; };
 		6FC647270F9B165E00FE39F6 /* GHReposParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHReposParserDelegate.h; sourceTree = "<group>"; };
 		6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHReposParserDelegate.m; sourceTree = "<group>"; };
-		6FC95F1D0F8905F500FC0968 /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
-		6FC95F1E0F8905F500FC0968 /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
+		6FC95F1D0F8905F500FC0968 /* UserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
+		6FC95F1E0F8905F500FC0968 /* UserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
 		6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserTableHeadBackground.png; path = Images/UserTableHeadBackground.png; sourceTree = "<group>"; };
 		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
 		6FC9610B0F8935DC00FC0968 /* LabeledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabeledCell.m; sourceTree = "<group>"; };
@@ -185,8 +185,8 @@
 		6FCE4D250F7FD48700451D6E /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = delete.png; path = Images/Icons/delete.png; sourceTree = "<group>"; };
 		6FCE4D260F7FD48700451D6E /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = Images/Icons/follow.png; sourceTree = "<group>"; };
 		6FCE4D270F7FD48700451D6E /* gist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gist.png; path = Images/Icons/gist.png; sourceTree = "<group>"; };
-		6FCE4D860F7FE16A00451D6E /* FeedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedViewController.h; sourceTree = "<group>"; };
-		6FCE4D870F7FE16A00451D6E /* FeedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedViewController.m; sourceTree = "<group>"; };
+		6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFeedsController.h; sourceTree = "<group>"; };
+		6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFeedsController.m; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
 		6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedParserDelegate.h; sourceTree = "<group>"; };
 		6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedParserDelegate.m; sourceTree = "<group>"; };
@@ -213,8 +213,8 @@
 		8C6A9AE50FABDB0100A99483 /* GHIssues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssues.m; sourceTree = "<group>"; };
 		8C6A9EA10FABF1D900A99483 /* OpenIssueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenIssueCell.h; sourceTree = "<group>"; };
 		8C6A9EA20FABF1D900A99483 /* OpenIssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenIssueCell.m; sourceTree = "<group>"; };
-		8C6AA15D0FAC22B000A99483 /* IssueDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueDetailController.h; sourceTree = "<group>"; };
-		8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueDetailController.m; sourceTree = "<group>"; };
+		8C6AA15D0FAC22B000A99483 /* IssueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueController.h; sourceTree = "<group>"; };
+		8C6AA15E0FAC22B000A99483 /* IssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueController.m; sourceTree = "<group>"; };
 		8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
 		8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
@@ -331,12 +331,12 @@
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
 				6FC465160F9D1445003A8E7B /* GHCommit.m */,
-				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
-				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
 				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
+				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
+				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -346,22 +346,22 @@
 			children = (
 				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
-				6FCE4D860F7FE16A00451D6E /* FeedViewController.h */,
-				6FCE4D870F7FE16A00451D6E /* FeedViewController.m */,
-				6F72FAE60F9B47730069F092 /* FeedEntryDetailsController.h */,
-				6F72FAE70F9B47730069F092 /* FeedEntryDetailsController.m */,
-				6F1DC6720F7E8E1900FCD26D /* WebViewController.h */,
-				6F1DC6730F7E8E1900FCD26D /* WebViewController.m */,
-				6FC95F1D0F8905F500FC0968 /* UserViewController.h */,
-				6FC95F1E0F8905F500FC0968 /* UserViewController.m */,
-				6F5652DF0F99C85C001B6703 /* RepositoriesViewController.h */,
-				6F5652E00F99C85C001B6703 /* RepositoriesViewController.m */,
-				6F5A41730F90C38300427ED7 /* RepositoryViewController.h */,
-				6F5A41740F90C38300427ED7 /* RepositoryViewController.m */,
+				6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */,
+				6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */,
+				6F72FAE60F9B47730069F092 /* FeedEntryController.h */,
+				6F72FAE70F9B47730069F092 /* FeedEntryController.m */,
+				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
+				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
+				6FC95F1D0F8905F500FC0968 /* UserController.h */,
+				6FC95F1E0F8905F500FC0968 /* UserController.m */,
+				6F5652DF0F99C85C001B6703 /* MyRepositoriesController.h */,
+				6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */,
+				6F5A41730F90C38300427ED7 /* RepositoryController.h */,
+				6F5A41740F90C38300427ED7 /* RepositoryController.m */,
 				6FED82950FACA1E700BE5C81 /* IssuesController.h */,
 				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
-				8C6AA15D0FAC22B000A99483 /* IssueDetailController.h */,
-				8C6AA15E0FAC22B000A99483 /* IssueDetailController.m */,
+				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
+				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
 				6FED82FF0FACB91000BE5C81 /* RecentCommitsController.h */,
 				6FED83000FACB91000BE5C81 /* RecentCommitsController.m */,
 			);
@@ -627,18 +627,18 @@
 				1D3623260D0F684500981E51 /* iOctocatAppDelegate.m in Sources */,
 				6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */,
 				6F1DC4490F7E5AA000FCD26D /* GHFeedEntry.m in Sources */,
-				6F1DC6740F7E8E1900FCD26D /* WebViewController.m in Sources */,
-				6FCE4D880F7FE16A00451D6E /* FeedViewController.m in Sources */,
+				6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */,
+				6FCE4D880F7FE16A00451D6E /* MyFeedsController.m in Sources */,
 				6F35BD390F88B01900E978CD /* GHUser.m in Sources */,
 				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
-				6FC95F1F0F8905F500FC0968 /* UserViewController.m in Sources */,
+				6FC95F1F0F8905F500FC0968 /* UserController.m in Sources */,
 				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
 				6FCAF1660F895756005E1173 /* GravatarLoader.m in Sources */,
-				6F5A41750F90C38300427ED7 /* RepositoryViewController.m in Sources */,
+				6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */,
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
-				6F5652E10F99C85C001B6703 /* RepositoriesViewController.m in Sources */,
+				6F5652E10F99C85C001B6703 /* MyRepositoriesController.m in Sources */,
 				6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */,
-				6F72FAE80F9B47730069F092 /* FeedEntryDetailsController.m in Sources */,
+				6F72FAE80F9B47730069F092 /* FeedEntryController.m in Sources */,
 				6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */,
 				6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */,
 				6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */,
@@ -654,7 +654,7 @@
 				8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */,
 				8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */,
 				8C6A9EA30FABF1D900A99483 /* OpenIssueCell.m in Sources */,
-				8C6AA15F0FAC22B000A99483 /* IssueDetailController.m in Sources */,
+				8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */,
 				6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */,
 				6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */,
 				6FED83010FACB91000BE5C81 /* RecentCommitsController.m in Sources */,

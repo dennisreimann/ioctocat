@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface RepositoriesViewController : UITableViewController {
+@interface MyRepositoriesController : UITableViewController {
   @private
 	IBOutlet UITableViewCell *loadingReposCell;
 	IBOutlet UITableViewCell *noPublicReposCell;

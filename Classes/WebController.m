@@ -1,7 +1,7 @@
-#import "WebViewController.h"
+#import "WebController.h"
 
 
-@implementation WebViewController
+@implementation WebController
 
 - (id)initWithURL:(NSURL *)theURL {
     [super initWithNibName:@"WebView" bundle:nil];

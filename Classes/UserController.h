@@ -3,7 +3,7 @@
 
 @class GHUser, LabeledCell;
 
-@interface UserViewController : UITableViewController {
+@interface UserController : UITableViewController {
   @private
 	GHUser *user;
 	IBOutlet UIView *tableHeaderView;

@@ -1,12 +1,12 @@
-#import "RepositoriesViewController.h"
-#import "RepositoryViewController.h"
+#import "MyRepositoriesController.h"
+#import "RepositoryController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GHReposParserDelegate.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 
-@implementation RepositoriesViewController
+@implementation MyRepositoriesController
 
 @synthesize privateRepositories, publicRepositories;
 
@@ -97,7 +97,7 @@
 	NSArray *repos = (indexPath.section == 0) ? privateRepositories : publicRepositories;
 	if (repos.count == 0) return;
 	GHRepository *repo = [repos objectAtIndex:indexPath.row];
-	RepositoryViewController *repoController = [[RepositoryViewController alloc] initWithRepository:repo];
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 	[repoController release];
 }

@@ -28,7 +28,14 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-	NSString *commitFeedURLString = [NSString stringWithFormat:kRepoFeedFormat, owner, name];
+        
+    // dont like this from a cleanlyness perspective but I wanted to get it working before we refactor
+	NSString *commitFeedURLString ;
+    if ( self.isPrivate ) {
+       commitFeedURLString = [NSString stringWithFormat:kPrivateRepoFeedFormat, owner, name];
+    } else {
+       commitFeedURLString = [NSString stringWithFormat:kRepoFeedFormat, owner, name];
+    }
 	NSURL *commitFeedURL = [NSURL URLWithString:commitFeedURLString];
 	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
 	self.recentCommits = commitFeed;

@@ -22,6 +22,7 @@
 #define kUserFeedFormat @"http://github.com/%@.atom"
 #define kRepoXMLFormat @"https://github.com/api/v2/xml/repos/show/%@/%@"
 #define kRepoFeedFormat @"http://github.com/feeds/%@/commits/%@/master"
+#define kPrivateRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/master"
 #define kRepoCommitsXMLFormat @"https://github.com/api/v2/xml/commits/list/%@/%@/%@"
 #define kRepoWatchFormat @"https://github.com/api/v2/xml/repos/watch/%@/%@?token=%@"
 #define kRepoUnwatchFormat @"https://github.com/api/v2/xml/repos/watch/%@/%@?token=%@"

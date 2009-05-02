@@ -1,18 +1,11 @@
 #import <Foundation/Foundation.h>
+#import "GHResourcesParserDelegate.h"
+#import "GHRepository.h"
 
 
-@class GHRepository;
-
-@interface GHReposParserDelegate : NSObject {
+@interface GHReposParserDelegate : GHResourcesParserDelegate {
   @private
-	id target;
-	SEL selector;
-	NSError *error;
-	NSMutableArray *repositories;
-	NSMutableString *currentElementValue;
 	GHRepository *currentRepository;
 }
-
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector;
 
 @end

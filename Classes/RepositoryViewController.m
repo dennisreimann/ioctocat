@@ -49,14 +49,10 @@
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
-    if ( !descriptionCell.hasContent  ) [descriptionCell setContentText:@"no description available"];
-    
 	if (!repository.recentCommits.isLoaded) [repository.recentCommits loadEntries];
 	if (!repository.issues.isLoaded) [repository.issues loadIssues];
-
-    
-	// FIXME Watching needs to be implemented, see issue:
-	// http://github.com/dbloete/ioctocat/issues#issue/4
+// FIXME Watching needs to be implemented, see issue:
+// http://github.com/dbloete/ioctocat/issues#issue/4
 //	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isWatching:repository] ? @"UnwatchButton.png" : @"WatchButton.png")];
 //	[watchButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
 //	watchButton.hidden = NO;
@@ -73,7 +69,6 @@
 			[alert release];
 		}
 	} else if ([keyPath isEqualToString:kRepoRecentCommitsStatusKeyPath]) {
-		repository.recentCommits;
 		if (repository.recentCommits.isLoaded) [self.tableView reloadData];
 	}
 }
@@ -111,21 +106,18 @@
     } else {
        if (!repository.recentCommits.isLoaded || repository.recentCommits.entries.count == 0) return 1;
        return repository.recentCommits.entries.count;
-
     }
-    
-//	if (section == 0) return descriptionCell.hasContent ? 3 : 2;	
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!repository.isLoaded) return loadingCell;
 	if (indexPath.section == 0) {
 		UITableViewCell *cell;
-        if ( indexPath.row == 0 ) {
+        if (indexPath.row == 0) {
             cell = ownerCell;             
-        } else if ( indexPath.row == 1 ) {
+        } else if (indexPath.row == 1) {
             cell = websiteCell;
-        } else if ( indexPath.row == 2 ) {            
+        } else if (indexPath.row == 2) {            
            cell = descriptionCell; 
         }
 		if (indexPath.row != 2) {
@@ -134,40 +126,30 @@
 		}
 		return cell;
 	}
-        if ( indexPath.section == 1 ) {
-           if (!repository.issues.isLoaded) {
-              return  loadingOpenIssuesCell;
-           } else {
-        
-               if ( repository.issues.entries.count == 0 ) {
-                   return noOpenIssuesCell;
-               } else {
-               OpenIssueCell *cell = (OpenIssueCell *)[tableView dequeueReusableCellWithIdentifier:kOpenIssueCellIdentifier];
-               if (cell == nil) {
-                   [[NSBundle mainBundle] loadNibNamed:@"OpenIssueCell" owner:self options:nil];
-                   cell = issuesCell;
-               }
-               cell.issue = [repository.issues.entries objectAtIndex:indexPath.row];
-               cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-               return cell;
-               }
-               
-          }
-        
-    } else { 
-    
-	if (!repository.recentCommits.isLoaded) return loadingRecentCommitsCell;
-	if (indexPath.section == 2 && repository.recentCommits.entries.count == 0) return noRecentCommitsCell;
-	if (indexPath.section == 2) {
-		FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
+	if (indexPath.section == 1) {
+		if (!repository.issues.isLoaded) return loadingOpenIssuesCell;
+		if (repository.issues.entries.count == 0) return noOpenIssuesCell;
+        OpenIssueCell *cell = (OpenIssueCell *)[tableView dequeueReusableCellWithIdentifier:kOpenIssueCellIdentifier];
 		if (cell == nil) {
-			[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
-			cell = feedEntryCell;
+			[[NSBundle mainBundle] loadNibNamed:@"OpenIssueCell" owner:self options:nil];
+			cell = issuesCell;
 		}
-		cell.entry = [repository.recentCommits.entries objectAtIndex:indexPath.row];
+		cell.issue = [repository.issues.entries objectAtIndex:indexPath.row];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
-	}
+    } else {
+		if (!repository.recentCommits.isLoaded) return loadingRecentCommitsCell;
+		if (indexPath.section == 2 && repository.recentCommits.entries.count == 0) return noRecentCommitsCell;
+		if (indexPath.section == 2) {
+			FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
+			if (cell == nil) {
+				[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
+				cell = feedEntryCell;
+			}
+			cell.entry = [repository.recentCommits.entries objectAtIndex:indexPath.row];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			return cell;
+		}
     }
 	return nil;
 }

@@ -1,18 +1,11 @@
 #import <Foundation/Foundation.h>
+#import "GHResourcesParserDelegate.h"
+#import "GHUser.h"
 
 
-@class GHUser;
-
-@interface GHUsersParserDelegate : NSObject {
+@interface GHUsersParserDelegate : GHResourcesParserDelegate {
   @private
-	id target;
-	SEL selector;
-	NSError *error;
-	NSMutableArray *users;
-	NSMutableString *currentElementValue;
 	GHUser *currentUser;
 }
-
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector;
 
 @end

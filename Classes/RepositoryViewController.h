@@ -13,14 +13,11 @@
 	IBOutlet UILabel *ownerLabel;
 	IBOutlet UILabel *websiteLabel;
 	IBOutlet UILabel *descriptionLabel;
-
-	
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *loadingRecentCommitsCell;
     IBOutlet UITableViewCell *loadingOpenIssuesCell;
 	IBOutlet UITableViewCell *noRecentCommitsCell;
-    IBOutlet UITableViewCell *noOpenIssuesCell;    
-	
+    IBOutlet UITableViewCell *noOpenIssuesCell;
 	IBOutlet FeedEntryCell *feedEntryCell;
     IBOutlet OpenIssueCell *issuesCell;    
 	IBOutlet LabeledCell *ownerCell;

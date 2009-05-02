@@ -3,16 +3,16 @@
 
 
 @interface GHIssue : GHResource {
-  NSString *issueId;
-  NSString *user;    
-  NSString *title;
-  NSString *body;
-  NSString *state;
-  NSString *type;
-  NSInteger *votes;    
-  NSInteger *num;
-  NSDate *created;
-  NSDate *updated;    
+	NSString *issueId;
+	NSString *user;
+	NSString *title;
+	NSString *body;
+	NSString *state;
+	NSString *type;
+	NSDate *created;
+	NSDate *updated;
+	NSInteger votes;
+	NSInteger num;
 }
 
 @property (nonatomic, retain) NSString *issueId;
@@ -23,7 +23,7 @@
 @property (nonatomic, retain) NSString *type;
 @property (nonatomic, retain) NSDate *created;
 @property (nonatomic, retain) NSDate *updated;
-@property (nonatomic, readwrite) NSInteger *num;
-@property (nonatomic, readwrite) NSInteger *votes;
+@property (nonatomic, readwrite) NSInteger num;
+@property (nonatomic, readwrite) NSInteger votes;
 
 @end

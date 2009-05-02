@@ -3,10 +3,10 @@
 #import "GHUser.h"
 #import "ASIFormDataRequest.h"
 
-//
-//@interface GHIssues ()
-//- (void)parseIssues;
-//@end
+
+@interface GHIssues ()
+- (void)parseIssues;
+@end
 
 
 @implementation GHIssues
@@ -14,10 +14,9 @@
 @synthesize url, entries;
 
 - (id)initWithURL:(NSURL *)theURL {
-	if (self = [super init]) {
-		self.url = theURL;
-		self.status = GHResourceStatusNotLoaded;
-	}
+	[super init];
+	self.url = theURL;
+	self.status = GHResourceStatusNotLoaded;
 	return self;
 }
 
@@ -37,17 +36,13 @@
 
 - (void)parseIssues {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    
-    
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url] autorelease];
 	[request setPostValue:username forKey:@"login"];
 	[request setPostValue:token forKey:@"token"];	
 	[request start];	
-    
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];

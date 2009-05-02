@@ -11,7 +11,6 @@
 
 @synthesize issue, repository;
 
-
 - (id)initWithIssue:(GHIssue *)theIssue andRepository:(NSString *)theRepo {    
     [super initWithNibName:@"IssueDetail" bundle:nil];
 	self.issue = theIssue;
@@ -23,10 +22,7 @@
     [super viewDidLoad];
 	self.title = @"Issue Details";
 	titleLabel.text = issue.title;
-    
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
-    
-    
     [contentView setText:issue.body];
 	// Date
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -37,10 +33,6 @@
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", @"issues_opened"];
 	iconView.image = [UIImage imageNamed:icon];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
 }
 
 #pragma mark -

@@ -25,9 +25,6 @@
 	return self;
 }
 
-
-
-
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
@@ -36,14 +33,10 @@
 	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
 	self.recentCommits = commitFeed;
 	[commitFeed release];
-    
-
-    
 	NSURL *issuesURL = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, theOwner,  theName, @"open"]];
 	GHIssues *issuesList = [[GHIssues alloc] initWithURL:issuesURL];
-	self.issues = issuesList;    
-    [issuesList release];            
-    
+	self.issues = issuesList;
+    [issuesList release];
 }
 
 - (NSString *)description {

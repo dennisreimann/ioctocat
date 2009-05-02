@@ -33,10 +33,6 @@
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
-    
-    
-
-    
 }
 
 - (GHUser *)currentUser {

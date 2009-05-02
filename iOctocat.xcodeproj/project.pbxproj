@@ -19,6 +19,7 @@
 		6F1BCBE60FAC588800D66E02 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE50FAC588800D66E02 /* Default.png */; };
 		6F1BCBE90FAC589C00D66E02 /* IssueDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE70FAC589C00D66E02 /* IssueDetail.xib */; };
 		6F1BCBEA0FAC589C00D66E02 /* OpenIssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE80FAC589C00D66E02 /* OpenIssueCell.xib */; };
+		6F1BCC310FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCC300FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png */; };
 		6F1DC39B0F7E52F000FCD26D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC39A0F7E52F000FCD26D /* Settings.bundle */; };
 		6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */; };
 		6F1DC4490F7E5AA000FCD26D /* GHFeedEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */; };
@@ -108,6 +109,7 @@
 		6F1BCBE50FAC588800D66E02 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		6F1BCBE70FAC589C00D66E02 /* IssueDetail.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueDetail.xib; path = IBFiles/IssueDetail.xib; sourceTree = "<group>"; };
 		6F1BCBE80FAC589C00D66E02 /* OpenIssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = OpenIssueCell.xib; path = IBFiles/OpenIssueCell.xib; sourceTree = "<group>"; };
+		6F1BCC300FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IssueDetailsHeadBackground.png; path = Images/IssueDetailsHeadBackground.png; sourceTree = "<group>"; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppConstants.h; path = Classes/AppConstants.h; sourceTree = "<group>"; };
 		6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeed.h; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				6F1BCC300FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png */,
 				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
 				6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */,
 				6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */,
@@ -578,6 +581,7 @@
 				6F1BCBE60FAC588800D66E02 /* Default.png in Resources */,
 				6F1BCBE90FAC589C00D66E02 /* IssueDetail.xib in Resources */,
 				6F1BCBEA0FAC589C00D66E02 /* OpenIssueCell.xib in Resources */,
+				6F1BCC310FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

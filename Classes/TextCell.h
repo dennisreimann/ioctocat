@@ -10,4 +10,5 @@
 @property (nonatomic, readonly) CGFloat height;
 
 - (void)setContentText:(NSString *)text;
+
 @end

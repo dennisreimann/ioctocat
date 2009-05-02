@@ -8,8 +8,7 @@
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
-#define kOpenIssueCellIdentifier @"OpenIssue"
-
+#define kIssueCellIdentifier @"IssueCell"
 #define kCommitCellIdentifier @"CommitCell"
 
 // URLs

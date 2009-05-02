@@ -16,9 +16,6 @@
 	content.highlightedTextColor = [UIColor whiteColor];
 }
 
-#pragma mark -
-#pragma mark Cleanup
-
 - (void)dealloc {
 	[label release];
 	[content release];

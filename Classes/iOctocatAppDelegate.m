@@ -1,5 +1,4 @@
 #import "iOctocatAppDelegate.h"
-#import "FeedViewController.h"
 #import "GHUser.h"
 
 

@@ -19,9 +19,6 @@
 	return !(contentTextLabel.text == nil || [contentTextLabel.text isEqualToString:@""]);
 }
 
-#pragma mark -
-#pragma mark Cleanup
-
 - (void)dealloc {
 	[contentTextLabel release];
     [super dealloc];

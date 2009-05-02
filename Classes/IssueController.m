@@ -1,24 +1,24 @@
-#import "IssueDetailController.h"
-#import "RepositoryViewController.h"
-#import "UserViewController.h"
-#import "WebViewController.h"
+#import "IssueController.h"
+#import "RepositoryController.h"
+#import "UserController.h"
+#import "WebController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 
 
-@implementation IssueDetailController
+@implementation IssueController
 
 @synthesize issue;
 
 - (id)initWithIssue:(GHIssue *)theIssue {    
-    [super initWithNibName:@"IssueDetail" bundle:nil];
+    [super initWithNibName:@"Issue" bundle:nil];
 	self.issue = theIssue;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Issue Details";
+	self.title = @"Issue";
 	titleLabel.text = issue.title;
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
     [contentView setText:issue.body];
@@ -29,7 +29,7 @@
 	dateLabel.text = [dateFormatter stringFromDate:issue.created];
 	[dateFormatter release];
 	// Icon
-	NSString *icon = [NSString stringWithFormat:@"%@.png", @"issues_opened"];
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
 }
 

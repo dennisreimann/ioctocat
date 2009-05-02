@@ -25,12 +25,12 @@
 @property (nonatomic, retain) NSURL *githubURL;
 @property (nonatomic, retain) NSURL *homepageURL;
 @property (nonatomic, retain) GHFeed *recentCommits;
+@property (nonatomic, retain) GHIssues *issues;
+@property (nonatomic, readonly) GHUser *user;
 @property (nonatomic, readwrite) NSInteger forks;
 @property (nonatomic, readwrite) NSInteger watchers;
 @property (nonatomic, readwrite) BOOL isPrivate;
 @property (nonatomic, readwrite) BOOL isFork;
-@property (nonatomic, readonly) GHUser *user;
-@property (nonatomic, retain) GHIssues *issues;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;

@@ -3,24 +3,24 @@
 #import "GHCommit.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
-#import "RepositoryViewController.h"
-#import "UserViewController.h"
-#import "WebViewController.h"
+#import "RepositoryController.h"
+#import "UserController.h"
+#import "WebController.h"
 #import "iOctocatAppDelegate.h"
 #import "FeedEntryCell.h"
-#import "FeedEntryDetailsController.h"
-#import "IssueDetailController.h"
-#import "OpenIssueCell.h"
+#import "FeedEntryController.h"
+#import "IssueController.h"
+#import "IssueCell.h"
 #import "RecentCommitsController.h"
 #import "IssuesController.h"
 
 
-@interface RepositoryViewController ()
+@interface RepositoryController ()
 - (void)displayRepository;
 @end
 
 
-@implementation RepositoryViewController
+@implementation RepositoryController
 
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Repository" bundle:nil];
@@ -117,11 +117,11 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0 && repository.user) {
-		UserViewController *userController = [(UserViewController *)[UserViewController alloc] initWithUser:repository.user];
+		UserController *userController = [(UserController *)[UserController alloc] initWithUser:repository.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
 	} else if (section == 0 && row == 1 && repository.homepageURL) {
-		WebViewController *webController = [[WebViewController alloc] initWithURL:repository.homepageURL];
+		WebController *webController = [[WebController alloc] initWithURL:repository.homepageURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 1 && row == 0) {

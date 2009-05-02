@@ -2,7 +2,7 @@
 #import "GHIssue.h"
 
 
-@interface IssueDetailController : UIViewController <UIActionSheetDelegate> {
+@interface IssueController : UIViewController <UIActionSheetDelegate> {
 	GHIssue *issue;
   @private
 	IBOutlet UILabel *dateLabel;

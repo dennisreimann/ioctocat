@@ -1,6 +1,6 @@
-#import "UserViewController.h"
-#import "RepositoryViewController.h"
-#import "WebViewController.h"
+#import "UserController.h"
+#import "RepositoryController.h"
+#import "WebController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
@@ -8,12 +8,12 @@
 #import "iOctocatAppDelegate.h"
 
 
-@interface UserViewController ()
+@interface UserController ()
 - (void)displayUser;
 @end
 
 
-@implementation UserViewController
+@implementation UserController
 
 - (id)initWithUser:(GHUser *)theUser {
     [super initWithNibName:@"User" bundle:nil];
@@ -141,7 +141,7 @@
 		NSURL *locationURL = [NSURL URLWithString:url];
 		[[UIApplication sharedApplication] openURL:locationURL];
 	} else if (section == 0 && row == 1 && user.blogURL) {
-		WebViewController *webController = [[WebViewController alloc] initWithURL:user.blogURL];
+		WebController *webController = [[WebController alloc] initWithURL:user.blogURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 0 && row == 2 && user.email) {
@@ -152,7 +152,7 @@
 		[mailURL release];
 	} else if (section == 1) {
 		GHRepository *repo = [user.repositories objectAtIndex:indexPath.row];
-		RepositoryViewController *repoController = [[RepositoryViewController alloc] initWithRepository:repo];
+		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
 	}

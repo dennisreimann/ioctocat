@@ -3,7 +3,7 @@
 
 @class GHFeedEntry;
 
-@interface FeedEntryDetailsController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
+@interface FeedEntryController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
 	GHFeedEntry *entry;
   @private
 	IBOutlet UILabel *dateLabel;

@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "GHIssues.h"
-#import "OpenIssueCell.h"
+#import "IssueCell.h"
 
 
 @interface IssuesController : UITableViewController {
@@ -8,7 +8,7 @@
 	GHIssues *issues;
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
-	IBOutlet OpenIssueCell *issueCell;
+	IBOutlet IssueCell *issueCell;
 }
 
 - (id)initWithIssues:(GHIssues *)theIssues;

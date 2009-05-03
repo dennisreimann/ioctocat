@@ -11,6 +11,7 @@
 	NSString *type;
 	NSDate *created;
 	NSDate *updated;
+    NSString *repo;
 	NSInteger votes;
 	NSInteger num;
 }
@@ -21,6 +22,7 @@
 @property (nonatomic, retain) NSString *body;
 @property (nonatomic, retain) NSString *state;
 @property (nonatomic, retain) NSString *type;
+@property (nonatomic, retain) NSString *repo;
 @property (nonatomic, retain) NSDate *created;
 @property (nonatomic, retain) NSDate *updated;
 @property (nonatomic, readwrite) NSInteger num;

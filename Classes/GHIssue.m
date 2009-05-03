@@ -3,7 +3,7 @@
 
 @implementation GHIssue
 
-@synthesize issueId, user, title, body, state, type, votes, created, updated, num;    
+@synthesize issueId, user, title, body, state, type, votes, created, updated, num, repo;    
 
 - (id)initWithIssueID:(NSString *)theIssueID {
 	[super init];
@@ -21,6 +21,7 @@
     [type release];    
     [body release];
     [state release];
+    [repo release];
     [created release];
     [updated release];
 	[super dealloc];

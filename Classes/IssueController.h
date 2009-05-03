@@ -2,10 +2,11 @@
 #import "GHIssue.h"
 
 
-@interface IssueController : UIViewController <UIActionSheetDelegate> {
+@interface IssueController : UIViewController <UIWebViewDelegate,UIActionSheetDelegate> {
 	GHIssue *issue;
   @private
 	IBOutlet UILabel *dateLabel;
+	IBOutlet UILabel *updatedLabel;    
 	IBOutlet UILabel *voteLabel;    
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UIImageView *iconView;
@@ -15,5 +16,7 @@
 @property (nonatomic, retain) GHIssue *issue;
 
 - (id)initWithIssue:(GHIssue *)theIssue;
+- (IBAction)showActions:(id)sender;
+
 
 @end

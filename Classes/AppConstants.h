@@ -31,7 +31,7 @@
 #define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
 
 // Issue URL
-#define kViewIssueOnGithub @"http://github.com/%@/%@/issues#issue/%@"
+#define kViewIssueOnGithub @"http://github.com/%@/%@/issues#issue/%d"
 
 // Issue States
 #define kIssueOpen @"open"

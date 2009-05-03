@@ -1,18 +1,21 @@
 #import <UIKit/UIKit.h>
+#import "LoginController.h"
+#import "MyFeedsController.h"
+#import "GHUser.h"
 
 
-@class GHUser;
-
-@interface iOctocatAppDelegate : NSObject <UIApplicationDelegate> {
-	NSMutableDictionary *users;
+@interface iOctocatAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
   @private
     IBOutlet UIWindow *window;
     IBOutlet UITabBarController *tabBarController;
-	BOOL isDataSourceAvailable;
+	IBOutlet MyFeedsController *feedController;
+	IBOutlet UIActivityIndicatorView *activityView;
+	UIActionSheet *authSheet;
+	NSMutableDictionary *users;
 }
 
-@property (nonatomic, readonly) BOOL isDataSourceAvailable;
 @property (nonatomic, retain) NSMutableDictionary *users;
+@property (nonatomic, readonly) LoginController *loginController;
 
 - (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)theUsername;

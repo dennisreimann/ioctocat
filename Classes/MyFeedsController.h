@@ -1,7 +1,8 @@
 #import <UIKit/UIKit.h>
+#import "GHFeed.h"
+#import "GHFeedEntry.h"
+#import "FeedEntryCell.h"
 
-
-@class GHFeed, GHFeedEntry, FeedEntryCell;
 
 @interface MyFeedsController : UITableViewController {
   @private
@@ -16,6 +17,7 @@
 
 @property (nonatomic, readonly) GHFeed *currentFeed;
 
+- (void)setupFeeds;
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)reloadFeed:(id)sender;
 

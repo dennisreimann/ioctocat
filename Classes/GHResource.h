@@ -2,14 +2,13 @@
 
 
 typedef enum {
-	GHResourceStatusNotLoaded,
-	GHResourceStatusLoading,
-	GHResourceStatusLoaded
+	GHResourceStatusNotLoaded = 0,
+	GHResourceStatusLoading = 1,
+	GHResourceStatusLoaded = 2
 } GHResourceStatus;
 
 
 @interface GHResource : NSObject {
-  @private
 	GHResourceStatus status;
 	NSError *error;
 }

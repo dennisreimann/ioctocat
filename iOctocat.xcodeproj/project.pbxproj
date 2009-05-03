@@ -78,6 +78,9 @@
 		6FD61A0B0FA7AB26008C751B /* UnfollowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A070FA7AB26008C751B /* UnfollowButton.png */; };
 		6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A080FA7AB26008C751B /* UnwatchButton.png */; };
 		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
+		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
+		6FE91E470FAD115300749370 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E460FAD115300749370 /* LoginBackground.png */; };
+		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
 		6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
 		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
@@ -196,6 +199,10 @@
 		6FD61A070FA7AB26008C751B /* UnfollowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnfollowButton.png; path = Images/Buttons/UnfollowButton.png; sourceTree = "<group>"; };
 		6FD61A080FA7AB26008C751B /* UnwatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnwatchButton.png; path = Images/Buttons/UnwatchButton.png; sourceTree = "<group>"; };
 		6FD61A090FA7AB26008C751B /* WatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WatchButton.png; path = Images/Buttons/WatchButton.png; sourceTree = "<group>"; };
+		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
+		6FE91E460FAD115300749370 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = Images/LoginBackground.png; sourceTree = "<group>"; };
+		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		6FE91E4B0FAD13D500749370 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHResourcesParserDelegate.h; sourceTree = "<group>"; };
 		6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHResourcesParserDelegate.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IssuesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesController.h; sourceTree = "<group>"; };
@@ -366,6 +373,8 @@
 				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
 				6FED82FF0FACB91000BE5C81 /* RecentCommitsController.h */,
 				6FED83000FACB91000BE5C81 /* RecentCommitsController.m */,
+				6FE91E4A0FAD13D500749370 /* LoginController.h */,
+				6FE91E4B0FAD13D500749370 /* LoginController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -413,6 +422,7 @@
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				6FE91E460FAD115300749370 /* LoginBackground.png */,
 				6F1BCC300FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png */,
 				6FC95F270F8908ED00FC0968 /* UserTableHeadBackground.png */,
 				6F5A427C0F90D66D00427ED7 /* RepositoryTableHeadBackground.png */,
@@ -450,6 +460,7 @@
 			children = (
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
+				6FE91E180FAD088600749370 /* Login.xib */,
 				6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */,
 				6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */,
 				6FED83A40FACC2FF00BE5C81 /* RecentCommits.xib */,
@@ -511,10 +522,10 @@
 				8CFBCFA90FAB8A3100A2C37A /* NSHTTPCookieAdditions.m */,
 				8CFBCFAA0FAB8A3100A2C37A /* ASIFormDataRequest.h */,
 				8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */,
+				8CFBCFAB0FAB8A3100A2C37A /* ASINetworkQueue.h */,
 				8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */,
 				8CFBCFA70FAB8A3100A2C37A /* ASIHTTPRequest.h */,
 				8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */,
-				8CFBCFAB0FAB8A3100A2C37A /* ASINetworkQueue.h */,
 			);
 			name = ASIHTTPRequest;
 			sourceTree = "<group>";
@@ -617,6 +628,8 @@
 				6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */,
 				6FA92B330FACD6EA001B1D1D /* MyRepositories.xib in Resources */,
 				6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */,
+				6FE91E190FAD088600749370 /* Login.xib in Resources */,
+				6FE91E470FAD115300749370 /* LoginBackground.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,6 +675,7 @@
 				6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */,
 				6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */,
 				6FED83010FACB91000BE5C81 /* RecentCommitsController.m in Sources */,
+				6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

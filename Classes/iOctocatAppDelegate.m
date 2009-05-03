@@ -79,7 +79,7 @@
 			[self proceedAfterAuthentication];
 		} else {
 			[self presentLogin];
-			[self.loginController failWithMessage:@"Please revise your login\nand API token"];
+			[self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
 		}
 	}
 }

@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="6"/>
+			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -57,7 +57,7 @@
 							<object class="IBUIButton" id="961177526">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">289</int>
-								<string key="NSFrame">{{276, 13}, {18, 19}}</string>
+								<string key="NSFrame">{{282, 13}, {18, 19}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -82,7 +82,7 @@
 							<object class="IBUILabel" id="859371587">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 33}, {53, 21}}</string>
+								<string key="NSFrame">{{31, 38}, {53, 21}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -108,7 +108,7 @@
 							<object class="IBUILabel" id="326744483">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{31, 3}, {280, 35}}</string>
+								<string key="NSFrame">{{31, 4}, {237, 35}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -134,7 +134,7 @@
 							<object class="IBUILabel" id="735986520">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{85, 33}, {148, 21}}</string>
+								<string key="NSFrame">{{85, 38}, {148, 21}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -156,7 +156,7 @@
 							<object class="IBUILabel" id="84039608">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{31, 49}, {53, 21}}</string>
+								<string key="NSFrame">{{31, 54}, {53, 21}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -178,7 +178,7 @@
 							<object class="IBUILabel" id="321044925">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{85, 49}, {148, 21}}</string>
+								<string key="NSFrame">{{85, 54}, {148, 21}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -200,7 +200,7 @@
 							<object class="IBUILabel" id="44464179">
 								<reference key="NSNextResponder" ref="8298493"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{230, 33}, {70, 21}}</string>
+								<string key="NSFrame">{{241, 54}, {59, 21}}</string>
 								<reference key="NSSuperview" ref="8298493"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -395,15 +395,15 @@
 						<reference key="object" ref="8298493"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="859371587"/>
 							<reference ref="735986520"/>
-							<reference ref="44464179"/>
 							<reference ref="163586074"/>
-							<reference ref="84039608"/>
-							<reference ref="321044925"/>
 							<reference ref="1008101578"/>
 							<reference ref="961177526"/>
 							<reference ref="326744483"/>
+							<reference ref="859371587"/>
+							<reference ref="84039608"/>
+							<reference ref="321044925"/>
+							<reference ref="44464179"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>

@@ -17,6 +17,7 @@
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
 	NSArray *repositories;
+	BOOL isAuthenticated;
   @private
 	GravatarLoader *gravatarLoader;
 	GHResourceStatus repositoriesStatus;
@@ -33,6 +34,7 @@
 @property (nonatomic, readonly) NSString *cachedGravatarPath;
 @property (nonatomic, readonly) BOOL isReposLoaded;
 @property (nonatomic, readonly) BOOL isReposLoading;
+@property (nonatomic) BOOL isAuthenticated;
 @property (nonatomic) GHResourceStatus repositoriesStatus;
 @property (nonatomic) NSUInteger publicGistCount;
 @property (nonatomic) NSUInteger privateGistCount;
@@ -45,6 +47,7 @@
 - (void)loadRepositories;
 - (void)loadedRepositories:(NSArray *)theRepositories;
 - (void)loadedGravatar:(UIImage *)theImage;
+- (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isWatching:(GHRepository *)aRepository;
 

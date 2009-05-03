@@ -16,6 +16,7 @@
 #define kNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
 #define kActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
 #define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
+#define kAuthenticateUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@?login=%@&token=%@"
 #define kUserReposFormat @"https://github.com/api/v2/xml/repos/show/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/xml/user/search/%@"
 #define kUserFeedFormat @"http://github.com/%@.atom"
@@ -36,9 +37,14 @@
 #define kIssueOpen @"open"
 #define kIssueClosed @"closed"
 
+// Tabs
+#define kMyFeedsTabIndex 0
+#define kMyRepositoriesTabIndex 1
+
 // KVO
 #define kResourceStatusKeyPath @"status"
 #define kResourceErrorKeyPath @"error"
 #define kUserGravatarKeyPath @"gravatar"
 #define kRepoRecentCommitsStatusKeyPath @"recentCommits.status"
 #define kRepositoriesStatusKeyPath @"repositoriesStatus"
+#define KUserAuthenticatedKeyPath @"isAuthenticated"

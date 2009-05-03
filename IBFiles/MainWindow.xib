@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="51"/>
+			<integer value="60"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -161,6 +161,16 @@
 					<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				</object>
 			</object>
+			<object class="IBUIActivityIndicatorView" id="667538468">
+				<nil key="NSNextResponder"/>
+				<int key="NSvFlags">301</int>
+				<string key="NSFrame">{{9, 9}, {20, 20}}</string>
+				<bool key="IBUIOpaque">NO</bool>
+				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<bool key="IBUIUserInteractionEnabled">NO</bool>
+				<bool key="IBUIHidesWhenStopped">NO</bool>
+				<bool key="IBUIAnimating">YES</bool>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -221,6 +231,22 @@
 						<reference key="destination" ref="654812132"/>
 					</object>
 					<int key="connectionID">77</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityView</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="667538468"/>
+					</object>
+					<int key="connectionID">81</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">feedController</string>
+						<reference key="source" ref="664661524"/>
+						<reference key="destination" ref="456471521"/>
+					</object>
+					<int key="connectionID">82</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -359,6 +385,11 @@
 						<reference key="object" ref="617151056"/>
 						<reference key="parent" ref="183379450"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">80</int>
+						<reference key="object" ref="667538468"/>
+						<reference key="parent" ref="957960031"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -379,6 +410,8 @@
 					<string>64.CustomClassName</string>
 					<string>70.IBPluginDependency</string>
 					<string>74.IBPluginDependency</string>
+					<string>80.IBEditorWindowLastContentRect</string>
+					<string>80.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -397,12 +430,14 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>iOctocatAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{330, 242}, {320, 480}}</string>
+					<string>{{22, 276}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>MyFeedsController</string>
 					<string>MyRepositoriesController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{0, 697}, {37, 37}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -426,7 +461,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">77</int>
+			<int key="maxID">82</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -542,11 +577,15 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>activityView</string>
+							<string>feedController</string>
 							<string>tabBarController</string>
 							<string>window</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIActivityIndicatorView</string>
+							<string>MyFeedsController</string>
 							<string>UITabBarController</string>
 							<string>UIWindow</string>
 						</object>

@@ -6,7 +6,7 @@
 
 
 @interface GHUser ()
-- (void)parseXML;
+- (void)parseXMLWithToken:(NSString *)token;
 - (void)parseReposXML;
 @end
 
@@ -14,12 +14,13 @@
 @implementation GHUser
 
 @synthesize name, login, email, company, blogURL, location, gravatar, repositoriesStatus, repositories;
-@synthesize publicGistCount, privateGistCount, publicRepoCount, privateRepoCount;
+@synthesize publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, isAuthenticated;
 
 - (id)init {
 	[super init];
 	self.status = GHResourceStatusNotLoaded;
 	self.repositoriesStatus = GHResourceStatusNotLoaded;
+	isAuthenticated = NO;
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
@@ -32,7 +33,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUser login:'%@' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
+    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
 }
 
 // FIXME Currently just stubbed out, see the issue:
@@ -54,12 +55,19 @@
 	if (self.isLoading) return;
 	self.error = nil;
 	self.status = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
+	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:nil];
 }
 
-- (void)parseXML {
+- (void)authenticateWithToken:(NSString *)theToken {
+	if (self.isLoading) return;
+	self.error = nil;
+	self.status = GHResourceStatusLoading;
+	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:theToken];
+}
+
+- (void)parseXMLWithToken:(NSString *)token {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *userURLString = [NSString stringWithFormat:kUserXMLFormat, login];
+	NSString *userURLString = token ? [NSString stringWithFormat:kAuthenticateUserXMLFormat, login, login, token] : [NSString stringWithFormat:kUserXMLFormat, login];
 	NSURL *userURL = [NSURL URLWithString:userURLString];
 	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];
@@ -76,10 +84,7 @@
 - (void)loadedUsers:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.status = GHResourceStatusNotLoaded;
-	} else {
-		self.status = GHResourceStatusLoaded;
-		if ([(NSArray *)theResult count] == 0) return;
+	} else if ([(NSArray *)theResult count] > 0) {
 		GHUser *user = [(NSArray *)theResult objectAtIndex:0];
 		self.login = user.login;
 		self.name = user.name;
@@ -91,9 +96,10 @@
 		self.privateGistCount = user.privateGistCount;
 		self.publicRepoCount = user.publicRepoCount;
 		self.privateRepoCount = user.privateRepoCount;
-		self.status = GHResourceStatusLoaded;
+		self.isAuthenticated = user.isAuthenticated;
 		if (email) [gravatarLoader loadEmail:email withSize:44];
 	}
+	self.status = GHResourceStatusLoaded;
 }
 
 #pragma mark -

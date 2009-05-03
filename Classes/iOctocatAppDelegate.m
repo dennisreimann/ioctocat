@@ -1,9 +1,14 @@
 #import "iOctocatAppDelegate.h"
-#import "GHUser.h"
+#import "MyFeedsController.h"
 
 
 @interface iOctocatAppDelegate ()
-- (void)displayNoConnectionView;
+- (void)presentLogin;
+- (void)dismissLogin;
+- (void)showAuthenticationSheet;
+- (void)dismissAuthenticationSheet;
+- (void)authenticate;
+- (void)proceedAfterAuthentication;
 @end
 
 
@@ -12,19 +17,32 @@
 @synthesize users;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-//	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//	NSString *username = [defaults valueForKey:kUsernameDefaultsKey];
-//	NSString *token = [defaults valueForKey:kTokenDefaultsKey];
-	if (self.isDataSourceAvailable) {
-		self.users = [NSMutableDictionary dictionary];
-		[window addSubview:tabBarController.view];
-    } else {
-		[self displayNoConnectionView];
-	}
+	self.users = [NSMutableDictionary dictionary];
+	[window addSubview:tabBarController.view];
+	[self authenticate];
 }
 
+- (GHUser *)currentUser {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *login = [defaults valueForKey:kUsernameDefaultsKey];
+	return ([login isEqualToString:@""]) ? nil : [self userWithLogin:login];
+}
+
+- (GHUser *)userWithLogin:(NSString *)theUsername {
+	if ([theUsername isEqualToString:@""]) return nil;
+	GHUser *user = [users objectForKey:theUsername];
+	if (user == nil) {
+		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
+		[users setObject:user forKey:theUsername];
+	}
+	return user;
+}
+
+#pragma mark -
+#pragma mark Authentication
+
 // Use this to add credentials (for instance via email) by opening a link:
-// <githubauth://username:apitoken@github.com>
+// <githubauth://LOGIN:TOKEN@github.com>
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 	if (!url) return NO;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -39,41 +57,64 @@
 	return YES;
 }
 
-- (BOOL)isDataSourceAvailable {
-    static BOOL checkNetwork = YES;
-    if (checkNetwork) {
-        checkNetwork = NO;
-		NSURL *testURL = [NSURL URLWithString:kConnectivityCheckURL];
-		NSURLRequest *testRequest = [NSURLRequest requestWithURL:testURL];
-		NSURLConnection *testConnection = [NSURLConnection sendSynchronousRequest:testRequest returningResponse:nil error:NULL];
-		isDataSourceAvailable = (testConnection != nil);
-    }
-    return isDataSourceAvailable;
-}
-
-- (void)displayNoConnectionView {
-	UIImage *noConnectionImage = [UIImage imageNamed:@"NoConnection.png"];
-	UIImageView *noConnectionView = [[UIImageView alloc] initWithImage:noConnectionImage];
-	CGRect noConnectionViewFrame = noConnectionView.frame;
-	noConnectionViewFrame.origin = CGPointMake(0.0f, [UIApplication sharedApplication].statusBarFrame.size.height);
-	noConnectionView.frame = noConnectionViewFrame;
-	[window addSubview:noConnectionView];
-	[noConnectionView release];
-}
-
-- (GHUser *)currentUser {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults valueForKey:kUsernameDefaultsKey];
-	return ([username isEqualToString:@""]) ? nil : [self userWithLogin:username];
-}
-
-- (GHUser *)userWithLogin:(NSString *)theUsername {
-	GHUser *user = [users objectForKey:theUsername];
-	if (user == nil) {
-		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
-		[users setObject:user forKey:theUsername];
+- (void)authenticate {
+	if (self.currentUser.isAuthenticated) return;
+	if (!self.currentUser) {
+		[self presentLogin];
+	} else {
+		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+		NSString *token = [defaults valueForKey:kTokenDefaultsKey];
+		[self.currentUser addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.currentUser authenticateWithToken:token];
 	}
-	return user;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if (self.currentUser.isLoading) {
+		[self showAuthenticationSheet];
+	} else if (self.currentUser.isLoaded) {
+		[self dismissAuthenticationSheet];
+		[self.currentUser removeObserver:self forKeyPath:kResourceStatusKeyPath];
+		if (self.currentUser.isAuthenticated) {
+			[self proceedAfterAuthentication];
+		} else {
+			[self presentLogin];
+			[self.loginController failWithMessage:@"Please revise your login\nand API token"];
+		}
+	}
+}
+
+- (LoginController *)loginController {
+	return (LoginController *)tabBarController.modalViewController ;
+}
+
+- (void)presentLogin {
+	if (self.loginController) return;
+	LoginController *loginController = [[LoginController alloc] initWithTarget:self andSelector:@selector(authenticate)];
+	[tabBarController presentModalViewController:loginController animated:YES];
+	[loginController release];
+}
+
+- (void)dismissLogin {
+	if (self.loginController) [tabBarController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)showAuthenticationSheet {
+	authSheet = [[UIActionSheet alloc] initWithTitle:@"Authenticating, please wait…\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	UIView *currentView = tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
+	[authSheet showInView:currentView];
+	activityView.center = CGPointMake(authSheet.frame.size.width/2, authSheet.frame.size.height-activityView.frame.size.height*1.5f);
+	[authSheet addSubview:activityView];
+	[authSheet release];
+}
+
+- (void)dismissAuthenticationSheet {
+	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
+- (void)proceedAfterAuthentication {
+	[self dismissLogin];
+	[feedController setupFeeds];
 }
 
 #pragma mark -
@@ -81,8 +122,11 @@
 
 - (void)dealloc {
 	[tabBarController release];
-	[users release];
+	[feedController release];
+	[activityView release];
+	[authSheet release];
 	[window release];
+	[users release];
 	[super dealloc];
 }
 

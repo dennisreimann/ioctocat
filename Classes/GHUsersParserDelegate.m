@@ -30,6 +30,10 @@
 		currentUser.privateRepoCount = [currentElementValue integerValue];
 	} else if ([elementName isEqualToString:@"blog"]) {
 		currentUser.blogURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
+	} else if ([elementName isEqualToString:@"plan"]) {
+		// FIXME This is not the best way to verify that,
+		// but the API does not offer a better solution yet
+		currentUser.isAuthenticated = YES;
 	}
 	[currentElementValue release];
 	currentElementValue = nil;

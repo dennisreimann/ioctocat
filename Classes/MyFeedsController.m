@@ -2,7 +2,6 @@
 #import "WebController.h"
 #import "UserController.h"
 #import "FeedEntryController.h"
-#import "GHFeed.h"
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
 #import "GHUser.h"
@@ -20,11 +19,12 @@
     [super viewDidLoad];
 	self.title = @"My Feeds";
 	loadCounter = 0;
-	// Load settings
+}
+
+- (void)setupFeeds {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	// Setup feeds
 	NSString *newsAddress = [NSString stringWithFormat:kNewsFeedFormat, username, token];
 	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];
 	NSURL *newsFeedURL = [NSURL URLWithString:newsAddress];
@@ -36,7 +36,7 @@
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	[newsFeed release];
 	[activityFeed release];
-	// Set the switch and load the first feed
+	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
 }
 
@@ -47,11 +47,13 @@
 	[self.tableView reloadData];
 	if (self.currentFeed.isLoaded) return;
 	[self.currentFeed loadEntries];
+	[self.tableView reloadData];
 }
 
 - (IBAction)reloadFeed:(id)sender {
 	if (self.currentFeed.isLoading) return;
 	[self.currentFeed loadEntries];
+	[self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -62,8 +64,7 @@
 		} else {
 			[self feedParsingFinished];
 			if (!feed.error) return;
-			// Let's just assume it's an authentication error
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication error" message:@"Please revise the settings and check your username and API token" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
@@ -90,7 +91,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!self.currentFeed.isLoaded || self.currentFeed.entries.count == 0) ? 1 : self.currentFeed.entries.count;
+	if (self.currentFeed.isLoading) return 1;
+	if (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) return 1;
+	if (self.currentFeed.isLoaded) return self.currentFeed.entries.count;
+	return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -123,7 +127,8 @@
 #pragma mark Helpers
 
 - (GHFeed *)currentFeed {
-	return [feeds objectAtIndex:feedControl.selectedSegmentIndex];
+	return feedControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
 #pragma mark -

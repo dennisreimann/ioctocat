@@ -3,6 +3,8 @@
 
 @implementation GHIssuesParserDelegate
 
+@synthesize repo;
+
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
 	[super parserDidStartDocument:parser];
 	dateFormatter = [[NSDateFormatter alloc] init];
@@ -17,6 +19,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"issue"]) {
+        currentIssue.repo = self.repo;
 		[resources addObject:currentIssue];
 		[currentIssue release];
 		currentIssue = nil;
@@ -50,6 +53,7 @@
 - (void)dealloc {
 	[currentIssue release];
     [dateFormatter release];
+    [repo release];
     [super dealloc];
 }
 

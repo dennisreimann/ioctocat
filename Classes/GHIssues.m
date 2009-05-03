@@ -53,6 +53,7 @@
 	[request setPostValue:token forKey:@"token"];	
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
+    parserDelegate.repo = self.repo;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];

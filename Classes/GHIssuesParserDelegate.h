@@ -4,9 +4,15 @@
 
 
 @interface GHIssuesParserDelegate : GHResourcesParserDelegate {
+
+  NSString *repo;
+  
   @private
     GHIssue *currentIssue;
     NSDateFormatter *dateFormatter;
 }
+
+@property (nonatomic, retain) NSString *repo;
+
 
 @end

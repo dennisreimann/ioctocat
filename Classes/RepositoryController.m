@@ -32,6 +32,7 @@
     [super viewDidLoad];
 	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
+    icon.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	self.tableView.tableHeaderView = tableHeaderView;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
 }
@@ -157,6 +158,7 @@
 	[websiteCell release];
 	[descriptionCell release];
     [issuesCell release];
+    [icon release];
     [super dealloc];
 }
 

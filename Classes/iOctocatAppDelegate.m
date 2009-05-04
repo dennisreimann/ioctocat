@@ -25,11 +25,10 @@
 - (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults valueForKey:kUsernameDefaultsKey];
-	return ([login isEqualToString:@""]) ? nil : [self userWithLogin:login];
+	return (!login || [login isEqualToString:@""]) ? nil : [self userWithLogin:login];
 }
 
 - (GHUser *)userWithLogin:(NSString *)theUsername {
-	if ([theUsername isEqualToString:@""]) return nil;
 	GHUser *user = [users objectForKey:theUsername];
 	if (user == nil) {
 		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
@@ -44,7 +43,7 @@
 // Use this to add credentials (for instance via email) by opening a link:
 // <githubauth://LOGIN:TOKEN@github.com>
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-	if (!url) return NO;
+	if (!url || [[url user] isEqualToString:@""] || [[url password] isEqualToString:@""]) return NO;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:[url user] forKey:kUsernameDefaultsKey];
 	[defaults setValue:[url password] forKey:kTokenDefaultsKey];

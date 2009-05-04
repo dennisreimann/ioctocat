@@ -43,7 +43,7 @@ NSString *md5(NSString *str) {
 	// the same person but gravatar only recognizes the md5 of the latter
 	NSString *email = [[theArgs objectAtIndex:0] lowercaseString];
 	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
-	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d", md5(email), size];
+	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", md5(email), size];
 	NSURL *gravatarURL = [NSURL URLWithString:url];
 	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];

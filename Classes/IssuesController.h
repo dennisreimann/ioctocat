@@ -1,18 +1,24 @@
 #import <UIKit/UIKit.h>
 #import "GHIssues.h"
 #import "IssueCell.h"
-
+#import "GHRepository.h"
 
 @interface IssuesController : UITableViewController {
-  @private
-	GHIssues *issues;
+    GHRepository *repository;
+@private
 	IBOutlet UISegmentedControl *issuesControl;
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
 	IBOutlet IssueCell *issueCell;
+    NSArray *issueList;
 }
 
-- (id)initWithIssues:(GHIssues *)theIssues;
+@property (nonatomic, readonly) GHIssues *currentIssues;
+@property (nonatomic, retain) GHRepository *repository;
+
+- (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)switchChanged:(id)sender;
+- (void)setupIssues;
+
 
 @end

@@ -11,26 +11,17 @@
 
 @implementation GHIssues
 
-@synthesize url, entries, state, user, repo;
+@synthesize url, entries, repo;
 
-- (id)initWithOwner:(NSString *)theOwner andRepository:(NSString *)theRepository andState:(NSString *)theState {
-	[super init];    
-    self.state = theState;
-    self.user = theOwner;
-    self.repo = theRepository;
-	self.url = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, self.user,  self.repo, self.state]];
-	return self;
-}
-
-- (void)reloadForState:(NSString *)theState {
-    self.state = theState;
-	self.status = GHResourceStatusNotLoaded;    
-	self.url = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, self.user,  self.repo, self.state]];
-    [self loadIssues];
+- (id)initWithURL:(NSURL *)theURL andRepository:(NSString *)theRepoName {
+    [super init];    
+    self.url = theURL;
+    self.repo = theRepoName;
+	return self;    
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHIssues url:'%@'>", url];
+    return [NSString stringWithFormat:@"<GHIssues url:'%@' repo:'%@'>", url, repo];
 }
 
 #pragma mark -
@@ -81,9 +72,6 @@
 - (void)dealloc {
 	[url release];
 	[entries release];
-    [state release];
-    [user release];
-    [repo release];
     [super dealloc];
 }
 

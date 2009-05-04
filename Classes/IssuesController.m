@@ -1,31 +1,54 @@
 #import "IssuesController.h"
 #import "IssueController.h"
+#import "GHIssue.h"
 
 
 @implementation IssuesController
 
-- (id)initWithIssues:(GHIssues *)theIssues {
+@synthesize repository;
+
+- (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"Issues";
-	issues = [theIssues retain];
-	[issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    self.repository = theRepository;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.navigationItem.titleView = issuesControl;
-	if (!issues.isLoaded) [issues loadIssues];
+    self.navigationItem.titleView = issuesControl;
+    [self setupIssues];
+    if (!self.currentIssues.isLoaded) [self.currentIssues loadIssues];
 }
 
+
+- (void)setupIssues {
+    NSURL *openIssuesUrl = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, self.repository.owner,  self.repository.name, @"open"]];
+	NSURL *closedIssuesUrl = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat,  self.repository.owner,  self.repository.name, @"closed"]];        
+    GHIssues *openIssues = [[GHIssues alloc] initWithURL:openIssuesUrl andRepository:self.repository.name];
+	GHIssues *closedIssues = [[GHIssues alloc] initWithURL:closedIssuesUrl  andRepository:self.repository.name];
+    [openIssues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[closedIssues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	issueList = [[NSArray alloc] initWithObjects:openIssues, closedIssues, nil];
+	[openIssues release];
+	[closedIssues release];
+	issuesControl.selectedSegmentIndex = 0;
+}
+
+
 - (IBAction)switchChanged:(id)sender {
-	UISegmentedControl* segCtl = sender;
-    [issues reloadForState:(( ( segCtl.selectedSegmentIndex == 0 ) ? @"open" : @"closed" ) )];
-    [self.tableView reloadData];
+    if ( self.currentIssues.isLoaded) return;
+    [self.currentIssues loadIssues];
+    [self.tableView reloadData];    
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) [self.tableView reloadData];
+    if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		GHIssues *theissues = (GHIssues *)object;
+		if (!theissues.isLoading) {
+            [self.tableView reloadData];
+		}
+	}    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -33,36 +56,42 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (issues.isLoading || issues.entries.count == 0) ? 1 : issues.entries.count;
+    return (self.currentIssues.isLoading ) || (self.currentIssues.entries.count == 0) ? 1 : self.currentIssues.entries.count;
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!issues.isLoaded) return loadingIssuesCell;
-	if (issues.entries.count == 0) return noIssuesCell;
+	if (!self.currentIssues.isLoaded) return loadingIssuesCell;
+	if (self.currentIssues.entries.count == 0) return noIssuesCell;
 	IssueCell *cell = (IssueCell *)[tableView dequeueReusableCellWithIdentifier:kIssueCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"IssueCell" owner:self options:nil];
 		cell = issueCell;
 	}
-	cell.issue = [issues.entries objectAtIndex:indexPath.row];
+	cell.issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (issues.entries.count == 0) return;
-	GHIssue *issue = [issues.entries objectAtIndex:indexPath.row];
+	GHIssue *issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue];
 	[self.navigationController pushViewController:issueController animated:YES];
 	[issueController release];
 }
 
+
+- (GHIssues *)currentIssues {
+	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+    nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
+}
+
 - (void)dealloc {
-	[issues removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[issuesControl release];
 	[loadingIssuesCell release];
 	[noIssuesCell release];
 	[issueCell release];
-	[issues release];
+    [issueList release];
+    [repository release];
     [super dealloc];
 }
 

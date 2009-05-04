@@ -40,10 +40,6 @@
 	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
 	self.recentCommits = commitFeed;
 	[commitFeed release];
-
-	GHIssues *issuesList = [[GHIssues alloc] initWithOwner:theOwner andRepository:theName andState:@"open"];
-    self.issues = issuesList;
-    [issuesList release];
 }
 
 - (NSString *)description {

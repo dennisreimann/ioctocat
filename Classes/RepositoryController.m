@@ -128,7 +128,7 @@
 		[self.navigationController pushViewController:commitsController animated:YES];
 		[commitsController release];
 	} else if (section == 1 && row == 1) {
-		IssuesController *issuesController = [[IssuesController alloc] initWithIssues:repository.issues];
+		IssuesController *issuesController = [[IssuesController alloc] initWithRepository:repository];
 		[self.navigationController pushViewController:issuesController animated:YES];
 		[issuesController release];
 	}

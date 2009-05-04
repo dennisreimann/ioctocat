@@ -37,6 +37,7 @@
 
 
 - (IBAction)switchChanged:(id)sender {
+    [self.tableView reloadData];
     if ( self.currentIssues.isLoaded) return;
     [self.currentIssues loadIssues];
     [self.tableView reloadData];    

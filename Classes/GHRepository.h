@@ -36,5 +36,6 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)loadRepository;
 - (void)loadedRepositories:(id)theResult;
+-(int)compareByName:(GHRepository*)repo;
 
 @end

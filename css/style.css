@@ -64,13 +64,17 @@ img {
 
 #content {
 	float: left;
-	width: 385px;
+	width: 389px;
 }
 
 #sidebar {
 	float: right;
 	width: 230px;
-	padding-top: 0em;
+	padding-top: 1.75em;
+}
+
+#appstore {
+	text-align: center;
 }
 
 #ribbon {
@@ -82,8 +86,8 @@ img {
 
 ul#screenshots {
 	position: relative;
-	width: 385px;
-	height: 740px;
+	width: 389px;
+	height: 814px;
 	overflow: hidden;
 	list-style: none;
 	margin: 1.5em 0;
@@ -92,8 +96,8 @@ ul#screenshots {
 
 #screenshots li {
 	position: absolute;
-	top: 132px;
-	left: 34px;
+	top: 120px;
+	left: 36px;
 	display: none;
 }
 

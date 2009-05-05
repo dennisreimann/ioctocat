@@ -80,7 +80,7 @@
 							<object class="IBUILabel" id="15500388">
 								<reference key="NSNextResponder" ref="319489783"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{261, 9}, {27, 21}}</string>
+								<string key="NSFrame">{{266, 9}, {27, 21}}</string>
 								<reference key="NSSuperview" ref="319489783"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -98,11 +98,12 @@
 								<int key="IBUIBaselineAdjustment">1</int>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
+								<int key="IBUITextAlignment">2</int>
 							</object>
 							<object class="IBUILabel" id="1058542969">
 								<reference key="NSNextResponder" ref="319489783"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 9}, {250, 20}}</string>
+								<string key="NSFrame">{{33, 9}, {225, 20}}</string>
 								<reference key="NSSuperview" ref="319489783"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>

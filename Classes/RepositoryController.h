@@ -16,7 +16,7 @@
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *commitsCell;
     IBOutlet UITableViewCell *issuesCell;
-    IBOutlet UIImageView *icon;
+    IBOutlet UIImageView *iconView;
 	IBOutlet LabeledCell *ownerCell;
 	IBOutlet LabeledCell *websiteCell;
 	IBOutlet TextCell *descriptionCell;

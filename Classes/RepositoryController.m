@@ -32,7 +32,6 @@
     [super viewDidLoad];
 	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
-    icon.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	self.tableView.tableHeaderView = tableHeaderView;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
 }
@@ -46,6 +45,7 @@
 #pragma mark Actions
 
 - (void)displayRepository {
+    iconView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	nameLabel.text = repository.name;
 	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
 	[ownerCell setContentText:repository.owner];
@@ -155,7 +155,7 @@
 	[websiteCell release];
 	[descriptionCell release];
     [issuesCell release];
-    [icon release];
+    [iconView release];
     [super dealloc];
 }
 

@@ -12,6 +12,7 @@
 	IBOutlet UIActivityIndicatorView *activityView;
 	UIActionSheet *authSheet;
 	NSMutableDictionary *users;
+	BOOL launchDefault;
 }
 
 @property (nonatomic, retain) NSMutableDictionary *users;

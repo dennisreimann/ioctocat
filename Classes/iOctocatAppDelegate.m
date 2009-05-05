@@ -19,7 +19,12 @@
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	self.users = [NSMutableDictionary dictionary];
 	[window addSubview:tabBarController.view];
-	[self authenticate];
+	launchDefault = YES;
+	[self performSelector:@selector(postLaunch) withObject:nil afterDelay:0.0];
+}
+
+- (void)postLaunch {
+	if (launchDefault) [self authenticate];
 }
 
 - (GHUser *)currentUser {

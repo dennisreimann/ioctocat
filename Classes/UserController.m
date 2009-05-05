@@ -28,6 +28,7 @@
 	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.isReposLoaded) [user loadRepositories];
+    if (!user.isFollowingLoaded) [user loadFollowing];
 	self.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
@@ -96,12 +97,14 @@
 	if (section == 0) return 3;
 	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
 	if (section == 1) return user.repositories.count;
+	if (section == 2) return user.following.count;    
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) return @"";
-	return @"Repositories";
+    if (section == 1) return @"Repositories";
+	return @"Following";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -117,6 +120,18 @@
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
+	if (!user.isFollowingLoaded) return loadingFollowingCell;
+	if (indexPath.section == 2 && user.following.count == 0) return noFollowingCell;
+	if (indexPath.section == 2) {
+		GHUser *followingUser = [user.following objectAtIndex:indexPath.row];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		cell.font = [UIFont systemFontOfSize:16.0f];
+		cell.text = followingUser.name;
+//		cell.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		return cell;
+	}
 	if (!user.isReposLoaded) return loadingReposCell;
 	if (indexPath.section == 1 && user.repositories.count == 0) return noPublicReposCell;
 	if (indexPath.section == 1) {
@@ -129,6 +144,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		return cell;
 	}
+    
 	return nil;
 }
 

@@ -5,6 +5,7 @@
 // tables
 #define kStandardCellIdentifier @"StandardCell"
 #define kRepositoryCellIdentifier @"RepositoryCell"
+#define kFollowingCellIdentifier @"FollowingCell"
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
@@ -30,6 +31,7 @@
 #define kUserUnfollowFormat @"https://github.com/api/v2/xml/user/unfollow/%@?token=%@"
 #define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
 #define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
+#define KUserFollowingJSONFormat @"https://github.com/api/v2/json/user/show/%@/following"
 
 // Tabs
 #define kMyFeedsTabIndex 0
@@ -38,6 +40,11 @@
 // Issues
 #define kIssueStateOpen @"open"
 #define kIssueStateClosed @"closed"
+
+// Authentication
+#define kLoginParam @"login"
+#define kTokenParam @"token"
+
 
 // KVO
 #define kResourceStatusKeyPath @"status"

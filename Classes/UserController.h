@@ -17,6 +17,8 @@
 	IBOutlet UITableViewCell *loadingUserCell;
 	IBOutlet UITableViewCell *loadingReposCell;
 	IBOutlet UITableViewCell *noPublicReposCell;
+	IBOutlet UITableViewCell *loadingFollowingCell;
+	IBOutlet UITableViewCell *noFollowingCell;    
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;

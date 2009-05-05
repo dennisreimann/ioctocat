@@ -3,7 +3,8 @@
 #import "GravatarLoader.h"
 #import "GHReposParserDelegate.h"
 #import "GHUsersParserDelegate.h"
-
+#import "ASIFormDataRequest.h"
+#import "CJSONDeserializer.h"
 
 @interface GHUser ()
 - (void)parseXMLWithToken:(NSString *)token;
@@ -13,13 +14,14 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar, repositoriesStatus, repositories;
-@synthesize publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, isAuthenticated;
+@synthesize name, login, email, company, blogURL, location, gravatar, repositoriesStatus, repositories, followingStatus;
+@synthesize publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, isAuthenticated, following;
 
 - (id)init {
 	[super init];
-	self.status = GHResourceStatusNotLoaded;
+	self.status             = GHResourceStatusNotLoaded;
 	self.repositoriesStatus = GHResourceStatusNotLoaded;
+    self.followingStatus    = GHResourceStatusNotLoaded;
 	isAuthenticated = NO;
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
@@ -139,6 +141,45 @@
 	self.repositoriesStatus = GHResourceStatusLoaded;
 }
 
+
+#pragma mark -
+#pragma mark Following loading
+
+- (BOOL)isFollowingLoaded {
+	return followingStatus == GHResourceStatusLoaded;
+}
+
+- (void)loadFollowing {
+	self.followingStatus = GHResourceStatusLoading;
+	[self performSelectorInBackground:@selector(parseFollowingJSON) withObject:nil];
+}
+
+// KUserFollowingJSONFormat
+- (void)parseFollowingJSON {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+    
+	NSString *url = [NSString stringWithFormat:KUserFollowingJSONFormat, username];
+	NSURL *followingURL = [NSURL URLWithString:url];
+	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL ] autorelease];
+	[request setPostValue:username forKey:@"login"];
+	[request setPostValue:token forKey:@"token"];	
+	[request start];	
+    NSDictionary *followingDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:nil];
+    NSMutableArray *followingUsers = [[NSMutableArray alloc] init];
+    for (NSString *userid in [followingDict objectForKey:@"users"]) {
+        GHUser *user = [[GHUser alloc] initWithLogin:userid];
+        [followingUsers addObject:user];
+        [user release];
+    }
+    self.following = followingUsers;
+	self.followingStatus = GHResourceStatusLoaded;
+    [followingUsers release];
+    [pool release];
+}
+
 #pragma mark -
 #pragma mark Gravatar
 
@@ -167,6 +208,7 @@
 	[gravatar release];
 	[repositories release];
 	[gravatarLoader release];
+    [following release];
     [super dealloc];
 }
 

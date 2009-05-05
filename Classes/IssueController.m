@@ -25,13 +25,8 @@
     issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
 
     [contentView setText:issue.body];
-	// Date
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
-	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
 	dateLabel.text = [issue.created prettyDate];// [dateFormatter stringFromDate:issue.created];
     updatedLabel.text = [issue.updated prettyDate];//  [dateFormatter stringFromDate:issue.updated];
-	[dateFormatter release];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];

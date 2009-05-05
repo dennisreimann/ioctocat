@@ -47,7 +47,7 @@ NSString *md5(NSString *str) {
 	NSURL *gravatarURL = [NSURL URLWithString:url];
 	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
-	[target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
+	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
 	[pool release];
 }
 

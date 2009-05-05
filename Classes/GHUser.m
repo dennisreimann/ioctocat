@@ -143,7 +143,6 @@
 #pragma mark Gravatar
 
 - (void)loadedGravatar:(UIImage *)theImage {
-	if (![theImage isKindOfClass:[UIImage class]]) return;
 	self.gravatar = theImage;
 	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];
 }

@@ -41,7 +41,7 @@
 #pragma mark Actions
 
 - (void)displayUser {
-	nameLabel.text = user.name ? user.name : user.login;
+	nameLabel.text = (!user.name || [user.name isEqualToString:@""]) ? user.login : user.name;
 	companyLabel.text = user.company;
 	gravatarView.image = user.gravatar;
 	[locationCell setContentText:user.location];

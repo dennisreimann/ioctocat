@@ -83,8 +83,7 @@
 }
 
 - (void)dealloc {
-	[openIssues removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[closedIssues removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[issuesControl release];
 	[loadingIssuesCell release];
 	[noIssuesCell release];

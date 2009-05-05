@@ -3,6 +3,7 @@
 
 
 @interface iOctocatAppDelegate ()
+- (void)postLaunch;
 - (void)presentLogin;
 - (void)dismissLogin;
 - (void)showAuthenticationSheet;

@@ -43,16 +43,14 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		// FIXME This somehow doesn't work correctly... at least with some iOctocat Issues URLs 
-        NSURL *issueUrl = [NSURL URLWithString:[NSString stringWithFormat: kViewIssueOnGithub, self.issue.user,  self.issue.repo, self.issue.num]];
-		WebController *webController = [[WebController alloc] initWithURL:issueUrl];
+		// FIXME Using the user variable here is not correct, because the user is the one who submitted the issue, not the repository owner
+		NSString *issueURLString = [NSString stringWithFormat:kIssueGithubFormat, issue.user, issue.repo, issue.num];
+        NSURL *issueURL = [NSURL URLWithString:issueURLString];
+		WebController *webController = [[WebController alloc] initWithURL:issueURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];                        
     }
 }
-
-
-
 
 #pragma mark -
 #pragma mark Cleanup

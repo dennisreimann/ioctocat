@@ -23,13 +23,13 @@
 	titleLabel.text = issue.title;
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
     issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-
     [contentView setText:issue.body];
-	dateLabel.text = [issue.created prettyDate];// [dateFormatter stringFromDate:issue.created];
-    updatedLabel.text = [issue.updated prettyDate];//  [dateFormatter stringFromDate:issue.updated];
-	// Icon
+	dateLabel.text = [issue.created prettyDate];
+    updatedLabel.text = [issue.updated prettyDate];
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 }
 
 #pragma mark -
@@ -61,6 +61,8 @@
 	[issue release];
 	[contentView release];
 	[dateLabel release];
+    [updatedLabel release];
+    [issueNumber release];
 	[titleLabel release];
     [voteLabel release];
 	[iconView release];

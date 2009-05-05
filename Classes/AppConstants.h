@@ -35,6 +35,10 @@
 #define kMyFeedsTabIndex 0
 #define kMyRepositoriesTabIndex 1
 
+// Issues
+#define kIssueStateOpen @"open"
+#define kIssueStateClosed @"closed"
+
 // KVO
 #define kResourceStatusKeyPath @"status"
 #define kResourceErrorKeyPath @"error"

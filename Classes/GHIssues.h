@@ -1,22 +1,23 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
+#import "GHRepository.h"
 #import "GHIssue.h"
 
 
 @interface GHIssues : GHResource {
-  @private
-	NSURL *url;
 	NSArray *entries;
-    NSString *repo;
+  @private
+    GHRepository *repository;
+	NSString *issueState;
 }
 
-@property (nonatomic, retain) NSString *repo;
-@property (nonatomic, retain) NSURL *url;
+@property (nonatomic, retain) GHRepository *repository;
 @property (nonatomic, retain) NSArray *entries;
+@property (nonatomic, retain) NSString *issueState;
+@property (nonatomic, readonly) NSURL *issuesURL;
 
 - (void)loadIssues;
 - (void)loadedIssues:(id)theResult;
-- (id)initWithURL:(NSURL *)theURL andRepository:(NSString *)theRepoName;
-
+- (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState;
 
 @end

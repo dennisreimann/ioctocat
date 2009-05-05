@@ -28,7 +28,6 @@
     updatedLabel.text = [issue.updated prettyDate];
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 }
 
@@ -43,8 +42,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		// FIXME Using the user variable here is not correct, because the user is the one who submitted the issue, not the repository owner
-		NSString *issueURLString = [NSString stringWithFormat:kIssueGithubFormat, issue.user, issue.repo, issue.num];
+		NSString *issueURLString = [NSString stringWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
         NSURL *issueURL = [NSURL URLWithString:issueURLString];
 		WebController *webController = [[WebController alloc] initWithURL:issueURL];
 		[self.navigationController pushViewController:webController animated:YES];

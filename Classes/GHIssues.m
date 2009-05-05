@@ -11,17 +11,22 @@
 
 @implementation GHIssues
 
-@synthesize url, entries, repo;
+@synthesize entries, repository, issueState;
 
-- (id)initWithURL:(NSURL *)theURL andRepository:(NSString *)theRepoName {
-    [super init];    
-    self.url = theURL;
-    self.repo = theRepoName;
+- (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
+    [super init];
+    self.repository = theRepository;
+    self.issueState = theState;
 	return self;    
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHIssues url:'%@' repo:'%@'>", url, repo];
+    return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
+}
+
+- (NSURL *)issuesURL {
+	NSString *issuesURLString = [NSString stringWithFormat:kRepoIssuesXMLFormat, repository.owner, repository.name, issueState];
+	return [NSURL URLWithString:issuesURLString];
 }
 
 #pragma mark -
@@ -39,12 +44,11 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url] autorelease];
+	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:self.issuesURL] autorelease];
 	[request setPostValue:username forKey:@"login"];
 	[request setPostValue:token forKey:@"token"];	
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
-    parserDelegate.repo = self.repo;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -62,6 +66,7 @@
 		self.status = GHResourceStatusNotLoaded;
 	} else {
 		self.entries = theResult;
+		for (GHIssue *issue in theResult) issue.repository = repository;
 		self.status = GHResourceStatusLoaded;
 	}
 }
@@ -70,7 +75,8 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
-	[url release];
+	[repository release];
+	[issueState release];
 	[entries release];
     [super dealloc];
 }

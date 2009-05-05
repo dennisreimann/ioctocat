@@ -2,8 +2,8 @@
 #import "GHResource.h"
 #import "GHUser.h"
 #import "GHFeed.h"
-#import "GHIssues.h"
 
+@class GHIssues;
 
 @interface GHRepository : GHResource {
 	NSString *name;
@@ -13,10 +13,11 @@
 	NSURL *homepageURL;
 	NSInteger forks;
 	NSInteger watchers;
+    GHIssues *openIssues;
+    GHIssues *closedIssues;
+	GHFeed *recentCommits;
 	BOOL isPrivate;
 	BOOL isFork;
-	GHFeed *recentCommits;
-    GHIssues *issues;
 }
 
 @property (nonatomic, retain) NSString *name;
@@ -25,7 +26,8 @@
 @property (nonatomic, retain) NSURL *githubURL;
 @property (nonatomic, retain) NSURL *homepageURL;
 @property (nonatomic, retain) GHFeed *recentCommits;
-@property (nonatomic, retain) GHIssues *issues;
+@property (nonatomic, retain) GHIssues *openIssues;
+@property (nonatomic, retain) GHIssues *closedIssues;
 @property (nonatomic, readonly) GHUser *user;
 @property (nonatomic, readwrite) NSInteger forks;
 @property (nonatomic, readwrite) NSInteger watchers;
@@ -36,6 +38,6 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)loadRepository;
 - (void)loadedRepositories:(id)theResult;
--(int)compareByName:(GHRepository*)repo;
+- (int)compareByName:(GHRepository*)repo;
 
 @end

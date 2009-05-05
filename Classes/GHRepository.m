@@ -2,6 +2,7 @@
 #import "iOctocatAppDelegate.h"
 #import "GHReposParserDelegate.h"
 #import "GHCommitsParserDelegate.h"
+#import "GHIssues.h"
 
 
 @interface GHRepository ()
@@ -11,7 +12,8 @@
 
 @implementation GHRepository
 
-@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate, isFork, forks, watchers, recentCommits, issues;
+@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate;
+@synthesize isFork, forks, watchers, recentCommits, openIssues, closedIssues;
 
 - (id)init {
 	[super init];
@@ -28,11 +30,13 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
+	// Recent Commits
 	NSString *commitFeedURLString = [NSString stringWithFormat:kRepoFeedFormat, owner, name];
 	NSURL *commitFeedURL = [NSURL URLWithString:commitFeedURLString];
-	GHFeed *commitFeed = [[GHFeed alloc] initWithURL:commitFeedURL];
-	self.recentCommits = commitFeed;
-	[commitFeed release];
+	self.recentCommits = [[[GHFeed alloc] initWithURL:commitFeedURL] autorelease];
+	// Issues
+	self.openIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen] autorelease];
+	self.closedIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed] autorelease];
 }
 
 - (NSString *)description {
@@ -103,7 +107,8 @@
 	[githubURL release];
 	[homepageURL release];
 	[recentCommits release];
-    [issues release];
+    [openIssues release];
+    [closedIssues release];
     [super dealloc];
 }
 

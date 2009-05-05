@@ -54,13 +54,13 @@
 							<object class="IBUILabel" id="1071034852">
 								<reference key="NSNextResponder" ref="319489783"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{86, 23}, {197, 21}}</string>
+								<string key="NSFrame">{{33, 23}, {191, 21}}</string>
 								<reference key="NSSuperview" ref="319489783"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIText">Date</string>
-								<object class="NSFont" key="IBUIFont" id="405524056">
+								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">1.200000e+01</double>
 									<int key="NSfFlags">16</int>
@@ -68,28 +68,6 @@
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MC4wMTYzMDQzNzQgMC4wMTYzMDQzNzQgMC4wMTYzMDQzNzQgMC42MDAwMDAwMgA</bytes>
-								</object>
-								<object class="NSColor" key="IBUIHighlightedColor">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MSAwLjYwMDAwMDAyAA</bytes>
-								</object>
-								<int key="IBUIBaselineAdjustment">1</int>
-								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
-								<float key="IBUIMinimumFontSize">1.000000e+01</float>
-							</object>
-							<object class="IBUILabel" id="480263784">
-								<reference key="NSNextResponder" ref="319489783"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 23}, {51, 21}}</string>
-								<reference key="NSSuperview" ref="319489783"/>
-								<bool key="IBUIOpaque">NO</bool>
-								<bool key="IBUIClipsSubviews">YES</bool>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">Opened:</string>
-								<reference key="IBUIFont" ref="405524056"/>
-								<object class="NSColor" key="IBUITextColor">
-									<int key="NSColorSpace">1</int>
-									<bytes key="NSRGB">MCAwIDAgMC42MDAwMDAwMgA</bytes>
 								</object>
 								<object class="NSColor" key="IBUIHighlightedColor">
 									<int key="NSColorSpace">3</int>
@@ -215,7 +193,6 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="1058542969"/>
-							<reference ref="480263784"/>
 							<reference ref="1071034852"/>
 							<reference ref="656700106"/>
 						</object>
@@ -236,11 +213,6 @@
 						<reference key="object" ref="1058542969"/>
 						<reference key="parent" ref="77145793"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">13</int>
-						<reference key="object" ref="480263784"/>
-						<reference key="parent" ref="77145793"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -250,7 +222,6 @@
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
 					<string>10.IBPluginDependency</string>
-					<string>13.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
@@ -261,7 +232,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>IssuesController</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>IssueCell</string>
 					<string>{{405, 706}, {320, 50}}</string>
@@ -290,7 +260,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">15</int>
+			<int key="maxID">16</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -333,17 +303,23 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">IssuesController</string>
 					<string key="superclassName">UITableViewController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">switchChanged:</string>
+						<string key="NS.object.0">id</string>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>issueCell</string>
+							<string>issuesControl</string>
 							<string>loadingIssuesCell</string>
 							<string>noIssuesCell</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>IssueCell</string>
+							<string>UISegmentedControl</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
 						</object>

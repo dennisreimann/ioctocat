@@ -1,7 +1,7 @@
 #import "IssueCell.h"
 #import "GHIssue.h"
 #import "GHUser.h"
-
+#import "NSDate+Nibware.h"
 
 @implementation IssueCell
 
@@ -15,7 +15,7 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	dateLabel.text = [dateFormatter stringFromDate:issue.created];
+	dateLabel.text = [issue.created prettyDate];//   [dateFormatter stringFromDate:issue.created];
 	[dateFormatter release];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];

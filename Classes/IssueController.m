@@ -4,6 +4,7 @@
 #import "WebController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "NSDate+Nibware.h"
 
 
 @implementation IssueController
@@ -26,8 +27,8 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	dateLabel.text = [dateFormatter stringFromDate:issue.created];
-    updatedLabel.text = [dateFormatter stringFromDate:issue.updated];
+	dateLabel.text = [issue.created prettyDate];// [dateFormatter stringFromDate:issue.created];
+    updatedLabel.text = [issue.updated prettyDate];//  [dateFormatter stringFromDate:issue.updated];
 	[dateFormatter release];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];

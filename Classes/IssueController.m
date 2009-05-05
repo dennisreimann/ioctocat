@@ -22,6 +22,8 @@
 	self.title = @"Issue";
 	titleLabel.text = issue.title;
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
+    issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
+
     [contentView setText:issue.body];
 	// Date
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

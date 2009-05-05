@@ -12,6 +12,7 @@
 	issue = [anIssue retain];
 	titleLabel.text = issue.title;
     detailLabel.text = issue.body;
+    issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];

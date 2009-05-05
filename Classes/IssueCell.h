@@ -10,6 +10,7 @@
 	IBOutlet UILabel *titleLabel;
     IBOutlet UILabel *detailLabel;
     IBOutlet UILabel *votesLabel;    
+    IBOutlet UILabel *issueNumber;
 	IBOutlet UIImageView *iconView;
 }
 

@@ -88,6 +88,12 @@
 		6FED83A50FACC2FF00BE5C81 /* RecentCommits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED83A40FACC2FF00BE5C81 /* RecentCommits.xib */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
+		8C53B4C70FB0F14300C3A8E0 /* FollowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C53B4C60FB0F14300C3A8E0 /* FollowCell.xib */; };
+		8C53B4D00FB0F20B00C3A8E0 /* FollowingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* FollowingController.m */; };
+		8C53B4D70FB0F32600C3A8E0 /* FollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* FollowCell.m */; };
+		8C53B4DA0FB0F54F00C3A8E0 /* Following.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C53B4D90FB0F54F00C3A8E0 /* Following.xib */; };
+		8C53B69F0FB0FE0A00C3A8E0 /* FollowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C53B69E0FB0FE0A00C3A8E0 /* FollowCell.xib */; };
+		8C53B6A10FB0FE1900C3A8E0 /* Following.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C53B6A00FB0FE1900C3A8E0 /* Following.xib */; };
 		8C5693940FB0B9E600730A5C /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693820FB0B9E600730A5C /* CDataScanner.m */; };
 		8C5693950FB0B9E600730A5C /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693860FB0B9E600730A5C /* CJSONDeserializer.m */; };
 		8C5693960FB0B9E600730A5C /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693880FB0B9E600730A5C /* CJSONScanner.m */; };
@@ -223,6 +229,14 @@
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsersParserDelegate.h; sourceTree = "<group>"; };
 		6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsersParserDelegate.m; sourceTree = "<group>"; };
+		8C53B4C60FB0F14300C3A8E0 /* FollowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowCell.xib; sourceTree = "<group>"; };
+		8C53B4CE0FB0F20B00C3A8E0 /* FollowingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowingController.h; sourceTree = "<group>"; };
+		8C53B4CF0FB0F20B00C3A8E0 /* FollowingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowingController.m; sourceTree = "<group>"; };
+		8C53B4D50FB0F32600C3A8E0 /* FollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FollowCell.h; sourceTree = "<group>"; };
+		8C53B4D60FB0F32600C3A8E0 /* FollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FollowCell.m; sourceTree = "<group>"; };
+		8C53B4D90FB0F54F00C3A8E0 /* Following.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Following.xib; sourceTree = "<group>"; };
+		8C53B69E0FB0FE0A00C3A8E0 /* FollowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FollowCell.xib; sourceTree = "<group>"; };
+		8C53B6A00FB0FE1900C3A8E0 /* Following.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Following.xib; sourceTree = "<group>"; };
 		8C5693820FB0B9E600730A5C /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		8C5693830FB0B9E600730A5C /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
 		8C5693850FB0B9E600730A5C /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
@@ -404,6 +418,8 @@
 				6FED83000FACB91000BE5C81 /* RecentCommitsController.m */,
 				6FE91E4A0FAD13D500749370 /* LoginController.h */,
 				6FE91E4B0FAD13D500749370 /* LoginController.m */,
+				8C53B4CE0FB0F20B00C3A8E0 /* FollowingController.h */,
+				8C53B4CF0FB0F20B00C3A8E0 /* FollowingController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -419,6 +435,8 @@
 				6F5A420D0F90CE0500427ED7 /* TextCell.m */,
 				8C6A9EA10FABF1D900A99483 /* IssueCell.h */,
 				8C6A9EA20FABF1D900A99483 /* IssueCell.m */,
+				8C53B4D50FB0F32600C3A8E0 /* FollowCell.h */,
+				8C53B4D60FB0F32600C3A8E0 /* FollowCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -487,6 +505,7 @@
 		6FB7FEA60F7E2C7500E8D702 /* IBFiles */ = {
 			isa = PBXGroup;
 			children = (
+				8C53B6A00FB0FE1900C3A8E0 /* Following.xib */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6FE91E180FAD088600749370 /* Login.xib */,
@@ -499,6 +518,7 @@
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
+				8C53B4D90FB0F54F00C3A8E0 /* Following.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -517,10 +537,12 @@
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				8C53B69E0FB0FE0A00C3A8E0 /* FollowCell.xib */,
 				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
 				6F74DD790FA76C8700FD90AB /* TextCell.xib */,
 				6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */,
+				8C53B4C60FB0F14300C3A8E0 /* FollowCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -707,6 +729,10 @@
 				6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */,
 				6FE91E190FAD088600749370 /* Login.xib in Resources */,
 				6FE91E470FAD115300749370 /* LoginBackground.png in Resources */,
+				8C53B4C70FB0F14300C3A8E0 /* FollowCell.xib in Resources */,
+				8C53B4DA0FB0F54F00C3A8E0 /* Following.xib in Resources */,
+				8C53B69F0FB0FE0A00C3A8E0 /* FollowCell.xib in Resources */,
+				8C53B6A10FB0FE1900C3A8E0 /* Following.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -762,6 +788,8 @@
 				8C5693990FB0B9E600730A5C /* NSCharacterSet_Extensions.m in Sources */,
 				8C56939A0FB0B9E600730A5C /* NSDictionary_JSONExtensions.m in Sources */,
 				8C56939B0FB0B9E600730A5C /* NSScanner_Extensions.m in Sources */,
+				8C53B4D00FB0F20B00C3A8E0 /* FollowingController.m in Sources */,
+				8C53B4D70FB0F32600C3A8E0 /* FollowCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

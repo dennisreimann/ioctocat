@@ -6,7 +6,7 @@
 #import "LabeledCell.h"
 #import "GravatarLoader.h"
 #import "iOctocatAppDelegate.h"
-
+#import "FollowingController.h"
 
 @interface UserController ()
 - (void)displayUser;
@@ -89,22 +89,22 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!user.isLoaded) return 1;
-	return 2;
+	return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
 	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
-	if (section == 1) return user.repositories.count;
-	if (section == 2) return user.following.count;    
+    if (section == 1) return 1;    
+	if (section == 2) return user.repositories.count;
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) return @"";
-    if (section == 1) return @"Repositories";
-	return @"Following";
+    if (section == 1) return @"Following";
+	return @"Repositories";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -120,21 +120,12 @@
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-	if (!user.isFollowingLoaded) return loadingFollowingCell;
-	if (indexPath.section == 2 && user.following.count == 0) return noFollowingCell;
-	if (indexPath.section == 2) {
-		GHUser *followingUser = [user.following objectAtIndex:indexPath.row];
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.font = [UIFont systemFontOfSize:16.0f];
-		cell.text = followingUser.name;
-//		cell.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		return cell;
-	}
+//	if (!user.isFollowingLoaded) return loadingFollowingCell;
+	if (indexPath.section == 1 ) return followingCell;
+
 	if (!user.isReposLoaded) return loadingReposCell;
-	if (indexPath.section == 1 && user.repositories.count == 0) return noPublicReposCell;
-	if (indexPath.section == 1) {
+	if (indexPath.section == 2 && user.repositories.count == 0) return noPublicReposCell;
+	if (indexPath.section == 2) {
 		GHRepository *repository = [user.repositories objectAtIndex:indexPath.row];
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
@@ -166,7 +157,11 @@
 		[mailString release];
 		[[UIApplication sharedApplication] openURL:mailURL];
 		[mailURL release];
-	} else if (section == 1) {
+	} else if (section == 1 && row == 0 ) {
+        FollowingController *followingController = [[FollowingController alloc] initWithUser:self.currentUser];
+		[self.navigationController pushViewController:followingController animated:YES];
+		[followingController release];            
+	} else if (section == 2) {
 		GHRepository *repo = [user.repositories objectAtIndex:indexPath.row];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
@@ -191,6 +186,7 @@
 	[locationCell release];
 	[blogCell release];
 	[emailCell release];
+    [followingCell release];
 	[loadingUserCell release];
 	[loadingReposCell release];
 	[noPublicReposCell release];

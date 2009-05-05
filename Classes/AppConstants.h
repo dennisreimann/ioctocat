@@ -11,6 +11,7 @@
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
 #define kIssueCellIdentifier @"IssueCell"
 #define kCommitCellIdentifier @"CommitCell"
+#define kFollowCellIdentifier @"FollowCell"
 
 // URLs
 #define kConnectivityCheckURL @"http://github.com/robots.txt"

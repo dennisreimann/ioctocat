@@ -22,21 +22,14 @@
 }
 
 - (void)setupIssues {
-    NSURL *openIssuesUrl = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat, self.repository.owner,  self.repository.name, @"open"]];
-	NSURL *closedIssuesUrl = [NSURL URLWithString:[NSString stringWithFormat:kRepoIssuesXMLFormat,  self.repository.owner,  self.repository.name, @"closed"]];        
-    GHIssues *openIssues = [[GHIssues alloc] initWithURL:openIssuesUrl andRepository:self.repository.name];
-	GHIssues *closedIssues = [[GHIssues alloc] initWithURL:closedIssuesUrl  andRepository:self.repository.name];
-    [openIssues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[closedIssues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	issueList = [[NSArray alloc] initWithObjects:openIssues, closedIssues, nil];
-	[openIssues release];
-	[closedIssues release];
+	issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
+	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	issuesControl.selectedSegmentIndex = 0;
 }
 
 - (IBAction)switchChanged:(id)sender {
     [self.tableView reloadData];
-    if ( self.currentIssues.isLoaded) return;
+    if (self.currentIssues.isLoaded) return;
     [self.currentIssues loadIssues];
     [self.tableView reloadData];    
 }
@@ -79,7 +72,7 @@
 
 - (GHIssues *)currentIssues {
 	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
-    nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
+		nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
 }
 
 - (void)dealloc {

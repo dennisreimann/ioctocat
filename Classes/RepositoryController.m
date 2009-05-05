@@ -62,6 +62,7 @@
 	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (repository.isLoaded) {
 			[self displayRepository];
+			[self.tableView reloadData];
 		} else if (repository.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repository" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
@@ -72,11 +73,7 @@
 
 - (IBAction)toggleWatching:(id)sender {
 	UIImage *buttonImage;
-	if ([self.currentUser isWatching:repository]) {
-		buttonImage = [UIImage imageNamed:@"UnwatchButton.png"];
-	} else {
-		buttonImage = [UIImage imageNamed:@"WatchButton.png"];
-	}
+	buttonImage = [UIImage imageNamed:([self.currentUser isWatching:repository] ? @"UnwatchButton.png" : @"WatchButton.png")];
 	[watchButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
 }
 

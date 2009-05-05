@@ -8,7 +8,7 @@
 	[super initWithNibName:@"RecentCommits" bundle:nil];
 	self.title = @"Recent Commits";
 	recentCommits = [theFeed retain];
-	[theFeed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[recentCommits addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
@@ -51,7 +51,8 @@
 }
 
 - (void)dealloc {
-	[loadingRecentCommitsCell release];
+	[recentCommits removeObserver:self forKeyPath:kResourceStatusKeyPath];
+    [loadingRecentCommitsCell release];
 	[noRecentCommitsCell release];
 	[feedEntryCell release];
 	[recentCommits release];

@@ -43,6 +43,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
+		// FIXME This somehow doesn't work correctly... at least with some iOctocat Issues URLs 
         NSURL *issueUrl = [NSURL URLWithString:[NSString stringWithFormat: kViewIssueOnGithub, self.issue.user,  self.issue.repo, self.issue.num]];
 		WebController *webController = [[WebController alloc] initWithURL:issueUrl];
 		[self.navigationController pushViewController:webController animated:YES];

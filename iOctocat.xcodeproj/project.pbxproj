@@ -93,6 +93,7 @@
 		8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
 		8C6A9EA30FABF1D900A99483 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueCell.m */; };
 		8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
+		8CB698000FB0087800B6E779 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */; };
 		8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
 		8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
 		8CFBCFAE0FAB8A3100A2C37A /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
@@ -224,6 +225,8 @@
 		8C6A9EA20FABF1D900A99483 /* IssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		8C6AA15D0FAC22B000A99483 /* IssueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueController.h; sourceTree = "<group>"; };
 		8C6AA15E0FAC22B000A99483 /* IssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueController.m; sourceTree = "<group>"; };
+		8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
+		8CB697FF0FB0087800B6E779 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
 		8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
 		8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
@@ -256,6 +259,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8CB697FC0FB0085C00B6E779 /* Helpers */,
 				8CFBCFA30FAB8A1000A2C37A /* ASIHTTPRequest */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
@@ -515,6 +519,15 @@
 			name = Parser;
 			sourceTree = "<group>";
 		};
+		8CB697FC0FB0085C00B6E779 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */,
+				8CB697FF0FB0087800B6E779 /* NSDate+Nibware.h */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		8CFBCFA30FAB8A1000A2C37A /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
@@ -676,6 +689,7 @@
 				6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */,
 				6FED83010FACB91000BE5C81 /* RecentCommitsController.m in Sources */,
 				6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */,
+				8CB698000FB0087800B6E779 /* NSDate+Nibware.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

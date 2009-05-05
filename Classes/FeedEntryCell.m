@@ -2,7 +2,7 @@
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GravatarLoader.h"
-
+#import "NSDate+Nibware.h"
 
 @implementation FeedEntryCell
 
@@ -17,7 +17,8 @@
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	dateLabel.text = [dateFormatter stringFromDate:entry.date];
+    dateLabel.text = [entry.date prettyDate];
+	//dateLabel.text = [dateFormatter stringFromDate:entry.date];
 	[dateFormatter release];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];

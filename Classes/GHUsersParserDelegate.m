@@ -15,9 +15,13 @@
 		[resources addObject:currentUser];
 		[currentUser release];
 		currentUser = nil;
-	} else if ([elementName isEqualToString:@"name"] && !currentUser.name) {
+	} else if (([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"fullname"]) && !currentUser.name) {
+		// in the search the name attribute is called fullname
 		currentUser.name = currentElementValue;
-	} else if ([elementName isEqualToString:@"login"] || [elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
+	} else if ([elementName isEqualToString:@"login"] || [elementName isEqualToString:@"username"]) {
+		// in the search the login attribute is called username
+		currentUser.login = currentElementValue;
+	} else if ([elementName isEqualToString:@"company"] || [elementName isEqualToString:@"email"] || [elementName isEqualToString:@"location"]) {
 		NSString *value = ([currentElementValue isEqualToString:@""]) ? nil : currentElementValue;
 		[currentUser setValue:value forKey:elementName];
 	} else if ([elementName isEqualToString:@"public-gist-count"]) {

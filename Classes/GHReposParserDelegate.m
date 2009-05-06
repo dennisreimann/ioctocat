@@ -18,8 +18,11 @@
 		[resources addObject:currentRepository];
 		[currentRepository release];
 		currentRepository = nil;
-	} else if ([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"owner"]) {
+	} else if ([elementName isEqualToString:@"name"]) {
 		[currentRepository setValue:currentElementValue forKey:elementName];
+	} else if ([elementName isEqualToString:@"username"] || [elementName isEqualToString:@"owner"]) {
+		// in the search the owner attribute is called username
+		currentRepository.owner = currentElementValue;
 	} else if ([elementName isEqualToString:@"description"]) {
 		currentRepository.descriptionText = currentElementValue;
 	} else if ([elementName isEqualToString:@"url"]) {

@@ -30,7 +30,8 @@
 	[theSearchTerm retain];
 	[searchTerm release];
 	searchTerm = theSearchTerm;
-	NSString *searchURLString = [NSString stringWithFormat:urlFormat, searchTerm];
+	NSString *encodedSearchTerm = [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *searchURLString = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
 	NSURL *searchURL = [NSURL URLWithString:searchURLString];
 	[self performSelectorInBackground:@selector(parseSearchAtURL:) withObject:searchURL];
 }
@@ -52,6 +53,8 @@
 		self.error = theResult;
 		self.status = GHResourceStatusNotLoaded;
 	} else {
+		// Mark the results as not loaded, because the search doesn't contain all attributes
+		for (GHResource *result in theResult) result.status = GHResourceStatusNotLoaded;
 		self.results = theResult;
 		self.status = GHResourceStatusLoaded;
 	}

@@ -5,6 +5,8 @@
 #import "GHReposParserDelegate.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
+#import "RepositoryCell.h"
+
 
 @implementation MyRepositoriesController
 
@@ -86,14 +88,9 @@
 	NSArray *repos = (indexPath.section == 0) ? privateRepositories : publicRepositories;
 	if (indexPath.section == 0 && repos.count == 0) return noPrivateReposCell;
 	if (indexPath.section == 1 && repos.count == 0) return noPublicReposCell;
-
-	GHRepository *repository = [repos objectAtIndex:indexPath.row];
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-	cell.font = [UIFont systemFontOfSize:16.0f];
-	cell.text = repository.name;
-	cell.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+	if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+	cell.repository = [repos objectAtIndex:indexPath.row];
 	return cell;
 }
 

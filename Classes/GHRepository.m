@@ -25,7 +25,7 @@
 	self.owner = theOwner;
 	self.name = theName;
 	// Recent Commits
-	NSString *commitFeedURLString = [NSString stringWithFormat:kRepoFeedFormat, owner, name];
+	NSString *commitFeedURLString = [NSString stringWithFormat:(isPrivate ? kPrivateRepoFeedFormat : kRepoFeedFormat), owner, name];
 	NSURL *commitFeedURL = [NSURL URLWithString:commitFeedURLString];
 	self.recentCommits = [[[GHFeed alloc] initWithURL:commitFeedURL] autorelease];
 	// Issues

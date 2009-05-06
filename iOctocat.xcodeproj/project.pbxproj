@@ -68,6 +68,7 @@
 		6FA92B330FACD6EA001B1D1D /* MyRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B310FACD6EA001B1D1D /* MyRepositories.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
+		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */; };
@@ -203,6 +204,8 @@
 		6FA92B310FACD6EA001B1D1D /* MyRepositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyRepositories.xib; path = IBFiles/MyRepositories.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
+		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
+		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
 		6FC465100F9D141D003A8E7B /* GHCommitsParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommitsParserDelegate.h; sourceTree = "<group>"; };
 		6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCommitsParserDelegate.m; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
@@ -454,6 +457,8 @@
 				8C6A9EA20FABF1D900A99483 /* IssueCell.m */,
 				8C53B4D50FB0F32600C3A8E0 /* FollowCell.h */,
 				8C53B4D60FB0F32600C3A8E0 /* FollowCell.m */,
+				6FB93A940FB2231E002B43AD /* RepositoryCell.h */,
+				6FB93A950FB2231E002B43AD /* RepositoryCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -812,6 +817,7 @@
 				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,
 				6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */,
 				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
+				6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

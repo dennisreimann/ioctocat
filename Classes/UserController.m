@@ -54,7 +54,7 @@
 //	if ([self.currentUser isEqual:user]) return;
 	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
 	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-	if ( [self.currentUser.login caseInsensitiveCompare:user.login] == 1)  followButton.hidden = NO;
+	if ( [self.currentUser.login caseInsensitiveCompare:user.login] != 0 )  followButton.hidden = NO;
     if( !self.currentUser.isFollowingLoaded ) followButton.hidden = YES;
 }
 
@@ -62,13 +62,8 @@
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	} else if ([keyPath isEqualToString:kUserFollowingStatusKeyPath]) {
-        UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
-        [followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-        if ( [self.currentUser.login caseInsensitiveCompare:user.login] == 1)  { 
-            followButton.hidden = NO;
-        }
-        if( !self.currentUser.isFollowingLoaded ) followButton.hidden = YES;
-
+        [self displayUser];
+        [self.tableView reloadData];            
 	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (user.isLoaded) {
 			[self displayUser];

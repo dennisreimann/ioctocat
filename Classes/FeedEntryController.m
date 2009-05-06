@@ -70,16 +70,16 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (buttonIndex == 1) {
-		UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
+		UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
-	} else if (buttonIndex == 2) {
+	} else if (buttonIndex == 2 ) {
 		if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
 			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:(GHRepository *)entry.eventItem];
 			[self.navigationController pushViewController:repoController animated:YES];
 			[repoController release];
 		} else if ([entry.eventItem isKindOfClass:[GHUser class]]) {
-			UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
+            UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
 			[self.navigationController pushViewController:userController animated:YES];
 			[userController release];
 		}

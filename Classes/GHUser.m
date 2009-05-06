@@ -39,9 +39,11 @@
 }
 
 - (BOOL)isFollowing:(GHUser *)anUser {
-    if ( !self.isFollowingLoaded ) return NO;
+    if ( !self.isFollowingLoaded )[self loadFollowing];
     for ( GHUser *user in following ) {
-        if ( [user.login caseInsensitiveCompare:anUser.login] ) return YES;
+        if ( [user.login caseInsensitiveCompare:anUser.login] == 0 ) { 
+            return YES;
+        }
     }
 	return NO;
 }

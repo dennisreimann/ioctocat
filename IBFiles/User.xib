@@ -8,13 +8,13 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="25"/>
+			<integer value="59"/>
+			<integer value="57"/>
 			<integer value="4"/>
 			<integer value="3"/>
-			<integer value="59"/>
-			<integer value="70"/>
+			<integer value="25"/>
 			<integer value="64"/>
-			<integer value="57"/>
+			<integer value="70"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -730,7 +730,7 @@
 							<object class="IBUILabel" id="706927182">
 								<reference key="NSNextResponder" ref="1044147862"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{35, 9}, {260, 21}}</string>
+								<string key="NSFrame">{{34, 9}, {260, 21}}</string>
 								<reference key="NSSuperview" ref="1044147862"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>

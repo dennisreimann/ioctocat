@@ -26,6 +26,7 @@
 	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kUserFollowingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];    
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.isReposLoaded) [user loadRepositories];
     if (!user.isFollowingLoaded) [user loadFollowing];
@@ -53,12 +54,21 @@
 //	if ([self.currentUser isEqual:user]) return;
 	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
 	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-	followButton.hidden = NO;
+	if ( [self.currentUser.login caseInsensitiveCompare:user.login] == 1)  followButton.hidden = NO;
+    if( !self.currentUser.isFollowingLoaded ) followButton.hidden = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
+	} else if ([keyPath isEqualToString:kUserFollowingStatusKeyPath]) {
+        UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
+        [followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+        if ( [self.currentUser.login caseInsensitiveCompare:user.login] == 1)  { 
+            followButton.hidden = NO;
+        }
+        if( !self.currentUser.isFollowingLoaded ) followButton.hidden = YES;
+
 	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (user.isLoaded) {
 			[self displayUser];
@@ -177,6 +187,7 @@
 	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[user removeObserver:self forKeyPath:kRepositoriesStatusKeyPath];
+	[user removeObserver:self forKeyPath:kUserFollowingStatusKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];

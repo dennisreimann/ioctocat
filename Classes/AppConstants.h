@@ -51,6 +51,7 @@
 #define kResourceStatusKeyPath @"status"
 #define kResourceErrorKeyPath @"error"
 #define kUserGravatarKeyPath @"gravatar"
+#define kUserFollowingStatusKeyPath @"followingStatus"
 #define kRepoRecentCommitsStatusKeyPath @"recentCommits.status"
 #define kRepositoriesStatusKeyPath @"repositoriesStatus"
 #define KUserAuthenticatedKeyPath @"isAuthenticated"

@@ -15,8 +15,14 @@
 @synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate;
 @synthesize isFork, forks, watchers, recentCommits, openIssues, closedIssues;
 
+- (id)init {
+    [super init];
+    self.status = GHResourceStatusNotLoaded;
+    return self;
+}
+
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	[super init];
+	[self init];
 	[self setOwner:theOwner andName:theName];
 	return self;
 }

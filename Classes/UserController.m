@@ -59,11 +59,12 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+    NSLog(@"KeyPath: '%@'", keyPath);
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	} else if ([keyPath isEqualToString:kUserFollowingStatusKeyPath]) {
-        [self displayUser];
-        [self.tableView reloadData];            
+       [self displayUser];
+       [self.tableView reloadData];            
 	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (user.isLoaded) {
 			[self displayUser];

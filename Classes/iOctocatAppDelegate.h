@@ -8,8 +8,8 @@
   @private
     IBOutlet UIWindow *window;
     IBOutlet UITabBarController *tabBarController;
+	IBOutlet UIView *authView;
 	IBOutlet MyFeedsController *feedController;
-	IBOutlet UIActivityIndicatorView *activityView;
 	UIActionSheet *authSheet;
 	NSMutableDictionary *users;
 	BOOL launchDefault;

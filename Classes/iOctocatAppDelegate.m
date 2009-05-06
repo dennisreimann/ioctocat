@@ -105,11 +105,10 @@
 }
 
 - (void)showAuthenticationSheet {
-	authSheet = [[UIActionSheet alloc] initWithTitle:@"Authenticating, please wait…\n\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	authSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
 	UIView *currentView = tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
+	[authSheet addSubview:authView];
 	[authSheet showInView:currentView];
-	activityView.center = CGPointMake(authSheet.frame.size.width/2, authSheet.frame.size.height-activityView.frame.size.height*1.5f);
-	[authSheet addSubview:activityView];
 	[authSheet release];
 }
 
@@ -128,7 +127,7 @@
 - (void)dealloc {
 	[tabBarController release];
 	[feedController release];
-	[activityView release];
+	[authView release];
 	[authSheet release];
 	[window release];
 	[users release];

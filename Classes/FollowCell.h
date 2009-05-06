@@ -7,6 +7,8 @@
 	GHUser *user;
 @private
 	IBOutlet UILabel *userLabel;
+	IBOutlet UIImageView *gravatarView;
+    
 }
 
 @property (nonatomic, retain) GHUser *user;

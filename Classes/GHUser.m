@@ -38,9 +38,11 @@
     return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
 }
 
-// FIXME Currently just stubbed out, see the issue:
-// http://github.com/dbloete/ioctocat/issues#issue/5
 - (BOOL)isFollowing:(GHUser *)anUser {
+    if ( !self.isFollowingLoaded ) return NO;
+    for ( GHUser *user in following ) {
+        if ( [user.login caseInsensitiveCompare:anUser.login] ) return YES;
+    }
 	return NO;
 }
 

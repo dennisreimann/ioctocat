@@ -51,9 +51,9 @@
 	// FIXME Following needs to be implemented, see issue:
 	// http://github.com/dbloete/ioctocat/issues#issue/3
 //	if ([self.currentUser isEqual:user]) return;
-//	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
-//	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-//	followButton.hidden = NO;
+	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
+	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+	followButton.hidden = NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

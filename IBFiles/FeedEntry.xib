@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="1"/>
+			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -67,7 +67,7 @@
 							<object class="IBUIImageView" id="1010474437">
 								<reference key="NSNextResponder" ref="206194869"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 38}, {28, 28}}</string>
+								<string key="NSFrame">{{12, 37}, {28, 28}}</string>
 								<reference key="NSSuperview" ref="206194869"/>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -256,11 +256,11 @@
 						<reference key="object" ref="206194869"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1010474437"/>
 							<reference ref="105931350"/>
 							<reference ref="360035783"/>
 							<reference ref="521488189"/>
 							<reference ref="756434666"/>
+							<reference ref="1010474437"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 					</object>
@@ -317,7 +317,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>FeedEntryController</string>
 					<string>UIResponder</string>
-					<string>{{306, 348}, {320, 480}}</string>
+					<string>{{750, 325}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

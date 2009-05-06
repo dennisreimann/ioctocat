@@ -67,13 +67,17 @@
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 								<int key="IBUINumberOfLines">2</int>
 							</object>
-							<object class="IBUIImageView" id="804357360">
+							<object class="IBUIImageView" id="836423379">
 								<reference key="NSNextResponder" ref="425256881"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{11, 6}, {28, 28}}</string>
 								<reference key="NSSuperview" ref="425256881"/>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">default_gravatar.png</string>
+								</object>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 40}</string>
@@ -124,7 +128,7 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">gravatarView</string>
 						<reference key="source" ref="282112623"/>
-						<reference key="destination" ref="804357360"/>
+						<reference key="destination" ref="836423379"/>
 					</object>
 					<int key="connectionID">24</int>
 				</object>
@@ -157,7 +161,7 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="513702233"/>
-							<reference ref="804357360"/>
+							<reference ref="836423379"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 					</object>
@@ -168,7 +172,7 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">23</int>
-						<reference key="object" ref="804357360"/>
+						<reference key="object" ref="836423379"/>
 						<reference key="parent" ref="282112623"/>
 					</object>
 				</object>

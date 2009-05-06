@@ -8,6 +8,7 @@
 - (id)init {
 	[super init];
 	self.status = GHResourceStatusNotLoaded;
+    return self;
 }
 
 - (BOOL)isLoading {

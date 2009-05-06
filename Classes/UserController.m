@@ -168,8 +168,7 @@
 		[[UIApplication sharedApplication] openURL:mailURL];
 		[mailURL release];
 	} else if (section == 1 && row == 0 ) {
-        NSLog(@"user is %@", user);
-        FollowingController *followingController = [[FollowingController alloc] initWithUser:user];
+        FollowingController *followingController = [(FollowingController *)[FollowingController alloc] initWithUser:user];
 		[self.navigationController pushViewController:followingController animated:YES];
 		[followingController release];            
 	} else if (section == 2) {

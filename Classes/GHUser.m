@@ -163,7 +163,7 @@
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     
-	NSString *url = [NSString stringWithFormat:KUserFollowingJSONFormat, username];
+	NSString *url = [NSString stringWithFormat:KUserFollowingJSONFormat, self.login];
 	NSURL *followingURL = [NSURL URLWithString:url];
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL ] autorelease];
 	[request setPostValue:username forKey:@"login"];

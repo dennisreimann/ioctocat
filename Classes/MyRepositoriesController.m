@@ -46,7 +46,6 @@
 
 - (void)loadedRepositories:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
-		// Let's just assume it's an authentication error
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repository" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 		[alert show];
 		[alert release];

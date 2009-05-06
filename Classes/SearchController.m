@@ -3,6 +3,7 @@
 #import "GHReposParserDelegate.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "RepositoryCell.h"
 
 
 @implementation SearchController
@@ -45,8 +46,7 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
-	if (self.currentSearch.isLoaded) return;
-	[self.tableView reloadData];
+	searchBar.text = self.currentSearch.searchTerm;
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
@@ -55,11 +55,11 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
-	//[self.currentSearch loadResultsForSearchTerm:searchBar.text];
+	[self.currentSearch loadResultsForSearchTerm:searchBar.text];
 }
 
 - (void)quitSearching:(id)sender {
-	searchBar.text = @"";
+	searchBar.text = self.currentSearch.searchTerm;
 	[searchBar resignFirstResponder];
 	self.navigationItem.rightBarButtonItem = nil;
 	[overlayController.view removeFromSuperview];
@@ -78,13 +78,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.currentSearch.isLoaded) return loadingCell;
     if (self.currentSearch.results.count == 0) return noResultsCell;
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
-    }
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	cell.text = [[self.currentSearch.results objectAtIndex:indexPath.row] name];
-    return cell;
+	// Display results
+	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
+	if ([object isKindOfClass:[GHRepository class]]) {
+		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		cell.repository = (GHRepository *)object;
+		return cell;
+	} else if ([object isKindOfClass:[GHUser class]]) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
+		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		cell.text = [[self.currentSearch.results objectAtIndex:indexPath.row] name];
+		return cell;
+	}
+    return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

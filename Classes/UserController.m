@@ -61,9 +61,10 @@
 	if ( [self.currentUser.login caseInsensitiveCompare:user.login] != 0 )  { 
         followButton.hidden = NO;
     }
-    if( [self.currentUser isFollowingLoaded] != 0) { 
-    followButton.hidden = YES; 
-    }
+// commenting out to hunt for rendering gremlins - MTL
+//    if( [self.currentUser isFollowingLoaded] != 0) { 
+//    followButton.hidden = YES; 
+//    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

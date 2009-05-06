@@ -58,8 +58,12 @@
 //	if ([self.currentUser isEqual:user]) return;
 	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
 	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-	if ( [self.currentUser.login caseInsensitiveCompare:user.login] != 0 )  followButton.hidden = NO;
-    if( !self.currentUser.isFollowingLoaded ) followButton.hidden = YES;
+	if ( [self.currentUser.login caseInsensitiveCompare:user.login] != 0 )  { 
+        followButton.hidden = NO;
+    }
+    if( [self.currentUser isFollowingLoaded] != 0) { 
+    followButton.hidden = YES; 
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -94,9 +98,13 @@
         [user toggleFollowingState:kFollow];        
 		buttonImage = [UIImage imageNamed:@"FollowButton.png"];
 	}
-    [self.currentUser loadFollowing];
 	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [self.currentUser loadFollowing];
+    [self displayUser];
+    [self.tableView reloadData];
     [self dismissActivitySheet];
+    
+
 }
 
 

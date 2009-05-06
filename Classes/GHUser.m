@@ -47,6 +47,7 @@
 	return NO;
 }
 
+
 // FIXME Currently just stubbed out, see the issue:
 // http://github.com/dbloete/ioctocat/issues#issue/6
 - (BOOL)isWatching:(GHRepository *)aRepository {
@@ -197,6 +198,8 @@
 	[request setPostValue:token forKey:@"token"];	
 	[request start];	
     [pool release];
+	self.followingStatus = GHResourceStatusNotLoaded;
+    [self loadFollowing];
 }
 
 

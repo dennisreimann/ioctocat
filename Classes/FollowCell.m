@@ -9,8 +9,7 @@
 	[user release];
 	user = [aUser retain];
 	userLabel.text = user.login;
-    gravatarView.image = self.user.gravatar;
-
+    gravatarView.image = user.gravatar;
 }
 
 - (void)dealloc {

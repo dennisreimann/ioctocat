@@ -1,6 +1,6 @@
 #import "FollowingController.h"
 #import "GHUser.h"
-
+#import "UserController.h"
 
 @implementation FollowingController
 
@@ -44,10 +44,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//	GHUser *user = [user.following objectAtIndex:indexPath.row];
-//	IssueController *issueController = [[IssueController alloc] initWithIssue:issue];
-//	[self.navigationController pushViewController:issueController animated:YES];
-//	[issueController release];
+    GHUser *selectedUser = [user.following objectAtIndex:indexPath.row];
+    UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
+    [self.navigationController pushViewController:userController animated:YES];
+    [userController release];
 }
 
 

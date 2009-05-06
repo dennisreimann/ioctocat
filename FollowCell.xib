@@ -44,12 +44,12 @@
 							<object class="IBUILabel" id="513702233">
 								<reference key="NSNextResponder" ref="425256881"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{48, 10}, {225, 20}}</string>
+								<string key="NSFrame">{{48, 10}, {234, 20}}</string>
 								<reference key="NSSuperview" ref="425256881"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">Follow</string>
+								<string key="IBUIText"/>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">1.400000e+01</double>
@@ -67,7 +67,7 @@
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 								<int key="IBUINumberOfLines">2</int>
 							</object>
-							<object class="IBUIImageView" id="836423379">
+							<object class="IBUIImageView" id="192593019">
 								<reference key="NSNextResponder" ref="425256881"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{11, 6}, {28, 28}}</string>
@@ -79,8 +79,16 @@
 									<string key="NSResourceName">default_gravatar.png</string>
 								</object>
 							</object>
+							<object class="IBUIImageView" id="836423379">
+								<reference key="NSNextResponder" ref="425256881"/>
+								<int key="NSvFlags">292</int>
+								<string key="NSFrame">{{11, 6}, {28, 28}}</string>
+								<reference key="NSSuperview" ref="425256881"/>
+								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+							</object>
 						</object>
-						<string key="NSFrameSize">{320, 40}</string>
+						<string key="NSFrameSize">{297, 40}</string>
 						<reference key="NSSuperview" ref="282112623"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -100,6 +108,7 @@
 				</object>
 				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="425256881"/>
 				<int key="IBUITextAlignment">2</int>
 				<string key="IBUIReuseIdentifier">FollowCell</string>
@@ -162,6 +171,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="513702233"/>
 							<reference ref="836423379"/>
+							<reference ref="192593019"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 					</object>
@@ -173,6 +183,11 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">23</int>
 						<reference key="object" ref="836423379"/>
+						<reference key="parent" ref="282112623"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">25</int>
+						<reference key="object" ref="192593019"/>
 						<reference key="parent" ref="282112623"/>
 					</object>
 				</object>
@@ -188,6 +203,7 @@
 					<string>11.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
 					<string>23.IBPluginDependency</string>
+					<string>25.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -195,6 +211,7 @@
 					<string>UIResponder</string>
 					<string>FollowCell</string>
 					<string>{{405, 713}, {320, 40}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -220,7 +237,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">25</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

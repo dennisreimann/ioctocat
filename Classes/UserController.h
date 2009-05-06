@@ -3,7 +3,7 @@
 
 @class GHUser, LabeledCell;
 
-@interface UserController : UITableViewController {
+@interface UserController : UITableViewController <UIActionSheetDelegate> {
   @private
 	GHUser *user;
 	IBOutlet UIView *tableHeaderView;
@@ -21,6 +21,9 @@
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;
+    IBOutlet UIView *activityView;
+    UIActionSheet *activitySheet;
+
 }
 
 @property (nonatomic, readonly) GHUser *currentUser;

@@ -14,7 +14,6 @@
 #import "RecentCommitsController.h"
 #import "IssuesController.h"
 
-
 @interface RepositoryController ()
 - (void)displayRepository;
 @end

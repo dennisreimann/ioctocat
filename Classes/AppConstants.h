@@ -46,6 +46,11 @@
 #define kLoginParam @"login"
 #define kTokenParam @"token"
 
+// Following
+#define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
+
+#define kFollow @"follow"
+#define kUnFollow @"unfollow"
 
 // KVO
 #define kResourceStatusKeyPath @"status"

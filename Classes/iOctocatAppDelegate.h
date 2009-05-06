@@ -19,6 +19,7 @@
 @property (nonatomic, readonly) LoginController *loginController;
 
 - (GHUser *)currentUser;
+- (UIView *)currentView ;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
 
 @end

@@ -183,6 +183,23 @@
     [pool release];
 }
 
+
+- (void)toggleFollowingState:(NSString *)state {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+    
+	NSString *url = [NSString stringWithFormat:kFollowUserFormat, state, self.login];
+	NSURL *followingURL = [NSURL URLWithString:url];
+	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL ] autorelease];
+	[request setPostValue:username forKey:@"login"];
+	[request setPostValue:token forKey:@"token"];	
+	[request start];	
+    [pool release];
+}
+
+
 #pragma mark -
 #pragma mark Gravatar
 

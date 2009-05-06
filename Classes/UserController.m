@@ -7,9 +7,12 @@
 #import "GravatarLoader.h"
 #import "iOctocatAppDelegate.h"
 #import "FollowingController.h"
+#import "ASIFormDataRequest.h"
 
 @interface UserController ()
 - (void)displayUser;
+- (void)showActivitySheet;
+- (void)dismissActivitySheet;
 @end
 
 
@@ -81,14 +84,34 @@
 }
 
 - (IBAction)toggleFollowing:(id)sender {
+    [self showActivitySheet];
 	UIImage *buttonImage;
 	if ([self.currentUser isFollowing:user]) {
+        [user toggleFollowingState:kUnFollow];
 		buttonImage = [UIImage imageNamed:@"UnfollowButton.png"];
 	} else {
+        [user toggleFollowingState:kFollow];        
 		buttonImage = [UIImage imageNamed:@"FollowButton.png"];
 	}
+    [self.currentUser loadFollowing];
 	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
+    [self dismissActivitySheet];
 }
+
+
+- (void)showActivitySheet {
+    iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	activitySheet = [[UIActionSheet alloc] initWithTitle:@"\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	UIView *currentView = appDelegate.currentView;
+	[activitySheet addSubview:activityView];
+	[activitySheet showInView:currentView];
+	[activitySheet release];
+}
+
+- (void)dismissActivitySheet {
+	[activitySheet dismissWithClickedButtonIndex:0 animated:YES];
+}
+
 
 #pragma mark -
 #pragma mark Table view methods

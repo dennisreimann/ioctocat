@@ -28,6 +28,10 @@
 	if (launchDefault) [self authenticate];
 }
 
+- (UIView *)currentView {
+    return tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
+}
+
 - (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults valueForKey:kUsernameDefaultsKey];

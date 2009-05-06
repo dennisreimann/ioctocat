@@ -152,7 +152,7 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 0 && row == 2 && user.email) {
-		NSString *mailString = [[NSString alloc] initWithFormat:@"mailto:?to=@%", user.email];
+		NSString *mailString = [[NSString alloc] initWithFormat:@"mailto:%@", user.email];
 		NSURL *mailURL = [[NSURL alloc] initWithString:mailString];
 		[mailString release];
 		[[UIApplication sharedApplication] openURL:mailURL];

@@ -33,10 +33,11 @@
 			<object class="IBUISearchBar" id="461042464">
 				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
-				<string key="NSFrame">{{598, 70}, {320, 44}}</string>
+				<string key="NSFrameSize">{320, 44}</string>
 				<bool key="IBUIOpaque">NO</bool>
 				<int key="IBUIContentMode">3</int>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
+				<string key="IBPrompt"/>
 			</object>
 			<object class="IBUITableView" id="277314566">
 				<nil key="NSNextResponder"/>
@@ -61,6 +62,16 @@
 				<float key="IBUISectionHeaderHeight">2.200000e+01</float>
 				<float key="IBUISectionFooterHeight">2.200000e+01</float>
 			</object>
+			<object class="IBUIActivityIndicatorView" id="32898905">
+				<nil key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<string key="NSFrameSize">{20, 20}</string>
+				<bool key="IBUIOpaque">NO</bool>
+				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<bool key="IBUIUserInteractionEnabled">NO</bool>
+				<bool key="IBUIHidesWhenStopped">NO</bool>
+				<bool key="IBUIAnimating">YES</bool>
+			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -80,6 +91,14 @@
 						<reference key="destination" ref="461042464"/>
 					</object>
 					<int key="connectionID">5</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">activityView</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="32898905"/>
+					</object>
+					<int key="connectionID">7</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -114,6 +133,11 @@
 						<reference key="object" ref="461042464"/>
 						<reference key="parent" ref="957960031"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">6</int>
+						<reference key="object" ref="32898905"/>
+						<reference key="parent" ref="957960031"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -124,7 +148,10 @@
 					<string>-2.CustomClassName</string>
 					<string>2.IBEditorWindowLastContentRect</string>
 					<string>2.IBPluginDependency</string>
+					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
+					<string>6.IBEditorWindowLastContentRect</string>
+					<string>6.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -132,6 +159,9 @@
 					<string>UIResponder</string>
 					<string>{{194, 298}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{0, 790}, {320, 44}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{21, 791}, {20, 20}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
@@ -155,7 +185,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">5</int>
+			<int key="maxID">7</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -164,13 +194,23 @@
 					<string key="className">SearchController</string>
 					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">switchChanged:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>quitSearching:</string>
+							<string>switchChanged:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>activityView</string>
 							<string>loadingCell</string>
 							<string>noEntriesCell</string>
 							<string>searchBar</string>
@@ -178,6 +218,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UIActivityIndicatorView</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
 							<string>UISearchBar</string>

@@ -31,6 +31,8 @@
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
 		6F2D9A850FB1885C00FFABE9 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2D9A840FB1885C00FFABE9 /* Search.xib */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6F2D9B510FB19AF800FFABE9 /* OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayViewController.m */; };
+		6F2D9B740FB19DD400FFABE9 /* Overlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2D9B730FB19DD400FFABE9 /* Overlay.xib */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
 		6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */; };
@@ -154,6 +156,9 @@
 		6F2D9A840FB1885C00FFABE9 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Search.xib; sourceTree = "<group>"; };
 		6F2D9A870FB1887300FFABE9 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
+		6F2D9B4F0FB19AF800FFABE9 /* OverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayViewController.h; sourceTree = "<group>"; };
+		6F2D9B500FB19AF800FFABE9 /* OverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayViewController.m; sourceTree = "<group>"; };
+		6F2D9B730FB19DD400FFABE9 /* Overlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Overlay.xib; sourceTree = "<group>"; };
 		6F35BD370F88B01900E978CD /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
@@ -429,6 +434,8 @@
 				8C53B4CF0FB0F20B00C3A8E0 /* FollowingController.m */,
 				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
 				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
+				6F2D9B4F0FB19AF800FFABE9 /* OverlayViewController.h */,
+				6F2D9B500FB19AF800FFABE9 /* OverlayViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -530,6 +537,7 @@
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
 				8C53B4D90FB0F54F00C3A8E0 /* Following.xib */,
 				6F2D9A840FB1885C00FFABE9 /* Search.xib */,
+				6F2D9B730FB19DD400FFABE9 /* Overlay.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -746,6 +754,7 @@
 				8C53B6A10FB0FE1900C3A8E0 /* Following.xib in Resources */,
 				8C7F94530FB1352C00585A66 /* default_gravatar.png in Resources */,
 				6F2D9A850FB1885C00FFABE9 /* Search.xib in Resources */,
+				6F2D9B740FB19DD400FFABE9 /* Overlay.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +813,7 @@
 				8C53B4D00FB0F20B00C3A8E0 /* FollowingController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* FollowCell.m in Sources */,
 				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,
+				6F2D9B510FB19AF800FFABE9 /* OverlayViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

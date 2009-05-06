@@ -4,6 +4,7 @@
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
+#import "RepositoryCell.h"
 #import "GravatarLoader.h"
 #import "iOctocatAppDelegate.h"
 #import "FollowingController.h"
@@ -132,13 +133,9 @@
 	if (!user.isReposLoaded) return loadingReposCell;
 	if (indexPath.section == 2 && user.repositories.count == 0) return noPublicReposCell;
 	if (indexPath.section == 2) {
-		GHRepository *repository = [user.repositories objectAtIndex:indexPath.row];
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.font = [UIFont systemFontOfSize:16.0f];
-		cell.text = repository.name;
-		cell.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		cell.repository = [user.repositories objectAtIndex:indexPath.row];
 		return cell;
 	}
     

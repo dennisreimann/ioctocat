@@ -14,10 +14,8 @@
 @synthesize url, entries;
 
 - (id)initWithURL:(NSURL *)theURL {
-	if (self = [super init]) {
-		self.url = theURL;
-		self.status = GHResourceStatusNotLoaded;
-	}
+	[super init];
+	self.url = theURL;
 	return self;
 }
 
@@ -37,17 +35,13 @@
 
 - (void)parseFeed {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url] autorelease];
-
-  
 	[request setPostValue:username forKey:@"login"];
 	[request setPostValue:token forKey:@"token"];	
-	[request start];	
-
+	[request start];
 	GHFeedParserDelegate *parserDelegate = [[GHFeedParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedEntries:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];

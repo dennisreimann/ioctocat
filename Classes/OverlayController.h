@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface OverlayViewController : UIViewController {
+@interface OverlayController : UIViewController {
   @private
 	id target;
 	SEL selector;

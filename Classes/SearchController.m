@@ -1,4 +1,8 @@
 #import "SearchController.h"
+#import "GHUsersParserDelegate.h"
+#import "GHReposParserDelegate.h"
+#import "RepositoryController.h"
+#import "UserController.h"
 
 
 @implementation SearchController
@@ -7,12 +11,42 @@
     [super viewDidLoad];
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	self.tableView.tableHeaderView = searchBar;
-	overlayController = [[OverlayViewController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
+	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
 	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+	GHSearch *userSearch = [[[GHSearch alloc] initWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]] autorelease];
+	GHSearch *repoSearch = [[[GHSearch alloc] initWithURLFormat:kRepoSearchFormat andParserDelegateClass:[GHReposParserDelegate class]] autorelease];
+	searches = [[NSArray alloc] initWithObjects:userSearch, repoSearch, nil];
+	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 }
 
+- (GHSearch *)currentSearch {
+	return searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+		nil : [searches objectAtIndex:searchControl.selectedSegmentIndex];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		GHSearch *search = (GHSearch *)object;
+		if (search.isLoading) {
+			[self.tableView reloadData];
+		} else {
+			[self.tableView reloadData];
+			[self quitSearching:nil];
+			if (!search.error) return;
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the search results" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}
+}
+
+#pragma mark -
+#pragma mark Actions
+
 - (IBAction)switchChanged:(id)sender {
-	
+	[self.tableView reloadData];
+	if (self.currentSearch.isLoaded) return;
+	[self.tableView reloadData];
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
@@ -21,16 +55,7 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
-//	NSString *searchTerm = searchBar.text;
-//	NSString *searchURL = [[NSString alloc] initWithFormat:@"%@%@", @"http://venteria.com/events.xml?what=", searchTerm];
-//	self.title = searchTerm;
-//	self.url = [NSURL URLWithString:searchURL];
-//	[searchURL release];
-//	[events release];
-//	events = [[NSMutableArray alloc] init];
-//	[self positionActivityView];
-//	[self.tableView reloadData];
-//	[self performSelectorInBackground:@selector(loadEvents) withObject:nil];
+	//[self.currentSearch loadResultsForSearchTerm:searchBar.text];
 }
 
 - (void)quitSearching:(id)sender {
@@ -45,28 +70,43 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    if (self.currentSearch.isLoading) return 1;
+	if (self.currentSearch.isLoaded && self.currentSearch.results.count == 0) return 1;
+	return self.currentSearch.results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (!self.currentSearch.isLoaded) return loadingCell;
+    if (self.currentSearch.results.count == 0) return noResultsCell;
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
     }
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	cell.text = [[self.currentSearch.results objectAtIndex:indexPath.row] name];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
+	UIViewController *viewController;
+	if ([object isKindOfClass:[GHRepository class]]) {
+		viewController = [(RepositoryController *)[RepositoryController alloc] initWithRepository:(GHRepository *)object];
+	} else if ([object isKindOfClass:[GHUser class]]) {
+		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
+	}
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
 }
 
 - (void)dealloc {
-	[activityView release];
+	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[searches release];
 	[overlayController release];
 	[searchBar release];
 	[searchControl release];
 	[loadingCell release];
-	[noEntriesCell release];
+	[noResultsCell release];
     [super dealloc];
 }
 

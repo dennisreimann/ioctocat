@@ -19,7 +19,6 @@
 
 - (id)init {
 	[super init];
-	self.status             = GHResourceStatusNotLoaded;
 	self.repositoriesStatus = GHResourceStatusNotLoaded;
     self.followingStatus    = GHResourceStatusNotLoaded;
 	isAuthenticated = NO;

@@ -5,6 +5,11 @@
 
 @synthesize status, error;
 
+- (id)init {
+	[super init];
+	self.status = GHResourceStatusNotLoaded;
+}
+
 - (BOOL)isLoading {
 	return status == GHResourceStatusLoading;
 }

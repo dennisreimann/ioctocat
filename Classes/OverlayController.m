@@ -1,7 +1,7 @@
-#import "OverlayViewController.h"
+#import "OverlayController.h"
 
 
-@implementation OverlayViewController
+@implementation OverlayController
 
 - (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
 	[super initWithNibName:@"Overlay" bundle:nil];

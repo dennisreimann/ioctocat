@@ -29,15 +29,17 @@
 	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];
 	NSURL *newsFeedURL = [NSURL URLWithString:newsAddress];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
-	GHFeed *newsFeed = [[GHFeed alloc] initWithURL:newsFeedURL];
-	GHFeed *activityFeed = [[GHFeed alloc] initWithURL:activityFeedURL];
-	[newsFeed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[activityFeed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	GHFeed *newsFeed = [[[GHFeed alloc] initWithURL:newsFeedURL] autorelease];
+	GHFeed *activityFeed = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
-	[newsFeed release];
-	[activityFeed release];
+	for (GHFeed *feed in feeds) [feed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
+}
+
+- (GHFeed *)currentFeed {
+	return feedControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
 #pragma mark -
@@ -93,8 +95,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.currentFeed.isLoading) return 1;
 	if (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) return 1;
-	if (self.currentFeed.isLoaded) return self.currentFeed.entries.count;
-	return 0;
+	return self.currentFeed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -124,17 +125,10 @@
 }
 
 #pragma mark -
-#pragma mark Helpers
-
-- (GHFeed *)currentFeed {
-	return feedControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
-		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
-}
-
-#pragma mark -
 #pragma mark Cleanup
 
 - (void)dealloc {
+	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[feeds release];
 	[noEntriesCell release];
 	[feedEntryCell release];

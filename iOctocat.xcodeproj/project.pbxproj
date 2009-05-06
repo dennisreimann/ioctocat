@@ -30,13 +30,14 @@
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
-		6F2D9B510FB19AF800FFABE9 /* OverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayViewController.m */; };
+		6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
 		6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
 		6F358BFC0FB1EA6F004D2828 /* TabBarNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BFA0FB1EA6F004D2828 /* TabBarNetwork.png */; };
 		6F358C070FB1EAE0004D2828 /* FollowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C030FB1EAE0004D2828 /* FollowCell.xib */; };
 		6F358C080FB1EAE0004D2828 /* Following.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C040FB1EAE0004D2828 /* Following.xib */; };
 		6F358C090FB1EAE0004D2828 /* Overlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C050FB1EAE0004D2828 /* Overlay.xib */; };
 		6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
+		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
 		6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */; };
@@ -153,14 +154,16 @@
 		6F1DC6730F7E8E1900FCD26D /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
 		6F2D9A870FB1887300FFABE9 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
-		6F2D9B4F0FB19AF800FFABE9 /* OverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayViewController.h; sourceTree = "<group>"; };
-		6F2D9B500FB19AF800FFABE9 /* OverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayViewController.m; sourceTree = "<group>"; };
+		6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayController.h; sourceTree = "<group>"; };
+		6F2D9B500FB19AF800FFABE9 /* OverlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayController.m; sourceTree = "<group>"; };
 		6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
 		6F358BFA0FB1EA6F004D2828 /* TabBarNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarNetwork.png; path = Images/TabBarNetwork.png; sourceTree = "<group>"; };
 		6F358C030FB1EAE0004D2828 /* FollowCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FollowCell.xib; path = IBFiles/FollowCell.xib; sourceTree = "<group>"; };
 		6F358C040FB1EAE0004D2828 /* Following.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Following.xib; path = IBFiles/Following.xib; sourceTree = "<group>"; };
 		6F358C050FB1EAE0004D2828 /* Overlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Overlay.xib; path = IBFiles/Overlay.xib; sourceTree = "<group>"; };
 		6F358C060FB1EAE0004D2828 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Search.xib; path = IBFiles/Search.xib; sourceTree = "<group>"; };
+		6F358C5A0FB1EEC4004D2828 /* GHSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSearch.h; sourceTree = "<group>"; };
+		6F358C5B0FB1EEC4004D2828 /* GHSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSearch.m; sourceTree = "<group>"; };
 		6F35BD370F88B01900E978CD /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
@@ -395,6 +398,8 @@
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
 				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
+				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
+				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
 				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
 				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
@@ -430,8 +435,8 @@
 				8C53B4CF0FB0F20B00C3A8E0 /* FollowingController.m */,
 				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
 				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
-				6F2D9B4F0FB19AF800FFABE9 /* OverlayViewController.h */,
-				6F2D9B500FB19AF800FFABE9 /* OverlayViewController.m */,
+				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
+				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -531,8 +536,8 @@
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
 				6F358C040FB1EAE0004D2828 /* Following.xib */,
-				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
+				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -805,7 +810,8 @@
 				8C53B4D00FB0F20B00C3A8E0 /* FollowingController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* FollowCell.m in Sources */,
 				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,
-				6F2D9B510FB19AF800FFABE9 /* OverlayViewController.m in Sources */,
+				6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */,
+				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

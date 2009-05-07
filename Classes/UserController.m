@@ -36,6 +36,9 @@
     if (!user.isFollowingLoaded) [user loadFollowing];
 	self.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+
 }
 
 - (GHUser *)currentUser {
@@ -45,6 +48,22 @@
 
 #pragma mark -
 #pragma mark Actions
+
+- (IBAction)showActions:(id)sender {
+//    NSString *buttonLabel =  [NSString stringWithFormat:[self.currentUser isFollowing:user] ? @"Un-Following %@" : @"Follow %@", user.login];
+    NSString *buttonLabel =  [self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow";    
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:buttonLabel, nil];
+	[actionSheet showInView:self.view];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+        self.toggleFollowing;
+    }
+}
+
+
 
 - (void)displayUser {
 	nameLabel.text = (!user.name || [user.name isEqualToString:@""]) ? user.login : user.name;
@@ -56,19 +75,9 @@
 	// FIXME Following needs to be implemented, see issue:
 	// http://github.com/dbloete/ioctocat/issues#issue/3
 //	if ([self.currentUser isEqual:user]) return;
-	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isFollowing:user] ? @"UnfollowButton.png" : @"FollowButton.png")];
-	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-	if ( [self.currentUser.login caseInsensitiveCompare:user.login] != 0 )  { 
-        followButton.hidden = NO;
-    }
-// commenting out to hunt for rendering gremlins - MTL
-//    if( [self.currentUser isFollowingLoaded] != 0) { 
-//    followButton.hidden = YES; 
-//    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-    NSLog(@"KeyPath: '%@'", keyPath);
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	} else if ([keyPath isEqualToString:kUserFollowingStatusKeyPath]) {
@@ -89,17 +98,13 @@
 	}
 }
 
-- (IBAction)toggleFollowing:(id)sender {
+- (void)toggleFollowing  {
     [self showActivitySheet];
-	UIImage *buttonImage;
 	if ([self.currentUser isFollowing:user]) {
         [user toggleFollowingState:kUnFollow];
-		buttonImage = [UIImage imageNamed:@"UnfollowButton.png"];
 	} else {
         [user toggleFollowingState:kFollow];        
-		buttonImage = [UIImage imageNamed:@"FollowButton.png"];
 	}
-	[followButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
     [self.currentUser loadFollowing];
     [self displayUser];
     [self.tableView reloadData];
@@ -119,7 +124,7 @@
 }
 
 - (void)dismissActivitySheet {
-	[activitySheet dismissWithClickedButtonIndex:0 animated:YES];
+	[activitySheet dismissWithClickedButtonIndex:1 animated:YES];
 }
 
 
@@ -226,7 +231,6 @@
 	[loadingUserCell release];
 	[loadingReposCell release];
 	[noPublicReposCell release];
-	[followButton release];
     [super dealloc];
 }
 

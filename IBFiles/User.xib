@@ -10,12 +10,12 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="70"/>
 			<integer value="25"/>
-			<integer value="57"/>
 			<integer value="75"/>
-			<integer value="64"/>
 			<integer value="4"/>
-			<integer value="59"/>
+			<integer value="57"/>
 			<integer value="3"/>
+			<integer value="59"/>
+			<integer value="64"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -125,33 +125,6 @@
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
 						<float key="IBUIMinimumFontSize">1.400000e+01</float>
-					</object>
-					<object class="IBUIButton" id="705835287">
-						<reference key="NSNextResponder" ref="1002873168"/>
-						<int key="NSvFlags">-2147483359</int>
-						<string key="NSFrame">{{214, 39}, {86, 18}}</string>
-						<reference key="NSSuperview" ref="1002873168"/>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<int key="IBUIContentHorizontalAlignment">0</int>
-						<int key="IBUIContentVerticalAlignment">0</int>
-						<object class="NSFont" key="IBUIFont">
-							<string key="NSName">Helvetica-Bold</string>
-							<double key="NSSize">1.500000e+01</double>
-							<int key="NSfFlags">16</int>
-						</object>
-						<string key="IBUIHighlightedTitle"/>
-						<string key="IBUIDisabledTitle"/>
-						<string key="IBUISelectedTitle"/>
-						<string key="IBUINormalTitle"/>
-						<object class="NSColor" key="IBUIHighlightedTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MSAxIDEAA</bytes>
-						</object>
-						<object class="NSColor" key="IBUINormalTitleColor">
-							<int key="NSColorSpace">1</int>
-							<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
-						</object>
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 80}</string>
@@ -1003,23 +976,6 @@
 					<int key="connectionID">53</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">toggleFollowing:</string>
-						<reference key="source" ref="705835287"/>
-						<reference key="destination" ref="372490531"/>
-						<int key="IBEventType">7</int>
-					</object>
-					<int key="connectionID">55</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">followButton</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="705835287"/>
-					</object>
-					<int key="connectionID">56</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">content</string>
 						<reference key="source" ref="564890757"/>
@@ -1076,11 +1032,10 @@
 						<reference key="object" ref="1002873168"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="995342605"/>
 							<reference ref="902895886"/>
 							<reference ref="1013829266"/>
-							<reference ref="705835287"/>
 							<reference ref="412962912"/>
+							<reference ref="995342605"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
 					</object>
@@ -1219,11 +1174,6 @@
 						<reference key="parent" ref="782175715"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">54</int>
-						<reference key="object" ref="705835287"/>
-						<reference key="parent" ref="1002873168"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">57</int>
 						<reference key="object" ref="539996179"/>
 						<object class="NSMutableArray" key="children">
@@ -1353,7 +1303,6 @@
 					<string>50.IBEditorWindowLastContentRect</string>
 					<string>50.IBPluginDependency</string>
 					<string>52.IBPluginDependency</string>
-					<string>54.IBPluginDependency</string>
 					<string>57.IBEditorWindowLastContentRect</string>
 					<string>57.IBPluginDependency</string>
 					<string>58.IBPluginDependency</string>
@@ -1411,7 +1360,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{687, 971}, {320, 44}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{652, 812}, {320, 44}}</string>
@@ -1486,8 +1434,17 @@
 					<string key="className">UserController</string>
 					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="actions">
-						<string key="NS.key.0">toggleFollowing:</string>
-						<string key="NS.object.0">id</string>
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSMutableArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>showActions:</string>
+							<string>toggleFollowing:</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
+							<string>id</string>
+						</object>
 					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1499,7 +1456,6 @@
 							<string>companyLabel</string>
 							<string>emailCell</string>
 							<string>emailLabel</string>
-							<string>followButton</string>
 							<string>followingCell</string>
 							<string>gravatarView</string>
 							<string>loadingReposCell</string>
@@ -1518,7 +1474,6 @@
 							<string>UILabel</string>
 							<string>LabeledCell</string>
 							<string>UILabel</string>
-							<string>UIButton</string>
 							<string>UITableViewCell</string>
 							<string>UIImageView</string>
 							<string>UITableViewCell</string>

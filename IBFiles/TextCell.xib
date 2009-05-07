@@ -84,9 +84,8 @@
 				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
+					<bytes key="NSWhite">MQA</bytes>
 				</object>
-				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="972200576"/>
@@ -157,7 +156,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>UIResponder</string>
 					<string>TextCell</string>
-					<string>{{623, 649}, {320, 44}}</string>
+					<string>{{445, 649}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -202,7 +201,7 @@
 			</object>
 		</object>
 		<int key="IBDocument.localizationMode">0</int>
-		<string key="IBDocument.LastKnownRelativeProjectPath">iOctocat.xcodeproj</string>
+		<string key="IBDocument.LastKnownRelativeProjectPath">../iOctocat.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 	</data>
 </archive>

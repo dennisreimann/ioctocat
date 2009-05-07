@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="7"/>
 			<integer value="3"/>
+			<integer value="7"/>
 			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -92,11 +92,10 @@
 				</object>
 				<string key="NSFrameSize">{320, 50}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
+				<object class="NSColor" key="IBUIBackgroundColor" id="531035318">
 					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
+					<bytes key="NSWhite">MQA</bytes>
 				</object>
-				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="641394573"/>
@@ -143,11 +142,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 50}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
-				</object>
-				<bool key="IBUIOpaque">NO</bool>
+				<reference key="IBUIBackgroundColor" ref="531035318"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="187649347"/>
@@ -158,11 +153,7 @@
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{320, 367}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-				</object>
-				<bool key="IBUIOpaque">NO</bool>
+				<reference key="IBUIBackgroundColor" ref="531035318"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -306,9 +297,9 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>FollowingController</string>
 					<string>UIResponder</string>
-					<string>{{652, 806}, {320, 50}}</string>
+					<string>{{445, 806}, {320, 50}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{652, 806}, {320, 50}}</string>
+					<string>{{445, 806}, {320, 50}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

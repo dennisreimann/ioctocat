@@ -8,8 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="7"/>
 			<integer value="5"/>
+			<integer value="7"/>
 			<integer value="2"/>
 			<integer value="9"/>
 		</object>
@@ -39,11 +39,10 @@
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{320, 367}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
+				<object class="NSColor" key="IBUIBackgroundColor" id="868958964">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
 				</object>
-				<bool key="IBUIOpaque">NO</bool>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -106,11 +105,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 40}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
-				</object>
-				<bool key="IBUIOpaque">NO</bool>
+				<reference key="IBUIBackgroundColor" ref="868958964"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="637879902"/>
@@ -156,11 +151,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 40}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
-				</object>
-				<bool key="IBUIOpaque">NO</bool>
+				<reference key="IBUIBackgroundColor" ref="868958964"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="411940568"/>
@@ -218,11 +209,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 40}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
-				</object>
-				<bool key="IBUIOpaque">NO</bool>
+				<reference key="IBUIBackgroundColor" ref="868958964"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="565585109"/>
@@ -367,15 +354,15 @@
 					<string>UIResponder</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{80, 676}, {320, 480}}</string>
+					<string>{{80, 376}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{687, 975}, {320, 40}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{689, 900}, {320, 40}}</string>
+					<string>{{445, 816}, {320, 40}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{687, 975}, {320, 40}}</string>
+					<string>{{445, 816}, {320, 40}}</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>{{445, 816}, {320, 40}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>

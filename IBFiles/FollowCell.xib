@@ -59,7 +59,7 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUIHighlightedColor">
+								<object class="NSColor" key="IBUIHighlightedColor" id="574224765">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
@@ -102,11 +102,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 40}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MSAwAA</bytes>
-				</object>
-				<bool key="IBUIOpaque">NO</bool>
+				<reference key="IBUIBackgroundColor" ref="574224765"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="425256881"/>

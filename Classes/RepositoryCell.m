@@ -9,6 +9,7 @@
 	[super initWithFrame:frame reuseIdentifier:reuseIdentifier];
 	self.font = [UIFont systemFontOfSize:16.0f];
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	self.opaque = YES;
 	return self;
 }
 
@@ -16,7 +17,7 @@
 	[theRepository retain];
 	[repository release];
 	repository = theRepository;
-	self.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];;
+	self.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
     self.text = repository.name;
 }
 

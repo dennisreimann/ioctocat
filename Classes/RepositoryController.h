@@ -9,7 +9,6 @@
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UILabel *nameLabel;
 	IBOutlet UILabel *numbersLabel;
-	IBOutlet UIButton *watchButton;
 	IBOutlet UILabel *ownerLabel;
 	IBOutlet UILabel *websiteLabel;
 	IBOutlet UILabel *descriptionLabel;

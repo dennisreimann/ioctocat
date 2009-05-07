@@ -8,12 +8,12 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="94"/>
+			<integer value="38"/>
+			<integer value="21"/>
+			<integer value="44"/>
 			<integer value="31"/>
 			<integer value="97"/>
-			<integer value="38"/>
-			<integer value="44"/>
-			<integer value="21"/>
+			<integer value="94"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -333,8 +333,7 @@
 								<int key="IBUIBaselineAdjustment">1</int>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
-								<int key="IBUINumberOfLines">0</int>
-								<int key="IBUILineBreakMode">0</int>
+								<int key="IBUINumberOfLines">2</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 44}</string>
@@ -966,7 +965,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TextCell</string>
-					<string>{{445, 789}, {320, 44}}</string>
+					<string>{{447, 789}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{381, 604}, {320, 80}}</string>
@@ -976,7 +975,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{445, 816}, {320, 40}}</string>
+					<string>{{544, 657}, {320, 40}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{400, 707}, {320, 40}}</string>

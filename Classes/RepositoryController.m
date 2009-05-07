@@ -50,8 +50,10 @@
 	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
-	[descriptionCell setContentText:repository.descriptionText];
-// FIXME Watching needs to be implemented, see issue:
+	//[descriptionCell setContentText:repository.descriptionText];
+	[descriptionLabel setText:repository.descriptionText];
+
+    // FIXME Watching needs to be implemented, see issue:
 // http://github.com/dbloete/ioctocat/issues#issue/4
 //	UIImage *buttonImage = [UIImage imageNamed:([self.currentUser isWatching:repository] ? @"UnwatchButton.png" : @"WatchButton.png")];
 //	[watchButton setBackgroundImage:buttonImage forState:UIControlStateNormal];

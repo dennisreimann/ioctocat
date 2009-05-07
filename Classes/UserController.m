@@ -164,7 +164,6 @@
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-//	if (!user.isFollowingLoaded) return loadingFollowingCell;
 	if (indexPath.section == 1 ) return followingCell;
 
 	if (!user.isReposLoaded) return loadingReposCell;

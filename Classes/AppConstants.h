@@ -14,6 +14,7 @@
 #define kFollowCellIdentifier @"FollowCell"
 
 // URLs
+#define kDisplayUserURL @"http://github.com/%@"
 #define kConnectivityCheckURL @"http://github.com/robots.txt"
 #define kNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
 #define kActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"

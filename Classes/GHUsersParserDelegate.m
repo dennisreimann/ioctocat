@@ -44,7 +44,8 @@
 }
 
 - (void)dealloc {
-	[currentUser release];
+    //if ( currentUser ) 
+        [currentUser release];
     [super dealloc];
 }
 

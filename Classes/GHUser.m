@@ -81,7 +81,6 @@
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
 	[parser setShouldResolveExternalEntities:NO];
-    [userURL release];
 	[parser parse];
 	[parser release];
 	[parserDelegate release];

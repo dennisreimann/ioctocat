@@ -43,7 +43,6 @@
 	if (user == nil) {
 		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
 		[users setObject:user forKey:theUsername];
-        [user release];
 	}
 	return user;
 }

@@ -14,12 +14,7 @@
 	titleLabel.text = entry.title;
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	// Date
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
-	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
     dateLabel.text = [entry.date prettyDate];
-	//dateLabel.text = [dateFormatter stringFromDate:entry.date];
-	[dateFormatter release];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];
 	iconView.image = [UIImage imageNamed:icon];

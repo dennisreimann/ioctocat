@@ -53,7 +53,7 @@
 //    NSString *buttonLabel =  [NSString stringWithFormat:[self.currentUser isFollowing:user] ? @"Un-Following %@" : @"Follow %@", user.login];
     NSString *buttonLabel =  [self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow";    
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:buttonLabel, @"Open in GitHub",  nil];
-	[actionSheet showInView:self.view];
+	[actionSheet showInView:self.view.window];
 	[actionSheet release];
 }
 
@@ -61,7 +61,7 @@
 	if (buttonIndex == 0) {
         self.toggleFollowing;
     } else if (buttonIndex == 1) {
-		NSString *urlString = [NSString stringWithFormat:kDisplayUserURL, user.logim];
+		NSString *urlString = [NSString stringWithFormat:kDisplayUserURL, user.login];
         NSURL *theURL = [NSURL URLWithString:urlString];
 		WebController *webController = [[WebController alloc] initWithURL:theURL];
 		[self.navigationController pushViewController:webController animated:YES];

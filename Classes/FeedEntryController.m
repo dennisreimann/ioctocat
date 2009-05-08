@@ -60,7 +60,7 @@
 		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHUser *)eventItem login]];
 	}
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View on GitHub", [NSString stringWithFormat:@"Show %@", entry.authorName], eventItemTitle, nil];
-	[actionSheet showInView:self.view];
+	[actionSheet showInView:self.view.window];
 	[actionSheet release];
 }
 

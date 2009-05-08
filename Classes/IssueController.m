@@ -36,7 +36,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View Issue on GitHub",nil];
-	[actionSheet showInView:self.view];
+	[actionSheet showInView:self.view.window];
 	[actionSheet release];
 }
 

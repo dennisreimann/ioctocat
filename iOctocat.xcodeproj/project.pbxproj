@@ -63,6 +63,7 @@
 		6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5A0FB611FD00EBD9BD /* UserCell.xib */; };
 		6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5B0FB611FD00EBD9BD /* Users.xib */; };
 		6F879AB10FB6184500EBD9BD /* UserCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879AB00FB6184500EBD9BD /* UserCellBackground.png */; };
+		6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
 		6FA92AFE0FACD51A001B1D1D /* FeedEntry.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */; };
 		6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFD0FACD51A001B1D1D /* Issue.xib */; };
 		6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issues_closed.png */; };
@@ -202,6 +203,8 @@
 		6F879A5A0FB611FD00EBD9BD /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UserCell.xib; path = IBFiles/UserCell.xib; sourceTree = "<group>"; };
 		6F879A5B0FB611FD00EBD9BD /* Users.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Users.xib; path = IBFiles/Users.xib; sourceTree = "<group>"; };
 		6F879AB00FB6184500EBD9BD /* UserCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserCellBackground.png; path = Images/UserCellBackground.png; sourceTree = "<group>"; };
+		6F879AE60FB61C7A00EBD9BD /* GHUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsers.h; sourceTree = "<group>"; };
+		6F879AE70FB61C7A00EBD9BD /* GHUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsers.m; sourceTree = "<group>"; };
 		6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntry.xib; path = IBFiles/FeedEntry.xib; sourceTree = "<group>"; };
 		6FA92AFD0FACD51A001B1D1D /* Issue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issue.xib; path = IBFiles/Issue.xib; sourceTree = "<group>"; };
 		6FA92B1A0FACD648001B1D1D /* issues_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_closed.png; path = Images/Icons/issues_closed.png; sourceTree = "<group>"; };
@@ -399,6 +402,8 @@
 				6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */,
 				6F35BD370F88B01900E978CD /* GHUser.h */,
 				6F35BD380F88B01900E978CD /* GHUser.m */,
+				6F879AE60FB61C7A00EBD9BD /* GHUsers.h */,
+				6F879AE70FB61C7A00EBD9BD /* GHUsers.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
@@ -830,6 +835,7 @@
 				6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */,
 				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
 				6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */,
+				6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

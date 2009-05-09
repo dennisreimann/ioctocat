@@ -39,7 +39,6 @@
 	[user addObserver:self forKeyPath:kUserFollowingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];    
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.isReposLoaded) [user loadRepositories];
-    if (!user.isFollowingLoaded) [user loadFollowing];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
@@ -108,7 +107,7 @@
 - (void)toggleFollowing  {
     [self showActivitySheet];
 	[user toggleFollowingState:([self.currentUser isFollowing:user] ? kUnFollow : kFollow)];
-    [self.currentUser loadFollowing];
+    [self.currentUser.following loadUsers];
     [self displayUser];
     [self.tableView reloadData];
     [self dismissActivitySheet];
@@ -197,10 +196,10 @@
 		[mailString release];
 		[[UIApplication sharedApplication] openURL:mailURL];
 		[mailURL release];
-	} else if (section == 1 && row == 0) {
-        UsersController *followingController = [(UsersController *)[UsersController alloc] initWithUser:user];
-		[self.navigationController pushViewController:followingController animated:YES];
-		[followingController release];            
+	} else if (section == 1) {
+        UsersController *usersController = (row == 0) ? [[UsersController alloc] initWithUsers:user.following] : [[UsersController alloc] initWithUsers:user.followers];
+		[self.navigationController pushViewController:usersController animated:YES];
+		[usersController release];            
 	} else if (section == 2) {
 		GHRepository *repo = [user.repositories objectAtIndex:indexPath.row];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];

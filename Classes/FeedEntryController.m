@@ -38,7 +38,6 @@
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
 	gravatarView.image = entry.user.gravatar;
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 }
 

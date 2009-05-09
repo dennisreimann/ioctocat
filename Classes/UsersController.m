@@ -1,22 +1,20 @@
 #import "UsersController.h"
-#import "GHUser.h"
 #import "UserController.h"
 
 
 @implementation UsersController
 
-@synthesize user;
+@synthesize users;
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUsers:(GHUsers *)theUsers {
     [super initWithNibName:@"Users" bundle:nil];
-	self.title = @"Following";
-    self.user = theUser;
+    self.users = theUsers;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!self.user.isFollowingLoaded) [self.user loadFollowing];
+    if (!users.isLoaded) [users loadUsers];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -24,23 +22,23 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!self.user.isFollowingLoaded) || (self.user.following.count == 0) ? 1 : self.user.following.count;
+    return (!users.isLoaded) || (users.users.count == 0) ? 1 : users.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.user.isFollowingLoaded) return loadingFollowingCell;
-	if (self.user.following.count == 0) return noFollowingCell;
+	if (!users.isLoaded) return loadingFollowingCell;
+	if (users.users.count == 0) return noFollowingCell;
 	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = followingCell;
+		cell = userCell;
 	}
-    cell.user = [self.user.following objectAtIndex:indexPath.row];
+    cell.user = [users.users objectAtIndex:indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    GHUser *selectedUser = [user.following objectAtIndex:indexPath.row];
+    GHUser *selectedUser = [users.users objectAtIndex:indexPath.row];
     UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
     [userController release];
@@ -50,7 +48,7 @@
     [noFollowingCell release];
 	[noFollowersCell release];
     [loadingFollowingCell release];
-    [followingCell release];
+    [userCell release];
     [super dealloc];
 }
 

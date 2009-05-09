@@ -1,19 +1,19 @@
 #import <UIKit/UIKit.h>
-#import "GHUser.h"
+#import "GHUsers.h"
 #import "UserCell.h"
 
 
 @interface UsersController : UIViewController {
-    GHUser *user;
+    GHUsers *users;
   @private
 	IBOutlet UITableViewCell *loadingFollowingCell;
 	IBOutlet UITableViewCell *noFollowingCell;
 	IBOutlet UITableViewCell *noFollowersCell;
-    IBOutlet UserCell *followingCell;
+    IBOutlet UserCell *userCell;
 }
 
-@property (nonatomic, retain) GHUser *user;
+@property (nonatomic, retain) GHUsers *users;
 
-- (id)initWithUser:(GHUser *)theUser;
+- (id)initWithUsers:(GHUsers *)theUsers;
 
 @end

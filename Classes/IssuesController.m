@@ -36,9 +36,12 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
     if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
-		GHIssues *theissues = (GHIssues *)object;
-		if (!theissues.isLoading) {
-            [self.tableView reloadData];
+		[self.tableView reloadData];
+		GHIssues *theIssues = (GHIssues *)object;
+		if (!theIssues.isLoading && theIssues.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issues" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 		}
 	}    
 }
@@ -52,7 +55,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentIssues.isLoaded) return loadingIssuesCell;
+	if (self.currentIssues.isLoading) return loadingIssuesCell;
 	if (self.currentIssues.entries.count == 0) return noIssuesCell;
 	IssueCell *cell = (IssueCell *)[tableView dequeueReusableCellWithIdentifier:kIssueCellIdentifier];
 	if (cell == nil) {

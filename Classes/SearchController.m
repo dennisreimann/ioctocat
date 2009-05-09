@@ -27,11 +27,9 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		[self.tableView reloadData];
 		GHSearch *search = (GHSearch *)object;
-		if (search.isLoading) {
-			[self.tableView reloadData];
-		} else {
-			[self.tableView reloadData];
+		if (!search.isLoading) {
 			[self quitSearching:nil];
 			if (!search.error) return;
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the search results" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

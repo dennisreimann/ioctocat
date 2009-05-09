@@ -56,10 +56,8 @@
 		}
 	}
 	isLoaded = YES;
-    
     [self.publicRepositories sortUsingSelector:@selector(compareByName:)];
     [self.privateRepositories sortUsingSelector:@selector(compareByName:)];
-    
 	[self.tableView reloadData];
 }
 

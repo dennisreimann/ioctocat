@@ -70,7 +70,6 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
     }
-    
 }
 
 - (void)displayUser {
@@ -140,8 +139,8 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
+    if (section == 1) return 2;
 	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
-    if (section == 1) return 2;    
 	if (section == 2) return user.repositories.count;
 	return 1;
 }

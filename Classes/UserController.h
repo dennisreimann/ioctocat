@@ -4,8 +4,8 @@
 @class GHUser, LabeledCell;
 
 @interface UserController : UITableViewController <UIActionSheetDelegate> {
-  @private
 	GHUser *user;
+  @private
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UIImageView *gravatarView;
 	IBOutlet UILabel *nameLabel;
@@ -16,6 +16,7 @@
 	IBOutlet UITableViewCell *loadingUserCell;
 	IBOutlet UITableViewCell *loadingReposCell;
 	IBOutlet UITableViewCell *noPublicReposCell;
+    IBOutlet UITableViewCell *followersCell; 
     IBOutlet UITableViewCell *followingCell;    
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
@@ -25,6 +26,7 @@
 
 }
 
+@property (nonatomic, retain) GHUser *user;
 @property (nonatomic, readonly) GHUser *currentUser;
 
 - (id)initWithUser:(GHUser *)theUser;

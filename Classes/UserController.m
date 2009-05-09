@@ -19,17 +19,19 @@
 
 @implementation UserController
 
+@synthesize user;
+
 - (id)initWithUser:(GHUser *)theUser {
     [super initWithNibName:@"User" bundle:nil];
-	user = [theUser retain];
+	self.user = theUser;
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if ( !user ) {
-        user = self.currentUser;
-    }
+	// FIXME Do we have another way to set the user when this
+	// controller is initialized from the tabbarcontroller?
+    if (!user) self.user = self.currentUser;
 	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -39,9 +41,7 @@
     if (!user.isFollowingLoaded) [user loadFollowing];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
-    
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-
 }
 
 - (GHUser *)currentUser {
@@ -53,8 +53,7 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-//    NSString *buttonLabel =  [NSString stringWithFormat:[self.currentUser isFollowing:user] ? @"Un-Following %@" : @"Follow %@", user.login];
-    NSString *buttonLabel =  [self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow";    
+	NSString *buttonLabel =  [self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow";    
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:buttonLabel, @"Open in GitHub",  nil];
 	[actionSheet showInView:self.view.window];
 	[actionSheet release];
@@ -73,8 +72,6 @@
     
 }
 
-
-
 - (void)displayUser {
 	nameLabel.text = (!user.name || [user.name isEqualToString:@""]) ? user.login : user.name;
 	companyLabel.text = user.company;
@@ -82,8 +79,8 @@
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
 	[emailCell setContentText:user.email];
-	// FIXME Following needs to be implemented, see issue:
-	// http://github.com/dbloete/ioctocat/issues#issue/3
+// FIXME Following needs to be implemented, see issue:
+// http://github.com/dbloete/ioctocat/issues#issue/3
 //	if ([self.currentUser isEqual:user]) return;
 }
 
@@ -110,19 +107,12 @@
 
 - (void)toggleFollowing  {
     [self showActivitySheet];
-	if ([self.currentUser isFollowing:user]) {
-        [user toggleFollowingState:kUnFollow];
-	} else {
-        [user toggleFollowingState:kFollow];        
-	}
+	[user toggleFollowingState:([self.currentUser isFollowing:user] ? kUnFollow : kFollow)];
     [self.currentUser loadFollowing];
     [self displayUser];
     [self.tableView reloadData];
     [self dismissActivitySheet];
-    
-
 }
-
 
 - (void)showActivitySheet {
     iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -150,22 +140,24 @@
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
 	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
-    if (section == 1) return 1;    
+    if (section == 1) return 2;    
 	if (section == 2) return user.repositories.count;
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) return @"";
-    if (section == 1) return @"Following";
+    if (section == 1) return @"Network";
 	return @"Repositories";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
 	if (!user.isLoaded) return loadingUserCell;
-	if (indexPath.section == 0) {
+	if (section == 0) {
 		LabeledCell *cell;
-		switch (indexPath.row) {
+		switch (row) {
 			case 0: cell = locationCell; break;
 			case 1: cell = blogCell; break;
 			case 2: cell = emailCell; break;
@@ -174,17 +166,16 @@
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-	if (indexPath.section == 1 ) return followingCell;
-
+	if (section == 1 && row == 0) return followingCell;
+	if (section == 1 && row == 1) return followersCell;
 	if (!user.isReposLoaded) return loadingReposCell;
-	if (indexPath.section == 2 && user.repositories.count == 0) return noPublicReposCell;
-	if (indexPath.section == 2) {
+	if (section == 2 && user.repositories.count == 0) return noPublicReposCell;
+	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.repository = [user.repositories objectAtIndex:indexPath.row];
 		return cell;
 	}
-    
 	return nil;
 }
 
@@ -206,7 +197,7 @@
 		[mailString release];
 		[[UIApplication sharedApplication] openURL:mailURL];
 		[mailURL release];
-	} else if (section == 1 && row == 0 ) {
+	} else if (section == 1 && row == 0) {
         FollowingController *followingController = [(FollowingController *)[FollowingController alloc] initWithUser:user];
 		[self.navigationController pushViewController:followingController animated:YES];
 		[followingController release];            
@@ -236,6 +227,7 @@
 	[locationCell release];
 	[blogCell release];
 	[emailCell release];
+    [followersCell release];
     [followingCell release];
 	[loadingUserCell release];
 	[loadingReposCell release];

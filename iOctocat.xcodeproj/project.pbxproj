@@ -889,7 +889,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2DE6DB17-4553-4D33-A151-340F3E17EAC5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "550CBABD-01A0-4D16-83D6-580118527F9D";
 				SDKROOT = iphoneos2.0;
 			};
 			name = "Ad Hoc Distribution";

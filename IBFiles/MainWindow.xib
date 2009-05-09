@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="60"/>
+			<integer value="119"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -49,17 +49,17 @@
 			<object class="IBUITabBarController" id="71694266">
 				<object class="IBUISimulatedTabBarMetrics" key="IBUISimulatedBottomBarMetrics"/>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
-				<object class="IBUINavigationController" key="IBUISelectedViewController" id="988941830">
-					<object class="IBUITabBarItem" key="IBUITabBarItem" id="1071969642">
-						<string key="IBUITitle">My Feeds</string>
+				<object class="IBUINavigationController" key="IBUISelectedViewController" id="221357920">
+					<object class="IBUITabBarItem" key="IBUITabBarItem" id="314486534">
+						<string key="IBUITitle">My Profile</string>
 						<object class="NSCustomResource" key="IBUIImage">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">TabBarFeeds.png</string>
+							<string key="NSResourceName">TabBarNetwork.png</string>
 						</object>
 						<reference key="IBUITabBar"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="71694266"/>
-					<object class="IBUINavigationBar" key="IBUINavigationBar" id="252898845">
+					<object class="IBUINavigationBar" key="IBUINavigationBar" id="96003810">
 						<nil key="NSNextResponder"/>
 						<int key="NSvFlags">256</int>
 						<string key="NSFrameSize">{320, 44}</string>
@@ -69,57 +69,87 @@
 					</object>
 					<object class="NSMutableArray" key="IBUIViewControllers">
 						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="IBUIViewController" id="456471521">
-							<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
+						<object class="IBUIViewController" id="119117737">
+							<string key="IBUITitle">My Profile Controller</string>
+							<object class="IBUINavigationItem" key="IBUINavigationItem" id="622342191">
 								<reference key="IBUINavigationBar"/>
-								<object class="IBUISegmentedControl" key="IBUITitleView" id="617151056">
-									<reference key="NSNextResponder"/>
-									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{65, 7}, {190, 30}}</string>
-									<reference key="NSSuperview"/>
-									<bool key="IBUIOpaque">NO</bool>
-									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-									<int key="IBSegmentControlStyle">2</int>
-									<int key="IBNumberOfSegments">2</int>
-									<object class="NSArray" key="IBSegmentTitles">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<string>News Feed</string>
-										<string>My Activity</string>
-									</object>
-									<object class="NSMutableArray" key="IBSegmentWidths">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<real value="0.000000e+00"/>
-										<real value="0.000000e+00"/>
-									</object>
-									<object class="NSMutableArray" key="IBSegmentEnabledStates">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<boolean value="YES" id="5"/>
-										<reference ref="5"/>
-									</object>
-									<object class="NSMutableArray" key="IBSegmentContentOffsets">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<string>{0, 0}</string>
-										<string>{0, 0}</string>
-									</object>
-									<object class="NSMutableArray" key="IBSegmentImages">
-										<bool key="EncodedWithXMLCoder">YES</bool>
-										<object class="NSNull" id="4"/>
-										<reference ref="4"/>
-									</object>
-								</object>
-								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="654812132">
-									<int key="IBUIStyle">1</int>
-									<int key="IBUISystemItemIdentifier">13</int>
-								</object>
+								<string key="IBUITitle">My Profile</string>
 							</object>
-							<reference key="IBUIParentViewController" ref="988941830"/>
-							<string key="IBUINibName">MyFeeds</string>
+							<reference key="IBUIParentViewController" ref="221357920"/>
+							<string key="IBUINibName">User</string>
+							<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 						</object>
 					</object>
 				</object>
 				<object class="NSMutableArray" key="IBUIViewControllers">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<reference ref="988941830"/>
+					<object class="IBUINavigationController" id="988941830">
+						<object class="IBUITabBarItem" key="IBUITabBarItem" id="1071969642">
+							<string key="IBUITitle">My Feeds</string>
+							<object class="NSCustomResource" key="IBUIImage">
+								<string key="NSClassName">NSImage</string>
+								<string key="NSResourceName">TabBarFeeds.png</string>
+							</object>
+							<reference key="IBUITabBar"/>
+						</object>
+						<reference key="IBUIParentViewController" ref="71694266"/>
+						<object class="IBUINavigationBar" key="IBUINavigationBar" id="252898845">
+							<nil key="NSNextResponder"/>
+							<int key="NSvFlags">256</int>
+							<string key="NSFrameSize">{320, 44}</string>
+							<bool key="IBUIOpaque">NO</bool>
+							<bool key="IBUIClipsSubviews">YES</bool>
+							<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						</object>
+						<object class="NSMutableArray" key="IBUIViewControllers">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIViewController" id="456471521">
+								<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
+									<string key="IBUITitle">My Feeds</string>
+									<object class="IBUISegmentedControl" key="IBUITitleView" id="617151056">
+										<nil key="NSNextResponder"/>
+										<int key="NSvFlags">292</int>
+										<string key="NSFrame">{{65, 7}, {190, 30}}</string>
+										<bool key="IBUIOpaque">NO</bool>
+										<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+										<int key="IBSegmentControlStyle">2</int>
+										<int key="IBNumberOfSegments">2</int>
+										<object class="NSArray" key="IBSegmentTitles">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<string>News Feed</string>
+											<string>My Activity</string>
+										</object>
+										<object class="NSMutableArray" key="IBSegmentWidths">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<real value="0.000000e+00"/>
+											<real value="0.000000e+00"/>
+										</object>
+										<object class="NSMutableArray" key="IBSegmentEnabledStates">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<boolean value="YES" id="5"/>
+											<reference ref="5"/>
+										</object>
+										<object class="NSMutableArray" key="IBSegmentContentOffsets">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<string>{0, 0}</string>
+											<string>{0, 0}</string>
+										</object>
+										<object class="NSMutableArray" key="IBSegmentImages">
+											<bool key="EncodedWithXMLCoder">YES</bool>
+											<object class="NSNull" id="4"/>
+											<reference ref="4"/>
+										</object>
+									</object>
+									<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="654812132">
+										<int key="IBUIStyle">1</int>
+										<int key="IBUISystemItemIdentifier">13</int>
+									</object>
+								</object>
+								<reference key="IBUIParentViewController" ref="988941830"/>
+								<string key="IBUINibName">MyFeeds</string>
+							</object>
+						</object>
+					</object>
 					<object class="IBUINavigationController" id="895352596">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="889727295">
 							<string key="IBUITitle">My Repositories</string>
@@ -142,13 +172,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIViewController" id="316736902">
 								<object class="IBUINavigationItem" key="IBUINavigationItem" id="267158943">
-									<string key="IBUITitle">Item</string>
+									<string key="IBUITitle">My Repositories</string>
 								</object>
 								<reference key="IBUIParentViewController" ref="895352596"/>
 								<string key="IBUINibName">MyRepositories</string>
 							</object>
 						</object>
 					</object>
+					<reference ref="221357920"/>
 					<object class="IBUINavigationController" id="179602213">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="638059485">
 							<int key="IBUISystemItemIdentifier">8</int>
@@ -167,6 +198,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIViewController" id="384536944">
 								<object class="IBUINavigationItem" key="IBUINavigationItem" id="868650717">
+									<string key="IBUITitle">Search</string>
 									<object class="IBUISegmentedControl" key="IBUITitleView" id="698034721">
 										<nil key="NSNextResponder"/>
 										<int key="NSvFlags">292</int>
@@ -205,37 +237,6 @@
 								</object>
 								<reference key="IBUIParentViewController" ref="179602213"/>
 								<string key="IBUINibName">Search</string>
-							</object>
-						</object>
-					</object>
-					<object class="IBUINavigationController" id="221357920">
-						<object class="IBUITabBarItem" key="IBUITabBarItem" id="314486534">
-							<string key="IBUITitle">My Profile</string>
-							<object class="NSCustomResource" key="IBUIImage">
-								<string key="NSClassName">NSImage</string>
-								<string key="NSResourceName">TabBarNetwork.png</string>
-							</object>
-							<reference key="IBUITabBar"/>
-						</object>
-						<reference key="IBUIParentViewController" ref="71694266"/>
-						<object class="IBUINavigationBar" key="IBUINavigationBar" id="96003810">
-							<nil key="NSNextResponder"/>
-							<int key="NSvFlags">256</int>
-							<string key="NSFrameSize">{320, 44}</string>
-							<bool key="IBUIOpaque">NO</bool>
-							<bool key="IBUIClipsSubviews">YES</bool>
-							<bool key="IBUIMultipleTouchEnabled">YES</bool>
-						</object>
-						<object class="NSMutableArray" key="IBUIViewControllers">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIViewController" id="119117737">
-								<string key="IBUITitle">My Profile Controller</string>
-								<object class="IBUINavigationItem" key="IBUINavigationItem" id="622342191">
-									<string key="IBUITitle">Item</string>
-								</object>
-								<reference key="IBUIParentViewController" ref="221357920"/>
-								<string key="IBUINibName">User</string>
-								<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
 							</object>
 						</object>
 					</object>
@@ -435,8 +436,8 @@
 							<reference ref="447710804"/>
 							<reference ref="988941830"/>
 							<reference ref="895352596"/>
-							<reference ref="179602213"/>
 							<reference ref="221357920"/>
+							<reference ref="179602213"/>
 						</object>
 						<reference key="parent" ref="957960031"/>
 					</object>
@@ -682,7 +683,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>iOctocatAppDelegate</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{547, 584}, {320, 480}}</string>
+					<string>{{538, 632}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>MyFeedsController</string>
@@ -714,7 +715,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">120</int>
+			<int key="maxID">121</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

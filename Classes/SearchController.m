@@ -103,6 +103,7 @@
 	} else if ([object isKindOfClass:[GHUser class]]) {
 		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
 	}
+	viewController.navigationItem.backBarButtonItem.title = @"Back";
 	[self.navigationController pushViewController:viewController animated:YES];
 	[viewController release];
 }

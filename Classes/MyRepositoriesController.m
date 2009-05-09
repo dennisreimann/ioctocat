@@ -15,7 +15,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	isLoaded = NO;
-	self.title = @"My Repositories";
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 

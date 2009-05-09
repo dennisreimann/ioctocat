@@ -5,13 +5,12 @@
 // tables
 #define kStandardCellIdentifier @"StandardCell"
 #define kRepositoryCellIdentifier @"RepositoryCell"
-#define kFollowingCellIdentifier @"FollowingCell"
 #define kTextCellIdentifier @"TextCell"
 #define kLabeledCellIdentifier @"LabeledCell"
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
 #define kIssueCellIdentifier @"IssueCell"
 #define kCommitCellIdentifier @"CommitCell"
-#define kFollowCellIdentifier @"FollowCell"
+#define kUserCellIdentifier @"UserCell"
 
 // URLs
 #define kDisplayUserURL @"http://github.com/%@"
@@ -51,7 +50,6 @@
 
 // Following
 #define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
-
 #define kFollow @"follow"
 #define kUnFollow @"unfollow"
 

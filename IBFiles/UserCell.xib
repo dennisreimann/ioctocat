@@ -8,7 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="11"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -32,7 +31,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUITableViewCell" id="282112623">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -101,7 +100,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 40}</string>
-				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="574224765"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUIAccessoryType">1</int>
@@ -203,9 +201,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>FollowingController</string>
+					<string>UsersController</string>
 					<string>UIResponder</string>
-					<string>FollowCell</string>
+					<string>UserCell</string>
 					<string>{{405, 713}, {320, 40}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -239,7 +237,7 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FollowCell</string>
+					<string key="className">UserCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -255,12 +253,12 @@
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/FollowCell.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FollowingController</string>
+					<string key="className">UsersController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -272,14 +270,14 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>FollowCell</string>
+							<string>UserCell</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/FollowingController.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 			</object>

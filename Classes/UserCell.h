@@ -3,12 +3,11 @@
 
 @class GHUser;
 
-@interface FollowCell : UITableViewCell {
+@interface UserCell : UITableViewCell {
 	GHUser *user;
-@private
+  @private
 	IBOutlet UILabel *userLabel;
 	IBOutlet UIImageView *gravatarView;
-    
 }
 
 @property (nonatomic, retain) GHUser *user;

@@ -8,9 +8,6 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="3"/>
-			<integer value="7"/>
-			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -34,7 +31,7 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUITableViewCell" id="395863188">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -91,7 +88,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 50}</string>
-				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor" id="531035318">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -102,7 +98,7 @@
 				<string key="IBUIReuseIdentifier">LoadingFollowingCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="12194850">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -141,7 +137,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 50}</string>
-				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="531035318"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
@@ -149,10 +144,9 @@
 				<string key="IBUIReuseIdentifier">NoFollowingCell</string>
 			</object>
 			<object class="IBUITableView" id="192814538">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{320, 367}</string>
-				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="531035318"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -295,7 +289,7 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>FollowingController</string>
+					<string>UsersController</string>
 					<string>UIResponder</string>
 					<string>{{445, 806}, {320, 50}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -334,7 +328,7 @@
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<object class="IBPartialClassDescription">
-					<string key="className">FollowCell</string>
+					<string key="className">UserCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -350,12 +344,12 @@
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/FollowCell.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">FollowingController</string>
+					<string key="className">UsersController</string>
 					<string key="superclassName">UIViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -367,14 +361,14 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>FollowCell</string>
+							<string>UserCell</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/FollowingController.h</string>
+						<string key="majorKey">IBUserSource</string>
+						<string key="minorKey"/>
 					</object>
 				</object>
 			</object>

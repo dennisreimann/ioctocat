@@ -1,21 +1,14 @@
-//
-//  FollowingController.h
-//  iOctocat
-//
-//  Created by Mark Lussier on 5/5/09.
-//  Copyright 2009 Juniper Networks. All rights reserved.
-//
-
 #import <UIKit/UIKit.h>
 #import "GHUser.h"
-#import "FollowCell.h"
+#import "UserCell.h"
 
-@interface FollowingController : UIViewController {
+
+@interface UsersController : UIViewController {
     GHUser *user;
     @private
 	IBOutlet UITableViewCell *loadingFollowingCell;
 	IBOutlet UITableViewCell *noFollowingCell;    
-    IBOutlet FollowCell *followingCell;
+    IBOutlet UserCell *followingCell;
 
 }
 

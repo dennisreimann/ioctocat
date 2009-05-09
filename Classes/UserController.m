@@ -7,8 +7,9 @@
 #import "RepositoryCell.h"
 #import "GravatarLoader.h"
 #import "iOctocatAppDelegate.h"
-#import "FollowingController.h"
+#import "UsersController.h"
 #import "ASIFormDataRequest.h"
+
 
 @interface UserController ()
 - (void)displayUser;
@@ -198,7 +199,7 @@
 		[[UIApplication sharedApplication] openURL:mailURL];
 		[mailURL release];
 	} else if (section == 1 && row == 0) {
-        FollowingController *followingController = [(FollowingController *)[FollowingController alloc] initWithUser:user];
+        UsersController *followingController = [(UsersController *)[UsersController alloc] initWithUser:user];
 		[self.navigationController pushViewController:followingController animated:YES];
 		[followingController release];            
 	} else if (section == 2) {

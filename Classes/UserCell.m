@@ -1,7 +1,8 @@
-#import "FollowCell.h"
+#import "UserCell.h"
 #import "GHUser.h"
 
-@implementation FollowCell
+
+@implementation UserCell
 
 @synthesize user;
 

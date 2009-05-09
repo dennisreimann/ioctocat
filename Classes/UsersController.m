@@ -1,13 +1,14 @@
-#import "FollowingController.h"
+#import "UsersController.h"
 #import "GHUser.h"
 #import "UserController.h"
 
-@implementation FollowingController
+
+@implementation UsersController
 
 @synthesize user;
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"Following" bundle:nil];
+    [super initWithNibName:@"Users" bundle:nil];
 	self.title = @"Following";
     self.user = theUser;
     return self;
@@ -34,9 +35,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.user.isFollowingLoaded) return loadingFollowingCell;
 	if (self.user.following.count == 0) return noFollowingCell;
-	FollowCell *cell = (FollowCell *)[tableView dequeueReusableCellWithIdentifier:kFollowCellIdentifier];
+	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"FollowCell" owner:self options:nil];
+		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
 		cell = followingCell;
 	}
     cell.user = [self.user.following objectAtIndex:indexPath.row];

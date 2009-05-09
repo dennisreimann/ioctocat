@@ -8,7 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="38"/>
+			<integer value="3"/>
+			<integer value="21"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -32,9 +33,10 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUITableView" id="771459567">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{320, 247}</string>
+				<reference key="NSSuperview"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<bool key="IBUIBouncesZoom">NO</bool>
@@ -157,7 +159,7 @@
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 			</object>
 			<object class="IBUITableViewCell" id="379908940">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -227,6 +229,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
 				<object class="NSColor" key="IBUIBackgroundColor" id="125363280">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -301,7 +304,7 @@
 				<string key="IBUIReuseIdentifier">WebsiteCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="850814722">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -340,7 +343,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
-				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="125363280"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>

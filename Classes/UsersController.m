@@ -9,12 +9,24 @@
 - (id)initWithUsers:(GHUsers *)theUsers {
     [super initWithNibName:@"Users" bundle:nil];
     self.users = theUsers;
+	[users addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!users.isLoaded) [users loadUsers];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+    if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		[self.tableView reloadData];
+		if (!users.isLoading && users.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the list of users" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -26,8 +38,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!users.isLoaded) return loadingFollowingCell;
-	if (users.users.count == 0) return noFollowingCell;
+	if (!users.isLoaded) return loadingCell;
+	if (users.users.count == 0) return noUsersCell;
 	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
@@ -45,9 +57,9 @@
 }
 
 - (void)dealloc {
-    [noFollowingCell release];
-	[noFollowersCell release];
-    [loadingFollowingCell release];
+	[users removeObserver:self forKeyPath:kResourceStatusKeyPath];
+    [noUsersCell release];
+    [loadingCell release];
     [userCell release];
     [super dealloc];
 }

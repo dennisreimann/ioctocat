@@ -35,8 +35,7 @@
     if (!user) self.user = self.currentUser;
 	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kUserFollowingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];    
+	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.isReposLoaded) [user loadRepositories];
 	self.navigationItem.title = user.login;
@@ -86,9 +85,6 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
-	} else if ([keyPath isEqualToString:kUserFollowingStatusKeyPath]) {
-       [self displayUser];
-       [self.tableView reloadData];            
 	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (user.isLoaded) {
 			[self displayUser];
@@ -125,7 +121,6 @@
 - (void)dismissActivitySheet {
 	[activitySheet dismissWithClickedButtonIndex:99 animated:YES];
 }
-
 
 #pragma mark -
 #pragma mark Table view methods
@@ -191,13 +186,12 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 0 && row == 2 && user.email) {
-		NSString *mailString = [[NSString alloc] initWithFormat:@"mailto:%@", user.email];
-		NSURL *mailURL = [[NSURL alloc] initWithString:mailString];
-		[mailString release];
+		NSString *mailString = [NSString stringWithFormat:@"mailto:%@", user.email];
+		NSURL *mailURL = [NSURL URLWithString:mailString];
 		[[UIApplication sharedApplication] openURL:mailURL];
-		[mailURL release];
 	} else if (section == 1) {
-        UsersController *usersController = (row == 0) ? [[UsersController alloc] initWithUsers:user.following] : [[UsersController alloc] initWithUsers:user.followers];
+        UsersController *usersController = [[UsersController alloc] initWithUsers:(row == 0 ? user.following : user.followers)];
+		usersController.title = (row == 0) ? @"Following" : @"Followers";
 		[self.navigationController pushViewController:usersController animated:YES];
 		[usersController release];            
 	} else if (section == 2) {
@@ -215,7 +209,6 @@
 	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[user removeObserver:self forKeyPath:kRepositoriesStatusKeyPath];
-	[user removeObserver:self forKeyPath:kUserFollowingStatusKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];

@@ -21,6 +21,8 @@
 #define kAuthenticateUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@?login=%@&token=%@"
 #define kUserReposFormat @"https://github.com/api/v2/xml/repos/show/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/xml/user/search/%@"
+#define kUserFollowingFormat @"http://github.com/api/v2/json/user/show/%@/following"
+#define kUserFollowersFormat @"http://github.com/api/v2/json/user/show/%@/followers"
 #define kUserFeedFormat @"http://github.com/%@.atom"
 #define kRepoXMLFormat @"https://github.com/api/v2/xml/repos/show/%@/%@"
 #define kRepoSearchFormat @"https://github.com/api/v2/xml/repos/search/%@"
@@ -56,8 +58,8 @@
 // KVO
 #define kResourceStatusKeyPath @"status"
 #define kResourceErrorKeyPath @"error"
+#define kUserLoginKeyPath @"login"
 #define kUserGravatarKeyPath @"gravatar"
-#define kUserFollowingStatusKeyPath @"followingStatus"
 #define kRepoRecentCommitsStatusKeyPath @"recentCommits.status"
 #define kRepositoriesStatusKeyPath @"repositoriesStatus"
 #define KUserAuthenticatedKeyPath @"isAuthenticated"

@@ -41,9 +41,9 @@
 	[request setPostValue:username forKey:@"login"];
 	[request setPostValue:token forKey:@"token"];	
 	[request start];
-	NSError *parseError;
+	NSError *parseError = nil;
     NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
-    NSMutableArray *resources = [[NSMutableArray alloc] init];
+    NSMutableArray *resources = [NSMutableArray array];
 	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
     for (NSString *login in [usersDict objectForKey:@"users"]) {
 		GHUser *theUser = [appDelegate userWithLogin:login];
@@ -51,7 +51,6 @@
     }
     id result = parseError ? (id)parseError : (id)resources;
 	[self performSelectorOnMainThread:@selector(loadedUsers:) withObject:result waitUntilDone:YES];
-    [resources release];
     [pool release];
 }
 

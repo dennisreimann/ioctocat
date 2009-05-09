@@ -20,6 +20,7 @@
 
 - (id)init {
 	[super init];
+	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.repositoriesStatus = GHResourceStatusNotLoaded;
 	isAuthenticated = NO;
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
@@ -31,6 +32,18 @@
 	self.login = theLogin;
 	self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
 	return self;
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:kUserLoginKeyPath]) {
+		NSString *newLogin = [(GHUser *)object login];
+		NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, newLogin];
+		NSString *followersURLString = [NSString stringWithFormat:kUserFollowersFormat, newLogin];
+		NSURL *followingURL = [NSURL URLWithString:followingURLString];
+		NSURL *followersURL = [NSURL URLWithString:followersURLString];
+		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
+		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
+	}
 }
 
 - (NSString *)description {
@@ -181,6 +194,7 @@
 #pragma mark Cleanup
 
 - (void)dealloc {
+	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
 	[name release];
 	[login release];
 	[email release];

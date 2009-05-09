@@ -3,12 +3,11 @@
 #import "UserCell.h"
 
 
-@interface UsersController : UIViewController {
+@interface UsersController : UITableViewController {
     GHUsers *users;
   @private
-	IBOutlet UITableViewCell *loadingFollowingCell;
-	IBOutlet UITableViewCell *noFollowingCell;
-	IBOutlet UITableViewCell *noFollowersCell;
+	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet UITableViewCell *noUsersCell;
     IBOutlet UserCell *userCell;
 }
 

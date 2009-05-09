@@ -5,17 +5,15 @@
 
 @interface UsersController : UIViewController {
     GHUser *user;
-    @private
+  @private
 	IBOutlet UITableViewCell *loadingFollowingCell;
-	IBOutlet UITableViewCell *noFollowingCell;    
+	IBOutlet UITableViewCell *noFollowingCell;
+	IBOutlet UITableViewCell *noFollowersCell;
     IBOutlet UserCell *followingCell;
-
 }
 
 @property (nonatomic, retain) GHUser *user;
 
 - (id)initWithUser:(GHUser *)theUser;
-- (void)setupFollowing;
-
 
 @end

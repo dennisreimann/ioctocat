@@ -16,13 +16,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupFollowing];
     if (!self.user.isFollowingLoaded) [self.user loadFollowing];
 }
-
-- (void)setupFollowing {
-}
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -51,9 +46,9 @@
     [userController release];
 }
 
-
 - (void)dealloc {
     [noFollowingCell release];
+	[noFollowersCell release];
     [loadingFollowingCell release];
     [followingCell release];
     [super dealloc];

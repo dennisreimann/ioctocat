@@ -38,15 +38,12 @@
 }
 
 - (BOOL)isFollowing:(GHUser *)anUser {
-    if ( !self.isFollowingLoaded )[self loadFollowing];
-    for ( GHUser *user in following ) {
-        if ( [user.login caseInsensitiveCompare:anUser.login] == 0 ) { 
-            return YES;
-        }
+    if (!self.isFollowingLoaded) [self loadFollowing];
+    for (GHUser *user in following) {
+        if ([user.login caseInsensitiveCompare:anUser.login] == 0) return YES;
     }
 	return NO;
 }
-
 
 // FIXME Currently just stubbed out, see the issue:
 // http://github.com/dbloete/ioctocat/issues#issue/6
@@ -145,7 +142,6 @@
 	self.repositoriesStatus = GHResourceStatusLoaded;
 }
 
-
 #pragma mark -
 #pragma mark Following loading
 
@@ -158,13 +154,11 @@
 	[self performSelectorInBackground:@selector(parseFollowingJSON) withObject:nil];
 }
 
-// KUserFollowingJSONFormat
 - (void)parseFollowingJSON {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    
 	NSString *url = [NSString stringWithFormat:KUserFollowingJSONFormat, self.login];
 	NSURL *followingURL = [NSURL URLWithString:url];
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL ] autorelease];
@@ -184,13 +178,11 @@
     [pool release];
 }
 
-
 - (void)toggleFollowingState:(NSString *)state {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    
 	NSString *url = [NSString stringWithFormat:kFollowUserFormat, state, self.login];
 	NSURL *followingURL = [NSURL URLWithString:url];
 	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL ] autorelease];
@@ -201,7 +193,6 @@
 	self.followingStatus = GHResourceStatusNotLoaded;
     [self loadFollowing];
 }
-
 
 #pragma mark -
 #pragma mark Gravatar

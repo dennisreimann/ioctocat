@@ -3,7 +3,7 @@
 
 @class GHRepository, GHUser, FeedEntryCell, TextCell, LabeledCell, IssueCell;
 
-@interface RepositoryController : UITableViewController {
+@interface RepositoryController : UITableViewController <UIActionSheetDelegate> {
   @private
 	GHRepository *repository;
 	IBOutlet UIView *tableHeaderView;
@@ -25,5 +25,6 @@
 
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)toggleWatching:(id)sender;
+- (IBAction)showActions:(id)sender;
 
 @end

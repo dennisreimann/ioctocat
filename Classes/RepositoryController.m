@@ -34,12 +34,34 @@
 	self.tableView.tableHeaderView = tableHeaderView;
 	nameLabel.text = repository.name;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+
 }
 
 - (GHUser *)currentUser {
 	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return appDelegate.currentUser;
 }
+
+
+- (IBAction)showActions:(id)sender {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: @"Open in GitHub",  nil];
+	[actionSheet showInView:self.view.window];
+	[actionSheet release];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+        NSString *urlString = [NSString stringWithFormat:kRepositoryUrl, repository.owner, repository.name];
+        NSURL *theURL = [NSURL URLWithString:urlString];
+		WebController *webController = [[WebController alloc] initWithURL:theURL];
+		[self.navigationController pushViewController:webController animated:YES];
+		[webController release];             
+    }
+    
+}
+
+
 
 #pragma mark -
 #pragma mark Actions

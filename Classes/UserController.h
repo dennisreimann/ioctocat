@@ -28,7 +28,6 @@
 @property (nonatomic, readonly) GHUser *currentUser;
 
 - (id)initWithUser:(GHUser *)theUser;
-//- (IBAction)toggleFollowing:(id)sender;
 - (IBAction)showActions:(id)sender;
 - (void)toggleFollowing ;
 

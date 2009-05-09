@@ -35,6 +35,7 @@
 #define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
 #define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
 #define KUserFollowingJSONFormat @"https://github.com/api/v2/json/user/show/%@/following"
+#define kRepositoryUrl @"http://github.com/%@/%@/tree/master"
 
 // Tabs
 #define kMyFeedsTabIndex 0

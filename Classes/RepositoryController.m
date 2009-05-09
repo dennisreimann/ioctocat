@@ -43,7 +43,6 @@
 	return appDelegate.currentUser;
 }
 
-
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles: @"Open in GitHub",  nil];
 	[actionSheet showInView:self.view.window];
@@ -61,8 +60,6 @@
     
 }
 
-
-
 #pragma mark -
 #pragma mark Actions
 
@@ -72,7 +69,7 @@
 	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
-	[descriptionLabel setText:repository.descriptionText];
+	[descriptionCell setContentText:repository.descriptionText];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

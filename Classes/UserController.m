@@ -52,19 +52,23 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	NSString *buttonLabel =  [self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow";    
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:buttonLabel, @"Open in GitHub",  nil];
+	UIActionSheet *actionSheet;
+	if ([self.currentUser isEqual:user]) {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub",  nil];
+	} else {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
+	}
 	[actionSheet showInView:self.view.window];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-        self.toggleFollowing;
-    } else if (buttonIndex == 1) {
-		NSString *urlString = [NSString stringWithFormat:kDisplayUserURL, user.login];
-        NSURL *theURL = [NSURL URLWithString:urlString];
-		WebController *webController = [[WebController alloc] initWithURL:theURL];
+	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
+        [self toggleFollowing];
+    } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
+		NSString *userURLString = [NSString stringWithFormat:kDisplayUserURL, user.login];
+        NSURL *userURL = [NSURL URLWithString:userURLString];
+		WebController *webController = [[WebController alloc] initWithURL:userURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
     }
@@ -77,9 +81,6 @@
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
 	[emailCell setContentText:user.email];
-// FIXME Following needs to be implemented, see issue:
-// http://github.com/dbloete/ioctocat/issues#issue/3
-//	if ([self.currentUser isEqual:user]) return;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

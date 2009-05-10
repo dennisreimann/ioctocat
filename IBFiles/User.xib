@@ -8,13 +8,13 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="82"/>
-			<integer value="57"/>
 			<integer value="46"/>
-			<integer value="59"/>
-			<integer value="70"/>
 			<integer value="41"/>
+			<integer value="57"/>
+			<integer value="59"/>
 			<integer value="50"/>
+			<integer value="82"/>
+			<integer value="70"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -652,12 +652,12 @@
 							<object class="IBUILabel" id="649888767">
 								<reference key="NSNextResponder" ref="225478720"/>
 								<int key="NSvFlags">293</int>
-								<string key="NSFrame">{{40, 12}, {240, 21}}</string>
+								<string key="NSFrame">{{20, 12}, {280, 21}}</string>
 								<reference key="NSSuperview" ref="225478720"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">This user has no public repositories</string>
+								<string key="IBUIText">This user has no repositories</string>
 								<reference key="IBUIFont" ref="557310877"/>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
@@ -666,6 +666,7 @@
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
+								<int key="IBUITextAlignment">1</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 44}</string>
@@ -1332,7 +1333,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{221, 620}, {320, 80}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{447, 813}, {320, 44}}</string>
+					<string>{{447, 812}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

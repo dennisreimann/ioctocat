@@ -33,13 +33,8 @@
 }
 
 - (void)parseUsers {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:usersURL] autorelease];
-	[request setPostValue:username forKey:@"login"];
-	[request setPostValue:token forKey:@"token"];	
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
+    ASIFormDataRequest *request = [self authenticatedRequestForUrl:usersURL];    
 	[request start];
 	NSError *parseError = nil;
     NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];

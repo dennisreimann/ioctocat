@@ -85,7 +85,7 @@
 - (void)parseXMLWithToken:(NSString *)token {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *userURLString = token ? [NSString stringWithFormat:kAuthenticateUserXMLFormat, login, login, token] : [NSString stringWithFormat:kUserXMLFormat, login];
-	NSURL *userURL = [NSURL URLWithString:userURLString];
+	NSURL *userURL = [NSURL URLWithString:userURLString];    
 	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];
 	[parser setDelegate:parserDelegate];
@@ -137,14 +137,9 @@
 
 - (void)parseReposXML {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];   
-   	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	NSString *url = [NSString stringWithFormat:kUserReposFormat, login, @""];
-	NSURL *reposURL = [NSURL URLWithString:url];
-    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:reposURL] autorelease];
-	[request setPostValue:username forKey:@"login"];
-	[request setPostValue:token forKey:@"token"];	
+	NSURL *reposURL = [NSURL URLWithString:url];        
+    ASIFormDataRequest *request = [self authenticatedRequestForUrl:reposURL];    
 	[request start];       
     GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:reposURL];
@@ -168,14 +163,10 @@
 
 - (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, theState, theUser.login];
 	NSURL *followingURL = [NSURL URLWithString:followingURLString];
-	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL] autorelease];
-	[request setPostValue:username forKey:@"login"];
-	[request setPostValue:token forKey:@"token"];	
+        
+    ASIFormDataRequest *request = [self authenticatedRequestForUrl:followingURL];    
 	[request start];
 	self.following.status = GHResourceStatusNotLoaded;
     [self.following loadUsers];

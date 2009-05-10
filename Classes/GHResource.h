@@ -1,5 +1,5 @@
 #import <Foundation/Foundation.h>
-
+#import "ASIFormDataRequest.h"
 
 typedef enum {
 	GHResourceStatusNotLoaded = 0,
@@ -17,5 +17,7 @@ typedef enum {
 @property (nonatomic, readwrite) GHResourceStatus status;
 @property (nonatomic, readonly) BOOL isLoaded;
 @property (nonatomic, readonly) BOOL isLoading;
+
+- (ASIFormDataRequest *)authenticatedRequestForUrl:(NSURL *)theUrl;
 
 @end

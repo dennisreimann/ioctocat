@@ -41,12 +41,7 @@
 
 - (void)parseIssues {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:self.issuesURL] autorelease];
-	[request setPostValue:username forKey:@"login"];
-	[request setPostValue:token forKey:@"token"];	
+    ASIFormDataRequest *request = [self authenticatedRequestForUrl:self.issuesURL];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	

@@ -1,38 +1,32 @@
 #import "IssueController.h"
-#import "RepositoryController.h"
-#import "UserController.h"
 #import "WebController.h"
-#import "GHUser.h"
-#import "GHRepository.h"
 #import "NSDate+Nibware.h"
+#import "TextCell.h"
+#import "LabeledCell.h"
 
 
 @implementation IssueController
 
-@synthesize issue;
-
 - (id)initWithIssue:(GHIssue *)theIssue {    
     [super initWithNibName:@"Issue" bundle:nil];
-	self.issue = theIssue;
+	issue = [theIssue retain];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Issue";
+	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.tableView.tableHeaderView = tableHeaderView;
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
+	iconView.image = [UIImage imageNamed:icon];
 	titleLabel.text = issue.title;
     voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
     issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-    [contentView setText:issue.body];
-	dateLabel.text = [issue.created prettyDate];
-    updatedLabel.text = [issue.updated prettyDate];
-	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
-	iconView.image = [UIImage imageNamed:icon];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	[createdCell setContentText:[issue.created prettyDate]];
+	[updatedCell setContentText:[issue.updated prettyDate]];
+	[descriptionCell setContentText:issue.body];
 }
-
-#pragma mark -
-#pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View Issue on GitHub",nil];
@@ -50,17 +44,36 @@
     }
 }
 
-#pragma mark -
-#pragma mark Cleanup
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	return 3;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.row == 0) return createdCell;             
+	if (indexPath.row == 1) return updatedCell;
+	return descriptionCell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.row == 2) return [(TextCell *)descriptionCell height];
+	return 44.0f;
+}
 
 - (void)dealloc {
 	[issue release];
-	[contentView release];
-	[dateLabel release];
-    [updatedLabel release];
-    [issueNumber release];
+	[tableHeaderView release];
 	[titleLabel release];
+	[createdLabel release];
+    [updatedLabel release];
     [voteLabel release];
+	[createdCell release];
+	[updatedCell release];
+	[descriptionCell release];
+    [issueNumber release];
 	[iconView release];
     [super dealloc];
 }

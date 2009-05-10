@@ -2,22 +2,24 @@
 #import "GHIssue.h"
 
 
-@interface IssueController : UIViewController <UIWebViewDelegate,UIActionSheetDelegate> {
-	GHIssue *issue;
-  @private
-	IBOutlet UILabel *dateLabel;
-	IBOutlet UILabel *updatedLabel;    
-	IBOutlet UILabel *voteLabel;    
-	IBOutlet UILabel *titleLabel;
-	IBOutlet UIImageView *iconView;
-    IBOutlet UILabel *issueNumber;    
-	IBOutlet UITextView *contentView;
-}
+@class LabeledCell, TextCell;
 
-@property (nonatomic, retain) GHIssue *issue;
+@interface IssueController : UITableViewController <UIActionSheetDelegate> {
+  @private
+	GHIssue *issue;
+	IBOutlet UIView *tableHeaderView;
+	IBOutlet UILabel *createdLabel;
+	IBOutlet UILabel *updatedLabel;
+	IBOutlet UILabel *voteLabel;
+	IBOutlet UILabel *titleLabel;
+    IBOutlet UILabel *issueNumber;
+	IBOutlet UIImageView *iconView;
+	IBOutlet LabeledCell *createdCell;
+	IBOutlet LabeledCell *updatedCell;
+	IBOutlet TextCell *descriptionCell;
+}
 
 - (id)initWithIssue:(GHIssue *)theIssue;
 - (IBAction)showActions:(id)sender;
-
 
 @end

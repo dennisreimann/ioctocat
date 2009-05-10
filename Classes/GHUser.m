@@ -159,20 +159,20 @@
 #pragma mark -
 #pragma mark Following loading
 
-- (void)toggleFollowingState:(NSString *)state {
+- (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	NSString *url = [NSString stringWithFormat:kFollowUserFormat, state, self.login];
-	NSURL *followingURL = [NSURL URLWithString:url];
-	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL ] autorelease];
+	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, theState, theUser.login];
+	NSURL *followingURL = [NSURL URLWithString:followingURLString];
+	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:followingURL] autorelease];
 	[request setPostValue:username forKey:@"login"];
 	[request setPostValue:token forKey:@"token"];	
-	[request start];	
-    [pool release];
+	[request start];
 	self.following.status = GHResourceStatusNotLoaded;
     [self.following loadUsers];
+    [pool release];
 }
 
 #pragma mark -

@@ -13,8 +13,6 @@
 
 @interface UserController ()
 - (void)displayUser;
-- (void)showActivitySheet;
-- (void)dismissActivitySheet;
 @end
 
 
@@ -33,6 +31,7 @@
 	// FIXME Do we have another way to set the user when this
 	// controller is initialized from the tabbarcontroller?
     if (!user) self.user = self.currentUser;
+	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadUsers];
 	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
@@ -64,7 +63,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
-        [self toggleFollowing];
+		NSString *newFollowState = [self.currentUser isFollowing:user] ? kUnFollow : kFollow;
+		[self.currentUser setFollowingState:newFollowState forUser:user];
     } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
 		NSString *userURLString = [NSString stringWithFormat:kDisplayUserURL, user.login];
         NSURL *userURL = [NSURL URLWithString:userURLString];
@@ -99,28 +99,6 @@
 	} else if ([keyPath isEqualToString:kRepositoriesStatusKeyPath]) {
 		[self.tableView reloadData];
 	}
-}
-
-- (void)toggleFollowing  {
-    [self showActivitySheet];
-	[user toggleFollowingState:([self.currentUser isFollowing:user] ? kUnFollow : kFollow)];
-    [self.currentUser.following loadUsers];
-    [self displayUser];
-    [self.tableView reloadData];
-    [self dismissActivitySheet];
-}
-
-- (void)showActivitySheet {
-    iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	activitySheet = [[UIActionSheet alloc] initWithTitle:@"\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-	UIView *currentView = appDelegate.currentView;
-	[activitySheet addSubview:activityView];
-	[activitySheet showInView:currentView];
-	[activitySheet release];
-}
-
-- (void)dismissActivitySheet {
-	[activitySheet dismissWithClickedButtonIndex:99 animated:YES];
 }
 
 #pragma mark -

@@ -22,8 +22,6 @@
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;
     IBOutlet UIView *activityView;
-    UIActionSheet *activitySheet;
-
 }
 
 @property (nonatomic, retain) GHUser *user;
@@ -31,7 +29,5 @@
 
 - (id)initWithUser:(GHUser *)theUser;
 - (IBAction)showActions:(id)sender;
-- (void)toggleFollowing ;
-
 
 @end

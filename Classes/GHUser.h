@@ -56,6 +56,6 @@
 - (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isWatching:(GHRepository *)aRepository;
-- (void)toggleFollowingState:(NSString *)state;
+- (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser;
 
 @end

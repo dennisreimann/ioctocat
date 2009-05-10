@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"My Feeds";
 	loadCounter = 0;
 }
 

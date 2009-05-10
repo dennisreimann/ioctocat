@@ -154,7 +154,8 @@
 }
 
 - (void)loadedRepositories:(NSArray *)theRepositories {
-	self.repositories = theRepositories;
+	self.repositories = [NSMutableArray arrayWithArray:theRepositories];
+    [self.repositories sortUsingSelector:@selector(compareByName:)];
 	self.repositoriesStatus = GHResourceStatusLoaded;
 }
 

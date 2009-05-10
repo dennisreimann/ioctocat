@@ -17,7 +17,7 @@
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
-	NSArray *repositories;
+	NSMutableArray *repositories;
     GHUsers *following;
     GHUsers *followers;
 	BOOL isAuthenticated;
@@ -34,7 +34,7 @@
 @property (nonatomic, retain) NSString *location;
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) UIImage *gravatar;
-@property (nonatomic, retain) NSArray *repositories;
+@property (nonatomic, retain) NSMutableArray *repositories;
 @property (nonatomic, retain) GHUsers *following;
 @property (nonatomic, retain) GHUsers *followers;
 @property (nonatomic, readonly) NSString *cachedGravatarPath;

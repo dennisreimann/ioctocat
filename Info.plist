@@ -24,7 +24,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>Gitub Authentication</string>
+			<string>Github Authentication</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>githubauth</string>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>0.8.7</string>
+	<string>0.9.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>

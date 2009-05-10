@@ -136,10 +136,17 @@
 }
 
 - (void)parseReposXML {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];   
+   	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	NSString *url = [NSString stringWithFormat:kUserReposFormat, login, @""];
 	NSURL *reposURL = [NSURL URLWithString:url];
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
+    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:reposURL] autorelease];
+	[request setPostValue:username forKey:@"login"];
+	[request setPostValue:token forKey:@"token"];	
+	[request start];       
+    GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:reposURL];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];

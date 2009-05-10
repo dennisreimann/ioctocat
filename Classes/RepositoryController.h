@@ -24,7 +24,6 @@
 @property (nonatomic, readonly) GHUser *currentUser;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
-- (IBAction)toggleWatching:(id)sender;
 - (IBAction)showActions:(id)sender;
 
 @end

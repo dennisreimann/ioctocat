@@ -85,9 +85,6 @@
 	}
 }
 
-- (IBAction)toggleWatching:(id)sender {
-}
-
 #pragma mark -
 #pragma mark Table view methods
 

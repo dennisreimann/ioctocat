@@ -93,7 +93,7 @@
 				<int key="IBUIAccessoryType">1</int>
 				<reference key="IBUIContentView" ref="425256881"/>
 				<int key="IBUITextAlignment">2</int>
-				<string key="IBUIReuseIdentifier">FollowCell</string>
+				<string key="IBUIReuseIdentifier">UserCell</string>
 			</object>
 			<object class="IBUIImageView" id="192593019">
 				<nil key="NSNextResponder"/>
@@ -276,13 +276,13 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">UsersController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="superclassName">UITableViewController</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>loadingFollowingCell</string>
-							<string>noFollowingCell</string>
+							<string>loadingCell</string>
+							<string>noUsersCell</string>
 							<string>userCell</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -299,7 +299,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">UsersController</string>
-					<string key="superclassName">UIViewController</string>
+					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>

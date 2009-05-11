@@ -3,7 +3,6 @@
 #import "GHReposParserDelegate.h"
 #import "RepositoryController.h"
 #import "UserController.h"
-#import "RepositoryCell.h"
 
 
 @implementation SearchController
@@ -83,10 +82,12 @@
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStandardCellIdentifier];
-		if (cell == nil) cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:kStandardCellIdentifier] autorelease];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.text = [[self.currentSearch.results objectAtIndex:indexPath.row] name];
+		UserCell *cell =  (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+		if (cell == nil) {
+			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
+			cell = userCell;
+		}
+		cell.user = (GHUser *)object;
 		return cell;
 	}
     return nil;
@@ -107,6 +108,7 @@
 
 - (void)dealloc {
 	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[userCell release];
 	[searches release];
 	[overlayController release];
 	[searchBar release];

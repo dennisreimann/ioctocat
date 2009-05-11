@@ -122,8 +122,8 @@
 		8CE6867A0FB8C57500A3D625 /* GHNetworksParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */; };
 		8CE6867D0FB8C58400A3D625 /* NetworksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* NetworksController.m */; };
 		8CE686800FB8C59400A3D625 /* NetworkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867E0FB8C59400A3D625 /* NetworkCell.m */; };
-		8CE686820FB8C5F600A3D625 /* NetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE686810FB8C5F600A3D625 /* NetworkCell.xib */; };
-		8CE686840FB8C60300A3D625 /* Networks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE686830FB8C60300A3D625 /* Networks.xib */; };
+		8CE6869B0FB8C69100A3D625 /* Networks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE6869A0FB8C69100A3D625 /* Networks.xib */; };
+		8CE6869D0FB8C69F00A3D625 /* NetworkCell.nib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE6869C0FB8C69F00A3D625 /* NetworkCell.nib */; };
 		8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
 		8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
 		8CFBCFAE0FAB8A3100A2C37A /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
@@ -305,8 +305,8 @@
 		8CE6867C0FB8C58400A3D625 /* NetworksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworksController.h; sourceTree = "<group>"; };
 		8CE6867E0FB8C59400A3D625 /* NetworkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkCell.m; sourceTree = "<group>"; };
 		8CE6867F0FB8C59400A3D625 /* NetworkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkCell.h; sourceTree = "<group>"; };
-		8CE686810FB8C5F600A3D625 /* NetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkCell.xib; sourceTree = "<group>"; };
-		8CE686830FB8C60300A3D625 /* Networks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Networks.xib; sourceTree = "<group>"; };
+		8CE6869A0FB8C69100A3D625 /* Networks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Networks.xib; sourceTree = "<group>"; };
+		8CE6869C0FB8C69F00A3D625 /* NetworkCell.nib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = NetworkCell.nib; sourceTree = "<group>"; };
 		8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
 		8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
@@ -569,7 +569,7 @@
 		6FB7FEA60F7E2C7500E8D702 /* IBFiles */ = {
 			isa = PBXGroup;
 			children = (
-				8CE686830FB8C60300A3D625 /* Networks.xib */,
+				8CE6869A0FB8C69100A3D625 /* Networks.xib */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6FE91E180FAD088600749370 /* Login.xib */,
@@ -603,7 +603,7 @@
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8CE686810FB8C5F600A3D625 /* NetworkCell.xib */,
+				8CE6869C0FB8C69F00A3D625 /* NetworkCell.nib */,
 				6F879A5A0FB611FD00EBD9BD /* UserCell.xib */,
 				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
@@ -805,8 +805,8 @@
 				6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */,
 				6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */,
 				6F879AB10FB6184500EBD9BD /* UserCellBackground.png in Resources */,
-				8CE686820FB8C5F600A3D625 /* NetworkCell.xib in Resources */,
-				8CE686840FB8C60300A3D625 /* Networks.xib in Resources */,
+				8CE6869B0FB8C69100A3D625 /* Networks.xib in Resources */,
+				8CE6869D0FB8C69F00A3D625 /* NetworkCell.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

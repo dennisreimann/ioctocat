@@ -29,9 +29,7 @@
 	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		[self.tableView reloadData];
 		GHSearch *search = (GHSearch *)object;
-		if (!search.isLoading) {
-			[self quitSearching:nil];
-			if (!search.error) return;
+		if (!search.isLoading && search.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the search results" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
@@ -54,6 +52,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
 	[self.currentSearch loadResultsForSearchTerm:searchBar.text];
+	[self quitSearching:nil];
 }
 
 - (void)quitSearching:(id)sender {

@@ -117,6 +117,13 @@
 		8C6A9EA30FABF1D900A99483 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueCell.m */; };
 		8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
 		8CB698000FB0087800B6E779 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */; };
+		8CE686760FB8C56700A3D625 /* GHNetworks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHNetworks.m */; };
+		8CE686770FB8C56700A3D625 /* GHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686740FB8C56700A3D625 /* GHNetwork.m */; };
+		8CE6867A0FB8C57500A3D625 /* GHNetworksParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */; };
+		8CE6867D0FB8C58400A3D625 /* NetworksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* NetworksController.m */; };
+		8CE686800FB8C59400A3D625 /* NetworkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867E0FB8C59400A3D625 /* NetworkCell.m */; };
+		8CE686820FB8C5F600A3D625 /* NetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE686810FB8C5F600A3D625 /* NetworkCell.xib */; };
+		8CE686840FB8C60300A3D625 /* Networks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE686830FB8C60300A3D625 /* Networks.xib */; };
 		8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
 		8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
 		8CFBCFAE0FAB8A3100A2C37A /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
@@ -288,6 +295,18 @@
 		8C6AA15E0FAC22B000A99483 /* IssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueController.m; sourceTree = "<group>"; };
 		8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
 		8CB697FF0FB0087800B6E779 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
+		8CE686720FB8C56700A3D625 /* GHNetworks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNetworks.m; sourceTree = "<group>"; };
+		8CE686730FB8C56700A3D625 /* GHNetworks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNetworks.h; sourceTree = "<group>"; };
+		8CE686740FB8C56700A3D625 /* GHNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNetwork.m; sourceTree = "<group>"; };
+		8CE686750FB8C56700A3D625 /* GHNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNetwork.h; sourceTree = "<group>"; };
+		8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNetworksParserDelegate.m; sourceTree = "<group>"; };
+		8CE686790FB8C57500A3D625 /* GHNetworksParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNetworksParserDelegate.h; sourceTree = "<group>"; };
+		8CE6867B0FB8C58400A3D625 /* NetworksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworksController.m; sourceTree = "<group>"; };
+		8CE6867C0FB8C58400A3D625 /* NetworksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworksController.h; sourceTree = "<group>"; };
+		8CE6867E0FB8C59400A3D625 /* NetworkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkCell.m; sourceTree = "<group>"; };
+		8CE6867F0FB8C59400A3D625 /* NetworkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkCell.h; sourceTree = "<group>"; };
+		8CE686810FB8C5F600A3D625 /* NetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NetworkCell.xib; sourceTree = "<group>"; };
+		8CE686830FB8C60300A3D625 /* Networks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Networks.xib; sourceTree = "<group>"; };
 		8CFBCFA40FAB8A3100A2C37A /* NSHTTPCookieAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSHTTPCookieAdditions.h; sourceTree = "<group>"; };
 		8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIFormDataRequest.m; sourceTree = "<group>"; };
 		8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASINetworkQueue.m; sourceTree = "<group>"; };
@@ -393,6 +412,10 @@
 		6F1DC4410F7E5A7E00FCD26D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				8CE686720FB8C56700A3D625 /* GHNetworks.m */,
+				8CE686730FB8C56700A3D625 /* GHNetworks.h */,
+				8CE686740FB8C56700A3D625 /* GHNetwork.m */,
+				8CE686750FB8C56700A3D625 /* GHNetwork.h */,
 				6FF6EB2D0FA61115000679FA /* Parser */,
 				6F14B6480FA5F37500F74B4C /* GHResource.h */,
 				6F14B6490FA5F37500F74B4C /* GHResource.m */,
@@ -423,6 +446,8 @@
 		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8CE6867B0FB8C58400A3D625 /* NetworksController.m */,
+				8CE6867C0FB8C58400A3D625 /* NetworksController.h */,
 				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
 				6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */,
@@ -458,6 +483,8 @@
 		6F1DC52B0F7E725500FCD26D /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8CE6867E0FB8C59400A3D625 /* NetworkCell.m */,
+				8CE6867F0FB8C59400A3D625 /* NetworkCell.h */,
 				6F1DC52E0F7E727C00FCD26D /* FeedEntryCell.h */,
 				6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */,
 				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
@@ -542,6 +569,7 @@
 		6FB7FEA60F7E2C7500E8D702 /* IBFiles */ = {
 			isa = PBXGroup;
 			children = (
+				8CE686830FB8C60300A3D625 /* Networks.xib */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6FE91E180FAD088600749370 /* Login.xib */,
@@ -575,6 +603,7 @@
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				8CE686810FB8C5F600A3D625 /* NetworkCell.xib */,
 				6F879A5A0FB611FD00EBD9BD /* UserCell.xib */,
 				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6F5A40850F90B25F00427ED7 /* LabeledCell.xib */,
@@ -587,6 +616,8 @@
 		6FF6EB2D0FA61115000679FA /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */,
+				8CE686790FB8C57500A3D625 /* GHNetworksParserDelegate.h */,
 				6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */,
 				6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */,
 				6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */,
@@ -774,6 +805,8 @@
 				6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */,
 				6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */,
 				6F879AB10FB6184500EBD9BD /* UserCellBackground.png in Resources */,
+				8CE686820FB8C5F600A3D625 /* NetworkCell.xib in Resources */,
+				8CE686840FB8C60300A3D625 /* Networks.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -836,6 +869,11 @@
 				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
 				6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */,
 				6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */,
+				8CE686760FB8C56700A3D625 /* GHNetworks.m in Sources */,
+				8CE686770FB8C56700A3D625 /* GHNetwork.m in Sources */,
+				8CE6867A0FB8C57500A3D625 /* GHNetworksParserDelegate.m in Sources */,
+				8CE6867D0FB8C58400A3D625 /* NetworksController.m in Sources */,
+				8CE686800FB8C59400A3D625 /* NetworkCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

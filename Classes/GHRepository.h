@@ -3,7 +3,7 @@
 #import "GHUser.h"
 #import "GHFeed.h"
 
-@class GHIssues;
+@class GHIssues, GHNetworks;
 
 @interface GHRepository : GHResource {
 	NSString *name;
@@ -15,6 +15,7 @@
 	NSInteger watchers;
     GHIssues *openIssues;
     GHIssues *closedIssues;
+    GHNetworks *networks;
 	GHFeed *recentCommits;
 	BOOL isPrivate;
 	BOOL isFork;
@@ -28,6 +29,7 @@
 @property (nonatomic, retain) GHFeed *recentCommits;
 @property (nonatomic, retain) GHIssues *openIssues;
 @property (nonatomic, retain) GHIssues *closedIssues;
+@property (nonatomic, retain) GHNetworks *networks;
 @property (nonatomic, readonly) GHUser *user;
 @property (nonatomic, readwrite) NSInteger forks;
 @property (nonatomic, readwrite) NSInteger watchers;

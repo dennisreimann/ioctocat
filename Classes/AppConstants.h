@@ -11,7 +11,7 @@
 #define kIssueCellIdentifier @"IssueCell"
 #define kCommitCellIdentifier @"CommitCell"
 #define kUserCellIdentifier @"UserCell"
-
+#define kNetworkCellIdentifier @"NetworkCell"
 // URLs
 #define kDisplayUserURL @"http://github.com/%@"
 #define kConnectivityCheckURL @"http://github.com/robots.txt"
@@ -37,6 +37,7 @@
 #define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
 #define KUserFollowingJSONFormat @"https://github.com/api/v2/json/user/show/%@/following"
 #define kRepositoryUrl @"http://github.com/%@/%@/tree/master"
+#define kNetworksUrl @"http://github.com/api/v2/xml/repos/show/%@/%@/network"
 
 // Tabs
 #define kMyFeedsTabIndex 0

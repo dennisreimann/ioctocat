@@ -3,6 +3,7 @@
 #import "GHReposParserDelegate.h"
 #import "GHCommitsParserDelegate.h"
 #import "GHIssues.h"
+#import "GHNetworks.h"
 
 
 @interface GHRepository ()
@@ -13,7 +14,7 @@
 @implementation GHRepository
 
 @synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate;
-@synthesize isFork, forks, watchers, recentCommits, openIssues, closedIssues;
+@synthesize isFork, forks, watchers, recentCommits, openIssues, closedIssues, networks;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	[super init];
@@ -28,9 +29,12 @@
 	NSString *commitFeedURLString = [NSString stringWithFormat:(isPrivate ? kPrivateRepoFeedFormat : kRepoFeedFormat), owner, name];
 	NSURL *commitFeedURL = [NSURL URLWithString:commitFeedURLString];
 	self.recentCommits = [[[GHFeed alloc] initWithURL:commitFeedURL] autorelease];
+    // Networks
+    self.networks = [[[GHNetworks alloc] initWithRepository:self] autorelease];
 	// Issues
 	self.openIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen] autorelease];
 	self.closedIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed] autorelease];
+    
 }
 
 - (NSString *)description {
@@ -103,6 +107,7 @@
 	[recentCommits release];
     [openIssues release];
     [closedIssues release];
+    [networks release];
     [super dealloc];
 }
 

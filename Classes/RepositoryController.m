@@ -13,6 +13,8 @@
 #import "IssueCell.h"
 #import "RecentCommitsController.h"
 #import "IssuesController.h"
+#import "NetworkCell.h"
+#import "NetworksController.h"
 
 @interface RepositoryController ()
 - (void)displayRepository;
@@ -95,7 +97,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
 	if (section == 0) return descriptionCell.hasContent ? 3 : 2;
-	return 2;
+	return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,6 +116,7 @@
 	} else if (section == 1) {
 		if (row == 0) cell = commitsCell;
         if (row == 1) cell = issuesCell;
+        if (row == 2) cell = networkCell;        
     }
 	return cell;
 }
@@ -137,6 +140,11 @@
 		IssuesController *issuesController = [[IssuesController alloc] initWithRepository:repository];
 		[self.navigationController pushViewController:issuesController animated:YES];
 		[issuesController release];
+	} else if (section == 1 && row == 2) {
+		NetworksController  *networksController = [[NetworksController alloc] initWithRepository:repository];
+		[self.navigationController pushViewController:networksController animated:YES];
+		[networksController release];
+        
 	}
 }
 

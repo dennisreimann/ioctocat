@@ -569,7 +569,6 @@
 		6FB7FEA60F7E2C7500E8D702 /* IBFiles */ = {
 			isa = PBXGroup;
 			children = (
-				8CE686EB0FB8C87300A3D625 /* Networks.xib */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6FE91E180FAD088600749370 /* Login.xib */,
@@ -580,6 +579,7 @@
 				6F879A5B0FB611FD00EBD9BD /* Users.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
+				8CE686EB0FB8C87300A3D625 /* Networks.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,

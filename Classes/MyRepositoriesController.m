@@ -22,13 +22,10 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	// Load settings
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [[defaults stringForKey:kUsernameDefaultsKey] retain];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	NSString *url = [NSString stringWithFormat:kUserReposFormat, username];
+	NSString *login = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *url = [NSString stringWithFormat:kUserReposFormat, login];
 	NSURL *reposURL = [NSURL URLWithString:url];	
-	ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:reposURL] autorelease];
-	[request setPostValue:username forKey:@"login"];
-	[request setPostValue:token forKey:@"token"];	
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:reposURL];	
 	[request start];
 	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];
@@ -40,7 +37,6 @@
 	[parser release];
 	[parserDelegate release];
 	[pool release];	
-	[username release];
 }
 
 - (void)loadedRepositories:(id)theResult {

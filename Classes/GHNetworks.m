@@ -41,7 +41,7 @@
 
 - (void)parseNetworks {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:self.networksURL];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.networksURL];
 	[request start];	
 	GHNetworksParserDelegate *parserDelegate = [[GHNetworksParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedNetworks:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	

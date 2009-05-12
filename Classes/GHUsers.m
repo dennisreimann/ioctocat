@@ -34,7 +34,7 @@
 
 - (void)parseUsers {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:usersURL];    
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:usersURL];    
 	[request start];
 	NSError *parseError = nil;
     NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];

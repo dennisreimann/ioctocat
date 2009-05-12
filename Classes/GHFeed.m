@@ -35,7 +35,7 @@
 
 - (void)parseFeed {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:url];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
 	[request start];
 	GHFeedParserDelegate *parserDelegate = [[GHFeedParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedEntries:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	

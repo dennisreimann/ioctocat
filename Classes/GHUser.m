@@ -137,12 +137,12 @@
 
 - (void)parseReposXML {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];   
-	NSString *url = [NSString stringWithFormat:kUserReposFormat, login, @""];
+	NSString *url = [NSString stringWithFormat:kUserReposFormat, login];
 	NSURL *reposURL = [NSURL URLWithString:url];        
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:reposURL];    
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:reposURL];    
 	[request start];       
     GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:reposURL];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -166,8 +166,7 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, theState, theUser.login];
 	NSURL *followingURL = [NSURL URLWithString:followingURLString];
-        
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:followingURL];    
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];    
 	[request start];
 	self.following.status = GHResourceStatusNotLoaded;
     [self.following loadUsers];
@@ -181,15 +180,13 @@
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, theState, theRepository.owner,theRepository.name ];
 	NSURL *watchingURL = [NSURL URLWithString:watchingURLString];
-    
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:watchingURL];    
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];    
 	[request start];
 //  TODO: Implement one the watch list api is available
 //	selffollowing.status = GHResourceStatusNotLoaded;
 //    [self.following loadUsers];
     [pool release];
 }
-
 
 #pragma mark -
 #pragma mark Gravatar

@@ -41,7 +41,7 @@
 
 - (void)parseIssues {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    ASIFormDataRequest *request = [self authenticatedRequestForUrl:self.issuesURL];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.issuesURL];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	

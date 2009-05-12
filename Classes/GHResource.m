@@ -1,5 +1,4 @@
 #import "GHResource.h"
-#import "ASIFormDataRequest.h"
 
 
 @implementation GHResource
@@ -25,13 +24,13 @@
 	[super dealloc];
 }
 
-- (ASIFormDataRequest *)authenticatedRequestForUrl:(NSURL *)theUrl {
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
    	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *login = [defaults stringForKey:kUsernameDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:theUrl] autorelease];
-	[request setPostValue:username forKey:@"login"];
-	[request setPostValue:token forKey:@"token"];	
+    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:theURL] autorelease];
+	[request setPostValue:login forKey:kLoginParamName];
+	[request setPostValue:token forKey:kTokenParamName];	
     return request;
 }
 

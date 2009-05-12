@@ -2,6 +2,10 @@
 #define kUsernameDefaultsKey @"username"
 #define kTokenDefaultsKey @"token"
 
+// API
+#define kLoginParamName @"login"
+#define kTokenParamName @"token"
+
 // tables
 #define kStandardCellIdentifier @"StandardCell"
 #define kRepositoryCellIdentifier @"RepositoryCell"
@@ -12,6 +16,7 @@
 #define kCommitCellIdentifier @"CommitCell"
 #define kUserCellIdentifier @"UserCell"
 #define kNetworkCellIdentifier @"NetworkCell"
+
 // URLs
 #define kDisplayUserURL @"http://github.com/%@"
 #define kConnectivityCheckURL @"http://github.com/robots.txt"

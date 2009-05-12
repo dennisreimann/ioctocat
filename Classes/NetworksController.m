@@ -1,6 +1,7 @@
 #import "NetworksController.h"
 #import "GHNetwork.h"
 #import "GHNetworks.h"
+#import "RepositoryController.h"
 
 @implementation NetworksController
 
@@ -60,8 +61,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//	GHNetwork *network = [self.currentNetworks.entries objectAtIndex:indexPath.row];
-// TODO
+	GHNetwork *network = [self.currentNetworks.entries objectAtIndex:indexPath.row];
+    RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:(GHRepository *)network.repository];
+    [self.navigationController pushViewController:repoController animated:YES];
+    [repoController release];    
 }
 
 - (GHNetworks *)currentNetworks {

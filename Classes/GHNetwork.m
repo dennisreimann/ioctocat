@@ -5,6 +5,7 @@
 @synthesize description, name, url, user, repository;
 
 - (void)dealloc {
+    [repository release];
     [description release];
     [name release];
     [url release];

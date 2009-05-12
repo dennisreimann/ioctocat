@@ -7,6 +7,7 @@
     NSString *description;
     NSString *name;
     NSString *url;
+    
     GHUser *user;
 }
 

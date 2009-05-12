@@ -69,6 +69,7 @@
     iconView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	nameLabel.text = repository.name;
 	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
+    if ( repository.isFork ) forkLabel.text = @"forked";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
@@ -167,6 +168,7 @@
 	[descriptionLabel release];	
 	[loadingCell release];
 	[ownerCell release];
+    [forkLabel release];
 	[websiteCell release];
 	[descriptionCell release];
     [issuesCell release];

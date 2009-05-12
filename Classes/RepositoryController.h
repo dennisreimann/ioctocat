@@ -12,6 +12,7 @@
 	IBOutlet UILabel *ownerLabel;
 	IBOutlet UILabel *websiteLabel;
 	IBOutlet UILabel *descriptionLabel;
+    IBOutlet UILabel *forkLabel;
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *commitsCell;
     IBOutlet UITableViewCell *issuesCell;

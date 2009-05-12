@@ -34,7 +34,6 @@
 	// Issues
 	self.openIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen] autorelease];
 	self.closedIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed] autorelease];
-    
 }
 
 - (NSString *)description {

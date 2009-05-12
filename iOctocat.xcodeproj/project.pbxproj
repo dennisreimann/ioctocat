@@ -446,10 +446,10 @@
 		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				8CE6867B0FB8C58400A3D625 /* NetworksController.m */,
-				8CE6867C0FB8C58400A3D625 /* NetworksController.h */,
 				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
 				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
+				6FE91E4A0FAD13D500749370 /* LoginController.h */,
+				6FE91E4B0FAD13D500749370 /* LoginController.m */,
 				6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */,
 				6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */,
 				6F72FAE60F9B47730069F092 /* FeedEntryController.h */,
@@ -470,8 +470,8 @@
 				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
 				6FED82FF0FACB91000BE5C81 /* RecentCommitsController.h */,
 				6FED83000FACB91000BE5C81 /* RecentCommitsController.m */,
-				6FE91E4A0FAD13D500749370 /* LoginController.h */,
-				6FE91E4B0FAD13D500749370 /* LoginController.m */,
+				8CE6867B0FB8C58400A3D625 /* NetworksController.m */,
+				8CE6867C0FB8C58400A3D625 /* NetworksController.h */,
 				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
 				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
 				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
@@ -967,7 +967,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dennis Blöte";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -975,6 +975,7 @@
 				OTHER_CFLAGS = "-DDEBUG=1";
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "A70F206D-1EAE-4111-932B-6232DDC49371";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;

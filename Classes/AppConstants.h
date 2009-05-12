@@ -56,6 +56,12 @@
 #define kFollow @"follow"
 #define kUnFollow @"unfollow"
 
+// Watching  repos/unwatch/:user/:repo
+#define kWatchRepoFormat @"https://github.com/api/v2/json/repos/%@/%@/%@"
+#define kWatch @"watch"
+#define kUnWatch @"unwatch"
+
+
 // KVO
 #define kResourceStatusKeyPath @"status"
 #define kResourceErrorKeyPath @"error"

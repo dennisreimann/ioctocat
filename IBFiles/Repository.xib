@@ -126,7 +126,7 @@
 					<object class="IBUILabel" id="459960734">
 						<reference key="NSNextResponder" ref="1002873168"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{231, 38}, {74.5, 20}}</string>
+						<string key="NSFrame">{{228, 38}, {74.5, 20}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>

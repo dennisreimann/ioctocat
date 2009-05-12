@@ -175,6 +175,23 @@
 }
 
 #pragma mark -
+#pragma mark Watching
+
+- (void)setWatchingState:(NSString *)theState forRepository:(GHRepository *)theRepository {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, theState, theRepository.owner,theRepository.name ];
+	NSURL *watchingURL = [NSURL URLWithString:watchingURLString];
+    
+    ASIFormDataRequest *request = [self authenticatedRequestForUrl:watchingURL];    
+	[request start];
+//  TODO: Implement one the watch list api is available
+//	selffollowing.status = GHResourceStatusNotLoaded;
+//    [self.following loadUsers];
+    [pool release];
+}
+
+
+#pragma mark -
 #pragma mark Gravatar
 
 - (void)loadedGravatar:(UIImage *)theImage {

@@ -3,6 +3,11 @@
 
 @implementation GHUsersParserDelegate
 
+- (void)dealloc {
+    [currentUser release];
+    [super dealloc];
+}
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"user"]) {
 		currentUser = [[GHUser alloc] init];
@@ -41,12 +46,6 @@
 	}
 	[currentElementValue release];
 	currentElementValue = nil;
-}
-
-- (void)dealloc {
-    //if ( currentUser ) 
-        [currentUser release];
-    [super dealloc];
 }
 
 @end

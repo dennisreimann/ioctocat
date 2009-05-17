@@ -3,6 +3,12 @@
 
 @implementation GHIssuesParserDelegate
 
+- (void)dealloc {
+	[currentIssue release];
+    [dateFormatter release];
+    [super dealloc];
+}
+
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
 	[super parserDidStartDocument:parser];
 	dateFormatter = [[NSDateFormatter alloc] init];
@@ -46,11 +52,4 @@
 	[dateFormatter release];
 	dateFormatter = nil;
 }
-
-- (void)dealloc {
-	[currentIssue release];
-    [dateFormatter release];
-    [super dealloc];
-}
-
 @end

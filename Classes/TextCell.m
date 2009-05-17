@@ -3,6 +3,11 @@
 
 @implementation TextCell
 
+- (void)dealloc {
+	[contentTextLabel release];
+    [super dealloc];
+}
+
 - (void)setContentText:(NSString *)text {
 	contentTextLabel.text = text;
 	[contentTextLabel sizeToFit];
@@ -17,11 +22,6 @@
 
 - (BOOL)hasContent {
 	return !(contentTextLabel.text == nil || [contentTextLabel.text isEqualToString:@""]);
-}
-
-- (void)dealloc {
-	[contentTextLabel release];
-    [super dealloc];
 }
 
 @end

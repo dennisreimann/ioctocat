@@ -17,14 +17,21 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.titleView = issuesControl;
-    [self setupIssues];
+    issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
+	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	issuesControl.selectedSegmentIndex = 0;
     if (!self.currentIssues.isLoaded) [self.currentIssues loadIssues];
 }
 
-- (void)setupIssues {
-	issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
-	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	issuesControl.selectedSegmentIndex = 0;
+- (void)dealloc {
+	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[issuesControl release];
+	[loadingIssuesCell release];
+	[noIssuesCell release];
+	[issueCell release];
+    [issueList release];
+    [repository release];
+    [super dealloc];
 }
 
 - (IBAction)switchChanged:(id)sender {
@@ -76,17 +83,6 @@
 - (GHIssues *)currentIssues {
 	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
 		nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
-}
-
-- (void)dealloc {
-	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[issuesControl release];
-	[loadingIssuesCell release];
-	[noIssuesCell release];
-	[issueCell release];
-    [issueList release];
-    [repository release];
-    [super dealloc];
 }
 
 @end

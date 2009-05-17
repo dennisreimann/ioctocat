@@ -18,6 +18,14 @@
 	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
 }
 
+- (void)dealloc {
+	[noPublicReposCell release];
+	[noPrivateReposCell release];
+	[publicRepositories release];
+	[privateRepositories release];
+    [super dealloc];
+}
+
 - (void)parseXML {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	// Load settings
@@ -93,17 +101,6 @@
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 	[repoController release];
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[noPublicReposCell release];
-	[noPrivateReposCell release];
-	[publicRepositories release];
-	[privateRepositories release];
-    [super dealloc];
 }
 
 @end

@@ -3,6 +3,11 @@
 
 @implementation GHCommitsParserDelegate
 
+- (void)dealloc {
+	[currentCommit release];
+    [super dealloc];
+}
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"commit"]) {
 		currentCommit = [[GHCommit alloc] init];
@@ -23,11 +28,6 @@
 	}
 	[currentElementValue release];
 	currentElementValue = nil;
-}
-
-- (void)dealloc {
-	[currentCommit release];
-    [super dealloc];
 }
 
 @end

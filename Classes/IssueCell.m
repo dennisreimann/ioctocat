@@ -3,9 +3,20 @@
 #import "GHUser.h"
 #import "NSDate+Nibware.h"
 
+
 @implementation IssueCell
 
 @synthesize issue;
+
+- (void)dealloc {
+	[issue release];
+	[dateLabel release];
+	[titleLabel release];
+	[detailLabel release];    
+    [votesLabel release];        
+    [iconView release];        
+    [super dealloc];
+}
 
 - (void)setIssue:(GHIssue *)anIssue {
 	[issue release];
@@ -17,16 +28,6 @@
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
-}
-
-- (void)dealloc {
-	[issue release];
-	[dateLabel release];
-	[titleLabel release];
-	[detailLabel release];    
-    [votesLabel release];        
-    [iconView release];        
-    [super dealloc];
 }
 
 @end

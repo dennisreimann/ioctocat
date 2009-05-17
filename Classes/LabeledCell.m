@@ -5,6 +5,12 @@
 
 @synthesize hasContent;
 
+- (void)dealloc {
+	[label release];
+	[content release];
+    [super dealloc];
+}
+
 - (void)setLabelText:(NSString *)text {
 	label.text = text;
 }
@@ -14,12 +20,6 @@
 	content.text = hasContent ? text : @"n/a";
 	content.textColor = hasContent ? [UIColor blackColor] : [UIColor grayColor];
 	content.highlightedTextColor = [UIColor whiteColor];
-}
-
-- (void)dealloc {
-	[label release];
-	[content release];
-    [super dealloc];
 }
 
 @end

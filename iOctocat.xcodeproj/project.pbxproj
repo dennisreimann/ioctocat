@@ -431,10 +431,10 @@
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
 				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
-				8CE686720FB8C56700A3D625 /* GHNetworks.m */,
 				8CE686730FB8C56700A3D625 /* GHNetworks.h */,
-				8CE686740FB8C56700A3D625 /* GHNetwork.m */,
+				8CE686720FB8C56700A3D625 /* GHNetworks.m */,
 				8CE686750FB8C56700A3D625 /* GHNetwork.h */,
+				8CE686740FB8C56700A3D625 /* GHNetwork.m */,
 				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
 				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
 				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
@@ -470,8 +470,8 @@
 				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
 				6FED82FF0FACB91000BE5C81 /* RecentCommitsController.h */,
 				6FED83000FACB91000BE5C81 /* RecentCommitsController.m */,
-				8CE6867B0FB8C58400A3D625 /* NetworksController.m */,
 				8CE6867C0FB8C58400A3D625 /* NetworksController.h */,
+				8CE6867B0FB8C58400A3D625 /* NetworksController.m */,
 				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
 				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
 				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
@@ -483,8 +483,6 @@
 		6F1DC52B0F7E725500FCD26D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				8CE6867E0FB8C59400A3D625 /* NetworkCell.m */,
-				8CE6867F0FB8C59400A3D625 /* NetworkCell.h */,
 				6F1DC52E0F7E727C00FCD26D /* FeedEntryCell.h */,
 				6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */,
 				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
@@ -497,6 +495,8 @@
 				8C53B4D60FB0F32600C3A8E0 /* UserCell.m */,
 				6FB93A940FB2231E002B43AD /* RepositoryCell.h */,
 				6FB93A950FB2231E002B43AD /* RepositoryCell.m */,
+				8CE6867F0FB8C59400A3D625 /* NetworkCell.h */,
+				8CE6867E0FB8C59400A3D625 /* NetworkCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -616,8 +616,6 @@
 		6FF6EB2D0FA61115000679FA /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */,
-				8CE686790FB8C57500A3D625 /* GHNetworksParserDelegate.h */,
 				6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */,
 				6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */,
 				6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */,
@@ -630,6 +628,8 @@
 				6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */,
 				8C6A99E30FABCFC200A99483 /* GHIssuesParserDelegate.h */,
 				8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */,
+				8CE686790FB8C57500A3D625 /* GHNetworksParserDelegate.h */,
+				8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */,
 			);
 			name = Parser;
 			sourceTree = "<group>";

@@ -19,6 +19,13 @@
 	tokenField.clearButtonMode = UITextFieldViewModeWhileEditing;
 }
 
+- (void)dealloc {
+	[loginField release];
+	[tokenField release];
+	[submitButton release];
+    [super dealloc];
+}
+
 - (void)failWithMessage:(NSString *)theMessage {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication failed" message:theMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
@@ -52,13 +59,6 @@
 	if (textField == loginField) [tokenField becomeFirstResponder];
 	if (textField == tokenField) [self submit:nil];
 	return YES;
-}
-
-- (void)dealloc {
-	[loginField release];
-	[tokenField release];
-	[submitButton release];
-    [super dealloc];
 }
 
 @end

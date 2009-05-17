@@ -21,6 +21,13 @@
 	return self;    
 }
 
+- (void)dealloc {
+	[user release];
+	[users release];
+	[usersURL release];
+    [super dealloc];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHUsers user:'%@' usersURL:'%@'>", user, usersURL];
 }
@@ -57,16 +64,6 @@
 		self.users = theResult;
 		self.status = GHResourceStatusLoaded;
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[user release];
-	[users release];
-	[usersURL release];
-    [super dealloc];
 }
 
 @end

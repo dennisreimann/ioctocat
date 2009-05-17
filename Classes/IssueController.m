@@ -28,6 +28,21 @@
 	[descriptionCell setContentText:issue.body];
 }
 
+- (void)dealloc {
+	[issue release];
+	[tableHeaderView release];
+	[titleLabel release];
+	[createdLabel release];
+    [updatedLabel release];
+    [voteLabel release];
+	[createdCell release];
+	[updatedCell release];
+	[descriptionCell release];
+    [issueNumber release];
+	[iconView release];
+    [super dealloc];
+}
+
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View Issue on GitHub",nil];
 	[actionSheet showInView:self.view.window];
@@ -61,21 +76,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 2) return [(TextCell *)descriptionCell height];
 	return 44.0f;
-}
-
-- (void)dealloc {
-	[issue release];
-	[tableHeaderView release];
-	[titleLabel release];
-	[createdLabel release];
-    [updatedLabel release];
-    [voteLabel release];
-	[createdCell release];
-	[updatedCell release];
-	[descriptionCell release];
-    [issueNumber release];
-	[iconView release];
-    [super dealloc];
 }
 
 @end

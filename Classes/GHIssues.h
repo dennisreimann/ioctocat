@@ -14,7 +14,6 @@
 @property (nonatomic, retain) GHRepository *repository;
 @property (nonatomic, retain) NSArray *entries;
 @property (nonatomic, retain) NSString *issueState;
-@property (nonatomic, readonly) NSURL *issuesURL;
 
 - (void)loadIssues;
 - (void)loadedIssues:(id)theResult;

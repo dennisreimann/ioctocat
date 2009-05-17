@@ -6,13 +6,12 @@
 
 @interface GHNetworks : GHResource {
 	NSArray *entries;
-@private
+  @private
     GHRepository *repository;
 }
 
 @property (nonatomic, retain) GHRepository *repository;
 @property (nonatomic, retain) NSArray *entries;
-@property (nonatomic, readonly) NSURL *networksURL;
 
 - (void)loadNetworks;
 - (void)loadedNetworks:(id)theResult;

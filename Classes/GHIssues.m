@@ -20,17 +20,16 @@
 	return self;    
 }
 
+- (void)dealloc {
+	[repository release];
+	[issueState release];
+	[entries release];
+    [super dealloc];
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
 }
-
-- (NSURL *)issuesURL {
-	NSString *issuesURLString = [NSString stringWithFormat:kRepoIssuesXMLFormat, repository.owner, repository.name, issueState];
-	return [NSURL URLWithString:issuesURLString];
-}
-
-#pragma mark -
-#pragma mark Issues parsing
 
 - (void)loadIssues {
 	if (self.isLoading) return;
@@ -41,7 +40,9 @@
 
 - (void)parseIssues {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.issuesURL];
+	NSString *issuesURLString = [NSString stringWithFormat:kRepoIssuesXMLFormat, repository.owner, repository.name, issueState];
+	NSURL *issuesURL = [NSURL URLWithString:issuesURLString];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:issuesURL];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
@@ -64,16 +65,6 @@
 		for (GHIssue *issue in theResult) issue.repository = repository;
 		self.status = GHResourceStatusLoaded;
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[repository release];
-	[issueState release];
-	[entries release];
-    [super dealloc];
 }
 
 @end

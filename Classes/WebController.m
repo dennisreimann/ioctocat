@@ -19,6 +19,16 @@
 	[request release];
 }
 
+- (void)dealloc {
+	[self webViewDidFinishLoad:webView];
+	[webView stopLoading];
+	webView.delegate = nil;
+	[url release];
+	[activityView release];
+	[webView release];
+    [super dealloc];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	[webView stopLoading];
 	webView.delegate = nil;
@@ -42,19 +52,5 @@
 	[activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[self webViewDidFinishLoad:webView];
-	[webView stopLoading];
-	webView.delegate = nil;
-	[url release];
-	[activityView release];
-	[webView release];
-    [super dealloc];
-}
-
 
 @end

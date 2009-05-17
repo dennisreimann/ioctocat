@@ -11,6 +11,18 @@
     return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];
 }
 
+- (void)dealloc {
+	[entryID release];
+	[eventType release];
+	[eventItem release];
+	[date release];
+	[linkURL release];
+	[title release];
+	[content release];
+	[authorName release];
+    [super dealloc];
+}
+
 - (GHUser *)user {
 	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return [appDelegate userWithLogin:authorName];
@@ -66,21 +78,6 @@
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	}
 	return eventItem;
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[entryID release];
-	[eventType release];
-	[eventItem release];
-	[date release];
-	[linkURL release];
-	[title release];
-	[content release];
-	[authorName release];
-    [super dealloc];
 }
 
 @end

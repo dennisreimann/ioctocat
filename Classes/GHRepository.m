@@ -22,6 +22,19 @@
 	return self;
 }
 
+- (void)dealloc {
+	[name release];
+	[owner release];
+	[descriptionText release];
+	[githubURL release];
+	[homepageURL release];
+	[recentCommits release];
+    [openIssues release];
+    [closedIssues release];
+    [networks release];
+    [super dealloc];
+}
+
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
@@ -92,22 +105,6 @@
 		self.watchers = repo.watchers;
 		self.status = GHResourceStatusLoaded;
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[name release];
-	[owner release];
-	[descriptionText release];
-	[githubURL release];
-	[homepageURL release];
-	[recentCommits release];
-    [openIssues release];
-    [closedIssues release];
-    [networks release];
-    [super dealloc];
 }
 
 @end

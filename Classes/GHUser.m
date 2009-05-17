@@ -34,6 +34,22 @@
 	return self;
 }
 
+- (void)dealloc {
+	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
+	[name release];
+	[login release];
+	[email release];
+	[company release];
+	[blogURL release];
+	[location release];
+	[gravatar release];
+	[repositories release];
+	[gravatarLoader release];
+    [following release];
+    [followers release];
+    [super dealloc];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kUserLoginKeyPath]) {
 		NSString *newLogin = [(GHUser *)object login];
@@ -48,21 +64,6 @@
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
-}
-//	NSString *url = [NSString stringWithFormat:KUserFollowingJSONFormat, self.login];
-//	NSURL *followingURL = [NSURL URLWithString:url];
-- (BOOL)isFollowing:(GHUser *)anUser {
-    if (!following.isLoaded) [following loadUsers];
-    for (GHUser *user in following.users) {
-        if ([user.login caseInsensitiveCompare:anUser.login] == 0) return YES;
-    }
-	return NO;
-}
-
-// FIXME Currently just stubbed out, see the issue:
-// http://github.com/dbloete/ioctocat/issues#issue/6
-- (BOOL)isWatching:(GHRepository *)aRepository {
-	return NO;
 }
 
 #pragma mark -
@@ -160,7 +161,22 @@
 }
 
 #pragma mark -
-#pragma mark Following loading
+#pragma mark Following/Watching
+
+
+- (BOOL)isFollowing:(GHUser *)anUser {
+    if (!following.isLoaded) [following loadUsers];
+    for (GHUser *user in following.users) {
+        if ([user.login caseInsensitiveCompare:anUser.login] == 0) return YES;
+    }
+	return NO;
+}
+
+// FIXME Currently just stubbed out, see the issue:
+// http://github.com/dbloete/ioctocat/issues#issue/6
+- (BOOL)isWatching:(GHRepository *)aRepository {
+	return NO;
+}
 
 - (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -172,9 +188,6 @@
     [self.following loadUsers];
     [pool release];
 }
-
-#pragma mark -
-#pragma mark Watching
 
 - (void)setWatchingState:(NSString *)theState forRepository:(GHRepository *)theRepository {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -201,25 +214,6 @@
 	NSString *documentsPath = [paths objectAtIndex:0];
 	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
 	return [documentsPath stringByAppendingPathComponent:imageName];
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
-	[name release];
-	[login release];
-	[email release];
-	[company release];
-	[blogURL release];
-	[location release];
-	[gravatar release];
-	[repositories release];
-	[gravatarLoader release];
-    [following release];
-    [followers release];
-    [super dealloc];
 }
 
 @end

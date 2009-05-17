@@ -11,9 +11,6 @@
 	return self;
 }
 
-#pragma mark -
-#pragma mark Cleanup
-
 - (void)dealloc {
 	[commitID release];
 	[tree release];

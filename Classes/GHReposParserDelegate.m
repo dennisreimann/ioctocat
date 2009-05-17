@@ -3,6 +3,11 @@
 
 @implementation GHReposParserDelegate
 
+- (void)dealloc {
+	[currentRepository release];
+    [super dealloc];
+}
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"repository"]) {
 		currentRepository = [[GHRepository alloc] init];
@@ -40,11 +45,6 @@
 	}
 	[currentElementValue release];
 	currentElementValue = nil;
-}
-
-- (void)dealloc {
-	[currentRepository release];
-    [super dealloc];
 }
 
 @end

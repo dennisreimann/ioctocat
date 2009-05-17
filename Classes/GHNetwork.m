@@ -1,5 +1,6 @@
 #import "GHNetwork.h"
 
+
 @implementation GHNetwork
 
 @synthesize description, name, url, user, repository;

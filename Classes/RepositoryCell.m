@@ -13,17 +13,17 @@
 	return self;
 }
 
+- (void)dealloc {
+	[repository release];
+    [super dealloc];
+}
+
 - (void)setRepository:(GHRepository *)theRepository {
 	[theRepository retain];
 	[repository release];
 	repository = theRepository;
 	self.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
     self.text = repository.name;
-}
-
-- (void)dealloc {
-	[repository release];
-    [super dealloc];
 }
 
 @end

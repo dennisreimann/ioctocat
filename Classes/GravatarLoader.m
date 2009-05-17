@@ -28,8 +28,10 @@ NSString *md5(NSString *str) {
 	return self;
 }
 
-#pragma mark -
-#pragma mark Gravatar loading
+- (void)dealloc {
+	[target release];
+	[super dealloc];
+}
 
 - (void)loadEmail:(NSString *)theEmail withSize:(NSInteger)theSize {
 	NSArray *args = [[NSArray alloc] initWithObjects:theEmail, [NSNumber numberWithInteger:theSize], nil];
@@ -49,14 +51,6 @@ NSString *md5(NSString *str) {
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
  	[pool release];
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[target release];
-	[super dealloc];
 }
 
 @end

@@ -4,7 +4,7 @@
 
 
 @interface GHNetworksParserDelegate : GHResourcesParserDelegate {
-@private
+  @private
     GHNetwork *currentFork;
 }
 

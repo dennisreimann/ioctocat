@@ -42,6 +42,28 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 }
 
+- (void)dealloc {
+	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[user removeObserver:self forKeyPath:kRepositoriesStatusKeyPath];
+	[user release];
+	[tableHeaderView release];
+	[nameLabel release];
+	[companyLabel release];
+	[locationLabel release];
+	[blogLabel release];
+	[emailLabel release];
+	[locationCell release];
+	[blogCell release];
+	[emailCell release];
+    [followersCell release];
+    [followingCell release];
+	[loadingUserCell release];
+	[loadingReposCell release];
+	[noPublicReposCell release];
+    [super dealloc];
+}
+
 - (GHUser *)currentUser {
 	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 	return appDelegate.currentUser;
@@ -179,31 +201,6 @@
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[user removeObserver:self forKeyPath:kRepositoriesStatusKeyPath];
-	[user release];
-	[tableHeaderView release];
-	[nameLabel release];
-	[companyLabel release];
-	[locationLabel release];
-	[blogLabel release];
-	[emailLabel release];
-	[locationCell release];
-	[blogCell release];
-	[emailCell release];
-    [followersCell release];
-    [followingCell release];
-	[loadingUserCell release];
-	[loadingReposCell release];
-	[noPublicReposCell release];
-    [super dealloc];
 }
 
 @end

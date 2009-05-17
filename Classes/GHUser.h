@@ -58,4 +58,5 @@
 - (BOOL)isWatching:(GHRepository *)aRepository;
 - (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser;
 - (void)setWatchingState:(NSString *)theState forRepository:(GHRepository *)theRepository;
+
 @end

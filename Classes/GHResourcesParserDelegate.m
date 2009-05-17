@@ -10,6 +10,13 @@
 	return self;
 }
 
+- (void)dealloc {
+	[error release];
+	[resources release];
+	[currentElementValue release];
+    [super dealloc];
+}
+
 #pragma mark -
 #pragma mark NSXMLParser delegation methods
 
@@ -36,17 +43,6 @@
 	[target performSelectorOnMainThread:selector withObject:result waitUntilDone:YES];
 	[resources release];
 	resources = nil;
-}
-
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[error release];
-	[resources release];
-	[currentElementValue release];
-    [super dealloc];
 }
 
 @end

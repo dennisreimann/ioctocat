@@ -17,12 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setupNetworks];
-    if (![self.currentNetworks isLoaded]) [self.currentNetworks loadNetworks];
+    [repository.networks addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (![self.currentNetworks isLoaded]) [self.currentNetworks loadNetworks];
 }
 
-- (void)setupNetworks {
-    [repository.networks addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+- (void)dealloc {
+    [loadingNetworksCell release];
+    [noNetworksCell release];
+    [networkCell release];    
+    [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
@@ -36,9 +39,6 @@
 		}
 	}    
 }
-
-
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -71,10 +71,4 @@
    return  repository.networks;
 }
 
-- (void)dealloc {
-    [loadingNetworksCell release];
-    [noNetworksCell release];
-    [networkCell release];    
-    [super dealloc];
-}
 @end

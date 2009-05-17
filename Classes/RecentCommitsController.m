@@ -17,6 +17,15 @@
 	if (!recentCommits.isLoaded) [recentCommits loadEntries];
 }
 
+- (void)dealloc {
+	[recentCommits removeObserver:self forKeyPath:kResourceStatusKeyPath];
+    [loadingRecentCommitsCell release];
+	[noRecentCommitsCell release];
+	[feedEntryCell release];
+	[recentCommits release];
+    [super dealloc];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kResourceStatusKeyPath]) [self.tableView reloadData];
 }
@@ -48,15 +57,6 @@
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
-}
-
-- (void)dealloc {
-	[recentCommits removeObserver:self forKeyPath:kResourceStatusKeyPath];
-    [loadingRecentCommitsCell release];
-	[noRecentCommitsCell release];
-	[feedEntryCell release];
-	[recentCommits release];
-    [super dealloc];
 }
 
 @end

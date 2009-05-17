@@ -19,6 +19,18 @@
 	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 }
 
+- (void)dealloc {
+	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[userCell release];
+	[searches release];
+	[overlayController release];
+	[searchBar release];
+	[searchControl release];
+	[loadingCell release];
+	[noResultsCell release];
+    [super dealloc];
+}
+
 - (GHSearch *)currentSearch {
 	return searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
 		nil : [searches objectAtIndex:searchControl.selectedSegmentIndex];
@@ -74,7 +86,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.currentSearch.isLoaded) return loadingCell;
     if (self.currentSearch.results.count == 0) return noResultsCell;
-	// Display results
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
@@ -82,7 +93,7 @@
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		UserCell *cell =  (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
 			cell = userCell;
@@ -104,18 +115,6 @@
 	viewController.navigationItem.backBarButtonItem.title = @"Back";
 	[self.navigationController pushViewController:viewController animated:YES];
 	[viewController release];
-}
-
-- (void)dealloc {
-	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[userCell release];
-	[searches release];
-	[overlayController release];
-	[searchBar release];
-	[searchControl release];
-	[loadingCell release];
-	[noResultsCell release];
-    [super dealloc];
 }
 
 @end

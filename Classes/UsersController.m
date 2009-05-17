@@ -18,6 +18,14 @@
     if (!users.isLoaded) [users loadUsers];
 }
 
+- (void)dealloc {
+	[users removeObserver:self forKeyPath:kResourceStatusKeyPath];
+    [noUsersCell release];
+    [loadingCell release];
+    [userCell release];
+    [super dealloc];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
     if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		[self.tableView reloadData];
@@ -54,14 +62,6 @@
     UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
     [userController release];
-}
-
-- (void)dealloc {
-	[users removeObserver:self forKeyPath:kResourceStatusKeyPath];
-    [noUsersCell release];
-    [loadingCell release];
-    [userCell release];
-    [super dealloc];
 }
 
 @end

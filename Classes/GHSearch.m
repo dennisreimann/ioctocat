@@ -12,6 +12,14 @@
 	return self;
 }
 
+- (void)dealloc {
+	[parserDelegate release];
+	[searchTerm release];
+	[urlFormat release];
+	[results release];
+    [super dealloc];
+}
+
 - (NSString *)searchTerm {
 	return searchTerm;
 }
@@ -19,9 +27,6 @@
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' urlFormat:'%@'>", searchTerm, urlFormat];
 }
-
-#pragma mark -
-#pragma mark Feed parsing
 
 - (void)loadResultsForSearchTerm:(NSString *)theSearchTerm {
 	if (self.isLoading) return;
@@ -58,17 +63,6 @@
 		self.results = theResult;
 		self.status = GHResourceStatusLoaded;
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[parserDelegate release];
-	[searchTerm release];
-	[urlFormat release];
-	[results release];
-    [super dealloc];
 }
 
 @end

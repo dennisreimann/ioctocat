@@ -37,7 +37,25 @@
 	nameLabel.text = repository.name;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+}
 
+- (void)dealloc {
+	[repository removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[repository release];
+	[tableHeaderView release];
+	[nameLabel release];
+	[numbersLabel release];
+	[ownerLabel release];
+	[websiteLabel release];
+	[descriptionLabel release];	
+	[loadingCell release];
+	[ownerCell release];
+    [forkLabel release];
+	[websiteCell release];
+	[descriptionCell release];
+    [issuesCell release];
+    [iconView release];
+    [super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -156,28 +174,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] height];
 	return [(UITableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] frame].size.height;
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[repository removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[repository release];
-	[tableHeaderView release];
-	[nameLabel release];
-	[numbersLabel release];
-	[ownerLabel release];
-	[websiteLabel release];
-	[descriptionLabel release];	
-	[loadingCell release];
-	[ownerCell release];
-    [forkLabel release];
-	[websiteCell release];
-	[descriptionCell release];
-    [issuesCell release];
-    [iconView release];
-    [super dealloc];
 }
 
 @end

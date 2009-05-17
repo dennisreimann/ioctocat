@@ -20,6 +20,16 @@
 	loadCounter = 0;
 }
 
+- (void)dealloc {
+	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[feeds release];
+	[noEntriesCell release];
+	[feedEntryCell release];
+	[reloadButton release];
+	[feedControl release];
+    [super dealloc];
+}
+
 - (void)setupFeeds {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
@@ -121,19 +131,6 @@
 	UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceStatusKeyPath];
-	[feeds release];
-	[noEntriesCell release];
-	[feedEntryCell release];
-	[reloadButton release];
-	[feedControl release];
-    [super dealloc];
 }
 
 @end

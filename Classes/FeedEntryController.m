@@ -41,6 +41,19 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 }
 
+- (void)dealloc {
+	[contentView stopLoading];
+	contentView.delegate = nil;
+	[contentView release];
+	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[entry release];
+	[dateLabel release];
+	[titleLabel release];
+	[iconView release];
+	[gravatarView release];
+    [super dealloc];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	[contentView stopLoading];
 	contentView.delegate = nil;
@@ -96,22 +109,6 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	return [[[request URL] absoluteString] isEqualToString:@"about:blank"];
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[contentView stopLoading];
-	contentView.delegate = nil;
-	[contentView release];
-	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[entry release];
-	[dateLabel release];
-	[titleLabel release];
-	[iconView release];
-	[gravatarView release];
-    [super dealloc];
 }
 
 @end

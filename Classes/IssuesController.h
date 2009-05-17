@@ -3,9 +3,10 @@
 #import "IssueCell.h"
 #import "GHRepository.h"
 
+
 @interface IssuesController : UITableViewController {
     GHRepository *repository;
-@private
+  @private
 	IBOutlet UISegmentedControl *issuesControl;
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
@@ -18,7 +19,5 @@
 
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)switchChanged:(id)sender;
-- (void)setupIssues;
-
 
 @end

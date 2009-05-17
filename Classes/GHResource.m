@@ -11,17 +11,17 @@
     return self;
 }
 
+- (void) dealloc {
+	[error release];
+	[super dealloc];
+}
+
 - (BOOL)isLoading {
 	return status == GHResourceStatusLoading;
 }
 
 - (BOOL)isLoaded {
 	return status == GHResourceStatusLoaded;
-}
-
-- (void) dealloc {
-	[error release];
-	[super dealloc];
 }
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {

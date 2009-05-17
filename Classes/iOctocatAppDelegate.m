@@ -28,6 +28,16 @@
 	if (launchDefault) [self authenticate];
 }
 
+- (void)dealloc {
+	[tabBarController release];
+	[feedController release];
+	[authView release];
+	[authSheet release];
+	[window release];
+	[users release];
+	[super dealloc];
+}
+
 - (UIView *)currentView {
     return tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
 }
@@ -123,19 +133,6 @@
 - (void)proceedAfterAuthentication {
 	[self dismissLogin];
 	[feedController setupFeeds];
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[tabBarController release];
-	[feedController release];
-	[authView release];
-	[authSheet release];
-	[window release];
-	[users release];
-	[super dealloc];
 }
 
 @end

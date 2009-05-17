@@ -1,13 +1,11 @@
-//
-//  GHNetworksParserDelegate.m
-
 #import "GHNetworksParserDelegate.h"
 
 
 @implementation GHNetworksParserDelegate
 
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-	[super parserDidStartDocument:parser];
+- (void)dealloc {
+	[currentFork release];
+    [super dealloc];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
@@ -29,21 +27,13 @@
 	} else if ([elementName isEqualToString:@"url"]) {
 		currentFork.url = currentElementValue;
 	} else if ([elementName isEqualToString:@"owner"]) {
-		currentFork.user = [[GHUser alloc] initWithLogin: currentElementValue];
+		// FIXME We should use the user from the appDelegate.users array here
+		currentFork.user = [[GHUser alloc] initWithLogin:currentElementValue];
 	} else if ([elementName isEqualToString:@"name"]) {
 		currentFork.name = currentElementValue;
 	}
 	[currentElementValue release];
 	currentElementValue = nil;
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[super parserDidEndDocument:parser];
-}
-
-- (void)dealloc {
-	[currentFork release];
-    [super dealloc];
 }
 
 @end

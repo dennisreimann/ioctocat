@@ -6,6 +6,14 @@
 
 @synthesize user;
 
+- (void)dealloc {
+	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[user release];
+    [userLabel release];
+    [gravatarView release];
+    [super dealloc];
+}
+
 - (void)setUser:(GHUser *)aUser {
 	[aUser retain];
 	[user release];
@@ -19,14 +27,6 @@
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	}
-}
-
-- (void)dealloc {
-	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[user release];
-    [userLabel release];
-    [gravatarView release];
-    [super dealloc];
 }
 
 @end

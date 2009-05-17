@@ -4,6 +4,12 @@
 
 @implementation GHFeedParserDelegate
 
+- (void)dealloc {
+	[currentEntry release];
+	[dateFormatter release];
+    [super dealloc];
+}
+
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
 	[super parserDidStartDocument:parser];
 	dateFormatter = [[NSDateFormatter alloc] init];
@@ -71,15 +77,6 @@
 	[super parserDidEndDocument:parser];
 	[dateFormatter release];
 	dateFormatter = nil;
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[currentEntry release];
-	[dateFormatter release];
-    [super dealloc];
 }
 
 @end

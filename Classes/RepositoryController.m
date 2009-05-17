@@ -11,7 +11,7 @@
 #import "FeedEntryController.h"
 #import "IssueController.h"
 #import "IssueCell.h"
-#import "RecentCommitsController.h"
+#import "FeedController.h"
 #import "IssuesController.h"
 #import "NetworkCell.h"
 #import "NetworksController.h"
@@ -75,7 +75,7 @@
         [self.currentUser setWatchingState:newWatchState forRepository:repository];            
     }
 	if (buttonIndex == 1) {
-        NSString *urlString = [NSString stringWithFormat:kRepositoryUrl, repository.owner, repository.name];
+        NSString *urlString = [NSString stringWithFormat:kRepositoryGithubFormat, repository.owner, repository.name];
         NSURL *theURL = [NSURL URLWithString:urlString];
 		WebController *webController = [[WebController alloc] initWithURL:theURL];
 		[self.navigationController pushViewController:webController animated:YES];
@@ -156,7 +156,7 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 1 && row == 0) {
-		RecentCommitsController *commitsController = [[RecentCommitsController alloc] initWithFeed:repository.recentCommits];
+		FeedController *commitsController = [[FeedController alloc] initWithFeed:repository.recentCommits andTitle:@"Recent Commits"];
 		[self.navigationController pushViewController:commitsController animated:YES];
 		[commitsController release];
 	} else if (section == 1 && row == 1) {
@@ -167,7 +167,6 @@
 		NetworksController  *networksController = [[NetworksController alloc] initWithRepository:repository];
 		[self.navigationController pushViewController:networksController animated:YES];
 		[networksController release];
-        
 	}
 }
 

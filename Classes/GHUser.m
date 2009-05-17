@@ -1,4 +1,5 @@
 #import "GHUser.h"
+#import "GHFeed.h"
 #import "GHRepository.h"
 #import "GravatarLoader.h"
 #import "GHReposParserDelegate.h"
@@ -16,7 +17,7 @@
 @implementation GHUser
 
 @synthesize name, login, email, company, blogURL, location, gravatar, repositoriesStatus, repositories, isAuthenticated;
-@synthesize publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, following, followers;
+@synthesize recentActivity, publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, following, followers;
 
 - (id)init {
 	[super init];
@@ -45,9 +46,20 @@
 	[gravatar release];
 	[repositories release];
 	[gravatarLoader release];
+	[recentActivity release];
     [following release];
     [followers release];
     [super dealloc];
+}
+
+- (void)setLogin:(NSString *)theLogin {
+	[theLogin retain];
+	[login release];
+	login = theLogin;
+	// Recent Activity
+	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
+	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
+	self.recentActivity = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

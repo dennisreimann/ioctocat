@@ -3,6 +3,7 @@
 #import "GHUser.h"
 #import "GHFeed.h"
 
+
 @class GHIssues, GHNetworks;
 
 @interface GHRepository : GHResource {

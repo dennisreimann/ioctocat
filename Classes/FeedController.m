@@ -1,12 +1,12 @@
-#import "RecentCommitsController.h"
+#import "FeedController.h"
 #import "FeedEntryController.h"
 
 
-@implementation RecentCommitsController
+@implementation FeedController
 
-- (id)initWithFeed:(GHFeed *)theFeed {
-	[super initWithNibName:@"RecentCommits" bundle:nil];
-	self.title = @"Recent Commits";
+- (id)initWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle {
+	[super initWithNibName:@"Feed" bundle:nil];
+	self.title = theTitle;
 	recentCommits = [theFeed retain];
 	[recentCommits addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;

@@ -3,7 +3,7 @@
 #import "FeedEntryCell.h"
 
 
-@interface RecentCommitsController : UITableViewController {
+@interface FeedController : UITableViewController {
   @private
 	GHFeed *recentCommits;
 	IBOutlet UITableViewCell *loadingRecentCommitsCell;
@@ -11,6 +11,6 @@
 	IBOutlet FeedEntryCell *feedEntryCell;
 }
 
-- (id)initWithFeed:(GHFeed *)theFeed;
+- (id)initWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle;
 
 @end

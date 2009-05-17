@@ -3,7 +3,7 @@
 #import "GHUsers.h"
 
 
-@class GravatarLoader, GHRepository;
+@class GravatarLoader, GHRepository, GHFeed;
 
 @interface GHUser : GHResource {
 	NSString *name;
@@ -18,6 +18,7 @@
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
 	NSMutableArray *repositories;
+	GHFeed *recentActivity;
     GHUsers *following;
     GHUsers *followers;
 	BOOL isAuthenticated;
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) UIImage *gravatar;
 @property (nonatomic, retain) NSMutableArray *repositories;
+@property (nonatomic, retain) GHFeed *recentActivity;
 @property (nonatomic, retain) GHUsers *following;
 @property (nonatomic, retain) GHUsers *followers;
 @property (nonatomic, readonly) NSString *cachedGravatarPath;

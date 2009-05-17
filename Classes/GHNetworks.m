@@ -38,7 +38,7 @@
 
 - (void)parseNetworks {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *networksURLString = [NSString stringWithFormat:kNetworksUrl, repository.owner, repository.name];
+	NSString *networksURLString = [NSString stringWithFormat:kNetworksFormat, repository.owner, repository.name];
 	NSURL *networksURL = [NSURL URLWithString:networksURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:networksURL];
 	[request start];	

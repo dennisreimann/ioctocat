@@ -9,6 +9,7 @@
 #import "iOctocatAppDelegate.h"
 #import "UsersController.h"
 #import "ASIFormDataRequest.h"
+#import "FeedController.h"
 
 
 @interface UserController ()
@@ -58,6 +59,7 @@
 	[emailCell release];
     [followersCell release];
     [followingCell release];
+	[recentActivityCell release];
 	[loadingUserCell release];
 	[loadingReposCell release];
 	[noPublicReposCell release];
@@ -88,7 +90,7 @@
 		NSString *newFollowState = [self.currentUser isFollowing:user] ? kUnFollow : kFollow;
 		[self.currentUser setFollowingState:newFollowState forUser:user];
     } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
-		NSString *userURLString = [NSString stringWithFormat:kDisplayUserURL, user.login];
+		NSString *userURLString = [NSString stringWithFormat:kUserGithubFormat, user.login];
         NSURL *userURL = [NSURL URLWithString:userURLString];
 		WebController *webController = [[WebController alloc] initWithURL:userURL];
 		[self.navigationController pushViewController:webController animated:YES];
@@ -134,16 +136,14 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
-    if (section == 1) return 2;
+    if (section == 1) return 3;
 	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
 	if (section == 2) return user.repositories.count;
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 0) return @"";
-    if (section == 1) return @"Network";
-	return @"Repositories";
+	return (section == 2) ? @"Repositories" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -161,8 +161,9 @@
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-	if (section == 1 && row == 0) return followingCell;
-	if (section == 1 && row == 1) return followersCell;
+	if (section == 1 && row == 0) return recentActivityCell;
+	if (section == 1 && row == 1) return followingCell;
+	if (section == 1 && row == 2) return followersCell;
 	if (!user.isReposLoaded) return loadingReposCell;
 	if (section == 2 && user.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
@@ -190,9 +191,13 @@
 		NSString *mailString = [NSString stringWithFormat:@"mailto:%@", user.email];
 		NSURL *mailURL = [NSURL URLWithString:mailString];
 		[[UIApplication sharedApplication] openURL:mailURL];
+	} else if (section == 1 && row == 0) {
+        FeedController *activityController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];
+		[self.navigationController pushViewController:activityController animated:YES];
+		[activityController release];          
 	} else if (section == 1) {
         UsersController *usersController = [[UsersController alloc] initWithUsers:(row == 0 ? user.following : user.followers)];
-		usersController.title = (row == 0) ? @"Following" : @"Followers";
+		usersController.title = (row == 1) ? @"Following" : @"Followers";
 		[self.navigationController pushViewController:usersController animated:YES];
 		[usersController release];            
 	} else if (section == 2) {

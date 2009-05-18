@@ -8,6 +8,8 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="3"/>
+			<integer value="4"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -54,7 +56,7 @@
 				<float key="IBUISectionFooterHeight">2.200000e+01</float>
 			</object>
 			<object class="IBUITableViewCell" id="168935711">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -68,10 +70,15 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{40, 25}, {243, 21}}</string>
 								<reference key="NSSuperview" ref="895536681"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<object class="NSColor" key="IBUIBackgroundColor">
+									<int key="NSColorSpace">6</int>
+									<string key="NSCatalogName">System</string>
+									<string key="NSColorName">controlLightHighlightColor</string>
+									<reference key="NSColor" ref="682139108"/>
+								</object>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">Loading recent commits...</string>
+								<string key="IBUIText">Loading entries...</string>
 								<object class="NSFont" key="IBUIFont" id="173279063">
 									<string key="NSName">Helvetica</string>
 									<double key="NSSize">1.500000e+01</double>
@@ -90,7 +97,12 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{12, 25}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="895536681"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<object class="NSColor" key="IBUIBackgroundColor" id="581513281">
+									<int key="NSColorSpace">6</int>
+									<string key="NSCatalogName">System</string>
+									<string key="NSColorName">alternateSelectedControlTextColor</string>
+									<reference key="NSColor" ref="682139108"/>
+								</object>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<bool key="IBUIHidesWhenStopped">NO</bool>
@@ -111,14 +123,15 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 70}</string>
+				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="682139108"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="895536681"/>
-				<string key="IBUIReuseIdentifier">LoadingRecentCommitsCell</string>
+				<string key="IBUIReuseIdentifier">LoadingCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="1054960656">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -132,10 +145,10 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{38, 25}, {243, 21}}</string>
 								<reference key="NSSuperview" ref="443944280"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<reference key="IBUIBackgroundColor" ref="581513281"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="IBUIText">There are no recent commits</string>
+								<string key="IBUIText">There are no entries</string>
 								<reference key="IBUIFont" ref="173279063"/>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
@@ -157,11 +170,12 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 70}</string>
+				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="682139108"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="443944280"/>
-				<string key="IBUIReuseIdentifier">NoRecentCommitsCell</string>
+				<string key="IBUIReuseIdentifier">NoEntriesCell</string>
 			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -174,22 +188,6 @@
 						<reference key="destination" ref="1053057113"/>
 					</object>
 					<int key="connectionID">9</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">loadingRecentCommitsCell</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="168935711"/>
-					</object>
-					<int key="connectionID">10</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">noRecentCommitsCell</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1054960656"/>
-					</object>
-					<int key="connectionID">11</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -206,6 +204,22 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">13</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">loadingCell</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="168935711"/>
+					</object>
+					<int key="connectionID">14</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">noEntriesCell</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1054960656"/>
+					</object>
+					<int key="connectionID">15</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -291,7 +305,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>FeedController</string>
 					<string>UIResponder</string>
-					<string>{{410, 613}, {320, 70}}</string>
+					<string>{{393, 496}, {320, 70}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{404, 541}, {320, 70}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -322,7 +336,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">13</int>
+			<int key="maxID">15</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -335,8 +349,8 @@
 						<object class="NSMutableArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>feedEntryCell</string>
-							<string>loadingRecentCommitsCell</string>
-							<string>noRecentCommitsCell</string>
+							<string>loadingCell</string>
+							<string>noEntriesCell</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
@@ -345,6 +359,14 @@
 							<string>UITableViewCell</string>
 						</object>
 					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/FeedController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FeedController</string>
+					<string key="superclassName">UITableViewController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>

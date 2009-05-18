@@ -5,9 +5,9 @@
 
 @interface FeedController : UITableViewController {
   @private
-	GHFeed *recentCommits;
-	IBOutlet UITableViewCell *loadingRecentCommitsCell;
-	IBOutlet UITableViewCell *noRecentCommitsCell;
+	GHFeed *feed;
+	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet UITableViewCell *noEntriesCell;
 	IBOutlet FeedEntryCell *feedEntryCell;
 }
 

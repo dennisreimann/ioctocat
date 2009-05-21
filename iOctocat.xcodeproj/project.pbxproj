@@ -38,6 +38,39 @@
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F5254400FC544DA00005B0B /* GHResourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */; };
+		6F5254560FC5462700005B0B /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F14B6490FA5F37500F74B4C /* GHResource.m */; };
+		6F52545D0FC546EA00005B0B /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA50FAB8A3100A2C37A /* ASIFormDataRequest.m */; };
+		6F52545F0FC546F400005B0B /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA80FAB8A3100A2C37A /* ASIHTTPRequest.m */; };
+		6F5254610FC5470E00005B0B /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA60FAB8A3100A2C37A /* ASINetworkQueue.m */; };
+		6F5254620FC5470E00005B0B /* NSHTTPCookieAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CFBCFA90FAB8A3100A2C37A /* NSHTTPCookieAdditions.m */; };
+		6F52546B0FC5481F00005B0B /* GravatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* GravatarLoader.m */; };
+		6F52546C0FC5481F00005B0B /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
+		6F52546D0FC5482000005B0B /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
+		6F52546E0FC5482000005B0B /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
+		6F52546F0FC5482100005B0B /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
+		6F5254700FC5482100005B0B /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
+		6F5254710FC5482300005B0B /* GHReposParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */; };
+		6F5254720FC5482300005B0B /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F5254730FC5482400005B0B /* GHNetworksParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */; };
+		6F5254740FC5482500005B0B /* GHNetworks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHNetworks.m */; };
+		6F5254750FC5482600005B0B /* GHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686740FB8C56700A3D625 /* GHNetwork.m */; };
+		6F5254760FC5482700005B0B /* GHIssuesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */; };
+		6F5254770FC5482800005B0B /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
+		6F5254780FC5482800005B0B /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
+		6F5254790FC5482900005B0B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
+		6F52547A0FC5482B00005B0B /* GHFeedEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */; };
+		6F52547B0FC5482B00005B0B /* GHFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */; };
+		6F52547C0FC5482C00005B0B /* GHCommitsParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */; };
+		6F52547D0FC5482C00005B0B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
+		6F5254A70FC548D800005B0B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
+		6F5254B60FC548F600005B0B /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
+		6F5254BB0FC5490B00005B0B /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */; };
+		6F5254BD0FC5491900005B0B /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693860FB0B9E600730A5C /* CJSONDeserializer.m */; };
+		6F5254BF0FC5492100005B0B /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693880FB0B9E600730A5C /* CJSONScanner.m */; };
+		6F5254C10FC5492500005B0B /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C56938A0FB0B9E600730A5C /* CJSONSerializer.m */; };
+		6F5254C20FC5492D00005B0B /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C56938D0FB0B9E600730A5C /* CDataScanner_Extensions.m */; };
+		6F5254C30FC5492D00005B0B /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693820FB0B9E600730A5C /* CDataScanner.m */; };
 		6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */; };
 		6F5652D00F99C1BF001B6703 /* TabBarRepos.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */; };
 		6F5652E10F99C85C001B6703 /* MyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */; };
@@ -133,6 +166,16 @@
 		8CFBCFB70FAB8A6D00A2C37A /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		6F5254530FC545F500005B0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6F5254300FC5440900005B0B /* Unit Tests */;
+			remoteInfo = "Unit Tests";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocatAppDelegate.h; sourceTree = "<group>"; };
@@ -179,6 +222,9 @@
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepository.m; sourceTree = "<group>"; };
+		6F5254310FC5440900005B0B /* Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F5254320FC5440900005B0B /* Unit Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Unit Tests-Info.plist"; sourceTree = "<group>"; };
+		6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHResourceTestCase.m; path = TestCases/GHResourceTestCase.m; sourceTree = "<group>"; };
 		6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarFeeds.png; path = Images/TabBarFeeds.png; sourceTree = "<group>"; };
 		6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarRepos.png; path = Images/TabBarRepos.png; sourceTree = "<group>"; };
 		6F5652DF0F99C85C001B6703 /* MyRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRepositoriesController.h; sourceTree = "<group>"; };
@@ -335,6 +381,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F52542E0FC5440900005B0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5254A70FC548D800005B0B /* CFNetwork.framework in Frameworks */,
+				6F5254B60FC548F600005B0B /* libz.1.2.3.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -355,6 +410,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* iOctocat.app */,
+				6F5254310FC5440900005B0B /* Unit Tests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -363,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
+				6F52543C0FC5444E00005B0B /* Unit Tests */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -392,6 +449,7 @@
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
+				6F5254320FC5440900005B0B /* Unit Tests-Info.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 				6F74DD8B0FA76CE000FD90AB /* README.textile */,
 				6F72FB5F0F9B5A5B0069F092 /* styles.html */,
@@ -529,6 +587,14 @@
 				6F1DC5C40F7E7F4600FCD26D /* wiki.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		6F52543C0FC5444E00005B0B /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */,
+			);
+			name = "Unit Tests";
 			sourceTree = "<group>";
 		};
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
@@ -714,11 +780,30 @@
 			buildRules = (
 			);
 			dependencies = (
+				6F5254540FC545F500005B0B /* PBXTargetDependency */,
 			);
 			name = iOctocat;
 			productName = iOctocat;
 			productReference = 1D6058910D05DD3D006BFB54 /* iOctocat.app */;
 			productType = "com.apple.product-type.application";
+		};
+		6F5254300FC5440900005B0B /* Unit Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6F5254370FC5440A00005B0B /* Build configuration list for PBXNativeTarget "Unit Tests" */;
+			buildPhases = (
+				6F52542C0FC5440900005B0B /* Resources */,
+				6F52542D0FC5440900005B0B /* Sources */,
+				6F52542E0FC5440900005B0B /* Frameworks */,
+				6F52542F0FC5440900005B0B /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Unit Tests";
+			productName = "Unit Tests";
+			productReference = 6F5254310FC5440900005B0B /* Unit Tests.octest */;
+			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -740,6 +825,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* iOctocat */,
+				6F5254300FC5440900005B0B /* Unit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -814,7 +900,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F52542C0FC5440900005B0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		6F52542F0FC5440900005B0B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -881,7 +990,53 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6F52542D0FC5440900005B0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6F5254400FC544DA00005B0B /* GHResourceTestCase.m in Sources */,
+				6F5254560FC5462700005B0B /* GHResource.m in Sources */,
+				6F52545D0FC546EA00005B0B /* ASIFormDataRequest.m in Sources */,
+				6F52545F0FC546F400005B0B /* ASIHTTPRequest.m in Sources */,
+				6F5254610FC5470E00005B0B /* ASINetworkQueue.m in Sources */,
+				6F5254620FC5470E00005B0B /* NSHTTPCookieAdditions.m in Sources */,
+				6F52546B0FC5481F00005B0B /* GravatarLoader.m in Sources */,
+				6F52546C0FC5481F00005B0B /* GHUsersParserDelegate.m in Sources */,
+				6F52546D0FC5482000005B0B /* GHUsers.m in Sources */,
+				6F52546E0FC5482000005B0B /* GHUser.m in Sources */,
+				6F52546F0FC5482100005B0B /* GHSearch.m in Sources */,
+				6F5254700FC5482100005B0B /* GHResourcesParserDelegate.m in Sources */,
+				6F5254710FC5482300005B0B /* GHReposParserDelegate.m in Sources */,
+				6F5254720FC5482300005B0B /* GHRepository.m in Sources */,
+				6F5254730FC5482400005B0B /* GHNetworksParserDelegate.m in Sources */,
+				6F5254740FC5482500005B0B /* GHNetworks.m in Sources */,
+				6F5254750FC5482600005B0B /* GHNetwork.m in Sources */,
+				6F5254760FC5482700005B0B /* GHIssuesParserDelegate.m in Sources */,
+				6F5254770FC5482800005B0B /* GHIssues.m in Sources */,
+				6F5254780FC5482800005B0B /* GHIssue.m in Sources */,
+				6F5254790FC5482900005B0B /* GHFeedParserDelegate.m in Sources */,
+				6F52547A0FC5482B00005B0B /* GHFeedEntry.m in Sources */,
+				6F52547B0FC5482B00005B0B /* GHFeed.m in Sources */,
+				6F52547C0FC5482C00005B0B /* GHCommitsParserDelegate.m in Sources */,
+				6F52547D0FC5482C00005B0B /* GHCommit.m in Sources */,
+				6F5254BB0FC5490B00005B0B /* DebugLog.m in Sources */,
+				6F5254BD0FC5491900005B0B /* CJSONDeserializer.m in Sources */,
+				6F5254BF0FC5492100005B0B /* CJSONScanner.m in Sources */,
+				6F5254C10FC5492500005B0B /* CJSONSerializer.m in Sources */,
+				6F5254C20FC5492D00005B0B /* CDataScanner_Extensions.m in Sources */,
+				6F5254C30FC5492D00005B0B /* CDataScanner.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6F5254540FC545F500005B0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6F5254300FC5440900005B0B /* Unit Tests */;
+			targetProxy = 6F5254530FC545F500005B0B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -909,6 +1064,116 @@
 				PRODUCT_NAME = iOctocat;
 			};
 			name = Release;
+		};
+		6F5254330FC5440900005B0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		6F5254340FC5440900005B0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		6F5254350FC5440900005B0B /* Ad Hoc Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "Ad Hoc Distribution";
+		};
+		6F5254360FC5440900005B0B /* App Store Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "Unit Tests";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = "App Store Distribution";
 		};
 		6F77CD830F7E9DF2009A0213 /* App Store Distribution */ = {
 			isa = XCBuildConfiguration;
@@ -1008,6 +1273,17 @@
 				1D6058950D05DD3E006BFB54 /* Release */,
 				6FC806450FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD840F7E9DF2009A0213 /* App Store Distribution */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6F5254370FC5440A00005B0B /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F5254330FC5440900005B0B /* Debug */,
+				6F5254340FC5440900005B0B /* Release */,
+				6F5254350FC5440900005B0B /* Ad Hoc Distribution */,
+				6F5254360FC5440900005B0B /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

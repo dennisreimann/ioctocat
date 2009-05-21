@@ -11,7 +11,7 @@
     return self;
 }
 
-- (void) dealloc {
+- (void)dealloc {
 	[error release];
 	[super dealloc];
 }

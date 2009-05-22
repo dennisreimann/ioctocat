@@ -4,7 +4,7 @@
 
 @class GHUser;
 
-@interface GHRepositories : GHResource {
+@interface GHRepositories : GHResource <NSCoding> {
 	NSMutableArray *repositories;
   @private
     GHUser *user;

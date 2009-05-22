@@ -6,6 +6,7 @@
 #import "GHUsersParserDelegate.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
+#import "Archiver.h"
 
 
 @interface GHUser ()
@@ -35,8 +36,22 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	[self init];
+	NSString *theLogin = [coder decodeObjectForKey:kLoginKey];
+	[self setLogin:theLogin];
+	self.watchedRepositories = [coder decodeObjectForKey:kWatchedRepositoriesKey];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:login forKey:kLoginKey];
+	[coder encodeObject:watchedRepositories forKey:kWatchedRepositoriesKey];
+}
+
 - (void)dealloc {
 	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
+	[archiver release];
 	[name release];
 	[login release];
 	[email release];
@@ -66,11 +81,14 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
+	// Archiving
+	NSString *fileName = [NSString stringWithFormat:kUserPersistenceFileFormat, login];
+	[archiver release];
+	archiver = [[Archiver alloc] initWithKey:kUserKey andFileName:fileName];
 	// Repositories
 	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
 	self.repositories = [[[GHRepositories alloc] initWithUser:self andURL:repositoriesURL] autorelease];
-	self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:nil] autorelease];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
@@ -87,6 +105,18 @@
 		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
 		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
 	}
+}
+
+- (GHRepositories *)watchedRepositories {
+	if (!watchedRepositories) {
+		GHUser *restoredUser = [archiver restoreObject];
+		if (restoredUser) {
+			self.watchedRepositories = restoredUser.watchedRepositories;
+		} else {
+			self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:nil] autorelease];
+		}
+	}
+	return watchedRepositories;
 }
 
 #pragma mark -
@@ -219,6 +249,13 @@
 	NSString *documentsPath = [paths objectAtIndex:0];
 	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
 	return [documentsPath stringByAppendingPathComponent:imageName];
+}
+
+#pragma mark -
+#pragma mark Archiving
+
+- (void)archive {
+	[archiver archiveObject:self];
 }
 
 @end

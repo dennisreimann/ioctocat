@@ -4,9 +4,9 @@
 #import "GHRepositories.h"
 
 
-@class GravatarLoader, GHRepository, GHFeed;
+@class Archiver, GravatarLoader, GHRepository, GHFeed;
 
-@interface GHUser : GHResource {
+@interface GHUser : GHResource <NSCoding> {
 	NSString *name;
 	NSString *login;
 	NSString *email;
@@ -26,6 +26,7 @@
 	BOOL isAuthenticated;
   @private
 	GravatarLoader *gravatarLoader;
+	Archiver *archiver;
 }
 
 @property (nonatomic, retain) NSString *name;
@@ -59,5 +60,6 @@
 - (void)unfollowUser:(GHUser *)theUser;
 - (void)watchRepository:(GHRepository *)theRepository;
 - (void)unwatchRepository:(GHRepository *)theRepository;
+- (void)archive;
 
 @end

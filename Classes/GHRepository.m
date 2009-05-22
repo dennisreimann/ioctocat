@@ -22,6 +22,19 @@
 	return self;
 }
 
+- (id)initWithCoder:(NSCoder *)coder {
+	[super init];
+	NSString *theOwner = [coder decodeObjectForKey:kOwnerKey];
+	NSString *theName = [coder decodeObjectForKey:kNameKey];
+	[self setOwner:theOwner andName:theName];
+	return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
+	[coder encodeObject:owner forKey:kOwnerKey];
+	[coder encodeObject:name forKey:kNameKey];
+}
+
 - (void)dealloc {
 	[name release];
 	[owner release];

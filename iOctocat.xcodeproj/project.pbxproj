@@ -130,6 +130,8 @@
 		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
 		6FE91E470FAD115300749370 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E460FAD115300749370 /* LoginBackground.png */; };
 		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
+		6FE931D60FC72444008545A2 /* Archiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE931D50FC72444008545A2 /* Archiver.m */; };
+		6FE932530FC72E67008545A2 /* Archiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE931D50FC72444008545A2 /* Archiver.m */; };
 		6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
 		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
@@ -303,6 +305,8 @@
 		6FE91E460FAD115300749370 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = Images/LoginBackground.png; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		6FE91E4B0FAD13D500749370 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		6FE931D40FC72444008545A2 /* Archiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archiver.h; sourceTree = "<group>"; };
+		6FE931D50FC72444008545A2 /* Archiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archiver.m; sourceTree = "<group>"; };
 		6FED81B50FAC97A100BE5C81 /* GHResourcesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHResourcesParserDelegate.h; sourceTree = "<group>"; };
 		6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHResourcesParserDelegate.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IssuesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesController.h; sourceTree = "<group>"; };
@@ -399,6 +403,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6FE931D30FC7242A008545A2 /* Utils */,
 				8C5693680FB0B97C00730A5C /* TouchJSON */,
 				8CB697FC0FB0085C00B6E779 /* Helpers */,
 				8CFBCFA30FAB8A1000A2C37A /* ASIHTTPRequest */,
@@ -503,8 +508,6 @@
 				8CE686740FB8C56700A3D625 /* GHNetwork.m */,
 				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
 				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
-				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
-				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -673,6 +676,17 @@
 				6FD61A090FA7AB26008C751B /* WatchButton.png */,
 			);
 			name = Buttons;
+			sourceTree = "<group>";
+		};
+		6FE931D30FC7242A008545A2 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6FE931D40FC72444008545A2 /* Archiver.h */,
+				6FE931D50FC72444008545A2 /* Archiver.m */,
+				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
+				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {
@@ -990,6 +1004,7 @@
 				8CE6867D0FB8C58400A3D625 /* NetworksController.m in Sources */,
 				8CE686800FB8C59400A3D625 /* NetworkCell.m in Sources */,
 				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
+				6FE931D60FC72444008545A2 /* Archiver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1029,6 +1044,7 @@
 				6F5254C20FC5492D00005B0B /* CDataScanner_Extensions.m in Sources */,
 				6F5254C30FC5492D00005B0B /* CDataScanner.m in Sources */,
 				6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */,
+				6FE932530FC72E67008545A2 /* Archiver.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

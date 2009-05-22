@@ -55,3 +55,14 @@
 #define kResourceStatusKeyPath @"status"
 #define kUserLoginKeyPath @"login"
 #define kUserGravatarKeyPath @"gravatar"
+
+// NSCoding
+#define kUserPersistenceFileFormat @"%@.plist"
+#define kLoginKey @"login"
+#define kUserKey @"user"
+#define kRepositoriesKey @"repositories"
+#define kRepositoriesURLKey @"repositoriesURL"
+#define kWatchedRepositoriesKey @"watchedRepositories"
+#define kOwnerKey @"owner"
+#define kNameKey @"name"
+

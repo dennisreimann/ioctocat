@@ -22,7 +22,6 @@
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;
-    IBOutlet UIView *activityView;
 }
 
 @property (nonatomic, retain) GHUser *user;

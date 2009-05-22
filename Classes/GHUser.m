@@ -176,7 +176,6 @@
     [pool release];
 }
 
-
 - (BOOL)isWatching:(GHRepository *)aRepository {
 	// FIXME Currently just stubbed out, see the issue:
 	// http://github.com/dbloete/ioctocat/issues#issue/6

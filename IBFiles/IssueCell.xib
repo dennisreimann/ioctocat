@@ -44,9 +44,12 @@
 							<object class="IBUIImageView" id="241808454">
 								<reference key="NSNextResponder" ref="479305956"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 11}, {16, 16}}</string>
+								<string key="NSFrame">{{8, 10}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="479305956"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<object class="NSColor" key="IBUIBackgroundColor" id="817345970">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MQA</bytes>
+								</object>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -54,9 +57,9 @@
 							<object class="IBUILabel" id="793875148">
 								<reference key="NSNextResponder" ref="479305956"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 23}, {260, 21}}</string>
+								<string key="NSFrame">{{33, 24}, {258, 21}}</string>
 								<reference key="NSSuperview" ref="479305956"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<reference key="IBUIBackgroundColor" ref="817345970"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIText">Date</string>
@@ -80,9 +83,9 @@
 							<object class="IBUILabel" id="395374443">
 								<reference key="NSNextResponder" ref="479305956"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{266, 9}, {27, 21}}</string>
+								<string key="NSFrame">{{264, 9}, {27, 21}}</string>
 								<reference key="NSSuperview" ref="479305956"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<reference key="IBUIBackgroundColor" ref="817345970"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIText">#199</string>
@@ -103,9 +106,9 @@
 							<object class="IBUILabel" id="211806357">
 								<reference key="NSNextResponder" ref="479305956"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{33, 9}, {225, 20}}</string>
+								<string key="NSFrame">{{33, 9}, {223, 20}}</string>
 								<reference key="NSSuperview" ref="479305956"/>
-								<bool key="IBUIOpaque">NO</bool>
+								<reference key="IBUIBackgroundColor" ref="817345970"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="IBUIText">Title</string>
@@ -118,10 +121,7 @@
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
 								</object>
-								<object class="NSColor" key="IBUIHighlightedColor" id="817345970">
-									<int key="NSColorSpace">3</int>
-									<bytes key="NSWhite">MQA</bytes>
-								</object>
+								<reference key="IBUIHighlightedColor" ref="817345970"/>
 								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 								<float key="IBUIMinimumFontSize">1.000000e+01</float>
 								<int key="IBUINumberOfLines">2</int>
@@ -273,7 +273,7 @@
 					<string>IssuesController</string>
 					<string>UIResponder</string>
 					<string>IssueCell</string>
-					<string>{{390, 553}, {320, 50}}</string>
+					<string>{{970, 569}, {320, 50}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

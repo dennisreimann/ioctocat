@@ -22,15 +22,10 @@
         }
 		[currentFork release];
 		currentFork = nil;
-	} else if ([elementName isEqualToString:@"description"]) {
-		currentFork.description = currentElementValue;        
+	} else if ([elementName isEqualToString:@"description"] || [elementName isEqualToString:@"owner"] || [elementName isEqualToString:@"name"]) {
+		[currentFork setValue:currentElementValue forKey:elementName];        
 	} else if ([elementName isEqualToString:@"url"]) {
-		currentFork.url = currentElementValue;
-	} else if ([elementName isEqualToString:@"owner"]) {
-		// FIXME We should use the user from the appDelegate.users array here
-		currentFork.user = [[GHUser alloc] initWithLogin:currentElementValue];
-	} else if ([elementName isEqualToString:@"name"]) {
-		currentFork.name = currentElementValue;
+		currentFork.networkURL = [NSURL URLWithString:currentElementValue];
 	}
 	[currentElementValue release];
 	currentElementValue = nil;

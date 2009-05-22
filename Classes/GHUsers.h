@@ -5,14 +5,14 @@
 @class GHUser;
 
 @interface GHUsers : GHResource {
-	NSArray *users;
+	NSMutableArray *users;
   @private
     GHUser *user;
 	NSURL *usersURL;
 }
 
 @property (nonatomic, retain) GHUser *user;
-@property (nonatomic, retain) NSArray *users;
+@property (nonatomic, retain) NSMutableArray *users;
 @property (nonatomic, retain) NSURL *usersURL;
 
 - (void)loadUsers;

@@ -9,7 +9,6 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="4"/>
-			<integer value="106"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -104,7 +103,7 @@
 					<object class="IBUILabel" id="412962912">
 						<reference key="NSNextResponder" ref="1002873168"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 38}, {168.5, 20}}</string>
+						<string key="NSFrame">{{20, 38}, {228, 20}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -121,12 +120,13 @@
 						</object>
 						<nil key="IBUIHighlightedColor"/>
 						<int key="IBUIBaselineAdjustment">1</int>
+						<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
 						<float key="IBUIMinimumFontSize">1.400000e+01</float>
 					</object>
 					<object class="IBUILabel" id="459960734">
 						<reference key="NSNextResponder" ref="1002873168"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{228, 38}, {74.5, 20}}</string>
+						<int key="NSvFlags">289</int>
+						<string key="NSFrame">{{256, 38}, {50, 20}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -518,7 +518,7 @@
 				<string key="IBUIReuseIdentifier">IssuesCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="753234813">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -567,7 +567,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 40}</string>
-				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="125363280"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUIAccessoryType">1</int>
@@ -797,8 +796,8 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="995342605"/>
 							<reference ref="705617526"/>
-							<reference ref="1013829266"/>
 							<reference ref="412962912"/>
+							<reference ref="1013829266"/>
 							<reference ref="459960734"/>
 						</object>
 						<reference key="parent" ref="360949347"/>
@@ -1041,7 +1040,7 @@
 					<string>{{447, 789}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{438, 698}, {320, 80}}</string>
+					<string>{{907, 888}, {320, 80}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{445, 812}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "GHResource.h"
 #import "GHUsers.h"
+#import "GHRepositories.h"
 
 
 @class GravatarLoader, GHRepository, GHFeed;
@@ -17,15 +18,13 @@
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
-	NSMutableArray *repositories;
+	GHRepositories *repositories;
 	GHFeed *recentActivity;
     GHUsers *following;
     GHUsers *followers;
 	BOOL isAuthenticated;
   @private
 	GravatarLoader *gravatarLoader;
-	GHResourceStatus repositoriesStatus;
-    GHResourceStatus followingStatus;
 }
 
 @property (nonatomic, retain) NSString *name;
@@ -35,25 +34,21 @@
 @property (nonatomic, retain) NSString *location;
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) UIImage *gravatar;
-@property (nonatomic, retain) NSMutableArray *repositories;
+@property (nonatomic, retain) GHRepositories *repositories;
 @property (nonatomic, retain) GHFeed *recentActivity;
 @property (nonatomic, retain) GHUsers *following;
 @property (nonatomic, retain) GHUsers *followers;
 @property (nonatomic, readonly) NSString *cachedGravatarPath;
-@property (nonatomic, readonly) BOOL isReposLoaded;
-@property (nonatomic, readonly) BOOL isReposLoading;
 @property (nonatomic) BOOL isAuthenticated;
-@property (nonatomic) GHResourceStatus repositoriesStatus;
 @property (nonatomic) NSUInteger publicGistCount;
 @property (nonatomic) NSUInteger privateGistCount;
 @property (nonatomic) NSUInteger publicRepoCount;
 @property (nonatomic) NSUInteger privateRepoCount;
 
 - (id)initWithLogin:(NSString *)theLogin;
+- (void)setLogin:(NSString *)theLogin;
 - (void)loadUser;
 - (void)loadedUsers:(id)theResult;
-- (void)loadRepositories;
-- (void)loadedRepositories:(NSArray *)theRepositories;
 - (void)loadedGravatar:(UIImage *)theImage;
 - (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;

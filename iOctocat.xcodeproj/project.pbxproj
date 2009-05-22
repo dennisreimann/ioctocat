@@ -73,11 +73,12 @@
 		6F5254C30FC5492D00005B0B /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693820FB0B9E600730A5C /* CDataScanner.m */; };
 		6F5652C20F99BDF5001B6703 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */; };
 		6F5652D00F99C1BF001B6703 /* TabBarRepos.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */; };
-		6F5652E10F99C85C001B6703 /* MyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */; };
+		6F5652E10F99C85C001B6703 /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issues.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
 		6F5653070F99CB62001B6703 /* public.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653050F99CB62001B6703 /* public.png */; };
 		6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */; };
+		6F59BC950FC6C51800412597 /* Repositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F59BC930FC6C51800412597 /* Repositories.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
 		6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
 		6F5A41790F90C42800427ED7 /* Repository.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A41780F90C42800427ED7 /* Repository.xib */; };
@@ -100,7 +101,6 @@
 		6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issues_closed.png */; };
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
-		6FA92B330FACD6EA001B1D1D /* MyRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B310FACD6EA001B1D1D /* MyRepositories.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
@@ -124,6 +124,8 @@
 		6FD61A0B0FA7AB26008C751B /* UnfollowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A070FA7AB26008C751B /* UnfollowButton.png */; };
 		6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A080FA7AB26008C751B /* UnwatchButton.png */; };
 		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
+		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
+		6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
 		6FE91E470FAD115300749370 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E460FAD115300749370 /* LoginBackground.png */; };
 		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
@@ -225,12 +227,13 @@
 		6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHResourceTestCase.m; path = TestCases/GHResourceTestCase.m; sourceTree = "<group>"; };
 		6F5652C10F99BDF5001B6703 /* TabBarFeeds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarFeeds.png; path = Images/TabBarFeeds.png; sourceTree = "<group>"; };
 		6F5652CF0F99C1BF001B6703 /* TabBarRepos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TabBarRepos.png; path = Images/TabBarRepos.png; sourceTree = "<group>"; };
-		6F5652DF0F99C85C001B6703 /* MyRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyRepositoriesController.h; sourceTree = "<group>"; };
-		6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyRepositoriesController.m; sourceTree = "<group>"; };
+		6F5652DF0F99C85C001B6703 /* RepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesController.h; sourceTree = "<group>"; };
+		6F5652E00F99C85C001B6703 /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
 		6F5653020F99CB52001B6703 /* issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues.png; path = Images/Icons/issues.png; sourceTree = "<group>"; };
 		6F5653040F99CB62001B6703 /* private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = private.png; path = Images/Icons/private.png; sourceTree = "<group>"; };
 		6F5653050F99CB62001B6703 /* public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public.png; path = Images/Icons/public.png; sourceTree = "<group>"; };
 		6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryCellBackground.png; path = Images/FeedEntryCellBackground.png; sourceTree = "<group>"; };
+		6F59BC930FC6C51800412597 /* Repositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repositories.xib; path = IBFiles/Repositories.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
 		6F5A41730F90C38300427ED7 /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
 		6F5A41740F90C38300427ED7 /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
@@ -260,7 +263,6 @@
 		6FA92B1A0FACD648001B1D1D /* issues_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_closed.png; path = Images/Icons/issues_closed.png; sourceTree = "<group>"; };
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
-		6FA92B310FACD6EA001B1D1D /* MyRepositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyRepositories.xib; path = IBFiles/MyRepositories.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
@@ -293,6 +295,8 @@
 		6FD61A070FA7AB26008C751B /* UnfollowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnfollowButton.png; path = Images/Buttons/UnfollowButton.png; sourceTree = "<group>"; };
 		6FD61A080FA7AB26008C751B /* UnwatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnwatchButton.png; path = Images/Buttons/UnwatchButton.png; sourceTree = "<group>"; };
 		6FD61A090FA7AB26008C751B /* WatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WatchButton.png; path = Images/Buttons/WatchButton.png; sourceTree = "<group>"; };
+		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
+		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepositories.m; sourceTree = "<group>"; };
 		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
 		6FE91E460FAD115300749370 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = Images/LoginBackground.png; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -479,6 +483,8 @@
 				6F879AE70FB61C7A00EBD9BD /* GHUsers.m */,
 				6F35BD370F88B01900E978CD /* GHUser.h */,
 				6F35BD380F88B01900E978CD /* GHUser.m */,
+				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
+				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
@@ -516,8 +522,8 @@
 				8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserController.m */,
-				6F5652DF0F99C85C001B6703 /* MyRepositoriesController.h */,
-				6F5652E00F99C85C001B6703 /* MyRepositoriesController.m */,
+				6F5652DF0F99C85C001B6703 /* RepositoriesController.h */,
+				6F5652E00F99C85C001B6703 /* RepositoriesController.m */,
 				6F5A41730F90C38300427ED7 /* RepositoryController.h */,
 				6F5A41740F90C38300427ED7 /* RepositoryController.m */,
 				6FED82950FACA1E700BE5C81 /* IssuesController.h */,
@@ -640,9 +646,9 @@
 				6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */,
 				6FCDC66B0FC04F180024E498 /* Feed.xib */,
 				6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */,
-				6FA92B310FACD6EA001B1D1D /* MyRepositories.xib */,
 				6F879A5B0FB611FD00EBD9BD /* Users.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
+				6F59BC930FC6C51800412597 /* Repositories.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				8CE686EB0FB8C87300A3D625 /* Networks.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
@@ -872,7 +878,6 @@
 				6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */,
 				6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */,
 				6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */,
-				6FA92B330FACD6EA001B1D1D /* MyRepositories.xib in Resources */,
 				6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */,
 				6FE91E190FAD088600749370 /* Login.xib in Resources */,
 				6FE91E470FAD115300749370 /* LoginBackground.png in Resources */,
@@ -889,6 +894,7 @@
 				8CE686EC0FB8C87300A3D625 /* Networks.xib in Resources */,
 				6FCDC6400FC04D330024E498 /* feed.png in Resources */,
 				6FCDC66C0FC04F180024E498 /* Feed.xib in Resources */,
+				6F59BC950FC6C51800412597 /* Repositories.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -935,7 +941,7 @@
 				6FCAF1660F895756005E1173 /* GravatarLoader.m in Sources */,
 				6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */,
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
-				6F5652E10F99C85C001B6703 /* MyRepositoriesController.m in Sources */,
+				6F5652E10F99C85C001B6703 /* RepositoriesController.m in Sources */,
 				6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */,
 				6F72FAE80F9B47730069F092 /* FeedEntryController.m in Sources */,
 				6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */,
@@ -979,6 +985,7 @@
 				8CE6867A0FB8C57500A3D625 /* GHNetworksParserDelegate.m in Sources */,
 				8CE6867D0FB8C58400A3D625 /* NetworksController.m in Sources */,
 				8CE686800FB8C59400A3D625 /* NetworkCell.m in Sources */,
+				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,6 +1024,7 @@
 				6F5254C10FC5492500005B0B /* CJSONSerializer.m in Sources */,
 				6F5254C20FC5492D00005B0B /* CDataScanner_Extensions.m in Sources */,
 				6F5254C30FC5492D00005B0B /* CDataScanner.m in Sources */,
+				6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

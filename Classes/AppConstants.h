@@ -55,4 +55,3 @@
 #define kResourceStatusKeyPath @"status"
 #define kUserLoginKeyPath @"login"
 #define kUserGravatarKeyPath @"gravatar"
-#define kRepositoriesStatusKeyPath @"repositoriesStatus"

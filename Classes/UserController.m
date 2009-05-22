@@ -35,9 +35,9 @@
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadUsers];
 	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kRepositoriesStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
+	[user.repositories addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
-	if (!user.isReposLoaded) [user loadRepositories];
+	if (!user.repositories.isLoaded) [user.repositories loadRepositories];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
@@ -46,7 +46,7 @@
 - (void)dealloc {
 	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[user removeObserver:self forKeyPath:kRepositoriesStatusKeyPath];
+	[user.repositories removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -110,7 +110,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
-	} else if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+	} else if (object == user && [keyPath isEqualToString:kResourceStatusKeyPath]) {
 		if (user.isLoaded) {
 			[self displayUser];
 			[self.tableView reloadData];
@@ -120,8 +120,14 @@
 			[alert show];
 			[alert release];
 		}
-	} else if ([keyPath isEqualToString:kRepositoriesStatusKeyPath]) {
-		[self.tableView reloadData];
+	} else if (object == user.repositories && [keyPath isEqualToString:kResourceStatusKeyPath]) {
+		if (user.repositories.isLoaded) {
+			[self.tableView reloadData];
+		} else if (user.repositories.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repositories" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
 	}
 }
 
@@ -137,8 +143,8 @@
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
     if (section == 1) return 3;
-	if (!user.isReposLoaded || user.repositories.count == 0) return 1;
-	if (section == 2) return user.repositories.count;
+	if (!user.repositories.isLoaded || user.repositories.repositories.count == 0) return 1;
+	if (section == 2) return user.repositories.repositories.count;
 	return 1;
 }
 
@@ -164,12 +170,12 @@
 	if (section == 1 && row == 0) return recentActivityCell;
 	if (section == 1 && row == 1) return followingCell;
 	if (section == 1 && row == 2) return followersCell;
-	if (!user.isReposLoaded) return loadingReposCell;
-	if (section == 2 && user.repositories.count == 0) return noPublicReposCell;
+	if (!user.repositories.isLoaded) return loadingReposCell;
+	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.repository = [user.repositories objectAtIndex:indexPath.row];
+		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
 		return cell;
 	}
 	return nil;
@@ -201,7 +207,7 @@
 		[self.navigationController pushViewController:usersController animated:YES];
 		[usersController release];            
 	} else if (section == 2) {
-		GHRepository *repo = [user.repositories objectAtIndex:indexPath.row];
+		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];

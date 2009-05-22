@@ -10,19 +10,17 @@
 
 @interface GHUser ()
 - (void)parseXMLWithToken:(NSString *)token;
-- (void)parseReposXML;
 @end
 
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar, repositoriesStatus, repositories, isAuthenticated;
+@synthesize name, login, email, company, blogURL, location, gravatar, repositories, isAuthenticated;
 @synthesize recentActivity, publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, following, followers;
 
 - (id)init {
 	[super init];
 	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.repositoriesStatus = GHResourceStatusNotLoaded;
 	isAuthenticated = NO;
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
@@ -56,6 +54,10 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
+	// Repositories
+	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
+	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
+	self.repositories = [[[GHRepositories alloc] initWithUser:self andURL:repositoriesURL] autorelease];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
@@ -133,48 +135,7 @@
 }
 
 #pragma mark -
-#pragma mark Repository loading
-
-- (BOOL)isReposLoading {
-	return repositoriesStatus == GHResourceStatusLoading;
-}
-
-- (BOOL)isReposLoaded {
-	return repositoriesStatus == GHResourceStatusLoaded;
-}
-
-- (void)loadRepositories {
-	self.repositoriesStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseReposXML) withObject:nil];
-}
-
-- (void)parseReposXML {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];   
-	NSString *url = [NSString stringWithFormat:kUserReposFormat, login];
-	NSURL *reposURL = [NSURL URLWithString:url];        
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:reposURL];    
-	[request start];       
-    GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)loadedRepositories:(NSArray *)theRepositories {
-	self.repositories = [NSMutableArray arrayWithArray:theRepositories];
-    [self.repositories sortUsingSelector:@selector(compareByName:)];
-	self.repositoriesStatus = GHResourceStatusLoaded;
-}
-
-#pragma mark -
 #pragma mark Following/Watching
-
 
 - (BOOL)isFollowing:(GHUser *)anUser {
     if (!following.isLoaded) [following loadUsers];

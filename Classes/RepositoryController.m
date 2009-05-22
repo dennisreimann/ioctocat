@@ -16,6 +16,7 @@
 #import "NetworkCell.h"
 #import "NetworksController.h"
 
+
 @interface RepositoryController ()
 - (void)displayRepository;
 @end
@@ -31,6 +32,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	// if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadRepositories];
 	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
 	self.tableView.tableHeaderView = tableHeaderView;
@@ -71,8 +73,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        NSString *newWatchState = [self.currentUser isWatching:repository] ? kUnWatch: kWatch;
-        [self.currentUser setWatchingState:newWatchState forRepository:repository];            
+        [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
     }
 	if (buttonIndex == 1) {
         NSString *urlString = [NSString stringWithFormat:kRepositoryGithubFormat, repository.owner, repository.name];
@@ -81,7 +82,6 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
     }
-    
 }
 
 #pragma mark -

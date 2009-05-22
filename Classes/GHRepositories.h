@@ -5,14 +5,14 @@
 @class GHUser;
 
 @interface GHRepositories : GHResource {
-	NSArray *repositories;
+	NSMutableArray *repositories;
   @private
     GHUser *user;
 	NSURL *repositoriesURL;
 }
 
 @property (nonatomic, retain) GHUser *user;
-@property (nonatomic, retain) NSArray *repositories;
+@property (nonatomic, retain) NSMutableArray *repositories;
 @property (nonatomic, retain) NSURL *repositoriesURL;
 
 - (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL;

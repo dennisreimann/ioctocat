@@ -19,6 +19,7 @@
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
 	GHRepositories *repositories;
+	GHRepositories *watchedRepositories;
 	GHFeed *recentActivity;
     GHUsers *following;
     GHUsers *followers;
@@ -35,6 +36,7 @@
 @property (nonatomic, retain) NSURL *blogURL;
 @property (nonatomic, retain) UIImage *gravatar;
 @property (nonatomic, retain) GHRepositories *repositories;
+@property (nonatomic, retain) GHRepositories *watchedRepositories;
 @property (nonatomic, retain) GHFeed *recentActivity;
 @property (nonatomic, retain) GHUsers *following;
 @property (nonatomic, retain) GHUsers *followers;
@@ -53,7 +55,9 @@
 - (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isWatching:(GHRepository *)aRepository;
-- (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser;
-- (void)setWatchingState:(NSString *)theState forRepository:(GHRepository *)theRepository;
+- (void)followUser:(GHUser *)theUser;
+- (void)unfollowUser:(GHUser *)theUser;
+- (void)watchRepository:(GHRepository *)theRepository;
+- (void)unwatchRepository:(GHRepository *)theRepository;
 
 @end

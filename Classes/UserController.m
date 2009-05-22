@@ -85,8 +85,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
-		NSString *newFollowState = [self.currentUser isFollowing:user] ? kUnFollow : kFollow;
-		[self.currentUser setFollowingState:newFollowState forUser:user];
+		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
     } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
 		NSString *userURLString = [NSString stringWithFormat:kUserGithubFormat, user.login];
         NSURL *userURL = [NSURL URLWithString:userURLString];

@@ -18,6 +18,7 @@
 - (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
     [super init];
     self.user = theUser;
+	self.repositories = [NSMutableArray array];
     self.repositoriesURL = theURL;
 	return self;    
 }

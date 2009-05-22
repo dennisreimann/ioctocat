@@ -10,12 +10,14 @@
 
 @interface GHUser ()
 - (void)parseXMLWithToken:(NSString *)token;
+- (void)setUserFollowing:(NSArray *)args;
+- (void)setRepositoryWatching:(NSArray *)args;
 @end
 
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar, repositories, isAuthenticated;
+@synthesize name, login, email, company, blogURL, location, gravatar, repositories, watchedRepositories, isAuthenticated;
 @synthesize recentActivity, publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, following, followers;
 
 - (id)init {
@@ -43,6 +45,7 @@
 	[location release];
 	[gravatar release];
 	[repositories release];
+	[watchedRepositories release];
 	[gravatarLoader release];
 	[recentActivity release];
     [following release];
@@ -58,6 +61,7 @@
 	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
 	self.repositories = [[[GHRepositories alloc] initWithUser:self andURL:repositoriesURL] autorelease];
+	self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:nil] autorelease];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
@@ -118,7 +122,7 @@
 		self.error = theResult;
 	} else if ([(NSArray *)theResult count] > 0) {
 		GHUser *user = [(NSArray *)theResult objectAtIndex:0];
-		self.login = user.login;
+		if (!login || [login isEqualToString:@""]) self.login = user.login;
 		self.name = user.name;
 		self.email = user.email;
 		self.company = user.company;
@@ -145,15 +149,23 @@
 	return NO;
 }
 
-// FIXME Currently just stubbed out, see the issue:
-// http://github.com/dbloete/ioctocat/issues#issue/6
-- (BOOL)isWatching:(GHRepository *)aRepository {
-	return NO;
+- (void)followUser:(GHUser *)theUser {
+	[following.users addObject:theUser];
+	NSArray *args = [NSArray arrayWithObjects:theUser, kFollow, nil];
+	[self performSelectorInBackground:@selector(setUserFollowing:) withObject:args];
 }
 
-- (void)setFollowingState:(NSString *)theState forUser:(GHUser *)theUser {
+- (void)unfollowUser:(GHUser *)theUser {
+	[following.users removeObject:theUser];
+	NSArray *args = [NSArray arrayWithObjects:theUser, kUnFollow, nil];
+	[self performSelectorInBackground:@selector(setUserFollowing:) withObject:args];
+}
+
+- (void)setUserFollowing:(NSArray *)args {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, theState, theUser.login];
+	GHUser *user = [args objectAtIndex:0];
+	NSString *state = [args objectAtIndex:1];
+	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, state, user.login];
 	NSURL *followingURL = [NSURL URLWithString:followingURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];    
 	[request start];
@@ -162,15 +174,37 @@
     [pool release];
 }
 
-- (void)setWatchingState:(NSString *)theState forRepository:(GHRepository *)theRepository {
+
+- (BOOL)isWatching:(GHRepository *)aRepository {
+	// FIXME Currently just stubbed out, see the issue:
+	// http://github.com/dbloete/ioctocat/issues#issue/6
+	// if (!watchedRepositories.isLoaded) [watchedRepositories loadRepositories];
+    for (GHRepository *repo in watchedRepositories.repositories) {
+        if ([repo.owner caseInsensitiveCompare:aRepository.owner] == 0 && [repo.name caseInsensitiveCompare:aRepository.name] == 0) return YES;
+    }
+	return NO;
+}
+
+- (void)watchRepository:(GHRepository *)theRepository {
+	[watchedRepositories.repositories addObject:theRepository];
+	NSArray *args = [NSArray arrayWithObjects:theRepository, kWatch, nil];
+	[self performSelectorInBackground:@selector(setRepositoryWatching:) withObject:args];
+}
+
+- (void)unwatchRepository:(GHRepository *)theRepository {
+	[watchedRepositories.repositories removeObject:theRepository];
+	NSArray *args = [NSArray arrayWithObjects:theRepository, kUnWatch, nil];
+	[self performSelectorInBackground:@selector(setRepositoryWatching:) withObject:args];
+}
+
+- (void)setRepositoryWatching:(NSArray *)args {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, theState, theRepository.owner,theRepository.name ];
+	GHRepository *repo = [args objectAtIndex:0];
+	NSString *state = [args objectAtIndex:1];
+	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, state, repo.owner, repo.name];
 	NSURL *watchingURL = [NSURL URLWithString:watchingURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];    
 	[request start];
-//  TODO: Implement one the watch list api is available
-//	selffollowing.status = GHResourceStatusNotLoaded;
-//    [self.following loadUsers];
     [pool release];
 }
 

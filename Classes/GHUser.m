@@ -53,6 +53,15 @@
     [super dealloc];
 }
 
+- (NSUInteger)hash {
+	NSString *hashValue = [login lowercaseString];
+	return [hashValue hash];
+}
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
+}
+
 - (void)setLogin:(NSString *)theLogin {
 	[theLogin retain];
 	[login release];
@@ -78,10 +87,6 @@
 		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
 		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
 	}
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
 }
 
 #pragma mark -
@@ -142,11 +147,8 @@
 #pragma mark Following/Watching
 
 - (BOOL)isFollowing:(GHUser *)anUser {
-    if (!following.isLoaded) [following loadUsers];
-    for (GHUser *user in following.users) {
-        if ([user.login caseInsensitiveCompare:anUser.login] == 0) return YES;
-    }
-	return NO;
+	if (!following.isLoaded) [following loadUsers];
+	return [following.users containsObject:anUser];
 }
 
 - (void)followUser:(GHUser *)theUser {
@@ -179,10 +181,7 @@
 	// FIXME Currently just stubbed out, see the issue:
 	// http://github.com/dbloete/ioctocat/issues#issue/6
 	// if (!watchedRepositories.isLoaded) [watchedRepositories loadRepositories];
-    for (GHRepository *repo in watchedRepositories.repositories) {
-        if ([repo.owner caseInsensitiveCompare:aRepository.owner] == 0 && [repo.name caseInsensitiveCompare:aRepository.name] == 0) return YES;
-    }
-	return NO;
+	return [watchedRepositories.repositories containsObject:aRepository];
 }
 
 - (void)watchRepository:(GHRepository *)theRepository {

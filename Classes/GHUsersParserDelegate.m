@@ -40,7 +40,7 @@
 	} else if ([elementName isEqualToString:@"blog"]) {
 		currentUser.blogURL = ([currentElementValue isEqualToString:@""]) ? nil : [NSURL URLWithString:currentElementValue];
 	} else if ([elementName isEqualToString:@"plan"]) {
-		// FIXME This is not the best way to verify that,
+		// This is not the best way to verify authentication
 		// but the API does not offer a better solution yet
 		currentUser.isAuthenticated = YES;
 	}

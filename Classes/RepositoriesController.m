@@ -25,9 +25,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// FIXME Do we have another way to set the user when this
-	// controller is initialized from the tabbarcontroller?
-    if (!user) self.user = self.currentUser;
+    if (!user) self.user = self.currentUser; // Set to currentUser in case this controller is initialized from the TabBar
 	[user.repositories addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	(user.repositories.isLoaded) ? [self displayRepositories] : [user.repositories loadRepositories];
 }

@@ -10,8 +10,10 @@
 	IBOutlet UISegmentedControl *issuesControl;
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
+	IBOutlet UIBarButtonItem *reloadButton;
 	IBOutlet IssueCell *issueCell;
     NSArray *issueList;
+	NSUInteger loadCounter;
 }
 
 @property (nonatomic, readonly) GHIssues *currentIssues;
@@ -19,5 +21,6 @@
 
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)switchChanged:(id)sender;
+- (IBAction)reloadIssues:(id)sender;
 
 @end

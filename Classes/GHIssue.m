@@ -1,18 +1,16 @@
 #import "GHIssue.h"
 
 
+@interface GHIssue ()
+- (void)setIssueState:(NSString *)theState;
+@end
+
+
 @implementation GHIssue
 
-@synthesize issueId, user, title, body, state, type, votes, created, updated, num, repository;    
-
-- (id)initWithIssueID:(NSString *)theIssueID {
-	[super init];
-    self.issueId = theIssueID;
-	return self;
-}
+@synthesize user, title, body, state, type, votes, created, updated, num, repository;
 
 - (void)dealloc {
-    [issueId release];
     [user release];
     [title release];
     [type release];    
@@ -21,6 +19,31 @@
     [created release];
     [updated release];
 	[super dealloc];
+}
+
+- (BOOL)isOpen {
+	return [state isEqualToString:kIssueStateOpen];
+}
+
+- (BOOL)isClosed {
+	return [state isEqualToString:kIssueStateClosed];
+}
+
+- (void)closeIssue {
+	[self performSelectorInBackground:@selector(setIssueState:) withObject:kIssueToggleClose];
+}
+
+- (void)reopenIssue {
+	[self performSelectorInBackground:@selector(setIssueState:) withObject:kIssueToggleReopen];
+}
+
+- (void)setIssueState:(NSString *)theState {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSString *toggleURLString = [NSString stringWithFormat:kIssueToggleFormat, theState, repository.owner, repository.name, num];
+	NSURL *toggleURL = [NSURL URLWithString:toggleURLString];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:toggleURL];    
+	[request start];
+    [pool release];
 }
 
 @end

@@ -5,7 +5,6 @@
 
 @interface GHIssue : GHResource {
 	GHRepository *repository;
-	NSString *issueId;
 	NSString *user;
 	NSString *title;
 	NSString *body;
@@ -18,7 +17,6 @@
 }
 
 @property (nonatomic, retain) GHRepository *repository;
-@property (nonatomic, retain) NSString *issueId;
 @property (nonatomic, retain) NSString *user;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) NSString *body;
@@ -28,5 +26,10 @@
 @property (nonatomic, retain) NSDate *updated;
 @property (nonatomic, readwrite) NSInteger num;
 @property (nonatomic, readwrite) NSInteger votes;
+@property (nonatomic, readonly) BOOL isOpen;
+@property (nonatomic, readonly) BOOL isClosed;
+
+- (void)closeIssue;
+- (void)reopenIssue;
 
 @end

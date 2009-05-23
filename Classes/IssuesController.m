@@ -3,6 +3,12 @@
 #import "GHIssue.h"
 
 
+@interface IssuesController ()
+- (void)issueLoadingStarted;
+- (void)issueLoadingFinished;
+@end
+
+
 @implementation IssuesController
 
 @synthesize repository;
@@ -17,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.titleView = issuesControl;
+	self.navigationItem.rightBarButtonItem = reloadButton;
     issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	issuesControl.selectedSegmentIndex = 0;
@@ -28,11 +35,20 @@
 	[issuesControl release];
 	[loadingIssuesCell release];
 	[noIssuesCell release];
+	[reloadButton release];
 	[issueCell release];
     [issueList release];
     [repository release];
     [super dealloc];
 }
+
+- (GHIssues *)currentIssues {
+	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+		nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
+}
+
+#pragma mark -
+#pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
     [self.tableView reloadData];
@@ -41,17 +57,41 @@
     [self.tableView reloadData];    
 }
 
+- (IBAction)reloadIssues:(id)sender {
+	if (self.currentIssues.isLoading) return;
+	[self.currentIssues loadIssues];
+	[self.tableView reloadData];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-    if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
-		[self.tableView reloadData];
+	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
 		GHIssues *theIssues = (GHIssues *)object;
-		if (!theIssues.isLoading && theIssues.error) {
+		if (theIssues.isLoading) {
+			[self issueLoadingStarted];
+		} else {
+			[self issueLoadingFinished];
+			if (!theIssues.error) return;
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issues" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
-	}    
+	}
 }
+
+- (void)issueLoadingStarted {
+	loadCounter += 1;
+	reloadButton.enabled = NO;
+}
+
+- (void)issueLoadingFinished {
+	[self.tableView reloadData];
+	loadCounter -= 1;
+	if (loadCounter > 0) return;
+	reloadButton.enabled = YES;
+}
+
+#pragma mark -
+#pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -78,11 +118,6 @@
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue];
 	[self.navigationController pushViewController:issueController animated:YES];
 	[issueController release];
-}
-
-- (GHIssues *)currentIssues {
-	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
-		nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
 }
 
 @end

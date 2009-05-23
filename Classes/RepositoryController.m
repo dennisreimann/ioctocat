@@ -66,7 +66,7 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isWatching:repository] ? @"Stop Watching" : @"Watch"), @"Open in GitHub",  nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isWatching:repository] ? @"Stop Watching" : @"Watch"), @"Show on GitHub", nil];
 	[actionSheet showInView:self.view.window];
 	[actionSheet release];
 }
@@ -74,8 +74,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
         [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
-    }
-	if (buttonIndex == 1) {
+    } else if (buttonIndex == 1) {
         NSString *urlString = [NSString stringWithFormat:kRepositoryGithubFormat, repository.owner, repository.name];
         NSURL *theURL = [NSURL URLWithString:urlString];
 		WebController *webController = [[WebController alloc] initWithURL:theURL];

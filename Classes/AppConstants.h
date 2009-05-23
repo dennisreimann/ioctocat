@@ -40,10 +40,13 @@
 #define kNetworksFormat @"http://github.com/api/v2/xml/repos/show/%@/%@/network"
 #define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
 #define kWatchRepoFormat @"https://github.com/api/v2/json/repos/%@/%@/%@"
+#define kIssueToggleFormat @"https://github.com/api/v2/xml/issues/%@/%@/%@/%d"
 
 // Issues
 #define kIssueStateOpen @"open"
 #define kIssueStateClosed @"closed"
+#define kIssueToggleClose @"close"
+#define kIssueToggleReopen @"reopen"
 
 // Following/Watching
 #define kFollow @"follow"

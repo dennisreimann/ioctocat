@@ -126,5 +126,9 @@
 	[repoController release];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return (indexPath.section == 2 && self.watchedRepositories.count == 0) ? 80.0f : 44.0f;
+}
+
 @end
 

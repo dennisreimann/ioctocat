@@ -173,6 +173,7 @@
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
+		[cell hideOwner];
 		return cell;
 	}
 	return nil;

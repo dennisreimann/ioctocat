@@ -2,11 +2,12 @@
 #import "GHIssue.h"
 
 
-@class LabeledCell, TextCell;
+@class LabeledCell, TextCell, IssuesController;
 
 @interface IssueController : UITableViewController <UIActionSheetDelegate> {
   @private
 	GHIssue *issue;
+	IssuesController *listController;
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UILabel *createdLabel;
 	IBOutlet UILabel *updatedLabel;
@@ -19,7 +20,7 @@
 	IBOutlet TextCell *descriptionCell;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue;
+- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)showActions:(id)sender;
 
 @end

@@ -3,33 +3,36 @@
 #import "NSDate+Nibware.h"
 #import "TextCell.h"
 #import "LabeledCell.h"
+#import "IssuesController.h"
+
+
+@interface IssueController ()
+- (void)displayIssue;
+@end
 
 
 @implementation IssueController
 
-- (id)initWithIssue:(GHIssue *)theIssue {    
+- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
     [super initWithNibName:@"Issue" bundle:nil];
 	issue = [theIssue retain];
+	listController = [theController retain];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[issue addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.tableView.tableHeaderView = tableHeaderView;
-	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
-	iconView.image = [UIImage imageNamed:icon];
-	titleLabel.text = issue.title;
-    voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
-    issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-	[createdCell setContentText:[issue.created prettyDate]];
-	[updatedCell setContentText:[issue.updated prettyDate]];
-	[descriptionCell setContentText:issue.body];
+	[self displayIssue];
 }
 
 - (void)dealloc {
+	[issue removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[issue release];
+	[listController release];
 	[tableHeaderView release];
 	[titleLabel release];
 	[createdLabel release];
@@ -41,6 +44,20 @@
     [issueNumber release];
 	[iconView release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (void)displayIssue {
+    NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
+	iconView.image = [UIImage imageNamed:icon];
+	titleLabel.text = issue.title;
+    voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
+    issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
+	[createdCell setContentText:[issue.created prettyDate]];
+	[updatedCell setContentText:[issue.updated prettyDate]];
+	[descriptionCell setContentText:issue.body];
 }
 
 - (IBAction)showActions:(id)sender {
@@ -60,6 +77,23 @@
 		[webController release];                        
     }
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+		if (issue.isLoaded) {
+			[self displayIssue];
+			[self.tableView reloadData];
+			[listController reloadIssues];
+		} else if (issue.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}
+}
+
+#pragma mark -
+#pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;

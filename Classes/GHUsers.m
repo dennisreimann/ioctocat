@@ -62,6 +62,7 @@
 		self.error = theResult;
 		self.status = GHResourceStatusNotLoaded;
 	} else {
+		[theResult sortUsingSelector:@selector(compareByName:)];
 		self.users = theResult;
 		self.status = GHResourceStatusLoaded;
 	}

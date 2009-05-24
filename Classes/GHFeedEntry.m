@@ -47,16 +47,12 @@
 		NSString *username = [comps1 objectAtIndex:1];
 		iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 		self.eventItem = [appDelegate userWithLogin:username];
-	} else if ([eventType isEqualToString:@"commit"]) {
 	} else if ([eventType isEqualToString:@"watch"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" started watching "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
-	} else if ([eventType isEqualToString:@"delete"]) {
-	} else if ([eventType isEqualToString:@"merge"]) {
-	} else if ([eventType isEqualToString:@"member"]) {
 	} else if ([eventType isEqualToString:@"push"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" at "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
@@ -67,8 +63,7 @@
 		NSArray *comps1 = [title componentsSeparatedByString:@" "];
 		NSString *owner = [comps1 objectAtIndex:0];
 		NSString *name = [comps1 objectAtIndex:3];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];        
-	} else if ([eventType isEqualToString:@"gist"]) {
+		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	} else if ([eventType isEqualToString:@"wiki"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" in the "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" wiki"];

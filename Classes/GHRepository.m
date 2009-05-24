@@ -76,8 +76,8 @@
 	return [appDelegate userWithLogin:owner];
 }
 
--(int)compareByName:(GHRepository*)repo {
-    return [[self name] localizedCaseInsensitiveCompare:[repo name]];
+- (int)compareByName:(GHRepository *)theOtherRepository {
+    return [[self name] localizedCaseInsensitiveCompare:[theOtherRepository name]];
 }
 
 #pragma mark -

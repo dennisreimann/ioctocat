@@ -114,6 +114,7 @@
 	if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	cell.repository = [repos objectAtIndex:indexPath.row];
+	if (indexPath.section != 2) [cell hideOwner];
 	return cell;
 }
 

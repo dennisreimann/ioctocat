@@ -77,6 +77,10 @@
     return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
 }
 
+- (int)compareByName:(GHUser *)theOtherUser {
+    return [[self login] localizedCaseInsensitiveCompare:[theOtherUser login]];
+}
+
 - (void)setLogin:(NSString *)theLogin {
 	[theLogin retain];
 	[login release];

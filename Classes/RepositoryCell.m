@@ -23,7 +23,11 @@
 	[repository release];
 	repository = theRepository;
 	self.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
-    self.text = repository.name;
+    self.text = [NSString stringWithFormat:@"%@/%@", repository.owner, repository.name];
+}
+
+- (void)hideOwner {
+	self.text = repository.name;
 }
 
 @end

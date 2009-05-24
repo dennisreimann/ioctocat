@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.titleView = issuesControl;
-	self.navigationItem.rightBarButtonItem = reloadButton;
+	//self.navigationItem.rightBarButtonItem = addButton;
     issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	issuesControl.selectedSegmentIndex = 0;
@@ -32,10 +32,10 @@
 
 - (void)dealloc {
 	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[addButton release];
 	[issuesControl release];
 	[loadingIssuesCell release];
 	[noIssuesCell release];
-	[reloadButton release];
 	[issueCell release];
     [issueList release];
     [repository release];
@@ -57,9 +57,8 @@
     [self.tableView reloadData];    
 }
 
-- (IBAction)reloadIssues:(id)sender {
-	if (self.currentIssues.isLoading) return;
-	[self.currentIssues loadIssues];
+- (void)reloadIssues {
+	for (GHIssues *issues in issueList) [issues loadIssues];
 	[self.tableView reloadData];
 }
 
@@ -80,14 +79,12 @@
 
 - (void)issueLoadingStarted {
 	loadCounter += 1;
-	reloadButton.enabled = NO;
 }
 
 - (void)issueLoadingFinished {
 	[self.tableView reloadData];
 	loadCounter -= 1;
 	if (loadCounter > 0) return;
-	reloadButton.enabled = YES;
 }
 
 #pragma mark -
@@ -115,7 +112,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHIssue *issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
-	IssueController *issueController = [[IssueController alloc] initWithIssue:issue];
+	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 	[issueController release];
 }

@@ -8,4 +8,6 @@
 
 @property (nonatomic, retain) GHRepository *repository;
 
+- (void)hideOwner;
+
 @end

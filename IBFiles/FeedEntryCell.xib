@@ -105,7 +105,7 @@
 							<object class="IBUILabel" id="579488512">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{50, 25}, {230, 43}}</string>
+								<string key="NSFrame">{{50, 24}, {230, 43}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<reference key="IBUIBackgroundColor" ref="602477438"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -126,7 +126,7 @@
 								<int key="IBUINumberOfLines">2</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{281, 70}</string>
+						<string key="NSFrameSize">{287, 70}</string>
 						<reference key="NSSuperview" ref="597012738"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -406,5 +406,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../iOctocat.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

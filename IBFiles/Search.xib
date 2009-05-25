@@ -8,9 +8,9 @@
 		<string key="IBDocument.HIToolboxVersion">353.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="2"/>
 			<integer value="11"/>
 			<integer value="12"/>
-			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -41,6 +41,7 @@
 				<int key="IBUIContentMode">3</int>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
 				<string key="IBPrompt"/>
+				<object class="IBUITextInputTraits" key="IBTextInputTraits"/>
 			</object>
 			<object class="IBUITableView" id="277314566">
 				<reference key="NSNextResponder"/>
@@ -61,7 +62,7 @@
 				<int key="IBUISeparatorStyle">1</int>
 				<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 				<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
-				<float key="IBUIRowHeight">4.000000e+01</float>
+				<float key="IBUIRowHeight">4.400000e+01</float>
 				<float key="IBUISectionHeaderHeight">2.200000e+01</float>
 				<float key="IBUISectionFooterHeight">2.200000e+01</float>
 			</object>
@@ -78,7 +79,7 @@
 							<object class="IBUILabel" id="743040624">
 								<reference key="NSNextResponder" ref="107689190"/>
 								<int key="NSvFlags">293</int>
-								<string key="NSFrame">{{75, 10}, {170, 21}}</string>
+								<string key="NSFrame">{{75, 12}, {170, 21}}</string>
 								<reference key="NSSuperview" ref="107689190"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -99,7 +100,7 @@
 								<int key="IBUITextAlignment">1</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 40}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="441205537"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="106206013">
 							<int key="NSColorSpace">3</int>
@@ -111,7 +112,7 @@
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 40}</string>
+				<string key="NSFrameSize">{320, 44}</string>
 				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="1027693675"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -132,7 +133,7 @@
 							<object class="IBUILabel" id="589963127">
 								<reference key="NSNextResponder" ref="584670883"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{40, 10}, {243, 21}}</string>
+								<string key="NSFrame">{{40, 12}, {243, 21}}</string>
 								<reference key="NSSuperview" ref="584670883"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -150,7 +151,7 @@
 							<object class="IBUIActivityIndicatorView" id="349854958">
 								<reference key="NSNextResponder" ref="584670883"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 10}, {20, 20}}</string>
+								<string key="NSFrame">{{12, 12}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="584670883"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -160,7 +161,7 @@
 								<int key="IBUIStyle">2</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 40}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="671922684"/>
 						<reference key="IBUIBackgroundColor" ref="106206013"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -169,7 +170,7 @@
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 40}</string>
+				<string key="NSFrameSize">{320, 44}</string>
 				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="1027693675"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -328,9 +329,9 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>SearchController</string>
 					<string>UIResponder</string>
-					<string>{{376, 699}, {320, 40}}</string>
+					<string>{{439, 693}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{380, 438}, {320, 40}}</string>
+					<string>{{380, 434}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -409,5 +410,6 @@
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.LastKnownRelativeProjectPath">../iOctocat.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<string key="IBCocoaTouchPluginVersion">3.0</string>
 	</data>
 </archive>

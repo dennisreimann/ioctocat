@@ -136,6 +136,7 @@
 		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
 		6FED83010FACB91000BE5C81 /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
+		6FEDDD230FCA966F003C3DC2 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 6FEDDD220FCA966F003C3DC2 /* iTunesArtwork */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
 		8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
@@ -315,6 +316,7 @@
 		6FED82990FACA2F000BE5C81 /* Issues.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issues.xib; path = IBFiles/Issues.xib; sourceTree = "<group>"; };
 		6FED82FF0FACB91000BE5C81 /* FeedController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedController.h; sourceTree = "<group>"; };
 		6FED83000FACB91000BE5C81 /* FeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedController.m; sourceTree = "<group>"; };
+		6FEDDD220FCA966F003C3DC2 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; name = iTunesArtwork; path = Images/iTunesArtwork; sourceTree = "<group>"; };
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsersParserDelegate.h; sourceTree = "<group>"; };
 		6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsersParserDelegate.m; sourceTree = "<group>"; };
@@ -638,6 +640,7 @@
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6FD61A050FA7AB0A008C751B /* Buttons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
+				6FEDDD220FCA966F003C3DC2 /* iTunesArtwork */,
 				6F1BCBE30FAC587600D66E02 /* Icon.png */,
 				6F1BCBE50FAC588800D66E02 /* Default.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
@@ -915,6 +918,7 @@
 				6FCDC6400FC04D330024E498 /* feed.png in Resources */,
 				6FCDC66C0FC04F180024E498 /* Feed.xib in Resources */,
 				6F59BC950FC6C51800412597 /* Repositories.xib in Resources */,
+				6FEDDD230FCA966F003C3DC2 /* iTunesArtwork in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

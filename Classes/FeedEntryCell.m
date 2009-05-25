@@ -30,7 +30,8 @@
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(entry.user.gravatar) ? [gravatarView setImage:entry.user.gravatar] : [entry.user loadUser];
+	gravatarView.image = entry.user.gravatar;
+	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

@@ -78,7 +78,7 @@
 }
 
 - (int)compareByName:(GHUser *)theOtherUser {
-    return [[self login] localizedCaseInsensitiveCompare:[theOtherUser login]];
+    return [login localizedCaseInsensitiveCompare:[theOtherUser login]];
 }
 
 - (void)setLogin:(NSString *)theLogin {
@@ -109,18 +109,6 @@
 		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
 		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
 	}
-}
-
-- (GHRepositories *)watchedRepositories {
-	if (!watchedRepositories) {
-		GHUser *restoredUser = [archiver restoreObject];
-		if (restoredUser) {
-			self.watchedRepositories = restoredUser.watchedRepositories;
-		} else {
-			self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:nil] autorelease];
-		}
-	}
-	return watchedRepositories;
 }
 
 #pragma mark -
@@ -260,6 +248,15 @@
 
 - (void)archive {
 	[archiver archiveObject:self];
+}
+
+- (void)restore {
+	GHUser *restoredUser = [archiver restoreObject];
+	if (restoredUser && restoredUser.watchedRepositories) {
+		self.watchedRepositories = restoredUser.watchedRepositories;
+	} else {
+		self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:nil] autorelease];
+	}
 }
 
 @end

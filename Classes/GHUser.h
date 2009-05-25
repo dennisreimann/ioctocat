@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "Archiving.h"
 #import "GHResource.h"
 #import "GHUsers.h"
 #import "GHRepositories.h"
@@ -6,7 +7,7 @@
 
 @class Archiver, GravatarLoader, GHRepository, GHFeed;
 
-@interface GHUser : GHResource <NSCoding> {
+@interface GHUser : GHResource <NSCoding, Archiving> {
 	NSString *name;
 	NSString *login;
 	NSString *email;
@@ -60,6 +61,5 @@
 - (void)unfollowUser:(GHUser *)theUser;
 - (void)watchRepository:(GHRepository *)theRepository;
 - (void)unwatchRepository:(GHRepository *)theRepository;
-- (void)archive;
 
 @end

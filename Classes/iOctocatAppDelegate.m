@@ -141,6 +141,7 @@
 
 - (void)proceedAfterAuthentication {
 	[self dismissLogin];
+	[self.currentUser restore];
 	[feedController setupFeeds];
 }
 

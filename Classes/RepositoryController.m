@@ -35,10 +35,9 @@
 	// if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadRepositories];
 	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
-	self.tableView.tableHeaderView = tableHeaderView;
-	nameLabel.text = repository.name;
-	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.tableView.tableHeaderView = tableHeaderView;
+	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
 }
 
 - (void)dealloc {

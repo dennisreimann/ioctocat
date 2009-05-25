@@ -23,18 +23,18 @@
 	[entry release];
 	entry = [anEntry retain];
 	titleLabel.text = entry.title;
-	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	// Date
     dateLabel.text = [entry.date prettyDate];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
-	gravatarView.image = entry.user.gravatar;
+	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	(entry.user.gravatar) ? [gravatarView setImage:entry.user.gravatar] : [entry.user loadUser];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
+	if ([keyPath isEqualToString:kUserGravatarKeyPath] && entry.user.gravatar) {
 		gravatarView.image = entry.user.gravatar;
 	}
 }

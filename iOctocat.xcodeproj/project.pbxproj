@@ -636,11 +636,11 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */,
 				6F74DD760FA76C5300FD90AB /* Tabs */,
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6FD61A050FA7AB0A008C751B /* Buttons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
+				8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */,
 				6F1BCBE30FAC587600D66E02 /* Icon.png */,
 				6F1BCBE50FAC588800D66E02 /* Default.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
@@ -1205,14 +1205,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F2679292-3A4F-4AD2-B48A-756A0F398547";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AA335E7-26F6-40AF-9191-E62111D82138";
 				SDKROOT = iphoneos2.0;
 			};
 			name = "App Store Distribution";
@@ -1234,13 +1234,13 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F2679292-3A4F-4AD2-B48A-756A0F398547";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC9D1CDE-A3C2-46AB-A001-2CCB6F5FDDBD";
 				SDKROOT = iphoneos2.0;
 			};
 			name = "Ad Hoc Distribution";

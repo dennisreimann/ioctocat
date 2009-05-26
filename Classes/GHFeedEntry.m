@@ -60,9 +60,21 @@
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	} else if ([eventType isEqualToString:@"create"]) {
-		NSArray *comps1 = [title componentsSeparatedByString:@" "];
-		NSString *owner = [comps1 objectAtIndex:0];
-		NSString *name = [comps1 objectAtIndex:3];
+		NSString *owner;
+		NSString *name;
+		// Tag
+		if ([title rangeOfString:@" tag "].location != NSNotFound) {
+			NSArray *comps1 = [title componentsSeparatedByString:@" at "];
+			NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
+			owner = [comps2 objectAtIndex:0];
+			name = [comps2 objectAtIndex:1];
+		}
+		// Repository
+		else {
+			NSArray *comps1 = [title componentsSeparatedByString:@" "];
+			owner = [comps1 objectAtIndex:0];
+			name = [comps1 objectAtIndex:3];
+		}
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
 	} else if ([eventType isEqualToString:@"wiki"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" in the "];

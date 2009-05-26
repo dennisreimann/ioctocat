@@ -640,9 +640,9 @@
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6FD61A050FA7AB0A008C751B /* Buttons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
-				8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */,
 				6F1BCBE30FAC587600D66E02 /* Icon.png */,
 				6F1BCBE50FAC588800D66E02 /* Default.png */,
+				8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 			);
 			name = Images;

@@ -105,16 +105,25 @@ ul#screenshots {
 	display: block;
 }
 
+ul#reviews,
 ul#twitter_update_list {
 	margin: 0;
 	list-style: none;
 	font-size: .9em;
 }
 
+#reviews li,
 #twitter_update_list li {
+	border-bottom: 1px dotted #CCC;
 	padding: .5em 0;
 }
 
+#reviews li:last-child,
+#twitter_update_list li:last-child {
+	border-bottom: 0;
+}
+
+#reviews a,
 #twitter_update_list a {
 	color: #666;
 }

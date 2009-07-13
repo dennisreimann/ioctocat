@@ -1270,7 +1270,7 @@
 				OTHER_CFLAGS = "-DDEBUG=1";
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F2679292-3A4F-4AD2-B48A-756A0F398547";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Debug;
@@ -1285,7 +1285,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "F2679292-3A4F-4AD2-B48A-756A0F398547";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos2.0;
 			};
 			name = Release;

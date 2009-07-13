@@ -15,6 +15,7 @@
 	[dateLabel release];
 	[titleLabel release];
 	[gravatarView release];
+	[bgImageView release];
 	[iconView release];
     [super dealloc];
 }
@@ -32,6 +33,20 @@
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = entry.user.gravatar;
 	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
+}
+
+- (void)markAsNew {
+	UIColor *highlightColor = [UIColor colorWithHue:0.45 saturation:0.05 brightness:0.9 alpha:1.0];
+	dateLabel.backgroundColor = highlightColor;
+	titleLabel.backgroundColor = highlightColor;
+	bgImageView.backgroundColor = highlightColor;
+}
+
+- (void)markAsRead {
+	UIColor *normalColor = [UIColor whiteColor];
+	dateLabel.backgroundColor = normalColor;
+	titleLabel.backgroundColor = normalColor;
+	bgImageView.backgroundColor = normalColor;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {

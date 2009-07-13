@@ -5,6 +5,7 @@
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
 #import "GHUser.h"
+#import "iOctocatAppDelegate.h"
 
 
 @interface MyFeedsController ()
@@ -41,7 +42,11 @@
 	GHFeed *newsFeed = [[[GHFeed alloc] initWithURL:newsFeedURL] autorelease];
 	GHFeed *activityFeed = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
-	for (GHFeed *feed in feeds) [feed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
+	for (GHFeed *feed in feeds) {
+		[feed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		feed.lastReadingDate = appDelegate.lastLaunchDate;
+	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
 }
@@ -63,6 +68,7 @@
 
 - (IBAction)reloadFeed:(id)sender {
 	if (self.currentFeed.isLoading) return;
+	self.currentFeed.lastReadingDate = [NSDate date];
 	[self.currentFeed loadEntries];
 	[self.tableView reloadData];
 }
@@ -115,7 +121,9 @@
 		[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
 		cell = feedEntryCell;
 	}
-	cell.entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
+	GHFeedEntry *theEntry = [self.currentFeed.entries objectAtIndex:indexPath.row];
+	cell.entry = theEntry;
+	([theEntry.date compare:self.currentFeed.lastReadingDate] == NSOrderedDescending) ? [cell markAsNew] : [cell markAsRead];
     return cell;
 }
 

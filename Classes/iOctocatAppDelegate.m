@@ -16,7 +16,7 @@
 
 @implementation iOctocatAppDelegate
 
-@synthesize users;
+@synthesize users, lastLaunchDate;
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	self.users = [NSMutableDictionary dictionary];
@@ -26,6 +26,14 @@
 }
 
 - (void)postLaunch {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSDate *lastLaunch = (NSDate *)[defaults valueForKey:kLaunchDateDefaultsKey];
+	NSDate *nowDate = [NSDate date];
+	if (!lastLaunch) lastLaunch = nowDate;
+	self.lastLaunchDate = lastLaunch;
+	// save this launch date
+	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
+	[defaults synchronize];
 	if (launchDefault) [self authenticate];
 }
 

@@ -11,12 +11,19 @@
 
 @implementation GHFeed
 
-@synthesize url, entries;
+@synthesize url, entries, lastReadingDate;
 
 - (id)initWithURL:(NSURL *)theURL {
 	[super init];
 	self.url = theURL;
 	return self;
+}
+
+- (void)dealloc {
+	[url release];
+	[entries release];
+	[lastReadingDate release];
+    [super dealloc];
 }
 
 - (NSString *)description {
@@ -57,15 +64,6 @@
 		self.entries = theResult;
 		self.status = GHResourceStatusLoaded;
 	}
-}
-
-#pragma mark -
-#pragma mark Cleanup
-
-- (void)dealloc {
-	[url release];
-	[entries release];
-    [super dealloc];
 }
 
 @end

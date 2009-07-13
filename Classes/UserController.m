@@ -200,7 +200,7 @@
 		[self.navigationController pushViewController:activityController animated:YES];
 		[activityController release];          
 	} else if (section == 1) {
-        UsersController *usersController = [[UsersController alloc] initWithUsers:(row == 0 ? user.following : user.followers)];
+        UsersController *usersController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
 		usersController.title = (row == 1) ? @"Following" : @"Followers";
 		[self.navigationController pushViewController:usersController animated:YES];
 		[usersController release];            

@@ -1,5 +1,6 @@
 #import "IssuesController.h"
 #import "IssueController.h"
+#import "IssueFormController.h"
 #import "GHIssue.h"
 
 
@@ -23,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.titleView = issuesControl;
-	//self.navigationItem.rightBarButtonItem = addButton;
+	self.navigationItem.rightBarButtonItem = addButton;
     issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	issuesControl.selectedSegmentIndex = 0;
@@ -55,6 +56,14 @@
     if (self.currentIssues.isLoaded) return;
     [self.currentIssues loadIssues];
     [self.tableView reloadData];    
+}
+
+- (IBAction)createNewIssue:(id)sender {
+	GHIssue *newIssue = [[GHIssue alloc] init];
+	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:newIssue];
+	[self.navigationController pushViewController:formController animated:YES];
+	[formController release];
+	[newIssue release];
 }
 
 - (void)reloadIssues {

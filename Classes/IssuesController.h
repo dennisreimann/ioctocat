@@ -20,7 +20,8 @@
 @property (nonatomic, retain) GHRepository *repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
-- (IBAction)switchChanged:(id)sender;
 - (void)reloadIssues;
+- (IBAction)switchChanged:(id)sender;
+- (IBAction)createNewIssue:(id)sender;
 
 @end

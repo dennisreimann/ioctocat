@@ -26,13 +26,13 @@
     self.navigationItem.titleView = issuesControl;
 	self.navigationItem.rightBarButtonItem = addButton;
     issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
-	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	issuesControl.selectedSegmentIndex = 0;
     if (!self.currentIssues.isLoaded) [self.currentIssues loadIssues];
 }
 
 - (void)dealloc {
-	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[addButton release];
 	[issuesControl release];
 	[loadingIssuesCell release];
@@ -60,7 +60,8 @@
 
 - (IBAction)createNewIssue:(id)sender {
 	GHIssue *newIssue = [[GHIssue alloc] init];
-	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:newIssue];
+	newIssue.repository = repository;
+	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:newIssue andIssuesController:self];
 	[self.navigationController pushViewController:formController animated:YES];
 	[formController release];
 	[newIssue release];
@@ -72,7 +73,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHIssues *theIssues = (GHIssues *)object;
 		if (theIssues.isLoading) {
 			[self issueLoadingStarted];

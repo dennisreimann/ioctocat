@@ -22,7 +22,7 @@
 }
 
 - (void)dealloc {
-	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[feeds release];
 	[noEntriesCell release];
 	[feedEntryCell release];
@@ -44,7 +44,7 @@
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 	for (GHFeed *feed in feeds) {
-		[feed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		feed.lastReadingDate = appDelegate.lastLaunchDate;
 	}
 	// Start loading the first feed
@@ -74,7 +74,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHFeed *feed = (GHFeed *)object;
 		if (feed.isLoading) {
 			[self feedParsingStarted];

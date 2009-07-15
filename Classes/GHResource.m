@@ -3,11 +3,12 @@
 
 @implementation GHResource
 
-@synthesize status, error;
+@synthesize loadingStatus, savingStatus, error;
 
 - (id)init {
 	[super init];
-	self.status = GHResourceStatusNotLoaded;
+	self.loadingStatus = GHResourceStatusNotLoaded;
+	self.savingStatus = GHResourceStatusNotSaved;
     return self;
 }
 
@@ -17,11 +18,19 @@
 }
 
 - (BOOL)isLoading {
-	return status == GHResourceStatusLoading;
+	return loadingStatus == GHResourceStatusLoading;
 }
 
 - (BOOL)isLoaded {
-	return status == GHResourceStatusLoaded;
+	return loadingStatus == GHResourceStatusLoaded;
+}
+
+- (BOOL)isSaving {
+	return savingStatus == GHResourceStatusSaving;
+}
+
+- (BOOL)isSaved {
+	return savingStatus == GHResourceStatusSaved;
 }
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
@@ -30,7 +39,7 @@
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:theURL] autorelease];
 	[request setPostValue:login forKey:kLoginParamName];
-	[request setPostValue:token forKey:kTokenParamName];	
+	[request setPostValue:token forKey:kTokenParamName];
     return request;
 }
 

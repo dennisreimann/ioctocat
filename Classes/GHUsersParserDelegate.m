@@ -16,7 +16,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"user"]) {
-		currentUser.status = GHResourceStatusLoaded;
+		currentUser.loadingStatus = GHResourceStatusLoaded;
 		[resources addObject:currentUser];
 		[currentUser release];
 		currentUser = nil;

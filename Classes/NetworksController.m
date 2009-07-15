@@ -17,7 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [repository.networks addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    [repository.networks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	if (![self.currentNetworks isLoaded]) [self.currentNetworks loadNetworks];
 }
 
@@ -29,7 +29,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-    if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		GHNetworks *theNetworks = (GHNetworks *)object;
 		if (!theNetworks.isLoading && theNetworks.error) {

@@ -31,7 +31,7 @@
 - (void)loadResultsForSearchTerm:(NSString *)theSearchTerm {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.status = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusLoading;
 	[theSearchTerm retain];
 	[searchTerm release];
 	searchTerm = theSearchTerm;
@@ -56,12 +56,12 @@
 - (void)loadedResults:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.status = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		// Mark the results as not loaded, because the search doesn't contain all attributes
-		for (GHResource *result in theResult) result.status = GHResourceStatusNotLoaded;
+		for (GHResource *result in theResult) result.loadingStatus = GHResourceStatusNotLoaded;
 		self.results = theResult;
-		self.status = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusLoaded;
 	}
 }
 

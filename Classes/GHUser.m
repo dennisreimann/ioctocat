@@ -74,7 +74,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", status, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
+    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", loadingStatus, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
 }
 
 - (int)compareByName:(GHUser *)theOtherUser {
@@ -117,14 +117,14 @@
 - (void)loadUser {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.status = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:nil];
 }
 
 - (void)authenticateWithToken:(NSString *)theToken {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.status = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:theToken];
 }
 
@@ -162,7 +162,7 @@
 		self.isAuthenticated = user.isAuthenticated;
 		if (email) [gravatarLoader loadEmail:email withSize:44];
 	}
-	self.status = GHResourceStatusLoaded;
+	self.loadingStatus = GHResourceStatusLoaded;
 }
 
 #pragma mark -
@@ -193,7 +193,7 @@
 	NSURL *followingURL = [NSURL URLWithString:followingURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];    
 	[request start];
-	self.following.status = GHResourceStatusNotLoaded;
+	self.following.loadingStatus = GHResourceStatusNotLoaded;
     [self.following loadUsers];
     [pool release];
 }

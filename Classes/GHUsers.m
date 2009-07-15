@@ -36,7 +36,7 @@
 - (void)loadUsers {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.status = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseUsers) withObject:nil];
 }
 
@@ -60,11 +60,11 @@
 - (void)loadedUsers:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.status = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		[theResult sortUsingSelector:@selector(compareByName:)];
 		self.users = theResult;
-		self.status = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusLoaded;
 	}
 }
 

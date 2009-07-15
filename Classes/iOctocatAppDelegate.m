@@ -100,7 +100,7 @@
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		NSString *token = [defaults valueForKey:kTokenDefaultsKey];
-		[self.currentUser addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.currentUser authenticateWithToken:token];
 	}
 }
@@ -110,7 +110,7 @@
 		[self showAuthenticationSheet];
 	} else if (self.currentUser.isLoaded) {
 		[self dismissAuthenticationSheet];
-		[self.currentUser removeObserver:self forKeyPath:kResourceStatusKeyPath];
+		[self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 		if (self.currentUser.isAuthenticated) {
 			[self proceedAfterAuthentication];
 		} else {

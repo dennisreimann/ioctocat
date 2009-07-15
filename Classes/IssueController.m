@@ -23,15 +23,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	[issue addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.tableView.tableHeaderView = tableHeaderView;
+}
+
+// Add and remove observer in the view appearing methods
+// because otherwise they will still trigger when the
+// issue gets edited by the IssueForm
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self displayIssue];
+	[self.tableView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+	[issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }
 
 - (void)dealloc {
-	[issue removeObserver:self forKeyPath:kResourceStatusKeyPath];
 	[issue release];
 	[listController release];
 	[tableHeaderView release];
@@ -62,18 +74,18 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Edit", @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Show on GitHub", nil];
 	[actionSheet showInView:self.view.window];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];
-	} else if (buttonIndex == 1) {
-		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:issue];
+		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:issue andIssuesController:listController];
 		[self.navigationController pushViewController:formController animated:YES];
-		[formController release];                        
+		[formController release];  
+	} else if (buttonIndex == 1) {
+		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];      
     } else if (buttonIndex == 2) {
 		NSString *issueURLString = [NSString stringWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
         NSURL *issueURL = [NSURL URLWithString:issueURLString];
@@ -84,8 +96,12 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
-		if (issue.isLoaded) {
+	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
+		if (issue.isSaved) {
+			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];  
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
 			[self displayIssue];
 			[self.tableView reloadData];
 			[listController reloadIssues];

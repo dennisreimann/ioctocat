@@ -23,7 +23,7 @@
 }
 
 - (void)testStatusShouldInitiallyBeSetToNotLoaded {
-    STAssertEquals(resource.status, GHResourceStatusNotLoaded, @"status should be NotLoaded");
+    STAssertEquals(resource.loadingStatus, GHResourceStatusNotLoaded, @"status should be NotLoaded");
 }
 
 - (void)testErrorShouldInitiallyBeSetToNil {

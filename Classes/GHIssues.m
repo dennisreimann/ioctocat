@@ -34,7 +34,7 @@
 - (void)loadIssues {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.status = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusLoading;
 	[self performSelectorInBackground:@selector(parseIssues) withObject:nil];
 }
 
@@ -59,11 +59,11 @@
 - (void)loadedIssues:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.status = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		self.entries = theResult;
 		for (GHIssue *issue in theResult) issue.repository = repository;
-		self.status = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusLoaded;
 	}
 }
 

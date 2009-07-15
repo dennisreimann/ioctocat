@@ -26,10 +26,12 @@
 @property (nonatomic, retain) NSDate *updated;
 @property (nonatomic, readwrite) NSInteger num;
 @property (nonatomic, readwrite) NSInteger votes;
+@property (nonatomic, readonly) BOOL isNew;
 @property (nonatomic, readonly) BOOL isOpen;
 @property (nonatomic, readonly) BOOL isClosed;
 
 - (void)closeIssue;
 - (void)reopenIssue;
+- (void)saveIssue;
 
 @end

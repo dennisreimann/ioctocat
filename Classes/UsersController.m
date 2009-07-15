@@ -9,7 +9,7 @@
 - (id)initWithUsers:(GHUsers *)theUsers {
     [super initWithNibName:@"Users" bundle:nil];
     self.users = theUsers;
-	[users addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
@@ -19,7 +19,7 @@
 }
 
 - (void)dealloc {
-	[users removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [noUsersCell release];
     [loadingCell release];
     [userCell release];
@@ -27,7 +27,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-    if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		if (!users.isLoading && users.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the list of users" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

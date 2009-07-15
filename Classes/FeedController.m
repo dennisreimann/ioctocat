@@ -8,7 +8,7 @@
 	[super initWithNibName:@"Feed" bundle:nil];
 	self.title = theTitle;
 	feed = [theFeed retain];
-	[feed addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
@@ -18,7 +18,7 @@
 }
 
 - (void)dealloc {
-	[feed removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [loadingCell release];
 	[noEntriesCell release];
 	[feedEntryCell release];
@@ -27,7 +27,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) [self.tableView reloadData];
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

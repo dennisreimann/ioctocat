@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	// if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadRepositories];
-	[repository addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.tableView.tableHeaderView = tableHeaderView;
@@ -41,7 +41,7 @@
 }
 
 - (void)dealloc {
-	[repository removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[repository release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -96,7 +96,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.isLoaded) {
 			[self displayRepository];
 			[self.tableView reloadData];

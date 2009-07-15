@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!user) self.user = self.currentUser; // Set to currentUser in case this controller is initialized from the TabBar
-	[user.repositories addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
+	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	(user.repositories.isLoaded) ? [self displayRepositories] : [user.repositories loadRepositories];
 }
 
@@ -36,7 +36,7 @@
 }
 
 - (void)dealloc {
-	[user.repositories removeObserver:self forKeyPath:kResourceStatusKeyPath];   
+	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];   
 	[noPublicReposCell release];
 	[noPrivateReposCell release];
 	[noWatchedReposCell release];
@@ -46,7 +46,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.repositories.isLoaded) {
 			[self displayRepositories];
 			[self.tableView reloadData];

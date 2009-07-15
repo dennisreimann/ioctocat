@@ -16,11 +16,11 @@
 	GHSearch *userSearch = [[[GHSearch alloc] initWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]] autorelease];
 	GHSearch *repoSearch = [[[GHSearch alloc] initWithURLFormat:kRepoSearchFormat andParserDelegateClass:[GHReposParserDelegate class]] autorelease];
 	searches = [[NSArray alloc] initWithObjects:userSearch, repoSearch, nil];
-	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)dealloc {
-	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[userCell release];
 	[searches release];
 	[overlayController release];
@@ -37,7 +37,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
-	if ([keyPath isEqualToString:kResourceStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		GHSearch *search = (GHSearch *)object;
 		if (!search.isLoading && search.error) {

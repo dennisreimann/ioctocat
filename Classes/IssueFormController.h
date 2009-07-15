@@ -2,20 +2,22 @@
 #import "GHIssue.h"
 
 
+@class IssuesController;
+
 @interface IssueFormController : UITableViewController <UITextFieldDelegate> {
   @private
 	GHIssue *issue;
+	IssuesController *listController;
 	IBOutlet UIView *tableFooterView;
 	IBOutlet UITextField *titleField;
 	IBOutlet UITextView *bodyField;
-	IBOutlet UIButton *saveButton;
 	IBOutlet UITableViewCell *titleCell;
 	IBOutlet UITableViewCell *bodyCell;
+	IBOutlet UIActivityIndicatorView *activityView;
+	IBOutlet UIButton *saveButton;
 }
 
-@property (nonatomic, readonly) BOOL isNewIssue;
-
-- (id)initWithIssue:(GHIssue *)theIssue;
+- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)saveIssue:(id)sender;
 
 @end

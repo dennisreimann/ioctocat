@@ -1,26 +1,31 @@
 #import "IssueFormController.h"
+#import "IssuesController.h"
 
 
 @implementation IssueFormController
 
-- (id)initWithIssue:(GHIssue *)theIssue {    
+- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
     [super initWithNibName:@"IssueForm" bundle:nil];
 	issue = [theIssue retain];
+	listController = [theController retain];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"%@ Issue", self.isNewIssue ? @"New" : @"Edit"];
+	self.title = [NSString stringWithFormat:@"%@ Issue", issue.isNew ? @"New" : @"Edit"];
 	self.tableView.tableFooterView = tableFooterView;
-	if (!self.isNewIssue) {
+	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (!issue.isNew) {
 		titleField.text = issue.title;
 		bodyField.text = issue.body;
 	}
 }
 
 - (void)dealloc {
+	[issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 	[issue release];
+	[listController release];
 	[titleField release];
 	[bodyField release];
     [titleCell release];
@@ -30,14 +35,32 @@
     [super dealloc];
 }
 
-- (BOOL)isNewIssue {
-	return issue.num ? NO : YES;
-}
-
 - (IBAction)saveIssue:(id)sender {
-	
+	issue.title = titleField.text;
+	issue.body = bodyField.text;
+	saveButton.enabled = NO;
+	[activityView startAnimating];
+	[issue saveIssue];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
+		if (issue.isSaving) return;
+		if (issue.isSaved) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Issue saved" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			[listController reloadIssues];
+		} else if (issue.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+		saveButton.enabled = YES;
+		[activityView stopAnimating];
+	}
+}
+	
 #pragma mark -
 #pragma mark Table view methods
 

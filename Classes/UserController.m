@@ -31,9 +31,9 @@
     [super viewDidLoad];
     if (!user) self.user = self.currentUser; // Set to currentUser in case this controller is initialized from the TabBar
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadUsers];
-	[user addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.repositories addObserver:self forKeyPath:kResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
 	if (!user.repositories.isLoaded) [user.repositories loadRepositories];
 	self.navigationItem.title = user.login;
@@ -42,9 +42,9 @@
 }
 
 - (void)dealloc {
-	[user removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[user.repositories removeObserver:self forKeyPath:kResourceStatusKeyPath];
+	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user release];
 	[tableHeaderView release];
 	[nameLabel release];
@@ -107,7 +107,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
-	} else if (object == user && [keyPath isEqualToString:kResourceStatusKeyPath]) {
+	} else if (object == user && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.isLoaded) {
 			[self displayUser];
 			[self.tableView reloadData];
@@ -117,7 +117,7 @@
 			[alert show];
 			[alert release];
 		}
-	} else if (object == user.repositories && [keyPath isEqualToString:kResourceStatusKeyPath]) {
+	} else if (object == user.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.repositories.isLoaded) {
 			[self.tableView reloadData];
 		} else if (user.repositories.error) {

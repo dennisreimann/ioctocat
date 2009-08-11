@@ -51,6 +51,7 @@
 			[alert show];
 			[alert release];
 			[listController reloadIssues];
+			[self.navigationController popViewControllerAnimated:YES];
 		} else if (issue.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];

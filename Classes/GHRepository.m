@@ -13,7 +13,7 @@
 
 @implementation GHRepository
 
-@synthesize user, name, owner, descriptionText, githubURL, homepageURL, isPrivate;
+@synthesize name, owner, descriptionText, githubURL, homepageURL, isPrivate;
 @synthesize isFork, forks, watchers, recentCommits, openIssues, closedIssues, networks;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {

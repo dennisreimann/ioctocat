@@ -33,7 +33,9 @@
 	} else if ([elementName isEqualToString:@"id"]) {
 		currentEntry.entryID = currentElementValue;
 		NSString *event = [currentElementValue substringFromIndex:20];
-		if ([event hasPrefix:@"Fork"]) {
+		if ([event hasPrefix:@"ForkApply"]) {
+			currentEntry.eventType = @"merge";
+		} else if ([event hasPrefix:@"Fork"]) {
 			currentEntry.eventType = @"fork";
 		} else if ([event hasPrefix:@"Issues"]) {
 			currentEntry.eventType = @"issues";
@@ -49,8 +51,6 @@
 			currentEntry.eventType = @"delete";
 		} else if ([event hasPrefix:@"Create"]) {
 			currentEntry.eventType = @"create";
-		} else if ([event hasPrefix:@"ForkApply"]) {
-			currentEntry.eventType = @"merge";
 		} else if ([event hasPrefix:@"Member"]) {
 			currentEntry.eventType = @"member";
 		} else if ([event hasPrefix:@"Push"]) {

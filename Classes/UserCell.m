@@ -24,7 +24,7 @@
 	if (!gravatarView.image && !user.isLoaded) [user loadUser];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath] && user.gravatar) {
 		gravatarView.image = user.gravatar;
 	}

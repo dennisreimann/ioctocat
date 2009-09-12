@@ -104,7 +104,7 @@
 	[emailCell setContentText:user.email];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	} else if (object == user && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
@@ -171,7 +171,7 @@
 	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
 		return cell;

@@ -98,7 +98,7 @@
 	}
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
 		gravatarView.image = entry.user.gravatar;
 	}

@@ -5,9 +5,9 @@
 
 @synthesize repository;
 
-- (id)initWithFrame:(CGRect)frame reuseIdentifier:(NSString *)reuseIdentifier {
-	[super initWithFrame:frame reuseIdentifier:reuseIdentifier];
-	self.font = [UIFont systemFontOfSize:16.0f];
+- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+	[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	self.textLabel.font = [UIFont systemFontOfSize:16.0f];
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	self.opaque = YES;
 	return self;
@@ -22,12 +22,12 @@
 	[theRepository retain];
 	[repository release];
 	repository = theRepository;
-	self.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
-    self.text = [NSString stringWithFormat:@"%@/%@", repository.owner, repository.name];
+	self.imageView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
+    self.textLabel.text = [NSString stringWithFormat:@"%@/%@", repository.owner, repository.name];
 }
 
 - (void)hideOwner {
-	self.text = repository.name;
+	self.textLabel.text = repository.name;
 }
 
 @end

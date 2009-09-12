@@ -99,7 +99,7 @@
 	self.recentActivity = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kUserLoginKeyPath]) {
 		NSString *newLogin = [(GHUser *)object login];
 		NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, newLogin];

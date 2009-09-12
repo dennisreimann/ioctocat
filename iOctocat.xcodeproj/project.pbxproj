@@ -1126,6 +1126,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphoneos2.2.1;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1154,6 +1155,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphoneos2.2.1;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -1163,6 +1165,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1181,6 +1184,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos2.2.1;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = "Ad Hoc Distribution";
@@ -1189,6 +1194,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1197,6 +1203,7 @@
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = "Unit Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Foundation,
@@ -1207,6 +1214,8 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = UnitTests;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos2.2.1;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = "App Store Distribution";
@@ -1223,7 +1232,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AA335E7-26F6-40AF-9191-E62111D82138";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "App Store Distribution";
 		};
@@ -1251,7 +1260,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC9D1CDE-A3C2-46AB-A001-2CCB6F5FDDBD";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = "Ad Hoc Distribution";
 		};
@@ -1281,7 +1290,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Debug;
 		};
@@ -1296,7 +1305,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.0;
+				SDKROOT = iphoneos3.0;
 			};
 			name = Release;
 		};

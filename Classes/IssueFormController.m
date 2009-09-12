@@ -43,7 +43,7 @@
 	[issue saveIssue];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (issue.isSaving) return;
 		if (issue.isSaved) {

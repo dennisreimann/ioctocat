@@ -105,7 +105,7 @@
 	}
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (self.currentUser.isLoading) {
 		[self showAuthenticationSheet];
 	} else if (self.currentUser.isLoaded) {

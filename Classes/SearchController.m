@@ -36,7 +36,7 @@
 		nil : [searches objectAtIndex:searchControl.selectedSegmentIndex];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		GHSearch *search = (GHSearch *)object;
@@ -89,7 +89,7 @@
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {

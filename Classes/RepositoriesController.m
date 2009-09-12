@@ -45,7 +45,7 @@
     [super dealloc];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:object change:change context:context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.repositories.isLoaded) {
 			[self displayRepositories];
@@ -111,7 +111,7 @@
 	if (indexPath.section == 1 && self.publicRepositories.count == 0) return noPublicReposCell;
 	if (indexPath.section == 2 && self.watchedRepositories.count == 0) return noWatchedReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [[[RepositoryCell alloc] initWithFrame:CGRectZero reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	cell.repository = [repos objectAtIndex:indexPath.row];
 	if (indexPath.section != 2) [cell hideOwner];

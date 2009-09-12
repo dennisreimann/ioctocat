@@ -62,8 +62,8 @@
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
 		NSString *name;
-		// Tag
-		if ([title rangeOfString:@" tag "].location != NSNotFound) {
+		// Tag or Branch
+		if ([title rangeOfString:@" tag "].location != NSNotFound || [title rangeOfString:@" branch "].location != NSNotFound) {
 			NSArray *comps1 = [title componentsSeparatedByString:@" at "];
 			NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 			owner = [comps2 objectAtIndex:0];

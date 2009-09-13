@@ -1,4 +1,5 @@
 // Settings
+#define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 #define kLaunchDateDefaultsKey @"lastLaunch"
 #define kUsernameDefaultsKey @"username"
 #define kTokenDefaultsKey @"token"

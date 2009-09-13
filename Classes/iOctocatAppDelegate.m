@@ -33,6 +33,20 @@
 	self.lastLaunchDate = lastLaunch;
 	// save this launch date
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
+	// Clear avatar cache if it was requested
+	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *documentsPath = [paths objectAtIndex:0];
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
+		for (NSString *path in documents) {
+			if ([path hasSuffix:@".png"]) {
+				NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
+				[fileManager removeItemAtPath:imagePath error:NULL];
+			}
+		}
+		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+	}
 	[defaults synchronize];
 	if (launchDefault) [self authenticate];
 }

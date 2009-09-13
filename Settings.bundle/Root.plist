@@ -50,6 +50,22 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Avatar cache</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Clear on next launch</string>
+			<key>Key</key>
+			<string>clearAvatarCache</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
 	</array>
 </dict>
 </plist>

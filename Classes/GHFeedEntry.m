@@ -5,7 +5,14 @@
 
 @implementation GHFeedEntry
 
-@synthesize entryID, eventType, eventItem, date, linkURL, title, content, authorName;
+@synthesize entryID, eventType, eventItem, date, linkURL, title, content, authorName, read;
+
+- (id)init {
+    if (self = [super init]) {
+        read = NO;
+    }
+    return self;
+}
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];

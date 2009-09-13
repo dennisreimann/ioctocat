@@ -88,6 +88,10 @@
 	}
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 - (void)feedParsingStarted {
 	loadCounter += 1;
 	reloadButton.enabled = NO;
@@ -123,7 +127,10 @@
 	}
 	GHFeedEntry *theEntry = [self.currentFeed.entries objectAtIndex:indexPath.row];
 	cell.entry = theEntry;
-	([theEntry.date compare:self.currentFeed.lastReadingDate] == NSOrderedDescending) ? [cell markAsNew] : [cell markAsRead];
+	if ((theEntry.read) || [theEntry.date compare:self.currentFeed.lastReadingDate] != NSOrderedDescending)
+		[cell markAsRead];
+	else
+		[cell markAsNew];
     return cell;
 }
 

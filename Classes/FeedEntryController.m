@@ -19,7 +19,8 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
+	entry.read = YES;
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [entry.eventType capitalizedString];
 	titleLabel.text = entry.title;

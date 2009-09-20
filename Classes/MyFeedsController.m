@@ -127,10 +127,7 @@
 	}
 	GHFeedEntry *theEntry = [self.currentFeed.entries objectAtIndex:indexPath.row];
 	cell.entry = theEntry;
-	if ((theEntry.read) || [theEntry.date compare:self.currentFeed.lastReadingDate] != NSOrderedDescending)
-		[cell markAsRead];
-	else
-		[cell markAsNew];
+	(theEntry.read) ? [cell markAsRead] : [cell markAsNew];
     return cell;
 }
 

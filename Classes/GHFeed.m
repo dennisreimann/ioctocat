@@ -26,6 +26,15 @@
     [super dealloc];
 }
 
+- (void)setEntries:(NSArray *)theEntries {
+	[theEntries retain];
+	[entries release];
+	for (GHFeedEntry *entry in theEntries) {
+		if ([entry.date compare:lastReadingDate] != NSOrderedDescending) entry.read = YES;
+	}
+	entries = theEntries;
+}
+
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHFeed url:'%@'>", url];
 }

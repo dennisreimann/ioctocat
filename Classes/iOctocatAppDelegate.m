@@ -11,6 +11,7 @@
 - (void)dismissAuthenticationSheet;
 - (void)authenticate;
 - (void)proceedAfterAuthentication;
+- (void)clearAvatarCache;
 @end
 
 
@@ -27,24 +28,15 @@
 
 - (void)postLaunch {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	// Launch date
 	NSDate *lastLaunch = (NSDate *)[defaults valueForKey:kLaunchDateDefaultsKey];
 	NSDate *nowDate = [NSDate date];
 	if (!lastLaunch) lastLaunch = nowDate;
 	self.lastLaunchDate = lastLaunch;
-	// save this launch date
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
-	// Clear avatar cache if it was requested
+	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *documentsPath = [paths objectAtIndex:0];
-		NSFileManager *fileManager = [NSFileManager defaultManager];
-		NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
-		for (NSString *path in documents) {
-			if ([path hasSuffix:@".png"]) {
-				NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
-				[fileManager removeItemAtPath:imagePath error:NULL];
-			}
-		}
+		[self clearAvatarCache];
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
@@ -86,6 +78,19 @@
 
 - (void)saveApplicationState {
 	[self.currentUser archive];
+}
+
+- (void)clearAvatarCache {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
+	for (NSString *path in documents) {
+		if ([path hasSuffix:@".png"]) {
+			NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
+			[fileManager removeItemAtPath:imagePath error:NULL];
+		}
+	}
 }
 
 #pragma mark -

@@ -1,13 +1,12 @@
 #import <UIKit/UIKit.h>
-#import "Archiving.h"
 #import "GHResource.h"
 #import "GHUsers.h"
 #import "GHRepositories.h"
 
 
-@class Archiver, GravatarLoader, GHRepository, GHFeed;
+@class GravatarLoader, GHRepository, GHFeed;
 
-@interface GHUser : GHResource <NSCoding, Archiving> {
+@interface GHUser : GHResource {
 	NSString *name;
 	NSString *login;
 	NSString *email;
@@ -27,7 +26,6 @@
 	BOOL isAuthenticated;
   @private
 	GravatarLoader *gravatarLoader;
-	Archiver *archiver;
 }
 
 @property (nonatomic, retain) NSString *name;

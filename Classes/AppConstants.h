@@ -27,6 +27,7 @@
 #define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
 #define kAuthenticateUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@?login=%@&token=%@"
 #define kUserReposFormat @"https://github.com/api/v2/xml/repos/show/%@"
+#define kUserWatchedReposFormat @"https://github.com/api/v2/xml/repos/watched/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/xml/user/search/%@"
 #define kUserFollowingFormat @"http://github.com/api/v2/json/user/show/%@/following"
 #define kUserFollowersFormat @"http://github.com/api/v2/json/user/show/%@/followers"
@@ -65,14 +66,3 @@
 #define kResourceSavingStatusKeyPath @"savingStatus"
 #define kUserLoginKeyPath @"login"
 #define kUserGravatarKeyPath @"gravatar"
-
-// NSCoding
-#define kUserPersistenceFileFormat @"%@.plist"
-#define kLoginKey @"login"
-#define kUserKey @"user"
-#define kRepositoriesKey @"repositories"
-#define kRepositoriesURLKey @"repositoriesURL"
-#define kWatchedRepositoriesKey @"watchedRepositories"
-#define kOwnerKey @"owner"
-#define kNameKey @"name"
-

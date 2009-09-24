@@ -6,7 +6,7 @@
 
 @class GHIssues, GHNetworks;
 
-@interface GHRepository : GHResource <NSCoding> {
+@interface GHRepository : GHResource {
 	NSString *name;
 	NSString *owner;
 	NSString *descriptionText;

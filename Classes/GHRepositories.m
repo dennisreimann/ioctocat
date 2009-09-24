@@ -23,20 +23,6 @@
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
-	[super init];
-	self.user = [coder decodeObjectForKey:kUserKey];
-	self.repositories = [coder decodeObjectForKey:kRepositoriesKey];
-	self.repositoriesURL = [coder decodeObjectForKey:kRepositoriesURLKey];
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:user forKey:kUserKey];
-	[coder encodeObject:repositories forKey:kRepositoriesKey];
-	[coder encodeObject:repositoriesURL forKey:kRepositoriesURLKey];
-}
-
 - (void)dealloc {
 	[repositoriesURL release];
 	[repositories release];

@@ -27,7 +27,15 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) [self.tableView reloadData];
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (feed.isLoaded) {
+			[self.tableView reloadData];
+		} else if (feed.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

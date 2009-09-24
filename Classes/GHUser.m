@@ -6,7 +6,6 @@
 #import "GHUsersParserDelegate.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
-#import "Archiver.h"
 
 
 @interface GHUser ()
@@ -36,22 +35,8 @@
 	return self;
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
-	[self init];
-	NSString *theLogin = [coder decodeObjectForKey:kLoginKey];
-	[self setLogin:theLogin];
-	self.watchedRepositories = [coder decodeObjectForKey:kWatchedRepositoriesKey];
-	return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder {
-	[coder encodeObject:login forKey:kLoginKey];
-	[coder encodeObject:watchedRepositories forKey:kWatchedRepositoriesKey];
-}
-
 - (void)dealloc {
 	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
-	[archiver release];
 	[name release];
 	[login release];
 	[email release];
@@ -85,14 +70,13 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-	// Archiving
-	NSString *fileName = [NSString stringWithFormat:kUserPersistenceFileFormat, login];
-	[archiver release];
-	archiver = [[Archiver alloc] initWithKey:kUserKey andFileName:fileName];
 	// Repositories
 	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
+	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
+	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
 	self.repositories = [[[GHRepositories alloc] initWithUser:self andURL:repositoriesURL] autorelease];
+	self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:watchedRepositoriesURL] autorelease];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
@@ -199,9 +183,7 @@
 }
 
 - (BOOL)isWatching:(GHRepository *)aRepository {
-	// FIXME Currently just stubbed out, see the issue:
-	// http://github.com/dbloete/ioctocat/issues#issue/6
-	// if (!watchedRepositories.isLoaded) [watchedRepositories loadRepositories];
+	if (!watchedRepositories.isLoaded) [watchedRepositories loadRepositories];
 	return [watchedRepositories.repositories containsObject:aRepository];
 }
 
@@ -241,22 +223,6 @@
 	NSString *documentsPath = [paths objectAtIndex:0];
 	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
 	return [documentsPath stringByAppendingPathComponent:imageName];
-}
-
-#pragma mark -
-#pragma mark Archiving
-
-- (void)archive {
-	[archiver archiveObject:self];
-}
-
-- (void)restore {
-	GHUser *restoredUser = [archiver restoreObject];
-	if (restoredUser && restoredUser.watchedRepositories) {
-		self.watchedRepositories = restoredUser.watchedRepositories;
-	} else {
-		self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:nil] autorelease];
-	}
 }
 
 @end

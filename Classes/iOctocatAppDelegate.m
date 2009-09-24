@@ -4,7 +4,6 @@
 
 @interface iOctocatAppDelegate ()
 - (void)postLaunch;
-- (void)saveApplicationState;
 - (void)presentLogin;
 - (void)dismissLogin;
 - (void)showAuthenticationSheet;
@@ -43,10 +42,6 @@
 	if (launchDefault) [self authenticate];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-	[self saveApplicationState];
-}
-
 - (void)dealloc {
 	[tabBarController release];
 	[feedController release];
@@ -74,10 +69,6 @@
 		[users setObject:user forKey:theUsername];
 	}
 	return user;
-}
-
-- (void)saveApplicationState {
-	[self.currentUser archive];
 }
 
 - (void)clearAvatarCache {
@@ -168,7 +159,6 @@
 
 - (void)proceedAfterAuthentication {
 	[self dismissLogin];
-	[self.currentUser restore];
 	[feedController setupFeeds];
 }
 

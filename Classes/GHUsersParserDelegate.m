@@ -11,6 +11,8 @@
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"user"]) {
 		currentUser = [[GHUser alloc] init];
+	} else if ([elementName isEqualToString:@"plan"]) {
+		isParsingPlan = YES;
 	}
 }
 
@@ -20,7 +22,7 @@
 		[resources addObject:currentUser];
 		[currentUser release];
 		currentUser = nil;
-	} else if (([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"fullname"]) && !currentUser.name) {
+	} else if (([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"fullname"]) && !isParsingPlan) {
 		// in the search the name attribute is called fullname
 		currentUser.name = currentElementValue;
 	} else if ([elementName isEqualToString:@"login"] || [elementName isEqualToString:@"username"]) {
@@ -43,6 +45,7 @@
 		// This is not the best way to verify authentication
 		// but the API does not offer a better solution yet
 		currentUser.isAuthenticated = YES;
+		isParsingPlan = NO;
 	}
 	[currentElementValue release];
 	currentElementValue = nil;

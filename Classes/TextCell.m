@@ -8,9 +8,13 @@
     [super dealloc];
 }
 
-- (void)setContentText:(NSString *)text {
-	contentTextLabel.text = text;
+- (void)setContentText:(NSString *)theText {
+	contentTextLabel.text = theText;
 	[contentTextLabel sizeToFit];
+	CGFloat maxWidth = 275;
+	if (contentTextLabel.frame.size.width > maxWidth) {
+		contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, self.height);
+	}
 }
 
 - (CGFloat)height {

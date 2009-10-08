@@ -48,7 +48,6 @@
 	[numbersLabel release];
 	[ownerLabel release];
 	[websiteLabel release];
-	[descriptionLabel release];	
 	[loadingCell release];
 	[ownerCell release];
     [forkLabel release];

@@ -3,6 +3,7 @@
 #define kLaunchDateDefaultsKey @"lastLaunch"
 #define kUsernameDefaultsKey @"username"
 #define kTokenDefaultsKey @"token"
+#define kLaunchMessageNumberDefaultsKey @"launchMessageNumber"
 
 // API
 #define kLoginParamName @"login"
@@ -46,7 +47,7 @@
 #define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
 #define kWatchRepoFormat @"https://github.com/api/v2/json/repos/%@/%@/%@"
 #define kIssueToggleFormat @"https://github.com/api/v2/xml/issues/%@/%@/%@/%d"
-
+#define kLaunchMessageFileURL @"http://dennisbloete.de/projects/ioctocat/launch_message.txt"
 // Issues
 #define kIssueStateOpen @"open"
 #define kIssueStateClosed @"closed"

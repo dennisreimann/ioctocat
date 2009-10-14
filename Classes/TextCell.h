@@ -4,6 +4,7 @@
 @interface TextCell : UITableViewCell {
   @private
 	IBOutlet UILabel *contentTextLabel;
+	CGFloat maxWidth;
 }
 
 @property (nonatomic, readonly) BOOL hasContent;

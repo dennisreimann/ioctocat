@@ -3,6 +3,10 @@
 
 @implementation TextCell
 
+- (void)awakeFromNib {
+	maxWidth = contentTextLabel.frame.size.width;
+}
+
 - (void)dealloc {
 	[contentTextLabel release];
     [super dealloc];
@@ -11,7 +15,6 @@
 - (void)setContentText:(NSString *)theText {
 	contentTextLabel.text = theText;
 	[contentTextLabel sizeToFit];
-	CGFloat maxWidth = 275;
 	if (contentTextLabel.frame.size.width > maxWidth) {
 		contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, self.height);
 	}

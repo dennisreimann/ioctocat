@@ -11,7 +11,6 @@
 - (void)authenticate;
 - (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
-- (void)displayLaunchMessage;
 @end
 
 
@@ -40,10 +39,7 @@
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
-	if (launchDefault) {
-		[self displayLaunchMessage];
-		[self authenticate];
-	}
+	if (launchDefault) [self authenticate];
 }
 
 - (void)dealloc {
@@ -84,26 +80,6 @@
 		if ([path hasSuffix:@".png"]) {
 			NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
 			[fileManager removeItemAtPath:imagePath error:NULL];
-		}
-	}
-}
-
-- (void)displayLaunchMessage {
-	NSURL *launchMessageURL = [NSURL URLWithString:kLaunchMessageFileURL];
-	NSString *launchMessage = [NSString stringWithContentsOfURL:launchMessageURL];
-	if (launchMessage && ![launchMessage isEqualToString:@""]) {
-		NSArray *launchMessageComponents = [launchMessage componentsSeparatedByString:@"|"];
-		NSInteger number = [[launchMessageComponents objectAtIndex:0] integerValue];
-		NSString *title = [launchMessageComponents objectAtIndex:1];
-		NSString *message = [launchMessageComponents objectAtIndex:2];
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSInteger oldNumber = (NSInteger)[defaults integerForKey:kLaunchMessageNumberDefaultsKey];
-		if (number > oldNumber) {
-			[defaults setValue:[NSString stringWithFormat:@"%d", number] forKey:kLaunchMessageNumberDefaultsKey];
-			[defaults synchronize];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
 		}
 	}
 }

@@ -123,20 +123,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	UITableViewCell *cell;
+	UITableViewCell *cell = nil;
 	if (!repository.isLoaded) return loadingCell;
 	if (section == 0) {
-        if (row == 0) cell = ownerCell;             
-        if (row == 1) cell = websiteCell;
-        if (row == 2) cell = descriptionCell;
+		switch (row) {
+			case 0: cell = ownerCell; break;
+			case 1: cell = websiteCell; break;
+			case 2: cell = descriptionCell; break;
+		}
 		if (indexPath.row != 2) {
 			cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 			cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		}
 	} else if (section == 1) {
-		if (row == 0) cell = commitsCell;
-        if (row == 1) cell = issuesCell;
-        if (row == 2) cell = networkCell;        
+		switch (row) {
+			case 0: cell = commitsCell; break;
+			case 1: cell = issuesCell; break;
+			case 2: cell = networkCell; break;
+		}    
     }
 	return cell;
 }

@@ -106,7 +106,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
-	UIViewController *viewController;
+	UIViewController *viewController = nil;
 	if ([object isKindOfClass:[GHRepository class]]) {
 		viewController = [(RepositoryController *)[RepositoryController alloc] initWithRepository:(GHRepository *)object];
 	} else if ([object isKindOfClass:[GHUser class]]) {

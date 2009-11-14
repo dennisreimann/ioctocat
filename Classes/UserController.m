@@ -159,6 +159,7 @@
 			case 0: cell = locationCell; break;
 			case 1: cell = blogCell; break;
 			case 2: cell = emailCell; break;
+			default: cell = nil;
 		}
 		cell.selectionStyle = cell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;

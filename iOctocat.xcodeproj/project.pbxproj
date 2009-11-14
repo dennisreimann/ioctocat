@@ -1278,6 +1278,71 @@
 			};
 			name = "Ad Hoc Distribution";
 		};
+		6FFC32AF10AF42FB00DD7014 /* Analyze */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CODE_SIGN_ENTITLEMENTS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = 4.2;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ICON_FILE = IconOctocat.png;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = "-DDEBUG=1";
+				PREBINDING = NO;
+				PRODUCT_NAME = iOctocat;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos3.0;
+			};
+			name = Analyze;
+		};
+		6FFC32B010AF42FB00DD7014 /* Analyze */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = Info.plist;
+				PRODUCT_NAME = iOctocat;
+			};
+			name = Analyze;
+		};
+		6FFC32B110AF42FB00DD7014 /* Analyze */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				INFOPLIST_FILE = "Unit Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					UIKit,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = UnitTests;
+				SDKROOT = iphoneos2.2.1;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Analyze;
+		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1320,6 +1385,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
+				6FFC32B010AF42FB00DD7014 /* Analyze */,
 				1D6058950D05DD3E006BFB54 /* Release */,
 				6FC806450FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD840F7E9DF2009A0213 /* App Store Distribution */,
@@ -1331,6 +1397,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6F5254330FC5440900005B0B /* Debug */,
+				6FFC32B110AF42FB00DD7014 /* Analyze */,
 				6F5254340FC5440900005B0B /* Release */,
 				6F5254350FC5440900005B0B /* Ad Hoc Distribution */,
 				6F5254360FC5440900005B0B /* App Store Distribution */,
@@ -1342,6 +1409,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
+				6FFC32AF10AF42FB00DD7014 /* Analyze */,
 				C01FCF5008A954540054247B /* Release */,
 				6FC806440FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD830F7E9DF2009A0213 /* App Store Distribution */,

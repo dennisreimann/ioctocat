@@ -133,6 +133,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentFeed.isLoading) return;
+	if (self.currentFeed.entries.count == 0) return;
     GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
 	[self.navigationController pushViewController:entryController animated:YES];

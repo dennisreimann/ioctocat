@@ -156,7 +156,6 @@
 		8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
 		8C6A9EA30FABF1D900A99483 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueCell.m */; };
 		8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
-		8C8411120FCAC43A00FF31D5 /* iTunesArtwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */; };
 		8CB698000FB0087800B6E779 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */; };
 		8CE686760FB8C56700A3D625 /* GHNetworks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHNetworks.m */; };
 		8CE686770FB8C56700A3D625 /* GHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686740FB8C56700A3D625 /* GHNetwork.m */; };
@@ -355,7 +354,6 @@
 		8C6A9EA20FABF1D900A99483 /* IssueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCell.m; sourceTree = "<group>"; };
 		8C6AA15D0FAC22B000A99483 /* IssueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueController.h; sourceTree = "<group>"; };
 		8C6AA15E0FAC22B000A99483 /* IssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueController.m; sourceTree = "<group>"; };
-		8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iTunesArtwork.png; sourceTree = "<group>"; };
 		8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
 		8CB697FF0FB0087800B6E779 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
 		8CE686720FB8C56700A3D625 /* GHNetworks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNetworks.m; sourceTree = "<group>"; };
@@ -648,7 +646,6 @@
 				6F1BCBE50FAC588800D66E02 /* Default.png */,
 				6F9FE90110663ECD00F86D5C /* Icon.png */,
 				6F9FE8B610663B4A00F86D5C /* IconOctocat.png */,
-				8C8411110FCAC43A00FF31D5 /* iTunesArtwork.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 			);
 			name = Images;
@@ -923,7 +920,6 @@
 				6FCDC6400FC04D330024E498 /* feed.png in Resources */,
 				6FCDC66C0FC04F180024E498 /* Feed.xib in Resources */,
 				6F59BC950FC6C51800412597 /* Repositories.xib in Resources */,
-				8C8411120FCAC43A00FF31D5 /* iTunesArtwork.png in Resources */,
 				6F0AEFB7100CAAE500FB323E /* Networks.xib in Resources */,
 				6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */,
 				6F9FE8B710663B4A00F86D5C /* IconOctocat.png in Resources */,
@@ -1261,7 +1257,7 @@
 				ICON_FILE = IconOctocat.png;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "EC9D1CDE-A3C2-46AB-A001-2CCB6F5FDDBD";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2A00ABED-A0DE-4A09-8858-2F508FBF4700";
 				SDKROOT = iphoneos3.0;
 			};
 			name = "Ad Hoc Distribution";

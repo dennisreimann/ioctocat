@@ -22,6 +22,8 @@
 		[resources addObject:currentUser];
 		[currentUser release];
 		currentUser = nil;
+	} else if ([elementName isEqualToString:@"gravatar-id"]) {
+		currentUser.gravatarHash = currentElementValue;
 	} else if (([elementName isEqualToString:@"name"] || [elementName isEqualToString:@"fullname"]) && !isParsingPlan) {
 		// in the search the name attribute is called fullname
 		currentUser.name = currentElementValue;

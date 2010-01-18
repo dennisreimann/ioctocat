@@ -1228,7 +1228,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 2.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4AA335E7-26F6-40AF-9191-E62111D82138";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1DF98207-3FD6-457E-82DC-CA4D2878E277";
 				SDKROOT = iphoneos3.0;
 			};
 			name = "App Store Distribution";

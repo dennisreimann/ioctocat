@@ -17,7 +17,7 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatar, repositories, watchedRepositories, isAuthenticated;
+@synthesize name, login, email, company, blogURL, location, gravatarHash, gravatar, repositories, watchedRepositories, isAuthenticated;
 @synthesize recentActivity, publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, following, followers;
 
 - (id)init {
@@ -43,6 +43,7 @@
 	[company release];
 	[blogURL release];
 	[location release];
+	[gravatarHash release];
 	[gravatar release];
 	[repositories release];
 	[watchedRepositories release];
@@ -138,13 +139,15 @@
 		self.email = user.email;
 		self.company = user.company;
 		self.location = user.location;
+		self.gravatarHash = user.gravatarHash;
 		self.blogURL = user.blogURL;
 		self.publicGistCount = user.publicGistCount;
 		self.privateGistCount = user.privateGistCount;
 		self.publicRepoCount = user.publicRepoCount;
 		self.privateRepoCount = user.privateRepoCount;
 		self.isAuthenticated = user.isAuthenticated;
-		if (email) [gravatarLoader loadEmail:email withSize:44];
+		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:44];
+		else if (email) [gravatarLoader loadEmail:email withSize:44];
 	}
 	self.loadingStatus = GHResourceStatusLoaded;
 }

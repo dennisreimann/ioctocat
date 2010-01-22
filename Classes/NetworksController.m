@@ -62,7 +62,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHNetwork *network = [self.currentNetworks.entries objectAtIndex:indexPath.row];
-    RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:(GHRepository *)network.repository];
+	GHRepository *networkRepository = network.repository;
+    RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:networkRepository];
     [self.navigationController pushViewController:repoController animated:YES];
     [repoController release];    
 }

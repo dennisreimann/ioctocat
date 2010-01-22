@@ -81,7 +81,9 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *url = [NSString stringWithFormat:kRepoXMLFormat, owner, name];
 	NSURL *repoURL = [NSURL URLWithString:url];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:repoURL];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:repoURL];    
+	[request start];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];

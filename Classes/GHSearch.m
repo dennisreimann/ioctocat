@@ -43,7 +43,9 @@
 
 - (void)parseSearchAtURL:(NSURL *)theSearchURL {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:theSearchURL];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theSearchURL];    
+	[request start];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];

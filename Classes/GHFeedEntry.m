@@ -1,5 +1,6 @@
 #import "GHFeedEntry.h"
 #import "GHRepository.h"
+#import "GHCommit.h"
 #import "iOctocatAppDelegate.h"
 
 
@@ -60,12 +61,14 @@
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
-	} else if ([eventType isEqualToString:@"push"]) {
+	} else if ([eventType isEqualToString:@"commit"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" at "];
-		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
-		NSString *owner = [comps2 objectAtIndex:0];
-		NSString *name = [comps2 objectAtIndex:1];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		if ([comps1 count] == 2) {
+			NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
+			NSString *owner = [comps2 objectAtIndex:0];
+			NSString *name = [comps2 objectAtIndex:1];
+			self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		}
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
 		NSString *name;

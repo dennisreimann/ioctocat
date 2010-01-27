@@ -5,7 +5,9 @@
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHCommit.h"
 #import "GravatarLoader.h"
+#import "CommitController.h"
 
 
 @implementation FeedEntryController
@@ -67,7 +69,9 @@
 - (IBAction)showActions:(id)sender {
 	id eventItem = entry.eventItem;
 	NSString *eventItemTitle = nil;
-	if ([eventItem isKindOfClass:[GHRepository class]]) {
+	if ([eventItem isKindOfClass:[GHCommit class]]) {
+		eventItemTitle = [NSString stringWithFormat:@"Show %@", [[(GHCommit *)eventItem repository] name]];
+	} else if ([eventItem isKindOfClass:[GHRepository class]]) {
 		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHRepository *)eventItem name]];
 	} else if ([eventItem isKindOfClass:[GHUser class]]) {
 		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHUser *)eventItem login]];
@@ -109,6 +113,14 @@
 #pragma mark UIWebView delegation methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+	NSArray *pathComponents = [[[request URL] relativeString] componentsSeparatedByString:@"/"];
+	if ([pathComponents containsObject:@"commit"]) {
+		NSString *sha = [pathComponents lastObject];
+		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
+		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
+		[self.navigationController pushViewController:commitController animated:YES];
+		[commitController release];
+	}
 	return [[[request URL] absoluteString] isEqualToString:@"about:blank"];
 }
 

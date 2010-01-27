@@ -97,6 +97,8 @@
 		6F72FB600F9B5A5B0069F092 /* styles.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB5F0F9B5A5B0069F092 /* styles.html */; };
 		6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */; };
 		6F74DD900FA76D1A00FD90AB /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */; };
+		6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
+		6F797C7E1110E842007E5A8D /* Commit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F797C7D1110E842007E5A8D /* Commit.xib */; };
 		6F879A1D0FB60CB500EBD9BD /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1B0FB60CB500EBD9BD /* group.png */; };
 		6F879A1E0FB60CB500EBD9BD /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1C0FB60CB500EBD9BD /* user.png */; };
 		6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5A0FB611FD00EBD9BD /* UserCell.xib */; };
@@ -272,6 +274,9 @@
 		6F74DD8B0FA76CE000FD90AB /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
 		6F74DD8E0FA76D1A00FD90AB /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugLog.h; path = Classes/DebugLog.h; sourceTree = "<group>"; };
 		6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugLog.m; path = Classes/DebugLog.m; sourceTree = "<group>"; };
+		6F797C5B1110E2BE007E5A8D /* CommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitController.h; sourceTree = "<group>"; };
+		6F797C5C1110E2BE007E5A8D /* CommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitController.m; sourceTree = "<group>"; };
+		6F797C7D1110E842007E5A8D /* Commit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commit.xib; path = IBFiles/Commit.xib; sourceTree = "<group>"; };
 		6F879A1B0FB60CB500EBD9BD /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = group.png; path = Images/Icons/group.png; sourceTree = "<group>"; };
 		6F879A1C0FB60CB500EBD9BD /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = Images/Icons/user.png; sourceTree = "<group>"; };
 		6F879A5A0FB611FD00EBD9BD /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UserCell.xib; path = IBFiles/UserCell.xib; sourceTree = "<group>"; };
@@ -566,6 +571,8 @@
 				8CE6867B0FB8C58400A3D625 /* NetworksController.m */,
 				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
 				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
+				6F797C5B1110E2BE007E5A8D /* CommitController.h */,
+				6F797C5C1110E2BE007E5A8D /* CommitController.m */,
 				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
 				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
 			);
@@ -688,6 +695,7 @@
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
 				6F0AEFC0100CF61500FB323E /* IssueForm.xib */,
+				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
 				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
@@ -943,6 +951,7 @@
 				6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */,
 				6F9FE8B710663B4A00F86D5C /* IconOctocat.png in Resources */,
 				6F9FE90210663ECD00F86D5C /* Icon.png in Resources */,
+				6F797C7E1110E842007E5A8D /* Commit.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1039,6 +1048,7 @@
 				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
 				6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */,
 				6F0BEB7F111098A000E95E5A /* BranchCell.m in Sources */,
+				6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

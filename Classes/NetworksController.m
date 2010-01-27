@@ -56,7 +56,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"NetworkCell" owner:self options:nil];
 		cell = networkCell;
 	}
-	cell.network  = [self.currentNetworks.entries objectAtIndex:indexPath.row];
+	cell.network = [self.currentNetworks.entries objectAtIndex:indexPath.row];
 	return cell;
 }
 

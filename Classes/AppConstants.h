@@ -14,6 +14,7 @@
 #define kIssueCellIdentifier @"IssueCell"
 #define kUserCellIdentifier @"UserCell"
 #define kNetworkCellIdentifier @"NetworkCell"
+#define kBranchCellIdentifier @"BranchCell"
 
 // URLs
 #define kUserGithubFormat @"http://github.com/%@"
@@ -22,8 +23,8 @@
 #define kUserFeedFormat @"http://github.com/%@.atom"
 #define kNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
 #define kActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
-#define kRepoFeedFormat @"http://github.com/feeds/%@/commits/%@/master"
-#define kPrivateRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/master"
+#define kRepoFeedFormat @"http://github.com/feeds/%@/commits/%@/%@"
+#define kPrivateRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@"
 #define kAuthenticateUserXMLFormat @"https://github.com/api/v2/xml/user/show/%@?login=%@&token=%@"
 #define kUserReposFormat @"https://github.com/api/v2/xml/repos/show/%@"
@@ -38,6 +39,7 @@
 #define kRepoUnwatchFormat @"https://github.com/api/v2/xml/repos/watch/%@/%@?token=%@"
 #define kUserFollowFormat @"https://github.com/api/v2/xml/user/follow/%@?token=%@"
 #define kUserUnfollowFormat @"https://github.com/api/v2/xml/user/unfollow/%@?token=%@"
+#define kRepoBranchesJSONFormat @"http://github.com/api/v2/json/repos/show/%@/%@/branches"
 #define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
 #define kOpenIssueXMLFormat @"http://github.com/api/v2/xml/issues/open/%@/%@"
 #define kEditIssueXMLFormat @"http://github.com/api/v2/xml/issues/edit/%@/%@/%d"

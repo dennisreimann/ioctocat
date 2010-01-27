@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHRepository, GHUser, FeedEntryCell, TextCell, LabeledCell, IssueCell, NetworkCell;
+@class GHRepository, GHUser, TextCell, LabeledCell;
 
 @interface RepositoryController : UITableViewController <UIActionSheetDelegate> {
   @private
@@ -13,7 +13,7 @@
 	IBOutlet UILabel *websiteLabel;
     IBOutlet UILabel *forkLabel;
 	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *commitsCell;
+	IBOutlet UITableViewCell *branchCell;
     IBOutlet UITableViewCell *issuesCell;
     IBOutlet UITableViewCell *networkCell;    
     IBOutlet UIImageView *iconView;

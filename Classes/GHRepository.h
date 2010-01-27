@@ -4,7 +4,7 @@
 #import "GHFeed.h"
 
 
-@class GHIssues, GHNetworks;
+@class GHIssues, GHNetworks, GHBranches;
 
 @interface GHRepository : GHResource {
 	NSString *name;
@@ -17,7 +17,7 @@
     GHIssues *openIssues;
     GHIssues *closedIssues;
     GHNetworks *networks;
-	GHFeed *recentCommits;
+    GHBranches *branches;
 	BOOL isPrivate;
 	BOOL isFork;
 }
@@ -27,10 +27,10 @@
 @property (nonatomic, retain) NSString *descriptionText;
 @property (nonatomic, retain) NSURL *githubURL;
 @property (nonatomic, retain) NSURL *homepageURL;
-@property (nonatomic, retain) GHFeed *recentCommits;
 @property (nonatomic, retain) GHIssues *openIssues;
 @property (nonatomic, retain) GHIssues *closedIssues;
 @property (nonatomic, retain) GHNetworks *networks;
+@property (nonatomic, retain) GHBranches *branches;
 @property (nonatomic, readonly) GHUser *user;
 @property (nonatomic, readwrite) NSInteger forks;
 @property (nonatomic, readwrite) NSInteger watchers;

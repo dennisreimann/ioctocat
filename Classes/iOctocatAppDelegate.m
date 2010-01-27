@@ -1,5 +1,6 @@
 #import "iOctocatAppDelegate.h"
 #import "MyFeedsController.h"
+#import "SynthesizeSingleton.h"
 
 
 @interface iOctocatAppDelegate ()
@@ -17,6 +18,8 @@
 @implementation iOctocatAppDelegate
 
 @synthesize users, lastLaunchDate;
+
+SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocatAppDelegate);
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	self.users = [NSMutableDictionary dictionary];

@@ -15,6 +15,11 @@
 		6F0AEFB7100CAAE500FB323E /* Networks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFB6100CAAE500FB323E /* Networks.xib */; };
 		6F0AEFBE100CF5DB00FB323E /* IssueFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */; };
 		6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueForm.xib */; };
+		6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
+		6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
+		6F0BEB5D1110931E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
+		6F0BEB5E1110931F00E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
+		6F0BEB7F111098A000E95E5A /* BranchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB7E111098A000E95E5A /* BranchCell.m */; };
 		6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F14B6490FA5F37500F74B4C /* GHResource.m */; };
 		6F1BCBE20FAC586800D66E02 /* upvote.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE00FAC586800D66E02 /* upvote.png */; };
 		6F1BCBE60FAC588800D66E02 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE50FAC588800D66E02 /* Default.png */; };
@@ -194,6 +199,13 @@
 		6F0AEFBB100CF5DB00FB323E /* IssueFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueFormController.h; sourceTree = "<group>"; };
 		6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueFormController.m; sourceTree = "<group>"; };
 		6F0AEFC0100CF61500FB323E /* IssueForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueForm.xib; path = IBFiles/IssueForm.xib; sourceTree = "<group>"; };
+		6F0BEB3E11108C9E00E95E5A /* GHBranches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBranches.h; sourceTree = "<group>"; };
+		6F0BEB3F11108C9E00E95E5A /* GHBranches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBranches.m; sourceTree = "<group>"; };
+		6F0BEB4F11108FEC00E95E5A /* SynthesizeSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SynthesizeSingleton.h; sourceTree = "<group>"; };
+		6F0BEB56111090D300E95E5A /* GHBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBranch.h; sourceTree = "<group>"; };
+		6F0BEB57111090D300E95E5A /* GHBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBranch.m; sourceTree = "<group>"; };
+		6F0BEB7D111098A000E95E5A /* BranchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchCell.h; sourceTree = "<group>"; };
+		6F0BEB7E111098A000E95E5A /* BranchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchCell.m; sourceTree = "<group>"; };
 		6F14B6480FA5F37500F74B4C /* GHResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHResource.h; sourceTree = "<group>"; };
 		6F14B6490FA5F37500F74B4C /* GHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHResource.m; sourceTree = "<group>"; };
 		6F1BCBE00FAC586800D66E02 /* upvote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = upvote.png; path = Images/Icons/upvote.png; sourceTree = "<group>"; };
@@ -446,6 +458,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6F0BEB4F11108FEC00E95E5A /* SynthesizeSingleton.h */,
 				28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */,
 				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
 				6F74DD8E0FA76D1A00FD90AB /* DebugLog.h */,
@@ -500,6 +513,10 @@
 				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
+				6F0BEB3E11108C9E00E95E5A /* GHBranches.h */,
+				6F0BEB3F11108C9E00E95E5A /* GHBranches.m */,
+				6F0BEB56111090D300E95E5A /* GHBranch.h */,
+				6F0BEB57111090D300E95E5A /* GHBranch.m */,
 				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
@@ -572,6 +589,8 @@
 				6FB93A950FB2231E002B43AD /* RepositoryCell.m */,
 				8CE6867F0FB8C59400A3D625 /* NetworkCell.h */,
 				8CE6867E0FB8C59400A3D625 /* NetworkCell.m */,
+				6F0BEB7D111098A000E95E5A /* BranchCell.h */,
+				6F0BEB7E111098A000E95E5A /* BranchCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1017,6 +1036,9 @@
 				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
 				6FE931D60FC72444008545A2 /* Archiver.m in Sources */,
 				6F0AEFBE100CF5DB00FB323E /* IssueFormController.m in Sources */,
+				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
+				6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */,
+				6F0BEB7F111098A000E95E5A /* BranchCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,6 +1079,8 @@
 				6F5254C30FC5492D00005B0B /* CDataScanner.m in Sources */,
 				6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */,
 				6FE932530FC72E67008545A2 /* Archiver.m in Sources */,
+				6F0BEB5D1110931E00E95E5A /* GHBranches.m in Sources */,
+				6F0BEB5E1110931F00E95E5A /* GHBranch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -4,6 +4,7 @@
 #import "GHCommitsParserDelegate.h"
 #import "GHIssues.h"
 #import "GHNetworks.h"
+#import "GHBranches.h"
 
 
 @interface GHRepository ()
@@ -14,7 +15,8 @@
 @implementation GHRepository
 
 @synthesize name, owner, descriptionText, githubURL, homepageURL, isPrivate;
-@synthesize isFork, forks, watchers, recentCommits, openIssues, closedIssues, networks;
+@synthesize isFork, forks, watchers, openIssues, closedIssues;
+@synthesize networks, branches;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	[super init];
@@ -28,10 +30,10 @@
 	[descriptionText release];
 	[githubURL release];
 	[homepageURL release];
-	[recentCommits release];
     [openIssues release];
     [closedIssues release];
     [networks release];
+	[branches release];
     [super dealloc];
 }
 
@@ -47,12 +49,10 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-	// Recent Commits
-	NSString *commitFeedURLString = [NSString stringWithFormat:(isPrivate ? kPrivateRepoFeedFormat : kRepoFeedFormat), owner, name];
-	NSURL *commitFeedURL = [NSURL URLWithString:commitFeedURLString];
-	self.recentCommits = [[[GHFeed alloc] initWithURL:commitFeedURL] autorelease];
     // Networks
     self.networks = [[[GHNetworks alloc] initWithRepository:self] autorelease];
+	// Branches
+    self.branches = [[[GHBranches alloc] initWithRepository:self] autorelease];
 	// Issues
 	self.openIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen] autorelease];
 	self.closedIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed] autorelease];

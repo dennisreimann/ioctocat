@@ -1,5 +1,6 @@
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHBranches.h"
 #import "GHCommit.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
@@ -15,6 +16,7 @@
 #import "IssuesController.h"
 #import "NetworkCell.h"
 #import "NetworksController.h"
+#import "BranchCell.h"
 
 
 @interface RepositoryController ()
@@ -32,15 +34,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	// if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadRepositories];
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.tableView.tableHeaderView = tableHeaderView;
 	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
+	if (!repository.branches.isLoaded) [repository.branches loadBranches];
 }
 
 - (void)dealloc {
+	[repository.branches removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[repository release];
 	[tableHeaderView release];
@@ -104,6 +108,14 @@
 			[alert show];
 			[alert release];
 		}
+	} else if (object == repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (repository.branches.isLoaded) {
+			[self.tableView reloadData];
+		} else if (repository.branches.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the branches" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
 	}
 }
 
@@ -111,13 +123,18 @@
 #pragma mark Table view methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (repository.isLoaded) ? 2 : 1;
+	return (repository.isLoaded) ? 3 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
 	if (section == 0) return descriptionCell.hasContent ? 3 : 2;
-	return 3;
+	if (section == 1) return 2;
+	return [repository.branches.branches count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return (section == 2) ? @"Branches" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -137,10 +154,14 @@
 		}
 	} else if (section == 1) {
 		switch (row) {
-			case 0: cell = commitsCell; break;
-			case 1: cell = issuesCell; break;
-			case 2: cell = networkCell; break;
+			case 0: cell = issuesCell; break;
+			case 1: cell = networkCell; break;
 		}    
+    } else if (section == 2) {
+		BranchCell *cell = (BranchCell *)[tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
+		if (cell == nil) cell = [[[BranchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		cell.branch = [repository.branches.branches objectAtIndex:indexPath.row];
+		return cell;
     }
 	return cell;
 }
@@ -157,17 +178,19 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 1 && row == 0) {
-		FeedController *commitsController = [[FeedController alloc] initWithFeed:repository.recentCommits andTitle:@"Recent Commits"];
-		[self.navigationController pushViewController:commitsController animated:YES];
-		[commitsController release];
-	} else if (section == 1 && row == 1) {
 		IssuesController *issuesController = [[IssuesController alloc] initWithRepository:repository];
 		[self.navigationController pushViewController:issuesController animated:YES];
 		[issuesController release];
-	} else if (section == 1 && row == 2) {
+	} else if (section == 1 && row == 1) {
 		NetworksController  *networksController = [[NetworksController alloc] initWithRepository:repository];
 		[self.navigationController pushViewController:networksController animated:YES];
 		[networksController release];
+	} else if (section == 2) {
+		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
+		GHFeed *recentCommits = [branch recentCommits];
+		FeedController *commitsController = [[FeedController alloc] initWithFeed:recentCommits andTitle:branch.name];
+		[self.navigationController pushViewController:commitsController animated:YES];
+		[commitsController release];
 	}
 }
 

@@ -43,7 +43,7 @@
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {
 			currentEntry.eventType = @"comment";
-		} else if ([event hasPrefix:@"Commit"] || [event hasPrefix:@"Grit::Commit"]) {
+		} else if ([event hasPrefix:@"Push"] || [event hasPrefix:@"Commit"] || [event hasPrefix:@"Grit::Commit"]) {
 			currentEntry.eventType = @"commit";
 		} else if ([event hasPrefix:@"Watch"]) {
 			currentEntry.eventType = @"watch";
@@ -53,8 +53,6 @@
 			currentEntry.eventType = @"create";
 		} else if ([event hasPrefix:@"Member"]) {
 			currentEntry.eventType = @"member";
-		} else if ([event hasPrefix:@"Push"]) {
-			currentEntry.eventType = @"push";
 		} else if ([event hasPrefix:@"Gist"]) {
 			currentEntry.eventType = @"gist";
 		} else if ([event hasPrefix:@"Wiki"]) {

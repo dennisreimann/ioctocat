@@ -113,14 +113,14 @@
 #pragma mark UIWebView delegation methods
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	NSArray *pathComponents = [[[request URL] relativeString] componentsSeparatedByString:@"/"];
-	if ([pathComponents containsObject:@"commit"]) {
-		NSString *sha = [pathComponents lastObject];
-		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
-		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
-		[self.navigationController pushViewController:commitController animated:YES];
-		[commitController release];
-	}
+//	NSArray *pathComponents = [[[request URL] relativeString] componentsSeparatedByString:@"/"];
+//	if ([pathComponents containsObject:@"commit"]) {
+//		NSString *sha = [pathComponents lastObject];
+//		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
+//		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
+//		[self.navigationController pushViewController:commitController animated:YES];
+//		[commitController release];
+//	}
 	return [[[request URL] absoluteString] isEqualToString:@"about:blank"];
 }
 

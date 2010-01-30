@@ -8,6 +8,7 @@
 #import "GHCommit.h"
 #import "GravatarLoader.h"
 #import "CommitController.h"
+#import "iOctocat.h"
 
 
 @implementation FeedEntryController
@@ -86,7 +87,7 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (buttonIndex == 1) {
-		UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.user];
+		UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
 	} else if (buttonIndex == 2 ) {
@@ -111,14 +112,16 @@
 #pragma mark WebView
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	NSArray *pathComponents = [[[request URL] relativeString] componentsSeparatedByString:@"/"];
+	if ([[[request URL] absoluteString] isEqualToString:@"about:blank"]) return YES;
+	NSArray *pathComponents = [[[[request URL] relativePath] substringFromIndex:1] componentsSeparatedByString:@"/"];
+	DebugLog(@"Path: %@", pathComponents);
 	if ([pathComponents containsObject:@"commit"]) {
 		NSString *sha = [pathComponents lastObject];
 		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
 		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
 		[self.navigationController pushViewController:commitController animated:YES];
 		[commitController release];
-	} else if ([pathComponents containsObject:@"github.com"] && [entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
+	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
 		NSString *owner = [pathComponents objectAtIndex:[pathComponents count]-2];
 		NSString *name = [pathComponents objectAtIndex:[pathComponents count]-1];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
@@ -126,8 +129,15 @@
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
 		[repo release];
+	} else if ([pathComponents count] == 1) {
+		NSString *username = [pathComponents objectAtIndex:0];
+		GHUser *user = [[iOctocat sharedInstance] userWithLogin:username];
+		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
+		[self.navigationController pushViewController:userController animated:YES];
+		[userController release];
+		[user release];
 	}
-	return [[[request URL] absoluteString] isEqualToString:@"about:blank"];
+	return NO;
 }
 
 @end

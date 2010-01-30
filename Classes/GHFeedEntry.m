@@ -1,7 +1,7 @@
 #import "GHFeedEntry.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 
 
 @implementation GHFeedEntry
@@ -32,8 +32,7 @@
 }
 
 - (GHUser *)user {
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return [appDelegate userWithLogin:authorName];
+	return [[iOctocat sharedInstance] userWithLogin:authorName];
 }
 
 - (id)eventItem {
@@ -53,8 +52,7 @@
 	} else if ([eventType isEqualToString:@"follow"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" following "];
 		NSString *username = [comps1 objectAtIndex:1];
-		iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-		self.eventItem = [appDelegate userWithLogin:username];
+		self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
 	} else if ([eventType isEqualToString:@"watch"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" started watching "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];

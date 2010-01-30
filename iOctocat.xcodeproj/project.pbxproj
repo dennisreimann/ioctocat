@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* iOctocatAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */; };
+		1D3623260D0F684500981E51 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -36,6 +36,35 @@
 		6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* watch.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
+		6F2C758B1114BBDD002665DA /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
+		6F2C758E1114BBFD002665DA /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
+		6F2C758F1114BBFE002665DA /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
+		6F2C75901114BBFF002665DA /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
+		6F2C75911114BC00002665DA /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6F2C75921114BC00002665DA /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
+		6F2C75931114BC01002665DA /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
+		6F2C75941114BC03002665DA /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
+		6F2C75951114BC04002665DA /* NetworksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* NetworksController.m */; };
+		6F2C75961114BC04002665DA /* MyFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */; };
+		6F2C75971114BC07002665DA /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
+		6F2C75981114BC08002665DA /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
+		6F2C75991114BC09002665DA /* IssueFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */; };
+		6F2C759A1114BC09002665DA /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
+		6F2C759D1114BC18002665DA /* FeedEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryController.m */; };
+		6F2C759E1114BC18002665DA /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
+		6F2C759F1114BC19002665DA /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
+		6F2C75A21114BC26002665DA /* BranchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB7E111098A000E95E5A /* BranchCell.m */; };
+		6F2C75A31114BC29002665DA /* FeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */; };
+		6F2C75A41114BC2E002665DA /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueCell.m */; };
+		6F2C75A51114BC2F002665DA /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
+		6F2C75A61114BC31002665DA /* NetworkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867E0FB8C59400A3D625 /* NetworkCell.m */; };
+		6F2C75A71114BC32002665DA /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C56938F0FB0B9E600730A5C /* NSCharacterSet_Extensions.m */; };
+		6F2C75AA1114BC36002665DA /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693910FB0B9E600730A5C /* NSDictionary_JSONExtensions.m */; };
+		6F2C75AB1114BC36002665DA /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */; };
+		6F2C75AC1114BC39002665DA /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693930FB0B9E600730A5C /* NSScanner_Extensions.m */; };
+		6F2C75AD1114BC3A002665DA /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
+		6F2C75AE1114BC3B002665DA /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
+		6F2C75AF1114BC3C002665DA /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserCell.m */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
 		6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
 		6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
@@ -190,8 +219,8 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocatAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocatAppDelegate.m; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* iOctocat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iOctocat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOctocat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -541,8 +570,8 @@
 		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1D3623240D0F684500981E51 /* iOctocatAppDelegate.h */,
-				1D3623250D0F684500981E51 /* iOctocatAppDelegate.m */,
+				1D3623240D0F684500981E51 /* iOctocat.h */,
+				1D3623250D0F684500981E51 /* iOctocat.m */,
 				6FE91E4A0FAD13D500749370 /* LoginController.h */,
 				6FE91E4B0FAD13D500749370 /* LoginController.m */,
 				6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */,
@@ -986,7 +1015,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* iOctocatAppDelegate.m in Sources */,
+				1D3623260D0F684500981E51 /* iOctocat.m in Sources */,
 				6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */,
 				6F1DC4490F7E5AA000FCD26D /* GHFeedEntry.m in Sources */,
 				6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */,
@@ -1091,6 +1120,35 @@
 				6FE932530FC72E67008545A2 /* Archiver.m in Sources */,
 				6F0BEB5D1110931E00E95E5A /* GHBranches.m in Sources */,
 				6F0BEB5E1110931F00E95E5A /* GHBranch.m in Sources */,
+				6F2C758B1114BBDD002665DA /* iOctocat.m in Sources */,
+				6F2C758E1114BBFD002665DA /* WebController.m in Sources */,
+				6F2C758F1114BBFE002665DA /* UsersController.m in Sources */,
+				6F2C75901114BBFF002665DA /* UserController.m in Sources */,
+				6F2C75911114BC00002665DA /* SearchController.m in Sources */,
+				6F2C75921114BC00002665DA /* RepositoryController.m in Sources */,
+				6F2C75931114BC01002665DA /* RepositoriesController.m in Sources */,
+				6F2C75941114BC03002665DA /* OverlayController.m in Sources */,
+				6F2C75951114BC04002665DA /* NetworksController.m in Sources */,
+				6F2C75961114BC04002665DA /* MyFeedsController.m in Sources */,
+				6F2C75971114BC07002665DA /* LoginController.m in Sources */,
+				6F2C75981114BC08002665DA /* IssuesController.m in Sources */,
+				6F2C75991114BC09002665DA /* IssueFormController.m in Sources */,
+				6F2C759A1114BC09002665DA /* IssueController.m in Sources */,
+				6F2C759D1114BC18002665DA /* FeedEntryController.m in Sources */,
+				6F2C759E1114BC18002665DA /* FeedController.m in Sources */,
+				6F2C759F1114BC19002665DA /* CommitController.m in Sources */,
+				6F2C75A21114BC26002665DA /* BranchCell.m in Sources */,
+				6F2C75A31114BC29002665DA /* FeedEntryCell.m in Sources */,
+				6F2C75A41114BC2E002665DA /* IssueCell.m in Sources */,
+				6F2C75A51114BC2F002665DA /* LabeledCell.m in Sources */,
+				6F2C75A61114BC31002665DA /* NetworkCell.m in Sources */,
+				6F2C75A71114BC32002665DA /* NSCharacterSet_Extensions.m in Sources */,
+				6F2C75AA1114BC36002665DA /* NSDictionary_JSONExtensions.m in Sources */,
+				6F2C75AB1114BC36002665DA /* NSDate+Nibware.m in Sources */,
+				6F2C75AC1114BC39002665DA /* NSScanner_Extensions.m in Sources */,
+				6F2C75AD1114BC3A002665DA /* RepositoryCell.m in Sources */,
+				6F2C75AE1114BC3B002665DA /* TextCell.m in Sources */,
+				6F2C75AF1114BC3C002665DA /* UserCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

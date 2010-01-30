@@ -1,5 +1,5 @@
 #import "GHNetwork.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 
 
 @implementation GHNetwork
@@ -16,8 +16,7 @@
 }
 
 - (GHUser *)user {
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return [appDelegate userWithLogin:owner];
+	return [[iOctocat sharedInstance] userWithLogin:owner];
 }
 
 @end

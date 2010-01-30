@@ -5,7 +5,7 @@
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
 #import "GHUser.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 
 
 @interface MyFeedsController ()
@@ -42,10 +42,9 @@
 	GHFeed *newsFeed = [[[GHFeed alloc] initWithURL:newsFeedURL] autorelease];
 	GHFeed *activityFeed = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
 	for (GHFeed *feed in feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = appDelegate.lastLaunchDate;
+		feed.lastReadingDate = [[iOctocat sharedInstance] lastLaunchDate];
 	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;

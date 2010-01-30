@@ -7,7 +7,7 @@
 #import "RepositoryController.h"
 #import "UserController.h"
 #import "WebController.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 #import "FeedEntryCell.h"
 #import "FeedEntryController.h"
 #import "IssueController.h"
@@ -63,8 +63,7 @@
 }
 
 - (GHUser *)currentUser {
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return appDelegate.currentUser;
+	return [[iOctocat sharedInstance] currentUser];
 }
 
 - (IBAction)showActions:(id)sender {

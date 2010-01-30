@@ -1,5 +1,5 @@
 #import "GHRepository.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 #import "GHReposParserDelegate.h"
 #import "GHCommitsParserDelegate.h"
 #import "GHIssues.h"
@@ -59,8 +59,7 @@
 }
 
 - (GHUser *)user {
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return [appDelegate userWithLogin:owner];
+	return [[iOctocat sharedInstance] userWithLogin:owner];
 }
 
 - (int)compareByName:(GHRepository *)theOtherRepository {

@@ -5,7 +5,7 @@
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "RepositoryCell.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 
 
 @interface RepositoriesController ()
@@ -75,8 +75,7 @@
 }
 
 - (GHUser *)currentUser {
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return appDelegate.currentUser;
+	return [[iOctocat sharedInstance] currentUser];
 }
 
 - (NSMutableArray *)watchedRepositories {

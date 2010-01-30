@@ -13,7 +13,7 @@
 	IBOutlet UIImageView *bgImageView;
 }
 
-@property (nonatomic, retain) GHFeedEntry *entry;
+@property(nonatomic,retain)GHFeedEntry *entry;
 
 - (void)markAsNew;
 - (void)markAsRead;

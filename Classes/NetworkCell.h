@@ -10,7 +10,7 @@
   	IBOutlet UIImageView *iconView;
 }
 
-@property (nonatomic, retain) GHNetwork *network;
+@property(nonatomic,retain)GHNetwork *network;
 
 @end
 

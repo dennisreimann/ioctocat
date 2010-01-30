@@ -3,7 +3,9 @@
 
 @implementation GHResource
 
-@synthesize loadingStatus, savingStatus, error;
+@synthesize loadingStatus;
+@synthesize savingStatus;
+@synthesize error;
 
 - (id)init {
 	[super init];

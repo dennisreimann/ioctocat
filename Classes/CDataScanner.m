@@ -35,7 +35,6 @@
 @property (readwrite, nonatomic, retain) NSCharacterSet *doubleCharacters;
 @end
 
-#pragma mark -
 
 inline static unichar CharacterAtPointer(void *start, void *end)
 {
@@ -128,7 +127,6 @@ return(self.scanLocation >= length);
 return(CharacterAtPointer(current, end));
 }
 
-#pragma mark -
 
 - (unichar)scanCharacter
 {

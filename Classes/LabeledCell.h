@@ -8,7 +8,7 @@
 	BOOL hasContent;
 }
 
-@property (nonatomic, readonly) BOOL hasContent;
+@property(nonatomic,readonly)BOOL hasContent;
 
 - (void)setLabelText:(NSString *)text;
 - (void)setContentText:(NSString *)text;

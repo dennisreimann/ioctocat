@@ -21,7 +21,6 @@
 	return self;
 }
 
-
 - (void)dealloc {
 	[repository release], repository = nil;
 	[recentCommits release], recentCommits = nil;

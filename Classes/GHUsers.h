@@ -11,9 +11,9 @@
 	NSURL *usersURL;
 }
 
-@property (nonatomic, retain) GHUser *user;
-@property (nonatomic, retain) NSMutableArray *users;
-@property (nonatomic, retain) NSURL *usersURL;
+@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,retain)NSMutableArray *users;
+@property(nonatomic,retain)NSURL *usersURL;
 
 - (void)loadUsers;
 - (void)loadedUsers:(id)theResult;

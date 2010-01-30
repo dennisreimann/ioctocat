@@ -16,7 +16,7 @@
 	NSArray *searches;
 }
 
-@property (nonatomic, readonly) GHSearch *currentSearch;
+@property(nonatomic,readonly)GHSearch *currentSearch;
 
 - (void)quitSearching:(id)sender;
 - (IBAction)switchChanged:(id)sender;

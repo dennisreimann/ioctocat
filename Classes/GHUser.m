@@ -96,7 +96,6 @@
 	}
 }
 
-#pragma mark -
 #pragma mark User loading
 
 - (void)loadUser {
@@ -152,7 +151,6 @@
 	self.loadingStatus = GHResourceStatusLoaded;
 }
 
-#pragma mark -
 #pragma mark Following/Watching
 
 - (BOOL)isFollowing:(GHUser *)anUser {
@@ -213,7 +211,6 @@
     [pool release];
 }
 
-#pragma mark -
 #pragma mark Gravatar
 
 - (void)loadedGravatar:(UIImage *)theImage {

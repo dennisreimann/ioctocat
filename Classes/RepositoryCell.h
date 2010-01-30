@@ -6,7 +6,7 @@
 	GHRepository *repository;
 }
 
-@property (nonatomic, retain) GHRepository *repository;
+@property(nonatomic,retain)GHRepository *repository;
 
 - (void)hideOwner;
 

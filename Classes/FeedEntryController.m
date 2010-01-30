@@ -63,7 +63,6 @@
 	[super viewWillDisappear:animated];
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
@@ -109,8 +108,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark UIWebView delegation methods
+#pragma mark WebView
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	NSArray *pathComponents = [[[request URL] relativeString] componentsSeparatedByString:@"/"];

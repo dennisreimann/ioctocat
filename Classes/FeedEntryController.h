@@ -13,7 +13,7 @@
 	IBOutlet UIWebView *contentView;
 }
 
-@property (nonatomic, retain) GHFeedEntry *entry;
+@property(nonatomic,retain) GHFeedEntry *entry;
 
 - (id)initWithFeedEntry:(GHFeedEntry *)theEntry;
 - (IBAction)showActions:(id)sender;

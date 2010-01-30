@@ -4,7 +4,11 @@
 
 @implementation GHNetwork
 
-@synthesize description, name, networkURL, owner, repository;
+@synthesize description;
+@synthesize name;
+@synthesize networkURL;
+@synthesize owner;
+@synthesize repository;
 
 - (void)dealloc {
     [repository release];

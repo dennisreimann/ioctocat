@@ -10,9 +10,9 @@
 	NSArray *entries;
 }
 
-@property (nonatomic, retain) NSURL *url;
-@property (nonatomic, retain) NSArray *entries;
-@property (nonatomic, retain) NSDate *lastReadingDate;
+@property(nonatomic,retain)NSURL *url;
+@property(nonatomic,retain)NSArray *entries;
+@property(nonatomic,retain)NSDate *lastReadingDate;
 
 - (id)initWithURL:(NSURL *)theURL;
 - (void)loadEntries;

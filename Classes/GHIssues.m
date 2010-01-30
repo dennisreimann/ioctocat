@@ -11,7 +11,9 @@
 
 @implementation GHIssues
 
-@synthesize entries, repository, issueState;
+@synthesize entries;
+@synthesize repository;
+@synthesize issueState;
 
 - (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
     [super init];

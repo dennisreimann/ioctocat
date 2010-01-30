@@ -55,7 +55,6 @@
 		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
@@ -103,8 +102,7 @@
 	reloadButton.enabled = YES;
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

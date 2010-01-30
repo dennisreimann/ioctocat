@@ -10,6 +10,6 @@
 	IBOutlet UIImageView *gravatarView;
 }
 
-@property (nonatomic, retain) GHUser *user;
+@property(nonatomic,retain)GHUser *user;
 
 @end

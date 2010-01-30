@@ -24,8 +24,8 @@
 	IBOutlet LabeledCell *emailCell;
 }
 
-@property (nonatomic, retain) GHUser *user;
-@property (nonatomic, readonly) GHUser *currentUser;
+@property(nonatomic,retain) GHUser *user;
+@property(nonatomic,readonly) GHUser *currentUser;
 
 - (id)initWithUser:(GHUser *)theUser;
 - (IBAction)showActions:(id)sender;

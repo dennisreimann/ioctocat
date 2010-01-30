@@ -14,9 +14,19 @@
 
 @implementation GHRepository
 
-@synthesize name, owner, descriptionText, githubURL, homepageURL, isPrivate;
-@synthesize isFork, forks, watchers, openIssues, closedIssues;
-@synthesize networks, branches;
+@synthesize name;
+@synthesize owner;
+@synthesize descriptionText;
+@synthesize githubURL;
+@synthesize homepageURL;
+@synthesize isPrivate;
+@synthesize isFork;
+@synthesize forks;
+@synthesize watchers;
+@synthesize openIssues;
+@synthesize closedIssues;
+@synthesize networks;
+@synthesize branches;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	[super init];
@@ -66,7 +76,6 @@
     return [[self name] localizedCaseInsensitiveCompare:[theOtherRepository name]];
 }
 
-#pragma mark -
 #pragma mark Repository loading
 
 - (void)loadRepository {

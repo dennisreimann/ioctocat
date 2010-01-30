@@ -90,8 +90,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return (user.repositories.isLoaded) ? 3 : 1;

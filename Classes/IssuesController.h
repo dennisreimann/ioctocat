@@ -16,8 +16,8 @@
 	NSUInteger loadCounter;
 }
 
-@property (nonatomic, readonly) GHIssues *currentIssues;
-@property (nonatomic, retain) GHRepository *repository;
+@property(nonatomic,readonly) GHIssues *currentIssues;
+@property(nonatomic,retain) GHRepository *repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)reloadIssues;

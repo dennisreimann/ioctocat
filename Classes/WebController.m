@@ -35,8 +35,7 @@
 	[super viewWillDisappear:animated];
 }
 
-#pragma mark -
-#pragma mark UIWebView delegation methods
+#pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webview {
 	[activityView startAnimating];

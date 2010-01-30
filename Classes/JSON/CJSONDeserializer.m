@@ -60,7 +60,6 @@ else
 
 @end
 
-#pragma mark -
 
 @implementation CJSONDeserializer (CJSONDeserializer_Deprecated)
 

@@ -1,6 +1,6 @@
 #import "GHRepositories.h"
 #import "GHUser.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 #import "ASIFormDataRequest.h"
 #import "GHReposParserDelegate.h"
 

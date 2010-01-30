@@ -4,7 +4,7 @@
 #import "GHUser.h"
 
 
-@interface iOctocatAppDelegate : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
+@interface iOctocat : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
   @private
     IBOutlet UIWindow *window;
     IBOutlet UITabBarController *tabBarController;
@@ -16,10 +16,11 @@
 	BOOL launchDefault;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *users;
-@property (nonatomic, retain) NSDate *lastLaunchDate;
-@property (nonatomic, readonly) LoginController *loginController;
+@property(nonatomic,retain)NSMutableDictionary *users;
+@property(nonatomic,retain)NSDate *lastLaunchDate;
+@property(nonatomic,readonly)LoginController *loginController;
 
++ (id)sharedInstance;
 - (GHUser *)currentUser;
 - (UIView *)currentView ;
 - (GHUser *)userWithLogin:(NSString *)theUsername;

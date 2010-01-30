@@ -6,7 +6,7 @@
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
 #import "GravatarLoader.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 #import "UsersController.h"
 #import "ASIFormDataRequest.h"
 #import "FeedController.h"
@@ -65,8 +65,7 @@
 }
 
 - (GHUser *)currentUser {
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
-	return appDelegate.currentUser;
+	return [[iOctocat sharedInstance] currentUser];
 }
 
 #pragma mark -

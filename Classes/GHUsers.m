@@ -1,6 +1,6 @@
 #import "GHUsers.h"
 #import "GHUser.h"
-#import "iOctocatAppDelegate.h"
+#import "iOctocat.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 
@@ -47,9 +47,8 @@
 	NSError *parseError = nil;
     NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
     NSMutableArray *resources = [NSMutableArray array];
-	iOctocatAppDelegate *appDelegate = (iOctocatAppDelegate *)[[UIApplication sharedApplication] delegate];
     for (NSString *login in [usersDict objectForKey:@"users"]) {
-		GHUser *theUser = [appDelegate userWithLogin:login];
+		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
         [resources addObject:theUser];
     }
     id result = parseError ? (id)parseError : (id)resources;

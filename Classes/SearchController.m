@@ -48,7 +48,6 @@
 	}
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {

@@ -10,8 +10,8 @@
     GHRepository *repository;
 }
 
-@property (nonatomic, retain) GHRepository *repository;
-@property (nonatomic, retain) NSArray *entries;
+@property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,retain)NSArray *entries;
 
 - (void)loadNetworks;
 - (void)loadedNetworks:(id)theResult;

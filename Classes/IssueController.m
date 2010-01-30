@@ -59,7 +59,6 @@
     [super dealloc];
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (void)displayIssue {
@@ -113,8 +112,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;

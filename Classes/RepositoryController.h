@@ -22,7 +22,7 @@
 	IBOutlet TextCell *descriptionCell;
 }
 
-@property (nonatomic, readonly) GHUser *currentUser;
+@property(nonatomic,readonly) GHUser *currentUser;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)showActions:(id)sender;

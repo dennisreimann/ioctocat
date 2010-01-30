@@ -11,7 +11,7 @@
     IBOutlet UserCell *userCell;
 }
 
-@property (nonatomic, retain) GHUsers *users;
+@property(nonatomic,retain) GHUsers *users;
 
 - (id)initWithUsers:(GHUsers *)theUsers;
 

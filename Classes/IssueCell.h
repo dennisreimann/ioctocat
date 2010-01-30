@@ -14,6 +14,6 @@
 	IBOutlet UIImageView *iconView;
 }
 
-@property (nonatomic, retain) GHIssue *issue;
+@property(nonatomic,retain)GHIssue *issue;
 
 @end

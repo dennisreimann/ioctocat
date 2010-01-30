@@ -12,7 +12,16 @@
 
 @implementation GHIssue
 
-@synthesize user, title, body, state, type, votes, created, updated, num, repository;
+@synthesize user;
+@synthesize title;
+@synthesize body;
+@synthesize state;
+@synthesize type;
+@synthesize votes;
+@synthesize created;
+@synthesize updated;
+@synthesize num;
+@synthesize repository;
 
 - (void)dealloc {
     [user release];

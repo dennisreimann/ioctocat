@@ -7,8 +7,8 @@
 	CGFloat maxWidth;
 }
 
-@property (nonatomic, readonly) BOOL hasContent;
-@property (nonatomic, readonly) CGFloat height;
+@property(nonatomic,readonly)BOOL hasContent;
+@property(nonatomic,readonly)CGFloat height;
 
 - (void)setContentText:(NSString *)text;
 

@@ -48,7 +48,6 @@
 		nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
@@ -97,8 +96,7 @@
 	if (loadCounter > 0) return;
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

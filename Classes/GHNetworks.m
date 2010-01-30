@@ -11,7 +11,8 @@
 
 @implementation GHNetworks
 
-@synthesize entries, repository;
+@synthesize entries;
+@synthesize repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];

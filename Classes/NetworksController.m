@@ -3,8 +3,8 @@
 #import "GHNetworks.h"
 #import "RepositoryController.h"
 
-@implementation NetworksController
 
+@implementation NetworksController
 
 @synthesize repository;
 

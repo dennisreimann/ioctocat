@@ -51,7 +51,6 @@ else
 - (BOOL)scanNotQuoteCharactersIntoString:(NSString **)outValue;
 @end
 
-#pragma mark -
 
 @implementation CJSONScanner
 
@@ -69,7 +68,6 @@ return(self);
 [super dealloc];
 }
 
-#pragma mark -
 
 - (void)setData:(NSData *)inData
 {
@@ -104,7 +102,6 @@ if (theData && theData.length >= 4)
 [super setData:theData];
 }
 
-#pragma mark -
 
 - (BOOL)scanJSONObject:(id *)outObject error:(NSError **)outError
 {
@@ -510,7 +507,6 @@ else
 }
 #endif // TREAT_COMMENTS_AS_WHITESPACE
 
-#pragma mark -
 
 - (BOOL)scanNotQuoteCharactersIntoString:(NSString **)outValue
 {

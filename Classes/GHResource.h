@@ -21,13 +21,13 @@ typedef enum {
 	NSError *error;
 }
 
-@property (nonatomic, retain) NSError *error;
-@property (nonatomic, readwrite) GHResourceLoadingStatus loadingStatus;
-@property (nonatomic, readwrite) GHResourceSavingStatus savingStatus;
-@property (nonatomic, readonly) BOOL isLoaded;
-@property (nonatomic, readonly) BOOL isLoading;
-@property (nonatomic, readonly) BOOL isSaved;
-@property (nonatomic, readonly) BOOL isSaving;
+@property(nonatomic,retain)NSError *error;
+@property(nonatomic,readwrite)GHResourceLoadingStatus loadingStatus;
+@property(nonatomic,readwrite)GHResourceSavingStatus savingStatus;
+@property(nonatomic,readonly)BOOL isLoaded;
+@property(nonatomic,readonly)BOOL isLoading;
+@property(nonatomic,readonly)BOOL isSaved;
+@property(nonatomic,readonly)BOOL isSaving;
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
 

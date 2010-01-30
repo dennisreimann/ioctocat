@@ -17,8 +17,7 @@
     [super dealloc];
 }
 
-#pragma mark -
-#pragma mark NSXMLParser delegation methods
+#pragma mark XML Parser
 
 - (void)parserDidStartDocument:(NSXMLParser *)parser {
 	resources = [[NSMutableArray alloc] init];

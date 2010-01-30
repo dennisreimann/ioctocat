@@ -15,7 +15,7 @@
 	NSUInteger loadCounter;
 }
 
-@property (nonatomic, readonly) GHFeed *currentFeed;
+@property(nonatomic,readonly) GHFeed *currentFeed;
 
 - (void)setupFeeds;
 - (IBAction)switchChanged:(id)sender;

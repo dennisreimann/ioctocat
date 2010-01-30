@@ -68,7 +68,6 @@
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
@@ -127,8 +126,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!user.isLoaded) return 1;

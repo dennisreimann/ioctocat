@@ -11,7 +11,9 @@
 
 @implementation GHFeed
 
-@synthesize url, entries, lastReadingDate;
+@synthesize url;
+@synthesize entries;
+@synthesize lastReadingDate;
 
 - (id)initWithURL:(NSURL *)theURL {
 	[super init];
@@ -39,7 +41,6 @@
     return [NSString stringWithFormat:@"<GHFeed url:'%@'>", url];
 }
 
-#pragma mark -
 #pragma mark Feed parsing
 
 - (void)loadEntries {

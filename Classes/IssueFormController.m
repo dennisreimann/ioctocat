@@ -62,8 +62,7 @@
 	}
 }
 	
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -81,7 +80,6 @@
 	return (indexPath.row == 1) ? 100.0f : 44.0f;
 }
 
-#pragma mark -
 #pragma mark Keyboard
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

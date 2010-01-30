@@ -87,7 +87,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
-#pragma mark -
 #pragma mark Authentication
 
 // Use this to add credentials (for instance via email) by opening a link:

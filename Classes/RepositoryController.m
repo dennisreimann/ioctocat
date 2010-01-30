@@ -84,7 +84,6 @@
     }
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (void)displayRepository {
@@ -118,8 +117,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return (repository.isLoaded) ? 3 : 1;

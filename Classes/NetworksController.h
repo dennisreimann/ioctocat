@@ -11,8 +11,8 @@
 	IBOutlet NetworkCell *networkCell;
 }
 
-@property (nonatomic, readonly) GHNetworks *currentNetworks;
-@property (nonatomic, retain) GHRepository *repository;
+@property(nonatomic,readonly)GHNetworks *currentNetworks;
+@property(nonatomic,retain)GHRepository *repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
 

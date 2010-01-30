@@ -59,7 +59,6 @@
     [super dealloc];
 }
 
-#pragma mark -
 #pragma mark Actions
 
 - (void)displayCommit {
@@ -91,8 +90,7 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Table view methods
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return (commit.isLoaded) ? 1 : 1;

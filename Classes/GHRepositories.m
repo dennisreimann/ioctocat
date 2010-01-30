@@ -13,7 +13,9 @@
 
 @implementation GHRepositories
 
-@synthesize user, repositories, repositoriesURL;
+@synthesize user;
+@synthesize repositories;
+@synthesize repositoriesURL;
 
 - (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
     [super init];

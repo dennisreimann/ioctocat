@@ -9,6 +9,7 @@
 #import "GravatarLoader.h"
 #import "CommitController.h"
 #import "iOctocat.h"
+#import "NSDate+Nibware.h"
 
 
 @implementation FeedEntryController
@@ -32,11 +33,7 @@
 	NSString *html = [NSString stringWithFormat:@"%@%@", style, entry.content];
 	[contentView loadHTMLString:html baseURL:nil];
 	// Date
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	[dateFormatter setDateStyle:NSDateFormatterFullStyle];
-	[dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-	dateLabel.text = [dateFormatter stringFromDate:entry.date];
-	[dateFormatter release];
+	dateLabel.text = [entry.date prettyDate];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];
 	iconView.image = [UIImage imageNamed:icon];

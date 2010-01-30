@@ -15,9 +15,13 @@
 @end
 
 
+static NSDateFormatter *inputDateFormatter;
+
+
 @implementation iOctocat
 
-@synthesize users, lastLaunchDate;
+@synthesize users;
+@synthesize lastLaunchDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
@@ -55,6 +59,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[super dealloc];
 }
 
+- (NSDateFormatter *)inputDateFormatter {
+	if (!inputDateFormatter) {
+		inputDateFormatter = [[NSDateFormatter alloc] init];
+		inputDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ"; 
+	}
+	return inputDateFormatter;
+}
+
+
+
 - (UIView *)currentView {
     return tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
 }
@@ -68,7 +82,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (GHUser *)userWithLogin:(NSString *)theUsername {
 	GHUser *user = [users objectForKey:theUsername];
 	if (user == nil) {
-		user = [[[GHUser alloc] initWithLogin:theUsername] autorelease];
+		user = [GHUser userWithLogin:theUsername];
 		[users setObject:user forKey:theUsername];
 	}
 	return user;

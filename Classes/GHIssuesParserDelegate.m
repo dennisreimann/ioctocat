@@ -24,8 +24,7 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"issue"]) {
 		[resources addObject:currentIssue];
-		[currentIssue release];
-		currentIssue = nil;
+		[currentIssue release], currentIssue = nil;
 	} else if ([elementName isEqualToString:@"user"]) {
 		currentIssue.user = currentElementValue;        
 	} else if ([elementName isEqualToString:@"title"]) {
@@ -43,13 +42,11 @@
     } else if ([elementName isEqualToString:@"updated-at"]) {        
          currentIssue.updated = [dateFormatter dateFromString:currentElementValue];
 	}
-	[currentElementValue release];
-	currentElementValue = nil;
+	[currentElementValue release], currentElementValue = nil;
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser {
 	[super parserDidEndDocument:parser];
-	[dateFormatter release];
-	dateFormatter = nil;
+	[dateFormatter release], dateFormatter = nil;
 }
 @end

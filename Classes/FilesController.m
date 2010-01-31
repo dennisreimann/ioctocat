@@ -1,4 +1,6 @@
 #import "FilesController.h"
+#import "TextCell.h"
+#import "DiffController.h"
 
 
 @implementation FilesController
@@ -33,15 +35,28 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     }
-	cell.textLabel.text = ([files count] == 0) ? @"No files" : [[files objectAtIndex:indexPath.row] objectForKey:@"filename"];
+	if ([files count] == 0) {
+		cell.textLabel.text = @"No files";
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryNone;
+	} else {
+		NSDictionary *fileInfo = [files objectAtIndex:indexPath.row];
+		NSString *diff = [fileInfo objectForKey:@"diff"];
+		cell.textLabel.text = [fileInfo objectForKey:@"filename"];
+		cell.selectionStyle = diff ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+		cell.accessoryType = diff ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	}
     return cell;
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	// AnotherViewController *anotherViewController = [[AnotherViewController alloc] initWithNibName:@"AnotherView" bundle:nil];
-	// [self.navigationController pushViewController:anotherViewController];
-	// [anotherViewController release];
+	NSDictionary *fileInfo = [files objectAtIndex:indexPath.row];
+	NSString *diff = [fileInfo objectForKey:@"diff"];
+	if (diff) {
+		DiffController *diffController = [[DiffController alloc] initWithFiles:files currentIndex:indexPath.row];
+		[self.navigationController pushViewController:diffController animated:YES];
+		[diffController release];
+	}
 }
 
 @end

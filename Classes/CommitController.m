@@ -149,10 +149,11 @@
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	UIViewController *viewController;
 	if (indexPath.section == 0) {
 		GHUser *user = (indexPath.row == 0) ? commit.author : commit.committer;
-		viewController = [(UserController *)[UserController alloc] initWithUser:user];
+		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
+		[self.navigationController pushViewController:userController animated:YES];
+		[userController release];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
 		if ([cell.files count] > 0) {

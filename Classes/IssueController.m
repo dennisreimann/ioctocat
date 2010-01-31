@@ -114,21 +114,21 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
 	return 3;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 0) return createdCell;             
 	if (indexPath.row == 1) return updatedCell;
 	return descriptionCell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 2) return [(TextCell *)descriptionCell height];
 	return 44.0f;
 }

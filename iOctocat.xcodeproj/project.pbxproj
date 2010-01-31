@@ -182,6 +182,9 @@
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
 		6FED83010FACB91000BE5C81 /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
 		6FF09E65111589D600925109 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
+		6FF09F831115AF7800925109 /* DiffController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09F811115AF7800925109 /* DiffController.m */; };
+		6FF09F861115AFB500925109 /* Diff.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FF09F851115AFB500925109 /* Diff.xib */; };
+		6FF09F931115B06800925109 /* DiffController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09F811115AF7800925109 /* DiffController.m */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
 		8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
@@ -382,6 +385,9 @@
 		6FED83000FACB91000BE5C81 /* FeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedController.m; sourceTree = "<group>"; };
 		6FF09E63111589D600925109 /* FilesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesCell.h; sourceTree = "<group>"; };
 		6FF09E64111589D600925109 /* FilesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesCell.m; sourceTree = "<group>"; };
+		6FF09F801115AF7800925109 /* DiffController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiffController.h; sourceTree = "<group>"; };
+		6FF09F811115AF7800925109 /* DiffController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiffController.m; sourceTree = "<group>"; };
+		6FF09F851115AFB500925109 /* Diff.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Diff.xib; path = IBFiles/Diff.xib; sourceTree = "<group>"; };
 		6FF651970F8A9DA200C20E2D /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		6FF6EB290FA61110000679FA /* GHUsersParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsersParserDelegate.h; sourceTree = "<group>"; };
 		6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUsersParserDelegate.m; sourceTree = "<group>"; };
@@ -617,6 +623,8 @@
 				6F797C5C1110E2BE007E5A8D /* CommitController.m */,
 				6F2C77271114F430002665DA /* FilesController.h */,
 				6F2C77281114F430002665DA /* FilesController.m */,
+				6FF09F801115AF7800925109 /* DiffController.h */,
+				6FF09F811115AF7800925109 /* DiffController.m */,
 				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
 				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
 			);
@@ -748,6 +756,7 @@
 				6F0AEFC0100CF61500FB323E /* IssueForm.xib */,
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
+				6FF09F851115AFB500925109 /* Diff.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
 				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
@@ -1010,6 +1019,7 @@
 				6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */,
 				6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */,
 				6F2C77441114F6DE002665DA /* Files.xib in Resources */,
+				6FF09F861115AFB500925109 /* Diff.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1108,6 +1118,7 @@
 				6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */,
 				6F2C77291114F430002665DA /* FilesController.m in Sources */,
 				6FF09E65111589D600925109 /* FilesCell.m in Sources */,
+				6FF09F831115AF7800925109 /* DiffController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1179,6 +1190,7 @@
 				6F2C75AE1114BC3B002665DA /* TextCell.m in Sources */,
 				6F2C75AF1114BC3C002665DA /* UserCell.m in Sources */,
 				6F2C773A1114F69B002665DA /* FilesController.m in Sources */,
+				6FF09F931115B06800925109 /* DiffController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

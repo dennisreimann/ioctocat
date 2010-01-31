@@ -12,12 +12,13 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="38"/>
+			<integer value="64"/>
+			<integer value="86"/>
 			<integer value="88"/>
 			<integer value="76"/>
 			<integer value="87"/>
-			<integer value="38"/>
 			<integer value="39"/>
-			<integer value="86"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -144,7 +145,7 @@
 				<float key="IBUISectionFooterHeight">10</float>
 			</object>
 			<object class="IBUITableViewCell" id="196874510">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -156,7 +157,7 @@
 							<object class="IBUILabel" id="143041546">
 								<reference key="NSNextResponder" ref="784885721"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{40, 15}, {168, 21}}</string>
+								<string key="NSFrame">{{40, 11}, {168, 21}}</string>
 								<reference key="NSSuperview" ref="784885721"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -178,7 +179,7 @@
 							<object class="IBUIActivityIndicatorView" id="667792169">
 								<reference key="NSNextResponder" ref="784885721"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{12, 15}, {20, 20}}</string>
+								<string key="NSFrame">{{12, 11}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="784885721"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -188,7 +189,7 @@
 								<int key="IBUIStyle">2</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 50}</string>
+						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="196874510"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="636256357">
 							<int key="NSColorSpace">3</int>
@@ -200,7 +201,8 @@
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 50}</string>
+				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
 				<reference key="IBUIBackgroundColor" ref="559892232"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
@@ -787,7 +789,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{504, 451}, {320, 50}}</string>
+					<string>{{504, 457}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

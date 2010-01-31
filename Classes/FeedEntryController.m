@@ -28,9 +28,10 @@
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [entry.eventType capitalizedString];
 	titleLabel.text = entry.title;
-	NSString *stylePath = [[NSBundle mainBundle] pathForResource:@"styles" ofType:@"html"];
-	NSString *style = [NSString stringWithContentsOfFile:stylePath encoding:NSUTF8StringEncoding error:nil];
-	NSString *html = [NSString stringWithFormat:@"%@%@", style, entry.content];
+	NSString *feedEntry = [NSString stringWithFormat:@"<div class='feed_entry'>%@</div>", entry.content];
+	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
+	NSString *html = [NSString stringWithFormat:format, feedEntry];
 	[contentView loadHTMLString:html baseURL:nil];
 	// Date
 	dateLabel.text = [entry.date prettyDate];

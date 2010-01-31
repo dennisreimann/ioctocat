@@ -121,6 +121,7 @@
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
 		6F5653070F99CB62001B6703 /* public.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653050F99CB62001B6703 /* public.png */; };
 		6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */; };
+		6F593A041116179D004B70FB /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F593A031116179D004B70FB /* format.html */; };
 		6F59BC950FC6C51800412597 /* Repositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F59BC930FC6C51800412597 /* Repositories.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
 		6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
@@ -130,7 +131,6 @@
 		6F72FAE80F9B47730069F092 /* FeedEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryController.m */; };
 		6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */; };
 		6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */; };
-		6F72FB600F9B5A5B0069F092 /* styles.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB5F0F9B5A5B0069F092 /* styles.html */; };
 		6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */; };
 		6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
 		6F797C7E1110E842007E5A8D /* Commit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F797C7D1110E842007E5A8D /* Commit.xib */; };
@@ -303,6 +303,7 @@
 		6F5653040F99CB62001B6703 /* private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = private.png; path = Images/Icons/private.png; sourceTree = "<group>"; };
 		6F5653050F99CB62001B6703 /* public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public.png; path = Images/Icons/public.png; sourceTree = "<group>"; };
 		6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryCellBackground.png; path = Images/FeedEntryCellBackground.png; sourceTree = "<group>"; };
+		6F593A031116179D004B70FB /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
 		6F59BC930FC6C51800412597 /* Repositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repositories.xib; path = IBFiles/Repositories.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
 		6F5A41730F90C38300427ED7 /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
@@ -315,7 +316,6 @@
 		6F72FAE70F9B47730069F092 /* FeedEntryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryController.m; sourceTree = "<group>"; };
 		6F72FB200F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryDetailsHeadBackground.png; path = Images/FeedEntryDetailsHeadBackground.png; sourceTree = "<group>"; };
 		6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryCell.m; sourceTree = "<group>"; };
-		6F72FB5F0F9B5A5B0069F092 /* styles.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = styles.html; sourceTree = "<group>"; };
 		6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntryCell.xib; path = IBFiles/FeedEntryCell.xib; sourceTree = "<group>"; };
 		6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MIT-LICENSE"; sourceTree = "<group>"; };
 		6F74DD8B0FA76CE000FD90AB /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
@@ -477,7 +477,7 @@
 			children = (
 				6FE931D30FC7242A008545A2 /* Utils */,
 				8C5693680FB0B97C00730A5C /* TouchJSON */,
-				8CB697FC0FB0085C00B6E779 /* Helpers */,
+				8CB697FC0FB0085C00B6E779 /* Additions */,
 				8CFBCFA30FAB8A1000A2C37A /* ASIHTTPRequest */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
@@ -531,7 +531,7 @@
 				6F5254320FC5440900005B0B /* Unit Tests-Info.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 				6F74DD8B0FA76CE000FD90AB /* README.textile */,
-				6F72FB5F0F9B5A5B0069F092 /* styles.html */,
+				6F593A031116179D004B70FB /* format.html */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -857,13 +857,13 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		8CB697FC0FB0085C00B6E779 /* Helpers */ = {
+		8CB697FC0FB0085C00B6E779 /* Additions */ = {
 			isa = PBXGroup;
 			children = (
-				8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */,
 				8CB697FF0FB0087800B6E779 /* NSDate+Nibware.h */,
+				8CB697FE0FB0087800B6E779 /* NSDate+Nibware.m */,
 			);
-			name = Helpers;
+			name = Additions;
 			sourceTree = "<group>";
 		};
 		8CFBCFA30FAB8A1000A2C37A /* ASIHTTPRequest */ = {
@@ -977,7 +977,6 @@
 				6F5653070F99CB62001B6703 /* public.png in Resources */,
 				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,
 				6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */,
-				6F72FB600F9B5A5B0069F092 /* styles.html in Resources */,
 				6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */,
 				6FD61A0A0FA7AB26008C751B /* FollowButton.png in Resources */,
 				6FD61A0B0FA7AB26008C751B /* UnfollowButton.png in Resources */,
@@ -1020,6 +1019,7 @@
 				6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */,
 				6F2C77441114F6DE002665DA /* Files.xib in Resources */,
 				6FF09F861115AFB500925109 /* Diff.xib in Resources */,
+				6F593A041116179D004B70FB /* format.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

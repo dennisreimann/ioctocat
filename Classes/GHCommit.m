@@ -95,7 +95,7 @@
 	NSError *parseError = nil;
     NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
     id result = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	DebugLog(@"Commit result: %@", result);
+	DJLog(@"Commit result: %@", result);
 	[self performSelectorOnMainThread:@selector(loadedCommit:) withObject:result waitUntilDone:YES];
     [pool release];
 }

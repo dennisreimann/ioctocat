@@ -111,7 +111,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if ([[[request URL] absoluteString] isEqualToString:@"about:blank"]) return YES;
 	NSArray *pathComponents = [[[[request URL] relativePath] substringFromIndex:1] componentsSeparatedByString:@"/"];
-	DebugLog(@"Path: %@", pathComponents);
+	DJLog(@"Path: %@", pathComponents);
 	if ([pathComponents containsObject:@"commit"]) {
 		NSString *sha = [pathComponents lastObject];
 		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];

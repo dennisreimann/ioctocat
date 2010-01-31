@@ -88,8 +88,8 @@
 	[authorCell setContentText:commit.author.login];
 	[committerCell setContentText:commit.committer.login];
 	[addedCell setFiles:commit.added andDescription:@"added"];
-	[modifiedCell setFiles:commit.modified andDescription:@"modified"];
 	[removedCell setFiles:commit.removed andDescription:@"removed"];
+	[modifiedCell setFiles:commit.modified andDescription:@"modified"];
 }
 
 - (IBAction)showActions:(id)sender {
@@ -162,7 +162,6 @@
 			[filesController release];
 		}
 	}
-	
 }
 
 @end

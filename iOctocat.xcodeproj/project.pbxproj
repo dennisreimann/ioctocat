@@ -109,7 +109,6 @@
 		6F52547D0FC5482C00005B0B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6F5254A70FC548D800005B0B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		6F5254B60FC548F600005B0B /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
-		6F5254BB0FC5490B00005B0B /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */; };
 		6F5254BD0FC5491900005B0B /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693860FB0B9E600730A5C /* CJSONDeserializer.m */; };
 		6F5254BF0FC5492100005B0B /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5693880FB0B9E600730A5C /* CJSONScanner.m */; };
 		6F5254C10FC5492500005B0B /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C56938A0FB0B9E600730A5C /* CJSONSerializer.m */; };
@@ -133,7 +132,6 @@
 		6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */; };
 		6F72FB600F9B5A5B0069F092 /* styles.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F72FB5F0F9B5A5B0069F092 /* styles.html */; };
 		6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */; };
-		6F74DD900FA76D1A00FD90AB /* DebugLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */; };
 		6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
 		6F797C7E1110E842007E5A8D /* Commit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F797C7D1110E842007E5A8D /* Commit.xib */; };
 		6F879A1D0FB60CB500EBD9BD /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1B0FB60CB500EBD9BD /* group.png */; };
@@ -318,8 +316,6 @@
 		6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntryCell.xib; path = IBFiles/FeedEntryCell.xib; sourceTree = "<group>"; };
 		6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MIT-LICENSE"; sourceTree = "<group>"; };
 		6F74DD8B0FA76CE000FD90AB /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
-		6F74DD8E0FA76D1A00FD90AB /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DebugLog.h; path = Classes/DebugLog.h; sourceTree = "<group>"; };
-		6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DebugLog.m; path = Classes/DebugLog.m; sourceTree = "<group>"; };
 		6F797C5B1110E2BE007E5A8D /* CommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitController.h; sourceTree = "<group>"; };
 		6F797C5C1110E2BE007E5A8D /* CommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitController.m; sourceTree = "<group>"; };
 		6F797C7D1110E842007E5A8D /* Commit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commit.xib; path = IBFiles/Commit.xib; sourceTree = "<group>"; };
@@ -514,8 +510,6 @@
 				6F0BEB4F11108FEC00E95E5A /* SynthesizeSingleton.h */,
 				28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */,
 				6F1DC3FC0F7E569F00FCD26D /* AppConstants.h */,
-				6F74DD8E0FA76D1A00FD90AB /* DebugLog.h */,
-				6F74DD8F0FA76D1A00FD90AB /* DebugLog.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -1070,7 +1064,6 @@
 				6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */,
 				6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */,
 				6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */,
-				6F74DD900FA76D1A00FD90AB /* DebugLog.m in Sources */,
 				6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */,
 				8CFBCFAC0FAB8A3100A2C37A /* ASIFormDataRequest.m in Sources */,
 				8CFBCFAD0FAB8A3100A2C37A /* ASINetworkQueue.m in Sources */,
@@ -1147,7 +1140,6 @@
 				6F52547B0FC5482B00005B0B /* GHFeed.m in Sources */,
 				6F52547C0FC5482C00005B0B /* GHCommitsParserDelegate.m in Sources */,
 				6F52547D0FC5482C00005B0B /* GHCommit.m in Sources */,
-				6F5254BB0FC5490B00005B0B /* DebugLog.m in Sources */,
 				6F5254BD0FC5491900005B0B /* CJSONDeserializer.m in Sources */,
 				6F5254BF0FC5492100005B0B /* CJSONScanner.m in Sources */,
 				6F5254C10FC5492500005B0B /* CJSONSerializer.m in Sources */,
@@ -1416,7 +1408,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ICON_FILE = IconOctocat.png;
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CFLAGS = "-DDEBUG=1";
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1476,11 +1467,12 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ICON_FILE = IconOctocat.png;
 				ONLY_ACTIVE_ARCH = YES;
-				OTHER_CFLAGS = "-DDEBUG=1";
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

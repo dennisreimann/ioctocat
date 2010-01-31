@@ -105,12 +105,14 @@
 		self.error = theResult;
 	} else {
 		NSDateFormatter *dateFormatter = [[iOctocat sharedInstance] inputDateFormatter];
+		NSString *authorLogin = [[theResult objectForKey:@"author"] objectForKey:@"login"];
+		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
+		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
 		self.committedDate = [dateFormatter dateFromString:[theResult objectForKey:@"committed_date"]];
 		self.authoredDate = [dateFormatter dateFromString:[theResult objectForKey:@"authored_date"]];
 		self.message = [theResult objectForKey:@"message"];
 		self.tree = [theResult objectForKey:@"tree"];
-		self.author = [[iOctocat sharedInstance] userWithLogin:[[theResult objectForKey:@"author"] objectForKey:@"login"]];
-		self.committer = [[iOctocat sharedInstance] userWithLogin:[[theResult objectForKey:@"committer"] objectForKey:@"login"]];
 		self.added = [theResult objectForKey:@"added"];
 		self.modified = [theResult objectForKey:@"modified"];
 		self.removed = [theResult objectForKey:@"removed"];

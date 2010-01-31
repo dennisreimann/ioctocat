@@ -2,6 +2,7 @@
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"
+#import "FilesCell.h"
 #import "NSDate+Nibware.h"
 #import "UserController.h"
 #import "RepositoryController.h"
@@ -86,9 +87,9 @@
 	gravatarView.image = commit.author.gravatar;
 	[authorCell setContentText:commit.author.login];
 	[committerCell setContentText:commit.committer.login];
-	addedCell.textLabel.text = [NSString stringWithFormat:@"%d added", [commit.added count]];
-	modifiedCell.textLabel.text = [NSString stringWithFormat:@"%d modified", [commit.modified count]];
-	removedCell.textLabel.text = [NSString stringWithFormat:@"%d removed", [commit.removed count]];
+	[addedCell setFiles:commit.added andDescription:@"added"];
+	[modifiedCell setFiles:commit.modified andDescription:@"modified"];
+	[removedCell setFiles:commit.removed andDescription:@"removed"];
 }
 
 - (IBAction)showActions:(id)sender {
@@ -152,20 +153,16 @@
 	if (indexPath.section == 0) {
 		GHUser *user = (indexPath.row == 0) ? commit.author : commit.committer;
 		viewController = [(UserController *)[UserController alloc] initWithUser:user];
-	} else {
-		if (indexPath.row == 0) {
-			viewController = [[FilesController alloc] initWithFiles:commit.added];
-			viewController.title = @"Added files";
-		} else if (indexPath.row == 1) {
-			viewController = [[FilesController alloc] initWithFiles:commit.removed];
-			viewController.title = @"Removed files";
-		} else {
-			viewController = [[FilesController alloc] initWithFiles:commit.modified];
-			viewController.title = @"Modified files";
+	} else if (indexPath.section == 1) {
+		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
+		if ([cell.files count] > 0) {
+			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
+			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
+			[self.navigationController pushViewController:filesController animated:YES];
+			[filesController release];
 		}
 	}
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+	
 }
 
 @end

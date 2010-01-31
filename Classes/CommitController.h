@@ -2,16 +2,16 @@
 #import "GHCommit.h"
 
 
-@class LabeledCell;
+@class LabeledCell, FilesCell;
 
 @interface CommitController : UITableViewController <UIActionSheetDelegate> {
 	GHCommit *commit;
 	LabeledCell *authorCell;
 	LabeledCell *committerCell;
+	FilesCell *addedCell;
+	FilesCell *modifiedCell;
+	FilesCell *removedCell;
 	UITableViewCell *loadingCell;
-	UITableViewCell *addedCell;
-	UITableViewCell *modifiedCell;
-	UITableViewCell *removedCell;
 	UIView *tableHeaderView;
 	UILabel *authorLabel;
 	UILabel *committerLabel;
@@ -23,10 +23,10 @@
 @property(nonatomic,retain)GHCommit *commit;
 @property(nonatomic,retain)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,retain)IBOutlet LabeledCell *committerCell;
+@property(nonatomic,retain)IBOutlet FilesCell *addedCell;
+@property(nonatomic,retain)IBOutlet FilesCell *modifiedCell;
+@property(nonatomic,retain)IBOutlet FilesCell *removedCell;
 @property(nonatomic,retain)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,retain)IBOutlet UITableViewCell *addedCell;
-@property(nonatomic,retain)IBOutlet UITableViewCell *modifiedCell;
-@property(nonatomic,retain)IBOutlet UITableViewCell *removedCell;
 @property(nonatomic,retain)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,retain)IBOutlet UILabel *authorLabel;
 @property(nonatomic,retain)IBOutlet UILabel *committerLabel;

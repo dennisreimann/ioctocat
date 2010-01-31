@@ -12,12 +12,12 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="87"/>
-			<integer value="86"/>
 			<integer value="88"/>
 			<integer value="76"/>
+			<integer value="87"/>
 			<integer value="38"/>
 			<integer value="39"/>
+			<integer value="86"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -761,10 +761,13 @@
 					<string>78.IBPluginDependency</string>
 					<string>79.IBPluginDependency</string>
 					<string>80.IBPluginDependency</string>
+					<string>86.CustomClassName</string>
 					<string>86.IBEditorWindowLastContentRect</string>
 					<string>86.IBPluginDependency</string>
+					<string>87.CustomClassName</string>
 					<string>87.IBEditorWindowLastContentRect</string>
 					<string>87.IBPluginDependency</string>
+					<string>88.CustomClassName</string>
 					<string>88.IBEditorWindowLastContentRect</string>
 					<string>88.IBPluginDependency</string>
 				</object>
@@ -794,10 +797,13 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>FilesCell</string>
 					<string>{{519, 510}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>FilesCell</string>
 					<string>{{519, 510}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>FilesCell</string>
 					<string>{{519, 510}, {320, 44}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
@@ -849,7 +855,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UITableViewCell</string>
+							<string>FilesCell</string>
 							<string>LabeledCell</string>
 							<string>UILabel</string>
 							<string>LabeledCell</string>
@@ -857,8 +863,8 @@
 							<string>UILabel</string>
 							<string>UIImageView</string>
 							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
+							<string>FilesCell</string>
+							<string>FilesCell</string>
 							<string>UIView</string>
 							<string>UILabel</string>
 						</object>
@@ -866,6 +872,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/CommitController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">FilesCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/FilesCell.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

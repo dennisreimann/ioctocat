@@ -6,7 +6,6 @@
 @interface GHIssuesParserDelegate : GHResourcesParserDelegate {
   @private
     GHIssue *currentIssue;
-    NSDateFormatter *dateFormatter;
 }
 
 @end

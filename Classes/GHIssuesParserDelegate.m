@@ -1,18 +1,12 @@
 #import "GHIssuesParserDelegate.h"
+#import "iOctocat.h"
 
 
 @implementation GHIssuesParserDelegate
 
 - (void)dealloc {
 	[currentIssue release];
-    [dateFormatter release];
     [super dealloc];
-}
-
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-	[super parserDidStartDocument:parser];
-	dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";     
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
@@ -38,15 +32,11 @@
 	} else if ([elementName isEqualToString:@"number"]) {
 		currentIssue.num = [currentElementValue integerValue];
     } else if ([elementName isEqualToString:@"created-at"]) {        
-        currentIssue.created = [dateFormatter dateFromString:currentElementValue];
+        currentIssue.created = [[[iOctocat sharedInstance] inputDateFormatter] dateFromString:currentElementValue];
     } else if ([elementName isEqualToString:@"updated-at"]) {        
-         currentIssue.updated = [dateFormatter dateFromString:currentElementValue];
+         currentIssue.updated = [[[iOctocat sharedInstance] inputDateFormatter] dateFromString:currentElementValue];
 	}
 	[currentElementValue release], currentElementValue = nil;
 }
 
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[super parserDidEndDocument:parser];
-	[dateFormatter release], dateFormatter = nil;
-}
 @end

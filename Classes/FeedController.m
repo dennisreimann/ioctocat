@@ -48,7 +48,6 @@
 	if (feed.isLoading) return;
 	feed.lastReadingDate = [NSDate date];
 	[feed loadEntries];
-	[self.tableView reloadData];
 }
 
 #pragma mark TableView
@@ -76,8 +75,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (feed.entries.count == 0) return;
-	GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
-	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
+	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:feed andCurrentIndex:indexPath.row];
+	entryController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }

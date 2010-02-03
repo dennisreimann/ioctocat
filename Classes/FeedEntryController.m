@@ -12,18 +12,31 @@
 #import "NSDate+Nibware.h"
 
 
+@interface FeedEntryController ()
+- (void)displayEntry;
+@end
+
+
 @implementation FeedEntryController
 
+@synthesize feed;
 @synthesize entry;
 
-- (id)initWithFeedEntry:(GHFeedEntry *)theEntry {
-    [super initWithNibName:@"FeedEntry" bundle:nil];
-	self.entry = theEntry;
-    return self;
+- (id)initWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex {
+	[super initWithNibName:@"FeedEntry" bundle:nil];
+	currentIndex = theCurrentIndex;
+	self.feed = theFeed;
+	self.entry = [feed.entries objectAtIndex:currentIndex];
+	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	if (feed) self.navigationItem.rightBarButtonItem = controlItem;
+	[self displayEntry];
+}
+
+- (void)displayEntry {
 	entry.read = YES;
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [entry.eventType capitalizedString];
@@ -40,13 +53,17 @@
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
 	gravatarView.image = entry.user.gravatar;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	// Update navigation control
+	[navigationControl setEnabled:(currentIndex > 0) forSegmentAtIndex:0];
+	[navigationControl setEnabled:(currentIndex < [feed.entries count]-1) forSegmentAtIndex:1];
 }
 
 - (void)dealloc {
 	[contentView stopLoading];
 	contentView.delegate = nil;
 	[contentView release];
+	[controlItem release];
+	[navigationControl release];
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[entry release];
 	[dateLabel release];
@@ -63,6 +80,13 @@
 }
 
 #pragma mark Actions
+
+- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
+	currentIndex += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
+	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	self.entry = [feed.entries objectAtIndex:currentIndex];
+	[self displayEntry];
+}
 
 - (IBAction)showActions:(id)sender {
 	id eventItem = entry.eventItem;

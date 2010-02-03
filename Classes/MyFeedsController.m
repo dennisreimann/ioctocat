@@ -8,12 +8,6 @@
 #import "iOctocat.h"
 
 
-@interface MyFeedsController ()
-- (void)feedParsingStarted;
-- (void)feedParsingFinished;
-@end
-
-
 @implementation MyFeedsController
 
 - (void)viewDidLoad {
@@ -26,7 +20,6 @@
 	[feeds release];
 	[noEntriesCell release];
 	[feedEntryCell release];
-	[reloadButton release];
 	[feedControl release];
     [super dealloc];
 }
@@ -55,19 +48,21 @@
 		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
+- (void)reloadTableViewDataSource {
+	if (self.currentFeed.isLoading) return;
+	self.currentFeed.lastReadingDate = [NSDate date];
+	[self.currentFeed loadEntries];
+	[self.tableView reloadData];
+}
+
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
 	if (self.currentFeed.isLoaded) return;
 	[self.currentFeed loadEntries];
-	[self.tableView reloadData];
-}
-
-- (IBAction)reloadFeed:(id)sender {
-	if (self.currentFeed.isLoading) return;
-	self.currentFeed.lastReadingDate = [NSDate date];
-	[self.currentFeed loadEntries];
+	if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];
+	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self.tableView reloadData];
 }
 
@@ -75,10 +70,13 @@
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHFeed *feed = (GHFeed *)object;
 		if (feed.isLoading) {
-			[self feedParsingStarted];
-		} else {
-			[self feedParsingFinished];
-			if (!feed.error) return;
+			loadCounter += 1;
+		} else if (feed.isLoaded) {
+			[self.tableView reloadData];
+			loadCounter -= 1;
+			refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
+			[super dataSourceDidFinishLoadingNewData];
+		} else if (feed.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
@@ -88,18 +86,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
-}
-
-- (void)feedParsingStarted {
-	loadCounter += 1;
-	reloadButton.enabled = NO;
-}
-
-- (void)feedParsingFinished {
-	[self.tableView reloadData];
-	loadCounter -= 1;
-	if (loadCounter > 0) return;
-	reloadButton.enabled = YES;
 }
 
 #pragma mark TableView

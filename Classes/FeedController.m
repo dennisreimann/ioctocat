@@ -14,7 +14,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	if (!feed.isLoaded) [feed loadEntries];
+	if (!feed.isLoaded) {
+		[self showReloadAnimationAnimated:NO];
+		[feed loadEntries];
+	}
+	refreshHeaderView.lastUpdatedDate = feed.lastReadingDate;
 }
 
 - (void)dealloc {
@@ -30,6 +34,8 @@
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (feed.isLoaded) {
 			[self.tableView reloadData];
+			refreshHeaderView.lastUpdatedDate = feed.lastReadingDate;
+			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
@@ -37,6 +43,15 @@
 		}
 	}
 }
+
+- (void)reloadTableViewDataSource {
+	if (feed.isLoading) return;
+	feed.lastReadingDate = [NSDate date];
+	[feed loadEntries];
+	[self.tableView reloadData];
+}
+
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

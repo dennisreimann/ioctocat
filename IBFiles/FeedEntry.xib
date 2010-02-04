@@ -228,49 +228,49 @@
 					<bool key="IBMomentary">YES</bool>
 				</object>
 			</object>
-			<object class="IBUIBarButtonItem" id="189661049">
+			<object class="IBUIBarButtonItem" id="981825799">
+				<object class="NSCustomResource" key="IBUIImage">
+					<string key="NSClassName">NSImage</string>
+					<string key="NSResourceName">ToolbarCompass.png</string>
+				</object>
+				<int key="IBUIStyle">1</int>
+			</object>
+			<object class="IBUIBarButtonItem" id="1017924613">
 				<object class="NSCustomResource" key="IBUIImage">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">ToolbarRepository.png</string>
 				</object>
 				<int key="IBUIStyle">1</int>
 			</object>
-			<object class="IBUIBarButtonItem" id="368262757">
-				<object class="NSCustomResource" key="IBUIImage" id="556507642">
+			<object class="IBUIBarButtonItem" id="619191247">
+				<object class="NSCustomResource" key="IBUIImage" id="468755568">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">ToolbarUser.png</string>
 				</object>
 				<int key="IBUIStyle">1</int>
 			</object>
-			<object class="IBUIBarButtonItem" id="189804351">
-				<reference key="IBUIImage" ref="556507642"/>
+			<object class="IBUIBarButtonItem" id="91438945">
+				<reference key="IBUIImage" ref="468755568"/>
 				<int key="IBUIStyle">1</int>
 			</object>
-			<object class="IBUIBarButtonItem" id="59555984">
+			<object class="IBUIBarButtonItem" id="688271185">
 				<object class="NSCustomResource" key="IBUIImage">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">ToolbarIssue.png</string>
 				</object>
 				<int key="IBUIStyle">1</int>
 			</object>
-			<object class="IBUIBarButtonItem" id="110520247">
+			<object class="IBUIBarButtonItem" id="319046333">
 				<object class="NSCustomResource" key="IBUIImage">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">ToolbarWatch.png</string>
 				</object>
 				<int key="IBUIStyle">1</int>
 			</object>
-			<object class="IBUIBarButtonItem" id="469316316">
+			<object class="IBUIBarButtonItem" id="1071304567">
 				<object class="NSCustomResource" key="IBUIImage">
 					<string key="NSClassName">NSImage</string>
 					<string key="NSResourceName">ToolbarUnwatch.png</string>
-				</object>
-				<int key="IBUIStyle">1</int>
-			</object>
-			<object class="IBUIBarButtonItem" id="70031137">
-				<object class="NSCustomResource" key="IBUIImage">
-					<string key="NSClassName">NSImage</string>
-					<string key="NSResourceName">ToolbarCompass.png</string>
 				</object>
 				<int key="IBUIStyle">1</int>
 			</object>
@@ -366,6 +366,62 @@
 						<reference key="destination" ref="107431793"/>
 					</object>
 					<int key="connectionID">35</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">firstUserItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="619191247"/>
+					</object>
+					<int key="connectionID">44</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">issueItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="688271185"/>
+					</object>
+					<int key="connectionID">45</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">unwatchItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1071304567"/>
+					</object>
+					<int key="connectionID">46</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">watchItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="319046333"/>
+					</object>
+					<int key="connectionID">47</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">webItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="981825799"/>
+					</object>
+					<int key="connectionID">48</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">secondUserItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="91438945"/>
+					</object>
+					<int key="connectionID">49</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">repositoryItem</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1017924613"/>
+					</object>
+					<int key="connectionID">50</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -478,38 +534,45 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">36</int>
-						<reference key="object" ref="189661049"/>
+						<reference key="object" ref="1017924613"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Repository</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">38</int>
-						<reference key="object" ref="368262757"/>
+						<reference key="object" ref="619191247"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">First User</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">39</int>
-						<reference key="object" ref="189804351"/>
+						<reference key="object" ref="91438945"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Second User</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">40</int>
-						<reference key="object" ref="59555984"/>
+						<reference key="object" ref="688271185"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Issue</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">41</int>
-						<reference key="object" ref="110520247"/>
+						<reference key="object" ref="319046333"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Watch</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">42</int>
-						<reference key="object" ref="469316316"/>
+						<reference key="object" ref="1071304567"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Unwatch</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">43</int>
-						<reference key="object" ref="70031137"/>
+						<reference key="object" ref="981825799"/>
 						<reference key="parent" ref="0"/>
+						<string key="objectName">Web</string>
 					</object>
 				</object>
 			</object>
@@ -584,7 +647,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">43</int>
+			<int key="maxID">50</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -612,20 +675,34 @@
 							<string>contentView</string>
 							<string>controlItem</string>
 							<string>dateLabel</string>
+							<string>firstUserItem</string>
 							<string>gravatarView</string>
 							<string>iconView</string>
+							<string>issueItem</string>
 							<string>navigationControl</string>
+							<string>repositoryItem</string>
+							<string>secondUserItem</string>
 							<string>titleLabel</string>
+							<string>unwatchItem</string>
+							<string>watchItem</string>
+							<string>webItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UIWebView</string>
 							<string>UIBarButtonItem</string>
 							<string>UILabel</string>
+							<string>UIBarButtonItem</string>
 							<string>UIImageView</string>
 							<string>UIImageView</string>
+							<string>UIBarButtonItem</string>
 							<string>UISegmentedControl</string>
+							<string>UIBarButtonItem</string>
+							<string>UIBarButtonItem</string>
 							<string>UILabel</string>
+							<string>UIBarButtonItem</string>
+							<string>UIBarButtonItem</string>
+							<string>UIBarButtonItem</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">

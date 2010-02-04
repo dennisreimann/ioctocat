@@ -63,6 +63,13 @@
 	contentView.delegate = nil;
 	[contentView release];
 	[controlItem release];
+	[webItem release];
+	[repositoryItem release];
+	[firstUserItem release];
+	[secondUserItem release];
+	[watchItem release];
+	[unwatchItem release];
+	[issueItem release];
 	[navigationControl release];
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[entry release];

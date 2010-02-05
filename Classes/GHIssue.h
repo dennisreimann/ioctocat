@@ -33,5 +33,6 @@
 - (void)closeIssue;
 - (void)reopenIssue;
 - (void)saveIssue;
+- (void)loadIssue;
 
 @end

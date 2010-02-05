@@ -6,8 +6,11 @@
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
+#import "GHIssue.h"
 #import "GravatarLoader.h"
 #import "CommitController.h"
+#import "IssueController.h"
+#import "IssuesController.h"
 #import "iOctocat.h"
 #import "NSDate+Nibware.h"
 
@@ -53,6 +56,16 @@
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
 	gravatarView.image = entry.user.gravatar;
+	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
+	// Update Toolbar
+	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, firstUserItem, nil];
+	if ([entry.eventItem isKindOfClass:[GHUser class]]) [tbItems addObject:secondUserItem];
+	if ([entry.eventItem isKindOfClass:[GHRepository class]]) [tbItems addObject:repositoryItem];
+	if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
+		[tbItems addObject:repositoryItem];
+		[tbItems addObject:issueItem];
+	}
+	[toolbar setItems:tbItems animated:NO];
 	// Update navigation control
 	[navigationControl setEnabled:(currentIndex > 0) forSegmentAtIndex:0];
 	[navigationControl setEnabled:(currentIndex < [feed.entries count]-1) forSegmentAtIndex:1];
@@ -62,6 +75,7 @@
 	[contentView stopLoading];
 	contentView.delegate = nil;
 	[contentView release];
+	[toolbar release];
 	[controlItem release];
 	[webItem release];
 	[repositoryItem release];
@@ -86,6 +100,12 @@
 	[super viewWillDisappear:animated];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
+		gravatarView.image = entry.user.gravatar;
+	}
+}
+
 #pragma mark Actions
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
@@ -95,47 +115,47 @@
 	[self displayEntry];
 }
 
-- (IBAction)showActions:(id)sender {
-	id eventItem = entry.eventItem;
-	NSString *eventItemTitle = nil;
-	if ([eventItem isKindOfClass:[GHCommit class]]) {
-		eventItemTitle = [NSString stringWithFormat:@"Show %@", [[(GHCommit *)eventItem repository] name]];
-	} else if ([eventItem isKindOfClass:[GHRepository class]]) {
-		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHRepository *)eventItem name]];
-	} else if ([eventItem isKindOfClass:[GHUser class]]) {
-		eventItemTitle = [NSString stringWithFormat:@"Show %@", [(GHUser *)eventItem login]];
-	}
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"View on GitHub", [NSString stringWithFormat:@"Show %@", entry.authorName], eventItemTitle, nil];
-	[actionSheet showInView:self.view.window];
-	[actionSheet release];
+- (IBAction)showInWebView:(id)sender {
+	WebController *webController = [[WebController alloc] initWithURL:entry.linkURL];
+	[self.navigationController pushViewController:webController animated:YES];
+	[webController release];
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-		WebController *webController = [[WebController alloc] initWithURL:entry.linkURL];
-		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
-	} else if (buttonIndex == 1) {
-		UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
-		[self.navigationController pushViewController:userController animated:YES];
-		[userController release];
-	} else if (buttonIndex == 2 ) {
-		if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
-			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:(GHRepository *)entry.eventItem];
-			[self.navigationController pushViewController:repoController animated:YES];
-			[repoController release];
-		} else if ([entry.eventItem isKindOfClass:[GHUser class]]) {
-            UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
-			[self.navigationController pushViewController:userController animated:YES];
-			[userController release];
-		}
-	}
+- (IBAction)showRepository:(id)sender {
+	id item = entry.eventItem;
+	GHRepository *repository = [item isKindOfClass:[GHIssue class]] ? [(GHIssue *)item repository] : item; 
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repository];
+	[self.navigationController pushViewController:repoController animated:YES];
+	[repoController release];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
-		gravatarView.image = entry.user.gravatar;
-	}
+- (IBAction)showFirstUser:(id)sender {
+	UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
+	[self.navigationController pushViewController:userController animated:YES];
+	[userController release];
+}
+
+- (IBAction)showSecondUser:(id)sender {
+	UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
+	[self.navigationController pushViewController:userController animated:YES];
+	[userController release];
+}
+
+- (IBAction)showIssue:(id)sender {
+	GHIssue *issue = entry.eventItem;
+	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:nil];
+	[self.navigationController pushViewController:issueController animated:YES];
+	[issueController release];
+}
+
+- (IBAction)watch:(id)sender {
+	// TODO Implement
+	//[self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
+}
+
+- (IBAction)unwatch:(id)sender {
+	// TODO Implement
+	//[self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
 }
 
 #pragma mark WebView

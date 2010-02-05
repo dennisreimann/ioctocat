@@ -14,6 +14,7 @@
 	IBOutlet UIImageView *gravatarView;
 	IBOutlet UIWebView *contentView;
 	IBOutlet UISegmentedControl *navigationControl;
+	IBOutlet UIToolbar *toolbar;
 	IBOutlet UIBarButtonItem *controlItem;
 	IBOutlet UIBarButtonItem *webItem;
 	IBOutlet UIBarButtonItem *repositoryItem;
@@ -28,7 +29,13 @@
 @property(nonatomic,retain)GHFeedEntry *entry;
 
 - (id)initWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex;
-- (IBAction)showActions:(id)sender;
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
+- (IBAction)showInWebView:(id)sender;
+- (IBAction)showRepository:(id)sender;
+- (IBAction)showFirstUser:(id)sender;
+- (IBAction)showSecondUser:(id)sender;
+- (IBAction)showIssue:(id)sender;
+- (IBAction)watch:(id)sender;
+- (IBAction)unwatch:(id)sender;
 
 @end

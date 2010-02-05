@@ -15,6 +15,7 @@
 	IBOutlet UILabel *titleLabel;
     IBOutlet UILabel *issueNumber;
 	IBOutlet UIImageView *iconView;
+	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet LabeledCell *createdCell;
 	IBOutlet LabeledCell *updatedCell;
 	IBOutlet TextCell *descriptionCell;

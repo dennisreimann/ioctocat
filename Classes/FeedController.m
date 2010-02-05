@@ -37,6 +37,7 @@
 			refreshHeaderView.lastUpdatedDate = feed.lastReadingDate;
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
+			[super dataSourceDidFinishLoadingNewData];
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];

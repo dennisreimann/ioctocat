@@ -20,8 +20,6 @@
 	IBOutlet UIBarButtonItem *repositoryItem;
 	IBOutlet UIBarButtonItem *firstUserItem;
 	IBOutlet UIBarButtonItem *secondUserItem;
-	IBOutlet UIBarButtonItem *watchItem;
-	IBOutlet UIBarButtonItem *unwatchItem;
 	IBOutlet UIBarButtonItem *issueItem;
 }
 
@@ -35,7 +33,5 @@
 - (IBAction)showFirstUser:(id)sender;
 - (IBAction)showSecondUser:(id)sender;
 - (IBAction)showIssue:(id)sender;
-- (IBAction)watch:(id)sender;
-- (IBAction)unwatch:(id)sender;
 
 @end

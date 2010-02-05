@@ -255,23 +255,6 @@
 				</object>
 				<int key="IBUIStyle">1</int>
 			</object>
-			<object class="IBUIBarButtonItem" id="319046333">
-				<object class="NSCustomResource" key="IBUIImage">
-					<string key="NSClassName">NSImage</string>
-					<string key="NSResourceName">ToolbarWatch.png</string>
-				</object>
-				<int key="IBUIStyle">1</int>
-			</object>
-			<object class="IBUIBarButtonItem" id="1071304567">
-				<object class="NSCustomResource" key="IBUIImage">
-					<string key="NSClassName">NSImage</string>
-					<string key="NSResourceName">ToolbarUnwatch.png</string>
-				</object>
-				<int key="IBUIStyle">1</int>
-			</object>
-			<object class="IBUIBarButtonItem" id="970197865">
-				<int key="IBUISystemItemIdentifier">5</int>
-			</object>
 		</object>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
 			<object class="NSMutableArray" key="connectionRecords">
@@ -375,22 +358,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">unwatchItem</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="1071304567"/>
-					</object>
-					<int key="connectionID">46</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">watchItem</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="319046333"/>
-					</object>
-					<int key="connectionID">47</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">webItem</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="981825799"/>
@@ -460,22 +427,6 @@
 						<reference key="destination" ref="372490531"/>
 					</object>
 					<int key="connectionID">56</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">watch:</string>
-						<reference key="source" ref="319046333"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">57</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchEventConnection" key="connection">
-						<string key="label">unwatch:</string>
-						<reference key="source" ref="1071304567"/>
-						<reference key="destination" ref="372490531"/>
-					</object>
-					<int key="connectionID">58</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -599,27 +550,10 @@
 						<string key="objectName">Issue</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">41</int>
-						<reference key="object" ref="319046333"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Watch</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">42</int>
-						<reference key="object" ref="1071304567"/>
-						<reference key="parent" ref="0"/>
-						<string key="objectName">Unwatch</string>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">43</int>
 						<reference key="object" ref="981825799"/>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Web</string>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">59</int>
-						<reference key="object" ref="970197865"/>
-						<reference key="parent" ref="0"/>
 					</object>
 				</object>
 			</object>
@@ -643,10 +577,7 @@
 					<string>38.IBPluginDependency</string>
 					<string>39.IBPluginDependency</string>
 					<string>40.IBPluginDependency</string>
-					<string>41.IBPluginDependency</string>
-					<string>42.IBPluginDependency</string>
 					<string>43.IBPluginDependency</string>
-					<string>59.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 				</object>
@@ -663,9 +594,6 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{221, 620}, {320, 80}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -692,7 +620,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">59</int>
+			<int key="maxID">60</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -710,14 +638,10 @@
 							<string>showIssue:</string>
 							<string>showRepository:</string>
 							<string>showSecondUser:</string>
-							<string>unwatch:</string>
-							<string>watch:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UISegmentedControl</string>
-							<string>id</string>
-							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -741,8 +665,6 @@
 							<string>secondUserItem</string>
 							<string>titleLabel</string>
 							<string>toolbar</string>
-							<string>unwatchItem</string>
-							<string>watchItem</string>
 							<string>webItem</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -759,8 +681,6 @@
 							<string>UIBarButtonItem</string>
 							<string>UILabel</string>
 							<string>UIToolbar</string>
-							<string>UIBarButtonItem</string>
-							<string>UIBarButtonItem</string>
 							<string>UIBarButtonItem</string>
 						</object>
 					</object>

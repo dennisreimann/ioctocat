@@ -47,6 +47,10 @@
     [super dealloc];
 }
 
+- (BOOL)isEqual:(id)anObject {
+	return [self hash] == [anObject hash];
+}
+
 - (NSUInteger)hash {
 	NSString *hashValue = [NSString stringWithFormat:@"%@/%@", [owner lowercaseString], [name lowercaseString]];
 	return [hashValue hash];

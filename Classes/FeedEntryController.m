@@ -59,9 +59,11 @@
 	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
 	// Update Toolbar
 	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, firstUserItem, nil];
-	if ([entry.eventItem isKindOfClass:[GHUser class]]) [tbItems addObject:secondUserItem];
-	if ([entry.eventItem isKindOfClass:[GHRepository class]]) [tbItems addObject:repositoryItem];
-	if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
+	if ([entry.eventItem isKindOfClass:[GHUser class]]) {
+		[tbItems addObject:secondUserItem];
+	} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
+		[tbItems addObject:repositoryItem];
+	} else if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
 		[tbItems addObject:repositoryItem];
 		[tbItems addObject:issueItem];
 	}
@@ -81,8 +83,6 @@
 	[repositoryItem release];
 	[firstUserItem release];
 	[secondUserItem release];
-	[watchItem release];
-	[unwatchItem release];
 	[issueItem release];
 	[navigationControl release];
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
@@ -146,16 +146,6 @@
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:nil];
 	[self.navigationController pushViewController:issueController animated:YES];
 	[issueController release];
-}
-
-- (IBAction)watch:(id)sender {
-	// TODO Implement
-	//[self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
-}
-
-- (IBAction)unwatch:(id)sender {
-	// TODO Implement
-	//[self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
 }
 
 #pragma mark WebView

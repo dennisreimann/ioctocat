@@ -180,33 +180,32 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
+	UIViewController *viewController = nil;
 	if (section == 0 && row == 0 && user.location) {
 		NSString *locationQuery = [user.location stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		NSString *url = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", locationQuery];
 		NSURL *locationURL = [NSURL URLWithString:url];
 		[[UIApplication sharedApplication] openURL:locationURL];
 	} else if (section == 0 && row == 1 && user.blogURL) {
-		WebController *webController = [[WebController alloc] initWithURL:user.blogURL];
-		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
+		viewController = [[WebController alloc] initWithURL:user.blogURL];
 	} else if (section == 0 && row == 2 && user.email) {
 		NSString *mailString = [NSString stringWithFormat:@"mailto:%@", user.email];
 		NSURL *mailURL = [NSURL URLWithString:mailString];
 		[[UIApplication sharedApplication] openURL:mailURL];
 	} else if (section == 1 && row == 0) {
-        FeedController *activityController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];
-		[self.navigationController pushViewController:activityController animated:YES];
-		[activityController release];          
+        viewController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];     
 	} else if (section == 1) {
-        UsersController *usersController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
-		usersController.title = (row == 1) ? @"Following" : @"Followers";
-		[self.navigationController pushViewController:usersController animated:YES];
-		[usersController release];            
+        viewController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
+		viewController.title = (row == 1) ? @"Following" : @"Followers";         
 	} else if (section == 2) {
 		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
-		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
-		[self.navigationController pushViewController:repoController animated:YES];
-		[repoController release];
+		viewController = [[RepositoryController alloc] initWithRepository:repo];
+	}
+	// Maybe push a controller
+	if (viewController) {
+		viewController.hidesBottomBarWhenPushed = YES;
+		[self.navigationController pushViewController:viewController animated:YES];
+		[viewController release];
 	}
 }
 

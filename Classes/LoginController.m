@@ -43,6 +43,8 @@
 		[defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
+		[loginField resignFirstResponder];
+		[tokenField resignFirstResponder];
 		[target performSelector:selector];
 	} else {
 		[self failWithMessage:@"Please enter your login\nand API token"];

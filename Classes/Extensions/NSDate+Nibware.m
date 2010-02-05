@@ -11,11 +11,9 @@
 
 @implementation NSDate (Nibware)
 
-- (NSString*) prettyDateWithReference:(NSDate*)reference
-{
+- (NSString *)prettyDateWithReference:(NSDate *)reference {
     float diff = [reference timeIntervalSinceDate:self];
     float day_diff = floor(diff / 86400);
-
     if (day_diff <= 0) {
         if (diff < 60) return @"just now";
         if (diff < 120) return @"1 minute ago";
@@ -37,11 +35,8 @@
     return [self description];
 }
 
-- (NSString*) prettyDate
-{
+- (NSString *)prettyDate {
     return [self prettyDateWithReference:[NSDate date]];
 }
-    
-
 
 @end

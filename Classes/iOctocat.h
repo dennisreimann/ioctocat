@@ -22,8 +22,9 @@
 
 + (id)sharedInstance;
 - (GHUser *)currentUser;
-- (UIView *)currentView ;
+- (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
+- (NSDateFormatter *)inputDateFormatter;
 
 @end
 

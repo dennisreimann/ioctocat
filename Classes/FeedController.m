@@ -14,12 +14,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	if (!feed.isLoaded) [feed loadEntries];
+	if (!feed.isLoaded) {
+		[self showReloadAnimationAnimated:NO];
+		[feed loadEntries];
+	}
+	refreshHeaderView.lastUpdatedDate = feed.lastReadingDate;
 }
 
 - (void)dealloc {
 	[feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [loadingCell release];
 	[noEntriesCell release];
 	[feedEntryCell release];
 	[feed release];
@@ -30,7 +33,10 @@
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (feed.isLoaded) {
 			[self.tableView reloadData];
+			refreshHeaderView.lastUpdatedDate = feed.lastReadingDate;
+			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
+			[super dataSourceDidFinishLoadingNewData];
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
@@ -38,17 +44,24 @@
 	}
 }
 
+- (void)reloadTableViewDataSource {
+	if (feed.isLoading) return;
+	feed.lastReadingDate = [NSDate date];
+	[feed loadEntries];
+}
+
+#pragma mark TableView
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (feed.isLoading || feed.entries.count == 0) ? 1 : feed.entries.count;
+    return (feed.isLoading) ? 0 : feed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!feed.isLoaded) return loadingCell;
-	if (feed.entries.count == 0) return noEntriesCell;
+	if (!feed.isLoading && feed.entries.count == 0) return noEntriesCell;
 	FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
@@ -60,9 +73,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (feed.entries.count == 0) return;
-	GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
-	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
+	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:feed andCurrentIndex:indexPath.row];
+	entryController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }

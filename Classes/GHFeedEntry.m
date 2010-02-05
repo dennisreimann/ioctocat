@@ -1,6 +1,7 @@
 #import "GHFeedEntry.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
+#import "GHIssue.h"
 #import "iOctocat.h"
 
 
@@ -9,9 +10,8 @@
 @synthesize entryID, eventType, eventItem, date, linkURL, title, content, authorName, read;
 
 - (id)init {
-    if (self = [super init]) {
-        read = NO;
-    }
+    [super init];
+	read = NO;
     return self;
 }
 
@@ -43,7 +43,21 @@
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
-	} else if ([eventType isEqualToString:@"issues"] || [eventType isEqualToString:@"comment"]) {
+	} else if ([eventType isEqualToString:@"issue"]) {
+		NSArray *comps = [title componentsSeparatedByString:@" on "];
+		NSArray *issueComps = [[comps objectAtIndex:0] componentsSeparatedByString:@" "];
+		NSInteger num = [[issueComps lastObject] intValue];
+		NSArray *repoComps = [[comps objectAtIndex:1] componentsSeparatedByString:@"/"];
+		NSString *owner = [repoComps objectAtIndex:0];
+		NSString *name = [repoComps objectAtIndex:1];
+		GHRepository *repository = [[GHRepository alloc] initWithOwner:owner andName:name];
+		GHIssue *issue = [[GHIssue alloc] init];
+		issue.repository = repository;
+		issue.num = num;
+		self.eventItem = issue;
+		[repository release];
+		[issue release];
+	} else if ([eventType isEqualToString:@"comment"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" on "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];

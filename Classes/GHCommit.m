@@ -3,6 +3,7 @@
 #import "GHRepository.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
+#import "iOctocat.h"
 
 
 @interface GHCommit ()
@@ -35,10 +36,12 @@
 	[super init];
 	self.repository = theRepository;
 	self.commitID = theCommitID;
+	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
 
 - (void)dealloc {
+	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[commitID release], commitID = nil;
     [tree release], tree = nil;
     [message release], message = nil;
@@ -59,11 +62,27 @@
 	[super dealloc];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (repository.isLoaded) {
+			[self performSelectorInBackground:@selector(parseCommit) withObject:nil];
+		} else if (repository.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repository" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}
+}
+
 - (void)loadCommit {
 	if (self.isLoading) return;
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseCommit) withObject:nil];
+	if (repository.isLoaded) {
+		[self performSelectorInBackground:@selector(parseCommit) withObject:nil];
+	} else {
+		[repository loadRepository];
+	}
 }
 
 - (void)parseCommit {
@@ -76,7 +95,7 @@
 	NSError *parseError = nil;
     NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
     id result = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	DebugLog(@"Commit result: %@", result);
+	DJLog(@"Commit result: %@", result);
 	[self performSelectorOnMainThread:@selector(loadedCommit:) withObject:result waitUntilDone:YES];
     [pool release];
 }
@@ -85,8 +104,18 @@
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 	} else {
+		NSDateFormatter *dateFormatter = [[iOctocat sharedInstance] inputDateFormatter];
+		NSString *authorLogin = [[theResult objectForKey:@"author"] objectForKey:@"login"];
+		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
+		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
+		self.committedDate = [dateFormatter dateFromString:[theResult objectForKey:@"committed_date"]];
+		self.authoredDate = [dateFormatter dateFromString:[theResult objectForKey:@"authored_date"]];
 		self.message = [theResult objectForKey:@"message"];
 		self.tree = [theResult objectForKey:@"tree"];
+		self.added = [theResult objectForKey:@"added"];
+		self.modified = [theResult objectForKey:@"modified"];
+		self.removed = [theResult objectForKey:@"removed"];
 	}
 	self.loadingStatus = GHResourceStatusLoaded;
 }

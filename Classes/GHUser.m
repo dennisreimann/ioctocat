@@ -17,8 +17,36 @@
 
 @implementation GHUser
 
-@synthesize name, login, email, company, blogURL, location, gravatarHash, gravatar, repositories, watchedRepositories, isAuthenticated;
-@synthesize recentActivity, publicGistCount, privateGistCount, publicRepoCount, privateRepoCount, following, followers;
+@synthesize name;
+@synthesize login;
+@synthesize email;
+@synthesize company;
+@synthesize blogURL;
+@synthesize location;
+@synthesize gravatarHash;
+@synthesize searchTerm;
+@synthesize gravatar;
+@synthesize repositories;
+@synthesize watchedRepositories;
+@synthesize isAuthenticated;
+@synthesize recentActivity;
+@synthesize publicGistCount;
+@synthesize privateGistCount;
+@synthesize publicRepoCount;
+@synthesize privateRepoCount;
+@synthesize following;
+@synthesize followers;
+
+
++ (id)userForSearchTerm:(NSString *)theSearchTerm {
+	GHUser *user = [[[GHUser alloc] init] autorelease];
+	user.searchTerm = theSearchTerm;
+	return user;
+}
+
++ (id)userWithLogin:(NSString *)theLogin {
+	return [[[GHUser alloc] initWithLogin:theLogin] autorelease];
+}
 
 - (id)init {
 	[super init];
@@ -44,6 +72,7 @@
 	[blogURL release];
 	[location release];
 	[gravatarHash release];
+	[searchTerm release];
 	[gravatar release];
 	[repositories release];
 	[watchedRepositories release];
@@ -114,7 +143,12 @@
 
 - (void)parseXMLWithToken:(NSString *)token {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *userURLString = token ? [NSString stringWithFormat:kAuthenticateUserXMLFormat, login, login, token] : [NSString stringWithFormat:kUserXMLFormat, login];
+	NSString *userURLString;
+	if (login) {
+		userURLString = token ? [NSString stringWithFormat:kAuthenticateUserXMLFormat, login, login, token] : [NSString stringWithFormat:kUserXMLFormat, login];
+	} else {
+		userURLString = [NSString stringWithFormat:kUserSearchFormat, searchTerm];
+	}
 	NSURL *userURL = [NSURL URLWithString:userURLString];    
 	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];

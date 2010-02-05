@@ -24,7 +24,7 @@
 	titleLabel.text = issue.title;
     detailLabel.text = issue.body;
     issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-	dateLabel.text = [NSString stringWithFormat:@"updated %@", [issue.updated prettyDate]];//   [dateFormatter stringFromDate:issue.created];
+	dateLabel.text = [NSString stringWithFormat:@"updated %@", [issue.updated prettyDate]];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];

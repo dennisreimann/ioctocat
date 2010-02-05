@@ -24,8 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.tableView.tableHeaderView = tableHeaderView;
+    self.tableView.tableHeaderView = tableHeaderView;
 }
 
 // Add and remove observer in the view appearing methods
@@ -33,13 +32,14 @@
 // issue gets edited by the IssueForm
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+	[issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self displayIssue];
-	[self.tableView reloadData];
+	(issue.isLoaded) ? [self displayIssue] : [issue loadIssue];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+	[issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }
 
@@ -54,14 +54,43 @@
 	[createdCell release];
 	[updatedCell release];
 	[descriptionCell release];
+	[loadingCell release];
     [issueNumber release];
 	[iconView release];
     [super dealloc];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (issue.isLoaded) {
+			[self displayIssue];
+			[self.tableView reloadData];
+		} else if (issue.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
+		if (issue.isSaved) {
+			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];  
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+			[self displayIssue];
+			[self.tableView reloadData];
+			[listController reloadIssues];
+		} else if (issue.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
+	}
+}
+
 #pragma mark Actions
 
 - (void)displayIssue {
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
     NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
 	titleLabel.text = issue.title;
@@ -94,41 +123,24 @@
     }
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
-		if (issue.isSaved) {
-			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];  
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
-			[self displayIssue];
-			[self.tableView reloadData];
-			[listController reloadIssues];
-		} else if (issue.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
-		}
-	}
-}
-
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 3;
+- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
+	return (issue.isLoaded) ? 3 : 1;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!issue.isLoaded) return loadingCell;
 	if (indexPath.row == 0) return createdCell;             
 	if (indexPath.row == 1) return updatedCell;
 	return descriptionCell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.row == 2) return [(TextCell *)descriptionCell height];
 	return 44.0f;
 }

@@ -2,23 +2,21 @@
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
+#import "PullToRefreshTableViewController.h"
 
 
-@interface MyFeedsController : UITableViewController {
+@interface MyFeedsController : PullToRefreshTableViewController {
   @private
 	IBOutlet UISegmentedControl *feedControl;
-	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noEntriesCell;
-	IBOutlet UIBarButtonItem *reloadButton;
 	IBOutlet FeedEntryCell *feedEntryCell;
 	NSArray *feeds;
 	NSUInteger loadCounter;
 }
 
-@property(nonatomic,readonly) GHFeed *currentFeed;
+@property(nonatomic,readonly)GHFeed *currentFeed;
 
 - (void)setupFeeds;
 - (IBAction)switchChanged:(id)sender;
-- (IBAction)reloadFeed:(id)sender;
 
 @end

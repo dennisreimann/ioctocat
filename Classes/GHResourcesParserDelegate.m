@@ -33,7 +33,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
-	DebugLog(@"Parsing error: %@", parseError);
+	DJLog(@"Parsing error: %@", parseError);
 	error = [parseError retain];
 	[self parserDidEndDocument:parser];
 }

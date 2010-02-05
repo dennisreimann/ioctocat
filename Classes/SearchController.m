@@ -9,8 +9,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+	self.title = @"Search";
 	self.tableView.tableHeaderView = searchBar;
+	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
 	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
 	GHSearch *userSearch = [[[GHSearch alloc] initWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]] autorelease];
@@ -111,7 +112,7 @@
 	} else if ([object isKindOfClass:[GHUser class]]) {
 		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
 	}
-	viewController.navigationItem.backBarButtonItem.title = @"Back";
+	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 	[viewController release];
 }

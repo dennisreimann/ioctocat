@@ -128,6 +128,7 @@
 	if (repos.count == 0) return;
 	GHRepository *repo = [repos objectAtIndex:indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
+	repoController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:repoController animated:YES];
 	[repoController release];
 }

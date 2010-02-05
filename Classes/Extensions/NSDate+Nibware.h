@@ -10,9 +10,6 @@
 
 
 @interface NSDate (Nibware)
-
 - (NSString*) prettyDate;
-
 - (NSString*) prettyDateWithReference:(NSDate*)reference;
-
 @end

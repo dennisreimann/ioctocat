@@ -44,6 +44,7 @@
 #define kUserUnfollowFormat @"https://github.com/api/v2/xml/user/unfollow/%@?token=%@"
 #define kRepoBranchesJSONFormat @"http://github.com/api/v2/json/repos/show/%@/%@/branches"
 #define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
+#define kRepoIssueXMLFormat @"http://github.com/api/v2/xml/issues/show/%@/%@/%d"
 #define kOpenIssueXMLFormat @"http://github.com/api/v2/xml/issues/open/%@/%@"
 #define kEditIssueXMLFormat @"http://github.com/api/v2/xml/issues/edit/%@/%@/%d"
 #define KUserFollowingJSONFormat @"https://github.com/api/v2/json/user/show/%@/following"

@@ -6,7 +6,6 @@
 
 @interface GHFeedParserDelegate : GHResourcesParserDelegate {
   @private
-	NSDateFormatter *dateFormatter;
 	GHFeedEntry *currentEntry;
 }
 

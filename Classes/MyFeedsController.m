@@ -8,12 +8,6 @@
 #import "iOctocat.h"
 
 
-@interface MyFeedsController ()
-- (void)feedParsingStarted;
-- (void)feedParsingFinished;
-@end
-
-
 @implementation MyFeedsController
 
 - (void)viewDidLoad {
@@ -26,7 +20,6 @@
 	[feeds release];
 	[noEntriesCell release];
 	[feedEntryCell release];
-	[reloadButton release];
 	[feedControl release];
     [super dealloc];
 }
@@ -55,19 +48,20 @@
 		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
+- (void)reloadTableViewDataSource {
+	if (self.currentFeed.isLoading) return;
+	self.currentFeed.lastReadingDate = [NSDate date];
+	[self.currentFeed loadEntries];
+}
+
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
 	if (self.currentFeed.isLoaded) return;
 	[self.currentFeed loadEntries];
-	[self.tableView reloadData];
-}
-
-- (IBAction)reloadFeed:(id)sender {
-	if (self.currentFeed.isLoading) return;
-	self.currentFeed.lastReadingDate = [NSDate date];
-	[self.currentFeed loadEntries];
+	if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];
+	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self.tableView reloadData];
 }
 
@@ -75,10 +69,14 @@
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHFeed *feed = (GHFeed *)object;
 		if (feed.isLoading) {
-			[self feedParsingStarted];
-		} else {
-			[self feedParsingFinished];
-			if (!feed.error) return;
+			loadCounter += 1;
+		} else if (feed.isLoaded) {
+			[self.tableView reloadData];
+			loadCounter -= 1;
+			refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
+			[super dataSourceDidFinishLoadingNewData];
+		} else if (feed.error) {
+			[super dataSourceDidFinishLoadingNewData];
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
@@ -90,18 +88,6 @@
     [self.tableView reloadData];
 }
 
-- (void)feedParsingStarted {
-	loadCounter += 1;
-	reloadButton.enabled = NO;
-}
-
-- (void)feedParsingFinished {
-	[self.tableView reloadData];
-	loadCounter -= 1;
-	if (loadCounter > 0) return;
-	reloadButton.enabled = YES;
-}
-
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -109,13 +95,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.currentFeed.isLoading) return 1;
+	if (self.currentFeed.isLoading) return 0;
 	if (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) return 1;
 	return self.currentFeed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.currentFeed.isLoaded) return loadingCell;
     if (self.currentFeed.entries.count == 0) return noEntriesCell;
 	FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
     if (cell == nil) {
@@ -129,10 +114,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentFeed.isLoading) return;
 	if (self.currentFeed.entries.count == 0) return;
-    GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeedEntry:entry];
+	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:self.currentFeed andCurrentIndex:indexPath.row];
+	entryController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }

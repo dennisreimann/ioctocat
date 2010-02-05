@@ -1,19 +1,13 @@
 #import "GHFeedParserDelegate.h"
 #import "GHFeedEntry.h"
+#import "iOctocat.h"
 
 
 @implementation GHFeedParserDelegate
 
 - (void)dealloc {
 	[currentEntry release];
-	[dateFormatter release];
     [super dealloc];
-}
-
-- (void)parserDidStartDocument:(NSXMLParser *)parser {
-	[super parserDidStartDocument:parser];
-	dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
@@ -28,8 +22,7 @@
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"entry"]) {
 		[resources addObject:currentEntry];
-		[currentEntry release];
-		currentEntry = nil;
+		[currentEntry release], currentEntry = nil;
 	} else if ([elementName isEqualToString:@"id"]) {
 		currentEntry.entryID = currentElementValue;
 		NSString *event = [currentElementValue substringFromIndex:20];
@@ -38,7 +31,7 @@
 		} else if ([event hasPrefix:@"Fork"]) {
 			currentEntry.eventType = @"fork";
 		} else if ([event hasPrefix:@"Issues"]) {
-			currentEntry.eventType = @"issues";
+			currentEntry.eventType = @"issue";
 		} else if ([event hasPrefix:@"Follow"]) {
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {
@@ -61,20 +54,13 @@
 			currentEntry.eventType = nil;
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [dateFormatter dateFromString:currentElementValue];
+		currentEntry.date = [[[iOctocat sharedInstance] inputDateFormatter] dateFromString:currentElementValue];
 	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {
 		currentEntry.authorName = currentElementValue;
 	} 
-	[currentElementValue release];
-	currentElementValue = nil;
-}
-
-- (void)parserDidEndDocument:(NSXMLParser *)parser {
-	[super parserDidEndDocument:parser];
-	[dateFormatter release];
-	dateFormatter = nil;
+	[currentElementValue release], currentElementValue = nil;
 }
 
 @end

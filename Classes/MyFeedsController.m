@@ -95,13 +95,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.currentFeed.isLoading) return 1;
+	if (self.currentFeed.isLoading) return 0;
 	if (self.currentFeed.isLoaded && self.currentFeed.entries.count == 0) return 1;
 	return self.currentFeed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.currentFeed.isLoaded) return loadingCell;
     if (self.currentFeed.entries.count == 0) return noEntriesCell;
 	FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
     if (cell == nil) {
@@ -115,7 +114,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentFeed.isLoading) return;
 	if (self.currentFeed.entries.count == 0) return;
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:self.currentFeed andCurrentIndex:indexPath.row];
 	entryController.hidesBottomBarWhenPushed = YES;

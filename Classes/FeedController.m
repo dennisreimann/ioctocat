@@ -23,7 +23,6 @@
 
 - (void)dealloc {
 	[feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [loadingCell release];
 	[noEntriesCell release];
 	[feedEntryCell release];
 	[feed release];
@@ -58,12 +57,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (feed.isLoading || feed.entries.count == 0) ? 1 : feed.entries.count;
+    return (feed.isLoading) ? 0 : feed.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!feed.isLoaded) return loadingCell;
-	if (feed.entries.count == 0) return noEntriesCell;
+	if (!feed.isLoading && feed.entries.count == 0) return noEntriesCell;
 	FeedEntryCell *cell = (FeedEntryCell *)[tableView dequeueReusableCellWithIdentifier:kFeedEntryCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
@@ -75,7 +73,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (feed.entries.count == 0) return;
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:feed andCurrentIndex:indexPath.row];
 	entryController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:entryController animated:YES];

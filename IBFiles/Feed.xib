@@ -13,7 +13,6 @@
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<integer value="4"/>
-			<integer value="3"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -59,34 +58,6 @@
 				<float key="IBUISectionHeaderHeight">22</float>
 				<float key="IBUISectionFooterHeight">22</float>
 			</object>
-			<object class="IBUITableViewCell" id="168935711">
-				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
-				<object class="NSMutableArray" key="NSSubviews">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="895536681">
-						<reference key="NSNextResponder" ref="168935711"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrameSize">{320, 70}</string>
-						<reference key="NSSuperview" ref="168935711"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="210515862">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-					</object>
-				</object>
-				<string key="NSFrameSize">{320, 70}</string>
-				<reference key="NSSuperview"/>
-				<reference key="IBUIBackgroundColor" ref="682139108"/>
-				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-				<int key="IBUISelectionStyle">0</int>
-				<reference key="IBUIContentView" ref="895536681"/>
-				<string key="IBUIReuseIdentifier">LoadingCell</string>
-			</object>
 			<object class="IBUITableViewCell" id="1054960656">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
@@ -128,7 +99,10 @@
 						</object>
 						<string key="NSFrameSize">{320, 70}</string>
 						<reference key="NSSuperview" ref="1054960656"/>
-						<reference key="IBUIBackgroundColor" ref="210515862"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">4</int>
@@ -173,14 +147,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">loadingCell</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="168935711"/>
-					</object>
-					<int key="connectionID">14</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">noEntriesCell</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="1054960656"/>
@@ -206,14 +172,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">-2</int>
 						<reference key="object" ref="975951072"/>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">3</int>
-						<reference key="object" ref="168935711"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-						</object>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -243,8 +201,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
-					<string>3.IBEditorWindowLastContentRect</string>
-					<string>3.IBPluginDependency</string>
 					<string>4.IBEditorWindowLastContentRect</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
@@ -255,8 +211,6 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>FeedController</string>
 					<string>UIResponder</string>
-					<string>{{393, 496}, {320, 70}}</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{404, 541}, {320, 70}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

@@ -8,7 +8,6 @@
 @interface MyFeedsController : PullToRefreshTableViewController {
   @private
 	IBOutlet UISegmentedControl *feedControl;
-	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noEntriesCell;
 	IBOutlet FeedEntryCell *feedEntryCell;
 	NSArray *feeds;

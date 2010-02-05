@@ -7,7 +7,6 @@
 @interface FeedController : PullToRefreshTableViewController {
   @private
 	GHFeed *feed;
-	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noEntriesCell;
 	IBOutlet FeedEntryCell *feedEntryCell;
 }

@@ -35,11 +35,9 @@
 				<string key="IBProxiedObjectIdentifier">IBFirstResponder</string>
 			</object>
 			<object class="IBUITableView" id="747164330">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<string key="NSFrameSize">{320, 416}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -57,39 +55,6 @@
 				<float key="IBUIRowHeight">70</float>
 				<float key="IBUISectionHeaderHeight">27</float>
 				<float key="IBUISectionFooterHeight">27</float>
-			</object>
-			<object class="IBUITableViewCell" id="101521352">
-				<reference key="NSNextResponder"/>
-				<int key="NSvFlags">292</int>
-				<object class="NSMutableArray" key="NSSubviews">
-					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIView" id="1037816023">
-						<reference key="NSNextResponder" ref="101521352"/>
-						<int key="NSvFlags">256</int>
-						<string key="NSFrameSize">{320, 70}</string>
-						<reference key="NSSuperview" ref="101521352"/>
-						<reference key="NSWindow"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="590441013">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MCAwAA</bytes>
-						</object>
-						<bool key="IBUIOpaque">NO</bool>
-						<bool key="IBUIClipsSubviews">YES</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIMultipleTouchEnabled">YES</bool>
-					</object>
-				</object>
-				<string key="NSFrameSize">{320, 70}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<object class="NSColor" key="IBUIBackgroundColor" id="556799344">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
-				</object>
-				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-				<int key="IBUISelectionStyle">0</int>
-				<reference key="IBUIContentView" ref="1037816023"/>
-				<string key="IBUIReuseIdentifier">LoadingCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="10784923">
 				<nil key="NSNextResponder"/>
@@ -127,7 +92,10 @@
 						</object>
 						<string key="NSFrameSize">{320, 70}</string>
 						<reference key="NSSuperview" ref="10784923"/>
-						<reference key="IBUIBackgroundColor" ref="590441013"/>
+						<object class="NSColor" key="IBUIBackgroundColor">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MCAwAA</bytes>
+						</object>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">4</int>
@@ -135,7 +103,10 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 70}</string>
-				<reference key="IBUIBackgroundColor" ref="556799344"/>
+				<object class="NSColor" key="IBUIBackgroundColor">
+					<int key="NSColorSpace">3</int>
+					<bytes key="NSWhite">MQA</bytes>
+				</object>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<int key="IBUISelectionStyle">0</int>
 				<reference key="IBUIContentView" ref="779754493"/>
@@ -177,14 +148,6 @@
 					</object>
 					<int key="connectionID">40</int>
 				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">loadingCell</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="101521352"/>
-					</object>
-					<int key="connectionID">44</int>
-				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -225,14 +188,6 @@
 						<reference key="object" ref="802702105"/>
 						<reference key="parent" ref="10784923"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">41</int>
-						<reference key="object" ref="101521352"/>
-						<object class="NSMutableArray" key="children">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-						</object>
-						<reference key="parent" ref="0"/>
-					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -244,8 +199,6 @@
 					<string>38.IBEditorWindowLastContentRect</string>
 					<string>38.IBPluginDependency</string>
 					<string>39.IBPluginDependency</string>
-					<string>41.IBEditorWindowLastContentRect</string>
-					<string>41.IBPluginDependency</string>
 					<string>9.IBEditorWindowLastContentRect</string>
 					<string>9.IBPluginDependency</string>
 				</object>
@@ -255,8 +208,6 @@
 					<string>UIResponder</string>
 					<string>{{376, 669}, {320, 70}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<string>{{380, 408}, {320, 70}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{445, 276}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -331,17 +282,13 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>feedControl</string>
 							<string>feedEntryCell</string>
-							<string>loadingCell</string>
 							<string>noEntriesCell</string>
-							<string>reloadButton</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UISegmentedControl</string>
 							<string>FeedEntryCell</string>
 							<string>UITableViewCell</string>
-							<string>UITableViewCell</string>
-							<string>UIBarButtonItem</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -499,22 +446,6 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier" id="665971747">
 						<string key="majorKey">IBFrameworkSource</string>
 						<string key="minorKey">UIKit.framework/Headers/UIResponder.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">UIBarButtonItem</string>
-					<string key="superclassName">UIBarItem</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">UIKit.framework/Headers/UIBarButtonItem.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">UIBarItem</string>
-					<string key="superclassName">NSObject</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBFrameworkSource</string>
-						<string key="minorKey">UIKit.framework/Headers/UIBarItem.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

@@ -110,7 +110,7 @@
 		6F5254A70FC548D800005B0B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		6F5254B60FC548F600005B0B /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
 		6F5652E10F99C85C001B6703 /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
-		6F5653030F99CB52001B6703 /* issues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issues.png */; };
+		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
 		6F5653070F99CB62001B6703 /* public.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653050F99CB62001B6703 /* public.png */; };
 		6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */; };
@@ -331,7 +331,7 @@
 		6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHResourceTestCase.m; path = TestCases/GHResourceTestCase.m; sourceTree = "<group>"; };
 		6F5652DF0F99C85C001B6703 /* RepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesController.h; sourceTree = "<group>"; };
 		6F5652E00F99C85C001B6703 /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
-		6F5653020F99CB52001B6703 /* issues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues.png; path = Images/Icons/issues.png; sourceTree = "<group>"; };
+		6F5653020F99CB52001B6703 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue.png; path = Images/Icons/issue.png; sourceTree = "<group>"; };
 		6F5653040F99CB62001B6703 /* private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = private.png; path = Images/Icons/private.png; sourceTree = "<group>"; };
 		6F5653050F99CB62001B6703 /* public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public.png; path = Images/Icons/public.png; sourceTree = "<group>"; };
 		6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryCellBackground.png; path = Images/FeedEntryCellBackground.png; sourceTree = "<group>"; };
@@ -725,7 +725,7 @@
 				6F1BCBE00FAC586800D66E02 /* upvote.png */,
 				6F5653040F99CB62001B6703 /* private.png */,
 				6F5653050F99CB62001B6703 /* public.png */,
-				6F5653020F99CB52001B6703 /* issues.png */,
+				6F5653020F99CB52001B6703 /* issue.png */,
 				6FCE4DB60F7FE5C600451D6E /* member.png */,
 				6FCE4D240F7FD48700451D6E /* commit.png */,
 				6FCE4D250F7FD48700451D6E /* delete.png */,
@@ -1045,7 +1045,7 @@
 				6F5A40890F90B25F00427ED7 /* User.xib in Resources */,
 				6F5A41790F90C42800427ED7 /* Repository.xib in Resources */,
 				6F5A427D0F90D66D00427ED7 /* RepositoryTableHeadBackground.png in Resources */,
-				6F5653030F99CB52001B6703 /* issues.png in Resources */,
+				6F5653030F99CB52001B6703 /* issue.png in Resources */,
 				6F5653060F99CB62001B6703 /* private.png in Resources */,
 				6F5653070F99CB62001B6703 /* public.png in Resources */,
 				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,

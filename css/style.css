@@ -70,10 +70,10 @@ img {
 #sidebar {
 	float: right;
 	width: 230px;
-	padding-top: 1.75em;
 }
 
 #appstore {
+	margin: 5.125em 0;
 	text-align: center;
 }
 

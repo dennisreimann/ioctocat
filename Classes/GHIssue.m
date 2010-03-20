@@ -17,6 +17,8 @@
 @implementation GHIssue
 
 @synthesize user;
+@synthesize commentsResource;
+@synthesize comments;
 @synthesize title;
 @synthesize body;
 @synthesize state;
@@ -28,13 +30,15 @@
 @synthesize repository;
 
 - (void)dealloc {
-    [user release];
-    [title release];
-    [type release];    
-    [body release];
-    [state release];
-    [created release];
-    [updated release];
+    [user release], user = nil;
+	[commentsResource release], commentsResource = nil;
+	[comments release], comments = nil;
+    [title release], title = nil;
+    [type release], type = nil;    
+    [body release], body = nil;
+    [state release], state = nil;
+    [created release], created = nil;
+    [updated release], updated = nil;
 	[super dealloc];
 }
 

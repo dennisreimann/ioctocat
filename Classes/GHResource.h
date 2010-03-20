@@ -14,14 +14,19 @@ typedef enum {
 	GHResourceStatusSaved = 2
 } GHResourceSavingStatus;
 
+@protocol GHResourceDelegate;
 
 @interface GHResource : NSObject {
+	id<GHResourceDelegate> delegate;
 	GHResourceLoadingStatus loadingStatus;
 	GHResourceSavingStatus savingStatus;
 	NSError *error;
+	NSURL *resourceURL;
 }
 
 @property(nonatomic,retain)NSError *error;
+@property(nonatomic,retain)NSURL *resourceURL;
+@property(nonatomic,assign)id<GHResourceDelegate> delegate;
 @property(nonatomic,readwrite)GHResourceLoadingStatus loadingStatus;
 @property(nonatomic,readwrite)GHResourceSavingStatus savingStatus;
 @property(nonatomic,readonly)BOOL isLoaded;
@@ -30,5 +35,17 @@ typedef enum {
 @property(nonatomic,readonly)BOOL isSaving;
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
++ (id)resourceWithURL:(NSURL *)theURL;
+- (id)initWithURL:(NSURL *)theURL;
+- (void)loadResource;
+
+@end
+
+
+@protocol GHResourceDelegate <NSObject>
+
+@optional
+- (void)resource:(GHResource *)theResource didFinishWithResult:(NSDictionary *)resultDict;
+- (void)resource:(GHResource *)theResource didFailWithError:(NSError *)theError;
 
 @end

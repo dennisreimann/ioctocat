@@ -54,7 +54,7 @@
 			currentEntry.eventType = nil;
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [[[iOctocat sharedInstance] inputDateFormatter] dateFromString:currentElementValue];
+		currentEntry.date = [[iOctocat sharedInstance] parseDate:currentElementValue];
 	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {

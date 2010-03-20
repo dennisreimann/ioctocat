@@ -3,8 +3,11 @@
 #import "GHRepository.h"
 
 
-@interface GHIssue : GHResource {
+
+@interface GHIssue : GHResource <GHResourceDelegate> {
 	GHRepository *repository;
+	GHResource *commentsResource;
+	NSArray *comments;
 	NSString *user;
 	NSString *title;
 	NSString *body;
@@ -17,6 +20,8 @@
 }
 
 @property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,retain)GHResource *commentsResource;
+@property(nonatomic,retain)NSArray *comments;
 @property(nonatomic,retain)NSString *user;
 @property(nonatomic,retain)NSString *title;
 @property(nonatomic,retain)NSString *body;

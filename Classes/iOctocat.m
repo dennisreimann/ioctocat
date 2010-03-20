@@ -12,6 +12,7 @@
 - (void)authenticate;
 - (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
+- (NSDateFormatter *)inputDateFormatter;
 @end
 
 
@@ -21,6 +22,7 @@ static NSDateFormatter *inputDateFormatter;
 @implementation iOctocat
 
 @synthesize users;
+@synthesize queue;
 @synthesize lastLaunchDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
@@ -34,12 +36,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)postLaunch {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
 	// Launch date
 	NSDate *lastLaunch = (NSDate *)[defaults valueForKey:kLaunchDateDefaultsKey];
 	NSDate *nowDate = [NSDate date];
 	if (!lastLaunch) lastLaunch = nowDate;
 	self.lastLaunchDate = lastLaunch;
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
+	
+	// Request queue
+	NSOperationQueue *requestQueue = [[NSOperationQueue alloc] init];
+	self.queue = requestQueue;
+	[requestQueue release];
+	
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
 		[self clearAvatarCache];
@@ -50,12 +59,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)dealloc {
-	[tabBarController release];
-	[feedController release];
-	[authView release];
-	[authSheet release];
-	[window release];
-	[users release];
+	[tabBarController release], tabBarController = nil;
+	[feedController release], feedController = nil;
+	[authView release], authView = nil;
+	[authSheet release], authSheet = nil;
+	[window release], window = nil;
+	[users release], users = nil;
+	[queue release], queue = nil;
+	
 	[super dealloc];
 }
 
@@ -67,7 +78,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return inputDateFormatter;
 }
 
-
+- (NSDate *)parseDate:(NSString *)theString {
+	return [[self inputDateFormatter] dateFromString:theString];
+}
 
 - (UIView *)currentView {
     return tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;

@@ -136,7 +136,6 @@
 		6F5E9AC71119A96000752560 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB41119A96000752560 /* CJSONScanner.m */; };
 		6F5E9AC81119A96000752560 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB61119A96000752560 /* CJSONSerializer.m */; };
 		6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
-		6F5E9ACA1119A96000752560 /* SoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9ABA1119A96000752560 /* SoundEffect.m */; };
 		6F5E9AD31119A9C400752560 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA51119A96000752560 /* ASIFormDataRequest.m */; };
 		6F5E9AD41119A9C500752560 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA71119A96000752560 /* ASIHTTPRequest.m */; };
 		6F5E9AD51119A9C500752560 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA91119A96000752560 /* ASINetworkQueue.m */; };
@@ -152,7 +151,6 @@
 		6F5E9AE01119A9D900752560 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9F1119A96000752560 /* NSDictionary_JSONExtensions.m */; };
 		6F5E9AE11119A9DA00752560 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
 		6F5E9AE21119A9DA00752560 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */; };
-		6F5E9AE31119A9DE00752560 /* SoundEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9ABA1119A96000752560 /* SoundEffect.m */; };
 		6F5E9AE41119A9E400752560 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6F5E9AFC1119AACC00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
 		6F5E9B021119AB1900752560 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B011119AB1900752560 /* AudioToolbox.framework */; };
@@ -211,6 +209,7 @@
 		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
+		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
 		6FE91E470FAD115300749370 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E460FAD115300749370 /* LoginBackground.png */; };
 		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
@@ -374,8 +373,6 @@
 		6F5E9AB61119A96000752560 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
 		6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableViewController.m; sourceTree = "<group>"; };
-		6F5E9AB91119A96000752560 /* SoundEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundEffect.h; sourceTree = "<group>"; };
-		6F5E9ABA1119A96000752560 /* SoundEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundEffect.m; sourceTree = "<group>"; };
 		6F5E9AFB1119AACC00752560 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6F5E9B011119AB1900752560 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6F5E9B621119AD2100752560 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -442,6 +439,8 @@
 		6FD61A090FA7AB26008C751B /* WatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WatchButton.png; path = Images/Buttons/WatchButton.png; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepositories.m; sourceTree = "<group>"; };
+		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
+		6FE7D14511557E8C004B4D68 /* GHIssueComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssueComment.m; sourceTree = "<group>"; };
 		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
 		6FE91E460FAD115300749370 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = Images/LoginBackground.png; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -628,6 +627,8 @@
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+				6FE7D14411557E8C004B4D68 /* GHIssueComment.h */,
+				6FE7D14511557E8C004B4D68 /* GHIssueComment.m */,
 				8CE686730FB8C56700A3D625 /* GHNetworks.h */,
 				8CE686720FB8C56700A3D625 /* GHNetworks.m */,
 				8CE686750FB8C56700A3D625 /* GHNetwork.h */,
@@ -778,8 +779,6 @@
 				6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */,
 				6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */,
 				6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */,
-				6F5E9AB91119A96000752560 /* SoundEffect.h */,
-				6F5E9ABA1119A96000752560 /* SoundEffect.m */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -915,11 +914,11 @@
 		6FE931D30FC7242A008545A2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				6F1C379A0FCA8F4A00F2FFBF /* Archiving.h */,
 				6FE931D40FC72444008545A2 /* Archiver.h */,
 				6FE931D50FC72444008545A2 /* Archiver.m */,
 				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
 				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
-				6F1C379A0FCA8F4A00F2FFBF /* Archiving.h */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -1208,7 +1207,7 @@
 				6F5E9AC71119A96000752560 /* CJSONScanner.m in Sources */,
 				6F5E9AC81119A96000752560 /* CJSONSerializer.m in Sources */,
 				6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */,
-				6F5E9ACA1119A96000752560 /* SoundEffect.m in Sources */,
+				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1283,7 +1282,6 @@
 				6F5E9AE01119A9D900752560 /* NSDictionary_JSONExtensions.m in Sources */,
 				6F5E9AE11119A9DA00752560 /* NSDate+Nibware.m in Sources */,
 				6F5E9AE21119A9DA00752560 /* NSCharacterSet_Extensions.m in Sources */,
-				6F5E9AE31119A9DE00752560 /* SoundEffect.m in Sources */,
 				6F5E9AE41119A9E400752560 /* FilesCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

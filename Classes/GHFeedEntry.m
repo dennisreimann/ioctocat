@@ -51,8 +51,7 @@
 		NSString *owner = [repoComps objectAtIndex:0];
 		NSString *name = [repoComps objectAtIndex:1];
 		GHRepository *repository = [[GHRepository alloc] initWithOwner:owner andName:name];
-		GHIssue *issue = [[GHIssue alloc] init];
-		issue.repository = repository;
+		GHIssue *issue = [[GHIssue alloc] initWithRepository:repository];
 		issue.num = num;
 		self.eventItem = issue;
 		[repository release];

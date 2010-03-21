@@ -82,6 +82,7 @@
 		DJLog(@"JSON parsing error: %@", error);
 		[self notifyDelegates:@selector(resource:didFailWithError:) object:error];
 	} else {
+		DJLog(@"Request result: %@", result);
 		[self notifyDelegates:@selector(resource:didFinishWithResult:) object:result];
 	}
 }

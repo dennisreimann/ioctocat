@@ -3,8 +3,10 @@
 #import "NSDate+Nibware.h"
 #import "TextCell.h"
 #import "LabeledCell.h"
+#import "CommentCell.h"
 #import "IssuesController.h"
 #import "IssueFormController.h"
+#import "GHIssueComments.h"
 
 
 @interface IssueController ()
@@ -34,11 +36,14 @@
     [super viewWillAppear:animated];
 	[issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(issue.isLoaded) ? [self displayIssue] : [issue loadIssue];
+	if (!issue.comments.isLoaded) [issue.comments loadComments];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+	[issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }
@@ -54,6 +59,8 @@
 	[createdCell release];
 	[updatedCell release];
 	[descriptionCell release];
+	[noCommentsCell release];
+	[commentCell release];
 	[loadingCell release];
     [issueNumber release];
 	[iconView release];
@@ -62,13 +69,23 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (issue.isLoaded) {
-			[self displayIssue];
-			[self.tableView reloadData];
-		} else if (issue.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+		if (object == issue) {
+			if (issue.isLoaded) {
+				[self displayIssue];
+				[self.tableView reloadData];
+			} else if (issue.error) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+				[alert release];
+			}
+		} else if (object == issue.comments) {
+			if (issue.comments.isLoaded) {
+				[self.tableView reloadData];
+			} else if (issue.comments.error) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+				[alert release];
+			}
 		}
 	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (issue.isSaved) {
@@ -86,6 +103,22 @@
 		}
 	}
 }
+
+//#pragma mark Resource delegate
+//
+//- (void)resource:(GHResource *)theResource didFinishWithResult:(NSDictionary *)theResult {
+//	if (theResource == issue.comments) {
+//		[self.tableView reloadData];
+//	}
+//}
+//
+//- (void)resource:(GHResource *)theResource didFailWithError:(NSError *)theError {
+//	if (theResource == issue.comments) {
+//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//		[alert show];
+//		[alert release];
+//	}
+//}
 
 #pragma mark Actions
 
@@ -126,22 +159,47 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
-	return 1;
+	return (issue.isLoaded) ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
-	return (issue.isLoaded) ? 3 : 1;
+	if (!issue.isLoaded) return 1;
+	if (section == 0) {
+		return [issue.body isEqualToString:@""] ? 2 : 3;
+	}
+	if (!issue.comments.isLoaded) return 1;
+	if (issue.comments.comments.count == 0) return 1;
+	return issue.comments.comments.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return (section == 1) ? @"Comments" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!issue.isLoaded) return loadingCell;
-	if (indexPath.row == 0) return createdCell;             
-	if (indexPath.row == 1) return updatedCell;
-	return descriptionCell;
+	if (indexPath.section == 0 && indexPath.row == 0) return createdCell;             
+	if (indexPath.section == 0 && indexPath.row == 1) return updatedCell;
+	if (indexPath.section == 0 && indexPath.row == 2) return descriptionCell;
+	if (!issue.comments.isLoaded) return loadingCell;
+	if (issue.comments.comments.count == 0) return noCommentsCell;
+	
+	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
+		cell = commentCell;
+	}
+	GHIssueComment *comment = [issue.comments.comments objectAtIndex:indexPath.row];
+	[cell setComment:comment];
+	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row == 2) return [(TextCell *)descriptionCell height];
+	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)descriptionCell height];
+	if (indexPath.section == 1 && issue.comments.isLoaded && issue.comments.comments.count > 0) {
+		CommentCell *cell = (CommentCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
+		return [cell height];
+	}
 	return 44.0f;
 }
 

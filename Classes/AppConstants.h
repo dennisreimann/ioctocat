@@ -15,6 +15,7 @@
 #define kUserCellIdentifier @"UserCell"
 #define kNetworkCellIdentifier @"NetworkCell"
 #define kBranchCellIdentifier @"BranchCell"
+#define kCommentCellIdentifier @"CommentCell"
 
 // URLs
 #define kUserGithubFormat @"http://github.com/%@"

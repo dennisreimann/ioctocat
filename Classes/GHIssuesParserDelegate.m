@@ -4,14 +4,18 @@
 
 @implementation GHIssuesParserDelegate
 
+@synthesize repository;
+
 - (void)dealloc {
-	[currentIssue release];
+	[repository release], repository = nil;
+	[currentIssue release], currentIssue = nil;
+	
     [super dealloc];
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
 	if ([elementName isEqualToString:@"issue"]) {
-		currentIssue = [[GHIssue alloc] init];
+		currentIssue = [[GHIssue alloc] initWithRepository:repository];
 	}
 }
 

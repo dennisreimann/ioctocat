@@ -1,5 +1,7 @@
 #import "GHIssue.h"
 #import "GHIssuesParserDelegate.h"
+#import "GHIssueComment.h"
+#import "GHIssueComments.h"
 
 
 @interface GHIssue ()
@@ -17,7 +19,6 @@
 @implementation GHIssue
 
 @synthesize user;
-@synthesize commentsResource;
 @synthesize comments;
 @synthesize title;
 @synthesize body;
@@ -29,9 +30,15 @@
 @synthesize num;
 @synthesize repository;
 
+- (id)initWithRepository:(GHRepository *)theRepository {
+	[super init];
+	self.repository = theRepository;
+	self.comments = [GHIssueComments commentsWithIssue:self];
+	return self;
+}
+
 - (void)dealloc {
     [user release], user = nil;
-	[commentsResource release], commentsResource = nil;
 	[comments release], comments = nil;
     [title release], title = nil;
     [type release], type = nil;    
@@ -70,6 +77,7 @@
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:issueURL];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssue:)];
+	parserDelegate.repository = repository;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -87,9 +95,6 @@
 		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else if ([(NSArray *)theResult count] > 0) {
 		GHIssue *issue = [(NSArray *)theResult objectAtIndex:0];
-		NSString *urlString = [NSString stringWithFormat:kIssueCommentsJSONFormat, issue.repository.owner, issue.repository.name, num];
-		NSURL *commentsURL = [NSURL URLWithString:urlString];
-		self.commentsResource = [GHResource resourceWithURL:commentsURL];
 		self.user = issue.user;
 		self.title = issue.title;
 		self.body = issue.body;
@@ -166,6 +171,7 @@
 	[request setPostValue:body forKey:kIssueBodyParamName];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(receiveIssueData:)];
+	parserDelegate.repository = repository;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];

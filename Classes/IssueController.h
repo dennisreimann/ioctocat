@@ -2,9 +2,9 @@
 #import "GHIssue.h"
 
 
-@class LabeledCell, TextCell, IssuesController;
+@class LabeledCell, TextCell, CommentCell, IssuesController;
 
-@interface IssueController : UITableViewController <UIActionSheetDelegate> {
+@interface IssueController : UITableViewController <UIActionSheetDelegate, GHResourceDelegate> {
   @private
 	GHIssue *issue;
 	IssuesController *listController;
@@ -16,9 +16,11 @@
     IBOutlet UILabel *issueNumber;
 	IBOutlet UIImageView *iconView;
 	IBOutlet UITableViewCell *loadingCell;
+	IBOutlet UITableViewCell *noCommentsCell;
 	IBOutlet LabeledCell *createdCell;
 	IBOutlet LabeledCell *updatedCell;
 	IBOutlet TextCell *descriptionCell;
+	IBOutlet CommentCell *commentCell;
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;

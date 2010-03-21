@@ -22,8 +22,7 @@
 
 - (CGFloat)height {
 	if (!self.hasContent) return 0;
-	CGFloat verticalMargin = contentTextLabel.frame.origin.y * 2;
-	CGFloat height = contentTextLabel.frame.size.height + verticalMargin;
+	CGFloat height = contentTextLabel.frame.size.height + 20; // 20 is the vertical margin
 	return height;
 }
 

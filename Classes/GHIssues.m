@@ -47,6 +47,7 @@
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:issuesURL];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
+	parserDelegate.repository = repository;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -64,7 +65,6 @@
 		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		self.entries = theResult;
-		for (GHIssue *issue in theResult) issue.repository = repository;
 		self.loadingStatus = GHResourceStatusLoaded;
 	}
 }

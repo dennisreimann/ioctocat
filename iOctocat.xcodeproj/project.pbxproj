@@ -16,8 +16,6 @@
 		6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueForm.xib */; };
 		6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
 		6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
-		6F0BEB5D1110931E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
-		6F0BEB5E1110931F00E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
 		6F0BEB7F111098A000E95E5A /* BranchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB7E111098A000E95E5A /* BranchCell.m */; };
 		6F14B64A0FA5F37500F74B4C /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F14B6490FA5F37500F74B4C /* GHResource.m */; };
 		6F1BCBE20FAC586800D66E02 /* upvote.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE00FAC586800D66E02 /* upvote.png */; };
@@ -37,38 +35,12 @@
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
 		6F20089B111A12FF00623EC0 /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F200899111A12FF00623EC0 /* ToolbarDown.png */; };
 		6F20089C111A12FF00623EC0 /* ToolbarUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F20089A111A12FF00623EC0 /* ToolbarUp.png */; };
-		6F2C758B1114BBDD002665DA /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
-		6F2C758E1114BBFD002665DA /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
-		6F2C758F1114BBFE002665DA /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
-		6F2C75901114BBFF002665DA /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
-		6F2C75911114BC00002665DA /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
-		6F2C75921114BC00002665DA /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
-		6F2C75931114BC01002665DA /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
-		6F2C75941114BC03002665DA /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
-		6F2C75951114BC04002665DA /* NetworksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* NetworksController.m */; };
-		6F2C75961114BC04002665DA /* MyFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */; };
-		6F2C75971114BC07002665DA /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
-		6F2C75981114BC08002665DA /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
-		6F2C75991114BC09002665DA /* IssueFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */; };
-		6F2C759A1114BC09002665DA /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
-		6F2C759D1114BC18002665DA /* FeedEntryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FAE70F9B47730069F092 /* FeedEntryController.m */; };
-		6F2C759E1114BC18002665DA /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
-		6F2C759F1114BC19002665DA /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
-		6F2C75A21114BC26002665DA /* BranchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB7E111098A000E95E5A /* BranchCell.m */; };
-		6F2C75A31114BC29002665DA /* FeedEntryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */; };
-		6F2C75A41114BC2E002665DA /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueCell.m */; };
-		6F2C75A51114BC2F002665DA /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
-		6F2C75A61114BC31002665DA /* NetworkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867E0FB8C59400A3D625 /* NetworkCell.m */; };
-		6F2C75AD1114BC3A002665DA /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
-		6F2C75AE1114BC3B002665DA /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
-		6F2C75AF1114BC3C002665DA /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserCell.m */; };
 		6F2C76AE1114E65A002665DA /* CommitHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76AD1114E65A002665DA /* CommitHeadBackground.png */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
 		6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EB1114EDEF002665DA /* file_renamed.png */; };
 		6F2C77291114F430002665DA /* FilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* FilesController.m */; };
-		6F2C773A1114F69B002665DA /* FilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* FilesController.m */; };
 		6F2C77441114F6DE002665DA /* Files.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C77431114F6DE002665DA /* Files.xib */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
 		6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
@@ -86,29 +58,6 @@
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
-		6F5254400FC544DA00005B0B /* GHResourceTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */; };
-		6F5254560FC5462700005B0B /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F14B6490FA5F37500F74B4C /* GHResource.m */; };
-		6F52546B0FC5481F00005B0B /* GravatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* GravatarLoader.m */; };
-		6F52546C0FC5481F00005B0B /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
-		6F52546D0FC5482000005B0B /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
-		6F52546E0FC5482000005B0B /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHUser.m */; };
-		6F52546F0FC5482100005B0B /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
-		6F5254700FC5482100005B0B /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
-		6F5254710FC5482300005B0B /* GHReposParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */; };
-		6F5254720FC5482300005B0B /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
-		6F5254730FC5482400005B0B /* GHNetworksParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686780FB8C57500A3D625 /* GHNetworksParserDelegate.m */; };
-		6F5254740FC5482500005B0B /* GHNetworks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHNetworks.m */; };
-		6F5254750FC5482600005B0B /* GHNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686740FB8C56700A3D625 /* GHNetwork.m */; };
-		6F5254760FC5482700005B0B /* GHIssuesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */; };
-		6F5254770FC5482800005B0B /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
-		6F5254780FC5482800005B0B /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
-		6F5254790FC5482900005B0B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
-		6F52547A0FC5482B00005B0B /* GHFeedEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */; };
-		6F52547B0FC5482B00005B0B /* GHFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */; };
-		6F52547C0FC5482C00005B0B /* GHCommitsParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */; };
-		6F52547D0FC5482C00005B0B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
-		6F5254A70FC548D800005B0B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
-		6F5254B60FC548F600005B0B /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
 		6F5652E10F99C85C001B6703 /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
@@ -136,30 +85,9 @@
 		6F5E9AC71119A96000752560 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB41119A96000752560 /* CJSONScanner.m */; };
 		6F5E9AC81119A96000752560 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB61119A96000752560 /* CJSONSerializer.m */; };
 		6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
-		6F5E9AD31119A9C400752560 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA51119A96000752560 /* ASIFormDataRequest.m */; };
-		6F5E9AD41119A9C500752560 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA71119A96000752560 /* ASIHTTPRequest.m */; };
-		6F5E9AD51119A9C500752560 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA91119A96000752560 /* ASINetworkQueue.m */; };
-		6F5E9AD61119A9C600752560 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAD1119A96000752560 /* CDataScanner.m */; };
-		6F5E9AD71119A9C600752560 /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A991119A96000752560 /* CDataScanner_Extensions.m */; };
-		6F5E9AD81119A9C700752560 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB21119A96000752560 /* CJSONDeserializer.m */; };
-		6F5E9AD91119A9C900752560 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB41119A96000752560 /* CJSONScanner.m */; };
-		6F5E9ADA1119A9CA00752560 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB61119A96000752560 /* CJSONSerializer.m */; };
-		6F5E9ADB1119A9CC00752560 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */; };
-		6F5E9ADD1119A9D700752560 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA11119A96000752560 /* NSScanner_Extensions.m */; };
-		6F5E9ADE1119A9D800752560 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
-		6F5E9ADF1119A9D900752560 /* NSHTTPCookieAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAB1119A96000752560 /* NSHTTPCookieAdditions.m */; };
-		6F5E9AE01119A9D900752560 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9F1119A96000752560 /* NSDictionary_JSONExtensions.m */; };
-		6F5E9AE11119A9DA00752560 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
-		6F5E9AE21119A9DA00752560 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */; };
-		6F5E9AE41119A9E400752560 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
-		6F5E9AFC1119AACC00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
-		6F5E9B021119AB1900752560 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B011119AB1900752560 /* AudioToolbox.framework */; };
 		6F5E9B631119AD2100752560 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
 		6F5E9B6E1119AD5B00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
 		6F5E9B6F1119AD5E00752560 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B011119AB1900752560 /* AudioToolbox.framework */; };
-		6F5E9B701119AD6300752560 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
-		6F5E9B711119AD6400752560 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
-		6F5E9B721119AD6500752560 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		6F5E9BC61119B6C000752560 /* RefreshArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9BC51119B6C000752560 /* RefreshArrow.png */; };
 		6F5E9C791119D43E00752560 /* TabBarFeeds.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C751119D43E00752560 /* TabBarFeeds.png */; };
 		6F5E9C7A1119D43E00752560 /* TabBarNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C761119D43E00752560 /* TabBarNetwork.png */; };
@@ -208,13 +136,14 @@
 		6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A080FA7AB26008C751B /* UnwatchButton.png */; };
 		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
-		6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
+		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
+		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
+		6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
 		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
 		6FE91E470FAD115300749370 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E460FAD115300749370 /* LoginBackground.png */; };
 		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
 		6FE931D60FC72444008545A2 /* Archiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE931D50FC72444008545A2 /* Archiver.m */; };
-		6FE932530FC72E67008545A2 /* Archiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE931D50FC72444008545A2 /* Archiver.m */; };
 		6FED81B70FAC97A100BE5C81 /* GHResourcesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */; };
 		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
@@ -222,7 +151,6 @@
 		6FF09E65111589D600925109 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6FF09F831115AF7800925109 /* DiffController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09F811115AF7800925109 /* DiffController.m */; };
 		6FF09F861115AFB500925109 /* Diff.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FF09F851115AFB500925109 /* Diff.xib */; };
-		6FF09F931115B06800925109 /* DiffController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09F811115AF7800925109 /* DiffController.m */; };
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		6FF6EB2B0FA61110000679FA /* GHUsersParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF6EB2A0FA61110000679FA /* GHUsersParserDelegate.m */; };
 		8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
@@ -241,16 +169,6 @@
 		8CFBCFB30FAB8A6300A2C37A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		8CFBCFB70FAB8A6D00A2C37A /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6F5254530FC545F500005B0B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6F5254300FC5440900005B0B;
-			remoteInfo = "Unit Tests";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -325,9 +243,6 @@
 		6F35BD380F88B01900E978CD /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUser.m; sourceTree = "<group>"; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepository.m; sourceTree = "<group>"; };
-		6F5254310FC5440900005B0B /* UnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		6F5254320FC5440900005B0B /* Unit Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Unit Tests-Info.plist"; sourceTree = "<group>"; };
-		6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHResourceTestCase.m; path = TestCases/GHResourceTestCase.m; sourceTree = "<group>"; };
 		6F5652DF0F99C85C001B6703 /* RepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesController.h; sourceTree = "<group>"; };
 		6F5652E00F99C85C001B6703 /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
 		6F5653020F99CB52001B6703 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue.png; path = Images/Icons/issue.png; sourceTree = "<group>"; };
@@ -441,6 +356,11 @@
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepositories.m; sourceTree = "<group>"; };
 		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
 		6FE7D14511557E8C004B4D68 /* GHIssueComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssueComment.m; sourceTree = "<group>"; };
+		6FE7D1BC115622D1004B4D68 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		6FE7D1BD115622D1004B4D68 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		6FE7D1C911562498004B4D68 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CommentCell.xib; path = IBFiles/CommentCell.xib; sourceTree = "<group>"; };
+		6FE7D2B311568951004B4D68 /* GHIssueComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComments.h; sourceTree = "<group>"; };
+		6FE7D2B411568951004B4D68 /* GHIssueComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssueComments.m; sourceTree = "<group>"; };
 		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
 		6FE91E460FAD115300749370 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = Images/LoginBackground.png; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -507,20 +427,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6F52542E0FC5440900005B0B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6F5254A70FC548D800005B0B /* CFNetwork.framework in Frameworks */,
-				6F5254B60FC548F600005B0B /* libz.1.2.3.dylib in Frameworks */,
-				6F5E9AFC1119AACC00752560 /* QuartzCore.framework in Frameworks */,
-				6F5E9B021119AB1900752560 /* AudioToolbox.framework in Frameworks */,
-				6F5E9B701119AD6300752560 /* CoreGraphics.framework in Frameworks */,
-				6F5E9B711119AD6400752560 /* Foundation.framework in Frameworks */,
-				6F5E9B721119AD6500752560 /* UIKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -541,7 +447,6 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* iOctocat.app */,
-				6F5254310FC5440900005B0B /* UnitTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -550,7 +455,6 @@
 			isa = PBXGroup;
 			children = (
 				080E96DDFE201D6D7F000001 /* Classes */,
-				6F52543C0FC5444E00005B0B /* Unit Tests */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -579,7 +483,6 @@
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
-				6F5254320FC5440900005B0B /* Unit Tests-Info.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 				6F74DD8B0FA76CE000FD90AB /* README.textile */,
 				6F593A031116179D004B70FB /* format.html */,
@@ -627,6 +530,8 @@
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+				6FE7D2B311568951004B4D68 /* GHIssueComments.h */,
+				6FE7D2B411568951004B4D68 /* GHIssueComments.m */,
 				6FE7D14411557E8C004B4D68 /* GHIssueComment.h */,
 				6FE7D14511557E8C004B4D68 /* GHIssueComment.m */,
 				8CE686730FB8C56700A3D625 /* GHNetworks.h */,
@@ -707,6 +612,8 @@
 				6F0BEB7E111098A000E95E5A /* BranchCell.m */,
 				6FF09E63111589D600925109 /* FilesCell.h */,
 				6FF09E64111589D600925109 /* FilesCell.m */,
+				6FE7D1BC115622D1004B4D68 /* CommentCell.h */,
+				6FE7D1BD115622D1004B4D68 /* CommentCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -741,14 +648,6 @@
 				6F1DC5C40F7E7F4600FCD26D /* wiki.png */,
 			);
 			name = Icons;
-			sourceTree = "<group>";
-		};
-		6F52543C0FC5444E00005B0B /* Unit Tests */ = {
-			isa = PBXGroup;
-			children = (
-				6F52543F0FC544DA00005B0B /* GHResourceTestCase.m */,
-			);
-			name = "Unit Tests";
 			sourceTree = "<group>";
 		};
 		6F5E9A971119A96000752560 /* Extensions */ = {
@@ -930,6 +829,7 @@
 				6F879A5A0FB611FD00EBD9BD /* UserCell.xib */,
 				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */,
+				6FE7D1C911562498004B4D68 /* CommentCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -969,30 +869,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				6F5254540FC545F500005B0B /* PBXTargetDependency */,
 			);
 			name = iOctocat;
 			productName = iOctocat;
 			productReference = 1D6058910D05DD3D006BFB54 /* iOctocat.app */;
 			productType = "com.apple.product-type.application";
-		};
-		6F5254300FC5440900005B0B /* Unit Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6F5254370FC5440A00005B0B /* Build configuration list for PBXNativeTarget "Unit Tests" */;
-			buildPhases = (
-				6F52542C0FC5440900005B0B /* Resources */,
-				6F52542D0FC5440900005B0B /* Sources */,
-				6F52542E0FC5440900005B0B /* Frameworks */,
-				6F52542F0FC5440900005B0B /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Unit Tests";
-			productName = "Unit Tests";
-			productReference = 6F5254310FC5440900005B0B /* UnitTests.octest */;
-			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
 
@@ -1014,7 +895,6 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* iOctocat */,
-				6F5254300FC5440900005B0B /* Unit Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1106,33 +986,11 @@
 				6F316D9D111ADBA300FC4FE9 /* ToolbarFavorite.png in Resources */,
 				6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */,
 				6F316DA3111ADF2600FC4FE9 /* TabBarInbox.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6F52542C0FC5440900005B0B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		6F52542F0FC5440900005B0B /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
@@ -1208,93 +1066,12 @@
 				6F5E9AC81119A96000752560 /* CJSONSerializer.m in Sources */,
 				6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */,
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		6F52542D0FC5440900005B0B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6F5254400FC544DA00005B0B /* GHResourceTestCase.m in Sources */,
-				6F5254560FC5462700005B0B /* GHResource.m in Sources */,
-				6F52546B0FC5481F00005B0B /* GravatarLoader.m in Sources */,
-				6F52546C0FC5481F00005B0B /* GHUsersParserDelegate.m in Sources */,
-				6F52546D0FC5482000005B0B /* GHUsers.m in Sources */,
-				6F52546E0FC5482000005B0B /* GHUser.m in Sources */,
-				6F52546F0FC5482100005B0B /* GHSearch.m in Sources */,
-				6F5254700FC5482100005B0B /* GHResourcesParserDelegate.m in Sources */,
-				6F5254710FC5482300005B0B /* GHReposParserDelegate.m in Sources */,
-				6F5254720FC5482300005B0B /* GHRepository.m in Sources */,
-				6F5254730FC5482400005B0B /* GHNetworksParserDelegate.m in Sources */,
-				6F5254740FC5482500005B0B /* GHNetworks.m in Sources */,
-				6F5254750FC5482600005B0B /* GHNetwork.m in Sources */,
-				6F5254760FC5482700005B0B /* GHIssuesParserDelegate.m in Sources */,
-				6F5254770FC5482800005B0B /* GHIssues.m in Sources */,
-				6F5254780FC5482800005B0B /* GHIssue.m in Sources */,
-				6F5254790FC5482900005B0B /* GHFeedParserDelegate.m in Sources */,
-				6F52547A0FC5482B00005B0B /* GHFeedEntry.m in Sources */,
-				6F52547B0FC5482B00005B0B /* GHFeed.m in Sources */,
-				6F52547C0FC5482C00005B0B /* GHCommitsParserDelegate.m in Sources */,
-				6F52547D0FC5482C00005B0B /* GHCommit.m in Sources */,
-				6FDC15850FC6C2B200089FB5 /* GHRepositories.m in Sources */,
-				6FE932530FC72E67008545A2 /* Archiver.m in Sources */,
-				6F0BEB5D1110931E00E95E5A /* GHBranches.m in Sources */,
-				6F0BEB5E1110931F00E95E5A /* GHBranch.m in Sources */,
-				6F2C758B1114BBDD002665DA /* iOctocat.m in Sources */,
-				6F2C758E1114BBFD002665DA /* WebController.m in Sources */,
-				6F2C758F1114BBFE002665DA /* UsersController.m in Sources */,
-				6F2C75901114BBFF002665DA /* UserController.m in Sources */,
-				6F2C75911114BC00002665DA /* SearchController.m in Sources */,
-				6F2C75921114BC00002665DA /* RepositoryController.m in Sources */,
-				6F2C75931114BC01002665DA /* RepositoriesController.m in Sources */,
-				6F2C75941114BC03002665DA /* OverlayController.m in Sources */,
-				6F2C75951114BC04002665DA /* NetworksController.m in Sources */,
-				6F2C75961114BC04002665DA /* MyFeedsController.m in Sources */,
-				6F2C75971114BC07002665DA /* LoginController.m in Sources */,
-				6F2C75981114BC08002665DA /* IssuesController.m in Sources */,
-				6F2C75991114BC09002665DA /* IssueFormController.m in Sources */,
-				6F2C759A1114BC09002665DA /* IssueController.m in Sources */,
-				6F2C759D1114BC18002665DA /* FeedEntryController.m in Sources */,
-				6F2C759E1114BC18002665DA /* FeedController.m in Sources */,
-				6F2C759F1114BC19002665DA /* CommitController.m in Sources */,
-				6F2C75A21114BC26002665DA /* BranchCell.m in Sources */,
-				6F2C75A31114BC29002665DA /* FeedEntryCell.m in Sources */,
-				6F2C75A41114BC2E002665DA /* IssueCell.m in Sources */,
-				6F2C75A51114BC2F002665DA /* LabeledCell.m in Sources */,
-				6F2C75A61114BC31002665DA /* NetworkCell.m in Sources */,
-				6F2C75AD1114BC3A002665DA /* RepositoryCell.m in Sources */,
-				6F2C75AE1114BC3B002665DA /* TextCell.m in Sources */,
-				6F2C75AF1114BC3C002665DA /* UserCell.m in Sources */,
-				6F2C773A1114F69B002665DA /* FilesController.m in Sources */,
-				6FF09F931115B06800925109 /* DiffController.m in Sources */,
-				6F5E9AD31119A9C400752560 /* ASIFormDataRequest.m in Sources */,
-				6F5E9AD41119A9C500752560 /* ASIHTTPRequest.m in Sources */,
-				6F5E9AD51119A9C500752560 /* ASINetworkQueue.m in Sources */,
-				6F5E9AD61119A9C600752560 /* CDataScanner.m in Sources */,
-				6F5E9AD71119A9C600752560 /* CDataScanner_Extensions.m in Sources */,
-				6F5E9AD81119A9C700752560 /* CJSONDeserializer.m in Sources */,
-				6F5E9AD91119A9C900752560 /* CJSONScanner.m in Sources */,
-				6F5E9ADA1119A9CA00752560 /* CJSONSerializer.m in Sources */,
-				6F5E9ADB1119A9CC00752560 /* EGORefreshTableHeaderView.m in Sources */,
-				6F5E9ADD1119A9D700752560 /* NSScanner_Extensions.m in Sources */,
-				6F5E9ADE1119A9D800752560 /* PullToRefreshTableViewController.m in Sources */,
-				6F5E9ADF1119A9D900752560 /* NSHTTPCookieAdditions.m in Sources */,
-				6F5E9AE01119A9D900752560 /* NSDictionary_JSONExtensions.m in Sources */,
-				6F5E9AE11119A9DA00752560 /* NSDate+Nibware.m in Sources */,
-				6F5E9AE21119A9DA00752560 /* NSCharacterSet_Extensions.m in Sources */,
-				6F5E9AE41119A9E400752560 /* FilesCell.m in Sources */,
+				6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */,
+				6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6F5254540FC545F500005B0B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6F5254300FC5440900005B0B /* Unit Tests */;
-			targetProxy = 6F5254530FC545F500005B0B /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -1322,125 +1099,6 @@
 				PRODUCT_NAME = iOctocat;
 			};
 			name = Release;
-		};
-		6F5254330FC5440900005B0B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				INFOPLIST_FILE = "Unit Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = iphoneos2.2.1;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		6F5254340FC5440900005B0B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				INFOPLIST_FILE = "Unit Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = iphoneos2.2.1;
-				WRAPPER_EXTENSION = octest;
-				ZERO_LINK = NO;
-			};
-			name = Release;
-		};
-		6F5254350FC5440900005B0B /* Ad Hoc Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				INFOPLIST_FILE = "Unit Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.2.1;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = "Ad Hoc Distribution";
-		};
-		6F5254360FC5440900005B0B /* App Store Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				INFOPLIST_FILE = "Unit Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				IPHONEOS_DEPLOYMENT_TARGET = 2.2.1;
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos2.2.1;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = "App Store Distribution";
 		};
 		6F77CD830F7E9DF2009A0213 /* App Store Distribution */ = {
 			isa = XCBuildConfiguration;
@@ -1534,36 +1192,6 @@
 			};
 			name = Analyze;
 		};
-		6FFC32B110AF42FB00DD7014 /* Analyze */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				INFOPLIST_FILE = "Unit Tests-Info.plist";
-				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
-				OTHER_LDFLAGS = (
-					"-framework",
-					Foundation,
-					"-framework",
-					UIKit,
-					"-framework",
-					SenTestingKit,
-				);
-				PREBINDING = NO;
-				PRODUCT_NAME = UnitTests;
-				SDKROOT = iphoneos2.2.1;
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Analyze;
-		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1611,18 +1239,6 @@
 				1D6058950D05DD3E006BFB54 /* Release */,
 				6FC806450FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD840F7E9DF2009A0213 /* App Store Distribution */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		6F5254370FC5440A00005B0B /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6F5254330FC5440900005B0B /* Debug */,
-				6FFC32B110AF42FB00DD7014 /* Analyze */,
-				6F5254340FC5440900005B0B /* Release */,
-				6F5254350FC5440900005B0B /* Ad Hoc Distribution */,
-				6F5254360FC5440900005B0B /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

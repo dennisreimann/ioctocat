@@ -4,8 +4,11 @@
 
 
 @interface GHIssuesParserDelegate : GHResourcesParserDelegate {
+	GHRepository *repository;
   @private
     GHIssue *currentIssue;
 }
+
+@property(nonatomic,retain)GHRepository *repository;
 
 @end

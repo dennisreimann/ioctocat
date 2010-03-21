@@ -21,16 +21,6 @@
 @synthesize error;
 @synthesize result;
 
-+ (id)resourceWithURL:(NSURL *)theURL {
-	return [[[[self class] alloc] initWithURL:theURL] autorelease];
-}
-
-- (id)initWithURL:(NSURL *)theURL {
-	[self init];
-	self.resourceURL = theURL;
-    return self;
-}
-
 - (id)init {
 	[super init];
 	self.loadingStatus = GHResourceStatusNotLoaded;
@@ -61,20 +51,16 @@
     return request;
 }
 
-- (void)startRequest {
+- (void)startRequest:(ASIHTTPRequest *)request {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
 	
-	DJLog(@"Starting request: %@", resourceURL);
-	ASIHTTPRequest *request = [GHResource authenticatedRequestForURL:resourceURL];
+	DJLog(@"Starting request: %@", [request	url]);
 	request.delegate = self;
 	[[[iOctocat sharedInstance] queue] addOperation:request];
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-	self.loadingStatus = GHResourceStatusLoaded;
-	
 	NSData *json = [[request responseString] dataUsingEncoding:NSUTF32BigEndianStringEncoding];
 	self.result = [[CJSONDeserializer deserializer] deserializeAsDictionary:json error:&error];
 	
@@ -89,7 +75,6 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
 	self.error = [request error];
-	self.loadingStatus = GHResourceStatusNotLoaded;
 	
 	DJLog(@"Request error: %@", error);
 	[self notifyDelegates:@selector(resource:didFailWithError:) object:error];

@@ -4,7 +4,7 @@
 
 @class LabeledCell, TextCell, CommentCell, IssuesController;
 
-@interface IssueController : UITableViewController <UIActionSheetDelegate, GHResourceDelegate> {
+@interface IssueController : UITableViewController <UIActionSheetDelegate> {
   @private
 	GHIssue *issue;
 	IssuesController *listController;

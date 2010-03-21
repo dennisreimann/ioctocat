@@ -104,22 +104,6 @@
 	}
 }
 
-//#pragma mark Resource delegate
-//
-//- (void)resource:(GHResource *)theResource didFinishWithResult:(NSDictionary *)theResult {
-//	if (theResource == issue.comments) {
-//		[self.tableView reloadData];
-//	}
-//}
-//
-//- (void)resource:(GHResource *)theResource didFailWithError:(NSError *)theError {
-//	if (theResource == issue.comments) {
-//		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//		[alert show];
-//		[alert release];
-//	}
-//}
-
 #pragma mark Actions
 
 - (void)displayIssue {

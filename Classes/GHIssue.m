@@ -87,6 +87,9 @@
 		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else if ([(NSArray *)theResult count] > 0) {
 		GHIssue *issue = [(NSArray *)theResult objectAtIndex:0];
+		NSString *urlString = [NSString stringWithFormat:kIssueCommentsJSONFormat, issue.repository.owner, issue.repository.name, num];
+		NSURL *commentsURL = [NSURL URLWithString:urlString];
+		self.commentsResource = [GHResource resourceWithURL:commentsURL];
 		self.user = issue.user;
 		self.title = issue.title;
 		self.body = issue.body;
@@ -122,13 +125,13 @@
 	NSURL *toggleURL = [NSURL URLWithString:toggleURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:toggleURL];    
 	[request start];
-	id result;
+	id res;
 	if ([request error]) {
-		result = [request error];
+		res = [request error];
 	} else {
-		result = [theToggle isEqualToString:kIssueToggleClose] ? kIssueStateClosed : kIssueStateOpen;
+		res = [theToggle isEqualToString:kIssueToggleClose] ? kIssueStateClosed : kIssueStateOpen;
 	}
-	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:result waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 

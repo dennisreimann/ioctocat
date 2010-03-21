@@ -140,6 +140,7 @@
 		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
 		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
 		6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
+		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
 		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
 		6FE91E470FAD115300749370 /* LoginBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E460FAD115300749370 /* LoginBackground.png */; };
 		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
@@ -361,6 +362,8 @@
 		6FE7D1C911562498004B4D68 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CommentCell.xib; path = IBFiles/CommentCell.xib; sourceTree = "<group>"; };
 		6FE7D2B311568951004B4D68 /* GHIssueComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComments.h; sourceTree = "<group>"; };
 		6FE7D2B411568951004B4D68 /* GHIssueComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssueComments.m; sourceTree = "<group>"; };
+		6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
+		6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
 		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
 		6FE91E460FAD115300749370 /* LoginBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoginBackground.png; path = Images/LoginBackground.png; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
@@ -653,6 +656,8 @@
 		6F5E9A971119A96000752560 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */,
+				6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */,
 				6F5E9A981119A96000752560 /* CDataScanner_Extensions.h */,
 				6F5E9A991119A96000752560 /* CDataScanner_Extensions.m */,
 				6F5E9A9A1119A96000752560 /* NSCharacterSet_Extensions.h */,
@@ -1068,6 +1073,7 @@
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
 				6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */,
 				6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */,
+				6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

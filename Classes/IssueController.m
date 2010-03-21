@@ -1,12 +1,13 @@
 #import "IssueController.h"
 #import "WebController.h"
-#import "NSDate+Nibware.h"
 #import "TextCell.h"
 #import "LabeledCell.h"
 #import "CommentCell.h"
 #import "IssuesController.h"
 #import "IssueFormController.h"
 #import "GHIssueComments.h"
+#import "NSDate+Nibware.h"
+#import "NSString+Extensions.h"
 
 
 @interface IssueController ()
@@ -149,7 +150,7 @@
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
 	if (!issue.isLoaded) return 1;
 	if (section == 0) {
-		return [issue.body isEqualToString:@""] ? 2 : 3;
+		return [issue.body isEmpty] ? 2 : 3;
 	}
 	if (!issue.comments.isLoaded) return 1;
 	if (issue.comments.comments.count == 0) return 1;

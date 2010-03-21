@@ -1,4 +1,5 @@
 #import "LabeledCell.h"
+#import "NSString+Extensions.h"
 
 
 @implementation LabeledCell
@@ -16,7 +17,7 @@
 }
 
 - (void)setContentText:(NSString *)text {
-	hasContent = (text != nil && ![text isEqualToString:@""]);
+	hasContent = (text != nil && ![text isEmpty]);
 	content.text = hasContent ? text : @"n/a";
 	content.textColor = hasContent ? [UIColor blackColor] : [UIColor grayColor];
 	content.highlightedTextColor = [UIColor whiteColor];

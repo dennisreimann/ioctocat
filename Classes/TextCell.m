@@ -1,4 +1,5 @@
 #import "TextCell.h"
+#import "NSString+Extensions.h"
 
 
 @implementation TextCell
@@ -27,7 +28,7 @@
 }
 
 - (BOOL)hasContent {
-	return !(contentTextLabel.text == nil || [contentTextLabel.text isEqualToString:@""]);
+	return !(contentTextLabel.text == nil || [contentTextLabel.text isEmpty]);
 }
 
 @end

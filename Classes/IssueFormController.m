@@ -1,5 +1,6 @@
 #import "IssueFormController.h"
 #import "IssuesController.h"
+#import "NSString+Extensions.h"
 
 
 @implementation IssueFormController
@@ -38,9 +39,17 @@
 - (IBAction)saveIssue:(id)sender {
 	issue.title = titleField.text;
 	issue.body = bodyField.text;
-	saveButton.enabled = NO;
-	[activityView startAnimating];
-	[issue saveIssue];
+	
+	// Validate
+	if ([issue.title isEmpty] || [issue.body isEmpty] ) {
+		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation failed" message:@"Please enter a title and a text" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		[alert show];
+		[alert release];
+	} else {
+		saveButton.enabled = NO;
+		[activityView startAnimating];
+		[issue saveIssue];
+	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

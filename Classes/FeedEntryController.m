@@ -96,7 +96,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[contentView stopLoading];
-	contentView.delegate = nil;
 	[super viewWillDisappear:animated];
 }
 

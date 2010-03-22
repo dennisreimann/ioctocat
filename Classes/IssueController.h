@@ -9,6 +9,7 @@
 	GHIssue *issue;
 	IssuesController *listController;
 	IBOutlet UIView *tableHeaderView;
+	IBOutlet UIView *tableFooterView;
 	IBOutlet UILabel *createdLabel;
 	IBOutlet UILabel *updatedLabel;
 	IBOutlet UILabel *voteLabel;
@@ -25,5 +26,6 @@
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)showActions:(id)sender;
+- (IBAction)addComment:(id)sender;
 
 @end

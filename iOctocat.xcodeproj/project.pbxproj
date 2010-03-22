@@ -116,6 +116,8 @@
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
+		6FC0D42A115819E400511B7F /* IssueCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* IssueCommentController.m */; };
+		6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* IssueComment.xib */; };
 		6FC465120F9D141D003A8E7B /* GHCommitsParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC647290F9B165E00FE39F6 /* GHReposParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC647280F9B165E00FE39F6 /* GHReposParserDelegate.m */; };
@@ -327,6 +329,9 @@
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
 		6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCommit.png; sourceTree = "<group>"; };
+		6FC0D428115819E400511B7F /* IssueCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCommentController.h; sourceTree = "<group>"; };
+		6FC0D429115819E400511B7F /* IssueCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCommentController.m; sourceTree = "<group>"; };
+		6FC0D42B11581A5200511B7F /* IssueComment.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueComment.xib; path = IBFiles/IssueComment.xib; sourceTree = "<group>"; };
 		6FC465100F9D141D003A8E7B /* GHCommitsParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommitsParserDelegate.h; sourceTree = "<group>"; };
 		6FC465110F9D141D003A8E7B /* GHCommitsParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCommitsParserDelegate.m; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
@@ -578,6 +583,8 @@
 				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
 				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
 				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
+				6FC0D428115819E400511B7F /* IssueCommentController.h */,
+				6FC0D429115819E400511B7F /* IssueCommentController.m */,
 				6F0AEFBB100CF5DB00FB323E /* IssueFormController.h */,
 				6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */,
 				8CE6867C0FB8C58400A3D625 /* NetworksController.h */,
@@ -797,6 +804,7 @@
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
+				6FC0D42B11581A5200511B7F /* IssueComment.xib */,
 				6F0AEFC0100CF61500FB323E /* IssueForm.xib */,
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
@@ -996,6 +1004,7 @@
 				6F316DA3111ADF2600FC4FE9 /* TabBarInbox.png in Resources */,
 				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 				6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */,
+				6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1078,6 +1087,7 @@
 				6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */,
 				6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */,
 				6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */,
+				6FC0D42A115819E400511B7F /* IssueCommentController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

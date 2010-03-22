@@ -21,5 +21,7 @@
 @property(nonatomic,retain)NSDate *updated;
 
 - (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
+- (id)initWithIssue:(GHIssue *)theIssue;
+- (void)saveComment;
 
 @end

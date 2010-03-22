@@ -1,4 +1,5 @@
 #import "IssueController.h"
+#import "IssueCommentController.h"
 #import "WebController.h"
 #import "TextCell.h"
 #import "LabeledCell.h"
@@ -28,6 +29,7 @@
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
     self.tableView.tableHeaderView = tableHeaderView;
+	self.tableView.tableFooterView = tableFooterView;
 }
 
 // Add and remove observer in the view appearing methods
@@ -53,6 +55,7 @@
 	[issue release];
 	[listController release];
 	[tableHeaderView release];
+	[tableFooterView release];
 	[titleLabel release];
 	[createdLabel release];
     [updatedLabel release];
@@ -120,9 +123,15 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
 	[actionSheet showInView:self.view.window];
 	[actionSheet release];
+}
+
+- (IBAction)addComment:(id)sender {
+	IssueCommentController *viewController = [[IssueCommentController alloc] initWithIssue:issue];
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -133,6 +142,8 @@
 	} else if (buttonIndex == 1) {
 		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];      
     } else if (buttonIndex == 2) {
+		[self addComment:nil];                  
+    } else if (buttonIndex == 3) {
 		NSString *issueURLString = [NSString stringWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
         NSURL *issueURL = [NSURL URLWithString:issueURLString];
 		WebController *webController = [[WebController alloc] initWithURL:issueURL];
@@ -144,7 +155,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
-	return (issue.isLoaded) ? 2 : 1;
+	return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {

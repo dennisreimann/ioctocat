@@ -21,6 +21,7 @@
 	IBOutlet UIBarButtonItem *firstUserItem;
 	IBOutlet UIBarButtonItem *secondUserItem;
 	IBOutlet UIBarButtonItem *issueItem;
+	IBOutlet UIBarButtonItem *commitItem;
 }
 
 @property(nonatomic,retain)GHFeed *feed;
@@ -33,5 +34,6 @@
 - (IBAction)showFirstUser:(id)sender;
 - (IBAction)showSecondUser:(id)sender;
 - (IBAction)showIssue:(id)sender;
+- (IBAction)showCommit:(id)sender;
 
 @end

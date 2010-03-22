@@ -160,8 +160,8 @@
 		[self.navigationController pushViewController:commitController animated:YES];
 		[commitController release];
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
-		NSString *owner = [pathComponents objectAtIndex:[pathComponents count]-2];
-		NSString *name = [pathComponents objectAtIndex:[pathComponents count]-1];
+		NSString *owner = [pathComponents objectAtIndex:0];
+		NSString *name = [pathComponents objectAtIndex:1];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];

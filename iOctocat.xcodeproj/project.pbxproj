@@ -1140,14 +1140,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				ICON_FILE = IconOctocat.png;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "29186332-F8C4-4B8D-A79E-4976510EBDE0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos3.0;
 			};
 			name = "Ad Hoc Distribution";

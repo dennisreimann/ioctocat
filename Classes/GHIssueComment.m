@@ -28,6 +28,8 @@
 	self.created = [dateFormatter dateFromString:createdAt];
 	self.updated = [dateFormatter dateFromString:updatedAt];
 	
+	[dateFormatter release];
+	
 	return self;
 }
 

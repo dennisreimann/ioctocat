@@ -169,6 +169,7 @@
 		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
 		[self.navigationController pushViewController:commitController animated:YES];
 		[commitController release];
+		[commit release];
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
 		NSString *owner = [pathComponents objectAtIndex:0];
 		NSString *name = [pathComponents objectAtIndex:1];
@@ -183,7 +184,6 @@
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
-		[user release];
 	}
 	return NO;
 }

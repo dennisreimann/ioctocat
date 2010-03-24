@@ -63,6 +63,7 @@
 	[createdCell release];
 	[updatedCell release];
 	[descriptionCell release];
+	[loadingCommentsCell release];
 	[noCommentsCell release];
 	[commentCell release];
 	[loadingCell release];
@@ -173,11 +174,11 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!issue.isLoaded) return loadingCell;
+	if (indexPath.section == 0 && !issue.isLoaded) return loadingCell;
 	if (indexPath.section == 0 && indexPath.row == 0) return createdCell;             
 	if (indexPath.section == 0 && indexPath.row == 1) return updatedCell;
 	if (indexPath.section == 0 && indexPath.row == 2) return descriptionCell;
-	if (!issue.comments.isLoaded) return loadingCell;
+	if (!issue.comments.isLoaded) return loadingCommentsCell;
 	if (issue.comments.comments.count == 0) return noCommentsCell;
 	
 	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];

@@ -15,20 +15,39 @@ typedef enum {
 } GHResourceSavingStatus;
 
 
+@protocol GHResourceDelegate;
+
 @interface GHResource : NSObject {
 	GHResourceLoadingStatus loadingStatus;
 	GHResourceSavingStatus savingStatus;
+	NSMutableSet *delegates;
+	NSURL *resourceURL;
 	NSError *error;
+	NSDictionary *result;
 }
 
+@property(nonatomic,assign)GHResourceLoadingStatus loadingStatus;
+@property(nonatomic,assign)GHResourceSavingStatus savingStatus;
+@property(nonatomic,retain)NSURL *resourceURL;
 @property(nonatomic,retain)NSError *error;
-@property(nonatomic,readwrite)GHResourceLoadingStatus loadingStatus;
-@property(nonatomic,readwrite)GHResourceSavingStatus savingStatus;
+@property(nonatomic,retain)NSDictionary *result;
+
+// Convenience Accessors
 @property(nonatomic,readonly)BOOL isLoaded;
 @property(nonatomic,readonly)BOOL isLoading;
 @property(nonatomic,readonly)BOOL isSaved;
 @property(nonatomic,readonly)BOOL isSaving;
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
+- (void)addDelegate:(id<GHResourceDelegate>)theDelegate;
+- (void)removeDelegate:(id<GHResourceDelegate>)theDelegate;
+- (void)startRequest:(ASIHTTPRequest *)request;
 
+@end
+
+
+@protocol GHResourceDelegate <NSObject>
+@optional
+- (void)resource:(GHResource *)theResource didFinishWithResult:(NSDictionary *)resultDict;
+- (void)resource:(GHResource *)theResource didFailWithError:(NSError *)theError;
 @end

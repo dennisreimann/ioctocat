@@ -15,11 +15,6 @@
 #import "NSDate+Nibware.h"
 
 
-@interface FeedEntryController ()
-- (void)displayEntry;
-@end
-
-
 @implementation FeedEntryController
 
 @synthesize feed;
@@ -29,17 +24,21 @@
 	[super initWithNibName:@"FeedEntry" bundle:nil];
 	currentIndex = theCurrentIndex;
 	self.feed = theFeed;
-	self.entry = [feed.entries objectAtIndex:currentIndex];
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	if (feed) self.navigationItem.rightBarButtonItem = controlItem;
-	[self displayEntry];
+	self.entry = [feed.entries objectAtIndex:currentIndex];
 }
 
-- (void)displayEntry {
+- (void)setEntry:(GHFeedEntry *)theEntry {
+	if (theEntry == entry) return;
+	[theEntry retain];
+	[entry release];
+	entry = theEntry;
+	
 	entry.read = YES;
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [entry.eventType capitalizedString];
@@ -66,6 +65,9 @@
 	} else if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
 		[tbItems addObject:repositoryItem];
 		[tbItems addObject:issueItem];
+	} else if ([entry.eventItem isKindOfClass:[GHCommit class]]) {
+		[tbItems addObject:repositoryItem];
+		[tbItems addObject:commitItem];
 	}
 	[toolbar setItems:tbItems animated:NO];
 	// Update navigation control
@@ -76,27 +78,28 @@
 - (void)dealloc {
 	[contentView stopLoading];
 	contentView.delegate = nil;
-	[contentView release];
-	[toolbar release];
-	[controlItem release];
-	[webItem release];
-	[repositoryItem release];
-	[firstUserItem release];
-	[secondUserItem release];
-	[issueItem release];
-	[navigationControl release];
+	[contentView release], contentView = nil;
+	[toolbar release], toolbar = nil;
+	[controlItem release], controlItem = nil;
+	[webItem release], webItem = nil;
+	[repositoryItem release], repositoryItem = nil;
+	[firstUserItem release], firstUserItem = nil;
+	[secondUserItem release], secondUserItem = nil;
+	[issueItem release], issueItem = nil;
+	[commitItem release], commitItem = nil;
+	[navigationControl release], navigationControl = nil;
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[entry release];
-	[dateLabel release];
-	[titleLabel release];
-	[iconView release];
-	[gravatarView release];
+	[entry release], entry = nil;
+	[dateLabel release], dateLabel = nil;
+	[titleLabel release], titleLabel = nil;
+	[iconView release], iconView = nil;
+	[gravatarView release], gravatarView = nil;
+	
     [super dealloc];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[contentView stopLoading];
-	contentView.delegate = nil;
 	[super viewWillDisappear:animated];
 }
 
@@ -112,7 +115,6 @@
 	currentIndex += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	self.entry = [feed.entries objectAtIndex:currentIndex];
-	[self displayEntry];
 }
 
 - (IBAction)showInWebView:(id)sender {
@@ -148,6 +150,13 @@
 	[issueController release];
 }
 
+- (IBAction)showCommit:(id)sender {
+	GHCommit *commit = entry.eventItem;
+	CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
+	[self.navigationController pushViewController:commitController animated:YES];
+	[commitController release];
+}
+
 #pragma mark WebView
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
@@ -160,9 +169,10 @@
 		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
 		[self.navigationController pushViewController:commitController animated:YES];
 		[commitController release];
+		[commit release];
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
-		NSString *owner = [pathComponents objectAtIndex:[pathComponents count]-2];
-		NSString *name = [pathComponents objectAtIndex:[pathComponents count]-1];
+		NSString *owner = [pathComponents objectAtIndex:0];
+		NSString *name = [pathComponents objectAtIndex:1];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
@@ -174,7 +184,6 @@
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
-		[user release];
 	}
 	return NO;
 }

@@ -15,6 +15,7 @@
 #define kUserCellIdentifier @"UserCell"
 #define kNetworkCellIdentifier @"NetworkCell"
 #define kBranchCellIdentifier @"BranchCell"
+#define kCommentCellIdentifier @"CommentCell"
 
 // URLs
 #define kUserGithubFormat @"http://github.com/%@"
@@ -47,6 +48,8 @@
 #define kRepoIssueXMLFormat @"http://github.com/api/v2/xml/issues/show/%@/%@/%d"
 #define kOpenIssueXMLFormat @"http://github.com/api/v2/xml/issues/open/%@/%@"
 #define kEditIssueXMLFormat @"http://github.com/api/v2/xml/issues/edit/%@/%@/%d"
+#define kIssueCommentsJSONFormat @"http://github.com/api/v2/json/issues/comments/%@/%@/%d"
+#define kIssueCommentJSONFormat @"http://github.com/api/v2/json/issues/comment/%@/%@/%d"
 #define KUserFollowingJSONFormat @"https://github.com/api/v2/json/user/show/%@/following"
 #define kNetworksFormat @"http://github.com/api/v2/xml/repos/show/%@/%@/network"
 #define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
@@ -60,6 +63,7 @@
 #define kIssueToggleReopen @"reopen"
 #define kIssueTitleParamName @"title"
 #define kIssueBodyParamName @"body"
+#define kIssueCommentCommentParamName @"comment"
 
 // Following/Watching
 #define kFollow @"follow"

@@ -51,8 +51,7 @@
 		NSString *owner = [repoComps objectAtIndex:0];
 		NSString *name = [repoComps objectAtIndex:1];
 		GHRepository *repository = [[GHRepository alloc] initWithOwner:owner andName:name];
-		GHIssue *issue = [[GHIssue alloc] init];
-		issue.repository = repository;
+		GHIssue *issue = [[GHIssue alloc] initWithRepository:repository];
 		issue.num = num;
 		self.eventItem = issue;
 		[repository release];
@@ -73,14 +72,20 @@
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
-	} else if ([eventType isEqualToString:@"commit"]) {
+	} else if ([eventType isEqualToString:@"push"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" at "];
-		if ([comps1 count] == 2) {
-			NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
-			NSString *owner = [comps2 objectAtIndex:0];
-			NSString *name = [comps2 objectAtIndex:1];
-			self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
-		}
+		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
+		NSString *owner = [comps2 objectAtIndex:0];
+		NSString *name = [comps2 objectAtIndex:1];
+		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+	} else if ([eventType isEqualToString:@"commit"]) {
+		NSString *path = [linkURL path];
+		NSArray *comps = [path componentsSeparatedByString:@"/"];
+		NSString *owner = [comps objectAtIndex:1];
+		NSString *name = [comps objectAtIndex:2];
+		NSString *sha = [comps objectAtIndex:4];
+		GHRepository *repository = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [[[GHCommit alloc] initWithRepository:repository andCommitID:sha] autorelease];
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
 		NSString *name;

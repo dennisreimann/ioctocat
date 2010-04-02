@@ -1,5 +1,7 @@
 #import "GHIssue.h"
 #import "GHIssuesParserDelegate.h"
+#import "GHIssueComment.h"
+#import "GHIssueComments.h"
 
 
 @interface GHIssue ()
@@ -17,6 +19,7 @@
 @implementation GHIssue
 
 @synthesize user;
+@synthesize comments;
 @synthesize title;
 @synthesize body;
 @synthesize state;
@@ -27,14 +30,22 @@
 @synthesize num;
 @synthesize repository;
 
+- (id)initWithRepository:(GHRepository *)theRepository {
+	[super init];
+	self.repository = theRepository;
+	self.comments = [GHIssueComments commentsWithIssue:self];
+	return self;
+}
+
 - (void)dealloc {
-    [user release];
-    [title release];
-    [type release];    
-    [body release];
-    [state release];
-    [created release];
-    [updated release];
+    [user release], user = nil;
+	[comments release], comments = nil;
+    [title release], title = nil;
+    [type release], type = nil;    
+    [body release], body = nil;
+    [state release], state = nil;
+    [created release], created = nil;
+    [updated release], updated = nil;
 	[super dealloc];
 }
 
@@ -66,6 +77,7 @@
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:issueURL];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssue:)];
+	parserDelegate.repository = repository;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -118,13 +130,13 @@
 	NSURL *toggleURL = [NSURL URLWithString:toggleURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:toggleURL];    
 	[request start];
-	id result;
+	id res;
 	if ([request error]) {
-		result = [request error];
+		res = [request error];
 	} else {
-		result = [theToggle isEqualToString:kIssueToggleClose] ? kIssueStateClosed : kIssueStateOpen;
+		res = [theToggle isEqualToString:kIssueToggleClose] ? kIssueStateClosed : kIssueStateOpen;
 	}
-	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:result waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 
@@ -159,6 +171,7 @@
 	[request setPostValue:body forKey:kIssueBodyParamName];
 	[request start];	
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(receiveIssueData:)];
+	parserDelegate.repository = repository;
 	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];

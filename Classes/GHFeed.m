@@ -72,6 +72,7 @@
 		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		self.entries = theResult;
+		self.lastReadingDate = [NSDate date];
 		self.loadingStatus = GHResourceStatusLoaded;
 	}
 }

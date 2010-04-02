@@ -13,7 +13,6 @@
 	IBOutlet UILabel *websiteLabel;
     IBOutlet UILabel *forkLabel;
 	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *branchCell;
     IBOutlet UITableViewCell *issuesCell;
     IBOutlet UITableViewCell *networkCell;    
     IBOutlet UIImageView *iconView;

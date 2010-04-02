@@ -61,7 +61,7 @@
 		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		// Mark the results as not loaded, because the search doesn't contain all attributes
-		for (GHResource *result in theResult) result.loadingStatus = GHResourceStatusNotLoaded;
+		for (GHResource *res in theResult) res.loadingStatus = GHResourceStatusNotLoaded;
 		self.results = theResult;
 		self.loadingStatus = GHResourceStatusLoaded;
 	}

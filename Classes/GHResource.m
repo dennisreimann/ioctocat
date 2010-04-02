@@ -1,11 +1,25 @@
 #import "GHResource.h"
+#import "iOctocat.h"
+#import "CJSONDeserializer.h"
+
+
+@interface GHResource ()
+@property(nonatomic,retain)NSMutableSet *delegates;
+
+- (void)requestFinished:(ASIHTTPRequest *)request;
+- (void)requestFailed:(ASIHTTPRequest *)request;
+- (void)notifyDelegates:(SEL)selector object:(id)object;
+@end
 
 
 @implementation GHResource
 
 @synthesize loadingStatus;
 @synthesize savingStatus;
+@synthesize delegates;
+@synthesize resourceURL;
 @synthesize error;
+@synthesize result;
 
 - (id)init {
 	[super init];
@@ -15,9 +29,77 @@
 }
 
 - (void)dealloc {
-	[error release];
+	[delegates release], delegates = nil;
+	[resourceURL release], resourceURL = nil;
+	[error release], error = nil;
+	[result release], result = nil;
+	
 	[super dealloc];
 }
+
+#pragma mark Request
+
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
+   	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *login = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+	
+    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:theURL] autorelease];
+	[request setPostValue:login forKey:kLoginParamName];
+	[request setPostValue:token forKey:kTokenParamName];
+	
+    return request;
+}
+
+- (void)startRequest:(ASIHTTPRequest *)request {
+	if (self.isLoading) return;
+	self.error = nil;
+	
+	DJLog(@"Starting request: %@", [request	url]);
+	request.delegate = self;
+	[[[iOctocat sharedInstance] queue] addOperation:request];
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+	NSData *json = [[request responseString] dataUsingEncoding:NSUTF32BigEndianStringEncoding];
+	self.result = [[CJSONDeserializer deserializer] deserializeAsDictionary:json error:&error];
+	
+	if (error != nil) {
+		DJLog(@"JSON parsing error: %@", error);
+		[self notifyDelegates:@selector(resource:didFailWithError:) object:error];
+	} else {
+		DJLog(@"Request result: %@", result);
+		[self notifyDelegates:@selector(resource:didFinishWithResult:) object:result];
+	}
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+	self.error = [request error];
+	
+	DJLog(@"Request error: %@", error);
+	[self notifyDelegates:@selector(resource:didFailWithError:) object:error];
+}
+
+#pragma mark Delegates
+
+- (void)addDelegate:(id<GHResourceDelegate>)theDelegate {
+	if (!delegates) self.delegates = [NSMutableSet set];
+	[delegates addObject:theDelegate];
+}
+
+- (void)removeDelegate:(id<GHResourceDelegate>)theDelegate {
+	[delegates removeObject:theDelegate];
+}
+
+- (void)notifyDelegates:(SEL)selector object:(id)object {
+	for (id delegate in delegates) {
+		if ([delegate respondsToSelector:selector]) {
+			[delegate performSelector:selector withObject:self withObject:object];
+		}
+	}
+}
+
+#pragma mark Convenience Accessors
 
 - (BOOL)isLoading {
 	return loadingStatus == GHResourceStatusLoading;
@@ -33,16 +115,6 @@
 
 - (BOOL)isSaved {
 	return savingStatus == GHResourceStatusSaved;
-}
-
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
-   	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *login = [defaults stringForKey:kUsernameDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:theURL] autorelease];
-	[request setPostValue:login forKey:kLoginParamName];
-	[request setPostValue:token forKey:kTokenParamName];
-    return request;
 }
 
 @end

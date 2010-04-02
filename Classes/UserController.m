@@ -10,6 +10,7 @@
 #import "UsersController.h"
 #import "ASIFormDataRequest.h"
 #import "FeedController.h"
+#import "NSString+Extensions.h"
 
 
 @interface UserController ()
@@ -94,7 +95,7 @@
 }
 
 - (void)displayUser {
-	nameLabel.text = (!user.name || [user.name isEqualToString:@""]) ? user.login : user.name;
+	nameLabel.text = (!user.name || [user.name isEmpty]) ? user.login : user.name;
 	companyLabel.text = user.company;
 	gravatarView.image = user.gravatar;
 	[locationCell setContentText:user.location];

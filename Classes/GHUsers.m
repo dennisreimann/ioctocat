@@ -51,8 +51,8 @@
 		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
         [resources addObject:theUser];
     }
-    id result = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(loadedUsers:) withObject:result waitUntilDone:YES];
+    id res = parseError ? (id)parseError : (id)resources;
+	[self performSelectorOnMainThread:@selector(loadedUsers:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 

@@ -8,16 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
-#import "SoundEffect.h"
 
-@interface PullToRefreshTableViewController : UITableViewController 
-{
+@interface PullToRefreshTableViewController : UITableViewController {
 	EGORefreshTableHeaderView *refreshHeaderView;
 	BOOL checkForRefresh;
 	BOOL reloading;
 }
 
 - (void)dataSourceDidFinishLoadingNewData;
-- (void) showReloadAnimationAnimated:(BOOL)animated;
+- (void)showReloadAnimationAnimated:(BOOL)animated;
 
 @end

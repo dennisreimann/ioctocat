@@ -1,4 +1,5 @@
 #import "TextCell.h"
+#import "NSString+Extensions.h"
 
 
 @implementation TextCell
@@ -22,13 +23,12 @@
 
 - (CGFloat)height {
 	if (!self.hasContent) return 0;
-	CGFloat verticalMargin = contentTextLabel.frame.origin.y * 2;
-	CGFloat height = contentTextLabel.frame.size.height + verticalMargin;
+	CGFloat height = contentTextLabel.frame.size.height + 20; // 20 is the vertical margin
 	return height;
 }
 
 - (BOOL)hasContent {
-	return !(contentTextLabel.text == nil || [contentTextLabel.text isEqualToString:@""]);
+	return !(contentTextLabel.text == nil || [contentTextLabel.text isEmpty]);
 }
 
 @end

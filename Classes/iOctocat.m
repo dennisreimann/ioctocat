@@ -1,6 +1,7 @@
 #import "iOctocat.h"
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
+#import "NSString+Extensions.h"
 
 
 @interface iOctocat ()
@@ -12,6 +13,7 @@
 - (void)authenticate;
 - (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
+- (NSDateFormatter *)inputDateFormatter;
 @end
 
 
@@ -21,6 +23,7 @@ static NSDateFormatter *inputDateFormatter;
 @implementation iOctocat
 
 @synthesize users;
+@synthesize queue;
 @synthesize lastLaunchDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
@@ -34,12 +37,19 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)postLaunch {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	
 	// Launch date
 	NSDate *lastLaunch = (NSDate *)[defaults valueForKey:kLaunchDateDefaultsKey];
 	NSDate *nowDate = [NSDate date];
 	if (!lastLaunch) lastLaunch = nowDate;
 	self.lastLaunchDate = lastLaunch;
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
+	
+	// Request queue
+	NSOperationQueue *requestQueue = [[NSOperationQueue alloc] init];
+	self.queue = requestQueue;
+	[requestQueue release];
+	
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
 		[self clearAvatarCache];
@@ -50,12 +60,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)dealloc {
-	[tabBarController release];
-	[feedController release];
-	[authView release];
-	[authSheet release];
-	[window release];
-	[users release];
+	[tabBarController release], tabBarController = nil;
+	[feedController release], feedController = nil;
+	[authView release], authView = nil;
+	[authSheet release], authSheet = nil;
+	[window release], window = nil;
+	[users release], users = nil;
+	[queue release], queue = nil;
+	
 	[super dealloc];
 }
 
@@ -67,7 +79,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return inputDateFormatter;
 }
 
-
+- (NSDate *)parseDate:(NSString *)theString {
+	return [[self inputDateFormatter] dateFromString:theString];
+}
 
 - (UIView *)currentView {
     return tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
@@ -76,7 +90,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults valueForKey:kUsernameDefaultsKey];
-	return (!login || [login isEqualToString:@""]) ? nil : [self userWithLogin:login];
+	return (!login || [login isEmpty]) ? nil : [self userWithLogin:login];
 }
 
 - (GHUser *)userWithLogin:(NSString *)theUsername {
@@ -106,7 +120,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 // Use this to add credentials (for instance via email) by opening a link:
 // <githubauth://LOGIN:TOKEN@github.com>
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-	if (!url || [[url user] isEqualToString:@""] || [[url password] isEqualToString:@""]) return NO;
+	if (!url || [[url user] isEmpty] || [[url password] isEmpty]) return NO;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:[url user] forKey:kUsernameDefaultsKey];
 	[defaults setValue:[url password] forKey:kTokenDefaultsKey];

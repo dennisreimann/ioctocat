@@ -54,8 +54,8 @@
         [resources addObject:branch];
 		[branch release];
     }
-    id result = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(loadedBranches:) withObject:result waitUntilDone:YES];
+    id res = parseError ? (id)parseError : (id)resources;
+	[self performSelectorOnMainThread:@selector(loadedBranches:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 

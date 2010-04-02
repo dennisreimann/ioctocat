@@ -50,7 +50,6 @@
 
 - (void)reloadTableViewDataSource {
 	if (self.currentFeed.isLoading) return;
-	self.currentFeed.lastReadingDate = [NSDate date];
 	[self.currentFeed loadEntries];
 }
 

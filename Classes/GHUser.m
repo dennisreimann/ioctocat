@@ -6,6 +6,7 @@
 #import "GHUsersParserDelegate.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
+#import "NSString+Extensions.h"
 
 
 @interface GHUser ()
@@ -167,7 +168,7 @@
 		self.error = theResult;
 	} else if ([(NSArray *)theResult count] > 0) {
 		GHUser *user = [(NSArray *)theResult objectAtIndex:0];
-		if (!login || [login isEqualToString:@""]) self.login = user.login;
+		if (!login || [login isEmpty]) self.login = user.login;
 		self.name = user.name;
 		self.email = user.email;
 		self.company = user.company;

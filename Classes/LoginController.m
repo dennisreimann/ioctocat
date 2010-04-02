@@ -1,4 +1,5 @@
 #import "LoginController.h"
+#import "NSString+Extensions.h"
 
 
 @implementation LoginController
@@ -37,7 +38,9 @@
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
-	if (![login isEqualToString:@""] && ![token isEqualToString:@""]) {
+	if ([login isEmpty] || [token isEmpty]) {
+		[self failWithMessage:@"Please enter your login\nand API token"];
+	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kUsernameDefaultsKey];
 		[defaults setValue:token forKey:kTokenDefaultsKey];
@@ -46,8 +49,6 @@
 		[loginField resignFirstResponder];
 		[tokenField resignFirstResponder];
 		[target performSelector:selector];
-	} else {
-		[self failWithMessage:@"Please enter your login\nand API token"];
 	}
 }
 

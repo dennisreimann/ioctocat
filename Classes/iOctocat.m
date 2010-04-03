@@ -94,6 +94,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (GHUser *)userWithLogin:(NSString *)theUsername {
+	if (!theUsername || [theUsername isEqualToString:@""]) return nil;
 	GHUser *user = [users objectForKey:theUsername];
 	if (user == nil) {
 		user = [GHUser userWithLogin:theUsername];

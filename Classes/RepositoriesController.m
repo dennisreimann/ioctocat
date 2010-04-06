@@ -16,7 +16,7 @@
 
 @implementation RepositoriesController
 
-@synthesize user, privateRepositories, publicRepositories;
+@synthesize user, privateRepositories, publicRepositories, watchedRepositories;
 
 - (id)initWithUser:(GHUser *)theUser {
     [super initWithNibName:@"Repositories" bundle:nil];
@@ -30,7 +30,7 @@
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadRepositories];
-	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] :  [user.watchedRepositories loadRepositories];
+	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadRepositories];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -45,6 +45,7 @@
 	[noWatchedReposCell release];
 	[publicRepositories release];
 	[privateRepositories release];
+    [watchedRepositories release];
     [super dealloc];
 }
 
@@ -70,7 +71,12 @@
 		}
 		[self.publicRepositories sortUsingSelector:@selector(compareByName:)];
 		[self.privateRepositories sortUsingSelector:@selector(compareByName:)];
-	}
+    }else{
+        self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
+        [self.watchedRepositories removeObjectsInArray:(NSArray *) user.repositories.repositories];
+        [self.watchedRepositories sortUsingSelector:@selector(compareByName:)];
+    }
+
 	[self.tableView reloadData];
 }
 
@@ -78,15 +84,12 @@
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-- (NSMutableArray *)watchedRepositories {
-	return self.currentUser.watchedRepositories.repositories;
-}
 
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section {
 	switch (section) {
 		case 0: return privateRepositories;
 		case 1: return publicRepositories;
-		default: return self.watchedRepositories;
+		default: return watchedRepositories;
 	}
 }
 

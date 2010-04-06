@@ -16,7 +16,10 @@
 
 @implementation RepositoriesController
 
-@synthesize user, privateRepositories, publicRepositories, watchedRepositories;
+@synthesize user;
+@synthesize privateRepositories;
+@synthesize publicRepositories;
+@synthesize watchedRepositories;
 
 - (id)initWithUser:(GHUser *)theUser {
     [super initWithNibName:@"Repositories" bundle:nil];
@@ -71,9 +74,9 @@
 		}
 		[self.publicRepositories sortUsingSelector:@selector(compareByName:)];
 		[self.privateRepositories sortUsingSelector:@selector(compareByName:)];
-    }else{
+    } else {
         self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
-        [self.watchedRepositories removeObjectsInArray:(NSArray *) user.repositories.repositories];
+        [self.watchedRepositories removeObjectsInArray:(NSArray *)user.repositories.repositories];
         [self.watchedRepositories sortUsingSelector:@selector(compareByName:)];
     }
 

@@ -76,10 +76,12 @@
 		[self.privateRepositories sortUsingSelector:@selector(compareByName:)];
     } else {
         self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
-        [self.watchedRepositories removeObjectsInArray:(NSArray *)user.repositories.repositories];
         [self.watchedRepositories sortUsingSelector:@selector(compareByName:)];
     }
 
+    if(user.repositories.isLoaded && user.watchedRepositories.isLoaded)
+        [self.watchedRepositories removeObjectsInArray:(NSArray *)user.repositories.repositories];
+    
 	[self.tableView reloadData];
 }
 

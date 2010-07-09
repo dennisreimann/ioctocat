@@ -16,7 +16,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@'>", entryID, eventType, title, authorName];
+    return [NSString stringWithFormat:@"<GHFeedEntry entryID:'%@' eventType:'%@' title:'%@' authorName:'%@' date:'%@'>", entryID, eventType, title, authorName, date];
 }
 
 - (void)dealloc {

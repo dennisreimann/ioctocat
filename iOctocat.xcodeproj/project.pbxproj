@@ -489,8 +489,6 @@
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6F1DC39A0F7E52F000FCD26D /* Settings.bundle */,
-				6F6F176F11E316F3008B319F /* SystemConfiguration.framework */,
-				6F6F177311E316FE008B319F /* MobileCoreServices.framework */,
 			);
 			comments = "Open Source iPhone app for the awesome GitHub.com";
 			name = CustomTemplate;
@@ -524,6 +522,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6F6F176F11E316F3008B319F /* SystemConfiguration.framework */,
+				6F6F177311E316FE008B319F /* MobileCoreServices.framework */,
 				8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */,
 				8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,

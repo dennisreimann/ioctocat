@@ -57,7 +57,7 @@
 	
 	DJLog(@"Starting request: %@", [request	url]);
 	request.delegate = self;
-	[[[iOctocat sharedInstance] queue] addOperation:request];
+	[[iOctocat queue] addOperation:request];
 }
 
 - (void)requestFinished:(ASIHTTPRequest *)request {

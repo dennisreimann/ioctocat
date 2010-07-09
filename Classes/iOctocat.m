@@ -13,17 +13,12 @@
 - (void)authenticate;
 - (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
-- (NSDateFormatter *)inputDateFormatter;
 @end
-
-
-static NSDateFormatter *inputDateFormatter;
 
 
 @implementation iOctocat
 
 @synthesize users;
-@synthesize queue;
 @synthesize lastLaunchDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
@@ -45,11 +40,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	self.lastLaunchDate = lastLaunch;
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
 	
-	// Request queue
-	NSOperationQueue *requestQueue = [[NSOperationQueue alloc] init];
-	self.queue = requestQueue;
-	[requestQueue release];
-	
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
 		[self clearAvatarCache];
@@ -66,21 +56,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[authSheet release], authSheet = nil;
 	[window release], window = nil;
 	[users release], users = nil;
-	[queue release], queue = nil;
 	
 	[super dealloc];
-}
-
-- (NSDateFormatter *)inputDateFormatter {
-	if (!inputDateFormatter) {
-		inputDateFormatter = [[NSDateFormatter alloc] init];
-		inputDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ"; 
-	}
-	return inputDateFormatter;
-}
-
-- (NSDate *)parseDate:(NSString *)theString {
-	return [[self inputDateFormatter] dateFromString:theString];
 }
 
 - (UIView *)currentView {
@@ -114,6 +91,29 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 			[fileManager removeItemAtPath:imagePath error:NULL];
 		}
 	}
+}
+
++ (NSDate *)parseDate:(NSString *)theString {
+	static NSDateFormatter *dateFormatter;
+	if (dateFormatter == nil) {
+		dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+	}
+	NSString *string = [theString stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
+	NSDate *date = [dateFormatter dateFromString:string];
+	DJLog(@"Parsed string: %@ to date: %@", string, date);
+	return date;
+}
+
+#pragma mark Network
+
++ (ASINetworkQueue *)queue {
+	static ASINetworkQueue *queue;
+	if (queue == nil) {
+		queue = [[ASINetworkQueue queue] retain];
+		[queue go];
+	}
+	return queue;
 }
 
 #pragma mark Authentication

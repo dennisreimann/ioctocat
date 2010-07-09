@@ -1,11 +1,11 @@
 #import "GHFeed.h"
-#import "GHFeedParserDelegate.h"
 #import "GHUser.h"
-#import "ASIFormDataRequest.h"
+#import "GHFeedParserDelegate.h"
+#import "iOctocat.h"
 
 
 @interface GHFeed ()
-- (void)parseFeed;
+- (void)parseFeedWithData:(NSData *)data;
 @end
 
 
@@ -47,15 +47,23 @@
 	if (self.isLoading) return;
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseFeed) withObject:nil];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
+	[request setDelegate:self];
+	[[iOctocat queue] addOperation:request];
 }
 
-- (void)parseFeed {
+- (void)requestFinished:(ASIHTTPRequest *)request {
+	[self performSelectorInBackground:@selector(parseFeedWithData:) withObject:[request responseData]];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+	[self loadedEntries:[request error]];
+}
+
+- (void)parseFeedWithData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
-	[request start];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 	GHFeedParserDelegate *parserDelegate = [[GHFeedParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedEntries:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -67,6 +75,7 @@
 }
 
 - (void)loadedEntries:(id)theResult {
+	DJLog(@"loadedEntries: %@", theResult);
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

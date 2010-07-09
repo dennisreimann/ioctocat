@@ -108,8 +108,8 @@
 		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
 		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
 		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-		self.committedDate = [[iOctocat sharedInstance] parseDate:[theResult objectForKey:@"committed_date"]];
-		self.authoredDate = [[iOctocat sharedInstance] parseDate:[theResult objectForKey:@"authored_date"]];
+		self.committedDate = [iOctocat parseDate:[theResult objectForKey:@"committed_date"]];
+		self.authoredDate = [iOctocat parseDate:[theResult objectForKey:@"authored_date"]];
 		self.message = [theResult objectForKey:@"message"];
 		self.tree = [theResult objectForKey:@"tree"];
 		self.added = [theResult objectForKey:@"added"];

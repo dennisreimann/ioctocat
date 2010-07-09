@@ -2,6 +2,7 @@
 #import "LoginController.h"
 #import "MyFeedsController.h"
 #import "GHUser.h"
+#import "ASINetworkQueue.h"
 
 
 @interface iOctocat : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
@@ -13,20 +14,19 @@
 	UIActionSheet *authSheet;
 	NSMutableDictionary *users;
 	NSDate *lastLaunchDate;
-	NSOperationQueue *queue;
 	BOOL launchDefault;
 }
 
 @property(nonatomic,retain)NSMutableDictionary *users;
 @property(nonatomic,retain)NSDate *lastLaunchDate;
-@property(nonatomic,retain)NSOperationQueue *queue;
 @property(nonatomic,readonly)LoginController *loginController;
 
-+ (id)sharedInstance;
++ (ASINetworkQueue *)queue;
++ (iOctocat *)sharedInstance;
++ (NSDate *)parseDate:(NSString *)theString;
 - (GHUser *)currentUser;
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
-- (NSDate *)parseDate:(NSString *)theString;
 
 @end
 

@@ -13,6 +13,5 @@
 @property(nonatomic,retain)GHRepository *repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
-- (void)loadBranches;
 
 @end

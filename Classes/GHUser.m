@@ -38,7 +38,6 @@
 @synthesize following;
 @synthesize followers;
 
-
 + (id)userForSearchTerm:(NSString *)theSearchTerm {
 	GHUser *user = [[[GHUser alloc] init] autorelease];
 	user.searchTerm = theSearchTerm;
@@ -189,7 +188,7 @@
 #pragma mark Following/Watching
 
 - (BOOL)isFollowing:(GHUser *)anUser {
-	if (!following.isLoaded) [following loadUsers];
+	if (!following.isLoaded) [following loadData];
 	return [following.users containsObject:anUser];
 }
 
@@ -214,12 +213,12 @@
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];    
 	[request start];
 	self.following.loadingStatus = GHResourceStatusNotLoaded;
-    [self.following loadUsers];
+    [self.following loadData];
     [pool release];
 }
 
 - (BOOL)isWatching:(GHRepository *)aRepository {
-	if (!watchedRepositories.isLoaded) [watchedRepositories loadRepositories];
+	if (!watchedRepositories.isLoaded) [watchedRepositories loadData];
 	return [watchedRepositories.repositories containsObject:aRepository];
 }
 

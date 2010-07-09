@@ -7,11 +7,6 @@
 #import "GHBranches.h"
 
 
-@interface GHRepository ()
-- (void)parseXML;
-@end
-
-
 @implementation GHRepository
 
 @synthesize name;
@@ -60,6 +55,13 @@
     return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
 }
 
+- (NSURL *)resourceURL {
+	// Dynamic resourceURL, because it depends on the
+	// owner and name which isn't always available in advance
+	NSString *urlString = [NSString stringWithFormat:kRepoXMLFormat, owner, name];
+	return [NSURL URLWithString:urlString];
+}
+
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
@@ -82,21 +84,10 @@
 
 #pragma mark Repository loading
 
-- (void)loadRepository {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseXML) withObject:nil];
-}
-
-- (void)parseXML {
+- (void)parseData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *url = [NSString stringWithFormat:kRepoXMLFormat, owner, name];
-	NSURL *repoURL = [NSURL URLWithString:url];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:repoURL];    
-	[request start];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
+	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -107,7 +98,7 @@
 	[pool release];
 }
 
-- (void)loadedRepositories:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

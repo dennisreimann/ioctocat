@@ -37,7 +37,6 @@
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)closeIssue;
 - (void)reopenIssue;
-- (void)saveIssue;
-- (void)loadIssue;
+- (void)saveData;
 
 @end

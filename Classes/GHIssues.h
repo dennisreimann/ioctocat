@@ -15,8 +15,6 @@
 @property(nonatomic,retain)NSArray *entries;
 @property(nonatomic,retain)NSString *issueState;
 
-- (void)loadIssues;
-- (void)loadedIssues:(id)theResult;
 - (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState;
 
 @end

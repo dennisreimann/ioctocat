@@ -39,8 +39,8 @@
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.tableView.tableHeaderView = tableHeaderView;
-	(repository.isLoaded) ? [self displayRepository] : [repository loadRepository];
-	if (!repository.branches.isLoaded) [repository.branches loadBranches];
+	(repository.isLoaded) ? [self displayRepository] : [repository loadData];
+	if (!repository.branches.isLoaded) [repository.branches loadData];
 }
 
 - (void)dealloc {

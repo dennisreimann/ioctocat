@@ -3,12 +3,6 @@
 #import "GHUser.h"
 #import "ASIFormDataRequest.h"
 
-
-@interface GHNetworks ()
-- (void)parseNetworks;
-@end
-
-
 @implementation GHNetworks
 
 @synthesize entries;
@@ -17,6 +11,8 @@
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];
     self.repository = theRepository;
+	NSString *urlString = [NSString stringWithFormat:kNetworksFormat, repository.owner, repository.name];
+	self.resourceURL = [NSURL URLWithString:urlString];
 	return self;    
 }
 
@@ -30,21 +26,10 @@
     return [NSString stringWithFormat:@"<GHNetworks repository:'%@'>", repository];
 }
 
-- (void)loadNetworks {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseNetworks) withObject:nil];
-}
-
-- (void)parseNetworks {
+- (void)parseData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *networksURLString = [NSString stringWithFormat:kNetworksFormat, repository.owner, repository.name];
-	NSURL *networksURL = [NSURL URLWithString:networksURLString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:networksURL];
-	[request start];	
-	GHNetworksParserDelegate *parserDelegate = [[GHNetworksParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedNetworks:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
+	GHNetworksParserDelegate *parserDelegate = [[GHNetworksParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -55,7 +40,7 @@
 	[pool release];
 }
 
-- (void)loadedNetworks:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

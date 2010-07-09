@@ -14,6 +14,5 @@
 
 + (id)commentsWithIssue:(GHIssue *)theIssue;
 - (id)initWithIssue:(GHIssue *)theIssue;
-- (void)loadComments;
 
 @end

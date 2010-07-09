@@ -54,7 +54,7 @@
 #define kNetworksFormat @"http://github.com/api/v2/xml/repos/show/%@/%@/network"
 #define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
 #define kWatchRepoFormat @"https://github.com/api/v2/json/repos/%@/%@/%@"
-#define kIssueToggleFormat @"https://github.com/api/v2/xml/issues/%@/%@/%@/%d"
+#define kIssueToggleFormat @"https://github.com/api/v2/json/issues/%@/%@/%@/%d"
 
 // Issues
 #define kIssueStateOpen @"open"

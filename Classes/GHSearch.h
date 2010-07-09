@@ -12,11 +12,9 @@
 }
 
 @property(nonatomic,retain)NSArray *results;
-@property(nonatomic,readonly)NSString *searchTerm;
+@property(nonatomic,retain)NSString *searchTerm;
 
 - (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass;
-- (void)loadResultsForSearchTerm:(NSString *)theSearchTerm;
-- (void)loadedResults:(id)theResult;
 
 @end
 

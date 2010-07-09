@@ -40,8 +40,8 @@
 	[issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(issue.isLoaded) ? [self displayIssue] : [issue loadIssue];
-	if (!issue.comments.isLoaded) [issue.comments loadComments];
+	(issue.isLoaded) ? [self displayIssue] : [issue loadData];
+	if (!issue.comments.isLoaded) [issue.comments loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

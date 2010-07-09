@@ -16,7 +16,7 @@
     [super viewDidLoad];
 	if (!feed.isLoaded) {
 		[self showReloadAnimationAnimated:NO];
-		[feed loadEntries];
+		[feed loadData];
 	}
 	refreshHeaderView.lastUpdatedDate = feed.lastReadingDate;
 }
@@ -47,7 +47,7 @@
 - (void)reloadTableViewDataSource {
 	if (feed.isLoading) return;
 	feed.lastReadingDate = [NSDate date];
-	[feed loadEntries];
+	[feed loadData];
 }
 
 #pragma mark TableView

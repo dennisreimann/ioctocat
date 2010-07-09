@@ -31,12 +31,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (!user) self.user = self.currentUser; // Set to currentUser in case this controller is initialized from the TabBar
-	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadUsers];
+	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
 	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadUser];
-	if (!user.repositories.isLoaded) [user.repositories loadRepositories];
+	if (!user.repositories.isLoaded) [user.repositories loadData];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];

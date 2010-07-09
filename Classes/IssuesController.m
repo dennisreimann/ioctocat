@@ -28,7 +28,7 @@
     issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	issuesControl.selectedSegmentIndex = 0;
-    if (!self.currentIssues.isLoaded) [self.currentIssues loadIssues];
+    if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
 }
 
 - (void)dealloc {
@@ -53,7 +53,7 @@
 - (IBAction)switchChanged:(id)sender {
     [self.tableView reloadData];
     if (self.currentIssues.isLoaded) return;
-    [self.currentIssues loadIssues];
+    [self.currentIssues loadData];
     [self.tableView reloadData];    
 }
 
@@ -67,7 +67,7 @@
 }
 
 - (void)reloadIssues {
-	for (GHIssues *issues in issueList) [issues loadIssues];
+	for (GHIssues *issues in issueList) [issues loadData];
 	[self.tableView reloadData];
 }
 

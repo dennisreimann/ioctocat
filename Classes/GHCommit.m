@@ -6,12 +6,6 @@
 #import "iOctocat.h"
 
 
-@interface GHCommit ()
-- (void)parseCommit;
-- (void)loadedCommit:(id)theResult;
-@end
-
-
 @implementation GHCommit
 
 @synthesize commitID;
@@ -36,6 +30,12 @@
 	[super init];
 	self.repository = theRepository;
 	self.commitID = theCommitID;
+	
+	// Build Resource URL
+	NSString *baseString = repository.isPrivate ? kPrivateRepoCommitJSONFormat : kPublicRepoCommitJSONFormat;
+	NSString *urlString = [NSString stringWithFormat:baseString, repository.owner, repository.name, commitID];
+	self.resourceURL = [NSURL URLWithString:urlString];
+	
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
@@ -65,7 +65,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.isLoaded) {
-			[self performSelectorInBackground:@selector(parseCommit) withObject:nil];
+			[self performSelectorInBackground:@selector(loadData) withObject:nil];
 		} else if (repository.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repository" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
@@ -74,33 +74,34 @@
 	}
 }
 
-- (void)loadCommit {
+- (void)loadData {
 	if (self.isLoading) return;
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusLoading;
 	if (repository.isLoaded) {
-		[self performSelectorInBackground:@selector(parseCommit) withObject:nil];
+		// Send the request
+		ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:resourceURL];
+		[request setDelegate:self];
+		[request setDidFinishSelector:@selector(loadingFinished:)];
+		[request setDidFailSelector:@selector(loadingFailed:)];
+		DJLog(@"Loading URL: %@", [request url]);
+		[[iOctocat queue] addOperation:request];
 	} else {
-		[repository loadRepository];
+		[repository loadData];
 	}
 }
 
-- (void)parseCommit {
+
+- (void)parseData:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *baseString = repository.isPrivate ? kPrivateRepoCommitJSONFormat : kPublicRepoCommitJSONFormat;
-	NSString *urlString = [NSString stringWithFormat:baseString, repository.owner, repository.name, commitID];
-	NSURL *url = [NSURL URLWithString:urlString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];    
-	[request start];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
     id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	DJLog(@"Commit result: %@", res);
-	[self performSelectorOnMainThread:@selector(loadedCommit:) withObject:res waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 
-- (void)loadedCommit:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 	} else {

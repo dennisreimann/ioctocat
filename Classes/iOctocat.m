@@ -24,6 +24,10 @@
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	// Beware of zombies!
+	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
+		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
+	}
 	self.users = [NSMutableDictionary dictionary];
 	[window addSubview:tabBarController.view];
 	launchDefault = YES;
@@ -93,15 +97,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
-+ (NSDate *)parseDate:(NSString *)theString {
++ (NSDate *)parseDate:(NSString *)string {
 	static NSDateFormatter *dateFormatter;
 	if (dateFormatter == nil) {
 		dateFormatter = [[NSDateFormatter alloc] init];
 		dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
 	}
-	NSString *string = [theString stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
+	string = [string stringByReplacingOccurrencesOfString:@"-06:00" withString:@"-0600"];
+	string = [string stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
+	string = [string stringByReplacingOccurrencesOfString:@"-08:00" withString:@"-0800"];
 	NSDate *date = [dateFormatter dateFromString:string];
-	DJLog(@"Parsed string: %@ to date: %@", string, date);
 	return date;
 }
 

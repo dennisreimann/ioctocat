@@ -15,7 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!users.isLoaded) [users loadUsers];
+    if (!users.isLoaded) [users loadData];
 }
 
 - (void)dealloc {

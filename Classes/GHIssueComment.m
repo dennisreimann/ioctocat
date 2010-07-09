@@ -51,33 +51,27 @@
 
 #pragma mark Saving
 
-- (void)saveComment {
-	if (self.isSaving) return;
-	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
-	[self performSelectorInBackground:@selector(sendCommentData) withObject:nil];
-}
-
-- (void)sendCommentData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+- (void)saveData {
+	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:kIssueCommentCommentParamName];
 	NSString *urlString = [NSString stringWithFormat:kIssueCommentJSONFormat, issue.repository.owner, issue.repository.name, issue.num];
 	NSURL *saveURL = [NSURL URLWithString:urlString];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:saveURL];
-	[request setPostValue:body forKey:kIssueCommentCommentParamName];
-	[request start];
+	[self saveValues:values withURL:saveURL];
+}
+
+- (void)parseSaveData:(NSData *)data {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
+    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
 	id res = parseError ? (id)parseError : (id)resultDict;
-	[self performSelectorOnMainThread:@selector(processResult:) withObject:res waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
 	[pool release];
 }
 
-- (void)processResult:(id)theResult {
+- (void)parsingSaveFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.savingStatus = GHResourceStatusNotSaved;
 	} else {
-		// NSString *status = [[theResult objectForKey:@"comment"] objectForKey:@"status"];
 		self.savingStatus = GHResourceStatusSaved;
 	}
 }

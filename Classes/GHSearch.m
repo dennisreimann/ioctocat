@@ -4,48 +4,39 @@
 @implementation GHSearch
 
 @synthesize results;
+@synthesize searchTerm;
 
 - (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
 	[super init];
 	urlFormat = [theFormat retain];
-	parserDelegate = [(GHResourcesParserDelegate *)[theDelegateClass alloc] initWithTarget:self andSelector:@selector(loadedResults:)];
+	parserDelegate = [(GHResourcesParserDelegate *)[theDelegateClass alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	return self;
 }
 
 - (void)dealloc {
-	[parserDelegate release];
-	[searchTerm release];
-	[urlFormat release];
-	[results release];
+	[parserDelegate release], parserDelegate = nil;
+	[searchTerm release], searchTerm = nil;
+	[urlFormat release], urlFormat = nil;
+	[results release], results = nil;
     [super dealloc];
 }
 
-- (NSString *)searchTerm {
-	return searchTerm;
-}
-
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' urlFormat:'%@'>", searchTerm, urlFormat];
+    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourceURL:'%@'>", searchTerm, self.resourceURL];
 }
 
-- (void)loadResultsForSearchTerm:(NSString *)theSearchTerm {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[theSearchTerm retain];
-	[searchTerm release];
-	searchTerm = theSearchTerm;
+- (NSURL *)resourceURL {
+	// Dynamic resourceURL, because it depends on the
+	// searchTerm which isn't always available in advance
 	NSString *encodedSearchTerm = [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *searchURLString = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
-	NSURL *searchURL = [NSURL URLWithString:searchURLString];
-	[self performSelectorInBackground:@selector(parseSearchAtURL:) withObject:searchURL];
+	NSString *urlString = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
+	NSURL *url = [NSURL URLWithString:urlString];
+	return url;
 }
 
-- (void)parseSearchAtURL:(NSURL *)theSearchURL {
+- (void)parseData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theSearchURL];    
-	[request start];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -55,7 +46,7 @@
 	[pool release];
 }
 
-- (void)loadedResults:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

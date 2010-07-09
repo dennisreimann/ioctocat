@@ -46,7 +46,7 @@
 		[alert release];
 	} else {
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
-		[comment saveComment];
+		[comment saveData];
 	}
 }
 
@@ -57,7 +57,7 @@
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Comment saved" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
-			[issue.comments loadComments];
+			[issue.comments loadData];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (comment.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

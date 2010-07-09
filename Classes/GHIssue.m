@@ -2,17 +2,14 @@
 #import "GHIssuesParserDelegate.h"
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
+#import "iOctocat.h"
+#import "CJSONDeserializer.h"
 
 
 @interface GHIssue ()
-// Loading
-- (void)parseIssue;
-- (void)loadedIssue:(id)theResult;
 // Saving
 - (void)setIssueState:(NSString *)theState;
 - (void)toggledIssueStateTo:(id)theResult;
-- (void)sendIssueDataToURL:(NSURL *)theURL;
-- (void)receiveIssueData:(id)theResult;
 @end
 
 
@@ -61,24 +58,20 @@
 	return [state isEqualToString:kIssueStateClosed];
 }
 
-#pragma mark Loading
-
-- (void)loadIssue {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseIssue) withObject:nil];
+- (NSURL *)resourceURL {
+	// Dynamic resourceURL, because it depends on the
+	// num which isn't always available in advance
+	NSString *urlString = [NSString stringWithFormat:kRepoIssueXMLFormat, repository.owner, repository.name, num];
+	return [NSURL URLWithString:urlString];
 }
 
-- (void)parseIssue {
+#pragma mark Loading
+
+- (void)parseData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *urlString = [NSString stringWithFormat:kRepoIssueXMLFormat, repository.owner, repository.name, num];
-	NSURL *issueURL = [NSURL URLWithString:urlString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:issueURL];
-	[request start];	
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssue:)];
+	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -89,7 +82,7 @@
 	[pool release];
 }
 
-- (void)loadedIssue:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;
@@ -108,34 +101,45 @@
 	}
 }
 
-#pragma mark Saving
+#pragma mark State toggling
 
 - (void)closeIssue {
-	if (self.isSaving) return;
-	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
-	[self performSelectorInBackground:@selector(setIssueState:) withObject:kIssueToggleClose];
+	[self setIssueState:kIssueToggleClose];
 }
 
 - (void)reopenIssue {
-	if (self.isSaving) return;
-	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
-	[self performSelectorInBackground:@selector(setIssueState:) withObject:kIssueToggleReopen];
+	[self setIssueState:kIssueToggleReopen];
 }
 
 - (void)setIssueState:(NSString *)theToggle {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *toggleURLString = [NSString stringWithFormat:kIssueToggleFormat, theToggle, repository.owner, repository.name, num];
-	NSURL *toggleURL = [NSURL URLWithString:toggleURLString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:toggleURL];    
-	[request start];
-	id res;
-	if ([request error]) {
-		res = [request error];
-	} else {
-		res = [theToggle isEqualToString:kIssueToggleClose] ? kIssueStateClosed : kIssueStateOpen;
-	}
+	if (self.isSaving) return;
+	self.error = nil;
+	self.savingStatus = GHResourceStatusSaving;
+	NSString *urlString = [NSString stringWithFormat:kIssueToggleFormat, theToggle, repository.owner, repository.name, num];
+	NSURL *url = [NSURL URLWithString:urlString];
+	// Send the request
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(stateTogglingFinished:)];
+	[request setDidFailSelector:@selector(stateTogglingFailed:)];
+	DJLog(@"Sending save request: %@", request);
+	[[iOctocat queue] addOperation:request];
+}
+
+- (void)stateTogglingFinished:(ASIHTTPRequest *)request {
+	[self performSelectorInBackground:@selector(parseToggleData:) withObject:[request responseData]];
+}
+
+- (void)stateTogglingFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Save request for url '%@' failed: %@", [request url], [request error]);
+	[self toggledIssueStateTo:[request error]];
+}
+
+- (void)parseToggleData:(NSData *)data {
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSError *parseError = nil;
+    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+	id res = parseError ? (id)parseError : (id)[resultDict valueForKeyPath:@"issue.state"];
 	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:res waitUntilDone:YES];
     [pool release];
 }
@@ -150,29 +154,25 @@
 	}
 }
 
-- (void)saveIssue {
-	if (self.isSaving) return;
-	NSString *saveURLString;
+#pragma mark Saving
+
+- (void)saveData {
+	NSString *urlString;
 	if (self.isNew) {
-		saveURLString = [NSString stringWithFormat:kOpenIssueXMLFormat, repository.owner, repository.name];
+		urlString = [NSString stringWithFormat:kOpenIssueXMLFormat, repository.owner, repository.name];
 	} else {
-		saveURLString = [NSString stringWithFormat:kEditIssueXMLFormat, repository.owner, repository.name, num];
+		urlString = [NSString stringWithFormat:kEditIssueXMLFormat, repository.owner, repository.name, num];
 	}
-	NSURL *saveURL = [NSURL URLWithString:saveURLString];
-	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
-	[self performSelectorInBackground:@selector(sendIssueDataToURL:) withObject:saveURL];
+	NSURL *url = [NSURL URLWithString:urlString];
+	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, kIssueTitleParamName, body, kIssueBodyParamName, nil];
+	[self saveValues:values withURL:url];
 }
 
-- (void)sendIssueDataToURL:(NSURL *)theURL {
+- (void)parseSaveData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
-	[request setPostValue:title forKey:kIssueTitleParamName];
-	[request setPostValue:body forKey:kIssueBodyParamName];
-	[request start];	
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(receiveIssueData:)];
+	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingSaveFinished:)];
 	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -183,7 +183,7 @@
 	[pool release];
 }
 
-- (void)receiveIssueData:(id)theResult {
+- (void)parsingSaveFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.savingStatus = GHResourceStatusNotSaved;

@@ -32,8 +32,8 @@
     if (!user) self.user = self.currentUser; // Set to currentUser in case this controller is initialized from the TabBar
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
 	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
-	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadRepositories];
-	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadRepositories];
+	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
+	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

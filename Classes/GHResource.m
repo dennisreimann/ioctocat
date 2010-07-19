@@ -47,8 +47,6 @@
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-	[request setPostValue:login forKey:kLoginParamName];
-	[request setPostValue:token forKey:kTokenParamName];
 	[request setUsername:login];
 	[request setPassword:token];
     

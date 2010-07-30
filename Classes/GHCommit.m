@@ -65,7 +65,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.isLoaded) {
-			[self performSelectorInBackground:@selector(loadData) withObject:nil];
+			[self loadData];
 		} else if (repository.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repository" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
@@ -77,8 +77,8 @@
 - (void)loadData {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
 	if (repository.isLoaded) {
+		self.loadingStatus = GHResourceStatusLoading;
 		// Send the request
 		ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:resourceURL];
 		[request setDelegate:self];
@@ -90,7 +90,6 @@
 		[repository loadData];
 	}
 }
-
 
 - (void)parseData:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -104,6 +103,7 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
+		self.loadingStatus = GHResourceStatusNotLoaded;
 	} else {
 		NSString *authorLogin = [[theResult objectForKey:@"author"] objectForKey:@"login"];
 		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
@@ -116,8 +116,8 @@
 		self.added = [theResult objectForKey:@"added"];
 		self.modified = [theResult objectForKey:@"modified"];
 		self.removed = [theResult objectForKey:@"removed"];
+		self.loadingStatus = GHResourceStatusLoaded;
 	}
-	self.loadingStatus = GHResourceStatusLoaded;
 }
 
 @end

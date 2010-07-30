@@ -26,7 +26,7 @@
 
 - (void)setupFeeds {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	NSString *newsAddress = [NSString stringWithFormat:kNewsFeedFormat, username, token];
 	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];

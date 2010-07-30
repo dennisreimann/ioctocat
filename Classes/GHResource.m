@@ -43,7 +43,7 @@
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
    	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *login = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *login = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];

@@ -159,8 +159,9 @@
 			case 2: cell = emailCell; break;
 			default: cell = nil;
 		}
-		cell.selectionStyle = cell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-		cell.accessoryType = cell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+		BOOL isSelectable = row != 0 && cell.hasContent;
+		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
 	if (section == 1 && row == 0) return recentActivityCell;
@@ -182,12 +183,7 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
-	if (section == 0 && row == 0 && user.location) {
-		NSString *locationQuery = [user.location stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		NSString *url = [NSString stringWithFormat:@"http://maps.google.com/maps?q=%@", locationQuery];
-		NSURL *locationURL = [NSURL URLWithString:url];
-		[[UIApplication sharedApplication] openURL:locationURL];
-	} else if (section == 0 && row == 1 && user.blogURL) {
+	if (section == 0 && row == 1 && user.blogURL) {
 		viewController = [[WebController alloc] initWithURL:user.blogURL];
 	} else if (section == 0 && row == 2 && user.email) {
 		NSString *mailString = [NSString stringWithFormat:@"mailto:%@", user.email];

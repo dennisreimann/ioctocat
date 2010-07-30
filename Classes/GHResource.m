@@ -47,8 +47,10 @@
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-	[request setUsername:login];
-	[request setPassword:token];
+	// Authentication with token via HTTP Basic Auth, see:
+	// http://support.github.com/discussions/api/57-reposshowlogin-is-missing-private-repositories
+	NSString *loginToken = [NSString stringWithFormat:@"%@/token:%@", login, token];
+	[request setUsername:loginToken];
     
 	return request;
 }

@@ -43,6 +43,5 @@
 @property(nonatomic,retain)GHRepository *repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
-- (void)loadCommit;
 
 @end

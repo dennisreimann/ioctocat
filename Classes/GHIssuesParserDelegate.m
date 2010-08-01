@@ -36,9 +36,9 @@
 	} else if ([elementName isEqualToString:@"number"]) {
 		currentIssue.num = [currentElementValue integerValue];
     } else if ([elementName isEqualToString:@"created-at"]) {        
-        currentIssue.created = [[iOctocat sharedInstance] parseDate:currentElementValue];
+        currentIssue.created = [iOctocat parseDate:currentElementValue];
     } else if ([elementName isEqualToString:@"updated-at"]) {        
-         currentIssue.updated = [[iOctocat sharedInstance] parseDate:currentElementValue];
+         currentIssue.updated = [iOctocat parseDate:currentElementValue];
 	}
 	[currentElementValue release], currentElementValue = nil;
 }

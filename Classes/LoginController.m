@@ -4,6 +4,10 @@
 
 @implementation LoginController
 
+@synthesize loginField;
+@synthesize tokenField;
+@synthesize submitButton;
+
 - (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
 	[super initWithNibName:@"Login" bundle:nil];
 	target = theTarget;
@@ -14,16 +18,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	loginField.text = [defaults valueForKey:kUsernameDefaultsKey];
+	loginField.text = [defaults valueForKey:kLoginDefaultsKey];
 	tokenField.text = [defaults valueForKey:kTokenDefaultsKey];
 	loginField.clearButtonMode = UITextFieldViewModeWhileEditing;
 	tokenField.clearButtonMode = UITextFieldViewModeWhileEditing;
 }
 
 - (void)dealloc {
-	[loginField release];
-	[tokenField release];
-	[submitButton release];
+	[loginField release], loginField = nil;
+	[tokenField release], tokenField = nil;
+	[submitButton release], submitButton = nil;
     [super dealloc];
 }
 
@@ -42,7 +46,7 @@
 		[self failWithMessage:@"Please enter your login\nand API token"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		[defaults setValue:login forKey:kUsernameDefaultsKey];
+		[defaults setValue:login forKey:kLoginDefaultsKey];
 		[defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;

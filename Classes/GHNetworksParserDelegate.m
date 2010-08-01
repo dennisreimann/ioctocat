@@ -16,7 +16,7 @@
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
 	if ([elementName isEqualToString:@"network"]) {
-		if (currentFork) {
+		if (currentFork && currentFork.user && currentFork.name) {
             currentFork.repository = [[GHRepository alloc] initWithOwner:currentFork.user.login andName:currentFork.name];
             [resources addObject:currentFork];
         }

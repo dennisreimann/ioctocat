@@ -5,11 +5,6 @@
 #import "CJSONDeserializer.h"
 
 
-@interface GHIssueComments ()
-- (void)parseComments;
-@end
-
-
 @implementation GHIssueComments
 
 @synthesize comments;
@@ -29,29 +24,24 @@
 - (void)dealloc {
 	[comments release], comments = nil;
 	[issue release], issue = nil;
-	
 	[super dealloc];
+}
+
+- (NSURL *)resourceURL {
+	// Dynamic resourceURL, because it depends on the
+	// issue num which isn't always available in advance
+	NSString *urlString = [NSString stringWithFormat:kIssueCommentsJSONFormat, issue.repository.owner, issue.repository.name, issue.num];
+	return [NSURL URLWithString:urlString];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHIssueComments issue:'%@'>", issue];
 }
 
-- (void)loadComments {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseComments) withObject:nil];
-}
-
-- (void)parseComments {
+- (void)parseData:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *urlString = [NSString stringWithFormat:kIssueCommentsJSONFormat, issue.repository.owner, issue.repository.name, issue.num];
-	NSURL *commentsURL = [NSURL URLWithString:urlString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:commentsURL];    
-	[request start];
 	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
+    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
     NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in [resultDict objectForKey:@"comments"]) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue andDictionary:dict];
@@ -59,11 +49,11 @@
 		[comment release];
 	}
     id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(loadedComments:) withObject:res waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 
-- (void)loadedComments:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

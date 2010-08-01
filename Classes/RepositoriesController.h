@@ -11,13 +11,14 @@
 	GHUser *user;
 	NSMutableArray *publicRepositories;
 	NSMutableArray *privateRepositories;
+    NSMutableArray *watchedRepositories;
 }
 
 @property(nonatomic,retain) NSMutableArray *publicRepositories;
 @property(nonatomic,retain) NSMutableArray *privateRepositories;
+@property(nonatomic,retain) NSMutableArray *watchedRepositories;
 @property(nonatomic,retain) GHUser *user;
 @property(nonatomic,readonly) GHUser *currentUser;
-@property(nonatomic,readonly) NSMutableArray *watchedRepositories;
 
 - (id)initWithUser:(GHUser *)theUser;
 

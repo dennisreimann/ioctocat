@@ -5,50 +5,33 @@
 #import "GHReposParserDelegate.h"
 
 
-@interface GHRepositories ()
-- (void)parseRepositories;
-- (void)loadedRepositories:(id)theResult;
-@end
-
-
 @implementation GHRepositories
 
 @synthesize user;
 @synthesize repositories;
-@synthesize repositoriesURL;
 
 - (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
     [super init];
     self.user = theUser;
+    self.resourceURL = theURL;
 	self.repositories = [NSMutableArray array];
-    self.repositoriesURL = theURL;
 	return self;
 }
 
 - (void)dealloc {
-	[repositoriesURL release];
-	[repositories release];
-	[user release];
+	[repositories release], repositories = nil;
+	[user release], user = nil;
     [super dealloc];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepositories user:'%@' repositoriesURL:'%@'>", user, repositoriesURL];
+    return [NSString stringWithFormat:@"<GHRepositories user:'%@' resourceURL:'%@'>", user, resourceURL];
 }
 
-- (void)loadRepositories {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseRepositories) withObject:nil];
-}
-
-- (void)parseRepositories {
+- (void)parseData:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:repositoriesURL];    
-	[request start];
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedRepositories:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
+    GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -59,7 +42,7 @@
 	[pool release];
 }
 
-- (void)loadedRepositories:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

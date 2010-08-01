@@ -5,11 +5,6 @@
 #import "CJSONDeserializer.h"
 
 
-@interface GHBranches ()
-- (void)parseBranches;
-@end
-
-
 @implementation GHBranches
 
 @synthesize branches;
@@ -19,6 +14,8 @@
 	[super init];
 	self.repository = theRepository;
 	self.branches = [NSMutableArray array];
+	NSString *urlString = [NSString stringWithFormat:kRepoBranchesJSONFormat, repository.owner, repository.name];
+	self.resourceURL = [NSURL URLWithString:urlString];
 	return self;
 }
 
@@ -32,21 +29,10 @@
     return [NSString stringWithFormat:@"<GHBranches repository:'%@'>", repository];
 }
 
-- (void)loadBranches {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseBranches) withObject:nil];
-}
-
-- (void)parseBranches {
+- (void)parseData:(NSData *)data {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *urlString = [NSString stringWithFormat:kRepoBranchesJSONFormat, repository.owner, repository.name];
-	NSURL *branchesURL = [NSURL URLWithString:urlString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:branchesURL];    
-	[request start];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:[request responseData] error:&parseError];
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
     NSMutableArray *resources = [NSMutableArray array];
 	for (NSString *branchName in [[dict objectForKey:@"branches"] allKeys]) {
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:branchName];
@@ -55,11 +41,11 @@
 		[branch release];
     }
     id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(loadedBranches:) withObject:res waitUntilDone:YES];
+	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
     [pool release];
 }
 
-- (void)loadedBranches:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

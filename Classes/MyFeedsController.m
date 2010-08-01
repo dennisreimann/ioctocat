@@ -26,7 +26,7 @@
 
 - (void)setupFeeds {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	NSString *newsAddress = [NSString stringWithFormat:kNewsFeedFormat, username, token];
 	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];
@@ -50,7 +50,7 @@
 
 - (void)reloadTableViewDataSource {
 	if (self.currentFeed.isLoading) return;
-	[self.currentFeed loadEntries];
+	[self.currentFeed loadData];
 }
 
 #pragma mark Actions
@@ -58,7 +58,7 @@
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
 	if (self.currentFeed.isLoaded) return;
-	[self.currentFeed loadEntries];
+	[self.currentFeed loadData];
 	if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];
 	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self.tableView reloadData];

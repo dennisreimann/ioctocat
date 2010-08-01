@@ -48,7 +48,7 @@
 	} else {
 		saveButton.enabled = NO;
 		[activityView startAnimating];
-		[issue saveIssue];
+		[issue saveData];
 	}
 }
 

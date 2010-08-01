@@ -43,7 +43,7 @@
 	self.title = [commit.commitID substringToIndex:8];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.tableView.tableHeaderView = tableHeaderView;
-	(commit.isLoaded) ? [self displayCommit] : [commit loadCommit];
+	(commit.isLoaded) ? [self displayCommit] : [commit loadData];
 }
 
 - (void)viewDidUnload {

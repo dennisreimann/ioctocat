@@ -7,12 +7,17 @@
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"
+#import "iOctocat.h"
 
 
 @interface GHUser ()
 - (void)parseXMLWithToken:(NSString *)token;
-- (void)setUserFollowing:(NSArray *)args;
-- (void)setRepositoryWatching:(NSArray *)args;
+- (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser;
+- (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository;
+- (void)followToggleFinished:(ASIHTTPRequest *)request;
+- (void)followToggleFailed:(ASIHTTPRequest *)request;
+- (void)watchToggleFinished:(ASIHTTPRequest *)request;
+- (void)watchToggleFailed:(ASIHTTPRequest *)request;
 @end
 
 
@@ -37,7 +42,6 @@
 @synthesize privateRepoCount;
 @synthesize following;
 @synthesize followers;
-
 
 + (id)userForSearchTerm:(NSString *)theSearchTerm {
 	GHUser *user = [[[GHUser alloc] init] autorelease];
@@ -186,64 +190,84 @@
 	self.loadingStatus = GHResourceStatusLoaded;
 }
 
-#pragma mark Following/Watching
+#pragma mark Following
 
 - (BOOL)isFollowing:(GHUser *)anUser {
-	if (!following.isLoaded) [following loadUsers];
+	if (!following.isLoaded) [following loadData];
 	return [following.users containsObject:anUser];
 }
 
 - (void)followUser:(GHUser *)theUser {
 	[following.users addObject:theUser];
-	NSArray *args = [NSArray arrayWithObjects:theUser, kFollow, nil];
-	[self performSelectorInBackground:@selector(setUserFollowing:) withObject:args];
+	[self setFollowing:kFollow forUser:theUser];
 }
 
 - (void)unfollowUser:(GHUser *)theUser {
 	[following.users removeObject:theUser];
-	NSArray *args = [NSArray arrayWithObjects:theUser, kUnFollow, nil];
-	[self performSelectorInBackground:@selector(setUserFollowing:) withObject:args];
+	[self setFollowing:kUnFollow forUser:theUser];
 }
 
-- (void)setUserFollowing:(NSArray *)args {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHUser *user = [args objectAtIndex:0];
-	NSString *state = [args objectAtIndex:1];
-	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, state, user.login];
+- (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser {
+	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, theMode, theUser.login];
 	NSURL *followingURL = [NSURL URLWithString:followingURLString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];    
-	[request start];
-	self.following.loadingStatus = GHResourceStatusNotLoaded;
-    [self.following loadUsers];
-    [pool release];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(followToggleFinished:)];
+	[request setDidFailSelector:@selector(followToggleFailed:)];
+	[[iOctocat queue] addOperation:request];
 }
+
+- (void)followToggleFinished:(ASIHTTPRequest *)request {
+	DJLog(@"Follow toggle %@ finished: %@", [request url], [request responseString]);
+	self.following.loadingStatus = GHResourceStatusNotLoaded;
+    [self.following loadData];
+}
+
+- (void)followToggleFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Follow toggle %@ failed: %@", [request url], [request error]);
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not change following status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
+#pragma mark Watching
 
 - (BOOL)isWatching:(GHRepository *)aRepository {
-	if (!watchedRepositories.isLoaded) [watchedRepositories loadRepositories];
+	if (!watchedRepositories.isLoaded) [watchedRepositories loadData];
 	return [watchedRepositories.repositories containsObject:aRepository];
 }
 
 - (void)watchRepository:(GHRepository *)theRepository {
 	[watchedRepositories.repositories addObject:theRepository];
-	NSArray *args = [NSArray arrayWithObjects:theRepository, kWatch, nil];
-	[self performSelectorInBackground:@selector(setRepositoryWatching:) withObject:args];
+	[self setWatching:kWatch forRepository:theRepository];
 }
 
 - (void)unwatchRepository:(GHRepository *)theRepository {
 	[watchedRepositories.repositories removeObject:theRepository];
-	NSArray *args = [NSArray arrayWithObjects:theRepository, kUnWatch, nil];
-	[self performSelectorInBackground:@selector(setRepositoryWatching:) withObject:args];
+	[self setWatching:kUnWatch forRepository:theRepository];
 }
 
-- (void)setRepositoryWatching:(NSArray *)args {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHRepository *repo = [args objectAtIndex:0];
-	NSString *state = [args objectAtIndex:1];
-	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, state, repo.owner, repo.name];
+- (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository {
+	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, theMode, theRepository.owner, theRepository.name];
 	NSURL *watchingURL = [NSURL URLWithString:watchingURLString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];    
-	[request start];
-    [pool release];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(watchToggleFinished:)];
+	[request setDidFailSelector:@selector(watchToggleFailed:)];
+	[[iOctocat queue] addOperation:request];
+}
+
+- (void)watchToggleFinished:(ASIHTTPRequest *)request {
+	DJLog(@"Watch toggle %@ finished: %@", [request url], [request responseString]);
+	self.watchedRepositories.loadingStatus = GHResourceStatusNotLoaded;
+    [self.watchedRepositories loadData];
+}
+
+- (void)watchToggleFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Watch toggle %@ failed: %@", [request url], [request error]);
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not change watching status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+	[alert show];
+	[alert release];
 }
 
 #pragma mark Gravatar

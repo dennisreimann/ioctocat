@@ -62,7 +62,8 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
-	[self.currentSearch loadResultsForSearchTerm:searchBar.text];
+	self.currentSearch.searchTerm = searchBar.text;
+	[self.currentSearch loadData];
 	[self quitSearching:nil];
 }
 

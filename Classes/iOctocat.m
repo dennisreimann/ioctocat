@@ -13,22 +13,21 @@
 - (void)authenticate;
 - (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
-- (NSDateFormatter *)inputDateFormatter;
 @end
-
-
-static NSDateFormatter *inputDateFormatter;
 
 
 @implementation iOctocat
 
 @synthesize users;
-@synthesize queue;
 @synthesize lastLaunchDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	// Beware of zombies!
+	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
+		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
+	}
 	self.users = [NSMutableDictionary dictionary];
 	[window addSubview:tabBarController.view];
 	launchDefault = YES;
@@ -44,11 +43,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (!lastLaunch) lastLaunch = nowDate;
 	self.lastLaunchDate = lastLaunch;
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
-	
-	// Request queue
-	NSOperationQueue *requestQueue = [[NSOperationQueue alloc] init];
-	self.queue = requestQueue;
-	[requestQueue release];
 	
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
@@ -66,21 +60,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[authSheet release], authSheet = nil;
 	[window release], window = nil;
 	[users release], users = nil;
-	[queue release], queue = nil;
 	
 	[super dealloc];
-}
-
-- (NSDateFormatter *)inputDateFormatter {
-	if (!inputDateFormatter) {
-		inputDateFormatter = [[NSDateFormatter alloc] init];
-		inputDateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ"; 
-	}
-	return inputDateFormatter;
-}
-
-- (NSDate *)parseDate:(NSString *)theString {
-	return [[self inputDateFormatter] dateFromString:theString];
 }
 
 - (UIView *)currentView {
@@ -89,11 +70,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *login = [defaults valueForKey:kUsernameDefaultsKey];
+	NSString *login = [defaults valueForKey:kLoginDefaultsKey];
 	return (!login || [login isEmpty]) ? nil : [self userWithLogin:login];
 }
 
 - (GHUser *)userWithLogin:(NSString *)theUsername {
+	if (!theUsername || [theUsername isEqualToString:@""]) return nil;
 	GHUser *user = [users objectForKey:theUsername];
 	if (user == nil) {
 		user = [GHUser userWithLogin:theUsername];
@@ -115,6 +97,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
++ (NSDate *)parseDate:(NSString *)string {
+	static NSDateFormatter *dateFormatter;
+	if (dateFormatter == nil) {
+		dateFormatter = [[NSDateFormatter alloc] init];
+		dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
+	}
+	string = [string stringByReplacingOccurrencesOfString:@"-06:00" withString:@"-0600"];
+	string = [string stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
+	string = [string stringByReplacingOccurrencesOfString:@"-08:00" withString:@"-0800"];
+	NSDate *date = [dateFormatter dateFromString:string];
+	return date;
+}
+
+#pragma mark Network
+
++ (ASINetworkQueue *)queue {
+	static ASINetworkQueue *queue;
+	if (queue == nil) {
+		queue = [[ASINetworkQueue queue] retain];
+		[queue go];
+	}
+	return queue;
+}
+
 #pragma mark Authentication
 
 // Use this to add credentials (for instance via email) by opening a link:
@@ -122,14 +128,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
 	if (!url || [[url user] isEmpty] || [[url password] isEmpty]) return NO;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:[url user] forKey:kUsernameDefaultsKey];
+	[defaults setValue:[url user] forKey:kLoginDefaultsKey];
 	[defaults setValue:[url password] forKey:kTokenDefaultsKey];
 	[defaults synchronize];
 	// Inform the user
-	NSString *message = [NSString stringWithFormat:@"Username: %@\nAPI Token: %@", [defaults valueForKey:kUsernameDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
+	NSString *message = [NSString stringWithFormat:@"Username: %@\nAPI Token: %@", [defaults valueForKey:kLoginDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New credentials" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 	[alert show];
 	[alert release];
+	// Set the values
+	self.loginController.loginField.text = [defaults valueForKey:kLoginDefaultsKey];
+	self.loginController.tokenField.text = [defaults valueForKey:kTokenDefaultsKey];
 	return YES;
 }
 
@@ -161,7 +170,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (LoginController *)loginController {
-	return (LoginController *)tabBarController.modalViewController ;
+	return (LoginController *)tabBarController.modalViewController;
 }
 
 - (void)presentLogin {

@@ -40,9 +40,18 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	} else {
-		NSDictionary *fileInfo = [files objectAtIndex:indexPath.row];
-		NSString *diff = [fileInfo objectForKey:@"diff"];
-		cell.textLabel.text = [fileInfo objectForKey:@"filename"];
+		// FIXME: This is a hack for what's in my opinion is an API inconsistancy, see:
+		// http://support.github.com/discussions/api/66-commitsshow-added-removed-and-modified-are-inconsistent
+		NSString *diff = nil;
+		NSString *fileName = nil;
+		id fileInfo = [files objectAtIndex:indexPath.row];
+		if ([fileInfo isKindOfClass:[NSDictionary class]]) {
+			diff = [fileInfo objectForKey:@"diff"];
+			fileName = [fileInfo objectForKey:@"filename"];
+		} else {
+			fileName = fileInfo;
+		}
+		cell.textLabel.text = fileName;
 		cell.selectionStyle = diff ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = diff ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
@@ -50,9 +59,8 @@
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *fileInfo = [files objectAtIndex:indexPath.row];
-	NSString *diff = [fileInfo objectForKey:@"diff"];
-	if (diff) {
+	id fileInfo = [files objectAtIndex:indexPath.row];
+	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
 		DiffController *diffController = [[DiffController alloc] initWithFiles:files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:diffController animated:YES];
 		[diffController release];

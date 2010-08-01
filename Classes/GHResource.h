@@ -39,9 +39,9 @@ typedef enum {
 @property(nonatomic,readonly)BOOL isSaving;
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
-- (void)addDelegate:(id<GHResourceDelegate>)theDelegate;
-- (void)removeDelegate:(id<GHResourceDelegate>)theDelegate;
-- (void)startRequest:(ASIHTTPRequest *)request;
+- (id)initWithURL:(NSURL *)theURL;
+- (void)loadData;
+- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL;
 
 @end
 

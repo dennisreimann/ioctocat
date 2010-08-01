@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [repository.networks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	if (![self.currentNetworks isLoaded]) [self.currentNetworks loadNetworks];
+	if (![self.currentNetworks isLoaded]) [self.currentNetworks loadData];
 }
 
 - (void)dealloc {

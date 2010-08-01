@@ -5,10 +5,11 @@
   @private
 	id target;
 	SEL selector;
-	IBOutlet UITextField *loginField;
-	IBOutlet UITextField *tokenField;
-	IBOutlet UIButton *submitButton;
 }
+
+@property(nonatomic,retain)IBOutlet UITextField *loginField;
+@property(nonatomic,retain)IBOutlet UITextField *tokenField;
+@property(nonatomic,retain)IBOutlet UIButton *submitButton;
 
 - (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector;
 - (IBAction)submit:(id)sender;

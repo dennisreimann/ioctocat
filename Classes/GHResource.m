@@ -4,11 +4,14 @@
 
 
 @interface GHResource ()
-@property(nonatomic,retain)NSMutableSet *delegates;
-
-- (void)requestFinished:(ASIHTTPRequest *)request;
-- (void)requestFailed:(ASIHTTPRequest *)request;
-- (void)notifyDelegates:(SEL)selector object:(id)object;
+- (void)loadingFinished:(ASIHTTPRequest *)request;
+- (void)loadingFailed:(ASIHTTPRequest *)request;
+- (void)savingFinished:(ASIHTTPRequest *)request;
+- (void)savingFailed:(ASIHTTPRequest *)request;
+- (void)parseData:(NSData *)data;
+- (void)parsingFinished:(id)theResult;
+- (void)parseSaveData:(NSData *)data;
+- (void)parsingSaveFinished:(id)theResult;
 @end
 
 
@@ -16,13 +19,13 @@
 
 @synthesize loadingStatus;
 @synthesize savingStatus;
-@synthesize delegates;
 @synthesize resourceURL;
 @synthesize error;
 @synthesize result;
 
-- (id)init {
+- (id)initWithURL:(NSURL *)theURL {
 	[super init];
+	self.resourceURL = theURL;
 	self.loadingStatus = GHResourceStatusNotLoaded;
 	self.savingStatus = GHResourceStatusNotSaved;
     return self;
@@ -33,70 +36,94 @@
 	[resourceURL release], resourceURL = nil;
 	[error release], error = nil;
 	[result release], result = nil;
-	
 	[super dealloc];
 }
 
 #pragma mark Request
 
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
    	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *login = [defaults stringForKey:kUsernameDefaultsKey];
+	NSString *login = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
 	
-    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:theURL] autorelease];
-	[request setPostValue:login forKey:kLoginParamName];
-	[request setPostValue:token forKey:kTokenParamName];
-	
-    return request;
+	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+	// Authentication with token via HTTP Basic Auth, see:
+	// http://support.github.com/discussions/api/57-reposshowlogin-is-missing-private-repositories
+	NSString *loginWithTokenPostfix = [NSString stringWithFormat:@"%@/token", login];
+	[request setUsername:loginWithTokenPostfix];
+	[request setPassword:token];
+    
+	return request;
 }
 
-- (void)startRequest:(ASIHTTPRequest *)request {
+#pragma mark Loading
+
+- (void)loadData {
 	if (self.isLoading) return;
 	self.error = nil;
-	
-	DJLog(@"Starting request: %@", [request	url]);
-	request.delegate = self;
-	[[[iOctocat sharedInstance] queue] addOperation:request];
+	self.loadingStatus = GHResourceStatusLoading;
+	// Send the request
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(loadingFinished:)];
+	[request setDidFailSelector:@selector(loadingFailed:)];
+	DJLog(@"Loading %@", [request url]);
+	[[iOctocat queue] addOperation:request];
 }
 
-- (void)requestFinished:(ASIHTTPRequest *)request {
-	NSData *json = [[request responseString] dataUsingEncoding:NSUTF32BigEndianStringEncoding];
-	self.result = [[CJSONDeserializer deserializer] deserializeAsDictionary:json error:&error];
-	
-	if (error != nil) {
-		DJLog(@"JSON parsing error: %@", error);
-		[self notifyDelegates:@selector(resource:didFailWithError:) object:error];
-	} else {
-		DJLog(@"Request result: %@", result);
-		[self notifyDelegates:@selector(resource:didFinishWithResult:) object:result];
+- (void)loadingFinished:(ASIHTTPRequest *)request {
+	DJLog(@"Loading %@ finished: %@", [request url], [request responseString]);
+	[self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
+}
+
+- (void)loadingFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Loading %@ failed: %@", [request url], [request error]);
+	[self parsingFinished:[request error]];
+}
+
+- (void)parseData:(NSData *)data {
+	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+}
+
+- (void)parsingFinished:(id)theResult {
+	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+}
+
+#pragma mark Saving
+
+- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL {
+	if (self.isSaving) return;
+	self.error = nil;
+	self.savingStatus = GHResourceStatusSaving;
+	// Send the request
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(savingFinished:)];
+	[request setDidFailSelector:@selector(savingFailed:)];
+	for (NSString *key in [theValues allKeys]) {
+		id value = [theValues objectForKey:key];
+		[request setPostValue:value forKey:key];
 	}
+	DJLog(@"Saving %@ - ", [request url], [request postBody]);
+	[[iOctocat queue] addOperation:request];
 }
 
-- (void)requestFailed:(ASIHTTPRequest *)request {
-	self.error = [request error];
-	
-	DJLog(@"Request error: %@", error);
-	[self notifyDelegates:@selector(resource:didFailWithError:) object:error];
+- (void)savingFinished:(ASIHTTPRequest *)request {
+	DJLog(@"Saving %@ finished: %@", [request url], [request responseString]);
+	[self performSelectorInBackground:@selector(parseSaveData:) withObject:[request responseData]];
 }
 
-#pragma mark Delegates
-
-- (void)addDelegate:(id<GHResourceDelegate>)theDelegate {
-	if (!delegates) self.delegates = [NSMutableSet set];
-	[delegates addObject:theDelegate];
+- (void)savingFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Saving %@ failed: %@", [request url], [request error]);
+	[self parsingSaveFinished:[request error]];
 }
 
-- (void)removeDelegate:(id<GHResourceDelegate>)theDelegate {
-	[delegates removeObject:theDelegate];
+- (void)parseSaveData:(NSData *)data {
+	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
 }
 
-- (void)notifyDelegates:(SEL)selector object:(id)object {
-	for (id delegate in delegates) {
-		if ([delegate respondsToSelector:selector]) {
-			[delegate performSelector:selector withObject:self withObject:object];
-		}
-	}
+- (void)parsingSaveFinished:(id)theResult {
+	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
 }
 
 #pragma mark Convenience Accessors

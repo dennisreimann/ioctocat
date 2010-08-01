@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface GHResourcesParserDelegate : NSObject {
+@interface GHResourcesParserDelegate : NSObject <NSXMLParserDelegate> {
 	NSMutableArray *resources;
 	NSMutableString *currentElementValue;
   @private

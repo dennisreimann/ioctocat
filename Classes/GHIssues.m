@@ -4,11 +4,6 @@
 #import "ASIFormDataRequest.h"
 
 
-@interface GHIssues ()
-- (void)parseIssues;
-@end
-
-
 @implementation GHIssues
 
 @synthesize entries;
@@ -19,6 +14,9 @@
     [super init];
     self.repository = theRepository;
     self.issueState = theState;
+	NSString *urlString = [NSString stringWithFormat:kRepoIssuesXMLFormat, repository.owner, repository.name, issueState];
+	self.resourceURL = [NSURL URLWithString:urlString];	
+	
 	return self;    
 }
 
@@ -33,22 +31,11 @@
     return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
 }
 
-- (void)loadIssues {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseIssues) withObject:nil];
-}
-
-- (void)parseIssues {
+- (void)parseData:(NSData *)data {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *issuesURLString = [NSString stringWithFormat:kRepoIssuesXMLFormat, repository.owner, repository.name, issueState];
-	NSURL *issuesURL = [NSURL URLWithString:issuesURLString];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:issuesURL];
-	[request start];	
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedIssues:)];
+	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:[request responseData]];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -59,7 +46,7 @@
 	[pool release];
 }
 
-- (void)loadedIssues:(id)theResult {
+- (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
 		self.loadingStatus = GHResourceStatusNotLoaded;

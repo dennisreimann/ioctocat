@@ -8,10 +8,12 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFile</key>
-	<string>${ICON_FILE}</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>${ICON_FILE}</string>
+	</array>
 	<key>CFBundleIdentifier</key>
-	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>
+	<string>com.jesse.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

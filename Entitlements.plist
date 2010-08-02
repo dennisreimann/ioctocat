@@ -2,7 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>get-task-allow</key>
-	<false/>
+    <!--- Required entitlements (in most cases shouldn't be changed) --->
+    <key>application-identifier</key>
+    <string>$(AppIdentifierPrefix)$(CFBundleIdentifier)</string>
+    <key>keychain-access-groups</key>
+    <array>
+        <string>$(AppIdentifierPrefix)$(CFBundleIdentifier)</string>
+    </array>
+    
+    <!--- Custom entitlements below --->
+
+
 </dict>
 </plist>

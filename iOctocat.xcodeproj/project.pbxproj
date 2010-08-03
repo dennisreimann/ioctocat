@@ -118,6 +118,8 @@
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
+		6FB75831120818D80025A18B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB75830120818D80025A18B /* Icon@2x.png */; };
+		6FB7583312081E1B0025A18B /* IconOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7583212081E1B0025A18B /* IconOctocat@2x.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
@@ -342,6 +344,8 @@
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
+		6FB75830120818D80025A18B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Images/Icon@2x.png"; sourceTree = "<group>"; };
+		6FB7583212081E1B0025A18B /* IconOctocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconOctocat@2x.png"; path = "Images/IconOctocat@2x.png"; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
@@ -819,7 +823,9 @@
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
 				6F1BCBE50FAC588800D66E02 /* Default.png */,
 				6F9FE90110663ECD00F86D5C /* Icon.png */,
+				6FB75830120818D80025A18B /* Icon@2x.png */,
 				6F9FE8B610663B4A00F86D5C /* IconOctocat.png */,
+				6FB7583212081E1B0025A18B /* IconOctocat@2x.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
 			);
@@ -1044,6 +1050,8 @@
 				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 				6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */,
 				6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */,
+				6FB75831120818D80025A18B /* Icon@2x.png in Resources */,
+				6FB7583312081E1B0025A18B /* IconOctocat@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

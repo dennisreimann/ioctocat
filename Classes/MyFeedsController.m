@@ -15,6 +15,11 @@
 	loadCounter = 0;
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self refreshCurrentFeedIfRequired];
+}
+
 - (void)dealloc {
 	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[feeds release];
@@ -53,10 +58,19 @@
 	[self.currentFeed loadData];
 }
 
+- (BOOL)refreshCurrentFeedIfRequired {
+	if (!self.currentFeed.isLoaded) return NO;
+	if ([self.currentFeed.lastReadingDate compare:[[iOctocat sharedInstance] didBecomeActiveDate]] != NSOrderedAscending) return NO;
+	// the feed was loaded before this application became active again, refresh it
+	[self pullRefreshAnimated:YES];
+	return YES;
+}
+
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
+	if ([self refreshCurrentFeedIfRequired]) return;
 	if (self.currentFeed.isLoaded) return;
 	[self.currentFeed loadData];
 	if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];

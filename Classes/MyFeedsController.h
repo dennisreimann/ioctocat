@@ -17,6 +17,7 @@
 @property(nonatomic,readonly)GHFeed *currentFeed;
 
 - (void)setupFeeds;
+- (BOOL)refreshCurrentFeedIfRequired;
 - (IBAction)switchChanged:(id)sender;
 
 @end

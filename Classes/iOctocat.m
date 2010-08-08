@@ -20,6 +20,7 @@
 
 @synthesize users;
 @synthesize lastLaunchDate;
+@synthesize didBecomeActiveDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
@@ -43,6 +44,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (!lastLaunch) lastLaunch = nowDate;
 	self.lastLaunchDate = lastLaunch;
 	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
+
+	// Did-become-active date
+	self.didBecomeActiveDate = nowDate;
 	
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
@@ -199,6 +203,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)proceedAfterAuthentication {
 	[self dismissLogin];
 	[feedController setupFeeds];
+}
+
+#pragma mark Application Events
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+	NSDate *nowDate = [NSDate date];
+	self.didBecomeActiveDate = nowDate;
+	if ([tabBarController selectedIndex] == 0) {
+		[feedController refreshCurrentFeedIfRequired];
+	}
 }
 
 @end

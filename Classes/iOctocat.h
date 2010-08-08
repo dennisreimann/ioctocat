@@ -14,11 +14,13 @@
 	UIActionSheet *authSheet;
 	NSMutableDictionary *users;
 	NSDate *lastLaunchDate;
+	NSDate *didBecomeActiveDate;
 	BOOL launchDefault;
 }
 
 @property(nonatomic,retain)NSMutableDictionary *users;
 @property(nonatomic,retain)NSDate *lastLaunchDate;
+@property(nonatomic,retain)NSDate *didBecomeActiveDate;
 @property(nonatomic,readonly)LoginController *loginController;
 
 + (ASINetworkQueue *)queue;

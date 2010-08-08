@@ -18,4 +18,6 @@
 - (void)dataSourceDidFinishLoadingNewData;
 - (void)showReloadAnimationAnimated:(BOOL)animated;
 
+- (void)pullRefreshAnimated:(BOOL)animated;
+
 @end

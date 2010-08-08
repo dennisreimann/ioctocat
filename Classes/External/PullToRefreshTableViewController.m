@@ -46,6 +46,12 @@
 	NSLog(@"Please override reloadTableViewDataSource");
 }
 
+- (void)pullRefreshAnimated:(BOOL)animated {
+	[self.tableView setContentOffset:CGPointMake(0, -65.0f) animated:animated];
+	[self showReloadAnimationAnimated:NO];
+	[self reloadTableViewDataSource];
+}
+
 - (void)dataSourceDidFinishLoadingNewData {
 	reloading = NO;
 	[refreshHeaderView flipImageAnimated:NO];

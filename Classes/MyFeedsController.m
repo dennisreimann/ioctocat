@@ -62,6 +62,7 @@
 	if (!self.currentFeed.isLoaded) return NO;
 	if ([self.currentFeed.lastReadingDate compare:[[iOctocat sharedInstance] didBecomeActiveDate]] != NSOrderedAscending) return NO;
 	// the feed was loaded before this application became active again, refresh it
+	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self pullRefreshAnimated:YES];
 	return YES;
 }

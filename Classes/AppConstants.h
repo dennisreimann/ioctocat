@@ -65,6 +65,9 @@
 #define kIssueBodyParamName @"body"
 #define kIssueCommentCommentParamName @"comment"
 
+// Images
+#define kImageGravatarMaxLogicalSize 44
+
 // Following/Watching
 #define kFollow @"follow"
 #define kUnFollow @"unfollow"

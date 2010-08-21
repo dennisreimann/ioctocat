@@ -70,12 +70,12 @@
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
+	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self.tableView reloadData];
 	if ([self refreshCurrentFeedIfRequired]) return;
 	if (self.currentFeed.isLoaded) return;
 	[self.currentFeed loadData];
 	if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];
-	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self.tableView reloadData];
 }
 

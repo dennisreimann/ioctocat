@@ -84,7 +84,11 @@
 
 #pragma mark Scrolling Overrides
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	if (!reloading) checkForRefresh = YES;  //  only check offset when dragging
+	if (!reloading) {
+		checkForRefresh = YES;  //  only check offset when dragging
+		// refresh the pretty-printed last update date
+		refreshHeaderView.lastUpdatedDate = refreshHeaderView.lastUpdatedDate;
+	}
 } 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {	

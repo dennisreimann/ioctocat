@@ -167,6 +167,13 @@
 	[pool release];
 }
 
+- (NSInteger)gravatarSize {
+	UIScreen *mainScreen = [UIScreen mainScreen];
+	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
+	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
+	return size;
+}
+
 - (void)loadedUsers:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
@@ -184,8 +191,8 @@
 		self.publicRepoCount = user.publicRepoCount;
 		self.privateRepoCount = user.privateRepoCount;
 		self.isAuthenticated = user.isAuthenticated;
-		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:44];
-		else if (email) [gravatarLoader loadEmail:email withSize:44];
+		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[self gravatarSize]];
+		else if (email) [gravatarLoader loadEmail:email withSize:[self gravatarSize]];
 	}
 	self.loadingStatus = GHResourceStatusLoaded;
 }

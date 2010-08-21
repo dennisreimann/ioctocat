@@ -204,7 +204,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
 	NSObject *object = [userDefaults valueForKey:key];
-	JLog(@"%@: %@", key, object);
+	DJLog(@"%@: %@", key, object);
 	if (![object isKindOfClass:[NSDate class]]) {
 		return nil;
 	}
@@ -214,7 +214,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
-	JLog(@"%@: %@", key, date);
+	DJLog(@"%@: %@", key, date);
 	[userDefaults setValue:date forKey:key];
 }
 

@@ -42,7 +42,7 @@
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	for (GHFeed *feed in feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = [[iOctocat sharedInstance] lastLaunchDate];
+		feed.lastReadingDate = [[iOctocat sharedInstance] lastReadingDateForURL:feed.resourceURL];
 	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
@@ -88,6 +88,7 @@
 			[self.tableView reloadData];
 			loadCounter -= 1;
 			refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
+			[[iOctocat sharedInstance] setLastReadingDate:feed.lastReadingDate forURL:feed.resourceURL];
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];

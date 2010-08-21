@@ -13,13 +13,11 @@
 	IBOutlet MyFeedsController *feedController;
 	UIActionSheet *authSheet;
 	NSMutableDictionary *users;
-	NSDate *lastLaunchDate;
 	NSDate *didBecomeActiveDate;
 	BOOL launchDefault;
 }
 
 @property(nonatomic,retain)NSMutableDictionary *users;
-@property(nonatomic,retain)NSDate *lastLaunchDate;
 @property(nonatomic,retain)NSDate *didBecomeActiveDate;
 @property(nonatomic,readonly)LoginController *loginController;
 
@@ -29,6 +27,9 @@
 - (GHUser *)currentUser;
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
+
+- (NSDate *)lastReadingDateForURL:(NSURL *)url;
+- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
 
 @end
 

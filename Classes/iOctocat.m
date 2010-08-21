@@ -19,7 +19,6 @@
 @implementation iOctocat
 
 @synthesize users;
-@synthesize lastLaunchDate;
 @synthesize didBecomeActiveDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
@@ -37,13 +36,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)postLaunch {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	// Launch date
-	NSDate *lastLaunch = (NSDate *)[defaults valueForKey:kLaunchDateDefaultsKey];
 	NSDate *nowDate = [NSDate date];
-	if (!lastLaunch) lastLaunch = nowDate;
-	self.lastLaunchDate = lastLaunch;
-	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
 
 	// Did-become-active date
 	self.didBecomeActiveDate = nowDate;
@@ -205,6 +198,30 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[feedController setupFeeds];
 }
 
+#pragma mark Persistent State
+
+- (NSDate *)lastReadingDateForURL:(NSURL *)url {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	NSObject *object = [userDefaults valueForKey:key];
+	JLog(@"%@: %@", key, object);
+	if (![object isKindOfClass:[NSDate class]]) {
+		return nil;
+	}
+	return (NSDate *)object;
+}
+
+- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	JLog(@"%@: %@", key, date);
+	[userDefaults setValue:date forKey:key];
+}
+
+- (void)saveLastReadingDates {
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark Application Events
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -213,6 +230,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if ([tabBarController selectedIndex] == 0) {
 		[feedController refreshCurrentFeedIfRequired];
 	}
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+	[self saveLastReadingDates];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	[self saveLastReadingDates];
 }
 
 @end

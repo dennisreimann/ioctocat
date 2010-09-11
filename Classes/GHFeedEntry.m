@@ -42,7 +42,7 @@
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"issue"]) {
 		NSArray *comps = [title componentsSeparatedByString:@" on "];
 		NSArray *issueComps = [[comps objectAtIndex:0] componentsSeparatedByString:@" "];
@@ -50,18 +50,25 @@
 		NSArray *repoComps = [[comps objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [repoComps objectAtIndex:0];
 		NSString *name = [repoComps objectAtIndex:1];
-		GHRepository *repository = [[GHRepository alloc] initWithOwner:owner andName:name];
+		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
 		GHIssue *issue = [[GHIssue alloc] initWithRepository:repository];
 		issue.num = num;
 		self.eventItem = issue;
-		[repository release];
 		[issue release];
+	} else if ([eventType isEqualToString:@"pull_request"]) {
+		NSArray *comps = [title componentsSeparatedByString:@" on "];
+		// NSArray *reqComps = [[comps objectAtIndex:0] componentsSeparatedByString:@" "];
+		// NSInteger num = [[issueComps lastObject] intValue];
+		NSArray *repoComps = [[comps objectAtIndex:1] componentsSeparatedByString:@"/"];
+		NSString *owner = [repoComps objectAtIndex:0];
+		NSString *name = [repoComps objectAtIndex:1];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"comment"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" on "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"follow"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" following "];
 		NSString *username = [comps1 objectAtIndex:1];
@@ -71,20 +78,20 @@
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"push"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" at "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"commit"]) {
 		NSString *path = [linkURL path];
 		NSArray *comps = [path componentsSeparatedByString:@"/"];
 		NSString *owner = [comps objectAtIndex:1];
 		NSString *name = [comps objectAtIndex:2];
 		NSString *sha = [comps objectAtIndex:4];
-		GHRepository *repository = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
 		self.eventItem = [[[GHCommit alloc] initWithRepository:repository andCommitID:sha] autorelease];
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
@@ -102,14 +109,14 @@
 			owner = [comps1 objectAtIndex:0];
 			name = [comps1 objectAtIndex:3];
 		}
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"wiki"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" in the "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" wiki"];
 		NSArray *comps3 = [[comps2 objectAtIndex:0] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps3 objectAtIndex:0];
 		NSString *name = [comps3 objectAtIndex:1];
-		self.eventItem = [[[GHRepository alloc] initWithOwner:owner andName:name] autorelease];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	}
 	return eventItem;
 }

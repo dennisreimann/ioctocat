@@ -41,7 +41,7 @@
 	
 	entry.read = YES;
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.title = [entry.eventType capitalizedString];
+	self.title = [[entry.eventType capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 	titleLabel.text = entry.title;
 	NSString *feedEntry = [NSString stringWithFormat:@"<div class='feed_entry'>%@</div>", entry.content];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
@@ -173,11 +173,10 @@
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
 		NSString *owner = [pathComponents objectAtIndex:0];
 		NSString *name = [pathComponents objectAtIndex:1];
-		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
+		GHRepository *repo = [GHRepository repositoryWithOwner:owner andName:name];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
-		[repo release];
 	} else if ([pathComponents count] == 1) {
 		NSString *username = [pathComponents objectAtIndex:0];
 		GHUser *user = [[iOctocat sharedInstance] userWithLogin:username];

@@ -23,6 +23,10 @@
 @synthesize networks;
 @synthesize branches;
 
++ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
+	return [[[[self class] alloc] initWithOwner:theOwner andName:theName] autorelease];
+}
+
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	[super init];
 	[self setOwner:theOwner andName:theName];

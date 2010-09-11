@@ -32,6 +32,8 @@
 			currentEntry.eventType = @"fork";
 		} else if ([event hasPrefix:@"Issues"]) {
 			currentEntry.eventType = @"issue";
+		} else if ([event hasPrefix:@"PullRequest"]) {
+			currentEntry.eventType = @"pull_request";
 		} else if ([event hasPrefix:@"Follow"]) {
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {

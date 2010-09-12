@@ -9,7 +9,12 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string>${ICON_FILE}</string>
+	<string>${ICON_NAME}.png</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>${ICON_NAME}.png</string>
+		<string>${ICON_NAME}@2x.png</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>

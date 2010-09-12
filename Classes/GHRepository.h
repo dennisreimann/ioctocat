@@ -37,6 +37,7 @@
 @property(nonatomic,readwrite)BOOL isPrivate;
 @property(nonatomic,readwrite)BOOL isFork;
 
++ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (int)compareByName:(GHRepository*)repo;

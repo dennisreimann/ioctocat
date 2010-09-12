@@ -72,8 +72,7 @@
 	//	   currentEntry.authorName = currentElementValue;
 	// } 
 	else if ([elementName isEqualToString:@"uri"]) {
-		NSURL *authorURL = [NSURL URLWithString:currentElementValue];
-		currentEntry.authorName = [authorURL lastPathComponent];
+		currentEntry.authorName = [currentElementValue lastPathComponent];
 	}
 	[currentElementValue release], currentElementValue = nil;
 }

@@ -52,8 +52,10 @@
 			currentEntry.eventType = @"member";
 		} else if ([event hasPrefix:@"Gist"]) {
 			currentEntry.eventType = @"gist";
-		} else if ([event hasPrefix:@"Wiki"]) {
+		} else if ([event hasPrefix:@"Wiki"] || [event hasPrefix:@"Gollum"]) {
 			currentEntry.eventType = @"wiki";
+		} else if ([event hasPrefix:@"Download"]) {
+			currentEntry.eventType = @"download";
 		} else {
 			currentEntry.eventType = nil;
 		}

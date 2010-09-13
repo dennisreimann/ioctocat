@@ -51,6 +51,7 @@
 @property(nonatomic)NSUInteger publicRepoCount;
 @property(nonatomic)NSUInteger privateRepoCount;
 
++ (id)user;
 + (id)userForSearchTerm:(NSString *)theSearchTerm;
 + (id)userWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;

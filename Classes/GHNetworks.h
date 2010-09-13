@@ -13,6 +13,7 @@
 @property(nonatomic,retain)GHRepository *repository;
 @property(nonatomic,retain)NSArray *entries;
 
++ (id)networksWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 
 @end

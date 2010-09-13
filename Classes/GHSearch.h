@@ -14,6 +14,7 @@
 @property(nonatomic,retain)NSArray *results;
 @property(nonatomic,retain)NSString *searchTerm;
 
++ (id)searchWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass;
 - (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass;
 
 @end

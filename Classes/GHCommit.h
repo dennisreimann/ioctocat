@@ -42,6 +42,7 @@
 @property(nonatomic,retain)GHUser *committer;
 @property(nonatomic,retain)GHRepository *repository;
 
++ (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
 
 @end

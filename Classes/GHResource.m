@@ -23,6 +23,10 @@
 @synthesize error;
 @synthesize result;
 
++ (id)resourceWithURL:(NSURL *)theURL {
+	return [[[[self class] alloc] initWithURL:theURL] autorelease];
+}
+
 - (id)initWithURL:(NSURL *)theURL {
 	[super init];
 	self.resourceURL = theURL;

@@ -10,6 +10,10 @@
 @synthesize repository;
 @synthesize issueState;
 
++ (id)issuesWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
+	return [[[[self class] alloc] initWithRepository:theRepository andState:theState] autorelease];
+}
+
 - (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
     [super init];
     self.repository = theRepository;

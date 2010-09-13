@@ -13,6 +13,7 @@
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)NSMutableArray *repositories;
 
++ (id)repositoriesWithUser:(GHUser *)theUser andURL:(NSURL *)theURL;
 - (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL;
 
 @end

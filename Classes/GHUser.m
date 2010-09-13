@@ -43,14 +43,20 @@
 @synthesize following;
 @synthesize followers;
 
++ (id)user {
+	return [[[[self class] alloc] init] autorelease];
+}
+
 + (id)userForSearchTerm:(NSString *)theSearchTerm {
-	GHUser *user = [[[GHUser alloc] init] autorelease];
+	GHUser *user = [GHUser user];
 	user.searchTerm = theSearchTerm;
 	return user;
 }
 
 + (id)userWithLogin:(NSString *)theLogin {
-	return [[[GHUser alloc] initWithLogin:theLogin] autorelease];
+	GHUser *user = [GHUser user];
+	user.login = theLogin;
+	return user;
 }
 
 - (id)init {
@@ -110,12 +116,12 @@
 	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
 	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
-	self.repositories = [[[GHRepositories alloc] initWithUser:self andURL:repositoriesURL] autorelease];
-	self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:watchedRepositoriesURL] autorelease];
+	self.repositories = [GHRepositories repositoriesWithUser:self andURL:repositoriesURL];
+	self.watchedRepositories = [GHRepositories repositoriesWithUser:self andURL:watchedRepositoriesURL];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
-	self.recentActivity = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
+	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

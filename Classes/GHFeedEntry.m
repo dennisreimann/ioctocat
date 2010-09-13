@@ -98,7 +98,7 @@
 		NSString *name = [comps objectAtIndex:2];
 		NSString *sha = [comps objectAtIndex:4];
 		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
-		self.eventItem = [[[GHCommit alloc] initWithRepository:repository andCommitID:sha] autorelease];
+		self.eventItem = [GHCommit commitWithRepository:repository andCommitID:sha];
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
 		NSString *name;

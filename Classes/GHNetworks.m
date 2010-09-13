@@ -8,6 +8,10 @@
 @synthesize entries;
 @synthesize repository;
 
++ (id)networksWithRepository:(GHRepository *)theRepository {
+	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
+}
+
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];
     self.repository = theRepository;

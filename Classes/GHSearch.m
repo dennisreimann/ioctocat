@@ -6,6 +6,10 @@
 @synthesize results;
 @synthesize searchTerm;
 
++ (id)searchWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
+	return [[[[self class] alloc] initWithURLFormat:theFormat andParserDelegateClass:theDelegateClass] autorelease];
+}
+
 - (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
 	[super init];
 	urlFormat = [theFormat retain];

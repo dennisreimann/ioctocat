@@ -225,6 +225,7 @@
 	NSURL *followingURL = [NSURL URLWithString:followingURLString];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
+	[request setRequestMethod:@"POST"];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
 	[request setDidFailSelector:@selector(followToggleFailed:)];
 	[[iOctocat queue] addOperation:request];

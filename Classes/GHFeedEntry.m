@@ -85,6 +85,12 @@
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
+	} else if ([eventType isEqualToString:@"download"]) {
+		NSArray *comps1 = [title componentsSeparatedByString:@" to "];
+		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
+		NSString *owner = [comps2 objectAtIndex:0];
+		NSString *name = [comps2 objectAtIndex:1];
+		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"commit"]) {
 		NSString *path = [linkURL path];
 		NSArray *comps = [path componentsSeparatedByString:@"/"];
@@ -92,7 +98,7 @@
 		NSString *name = [comps objectAtIndex:2];
 		NSString *sha = [comps objectAtIndex:4];
 		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
-		self.eventItem = [[[GHCommit alloc] initWithRepository:repository andCommitID:sha] autorelease];
+		self.eventItem = [GHCommit commitWithRepository:repository andCommitID:sha];
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
 		NSString *name;

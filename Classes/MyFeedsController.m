@@ -37,8 +37,8 @@
 	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];
 	NSURL *newsFeedURL = [NSURL URLWithString:newsAddress];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
-	GHFeed *newsFeed = [[[GHFeed alloc] initWithURL:newsFeedURL] autorelease];
-	GHFeed *activityFeed = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
+	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
+	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	for (GHFeed *feed in feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];

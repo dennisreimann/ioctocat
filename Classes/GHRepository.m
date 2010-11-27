@@ -70,12 +70,12 @@
 	self.owner = theOwner;
 	self.name = theName;
     // Networks
-    self.networks = [[[GHNetworks alloc] initWithRepository:self] autorelease];
+    self.networks = [GHNetworks networksWithRepository:self];
 	// Branches
-    self.branches = [[[GHBranches alloc] initWithRepository:self] autorelease];
+    self.branches = [GHBranches branchesWithRepository:self];
 	// Issues
-	self.openIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen] autorelease];
-	self.closedIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed] autorelease];
+	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
+	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];
 }
 
 - (GHUser *)user {

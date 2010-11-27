@@ -26,6 +26,10 @@
 @synthesize committer;
 @synthesize repository;
 
++ (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
+	return [[[[self class] alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
+}
+
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
 	[super init];
 	self.repository = theRepository;

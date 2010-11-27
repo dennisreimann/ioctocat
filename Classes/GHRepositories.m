@@ -10,6 +10,10 @@
 @synthesize user;
 @synthesize repositories;
 
++ (id)repositoriesWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
+	return [[[[self class] alloc] initWithUser:theUser andURL:theURL] autorelease];
+}
+
 - (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
     [super init];
     self.user = theUser;

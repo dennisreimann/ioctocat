@@ -14,8 +14,8 @@
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
 	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-	GHSearch *userSearch = [[[GHSearch alloc] initWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]] autorelease];
-	GHSearch *repoSearch = [[[GHSearch alloc] initWithURLFormat:kRepoSearchFormat andParserDelegateClass:[GHReposParserDelegate class]] autorelease];
+	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]];
+	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat andParserDelegateClass:[GHReposParserDelegate class]];
 	searches = [[NSArray alloc] initWithObjects:userSearch, repoSearch, nil];
 	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 }

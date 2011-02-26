@@ -1,9 +1,9 @@
 #import <UIKit/UIKit.h>
-
+#import <MessageUI/MessageUI.h>
 
 @class GHUser, LabeledCell;
 
-@interface UserController : UITableViewController <UIActionSheetDelegate> {
+@interface UserController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	GHUser *user;
   @private
 	IBOutlet UIView *tableHeaderView;

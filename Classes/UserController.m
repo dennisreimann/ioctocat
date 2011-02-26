@@ -186,9 +186,12 @@
 	if (section == 0 && row == 1 && user.blogURL) {
 		viewController = [[WebController alloc] initWithURL:user.blogURL];
 	} else if (section == 0 && row == 2 && user.email) {
-		NSString *mailString = [NSString stringWithFormat:@"mailto:%@", user.email];
-		NSURL *mailURL = [NSURL URLWithString:mailString];
-		[[UIApplication sharedApplication] openURL:mailURL];
+		MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
+		mailComposer.mailComposeDelegate = self;
+		[mailComposer setToRecipients:[NSArray arrayWithObject:user.email]];
+		
+		[self presentModalViewController:mailComposer animated:YES];
+		[mailComposer release];
 	} else if (section == 1 && row == 0) {
         viewController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];     
 	} else if (section == 1) {
@@ -204,6 +207,14 @@
 		[self.navigationController pushViewController:viewController animated:YES];
 		[viewController release];
 	}
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+
+#pragma mark MessageComposer Delegate
+-(void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
 
 @end

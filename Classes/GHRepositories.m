@@ -7,16 +7,14 @@
 
 @implementation GHRepositories
 
-@synthesize user;
 @synthesize repositories;
 
-+ (id)repositoriesWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
-	return [[[[self class] alloc] initWithUser:theUser andURL:theURL] autorelease];
++ (id)repositoriesWithURL:(NSURL *)theURL {
+	return [[[[self class] alloc] initWithURL:theURL] autorelease];
 }
 
-- (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
+- (id)initWithURL:(NSURL *)theURL {
     [super init];
-    self.user = theUser;
     self.resourceURL = theURL;
 	self.repositories = [NSMutableArray array];
 	return self;
@@ -24,12 +22,11 @@
 
 - (void)dealloc {
 	[repositories release], repositories = nil;
-	[user release], user = nil;
     [super dealloc];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepositories user:'%@' resourceURL:'%@'>", user, resourceURL];
+    return [NSString stringWithFormat:@"<GHRepositories resourceURL:'%@'>", resourceURL];
 }
 
 - (void)parseData:(NSData *)data {

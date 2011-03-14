@@ -70,7 +70,7 @@
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
-	self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
+	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
 	return self;
 }
 
@@ -116,8 +116,8 @@
 	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
 	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
-	self.repositories = [GHRepositories repositoriesWithUser:self andURL:repositoriesURL];
-	self.watchedRepositories = [GHRepositories repositoriesWithUser:self andURL:watchedRepositoriesURL];
+	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
+	self.watchedRepositories = [GHRepositories repositoriesWithURL:watchedRepositoriesURL];
 	// Recent Activity
 	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
@@ -173,13 +173,6 @@
 	[pool release];
 }
 
-- (NSInteger)gravatarSize {
-	UIScreen *mainScreen = [UIScreen mainScreen];
-	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
-	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
-	return size;
-}
-
 - (void)loadedUsers:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
@@ -197,8 +190,8 @@
 		self.publicRepoCount = user.publicRepoCount;
 		self.privateRepoCount = user.privateRepoCount;
 		self.isAuthenticated = user.isAuthenticated;
-		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[self gravatarSize]];
-		else if (email) [gravatarLoader loadEmail:email withSize:[self gravatarSize]];
+		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]];
+		else if (email) [gravatarLoader loadEmail:email withSize:[[iOctocat sharedInstance] gravatarSize]];
 	}
 	self.loadingStatus = GHResourceStatusLoaded;
 }
@@ -288,14 +281,7 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];
-}
-
-- (NSString *)cachedGravatarPath {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
-	return [documentsPath stringByAppendingPathComponent:imageName];
+	[UIImagePNGRepresentation(theImage) writeToFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
 }
 
 @end

@@ -27,9 +27,10 @@
 - (GHUser *)currentUser;
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;
-
+- (NSInteger)gravatarSize;
 - (NSDate *)lastReadingDateForURL:(NSURL *)url;
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
+- (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString;
 
 @end
 

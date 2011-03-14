@@ -55,6 +55,12 @@
 #define kFollowUserFormat @"https://github.com/api/v2/json/user/%@/%@"
 #define kWatchRepoFormat @"https://github.com/api/v2/json/repos/%@/%@/%@"
 #define kIssueToggleFormat @"https://github.com/api/v2/json/issues/%@/%@/%@/%d"
+#define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"
+#define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
+#define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
+#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"
+#define kOrganizationPublicRepositoriesFormat @"https://github.com/api/v2/json/organizations/%@/public_repositories"
+#define kOrganizationPublicMembersFormat @"https://github.com/api/v2/json/organizations/%@/public_members"
 
 // Issues
 #define kIssueStateOpen @"open"
@@ -79,3 +85,5 @@
 #define kResourceSavingStatusKeyPath @"savingStatus"
 #define kUserLoginKeyPath @"login"
 #define kUserGravatarKeyPath @"gravatar"
+#define kOrganizationLoginKeyPath @"login"
+#define kOrganizationGravatarKeyPath @"gravatar"

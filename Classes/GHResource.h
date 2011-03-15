@@ -34,6 +34,7 @@ typedef enum {
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
 
++ (GHResource *)at:(NSString *)formatString, ...;
 + (id)resourceWithURL:(NSURL *)theURL;
 - (id)initWithURL:(NSURL *)theURL;
 - (void)addDelegate:(id)delegate;

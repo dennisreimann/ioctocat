@@ -17,7 +17,9 @@
 #define kBranchCellIdentifier @"BranchCell"
 #define kCommentCellIdentifier @"CommentCell"
 
-// URLs
+// API URLs
+#define kAPIBaseFormat @"https://github.com/api/v2/json/"
+
 #define kUserGithubFormat @"http://github.com/%@"
 #define kRepositoryGithubFormat @"http://github.com/%@/%@/tree/master"
 #define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"

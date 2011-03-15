@@ -35,11 +35,11 @@
     return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
 }
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -53,10 +53,10 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
 		self.entries = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

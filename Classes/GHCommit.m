@@ -82,7 +82,7 @@
 	if (self.isLoading) return;
 	self.error = nil;
 	if (repository.isLoaded) {
-		self.loadingStatus = GHResourceStatusLoading;
+		self.loadingStatus = GHResourceStatusProcessing;
 		// Send the request
 		ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:resourceURL];
 		[request setDelegate:self];
@@ -95,10 +95,10 @@
 	}
 }
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
     id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
 	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
     [pool release];
@@ -107,7 +107,7 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
 		NSString *authorLogin = [[theResult objectForKey:@"author"] objectForKey:@"login"];
 		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
@@ -120,7 +120,7 @@
 		self.added = [theResult objectForKey:@"added"];
 		self.modified = [theResult objectForKey:@"modified"];
 		self.removed = [theResult objectForKey:@"removed"];
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

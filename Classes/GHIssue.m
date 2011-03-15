@@ -67,11 +67,11 @@
 
 #pragma mark Loading
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -85,7 +85,7 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else if ([(NSArray *)theResult count] > 0) {
 		GHIssue *issue = [(NSArray *)theResult objectAtIndex:0];
 		self.user = issue.user;
@@ -97,7 +97,7 @@
 		self.updated = issue.updated;
 		self.votes = issue.votes;
 		self.num = issue.num;
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 
@@ -114,7 +114,7 @@
 - (void)setIssueState:(NSString *)theToggle {
 	if (self.isSaving) return;
 	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
+	self.savingStatus = GHResourceStatusProcessing;
 	NSString *urlString = [NSString stringWithFormat:kIssueToggleFormat, theToggle, repository.owner, repository.name, num];
 	NSURL *url = [NSURL URLWithString:urlString];
 	// Send the request
@@ -135,10 +135,10 @@
 	[self toggledIssueStateTo:[request error]];
 }
 
-- (void)parseToggleData:(NSData *)data {
+- (void)parseToggleData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
 	id res = parseError ? (id)parseError : (id)[resultDict valueForKeyPath:@"issue.state"];
 	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:res waitUntilDone:YES];
     [pool release];
@@ -147,10 +147,10 @@
 - (void)toggledIssueStateTo:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.savingStatus = GHResourceStatusNotSaved;
+		self.savingStatus = GHResourceStatusNotProcessed;
 	} else {
 		self.state = theResult;
-		self.savingStatus = GHResourceStatusSaved;
+		self.savingStatus = GHResourceStatusProcessed;
 	}
 }
 
@@ -168,11 +168,11 @@
 	[self saveValues:values withURL:url];
 }
 
-- (void)parseSaveData:(NSData *)data {
+- (void)parseSaveData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingSaveFinished:)];
 	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -186,7 +186,7 @@
 - (void)parsingSaveFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.savingStatus = GHResourceStatusNotSaved;
+		self.savingStatus = GHResourceStatusNotProcessed;
 	} else if ([(NSArray *)theResult count] > 0) {
 		GHIssue *issue = [(NSArray *)theResult objectAtIndex:0];
 		self.user = issue.user;
@@ -198,7 +198,7 @@
 		self.updated = issue.updated;
 		self.votes = issue.votes;
 		self.num = issue.num;
-		self.savingStatus = GHResourceStatusSaved;
+		self.savingStatus = GHResourceStatusProcessed;
 	}
 }
 

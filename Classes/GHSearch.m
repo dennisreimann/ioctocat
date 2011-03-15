@@ -38,9 +38,9 @@
 	return url;
 }
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
 	[parser setShouldReportNamespacePrefixes:NO];
@@ -53,12 +53,12 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
 		// Mark the results as not loaded, because the search doesn't contain all attributes
-		for (GHResource *res in theResult) res.loadingStatus = GHResourceStatusNotLoaded;
+		for (GHResource *res in theResult) res.loadingStatus = GHResourceStatusNotProcessed;
 		self.results = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

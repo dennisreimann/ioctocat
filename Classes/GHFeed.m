@@ -30,9 +30,9 @@
 
 #pragma mark Feed parsing
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];
 	GHFeedParserDelegate *parserDelegate = [[GHFeedParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -47,11 +47,11 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
 		self.entries = theResult;
 		self.lastReadingDate = [NSDate date];
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

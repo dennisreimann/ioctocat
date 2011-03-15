@@ -141,14 +141,14 @@
 - (void)loadUser {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusProcessing;
 	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:nil];
 }
 
 - (void)authenticateWithToken:(NSString *)theToken {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusProcessing;
 	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:theToken];
 }
 
@@ -193,7 +193,7 @@
 		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]];
 		else if (email) [gravatarLoader loadEmail:email withSize:[[iOctocat sharedInstance] gravatarSize]];
 	}
-	self.loadingStatus = GHResourceStatusLoaded;
+	self.loadingStatus = GHResourceStatusProcessed;
 }
 
 #pragma mark Following
@@ -226,7 +226,7 @@
 
 - (void)followToggleFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Follow toggle %@ finished: %@", [request url], [request responseString]);
-	self.following.loadingStatus = GHResourceStatusNotLoaded;
+	self.following.loadingStatus = GHResourceStatusNotProcessed;
     [self.following loadData];
 }
 
@@ -266,7 +266,7 @@
 
 - (void)watchToggleFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Watch toggle %@ finished: %@", [request url], [request responseString]);
-	self.watchedRepositories.loadingStatus = GHResourceStatusNotLoaded;
+	self.watchedRepositories.loadingStatus = GHResourceStatusNotProcessed;
     [self.watchedRepositories loadData];
 }
 

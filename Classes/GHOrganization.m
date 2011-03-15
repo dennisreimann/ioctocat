@@ -100,10 +100,10 @@
 
 #pragma mark User loading
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
     id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
 	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
     [pool release];
@@ -112,7 +112,7 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
         self.name = [theResult objectForKey:@"name"];
 		self.company = [theResult objectForKey:@"company"];
@@ -123,7 +123,7 @@
         self.publicRepoCount = [theResult integerForKey:@"public_repo_count"];
         self.login = [theResult objectForKey:@"login"];
         self.email = [theResult objectForKey:@"email"];
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

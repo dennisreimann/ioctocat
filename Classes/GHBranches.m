@@ -33,10 +33,10 @@
     return [NSString stringWithFormat:@"<GHBranches repository:'%@'>", repository];
 }
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
     NSMutableArray *resources = [NSMutableArray array];
 	for (NSString *branchName in [[dict objectForKey:@"branches"] allKeys]) {
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:branchName];
@@ -52,10 +52,10 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
 		self.branches = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

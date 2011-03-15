@@ -58,10 +58,10 @@
 	[self saveValues:values withURL:saveURL];
 }
 
-- (void)parseSaveData:(NSData *)data {
+- (void)parseSaveData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
 	id res = parseError ? (id)parseError : (id)resultDict;
 	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
 	[pool release];
@@ -70,9 +70,9 @@
 - (void)parsingSaveFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.savingStatus = GHResourceStatusNotSaved;
+		self.savingStatus = GHResourceStatusNotProcessed;
 	} else {
-		self.savingStatus = GHResourceStatusSaved;
+		self.savingStatus = GHResourceStatusProcessed;
 	}
 }
 

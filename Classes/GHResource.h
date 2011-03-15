@@ -3,34 +3,28 @@
 
 
 typedef enum {
-	GHResourceStatusNotLoaded = 0,
-	GHResourceStatusLoading = 1,
-	GHResourceStatusLoaded = 2
-} GHResourceLoadingStatus;
-
-typedef enum {
-	GHResourceStatusNotSaved = 0,
-	GHResourceStatusSaving = 1,
-	GHResourceStatusSaved = 2
-} GHResourceSavingStatus;
+	GHResourceStatusNotProcessed = 0,
+	GHResourceStatusProcessing = 1,
+	GHResourceStatusProcessed = 2
+} GHResourceStatus;
 
 
 @protocol GHResourceDelegate;
 
 @interface GHResource : NSObject {
-	GHResourceLoadingStatus loadingStatus;
-	GHResourceSavingStatus savingStatus;
+	GHResourceStatus loadingStatus;
+	GHResourceStatus savingStatus;
 	NSMutableSet *delegates;
 	NSURL *resourceURL;
 	NSError *error;
-	NSDictionary *result;
+	NSDictionary *data;
 }
 
-@property(nonatomic,assign)GHResourceLoadingStatus loadingStatus;
-@property(nonatomic,assign)GHResourceSavingStatus savingStatus;
+@property(nonatomic,assign)GHResourceStatus loadingStatus;
+@property(nonatomic,assign)GHResourceStatus savingStatus;
 @property(nonatomic,retain)NSURL *resourceURL;
 @property(nonatomic,retain)NSError *error;
-@property(nonatomic,retain)NSDictionary *result;
+@property(nonatomic,retain)NSDictionary *data;
 
 // Convenience Accessors
 @property(nonatomic,readonly)BOOL isLoaded;
@@ -42,6 +36,8 @@ typedef enum {
 
 + (id)resourceWithURL:(NSURL *)theURL;
 - (id)initWithURL:(NSURL *)theURL;
+- (void)addDelegate:(id)delegate;
+- (void)removeDelegate:(id)delegate;
 - (void)loadData;
 - (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL;
 
@@ -50,6 +46,6 @@ typedef enum {
 
 @protocol GHResourceDelegate <NSObject>
 @optional
-- (void)resource:(GHResource *)theResource didFinishWithResult:(NSDictionary *)resultDict;
-- (void)resource:(GHResource *)theResource didFailWithError:(NSError *)theError;
+- (void)resource:(GHResource *)theResource finished:(NSDictionary *)resultDict;
+- (void)resource:(GHResource *)theResource failed:(NSError *)theError;
 @end

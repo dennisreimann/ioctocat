@@ -88,9 +88,9 @@
 
 #pragma mark Repository loading
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
 	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	[parser setDelegate:parserDelegate];
 	[parser setShouldProcessNamespaces:NO];
@@ -105,9 +105,9 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 		if ([(NSArray *)theResult count] == 0) return;
 		GHRepository *repo = [(NSArray *)theResult objectAtIndex:0];
 		self.descriptionText = repo.descriptionText;
@@ -117,7 +117,7 @@
 		self.isPrivate = repo.isPrivate;
 		self.forks = repo.forks;
 		self.watchers = repo.watchers;
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

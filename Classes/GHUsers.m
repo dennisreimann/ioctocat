@@ -27,10 +27,10 @@
     return [NSString stringWithFormat:@"<GHUsers user:'%@' resourceURL:'%@'>", user, resourceURL];
 }
 
-- (void)parseData:(NSData *)data {
+- (void)parseData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+    NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
     NSMutableArray *resources = [NSMutableArray array];
     for (NSString *login in [usersDict objectForKey:@"users"]) {
 		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
@@ -44,11 +44,11 @@
 - (void)parsingFinished:(id)theResult {
 	if ([theResult isKindOfClass:[NSError class]]) {
 		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 	} else {
 		[theResult sortUsingSelector:@selector(compareByName:)];
 		self.users = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
+		self.loadingStatus = GHResourceStatusProcessed;
 	}
 }
 

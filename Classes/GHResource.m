@@ -21,7 +21,7 @@
 @synthesize savingStatus;
 @synthesize resourceURL;
 @synthesize error;
-@synthesize result;
+@synthesize data;
 
 + (id)resourceWithURL:(NSURL *)theURL {
 	return [[[[self class] alloc] initWithURL:theURL] autorelease];
@@ -30,8 +30,8 @@
 - (id)initWithURL:(NSURL *)theURL {
 	[super init];
 	self.resourceURL = theURL;
-	self.loadingStatus = GHResourceStatusNotLoaded;
-	self.savingStatus = GHResourceStatusNotSaved;
+	self.loadingStatus = GHResourceStatusNotProcessed;
+	self.savingStatus = GHResourceStatusNotProcessed;
     return self;
 }
 
@@ -39,7 +39,7 @@
 	[delegates release], delegates = nil;
 	[resourceURL release], resourceURL = nil;
 	[error release], error = nil;
-	[result release], result = nil;
+	[data release], data = nil;
 	[super dealloc];
 }
 
@@ -65,7 +65,7 @@
 - (void)loadData {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL];
 	[request setDelegate:self];
@@ -77,12 +77,45 @@
 
 - (void)loadingFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ finished: %@", [request url], [request responseString]);
-	[self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
+	
+	self.data = [[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:&error];
+	
+	if (error != nil) {
+		DJLog(@"JSON parsing failed: %@", error);
+		for (id delegate in delegates) {
+			if ([delegate respondsToSelector:@selector(resource:failed:)]) {
+				[delegate resource:self failed:error];
+			}
+		}
+	} else {
+		for (id delegate in delegates) {
+			if ([delegate respondsToSelector:@selector(resource:finished:)]) {
+				[delegate resource:self finished:data];
+			}
+		}
+	}
 }
 
 - (void)loadingFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ failed: %@", [request url], [request error]);
-	[self parsingFinished:[request error]];
+	
+	self.error = [request error];
+	self.loadingStatus = GHResourceStatusNotProcessed;
+	
+	for (id delegate in delegates) {
+		if ([delegate respondsToSelector:@selector(resource:failed:)]) {
+			[delegate resource:self failed:error];
+		}
+	}
+}
+
+
+- (void)addDelegate:(id)delegate {
+	[delegates addObject:delegate];
+}
+
+- (void)removeDelegate:(id)delegate {
+	[delegates removeObject:delegate];
 }
 
 - (void)parseData:(NSData *)data {
@@ -98,7 +131,7 @@
 - (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL {
 	if (self.isSaving) return;
 	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
+	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
 	[request setDelegate:self];
@@ -133,19 +166,19 @@
 #pragma mark Convenience Accessors
 
 - (BOOL)isLoading {
-	return loadingStatus == GHResourceStatusLoading;
+	return loadingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isLoaded {
-	return loadingStatus == GHResourceStatusLoaded;
+	return loadingStatus == GHResourceStatusProcessed;
 }
 
 - (BOOL)isSaving {
-	return savingStatus == GHResourceStatusSaving;
+	return savingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isSaved {
-	return savingStatus == GHResourceStatusSaved;
+	return savingStatus == GHResourceStatusProcessed;
 }
 
 @end

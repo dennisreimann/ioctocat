@@ -121,7 +121,6 @@
 	}
 }
 
-
 - (void)addDelegate:(id)delegate {
 	[delegates addObject:delegate];
 }

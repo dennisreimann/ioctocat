@@ -1,6 +1,5 @@
 #import "GHRepository.h"
 #import "iOctocat.h"
-#import "GHReposParserDelegate.h"
 #import "GHCommitsParserDelegate.h"
 #import "GHIssues.h"
 #import "GHNetworks.h"
@@ -62,7 +61,7 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// owner and name which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kRepoXMLFormat, owner, name];
+	NSString *urlString = [NSString stringWithFormat:kRepoFormat, owner, name];
 	return [NSURL URLWithString:urlString];
 }
 
@@ -86,39 +85,18 @@
     return [[self name] localizedCaseInsensitiveCompare:[theOtherRepository name]];
 }
 
-#pragma mark Repository loading
+#pragma mark Loading
 
-- (void)parseData:(NSData *)theData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-		self.loadingStatus = GHResourceStatusProcessed;
-		if ([(NSArray *)theResult count] == 0) return;
-		GHRepository *repo = [(NSArray *)theResult objectAtIndex:0];
-		self.descriptionText = repo.descriptionText;
-		self.githubURL = repo.githubURL;
-		self.homepageURL = repo.homepageURL;
-		self.isFork = repo.isFork;
-		self.isPrivate = repo.isPrivate;
-		self.forks = repo.forks;
-		self.watchers = repo.watchers;
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
+    
+    self.githubURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"url"]];
+    self.homepageURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"homepage"]];                                                                                   
+    self.descriptionText = [resource objectForKey:@"description"];
+    self.isFork = [[resource objectForKey:@"fork"] boolValue];
+    self.isPrivate = [[resource objectForKey:@"private"] boolValue];
+    self.forks = [[resource objectForKey:@"forks"] integerValue];
+    self.watchers = [[resource objectForKey:@"watchers"] integerValue];
 }
 
 @end

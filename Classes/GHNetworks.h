@@ -1,7 +1,6 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
 #import "GHRepository.h"
-#import "GHNetwork.h"
 
 
 @interface GHNetworks : GHResource <GHResourceImplementation> {

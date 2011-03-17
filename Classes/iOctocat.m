@@ -158,10 +158,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (!self.currentUser) {
 		[self presentLogin];
 	} else {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSString *token = [defaults valueForKey:kTokenDefaultsKey];
 		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.currentUser authenticateWithToken:token];
+		[self.currentUser loadData];
 	}
 }
 

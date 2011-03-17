@@ -1,8 +1,8 @@
 #import "GHRepositories.h"
+#import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
 #import "ASIFormDataRequest.h"
-#import "GHReposParserDelegate.h"
 
 
 @implementation GHRepositories
@@ -29,29 +29,15 @@
     return [NSString stringWithFormat:@"<GHRepositories resourceURL:'%@'>", resourceURL];
 }
 
-- (void)parseData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
-    GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-		[theResult sortUsingSelector:@selector(compareByName:)];
-		self.repositories = theResult;
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSMutableArray *resources = [NSMutableArray array];
+    for (NSDictionary *dict in [theDict objectForKey:@"repositories"]) {
+		GHRepository *resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+        [resource setValuesFromDict:dict];
+        [resources addObject:resource];
+    }
+    [resources sortUsingSelector:@selector(compareByName:)];
+    self.repositories = resources;
 }
 
 @end

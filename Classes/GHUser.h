@@ -13,7 +13,6 @@
 	NSString *company;
 	NSString *location;
 	NSString *gravatarHash;
-	NSString *searchTerm;
 	NSURL *blogURL;
 	UIImage *gravatar;
 	NSUInteger publicGistCount;
@@ -36,7 +35,6 @@
 @property(nonatomic,retain)NSString *company;
 @property(nonatomic,retain)NSString *location;
 @property(nonatomic,retain)NSString *gravatarHash;
-@property(nonatomic,retain)NSString *searchTerm;
 @property(nonatomic,retain)NSURL *blogURL;
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHRepositories *repositories;
@@ -51,14 +49,10 @@
 @property(nonatomic)NSUInteger privateRepoCount;
 
 + (id)user;
-+ (id)userForSearchTerm:(NSString *)theSearchTerm;
 + (id)userWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;
-- (void)loadUser;
-- (void)loadedUsers:(id)theResult;
 - (void)loadedGravatar:(UIImage *)theImage;
-- (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isWatching:(GHRepository *)aRepository;
 - (void)followUser:(GHUser *)theUser;

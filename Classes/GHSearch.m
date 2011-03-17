@@ -1,4 +1,6 @@
 #import "GHSearch.h"
+#import "GHUser.h"
+#import "GHRepository.h"
 
 
 @implementation GHSearch
@@ -6,19 +8,17 @@
 @synthesize results;
 @synthesize searchTerm;
 
-+ (id)searchWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
-	return [[[[self class] alloc] initWithURLFormat:theFormat andParserDelegateClass:theDelegateClass] autorelease];
++ (id)searchWithURLFormat:(NSString *)theFormat {
+	return [[[[self class] alloc] initWithURLFormat:theFormat] autorelease];
 }
 
-- (id)initWithURLFormat:(NSString *)theFormat andParserDelegateClass:(Class)theDelegateClass {
+- (id)initWithURLFormat:(NSString *)theFormat {
 	[super init];
 	urlFormat = [theFormat retain];
-	parserDelegate = [(GHResourcesParserDelegate *)[theDelegateClass alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
 	return self;
 }
 
 - (void)dealloc {
-	[parserDelegate release], parserDelegate = nil;
 	[searchTerm release], searchTerm = nil;
 	[urlFormat release], urlFormat = nil;
 	[results release], results = nil;
@@ -38,28 +38,21 @@
 	return url;
 }
 
-- (void)parseData:(NSData *)theData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-		// Mark the results as not loaded, because the search doesn't contain all attributes
-		for (GHResource *res in theResult) res.loadingStatus = GHResourceStatusNotProcessed;
-		self.results = theResult;
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    BOOL usersSearch = [theDict objectForKey:@"users"] ? YES : NO;
+    NSMutableArray *resources = [NSMutableArray array];
+    for (NSDictionary *dict in (usersSearch ? [theDict objectForKey:@"users"] : [theDict objectForKey:@"repositories"])) {
+        GHResource *resource = nil;
+        if (usersSearch) {
+            resource = [GHUser userWithLogin:[dict objectForKey:@"login"]];
+            [resource setValuesFromDict:dict];
+        } else {
+            resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+            [resource setValuesFromDict:dict];
+        }
+        [resources addObject:resource];
+    }
+    self.results = resources;
 }
 
 @end

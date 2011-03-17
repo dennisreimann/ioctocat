@@ -3,7 +3,6 @@
 #import "GHFeed.h"
 #import "GHRepository.h"
 #import "GravatarLoader.h"
-#import "GHReposParserDelegate.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"

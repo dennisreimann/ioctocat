@@ -36,7 +36,7 @@
 	self.commitID = theCommitID;
 	
 	// Build Resource URL
-	NSString *baseString = repository.isPrivate ? kPrivateRepoCommitJSONFormat : kPublicRepoCommitJSONFormat;
+	NSString *baseString = repository.isPrivate ? kRepoPrivateCommitFormat : kRepoPublicCommitFormat;
 	NSString *urlString = [NSString stringWithFormat:baseString, repository.owner, repository.name, commitID];
 	self.resourceURL = [NSURL URLWithString:urlString];
 	

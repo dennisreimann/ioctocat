@@ -30,7 +30,7 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// issue num which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kIssueCommentsJSONFormat, issue.repository.owner, issue.repository.name, issue.num];
+	NSString *urlString = [NSString stringWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
 	return [NSURL URLWithString:urlString];
 }
 

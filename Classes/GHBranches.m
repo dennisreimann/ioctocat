@@ -18,7 +18,7 @@
 	[super init];
 	self.repository = theRepository;
 	self.branches = [NSMutableArray array];
-	NSString *urlString = [NSString stringWithFormat:kRepoBranchesJSONFormat, repository.owner, repository.name];
+	NSString *urlString = [NSString stringWithFormat:kRepoBranchesFormat, repository.owner, repository.name];
 	self.resourceURL = [NSURL URLWithString:urlString];
 	return self;
 }

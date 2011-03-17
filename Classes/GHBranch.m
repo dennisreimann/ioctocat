@@ -15,7 +15,7 @@
 	self.repository = theRepository;
 	self.name = theName;
 	// Recent Commits
-	NSString *urlString = [NSString stringWithFormat:(repository.isPrivate ? kPrivateRepoFeedFormat : kRepoFeedFormat), repository.owner, repository.name, name];
+	NSString *urlString = [NSString stringWithFormat:(repository.isPrivate ? kRepoPrivateFeedFormat : kRepoFeedFormat), repository.owner, repository.name, name];
 	NSURL *feedURL = [NSURL URLWithString:urlString];
 	self.recentCommits = [GHFeed resourceWithURL:feedURL];
 	return self;

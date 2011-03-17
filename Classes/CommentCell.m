@@ -34,7 +34,7 @@
 	// Gravatar
 	[comment.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = comment.user.gravatar;
-	if (!gravatarView.image && !comment.user.isLoaded) [comment.user loadUser];
+	if (!gravatarView.image && !comment.user.isLoaded) [comment.user loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -32,7 +32,7 @@
 	// Gravatar
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = entry.user.gravatar;
-	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
+	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadData];
 }
 
 - (void)markAsNew {

@@ -21,7 +21,6 @@
 	userLabel.text = user.login;
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
     gravatarView.image = user.gravatar;
-	if (!gravatarView.image && !user.isLoaded) [user loadUser];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

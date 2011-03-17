@@ -53,7 +53,7 @@
 
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:kIssueCommentCommentParamName];
-	NSString *urlString = [NSString stringWithFormat:kIssueCommentJSONFormat, issue.repository.owner, issue.repository.name, issue.num];
+	NSString *urlString = [NSString stringWithFormat:kIssueCommentFormat, issue.repository.owner, issue.repository.name, issue.num];
 	NSURL *saveURL = [NSURL URLWithString:urlString];
 	[self saveValues:values withURL:saveURL];
 }

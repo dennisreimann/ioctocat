@@ -33,8 +33,8 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	NSString *newsAddress = [NSString stringWithFormat:kNewsFeedFormat, username, token];
-	NSString *activityAddress = [NSString stringWithFormat:kActivityFeedFormat, username, token];
+	NSString *newsAddress = [NSString stringWithFormat:kUserNewsFeedFormat, username, token];
+	NSString *activityAddress = [NSString stringWithFormat:kUserActivityFeedFormat, username, token];
 	NSURL *newsFeedURL = [NSURL URLWithString:newsAddress];
 	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
 	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];

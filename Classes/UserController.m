@@ -35,7 +35,7 @@
 	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(user.isLoaded) ? [self displayUser] : [user loadUser];
+	(user.isLoaded) ? [self displayUser] : [user loadData];
 	if (!user.repositories.isLoaded) [user.repositories loadData];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;

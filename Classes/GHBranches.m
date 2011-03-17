@@ -33,30 +33,15 @@
     return [NSString stringWithFormat:@"<GHBranches repository:'%@'>", repository];
 }
 
-- (void)parseData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+- (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSString *branchName in [[dict objectForKey:@"branches"] allKeys]) {
+	for (NSString *branchName in [[theDict objectForKey:@"branches"] allKeys]) {
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:branchName];
-		branch.sha = [[dict objectForKey:@"branches"] objectForKey:branchName];
+		branch.sha = [[theDict objectForKey:@"branches"] objectForKey:branchName];
         [resources addObject:branch];
 		[branch release];
     }
-    id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-		self.branches = theResult;
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+    self.branches = resources;
 }
 
 @end

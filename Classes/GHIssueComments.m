@@ -38,29 +38,14 @@
     return [NSString stringWithFormat:@"<GHIssueComments issue:'%@'>", issue];
 }
 
-- (void)parseData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+- (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in [resultDict objectForKey:@"comments"]) {
+	for (NSDictionary *dict in [theDict objectForKey:@"comments"]) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];
 	}
-    id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-		self.comments = theResult;
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+    self.comments = resources;
 }
 
 @end

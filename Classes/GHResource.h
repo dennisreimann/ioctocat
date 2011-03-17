@@ -37,6 +37,9 @@ typedef enum {
 - (void)removeDelegate:(id)delegate;
 - (void)loadData;
 - (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL;
+- (void)parseData:(NSData *)theData;
+- (void)parsingFinished:(id)theResult;
+- (void)setValuesFromDict:(NSDictionary *)theDict;
 
 @end
 
@@ -45,8 +48,6 @@ typedef enum {
 
 @protocol GHResourceImplementation
 @optional
-- (void)parseData:(NSData *)theData;
-- (void)parsingFinished:(id)theResult;
 - (void)parseSaveData:(NSData *)data;
 - (void)parsingSaveFinished:(id)theResult;
 @end

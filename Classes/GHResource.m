@@ -8,6 +8,7 @@
 - (void)loadingFailed:(ASIHTTPRequest *)request;
 - (void)savingFinished:(ASIHTTPRequest *)request;
 - (void)savingFailed:(ASIHTTPRequest *)request;
+- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject;
 @end
 
 
@@ -52,14 +53,6 @@
 
 #pragma mark Abstract methods
 
-- (void)parseData:(NSData *)theData {
-	[self doesNotRecognizeSelector:_cmd];
-}
-
-- (void)parsingFinished:(id)theResult {
-	[self doesNotRecognizeSelector:_cmd];
-}
-
 - (void)parseSaveData:(NSData *)data {
 	[self doesNotRecognizeSelector:_cmd];
 }
@@ -95,6 +88,14 @@
 	[delegates removeObject:delegate];
 }
 
+- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject {
+    for (id delegate in delegates) {
+        if ([delegate respondsToSelector:selector]) {
+            [delegate performSelector:selector withObject:firstObject withObject:(id)secondObject];
+        }
+    }
+}
+
 #pragma mark Loading
 
 - (void)loadData {
@@ -112,23 +113,8 @@
 
 - (void)loadingFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ finished: %@", [request url], [request responseString]);
-	
-	[self parseData:[request responseData]];
-	
-	if (error != nil) {
-		DJLog(@"JSON parsing failed: %@", error);
-		for (id delegate in delegates) {
-			if ([delegate respondsToSelector:@selector(resource:failed:)]) {
-				[delegate resource:self failed:error];
-			}
-		}
-	} else {
-		for (id delegate in delegates) {
-			if ([delegate respondsToSelector:@selector(resource:finished:)]) {
-				[delegate resource:self finished:data];
-			}
-		}
-	}
+    
+	[self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
 }
 
 - (void)loadingFailed:(ASIHTTPRequest *)request {
@@ -142,6 +128,36 @@
 			[delegate resource:self failed:error];
 		}
 	}
+}
+
+#pragma mark Parsing
+
+- (void)parseData:(NSData *)theData {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSError *parseError = nil;
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+    id res = parseError ? (id)parseError : (id)dict;
+	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
+    [pool release];
+}
+
+- (void)parsingFinished:(id)theResult {
+	if ([theResult isKindOfClass:[NSError class]]) {
+        DJLog(@"JSON parsing failed: %@", theResult);
+        
+		self.error = theResult;
+        
+		self.loadingStatus = GHResourceStatusNotProcessed;
+        [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
+	} else {
+        [self setValuesFromDict:theResult];
+        
+        self.loadingStatus = GHResourceStatusProcessed;
+        [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
+	}
+}
+
+- (void)setValuesFromDict:(NSDictionary *)theDict {
 }
 
 #pragma mark Saving

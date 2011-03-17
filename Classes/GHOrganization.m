@@ -97,33 +97,18 @@
     self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
-#pragma mark User loading
-
-- (void)parseData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
-    id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-        self.name = [theResult objectForKey:@"name"];
-		self.company = [theResult objectForKey:@"company"];
-        self.gravatarHash = [theResult objectForKey:@"gravatar_id"];
-        self.location = [theResult objectForKey:@"location"];
-        self.blogURL = [NSURL URLWithString:[theResult objectForKey:@"blog"]];
-        self.publicGistCount = [theResult integerForKey:@"public_gist_count"];
-        self.publicRepoCount = [theResult integerForKey:@"public_repo_count"];
-        self.login = [theResult objectForKey:@"login"];
-        self.email = [theResult objectForKey:@"email"];
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *org = [theDict objectForKey:@"organization"];
+    
+    self.name = [org objectForKey:@"name"];
+    self.company = [org objectForKey:@"company"];
+    self.gravatarHash = [org objectForKey:@"gravatar_id"];
+    self.location = [org objectForKey:@"location"];
+    self.blogURL = [NSURL URLWithString:[org objectForKey:@"blog"]];
+    self.publicGistCount = (NSUInteger)[org objectForKey:@"public_gist_count"];
+    self.publicRepoCount = (NSUInteger)[org objectForKey:@"public_repo_count"];
+    self.login = [org objectForKey:@"login"];
+    self.email = [org objectForKey:@"email"];
 }
 
 #pragma mark Gravatar

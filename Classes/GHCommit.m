@@ -95,33 +95,21 @@
 	}
 }
 
-- (void)parseData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
-    id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else {
-		NSString *authorLogin = [[theResult objectForKey:@"author"] objectForKey:@"login"];
-		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
-		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
-		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-		self.committedDate = [iOctocat parseDate:[theResult objectForKey:@"committed_date"]];
-		self.authoredDate = [iOctocat parseDate:[theResult objectForKey:@"authored_date"]];
-		self.message = [theResult objectForKey:@"message"];
-		self.tree = [theResult objectForKey:@"tree"];
-		self.added = [theResult objectForKey:@"added"];
-		self.modified = [theResult objectForKey:@"modified"];
-		self.removed = [theResult objectForKey:@"removed"];
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"commit"];
+	
+    NSString *authorLogin = [[resource objectForKey:@"author"] objectForKey:@"login"];
+    NSString *committerLogin = [[resource objectForKey:@"committer"] objectForKey:@"login"];
+    
+    self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+    self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
+    self.committedDate = [iOctocat parseDate:[resource objectForKey:@"committed_date"]];
+    self.authoredDate = [iOctocat parseDate:[resource objectForKey:@"authored_date"]];
+    self.message = [resource objectForKey:@"message"];
+    self.tree = [resource objectForKey:@"tree"];
+    self.added = [resource objectForKey:@"added"];
+    self.modified = [resource objectForKey:@"modified"];
+    self.removed = [resource objectForKey:@"removed"];
 }
 
 @end

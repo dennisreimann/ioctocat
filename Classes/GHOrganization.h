@@ -49,5 +49,6 @@
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;
 - (void)loadedGravatar:(UIImage *)theImage;
+- (void)setValuesFromDict:(NSDictionary *)theDict;
 
 @end

@@ -90,7 +90,7 @@
 - (void)loadingFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ finished: %@", [request url], [request responseString]);
 	
-	self.data = [[CJSONDeserializer deserializer] deserializeAsDictionary:[request responseData] error:&error];
+	[self parseData:[request responseData]];
 	
 	if (error != nil) {
 		DJLog(@"JSON parsing failed: %@", error);

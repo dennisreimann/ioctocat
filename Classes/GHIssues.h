@@ -4,7 +4,7 @@
 #import "GHIssue.h"
 
 
-@interface GHIssues : GHResource {
+@interface GHIssues : GHResource <GHResourceImplementation> {
 	NSArray *entries;
   @private
     GHRepository *repository;

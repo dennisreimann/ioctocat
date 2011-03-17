@@ -4,7 +4,7 @@
 
 @class GHRepository;
 
-@interface GHBranches : GHResource {
+@interface GHBranches : GHResource <GHResourceImplementation> {
 	NSMutableArray *branches;
 	GHRepository *repository;
 }

@@ -3,7 +3,7 @@
 #import "GHFeedEntry.h"
 
 
-@interface GHFeed : GHResource {
+@interface GHFeed : GHResource <GHResourceImplementation> {
 	NSDate *lastReadingDate;
   @private
 	NSArray *entries;

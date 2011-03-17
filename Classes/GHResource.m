@@ -8,10 +8,6 @@
 - (void)loadingFailed:(ASIHTTPRequest *)request;
 - (void)savingFinished:(ASIHTTPRequest *)request;
 - (void)savingFailed:(ASIHTTPRequest *)request;
-- (void)parseData:(NSData *)data;
-- (void)parsingFinished:(id)theResult;
-- (void)parseSaveData:(NSData *)data;
-- (void)parsingSaveFinished:(id)theResult;
 @end
 
 
@@ -22,7 +18,6 @@
 @synthesize resourceURL;
 @synthesize error;
 @synthesize data;
-
 
 + (GHResource *)at:(NSString *)formatString, ... {
 	va_list args;
@@ -55,6 +50,24 @@
 	[super dealloc];
 }
 
+#pragma mark Abstract methods
+
+- (void)parseData:(NSData *)theData {
+	[self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)parsingFinished:(id)theResult {
+	[self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)parseSaveData:(NSData *)data {
+	[self doesNotRecognizeSelector:_cmd];
+}
+
+- (void)parsingSaveFinished:(id)theResult {
+	[self doesNotRecognizeSelector:_cmd];
+}
+
 #pragma mark Request
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
@@ -70,6 +83,16 @@
 	[request setPassword:token];
     
 	return request;
+}
+
+#pragma mark Delegation
+
+- (void)addDelegate:(id)delegate {
+	[delegates addObject:delegate];
+}
+
+- (void)removeDelegate:(id)delegate {
+	[delegates removeObject:delegate];
 }
 
 #pragma mark Loading
@@ -121,22 +144,6 @@
 	}
 }
 
-- (void)addDelegate:(id)delegate {
-	[delegates addObject:delegate];
-}
-
-- (void)removeDelegate:(id)delegate {
-	[delegates removeObject:delegate];
-}
-
-- (void)parseData:(NSData *)data {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
-}
-
-- (void)parsingFinished:(id)theResult {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
-}
-
 #pragma mark Saving
 
 - (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL {
@@ -164,14 +171,6 @@
 - (void)savingFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Saving %@ failed: %@", [request url], [request error]);
 	[self parsingSaveFinished:[request error]];
-}
-
-- (void)parseSaveData:(NSData *)data {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
-}
-
-- (void)parsingSaveFinished:(id)theResult {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
 }
 
 #pragma mark Convenience Accessors

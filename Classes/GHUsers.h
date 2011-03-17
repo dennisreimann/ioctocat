@@ -4,7 +4,7 @@
 
 @class GHUser;
 
-@interface GHUsers : GHResource {
+@interface GHUsers : GHResource <GHResourceImplementation> {
 	NSMutableArray *users;
   @private
     GHUser *user;

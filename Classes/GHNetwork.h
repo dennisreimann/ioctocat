@@ -3,7 +3,7 @@
 #import "GHRepository.h"
 
 
-@interface GHNetwork : GHResource {
+@interface GHNetwork : GHResource <GHResourceImplementation> {
 	GHRepository *repository;
     NSString *owner;
     NSString *description;

@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@interface GHRepositories : GHResource {
+@interface GHRepositories : GHResource <GHResourceImplementation> {
 	NSMutableArray *repositories;
 }
 

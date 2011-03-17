@@ -3,7 +3,7 @@
 #import "GHResource.h"
 
 
-@interface GHSearch : GHResource {
+@interface GHSearch : GHResource <GHResourceImplementation> {
 	NSArray *results;
   @private
 	NSString *urlFormat;

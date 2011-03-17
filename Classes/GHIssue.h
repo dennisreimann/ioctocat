@@ -5,7 +5,7 @@
 
 @class GHIssueComments;
 
-@interface GHIssue : GHResource <GHResourceDelegate> {
+@interface GHIssue : GHResource <GHResourceImplementation, GHResourceDelegate> {
 	GHRepository *repository;
 	GHIssueComments *comments;
 	NSString *user;

@@ -142,10 +142,6 @@
 		6FCE4D880F7FE16A00451D6E /* MyFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 		6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
-		6FD61A0A0FA7AB26008C751B /* FollowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A060FA7AB26008C751B /* FollowButton.png */; };
-		6FD61A0B0FA7AB26008C751B /* UnfollowButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A070FA7AB26008C751B /* UnfollowButton.png */; };
-		6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A080FA7AB26008C751B /* UnwatchButton.png */; };
-		6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FD61A090FA7AB26008C751B /* WatchButton.png */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
@@ -375,10 +371,6 @@
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
 		6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedParserDelegate.h; sourceTree = "<group>"; };
 		6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedParserDelegate.m; sourceTree = "<group>"; };
-		6FD61A060FA7AB26008C751B /* FollowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FollowButton.png; path = Images/Buttons/FollowButton.png; sourceTree = "<group>"; };
-		6FD61A070FA7AB26008C751B /* UnfollowButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnfollowButton.png; path = Images/Buttons/UnfollowButton.png; sourceTree = "<group>"; };
-		6FD61A080FA7AB26008C751B /* UnwatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UnwatchButton.png; path = Images/Buttons/UnwatchButton.png; sourceTree = "<group>"; };
-		6FD61A090FA7AB26008C751B /* WatchButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = WatchButton.png; path = Images/Buttons/WatchButton.png; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepositories.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
@@ -813,7 +805,6 @@
 				6F5E9C741119D43E00752560 /* Tabbar */,
 				6F5E9C781119D43E00752560 /* Toolbar */,
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
-				6FD61A050FA7AB0A008C751B /* Buttons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
 				6F1BCBE50FAC588800D66E02 /* Default.png */,
 				6F9FE90110663ECD00F86D5C /* Icon.png */,
@@ -852,17 +843,6 @@
 				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
 			name = IBFiles;
-			sourceTree = "<group>";
-		};
-		6FD61A050FA7AB0A008C751B /* Buttons */ = {
-			isa = PBXGroup;
-			children = (
-				6FD61A060FA7AB26008C751B /* FollowButton.png */,
-				6FD61A070FA7AB26008C751B /* UnfollowButton.png */,
-				6FD61A080FA7AB26008C751B /* UnwatchButton.png */,
-				6FD61A090FA7AB26008C751B /* WatchButton.png */,
-			);
-			name = Buttons;
 			sourceTree = "<group>";
 		};
 		6FE931D30FC7242A008545A2 /* Utils */ = {
@@ -974,10 +954,6 @@
 				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,
 				6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */,
 				6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */,
-				6FD61A0A0FA7AB26008C751B /* FollowButton.png in Resources */,
-				6FD61A0B0FA7AB26008C751B /* UnfollowButton.png in Resources */,
-				6FD61A0C0FA7AB26008C751B /* UnwatchButton.png in Resources */,
-				6FD61A0D0FA7AB26008C751B /* WatchButton.png in Resources */,
 				6F1BCBE20FAC586800D66E02 /* upvote.png in Resources */,
 				6F1BCBE60FAC588800D66E02 /* Default.png in Resources */,
 				6F1BCC310FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png in Resources */,

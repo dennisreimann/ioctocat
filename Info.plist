@@ -40,6 +40,8 @@
 	<string>1.2.4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>SBUsesNetwork</key>

@@ -4,7 +4,7 @@
 
 @class GHIssue, GHUser;
 
-@interface GHIssueComment : GHResource <GHResourceImplementation> {
+@interface GHIssueComment : GHResource {
 	GHIssue *issue;
 	GHUser *user;
 	NSUInteger commentID;

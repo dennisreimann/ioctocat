@@ -4,7 +4,7 @@
 
 @class GHRepository, GHFeed;
 
-@interface GHBranch : GHResource <GHResourceImplementation> {
+@interface GHBranch : GHResource {
 	GHRepository *repository;
 	GHFeed *recentCommits;
     NSString *name;

@@ -3,7 +3,7 @@
 #import "GHRepository.h"
 
 
-@interface GHNetworks : GHResource <GHResourceImplementation> {
+@interface GHNetworks : GHResource {
 	NSArray *entries;
   @private
     GHRepository *repository;

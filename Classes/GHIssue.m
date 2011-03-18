@@ -1,5 +1,4 @@
 #import "GHIssue.h"
-#import "GHIssuesParserDelegate.h"
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
 #import "GHRepository.h"
@@ -154,39 +153,6 @@
 	NSURL *url = [NSURL URLWithString:urlString];
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, kIssueTitleParamName, body, kIssueBodyParamName, nil];
 	[self saveValues:values withURL:url];
-}
-
-- (void)parseSaveData:(NSData *)theData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingSaveFinished:)];
-	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingSaveFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.savingStatus = GHResourceStatusNotProcessed;
-	} else if ([(NSArray *)theResult count] > 0) {
-		GHIssue *issue = [(NSArray *)theResult objectAtIndex:0];
-		self.user = issue.user;
-		self.title = issue.title;
-		self.body = issue.body;
-		self.state = issue.state;
-		self.created = issue.created;
-		self.updated = issue.updated;
-		self.votes = issue.votes;
-		self.num = issue.num;
-		self.savingStatus = GHResourceStatusProcessed;
-	}
 }
 
 @end

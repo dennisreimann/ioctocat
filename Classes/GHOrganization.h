@@ -6,7 +6,7 @@
 
 @class GravatarLoader, GHRepository, GHFeed;
 
-@interface GHOrganization : GHResource <GHResourceImplementation> {
+@interface GHOrganization : GHResource {
 	NSString *name;
 	NSString *login;
 	NSString *email;

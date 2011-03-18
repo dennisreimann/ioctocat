@@ -51,14 +51,7 @@
 	[super dealloc];
 }
 
-#pragma mark Abstract methods
-
-- (void)parseSaveData:(NSData *)data {
-	[self doesNotRecognizeSelector:_cmd];
-}
-
-- (void)parsingSaveFinished:(id)theResult {
-	[self doesNotRecognizeSelector:_cmd];
+- (void)setValuesFromDict:(NSDictionary *)theDict {
 }
 
 #pragma mark Request
@@ -130,8 +123,6 @@
 	}
 }
 
-#pragma mark Parsing
-
 - (void)parseData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
@@ -155,9 +146,6 @@
         self.loadingStatus = GHResourceStatusProcessed;
         [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
 	}
-}
-
-- (void)setValuesFromDict:(NSDictionary *)theDict {
 }
 
 #pragma mark Saving
@@ -186,7 +174,40 @@
 
 - (void)savingFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Saving %@ failed: %@", [request url], [request error]);
-	[self parsingSaveFinished:[request error]];
+	
+	self.error = [request error];
+	self.savingStatus = GHResourceStatusNotProcessed;
+	
+	for (id delegate in delegates) {
+		if ([delegate respondsToSelector:@selector(resource:failed:)]) {
+			[delegate resource:self failed:error];
+		}
+	}
+}
+
+- (void)parseSaveData:(NSData *)theData {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSError *parseError = nil;
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+    id res = parseError ? (id)parseError : (id)dict;
+	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
+    [pool release];
+}
+
+- (void)parsingSaveFinished:(id)theResult {
+    if ([theResult isKindOfClass:[NSError class]]) {
+        DJLog(@"JSON parsing for saved data failed: %@", theResult);
+        
+		self.error = theResult;
+        
+		self.savingStatus = GHResourceStatusNotProcessed;
+        [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
+	} else {
+        [self setValuesFromDict:theResult];
+        
+        self.savingStatus = GHResourceStatusProcessed;
+        [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
+	}
 }
 
 #pragma mark Convenience Accessors

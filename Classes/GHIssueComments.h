@@ -4,7 +4,7 @@
 
 @class GHIssue;
 
-@interface GHIssueComments : GHResource <GHResourceImplementation> {
+@interface GHIssueComments : GHResource {
 	NSMutableArray *comments;
 	GHIssue *issue;
 }

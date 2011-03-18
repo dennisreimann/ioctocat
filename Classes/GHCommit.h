@@ -4,7 +4,7 @@
 
 @class GHUser, GHRepository;
 
-@interface GHCommit : GHResource <GHResourceImplementation> {
+@interface GHCommit : GHResource {
 	NSString *commitID;
 	NSString *tree;
 	NSString *message;

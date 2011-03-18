@@ -46,12 +46,6 @@ typedef enum {
 
 @protocol GHResourceDelegate;
 
-@protocol GHResourceImplementation
-@optional
-- (void)parseSaveData:(NSData *)data;
-- (void)parsingSaveFinished:(id)theResult;
-@end
-
 @protocol GHResourceDelegate <NSObject>
 @optional
 - (void)resource:(GHResource *)theResource finished:(NSDictionary *)resultDict;

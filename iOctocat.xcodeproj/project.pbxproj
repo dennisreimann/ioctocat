@@ -166,7 +166,6 @@
 		6FF651980F8A9DA200C20E2D /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FF651970F8A9DA200C20E2D /* Entitlements.plist */; };
 		8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
 		8C53B4D70FB0F32600C3A8E0 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserCell.m */; };
-		8C6A99E50FABCFC200A99483 /* GHIssuesParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */; };
 		8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
 		8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
 		8C6A9EA30FABF1D900A99483 /* IssueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueCell.m */; };
@@ -415,8 +414,6 @@
 		8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsersController.m; sourceTree = "<group>"; };
 		8C53B4D50FB0F32600C3A8E0 /* UserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCell.h; sourceTree = "<group>"; };
 		8C53B4D60FB0F32600C3A8E0 /* UserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCell.m; sourceTree = "<group>"; };
-		8C6A99E30FABCFC200A99483 /* GHIssuesParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssuesParserDelegate.h; sourceTree = "<group>"; };
-		8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHIssuesParserDelegate.m; sourceTree = "<group>"; };
 		8C6A99E60FABD01500A99483 /* GHIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssue.h; sourceTree = "<group>"; };
 		8C6A99E70FABD01500A99483 /* GHIssue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssue.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8C6A9AE40FABDB0100A99483 /* GHIssues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssues.h; sourceTree = "<group>"; };
@@ -902,8 +899,6 @@
 				6FED81B60FAC97A100BE5C81 /* GHResourcesParserDelegate.m */,
 				6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */,
 				6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */,
-				8C6A99E30FABCFC200A99483 /* GHIssuesParserDelegate.h */,
-				8C6A99E40FABCFC200A99483 /* GHIssuesParserDelegate.m */,
 			);
 			name = Parser;
 			sourceTree = "<group>";
@@ -1075,7 +1070,6 @@
 				6F72FB2F0F9B53810069F092 /* FeedEntryCell.m in Sources */,
 				6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */,
 				6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */,
-				8C6A99E50FABCFC200A99483 /* GHIssuesParserDelegate.m in Sources */,
 				8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */,
 				8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */,
 				8C6A9EA30FABF1D900A99483 /* IssueCell.m in Sources */,

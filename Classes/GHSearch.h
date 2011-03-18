@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@interface GHSearch : GHResource <GHResourceImplementation> {
+@interface GHSearch : GHResource {
 	NSArray *results;
   @private
 	NSString *urlFormat;

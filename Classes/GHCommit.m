@@ -103,8 +103,8 @@
     
     self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
     self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-    self.committedDate = [iOctocat parseDate:[resource objectForKey:@"committed_date"]];
-    self.authoredDate = [iOctocat parseDate:[resource objectForKey:@"authored_date"]];
+    self.committedDate = [iOctocat parseDate:[resource objectForKey:@"committed_date"] withFormat:kISO8601TimeFormat];
+    self.authoredDate = [iOctocat parseDate:[resource objectForKey:@"authored_date"] withFormat:kISO8601TimeFormat];
     self.message = [resource objectForKey:@"message"];
     self.tree = [resource objectForKey:@"tree"];
     self.added = [resource objectForKey:@"added"];

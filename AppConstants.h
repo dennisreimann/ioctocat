@@ -7,6 +7,8 @@
 // API
 #define kLoginParamName @"login"
 #define kTokenParamName @"token"
+#define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
+#define kIssueTimeFormat @"yyyy/MM/dd HH:mm:ss z"
 
 // tables
 #define kRepositoryCellIdentifier @"RepositoryCell"
@@ -49,13 +51,13 @@
 
 // Issues
 #define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
-#define kRepoIssuesXMLFormat @"http://github.com/api/v2/xml/issues/list/%@/%@/%@"
-#define kRepoIssueXMLFormat @"https://github.com/api/v2/xml/issues/show/%@/%@/%d"
-#define kOpenIssueXMLFormat @"https://github.com/api/v2/xml/issues/open/%@/%@"
-#define kEditIssueXMLFormat @"https://github.com/api/v2/xml/issues/edit/%@/%@/%d"
+#define kIssueFormat @"https://github.com/api/v2/json/issues/show/%@/%@/%d"
+#define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
+#define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"
 #define kIssueCommentsFormat @"https://github.com/api/v2/json/issues/comments/%@/%@/%d"
 #define kIssueCommentFormat @"https://github.com/api/v2/json/issues/comment/%@/%@/%d"
 #define kIssueToggleFormat @"https://github.com/api/v2/json/issues/%@/%@/%@/%d"
+#define kIssuesFormat @"http://github.com/api/v2/json/issues/list/%@/%@/%@"
 
 // Organizations
 #define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"

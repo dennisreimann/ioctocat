@@ -23,8 +23,6 @@
 	if ([elementName isEqualToString:@"issue"]) {
 		[resources addObject:currentIssue];
 		[currentIssue release], currentIssue = nil;
-	} else if ([elementName isEqualToString:@"user"]) {
-		currentIssue.user = currentElementValue;        
 	} else if ([elementName isEqualToString:@"title"]) {
 		currentIssue.title = currentElementValue;
 	} else if ([elementName isEqualToString:@"body"]) {
@@ -36,9 +34,9 @@
 	} else if ([elementName isEqualToString:@"number"]) {
 		currentIssue.num = [currentElementValue integerValue];
     } else if ([elementName isEqualToString:@"created-at"]) {        
-        currentIssue.created = [iOctocat parseDate:currentElementValue];
+        currentIssue.created = [iOctocat parseDate:currentElementValue withFormat:kIssueTimeFormat];
     } else if ([elementName isEqualToString:@"updated-at"]) {        
-         currentIssue.updated = [iOctocat parseDate:currentElementValue];
+         currentIssue.updated = [iOctocat parseDate:currentElementValue withFormat:kIssueTimeFormat];
 	}
 	[currentElementValue release], currentElementValue = nil;
 }

@@ -1,6 +1,7 @@
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "GHIssue.h"
+#import "GHRepository.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 

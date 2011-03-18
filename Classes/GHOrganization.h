@@ -4,7 +4,7 @@
 #import "GHUsers.h"
 
 
-@class GravatarLoader, GHRepository, GHUser, GHFeed;
+@class GravatarLoader, GHRepository, GHFeed;
 
 @interface GHOrganization : GHResource <GHResourceImplementation> {
 	NSString *name;
@@ -22,7 +22,6 @@
     GHUsers *publicMembers;
 	GHRepositories *publicRepositories;
 	GHFeed *recentActivity;
-    GHUser *user;
   @private
 	GravatarLoader *gravatarLoader;
 }
@@ -38,13 +37,11 @@
 @property(nonatomic,retain)GHUsers *publicMembers;
 @property(nonatomic,retain)GHRepositories *publicRepositories;
 @property(nonatomic,retain)GHFeed *recentActivity;
-@property(nonatomic,retain)GHUser *user;
 @property(nonatomic)NSUInteger publicGistCount;
 @property(nonatomic)NSUInteger privateGistCount;
 @property(nonatomic)NSUInteger publicRepoCount;
 @property(nonatomic)NSUInteger privateRepoCount;
 
-+ (id)organization;
 + (id)organizationWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;

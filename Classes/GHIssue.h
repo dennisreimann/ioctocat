@@ -1,39 +1,41 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
-#import "GHRepository.h"
 
 
-@class GHIssueComments;
+@class GHIssueComments, GHRepository, GHUser;
 
 @interface GHIssue : GHResource <GHResourceImplementation, GHResourceDelegate> {
+	GHUser *user;
 	GHRepository *repository;
 	GHIssueComments *comments;
-	NSString *user;
 	NSString *title;
 	NSString *body;
 	NSString *state;
-	NSString *type;
+	NSArray *labels;
 	NSDate *created;
 	NSDate *updated;
+	NSDate *closed;
 	NSInteger votes;
 	NSInteger num;
 }
 
+@property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)GHRepository *repository;
 @property(nonatomic,retain)GHIssueComments *comments;
-@property(nonatomic,retain)NSString *user;
 @property(nonatomic,retain)NSString *title;
 @property(nonatomic,retain)NSString *body;
 @property(nonatomic,retain)NSString *state;
-@property(nonatomic,retain)NSString *type;
+@property(nonatomic,retain)NSArray *labels;
 @property(nonatomic,retain)NSDate *created;
 @property(nonatomic,retain)NSDate *updated;
+@property(nonatomic,retain)NSDate *closed;
 @property(nonatomic,readwrite)NSInteger num;
 @property(nonatomic,readwrite)NSInteger votes;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isClosed;
 
++ (id)issueWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)closeIssue;
 - (void)reopenIssue;

@@ -1,8 +1,6 @@
 #import "GHUsers.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
 
 
 @implementation GHUsers
@@ -18,8 +16,8 @@
 }
 
 - (void)dealloc {
-	[user release];
-	[users release];
+	[user release], user = nil;
+	[users release], users = nil;
     [super dealloc];
 }
 

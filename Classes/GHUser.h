@@ -48,7 +48,6 @@
 @property(nonatomic)NSUInteger publicRepoCount;
 @property(nonatomic)NSUInteger privateRepoCount;
 
-+ (id)user;
 + (id)userWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;

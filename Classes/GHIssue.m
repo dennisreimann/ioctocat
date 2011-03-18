@@ -2,6 +2,7 @@
 #import "GHIssuesParserDelegate.h"
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
+#import "GHRepository.h"
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
 
@@ -20,12 +21,17 @@
 @synthesize title;
 @synthesize body;
 @synthesize state;
-@synthesize type;
+@synthesize labels;
 @synthesize votes;
 @synthesize created;
 @synthesize updated;
+@synthesize closed;
 @synthesize num;
 @synthesize repository;
+
++ (id)issueWithRepository:(GHRepository *)theRepository {
+    return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
+}
 
 - (id)initWithRepository:(GHRepository *)theRepository {
 	[super init];
@@ -38,11 +44,12 @@
     [user release], user = nil;
 	[comments release], comments = nil;
     [title release], title = nil;
-    [type release], type = nil;    
+    [labels release], labels = nil;    
     [body release], body = nil;
     [state release], state = nil;
     [created release], created = nil;
     [updated release], updated = nil;
+    [closed release], closed = nil;
 	[super dealloc];
 }
 
@@ -61,44 +68,25 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// num which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kRepoIssueXMLFormat, repository.owner, repository.name, num];
+	NSString *urlString = [NSString stringWithFormat:kIssueFormat, repository.owner, repository.name, num];
 	return [NSURL URLWithString:urlString];
 }
 
 #pragma mark Loading
 
-- (void)parseData:(NSData *)theData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:theData];	
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	} else if ([(NSArray *)theResult count] > 0) {
-		GHIssue *issue = [(NSArray *)theResult objectAtIndex:0];
-		self.user = issue.user;
-		self.title = issue.title;
-		self.body = issue.body;
-		self.state = issue.state;
-		self.type = issue.type;
-		self.created = issue.created;
-		self.updated = issue.updated;
-		self.votes = issue.votes;
-		self.num = issue.num;
-		self.loadingStatus = GHResourceStatusProcessed;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"issue"] ? [theDict objectForKey:@"issue"] : theDict;
+    
+	self.user = [[iOctocat sharedInstance] userWithLogin:[resource objectForKey:@"user"]];
+	self.created = [iOctocat parseDate:[resource objectForKey:@"created_at"] withFormat:kIssueTimeFormat];
+	self.updated = [iOctocat parseDate:[resource objectForKey:@"updated_at"] withFormat:kIssueTimeFormat];
+	self.closed = [iOctocat parseDate:[resource objectForKey:@"closed_at"] withFormat:kIssueTimeFormat];
+	self.title = [resource objectForKey:@"title"];
+	self.body = [resource objectForKey:@"body"];
+	self.state = [resource objectForKey:@"state"];
+    self.labels = [resource objectForKey:@"labels"];
+	self.votes = [[resource objectForKey:@"votes"] integerValue];
+	self.num = [[resource objectForKey:@"number"] integerValue];
 }
 
 #pragma mark State toggling
@@ -159,9 +147,9 @@
 - (void)saveData {
 	NSString *urlString;
 	if (self.isNew) {
-		urlString = [NSString stringWithFormat:kOpenIssueXMLFormat, repository.owner, repository.name];
+		urlString = [NSString stringWithFormat:kIssueOpenFormat, repository.owner, repository.name];
 	} else {
-		urlString = [NSString stringWithFormat:kEditIssueXMLFormat, repository.owner, repository.name, num];
+		urlString = [NSString stringWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
 	}
 	NSURL *url = [NSURL URLWithString:urlString];
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, kIssueTitleParamName, body, kIssueBodyParamName, nil];
@@ -193,7 +181,6 @@
 		self.title = issue.title;
 		self.body = issue.body;
 		self.state = issue.state;
-		self.type = issue.type;
 		self.created = issue.created;
 		self.updated = issue.updated;
 		self.votes = issue.votes;

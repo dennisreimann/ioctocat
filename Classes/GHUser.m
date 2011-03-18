@@ -39,47 +39,34 @@
 @synthesize following;
 @synthesize followers;
 
-+ (id)user {
-	return [[[[self class] alloc] init] autorelease];
-}
-
 + (id)userWithLogin:(NSString *)theLogin {
-	GHUser *user = [GHUser user];
-	user.login = theLogin;
-	return user;
-}
-
-- (id)init {
-	[super init];
-	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	isAuthenticated = NO;
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
-	return self;
+	return [[[[self class] alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
 	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+	self.isAuthenticated = NO;
+	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
 
 - (void)dealloc {
-	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
-	[name release];
-	[login release];
-	[email release];
-	[company release];
-	[blogURL release];
-	[location release];
-	[gravatarHash release];
-	[gravatar release];
-	[repositories release];
-	[watchedRepositories release];
-	[gravatarLoader release];
-	[recentActivity release];
-    [following release];
-    [followers release];
+	[name release], name = nil;
+	[login release], login = nil;
+	[email release], email = nil;
+	[company release], company = nil;
+	[blogURL release], blogURL = nil;
+	[location release], location = nil;
+    [gravatarLoader release], gravatarLoader = nil;
+	[gravatarHash release], gravatarHash = nil;
+	[gravatar release], gravatar = nil;
+	[repositories release], repositories = nil;
+	[watchedRepositories release], watchedRepositories = nil;
+	[recentActivity release], recentActivity = nil;
+    [following release], following = nil;
+    [followers release], followers = nil;
     [super dealloc];
 }
 
@@ -100,32 +87,26 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    // URL
+    // URLs
     NSString *urlString = [NSString stringWithFormat:kUserFormat, login];
-    self.resourceURL = [NSURL URLWithString:urlString];
-	// Repositories
 	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
 	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
+    NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, login];
+    NSString *followersURLString = [NSString stringWithFormat:kUserFollowersFormat, login];
+	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
+    
 	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
 	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
+    NSURL *followingURL = [NSURL URLWithString:followingURLString];
+    NSURL *followersURL = [NSURL URLWithString:followersURLString];
+	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
+    
+    self.resourceURL = [NSURL URLWithString:urlString];
 	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
 	self.watchedRepositories = [GHRepositories repositoriesWithURL:watchedRepositoriesURL];
-	// Recent Activity
-	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
-	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
+    self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
+    self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserLoginKeyPath]) {
-		NSString *newLogin = [(GHUser *)object login];
-		NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, newLogin];
-		NSString *followersURLString = [NSString stringWithFormat:kUserFollowersFormat, newLogin];
-		NSURL *followingURL = [NSURL URLWithString:followingURLString];
-		NSURL *followersURL = [NSURL URLWithString:followersURLString];
-		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
-		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
-	}
 }
 
 #pragma mark Loading
@@ -147,7 +128,6 @@
     self.isAuthenticated = [resource objectForKey:@"plan"] ? YES : NO;
     
     if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]];
-    else if (email) [gravatarLoader loadEmail:email withSize:[[iOctocat sharedInstance] gravatarSize]];
 }
 
 #pragma mark Following

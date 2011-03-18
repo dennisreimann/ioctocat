@@ -23,7 +23,7 @@
 
 + (ASINetworkQueue *)queue;
 + (iOctocat *)sharedInstance;
-+ (NSDate *)parseDate:(NSString *)theString;
++ (NSDate *)parseDate:(NSString *)theString withFormat:(NSString *)theFormat;
 - (GHUser *)currentUser;
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theUsername;

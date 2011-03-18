@@ -108,15 +108,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return [documentsPath stringByAppendingPathComponent:imageName];
 }
 
-+ (NSDate *)parseDate:(NSString *)string {
++ (NSDate *)parseDate:(NSString *)string withFormat:(NSString *)theFormat {
 	static NSDateFormatter *dateFormatter;
-	if (dateFormatter == nil) {
-		dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	}
-	string = [string stringByReplacingOccurrencesOfString:@"-06:00" withString:@"-0600"];
-	string = [string stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
-	string = [string stringByReplacingOccurrencesOfString:@"-08:00" withString:@"-0800"];
+	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = theFormat;
+    // Fix for timezone format
+    string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }

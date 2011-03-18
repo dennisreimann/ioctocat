@@ -26,28 +26,16 @@
 @synthesize privateGistCount;
 @synthesize publicRepoCount;
 @synthesize privateRepoCount;
-@synthesize user;
-
-+ (id)organization {
-	return [[[[self class] alloc] init] autorelease];
-}
 
 + (id)organizationWithLogin:(NSString *)theLogin {
-	GHOrganization *org = [GHOrganization organization];
-	org.login = theLogin;
-	return org;
-}
-
-- (id)init {
-	[super init];
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
-	return self;
+	return [[[[self class] alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
 	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+    gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
 
@@ -58,6 +46,7 @@
 	[company release], company = nil;
 	[blogURL release], blogURL = nil;
 	[location release], location = nil;
+    [gravatarLoader release], gravatarLoader = nil;
 	[gravatarHash release], gravatarHash = nil;
 	[gravatar release], gravatar = nil;
 	[publicMembers release], publicMembers = nil;

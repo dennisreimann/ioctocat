@@ -1,6 +1,5 @@
 #import "GHRepository.h"
 #import "iOctocat.h"
-#import "GHCommitsParserDelegate.h"
 #import "GHIssues.h"
 #import "GHNetworks.h"
 #import "GHBranches.h"

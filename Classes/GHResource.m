@@ -1,6 +1,7 @@
 #import "GHResource.h"
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
+#import "NSURL+Extensions.h"
 
 
 @interface GHResource ()
@@ -8,10 +9,7 @@
 - (void)loadingFailed:(ASIHTTPRequest *)request;
 - (void)savingFinished:(ASIHTTPRequest *)request;
 - (void)savingFailed:(ASIHTTPRequest *)request;
-- (void)parseData:(NSData *)data;
-- (void)parsingFinished:(id)theResult;
-- (void)parseSaveData:(NSData *)data;
-- (void)parsingSaveFinished:(id)theResult;
+- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject;
 @end
 
 
@@ -21,7 +19,17 @@
 @synthesize savingStatus;
 @synthesize resourceURL;
 @synthesize error;
-@synthesize result;
+@synthesize data;
+
++ (GHResource *)at:(NSString *)formatString, ... {
+	va_list args;
+    va_start(args, formatString);
+    NSString *pathString = [[NSString alloc] initWithFormat:formatString arguments:args];
+    va_end(args);
+	NSURL *url = [NSURL	URLWithFormat:@"%@%@", kAPIBaseFormat, pathString];
+	[pathString release];
+	return [self resourceWithURL:url];
+}
 
 + (id)resourceWithURL:(NSURL *)theURL {
 	return [[[[self class] alloc] initWithURL:theURL] autorelease];
@@ -30,8 +38,8 @@
 - (id)initWithURL:(NSURL *)theURL {
 	[super init];
 	self.resourceURL = theURL;
-	self.loadingStatus = GHResourceStatusNotLoaded;
-	self.savingStatus = GHResourceStatusNotSaved;
+	self.loadingStatus = GHResourceStatusNotProcessed;
+	self.savingStatus = GHResourceStatusNotProcessed;
     return self;
 }
 
@@ -39,8 +47,11 @@
 	[delegates release], delegates = nil;
 	[resourceURL release], resourceURL = nil;
 	[error release], error = nil;
-	[result release], result = nil;
+	[data release], data = nil;
 	[super dealloc];
+}
+
+- (void)setValuesFromDict:(NSDictionary *)theDict {
 }
 
 #pragma mark Request
@@ -60,12 +71,30 @@
 	return request;
 }
 
+#pragma mark Delegation
+
+- (void)addDelegate:(id)delegate {
+	[delegates addObject:delegate];
+}
+
+- (void)removeDelegate:(id)delegate {
+	[delegates removeObject:delegate];
+}
+
+- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject {
+    for (id delegate in delegates) {
+        if ([delegate respondsToSelector:selector]) {
+            [delegate performSelector:selector withObject:firstObject withObject:(id)secondObject];
+        }
+    }
+}
+
 #pragma mark Loading
 
 - (void)loadData {
 	if (self.isLoading) return;
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
+	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL];
 	[request setDelegate:self];
@@ -77,20 +106,46 @@
 
 - (void)loadingFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ finished: %@", [request url], [request responseString]);
+    
 	[self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
 }
 
 - (void)loadingFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ failed: %@", [request url], [request error]);
-	[self parsingFinished:[request error]];
+	
+	self.error = [request error];
+	self.loadingStatus = GHResourceStatusNotProcessed;
+	
+	for (id delegate in delegates) {
+		if ([delegate respondsToSelector:@selector(resource:failed:)]) {
+			[delegate resource:self failed:error];
+		}
+	}
 }
 
-- (void)parseData:(NSData *)data {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+- (void)parseData:(NSData *)theData {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSError *parseError = nil;
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+    id res = parseError ? (id)parseError : (id)dict;
+	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
+    [pool release];
 }
 
 - (void)parsingFinished:(id)theResult {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+	if ([theResult isKindOfClass:[NSError class]]) {
+        DJLog(@"JSON parsing failed: %@", theResult);
+        
+		self.error = theResult;
+        
+		self.loadingStatus = GHResourceStatusNotProcessed;
+        [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
+	} else {
+        [self setValuesFromDict:theResult];
+        
+        self.loadingStatus = GHResourceStatusProcessed;
+        [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
+	}
 }
 
 #pragma mark Saving
@@ -98,7 +153,7 @@
 - (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL {
 	if (self.isSaving) return;
 	self.error = nil;
-	self.savingStatus = GHResourceStatusSaving;
+	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
 	[request setDelegate:self];
@@ -119,33 +174,58 @@
 
 - (void)savingFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Saving %@ failed: %@", [request url], [request error]);
-	[self parsingSaveFinished:[request error]];
+	
+	self.error = [request error];
+	self.savingStatus = GHResourceStatusNotProcessed;
+	
+	for (id delegate in delegates) {
+		if ([delegate respondsToSelector:@selector(resource:failed:)]) {
+			[delegate resource:self failed:error];
+		}
+	}
 }
 
-- (void)parseSaveData:(NSData *)data {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+- (void)parseSaveData:(NSData *)theData {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	NSError *parseError = nil;
+    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+    id res = parseError ? (id)parseError : (id)dict;
+	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
+    [pool release];
 }
 
 - (void)parsingSaveFinished:(id)theResult {
-	[NSException raise:@"GHResourceAbstractMethodException" format:@"The subclass of GHResource must implement this method"];
+    if ([theResult isKindOfClass:[NSError class]]) {
+        DJLog(@"JSON parsing for saved data failed: %@", theResult);
+        
+		self.error = theResult;
+        
+		self.savingStatus = GHResourceStatusNotProcessed;
+        [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
+	} else {
+        [self setValuesFromDict:theResult];
+        
+        self.savingStatus = GHResourceStatusProcessed;
+        [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
+	}
 }
 
 #pragma mark Convenience Accessors
 
 - (BOOL)isLoading {
-	return loadingStatus == GHResourceStatusLoading;
+	return loadingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isLoaded {
-	return loadingStatus == GHResourceStatusLoaded;
+	return loadingStatus == GHResourceStatusProcessed;
 }
 
 - (BOOL)isSaving {
-	return savingStatus == GHResourceStatusSaving;
+	return savingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isSaved {
-	return savingStatus == GHResourceStatusSaved;
+	return savingStatus == GHResourceStatusProcessed;
 }
 
 @end

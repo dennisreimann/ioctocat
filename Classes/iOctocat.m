@@ -94,15 +94,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
-+ (NSDate *)parseDate:(NSString *)string {
+- (NSInteger)gravatarSize {
+	UIScreen *mainScreen = [UIScreen mainScreen];
+	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
+	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
+	return size;
+}
+
+- (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	NSString *imageName = [NSString stringWithFormat:@"%@.png", theString];
+	return [documentsPath stringByAppendingPathComponent:imageName];
+}
+
++ (NSDate *)parseDate:(NSString *)string withFormat:(NSString *)theFormat {
 	static NSDateFormatter *dateFormatter;
-	if (dateFormatter == nil) {
-		dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	}
-	string = [string stringByReplacingOccurrencesOfString:@"-06:00" withString:@"-0600"];
-	string = [string stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
-	string = [string stringByReplacingOccurrencesOfString:@"-08:00" withString:@"-0800"];
+	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = theFormat;
+    // Fix for timezone format
+    string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }
@@ -144,10 +155,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (!self.currentUser) {
 		[self presentLogin];
 	} else {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSString *token = [defaults valueForKey:kTokenDefaultsKey];
 		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.currentUser authenticateWithToken:token];
+		[self.currentUser loadData];
 	}
 }
 

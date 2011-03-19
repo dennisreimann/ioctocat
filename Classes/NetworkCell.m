@@ -1,10 +1,10 @@
 #import "NetworkCell.h"
-#import "GHNetwork.h"
+#import "GHRepository.h"
 
 
 @implementation NetworkCell
 
-@synthesize network;
+@synthesize repository;
 
 - (void)dealloc {
   	[iconView release];
@@ -13,11 +13,11 @@
     [super dealloc];    
 }
 
-- (void)setNetwork:(GHNetwork *)theNetwork {
-	[network release];
-	network = [theNetwork retain];
-	name.text = network.name;
-    userName.text = network.user.login;
+- (void)setRepository:(GHRepository *)theRepo {
+	[repository release];
+	repository = [theRepo retain];
+	name.text = repository.name;
+    userName.text = repository.owner;
 	NSString *icon = [NSString stringWithString:@"fork.png"];
 	iconView.image = [UIImage imageNamed:icon];
 }

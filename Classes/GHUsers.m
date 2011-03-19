@@ -1,55 +1,42 @@
 #import "GHUsers.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
 
 
 @implementation GHUsers
 
-@synthesize user, users;
+@synthesize users;
 
-- (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
++ (id)usersWithURL:(NSURL *)theURL {
+    return [[[[self class] alloc] initWithURL:theURL] autorelease];
+}
+
+- (id)initWithURL:(NSURL *)theURL {
     [super init];
-    self.user = theUser;
 	self.users = [NSMutableArray array];
     self.resourceURL = theURL;
 	return self;    
 }
 
 - (void)dealloc {
-	[user release];
-	[users release];
+	[users release], users = nil;
     [super dealloc];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUsers user:'%@' resourceURL:'%@'>", user, resourceURL];
+    return [NSString stringWithFormat:@"<GHUsers resourceURL:'%@'>", resourceURL];
 }
 
-- (void)parseData:(NSData *)data {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *usersDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+- (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSString *login in [usersDict objectForKey:@"users"]) {
+    for (id item in [theDict objectForKey:@"users"]) {
+        NSString *login = ([item isKindOfClass:[NSString class]]) ? item : [item objectForKey:@"login"];
 		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
+        if ([item isKindOfClass:[NSDictionary class]]) [theUser setValuesFromDict:item];
         [resources addObject:theUser];
     }
-    id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		[theResult sortUsingSelector:@selector(compareByName:)];
-		self.users = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+    [resources sortUsingSelector:@selector(compareByName:)];
+    self.users = resources;
 }
 
 @end

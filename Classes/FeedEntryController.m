@@ -55,7 +55,7 @@
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
 	gravatarView.image = entry.user.gravatar;
-	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
+	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadData];
 	// Update Toolbar
 	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, firstUserItem, nil];
 	if ([entry.eventItem isKindOfClass:[GHUser class]]) {

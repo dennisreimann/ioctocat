@@ -1,8 +1,7 @@
 #import "SearchController.h"
-#import "GHUsersParserDelegate.h"
-#import "GHReposParserDelegate.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "GHUser.h"
 
 
 @implementation SearchController
@@ -14,8 +13,8 @@
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
 	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat andParserDelegateClass:[GHUsersParserDelegate class]];
-	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat andParserDelegateClass:[GHReposParserDelegate class]];
+	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
+	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
 	searches = [[NSArray alloc] initWithObjects:userSearch, repoSearch, nil];
 	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 }

@@ -1,9 +1,10 @@
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
 
-@class GHUser, LabeledCell;
+@class GHUser, LabeledCell, OrganizationCell;
 
-@interface UserController : UITableViewController <UIActionSheetDelegate> {
+@interface UserController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
 	GHUser *user;
   @private
 	IBOutlet UIView *tableHeaderView;
@@ -15,13 +16,16 @@
 	IBOutlet UILabel *emailLabel;
 	IBOutlet UITableViewCell *loadingUserCell;
 	IBOutlet UITableViewCell *loadingReposCell;
+	IBOutlet UITableViewCell *loadingOrganizationsCell;
 	IBOutlet UITableViewCell *noPublicReposCell;
+	IBOutlet UITableViewCell *noPublicOrganizationsCell;
     IBOutlet UITableViewCell *followersCell; 
     IBOutlet UITableViewCell *followingCell;   
 	IBOutlet UITableViewCell *recentActivityCell;
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;
 	IBOutlet LabeledCell *emailCell;
+    IBOutlet OrganizationCell *organizationCell;
 }
 
 @property(nonatomic,retain) GHUser *user;

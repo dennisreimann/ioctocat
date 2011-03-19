@@ -1,16 +1,16 @@
 #import <UIKit/UIKit.h>
-#import "GHNetwork.h"
+#import "GHRepository.h"
 
 
 @interface NetworkCell : UITableViewCell {
-	GHNetwork *network;
+	GHRepository *repository;
   @private 
     IBOutlet UILabel *name;
     IBOutlet UILabel *userName;
   	IBOutlet UIImageView *iconView;
 }
 
-@property(nonatomic,retain)GHNetwork *network;
+@property(nonatomic,retain)GHRepository *repository;
 
 @end
 

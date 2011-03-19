@@ -5,9 +5,34 @@
 
 @implementation GHFeedParserDelegate
 
+- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
+	[super init];
+	target = theTarget;
+	selector = theSelector;
+	return self;
+}
+
 - (void)dealloc {
+	[error release];
+	[resources release];
 	[currentEntry release];
+	[currentElementValue release];
     [super dealloc];
+}
+
+#pragma mark XML Parser
+
+- (void)parserDidStartDocument:(NSXMLParser *)parser {
+    resources = [[NSMutableArray alloc] init];
+}
+
+- (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
+	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	if (!currentElementValue) {
+		currentElementValue = [[NSMutableString alloc] initWithString:string];
+	} else {
+		[currentElementValue appendString:string];
+	}
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qualifiedName attributes:(NSDictionary *)attributeDict {
@@ -60,7 +85,7 @@
 			currentEntry.eventType = nil;
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [iOctocat parseDate:currentElementValue];
+		currentEntry.date = [iOctocat parseDate:currentElementValue withFormat:kISO8601TimeFormat];
 	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {
@@ -77,6 +102,19 @@
 		currentEntry.authorName = [currentElementValue lastPathComponent];
 	}
 	[currentElementValue release], currentElementValue = nil;
+}
+
+- (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError {
+	DJLog(@"Parsing error: %@", parseError);
+	error = [parseError retain];
+	[self parserDidEndDocument:parser];
+}
+
+- (void)parserDidEndDocument:(NSXMLParser *)parser {
+	id result = error ? (id)error : (id)resources;
+	[target performSelectorOnMainThread:selector withObject:result waitUntilDone:YES];
+	[resources release];
+	resources = nil;
 }
 
 @end

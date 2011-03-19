@@ -1,5 +1,6 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "GravatarLoader.h"
+#import "NSURL+Extensions.h"
 
 
 // This solution to generate a MD5 hash originates from the Apple Developer Forums.
@@ -50,8 +51,7 @@ NSString *md5(NSString *str) {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSString *hash = [theArgs objectAtIndex:0];
 	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
-	NSString *url = [NSString stringWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", hash, size];
-	NSURL *gravatarURL = [NSURL URLWithString:url];
+	NSURL *gravatarURL = [NSURL URLWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", hash, size];
 	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];

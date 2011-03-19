@@ -1,10 +1,8 @@
 #import <UIKit/UIKit.h>
 #import "GHResource.h"
-#import "GHUsers.h"
-#import "GHRepositories.h"
 
 
-@class GravatarLoader, GHRepository, GHFeed;
+@class GravatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHFeed;
 
 @interface GHUser : GHResource {
 	NSString *name;
@@ -13,13 +11,13 @@
 	NSString *company;
 	NSString *location;
 	NSString *gravatarHash;
-	NSString *searchTerm;
 	NSURL *blogURL;
 	UIImage *gravatar;
 	NSUInteger publicGistCount;
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
+    GHOrganizations *organizations;
 	GHRepositories *repositories;
 	GHRepositories *watchedRepositories;
 	GHFeed *recentActivity;
@@ -36,30 +34,24 @@
 @property(nonatomic,retain)NSString *company;
 @property(nonatomic,retain)NSString *location;
 @property(nonatomic,retain)NSString *gravatarHash;
-@property(nonatomic,retain)NSString *searchTerm;
 @property(nonatomic,retain)NSURL *blogURL;
 @property(nonatomic,retain)UIImage *gravatar;
+@property(nonatomic,retain)GHOrganizations *organizations;
 @property(nonatomic,retain)GHRepositories *repositories;
 @property(nonatomic,retain)GHRepositories *watchedRepositories;
 @property(nonatomic,retain)GHFeed *recentActivity;
 @property(nonatomic,retain)GHUsers *following;
 @property(nonatomic,retain)GHUsers *followers;
-@property(nonatomic,readonly)NSString *cachedGravatarPath;
 @property(nonatomic)BOOL isAuthenticated;
 @property(nonatomic)NSUInteger publicGistCount;
 @property(nonatomic)NSUInteger privateGistCount;
 @property(nonatomic)NSUInteger publicRepoCount;
 @property(nonatomic)NSUInteger privateRepoCount;
 
-+ (id)user;
-+ (id)userForSearchTerm:(NSString *)theSearchTerm;
 + (id)userWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;
-- (void)loadUser;
-- (void)loadedUsers:(id)theResult;
 - (void)loadedGravatar:(UIImage *)theImage;
-- (void)authenticateWithToken:(NSString *)theToken;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isWatching:(GHRepository *)aRepository;
 - (void)followUser:(GHUser *)theUser;

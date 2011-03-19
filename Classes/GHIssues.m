@@ -1,7 +1,8 @@
 #import "GHIssues.h"
-#import "GHIssuesParserDelegate.h"
+#import "GHIssue.h"
 #import "GHUser.h"
-#import "ASIFormDataRequest.h"
+#import "GHRepository.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHIssues
@@ -18,8 +19,7 @@
     [super init];
     self.repository = theRepository;
     self.issueState = theState;
-	NSString *urlString = [NSString stringWithFormat:kRepoIssuesXMLFormat, repository.owner, repository.name, issueState];
-	self.resourceURL = [NSURL URLWithString:urlString];	
+	self.resourceURL = [NSURL URLWithFormat:kIssuesFormat, repository.owner, repository.name, issueState];	
 	
 	return self;    
 }
@@ -35,29 +35,14 @@
     return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
 }
 
-- (void)parseData:(NSData *)data {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHIssuesParserDelegate *parserDelegate = [[GHIssuesParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	parserDelegate.repository = repository;
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		self.entries = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSMutableArray *resources = [NSMutableArray array];
+    for (NSDictionary *dict in [theDict objectForKey:@"issues"]) {
+		GHIssue *theIssue = [GHIssue issueWithRepository:repository];
+        [theIssue setValuesFromDict:dict];
+        [resources addObject:theIssue];
+    }
+    self.entries = resources;
 }
 
 @end

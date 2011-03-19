@@ -101,8 +101,7 @@
 			[self displayOrganization];
 			[self.tableView reloadData];
 		} else if (organization.error) {
-			NSString *message = [NSString stringWithFormat:@"Could not load the organization"];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the organization" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
@@ -222,6 +221,5 @@
 -(void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self dismissModalViewControllerAnimated:YES];
 }
-
 
 @end

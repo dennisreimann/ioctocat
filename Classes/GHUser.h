@@ -17,6 +17,8 @@
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
+    NSUInteger followersCount;
+    NSUInteger followingCount;
     GHOrganizations *organizations;
 	GHRepositories *repositories;
 	GHRepositories *watchedRepositories;
@@ -47,6 +49,8 @@
 @property(nonatomic)NSUInteger privateGistCount;
 @property(nonatomic)NSUInteger publicRepoCount;
 @property(nonatomic)NSUInteger privateRepoCount;
+@property(nonatomic)NSUInteger followersCount;
+@property(nonatomic)NSUInteger followingCount;
 
 + (id)userWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;

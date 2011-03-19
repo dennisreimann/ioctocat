@@ -106,7 +106,7 @@
 
 - (void)displayUser {
 	nameLabel.text = (!user.name || [user.name isEmpty]) ? user.login : user.name;
-	companyLabel.text = user.company;
+    companyLabel.text = (!user.company || [user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", user.followersCount] : user.company;
 	gravatarView.image = user.gravatar;
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
@@ -121,8 +121,7 @@
 			[self displayUser];
 			[self.tableView reloadData];
 		} else if (user.error) {
-			NSString *message = [NSString stringWithFormat:@"Could not load the user %@", user.login];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the user" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
@@ -251,6 +250,5 @@
 -(void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self dismissModalViewControllerAnimated:YES];
 }
-
 
 @end

@@ -1,4 +1,6 @@
 #import "iOctocat.h"
+#import "GHUser.h"
+#import "GHOrganization.h"
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
@@ -19,6 +21,7 @@
 @implementation iOctocat
 
 @synthesize users;
+@synthesize organizations;
 @synthesize didBecomeActiveDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
@@ -71,14 +74,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return (!login || [login isEmpty]) ? nil : [self userWithLogin:login];
 }
 
-- (GHUser *)userWithLogin:(NSString *)theUsername {
-	if (!theUsername || [theUsername isEqualToString:@""]) return nil;
-	GHUser *user = [users objectForKey:theUsername];
+- (GHUser *)userWithLogin:(NSString *)theLogin {
+	if (!theLogin || [theLogin isEmpty]) return nil;
+	GHUser *user = [users objectForKey:theLogin];
 	if (user == nil) {
-		user = [GHUser userWithLogin:theUsername];
-		[users setObject:user forKey:theUsername];
+		user = [GHUser userWithLogin:theLogin];
+		[users setObject:user forKey:theLogin];
 	}
 	return user;
+}
+
+- (GHOrganization *)organizationWithLogin:(NSString *)theLogin {
+	if (!theLogin || [theLogin isEmpty]) return nil;
+	GHOrganization *organization = [organizations objectForKey:theLogin];
+	if (organization == nil) {
+		organization = [GHOrganization organizationWithLogin:theLogin];
+		[organizations setObject:organization forKey:theLogin];
+	}
+	return organization;
 }
 
 - (void)clearAvatarCache {

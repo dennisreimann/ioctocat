@@ -164,6 +164,10 @@
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
+		6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
+		6FB9CBE513354AC200C8DE29 /* Organization.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE413354AC200C8DE29 /* Organization.xib */; };
+		6FB9CBE813354B0500C8DE29 /* OrganizationTableHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE613354B0500C8DE29 /* OrganizationTableHeadBackground.png */; };
+		6FB9CBE913354B0500C8DE29 /* OrganizationTableHeadBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE713354B0500C8DE29 /* OrganizationTableHeadBackground@2x.png */; };
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
 		6FC0D42A115819E400511B7F /* IssueCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* IssueCommentController.m */; };
 		6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* IssueComment.xib */; };
@@ -429,6 +433,11 @@
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
+		6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationController.h; sourceTree = "<group>"; };
+		6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationController.m; sourceTree = "<group>"; };
+		6FB9CBE413354AC200C8DE29 /* Organization.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Organization.xib; path = IBFiles/Organization.xib; sourceTree = "<group>"; };
+		6FB9CBE613354B0500C8DE29 /* OrganizationTableHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OrganizationTableHeadBackground.png; path = Images/OrganizationTableHeadBackground.png; sourceTree = "<group>"; };
+		6FB9CBE713354B0500C8DE29 /* OrganizationTableHeadBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "OrganizationTableHeadBackground@2x.png"; path = "Images/OrganizationTableHeadBackground@2x.png"; sourceTree = "<group>"; };
 		6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCommit.png; sourceTree = "<group>"; };
 		6FC0D428115819E400511B7F /* IssueCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCommentController.h; sourceTree = "<group>"; };
 		6FC0D429115819E400511B7F /* IssueCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCommentController.m; sourceTree = "<group>"; };
@@ -664,9 +673,11 @@
 				6F72FAE70F9B47730069F092 /* FeedEntryController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
-				8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */,
 				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
 				6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */,
+				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
+				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
+				8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */,
 				8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserController.m */,
@@ -902,6 +913,8 @@
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				6FB9CBE613354B0500C8DE29 /* OrganizationTableHeadBackground.png */,
+				6FB9CBE713354B0500C8DE29 /* OrganizationTableHeadBackground@2x.png */,
 				6F9DD8841334E0F300D1E35E /* CommitHeadBackground@2x.png */,
 				6F9DD8851334E0F300D1E35E /* FeedEntryCellBackground@2x.png */,
 				6F9DD8861334E0F300D1E35E /* FeedEntryDetailsHeadBackground@2x.png */,
@@ -963,6 +976,7 @@
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
 				6FF09F851115AFB500925109 /* Diff.xib */,
+				6FB9CBE413354AC200C8DE29 /* Organization.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
 				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
@@ -1173,6 +1187,9 @@
 				6F9DD8931334E0F300D1E35E /* RepositoryTableHeadBackground@2x.png in Resources */,
 				6F9DD8941334E0F300D1E35E /* UserCellBackground@2x.png in Resources */,
 				6F9DD8951334E0F300D1E35E /* UserTableHeadBackground@2x.png in Resources */,
+				6FB9CBE513354AC200C8DE29 /* Organization.xib in Resources */,
+				6FB9CBE813354B0500C8DE29 /* OrganizationTableHeadBackground.png in Resources */,
+				6FB9CBE913354B0500C8DE29 /* OrganizationTableHeadBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1257,6 +1274,7 @@
 				6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */,
 				6F9DD8831334DC4100D1E35E /* OrganizationCell.m in Sources */,
 				6F9DD8981334E1BA00D1E35E /* OrganizationsController.m in Sources */,
+				6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

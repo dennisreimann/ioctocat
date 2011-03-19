@@ -13,6 +13,8 @@
 	NSString *gravatarHash;
 	NSURL *blogURL;
 	UIImage *gravatar;
+    NSUInteger followersCount;
+    NSUInteger followingCount;
 	NSUInteger publicGistCount;
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
@@ -35,6 +37,8 @@
 @property(nonatomic,retain)GHUsers *publicMembers;
 @property(nonatomic,retain)GHRepositories *publicRepositories;
 @property(nonatomic,retain)GHFeed *recentActivity;
+@property(nonatomic)NSUInteger followersCount;
+@property(nonatomic)NSUInteger followingCount;
 @property(nonatomic)NSUInteger publicGistCount;
 @property(nonatomic)NSUInteger privateGistCount;
 @property(nonatomic)NSUInteger publicRepoCount;

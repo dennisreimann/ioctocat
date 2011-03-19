@@ -105,8 +105,8 @@
 	self.organizations = [GHOrganizations organizationsWithUser:self andURL:organizationsURL];
 	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
 	self.watchedRepositories = [GHRepositories repositoriesWithURL:watchedRepositoriesURL];
-    self.following = [GHUsers usersWithUser:self andURL:followingURL];
-    self.followers = [GHUsers usersWithUser:self andURL:followersURL];
+    self.following = [GHUsers usersWithURL:followingURL];
+    self.followers = [GHUsers usersWithURL:followersURL];
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 

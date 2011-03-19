@@ -1,5 +1,6 @@
 #import "UserController.h"
 #import "RepositoryController.h"
+#import "OrganizationController.h"
 #import "WebController.h"
 #import "GHUser.h"
 #import "GHOrganizations.h"
@@ -206,11 +207,6 @@
             cell = organizationCell;
         }
 		cell.organization = [user.organizations.organizations objectAtIndex:indexPath.row];
-        
-        // TODO Remove that once the organization can be selected
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		cell.accessoryType = UITableViewCellAccessoryNone;
-        
 		return cell;
 	}
 	return nil;
@@ -238,9 +234,8 @@
 		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3) {
-		// TODO
-		// GHOrganization *org = [user.organizations.organizations objectAtIndex:indexPath.row];
-        // viewController = [[OrganizationController alloc] initWithOrganization:org];
+		GHOrganization *org = [user.organizations.organizations objectAtIndex:indexPath.row];
+        viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller
 	if (viewController) {
@@ -251,8 +246,8 @@
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
 #pragma mark MessageComposer Delegate
+
 -(void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self dismissModalViewControllerAnimated:YES];
 }

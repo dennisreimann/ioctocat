@@ -61,6 +61,7 @@
 #define kIssuesFormat @"http://github.com/api/v2/json/issues/list/%@/%@/%@"
 
 // Organizations
+#define kOrganizationGithubFormat @"http://github.com/%@"
 #define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"

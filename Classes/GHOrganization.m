@@ -25,6 +25,8 @@
 @synthesize publicMembers;
 @synthesize publicRepositories;
 @synthesize recentActivity;
+@synthesize followersCount;
+@synthesize followingCount;
 @synthesize publicGistCount;
 @synthesize privateGistCount;
 @synthesize publicRepoCount;
@@ -81,9 +83,11 @@
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
+	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationPublicMembersFormat, login];
     
     self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
 	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
+	self.publicMembers = [GHUsers usersWithURL:membersURL];
     self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
@@ -107,8 +111,12 @@
     self.gravatarHash = [[resource objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"gravatar_id"];
     self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
     self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"blog"]];
+    self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
+    self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
     self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
+    self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
     self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
+    self.privateRepoCount = [[resource objectForKey:@"private_repo_count"] integerValue];
 }
 
 #pragma mark Gravatar

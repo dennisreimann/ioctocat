@@ -110,6 +110,16 @@
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
+- (void)setGravatarHash:(NSString *)theHash {
+	[theHash retain];
+	[gravatarHash release];
+	gravatarHash = theHash;
+    
+	if (gravatarHash) {
+       [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
+    }
+}
+
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
@@ -127,8 +137,6 @@
     self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
     self.privateRepoCount = [[resource objectForKey:@"total_private_repo_count"] integerValue];
     self.isAuthenticated = [resource objectForKey:@"plan"] ? YES : NO;
-    
-    if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]];
 }
 
 #pragma mark Following

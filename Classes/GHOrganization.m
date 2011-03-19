@@ -38,7 +38,6 @@
 	[self init];
 	self.login = theLogin;
 	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
-    self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
     gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
@@ -76,29 +75,40 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-	// Repositories
-	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
-	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
-	// Recent Activity
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
+	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
+    
+    self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
+	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
     self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
-    NSDictionary *org = [theDict objectForKey:@"organization"];
+- (void)setGravatarHash:(NSString *)theHash {
+	[theHash retain];
+	[gravatarHash release];
+	gravatarHash = theHash;
     
-    self.login = [org objectForKey:@"login"];
-    self.email = [[org objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"email"];
-    self.name = [[org objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"name"];
-    self.company = [[org objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"company"];
-    self.gravatarHash = [[org objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"gravatar_id"];
-    self.location = [[org objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"location"];
-    self.blogURL = [[org objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[org objectForKey:@"blog"]];
-    self.publicGistCount = [[org objectForKey:@"public_gist_count"] integerValue];
-    self.publicRepoCount = [[org objectForKey:@"public_repo_count"] integerValue];
+	if (gravatarHash) {
+        [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
+    }
+}
+
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
+    
+    if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
+    self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
+    self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
+    self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
+    self.gravatarHash = [[resource objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"gravatar_id"];
+    self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
+    self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"blog"]];
+    self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
+    self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
 }
 
 #pragma mark Gravatar

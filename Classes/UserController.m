@@ -2,10 +2,12 @@
 #import "RepositoryController.h"
 #import "WebController.h"
 #import "GHUser.h"
+#import "GHOrganizations.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
+#import "OrganizationCell.h"
 #import "GravatarLoader.h"
 #import "iOctocat.h"
 #import "UsersController.h"
@@ -37,8 +39,10 @@
 	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(user.isLoaded) ? [self displayUser] : [user loadData];
 	if (!user.repositories.isLoaded) [user.repositories loadData];
+	if (!user.organizations.isLoaded) [user.organizations loadData];
 	self.navigationItem.title = user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
@@ -48,22 +52,26 @@
 	[user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user release];
-	[tableHeaderView release];
-	[nameLabel release];
-	[companyLabel release];
-	[locationLabel release];
-	[blogLabel release];
-	[emailLabel release];
-	[locationCell release];
-	[blogCell release];
-	[emailCell release];
-    [followersCell release];
-    [followingCell release];
-	[recentActivityCell release];
-	[loadingUserCell release];
-	[loadingReposCell release];
-	[noPublicReposCell release];
+	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[user release], user = nil;
+	[tableHeaderView release], tableHeaderView = nil;
+	[nameLabel release], nameLabel = nil;
+	[companyLabel release], companyLabel = nil;
+	[locationLabel release], locationLabel = nil;
+	[blogLabel release], blogLabel = nil;
+	[emailLabel release], emailLabel = nil;
+	[locationCell release], locationCell = nil;
+	[blogCell release], blogCell = nil;
+	[emailCell release], emailCell = nil;
+    [followersCell release], followersCell = nil;
+    [followingCell release], followingCell = nil;
+    [organizationCell release], organizationCell = nil;
+	[recentActivityCell release], recentActivityCell = nil;
+	[loadingUserCell release],loadingUserCell = nil;
+	[loadingReposCell release], loadingReposCell = nil;
+    [loadingOrganizationsCell release], loadingOrganizationsCell = nil;
+	[noPublicReposCell release], noPublicReposCell = nil;
+	[noPublicOrganizationsCell release], noPublicOrganizationsCell = nil;
     [super dealloc];
 }
 
@@ -125,6 +133,14 @@
 			[alert show];
 			[alert release];
 		}
+	} else if (object == user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (user.organizations.isLoaded) {
+			[self.tableView reloadData];
+		} else if (user.organizations.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the organizations" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		}
 	}
 }
 
@@ -132,20 +148,24 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!user.isLoaded) return 1;
-	return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
     if (section == 1) return 3;
-	if (!user.repositories.isLoaded || user.repositories.repositories.count == 0) return 1;
+    if (section == 2 && (!user.repositories.isLoaded || user.repositories.repositories.count == 0)) return 1;
 	if (section == 2) return user.repositories.repositories.count;
+	if (section == 3 && (!user.organizations.isLoaded || user.organizations.organizations.count == 0)) return 1;
+	if (section == 3) return user.organizations.organizations.count;
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 2) ? @"Repositories" : @"";
+	if (section == 2) return @"Repositories";
+    if (section == 3) return @"Organizations";
+    return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -168,13 +188,29 @@
 	if (section == 1 && row == 0) return recentActivityCell;
 	if (section == 1 && row == 1) return followingCell;
 	if (section == 1 && row == 2) return followersCell;
-	if (!user.repositories.isLoaded) return loadingReposCell;
+	if (section == 2 && !user.repositories.isLoaded) return loadingReposCell;
 	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
+		return cell;
+	}
+    if (section == 3 && !user.organizations.isLoaded) return loadingOrganizationsCell;
+    if (section == 3 && user.organizations.organizations.count == 0) return noPublicOrganizationsCell;
+	if (section == 3) {
+		OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:kOrganizationCellIdentifier];
+		if (cell == nil) {
+            [[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
+            cell = organizationCell;
+        }
+		cell.organization = [user.organizations.organizations objectAtIndex:indexPath.row];
+        
+        // TODO Remove that once the organization can be selected
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryNone;
+        
 		return cell;
 	}
 	return nil;
@@ -201,6 +237,10 @@
 	} else if (section == 2) {
 		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
+	} else if (section == 3) {
+		// TODO
+		// GHOrganization *org = [user.organizations.organizations objectAtIndex:indexPath.row];
+        // viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller
 	if (viewController) {

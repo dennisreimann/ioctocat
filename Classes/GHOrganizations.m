@@ -32,8 +32,9 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSString *login in [theDict objectForKey:@"organizations"]) {
-		GHOrganization *theOrg = [GHOrganization organizationWithLogin:login];
+    for (NSDictionary *dict in [theDict objectForKey:@"organizations"]) {
+		GHOrganization *theOrg = [GHOrganization organizationWithLogin:[dict objectForKey:@"login"]];
+        [theOrg setValuesFromDict:dict];
         [resources addObject:theOrg];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

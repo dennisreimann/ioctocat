@@ -18,6 +18,7 @@
 #define kNetworkCellIdentifier @"NetworkCell"
 #define kBranchCellIdentifier @"BranchCell"
 #define kCommentCellIdentifier @"CommentCell"
+#define kOrganizationCellIdentifier @"OrganizationCell"
 
 // API URLs
 #define kAPIBaseFormat @"https://github.com/api/v2/json/"

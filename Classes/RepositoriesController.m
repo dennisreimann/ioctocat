@@ -1,6 +1,7 @@
 #import "RepositoriesController.h"
 #import "RepositoryController.h"
 #import "GHRepository.h"
+#import "GHRepositories.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "RepositoryCell.h"

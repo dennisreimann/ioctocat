@@ -1,10 +1,8 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
-#import "GHUser.h"
-#import "GHFeed.h"
 
 
-@class GHIssues, GHNetworks, GHBranches;
+@class GHIssues, GHNetworks, GHBranches, GHUser;
 
 @interface GHRepository : GHResource {
 	NSString *name;

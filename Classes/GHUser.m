@@ -1,6 +1,8 @@
 #import "GHUser.h"
+#import "GHUsers.h"
 #import "GHFeed.h"
 #import "GHRepository.h"
+#import "GHRepositories.h"
 #import "GravatarLoader.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"

@@ -1,6 +1,7 @@
 #import "GHFeed.h"
-#import "GHUser.h"
+#import "GHFeedEntry.h"
 #import "GHFeedParserDelegate.h"
+#import "GHUser.h"
 #import "iOctocat.h"
 
 

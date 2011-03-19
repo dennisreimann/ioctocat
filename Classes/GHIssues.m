@@ -1,5 +1,7 @@
 #import "GHIssues.h"
+#import "GHIssue.h"
 #import "GHUser.h"
+#import "GHRepository.h"
 
 
 @implementation GHIssues

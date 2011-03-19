@@ -1,7 +1,8 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
-#import "GHRepository.h"
 
+
+@class GHRepository;
 
 @interface GHNetworks : GHResource {
 	NSArray *entries;

@@ -1,5 +1,6 @@
 #import "GHNetworks.h"
 #import "GHUser.h"
+#import "GHRepository.h"
 #import "ASIFormDataRequest.h"
 
 @implementation GHNetworks

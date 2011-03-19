@@ -1,6 +1,7 @@
 #import "SearchController.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "GHUser.h"
 
 
 @implementation SearchController

@@ -1,10 +1,8 @@
 #import <UIKit/UIKit.h>
 #import "GHResource.h"
-#import "GHUsers.h"
-#import "GHRepositories.h"
 
 
-@class GravatarLoader, GHRepository, GHFeed;
+@class GravatarLoader, GHUsers, GHRepositories, GHRepository, GHFeed;
 
 @interface GHUser : GHResource {
 	NSString *name;

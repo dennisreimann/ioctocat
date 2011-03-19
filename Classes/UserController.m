@@ -3,6 +3,7 @@
 #import "WebController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHRepositories.h"
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
 #import "GravatarLoader.h"

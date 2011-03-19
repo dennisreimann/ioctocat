@@ -1,4 +1,5 @@
 #import "CommitController.h"
+#import "GHUser.h"
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "LabeledCell.h"

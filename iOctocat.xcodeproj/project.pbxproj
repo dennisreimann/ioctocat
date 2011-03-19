@@ -18,7 +18,6 @@
 		6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
 		6F0BEB7F111098A000E95E5A /* BranchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB7E111098A000E95E5A /* BranchCell.m */; };
 		6F15FAA4123E3EE600E56F92 /* download.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F15FAA3123E3EE600E56F92 /* download.png */; };
-		6F1BCBE60FAC588800D66E02 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCBE50FAC588800D66E02 /* Default.png */; };
 		6F1BCC310FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1BCC300FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png */; };
 		6F1DC39B0F7E52F000FCD26D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC39A0F7E52F000FCD26D /* Settings.bundle */; };
 		6F1DC4460F7E5A8A00FCD26D /* GHFeed.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */; };
@@ -113,8 +112,6 @@
 		6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
 		6F8E7DF4123C0E8B007E93E6 /* pull_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8E7DF3123C0E8B007E93E6 /* pull_request.png */; };
 		6F9DD82E1334A0F200D1E35E /* DefaultGravatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */; };
-		6F9DD82F1334A0F200D1E35E /* IconNew.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD82C1334A0F200D1E35E /* IconNew.png */; };
-		6F9DD8301334A0F200D1E35E /* IconNew@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD82D1334A0F200D1E35E /* IconNew@2x.png */; };
 		6F9DD84B1334A5D000D1E35E /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8311334A5D000D1E35E /* comment@2x.png */; };
 		6F9DD84C1334A5D000D1E35E /* commit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8321334A5D000D1E35E /* commit@2x.png */; };
 		6F9DD84D1334A5D000D1E35E /* create@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8331334A5D000D1E35E /* create@2x.png */; };
@@ -141,16 +138,16 @@
 		6F9DD8621334A5D000D1E35E /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8481334A5D000D1E35E /* user@2x.png */; };
 		6F9DD8631334A5D000D1E35E /* watch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8491334A5D000D1E35E /* watch@2x.png */; };
 		6F9DD8641334A5D000D1E35E /* wiki@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD84A1334A5D000D1E35E /* wiki@2x.png */; };
-		6F9FE8B710663B4A00F86D5C /* IconOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9FE8B610663B4A00F86D5C /* IconOctocat.png */; };
-		6F9FE90210663ECD00F86D5C /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9FE90110663ECD00F86D5C /* Icon.png */; };
+		6F9DD8721334AFE300D1E35E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8711334AFE300D1E35E /* Icon.png */; };
+		6F9DD8741334AFEF00D1E35E /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8731334AFEF00D1E35E /* Icon@2x.png */; };
+		6F9DD8761334B03400D1E35E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8751334B03400D1E35E /* Default.png */; };
+		6F9DD8781334B09800D1E35E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8771334B09800D1E35E /* Default@2x.png */; };
 		6FA92AFE0FACD51A001B1D1D /* FeedEntry.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */; };
 		6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFD0FACD51A001B1D1D /* Issue.xib */; };
 		6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issues_closed.png */; };
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
-		6FB75831120818D80025A18B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB75830120818D80025A18B /* Icon@2x.png */; };
-		6FB7583312081E1B0025A18B /* IconOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7583212081E1B0025A18B /* IconOctocat@2x.png */; };
 		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
@@ -221,7 +218,6 @@
 		6F0BEB7D111098A000E95E5A /* BranchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchCell.h; sourceTree = "<group>"; };
 		6F0BEB7E111098A000E95E5A /* BranchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchCell.m; sourceTree = "<group>"; };
 		6F15FAA3123E3EE600E56F92 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = Images/Icons/download.png; sourceTree = "<group>"; };
-		6F1BCBE50FAC588800D66E02 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = Images/Default.png; sourceTree = "<group>"; };
 		6F1BCC300FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IssueDetailsHeadBackground.png; path = Images/IssueDetailsHeadBackground.png; sourceTree = "<group>"; };
 		6F1C379A0FCA8F4A00F2FFBF /* Archiving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archiving.h; sourceTree = "<group>"; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
@@ -360,8 +356,6 @@
 		6F879AE70FB61C7A00EBD9BD /* GHUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHUsers.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F8E7DF3123C0E8B007E93E6 /* pull_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pull_request.png; path = Images/Icons/pull_request.png; sourceTree = "<group>"; };
 		6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DefaultGravatar@2x.png"; path = "Images/DefaultGravatar@2x.png"; sourceTree = "<group>"; };
-		6F9DD82C1334A0F200D1E35E /* IconNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconNew.png; path = Images/IconNew.png; sourceTree = "<group>"; };
-		6F9DD82D1334A0F200D1E35E /* IconNew@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconNew@2x.png"; path = "Images/IconNew@2x.png"; sourceTree = "<group>"; };
 		6F9DD8311334A5D000D1E35E /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment@2x.png"; path = "Images/Icons/comment@2x.png"; sourceTree = "<group>"; };
 		6F9DD8321334A5D000D1E35E /* commit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "commit@2x.png"; path = "Images/Icons/commit@2x.png"; sourceTree = "<group>"; };
 		6F9DD8331334A5D000D1E35E /* create@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "create@2x.png"; path = "Images/Icons/create@2x.png"; sourceTree = "<group>"; };
@@ -388,8 +382,10 @@
 		6F9DD8481334A5D000D1E35E /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user@2x.png"; path = "Images/Icons/user@2x.png"; sourceTree = "<group>"; };
 		6F9DD8491334A5D000D1E35E /* watch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "watch@2x.png"; path = "Images/Icons/watch@2x.png"; sourceTree = "<group>"; };
 		6F9DD84A1334A5D000D1E35E /* wiki@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "wiki@2x.png"; path = "Images/Icons/wiki@2x.png"; sourceTree = "<group>"; };
-		6F9FE8B610663B4A00F86D5C /* IconOctocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IconOctocat.png; path = Images/IconOctocat.png; sourceTree = "<group>"; };
-		6F9FE90110663ECD00F86D5C /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Images/Icon.png; sourceTree = "<group>"; };
+		6F9DD8711334AFE300D1E35E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		6F9DD8731334AFEF00D1E35E /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		6F9DD8751334B03400D1E35E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		6F9DD8771334B09800D1E35E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6FA512F01332657400C16D95 /* JLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLog.h; sourceTree = "<group>"; };
 		6FA512F11332659000C16D95 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntry.xib; path = IBFiles/FeedEntry.xib; sourceTree = "<group>"; };
@@ -398,8 +394,6 @@
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
-		6FB75830120818D80025A18B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "Images/Icon@2x.png"; sourceTree = "<group>"; };
-		6FB7583212081E1B0025A18B /* IconOctocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IconOctocat@2x.png"; path = "Images/IconOctocat@2x.png"; sourceTree = "<group>"; };
 		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
@@ -887,13 +881,10 @@
 				6F5E9C781119D43E00752560 /* Toolbar */,
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
-				6F1BCBE50FAC588800D66E02 /* Default.png */,
-				6F9FE90110663ECD00F86D5C /* Icon.png */,
-				6FB75830120818D80025A18B /* Icon@2x.png */,
-				6F9FE8B610663B4A00F86D5C /* IconOctocat.png */,
-				6FB7583212081E1B0025A18B /* IconOctocat@2x.png */,
-				6F9DD82C1334A0F200D1E35E /* IconNew.png */,
-				6F9DD82D1334A0F200D1E35E /* IconNew@2x.png */,
+				6F9DD8711334AFE300D1E35E /* Icon.png */,
+				6F9DD8731334AFEF00D1E35E /* Icon@2x.png */,
+				6F9DD8751334B03400D1E35E /* Default.png */,
+				6F9DD8771334B09800D1E35E /* Default@2x.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
 				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
@@ -1038,7 +1029,6 @@
 				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,
 				6F72FB210F9B51FE0069F092 /* FeedEntryDetailsHeadBackground.png in Resources */,
 				6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */,
-				6F1BCBE60FAC588800D66E02 /* Default.png in Resources */,
 				6F1BCC310FAC5C2C00D66E02 /* IssueDetailsHeadBackground.png in Resources */,
 				6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */,
 				6FA92AFE0FACD51A001B1D1D /* FeedEntry.xib in Resources */,
@@ -1063,8 +1053,6 @@
 				6F59BC950FC6C51800412597 /* Repositories.xib in Resources */,
 				6F0AEFB7100CAAE500FB323E /* Networks.xib in Resources */,
 				6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */,
-				6F9FE8B710663B4A00F86D5C /* IconOctocat.png in Resources */,
-				6F9FE90210663ECD00F86D5C /* Icon.png in Resources */,
 				6F797C7E1110E842007E5A8D /* Commit.xib in Resources */,
 				6F2C76AE1114E65A002665DA /* CommitHeadBackground.png in Resources */,
 				6F2C76EC1114EDEF002665DA /* file_added.png in Resources */,
@@ -1092,13 +1080,9 @@
 				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 				6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */,
 				6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */,
-				6FB75831120818D80025A18B /* Icon@2x.png in Resources */,
-				6FB7583312081E1B0025A18B /* IconOctocat@2x.png in Resources */,
 				6F8E7DF4123C0E8B007E93E6 /* pull_request.png in Resources */,
 				6F15FAA4123E3EE600E56F92 /* download.png in Resources */,
 				6F9DD82E1334A0F200D1E35E /* DefaultGravatar@2x.png in Resources */,
-				6F9DD82F1334A0F200D1E35E /* IconNew.png in Resources */,
-				6F9DD8301334A0F200D1E35E /* IconNew@2x.png in Resources */,
 				6F9DD84B1334A5D000D1E35E /* comment@2x.png in Resources */,
 				6F9DD84C1334A5D000D1E35E /* commit@2x.png in Resources */,
 				6F9DD84D1334A5D000D1E35E /* create@2x.png in Resources */,
@@ -1125,6 +1109,10 @@
 				6F9DD8621334A5D000D1E35E /* user@2x.png in Resources */,
 				6F9DD8631334A5D000D1E35E /* watch@2x.png in Resources */,
 				6F9DD8641334A5D000D1E35E /* wiki@2x.png in Resources */,
+				6F9DD8721334AFE300D1E35E /* Icon.png in Resources */,
+				6F9DD8741334AFEF00D1E35E /* Icon@2x.png in Resources */,
+				6F9DD8761334B03400D1E35E /* Default.png in Resources */,
+				6F9DD8781334B09800D1E35E /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1221,21 +1209,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
 			};
 			name = Debug;
-		};
-		1D6058950D05DD3E006BFB54 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				INFOPLIST_FILE = Info.plist;
-				PRODUCT_NAME = iOctocat;
-			};
-			name = Release;
 		};
 		6F77CD830F7E9DF2009A0213 /* App Store Distribution */ = {
 			isa = XCBuildConfiguration;
@@ -1245,7 +1222,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ICON_NAME = Icon;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
@@ -1262,7 +1238,9 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
+				"ICON_NAME[arch=*]" = Icon;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
 			};
 			name = "App Store Distribution";
@@ -1276,7 +1254,6 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ICON_NAME = IconOctocat;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
@@ -1294,6 +1271,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
 			};
 			name = "Ad Hoc Distribution";
@@ -1308,7 +1286,6 @@
 				GCC_VERSION = 4.2;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ICON_NAME = IconOctocat;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
@@ -1329,6 +1306,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
 			};
 			name = Analyze;
@@ -1344,7 +1322,6 @@
 				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				ICON_NAME = IconOctocat;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PREBINDING = NO;
@@ -1354,23 +1331,6 @@
 			};
 			name = Debug;
 		};
-		C01FCF5008A954540054247B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				ICON_NAME = IconOctocat;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				PREBINDING = NO;
-				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1379,24 +1339,22 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				6FFC32B010AF42FB00DD7014 /* Analyze */,
-				1D6058950D05DD3E006BFB54 /* Release */,
 				6FC806450FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD840F7E9DF2009A0213 /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iOctocat" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				6FFC32AF10AF42FB00DD7014 /* Analyze */,
-				C01FCF5008A954540054247B /* Release */,
 				6FC806440FA868D1008D2DA6 /* Ad Hoc Distribution */,
 				6F77CD830F7E9DF2009A0213 /* App Store Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

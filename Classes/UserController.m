@@ -44,7 +44,7 @@
 	(user.isLoaded) ? [self displayUser] : [user loadData];
 	if (!user.repositories.isLoaded) [user.repositories loadData];
 	if (!user.organizations.isLoaded) [user.organizations loadData];
-	self.navigationItem.title = user.login;
+	self.navigationItem.title = (self.user == self.currentUser) ? @"Profile" : user.login;
 	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 }

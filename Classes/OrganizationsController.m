@@ -1,5 +1,7 @@
 #import "OrganizationsController.h"
 #import "OrganizationController.h"
+#import "FeedController.h"
+#import "GHOrganization.h"
 
 
 @implementation OrganizationsController
@@ -15,14 +17,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.title = @"Organizations";
     if (!organizations.isLoaded) [organizations loadData];
 }
 
 - (void)dealloc {
 	[organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [noOrganizationsCell release];
-    [loadingCell release];
-    [organizationCell release];
+    [noOrganizationsCell release], noOrganizationsCell = nil;
+    [organizationCell release], organizationCell = nil;
+    [loadingCell release], loadingCell = nil;
     [super dealloc];
 }
 
@@ -57,14 +60,15 @@
 	return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//    if (!organizations.isLoaded) return;
-//    if (organizations.organizations.count == 0) return;
-//    GHOrganization *org = [users.users objectAtIndex:indexPath.row];
-//    OrganizationController *orgController = [(OrganizationController *)[OrganizationController alloc] initWithOrganization:(GHOrganization *)org];
-//    [self.navigationController pushViewController:orgController animated:YES];
-//    [orgController release];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!organizations.isLoaded) return;
+    if (organizations.organizations.count == 0) return;
+    GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
+//    OrganizationController *viewController = [(OrganizationController *)[OrganizationController alloc] initWithOrganization:(GHOrganization *)org];
+    FeedController *viewController = [[FeedController alloc] initWithFeed:org.recentActivity andTitle:org.login];
+    [self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
+}
 
 @end
 

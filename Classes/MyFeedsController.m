@@ -1,6 +1,7 @@
 #import "MyFeedsController.h"
 #import "WebController.h"
 #import "UserController.h"
+#import "OrganizationsController.h"
 #import "FeedEntryController.h"
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
@@ -9,11 +10,19 @@
 #import "NSURL+Extensions.h"
 
 
+@interface MyFeedsController ()
+- (GHUser *)currentUser;
+@end
+
+
 @implementation MyFeedsController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	loadCounter = 0;
+    [self.currentUser.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    [organizationItem setEnabled:self.currentUser.organizations.isLoaded];
+    if (!self.currentUser.organizations.isLoaded) [self.currentUser.organizations loadData];
+    loadCounter = 0;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -23,11 +32,16 @@
 
 - (void)dealloc {
 	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+    [self.currentUser.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[feeds release];
 	[noEntriesCell release];
 	[feedEntryCell release];
 	[feedControl release];
     [super dealloc];
+}
+
+- (GHUser *)currentUser {
+	return [[iOctocat sharedInstance] currentUser];
 }
 
 - (void)setupFeeds {
@@ -48,12 +62,12 @@
 }
 
 - (GHFeed *)currentFeed {
-	return feedControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+	return (feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) ? 
 		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
 - (void)reloadTableViewDataSource {
-	if (self.currentFeed.isLoading) return;
+	if (self.currentFeed && self.currentFeed.isLoading) return;
 	[self.currentFeed loadData];
 }
 
@@ -69,17 +83,24 @@
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
-	[self.tableView reloadData];
-	if ([self refreshCurrentFeedIfRequired]) return;
-	if (self.currentFeed.isLoaded) return;
-	[self.currentFeed loadData];
-	if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];
-	[self.tableView reloadData];
+    refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
+    [self.tableView reloadData];
+    if ([self refreshCurrentFeedIfRequired]) return;
+    if (self.currentFeed.isLoaded) return;
+    [self.currentFeed loadData];
+    if (self.currentFeed.isLoading) [self showReloadAnimationAnimated:NO];
+    [self.tableView reloadData];
+}
+
+- (IBAction)selectOrganization:(id)sender {
+    OrganizationsController *viewController = [[OrganizationsController alloc] initWithOrganizations:self.currentUser.organizations];
+    viewController.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:viewController animated:YES];
+    [viewController release];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+    if ([object isKindOfClass:[GHFeed class]] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHFeed *feed = (GHFeed *)object;
 		if (feed.isLoading) {
 			loadCounter += 1;
@@ -95,7 +116,15 @@
 			[alert show];
 			[alert release];
 		}
-	}
+	} else if (object == self.currentUser.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (!self.currentUser.organizations.isLoading && self.currentUser.organizations.error) {
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the list of organizations" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			[alert show];
+			[alert release];
+		} else if (self.currentUser.organizations.isLoaded) {
+            [organizationItem setEnabled:(self.currentUser.organizations.organizations.count > 0)];
+        }
+    } 
 }
 
 - (void)viewWillAppear:(BOOL)animated {

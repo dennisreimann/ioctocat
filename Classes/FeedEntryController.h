@@ -20,6 +20,7 @@
 	IBOutlet UIBarButtonItem *repositoryItem;
 	IBOutlet UIBarButtonItem *firstUserItem;
 	IBOutlet UIBarButtonItem *secondUserItem;
+	IBOutlet UIBarButtonItem *organizationItem;
 	IBOutlet UIBarButtonItem *issueItem;
 	IBOutlet UIBarButtonItem *commitItem;
 }
@@ -33,6 +34,7 @@
 - (IBAction)showRepository:(id)sender;
 - (IBAction)showFirstUser:(id)sender;
 - (IBAction)showSecondUser:(id)sender;
+- (IBAction)showOrganization:(id)sender;
 - (IBAction)showIssue:(id)sender;
 - (IBAction)showCommit:(id)sender;
 

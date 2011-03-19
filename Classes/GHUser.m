@@ -116,11 +116,11 @@
     NSDictionary *resource = [theDict objectForKey:@"user"] ? [theDict objectForKey:@"user"] : theDict;
     
     if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
-    self.name = [resource objectForKey:@"name"];
-    self.email = [resource objectForKey:@"email"];
-    self.company = [resource objectForKey:@"company"];
-    self.location = [resource objectForKey:@"location"];
-    self.gravatarHash = [resource objectForKey:@"gravatar_id"];
+    self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
+    self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
+    self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
+    self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
+    self.gravatarHash = [[resource objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"gravatar_id"];
     self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"blog"]];
     self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
     self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];

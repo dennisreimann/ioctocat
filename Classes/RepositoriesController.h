@@ -8,16 +8,21 @@
 	IBOutlet UITableViewCell *noPublicReposCell;
 	IBOutlet UITableViewCell *noPrivateReposCell;
 	IBOutlet UITableViewCell *noWatchedReposCell;
+    IBOutlet UITableViewCell *noOrganizationReposCell;
 	GHUser *user;
+    GHRepositories *orgRepos;
 	NSMutableArray *publicRepositories;
 	NSMutableArray *privateRepositories;
     NSMutableArray *watchedRepositories;
+    NSMutableArray *organizationRepositories;
 }
 
 @property(nonatomic,retain) NSMutableArray *publicRepositories;
 @property(nonatomic,retain) NSMutableArray *privateRepositories;
 @property(nonatomic,retain) NSMutableArray *watchedRepositories;
+@property(nonatomic,retain) NSMutableArray *organizationRepositories;
 @property(nonatomic,retain) GHUser *user;
+@property(nonatomic,retain) GHRepositories *orgRepos;
 @property(nonatomic,readonly) GHUser *currentUser;
 
 - (id)initWithUser:(GHUser *)theUser;

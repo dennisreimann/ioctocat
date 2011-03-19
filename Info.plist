@@ -14,6 +14,8 @@
 	<array>
 		<string>IconNew.png</string>
 		<string>IconNew@2x.png</string>
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>

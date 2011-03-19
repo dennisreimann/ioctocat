@@ -91,14 +91,14 @@
     NSDictionary *org = [theDict objectForKey:@"organization"];
     
     self.login = [org objectForKey:@"login"];
-    self.email = [org objectForKey:@"email"];
-    self.name = [org objectForKey:@"name"];
-    self.company = [org objectForKey:@"company"];
-    self.gravatarHash = [org objectForKey:@"gravatar_id"];
-    self.location = [org objectForKey:@"location"];
+    self.email = [[org objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"email"];
+    self.name = [[org objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"name"];
+    self.company = [[org objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"company"];
+    self.gravatarHash = [[org objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"gravatar_id"];
+    self.location = [[org objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [org objectForKey:@"location"];
+    self.blogURL = [[org objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[org objectForKey:@"blog"]];
     self.publicGistCount = [[org objectForKey:@"public_gist_count"] integerValue];
     self.publicRepoCount = [[org objectForKey:@"public_repo_count"] integerValue];
-    self.blogURL = [[org objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[org objectForKey:@"blog"]];
 }
 
 #pragma mark Gravatar

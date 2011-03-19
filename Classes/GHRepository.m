@@ -58,6 +58,14 @@
     return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
 }
 
+- (NSString *)repoId {
+    return [NSString stringWithFormat:@"%@/%@", owner, name];
+}
+
+- (NSString *)repoIdAndStatus {
+    return [NSString stringWithFormat:@"%@/%@/%@", owner, isPrivate ? @"private" : @"public", name];
+}
+
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// owner and name which isn't always available in advance
@@ -78,6 +86,14 @@
 
 - (GHUser *)user {
 	return [[iOctocat sharedInstance] userWithLogin:owner];
+}
+
+- (int)compareByRepoId:(GHRepository *)theOtherRepository {
+    return [[self repoId] localizedCaseInsensitiveCompare:[theOtherRepository repoId]];
+}
+
+- (int)compareByRepoIdAndStatus:(GHRepository *)theOtherRepository {
+    return [[self repoIdAndStatus] localizedCaseInsensitiveCompare:[theOtherRepository repoIdAndStatus]];
 }
 
 - (int)compareByName:(GHRepository *)theOtherRepository {

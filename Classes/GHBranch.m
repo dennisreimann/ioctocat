@@ -1,6 +1,7 @@
 #import "GHBranch.h"
 #import "GHRepository.h"
 #import "GHFeed.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHBranch
@@ -15,8 +16,7 @@
 	self.repository = theRepository;
 	self.name = theName;
 	// Recent Commits
-	NSString *urlString = [NSString stringWithFormat:(repository.isPrivate ? kRepoPrivateFeedFormat : kRepoFeedFormat), repository.owner, repository.name, name];
-	NSURL *feedURL = [NSURL URLWithString:urlString];
+	NSURL *feedURL = [NSURL URLWithFormat:(repository.isPrivate ? kRepoPrivateFeedFormat : kRepoFeedFormat), repository.owner, repository.name, name];
 	self.recentCommits = [GHFeed resourceWithURL:feedURL];
 	return self;
 }

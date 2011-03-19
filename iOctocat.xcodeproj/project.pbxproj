@@ -143,6 +143,7 @@
 		6F9DD8761334B03400D1E35E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8751334B03400D1E35E /* Default.png */; };
 		6F9DD8781334B09800D1E35E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8771334B09800D1E35E /* Default@2x.png */; };
 		6F9DD87B1334B99C00D1E35E /* GHOrganizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */; };
+		6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
 		6FA92AFE0FACD51A001B1D1D /* FeedEntry.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */; };
 		6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFD0FACD51A001B1D1D /* Issue.xib */; };
 		6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issues_closed.png */; };
@@ -389,6 +390,8 @@
 		6F9DD8771334B09800D1E35E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		6F9DD8791334B99C00D1E35E /* GHOrganizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOrganizations.h; sourceTree = "<group>"; };
 		6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHOrganizations.m; sourceTree = "<group>"; };
+		6F9DD87C1334BDB200D1E35E /* NSURL+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Extensions.h"; sourceTree = "<group>"; };
+		6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Extensions.m"; sourceTree = "<group>"; };
 		6FA512F01332657400C16D95 /* JLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLog.h; sourceTree = "<group>"; };
 		6FA512F11332659000C16D95 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntry.xib; path = IBFiles/FeedEntry.xib; sourceTree = "<group>"; };
@@ -756,6 +759,8 @@
 		6F5E9A971119A96000752560 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				6F9DD87C1334BDB200D1E35E /* NSURL+Extensions.h */,
+				6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */,
 				6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */,
 				6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */,
 				6F5E9A981119A96000752560 /* CDataScanner_Extensions.h */,
@@ -1199,6 +1204,7 @@
 				6F7961AE132EC90D00C9446E /* GHResource.m in Sources */,
 				6F7961AF132EC90D00C9446E /* GHUser.m in Sources */,
 				6F9DD87B1334B99C00D1E35E /* GHOrganizations.m in Sources */,
+				6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

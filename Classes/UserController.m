@@ -12,6 +12,7 @@
 #import "ASIFormDataRequest.h"
 #import "FeedController.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
 
 
 @interface UserController ()
@@ -87,8 +88,7 @@
 	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
     } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
-		NSString *userURLString = [NSString stringWithFormat:kUserGithubFormat, user.login];
-        NSURL *userURL = [NSURL URLWithString:userURLString];
+        NSURL *userURL = [NSURL URLWithFormat:kUserGithubFormat, user.login];
 		WebController *webController = [[WebController alloc] initWithURL:userURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             

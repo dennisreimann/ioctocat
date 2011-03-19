@@ -1,6 +1,7 @@
 #import "GHResource.h"
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
+#import "NSURL+Extensions.h"
 
 
 @interface GHResource ()
@@ -25,8 +26,7 @@
     va_start(args, formatString);
     NSString *pathString = [[NSString alloc] initWithFormat:formatString arguments:args];
     va_end(args);
-	NSString *urlString = [NSString stringWithFormat:@"%@%@", kAPIBaseFormat, pathString];
-	NSURL *url = [NSURL	URLWithString:urlString];
+	NSURL *url = [NSURL	URLWithFormat:@"%@%@", kAPIBaseFormat, pathString];
 	[pathString release];
 	return [self resourceWithURL:url];
 }

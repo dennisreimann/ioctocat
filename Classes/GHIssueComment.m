@@ -2,7 +2,7 @@
 #import "GHIssue.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
-#import "CJSONDeserializer.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHIssueComment
@@ -53,27 +53,8 @@
 
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:kIssueCommentCommentParamName];
-	NSString *urlString = [NSString stringWithFormat:kIssueCommentFormat, issue.repository.owner, issue.repository.name, issue.num];
-	NSURL *saveURL = [NSURL URLWithString:urlString];
+	NSURL *saveURL = [NSURL URLWithFormat:kIssueCommentFormat, issue.repository.owner, issue.repository.name, issue.num];
 	[self saveValues:values withURL:saveURL];
-}
-
-- (void)parseSaveData:(NSData *)theData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
-	id res = parseError ? (id)parseError : (id)resultDict;
-	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
-	[pool release];
-}
-
-- (void)parsingSaveFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.savingStatus = GHResourceStatusNotProcessed;
-	} else {
-		self.savingStatus = GHResourceStatusProcessed;
-	}
 }
 
 @end

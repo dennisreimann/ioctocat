@@ -1,6 +1,7 @@
 #import "GHSearch.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHSearch
@@ -33,8 +34,7 @@
 	// Dynamic resourceURL, because it depends on the
 	// searchTerm which isn't always available in advance
 	NSString *encodedSearchTerm = [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *urlString = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
-	NSURL *url = [NSURL URLWithString:urlString];
+	NSURL *url = [NSURL URLWithFormat:urlFormat, encodedSearchTerm];
 	return url;
 }
 

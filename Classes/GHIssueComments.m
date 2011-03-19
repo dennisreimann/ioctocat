@@ -2,8 +2,7 @@
 #import "GHIssueComment.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHIssueComments
@@ -31,8 +30,7 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// issue num which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
-	return [NSURL URLWithString:urlString];
+	return [NSURL URLWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
 }
 
 - (NSString *)description {

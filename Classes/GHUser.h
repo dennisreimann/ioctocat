@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GravatarLoader, GHUsers, GHRepositories, GHRepository, GHFeed;
+@class GravatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHFeed;
 
 @interface GHUser : GHResource {
 	NSString *name;
@@ -17,6 +17,7 @@
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
+    GHOrganizations *organizations;
 	GHRepositories *repositories;
 	GHRepositories *watchedRepositories;
 	GHFeed *recentActivity;
@@ -35,6 +36,7 @@
 @property(nonatomic,retain)NSString *gravatarHash;
 @property(nonatomic,retain)NSURL *blogURL;
 @property(nonatomic,retain)UIImage *gravatar;
+@property(nonatomic,retain)GHOrganizations *organizations;
 @property(nonatomic,retain)GHRepositories *repositories;
 @property(nonatomic,retain)GHRepositories *watchedRepositories;
 @property(nonatomic,retain)GHFeed *recentActivity;

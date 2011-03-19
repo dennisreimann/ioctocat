@@ -17,6 +17,7 @@
 #import "NetworkCell.h"
 #import "NetworksController.h"
 #import "BranchCell.h"
+#import "NSURL+Extensions.h"
 
 
 @interface RepositoryController ()
@@ -76,8 +77,7 @@
     if (buttonIndex == 0) {
         [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
     } else if (buttonIndex == 1) {
-        NSString *urlString = [NSString stringWithFormat:kRepoGithubFormat, repository.owner, repository.name];
-        NSURL *theURL = [NSURL URLWithString:urlString];
+        NSURL *theURL = [NSURL URLWithFormat:kRepoGithubFormat, repository.owner, repository.name];
 		WebController *webController = [[WebController alloc] initWithURL:theURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             

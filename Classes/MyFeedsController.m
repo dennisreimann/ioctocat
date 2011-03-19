@@ -6,6 +6,7 @@
 #import "FeedEntryCell.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation MyFeedsController
@@ -33,10 +34,8 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	NSString *newsAddress = [NSString stringWithFormat:kUserNewsFeedFormat, username, token];
-	NSString *activityAddress = [NSString stringWithFormat:kUserActivityFeedFormat, username, token];
-	NSURL *newsFeedURL = [NSURL URLWithString:newsAddress];
-	NSURL *activityFeedURL = [NSURL URLWithString:activityAddress];
+	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, username, token];
+	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, username, token];
 	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
 	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];

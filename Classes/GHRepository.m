@@ -3,6 +3,7 @@
 #import "GHIssues.h"
 #import "GHNetworks.h"
 #import "GHBranches.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHRepository
@@ -60,8 +61,7 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// owner and name which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kRepoFormat, owner, name];
-	return [NSURL URLWithString:urlString];
+	return [NSURL URLWithFormat:kRepoFormat, owner, name];
 }
 
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {

@@ -2,6 +2,7 @@
 #import "GHIssue.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHIssues
@@ -18,8 +19,7 @@
     [super init];
     self.repository = theRepository;
     self.issueState = theState;
-	NSString *urlString = [NSString stringWithFormat:kIssuesFormat, repository.owner, repository.name, issueState];
-	self.resourceURL = [NSURL URLWithString:urlString];	
+	self.resourceURL = [NSURL URLWithFormat:kIssuesFormat, repository.owner, repository.name, issueState];	
 	
 	return self;    
 }

@@ -1,5 +1,6 @@
 #import "GHUser.h"
 #import "GHUsers.h"
+#import "GHOrganizations.h"
 #import "GHFeed.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
@@ -7,6 +8,7 @@
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
 #import "iOctocat.h"
 
 
@@ -30,6 +32,7 @@
 @synthesize location;
 @synthesize gravatarHash;
 @synthesize gravatar;
+@synthesize organizations;
 @synthesize repositories;
 @synthesize watchedRepositories;
 @synthesize isAuthenticated;
@@ -64,6 +67,7 @@
     [gravatarLoader release], gravatarLoader = nil;
 	[gravatarHash release], gravatarHash = nil;
 	[gravatar release], gravatar = nil;
+	[organizations release], organizations = nil;
 	[repositories release], repositories = nil;
 	[watchedRepositories release], watchedRepositories = nil;
 	[recentActivity release], recentActivity = nil;
@@ -89,25 +93,20 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    // URLs
-    NSString *urlString = [NSString stringWithFormat:kUserFormat, login];
-	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
-	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
-    NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, login];
-    NSString *followersURLString = [NSString stringWithFormat:kUserFollowersFormat, login];
-	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
     
-	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
-	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
-    NSURL *followingURL = [NSURL URLWithString:followingURLString];
-    NSURL *followersURL = [NSURL URLWithString:followersURLString];
-	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
+	NSURL *organizationsURL = [NSURL URLWithFormat:kOrganizationsFormat, login];
+	NSURL *repositoriesURL = [NSURL URLWithFormat:kUserReposFormat, login];
+	NSURL *watchedRepositoriesURL = [NSURL URLWithFormat:kUserWatchedReposFormat, login];
+    NSURL *followingURL = [NSURL URLWithFormat:kUserFollowingFormat, login];
+    NSURL *followersURL = [NSURL URLWithFormat:kUserFollowersFormat, login];
+	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserFeedFormat, login];
     
-    self.resourceURL = [NSURL URLWithString:urlString];
+    self.resourceURL = [NSURL URLWithFormat:kUserFormat, login];
+	self.organizations = [GHOrganizations organizationsWithUser:self andURL:organizationsURL];
 	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
 	self.watchedRepositories = [GHRepositories repositoriesWithURL:watchedRepositoriesURL];
-    self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
-    self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
+    self.following = [GHUsers usersWithUser:self andURL:followingURL];
+    self.followers = [GHUsers usersWithUser:self andURL:followersURL];
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
@@ -150,8 +149,7 @@
 }
 
 - (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser {
-	NSString *followingURLString = [NSString stringWithFormat:kUserFollowFormat, theMode, theUser.login];
-	NSURL *followingURL = [NSURL URLWithString:followingURLString];
+	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theMode, theUser.login];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
 	[request setRequestMethod:@"POST"];
@@ -191,8 +189,7 @@
 }
 
 - (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository {
-	NSString *watchingURLString = [NSString stringWithFormat:kRepoWatchFormat, theMode, theRepository.owner, theRepository.name];
-	NSURL *watchingURL = [NSURL URLWithString:watchingURLString];
+	NSURL *watchingURL = [NSURL URLWithFormat:kRepoWatchFormat, theMode, theRepository.owner, theRepository.name];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];

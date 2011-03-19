@@ -4,6 +4,7 @@
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
+#import "NSURL+Extensions.h"
 
 
 @interface GHIssue ()
@@ -67,8 +68,7 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// num which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kIssueFormat, repository.owner, repository.name, num];
-	return [NSURL URLWithString:urlString];
+	return [NSURL URLWithFormat:kIssueFormat, repository.owner, repository.name, num];
 }
 
 #pragma mark Loading
@@ -102,8 +102,7 @@
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
-	NSString *urlString = [NSString stringWithFormat:kIssueToggleFormat, theToggle, repository.owner, repository.name, num];
-	NSURL *url = [NSURL URLWithString:urlString];
+	NSURL *url = [NSURL URLWithFormat:kIssueToggleFormat, theToggle, repository.owner, repository.name, num];
 	// Send the request
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
 	[request setDelegate:self];
@@ -144,13 +143,12 @@
 #pragma mark Saving
 
 - (void)saveData {
-	NSString *urlString;
+	NSURL *url;
 	if (self.isNew) {
-		urlString = [NSString stringWithFormat:kIssueOpenFormat, repository.owner, repository.name];
+		url = [NSURL URLWithFormat:kIssueOpenFormat, repository.owner, repository.name];
 	} else {
-		urlString = [NSString stringWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
+		url = [NSURL URLWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
 	}
-	NSURL *url = [NSURL URLWithString:urlString];
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, kIssueTitleParamName, body, kIssueBodyParamName, nil];
 	[self saveValues:values withURL:url];
 }

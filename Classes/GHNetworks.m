@@ -1,7 +1,8 @@
 #import "GHNetworks.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "ASIFormDataRequest.h"
+#import "NSURL+Extensions.h"
+
 
 @implementation GHNetworks
 
@@ -15,8 +16,7 @@
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];
     self.repository = theRepository;
-	NSString *urlString = [NSString stringWithFormat:kRepoNetworkFormat, repository.owner, repository.name];
-	self.resourceURL = [NSURL URLWithString:urlString];
+	self.resourceURL = [NSURL URLWithFormat:kRepoNetworkFormat, repository.owner, repository.name];
 	return self;    
 }
 

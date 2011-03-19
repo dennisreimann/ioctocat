@@ -1,8 +1,7 @@
 #import "GHBranches.h"
 #import "GHBranch.h"
 #import "GHRepository.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHBranches
@@ -18,8 +17,7 @@
 	[super init];
 	self.repository = theRepository;
 	self.branches = [NSMutableArray array];
-	NSString *urlString = [NSString stringWithFormat:kRepoBranchesFormat, repository.owner, repository.name];
-	self.resourceURL = [NSURL URLWithString:urlString];
+	self.resourceURL = [NSURL URLWithFormat:kRepoBranchesFormat, repository.owner, repository.name];
 	return self;
 }
 

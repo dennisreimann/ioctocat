@@ -1,9 +1,8 @@
 #import "GHCommit.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHCommit
@@ -37,8 +36,7 @@
 	
 	// Build Resource URL
 	NSString *baseString = repository.isPrivate ? kRepoPrivateCommitFormat : kRepoPublicCommitFormat;
-	NSString *urlString = [NSString stringWithFormat:baseString, repository.owner, repository.name, commitID];
-	self.resourceURL = [NSURL URLWithString:urlString];
+	self.resourceURL = [NSURL URLWithFormat:baseString, repository.owner, repository.name, commitID];
 	
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;

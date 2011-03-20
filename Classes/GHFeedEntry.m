@@ -7,7 +7,15 @@
 
 @implementation GHFeedEntry
 
-@synthesize entryID, eventType, eventItem, date, linkURL, title, content, authorName, read;
+@synthesize entryID;
+@synthesize eventType;
+@synthesize eventItem;
+@synthesize date;
+@synthesize linkURL;
+@synthesize title;
+@synthesize content;
+@synthesize authorName;
+@synthesize read;
 
 - (id)init {
     [super init];
@@ -33,6 +41,10 @@
 
 - (GHUser *)user {
 	return [[iOctocat sharedInstance] userWithLogin:authorName];
+}
+
+- (GHOrganization *)organization {
+	return [[iOctocat sharedInstance] organizationWithLogin:authorName];
 }
 
 - (id)eventItem {
@@ -72,6 +84,11 @@
 	} else if ([eventType isEqualToString:@"follow"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" following "];
 		NSString *username = [comps1 objectAtIndex:1];
+		self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
+	} else if ([eventType isEqualToString:@"team_add"]) {
+		NSArray *comps1 = [title componentsSeparatedByString:@" added "];
+        NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" to "];
+		NSString *username = [comps2 objectAtIndex:0];
 		self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
 	} else if ([eventType isEqualToString:@"watch"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" started watching "];

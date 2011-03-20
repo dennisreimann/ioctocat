@@ -41,6 +41,8 @@
 @synthesize privateGistCount;
 @synthesize publicRepoCount;
 @synthesize privateRepoCount;
+@synthesize followingCount;
+@synthesize followersCount;
 @synthesize following;
 @synthesize followers;
 
@@ -136,6 +138,8 @@
     self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
     self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
     self.privateRepoCount = [[resource objectForKey:@"total_private_repo_count"] integerValue];
+    self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
+    self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
     self.isAuthenticated = [resource objectForKey:@"plan"] ? YES : NO;
 }
 

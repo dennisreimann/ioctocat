@@ -1,10 +1,12 @@
 #import "FeedEntryController.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "OrganizationController.h"
 #import "WebController.h"
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHOrganization.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
 #import "GravatarLoader.h"
@@ -57,7 +59,7 @@
 	gravatarView.image = entry.user.gravatar;
 	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadData];
 	// Update Toolbar
-	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, firstUserItem, nil];
+	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, (entry.eventType == @"team_add" ? organizationItem : firstUserItem), nil];
 	if ([entry.eventItem isKindOfClass:[GHUser class]]) {
 		[tbItems addObject:secondUserItem];
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
@@ -87,6 +89,7 @@
 	[secondUserItem release], secondUserItem = nil;
 	[issueItem release], issueItem = nil;
 	[commitItem release], commitItem = nil;
+    [organizationItem release], organizationItem = nil;
 	[navigationControl release], navigationControl = nil;
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[entry release], entry = nil;
@@ -141,6 +144,12 @@
 	UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
+}
+
+- (IBAction)showOrganization:(id)sender {
+	OrganizationController *orgController = [[OrganizationController alloc] initWithOrganization:(GHOrganization *)entry.organization];
+	[self.navigationController pushViewController:orgController animated:YES];
+	[orgController release];
 }
 
 - (IBAction)showIssue:(id)sender {

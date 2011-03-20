@@ -73,6 +73,8 @@
 			currentEntry.eventType = @"delete";
 		} else if ([event hasPrefix:@"Create"]) {
 			currentEntry.eventType = @"create";
+		} else if ([event hasPrefix:@"TeamAdd"]) {
+			currentEntry.eventType = @"team_add";
 		} else if ([event hasPrefix:@"Member"]) {
 			currentEntry.eventType = @"member";
 		} else if ([event hasPrefix:@"Gist"]) {

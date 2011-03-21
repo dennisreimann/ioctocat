@@ -53,12 +53,10 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIWindow" id="380026005">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">1316</int>
 				<object class="NSPSMatrix" key="NSFrameMatrix"/>
 				<string key="NSFrameSize">{320, 480}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MSAxIDEAA</bytes>
@@ -86,6 +84,7 @@
 							<string key="NSResourceName">TabBarFeeds.png</string>
 						</object>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<reference key="IBUITabBar" ref="447710804"/>
 					</object>
 					<reference key="IBUIParentViewController" ref="71694266"/>
 					<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -107,13 +106,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="IBUIViewController" id="456471521">
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
+								<reference key="IBUINavigationBar"/>
 								<string key="IBUITitle">Feeds</string>
 								<object class="IBUISegmentedControl" key="IBUITitleView" id="617151056">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">292</int>
 									<string key="NSFrame">{{6, 7}, {200, 30}}</string>
 									<reference key="NSSuperview"/>
-									<reference key="NSNextKeyView"/>
+									<reference key="NSWindow"/>
 									<bool key="IBUIOpaque">NO</bool>
 									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -176,6 +176,7 @@
 								<string key="NSResourceName">TabBarRepositories.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							<reference key="IBUITabBar" ref="447710804"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="71694266"/>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -219,6 +220,7 @@
 								<string key="NSResourceName">TabBarNetwork.png</string>
 							</object>
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							<reference key="IBUITabBar" ref="447710804"/>
 						</object>
 						<reference key="IBUIParentViewController" ref="71694266"/>
 						<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
@@ -259,6 +261,7 @@
 					<object class="IBUINavigationController" id="179602213">
 						<object class="IBUITabBarItem" key="IBUITabBarItem" id="638059485">
 							<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+							<reference key="IBUITabBar" ref="447710804"/>
 							<int key="IBUISystemItemIdentifier">8</int>
 						</object>
 						<reference key="IBUIParentViewController" ref="71694266"/>
@@ -337,13 +340,21 @@
 					<int key="NSvFlags">266</int>
 					<string key="NSFrame">{{0, 431}, {320, 49}}</string>
 					<reference key="NSSuperview"/>
-					<reference key="NSNextKeyView"/>
+					<reference key="NSWindow"/>
 					<object class="NSColor" key="IBUIBackgroundColor">
 						<int key="NSColorSpace">3</int>
 						<bytes key="NSWhite">MCAwAA</bytes>
 					</object>
 					<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 					<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					<object class="NSMutableArray" key="IBUIItems">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<reference ref="1071969642"/>
+						<reference ref="889727295"/>
+						<reference ref="314486534"/>
+						<reference ref="638059485"/>
+					</object>
+					<reference key="IBUISelectedItem" ref="1071969642"/>
 				</object>
 			</object>
 			<object class="IBUIView" id="650320448">
@@ -807,7 +818,35 @@
 			<nil key="sourceID"/>
 			<int key="maxID">124</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<bool key="EncodedWithXMLCoder">YES</bool>
+				<object class="IBPartialClassDescription">
+					<string key="className">MyFeedsController</string>
+					<string key="superclassName">PullToRefreshTableViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MyFeedsController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">PullToRefreshTableViewController</string>
+					<string key="superclassName">UITableViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/PullToRefreshTableViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">iOctocat</string>
+					<string key="superclassName">NSObject</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/iOctocat.h</string>
+					</object>
+				</object>
+			</object>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
@@ -834,9 +873,9 @@
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{28, 28}</string>
-				<string>{25, 25}</string>
-				<string>{26, 26}</string>
+				<string>{16, 16}</string>
+				<string>{16, 16}</string>
+				<string>{16, 16}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">300</string>

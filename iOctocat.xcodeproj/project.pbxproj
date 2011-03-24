@@ -215,6 +215,9 @@
 		8CE686E90FB8C83100A3D625 /* NetworkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE686E80FB8C83100A3D625 /* NetworkCell.xib */; };
 		8CFBCFB30FAB8A6300A2C37A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		8CFBCFB70FAB8A6D00A2C37A /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */; };
+		931D2FCA133513B400FAEF3E /* TabBarFeeds@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */; };
+		931D2FCB133513B400FAEF3E /* TabBarNetwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */; };
+		931D2FCC133513B400FAEF3E /* TabBarRepositories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */; };
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 /* End PBXBuildFile section */
 
@@ -514,6 +517,9 @@
 		8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarFeeds@2x.png"; sourceTree = "<group>"; };
+		931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNetwork@2x.png"; sourceTree = "<group>"; };
+		931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarRepositories@2x.png"; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -853,8 +859,11 @@
 			isa = PBXGroup;
 			children = (
 				6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */,
+				931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */,
 				6F5E9C751119D43E00752560 /* TabBarFeeds.png */,
+				931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */,
 				6F5E9C761119D43E00752560 /* TabBarNetwork.png */,
+				931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */,
 				6F316DA2111ADF2600FC4FE9 /* TabBarInbox.png */,
 			);
 			name = Tabbar;
@@ -1194,6 +1203,9 @@
 				6FB9CBF713355FB300C8DE29 /* Organizations.xib in Resources */,
 				6FB9CBFA133565D200C8DE29 /* team_add.png in Resources */,
 				6FB9CBFB133565D200C8DE29 /* team_add@2x.png in Resources */,
+				931D2FCA133513B400FAEF3E /* TabBarFeeds@2x.png in Resources */,
+				931D2FCB133513B400FAEF3E /* TabBarNetwork@2x.png in Resources */,
+				931D2FCC133513B400FAEF3E /* TabBarRepositories@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

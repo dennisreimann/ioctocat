@@ -611,13 +611,13 @@
 				6F6F176F11E316F3008B319F /* SystemConfiguration.framework */,
 				6F6F177311E316FE008B319F /* MobileCoreServices.framework */,
 				8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */,
-				8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				6F5E9AFB1119AACC00752560 /* QuartzCore.framework */,
 				6F5E9B011119AB1900752560 /* AudioToolbox.framework */,
 				6F5E9B621119AD2100752560 /* CoreGraphics.framework */,
 				A0C19D00131973C300045E04 /* MessageUI.framework */,
+				8CFBCFB60FAB8A6D00A2C37A /* libz.1.2.3.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1316,14 +1316,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blote";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "244683EC-D90A-43B3-9C68-048C8602E45C";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "4358C0BB-1EC4-4DD6-AD00-4F2864BB5954";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1348,14 +1348,14 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blöte";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dennis Blote";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PREBINDING = NO;
 				PRODUCT_NAME = iOctocat;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "98293887-3607-4957-A0F1-5D1289864984";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5ECDDCA1-2D3E-4491-BB0F-58CFA34CEA7C";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

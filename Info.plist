@@ -44,8 +44,6 @@
 	<string>MainWindow</string>
 	<key>SBUsesNetwork</key>
 	<true/>
-	<key>UIPrerenderedIcon</key>
-	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

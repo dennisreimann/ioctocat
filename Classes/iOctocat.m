@@ -1,9 +1,11 @@
 #import "iOctocat.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
+#import "GHOrganizations.h"
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
+#import "Reachability.h"
 
 
 @interface iOctocat ()
@@ -50,7 +52,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
-	if (launchDefault) [self authenticate];
+    
+    // Check for network connection
+    if (![[Reachability reachabilityForInternetConnection] isReachable]) {
+        [self presentLogin];
+        [self.loginController failWithMessage:@"Please ensure that you are connected to the internet"];
+    } else if (launchDefault) {
+        [self authenticate];
+    }
 }
 
 - (void)dealloc {
@@ -165,10 +174,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)authenticate {
 	if (self.currentUser.isAuthenticated) return;
+    [self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	if (!self.currentUser) {
 		[self presentLogin];
 	} else {
-		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.currentUser loadData];
 	}
 }
@@ -176,16 +185,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (self.currentUser.isLoading) {
 		[self showAuthenticationSheet];
-	} else if (self.currentUser.isLoaded) {
-		[self dismissAuthenticationSheet];
-		[self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-		if (self.currentUser.isAuthenticated) {
-			[self proceedAfterAuthentication];
-		} else {
-			[self presentLogin];
-			[self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
-		}
-	}
+	} else {
+        [self dismissAuthenticationSheet];
+        if (self.currentUser.isAuthenticated) {
+            [self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+            [self proceedAfterAuthentication];
+        } else {
+            [self presentLogin];
+            [self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
+        }
+    }
 }
 
 - (LoginController *)loginController {

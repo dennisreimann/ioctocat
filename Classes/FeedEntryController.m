@@ -128,10 +128,19 @@
 
 - (IBAction)showRepository:(id)sender {
 	id item = entry.eventItem;
-	GHRepository *repository = [item isKindOfClass:[GHIssue class]] ? [(GHIssue *)item repository] : item; 
-	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repository];
-	[self.navigationController pushViewController:repoController animated:YES];
-	[repoController release];
+	GHRepository *repository;
+    if ([item isKindOfClass:[GHRepository class]]) {
+        repository = item;
+    } else if ([item isKindOfClass:[GHIssue class]]) {
+        repository = [(GHIssue *)item repository];
+    } else if ([item isKindOfClass:[GHCommit class]]) {
+        repository = [(GHCommit *)item repository];
+    }
+    if (repository) {
+        RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repository];
+        [self.navigationController pushViewController:repoController animated:YES];
+        [repoController release];
+    }
 }
 
 - (IBAction)showFirstUser:(id)sender {

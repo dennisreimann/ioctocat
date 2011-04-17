@@ -21,7 +21,6 @@
     [super viewDidLoad];
     [self.currentUser.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     [organizationItem setEnabled:self.currentUser.organizations.isLoaded];
-    if (!self.currentUser.organizations.isLoaded) [self.currentUser.organizations loadData];
     loadCounter = 0;
 }
 
@@ -59,6 +58,7 @@
 	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
+    if (!self.currentUser.organizations.isLoaded) [self.currentUser.organizations loadData];
 }
 
 - (GHFeed *)currentFeed {

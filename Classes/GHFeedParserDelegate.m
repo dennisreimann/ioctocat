@@ -62,7 +62,9 @@
 		} else if ([event hasPrefix:@"Follow"]) {
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {
-			currentEntry.eventType = @"comment";
+			currentEntry.eventType = @"commit_comment";
+		} else if ([event hasPrefix:@"IssueComment"]) {
+			currentEntry.eventType = @"issue_comment";
 		} else if ([event hasPrefix:@"Push"]) {
 			currentEntry.eventType = @"push";
 		} else if ([event hasPrefix:@"Commit"] || [event hasPrefix:@"Grit::Commit"]) {

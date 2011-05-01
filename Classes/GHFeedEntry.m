@@ -63,24 +63,32 @@
 		NSString *owner = [repoComps objectAtIndex:0];
 		NSString *name = [repoComps objectAtIndex:1];
 		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
-		GHIssue *issue = [[GHIssue alloc] initWithRepository:repository];
+		GHIssue *issue = [GHIssue issueWithRepository:repository];
 		issue.num = num;
 		self.eventItem = issue;
-		[issue release];
 	} else if ([eventType isEqualToString:@"pull_request"]) {
 		NSArray *comps = [title componentsSeparatedByString:@" on "];
-		// NSArray *reqComps = [[comps objectAtIndex:0] componentsSeparatedByString:@" "];
-		// NSInteger num = [[issueComps lastObject] intValue];
 		NSArray *repoComps = [[comps objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [repoComps objectAtIndex:0];
 		NSString *name = [repoComps objectAtIndex:1];
 		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
-	} else if ([eventType isEqualToString:@"comment"]) {
+	} else if ([eventType isEqualToString:@"commit_comment"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" on "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
 		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
+	} else if ([eventType isEqualToString:@"issue_comment"]) {
+		NSArray *comps = [title componentsSeparatedByString:@" on "];
+		NSArray *issueComps = [[comps objectAtIndex:1] componentsSeparatedByString:@" "];
+		NSInteger num = [[issueComps lastObject] intValue];
+		NSArray *repoComps = [[comps objectAtIndex:2] componentsSeparatedByString:@"/"];
+		NSString *owner = [repoComps objectAtIndex:0];
+		NSString *name = [repoComps objectAtIndex:1];
+		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
+		GHIssue *issue = [GHIssue issueWithRepository:repository];
+		issue.num = num;
+		self.eventItem = issue;
 	} else if ([eventType isEqualToString:@"follow"]) {
 		NSArray *comps1 = [title componentsSeparatedByString:@" following "];
 		NSString *username = [comps1 objectAtIndex:1];

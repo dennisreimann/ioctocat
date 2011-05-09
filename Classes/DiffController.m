@@ -1,4 +1,5 @@
 #import "DiffController.h"
+#import "NSString+Extensions.h"
 
 
 @interface DiffController ()
@@ -49,7 +50,8 @@
 }
 
 - (NSString *)htmlFormatDiff:(NSString *)theDiff {
-	NSArray *lines = [theDiff componentsSeparatedByString:@"\n"];
+    NSString *escaped = [theDiff escapeHTML];
+	NSArray *lines = [escaped componentsSeparatedByString:@"\n"];
 	NSMutableString *diff = [NSMutableString string];
 	for (NSString *line in lines) {
 		if ([line hasPrefix:@"@@"]) {

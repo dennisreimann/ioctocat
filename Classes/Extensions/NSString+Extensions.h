@@ -4,4 +4,5 @@
 @interface NSString (Extensions)
 - (NSString *)lowercaseFirstCharacter;
 - (BOOL)isEmpty;
+- (NSString *)escapeHTML;
 @end

@@ -128,7 +128,7 @@
 
 - (IBAction)showRepository:(id)sender {
 	id item = entry.eventItem;
-	GHRepository *repository;
+	GHRepository *repository = nil;
     if ([item isKindOfClass:[GHRepository class]]) {
         repository = item;
     } else if ([item isKindOfClass:[GHIssue class]]) {

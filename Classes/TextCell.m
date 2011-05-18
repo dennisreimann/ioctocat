@@ -17,6 +17,9 @@
 	contentTextLabel.text = theText;
 	CGSize constraint = CGSizeMake(maxWidth, 20000);
 	CGSize size = [theText sizeWithFont:contentTextLabel.font constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    if (size.height < 24) {
+        size.height = 24;
+    }
 	contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, size.height);
 }
 

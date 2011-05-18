@@ -2,6 +2,7 @@
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 
 
 @interface GHResource ()
@@ -33,6 +34,20 @@
 
 + (id)resourceWithURL:(NSURL *)theURL {
 	return [[[[self class] alloc] initWithURL:theURL] autorelease];
+}
+
++ (NSURL *)smartURLFromString:(NSString *)theString {
+    if (!theString || [theString isKindOfClass:[NSNull class]] || [theString isEmpty]) {
+        return nil;
+    } else {
+        NSURL *url = [NSURL URLWithString:theString];
+        if ([url scheme]) {
+            return url;
+        } else {
+            theString = [@"http://" stringByAppendingString:theString];
+            return [NSURL URLWithString:theString];
+        }
+    }
 }
 
 - (id)initWithURL:(NSURL *)theURL {

@@ -49,7 +49,6 @@
 		6F316D9A111ADA4F00FC4FE9 /* ToolbarWatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */; };
 		6F316D9D111ADBA300FC4FE9 /* ToolbarFavorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
-		6F316DA3111ADF2600FC4FE9 /* TabBarInbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316DA2111ADF2600FC4FE9 /* TabBarInbox.png */; };
 		6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
 		6F358C090FB1EAE0004D2828 /* Overlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C050FB1EAE0004D2828 /* Overlay.xib */; };
 		6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
@@ -283,7 +282,6 @@
 		6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWatch.png; sourceTree = "<group>"; };
 		6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarFavorite.png; sourceTree = "<group>"; };
 		6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRepository.png; sourceTree = "<group>"; };
-		6F316DA2111ADF2600FC4FE9 /* TabBarInbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarInbox.png; sourceTree = "<group>"; };
 		6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
 		6F358C050FB1EAE0004D2828 /* Overlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Overlay.xib; path = IBFiles/Overlay.xib; sourceTree = "<group>"; };
 		6F358C060FB1EAE0004D2828 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Search.xib; path = IBFiles/Search.xib; sourceTree = "<group>"; };
@@ -876,7 +874,6 @@
 				931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */,
 				6F5E9C761119D43E00752560 /* TabBarNetwork.png */,
 				931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */,
-				6F316DA2111ADF2600FC4FE9 /* TabBarInbox.png */,
 			);
 			name = Tabbar;
 			path = Images/Tabbar;
@@ -1163,7 +1160,6 @@
 				6F316D9A111ADA4F00FC4FE9 /* ToolbarWatch.png in Resources */,
 				6F316D9D111ADBA300FC4FE9 /* ToolbarFavorite.png in Resources */,
 				6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */,
-				6F316DA3111ADF2600FC4FE9 /* TabBarInbox.png in Resources */,
 				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 				6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */,
 				6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */,

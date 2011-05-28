@@ -222,6 +222,7 @@
 		931D2FCB133513B400FAEF3E /* TabBarNetwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */; };
 		931D2FCC133513B400FAEF3E /* TabBarRepositories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */; };
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
+		E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -527,6 +528,7 @@
 		931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNetwork@2x.png"; sourceTree = "<group>"; };
 		931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarRepositories@2x.png"; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RefreshArrow@2x.png"; path = "Images/RefreshArrow@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -970,6 +972,7 @@
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
 				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
+				E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1218,6 +1221,7 @@
 				6F843155136D53350016E367 /* commit_comment@2x.png in Resources */,
 				6F843156136D53350016E367 /* issue_comment.png in Resources */,
 				6F843157136D53350016E367 /* issue_comment@2x.png in Resources */,
+				E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

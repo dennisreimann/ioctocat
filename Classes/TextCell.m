@@ -15,10 +15,12 @@
 
 - (void)setContentText:(NSString *)theText {
 	contentTextLabel.text = theText;
-	[contentTextLabel sizeToFit];
-	if (contentTextLabel.frame.size.width > maxWidth) {
-		contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, self.height);
-	}
+	CGSize constraint = CGSizeMake(maxWidth, 20000);
+	CGSize size = [theText sizeWithFont:contentTextLabel.font constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
+    if (size.height < 24) {
+        size.height = 24;
+    }
+	contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, size.height);
 }
 
 - (CGFloat)height {

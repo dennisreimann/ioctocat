@@ -21,6 +21,7 @@
 }
 
 - (void)dealloc {
+    [repository.networks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [loadingNetworksCell release];
     [noNetworksCell release];
     [networkCell release];    

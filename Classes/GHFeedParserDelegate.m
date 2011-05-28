@@ -1,6 +1,7 @@
 #import "GHFeedParserDelegate.h"
 #import "GHFeedEntry.h"
 #import "iOctocat.h"
+#import "NSString+Extensions.h"
 
 
 @implementation GHFeedParserDelegate
@@ -62,7 +63,9 @@
 		} else if ([event hasPrefix:@"Follow"]) {
 			currentEntry.eventType = @"follow";
 		} else if ([event hasPrefix:@"CommitComment"]) {
-			currentEntry.eventType = @"comment";
+			currentEntry.eventType = @"commit_comment";
+		} else if ([event hasPrefix:@"IssueComment"]) {
+			currentEntry.eventType = @"issue_comment";
 		} else if ([event hasPrefix:@"Push"]) {
 			currentEntry.eventType = @"push";
 		} else if ([event hasPrefix:@"Commit"] || [event hasPrefix:@"Grit::Commit"]) {
@@ -88,7 +91,9 @@
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
 		currentEntry.date = [iOctocat parseDate:currentElementValue withFormat:kISO8601TimeFormat];
-	} else if ([elementName isEqualToString:@"title"] || [elementName isEqualToString:@"content"]) {
+	} else if ([elementName isEqualToString:@"title"]) {
+		[currentEntry setValue:[currentElementValue stringByDecodingXMLEntities] forKey:elementName];
+    } else if ([elementName isEqualToString:@"content"]) {
 		[currentEntry setValue:currentElementValue forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {
 		currentEntry.authorName = currentElementValue;

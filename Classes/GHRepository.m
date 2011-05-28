@@ -1,4 +1,5 @@
 #import "GHRepository.h"
+#import "GHResource.h"
 #import "iOctocat.h"
 #import "GHIssues.h"
 #import "GHNetworks.h"
@@ -105,8 +106,8 @@
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
     
-    self.githubURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"url"]];
-    self.homepageURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"homepage"]];                                                                                   
+    self.githubURL = [NSURL URLWithString:[resource objectForKey:@"url"]];
+    self.homepageURL = [GHResource smartURLFromString:[resource objectForKey:@"homepage"]];
     self.descriptionText = [resource objectForKey:@"description"];
     self.isFork = [[resource objectForKey:@"fork"] boolValue];
     self.isPrivate = [[resource objectForKey:@"private"] boolValue];

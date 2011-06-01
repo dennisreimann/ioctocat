@@ -1,5 +1,4 @@
 #import "NetworksController.h"
-#import "GHNetwork.h"
 #import "GHNetworks.h"
 #import "RepositoryController.h"
 
@@ -22,6 +21,7 @@
 }
 
 - (void)dealloc {
+    [repository.networks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [loadingNetworksCell release];
     [noNetworksCell release];
     [networkCell release];    
@@ -56,14 +56,13 @@
 		[[NSBundle mainBundle] loadNibNamed:@"NetworkCell" owner:self options:nil];
 		cell = networkCell;
 	}
-	cell.network = [self.currentNetworks.entries objectAtIndex:indexPath.row];
+	cell.repository = [self.currentNetworks.entries objectAtIndex:indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	GHNetwork *network = [self.currentNetworks.entries objectAtIndex:indexPath.row];
-	GHRepository *networkRepository = network.repository;
-    RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:networkRepository];
+	GHRepository *repo = [self.currentNetworks.entries objectAtIndex:indexPath.row];
+    RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
     [self.navigationController pushViewController:repoController animated:YES];
     [repoController release];    
 }

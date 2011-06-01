@@ -1,8 +1,8 @@
-# xcode noise
-build/*
+.DS_Store
+build/
 *.pbxuser
 *.mode1v3
+*.mode2v3
 *.perspectivev3
-# osx noise
-.DS_Store
 profile
+xcuserdata

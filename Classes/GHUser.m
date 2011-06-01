@@ -1,17 +1,19 @@
 #import "GHUser.h"
+#import "GHUsers.h"
+#import "GHOrganizations.h"
 #import "GHFeed.h"
 #import "GHRepository.h"
+#import "GHRepositories.h"
+#import "GHResource.h"
 #import "GravatarLoader.h"
-#import "GHReposParserDelegate.h"
-#import "GHUsersParserDelegate.h"
 #import "ASIFormDataRequest.h"
 #import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
 #import "iOctocat.h"
 
 
 @interface GHUser ()
-- (void)parseXMLWithToken:(NSString *)token;
 - (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser;
 - (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository;
 - (void)followToggleFinished:(ASIHTTPRequest *)request;
@@ -30,8 +32,8 @@
 @synthesize blogURL;
 @synthesize location;
 @synthesize gravatarHash;
-@synthesize searchTerm;
 @synthesize gravatar;
+@synthesize organizations;
 @synthesize repositories;
 @synthesize watchedRepositories;
 @synthesize isAuthenticated;
@@ -40,51 +42,40 @@
 @synthesize privateGistCount;
 @synthesize publicRepoCount;
 @synthesize privateRepoCount;
+@synthesize followingCount;
+@synthesize followersCount;
 @synthesize following;
 @synthesize followers;
 
-+ (id)userForSearchTerm:(NSString *)theSearchTerm {
-	GHUser *user = [[[GHUser alloc] init] autorelease];
-	user.searchTerm = theSearchTerm;
-	return user;
-}
-
 + (id)userWithLogin:(NSString *)theLogin {
-	return [[[GHUser alloc] initWithLogin:theLogin] autorelease];
-}
-
-- (id)init {
-	[super init];
-	[self addObserver:self forKeyPath:kUserLoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	isAuthenticated = NO;
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
-	return self;
+	return [[[[self class] alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
-	self.gravatar = [UIImage imageWithContentsOfFile:self.cachedGravatarPath];
+	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+	self.isAuthenticated = NO;
+	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
 
 - (void)dealloc {
-	[self removeObserver:self forKeyPath:kUserLoginKeyPath];
-	[name release];
-	[login release];
-	[email release];
-	[company release];
-	[blogURL release];
-	[location release];
-	[gravatarHash release];
-	[searchTerm release];
-	[gravatar release];
-	[repositories release];
-	[watchedRepositories release];
-	[gravatarLoader release];
-	[recentActivity release];
-    [following release];
-    [followers release];
+	[name release], name = nil;
+	[login release], login = nil;
+	[email release], email = nil;
+	[company release], company = nil;
+	[blogURL release], blogURL = nil;
+	[location release], location = nil;
+    [gravatarLoader release], gravatarLoader = nil;
+	[gravatarHash release], gravatarHash = nil;
+	[gravatar release], gravatar = nil;
+	[organizations release], organizations = nil;
+	[repositories release], repositories = nil;
+	[watchedRepositories release], watchedRepositories = nil;
+	[recentActivity release], recentActivity = nil;
+    [following release], following = nil;
+    [followers release], followers = nil;
     [super dealloc];
 }
 
@@ -105,89 +96,55 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-	// Repositories
-	NSString *repositoriesURLString = [NSString stringWithFormat:kUserReposFormat, login];
-	NSString *watchedRepositoriesURLString = [NSString stringWithFormat:kUserWatchedReposFormat, login];
-	NSURL *repositoriesURL = [NSURL URLWithString:repositoriesURLString];
-	NSURL *watchedRepositoriesURL = [NSURL URLWithString:watchedRepositoriesURLString];
-	self.repositories = [[[GHRepositories alloc] initWithUser:self andURL:repositoriesURL] autorelease];
-	self.watchedRepositories = [[[GHRepositories alloc] initWithUser:self andURL:watchedRepositoriesURL] autorelease];
-	// Recent Activity
-	NSString *activityFeedURLString = [NSString stringWithFormat:kUserFeedFormat, login];
-	NSURL *activityFeedURL = [NSURL URLWithString:activityFeedURLString];
-	self.recentActivity = [[[GHFeed alloc] initWithURL:activityFeedURL] autorelease];
+    
+	NSURL *organizationsURL = [NSURL URLWithFormat:kOrganizationsFormat, login];
+	NSURL *repositoriesURL = [NSURL URLWithFormat:kUserReposFormat, login];
+	NSURL *watchedRepositoriesURL = [NSURL URLWithFormat:kUserWatchedReposFormat, login];
+    NSURL *followingURL = [NSURL URLWithFormat:kUserFollowingFormat, login];
+    NSURL *followersURL = [NSURL URLWithFormat:kUserFollowersFormat, login];
+	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserFeedFormat, login];
+    
+    self.resourceURL = [NSURL URLWithFormat:kUserFormat, login];
+	self.organizations = [GHOrganizations organizationsWithUser:self andURL:organizationsURL];
+	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
+	self.watchedRepositories = [GHRepositories repositoriesWithURL:watchedRepositoriesURL];
+    self.following = [GHUsers usersWithURL:followingURL];
+    self.followers = [GHUsers usersWithURL:followersURL];
+	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserLoginKeyPath]) {
-		NSString *newLogin = [(GHUser *)object login];
-		NSString *followingURLString = [NSString stringWithFormat:kUserFollowingFormat, newLogin];
-		NSString *followersURLString = [NSString stringWithFormat:kUserFollowersFormat, newLogin];
-		NSURL *followingURL = [NSURL URLWithString:followingURLString];
-		NSURL *followersURL = [NSURL URLWithString:followersURLString];
-		self.following = [[[GHUsers alloc] initWithUser:self andURL:followingURL] autorelease];
-		self.followers = [[[GHUsers alloc] initWithUser:self andURL:followersURL] autorelease];
-	}
+- (void)setGravatarHash:(NSString *)theHash {
+	[theHash retain];
+	[gravatarHash release];
+	gravatarHash = theHash;
+    
+	if (gravatarHash) {
+       [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
+    }
 }
 
-#pragma mark User loading
+#pragma mark Loading
 
-- (void)loadUser {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:nil];
-}
-
-- (void)authenticateWithToken:(NSString *)theToken {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusLoading;
-	[self performSelectorInBackground:@selector(parseXMLWithToken:) withObject:theToken];
-}
-
-- (void)parseXMLWithToken:(NSString *)token {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *userURLString;
-	if (login) {
-		userURLString = token ? [NSString stringWithFormat:kAuthenticateUserXMLFormat, login, login, token] : [NSString stringWithFormat:kUserXMLFormat, login];
-	} else {
-		userURLString = [NSString stringWithFormat:kUserSearchFormat, searchTerm];
-	}
-	NSURL *userURL = [NSURL URLWithString:userURLString];    
-	GHUsersParserDelegate *parserDelegate = [[GHUsersParserDelegate alloc] initWithTarget:self andSelector:@selector(loadedUsers:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithContentsOfURL:userURL];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)loadedUsers:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-	} else if ([(NSArray *)theResult count] > 0) {
-		GHUser *user = [(NSArray *)theResult objectAtIndex:0];
-		if (!login || [login isEmpty]) self.login = user.login;
-		self.name = user.name;
-		self.email = user.email;
-		self.company = user.company;
-		self.location = user.location;
-		self.gravatarHash = user.gravatarHash;
-		self.blogURL = user.blogURL;
-		self.publicGistCount = user.publicGistCount;
-		self.privateGistCount = user.privateGistCount;
-		self.publicRepoCount = user.publicRepoCount;
-		self.privateRepoCount = user.privateRepoCount;
-		self.isAuthenticated = user.isAuthenticated;
-		if (gravatarHash) [gravatarLoader loadHash:gravatarHash withSize:44];
-		else if (email) [gravatarLoader loadEmail:email withSize:44];
-	}
-	self.loadingStatus = GHResourceStatusLoaded;
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"user"] ? [theDict objectForKey:@"user"] : theDict;
+    
+    if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
+    self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
+    NSString *mail = [resource objectForKey:@"email"];
+    if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
+        self.email = [resource objectForKey:@"email"];
+    }
+    self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
+    self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
+    self.gravatarHash = [[resource objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"gravatar_id"];
+    self.blogURL = [GHResource smartURLFromString:[resource objectForKey:@"blog"]];
+    self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
+    self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
+    self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
+    self.privateRepoCount = [[resource objectForKey:@"total_private_repo_count"] integerValue];
+    self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
+    self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
+    self.isAuthenticated = [resource objectForKey:@"plan"] ? YES : NO;
 }
 
 #pragma mark Following
@@ -208,10 +165,10 @@
 }
 
 - (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser {
-	NSString *followingURLString = [NSString stringWithFormat:kFollowUserFormat, theMode, theUser.login];
-	NSURL *followingURL = [NSURL URLWithString:followingURLString];
+	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theMode, theUser.login];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
+	[request setRequestMethod:@"POST"];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
 	[request setDidFailSelector:@selector(followToggleFailed:)];
 	[[iOctocat queue] addOperation:request];
@@ -219,7 +176,7 @@
 
 - (void)followToggleFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Follow toggle %@ finished: %@", [request url], [request responseString]);
-	self.following.loadingStatus = GHResourceStatusNotLoaded;
+	self.following.loadingStatus = GHResourceStatusNotProcessed;
     [self.following loadData];
 }
 
@@ -248,8 +205,7 @@
 }
 
 - (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository {
-	NSString *watchingURLString = [NSString stringWithFormat:kWatchRepoFormat, theMode, theRepository.owner, theRepository.name];
-	NSURL *watchingURL = [NSURL URLWithString:watchingURLString];
+	NSURL *watchingURL = [NSURL URLWithFormat:kRepoWatchFormat, theMode, theRepository.owner, theRepository.name];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];
@@ -259,7 +215,7 @@
 
 - (void)watchToggleFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Watch toggle %@ finished: %@", [request url], [request responseString]);
-	self.watchedRepositories.loadingStatus = GHResourceStatusNotLoaded;
+	self.watchedRepositories.loadingStatus = GHResourceStatusNotProcessed;
     [self.watchedRepositories loadData];
 }
 
@@ -274,14 +230,7 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:self.cachedGravatarPath atomically:YES];
-}
-
-- (NSString *)cachedGravatarPath {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *imageName = [NSString stringWithFormat:@"%@.png", login];
-	return [documentsPath stringByAppendingPathComponent:imageName];
+	[UIImagePNGRepresentation(theImage) writeToFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
 }
 
 @end

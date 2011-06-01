@@ -1,9 +1,8 @@
 #import "GHCommit.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHCommit
@@ -26,15 +25,18 @@
 @synthesize committer;
 @synthesize repository;
 
++ (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
+	return [[[[self class] alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
+}
+
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
 	[super init];
 	self.repository = theRepository;
 	self.commitID = theCommitID;
 	
 	// Build Resource URL
-	NSString *baseString = repository.isPrivate ? kPrivateRepoCommitJSONFormat : kPublicRepoCommitJSONFormat;
-	NSString *urlString = [NSString stringWithFormat:baseString, repository.owner, repository.name, commitID];
-	self.resourceURL = [NSURL URLWithString:urlString];
+	NSString *baseString = repository.isPrivate ? kRepoPrivateCommitFormat : kRepoPublicCommitFormat;
+	self.resourceURL = [NSURL URLWithFormat:baseString, repository.owner, repository.name, commitID];
 	
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
@@ -78,7 +80,7 @@
 	if (self.isLoading) return;
 	self.error = nil;
 	if (repository.isLoaded) {
-		self.loadingStatus = GHResourceStatusLoading;
+		self.loadingStatus = GHResourceStatusProcessing;
 		// Send the request
 		ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:resourceURL];
 		[request setDelegate:self];
@@ -91,33 +93,21 @@
 	}
 }
 
-- (void)parseData:(NSData *)data {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
-    id res = parseError ? (id)parseError : (id)[dict objectForKey:@"commit"];
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		NSString *authorLogin = [[theResult objectForKey:@"author"] objectForKey:@"login"];
-		NSString *committerLogin = [[theResult objectForKey:@"committer"] objectForKey:@"login"];
-		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
-		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-		self.committedDate = [iOctocat parseDate:[theResult objectForKey:@"committed_date"]];
-		self.authoredDate = [iOctocat parseDate:[theResult objectForKey:@"authored_date"]];
-		self.message = [theResult objectForKey:@"message"];
-		self.tree = [theResult objectForKey:@"tree"];
-		self.added = [theResult objectForKey:@"added"];
-		self.modified = [theResult objectForKey:@"modified"];
-		self.removed = [theResult objectForKey:@"removed"];
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"commit"];
+	
+    NSString *authorLogin = [[resource objectForKey:@"author"] objectForKey:@"login"];
+    NSString *committerLogin = [[resource objectForKey:@"committer"] objectForKey:@"login"];
+    
+    self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+    self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
+    self.committedDate = [iOctocat parseDate:[resource objectForKey:@"committed_date"] withFormat:kISO8601TimeFormat];
+    self.authoredDate = [iOctocat parseDate:[resource objectForKey:@"authored_date"] withFormat:kISO8601TimeFormat];
+    self.message = [resource objectForKey:@"message"];
+    self.tree = [resource objectForKey:@"tree"];
+    self.added = [resource objectForKey:@"added"];
+    self.modified = [resource objectForKey:@"modified"];
+    self.removed = [resource objectForKey:@"removed"];
 }
 
 @end

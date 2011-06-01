@@ -9,6 +9,7 @@
 #import "GHIssueComments.h"
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
 
 
 @interface IssueController ()
@@ -145,8 +146,7 @@
     } else if (buttonIndex == 2) {
 		[self addComment:nil];                  
     } else if (buttonIndex == 3) {
-		NSString *issueURLString = [NSString stringWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
-        NSURL *issueURL = [NSURL URLWithString:issueURLString];
+        NSURL *issueURL = [NSURL URLWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
 		WebController *webController = [[WebController alloc] initWithURL:issueURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];                        

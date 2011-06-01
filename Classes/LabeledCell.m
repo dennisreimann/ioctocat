@@ -17,7 +17,7 @@
 }
 
 - (void)setContentText:(NSString *)text {
-	hasContent = (text != nil && ![text isEmpty]);
+	hasContent = (![text isKindOfClass:[NSNull class]] && text != nil && ![text isEmpty]);
 	content.text = hasContent ? text : @"n/a";
 	content.textColor = hasContent ? [UIColor blackColor] : [UIColor grayColor];
 	content.highlightedTextColor = [UIColor whiteColor];

@@ -7,11 +7,18 @@
 @synthesize user;
 
 - (void)dealloc {
-	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[user release];
     [userLabel release];
     [gravatarView release];
     [super dealloc];
+}
+
+- (void)viewWillAppear: (BOOL)animated {
+	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];    
+}
+
+- (void)viewWillDisappear: (BOOL)animated {
+	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 }
 
 - (void)setUser:(GHUser *)aUser {
@@ -19,9 +26,7 @@
 	[user release];
 	user = aUser;
 	userLabel.text = user.login;
-	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
     gravatarView.image = user.gravatar;
-	if (!gravatarView.image && !user.isLoaded) [user loadUser];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

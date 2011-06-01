@@ -1,8 +1,8 @@
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "GHIssue.h"
-#import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
+#import "GHRepository.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHIssueComments
@@ -30,37 +30,21 @@
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// issue num which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kIssueCommentsJSONFormat, issue.repository.owner, issue.repository.name, issue.num];
-	return [NSURL URLWithString:urlString];
+	return [NSURL URLWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"<GHIssueComments issue:'%@'>", issue];
 }
 
-- (void)parseData:(NSData *)data {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *resultDict = [[CJSONDeserializer deserializer] deserialize:data error:&parseError];
+- (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in [resultDict objectForKey:@"comments"]) {
+	for (NSDictionary *dict in [theDict objectForKey:@"comments"]) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];
 	}
-    id res = parseError ? (id)parseError : (id)resources;
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		self.comments = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+    self.comments = resources;
 }
 
 @end

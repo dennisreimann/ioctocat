@@ -1,10 +1,12 @@
 #import "FeedEntryController.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "OrganizationController.h"
 #import "WebController.h"
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHOrganization.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
 #import "GravatarLoader.h"
@@ -41,7 +43,7 @@
 	
 	entry.read = YES;
 	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.title = [entry.eventType capitalizedString];
+	self.title = [[entry.eventType capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 	titleLabel.text = entry.title;
 	NSString *feedEntry = [NSString stringWithFormat:@"<div class='feed_entry'>%@</div>", entry.content];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
@@ -55,9 +57,9 @@
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
 	gravatarView.image = entry.user.gravatar;
-	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadUser];
+	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadData];
 	// Update Toolbar
-	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, firstUserItem, nil];
+	NSMutableArray *tbItems = [NSMutableArray arrayWithObjects:webItem, (entry.eventType == @"team_add" ? organizationItem : firstUserItem), nil];
 	if ([entry.eventItem isKindOfClass:[GHUser class]]) {
 		[tbItems addObject:secondUserItem];
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
@@ -87,6 +89,7 @@
 	[secondUserItem release], secondUserItem = nil;
 	[issueItem release], issueItem = nil;
 	[commitItem release], commitItem = nil;
+    [organizationItem release], organizationItem = nil;
 	[navigationControl release], navigationControl = nil;
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 	[entry release], entry = nil;
@@ -125,10 +128,19 @@
 
 - (IBAction)showRepository:(id)sender {
 	id item = entry.eventItem;
-	GHRepository *repository = [item isKindOfClass:[GHIssue class]] ? [(GHIssue *)item repository] : item; 
-	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repository];
-	[self.navigationController pushViewController:repoController animated:YES];
-	[repoController release];
+	GHRepository *repository = nil;
+    if ([item isKindOfClass:[GHRepository class]]) {
+        repository = item;
+    } else if ([item isKindOfClass:[GHIssue class]]) {
+        repository = [(GHIssue *)item repository];
+    } else if ([item isKindOfClass:[GHCommit class]]) {
+        repository = [(GHCommit *)item repository];
+    }
+    if (repository) {
+        RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repository];
+        [self.navigationController pushViewController:repoController animated:YES];
+        [repoController release];
+    }
 }
 
 - (IBAction)showFirstUser:(id)sender {
@@ -141,6 +153,12 @@
 	UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
+}
+
+- (IBAction)showOrganization:(id)sender {
+	OrganizationController *orgController = [[OrganizationController alloc] initWithOrganization:(GHOrganization *)entry.organization];
+	[self.navigationController pushViewController:orgController animated:YES];
+	[orgController release];
 }
 
 - (IBAction)showIssue:(id)sender {
@@ -173,11 +191,10 @@
 	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
 		NSString *owner = [pathComponents objectAtIndex:0];
 		NSString *name = [pathComponents objectAtIndex:1];
-		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
+		GHRepository *repo = [GHRepository repositoryWithOwner:owner andName:name];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
-		[repo release];
 	} else if ([pathComponents count] == 1) {
 		NSString *username = [pathComponents objectAtIndex:0];
 		GHUser *user = [[iOctocat sharedInstance] userWithLogin:username];

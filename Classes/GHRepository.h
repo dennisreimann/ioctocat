@@ -1,10 +1,8 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
-#import "GHUser.h"
-#import "GHFeed.h"
 
 
-@class GHIssues, GHNetworks, GHBranches;
+@class GHIssues, GHNetworks, GHBranches, GHUser;
 
 @interface GHRepository : GHResource {
 	NSString *name;
@@ -37,8 +35,12 @@
 @property(nonatomic,readwrite)BOOL isPrivate;
 @property(nonatomic,readwrite)BOOL isFork;
 
++ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (int)compareByName:(GHRepository*)repo;
+- (int)compareByRepoId:(GHRepository*)repo;
+- (int)compareByRepoIdAndStatus:(GHRepository*)repo;
+- (NSString *)repoId;
 
 @end

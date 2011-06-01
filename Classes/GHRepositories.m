@@ -1,18 +1,20 @@
 #import "GHRepositories.h"
+#import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
 #import "ASIFormDataRequest.h"
-#import "GHReposParserDelegate.h"
 
 
 @implementation GHRepositories
 
-@synthesize user;
 @synthesize repositories;
 
-- (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
++ (id)repositoriesWithURL:(NSURL *)theURL {
+	return [[[[self class] alloc] initWithURL:theURL] autorelease];
+}
+
+- (id)initWithURL:(NSURL *)theURL {
     [super init];
-    self.user = theUser;
     self.resourceURL = theURL;
 	self.repositories = [NSMutableArray array];
 	return self;
@@ -20,37 +22,22 @@
 
 - (void)dealloc {
 	[repositories release], repositories = nil;
-	[user release], user = nil;
     [super dealloc];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepositories user:'%@' resourceURL:'%@'>", user, resourceURL];
+    return [NSString stringWithFormat:@"<GHRepositories resourceURL:'%@'>", resourceURL];
 }
 
-- (void)parseData:(NSData *)data {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];    
-    GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		[theResult sortUsingSelector:@selector(compareByName:)];
-		self.repositories = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSMutableArray *resources = [NSMutableArray array];
+    for (NSDictionary *dict in [theDict objectForKey:@"repositories"]) {
+		GHRepository *resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+        [resource setValuesFromDict:dict];
+        [resources addObject:resource];
+    }
+    [resources sortUsingSelector:@selector(compareByName:)];
+    self.repositories = resources;
 }
 
 @end

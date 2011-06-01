@@ -1,6 +1,5 @@
 #import <Foundation/Foundation.h>
 #import "GHResource.h"
-#import "GHFeedEntry.h"
 
 
 @interface GHFeed : GHResource {

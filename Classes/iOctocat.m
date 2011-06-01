@@ -1,7 +1,12 @@
 #import "iOctocat.h"
+#import "GHUser.h"
+#import "GHOrganization.h"
+#import "GHOrganizations.h"
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
+#import "Reachability.h"
 
 
 @interface iOctocat ()
@@ -19,7 +24,8 @@
 @implementation iOctocat
 
 @synthesize users;
-@synthesize lastLaunchDate;
+@synthesize organizations;
+@synthesize didBecomeActiveDate;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
@@ -36,13 +42,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)postLaunch {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	
-	// Launch date
-	NSDate *lastLaunch = (NSDate *)[defaults valueForKey:kLaunchDateDefaultsKey];
 	NSDate *nowDate = [NSDate date];
-	if (!lastLaunch) lastLaunch = nowDate;
-	self.lastLaunchDate = lastLaunch;
-	[defaults setValue:nowDate forKey:kLaunchDateDefaultsKey];
+
+	// Did-become-active date
+	self.didBecomeActiveDate = nowDate;
 	
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
@@ -50,7 +53,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
-	if (launchDefault) [self authenticate];
+    
+    // Check for network connection
+    if (![[Reachability reachabilityForInternetConnection] isReachable]) {
+        [self presentLogin];
+        [self.loginController failWithMessage:@"Please ensure that you are connected to the internet"];
+    } else if (launchDefault) {
+        [self authenticate];
+    }
 }
 
 - (void)dealloc {
@@ -71,17 +81,35 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults valueForKey:kLoginDefaultsKey];
-	return (!login || [login isEmpty]) ? nil : [self userWithLogin:login];
+	if (!login || [login isEmpty]) {
+        return nil;
+    } else {
+        GHUser *theUser = [self userWithLogin:login];
+        // The current user should be requested by using the URL without the
+        // login, see http://develop.github.com/p/users.html for details
+        theUser.resourceURL = [NSURL URLWithFormat:kUserFormat, @""];
+        return theUser;
+    }
 }
 
-- (GHUser *)userWithLogin:(NSString *)theUsername {
-	if (!theUsername || [theUsername isEqualToString:@""]) return nil;
-	GHUser *user = [users objectForKey:theUsername];
+- (GHUser *)userWithLogin:(NSString *)theLogin {
+	if (!theLogin || [theLogin isEmpty]) return nil;
+	GHUser *user = [users objectForKey:theLogin];
 	if (user == nil) {
-		user = [GHUser userWithLogin:theUsername];
-		[users setObject:user forKey:theUsername];
+		user = [GHUser userWithLogin:theLogin];
+		[users setObject:user forKey:theLogin];
 	}
 	return user;
+}
+
+- (GHOrganization *)organizationWithLogin:(NSString *)theLogin {
+	if (!theLogin || [theLogin isEmpty]) return nil;
+	GHOrganization *organization = [organizations objectForKey:theLogin];
+	if (organization == nil) {
+		organization = [GHOrganization organizationWithLogin:theLogin];
+		[organizations setObject:organization forKey:theLogin];
+	}
+	return organization;
 }
 
 - (void)clearAvatarCache {
@@ -97,15 +125,26 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
-+ (NSDate *)parseDate:(NSString *)string {
+- (NSInteger)gravatarSize {
+	UIScreen *mainScreen = [UIScreen mainScreen];
+	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
+	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
+	return size;
+}
+
+- (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	NSString *imageName = [NSString stringWithFormat:@"%@.png", theString];
+	return [documentsPath stringByAppendingPathComponent:imageName];
+}
+
++ (NSDate *)parseDate:(NSString *)string withFormat:(NSString *)theFormat {
 	static NSDateFormatter *dateFormatter;
-	if (dateFormatter == nil) {
-		dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssZ";
-	}
-	string = [string stringByReplacingOccurrencesOfString:@"-06:00" withString:@"-0600"];
-	string = [string stringByReplacingOccurrencesOfString:@"-07:00" withString:@"-0700"];
-	string = [string stringByReplacingOccurrencesOfString:@"-08:00" withString:@"-0800"];
+	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = theFormat;
+    // Fix for timezone format
+    string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }
@@ -144,29 +183,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)authenticate {
 	if (self.currentUser.isAuthenticated) return;
+    [self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	if (!self.currentUser) {
 		[self presentLogin];
 	} else {
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		NSString *token = [defaults valueForKey:kTokenDefaultsKey];
-		[self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.currentUser authenticateWithToken:token];
+		[self.currentUser loadData];
 	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (self.currentUser.isLoading) {
 		[self showAuthenticationSheet];
-	} else if (self.currentUser.isLoaded) {
-		[self dismissAuthenticationSheet];
-		[self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-		if (self.currentUser.isAuthenticated) {
-			[self proceedAfterAuthentication];
-		} else {
-			[self presentLogin];
-			[self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
-		}
-	}
+	} else {
+        [self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+        [self dismissAuthenticationSheet];
+        if (self.currentUser.isAuthenticated) {
+            [self proceedAfterAuthentication];
+        } else {
+            [self presentLogin];
+            [self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
+        }
+    }
 }
 
 - (LoginController *)loginController {
@@ -199,6 +236,49 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)proceedAfterAuthentication {
 	[self dismissLogin];
 	[feedController setupFeeds];
+}
+
+#pragma mark Persistent State
+
+- (NSDate *)lastReadingDateForURL:(NSURL *)url {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	NSObject *object = [userDefaults valueForKey:key];
+	DJLog(@"%@: %@", key, object);
+	if (![object isKindOfClass:[NSDate class]]) {
+		return nil;
+	}
+	return (NSDate *)object;
+}
+
+- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	DJLog(@"%@: %@", key, date);
+	[userDefaults setValue:date forKey:key];
+}
+
+- (void)saveLastReadingDates {
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark Application Events
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+	NSDate *nowDate = [NSDate date];
+	self.didBecomeActiveDate = nowDate;
+	if ([tabBarController selectedIndex] == 0) {
+		[feedController refreshCurrentFeedIfRequired];
+	}
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+	[self saveLastReadingDates];
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    [self dismissAuthenticationSheet];
+	[self saveLastReadingDates];
 }
 
 @end

@@ -46,6 +46,12 @@
 	NSLog(@"Please override reloadTableViewDataSource");
 }
 
+- (void)pullRefreshAnimated:(BOOL)animated {
+	[self.tableView setContentOffset:CGPointMake(0, -65.0f) animated:animated];
+	[self showReloadAnimationAnimated:NO];
+	[self reloadTableViewDataSource];
+}
+
 - (void)dataSourceDidFinishLoadingNewData {
 	reloading = NO;
 	[refreshHeaderView flipImageAnimated:NO];
@@ -78,7 +84,11 @@
 
 #pragma mark Scrolling Overrides
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-	if (!reloading) checkForRefresh = YES;  //  only check offset when dragging
+	if (!reloading) {
+		checkForRefresh = YES;  //  only check offset when dragging
+		// refresh the pretty-printed last update date
+		refreshHeaderView.lastUpdatedDate = refreshHeaderView.lastUpdatedDate;
+	}
 } 
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {	

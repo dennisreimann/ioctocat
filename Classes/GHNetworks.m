@@ -1,24 +1,28 @@
 #import "GHNetworks.h"
-#import "GHNetworksParserDelegate.h"
 #import "GHUser.h"
-#import "ASIFormDataRequest.h"
+#import "GHRepository.h"
+#import "NSURL+Extensions.h"
+
 
 @implementation GHNetworks
 
 @synthesize entries;
 @synthesize repository;
 
++ (id)networksWithRepository:(GHRepository *)theRepository {
+	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
+}
+
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];
     self.repository = theRepository;
-	NSString *urlString = [NSString stringWithFormat:kNetworksFormat, repository.owner, repository.name];
-	self.resourceURL = [NSURL URLWithString:urlString];
+	self.resourceURL = [NSURL URLWithFormat:kRepoNetworkFormat, repository.owner, repository.name];
 	return self;    
 }
 
 - (void)dealloc {
-	[repository release];
-	[entries release];
+	[repository release], repository = nil;
+	[entries release], entries = nil;
     [super dealloc];
 }
 
@@ -26,28 +30,15 @@
     return [NSString stringWithFormat:@"<GHNetworks repository:'%@'>", repository];
 }
 
-- (void)parseData:(NSData *)data {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	GHNetworksParserDelegate *parserDelegate = [[GHNetworksParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		self.entries = theResult;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSMutableArray *resources = [NSMutableArray array];
+    for (NSDictionary *dict in [theDict objectForKey:@"network"]) {
+		GHRepository *resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+        [resource setValuesFromDict:dict];
+        [resources addObject:resource];
+    }
+    [resources sortUsingSelector:@selector(compareByName:)];
+    self.entries = resources;
 }
 
 @end

@@ -6,11 +6,18 @@
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
 	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
+<<<<<<< HEAD
 		<string>${ICON_FILE}</string>
+=======
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
+>>>>>>> 24b52501a4622503a1c528b95e995fcd73903ce0
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.jesse.${PRODUCT_NAME:identifier}</string>
@@ -34,12 +41,22 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.2.1</string>
+	<string>1.3.2</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>SBUsesNetwork</key>
 	<true/>
+	<key>UIPrerenderedIcon</key>
+	<true/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array/>
+	<key>UTImportedTypeDeclarations</key>
+	<array/>
 </dict>
 </plist>

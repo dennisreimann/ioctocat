@@ -1,9 +1,10 @@
 #import <UIKit/UIKit.h>
 #import "LoginController.h"
 #import "MyFeedsController.h"
-#import "GHUser.h"
 #import "ASINetworkQueue.h"
 
+
+@class GHUser, GHOrganization;
 
 @interface iOctocat : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
   @private
@@ -13,20 +14,27 @@
 	IBOutlet MyFeedsController *feedController;
 	UIActionSheet *authSheet;
 	NSMutableDictionary *users;
-	NSDate *lastLaunchDate;
+	NSMutableDictionary *organizations;
+	NSDate *didBecomeActiveDate;
 	BOOL launchDefault;
 }
 
 @property(nonatomic,retain)NSMutableDictionary *users;
-@property(nonatomic,retain)NSDate *lastLaunchDate;
+@property(nonatomic,retain)NSMutableDictionary *organizations;
+@property(nonatomic,retain)NSDate *didBecomeActiveDate;
 @property(nonatomic,readonly)LoginController *loginController;
 
 + (ASINetworkQueue *)queue;
 + (iOctocat *)sharedInstance;
-+ (NSDate *)parseDate:(NSString *)theString;
++ (NSDate *)parseDate:(NSString *)theString withFormat:(NSString *)theFormat;
 - (GHUser *)currentUser;
 - (UIView *)currentView;
-- (GHUser *)userWithLogin:(NSString *)theUsername;
+- (GHUser *)userWithLogin:(NSString *)theLogin;
+- (GHOrganization *)organizationWithLogin:(NSString *)theLogin;
+- (NSInteger)gravatarSize;
+- (NSDate *)lastReadingDateForURL:(NSURL *)url;
+- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
+- (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString;
 
 @end
 

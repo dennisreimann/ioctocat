@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "GHUser.h"
 
+
+@class GHUser, GHOrganization;
 
 @interface GHFeedEntry : NSObject {
 	NSString *entryID;
@@ -23,6 +24,7 @@
 @property(nonatomic,retain)NSString *authorName;
 @property(nonatomic,retain)id eventItem;
 @property(nonatomic,readonly)GHUser *user;
+@property(nonatomic,readonly)GHOrganization *organization;
 @property(nonatomic,readwrite)BOOL read;
 
 @end

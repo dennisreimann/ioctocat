@@ -9,9 +9,8 @@
     <array>
         <string>$(AppIdentifierPrefix)$(CFBundleIdentifier)</string>
     </array>
-    
     <!--- Custom entitlements below --->
-
-
+	<key>get-task-allow</key>
+	<false/>
 </dict>
 </plist>

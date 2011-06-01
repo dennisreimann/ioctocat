@@ -1,10 +1,10 @@
 #import "GHRepository.h"
+#import "GHResource.h"
 #import "iOctocat.h"
-#import "GHReposParserDelegate.h"
-#import "GHCommitsParserDelegate.h"
 #import "GHIssues.h"
 #import "GHNetworks.h"
 #import "GHBranches.h"
+#import "NSURL+Extensions.h"
 
 
 @implementation GHRepository
@@ -22,6 +22,10 @@
 @synthesize closedIssues;
 @synthesize networks;
 @synthesize branches;
+
++ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
+	return [[[[self class] alloc] initWithOwner:theOwner andName:theName] autorelease];
+}
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	[super init];
@@ -55,66 +59,60 @@
     return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
 }
 
+- (NSString *)repoId {
+    return [NSString stringWithFormat:@"%@/%@", owner, name];
+}
+
+- (NSString *)repoIdAndStatus {
+    return [NSString stringWithFormat:@"%@/%@/%@", owner, isPrivate ? @"private" : @"public", name];
+}
+
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// owner and name which isn't always available in advance
-	NSString *urlString = [NSString stringWithFormat:kRepoXMLFormat, owner, name];
-	return [NSURL URLWithString:urlString];
+	return [NSURL URLWithFormat:kRepoFormat, owner, name];
 }
 
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
     // Networks
-    self.networks = [[[GHNetworks alloc] initWithRepository:self] autorelease];
+    self.networks = [GHNetworks networksWithRepository:self];
 	// Branches
-    self.branches = [[[GHBranches alloc] initWithRepository:self] autorelease];
+    self.branches = [GHBranches branchesWithRepository:self];
 	// Issues
-	self.openIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen] autorelease];
-	self.closedIssues = [[[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed] autorelease];
+	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
+	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];
 }
 
 - (GHUser *)user {
 	return [[iOctocat sharedInstance] userWithLogin:owner];
 }
 
+- (int)compareByRepoId:(GHRepository *)theOtherRepository {
+    return [[self repoId] localizedCaseInsensitiveCompare:[theOtherRepository repoId]];
+}
+
+- (int)compareByRepoIdAndStatus:(GHRepository *)theOtherRepository {
+    return [[self repoIdAndStatus] localizedCaseInsensitiveCompare:[theOtherRepository repoIdAndStatus]];
+}
+
 - (int)compareByName:(GHRepository *)theOtherRepository {
     return [[self name] localizedCaseInsensitiveCompare:[theOtherRepository name]];
 }
 
-#pragma mark Repository loading
+#pragma mark Loading
 
-- (void)parseData:(NSData *)data {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];	
-	GHReposParserDelegate *parserDelegate = [[GHReposParserDelegate alloc] initWithTarget:self andSelector:@selector(parsingFinished:)];
-	[parser setDelegate:parserDelegate];
-	[parser setShouldProcessNamespaces:NO];
-	[parser setShouldReportNamespacePrefixes:NO];
-	[parser setShouldResolveExternalEntities:NO];
-	[parser parse];
-	[parser release];
-	[parserDelegate release];
-	[pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.loadingStatus = GHResourceStatusNotLoaded;
-	} else {
-		self.loadingStatus = GHResourceStatusLoaded;
-		if ([(NSArray *)theResult count] == 0) return;
-		GHRepository *repo = [(NSArray *)theResult objectAtIndex:0];
-		self.descriptionText = repo.descriptionText;
-		self.githubURL = repo.githubURL;
-		self.homepageURL = repo.homepageURL;
-		self.isFork = repo.isFork;
-		self.isPrivate = repo.isPrivate;
-		self.forks = repo.forks;
-		self.watchers = repo.watchers;
-		self.loadingStatus = GHResourceStatusLoaded;
-	}
+- (void)setValuesFromDict:(NSDictionary *)theDict {
+    NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
+    
+    self.githubURL = [NSURL URLWithString:[resource objectForKey:@"url"]];
+    self.homepageURL = [GHResource smartURLFromString:[resource objectForKey:@"homepage"]];
+    self.descriptionText = [resource objectForKey:@"description"];
+    self.isFork = [[resource objectForKey:@"fork"] boolValue];
+    self.isPrivate = [[resource objectForKey:@"private"] boolValue];
+    self.forks = [[resource objectForKey:@"forks"] integerValue];
+    self.watchers = [[resource objectForKey:@"watchers"] integerValue];
 }
 
 @end

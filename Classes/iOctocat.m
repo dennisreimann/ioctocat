@@ -5,6 +5,7 @@
 #import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
 #import "Reachability.h"
 
 
@@ -80,7 +81,15 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (GHUser *)currentUser {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults valueForKey:kLoginDefaultsKey];
-	return (!login || [login isEmpty]) ? nil : [self userWithLogin:login];
+	if (!login || [login isEmpty]) {
+        return nil;
+    } else {
+        GHUser *theUser = [self userWithLogin:login];
+        // The current user should be requested by using the URL without the
+        // login, see http://develop.github.com/p/users.html for details
+        theUser.resourceURL = [NSURL URLWithFormat:kUserFormat, @""];
+        return theUser;
+    }
 }
 
 - (GHUser *)userWithLogin:(NSString *)theLogin {
@@ -186,9 +195,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (self.currentUser.isLoading) {
 		[self showAuthenticationSheet];
 	} else {
+        [self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
         [self dismissAuthenticationSheet];
         if (self.currentUser.isAuthenticated) {
-            [self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
             [self proceedAfterAuthentication];
         } else {
             [self presentLogin];
@@ -268,6 +277,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    [self dismissAuthenticationSheet];
 	[self saveLastReadingDates];
 }
 

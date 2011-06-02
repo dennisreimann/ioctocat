@@ -25,7 +25,8 @@
 #define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
 #define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
 #define kUserGithubFormat @"http://github.com/%@"
-#define kUserFormat @"https://github.com/api/v2/json/user/show/%@"
+#define kUserAuthenticatedFormat @"https://api.github.com/user" // v3
+#define kUserFormat @"https://api.github.com/users/%@" // v3
 #define kUserReposFormat @"https://github.com/api/v2/json/repos/show/%@"
 #define kUserWatchedReposFormat @"https://github.com/api/v2/json/repos/watched/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"

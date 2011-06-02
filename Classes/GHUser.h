@@ -10,7 +10,7 @@
 	NSString *email;
 	NSString *company;
 	NSString *location;
-	NSString *gravatarHash;
+	NSURL *gravatarURL;
 	NSURL *blogURL;
 	UIImage *gravatar;
 	NSUInteger publicGistCount;
@@ -35,7 +35,7 @@
 @property(nonatomic,retain)NSString *email;
 @property(nonatomic,retain)NSString *company;
 @property(nonatomic,retain)NSString *location;
-@property(nonatomic,retain)NSString *gravatarHash;
+@property(nonatomic,retain)NSURL *gravatarURL;
 @property(nonatomic,retain)NSURL *blogURL;
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHOrganizations *organizations;

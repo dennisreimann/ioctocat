@@ -85,9 +85,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
         return nil;
     } else {
         GHUser *theUser = [self userWithLogin:login];
-        // The current user should be requested by using the URL without the
-        // login, see http://develop.github.com/p/users.html for details
-        theUser.resourceURL = [NSURL URLWithFormat:kUserFormat, @""];
+        theUser.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
         return theUser;
     }
 }

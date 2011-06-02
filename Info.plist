@@ -14,6 +14,7 @@
 	<array>
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
+		<string>Icon-iPad.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>
@@ -49,6 +50,10 @@
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>

@@ -165,6 +165,10 @@
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
 		6FB3CBE713977DBE00CB0EAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */; };
 		6FB3CBEA13977E4000CB0EAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE913977E4000CB0EAE /* MainWindow.xib */; };
+		6FB3CBF6139780D600CB0EAE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF3139780D600CB0EAE /* Icon-iPad.png */; };
+		6FB3CBF7139780D600CB0EAE /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */; };
+		6FB3CBF8139780D600CB0EAE /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF5139780D600CB0EAE /* Icon-Small.png */; };
+		6FB3CC001397853B00CB0EAE /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBFF1397853B00CB0EAE /* Default-Portrait~ipad.png */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
 		6FB9CBE513354AC200C8DE29 /* Organization.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE413354AC200C8DE29 /* Organization.xib */; };
@@ -442,6 +446,10 @@
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
 		6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/iPad/MainWindow.xib; sourceTree = "<group>"; };
 		6FB3CBE913977E4000CB0EAE /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		6FB3CBF3139780D600CB0EAE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
+		6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
+		6FB3CBF5139780D600CB0EAE /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
+		6FB3CBFF1397853B00CB0EAE /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait~ipad.png"; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
 		6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationController.h; sourceTree = "<group>"; };
@@ -986,8 +994,12 @@
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
 				6F9DD8711334AFE300D1E35E /* Icon.png */,
 				6F9DD8731334AFEF00D1E35E /* Icon@2x.png */,
+				6FB3CBF3139780D600CB0EAE /* Icon-iPad.png */,
+				6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */,
+				6FB3CBF5139780D600CB0EAE /* Icon-Small.png */,
 				6F9DD8751334B03400D1E35E /* Default.png */,
 				6F9DD8771334B09800D1E35E /* Default@2x.png */,
+				6FB3CBFF1397853B00CB0EAE /* Default-Portrait~ipad.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
 				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
@@ -1243,6 +1255,10 @@
 				E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */,
 				6FB3CBE713977DBE00CB0EAE /* MainWindow.xib in Resources */,
 				6FB3CBEA13977E4000CB0EAE /* MainWindow.xib in Resources */,
+				6FB3CBF6139780D600CB0EAE /* Icon-iPad.png in Resources */,
+				6FB3CBF7139780D600CB0EAE /* Icon-Small-50.png in Resources */,
+				6FB3CBF8139780D600CB0EAE /* Icon-Small.png in Resources */,
+				6FB3CC001397853B00CB0EAE /* Default-Portrait~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

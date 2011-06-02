@@ -163,7 +163,8 @@
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
-		6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */; };
+		6FB3CBE713977DBE00CB0EAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */; };
+		6FB3CBEA13977E4000CB0EAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE913977E4000CB0EAE /* MainWindow.xib */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
 		6FB9CBE513354AC200C8DE29 /* Organization.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE413354AC200C8DE29 /* Organization.xib */; };
@@ -439,7 +440,8 @@
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
-		6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/MainWindow.xib; sourceTree = "<group>"; };
+		6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/iPad/MainWindow.xib; sourceTree = "<group>"; };
+		6FB3CBE913977E4000CB0EAE /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
 		6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationController.h; sourceTree = "<group>"; };
@@ -958,6 +960,23 @@
 			name = Backgrounds;
 			sourceTree = "<group>";
 		};
+		6FB3CBE513977DBC00CB0EAE /* iPad */ = {
+			isa = PBXGroup;
+			children = (
+				6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */,
+			);
+			name = iPad;
+			sourceTree = "<group>";
+		};
+		6FB3CBE813977E4000CB0EAE /* iPhone */ = {
+			isa = PBXGroup;
+			children = (
+				6FB3CBE913977E4000CB0EAE /* MainWindow.xib */,
+			);
+			name = iPhone;
+			path = IBFiles/iPhone;
+			sourceTree = "<group>";
+		};
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,8 +999,9 @@
 		6FB7FEA60F7E2C7500E8D702 /* IBFiles */ = {
 			isa = PBXGroup;
 			children = (
+				6FB3CBE813977E4000CB0EAE /* iPhone */,
+				6FB3CBE513977DBC00CB0EAE /* iPad */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
-				6FB7FEA90F7E2C8700E8D702 /* MainWindow.xib */,
 				6FE91E180FAD088600749370 /* Login.xib */,
 				6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */,
 				6FCDC66B0FC04F180024E498 /* Feed.xib */,
@@ -1091,7 +1111,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FB7FEAB0F7E2C8700E8D702 /* MainWindow.xib in Resources */,
 				6F1DC39B0F7E52F000FCD26D /* Settings.bundle in Resources */,
 				6F1DC5C50F7E7F4600FCD26D /* comment.png in Resources */,
 				6F1DC5C60F7E7F4600FCD26D /* create.png in Resources */,
@@ -1222,6 +1241,8 @@
 				6F843156136D53350016E367 /* issue_comment.png in Resources */,
 				6F843157136D53350016E367 /* issue_comment@2x.png in Resources */,
 				E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */,
+				6FB3CBE713977DBE00CB0EAE /* MainWindow.xib in Resources */,
+				6FB3CBEA13977E4000CB0EAE /* MainWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1325,6 +1346,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1356,6 +1378,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "App Store Distribution";
 		};
@@ -1387,6 +1410,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = "Ad Hoc Distribution";
 		};
@@ -1422,6 +1446,7 @@
 				INFOPLIST_FILE = Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = iOctocat;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Analyze;
 		};

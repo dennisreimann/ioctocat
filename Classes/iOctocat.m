@@ -226,7 +226,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	UIView *currentView = tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
 	[authSheet addSubview:authView];
 	[authSheet showInView:currentView];
-	[authSheet release];
+	[authSheet release], authSheet = nil;
 }
 
 - (void)dismissAuthenticationSheet {

@@ -29,8 +29,8 @@
 #define kUserReposFormat @"https://github.com/api/v2/json/repos/show/%@"
 #define kUserWatchedReposFormat @"https://github.com/api/v2/json/repos/watched/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"
-#define kUserFollowingFormat @"https://github.com/api/v2/json/user/show/%@/following"
-#define kUserFollowersFormat @"https://github.com/api/v2/json/user/show/%@/followers"
+#define kUserFollowingFormat @"https://api.github.com/users/%@/following" // v3
+#define kUserFollowersFormat @"https://api.github.com/users/%@/followers" // v3
 #define kUserFollowFormat @"https://github.com/api/v2/json/user/%@/%@"
 
 // Repos

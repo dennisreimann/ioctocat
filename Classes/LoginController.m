@@ -5,7 +5,7 @@
 @implementation LoginController
 
 @synthesize loginField;
-@synthesize tokenField;
+@synthesize passwordField;
 @synthesize submitButton;
 
 - (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
@@ -19,14 +19,14 @@
     [super viewDidLoad];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	loginField.text = [defaults valueForKey:kLoginDefaultsKey];
-	tokenField.text = [defaults valueForKey:kTokenDefaultsKey];
+	passwordField.text = [defaults valueForKey:kPasswordDefaultsKey];
 	loginField.clearButtonMode = UITextFieldViewModeWhileEditing;
-	tokenField.clearButtonMode = UITextFieldViewModeWhileEditing;
+	passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
 }
 
 - (void)dealloc {
 	[loginField release], loginField = nil;
-	[tokenField release], tokenField = nil;
+	[passwordField release], passwordField = nil;
 	[submitButton release], submitButton = nil;
     [super dealloc];
 }
@@ -41,30 +41,30 @@
 - (IBAction)submit:(id)sender {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
-	NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
-	if ([login isEmpty] || [token isEmpty]) {
-		[self failWithMessage:@"Please enter your login\nand API token"];
+	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:trimSet];
+	if ([login isEmpty] || [password isEmpty]) {
+		[self failWithMessage:@"Please enter your login\nand password"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kLoginDefaultsKey];
-		[defaults setValue:token forKey:kTokenDefaultsKey];
+		[defaults setValue:password forKey:kPasswordDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
 		[loginField resignFirstResponder];
-		[tokenField resignFirstResponder];
+		[passwordField resignFirstResponder];
 		[target performSelector:selector];
 	}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[loginField resignFirstResponder];
-	[tokenField resignFirstResponder];
+	[passwordField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
-	if (textField == loginField) [tokenField becomeFirstResponder];
-	if (textField == tokenField) [self submit:nil];
+	if (textField == loginField) [passwordField becomeFirstResponder];
+	if (textField == passwordField) [self submit:nil];
 	return YES;
 }
 

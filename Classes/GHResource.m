@@ -22,16 +22,6 @@
 @synthesize error;
 @synthesize data;
 
-+ (GHResource *)at:(NSString *)formatString, ... {
-	va_list args;
-    va_start(args, formatString);
-    NSString *pathString = [[NSString alloc] initWithFormat:formatString arguments:args];
-    va_end(args);
-	NSURL *url = [NSURL	URLWithFormat:@"%@%@", kAPIBaseFormat, pathString];
-	[pathString release];
-	return [self resourceWithURL:url];
-}
-
 + (id)resourceWithURL:(NSURL *)theURL {
 	return [[[[self class] alloc] initWithURL:theURL] autorelease];
 }

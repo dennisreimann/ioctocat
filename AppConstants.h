@@ -20,9 +20,6 @@
 #define kCommentCellIdentifier @"CommentCell"
 #define kOrganizationCellIdentifier @"OrganizationCell"
 
-// API URLs
-#define kAPIBaseFormat @"https://github.com/api/v2/json/"
-
 // User
 #define kUserFeedFormat @"https://github.com/%@.atom"
 #define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"

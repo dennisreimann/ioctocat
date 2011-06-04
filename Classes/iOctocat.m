@@ -6,17 +6,11 @@
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "Reachability.h"
 
 
 @interface iOctocat ()
 - (void)postLaunch;
-- (void)presentLogin;
-- (void)dismissLogin;
-- (void)showAuthenticationSheet;
-- (void)dismissAuthenticationSheet;
 - (void)authenticate;
-- (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
 @end
 
@@ -54,11 +48,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 	[defaults synchronize];
     
-    // Check for network connection
-    if (![[Reachability reachabilityForInternetConnection] isReachable]) {
-        [self presentLogin];
-        [self.loginController failWithMessage:@"Please ensure that you are connected to the internet"];
-    } else if (launchDefault) {
+    // Authentication
+    if (launchDefault) {
         [self authenticate];
     }
 }
@@ -66,8 +57,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)dealloc {
 	[tabBarController release], tabBarController = nil;
 	[feedController release], feedController = nil;
-	[authView release], authView = nil;
-	[authSheet release], authSheet = nil;
 	[window release], window = nil;
 	[users release], users = nil;
 	
@@ -162,6 +151,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 #pragma mark Authentication
 
+- (LoginController *)loginController {
+    if (!loginController) {
+        loginController = [[LoginController alloc] initWithViewController:tabBarController];
+        loginController.delegate = self;
+    }
+    return loginController;
+}
+
 // Use this to add credentials (for instance via email) by opening a link:
 // <githubauth://LOGIN:TOKEN@github.com>
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
@@ -183,59 +180,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)authenticate {
 	if (self.currentUser.isAuthenticated) return;
-    [self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	if (!self.currentUser) {
-		[self presentLogin];
-	} else {
-		[self.currentUser loadData];
-	}
+    [self.loginController setUser:self.currentUser];
+	[self.loginController startAuthenticating];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (self.currentUser.isLoading) {
-		[self showAuthenticationSheet];
-	} else {
-        [self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-        [self dismissAuthenticationSheet];
-        if (self.currentUser.isAuthenticated) {
-            [self proceedAfterAuthentication];
-        } else {
-            [self presentLogin];
-            [self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
-        }
-    }
-}
-
-- (LoginController *)loginController {
-	return (LoginController *)tabBarController.modalViewController;
-}
-
-- (void)presentLogin {
-	if (self.loginController) return;
-	LoginController *loginController = [[LoginController alloc] initWithTarget:self andSelector:@selector(authenticate)];
-	[tabBarController presentModalViewController:loginController animated:YES];
-	[loginController release];
-}
-
-- (void)dismissLogin {
-	if (self.loginController) [tabBarController dismissModalViewControllerAnimated:YES];
-}
-
-- (void)showAuthenticationSheet {
-	authSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-	UIView *currentView = tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
-	[authSheet addSubview:authView];
-	[authSheet showInView:currentView];
-}
-
-- (void)dismissAuthenticationSheet {
-	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
-	[authSheet release], authSheet = nil;
-}
-
-- (void)proceedAfterAuthentication {
-	[self dismissLogin];
-	[feedController setupFeeds];
+- (void)finishedAuthenticating {
+	if (self.currentUser.isAuthenticated) [feedController setupFeeds];
 }
 
 #pragma mark Persistent State
@@ -277,7 +227,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [self dismissAuthenticationSheet];
+    if (loginController) {
+        [loginController stopAuthenticating];
+    }
 	[self saveLastReadingDates];
 }
 

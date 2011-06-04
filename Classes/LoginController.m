@@ -1,5 +1,16 @@
 #import "LoginController.h"
 #import "NSString+Extensions.h"
+#import "GHUser.h"
+
+
+@interface LoginController ()
+- (void)presentLogin;
+- (void)dismissLogin;
+- (void)showAuthenticationSheet;
+- (void)dismissAuthenticationSheet;
+- (void)finishAuthenticating;
+- (void)failWithMessage:(NSString *)theMessage;
+@end
 
 
 @implementation LoginController
@@ -7,11 +18,12 @@
 @synthesize loginField;
 @synthesize tokenField;
 @synthesize submitButton;
+@synthesize delegate;
+@synthesize user;
 
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
+- (id)initWithViewController:(UIViewController *)theViewController {
 	[super initWithNibName:@"Login" bundle:nil];
-	target = theTarget;
-	selector = theSelector;
+    viewController = theViewController;
 	return self;
 }
 
@@ -28,6 +40,7 @@
 	[loginField release], loginField = nil;
 	[tokenField release], tokenField = nil;
 	[submitButton release], submitButton = nil;
+	[authSheet release], authSheet = nil;
     [super dealloc];
 }
 
@@ -52,7 +65,7 @@
 		submitButton.enabled = NO;
 		[loginField resignFirstResponder];
 		[tokenField resignFirstResponder];
-		[target performSelector:selector];
+        [self startAuthenticating];
 	}
 }
 
@@ -66,6 +79,62 @@
 	if (textField == loginField) [tokenField becomeFirstResponder];
 	if (textField == tokenField) [self submit:nil];
 	return YES;
+}
+
+- (void)startAuthenticating {
+    if (!self.user) {
+		[self presentLogin];
+	} else {
+        [self.user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user loadData];
+	}
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if (self.user.isLoading) {
+		[self showAuthenticationSheet];
+	} else {
+        [self.user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+        [self dismissAuthenticationSheet];
+        if (self.user.isAuthenticated) {
+            [self finishAuthenticating];
+        } else {
+            [self presentLogin];
+            [self failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
+        }
+    }
+}
+
+- (void)stopAuthenticating {
+    [self dismissAuthenticationSheet];
+}
+
+- (void)finishAuthenticating {
+    [self dismissLogin];
+    if ([delegate respondsToSelector:@selector(finishedAuthenticating)]) {
+        [delegate performSelector:@selector(finishedAuthenticating) withObject:self.user];
+    }
+}
+
+- (void)presentLogin {
+	if (viewController.modalViewController == self) return;
+	[viewController presentModalViewController:self animated:YES];
+}
+
+- (void)dismissLogin {
+	if (viewController.modalViewController != self) return;
+	[viewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)showAuthenticationSheet {
+	authSheet = [[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	UIView *currentView = viewController.modalViewController ? viewController.modalViewController.view : viewController.view;
+	[authSheet showInView:currentView];
+}
+
+- (void)dismissAuthenticationSheet {
+	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
+	[authSheet release], authSheet = nil;
 }
 
 @end

@@ -2,11 +2,9 @@
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kLoginDefaultsKey @"username"
-#define kTokenDefaultsKey @"token"
+#define kPasswordDefaultsKey @"password"
 
 // API
-#define kLoginParamName @"login"
-#define kTokenParamName @"token"
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 #define kIssueTimeFormat @"yyyy/MM/dd HH:mm:ss z"
 
@@ -20,20 +18,18 @@
 #define kCommentCellIdentifier @"CommentCell"
 #define kOrganizationCellIdentifier @"OrganizationCell"
 
-// API URLs
-#define kAPIBaseFormat @"https://github.com/api/v2/json/"
-
 // User
-#define kUserFeedFormat @"https://github.com/%@.atom"
-#define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
-#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
+#define kUserFeedFormat @"https://github.com/%@.atom" // non-API atom
+#define kUserNewsFeedFormat @"https://github.com/%@.private.atom" // non-API atom
+#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom" // non-API atom
 #define kUserGithubFormat @"http://github.com/%@"
-#define kUserFormat @"https://github.com/api/v2/json/user/show/%@"
+#define kUserAuthenticatedFormat @"https://api.github.com/user" // v3
+#define kUserFormat @"https://api.github.com/users/%@" // v3
 #define kUserReposFormat @"https://github.com/api/v2/json/repos/show/%@"
 #define kUserWatchedReposFormat @"https://github.com/api/v2/json/repos/watched/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"
-#define kUserFollowingFormat @"https://github.com/api/v2/json/user/show/%@/following"
-#define kUserFollowersFormat @"https://github.com/api/v2/json/user/show/%@/followers"
+#define kUserFollowingFormat @"https://api.github.com/users/%@/following" // v3
+#define kUserFollowersFormat @"https://api.github.com/users/%@/followers" // v3
 #define kUserFollowFormat @"https://github.com/api/v2/json/user/%@/%@"
 
 // Repos
@@ -65,7 +61,7 @@
 #define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
-#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"
+#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"
 #define kOrganizationPublicRepositoriesFormat @"https://github.com/api/v2/json/organizations/%@/public_repositories"
 #define kOrganizationPublicMembersFormat @"https://github.com/api/v2/json/organizations/%@/public_members"
 

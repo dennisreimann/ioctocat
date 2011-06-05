@@ -42,17 +42,19 @@ NSString *md5(NSString *str) {
 }
 
 - (void)loadHash:(NSString *)theHash withSize:(NSInteger)theSize {
-	NSArray *args = [[NSArray alloc] initWithObjects:theHash, [NSNumber numberWithInteger:theSize], nil];
+	NSURL *gravatarURL = [NSURL URLWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", theHash, theSize];
+	NSArray *args = [NSArray arrayWithObject:gravatarURL];
 	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
-	[args release];
+}
+
+- (void)loadURL:(NSURL *)theURL {
+	NSArray *args = [NSArray arrayWithObject:theURL];
+	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
 }
 
 - (void)requestWithArgs:(NSArray *)theArgs {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSString *hash = [theArgs objectAtIndex:0];
-	NSInteger size = [[theArgs objectAtIndex:1] integerValue];
-	NSURL *gravatarURL = [NSURL URLWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", hash, size];
-	NSData *gravatarData = [NSData dataWithContentsOfURL:gravatarURL];
+	NSData *gravatarData = [NSData dataWithContentsOfURL:[theArgs objectAtIndex:0]];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
  	[pool release];

@@ -74,9 +74,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
         return nil;
     } else {
         GHUser *theUser = [self userWithLogin:login];
-        // The current user should be requested by using the URL without the
-        // login, see http://develop.github.com/p/users.html for details
-        theUser.resourceURL = [NSURL URLWithFormat:kUserFormat, @""];
+        theUser.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
         return theUser;
     }
 }
@@ -157,25 +155,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
         loginController.delegate = self;
     }
     return loginController;
-}
-
-// Use this to add credentials (for instance via email) by opening a link:
-// <githubauth://LOGIN:TOKEN@github.com>
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-	if (!url || [[url user] isEmpty] || [[url password] isEmpty]) return NO;
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:[url user] forKey:kLoginDefaultsKey];
-	[defaults setValue:[url password] forKey:kTokenDefaultsKey];
-	[defaults synchronize];
-	// Inform the user
-	NSString *message = [NSString stringWithFormat:@"Username: %@\nAPI Token: %@", [defaults valueForKey:kLoginDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New credentials" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
-	// Set the values
-	self.loginController.loginField.text = [defaults valueForKey:kLoginDefaultsKey];
-	self.loginController.tokenField.text = [defaults valueForKey:kTokenDefaultsKey];
-	return YES;
 }
 
 - (void)authenticate {

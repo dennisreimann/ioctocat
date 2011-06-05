@@ -29,10 +29,10 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (id item in [theDict objectForKey:@"users"]) {
-        NSString *login = ([item isKindOfClass:[NSString class]]) ? item : [item objectForKey:@"login"];
+    for (id user in theDict) {
+        NSString *login = [user objectForKey:@"login"];
 		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
-        if ([item isKindOfClass:[NSDictionary class]]) [theUser setValuesFromDict:item];
+        [theUser setValuesFromDict:user];
         [resources addObject:theUser];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

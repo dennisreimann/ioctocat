@@ -31,7 +31,7 @@
 @synthesize company;
 @synthesize blogURL;
 @synthesize location;
-@synthesize gravatarHash;
+@synthesize gravatarURL;
 @synthesize gravatar;
 @synthesize organizations;
 @synthesize repositories;
@@ -68,7 +68,7 @@
 	[blogURL release], blogURL = nil;
 	[location release], location = nil;
     [gravatarLoader release], gravatarLoader = nil;
-	[gravatarHash release], gravatarHash = nil;
+	[gravatarURL release], gravatarURL = nil;
 	[gravatar release], gravatar = nil;
 	[organizations release], organizations = nil;
 	[repositories release], repositories = nil;
@@ -113,38 +113,36 @@
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
-- (void)setGravatarHash:(NSString *)theHash {
-	[theHash retain];
-	[gravatarHash release];
-	gravatarHash = theHash;
+- (void)setGravatarURL:(NSURL *)theURL {
+    [theURL retain];
+	[gravatarURL release];
+	gravatarURL = theURL;
     
-	if (gravatarHash) {
-       [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
+	if (gravatarURL) {
+       [gravatarLoader loadURL:gravatarURL]; 
     }
 }
 
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-    NSDictionary *resource = [theDict objectForKey:@"user"] ? [theDict objectForKey:@"user"] : theDict;
-    
-    if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
-    self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
-    NSString *mail = [resource objectForKey:@"email"];
+    if (![login isEqualToString:[theDict objectForKey:@"login"]]) self.login = [theDict objectForKey:@"login"];
+    self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
+    NSString *mail = [theDict objectForKey:@"email"];
     if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
-        self.email = [resource objectForKey:@"email"];
+        self.email = [theDict objectForKey:@"email"];
     }
-    self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
-    self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
-    self.gravatarHash = [[resource objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"gravatar_id"];
-    self.blogURL = [GHResource smartURLFromString:[resource objectForKey:@"blog"]];
-    self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
-    self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
-    self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
-    self.privateRepoCount = [[resource objectForKey:@"total_private_repo_count"] integerValue];
-    self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
-    self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
-    self.isAuthenticated = [resource objectForKey:@"plan"] ? YES : NO;
+    self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
+    self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];
+    self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"gravatar_url"]];
+    self.blogURL = [GHResource smartURLFromString:[theDict objectForKey:@"blog"]];
+    self.publicGistCount = [[theDict objectForKey:@"public_gists"] integerValue];
+    self.privateGistCount = [[theDict objectForKey:@"private_gists"] integerValue];
+    self.publicRepoCount = [[theDict objectForKey:@"public_repos"] integerValue];
+    self.privateRepoCount = [[theDict objectForKey:@"total_private_repos"] integerValue];
+    self.followersCount = [[theDict objectForKey:@"followers"] integerValue];
+    self.followingCount = [[theDict objectForKey:@"following"] integerValue];
+    self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
 }
 
 #pragma mark Following

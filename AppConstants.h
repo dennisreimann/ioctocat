@@ -48,7 +48,7 @@
 #define kRepoPrivateCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
 
 // Issues
-#define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
+#define kIssueGithubFormat @"http://github.com/%@/%@/issues/%d"
 #define kIssueFormat @"https://github.com/api/v2/json/issues/show/%@/%@/%d"
 #define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
 #define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"

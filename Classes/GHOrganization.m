@@ -77,14 +77,14 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
 	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationPublicMembersFormat, login];
-    
+
     self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
 	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
 	self.publicMembers = [GHUsers usersWithURL:membersURL];
@@ -93,13 +93,13 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
-    
+
     if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
     self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
     self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
     self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
     self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
-    self.blogURL = [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
+    self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
     self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
     self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
     self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
@@ -118,9 +118,9 @@
     [theURL retain];
 	[gravatarURL release];
 	gravatarURL = theURL;
-    
+
 	if (gravatarURL) {
-        [gravatarLoader loadURL:gravatarURL]; 
+        [gravatarLoader loadURL:gravatarURL];
     }
 }
 

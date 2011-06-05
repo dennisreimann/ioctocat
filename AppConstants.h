@@ -34,7 +34,7 @@
 #define kUserFollowFormat @"https://api.github.com/user/following/%@" // v3
 
 // Repos
-#define kRepoGithubFormat @"http://github.com/%@/%@/tree/master"
+#define kRepoGithubFormat @"http://github.com/%@/%@"
 #define kRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoFormat @"https://github.com/api/v2/json/repos/show/%@/%@"

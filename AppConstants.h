@@ -31,7 +31,7 @@
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"
 #define kUserFollowingFormat @"https://api.github.com/users/%@/following" // v3
 #define kUserFollowersFormat @"https://api.github.com/users/%@/followers" // v3
-#define kUserFollowFormat @"https://github.com/api/v2/json/user/%@/%@"
+#define kUserFollowFormat @"https://api.github.com/user/following/%@" // v3
 
 // Repos
 #define kRepoGithubFormat @"http://github.com/%@/%@/tree/master"
@@ -78,9 +78,7 @@
 // Images
 #define kImageGravatarMaxLogicalSize 50
 
-// Following/Watching
-#define kFollow @"follow"
-#define kUnFollow @"unfollow"
+// Watching
 #define kWatch @"watch"
 #define kUnWatch @"unwatch"
 

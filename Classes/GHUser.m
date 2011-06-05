@@ -14,7 +14,7 @@
 
 
 @interface GHUser ()
-- (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser;
+- (void)setFollowing:(BOOL)theMode forUser:(GHUser *)theUser;
 - (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository;
 - (void)followToggleFinished:(ASIHTTPRequest *)request;
 - (void)followToggleFailed:(ASIHTTPRequest *)request;
@@ -148,19 +148,19 @@
 
 - (void)followUser:(GHUser *)theUser {
 	[following.users addObject:theUser];
-	[self setFollowing:kFollow forUser:theUser];
+	[self setFollowing:YES forUser:theUser];
 }
 
 - (void)unfollowUser:(GHUser *)theUser {
 	[following.users removeObject:theUser];
-	[self setFollowing:kUnFollow forUser:theUser];
+	[self setFollowing:NO forUser:theUser];
 }
 
-- (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser {
-	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theMode, theUser.login];
+- (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
+	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theUser.login];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
-	[request setRequestMethod:@"POST"];
+	[request setRequestMethod:follow ? @"PUT" : @"DELETE"];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
 	[request setDidFailSelector:@selector(followToggleFailed:)];
 	[[iOctocat queue] addOperation:request];

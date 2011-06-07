@@ -57,7 +57,6 @@
 		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
 		6F5653070F99CB62001B6703 /* public.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653050F99CB62001B6703 /* public.png */; };
-		6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */; };
 		6F593A041116179D004B70FB /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6F593A031116179D004B70FB /* format.html */; };
 		6F59BC950FC6C51800412597 /* Repositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F59BC930FC6C51800412597 /* Repositories.xib */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
@@ -114,7 +113,6 @@
 		6F879A1E0FB60CB500EBD9BD /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1C0FB60CB500EBD9BD /* user.png */; };
 		6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5A0FB611FD00EBD9BD /* UserCell.xib */; };
 		6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5B0FB611FD00EBD9BD /* Users.xib */; };
-		6F879AB10FB6184500EBD9BD /* UserCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879AB00FB6184500EBD9BD /* UserCellBackground.png */; };
 		6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
 		6F8E7DF4123C0E8B007E93E6 /* pull_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8E7DF3123C0E8B007E93E6 /* pull_request.png */; };
 		6F9DD82E1334A0F200D1E35E /* DefaultGravatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */; };
@@ -151,10 +149,6 @@
 		6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
 		6F9DD8801334DBF500D1E35E /* OrganizationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD87F1334DBF500D1E35E /* OrganizationCell.xib */; };
 		6F9DD8831334DC4100D1E35E /* OrganizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8821334DC4100D1E35E /* OrganizationCell.m */; };
-		6F9DD88E1334E0F300D1E35E /* FeedEntryCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8851334E0F300D1E35E /* FeedEntryCellBackground@2x.png */; };
-		6F9DD8911334E0F300D1E35E /* OrganizationCellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8881334E0F300D1E35E /* OrganizationCellBackground.png */; };
-		6F9DD8921334E0F300D1E35E /* OrganizationCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8891334E0F300D1E35E /* OrganizationCellBackground@2x.png */; };
-		6F9DD8941334E0F300D1E35E /* UserCellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD88B1334E0F300D1E35E /* UserCellBackground@2x.png */; };
 		6F9DD8981334E1BA00D1E35E /* OrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */; };
 		6FA92AFE0FACD51A001B1D1D /* FeedEntry.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */; };
 		6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFD0FACD51A001B1D1D /* Issue.xib */; };
@@ -295,7 +289,6 @@
 		6F5653020F99CB52001B6703 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue.png; path = Images/Icons/issue.png; sourceTree = "<group>"; };
 		6F5653040F99CB62001B6703 /* private.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = private.png; path = Images/Icons/private.png; sourceTree = "<group>"; };
 		6F5653050F99CB62001B6703 /* public.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = public.png; path = Images/Icons/public.png; sourceTree = "<group>"; };
-		6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FeedEntryCellBackground.png; path = Images/FeedEntryCellBackground.png; sourceTree = "<group>"; };
 		6F593A031116179D004B70FB /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
 		6F59BC930FC6C51800412597 /* Repositories.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repositories.xib; path = IBFiles/Repositories.xib; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
@@ -383,7 +376,6 @@
 		6F879A1C0FB60CB500EBD9BD /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = Images/Icons/user.png; sourceTree = "<group>"; };
 		6F879A5A0FB611FD00EBD9BD /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = UserCell.xib; path = IBFiles/UserCell.xib; sourceTree = "<group>"; };
 		6F879A5B0FB611FD00EBD9BD /* Users.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Users.xib; path = IBFiles/Users.xib; sourceTree = "<group>"; };
-		6F879AB00FB6184500EBD9BD /* UserCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UserCellBackground.png; path = Images/UserCellBackground.png; sourceTree = "<group>"; };
 		6F879AE60FB61C7A00EBD9BD /* GHUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsers.h; sourceTree = "<group>"; };
 		6F879AE70FB61C7A00EBD9BD /* GHUsers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHUsers.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F8E7DF3123C0E8B007E93E6 /* pull_request.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pull_request.png; path = Images/Icons/pull_request.png; sourceTree = "<group>"; };
@@ -424,10 +416,6 @@
 		6F9DD87F1334DBF500D1E35E /* OrganizationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrganizationCell.xib; path = IBFiles/OrganizationCell.xib; sourceTree = "<group>"; };
 		6F9DD8811334DC4100D1E35E /* OrganizationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationCell.h; sourceTree = "<group>"; };
 		6F9DD8821334DC4100D1E35E /* OrganizationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationCell.m; sourceTree = "<group>"; };
-		6F9DD8851334E0F300D1E35E /* FeedEntryCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "FeedEntryCellBackground@2x.png"; path = "Images/FeedEntryCellBackground@2x.png"; sourceTree = "<group>"; };
-		6F9DD8881334E0F300D1E35E /* OrganizationCellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = OrganizationCellBackground.png; path = Images/OrganizationCellBackground.png; sourceTree = "<group>"; };
-		6F9DD8891334E0F300D1E35E /* OrganizationCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "OrganizationCellBackground@2x.png"; path = "Images/OrganizationCellBackground@2x.png"; sourceTree = "<group>"; };
-		6F9DD88B1334E0F300D1E35E /* UserCellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UserCellBackground@2x.png"; path = "Images/UserCellBackground@2x.png"; sourceTree = "<group>"; };
 		6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationsController.h; sourceTree = "<group>"; };
 		6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationsController.m; sourceTree = "<group>"; };
 		6FA512F01332657400C16D95 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
@@ -943,12 +931,6 @@
 				6F61F53B139E43FC005DBE67 /* AvatarBackground50@2x.png */,
 				6F61F53C139E43FC005DBE67 /* HeadBackground80.png */,
 				6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */,
-				6F9DD8881334E0F300D1E35E /* OrganizationCellBackground.png */,
-				6F9DD8891334E0F300D1E35E /* OrganizationCellBackground@2x.png */,
-				6F879AB00FB6184500EBD9BD /* UserCellBackground.png */,
-				6F9DD88B1334E0F300D1E35E /* UserCellBackground@2x.png */,
-				6F5653140F99DD75001B6703 /* FeedEntryCellBackground.png */,
-				6F9DD8851334E0F300D1E35E /* FeedEntryCellBackground@2x.png */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";
@@ -1128,7 +1110,6 @@
 				6F5653030F99CB52001B6703 /* issue.png in Resources */,
 				6F5653060F99CB62001B6703 /* private.png in Resources */,
 				6F5653070F99CB62001B6703 /* public.png in Resources */,
-				6F5653150F99DD75001B6703 /* FeedEntryCellBackground.png in Resources */,
 				6F74DD890FA76CCA00FD90AB /* FeedEntryCell.xib in Resources */,
 				6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */,
 				6FA92AFE0FACD51A001B1D1D /* FeedEntry.xib in Resources */,
@@ -1144,7 +1125,6 @@
 				6F879A1E0FB60CB500EBD9BD /* user.png in Resources */,
 				6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */,
 				6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */,
-				6F879AB10FB6184500EBD9BD /* UserCellBackground.png in Resources */,
 				8CE686E90FB8C83100A3D625 /* NetworkCell.xib in Resources */,
 				6FCDC6400FC04D330024E498 /* feed.png in Resources */,
 				6FCDC66C0FC04F180024E498 /* Feed.xib in Resources */,
@@ -1209,10 +1189,6 @@
 				6F9DD8761334B03400D1E35E /* Default.png in Resources */,
 				6F9DD8781334B09800D1E35E /* Default@2x.png in Resources */,
 				6F9DD8801334DBF500D1E35E /* OrganizationCell.xib in Resources */,
-				6F9DD88E1334E0F300D1E35E /* FeedEntryCellBackground@2x.png in Resources */,
-				6F9DD8911334E0F300D1E35E /* OrganizationCellBackground.png in Resources */,
-				6F9DD8921334E0F300D1E35E /* OrganizationCellBackground@2x.png in Resources */,
-				6F9DD8941334E0F300D1E35E /* UserCellBackground@2x.png in Resources */,
 				6FB9CBE513354AC200C8DE29 /* Organization.xib in Resources */,
 				6FB9CBF713355FB300C8DE29 /* Organizations.xib in Resources */,
 				6FB9CBFA133565D200C8DE29 /* team_add.png in Resources */,

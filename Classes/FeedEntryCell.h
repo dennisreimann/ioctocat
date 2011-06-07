@@ -10,7 +10,6 @@
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UIImageView *iconView;
 	IBOutlet UIImageView *gravatarView;
-	IBOutlet UIImageView *bgImageView;
 }
 
 @property(nonatomic,retain)GHFeedEntry *entry;

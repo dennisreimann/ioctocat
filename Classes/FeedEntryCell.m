@@ -11,12 +11,11 @@
 
 - (void)dealloc {
 	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[entry release];
-	[dateLabel release];
-	[titleLabel release];
-	[gravatarView release];
-	[bgImageView release];
-	[iconView release];
+	[entry release], entry = nil;
+	[dateLabel release], dateLabel = nil;
+	[titleLabel release], titleLabel = nil;
+	[gravatarView release], gravatarView = nil;
+	[iconView release], iconView = nil;
     [super dealloc];
 }
 
@@ -35,18 +34,24 @@
 	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadData];
 }
 
+- (void)setCustomBackgroundColor:(UIColor *)theColor {
+    if (!self.backgroundView) {
+        self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+        for ( UIView* view in self.contentView.subviews) {
+            view.backgroundColor = [UIColor clearColor];
+        }
+    }
+    self.backgroundView.backgroundColor = theColor;
+}
+
 - (void)markAsNew {
 	UIColor *highlightColor = [UIColor colorWithHue:0.45 saturation:0.05 brightness:0.9 alpha:1.0];
-	dateLabel.backgroundColor = highlightColor;
-	titleLabel.backgroundColor = highlightColor;
-	bgImageView.backgroundColor = highlightColor;
+	[self setCustomBackgroundColor:highlightColor];
 }
 
 - (void)markAsRead {
 	UIColor *normalColor = [UIColor whiteColor];
-	dateLabel.backgroundColor = normalColor;
-	titleLabel.backgroundColor = normalColor;
-	bgImageView.backgroundColor = normalColor;
+	[self setCustomBackgroundColor:normalColor];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

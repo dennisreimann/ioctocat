@@ -39,8 +39,11 @@
 	if (!organization.publicRepositories.isLoaded) [organization.publicRepositories loadData];
 	if (!organization.publicMembers.isLoaded) [organization.publicMembers loadData];
 	self.navigationItem.title = organization.login;
-	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+    tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)dealloc {

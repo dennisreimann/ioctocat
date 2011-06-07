@@ -45,8 +45,11 @@
 	if (!user.repositories.isLoaded) [user.repositories loadData];
 	if (!user.organizations.isLoaded) [user.organizations loadData];
 	self.navigationItem.title = (self.user == self.currentUser) ? @"Profile" : user.login;
-	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+    tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)dealloc {

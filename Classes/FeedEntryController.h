@@ -10,6 +10,7 @@
   @private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
+	IBOutlet UIView *headView;
 	IBOutlet UIImageView *iconView;
 	IBOutlet UIImageView *gravatarView;
 	IBOutlet UIWebView *contentView;

@@ -29,6 +29,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+    tableHeaderView.backgroundColor = background;
     self.tableView.tableHeaderView = tableHeaderView;
 	self.tableView.tableFooterView = tableFooterView;
 }

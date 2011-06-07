@@ -33,6 +33,9 @@
 	[super viewDidLoad];
 	if (feed) self.navigationItem.rightBarButtonItem = controlItem;
 	self.entry = [feed.entries objectAtIndex:currentIndex];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
+    headView.backgroundColor = background;
 }
 
 - (void)setEntry:(GHFeedEntry *)theEntry {
@@ -96,6 +99,7 @@
 	[dateLabel release], dateLabel = nil;
 	[titleLabel release], titleLabel = nil;
 	[iconView release], iconView = nil;
+	[headView release], headView = nil;
 	[gravatarView release], gravatarView = nil;
 	
     [super dealloc];

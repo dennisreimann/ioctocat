@@ -47,21 +47,6 @@
 				<int key="NSvFlags">290</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIImageView" id="1008101578">
-						<reference key="NSNextResponder" ref="8298493"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrameSize">{320, 80}</string>
-						<reference key="NSSuperview" ref="8298493"/>
-						<reference key="NSWindow"/>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<int key="IBUIContentMode">4</int>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">IssueDetailsHeadBackground.png</string>
-						</object>
-					</object>
 					<object class="IBUILabel" id="326744483">
 						<reference key="NSNextResponder" ref="8298493"/>
 						<int key="NSvFlags">290</int>
@@ -391,7 +376,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="469432777">
 								<reference key="NSNextResponder" ref="919336481"/>
-								<int key="NSvFlags">274</int>
+								<int key="NSvFlags">294</int>
 								<string key="NSFrame">{{15, 10}, {275, 21}}</string>
 								<reference key="NSSuperview" ref="919336481"/>
 								<reference key="NSWindow"/>
@@ -891,7 +876,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="8298493"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1008101578"/>
 							<reference ref="326744483"/>
 							<reference ref="44464179"/>
 							<reference ref="163586074"/>
@@ -902,11 +886,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="IBObjectRecord">
 						<int key="objectID">24</int>
 						<reference key="object" ref="163586074"/>
-						<reference key="parent" ref="8298493"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">23</int>
-						<reference key="object" ref="1008101578"/>
 						<reference key="parent" ref="8298493"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -1055,7 +1034,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<string>-1.CustomClassName</string>
 					<string>-2.CustomClassName</string>
 					<string>21.IBPluginDependency</string>
-					<string>23.IBPluginDependency</string>
 					<string>24.IBPluginDependency</string>
 					<string>3.IBEditorWindowLastContentRect</string>
 					<string>3.IBPluginDependency</string>
@@ -1096,7 +1074,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>IssueController</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>{{503, 624}, {320, 80}}</string>
@@ -1439,10 +1416,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
-		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">IssueDetailsHeadBackground.png</string>
-			<string key="NS.object.0">{320, 80}</string>
-		</object>
 		<string key="IBCocoaTouchPluginVersion">300</string>
 	</data>
 </archive>

@@ -163,8 +163,8 @@
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
-		6FB3CBE713977DBE00CB0EAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */; };
-		6FB3CBEA13977E4000CB0EAE /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE913977E4000CB0EAE /* MainWindow.xib */; };
+		6FB3CBE713977DBE00CB0EAE /* MainWindow-ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE613977DBE00CB0EAE /* MainWindow-ipad.xib */; };
+		6FB3CBEA13977E4000CB0EAE /* MainWindow-iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE913977E4000CB0EAE /* MainWindow-iphone.xib */; };
 		6FB3CBF6139780D600CB0EAE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF3139780D600CB0EAE /* Icon-iPad.png */; };
 		6FB3CBF7139780D600CB0EAE /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */; };
 		6FB3CBF8139780D600CB0EAE /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF5139780D600CB0EAE /* Icon-Small.png */; };
@@ -436,7 +436,7 @@
 		6F9DD88C1334E0F300D1E35E /* UserTableHeadBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "UserTableHeadBackground@2x.png"; path = "Images/UserTableHeadBackground@2x.png"; sourceTree = "<group>"; };
 		6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationsController.h; sourceTree = "<group>"; };
 		6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationsController.m; sourceTree = "<group>"; };
-		6FA512F01332657400C16D95 /* JLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLog.h; sourceTree = "<group>"; };
+		6FA512F01332657400C16D95 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; path = Platform.h; sourceTree = "<group>"; };
 		6FA512F11332659000C16D95 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
 		6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntry.xib; path = IBFiles/FeedEntry.xib; sourceTree = "<group>"; };
 		6FA92AFD0FACD51A001B1D1D /* Issue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issue.xib; path = IBFiles/Issue.xib; sourceTree = "<group>"; };
@@ -444,8 +444,8 @@
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
-		6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MainWindow.xib; path = IBFiles/iPad/MainWindow.xib; sourceTree = "<group>"; };
-		6FB3CBE913977E4000CB0EAE /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		6FB3CBE613977DBE00CB0EAE /* MainWindow-ipad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-ipad.xib"; path = "IBFiles/iPad/MainWindow-ipad.xib"; sourceTree = "<group>"; };
+		6FB3CBE913977E4000CB0EAE /* MainWindow-iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iphone.xib"; sourceTree = "<group>"; };
 		6FB3CBF3139780D600CB0EAE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
 		6FB3CBF5139780D600CB0EAE /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
@@ -601,7 +601,7 @@
 			isa = PBXGroup;
 			children = (
 				6FA512F11332659000C16D95 /* AppConstants.h */,
-				6FA512F01332657400C16D95 /* JLog.h */,
+				6FA512F01332657400C16D95 /* Platform.h */,
 				6F7961AD132EC90D00C9446E /* SynthesizeSingleton.h */,
 				28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
@@ -971,7 +971,7 @@
 		6FB3CBE513977DBC00CB0EAE /* iPad */ = {
 			isa = PBXGroup;
 			children = (
-				6FB3CBE613977DBE00CB0EAE /* MainWindow.xib */,
+				6FB3CBE613977DBE00CB0EAE /* MainWindow-ipad.xib */,
 			);
 			name = iPad;
 			sourceTree = "<group>";
@@ -979,7 +979,7 @@
 		6FB3CBE813977E4000CB0EAE /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
-				6FB3CBE913977E4000CB0EAE /* MainWindow.xib */,
+				6FB3CBE913977E4000CB0EAE /* MainWindow-iphone.xib */,
 			);
 			name = iPhone;
 			path = IBFiles/iPhone;
@@ -1253,8 +1253,8 @@
 				6F843156136D53350016E367 /* issue_comment.png in Resources */,
 				6F843157136D53350016E367 /* issue_comment@2x.png in Resources */,
 				E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */,
-				6FB3CBE713977DBE00CB0EAE /* MainWindow.xib in Resources */,
-				6FB3CBEA13977E4000CB0EAE /* MainWindow.xib in Resources */,
+				6FB3CBE713977DBE00CB0EAE /* MainWindow-ipad.xib in Resources */,
+				6FB3CBEA13977E4000CB0EAE /* MainWindow-iphone.xib in Resources */,
 				6FB3CBF6139780D600CB0EAE /* Icon-iPad.png in Resources */,
 				6FB3CBF7139780D600CB0EAE /* Icon-Small-50.png in Resources */,
 				6FB3CBF8139780D600CB0EAE /* Icon-Small.png in Resources */,

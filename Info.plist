@@ -42,9 +42,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
+	<string>MainWindow-iphone</string>
 	<key>NSMainNibFile~ipad</key>
-	<string>MainWindow</string>
+	<string>MainWindow-ipad</string>
 	<key>SBUsesNetwork</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>

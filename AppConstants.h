@@ -2,6 +2,7 @@
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kLoginDefaultsKey @"username"
+#define kTokenDefaultsKey @"token"
 #define kPasswordDefaultsKey @"password"
 
 // API
@@ -61,7 +62,7 @@
 #define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
-#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"
+#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"
 #define kOrganizationPublicRepositoriesFormat @"https://github.com/api/v2/json/organizations/%@/public_repositories"
 #define kOrganizationPublicMembersFormat @"https://github.com/api/v2/json/organizations/%@/public_members"
 

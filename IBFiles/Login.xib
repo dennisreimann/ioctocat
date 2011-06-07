@@ -64,7 +64,7 @@
 					</object>
 					<object class="IBUITextField" id="905931456">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 71}, {280, 31}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -97,8 +97,8 @@
 					</object>
 					<object class="IBUITextField" id="245133505">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 112}, {280, 31}}</string>
+						<int key="NSvFlags">294</int>
+						<string key="NSFrame">{{20, 110}, {280, 31}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="266552004"/>
@@ -125,11 +125,10 @@
 					</object>
 					<object class="IBUIButton" id="266552004">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 162}, {280, 37}}</string>
+						<int key="NSvFlags">294</int>
+						<string key="NSFrame">{{20, 149}, {280, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -277,10 +276,10 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="191373211"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="905931456"/>
+							<reference ref="536987527"/>
 							<reference ref="245133505"/>
 							<reference ref="266552004"/>
-							<reference ref="536987527"/>
+							<reference ref="905931456"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>

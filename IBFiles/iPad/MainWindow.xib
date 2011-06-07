@@ -108,9 +108,10 @@
 							<object class="IBUINavigationItem" key="IBUINavigationItem" id="183379450">
 								<string key="IBUITitle">Feeds</string>
 								<object class="IBUISegmentedControl" key="IBUITitleView" id="617151056">
-									<nil key="NSNextResponder"/>
+									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">292</int>
-									<string key="NSFrame">{{6, 7}, {200, 30}}</string>
+									<string key="NSFrame">{{284, 7}, {200, 30}}</string>
+									<reference key="NSSuperview"/>
 									<bool key="IBUIOpaque">NO</bool>
 									<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 									<string key="targetRuntimeIdentifier">IBIPadFramework</string>

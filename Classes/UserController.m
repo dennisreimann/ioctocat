@@ -89,7 +89,7 @@
 	} else {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
 	}
-	[actionSheet showInView:self.view.window];
+	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 

@@ -120,7 +120,7 @@
     self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
     NSString *mail = [theDict objectForKey:@"email"];
     if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
-        self.email = [theDict objectForKey:@"email"];
+        self.email = mail;
     }
     self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
     self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];

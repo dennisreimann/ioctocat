@@ -34,7 +34,7 @@
 #define kUserFollowFormat @"https://api.github.com/user/following/%@" // v3
 
 // Repos
-#define kRepoGithubFormat @"http://github.com/%@/%@"
+#define kRepoGithubFormat @"https://github.com/%@/%@"
 #define kRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoFormat @"https://github.com/api/v2/json/repos/show/%@/%@"
@@ -48,8 +48,8 @@
 #define kRepoPrivateCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
 
 // Issues
-#define kIssueGithubFormat @"http://github.com/%@/%@/issues/%d"
 #define kIssueFormat @"https://github.com/api/v2/json/issues/show/%@/%@/%d"
+#define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"
 #define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
 #define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"
 #define kIssueCommentsFormat @"https://github.com/api/v2/json/issues/comments/%@/%@/%d"

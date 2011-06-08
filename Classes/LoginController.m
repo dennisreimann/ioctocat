@@ -106,7 +106,7 @@
             [self finishAuthenticating];
         } else {
             [self presentLogin];
-            [self failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
+            [self failWithMessage:@"Please ensure that you are connected to the internet and that your login and password are correct"];
         }
     }
 }

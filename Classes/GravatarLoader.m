@@ -14,9 +14,8 @@ NSString *md5(NSString *str) {
 			result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]];
 } 
 
-
 @interface GravatarLoader ()
-- (void)requestWithArgs:(NSArray *)theArgs;
+- (void)requestWithURL:(NSURL *)theURL;
 @end
 
 
@@ -34,27 +33,33 @@ NSString *md5(NSString *str) {
 	[super dealloc];
 }
 
-- (void)loadEmail:(NSString *)theEmail withSize:(NSInteger)theSize {
+- (NSInteger)gravatarSize {
+	UIScreen *mainScreen = [UIScreen mainScreen];
+	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
+	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
+	return size;
+}
+
+- (void)loadEmail:(NSString *)theEmail {
 	// Lowercase the email since SteveJobs@apple.com and stevejobs@apple.com are
 	// the same person but gravatar only recognizes the md5 of the latter
 	NSString *hash = md5([theEmail lowercaseString]);
-	[self loadHash:hash withSize:theSize];
+	[self loadHash:hash];
 }
 
-- (void)loadHash:(NSString *)theHash withSize:(NSInteger)theSize {
-	NSURL *gravatarURL = [NSURL URLWithFormat:@"http://www.gravatar.com/avatar/%@?s=%d&d=http://dbloete.github.com/ioctocat/images/DefaultGravatar44.png", theHash, theSize];
-	NSArray *args = [NSArray arrayWithObject:gravatarURL];
-	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
+- (void)loadHash:(NSString *)theHash {
+	NSURL *gravatarURL = [NSURL URLWithFormat:@"https://secure.gravatar.com/avatar/%@?s=%d&d=https://d3nwyuy0nl342s.cloudfront.net/images/gravatars/gravatar-%d.png", theHash, self.gravatarSize, self.gravatarSize];
+	[self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
 }
 
 - (void)loadURL:(NSURL *)theURL {
-	NSArray *args = [NSArray arrayWithObject:theURL];
-	[self performSelectorInBackground:@selector(requestWithArgs:) withObject:args];
+    NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", theURL, self.gravatarSize];
+	[self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
 }
 
-- (void)requestWithArgs:(NSArray *)theArgs {
+- (void)requestWithURL:(NSURL *)theURL {
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSData *gravatarData = [NSData dataWithContentsOfURL:[theArgs objectAtIndex:0]];
+	NSData *gravatarData = [NSData dataWithContentsOfURL:theURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
  	[pool release];

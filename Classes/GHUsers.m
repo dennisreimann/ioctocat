@@ -29,10 +29,13 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (id user in theDict) {
-        NSString *login = [user objectForKey:@"login"];
-		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
-        [theUser setValuesFromDict:user];
+    // This looks weird, but we'll have to do it like that for
+    // the time we are switching from API v2 to v3…
+    NSArray *usersArray = [theDict isKindOfClass:[NSArray class]] ? theDict : [theDict objectForKey:@"users"];
+    for (NSDictionary *userDict in usersArray) {
+        NSString *login = [userDict objectForKey:@"login"];
+        GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
+        [theUser setValuesFromDict:userDict];
         [resources addObject:theUser];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

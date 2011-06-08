@@ -23,7 +23,7 @@
 #define kUserFeedFormat @"https://github.com/%@.atom" // non-API atom
 #define kUserNewsFeedFormat @"https://github.com/%@.private.atom" // non-API atom
 #define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom" // non-API atom
-#define kUserGithubFormat @"http://github.com/%@"
+#define kUserGithubFormat @"https://github.com/%@"
 #define kUserAuthenticatedFormat @"https://api.github.com/user" // v3
 #define kUserFormat @"https://api.github.com/users/%@" // v3
 #define kUserReposFormat @"https://github.com/api/v2/json/repos/show/%@"
@@ -58,8 +58,8 @@
 #define kIssuesFormat @"http://github.com/api/v2/json/issues/list/%@/%@/%@"
 
 // Organizations
-#define kOrganizationGithubFormat @"http://github.com/%@"
-#define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"
+#define kOrganizationGithubFormat @"https://github.com/%@"
+#define kOrganizationFormat @"https://api.github.com/orgs/%@" // v3
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
 #define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"
@@ -76,7 +76,7 @@
 #define kIssueCommentCommentParamName @"comment"
 
 // Images
-#define kImageGravatarMaxLogicalSize 44
+#define kImageGravatarMaxLogicalSize 50
 
 // Following/Watching
 #define kFollow @"follow"

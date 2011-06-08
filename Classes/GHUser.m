@@ -113,16 +113,6 @@
 	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
-- (void)setGravatarURL:(NSURL *)theURL {
-    [theURL retain];
-	[gravatarURL release];
-	gravatarURL = theURL;
-    
-	if (gravatarURL) {
-       [gravatarLoader loadURL:gravatarURL]; 
-    }
-}
-
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
@@ -134,8 +124,7 @@
     }
     self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
     self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];
-    self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"gravatar_url"]];
-    self.blogURL = [GHResource smartURLFromString:[theDict objectForKey:@"blog"]];
+    self.blogURL = [NSURL smartURLFromString:[theDict objectForKey:@"blog"]];
     self.publicGistCount = [[theDict objectForKey:@"public_gists"] integerValue];
     self.privateGistCount = [[theDict objectForKey:@"private_gists"] integerValue];
     self.publicRepoCount = [[theDict objectForKey:@"public_repos"] integerValue];
@@ -143,6 +132,11 @@
     self.followersCount = [[theDict objectForKey:@"followers"] integerValue];
     self.followingCount = [[theDict objectForKey:@"following"] integerValue];
     self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
+    self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
+    // gravatar_url will soon be deprecated by the GitHub API
+    if (!self.gravatarURL && ![[theDict objectForKey:@"gravatar_url"] isKindOfClass:[NSNull class]]) {
+        self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"gravatar_url"]];
+    }
 }
 
 #pragma mark Following
@@ -225,6 +219,16 @@
 }
 
 #pragma mark Gravatar
+
+- (void)setGravatarURL:(NSURL *)theURL {
+    [theURL retain];
+	[gravatarURL release];
+	gravatarURL = theURL;
+    
+	if (gravatarURL) {
+        [gravatarLoader loadURL:gravatarURL]; 
+    }
+}
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;

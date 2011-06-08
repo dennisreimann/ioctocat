@@ -31,7 +31,6 @@ typedef enum {
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
 + (id)resourceWithURL:(NSURL *)theURL;
-+ (NSURL *)smartURLFromString:(NSString *)theString;
 - (id)initWithURL:(NSURL *)theURL;
 - (void)addDelegate:(id)delegate;
 - (void)removeDelegate:(id)delegate;

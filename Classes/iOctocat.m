@@ -112,13 +112,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
-- (NSInteger)gravatarSize {
-	UIScreen *mainScreen = [UIScreen mainScreen];
-	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
-	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
-	return size;
-}
-
 - (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsPath = [paths objectAtIndex:0];

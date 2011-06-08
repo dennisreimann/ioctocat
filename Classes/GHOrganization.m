@@ -20,7 +20,7 @@
 @synthesize company;
 @synthesize blogURL;
 @synthesize location;
-@synthesize gravatarHash;
+@synthesize gravatarURL;
 @synthesize gravatar;
 @synthesize publicMembers;
 @synthesize publicRepositories;
@@ -52,7 +52,7 @@
 	[blogURL release], blogURL = nil;
 	[location release], location = nil;
     [gravatarLoader release], gravatarLoader = nil;
-	[gravatarHash release], gravatarHash = nil;
+	[gravatarURL release], gravatarURL = nil;
 	[gravatar release], gravatar = nil;
 	[publicMembers release], publicMembers = nil;
 	[publicRepositories release], publicRepositories = nil;
@@ -91,16 +91,6 @@
     self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }
 
-- (void)setGravatarHash:(NSString *)theHash {
-	[theHash retain];
-	[gravatarHash release];
-	gravatarHash = theHash;
-    
-	if (gravatarHash) {
-        [gravatarLoader loadHash:gravatarHash withSize:[[iOctocat sharedInstance] gravatarSize]]; 
-    }
-}
-
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
     
@@ -108,18 +98,31 @@
     self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
     self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
     self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
-    self.gravatarHash = [[resource objectForKey:@"gravatar_id"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"gravatar_id"];
     self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
-    self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL URLWithString:[resource objectForKey:@"blog"]];
+    self.blogURL = [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
     self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
     self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
     self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
     self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
     self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
     self.privateRepoCount = [[resource objectForKey:@"private_repo_count"] integerValue];
+    // gravatar_url will soon be deprecated by the GitHub API
+    if (!self.gravatarURL && ![[theDict objectForKey:@"gravatar_url"] isKindOfClass:[NSNull class]]) {
+        self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"gravatar_url"]];
+    }
 }
 
 #pragma mark Gravatar
+
+- (void)setGravatarURL:(NSURL *)theURL {
+    [theURL retain];
+	[gravatarURL release];
+	gravatarURL = theURL;
+    
+	if (gravatarURL) {
+        [gravatarLoader loadURL:gravatarURL]; 
+    }
+}
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;

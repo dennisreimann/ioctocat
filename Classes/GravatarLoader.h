@@ -8,9 +8,11 @@
 }
 
 - (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle;
-- (void)loadEmail:(NSString *)theEmail withSize:(NSInteger)theSize;
-- (void)loadHash:(NSString *)theHash withSize:(NSInteger)theSize;
+- (void)loadEmail:(NSString *)theEmail;
+- (void)loadHash:(NSString *)theHash;
 - (void)loadURL:(NSURL *)theURL;
+
+@property(nonatomic,readonly)NSInteger gravatarSize;
 
 @end
 

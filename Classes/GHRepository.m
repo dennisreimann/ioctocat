@@ -107,7 +107,7 @@
     NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
     
     self.githubURL = [NSURL URLWithString:[resource objectForKey:@"url"]];
-    self.homepageURL = [GHResource smartURLFromString:[resource objectForKey:@"homepage"]];
+    self.homepageURL = [NSURL smartURLFromString:[resource objectForKey:@"homepage"]];
     self.descriptionText = [resource objectForKey:@"description"];
     self.isFork = [[resource objectForKey:@"fork"] boolValue];
     self.isPrivate = [[resource objectForKey:@"private"] boolValue];

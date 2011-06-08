@@ -19,4 +19,10 @@
 	[super dealloc];
 }
 
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
+}
+
 @end

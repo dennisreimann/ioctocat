@@ -185,6 +185,7 @@
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
 		6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
+		6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */; };
 		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
 		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
@@ -464,6 +465,7 @@
 		6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedParserDelegate.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepositories.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
 		6FE7D14511557E8C004B4D68 /* GHIssueComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FE7D1BC115622D1004B4D68 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
@@ -965,6 +967,7 @@
 				6F9DD8751334B03400D1E35E /* Default.png */,
 				6F9DD8771334B09800D1E35E /* Default@2x.png */,
 				6FB3CBFF1397853B00CB0EAE /* Default-Portrait~ipad.png */,
+				6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
 				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
@@ -1213,6 +1216,7 @@
 				6F61F541139E43FD005DBE67 /* AvatarBackground50@2x.png in Resources */,
 				6F61F542139E43FD005DBE67 /* HeadBackground80.png in Resources */,
 				6F61F543139E43FD005DBE67 /* HeadBackground80@2x.png in Resources */,
+				6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

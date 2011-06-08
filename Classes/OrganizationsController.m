@@ -69,5 +69,11 @@
     [viewController release];
 }
 
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
+}
+
 @end
 

@@ -22,6 +22,7 @@
         0.0f - self.view.bounds.size.height,
         self.view.bounds.size.width,
         self.view.bounds.size.height)];
+    refreshHeaderView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 	[self.tableView addSubview:refreshHeaderView];
 	self.tableView.showsVerticalScrollIndicator = YES;
 }
@@ -117,6 +118,12 @@
 		}
 	} 
 	checkForRefresh = NO;
+}
+
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
 }
 
 @end

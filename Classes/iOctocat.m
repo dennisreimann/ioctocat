@@ -144,7 +144,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = theFormat;
     // Fix for timezone format
-    string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+    if ([string hasSuffix:@"Z"]) {
+        string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
+    } else {
+        string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+    }
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }

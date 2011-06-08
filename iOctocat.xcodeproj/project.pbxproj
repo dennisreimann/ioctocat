@@ -360,7 +360,6 @@
 		6F72FB2E0F9B53810069F092 /* FeedEntryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedEntryCell.m; sourceTree = "<group>"; };
 		6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FeedEntryCell.xib; path = IBFiles/FeedEntryCell.xib; sourceTree = "<group>"; };
 		6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MIT-LICENSE"; sourceTree = "<group>"; };
-		6F74DD8B0FA76CE000FD90AB /* README.textile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.textile; sourceTree = "<group>"; };
 		6F7961A9132EC90D00C9446E /* GHResource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GHResource.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		6F7961AA132EC90D00C9446E /* GHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHResource.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F7961AB132EC90D00C9446E /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
@@ -595,7 +594,6 @@
 				8D1107310486CEB800E47090 /* Info.plist */,
 				6FF651970F8A9DA200C20E2D /* Entitlements.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
-				6F74DD8B0FA76CE000FD90AB /* README.textile */,
 				6F593A031116179D004B70FB /* format.html */,
 			);
 			name = Resources;

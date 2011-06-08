@@ -4,6 +4,7 @@
 
 
 @interface LoginController ()
++ (NSString *)stringFromUserDefaults:(NSUserDefaults *)defaults forKey:(NSString *)key defaultsTo:(NSString *)defaultValue;
 - (void)presentLogin;
 - (void)dismissLogin;
 - (void)showAuthenticationSheet;
@@ -21,6 +22,11 @@
 @synthesize delegate;
 @synthesize user;
 
++ (NSString *)stringFromUserDefaults:(NSUserDefaults *)defaults forKey:(NSString *)key defaultsTo:(NSString *)defaultValue {
+	NSString *value = [defaults stringForKey:key];
+	return value != nil ? value : defaultValue;
+}
+
 - (id)initWithViewController:(UIViewController *)theViewController {
 	[super initWithNibName:@"Login" bundle:nil];
     viewController = theViewController;
@@ -30,8 +36,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	loginField.text = [defaults valueForKey:kLoginDefaultsKey];
-	passwordField.text = [defaults valueForKey:kPasswordDefaultsKey];
+	loginField.text = [LoginController stringFromUserDefaults:defaults forKey:kLoginDefaultsKey defaultsTo:@""];
+	passwordField.text = [LoginController stringFromUserDefaults:defaults forKey:kPasswordDefaultsKey defaultsTo:@""];
 	loginField.clearButtonMode = UITextFieldViewModeWhileEditing;
 	passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
 }

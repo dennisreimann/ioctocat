@@ -146,7 +146,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
     // Fix for timezone format
     if ([string hasSuffix:@"Z"]) {
         string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
-    } else {
+    } else if ([string length] >= 24) {
         string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
     }
 	NSDate *date = [dateFormatter dateFromString:string];

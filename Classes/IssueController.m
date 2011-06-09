@@ -10,12 +10,15 @@
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
+#import "iOctocat.h"
+#import "GHUser.h"
 
 
 @interface IssueController ()
 - (void)displayIssue;
+- (GHUser *)currentUser;
+- (BOOL)issueBelongsToCurrentUser;
 @end
-
 
 @implementation IssueController
 
@@ -113,6 +116,14 @@
 	}
 }
 
+- (GHUser *)currentUser {
+	return [[iOctocat sharedInstance] currentUser];
+}
+
+- (BOOL)issueBelongsToCurrentUser {
+    return self.currentUser && [issue.user.login isEqualToString:self.currentUser.login];
+}
+
 #pragma mark Actions
 
 - (void)displayIssue {
@@ -128,7 +139,12 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+	UIActionSheet *actionSheet;
+    if (self.issueBelongsToCurrentUser) {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+    } else {
+        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+    }
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
@@ -140,15 +156,15 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
+	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
 		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:issue andIssuesController:listController];
 		[self.navigationController pushViewController:formController animated:YES];
 		[formController release];  
-	} else if (buttonIndex == 1) {
+	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
 		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];      
-    } else if (buttonIndex == 2) {
+    } else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
 		[self addComment:nil];                  
-    } else if (buttonIndex == 3) {
+    } else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
         NSURL *issueURL = [NSURL URLWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
 		WebController *webController = [[WebController alloc] initWithURL:issueURL];
 		[self.navigationController pushViewController:webController animated:YES];

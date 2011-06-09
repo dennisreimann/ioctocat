@@ -4,6 +4,7 @@
 @interface TextCell : UITableViewCell {
   @private
 	IBOutlet UILabel *contentTextLabel;
+	IBOutlet UITextView *contentTextView;
 	CGFloat maxWidth;
 }
 

@@ -9,28 +9,28 @@
 }
 
 - (void)dealloc {
-	[contentTextLabel release];
+	[contentTextLabel release], contentTextLabel = nil;
+    [contentTextView release], contentTextView = nil;
     [super dealloc];
 }
 
 - (void)setContentText:(NSString *)theText {
-	contentTextLabel.text = theText;
-	CGSize constraint = CGSizeMake(maxWidth, 20000);
-	CGSize size = [theText sizeWithFont:contentTextLabel.font constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    if (size.height < 24) {
-        size.height = 24;
-    }
-	contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, size.height);
+    NSCharacterSet *charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	theText = [theText stringByTrimmingCharactersInSet:charSet];
+    contentTextView.text = theText;
+    // Adjust height
+    CGRect frame = contentTextView.frame;
+    frame.size.height = contentTextView.contentSize.height;
+    contentTextView.frame = frame;
 }
 
 - (CGFloat)height {
 	if (!self.hasContent) return 0;
-	CGFloat height = contentTextLabel.frame.size.height + 20; // 20 is the vertical margin
-	return height;
+    return contentTextView.contentSize.height + 10;
 }
 
 - (BOOL)hasContent {
-	return !(contentTextLabel.text == nil || [contentTextLabel.text isEmpty]);
+    return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
 }
 
 @end

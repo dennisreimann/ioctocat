@@ -96,14 +96,14 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    
+
 	NSURL *organizationsURL = [NSURL URLWithFormat:kOrganizationsFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kUserReposFormat, login];
 	NSURL *watchedRepositoriesURL = [NSURL URLWithFormat:kUserWatchedReposFormat, login];
     NSURL *followingURL = [NSURL URLWithFormat:kUserFollowingFormat, login];
     NSURL *followersURL = [NSURL URLWithFormat:kUserFollowersFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserFeedFormat, login];
-    
+
     self.resourceURL = [NSURL URLWithFormat:kUserFormat, login];
 	self.organizations = [GHOrganizations organizationsWithUser:self andURL:organizationsURL];
 	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
@@ -224,9 +224,9 @@
     [theURL retain];
 	[gravatarURL release];
 	gravatarURL = theURL;
-    
+
 	if (gravatarURL) {
-        [gravatarLoader loadURL:gravatarURL]; 
+        [gravatarLoader loadURL:gravatarURL];
     }
 }
 

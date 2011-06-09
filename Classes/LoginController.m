@@ -4,7 +4,7 @@
 
 
 @interface LoginController ()
-+ (NSString *)stringFromUserDefaults:(NSUserDefaults *)defaults forKey:(NSString *)key defaultsTo:(NSString *)defaultValue;
++ (NSString *)stringFromUserDefaultsForKey:(NSString *)key defaultsTo:(NSString *)defaultValue;
 - (void)presentLogin;
 - (void)dismissLogin;
 - (void)showAuthenticationSheet;
@@ -18,11 +18,13 @@
 
 @synthesize loginField;
 @synthesize passwordField;
+@synthesize tokenField;
 @synthesize submitButton;
 @synthesize delegate;
 @synthesize user;
 
-+ (NSString *)stringFromUserDefaults:(NSUserDefaults *)defaults forKey:(NSString *)key defaultsTo:(NSString *)defaultValue {
++ (NSString *)stringFromUserDefaultsForKey:(NSString *)key defaultsTo:(NSString *)defaultValue {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *value = [defaults stringForKey:key];
 	return value != nil ? value : defaultValue;
 }
@@ -35,16 +37,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	loginField.text = [LoginController stringFromUserDefaults:defaults forKey:kLoginDefaultsKey defaultsTo:@""];
-	passwordField.text = [LoginController stringFromUserDefaults:defaults forKey:kPasswordDefaultsKey defaultsTo:@""];
-	loginField.clearButtonMode = UITextFieldViewModeWhileEditing;
-	passwordField.clearButtonMode = UITextFieldViewModeWhileEditing;
+	loginField.text = [LoginController stringFromUserDefaultsForKey:kLoginDefaultsKey defaultsTo:@""];
+	passwordField.text = [LoginController stringFromUserDefaultsForKey:kPasswordDefaultsKey defaultsTo:@""];
+    tokenField.text = [LoginController stringFromUserDefaultsForKey:kTokenDefaultsKey defaultsTo:@""];
 }
 
 - (void)dealloc {
 	[loginField release], loginField = nil;
 	[passwordField release], passwordField = nil;
+	[tokenField release], tokenField = nil;
 	[submitButton release], submitButton = nil;
 	[authSheet release], authSheet = nil;
     [super dealloc];
@@ -61,16 +62,19 @@
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:trimSet];
+	NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
 	if ([login isEmpty] || [password isEmpty]) {
 		[self failWithMessage:@"Please enter your login\nand password"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kLoginDefaultsKey];
 		[defaults setValue:password forKey:kPasswordDefaultsKey];
+		[defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
 		[loginField resignFirstResponder];
 		[passwordField resignFirstResponder];
+		[tokenField resignFirstResponder];
         [self startAuthenticating];
 	}
 }
@@ -78,12 +82,14 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[loginField resignFirstResponder];
 	[passwordField resignFirstResponder];
+	[tokenField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	if (textField == loginField) [passwordField becomeFirstResponder];
-	if (textField == passwordField) [self submit:nil];
+	if (textField == passwordField) [tokenField becomeFirstResponder];
+	if (textField == tokenField) [self submit:nil];
 	return YES;
 }
 
@@ -112,6 +118,7 @@
 }
 
 - (void)stopAuthenticating {
+    submitButton.enabled = YES;
     [self dismissAuthenticationSheet];
 }
 

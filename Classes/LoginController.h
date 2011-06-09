@@ -15,6 +15,7 @@
 @property(nonatomic,assign)GHUser *user;
 @property(nonatomic,retain)IBOutlet UITextField *loginField;
 @property(nonatomic,retain)IBOutlet UITextField *passwordField;
+@property(nonatomic,retain)IBOutlet UITextField *tokenField;
 @property(nonatomic,retain)IBOutlet UIButton *submitButton;
 
 - (id)initWithViewController:(UIViewController *)theViewController;

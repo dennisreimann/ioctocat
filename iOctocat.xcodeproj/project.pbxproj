@@ -30,8 +30,6 @@
 		6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* watch.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
-		6F20089B111A12FF00623EC0 /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F200899111A12FF00623EC0 /* ToolbarDown.png */; };
-		6F20089C111A12FF00623EC0 /* ToolbarUp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F20089A111A12FF00623EC0 /* ToolbarUp.png */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
@@ -218,6 +216,10 @@
 		931D2FCC133513B400FAEF3E /* TabBarRepositories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */; };
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 		E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */; };
+		FCC2C8D113944DF400C8E10D /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */; };
+		FCC2C8D213944DF400C8E10D /* ToolbarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */; };
+		FCC2C8D313944DF400C8E10D /* ToolbarUp.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */; };
+		FCC2C8D413944DF400C8E10D /* ToolbarUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -256,8 +258,6 @@
 		6F1DC6590F7E8D6900FCD26D /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WebView.xib; path = IBFiles/WebView.xib; sourceTree = "<group>"; };
 		6F1DC6720F7E8E1900FCD26D /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		6F1DC6730F7E8E1900FCD26D /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
-		6F200899111A12FF00623EC0 /* ToolbarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarDown.png; sourceTree = "<group>"; };
-		6F20089A111A12FF00623EC0 /* ToolbarUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUp.png; sourceTree = "<group>"; };
 		6F2C76E81114EDEF002665DA /* file_added.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_added.png; path = Images/Icons/file_added.png; sourceTree = "<group>"; };
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
 		6F2C76EA1114EDEF002665DA /* file_removed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_removed.png; path = Images/Icons/file_removed.png; sourceTree = "<group>"; };
@@ -518,6 +518,10 @@
 		931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarRepositories@2x.png"; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RefreshArrow@2x.png"; path = "Images/RefreshArrow@2x.png"; sourceTree = "<group>"; };
+		FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarDown.png; sourceTree = "<group>"; };
+		FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarDown@2x.png"; sourceTree = "<group>"; };
+		FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUp.png; sourceTree = "<group>"; };
+		FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUp@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -872,6 +876,10 @@
 		6F5E9C781119D43E00752560 /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
+				FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */,
+				FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */,
+				FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */,
+				FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */,
 				6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */,
 				6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */,
 				6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */,
@@ -879,8 +887,6 @@
 				6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */,
 				6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */,
 				6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */,
-				6F200899111A12FF00623EC0 /* ToolbarDown.png */,
-				6F20089A111A12FF00623EC0 /* ToolbarUp.png */,
 				6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */,
 				6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */,
 			);
@@ -1145,8 +1151,6 @@
 				6F5E9C7A1119D43E00752560 /* TabBarNetwork.png in Resources */,
 				6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */,
 				6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */,
-				6F20089B111A12FF00623EC0 /* ToolbarDown.png in Resources */,
-				6F20089C111A12FF00623EC0 /* ToolbarUp.png in Resources */,
 				6F316D8C111AD2E400FC4FE9 /* TabBarRepositories.png in Resources */,
 				6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */,
 				6F316D96111AD87700FC4FE9 /* ToolbarCompass.png in Resources */,
@@ -1217,6 +1221,10 @@
 				6F61F542139E43FD005DBE67 /* HeadBackground80.png in Resources */,
 				6F61F543139E43FD005DBE67 /* HeadBackground80@2x.png in Resources */,
 				6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */,
+				FCC2C8D113944DF400C8E10D /* ToolbarDown.png in Resources */,
+				FCC2C8D213944DF400C8E10D /* ToolbarDown@2x.png in Resources */,
+				FCC2C8D313944DF400C8E10D /* ToolbarUp.png in Resources */,
+				FCC2C8D413944DF400C8E10D /* ToolbarUp@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

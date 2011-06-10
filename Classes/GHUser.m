@@ -14,7 +14,7 @@
 
 
 @interface GHUser ()
-- (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser;
+- (void)setFollowing:(BOOL)theMode forUser:(GHUser *)theUser;
 - (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository;
 - (void)followToggleFinished:(ASIHTTPRequest *)request;
 - (void)followToggleFailed:(ASIHTTPRequest *)request;
@@ -96,14 +96,14 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    
+
 	NSURL *organizationsURL = [NSURL URLWithFormat:kOrganizationsFormat, login];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kUserReposFormat, login];
 	NSURL *watchedRepositoriesURL = [NSURL URLWithFormat:kUserWatchedReposFormat, login];
     NSURL *followingURL = [NSURL URLWithFormat:kUserFollowingFormat, login];
     NSURL *followersURL = [NSURL URLWithFormat:kUserFollowersFormat, login];
 	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserFeedFormat, login];
-    
+
     self.resourceURL = [NSURL URLWithFormat:kUserFormat, login];
 	self.organizations = [GHOrganizations organizationsWithUser:self andURL:organizationsURL];
 	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
@@ -120,7 +120,7 @@
     self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
     NSString *mail = [theDict objectForKey:@"email"];
     if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
-        self.email = [theDict objectForKey:@"email"];
+        self.email = mail;
     }
     self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
     self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];
@@ -148,19 +148,19 @@
 
 - (void)followUser:(GHUser *)theUser {
 	[following.users addObject:theUser];
-	[self setFollowing:kFollow forUser:theUser];
+	[self setFollowing:YES forUser:theUser];
 }
 
 - (void)unfollowUser:(GHUser *)theUser {
 	[following.users removeObject:theUser];
-	[self setFollowing:kUnFollow forUser:theUser];
+	[self setFollowing:NO forUser:theUser];
 }
 
-- (void)setFollowing:(NSString *)theMode forUser:(GHUser *)theUser {
-	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theMode, theUser.login];
+- (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
+	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theUser.login];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
-	[request setRequestMethod:@"POST"];
+	[request setRequestMethod:follow ? @"PUT" : @"DELETE"];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
 	[request setDidFailSelector:@selector(followToggleFailed:)];
 	[[iOctocat queue] addOperation:request];
@@ -224,9 +224,9 @@
     [theURL retain];
 	[gravatarURL release];
 	gravatarURL = theURL;
-    
+
 	if (gravatarURL) {
-        [gravatarLoader loadURL:gravatarURL]; 
+        [gravatarLoader loadURL:gravatarURL];
     }
 }
 

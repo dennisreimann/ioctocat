@@ -31,10 +31,10 @@
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"
 #define kUserFollowingFormat @"https://api.github.com/users/%@/following" // v3
 #define kUserFollowersFormat @"https://api.github.com/users/%@/followers" // v3
-#define kUserFollowFormat @"https://github.com/api/v2/json/user/%@/%@"
+#define kUserFollowFormat @"https://api.github.com/user/following/%@" // v3
 
 // Repos
-#define kRepoGithubFormat @"http://github.com/%@/%@/tree/master"
+#define kRepoGithubFormat @"https://github.com/%@/%@"
 #define kRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoFormat @"https://github.com/api/v2/json/repos/show/%@/%@"
@@ -48,8 +48,8 @@
 #define kRepoPrivateCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
 
 // Issues
-#define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
 #define kIssueFormat @"https://github.com/api/v2/json/issues/show/%@/%@/%d"
+#define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"
 #define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
 #define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"
 #define kIssueCommentsFormat @"https://github.com/api/v2/json/issues/comments/%@/%@/%d"
@@ -78,9 +78,7 @@
 // Images
 #define kImageGravatarMaxLogicalSize 50
 
-// Following/Watching
-#define kFollow @"follow"
-#define kUnFollow @"unfollow"
+// Watching
 #define kWatch @"watch"
 #define kUnWatch @"unwatch"
 

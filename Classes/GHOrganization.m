@@ -77,14 +77,14 @@
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    
+
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
 	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationPublicMembersFormat, login];
-    
+
     self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
 	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
 	self.publicMembers = [GHUsers usersWithURL:membersURL];
@@ -93,19 +93,20 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
-    
+
     if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
     self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
     self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
     self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
     self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
-    self.blogURL = [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
+    self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
     self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
     self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
     self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
     self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
     self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
     self.privateRepoCount = [[resource objectForKey:@"private_repo_count"] integerValue];
+    self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
     // gravatar_url will soon be deprecated by the GitHub API
     if (!self.gravatarURL && ![[theDict objectForKey:@"gravatar_url"] isKindOfClass:[NSNull class]]) {
         self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"gravatar_url"]];
@@ -118,9 +119,9 @@
     [theURL retain];
 	[gravatarURL release];
 	gravatarURL = theURL;
-    
+
 	if (gravatarURL) {
-        [gravatarLoader loadURL:gravatarURL]; 
+        [gravatarLoader loadURL:gravatarURL];
     }
 }
 

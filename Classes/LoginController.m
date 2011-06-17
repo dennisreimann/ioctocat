@@ -1,6 +1,7 @@
 #import "LoginController.h"
 #import "NSString+Extensions.h"
 #import "GHUser.h"
+#import "iOctocat.h"
 
 
 @interface LoginController ()
@@ -72,6 +73,7 @@
 		[defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
+        self.user = [[iOctocat sharedInstance] userWithLogin:login];
 		[loginField resignFirstResponder];
 		[passwordField resignFirstResponder];
 		[tokenField resignFirstResponder];

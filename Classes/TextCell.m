@@ -15,18 +15,24 @@
 }
 
 - (void)setContentText:(NSString *)theText {
-    NSCharacterSet *charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	theText = [theText stringByTrimmingCharactersInSet:charSet];
-    contentTextView.text = theText;
+//    contentTextView.text = theText;
     // Adjust height
+//    CGRect frame = contentTextView.frame;
+//    frame.size.height = contentTextView.contentSize.height - 20;
+//    contentTextView.frame = frame;
+    
+    
+    CGSize textSize = { contentTextView.contentSize.width, 9999.0f };
+    CGSize size = [theText sizeWithFont:contentTextView.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
+    contentTextView.text = theText;
     CGRect frame = contentTextView.frame;
-    frame.size.height = contentTextView.contentSize.height;
+    frame.size.height = size.height; //contentTextView.contentSize.height - 20;
     contentTextView.frame = frame;
 }
 
 - (CGFloat)height {
 	if (!self.hasContent) return 0;
-    return contentTextView.contentSize.height + 10;
+    return contentTextView.frame.size.height + 10;
 }
 
 - (BOOL)hasContent {

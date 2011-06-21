@@ -6,6 +6,7 @@
 
 - (void)awakeFromNib {
 	maxWidth = contentTextLabel.frame.size.width;
+    paddingY = 10;
 }
 
 - (void)dealloc {
@@ -14,25 +15,22 @@
     [super dealloc];
 }
 
-- (void)setContentText:(NSString *)theText {
-//    contentTextView.text = theText;
-    // Adjust height
-//    CGRect frame = contentTextView.frame;
-//    frame.size.height = contentTextView.contentSize.height - 20;
-//    contentTextView.frame = frame;
-    
-    
-    CGSize textSize = { contentTextView.contentSize.width, 9999.0f };
-    CGSize size = [theText sizeWithFont:contentTextView.font constrainedToSize:textSize lineBreakMode:UILineBreakModeWordWrap];
-    contentTextView.text = theText;
+- (void)adjustTextView {
     CGRect frame = contentTextView.frame;
-    frame.size.height = size.height; //contentTextView.contentSize.height - 20;
+    // contentTextView.contentSize.height should be just right, but sometimes
+    // the last line gets ignored if it contains just one word, so we add 20
+    frame.size.height = contentTextView.contentSize.height + 20;
     contentTextView.frame = frame;
+}
+
+- (void)setContentText:(NSString *)theText {
+    contentTextView.text = theText;
+    [self adjustTextView];
 }
 
 - (CGFloat)height {
 	if (!self.hasContent) return 0;
-    return contentTextView.frame.size.height + 10;
+    return contentTextView.frame.size.height + paddingY;
 }
 
 - (BOOL)hasContent {

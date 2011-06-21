@@ -6,6 +6,7 @@
 	IBOutlet UILabel *contentTextLabel;
 	IBOutlet UITextView *contentTextView;
 	CGFloat maxWidth;
+	CGFloat paddingY;
 }
 
 @property(nonatomic,readonly)BOOL hasContent;

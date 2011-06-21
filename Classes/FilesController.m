@@ -1,5 +1,4 @@
 #import "FilesController.h"
-#import "TextCell.h"
 #import "DiffController.h"
 
 

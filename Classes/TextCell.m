@@ -6,31 +6,35 @@
 
 - (void)awakeFromNib {
 	maxWidth = contentTextLabel.frame.size.width;
+    paddingY = 10;
 }
 
 - (void)dealloc {
-	[contentTextLabel release];
+	[contentTextLabel release], contentTextLabel = nil;
+    [contentTextView release], contentTextView = nil;
     [super dealloc];
 }
 
+- (void)adjustTextView {
+    CGRect frame = contentTextView.frame;
+    // contentTextView.contentSize.height should be just right, but sometimes
+    // the last line gets ignored if it contains just one word, so we add 20
+    frame.size.height = contentTextView.contentSize.height + 20;
+    contentTextView.frame = frame;
+}
+
 - (void)setContentText:(NSString *)theText {
-	contentTextLabel.text = theText;
-	CGSize constraint = CGSizeMake(maxWidth, 20000);
-	CGSize size = [theText sizeWithFont:contentTextLabel.font constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    if (size.height < 24) {
-        size.height = 24;
-    }
-	contentTextLabel.frame = CGRectMake(contentTextLabel.frame.origin.x, contentTextLabel.frame.origin.y, maxWidth, size.height);
+    contentTextView.text = theText;
+    [self adjustTextView];
 }
 
 - (CGFloat)height {
 	if (!self.hasContent) return 0;
-	CGFloat height = contentTextLabel.frame.size.height + 20; // 20 is the vertical margin
-	return height;
+    return contentTextView.frame.size.height + paddingY;
 }
 
 - (BOOL)hasContent {
-	return !(contentTextLabel.text == nil || [contentTextLabel.text isEmpty]);
+    return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
 }
 
 @end

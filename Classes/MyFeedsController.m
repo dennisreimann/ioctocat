@@ -46,8 +46,9 @@
 - (void)setupFeeds {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
-	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, username];
-	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, username];
+	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, username, token];
+	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, username, token];
 	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
 	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];

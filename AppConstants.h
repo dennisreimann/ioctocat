@@ -21,8 +21,8 @@
 
 // User
 #define kUserFeedFormat @"https://github.com/%@.atom" // non-API atom
-#define kUserNewsFeedFormat @"https://github.com/%@.private.atom" // non-API atom
-#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom" // non-API atom
+#define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@" // non-API atom
+#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@" // non-API atom
 #define kUserGithubFormat @"https://github.com/%@"
 #define kUserAuthenticatedFormat @"https://api.github.com/user" // v3
 #define kUserFormat @"https://api.github.com/users/%@" // v3

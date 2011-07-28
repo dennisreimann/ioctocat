@@ -99,7 +99,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
-    } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
+    } else if (([self.currentUser isEqual:user] && buttonIndex == 0) || (![self.currentUser isEqual:user] && buttonIndex == 1)) {
         NSURL *userURL = [NSURL URLWithFormat:kUserGithubFormat, user.login];
 		WebController *webController = [[WebController alloc] initWithURL:userURL];
 		[self.navigationController pushViewController:webController animated:YES];

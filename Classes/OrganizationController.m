@@ -74,7 +74,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub", nil];
-	[actionSheet showInView:self.view];
+	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
 }
 

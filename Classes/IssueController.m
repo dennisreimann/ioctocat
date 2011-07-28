@@ -145,7 +145,7 @@
     } else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
     }
-	[actionSheet showInView:self.view];
+	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
 }
 

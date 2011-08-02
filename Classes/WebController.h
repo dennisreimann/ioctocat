@@ -8,4 +8,6 @@
 	IBOutlet UIActivityIndicatorView *activityView;
 }
 
+- (id)initWithURL:(NSURL *)theURL;
+
 @end

@@ -6,13 +6,12 @@
 
 @class GHUser, GHOrganization;
 
-@interface iOctocat : NSObject <UIApplicationDelegate, UIActionSheetDelegate> {
+@interface iOctocat : NSObject <UIApplicationDelegate, LoginControllerDelegate> {
   @private
     IBOutlet UIWindow *window;
     IBOutlet UITabBarController *tabBarController;
-	IBOutlet UIView *authView;
 	IBOutlet MyFeedsController *feedController;
-	UIActionSheet *authSheet;
+    LoginController *loginController;
 	NSMutableDictionary *users;
 	NSMutableDictionary *organizations;
 	NSDate *didBecomeActiveDate;
@@ -31,7 +30,6 @@
 - (UIView *)currentView;
 - (GHUser *)userWithLogin:(NSString *)theLogin;
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin;
-- (NSInteger)gravatarSize;
 - (NSDate *)lastReadingDateForURL:(NSURL *)url;
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
 - (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString;

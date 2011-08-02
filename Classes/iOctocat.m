@@ -6,17 +6,11 @@
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "Reachability.h"
 
 
 @interface iOctocat ()
 - (void)postLaunch;
-- (void)presentLogin;
-- (void)dismissLogin;
-- (void)showAuthenticationSheet;
-- (void)dismissAuthenticationSheet;
 - (void)authenticate;
-- (void)proceedAfterAuthentication;
 - (void)clearAvatarCache;
 @end
 
@@ -54,11 +48,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 	[defaults synchronize];
     
-    // Check for network connection
-    if (![[Reachability reachabilityForInternetConnection] isReachable]) {
-        [self presentLogin];
-        [self.loginController failWithMessage:@"Please ensure that you are connected to the internet"];
-    } else if (launchDefault) {
+    // Authentication
+    if (launchDefault) {
         [self authenticate];
     }
 }
@@ -66,8 +57,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)dealloc {
 	[tabBarController release], tabBarController = nil;
 	[feedController release], feedController = nil;
-	[authView release], authView = nil;
-	[authSheet release], authSheet = nil;
 	[window release], window = nil;
 	[users release], users = nil;
 	
@@ -85,9 +74,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
         return nil;
     } else {
         GHUser *theUser = [self userWithLogin:login];
-        // The current user should be requested by using the URL without the
-        // login, see http://develop.github.com/p/users.html for details
-        theUser.resourceURL = [NSURL URLWithFormat:kUserFormat, @""];
+        theUser.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
         return theUser;
     }
 }
@@ -125,13 +112,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 }
 
-- (NSInteger)gravatarSize {
-	UIScreen *mainScreen = [UIScreen mainScreen];
-	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
-	NSInteger size = kImageGravatarMaxLogicalSize * MAX(deviceScale, 1.0);
-	return size;
-}
-
 - (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsPath = [paths objectAtIndex:0];
@@ -144,7 +124,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = theFormat;
     // Fix for timezone format
-    string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+    if ([string hasSuffix:@"Z"]) {
+        string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
+    } else if ([string length] >= 24) {
+        string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+    }
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }
@@ -162,80 +146,22 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 #pragma mark Authentication
 
-// Use this to add credentials (for instance via email) by opening a link:
-// <githubauth://LOGIN:TOKEN@github.com>
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-	if (!url || [[url user] isEmpty] || [[url password] isEmpty]) return NO;
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:[url user] forKey:kLoginDefaultsKey];
-	[defaults setValue:[url password] forKey:kTokenDefaultsKey];
-	[defaults synchronize];
-	// Inform the user
-	NSString *message = [NSString stringWithFormat:@"Username: %@\nAPI Token: %@", [defaults valueForKey:kLoginDefaultsKey], [defaults valueForKey:kTokenDefaultsKey]];
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New credentials" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
-	// Set the values
-	self.loginController.loginField.text = [defaults valueForKey:kLoginDefaultsKey];
-	self.loginController.tokenField.text = [defaults valueForKey:kTokenDefaultsKey];
-	return YES;
+- (LoginController *)loginController {
+    if (!loginController) {
+        loginController = [[LoginController alloc] initWithViewController:tabBarController];
+        loginController.delegate = self;
+    }
+    return loginController;
 }
 
 - (void)authenticate {
 	if (self.currentUser.isAuthenticated) return;
-    [self.currentUser addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	if (!self.currentUser) {
-		[self presentLogin];
-	} else {
-		[self.currentUser loadData];
-	}
+    [self.loginController setUser:self.currentUser];
+	[self.loginController startAuthenticating];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (self.currentUser.isLoading) {
-		[self showAuthenticationSheet];
-	} else {
-        [self.currentUser removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-        [self dismissAuthenticationSheet];
-        if (self.currentUser.isAuthenticated) {
-            [self proceedAfterAuthentication];
-        } else {
-            [self presentLogin];
-            [self.loginController failWithMessage:@"Please ensure that you are connected to the internet and that your login and API token are correct"];
-        }
-    }
-}
-
-- (LoginController *)loginController {
-	return (LoginController *)tabBarController.modalViewController;
-}
-
-- (void)presentLogin {
-	if (self.loginController) return;
-	LoginController *loginController = [[LoginController alloc] initWithTarget:self andSelector:@selector(authenticate)];
-	[tabBarController presentModalViewController:loginController animated:YES];
-	[loginController release];
-}
-
-- (void)dismissLogin {
-	if (self.loginController) [tabBarController dismissModalViewControllerAnimated:YES];
-}
-
-- (void)showAuthenticationSheet {
-	authSheet = [[UIActionSheet alloc] initWithTitle:@"\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
-	UIView *currentView = tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
-	[authSheet addSubview:authView];
-	[authSheet showInView:currentView];
-	[authSheet release];
-}
-
-- (void)dismissAuthenticationSheet {
-	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
-}
-
-- (void)proceedAfterAuthentication {
-	[self dismissLogin];
-	[feedController setupFeeds];
+- (void)finishedAuthenticating {
+	if (self.currentUser.isAuthenticated) [feedController setupFeeds];
 }
 
 #pragma mark Persistent State
@@ -277,7 +203,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [self dismissAuthenticationSheet];
+    if (loginController) {
+        [loginController stopAuthenticating];
+    }
 	[self saveLastReadingDates];
 }
 

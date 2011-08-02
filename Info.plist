@@ -12,15 +12,12 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-<<<<<<< HEAD
-		<string>${ICON_FILE}</string>
-=======
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
->>>>>>> 24b52501a4622503a1c528b95e995fcd73903ce0
+		<string>Icon-iPad.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.jesse.${PRODUCT_NAME:identifier}</string>
+	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -41,11 +38,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.3.2</string>
+	<string>1.4.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
-	<string>MainWindow</string>
+	<string>MainWindow-iphone</string>
+	<key>NSMainNibFile~ipad</key>
+	<string>MainWindow-ipad</string>
 	<key>SBUsesNetwork</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
@@ -53,6 +52,16 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>

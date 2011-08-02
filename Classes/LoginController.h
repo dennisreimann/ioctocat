@@ -1,18 +1,30 @@
 #import <UIKit/UIKit.h>
 
 
-@interface LoginController : UIViewController <UITextFieldDelegate> {
+@class GHUser;
+
+@interface LoginController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate> {
+	id delegate;
+    GHUser *user;
   @private
-	id target;
-	SEL selector;
+    UIViewController *viewController;
+	UIActionSheet *authSheet;
 }
 
+@property(nonatomic,assign)id delegate;
+@property(nonatomic,assign)GHUser *user;
 @property(nonatomic,retain)IBOutlet UITextField *loginField;
+@property(nonatomic,retain)IBOutlet UITextField *passwordField;
 @property(nonatomic,retain)IBOutlet UITextField *tokenField;
 @property(nonatomic,retain)IBOutlet UIButton *submitButton;
 
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector;
+- (id)initWithViewController:(UIViewController *)theViewController;
 - (IBAction)submit:(id)sender;
-- (void)failWithMessage:(NSString *)theMessage;
+- (void)startAuthenticating;
+- (void)stopAuthenticating;
 
+@end
+
+@protocol LoginControllerDelegate
+- (void)finishedAuthenticating;
 @end

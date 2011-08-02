@@ -22,32 +22,8 @@
 @synthesize error;
 @synthesize data;
 
-+ (GHResource *)at:(NSString *)formatString, ... {
-	va_list args;
-    va_start(args, formatString);
-    NSString *pathString = [[NSString alloc] initWithFormat:formatString arguments:args];
-    va_end(args);
-	NSURL *url = [NSURL	URLWithFormat:@"%@%@", kAPIBaseFormat, pathString];
-	[pathString release];
-	return [self resourceWithURL:url];
-}
-
 + (id)resourceWithURL:(NSURL *)theURL {
 	return [[[[self class] alloc] initWithURL:theURL] autorelease];
-}
-
-+ (NSURL *)smartURLFromString:(NSString *)theString {
-    if (!theString || [theString isKindOfClass:[NSNull class]] || [theString isEmpty]) {
-        return nil;
-    } else {
-        NSURL *url = [NSURL URLWithString:theString];
-        if ([url scheme]) {
-            return url;
-        } else {
-            theString = [@"http://" stringByAppendingString:theString];
-            return [NSURL URLWithString:theString];
-        }
-    }
 }
 
 - (id)initWithURL:(NSURL *)theURL {
@@ -74,14 +50,11 @@
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
    	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *login = [defaults stringForKey:kLoginDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+	NSString *password = [defaults stringForKey:kPasswordDefaultsKey];
 	
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-	// Authentication with token via HTTP Basic Auth, see:
-	// http://support.github.com/discussions/api/57-reposshowlogin-is-missing-private-repositories
-	NSString *loginWithTokenPostfix = [NSString stringWithFormat:@"%@/token", login];
-	[request setUsername:loginWithTokenPostfix];
-	[request setPassword:token];
+	[request setUsername:login];
+	[request setPassword:password];
     
 	return request;
 }

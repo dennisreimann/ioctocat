@@ -21,9 +21,9 @@
 @synthesize isFlipped, lastUpdatedDate;
 
 - (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
+    if ((self = [super initWithFrame:frame])) {
 		self.backgroundColor = [UIColor colorWithWhite:0.925f alpha:1.0f];
-		lastUpdatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, 320.0f, 20.0f)];
+		lastUpdatedLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 30.0f, frame.size.width, 20.0f)];
 		lastUpdatedLabel.font = [UIFont systemFontOfSize:12.0f];
 		lastUpdatedLabel.textColor = [UIColor grayColor];
 		lastUpdatedLabel.shadowColor =
@@ -34,7 +34,7 @@
 		lastUpdatedLabel.textAlignment = UITextAlignmentCenter;
 		[self addSubview:lastUpdatedLabel];
 		[lastUpdatedLabel release];
-		statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, 320.0f, 20.0f)];
+		statusLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, frame.size.height - 48.0f, frame.size.width, 20.0f)];
 		statusLabel.font = [UIFont boldSystemFontOfSize:13.0f];
 		statusLabel.textColor = [UIColor grayColor];
 		statusLabel.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
@@ -46,13 +46,13 @@
 		[self addSubview:statusLabel];
 		[statusLabel release];
 		UIImage *refreshArrow = [UIImage imageNamed:@"RefreshArrow.png"];
-		arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(25.0f, frame.size.height - 52.0f, refreshArrow.size.width, refreshArrow.size.height)];
+		arrowImage = [[UIImageView alloc] initWithFrame:CGRectMake(16.0f, frame.size.height - 52.0f, refreshArrow.size.width, refreshArrow.size.height)];
 		arrowImage.image = refreshArrow;
 		[arrowImage layer].transform = CATransform3DMakeRotation(M_PI, 0.0f, 0.0f, 1.0f);
 		[self addSubview:arrowImage];
 		[arrowImage release];
 		activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		activityView.frame = CGRectMake(25.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
+		activityView.frame = CGRectMake(16.0f, frame.size.height - 38.0f, 20.0f, 20.0f);
 		activityView.hidesWhenStopped = YES;
 		[self addSubview:activityView];
 		[activityView release];

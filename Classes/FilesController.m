@@ -1,5 +1,4 @@
 #import "FilesController.h"
-#import "TextCell.h"
 #import "DiffController.h"
 
 
@@ -65,6 +64,12 @@
 		[self.navigationController pushViewController:diffController animated:YES];
 		[diffController release];
 	}
+}
+
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
 }
 
 @end

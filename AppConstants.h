@@ -3,10 +3,9 @@
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kLoginDefaultsKey @"username"
 #define kTokenDefaultsKey @"token"
+#define kPasswordDefaultsKey @"password"
 
 // API
-#define kLoginParamName @"login"
-#define kTokenParamName @"token"
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 #define kIssueTimeFormat @"yyyy/MM/dd HH:mm:ss z"
 
@@ -20,24 +19,22 @@
 #define kCommentCellIdentifier @"CommentCell"
 #define kOrganizationCellIdentifier @"OrganizationCell"
 
-// API URLs
-#define kAPIBaseFormat @"https://github.com/api/v2/json/"
-
 // User
-#define kUserFeedFormat @"https://github.com/%@.atom"
-#define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@"
-#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@"
-#define kUserGithubFormat @"http://github.com/%@"
-#define kUserFormat @"https://github.com/api/v2/json/user/show/%@"
+#define kUserFeedFormat @"https://github.com/%@.atom" // non-API atom
+#define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@" // non-API atom
+#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@" // non-API atom
+#define kUserGithubFormat @"https://github.com/%@"
+#define kUserAuthenticatedFormat @"https://api.github.com/user" // v3
+#define kUserFormat @"https://api.github.com/users/%@" // v3
 #define kUserReposFormat @"https://github.com/api/v2/json/repos/show/%@"
 #define kUserWatchedReposFormat @"https://github.com/api/v2/json/repos/watched/%@"
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"
-#define kUserFollowingFormat @"https://github.com/api/v2/json/user/show/%@/following"
-#define kUserFollowersFormat @"https://github.com/api/v2/json/user/show/%@/followers"
-#define kUserFollowFormat @"https://github.com/api/v2/json/user/%@/%@"
+#define kUserFollowingFormat @"https://api.github.com/users/%@/following" // v3
+#define kUserFollowersFormat @"https://api.github.com/users/%@/followers" // v3
+#define kUserFollowFormat @"https://api.github.com/user/following/%@" // v3
 
 // Repos
-#define kRepoGithubFormat @"http://github.com/%@/%@/tree/master"
+#define kRepoGithubFormat @"https://github.com/%@/%@"
 #define kRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"
 #define kRepoFormat @"https://github.com/api/v2/json/repos/show/%@/%@"
@@ -51,8 +48,8 @@
 #define kRepoPrivateCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
 
 // Issues
-#define kIssueGithubFormat @"http://github.com/%@/%@/issues#issue/%d"
 #define kIssueFormat @"https://github.com/api/v2/json/issues/show/%@/%@/%d"
+#define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"
 #define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
 #define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"
 #define kIssueCommentsFormat @"https://github.com/api/v2/json/issues/comments/%@/%@/%d"
@@ -61,8 +58,8 @@
 #define kIssuesFormat @"http://github.com/api/v2/json/issues/list/%@/%@/%@"
 
 // Organizations
-#define kOrganizationGithubFormat @"http://github.com/%@"
-#define kOrganizationFormat @"https://github.com/api/v2/json/organizations/%@"
+#define kOrganizationGithubFormat @"https://github.com/%@"
+#define kOrganizationFormat @"https://api.github.com/orgs/%@" // v3
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
 #define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"
@@ -79,11 +76,9 @@
 #define kIssueCommentCommentParamName @"comment"
 
 // Images
-#define kImageGravatarMaxLogicalSize 44
+#define kImageGravatarMaxLogicalSize 50
 
-// Following/Watching
-#define kFollow @"follow"
-#define kUnFollow @"unfollow"
+// Watching
 #define kWatch @"watch"
 #define kUnWatch @"unwatch"
 

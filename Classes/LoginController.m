@@ -1,33 +1,54 @@
 #import "LoginController.h"
 #import "NSString+Extensions.h"
+#import "GHUser.h"
+#import "iOctocat.h"
+
+
+@interface LoginController ()
++ (NSString *)stringFromUserDefaultsForKey:(NSString *)key defaultsTo:(NSString *)defaultValue;
+- (void)presentLogin;
+- (void)dismissLogin;
+- (void)showAuthenticationSheet;
+- (void)dismissAuthenticationSheet;
+- (void)finishAuthenticating;
+- (void)failWithMessage:(NSString *)theMessage;
+@end
 
 
 @implementation LoginController
 
 @synthesize loginField;
+@synthesize passwordField;
 @synthesize tokenField;
 @synthesize submitButton;
+@synthesize delegate;
+@synthesize user;
 
-- (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
++ (NSString *)stringFromUserDefaultsForKey:(NSString *)key defaultsTo:(NSString *)defaultValue {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *value = [defaults stringForKey:key];
+	return value != nil ? value : defaultValue;
+}
+
+- (id)initWithViewController:(UIViewController *)theViewController {
 	[super initWithNibName:@"Login" bundle:nil];
-	target = theTarget;
-	selector = theSelector;
+    viewController = theViewController;
 	return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	loginField.text = [defaults valueForKey:kLoginDefaultsKey];
-	tokenField.text = [defaults valueForKey:kTokenDefaultsKey];
-	loginField.clearButtonMode = UITextFieldViewModeWhileEditing;
-	tokenField.clearButtonMode = UITextFieldViewModeWhileEditing;
+	loginField.text = [LoginController stringFromUserDefaultsForKey:kLoginDefaultsKey defaultsTo:@""];
+	passwordField.text = [LoginController stringFromUserDefaultsForKey:kPasswordDefaultsKey defaultsTo:@""];
+    tokenField.text = [LoginController stringFromUserDefaultsForKey:kTokenDefaultsKey defaultsTo:@""];
 }
 
 - (void)dealloc {
 	[loginField release], loginField = nil;
+	[passwordField release], passwordField = nil;
 	[tokenField release], tokenField = nil;
 	[submitButton release], submitButton = nil;
+	[authSheet release], authSheet = nil;
     [super dealloc];
 }
 
@@ -41,30 +62,99 @@
 - (IBAction)submit:(id)sender {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
+	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
-	if ([login isEmpty] || [token isEmpty]) {
-		[self failWithMessage:@"Please enter your login\nand API token"];
+	if ([login isEmpty] || [password isEmpty]) {
+		[self failWithMessage:@"Please enter your login\nand password"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kLoginDefaultsKey];
+		[defaults setValue:password forKey:kPasswordDefaultsKey];
 		[defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
+        self.user = [[iOctocat sharedInstance] userWithLogin:login];
 		[loginField resignFirstResponder];
+		[passwordField resignFirstResponder];
 		[tokenField resignFirstResponder];
-		[target performSelector:selector];
+        [self startAuthenticating];
 	}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[loginField resignFirstResponder];
+	[passwordField resignFirstResponder];
 	[tokenField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
-	if (textField == loginField) [tokenField becomeFirstResponder];
+	if (textField == loginField) [passwordField becomeFirstResponder];
+	if (textField == passwordField) [tokenField becomeFirstResponder];
 	if (textField == tokenField) [self submit:nil];
+	return YES;
+}
+
+- (void)startAuthenticating {
+    if (!self.user) {
+		[self presentLogin];
+	} else {
+        [self.user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user loadData];
+	}
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if (self.user.isLoading) {
+		[self showAuthenticationSheet];
+	} else {
+        [self.user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+        [self dismissAuthenticationSheet];
+        if (self.user.isAuthenticated) {
+            [self finishAuthenticating];
+        } else {
+            [self presentLogin];
+            [self failWithMessage:@"Please ensure that you are connected to the internet and that your login and password are correct"];
+        }
+    }
+}
+
+- (void)stopAuthenticating {
+    submitButton.enabled = YES;
+    [self dismissAuthenticationSheet];
+}
+
+- (void)finishAuthenticating {
+    [self dismissLogin];
+    if ([delegate respondsToSelector:@selector(finishedAuthenticating)]) {
+        [delegate performSelector:@selector(finishedAuthenticating) withObject:self.user];
+    }
+}
+
+- (void)presentLogin {
+	if (viewController.modalViewController == self) return;
+	[viewController presentModalViewController:self animated:YES];
+}
+
+- (void)dismissLogin {
+	if (viewController.modalViewController != self) return;
+	[viewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)showAuthenticationSheet {
+	authSheet = [[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n" delegate:self cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil];
+	UIView *currentView = viewController.modalViewController ? viewController.modalViewController.view : viewController.view;
+	[authSheet showInView:currentView];
+}
+
+- (void)dismissAuthenticationSheet {
+	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
+	[authSheet release], authSheet = nil;
+}
+
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return YES;
 }
 

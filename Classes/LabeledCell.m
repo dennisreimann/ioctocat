@@ -7,8 +7,8 @@
 @synthesize hasContent;
 
 - (void)dealloc {
-	[label release];
-	[content release];
+	[label release], label = nil;
+	[content release], content = nil;
     [super dealloc];
 }
 

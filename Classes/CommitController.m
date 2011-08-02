@@ -43,8 +43,11 @@
 	[commit addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [commit.commitID substringToIndex:8];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.tableView.tableHeaderView = tableHeaderView;
 	(commit.isLoaded) ? [self displayCommit] : [commit loadData];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
+    tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)viewDidUnload {
@@ -95,7 +98,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Show on GitHub", nil];
-	[actionSheet showInView:self.view.window];
+	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
 }
 
@@ -164,6 +167,12 @@
 			[filesController release];
 		}
 	}
+}
+
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
 }
 
 @end

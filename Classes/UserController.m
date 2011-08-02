@@ -45,8 +45,11 @@
 	if (!user.repositories.isLoaded) [user.repositories loadData];
 	if (!user.organizations.isLoaded) [user.organizations loadData];
 	self.navigationItem.title = (self.user == self.currentUser) ? @"Profile" : user.login;
-	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+    tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)dealloc {
@@ -89,14 +92,14 @@
 	} else {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
 	}
-	[actionSheet showInView:self.view.window];
+    self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
-    } else if ([self.currentUser isEqual:user] && buttonIndex == 0 || ![self.currentUser isEqual:user] && buttonIndex == 1) {
+    } else if (([self.currentUser isEqual:user] && buttonIndex == 0) || (![self.currentUser isEqual:user] && buttonIndex == 1)) {
         NSURL *userURL = [NSURL URLWithFormat:kUserGithubFormat, user.login];
 		WebController *webController = [[WebController alloc] initWithURL:userURL];
 		[self.navigationController pushViewController:webController animated:YES];
@@ -249,6 +252,12 @@
 
 -(void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
 }
 
 @end

@@ -39,8 +39,11 @@
 	if (!organization.publicRepositories.isLoaded) [organization.publicRepositories loadData];
 	if (!organization.publicMembers.isLoaded) [organization.publicMembers loadData];
 	self.navigationItem.title = organization.login;
-	self.tableView.tableHeaderView = tableHeaderView;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    // Background
+    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+    tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)dealloc {
@@ -71,7 +74,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub", nil];
-	[actionSheet showInView:self.view.window];
+	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
 }
 
@@ -220,6 +223,12 @@
 
 -(void) mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark Autorotation
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
+	return YES;
 }
 
 @end

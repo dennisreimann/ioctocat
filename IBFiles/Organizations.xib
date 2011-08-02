@@ -2,10 +2,10 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="7.10">
 	<data>
 		<int key="IBDocument.SystemTarget">768</int>
-		<string key="IBDocument.SystemVersion">10J567</string>
+		<string key="IBDocument.SystemVersion">10J869</string>
 		<string key="IBDocument.InterfaceBuilderVersion">1305</string>
 		<string key="IBDocument.AppKitVersion">1038.35</string>
-		<string key="IBDocument.HIToolboxVersion">462.00</string>
+		<string key="IBDocument.HIToolboxVersion">461.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			<string key="NS.object.0">300</string>
@@ -51,10 +51,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="934931073">
 								<reference key="NSNextResponder" ref="641394573"/>
-								<int key="NSvFlags">292</int>
+								<int key="NSvFlags">294</int>
 								<string key="NSFrame">{{40, 12}, {168, 21}}</string>
 								<reference key="NSSuperview" ref="641394573"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSWindow"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -78,6 +78,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{12, 12}, {20, 20}}</string>
 								<reference key="NSSuperview" ref="641394573"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="934931073"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -90,6 +91,7 @@
 						</object>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="395863188"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="430539708"/>
 						<object class="NSColor" key="IBUIBackgroundColor" id="723385621">
 							<int key="NSColorSpace">3</int>
@@ -104,6 +106,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="641394573"/>
 				<object class="NSColor" key="IBUIBackgroundColor" id="531035318">
 					<int key="NSColorSpace">3</int>
@@ -127,10 +130,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUILabel" id="53882716">
 								<reference key="NSNextResponder" ref="874258890"/>
-								<int key="NSvFlags">293</int>
+								<int key="NSvFlags">295</int>
 								<string key="NSFrame">{{10, 12}, {300, 21}}</string>
 								<reference key="NSSuperview" ref="874258890"/>
-								<reference key="NSNextKeyView"/>
+								<reference key="NSWindow"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -149,6 +152,7 @@
 						</object>
 						<string key="NSFrameSize">{320, 44}</string>
 						<reference key="NSSuperview" ref="839932830"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="53882716"/>
 						<reference key="IBUIBackgroundColor" ref="723385621"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -160,6 +164,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 44}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="874258890"/>
 				<reference key="IBUIBackgroundColor" ref="531035318"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -174,7 +179,6 @@
 				<string key="NSFrame">{{0, 64}, {320, 367}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">10</int>
 					<object class="NSImage" key="NSImage">

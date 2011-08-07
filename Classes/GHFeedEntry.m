@@ -142,7 +142,7 @@
 		}
 		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
 	} else if ([eventType isEqualToString:@"wiki"]) {
-		NSArray *comps1 = [title componentsSeparatedByString:@" in the "];
+		NSArray *comps1 = [title componentsSeparatedByString:@" the "];
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" wiki"];
 		NSArray *comps3 = [[comps2 objectAtIndex:0] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps3 objectAtIndex:0];

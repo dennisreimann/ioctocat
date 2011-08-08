@@ -37,7 +37,7 @@
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed. Please ensure that you are providing your API token. You can set the token in the app settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}

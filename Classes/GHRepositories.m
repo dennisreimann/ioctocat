@@ -31,8 +31,11 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *dict in [theDict objectForKey:@"repositories"]) {
-		GHRepository *resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+	NSArray *reposArray = [theDict isKindOfClass:[NSArray class]] ? theDict : [theDict objectForKey:@"repositories"];
+	for (NSDictionary *dict in reposArray) {
+        id own = [dict objectForKey:@"owner"];
+        NSString *owner = [own isKindOfClass:[NSDictionary class]] ? [own objectForKey:@"login"] : own;
+		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:[dict objectForKey:@"name"]];
         [resource setValuesFromDict:dict];
         [resources addObject:resource];
     }

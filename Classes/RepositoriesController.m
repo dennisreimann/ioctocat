@@ -35,6 +35,8 @@
     if (!user) {
         // Set to currentUser in case this controller is initialized from the TabBar
         self.user = self.currentUser;
+        NSURL *repositoriesURL = [NSURL URLWithString:kUserAuthenticatedReposFormat];
+        self.user.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
         self.orgRepos = [GHRepositories repositoriesWithURL:[NSURL URLWithFormat:kOrganizationsRepositoriesFormat]];
     }
 	[self.orgRepos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];

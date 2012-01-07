@@ -36,13 +36,14 @@
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-    NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *dict in [theDict objectForKey:@"issues"]) {
+	NSMutableArray *resources = [NSMutableArray array];
+	NSArray *issuesArray = [theDict isKindOfClass:[NSArray class]] ? theDict : [theDict objectForKey:@"issues"];
+	for (NSDictionary *dict in issuesArray) {
 		GHIssue *theIssue = [GHIssue issueWithRepository:repository];
-        [theIssue setValuesFromDict:dict];
-        [resources addObject:theIssue];
-    }
-    self.entries = resources;
+    	[theIssue setValuesFromDict:dict];
+    	[resources addObject:theIssue];
+	}
+	self.entries = resources;
 }
 
 @end

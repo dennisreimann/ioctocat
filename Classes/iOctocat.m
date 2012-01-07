@@ -120,6 +120,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 + (NSDate *)parseDate:(NSString *)string withFormat:(NSString *)theFormat {
+    if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
 	static NSDateFormatter *dateFormatter;
 	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
     dateFormatter.dateFormat = theFormat;

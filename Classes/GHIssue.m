@@ -74,12 +74,12 @@
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-    NSDictionary *resource = [theDict objectForKey:@"issue"] ? [theDict objectForKey:@"issue"] : theDict;
-    
-	self.user = [[iOctocat sharedInstance] userWithLogin:[resource objectForKey:@"user"]];
-	self.created = [iOctocat parseDate:[resource objectForKey:@"created_at"] withFormat:kIssueTimeFormat];
-	self.updated = [iOctocat parseDate:[resource objectForKey:@"updated_at"] withFormat:kIssueTimeFormat];
-	self.closed = [iOctocat parseDate:[resource objectForKey:@"closed_at"] withFormat:kIssueTimeFormat];
+	NSDictionary *resource = [theDict objectForKey:@"issue"] ? [theDict objectForKey:@"issue"] : theDict;
+	NSString *login = [[resource objectForKey:@"user"] objectForKey:@"login"];
+	self.user = [[iOctocat sharedInstance] userWithLogin:login];
+	self.created = [iOctocat parseDate:[resource objectForKey:@"created_at"] withFormat:kISO8601TimeFormat];
+	self.updated = [iOctocat parseDate:[resource objectForKey:@"updated_at"] withFormat:kISO8601TimeFormat];
+	self.closed = [iOctocat parseDate:[resource objectForKey:@"closed_at"] withFormat:kISO8601TimeFormat];
 	self.title = [resource objectForKey:@"title"];
 	self.body = [resource objectForKey:@"body"];
 	self.state = [resource objectForKey:@"state"];

@@ -28,7 +28,7 @@
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {	
-	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+	string = [string stringByTrimmingCharactersInSet:[NSCharacterSet newlineCharacterSet]];
 	if (!currentElementValue) {
 		currentElementValue = [[NSMutableString alloc] initWithString:string];
 	} else {
@@ -46,12 +46,13 @@
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName {
+    NSString *value = [currentElementValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 	if ([elementName isEqualToString:@"entry"]) {
 		[resources addObject:currentEntry];
 		[currentEntry release], currentEntry = nil;
 	} else if ([elementName isEqualToString:@"id"]) {
-		currentEntry.entryID = currentElementValue;
-		NSString *event = [currentElementValue substringFromIndex:20];
+		currentEntry.entryID = value;
+		NSString *event = [value substringFromIndex:20];
 		if ([event hasPrefix:@"ForkApply"]) {
 			currentEntry.eventType = @"merge";
 		} else if ([event hasPrefix:@"Fork"]) {
@@ -90,13 +91,13 @@
 			currentEntry.eventType = nil;
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [iOctocat parseDate:currentElementValue withFormat:kISO8601TimeFormat];
+		currentEntry.date = [iOctocat parseDate:value withFormat:kISO8601TimeFormat];
 	} else if ([elementName isEqualToString:@"title"]) {
-		[currentEntry setValue:[currentElementValue stringByDecodingXMLEntities] forKey:elementName];
+		[currentEntry setValue:[value stringByDecodingXMLEntities] forKey:elementName];
     } else if ([elementName isEqualToString:@"content"]) {
-		[currentEntry setValue:currentElementValue forKey:elementName];
+		[currentEntry setValue:value forKey:elementName];
 	} else if ([elementName isEqualToString:@"name"]) {
-		currentEntry.authorName = currentElementValue;
+		currentEntry.authorName = value;
 	}
 	// Old method of retrieving the username: Using the name attribute does not always work,
 	// because GitHub sometimes uses the users real name, and not the login. To get the login
@@ -106,7 +107,7 @@
 	//	   currentEntry.authorName = currentElementValue;
 	// } 
 	else if ([elementName isEqualToString:@"uri"]) {
-		currentEntry.authorName = [currentElementValue lastPathComponent];
+		currentEntry.authorName = [value lastPathComponent];
 	}
 	[currentElementValue release], currentElementValue = nil;
 }

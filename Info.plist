@@ -15,7 +15,7 @@
 		<string>Icon-iPad.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.jessearmand.${PRODUCT_NAME:identifier}</string>
+	<string>de.dennisbloete.${PRODUCT_NAME:identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

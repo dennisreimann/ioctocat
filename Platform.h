@@ -1,5 +1,4 @@
-#ifdef UI_USER_INTERFACE_IDIOM()
-#define IS_IPAD() (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-#else
-#define IS_IPAD() (false)
-#endif
+#define IS_IPAD() \
+    ([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)] ? \
+    ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) : \
+    false)

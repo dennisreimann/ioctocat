@@ -88,12 +88,12 @@
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(loadingFinished:)];
 	[request setDidFailSelector:@selector(loadingFailed:)];
-	DJLog(@"Loading %@", [request url]);
+	DJLog(@"Loading %@\n\n====\n\n", [request url]);
 	[[iOctocat queue] addOperation:request];
 }
 
 - (void)loadingFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Loading %@ finished: %@", [request url], [request responseString]);
+	DJLog(@"Loading %@ finished: %@\n\n====\n\n", [request url], [request responseString]);
     
 	[self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
 }

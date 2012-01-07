@@ -58,6 +58,8 @@
 	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
+    // Trigger it manually, latest iOS doesn't do this anymore
+    [self switchChanged:nil];
     if (!self.currentUser.organizations.isLoaded) [self.currentUser.organizations loadData];
 }
 

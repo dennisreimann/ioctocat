@@ -517,7 +517,7 @@
 		8CE6867C0FB8C58400A3D625 /* NetworksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworksController.h; sourceTree = "<group>"; };
 		8CE6867E0FB8C59400A3D625 /* NetworkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkCell.m; sourceTree = "<group>"; };
 		8CE6867F0FB8C59400A3D625 /* NetworkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkCell.h; sourceTree = "<group>"; };
-		8CE686E80FB8C83100A3D625 /* NetworkCell.xib */ = {isa = PBXFileReference; explicitFileType = file.xib; name = NetworkCell.xib; path = IBFiles/NetworkCell.xib; sourceTree = "<group>"; };
+		8CE686E80FB8C83100A3D625 /* NetworkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = NetworkCell.xib; path = IBFiles/NetworkCell.xib; sourceTree = "<group>"; };
 		8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarFeeds@2x.png"; sourceTree = "<group>"; };

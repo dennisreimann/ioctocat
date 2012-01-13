@@ -47,20 +47,6 @@
 			<string>PSTextFieldSpecifier</string>
 		</dict>
 		<dict>
-		  <key>AutocapitalizationType</key>
-			<string>None</string>
-			<key>AutocorrectionType</key>
-			<string>No</string>
-			<key>DefaultValue</key>
-			<string></string>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>API Token</string>
-			<key>Key</key>
-			<string>token</string>
-		</dict>
-		<dict>
 			<key>Title</key>
 			<string>Avatar cache</string>
 			<key>Type</key>

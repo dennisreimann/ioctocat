@@ -2,7 +2,6 @@
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kLoginDefaultsKey @"username"
-#define kTokenDefaultsKey @"token"
 #define kPasswordDefaultsKey @"password"
 
 // API
@@ -20,8 +19,8 @@
 
 // User
 #define kUserFeedFormat @"https://github.com/%@.atom" // non-API atom
-#define kUserNewsFeedFormat @"https://github.com/%@.private.atom?token=%@" // non-API atom
-#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom?token=%@" // non-API atom
+#define kUserNewsFeedFormat @"https://github.com/%@.private.atom" // non-API atom
+#define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom" // non-API atom
 #define kUserGithubFormat @"https://github.com/%@"
 #define kUserAuthenticatedFormat @"https://api.github.com/user"            // v3
 #define kUserFormat @"https://api.github.com/users/%@"                     // v3
@@ -62,7 +61,7 @@
 #define kOrganizationFormat @"https://api.github.com/orgs/%@" // v3
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
-#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"
+#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"
 #define kOrganizationPublicRepositoriesFormat @"https://github.com/api/v2/json/organizations/%@/public_repositories"
 #define kOrganizationPublicMembersFormat @"https://github.com/api/v2/json/organizations/%@/public_members"
 

@@ -80,8 +80,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
+    NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
 	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationPublicMembersFormat, login];
 

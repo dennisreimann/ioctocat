@@ -46,9 +46,8 @@
 - (void)setupFeeds {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, username, token];
-	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, username, token];
+	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, username];
+	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, username];
 	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
 	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
@@ -114,7 +113,7 @@
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed. Please ensure that you are providing your API token. You can set the token in the app settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}

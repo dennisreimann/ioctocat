@@ -55,8 +55,9 @@
 	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
 	[request setUsername:login];
 	[request setPassword:password];
-    
-	return request;
+    [request setRequestMethod:@"GET"];
+	
+    return request;
 }
 
 #pragma mark Delegation

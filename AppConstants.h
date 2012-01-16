@@ -24,11 +24,11 @@
 #define kUserGithubFormat @"https://github.com/%@"
 #define kUserAuthenticatedFormat @"https://api.github.com/user"            // v3
 #define kUserFormat @"https://api.github.com/users/%@"                     // v3
-#define kUserAuthenticatedReposFormat @"https://api.github.com/user/repos" // v3
-#define kUserReposFormat @"https://api.github.com/users/%@/repos"          // v3
-#define kUserWatchedReposFormat @"https://api.github.com/users/%@/watched" // v3
-#define kUserFollowingFormat @"https://api.github.com/users/%@/following"  // v3
-#define kUserFollowersFormat @"https://api.github.com/users/%@/followers"  // v3
+#define kUserAuthenticatedReposFormat @"https://api.github.com/user/repos?per_page=100" // v3
+#define kUserReposFormat @"https://api.github.com/users/%@/repos?per_page=100"          // v3
+#define kUserWatchedReposFormat @"https://api.github.com/users/%@/watched?per_page=100" // v3
+#define kUserFollowingFormat @"https://api.github.com/users/%@/following?per_page=100"  // v3
+#define kUserFollowersFormat @"https://api.github.com/users/%@/followers?per_page=100"  // v3
 #define kUserFollowFormat @"https://api.github.com/user/following/%@"      // v3
 #define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"
 

@@ -22,6 +22,7 @@
 @synthesize closedIssues;
 @synthesize networks;
 @synthesize branches;
+@synthesize pushedAtDate;
 
 + (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	return [[[[self class] alloc] initWithOwner:theOwner andName:theName] autorelease];
@@ -113,6 +114,7 @@
     self.isPrivate = [[resource objectForKey:@"private"] boolValue];
     self.forks = [[resource objectForKey:@"forks"] integerValue];
     self.watchers = [[resource objectForKey:@"watchers"] integerValue];
+	self.pushedAtDate = [resource objectForKey:@"pushed_at"];
 }
 
 @end

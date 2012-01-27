@@ -88,14 +88,30 @@
 		for (GHRepository *repo in user.repositories.repositories) {
 			(repo.isPrivate) ? [privateRepositories addObject:repo] : [publicRepositories addObject:repo];
 		}
-		[self.publicRepositories sortUsingSelector:@selector(compareByRepoIdAndStatus:)];
-		[self.privateRepositories sortUsingSelector:@selector(compareByRepoIdAndStatus:)];
+		[self.publicRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+			GHRepository *r1 = (GHRepository *)obj1;
+			GHRepository *r2 = (GHRepository *)obj2;
+			return [r2.pushedAtDate compare:r1.pushedAtDate];
+		}];
+		[self.privateRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+			GHRepository *r1 = (GHRepository *)obj1;
+			GHRepository *r2 = (GHRepository *)obj2;
+			return [r2.pushedAtDate compare:r1.pushedAtDate];
+		}];
     } else if ([repositories isEqual:orgRepos]) {
         self.organizationRepositories = [NSMutableArray arrayWithArray:orgRepos.repositories];
-        [self.organizationRepositories sortUsingSelector:@selector(compareByRepoIdAndStatus:)];
+        [self.organizationRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+			GHRepository *r1 = (GHRepository *)obj1;
+			GHRepository *r2 = (GHRepository *)obj2;
+			return [r2.pushedAtDate compare:r1.pushedAtDate];
+		}];
     } else {
         self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
-        [self.watchedRepositories sortUsingSelector:@selector(compareByRepoIdAndStatus:)];
+        [self.watchedRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+			GHRepository *r1 = (GHRepository *)obj1;
+			GHRepository *r2 = (GHRepository *)obj2;
+			return [r2.pushedAtDate compare:r1.pushedAtDate];
+		}];
     }
 
     if(user.repositories.isLoaded && user.watchedRepositories.isLoaded)

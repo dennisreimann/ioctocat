@@ -68,7 +68,7 @@
 		[defaults setValue:password forKey:kPasswordDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
-        self.user = [[iOctocat sharedInstance] userWithLogin:login];
+        self.user = [[iOctocat sharedInstance] currentUser];
 		[loginField resignFirstResponder];
 		[passwordField resignFirstResponder];
 		[self startAuthenticating];

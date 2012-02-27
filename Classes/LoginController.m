@@ -3,6 +3,7 @@
 #import "GHUser.h"
 #import "iOctocat.h"
 
+#import "GradientButton.h"
 
 @interface LoginController ()
 + (NSString *)stringFromUserDefaultsForKey:(NSString *)key defaultsTo:(NSString *)defaultValue;
@@ -39,6 +40,7 @@
     [super viewDidLoad];
 	loginField.text = [LoginController stringFromUserDefaultsForKey:kLoginDefaultsKey defaultsTo:@""];
 	passwordField.text = [LoginController stringFromUserDefaultsForKey:kPasswordDefaultsKey defaultsTo:@""];
+  [submitButton useAlertStyle];
 }
 
 - (void)dealloc {
@@ -124,8 +126,9 @@
 }
 
 - (void)presentLogin {
-	if (viewController.modalViewController == self) return;
-	[viewController presentModalViewController:self animated:YES];
+  if (viewController.modalViewController == self) return;
+  self.modalPresentationStyle = UIModalPresentationFormSheet;
+  [viewController presentModalViewController:self animated:YES];
 }
 
 - (void)dismissLogin {

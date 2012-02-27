@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		01117CDC13E87CBF004F4E09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01117CDB13E87CBF004F4E09 /* libz.dylib */; };
+		01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
+		01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3A14FBF07D00AE08EC /* Reachability.m */; };
 		1D3623260D0F684500981E51 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -60,7 +62,6 @@
 		6F47B8FE14C087FC00E0666B /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8F114C087FC00E0666B /* ASIHTTPRequest.m */; };
 		6F47B8FF14C087FC00E0666B /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8F514C087FC00E0666B /* ASIInputStream.m */; };
 		6F47B90014C087FC00E0666B /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8F714C087FC00E0666B /* ASINetworkQueue.m */; };
-		6F47B90314C0883500E0666B /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B90214C0883500E0666B /* Reachability.m */; };
 		6F5652E10F99C85C001B6703 /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
@@ -225,6 +226,10 @@
 
 /* Begin PBXFileReference section */
 		01117CDB13E87CBF004F4E09 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		01554A3314FBF02E00AE08EC /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButton.h; sourceTree = "<group>"; };
+		01554A3414FBF02E00AE08EC /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
+		01554A3914FBF07D00AE08EC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.h; sourceTree = SOURCE_ROOT; };
+		01554A3A14FBF07D00AE08EC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iOctocat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
@@ -307,8 +312,6 @@
 		6F47B8F614C087FC00E0666B /* ASINetworkQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASINetworkQueue.h; path = Classes/External/ASIHttpRequest/Classes/ASINetworkQueue.h; sourceTree = SOURCE_ROOT; };
 		6F47B8F714C087FC00E0666B /* ASINetworkQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASINetworkQueue.m; path = Classes/External/ASIHttpRequest/Classes/ASINetworkQueue.m; sourceTree = SOURCE_ROOT; };
 		6F47B8F814C087FC00E0666B /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIProgressDelegate.h; path = Classes/External/ASIHttpRequest/Classes/ASIProgressDelegate.h; sourceTree = SOURCE_ROOT; };
-		6F47B90114C0883500E0666B /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.h; sourceTree = SOURCE_ROOT; };
-		6F47B90214C0883500E0666B /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = SOURCE_ROOT; };
 		6F5652DF0F99C85C001B6703 /* RepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesController.h; sourceTree = "<group>"; };
 		6F5652E00F99C85C001B6703 /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
 		6F5653020F99CB52001B6703 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue.png; path = Images/Icons/issue.png; sourceTree = "<group>"; };
@@ -836,11 +839,13 @@
 		6F5E9AA21119A96000752560 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				6F6F175011E316B3008B319F /* Reachability */,
 				6F6F175411E316C5008B319F /* ASI */,
 				6F5E9AB01119A96000752560 /* JSON */,
+				6F6F175011E316B3008B319F /* Reachability */,
 				6F5E9AAC1119A96000752560 /* CDataScanner.h */,
 				6F5E9AAD1119A96000752560 /* CDataScanner.m */,
+				01554A3314FBF02E00AE08EC /* GradientButton.h */,
+				01554A3414FBF02E00AE08EC /* GradientButton.m */,
 				6F5E9AAE1119A96000752560 /* EGORefreshTableHeaderView.h */,
 				6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */,
 				6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */,
@@ -900,8 +905,8 @@
 		6F6F175011E316B3008B319F /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				6F47B90114C0883500E0666B /* Reachability.h */,
-				6F47B90214C0883500E0666B /* Reachability.m */,
+				01554A3914FBF07D00AE08EC /* Reachability.h */,
+				01554A3A14FBF07D00AE08EC /* Reachability.m */,
 			);
 			path = Reachability;
 			sourceTree = "<group>";
@@ -1320,7 +1325,8 @@
 				6F47B8FE14C087FC00E0666B /* ASIHTTPRequest.m in Sources */,
 				6F47B8FF14C087FC00E0666B /* ASIInputStream.m in Sources */,
 				6F47B90014C087FC00E0666B /* ASINetworkQueue.m in Sources */,
-				6F47B90314C0883500E0666B /* Reachability.m in Sources */,
+				01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */,
+				01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

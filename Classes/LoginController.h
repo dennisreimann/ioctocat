@@ -2,6 +2,7 @@
 
 
 @class GHUser;
+@class GradientButton;
 
 @interface LoginController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate> {
 	id delegate;
@@ -15,7 +16,7 @@
 @property(nonatomic,assign)GHUser *user;
 @property(nonatomic,retain)IBOutlet UITextField *loginField;
 @property(nonatomic,retain)IBOutlet UITextField *passwordField;
-@property(nonatomic,retain)IBOutlet UIButton *submitButton;
+@property(nonatomic,retain)IBOutlet GradientButton *submitButton;
 
 - (id)initWithViewController:(UIViewController *)theViewController;
 - (IBAction)submit:(id)sender;

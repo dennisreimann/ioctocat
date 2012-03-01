@@ -95,8 +95,15 @@
 
 - (void)loadingFinished:(ASIHTTPRequest *)request {
 	DJLog(@"Loading %@ finished: %@\n\n====\n\n", [request url], [request responseString]);
-    
-	[self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
+    if (request.responseStatusCode == 404) {
+        NSMutableDictionary* details = [NSMutableDictionary dictionary];
+        NSString *msg = [NSString stringWithFormat:@"%@ could not be found.", [request url]];
+        [details setValue:msg forKey:NSLocalizedDescriptionKey];
+        request.error = [NSError errorWithDomain:@"GitHubAPI" code:404 userInfo:details];
+        [self loadingFailed:request];
+    } else {
+        [self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
+    }
 }
 
 - (void)loadingFailed:(ASIHTTPRequest *)request {

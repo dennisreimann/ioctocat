@@ -113,13 +113,16 @@
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the feed." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            NSString *msg = [NSString stringWithFormat:@"Could not load the feed.\n%@", [feed.error localizedDescription]];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
 	} else if (object == self.currentUser.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (!self.currentUser.organizations.isLoading && self.currentUser.organizations.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the list of organizations" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			NSString *msg = [NSString stringWithFormat:@"Could not load the list of organizations.\n%@", [self.currentUser.organizations.error localizedDescription]];
+			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+
 			[alert show];
 			[alert release];
 		} else if (self.currentUser.organizations.isLoaded) {

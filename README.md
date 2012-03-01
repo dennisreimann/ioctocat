@@ -16,7 +16,7 @@ Here are some tips for providing debugging information along with issues.
 iOctocat logs all API calls and in the console you will find the debugging output.
 
   * Clone the repo and open the terminal with the directory you cloned it into
-  * Run this command in the terminal: `git submodule update`
+  * Run this command in the terminal: `git submodule update --init`
   * Open the project in Xcode
   * Select "iOctocat > iPhone Simulator" in the upper left corner
   * Build and run the app by pressing the play button
@@ -24,8 +24,3 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
   * Clear the console (Cmd + K)
   * Move to where the error occurs
   * Copy the output in the console and attach it to your bug report
-
-
-
-Please clear it  and fill in your credentials in the simulator. After submitting the form, whats the output in the console?
-

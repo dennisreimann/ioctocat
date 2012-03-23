@@ -82,36 +82,31 @@
 }
 
 - (void)displayRepositories:(GHRepositories *)repositories {
+	NSComparisonResult (^compareRepositories)(GHRepository *, GHRepository *);
+	compareRepositories = ^(GHRepository *repo1, GHRepository *repo2) {
+		if ((id) repo1.pushedAtDate == [NSNull null]) {
+			return NSOrderedDescending;
+		}
+		if ((id) repo2.pushedAtDate == [NSNull null]) {
+			return NSOrderedAscending;
+		}
+		return [repo2.pushedAtDate compare:repo1.pushedAtDate];
+	};
+
 	if ([repositories isEqual:user.repositories]) {
 		self.privateRepositories = [NSMutableArray array];
 		self.publicRepositories = [NSMutableArray array];
 		for (GHRepository *repo in user.repositories.repositories) {
 			(repo.isPrivate) ? [privateRepositories addObject:repo] : [publicRepositories addObject:repo];
 		}
-		[self.publicRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-			GHRepository *r1 = (GHRepository *)obj1;
-			GHRepository *r2 = (GHRepository *)obj2;
-			return [r2.pushedAtDate compare:r1.pushedAtDate];
-		}];
-		[self.privateRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-			GHRepository *r1 = (GHRepository *)obj1;
-			GHRepository *r2 = (GHRepository *)obj2;
-			return [r2.pushedAtDate compare:r1.pushedAtDate];
-		}];
+		[self.publicRepositories sortUsingComparator:compareRepositories];
+		[self.privateRepositories sortUsingComparator:compareRepositories];
     } else if ([repositories isEqual:orgRepos]) {
         self.organizationRepositories = [NSMutableArray arrayWithArray:orgRepos.repositories];
-        [self.organizationRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-			GHRepository *r1 = (GHRepository *)obj1;
-			GHRepository *r2 = (GHRepository *)obj2;
-			return [r2.pushedAtDate compare:r1.pushedAtDate];
-		}];
+		[self.organizationRepositories sortUsingComparator:compareRepositories];
     } else {
         self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
-        [self.watchedRepositories sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-			GHRepository *r1 = (GHRepository *)obj1;
-			GHRepository *r2 = (GHRepository *)obj2;
-			return [r2.pushedAtDate compare:r1.pushedAtDate];
-		}];
+		[self.watchedRepositories sortUsingComparator:compareRepositories];
     }
 
     if(user.repositories.isLoaded && user.watchedRepositories.isLoaded)

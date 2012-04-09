@@ -82,7 +82,7 @@
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
     NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
-	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationPublicMembersFormat, login];
+	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationMembersFormat, login];
 
     self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
 	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
@@ -99,12 +99,12 @@
     self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
     self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
     self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
-    self.followersCount = [[resource objectForKey:@"followers_count"] integerValue];
-    self.followingCount = [[resource objectForKey:@"following_count"] integerValue];
-    self.publicGistCount = [[resource objectForKey:@"public_gist_count"] integerValue];
-    self.privateGistCount = [[resource objectForKey:@"private_gist_count"] integerValue];
-    self.publicRepoCount = [[resource objectForKey:@"public_repo_count"] integerValue];
-    self.privateRepoCount = [[resource objectForKey:@"private_repo_count"] integerValue];
+    self.followersCount = [[resource objectForKey:@"followers"] integerValue];
+    self.followingCount = [[resource objectForKey:@"following"] integerValue];
+    self.publicGistCount = [[resource objectForKey:@"public_gists"] integerValue];
+    self.privateGistCount = [[resource objectForKey:@"private_gists"] integerValue];
+    self.publicRepoCount = [[resource objectForKey:@"public_repos"] integerValue];
+    self.privateRepoCount = [[resource objectForKey:@"total_private_repos"] integerValue];
     self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
 }
 

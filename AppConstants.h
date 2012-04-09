@@ -23,6 +23,8 @@
 #define kUserNewsFeedFormat @"https://github.com/%@.private.atom"                         // non-API atom
 #define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom"               // non-API atom
 #define kUserAuthenticatedFormat @"https://api.github.com/user"                           // v3
+#define kUserAuthenticatedOrgsFormat @"https://api.github.com/user/orgs"                  // v3 not announced
+#define kUserOrganizationsFormat @"https://api.github.com/users/%@/orgs"                  // v3 not announced
 #define kUserFormat @"https://api.github.com/users/%@"                                    // v3
 #define kUserAuthenticatedReposFormat @"https://api.github.com/user/repos?per_page=100"   // v3
 #define kUserReposFormat @"https://api.github.com/users/%@/repos?per_page=100"            // v3
@@ -54,12 +56,11 @@
 
 // Organizations
 #define kOrganizationGithubFormat @"https://github.com/%@"
-#define kOrganizationFormat @"https://api.github.com/orgs/%@"                             // v3
-#define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
-#define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
-#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"
-#define kOrganizationPublicRepositoriesFormat @"https://github.com/api/v2/json/organizations/%@/public_repositories"
-#define kOrganizationPublicMembersFormat @"https://github.com/api/v2/json/organizations/%@/public_members"
+#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"                 // non-API atom
+#define kOrganizationFormat @"https://api.github.com/orgs/%@"                                          // v3
+#define kOrganizationMembersFormat @"https://api.github.com/orgs/%@/members?per_page=100"              // v3
+#define kOrganizationPublicRepositoriesFormat @"https://api.github.com/orgs/%@/repos?per_page=100"     // v3 not announced
+#define kOrganizationsRepositoriesFormat @"https://api.github.com/orgs/repos?per_page=100"             // v3 not available
 
 // Issues
 #define kIssueStateOpen @"open"

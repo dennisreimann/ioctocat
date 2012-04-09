@@ -32,7 +32,7 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *dict in [theDict objectForKey:@"organizations"]) {
+    for (NSDictionary *dict in theDict) {
 		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:[dict objectForKey:@"login"]];
         [theOrg setValuesFromDict:dict];
         [resources addObject:theOrg];

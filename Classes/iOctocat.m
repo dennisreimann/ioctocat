@@ -75,6 +75,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
     } else {
         GHUser *theUser = [self userWithLogin:login];
         theUser.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
+        theUser.organizations.resourceURL = [NSURL URLWithString:kUserAuthenticatedOrgsFormat];
         return theUser;
     }
 }

@@ -98,7 +98,7 @@
 	login = theLogin;
     
     NSURL *repositoriesURL = [NSURL URLWithFormat:kUserReposFormat, login];
-	NSURL *organizationsURL = [NSURL URLWithFormat:kOrganizationsFormat, login];
+	NSURL *organizationsURL = [NSURL URLWithFormat:kUserOrganizationsFormat, login];
 	NSURL *watchedRepositoriesURL = [NSURL URLWithFormat:kUserWatchedReposFormat, login];
     NSURL *followingURL = [NSURL URLWithFormat:kUserFollowingFormat, login];
     NSURL *followersURL = [NSURL URLWithFormat:kUserFollowersFormat, login];

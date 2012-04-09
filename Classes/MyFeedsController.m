@@ -32,10 +32,10 @@
 - (void)dealloc {
 	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [self.currentUser.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[feeds release];
-	[noEntriesCell release];
-	[feedEntryCell release];
-	[feedControl release];
+	[feeds release], feeds = nil;
+	[noEntriesCell release], noEntriesCell = nil;
+	[feedEntryCell release], feedEntryCell = nil;
+	[feedControl release], feedControl = nil;
     [super dealloc];
 }
 

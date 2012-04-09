@@ -1,15 +1,15 @@
-#import "GHNetworks.h"
+#import "GHForks.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "NSURL+Extensions.h"
 
 
-@implementation GHNetworks
+@implementation GHForks
 
 @synthesize entries;
 @synthesize repository;
 
-+ (id)networksWithRepository:(GHRepository *)theRepository {
++ (id)forksWithRepository:(GHRepository *)theRepository {
 	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
 }
 
@@ -27,7 +27,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHNetworks repository:'%@'>", repository];
+    return [NSString stringWithFormat:@"<GHForks repository:'%@'>", repository];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {

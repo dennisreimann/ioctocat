@@ -14,8 +14,8 @@
 #import "IssueCell.h"
 #import "FeedController.h"
 #import "IssuesController.h"
-#import "NetworkCell.h"
-#import "NetworksController.h"
+#import "ForkCell.h"
+#import "ForksController.h"
 #import "BranchCell.h"
 #import "NSURL+Extensions.h"
 
@@ -92,7 +92,7 @@
 - (void)displayRepository {
     iconView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	nameLabel.text = repository.name;
-	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watchers, repository.watchers == 1 ? @"watcher" : @"watchers", repository.forks, repository.forks == 1 ? @"fork" : @"forks"] : @"";
+	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"watcher" : @"watchers", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
     if (repository.isFork) forkLabel.text = @"forked";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
@@ -155,7 +155,7 @@
 	} else if (section == 1) {
 		switch (row) {
 			case 0: cell = issuesCell; break;
-			case 1: cell = networkCell; break;
+			case 1: cell = forkCell; break;
 		}    
     } else if (section == 2) {
 		BranchCell *cell = (BranchCell *)[tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
@@ -182,9 +182,9 @@
 		[self.navigationController pushViewController:issuesController animated:YES];
 		[issuesController release];
 	} else if (section == 1 && row == 1) {
-		NetworksController  *networksController = [[NetworksController alloc] initWithRepository:repository];
-		[self.navigationController pushViewController:networksController animated:YES];
-		[networksController release];
+		ForksController  *forksController = [[ForksController alloc] initWithRepository:repository];
+		[self.navigationController pushViewController:forksController animated:YES];
+		[forksController release];
 	} else if (section == 2) {
 		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
 		GHFeed *recentCommits = [branch recentCommits];

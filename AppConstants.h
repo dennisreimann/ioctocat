@@ -12,7 +12,7 @@
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
 #define kIssueCellIdentifier @"IssueCell"
 #define kUserCellIdentifier @"UserCell"
-#define kNetworkCellIdentifier @"NetworkCell"
+#define kForkCellIdentifier @"ForkCell"
 #define kBranchCellIdentifier @"BranchCell"
 #define kCommentCellIdentifier @"CommentCell"
 #define kOrganizationCellIdentifier @"OrganizationCell"
@@ -39,7 +39,7 @@
 #define kRepoFormat @"https://api.github.com/repos/%@/%@"                                 // v3
 #define kRepoWatchFormat @"https://api.github.com/user/watched/%@/%@"                     // v3
 #define kRepoBranchesFormat @"https://api.github.com/repos/%@/%@/branches"                // v3 not announced
-#define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"
+#define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"                      // v3
 #define kRepoPublicCommitsFormat @"https://github.com/api/v2/json/commits/list/%@/%@/%@"
 #define kRepoPublicCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
 #define kRepoPrivateCommitsFormat @"https://github.com/api/v2/json/commits/list/%@/%@/%@"

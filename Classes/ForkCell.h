@@ -2,7 +2,7 @@
 #import "GHRepository.h"
 
 
-@interface NetworkCell : UITableViewCell {
+@interface ForkCell : UITableViewCell {
 	GHRepository *repository;
   @private 
     IBOutlet UILabel *name;

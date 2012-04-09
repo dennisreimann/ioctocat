@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GHIssues, GHNetworks, GHBranches, GHUser;
+@class GHIssues, GHForks, GHBranches, GHUser;
 
 @interface GHRepository : GHResource {
 	NSString *name;
@@ -10,11 +10,11 @@
 	NSString *descriptionText;
 	NSURL *githubURL;
 	NSURL *homepageURL;
-	NSInteger forks;
-	NSInteger watchers;
+	NSInteger forkCount;
+	NSInteger watcherCount;
     GHIssues *openIssues;
     GHIssues *closedIssues;
-    GHNetworks *networks;
+    GHForks *forks;
     GHBranches *branches;
 	BOOL isPrivate;
 	BOOL isFork;
@@ -27,11 +27,11 @@
 @property(nonatomic,retain)NSURL *homepageURL;
 @property(nonatomic,retain)GHIssues *openIssues;
 @property(nonatomic,retain)GHIssues *closedIssues;
-@property(nonatomic,retain)GHNetworks *networks;
+@property(nonatomic,retain)GHForks *forks;
 @property(nonatomic,retain)GHBranches *branches;
 @property(nonatomic,readonly)GHUser *user;
-@property(nonatomic,readwrite)NSInteger forks;
-@property(nonatomic,readwrite)NSInteger watchers;
+@property(nonatomic,readwrite)NSInteger forkCount;
+@property(nonatomic,readwrite)NSInteger watcherCount;
 @property(nonatomic,readwrite)BOOL isPrivate;
 @property(nonatomic,readwrite)BOOL isFork;
 @property (nonatomic, retain) NSDate *pushedAtDate;

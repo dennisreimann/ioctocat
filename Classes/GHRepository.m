@@ -2,7 +2,7 @@
 #import "GHResource.h"
 #import "iOctocat.h"
 #import "GHIssues.h"
-#import "GHNetworks.h"
+#import "GHForks.h"
 #import "GHBranches.h"
 #import "NSURL+Extensions.h"
 
@@ -17,10 +17,10 @@
 @synthesize isPrivate;
 @synthesize isFork;
 @synthesize forks;
-@synthesize watchers;
+@synthesize watcherCount;
+@synthesize forkCount;
 @synthesize openIssues;
 @synthesize closedIssues;
-@synthesize networks;
 @synthesize branches;
 @synthesize pushedAtDate;
 
@@ -42,7 +42,7 @@
 	[homepageURL release];
     [openIssues release];
     [closedIssues release];
-    [networks release];
+    [forks release];
 	[branches release];
     [super dealloc];
 }
@@ -57,7 +57,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forks, watchers];
+    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forkCount, watcherCount];
 }
 
 - (NSString *)repoId {
@@ -77,8 +77,8 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-    // Networks
-    self.networks = [GHNetworks networksWithRepository:self];
+    // Forks
+    self.forks = [GHForks forksWithRepository:self];
 	// Branches
     self.branches = [GHBranches branchesWithRepository:self];
 	// Issues
@@ -112,8 +112,8 @@
     self.descriptionText = [resource objectForKey:@"description"];
     self.isFork = [[resource objectForKey:@"fork"] boolValue];
     self.isPrivate = [[resource objectForKey:@"private"] boolValue];
-    self.forks = [[resource objectForKey:@"forks"] integerValue];
-    self.watchers = [[resource objectForKey:@"watchers"] integerValue];
+    self.forkCount = [[resource objectForKey:@"forks"] integerValue];
+    self.watcherCount = [[resource objectForKey:@"watchers"] integerValue];
 	self.pushedAtDate = [resource objectForKey:@"pushed_at"];
 }
 

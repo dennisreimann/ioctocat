@@ -1,8 +1,8 @@
-#import "NetworkCell.h"
+#import "ForkCell.h"
 #import "GHRepository.h"
 
 
-@implementation NetworkCell
+@implementation ForkCell
 
 @synthesize repository;
 

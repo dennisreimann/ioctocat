@@ -18,17 +18,13 @@
 	[self initWithIssue:theIssue];	
 	
 	// Dates
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy/MM/dd HH:mm:ss Z";
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
 	
-	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKey:@"user"]];
 	self.body = [theDict valueForKey:@"body"];
-	self.created = [dateFormatter dateFromString:createdAt];
-	self.updated = [dateFormatter dateFromString:updatedAt];
-	
-	[dateFormatter release];
+	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKeyPath:@"user.login"]];
+	self.created = [iOctocat parseDate:createdAt withFormat:kISO8601TimeFormat];
+	self.updated = [iOctocat parseDate:updatedAt withFormat:kISO8601TimeFormat];
 	
 	return self;
 }
@@ -52,9 +48,9 @@
 #pragma mark Saving
 
 - (void)saveData {
-	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:kIssueCommentCommentParamName];
-	NSURL *saveURL = [NSURL URLWithFormat:kIssueCommentFormat, issue.repository.owner, issue.repository.name, issue.num];
-	[self saveValues:values withURL:saveURL];
+	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
+	NSURL *saveURL = [NSURL URLWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
+	[self saveValues:values withURL:saveURL andMethod:@"POST"];
 }
 
 @end

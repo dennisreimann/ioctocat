@@ -1,5 +1,6 @@
 #import "GHResource.h"
 #import "iOctocat.h"
+#import "CJSONSerializer.h"
 #import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
@@ -146,20 +147,20 @@
 
 #pragma mark Saving
 
-- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL {
+- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL andMethod:(NSString *)theMethod {
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
+	NSString *jsonString = [[CJSONSerializer serializer] serializeDictionary:theValues];
+	NSMutableData *postData = [[jsonString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(savingFinished:)];
 	[request setDidFailSelector:@selector(savingFailed:)];
-	for (NSString *key in [theValues allKeys]) {
-		id value = [theValues objectForKey:key];
-		[request setPostValue:value forKey:key];
-	}
-	DJLog(@"Saving %@ - ", [request url], [request postBody]);
+	[request setRequestMethod:theMethod];
+	[request setPostBody:postData];
+	DJLog(@"Saving %@ - %@", [request url], jsonString);
 	[[iOctocat queue] addOperation:request];
 }
 

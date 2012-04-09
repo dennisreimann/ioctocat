@@ -39,7 +39,7 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in [theDict objectForKey:@"comments"]) {
+	for (NSDictionary *dict in theDict) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];

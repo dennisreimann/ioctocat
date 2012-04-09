@@ -35,7 +35,7 @@ typedef enum {
 - (void)addDelegate:(id)delegate;
 - (void)removeDelegate:(id)delegate;
 - (void)loadData;
-- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL;
+- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL andMethod:(NSString *)theMethod;
 - (void)parseData:(NSData *)theData;
 - (void)parsingFinished:(id)theResult;
 - (void)setValuesFromDict:(NSDictionary *)theDict;

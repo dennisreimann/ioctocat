@@ -45,14 +45,12 @@
 #define kRepoSearchFormat @"https://github.com/api/v2/json/repos/search/%@"               // v3 not available
 
 // Issues
-#define kIssueFormat @"https://api.github.com/repos/%@/%@/issues/%d"                      // v3
 #define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"
-#define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
-#define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"
-#define kIssueCommentsFormat @"https://github.com/api/v2/json/issues/comments/%@/%@/%d"
-#define kIssueCommentFormat @"https://github.com/api/v2/json/issues/comment/%@/%@/%d"
-#define kIssueToggleFormat @"https://github.com/api/v2/json/issues/%@/%@/%@/%d"
-#define kIssuesFormat @"https://api.github.com/repos/%@/%@/issues?state=%@"               // v3
+#define kIssuesFormat @"https://api.github.com/repos/%@/%@/issues?per_page=100&state=%@"           // v3
+#define kIssueFormat @"https://api.github.com/repos/%@/%@/issues/%d"                               // v3
+#define kIssueOpenFormat @"https://api.github.com/repos/%@/%@/issues"                              // v3
+#define kIssueEditFormat @"https://api.github.com/repos/%@/%@/issues/%d"                           // v3
+#define kIssueCommentsFormat @"https://api.github.com/repos/%@/%@/issues/%d/comments?per_page=100" // v3
 
 // Organizations
 #define kOrganizationGithubFormat @"https://github.com/%@"
@@ -66,11 +64,6 @@
 // Issues
 #define kIssueStateOpen @"open"
 #define kIssueStateClosed @"closed"
-#define kIssueToggleClose @"close"
-#define kIssueToggleReopen @"reopen"
-#define kIssueTitleParamName @"title"
-#define kIssueBodyParamName @"body"
-#define kIssueCommentCommentParamName @"comment"
 
 // Images
 #define kImageGravatarMaxLogicalSize 50

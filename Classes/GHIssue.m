@@ -8,8 +8,6 @@
 
 
 @interface GHIssue ()
-// Saving
-- (void)setIssueState:(NSString *)theState;
 - (void)toggledIssueStateTo:(id)theResult;
 @end
 
@@ -74,40 +72,42 @@
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-	NSDictionary *resource = [theDict objectForKey:@"issue"] ? [theDict objectForKey:@"issue"] : theDict;
-	NSString *login = [[resource objectForKey:@"user"] objectForKey:@"login"];
+	NSString *login = [theDict valueForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:[resource objectForKey:@"created_at"] withFormat:kISO8601TimeFormat];
-	self.updated = [iOctocat parseDate:[resource objectForKey:@"updated_at"] withFormat:kISO8601TimeFormat];
-	self.closed = [iOctocat parseDate:[resource objectForKey:@"closed_at"] withFormat:kISO8601TimeFormat];
-	self.title = [resource objectForKey:@"title"];
-	self.body = [resource objectForKey:@"body"];
-	self.state = [resource objectForKey:@"state"];
-    self.labels = [resource objectForKey:@"labels"];
-	self.votes = [[resource objectForKey:@"votes"] integerValue];
-	self.num = [[resource objectForKey:@"number"] integerValue];
+	self.created = [iOctocat parseDate:[theDict objectForKey:@"created_at"] withFormat:kISO8601TimeFormat];
+	self.updated = [iOctocat parseDate:[theDict objectForKey:@"updated_at"] withFormat:kISO8601TimeFormat];
+	self.closed = [iOctocat parseDate:[theDict objectForKey:@"closed_at"] withFormat:kISO8601TimeFormat];
+	self.title = [theDict objectForKey:@"title"];
+	self.body = [theDict objectForKey:@"body"];
+	self.state = [theDict objectForKey:@"state"];
+	self.labels = [theDict objectForKey:@"labels"];
+	self.votes = [[theDict objectForKey:@"votes"] integerValue];
+	self.num = [[theDict objectForKey:@"number"] integerValue];
 }
 
 #pragma mark State toggling
 
 - (void)closeIssue {
-	[self setIssueState:kIssueToggleClose];
+	self.state = kIssueStateClosed;
+	[self saveData];
 }
 
 - (void)reopenIssue {
-	[self setIssueState:kIssueToggleReopen];
+	self.state = kIssueStateOpen;
+	[self saveData];
 }
 
 - (void)setIssueState:(NSString *)theToggle {
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
-	NSURL *url = [NSURL URLWithFormat:kIssueToggleFormat, theToggle, repository.owner, repository.name, num];
+	NSURL *url = [NSURL URLWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
 	// Send the request
 	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(stateTogglingFinished:)];
 	[request setDidFailSelector:@selector(stateTogglingFailed:)];
+	[request setRequestMethod:@"PATCH"];
 	DJLog(@"Sending save request: %@", request);
 	[[iOctocat queue] addOperation:request];
 }
@@ -144,13 +144,16 @@
 
 - (void)saveData {
 	NSURL *url;
+	NSString *method;
 	if (self.isNew) {
 		url = [NSURL URLWithFormat:kIssueOpenFormat, repository.owner, repository.name];
+		method = @"POST";
 	} else {
 		url = [NSURL URLWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
+		method = @"PATCH";
 	}
-	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, kIssueTitleParamName, body, kIssueBodyParamName, nil];
-	[self saveValues:values withURL:url];
+	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", body, @"body", state, @"state", nil];
+	[self saveValues:values withURL:url andMethod:method];
 }
 
 @end

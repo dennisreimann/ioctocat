@@ -133,10 +133,6 @@
     self.followingCount = [[theDict objectForKey:@"following"] integerValue];
     self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
     self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
-    // gravatar_url will soon be deprecated by the GitHub API
-    if (!self.gravatarURL && ![[theDict objectForKey:@"gravatar_url"] isKindOfClass:[NSNull class]]) {
-        self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"gravatar_url"]];
-    }
 }
 
 #pragma mark Following

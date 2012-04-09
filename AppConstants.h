@@ -40,25 +40,23 @@
 #define kRepoWatchFormat @"https://api.github.com/user/watched/%@/%@"                     // v3
 #define kRepoBranchesFormat @"https://api.github.com/repos/%@/%@/branches"                // v3 not announced
 #define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"                      // v3
-#define kRepoPublicCommitsFormat @"https://github.com/api/v2/json/commits/list/%@/%@/%@"
-#define kRepoPublicCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
-#define kRepoPrivateCommitsFormat @"https://github.com/api/v2/json/commits/list/%@/%@/%@"
-#define kRepoPrivateCommitFormat @"https://github.com/api/v2/json/commits/show/%@/%@/%@"
+#define kRepoCommitsFormat @"https://api.github.com/repos/%@/%@/commits"                  // v3  
+#define kRepoCommitFormat @"https://api.github.com/repos/%@/%@/commits/%@"                // v3
 #define kRepoSearchFormat @"https://github.com/api/v2/json/repos/search/%@"               // v3 not available
 
 // Issues
-#define kIssueFormat @"https://api.github.com/repos/%@/%@/issues/%d" // v3
+#define kIssueFormat @"https://api.github.com/repos/%@/%@/issues/%d"                      // v3
 #define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"
 #define kIssueOpenFormat @"https://github.com/api/v2/json/issues/open/%@/%@"
 #define kIssueEditFormat @"https://github.com/api/v2/json/issues/edit/%@/%@/%d"
 #define kIssueCommentsFormat @"https://github.com/api/v2/json/issues/comments/%@/%@/%d"
 #define kIssueCommentFormat @"https://github.com/api/v2/json/issues/comment/%@/%@/%d"
 #define kIssueToggleFormat @"https://github.com/api/v2/json/issues/%@/%@/%@/%d"
-#define kIssuesFormat @"https://api.github.com/repos/%@/%@/issues?state=%@" // v3
+#define kIssuesFormat @"https://api.github.com/repos/%@/%@/issues?state=%@"               // v3
 
 // Organizations
 #define kOrganizationGithubFormat @"https://github.com/%@"
-#define kOrganizationFormat @"https://api.github.com/orgs/%@" // v3
+#define kOrganizationFormat @"https://api.github.com/orgs/%@"                             // v3
 #define kOrganizationsFormat @"https://github.com/api/v2/json/user/show/%@/organizations"
 #define kOrganizationsRepositoriesFormat @"https://github.com/api/v2/json/organizations/repositories"
 #define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"

@@ -6,7 +6,6 @@
 
 @interface GHCommit : GHResource {
 	NSString *commitID;
-	NSString *tree;
 	NSString *message;
 	NSURL *commitURL;
 	NSString *authorName;
@@ -15,17 +14,15 @@
 	NSString *committerEmail;
 	NSDate *committedDate;
 	NSDate *authoredDate;
-	NSArray *added;
-	NSArray *modified;
-	NSArray *removed;
-	NSArray *parents;
+	NSMutableArray *added;
+	NSMutableArray *modified;
+	NSMutableArray *removed;
 	GHUser *author;
 	GHUser *committer;
 	GHRepository *repository;
 }
 
 @property(nonatomic,retain)NSString *commitID;
-@property(nonatomic,retain)NSString *tree;
 @property(nonatomic,retain)NSString *message;
 @property(nonatomic,retain)NSURL *commitURL;
 @property(nonatomic,retain)NSString *authorName;
@@ -34,10 +31,9 @@
 @property(nonatomic,retain)NSString *committerEmail;
 @property(nonatomic,retain)NSDate *committedDate;
 @property(nonatomic,retain)NSDate *authoredDate;
-@property(nonatomic,retain)NSArray *added;
-@property(nonatomic,retain)NSArray *modified;
-@property(nonatomic,retain)NSArray *removed;
-@property(nonatomic,retain)NSArray *parents;
+@property(nonatomic,retain)NSMutableArray *added;
+@property(nonatomic,retain)NSMutableArray *modified;
+@property(nonatomic,retain)NSMutableArray *removed;
 @property(nonatomic,retain)GHUser *author;
 @property(nonatomic,retain)GHUser *committer;
 @property(nonatomic,retain)GHRepository *repository;

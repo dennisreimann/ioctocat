@@ -30,12 +30,12 @@
     [super viewDidLoad];
 	NSDictionary *fileInfo = [files objectAtIndex:index];
 	self.title = [[fileInfo objectForKey:@"filename"] lastPathComponent];
-	NSString *diff = [fileInfo objectForKey:@"diff"];
-	NSString *formattedDiff = [self htmlFormatDiff:diff];
-	DJLog(@"Diff:\n-----------------------------------\n%@", diff);
+	NSString *patch = [fileInfo objectForKey:@"patch"];
+	NSString *formattedPatch = [self htmlFormatDiff:patch];
+	DJLog(@"Patch:\n-----------------------------------\n%@", patch);
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *html = [NSString stringWithFormat:format, formattedDiff];
+	NSString *html = [NSString stringWithFormat:format, formattedPatch];
 	[contentView loadHTMLString:html baseURL:nil];
 }
 
@@ -52,19 +52,19 @@
 - (NSString *)htmlFormatDiff:(NSString *)theDiff {
     NSString *escaped = [theDiff escapeHTML];
 	NSArray *lines = [escaped componentsSeparatedByString:@"\n"];
-	NSMutableString *diff = [NSMutableString string];
+	NSMutableString *patch = [NSMutableString string];
 	for (NSString *line in lines) {
 		if ([line hasPrefix:@"@@"]) {
-			[diff appendFormat:@"<div class='lines'>%@</div>", line];
+			[patch appendFormat:@"<div class='lines'>%@</div>", line];
 		} else if ([line hasPrefix:@"+"]) {
-			[diff appendFormat:@"<div class='added'>%@</div>", line];
+			[patch appendFormat:@"<div class='added'>%@</div>", line];
 		} else if ([line hasPrefix:@"-"]) {
-			[diff appendFormat:@"<div class='removed'>%@</div>", line];
+			[patch appendFormat:@"<div class='removed'>%@</div>", line];
 		} else {
-			[diff appendFormat:@"<div>%@</div>", line];
+			[patch appendFormat:@"<div>%@</div>", line];
 		}
 	}
-	return [NSString stringWithFormat:@"<pre id='diff' class='diff'>%@</pre>", diff];
+	return [NSString stringWithFormat:@"<pre id='diff' class='diff'>%@</pre>", patch];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {

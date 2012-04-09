@@ -15,7 +15,7 @@
 
 @interface GHUser ()
 - (void)setFollowing:(BOOL)theMode forUser:(GHUser *)theUser;
-- (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository;
+- (void)setWatching:(BOOL)theMode forRepository:(GHRepository *)theRepository;
 - (void)followToggleFinished:(ASIHTTPRequest *)request;
 - (void)followToggleFailed:(ASIHTTPRequest *)request;
 - (void)watchToggleFinished:(ASIHTTPRequest *)request;
@@ -160,7 +160,7 @@
 	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theUser.login];
     ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
-	[request setRequestMethod:follow ? @"PUT" : @"DELETE"];
+	[request setRequestMethod:(follow ? @"PUT" : @"DELETE")];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
 	[request setDidFailSelector:@selector(followToggleFailed:)];
 	[[iOctocat queue] addOperation:request];
@@ -188,18 +188,19 @@
 
 - (void)watchRepository:(GHRepository *)theRepository {
 	[watchedRepositories.repositories addObject:theRepository];
-	[self setWatching:kWatch forRepository:theRepository];
+	[self setWatching:YES forRepository:theRepository];
 }
 
 - (void)unwatchRepository:(GHRepository *)theRepository {
 	[watchedRepositories.repositories removeObject:theRepository];
-	[self setWatching:kUnWatch forRepository:theRepository];
+	[self setWatching:NO forRepository:theRepository];
 }
 
-- (void)setWatching:(NSString *)theMode forRepository:(GHRepository *)theRepository {
-	NSURL *watchingURL = [NSURL URLWithFormat:kRepoWatchFormat, theMode, theRepository.owner, theRepository.name];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchingURL];
-	[request setDelegate:self];
+- (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
+	NSURL *watchURL = [NSURL URLWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
+    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchURL];
+    [request setDelegate:self];
+    [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];
 	[request setDidFailSelector:@selector(watchToggleFailed:)];
 	[[iOctocat queue] addOperation:request];

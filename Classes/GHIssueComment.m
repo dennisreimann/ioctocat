@@ -23,8 +23,8 @@
 	
 	self.body = [theDict valueForKey:@"body"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKeyPath:@"user.login"]];
-	self.created = [iOctocat parseDate:createdAt withFormat:kISO8601TimeFormat];
-	self.updated = [iOctocat parseDate:updatedAt withFormat:kISO8601TimeFormat];
+	self.created = [iOctocat parseDate:createdAt];
+	self.updated = [iOctocat parseDate:updatedAt];
 	
 	return self;
 }

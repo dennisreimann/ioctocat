@@ -119,11 +119,11 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return [documentsPath stringByAppendingPathComponent:imageName];
 }
 
-+ (NSDate *)parseDate:(NSString *)string withFormat:(NSString *)theFormat {
++ (NSDate *)parseDate:(NSString *)string {
     if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
 	static NSDateFormatter *dateFormatter;
 	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = theFormat;
+    dateFormatter.dateFormat = kISO8601TimeFormat;
     // Fix for timezone format
     if ([string hasSuffix:@"Z"]) {
         string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];

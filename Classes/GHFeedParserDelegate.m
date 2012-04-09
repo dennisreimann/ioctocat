@@ -91,7 +91,7 @@
 			currentEntry.eventType = nil;
 		}
 	} else if ([elementName isEqualToString:@"updated"]) {
-		currentEntry.date = [iOctocat parseDate:value withFormat:kISO8601TimeFormat];
+		currentEntry.date = [iOctocat parseDate:value];
 	} else if ([elementName isEqualToString:@"title"]) {
 		[currentEntry setValue:[value stringByDecodingXMLEntities] forKey:elementName];
     } else if ([elementName isEqualToString:@"content"]) {

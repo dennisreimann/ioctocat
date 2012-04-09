@@ -74,9 +74,9 @@
 - (void)setValuesFromDict:(NSDictionary *)theDict {
 	NSString *login = [theDict valueForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:[theDict objectForKey:@"created_at"] withFormat:kISO8601TimeFormat];
-	self.updated = [iOctocat parseDate:[theDict objectForKey:@"updated_at"] withFormat:kISO8601TimeFormat];
-	self.closed = [iOctocat parseDate:[theDict objectForKey:@"closed_at"] withFormat:kISO8601TimeFormat];
+	self.created = [iOctocat parseDate:[theDict objectForKey:@"created_at"]];
+	self.updated = [iOctocat parseDate:[theDict objectForKey:@"updated_at"]];
+	self.closed = [iOctocat parseDate:[theDict objectForKey:@"closed_at"]];
 	self.title = [theDict objectForKey:@"title"];
 	self.body = [theDict objectForKey:@"body"];
 	self.state = [theDict objectForKey:@"state"];

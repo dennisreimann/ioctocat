@@ -80,8 +80,8 @@
     
     self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
     self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-    self.authoredDate = [iOctocat parseDate:authorDateString withFormat:kISO8601TimeFormat];
-    self.committedDate = [iOctocat parseDate:committerDateString withFormat:kISO8601TimeFormat];
+    self.authoredDate = [iOctocat parseDate:authorDateString];
+    self.committedDate = [iOctocat parseDate:committerDateString];
     self.message = [theDict valueForKeyPath:@"commit.message"];
     
     // Files

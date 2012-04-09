@@ -16,7 +16,7 @@
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];
     self.repository = theRepository;
-	self.resourceURL = [NSURL URLWithFormat:kRepoNetworkFormat, repository.owner, repository.name];
+	self.resourceURL = [NSURL URLWithFormat:kRepoForksFormat, repository.owner, repository.name];
 	return self;    
 }
 
@@ -32,9 +32,11 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *dict in [theDict objectForKey:@"network"]) {
-		GHRepository *resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
-        [resource setValuesFromDict:dict];
+    for (NSDictionary *repoDict in theDict) {
+        NSString *owner = [repoDict valueForKeyPath:@"owner.login"];
+        NSString *name = [repoDict valueForKey:@"name"];
+		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:name];
+        [resource setValuesFromDict:repoDict];
         [resources addObject:resource];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

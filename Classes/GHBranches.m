@@ -33,9 +33,10 @@
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSString *branchName in [[theDict objectForKey:@"branches"] allKeys]) {
-		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:branchName];
-		branch.sha = [[theDict objectForKey:@"branches"] objectForKey:branchName];
+	for (NSDictionary *branchDict in theDict) {
+        NSString *name = [branchDict valueForKey:@"name"];
+		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:name];
+		branch.sha = [branchDict valueForKeyPath:@"commit.sha"];
         [resources addObject:branch];
 		[branch release];
     }

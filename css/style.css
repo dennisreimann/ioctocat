@@ -1,4 +1,4 @@
-* { 
+* {
 	margin: 0;
 	padding: 0;
 }
@@ -55,6 +55,11 @@ img {
 	border: 0;
 }
 
+iframe {
+	margin: 1.5em 0 0 0;
+	border: 0;
+}
+
 #main {
 	width: 650px;
 	overflow: hidden;
@@ -73,7 +78,7 @@ img {
 }
 
 #appstore {
-	margin: 5.125em 0;
+	margin: 1em 0;
 	text-align: center;
 }
 

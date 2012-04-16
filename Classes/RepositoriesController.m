@@ -165,7 +165,7 @@
 	if (indexPath.section == 2 && !user.watchedRepositories.isLoaded) return loadingReposCell;
 	if (indexPath.section == 2 && self.watchedRepositories.count == 0) return noWatchedReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	cell.repository = [repos objectAtIndex:indexPath.row];
 	if (indexPath.section == 0 || indexPath.section == 1) [cell hideOwner];

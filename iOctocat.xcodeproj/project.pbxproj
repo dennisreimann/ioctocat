@@ -10,6 +10,7 @@
 		01117CDC13E87CBF004F4E09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01117CDB13E87CBF004F4E09 /* libz.dylib */; };
 		01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
 		01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3A14FBF07D00AE08EC /* Reachability.m */; };
+		1AA16F5A1539D051000552BD /* repostat.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA16F591539D051000552BD /* repostat.png */; };
 		1D3623260D0F684500981E51 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -230,6 +231,7 @@
 		01554A3414FBF02E00AE08EC /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
 		01554A3914FBF07D00AE08EC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.h; sourceTree = SOURCE_ROOT; };
 		01554A3A14FBF07D00AE08EC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = SOURCE_ROOT; };
+		1AA16F591539D051000552BD /* repostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repostat.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iOctocat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
@@ -512,11 +514,11 @@
 		8C6AA15D0FAC22B000A99483 /* IssueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueController.h; sourceTree = "<group>"; };
 		8C6AA15E0FAC22B000A99483 /* IssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueController.m; sourceTree = "<group>"; };
 		8CE686720FB8C56700A3D625 /* GHForks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHForks.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		8CE686730FB8C56700A3D625 /* GHForks.h */ = {isa = PBXFileReference; fileEncoding = 4; path = GHForks.h; sourceTree = "<group>"; };
+		8CE686730FB8C56700A3D625 /* GHForks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHForks.h; sourceTree = "<group>"; };
 		8CE6867B0FB8C58400A3D625 /* ForksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForksController.m; sourceTree = "<group>"; };
-		8CE6867C0FB8C58400A3D625 /* ForksController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ForksController.h; sourceTree = "<group>"; };
+		8CE6867C0FB8C58400A3D625 /* ForksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForksController.h; sourceTree = "<group>"; };
 		8CE6867E0FB8C59400A3D625 /* ForkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForkCell.m; sourceTree = "<group>"; };
-		8CE6867F0FB8C59400A3D625 /* ForkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; path = ForkCell.h; sourceTree = "<group>"; };
+		8CE6867F0FB8C59400A3D625 /* ForkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForkCell.h; sourceTree = "<group>"; };
 		8CE686E80FB8C83100A3D625 /* ForkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ForkCell.xib; path = IBFiles/ForkCell.xib; sourceTree = "<group>"; };
 		8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -811,6 +813,7 @@
 				6F1DC5C10F7E7F4600FCD26D /* merge.png */,
 				6F1DC5C20F7E7F4600FCD26D /* push.png */,
 				6F1DC5C40F7E7F4600FCD26D /* wiki.png */,
+				1AA16F591539D051000552BD /* repostat.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1239,6 +1242,7 @@
 				6F5E863B14F2A17200F340FE /* Icon.png in Resources */,
 				6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */,
 				6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */,
+				1AA16F5A1539D051000552BD /* repostat.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

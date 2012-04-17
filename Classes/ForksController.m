@@ -1,6 +1,7 @@
 #import "ForksController.h"
 #import "GHForks.h"
 #import "RepositoryController.h"
+#import "RepositoryCell.h"
 
 
 @implementation ForksController
@@ -22,9 +23,8 @@
 
 - (void)dealloc {
     [repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [loadingForksCell release];
-    [noForksCell release];
-    [forkCell release];    
+    [loadingForksCell release], loadingForksCell = nil;
+    [noForksCell release], noForksCell = nil;
     [super dealloc];
 }
 
@@ -51,11 +51,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentForks.isLoading) return loadingForksCell;
 	if (self.currentForks.entries.count == 0) return noForksCell;
-  	ForkCell *cell = (ForkCell *)[tableView dequeueReusableCellWithIdentifier:kForkCellIdentifier];
-	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"ForkCell" owner:self options:nil];
-		cell = forkCell;
-	}
+    RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	cell.repository = [self.currentForks.entries objectAtIndex:indexPath.row];
 	return cell;
 }

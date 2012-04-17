@@ -12,7 +12,6 @@
 #define kFeedEntryCellIdentifier @"FeedEntryCell"
 #define kIssueCellIdentifier @"IssueCell"
 #define kUserCellIdentifier @"UserCell"
-#define kForkCellIdentifier @"ForkCell"
 #define kBranchCellIdentifier @"BranchCell"
 #define kCommentCellIdentifier @"CommentCell"
 #define kOrganizationCellIdentifier @"OrganizationCell"

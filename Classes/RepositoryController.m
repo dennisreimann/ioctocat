@@ -14,7 +14,6 @@
 #import "IssueCell.h"
 #import "FeedController.h"
 #import "IssuesController.h"
-#import "ForkCell.h"
 #import "ForksController.h"
 #import "BranchCell.h"
 #import "NSURL+Extensions.h"

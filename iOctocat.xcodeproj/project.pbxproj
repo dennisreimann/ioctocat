@@ -211,8 +211,6 @@
 		8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
 		8CE686760FB8C56700A3D625 /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
 		8CE6867D0FB8C58400A3D625 /* ForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* ForksController.m */; };
-		8CE686800FB8C59400A3D625 /* ForkCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867E0FB8C59400A3D625 /* ForkCell.m */; };
-		8CE686E90FB8C83100A3D625 /* ForkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8CE686E80FB8C83100A3D625 /* ForkCell.xib */; };
 		8CFBCFB30FAB8A6300A2C37A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		931D2FCA133513B400FAEF3E /* TabBarFeeds@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */; };
 		931D2FCB133513B400FAEF3E /* TabBarNetwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */; };
@@ -517,9 +515,6 @@
 		8CE686730FB8C56700A3D625 /* GHForks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHForks.h; sourceTree = "<group>"; };
 		8CE6867B0FB8C58400A3D625 /* ForksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForksController.m; sourceTree = "<group>"; };
 		8CE6867C0FB8C58400A3D625 /* ForksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForksController.h; sourceTree = "<group>"; };
-		8CE6867E0FB8C59400A3D625 /* ForkCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForkCell.m; sourceTree = "<group>"; };
-		8CE6867F0FB8C59400A3D625 /* ForkCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForkCell.h; sourceTree = "<group>"; };
-		8CE686E80FB8C83100A3D625 /* ForkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ForkCell.xib; path = IBFiles/ForkCell.xib; sourceTree = "<group>"; };
 		8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		931D2FC7133513B400FAEF3E /* TabBarFeeds@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarFeeds@2x.png"; sourceTree = "<group>"; };
@@ -742,8 +737,6 @@
 				8C53B4D60FB0F32600C3A8E0 /* UserCell.m */,
 				6FB93A940FB2231E002B43AD /* RepositoryCell.h */,
 				6FB93A950FB2231E002B43AD /* RepositoryCell.m */,
-				8CE6867F0FB8C59400A3D625 /* ForkCell.h */,
-				8CE6867E0FB8C59400A3D625 /* ForkCell.m */,
 				6F0BEB7D111098A000E95E5A /* BranchCell.h */,
 				6F0BEB7E111098A000E95E5A /* BranchCell.m */,
 				6FF09E63111589D600925109 /* FilesCell.h */,
@@ -1043,7 +1036,6 @@
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				8CE686E80FB8C83100A3D625 /* ForkCell.xib */,
 				6F879A5A0FB611FD00EBD9BD /* UserCell.xib */,
 				6F74DD880FA76CCA00FD90AB /* FeedEntryCell.xib */,
 				6F9DD87F1334DBF500D1E35E /* OrganizationCell.xib */,
@@ -1149,7 +1141,6 @@
 				6F879A1E0FB60CB500EBD9BD /* user.png in Resources */,
 				6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */,
 				6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */,
-				8CE686E90FB8C83100A3D625 /* ForkCell.xib in Resources */,
 				6FCDC6400FC04D330024E498 /* feed.png in Resources */,
 				6FCDC66C0FC04F180024E498 /* Feed.xib in Resources */,
 				6F59BC950FC6C51800412597 /* Repositories.xib in Resources */,
@@ -1287,7 +1278,6 @@
 				6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */,
 				8CE686760FB8C56700A3D625 /* GHForks.m in Sources */,
 				8CE6867D0FB8C58400A3D625 /* ForksController.m in Sources */,
-				8CE686800FB8C59400A3D625 /* ForkCell.m in Sources */,
 				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
 				6FE931D60FC72444008545A2 /* Archiver.m in Sources */,
 				6F0AEFBE100CF5DB00FB323E /* IssueFormController.m in Sources */,

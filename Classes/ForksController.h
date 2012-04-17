@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import "ForkCell.h"
 #import "GHRepository.h"
 
 
@@ -8,7 +7,6 @@
   @private
     IBOutlet UITableViewCell *loadingForksCell;
 	IBOutlet UITableViewCell *noForksCell;
-	IBOutlet ForkCell *forkCell;
 }
 
 @property(nonatomic,readonly)GHForks *currentForks;

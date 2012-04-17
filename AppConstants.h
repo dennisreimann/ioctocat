@@ -22,8 +22,8 @@
 #define kUserNewsFeedFormat @"https://github.com/%@.private.atom"                         // non-API atom
 #define kUserActivityFeedFormat @"https://github.com/%@.private.actor.atom"               // non-API atom
 #define kUserAuthenticatedFormat @"https://api.github.com/user"                           // v3
-#define kUserAuthenticatedOrgsFormat @"https://api.github.com/user/orgs"                  // v3 not announced
-#define kUserOrganizationsFormat @"https://api.github.com/users/%@/orgs"                  // v3 not announced
+#define kUserAuthenticatedOrgsFormat @"https://api.github.com/user/orgs"                  // v3
+#define kUserOrganizationsFormat @"https://api.github.com/users/%@/orgs"                  // v3
 #define kUserFormat @"https://api.github.com/users/%@"                                    // v3
 #define kUserAuthenticatedReposFormat @"https://api.github.com/user/repos?per_page=100"   // v3
 #define kUserReposFormat @"https://api.github.com/users/%@/repos?per_page=100"            // v3
@@ -39,7 +39,7 @@
 #define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"               // non-API atom
 #define kRepoFormat @"https://api.github.com/repos/%@/%@"                                 // v3
 #define kRepoWatchFormat @"https://api.github.com/user/watched/%@/%@"                     // v3
-#define kRepoBranchesFormat @"https://api.github.com/repos/%@/%@/branches"                // v3 not announced
+#define kRepoBranchesFormat @"https://api.github.com/repos/%@/%@/branches"                // v3
 #define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"                      // v3
 #define kRepoCommitsFormat @"https://api.github.com/repos/%@/%@/commits"                  // v3  
 #define kRepoCommitFormat @"https://api.github.com/repos/%@/%@/commits/%@"                // v3

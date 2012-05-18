@@ -49,13 +49,15 @@
 #pragma mark Request
 
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
-   	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *login = [defaults stringForKey:kLoginDefaultsKey];
-	NSString *password = [defaults stringForKey:kPasswordDefaultsKey];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *login = [defaults stringForKey:kLoginDefaultsKey];
+    NSString *password = [defaults stringForKey:kPasswordDefaultsKey];
 	
-	ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-	[request setUsername:login];
-	[request setPassword:password];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    [request setAuthenticationScheme:(NSString *) kCFHTTPAuthenticationSchemeBasic];
+    [request setShouldPresentCredentialsBeforeChallenge:YES];
+    [request setUsername:login];
+    [request setPassword:password];
     [request setRequestMethod:@"GET"];
 	
     return request;

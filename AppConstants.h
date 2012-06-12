@@ -31,7 +31,7 @@
 #define kUserFollowingFormat @"https://api.github.com/users/%@/following?per_page=100"    // v3
 #define kUserFollowersFormat @"https://api.github.com/users/%@/followers?per_page=100"    // v3
 #define kUserFollowFormat @"https://api.github.com/user/following/%@"                     // v3
-#define kUserSearchFormat @"https://github.com/api/v2/json/user/search/%@"                // v3 not available
+#define kUserSearchFormat @"https://api.github.com/legacy/user/search/%@"                 // v3
 
 // Repos
 #define kRepoGithubFormat @"https://github.com/%@/%@"
@@ -43,7 +43,7 @@
 #define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"                      // v3
 #define kRepoCommitsFormat @"https://api.github.com/repos/%@/%@/commits"                  // v3  
 #define kRepoCommitFormat @"https://api.github.com/repos/%@/%@/commits/%@"                // v3
-#define kRepoSearchFormat @"https://github.com/api/v2/json/repos/search/%@"               // v3 not available
+#define kRepoSearchFormat @"https://api.github.com/legacy/repos/search/%@"                // v3
 
 // Issues
 #define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"

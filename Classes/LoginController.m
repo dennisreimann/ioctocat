@@ -19,6 +19,7 @@
 @implementation LoginController
 
 @synthesize loginField;
+@synthesize tokenField;
 @synthesize passwordField;
 @synthesize submitButton;
 @synthesize delegate;
@@ -38,16 +39,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	loginField.text = [LoginController stringFromUserDefaultsForKey:kLoginDefaultsKey defaultsTo:@""];
-	passwordField.text = [LoginController stringFromUserDefaultsForKey:kPasswordDefaultsKey defaultsTo:@""];
-  [submitButton useAlertStyle];
+    loginField.text = [LoginController stringFromUserDefaultsForKey:kLoginDefaultsKey defaultsTo:@""];
+    tokenField.text = [LoginController stringFromUserDefaultsForKey:kTokenDefaultsKey defaultsTo:@""];
+    passwordField.text = [LoginController stringFromUserDefaultsForKey:kPasswordDefaultsKey defaultsTo:@""];
+    [submitButton useAlertStyle];
 }
 
 - (void)dealloc {
-	[loginField release], loginField = nil;
-	[passwordField release], passwordField = nil;
-	[submitButton release], submitButton = nil;
-	[authSheet release], authSheet = nil;
+    [loginField release], loginField = nil;
+    [tokenField release], tokenField = nil;
+    [passwordField release], passwordField = nil;
+    [submitButton release], submitButton = nil;
+    [authSheet release], authSheet = nil;
     [super dealloc];
 }
 
@@ -61,17 +64,20 @@
 - (IBAction)submit:(id)sender {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
+    NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:trimSet];
 	if ([login isEmpty] || [password isEmpty]) {
 		[self failWithMessage:@"Please enter your login\nand password"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kLoginDefaultsKey];
+        [defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults setValue:password forKey:kPasswordDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
         self.user = [[iOctocat sharedInstance] currentUser];
 		[loginField resignFirstResponder];
+        [tokenField resignFirstResponder];
 		[passwordField resignFirstResponder];
 		[self startAuthenticating];
 	}
@@ -79,13 +85,15 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[loginField resignFirstResponder];
+    [tokenField resignFirstResponder];
 	[passwordField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	if (textField == loginField) [passwordField becomeFirstResponder];
-	if (textField == passwordField) [self submit:nil];
+    if (textField == passwordField) [tokenField becomeFirstResponder];
+    if (textField == tokenField) [self submit:nil];
 	return YES;
 }
 

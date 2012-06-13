@@ -2,6 +2,7 @@
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kLoginDefaultsKey @"username"
+#define kTokenDefaultsKey @"token"
 #define kPasswordDefaultsKey @"password"
 
 // API
@@ -55,7 +56,7 @@
 
 // Organizations
 #define kOrganizationGithubFormat @"https://github.com/%@"
-#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom"                 // non-API atom
+#define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"        // non-API atom
 #define kOrganizationFormat @"https://api.github.com/orgs/%@"                                          // v3
 #define kOrganizationMembersFormat @"https://api.github.com/orgs/%@/members?per_page=100"              // v3
 #define kOrganizationPublicRepositoriesFormat @"https://api.github.com/orgs/%@/repos?per_page=100"     // v3 not announced

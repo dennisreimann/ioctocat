@@ -2,7 +2,6 @@
 #import "NSString+Extensions.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-
 #import "GradientButton.h"
 
 @interface LoginController ()
@@ -13,13 +12,13 @@
 - (void)dismissAuthenticationSheet;
 - (void)finishAuthenticating;
 - (void)failWithMessage:(NSString *)theMessage;
+- (void)resolveToken;
 @end
 
 
 @implementation LoginController
 
 @synthesize loginField;
-@synthesize tokenField;
 @synthesize passwordField;
 @synthesize submitButton;
 @synthesize delegate;
@@ -40,14 +39,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     loginField.text = [LoginController stringFromUserDefaultsForKey:kLoginDefaultsKey defaultsTo:@""];
-    tokenField.text = [LoginController stringFromUserDefaultsForKey:kTokenDefaultsKey defaultsTo:@""];
     passwordField.text = [LoginController stringFromUserDefaultsForKey:kPasswordDefaultsKey defaultsTo:@""];
     [submitButton useAlertStyle];
 }
 
 - (void)dealloc {
     [loginField release], loginField = nil;
-    [tokenField release], tokenField = nil;
     [passwordField release], passwordField = nil;
     [submitButton release], submitButton = nil;
     [authSheet release], authSheet = nil;
@@ -64,20 +61,17 @@
 - (IBAction)submit:(id)sender {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
-    NSString *token = [tokenField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:trimSet];
 	if ([login isEmpty] || [password isEmpty]) {
 		[self failWithMessage:@"Please enter your login\nand password"];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[defaults setValue:login forKey:kLoginDefaultsKey];
-        [defaults setValue:token forKey:kTokenDefaultsKey];
 		[defaults setValue:password forKey:kPasswordDefaultsKey];
 		[defaults synchronize];
 		submitButton.enabled = NO;
         self.user = [[iOctocat sharedInstance] currentUser];
 		[loginField resignFirstResponder];
-        [tokenField resignFirstResponder];
 		[passwordField resignFirstResponder];
 		[self startAuthenticating];
 	}
@@ -85,15 +79,13 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[loginField resignFirstResponder];
-    [tokenField resignFirstResponder];
 	[passwordField resignFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
 	if (textField == loginField) [passwordField becomeFirstResponder];
-    if (textField == passwordField) [tokenField becomeFirstResponder];
-    if (textField == tokenField) [self submit:nil];
+    if (textField == passwordField) [self submit:nil];
 	return YES;
 }
 
@@ -128,6 +120,11 @@
 
 - (void)finishAuthenticating {
     [self dismissLogin];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [defaults stringForKey:kTokenDefaultsKey];
+    if ([token length] < 32) [self resolveToken];
+
     if ([delegate respondsToSelector:@selector(finishedAuthenticating)]) {
         [delegate performSelector:@selector(finishedAuthenticating) withObject:self.user];
     }
@@ -153,6 +150,34 @@
 - (void)dismissAuthenticationSheet {
 	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
 	[authSheet release], authSheet = nil;
+}
+
+#pragma mark Lookup API Token
+
+- (void)resolveToken {
+    UIWebView *webView = [[UIWebView alloc] init];
+    NSURL *url = [NSURL URLWithString:@"https://github.com/login"];
+    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+    webView.delegate = self;
+    [webView loadRequest:requestObj];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    if ([[[webView.request URL] path] isEqualToString:@"/login"]) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSString *login = [defaults stringForKey:kLoginDefaultsKey];
+        NSString *password = [defaults stringForKey:kPasswordDefaultsKey];
+        NSString *js = [NSString stringWithFormat:@"$('#login_field').val('%@');$('#password').val('%@');$('#login_field')[0].form.submit()", login, password];
+        [webView stringByEvaluatingJavaScriptFromString:js];
+    } else if ([[[webView.request URL] path] isEqualToString:@"/"]) {
+        NSString *token = [webView stringByEvaluatingJavaScriptFromString:@"$('a.feed')[0].href.match(/token=(.*)/)[1]"];
+        if (![token isEqualToString:@""]) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setValue:token forKey:kTokenDefaultsKey];
+            [defaults synchronize];
+            [webView release];
+        }
+    }
 }
 
 #pragma mark Autorotation

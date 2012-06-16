@@ -19,7 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.currentUser.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     [organizationItem setEnabled:self.currentUser.organizations.isLoaded];
     loadCounter = 0;
 }
@@ -44,6 +43,7 @@
 }
 
 - (void)setupFeeds {
+	[self.currentUser.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, self.currentUser.login];
 	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, self.currentUser.login];
 	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];

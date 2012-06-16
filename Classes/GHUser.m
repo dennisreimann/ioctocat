@@ -222,9 +222,7 @@
 	[gravatarURL release];
 	gravatarURL = theURL;
 
-	if (gravatarURL) {
-        [gravatarLoader loadURL:gravatarURL];
-    }
+	if (gravatarURL) [gravatarLoader loadURL:gravatarURL];
 }
 
 - (void)loadedGravatar:(UIImage *)theImage {

@@ -53,6 +53,7 @@
 	[organization.publicMembers removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[organization release], organization = nil;
 	[tableHeaderView release], tableHeaderView = nil;
+	[gravatarView release], gravatarView = nil;
 	[nameLabel release], nameLabel = nil;
 	[companyLabel release], companyLabel = nil;
 	[locationLabel release], locationLabel = nil;

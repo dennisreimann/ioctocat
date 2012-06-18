@@ -59,6 +59,7 @@
 	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user release], user = nil;
 	[tableHeaderView release], tableHeaderView = nil;
+	[gravatarView release], gravatarView = nil;
 	[nameLabel release], nameLabel = nil;
 	[companyLabel release], companyLabel = nil;
 	[locationLabel release], locationLabel = nil;

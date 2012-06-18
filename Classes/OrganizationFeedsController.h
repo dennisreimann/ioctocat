@@ -1,10 +1,9 @@
 #import <UIKit/UIKit.h>
 #import "GHOrganizations.h"
-#import "GHUser.h"
 #import "OrganizationCell.h"
 
 
-@interface OrganizationsController : UITableViewController {
+@interface OrganizationFeedsController : UITableViewController {
     GHOrganizations *organizations;
 @private
 	IBOutlet UITableViewCell *loadingCell;
@@ -13,7 +12,6 @@
 }
 
 @property(nonatomic,retain) GHOrganizations *organizations;
-@property(nonatomic,readonly) GHUser *currentUser;
 
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations;
 

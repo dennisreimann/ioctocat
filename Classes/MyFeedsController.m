@@ -1,7 +1,7 @@
 #import "MyFeedsController.h"
 #import "WebController.h"
 #import "UserController.h"
-#import "OrganizationsController.h"
+#import "OrganizationFeedsController.h"
 #import "FeedEntryController.h"
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
@@ -92,7 +92,7 @@
 }
 
 - (IBAction)selectOrganization:(id)sender {
-    OrganizationsController *viewController = [[OrganizationsController alloc] initWithOrganizations:self.currentUser.organizations];
+    OrganizationFeedsController *viewController = [[OrganizationFeedsController alloc] initWithOrganizations:self.currentUser.organizations];
     viewController.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];

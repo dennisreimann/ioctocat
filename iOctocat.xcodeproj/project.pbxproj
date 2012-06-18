@@ -42,6 +42,8 @@
 		6F2C77441114F6DE002665DA /* Files.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C77431114F6DE002665DA /* Files.xib */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
 		6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
+		6F2DEE23158F2AFA005C56E6 /* TabBarOrgs.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2DEE22158F2AFA005C56E6 /* TabBarOrgs.png */; };
+		6F2DEE26158F2B7B005C56E6 /* OrganizationFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */; };
 		6F316D8C111AD2E400FC4FE9 /* TabBarRepositories.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D96111AD87700FC4FE9 /* ToolbarCompass.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */; };
@@ -276,6 +278,9 @@
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayController.h; sourceTree = "<group>"; };
 		6F2D9B500FB19AF800FFABE9 /* OverlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayController.m; sourceTree = "<group>"; };
+		6F2DEE22158F2AFA005C56E6 /* TabBarOrgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarOrgs.png; sourceTree = "<group>"; };
+		6F2DEE24158F2B7B005C56E6 /* OrganizationFeedsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationFeedsController.h; sourceTree = "<group>"; };
+		6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationFeedsController.m; sourceTree = "<group>"; };
 		6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarRepositories.png; sourceTree = "<group>"; };
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
 		6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCompass.png; sourceTree = "<group>"; };
@@ -686,6 +691,8 @@
 				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
 				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
 				6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */,
+				6F2DEE24158F2B7B005C56E6 /* OrganizationFeedsController.h */,
+				6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */,
 				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
 				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
 				8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */,
@@ -866,6 +873,7 @@
 		6F5E9C741119D43E00752560 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				6F2DEE22158F2AFA005C56E6 /* TabBarOrgs.png */,
 				6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */,
 				931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */,
 				6F5E9C751119D43E00752560 /* TabBarFeeds.png */,
@@ -1234,6 +1242,7 @@
 				6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */,
 				6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */,
 				1AA16F5A1539D051000552BD /* repostat.png in Resources */,
+				6F2DEE23158F2AFA005C56E6 /* TabBarOrgs.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1321,6 +1330,7 @@
 				6F47B90014C087FC00E0666B /* ASINetworkQueue.m in Sources */,
 				01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */,
 				01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */,
+				6F2DEE26158F2B7B005C56E6 /* OrganizationFeedsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

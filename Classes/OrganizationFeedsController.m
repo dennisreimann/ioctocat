@@ -1,11 +1,10 @@
-#import "OrganizationsController.h"
+#import "OrganizationFeedsController.h"
 #import "OrganizationController.h"
 #import "FeedController.h"
 #import "GHOrganization.h"
-#import "iOctocat.h"
 
 
-@implementation OrganizationsController
+@implementation OrganizationFeedsController
 
 @synthesize organizations;
 
@@ -18,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!organizations) self.organizations = self.currentUser.organizations; // Set to currentUser.organizations in case this controller is initialized from the TabBar
     self.navigationItem.title = @"Organizations";
     if (!organizations.isLoaded) [organizations loadData];
 }
@@ -29,10 +27,6 @@
     [organizationCell release], organizationCell = nil;
     [loadingCell release], loadingCell = nil;
     [super dealloc];
-}
-
-- (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -70,7 +64,7 @@
     if (!organizations.isLoaded) return;
     if (organizations.organizations.count == 0) return;
     GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
-    OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
+    FeedController *viewController = [[FeedController alloc] initWithFeed:org.recentActivity andTitle:org.login];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }

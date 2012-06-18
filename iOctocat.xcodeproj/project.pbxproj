@@ -188,6 +188,9 @@
 		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
 		6FCE4D880F7FE16A00451D6E /* MyFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
+		6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */; };
+		6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */; };
+		6FD1DE31158FD14000D72A3D /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE30158FD14000D72A3D /* GHComment.m */; };
 		6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */; };
@@ -475,6 +478,12 @@
 		6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFeedsController.h; sourceTree = "<group>"; };
 		6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyFeedsController.m; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
+		6FD1DE29158FCCA900D72A3D /* GHRepoComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepoComment.h; sourceTree = "<group>"; };
+		6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepoComment.m; sourceTree = "<group>"; };
+		6FD1DE2C158FCCDA00D72A3D /* GHRepoComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepoComments.h; sourceTree = "<group>"; };
+		6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepoComments.m; sourceTree = "<group>"; };
+		6FD1DE2F158FD14000D72A3D /* GHComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHComment.h; sourceTree = "<group>"; };
+		6FD1DE30158FD14000D72A3D /* GHComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHComment.m; sourceTree = "<group>"; };
 		6FD6172B0FA774E1008C751B /* GHFeedParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeedParserDelegate.h; sourceTree = "<group>"; };
 		6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedParserDelegate.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
@@ -660,6 +669,12 @@
 				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
 				6F35BD530F88B06200E978CD /* GHRepository.m */,
+				6FD1DE2C158FCCDA00D72A3D /* GHRepoComments.h */,
+				6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */,
+				6FD1DE29158FCCA900D72A3D /* GHRepoComment.h */,
+				6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */,
+				6FD1DE2F158FD14000D72A3D /* GHComment.h */,
+				6FD1DE30158FD14000D72A3D /* GHComment.m */,
 				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
 				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
 				6F879AE60FB61C7A00EBD9BD /* GHUsers.h */,
@@ -1331,6 +1346,9 @@
 				01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */,
 				01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */,
 				6F2DEE26158F2B7B005C56E6 /* OrganizationFeedsController.m in Sources */,
+				6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */,
+				6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */,
+				6FD1DE31158FD14000D72A3D /* GHComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

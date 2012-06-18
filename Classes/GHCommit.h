@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GHUser, GHRepository;
+@class GHUser, GHRepository, GHRepoComments;
 
 @interface GHCommit : GHResource {
 	NSString *commitID;
@@ -20,6 +20,7 @@
 	GHUser *author;
 	GHUser *committer;
 	GHRepository *repository;
+	GHRepoComments *comments;
 }
 
 @property(nonatomic,retain)NSString *commitID;
@@ -37,6 +38,7 @@
 @property(nonatomic,retain)GHUser *author;
 @property(nonatomic,retain)GHUser *committer;
 @property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,retain)GHRepoComments *comments;
 
 + (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;

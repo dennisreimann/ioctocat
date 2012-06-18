@@ -7,6 +7,7 @@
 #import "IssuesController.h"
 #import "IssueFormController.h"
 #import "GHIssueComments.h"
+#import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
@@ -59,23 +60,23 @@
 }
 
 - (void)dealloc {
-	[issue release];
-	[listController release];
-	[tableHeaderView release];
-	[tableFooterView release];
-	[titleLabel release];
-	[createdLabel release];
-    [updatedLabel release];
-    [voteLabel release];
-	[createdCell release];
-	[updatedCell release];
-	[descriptionCell release];
-	[loadingCommentsCell release];
-	[noCommentsCell release];
-	[commentCell release];
-	[loadingCell release];
-    [issueNumber release];
-	[iconView release];
+	[issue release], issue = nil;
+	[listController release], listController = nil;
+	[tableHeaderView release], tableHeaderView = nil;
+	[tableFooterView release], tableFooterView = nil;
+	[titleLabel release], titleLabel = nil;
+	[createdLabel release], createdLabel = nil;
+    [updatedLabel release], updatedLabel = nil;
+    [voteLabel release], voteLabel = nil;
+	[createdCell release], createdCell = nil;
+	[updatedCell release], updatedCell = nil;
+	[descriptionCell release], descriptionCell = nil;
+	[loadingCommentsCell release], loadingCommentsCell = nil;
+	[noCommentsCell release], noCommentsCell = nil;
+	[commentCell release], commentCell = nil;
+	[loadingCell release], loadingCell = nil;
+    [issueNumber release], issueNumber = nil;
+	[iconView release], iconView = nil;
     [super dealloc];
 }
 

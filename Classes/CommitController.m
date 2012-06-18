@@ -2,8 +2,11 @@
 #import "GHUser.h"
 #import "GHCommit.h"
 #import "GHRepository.h"
+#import "GHRepoComments.h"
+#import "GHRepoComment.h"
 #import "LabeledCell.h"
 #import "FilesCell.h"
+#import "CommentCell.h"
 #import "NSDate+Nibware.h"
 #import "UserController.h"
 #import "RepositoryController.h"
@@ -25,6 +28,7 @@
 @synthesize addedCell;
 @synthesize modifiedCell;
 @synthesize removedCell;
+@synthesize commentCell;
 @synthesize tableHeaderView;
 @synthesize authorLabel;
 @synthesize committerLabel;
@@ -57,6 +61,7 @@
 	self.addedCell = nil;
 	self.modifiedCell = nil;
 	self.removedCell = nil;
+	self.commentCell = nil;
     self.tableHeaderView = nil;
     self.authorLabel = nil;
     self.committerLabel = nil;
@@ -74,6 +79,7 @@
 	[addedCell release], addedCell = nil;
 	[modifiedCell release], modifiedCell = nil;
 	[removedCell release], removedCell = nil;
+	[commentCell release], commentCell = nil;
     [tableHeaderView release], tableHeaderView = nil;
     [authorLabel release], authorLabel = nil;
     [committerLabel release], committerLabel = nil;
@@ -149,8 +155,26 @@
 	if (indexPath.section == 0 && indexPath.row == 1) return committerCell;
 	if (indexPath.section == 1 && indexPath.row == 0) return addedCell;
 	if (indexPath.section == 1 && indexPath.row == 1) return removedCell;
-	return modifiedCell;
+	if (indexPath.section == 1 && indexPath.row == 2) return modifiedCell;
+	
+	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	if (cell == nil) {
+		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
+		cell = commentCell;
+	}
+	GHRepoComment *comment = [commit.comments.comments objectAtIndex:indexPath.row];
+	[cell setComment:comment];
+	return cell;
 }
+
+//- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)descriptionCell height];
+//	if (indexPath.section == 1 && issue.comments.isLoaded && issue.comments.comments.count > 0) {
+//		CommentCell *cell = (CommentCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
+//		return [cell height];
+//	}
+//	return 44.0f;
+//}
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {

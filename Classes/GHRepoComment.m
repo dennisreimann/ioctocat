@@ -1,16 +1,16 @@
-#import "GHIssueComment.h"
-#import "GHIssue.h"
+#import "GHRepoComment.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
 
 
-@implementation GHIssueComment
+@implementation GHRepoComment
 
-@synthesize issue;
+@synthesize repository;
+@synthesize sha;
 
-- (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
-	[self initWithIssue:theIssue];	
+- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha andDictionary:(NSDictionary *)theDict {
+	[self initWithRepo:theRepo andSha:theSha];	
 	
 	// Dates
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
@@ -24,14 +24,16 @@
 	return self;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue {
+- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
 	[super init];
-	self.issue = theIssue;
+	self.repository = theRepo;
+	self.sha = theSha;
 	return self;
 }
 
 - (void)dealloc {
-	[issue release], issue = nil;
+	[repository release], repository = nil;
+	[sha release], sha = nil;
 	
 	[super dealloc];
 }
@@ -40,7 +42,7 @@
 
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
-	NSURL *saveURL = [NSURL URLWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
+	NSURL *saveURL = [NSURL URLWithFormat:kRepoCommentsFormat, repository.owner, repository.name, sha];
 	[self saveValues:values withURL:saveURL andMethod:@"POST"];
 }
 

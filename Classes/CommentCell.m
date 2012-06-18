@@ -1,5 +1,5 @@
 #import "CommentCell.h"
-#import "GHIssueComment.h"
+#import "GHComment.h"
 #import "NSDate+Nibware.h"
 #import "GHUser.h"
 
@@ -21,7 +21,7 @@
 	[super dealloc];
 }
 
-- (void)setComment:(GHIssueComment *)theComment {
+- (void)setComment:(GHComment *)theComment {
 	[theComment retain];
 	[comment release];
 	comment = theComment;

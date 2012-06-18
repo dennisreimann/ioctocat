@@ -36,15 +36,16 @@
 
 // Repos
 #define kRepoGithubFormat @"https://github.com/%@/%@"
-#define kRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"                      // non-API atom
-#define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"               // non-API atom
-#define kRepoFormat @"https://api.github.com/repos/%@/%@"                                 // v3
-#define kRepoWatchFormat @"https://api.github.com/user/watched/%@/%@"                     // v3
-#define kRepoBranchesFormat @"https://api.github.com/repos/%@/%@/branches"                // v3
-#define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"                      // v3
-#define kRepoCommitsFormat @"https://api.github.com/repos/%@/%@/commits"                  // v3  
-#define kRepoCommitFormat @"https://api.github.com/repos/%@/%@/commits/%@"                // v3
-#define kRepoSearchFormat @"https://api.github.com/legacy/repos/search/%@"                // v3
+#define kRepoFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"                               // non-API atom
+#define kRepoPrivateFeedFormat @"https://github.com/feeds/%@/commits/%@/%@"                        // non-API atom
+#define kRepoFormat @"https://api.github.com/repos/%@/%@"                                          // v3
+#define kRepoWatchFormat @"https://api.github.com/user/watched/%@/%@"                              // v3
+#define kRepoBranchesFormat @"https://api.github.com/repos/%@/%@/branches"                         // v3
+#define kRepoForksFormat @"https://api.github.com/repos/%@/%@/forks"                               // v3
+#define kRepoCommitsFormat @"https://api.github.com/repos/%@/%@/commits"                           // v3  
+#define kRepoCommitFormat @"https://api.github.com/repos/%@/%@/commits/%@"                         // v3
+#define kRepoCommentsFormat @"https://api.github.com/repos/%@/%@/commits/%@/comments?per_page=100" // v3
+#define kRepoSearchFormat @"https://api.github.com/legacy/repos/search/%@"                         // v3
 
 // Issues
 #define kIssueGithubFormat @"https://github.com/%@/%@/issues/%d"

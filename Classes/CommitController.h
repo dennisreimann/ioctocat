@@ -2,7 +2,7 @@
 #import "GHCommit.h"
 
 
-@class LabeledCell, FilesCell;
+@class LabeledCell, FilesCell, CommentCell;
 
 @interface CommitController : UITableViewController <UIActionSheetDelegate> {
 	GHCommit *commit;
@@ -11,6 +11,7 @@
 	FilesCell *addedCell;
 	FilesCell *modifiedCell;
 	FilesCell *removedCell;
+	CommentCell *commentCell;
 	UITableViewCell *loadingCell;
 	UIView *tableHeaderView;
 	UILabel *authorLabel;
@@ -26,6 +27,7 @@
 @property(nonatomic,retain)IBOutlet FilesCell *addedCell;
 @property(nonatomic,retain)IBOutlet FilesCell *modifiedCell;
 @property(nonatomic,retain)IBOutlet FilesCell *removedCell;
+@property(nonatomic,retain)IBOutlet CommentCell *commentCell;
 @property(nonatomic,retain)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,retain)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,retain)IBOutlet UILabel *authorLabel;

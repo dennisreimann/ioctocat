@@ -1,6 +1,7 @@
 #import "GHCommit.h"
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHRepoComments.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
 
@@ -22,6 +23,7 @@
 @synthesize author;
 @synthesize committer;
 @synthesize repository;
+@synthesize comments;
 
 + (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
 	return [[[[self class] alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
@@ -53,6 +55,7 @@
     [author release], author = nil;
     [committer release], committer = nil;
     [repository release], repository = nil;
+    [comments release], comments = nil;
 	[super dealloc];
 }
 

@@ -2,20 +2,20 @@
 #import "TextCell.h"
 
 
-@class GHIssueComment;
+@class GHComment;
 
 @interface CommentCell : TextCell {
-	GHIssueComment *comment;
+	GHComment *comment;
 	UIImageView *gravatarView;
 	UILabel *userLabel;
 	UILabel *dateLabel;
 }
 
-@property(nonatomic,retain)GHIssueComment *comment;
+@property(nonatomic,retain)GHComment *comment;
 @property(nonatomic,retain)IBOutlet UIImageView *gravatarView;
 @property(nonatomic,retain)IBOutlet UILabel *userLabel;
 @property(nonatomic,retain)IBOutlet UILabel *dateLabel;
 
-- (void)setComment:(GHIssueComment *)theComment;
+- (void)setComment:(GHComment *)theComment;
 
 @end

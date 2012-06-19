@@ -1,16 +1,18 @@
-#import "IssueCommentController.h"
+#import "CommentController.h"
 #import "NSString+Extensions.h"
-#import "GHIssueComments.h"
-#import "GHIssueComment.h"
+#import "GHComment.h"
 
 
-@implementation IssueCommentController
+@implementation CommentController
 
-- (id)initWithIssue:(GHIssue *)theIssue {    
-    [super initWithNibName:@"IssueComment" bundle:nil];
+@synthesize comment;
+@synthesize comments;
+
+- (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {    
+    [super initWithNibName:@"Comment" bundle:nil];
 	
-	issue = [theIssue retain];
-	comment = [[GHIssueComment alloc] initWithIssue:issue];
+	self.comment = theComment;
+	self.comments = theComments;
     [comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	
 	return self;
@@ -27,11 +29,11 @@
 
 - (void)dealloc {
 	[comment removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-	[comment release];
-	[issue release];
-	[bodyView release];
-	[postButton release];
-	[activityView release];
+	[comment release], comment = nil;
+	[comments release], comments = nil;
+	[bodyView release], bodyView = nil;
+	[postButton release], postButton = nil;
+	[activityView release], activityView = nil;
 	
     [super dealloc];
 }
@@ -57,7 +59,7 @@
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Comment saved" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 			[alert show];
 			[alert release];
-			[issue.comments loadData];
+			[comments loadData];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (comment.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];

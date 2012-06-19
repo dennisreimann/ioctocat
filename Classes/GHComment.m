@@ -15,8 +15,13 @@
 	[body release], body = nil;
 	[created release], created = nil;
 	[updated release], updated = nil;
-	
 	[super dealloc];
+}
+
+#pragma mark Saving
+
+- (void)saveData {
+	// Implement this in the subclass
 }
 
 @end

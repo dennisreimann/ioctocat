@@ -18,4 +18,6 @@
 @property(nonatomic,retain)NSDate *created;
 @property(nonatomic,retain)NSDate *updated;
 
+- (void)saveData;
+
 @end

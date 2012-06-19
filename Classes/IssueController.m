@@ -1,5 +1,5 @@
 #import "IssueController.h"
-#import "IssueCommentController.h"
+#import "CommentController.h"
 #import "WebController.h"
 #import "TextCell.h"
 #import "LabeledCell.h"
@@ -155,9 +155,11 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	IssueCommentController *viewController = [[IssueCommentController alloc] initWithIssue:issue];
+	GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue];
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:issue.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];    
+	[viewController release];
+	[comment release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {

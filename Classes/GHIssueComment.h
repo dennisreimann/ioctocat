@@ -13,6 +13,5 @@
 
 - (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
 - (id)initWithIssue:(GHIssue *)theIssue;
-- (void)saveData;
 
 @end

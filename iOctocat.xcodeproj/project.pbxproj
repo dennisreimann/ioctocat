@@ -174,8 +174,8 @@
 		6FB9CBFA133565D200C8DE29 /* team_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF8133565D200C8DE29 /* team_add.png */; };
 		6FB9CBFB133565D200C8DE29 /* team_add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF9133565D200C8DE29 /* team_add@2x.png */; };
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
-		6FC0D42A115819E400511B7F /* IssueCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* IssueCommentController.m */; };
-		6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* IssueComment.xib */; };
+		6FC0D42A115819E400511B7F /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* CommentController.m */; };
+		6FC0D42C11581A5200511B7F /* Comment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* Comment.xib */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC95F1F0F8905F500FC0968 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
 		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
@@ -458,9 +458,9 @@
 		6FB9CBF8133565D200C8DE29 /* team_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_add.png; path = Images/Icons/team_add.png; sourceTree = "<group>"; };
 		6FB9CBF9133565D200C8DE29 /* team_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "team_add@2x.png"; path = "Images/Icons/team_add@2x.png"; sourceTree = "<group>"; };
 		6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCommit.png; sourceTree = "<group>"; };
-		6FC0D428115819E400511B7F /* IssueCommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueCommentController.h; sourceTree = "<group>"; };
-		6FC0D429115819E400511B7F /* IssueCommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueCommentController.m; sourceTree = "<group>"; };
-		6FC0D42B11581A5200511B7F /* IssueComment.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueComment.xib; path = IBFiles/IssueComment.xib; sourceTree = "<group>"; };
+		6FC0D428115819E400511B7F /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CommentController.h; sourceTree = "<group>"; };
+		6FC0D429115819E400511B7F /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
+		6FC0D42B11581A5200511B7F /* Comment.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Comment.xib; path = IBFiles/Comment.xib; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
 		6FC465160F9D1445003A8E7B /* GHCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHCommit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FC95F1D0F8905F500FC0968 /* UserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
@@ -682,8 +682,8 @@
 				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
 				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
 				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
-				6FC0D428115819E400511B7F /* IssueCommentController.h */,
-				6FC0D429115819E400511B7F /* IssueCommentController.m */,
+				6FC0D428115819E400511B7F /* CommentController.h */,
+				6FC0D429115819E400511B7F /* CommentController.m */,
 				6F0AEFBB100CF5DB00FB323E /* IssueFormController.h */,
 				6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */,
 				8CE6867C0FB8C58400A3D625 /* ForksController.h */,
@@ -981,8 +981,8 @@
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
-				6FC0D42B11581A5200511B7F /* IssueComment.xib */,
 				6F0AEFC0100CF61500FB323E /* IssueForm.xib */,
+				6FC0D42B11581A5200511B7F /* Comment.xib */,
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
 				6FF09F851115AFB500925109 /* Diff.xib */,
@@ -1239,7 +1239,7 @@
 				6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */,
 				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 				6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */,
-				6FC0D42C11581A5200511B7F /* IssueComment.xib in Resources */,
+				6FC0D42C11581A5200511B7F /* Comment.xib in Resources */,
 				6F8E7DF4123C0E8B007E93E6 /* pull_request.png in Resources */,
 				6F15FAA4123E3EE600E56F92 /* download.png in Resources */,
 				6F9DD82E1334A0F200D1E35E /* DefaultGravatar@2x.png in Resources */,
@@ -1375,7 +1375,7 @@
 				6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */,
 				6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */,
 				6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */,
-				6FC0D42A115819E400511B7F /* IssueCommentController.m in Sources */,
+				6FC0D42A115819E400511B7F /* CommentController.m in Sources */,
 				6F7961AE132EC90D00C9446E /* GHResource.m in Sources */,
 				6F7961AF132EC90D00C9446E /* GHUser.m in Sources */,
 				6F9DD87B1334B99C00D1E35E /* GHOrganizations.m in Sources */,

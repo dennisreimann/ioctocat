@@ -21,6 +21,5 @@
 
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict;
 - (id)initWithRepo:(GHRepository *)theRepo;
-- (void)saveData;
 
 @end

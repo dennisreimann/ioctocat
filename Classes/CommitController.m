@@ -12,6 +12,7 @@
 #import "RepositoryController.h"
 #import "WebController.h"
 #import "FilesController.h"
+#import "CommentController.h"
 
 
 @interface CommitController ()
@@ -88,28 +89,31 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Add comment", @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", [NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Show on GitHub", nil];
 	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
 }
 
 - (IBAction)addComment:(id)sender {
-//	IssueCommentController *viewController = [[IssueCommentController alloc] initWithIssue:issue];
-//	[self.navigationController pushViewController:viewController animated:YES];
-//	[viewController release];    
+	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:commit.repository];
+	comment.commitID = commit.commitID;
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:commit.comments];
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
+	[comment release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
+		[self addComment:nil]; 
+	} else if (buttonIndex == 1) {
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:commit.author];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
-	} else if (buttonIndex == 1) {
+	} else if (buttonIndex == 2) {
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:commit.repository];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
-	} else if (buttonIndex == 2) {
-		[self addComment:nil];   
 	} else if (buttonIndex == 3) {
 		WebController *webController = [[WebController alloc] initWithURL:commit.commitURL];
 		[self.navigationController pushViewController:webController animated:YES];

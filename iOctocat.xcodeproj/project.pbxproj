@@ -458,7 +458,7 @@
 		6FB9CBF8133565D200C8DE29 /* team_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = team_add.png; path = Images/Icons/team_add.png; sourceTree = "<group>"; };
 		6FB9CBF9133565D200C8DE29 /* team_add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "team_add@2x.png"; path = "Images/Icons/team_add@2x.png"; sourceTree = "<group>"; };
 		6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCommit.png; sourceTree = "<group>"; };
-		6FC0D428115819E400511B7F /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; path = CommentController.h; sourceTree = "<group>"; };
+		6FC0D428115819E400511B7F /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentController.h; sourceTree = "<group>"; };
 		6FC0D429115819E400511B7F /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
 		6FC0D42B11581A5200511B7F /* Comment.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Comment.xib; path = IBFiles/Comment.xib; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
@@ -642,12 +642,12 @@
 		6F1DC4410F7E5A7E00FCD26D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				6F7961A9132EC90D00C9446E /* GHResource.h */,
-				6F7961AA132EC90D00C9446E /* GHResource.m */,
 				6FECA89B15906D2D00878A74 /* GitHub */,
 				6FECA89A15906D0700878A74 /* Git */,
 				6FECA89915906CD000878A74 /* Comments */,
 				6FF6EB2D0FA61115000679FA /* Parser */,
+				6F7961A9132EC90D00C9446E /* GHResource.h */,
+				6F7961AA132EC90D00C9446E /* GHResource.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -655,39 +655,14 @@
 		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6FECA89E1590711F00878A74 /* Feeds */,
+				6FECA8A11590A27600878A74 /* Users and Orgs */,
+				6FECA89C159070FE00878A74 /* Git */,
+				6FECA89F1590A20200878A74 /* Repos */,
+				6FECA89D1590710A00878A74 /* Search */,
+				6FECA8A01590A23C00878A74 /* Misc */,
 				1D3623240D0F684500981E51 /* iOctocat.h */,
 				1D3623250D0F684500981E51 /* iOctocat.m */,
-				6FECA89E1590711F00878A74 /* Feeds */,
-				6FECA89C159070FE00878A74 /* Git */,
-				6FECA89D1590710A00878A74 /* Search */,
-				6FE91E4A0FAD13D500749370 /* LoginController.h */,
-				6FE91E4B0FAD13D500749370 /* LoginController.m */,
-				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
-				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
-				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
-				6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */,
-				6F2DEE24158F2B7B005C56E6 /* OrganizationFeedsController.h */,
-				6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */,
-				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
-				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
-				8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */,
-				8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */,
-				6FC95F1D0F8905F500FC0968 /* UserController.h */,
-				6FC95F1E0F8905F500FC0968 /* UserController.m */,
-				6F5652DF0F99C85C001B6703 /* RepositoriesController.h */,
-				6F5652E00F99C85C001B6703 /* RepositoriesController.m */,
-				6F5A41730F90C38300427ED7 /* RepositoryController.h */,
-				6F5A41740F90C38300427ED7 /* RepositoryController.m */,
-				6FED82950FACA1E700BE5C81 /* IssuesController.h */,
-				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
-				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
-				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
-				6FC0D428115819E400511B7F /* CommentController.h */,
-				6FC0D429115819E400511B7F /* CommentController.m */,
-				6F0AEFBB100CF5DB00FB323E /* IssueFormController.h */,
-				6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */,
-				8CE6867C0FB8C58400A3D625 /* ForksController.h */,
-				8CE6867B0FB8C58400A3D625 /* ForksController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1102,6 +1077,55 @@
 				6F72FAE70F9B47730069F092 /* FeedEntryController.m */,
 			);
 			name = Feeds;
+			sourceTree = "<group>";
+		};
+		6FECA89F1590A20200878A74 /* Repos */ = {
+			isa = PBXGroup;
+			children = (
+				6F5652DF0F99C85C001B6703 /* RepositoriesController.h */,
+				6F5652E00F99C85C001B6703 /* RepositoriesController.m */,
+				6F5A41730F90C38300427ED7 /* RepositoryController.h */,
+				6F5A41740F90C38300427ED7 /* RepositoryController.m */,
+				8CE6867C0FB8C58400A3D625 /* ForksController.h */,
+				8CE6867B0FB8C58400A3D625 /* ForksController.m */,
+				6FED82950FACA1E700BE5C81 /* IssuesController.h */,
+				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
+				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
+				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
+				6F0AEFBB100CF5DB00FB323E /* IssueFormController.h */,
+				6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */,
+			);
+			name = Repos;
+			sourceTree = "<group>";
+		};
+		6FECA8A01590A23C00878A74 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				6FE91E4A0FAD13D500749370 /* LoginController.h */,
+				6FE91E4B0FAD13D500749370 /* LoginController.m */,
+				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
+				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
+				6FC0D428115819E400511B7F /* CommentController.h */,
+				6FC0D429115819E400511B7F /* CommentController.m */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		6FECA8A11590A27600878A74 /* Users and Orgs */ = {
+			isa = PBXGroup;
+			children = (
+				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
+				6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */,
+				6F2DEE24158F2B7B005C56E6 /* OrganizationFeedsController.h */,
+				6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */,
+				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
+				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
+				8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */,
+				8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */,
+				6FC95F1D0F8905F500FC0968 /* UserController.h */,
+				6FC95F1E0F8905F500FC0968 /* UserController.m */,
+			);
+			name = "Users and Orgs";
 			sourceTree = "<group>";
 		};
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {

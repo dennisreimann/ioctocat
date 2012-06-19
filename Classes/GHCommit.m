@@ -34,6 +34,7 @@
 	self.repository = theRepository;
 	self.commitID = theCommitID;
 	self.resourceURL = [NSURL URLWithFormat:kRepoCommitFormat, repository.owner, repository.name, commitID];
+	self.comments = [GHRepoComments commentsWithRepo:repository andCommitID:commitID];
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }

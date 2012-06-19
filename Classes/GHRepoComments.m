@@ -9,16 +9,16 @@
 
 @synthesize comments;
 @synthesize repository;
-@synthesize sha;
+@synthesize commitID;
 
-+ (id)commentsWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-	return [[[[self class] alloc] initWithRepo:theRepo andSha:theSha] autorelease];
++ (id)commentsWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
+	return [[[[self class] alloc] initWithRepo:theRepo andCommitID:theCommitID] autorelease];
 }
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
+- (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
 	[super init];
 	self.repository = theRepo;
-	self.sha = theSha;
+	self.commitID = theCommitID;
 	self.comments = [NSMutableArray array];
 	return self;
 }
@@ -26,24 +26,25 @@
 - (void)dealloc {
 	[comments release], comments = nil;
 	[repository release], repository = nil;
-	[sha release], sha = nil;
+	[commitID release], commitID = nil;
+	
 	[super dealloc];
 }
 
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// SHA which isn't always available in advance
-	return [NSURL URLWithFormat:kRepoCommentsFormat, repository.owner, repository.name, sha];
+	return [NSURL URLWithFormat:kRepoCommentsFormat, repository.owner, repository.name, commitID];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepoComments owner:'%@' name:'%@' sha:'%@'>", repository.owner, repository.name, sha];
+    return [NSString stringWithFormat:@"<GHRepoComments owner:'%@' name:'%@' commitID:'%@'>", repository.owner, repository.name, commitID];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theDict) {
-		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:repository andSha:sha andDictionary:dict];
+		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:repository andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];
 	}

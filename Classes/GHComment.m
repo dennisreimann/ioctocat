@@ -1,7 +1,5 @@
 #import "GHComment.h"
 #import "GHUser.h"
-#import "iOctocat.h"
-#import "NSURL+Extensions.h"
 
 
 @implementation GHComment

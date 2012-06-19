@@ -12,10 +12,8 @@
 - (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
 	[self initWithIssue:theIssue];	
 	
-	// Dates
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-	
 	self.body = [theDict valueForKey:@"body"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKeyPath:@"user.login"]];
 	self.created = [iOctocat parseDate:createdAt];
@@ -32,7 +30,6 @@
 
 - (void)dealloc {
 	[issue release], issue = nil;
-	
 	[super dealloc];
 }
 

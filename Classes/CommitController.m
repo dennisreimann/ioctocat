@@ -22,19 +22,6 @@
 @implementation CommitController
 
 @synthesize commit;
-@synthesize loadingCell;
-@synthesize authorCell;
-@synthesize committerCell;
-@synthesize addedCell;
-@synthesize modifiedCell;
-@synthesize removedCell;
-@synthesize commentCell;
-@synthesize tableHeaderView;
-@synthesize authorLabel;
-@synthesize committerLabel;
-@synthesize dateLabel;
-@synthesize titleLabel;
-@synthesize gravatarView;
 
 - (id)initWithCommit:(GHCommit *)theCommit {    
     [super initWithNibName:@"Commit" bundle:nil];
@@ -44,43 +31,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
 	[commit addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[commit.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [commit.commitID substringToIndex:8];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	(commit.isLoaded) ? [self displayCommit] : [commit loadData];
-    // Background
+    (commit.comments.isLoaded) ? [self displayComments] : [commit.comments loadData];
+	
+	// Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
     tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
-- (void)viewDidUnload {
-	self.loadingCell = nil;
-	self.authorCell = nil;
-    self.committerCell = nil;
-	self.addedCell = nil;
-	self.modifiedCell = nil;
-	self.removedCell = nil;
-	self.commentCell = nil;
-    self.tableHeaderView = nil;
-    self.authorLabel = nil;
-    self.committerLabel = nil;
-    self.dateLabel = nil;
-    self.titleLabel = nil;
-    self.gravatarView = nil;
-}
-
 - (void)dealloc {
 	[commit removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[commit.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[commit release], commit = nil;
+    [tableHeaderView release], tableHeaderView = nil;
+	[tableFooterView release], tableFooterView = nil;
 	[loadingCell release], loadingCell = nil;
     [authorCell release], authorCell = nil;
     [committerCell release], committerCell = nil;
 	[addedCell release], addedCell = nil;
 	[modifiedCell release], modifiedCell = nil;
 	[removedCell release], removedCell = nil;
+	[loadingCommentsCell release], loadingCommentsCell = nil;
+	[noCommentsCell release], noCommentsCell = nil;
 	[commentCell release], commentCell = nil;
-    [tableHeaderView release], tableHeaderView = nil;
     [authorLabel release], authorLabel = nil;
     [committerLabel release], committerLabel = nil;
     [dateLabel release], dateLabel = nil;
@@ -100,12 +79,24 @@
 	[addedCell setFiles:commit.added andDescription:@"added"];
 	[removedCell setFiles:commit.removed andDescription:@"removed"];
 	[modifiedCell setFiles:commit.modified andDescription:@"modified"];
+	[self.tableView reloadData];
+}
+
+- (void)displayComments {
+	self.tableView.tableFooterView = tableFooterView;
+	[self.tableView reloadData];
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:[NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Add comment", @"Show on GitHub", nil];
 	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
 	[actionSheet release];
+}
+
+- (IBAction)addComment:(id)sender {
+//	IssueCommentController *viewController = [[IssueCommentController alloc] initWithIssue:issue];
+//	[self.navigationController pushViewController:viewController animated:YES];
+//	[viewController release];    
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -117,7 +108,9 @@
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:commit.repository];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
-	} else if (buttonIndex == 2 ) {
+	} else if (buttonIndex == 2) {
+		[self addComment:nil];   
+	} else if (buttonIndex == 3) {
 		WebController *webController = [[WebController alloc] initWithURL:commit.commitURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
@@ -126,13 +119,22 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (commit.isLoaded) {
-			[self displayCommit];
-			[self.tableView reloadData];
-		} else if (commit.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the commit" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+		if (object == commit) {
+			if (commit.isLoaded) {
+				[self displayCommit];
+			} else if (commit.error) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the commit" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+				[alert release];
+			}
+		} else if (object == commit.comments) {
+			if (commit.comments.isLoaded) {
+				[self displayComments];
+			} else if (commit.comments.error) {
+				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the commit comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				[alert show];
+				[alert release];
+			}
 		}
 	}
 }
@@ -140,13 +142,20 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
-	return (commit.isLoaded) ? 2 : 1;
+	return (commit.isLoaded) ? 3 : 1;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return (section == 2) ? @"Comments" : @"";
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
 	if (!commit.isLoaded) return 1;
 	if (section == 0) return 2;
-	return 3;
+	if (section == 1) return 3;
+	if (!commit.comments.isLoaded) return 1;
+	if (commit.comments.comments.count == 0) return 1;
+	return commit.comments.comments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -156,6 +165,8 @@
 	if (indexPath.section == 1 && indexPath.row == 0) return addedCell;
 	if (indexPath.section == 1 && indexPath.row == 1) return removedCell;
 	if (indexPath.section == 1 && indexPath.row == 2) return modifiedCell;
+	if (!commit.comments.isLoaded) return loadingCommentsCell;
+	if (commit.comments.comments.count == 0) return noCommentsCell;
 	
 	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
@@ -167,14 +178,13 @@
 	return cell;
 }
 
-//- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)descriptionCell height];
-//	if (indexPath.section == 1 && issue.comments.isLoaded && issue.comments.comments.count > 0) {
-//		CommentCell *cell = (CommentCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
-//		return [cell height];
-//	}
-//	return 44.0f;
-//}
+- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 2 && commit.comments.isLoaded && commit.comments.comments.count > 0) {
+		CommentCell *cell = (CommentCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
+		return [cell height];
+	}
+	return 44.0f;
+}
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0) {

@@ -7,14 +7,20 @@
 
 @interface GHRepoComment : GHComment {
 	GHRepository *repository;
-	NSString *sha;
+	NSString *commitID;
+	NSString *path;
+	NSUInteger position;
+	NSUInteger line;
 }
 
 @property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)NSString *sha;
+@property(nonatomic,retain)NSString *commitID;
+@property(nonatomic,retain)NSString *path;
+@property(nonatomic,assign)NSUInteger position;
+@property(nonatomic,assign)NSUInteger line;
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha andDictionary:(NSDictionary *)theDict;
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
+- (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict;
+- (id)initWithRepo:(GHRepository *)theRepo;
 - (void)saveData;
 
 @end

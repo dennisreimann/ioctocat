@@ -7,34 +7,38 @@
 @implementation GHRepoComment
 
 @synthesize repository;
-@synthesize sha;
+@synthesize commitID;
+@synthesize path;
+@synthesize position;
+@synthesize line;
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha andDictionary:(NSDictionary *)theDict {
-	[self initWithRepo:theRepo andSha:theSha];	
+- (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
+	[self initWithRepo:theRepo];	
 	
-	// Dates
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-	
-	self.body = [theDict valueForKey:@"body"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKeyPath:@"user.login"]];
 	self.created = [iOctocat parseDate:createdAt];
 	self.updated = [iOctocat parseDate:updatedAt];
+	self.body = [theDict valueForKey:@"body"];
+	self.commitID = [theDict valueForKey:@"commit_id"];
+	self.path = [theDict valueForKey:@"path"];
+	self.position = (NSUInteger)[theDict valueForKey:@"position"];
+	self.line = (NSUInteger)[theDict valueForKey:@"line"];
 	
 	return self;
 }
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
+- (id)initWithRepo:(GHRepository *)theRepo {
 	[super init];
 	self.repository = theRepo;
-	self.sha = theSha;
 	return self;
 }
 
 - (void)dealloc {
 	[repository release], repository = nil;
-	[sha release], sha = nil;
-	
+	[commitID release], commitID = nil;
+	[path release], path = nil;
 	[super dealloc];
 }
 
@@ -42,7 +46,7 @@
 
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
-	NSURL *saveURL = [NSURL URLWithFormat:kRepoCommentsFormat, repository.owner, repository.name, sha];
+	NSURL *saveURL = [NSURL URLWithFormat:kRepoCommentsFormat, repository.owner, repository.name, commitID];
 	[self saveValues:values withURL:saveURL andMethod:@"POST"];
 }
 

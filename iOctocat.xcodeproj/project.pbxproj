@@ -642,49 +642,12 @@
 		6F1DC4410F7E5A7E00FCD26D /* Domain */ = {
 			isa = PBXGroup;
 			children = (
-				6FF6EB2D0FA61115000679FA /* Parser */,
 				6F7961A9132EC90D00C9446E /* GHResource.h */,
 				6F7961AA132EC90D00C9446E /* GHResource.m */,
-				6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */,
-				6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */,
-				6F1DC4470F7E5AA000FCD26D /* GHFeedEntry.h */,
-				6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */,
-				6F0BEB3E11108C9E00E95E5A /* GHBranches.h */,
-				6F0BEB3F11108C9E00E95E5A /* GHBranches.m */,
-				6F0BEB56111090D300E95E5A /* GHBranch.h */,
-				6F0BEB57111090D300E95E5A /* GHBranch.m */,
-				6FC465150F9D1445003A8E7B /* GHCommit.h */,
-				6FC465160F9D1445003A8E7B /* GHCommit.m */,
-				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
-				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
-				8C6A99E60FABD01500A99483 /* GHIssue.h */,
-				8C6A99E70FABD01500A99483 /* GHIssue.m */,
-				6FE7D2B311568951004B4D68 /* GHIssueComments.h */,
-				6FE7D2B411568951004B4D68 /* GHIssueComments.m */,
-				6FE7D14411557E8C004B4D68 /* GHIssueComment.h */,
-				6FE7D14511557E8C004B4D68 /* GHIssueComment.m */,
-				8CE686730FB8C56700A3D625 /* GHForks.h */,
-				8CE686720FB8C56700A3D625 /* GHForks.m */,
-				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
-				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
-				6F35BD520F88B06200E978CD /* GHRepository.h */,
-				6F35BD530F88B06200E978CD /* GHRepository.m */,
-				6FD1DE2C158FCCDA00D72A3D /* GHRepoComments.h */,
-				6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */,
-				6FD1DE29158FCCA900D72A3D /* GHRepoComment.h */,
-				6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */,
-				6FD1DE2F158FD14000D72A3D /* GHComment.h */,
-				6FD1DE30158FD14000D72A3D /* GHComment.m */,
-				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
-				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
-				6F879AE60FB61C7A00EBD9BD /* GHUsers.h */,
-				6F879AE70FB61C7A00EBD9BD /* GHUsers.m */,
-				6F7961AB132EC90D00C9446E /* GHUser.h */,
-				6F7961AC132EC90D00C9446E /* GHUser.m */,
-				6F9DD8791334B99C00D1E35E /* GHOrganizations.h */,
-				6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */,
-				6F35BD370F88B01900E978CD /* GHOrganization.h */,
-				6F35BD380F88B01900E978CD /* GHOrganization.m */,
+				6FECA89B15906D2D00878A74 /* GitHub */,
+				6FECA89A15906D0700878A74 /* Git */,
+				6FECA89915906CD000878A74 /* Comments */,
+				6FF6EB2D0FA61115000679FA /* Parser */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -694,14 +657,11 @@
 			children = (
 				1D3623240D0F684500981E51 /* iOctocat.h */,
 				1D3623250D0F684500981E51 /* iOctocat.m */,
+				6FECA89E1590711F00878A74 /* Feeds */,
+				6FECA89C159070FE00878A74 /* Git */,
+				6FECA89D1590710A00878A74 /* Search */,
 				6FE91E4A0FAD13D500749370 /* LoginController.h */,
 				6FE91E4B0FAD13D500749370 /* LoginController.m */,
-				6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */,
-				6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */,
-				6FED82FF0FACB91000BE5C81 /* FeedController.h */,
-				6FED83000FACB91000BE5C81 /* FeedController.m */,
-				6F72FAE60F9B47730069F092 /* FeedEntryController.h */,
-				6F72FAE70F9B47730069F092 /* FeedEntryController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
 				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
@@ -728,16 +688,6 @@
 				6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */,
 				8CE6867C0FB8C58400A3D625 /* ForksController.h */,
 				8CE6867B0FB8C58400A3D625 /* ForksController.m */,
-				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
-				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
-				6F797C5B1110E2BE007E5A8D /* CommitController.h */,
-				6F797C5C1110E2BE007E5A8D /* CommitController.m */,
-				6F2C77271114F430002665DA /* FilesController.h */,
-				6F2C77281114F430002665DA /* FilesController.m */,
-				6FF09F801115AF7800925109 /* DiffController.h */,
-				6FF09F811115AF7800925109 /* DiffController.m */,
-				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
-				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -1054,6 +1004,104 @@
 				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
 			name = Utils;
+			sourceTree = "<group>";
+		};
+		6FECA89915906CD000878A74 /* Comments */ = {
+			isa = PBXGroup;
+			children = (
+				6FD1DE2F158FD14000D72A3D /* GHComment.h */,
+				6FD1DE30158FD14000D72A3D /* GHComment.m */,
+				6FE7D2B311568951004B4D68 /* GHIssueComments.h */,
+				6FE7D2B411568951004B4D68 /* GHIssueComments.m */,
+				6FE7D14411557E8C004B4D68 /* GHIssueComment.h */,
+				6FE7D14511557E8C004B4D68 /* GHIssueComment.m */,
+				6FD1DE2C158FCCDA00D72A3D /* GHRepoComments.h */,
+				6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */,
+				6FD1DE29158FCCA900D72A3D /* GHRepoComment.h */,
+				6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */,
+			);
+			name = Comments;
+			sourceTree = "<group>";
+		};
+		6FECA89A15906D0700878A74 /* Git */ = {
+			isa = PBXGroup;
+			children = (
+				6F0BEB3E11108C9E00E95E5A /* GHBranches.h */,
+				6F0BEB3F11108C9E00E95E5A /* GHBranches.m */,
+				6F0BEB56111090D300E95E5A /* GHBranch.h */,
+				6F0BEB57111090D300E95E5A /* GHBranch.m */,
+				6FC465150F9D1445003A8E7B /* GHCommit.h */,
+				6FC465160F9D1445003A8E7B /* GHCommit.m */,
+			);
+			name = Git;
+			sourceTree = "<group>";
+		};
+		6FECA89B15906D2D00878A74 /* GitHub */ = {
+			isa = PBXGroup;
+			children = (
+				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
+				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
+				6F35BD520F88B06200E978CD /* GHRepository.h */,
+				6F35BD530F88B06200E978CD /* GHRepository.m */,
+				8CE686730FB8C56700A3D625 /* GHForks.h */,
+				8CE686720FB8C56700A3D625 /* GHForks.m */,
+				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
+				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
+				6F879AE60FB61C7A00EBD9BD /* GHUsers.h */,
+				6F879AE70FB61C7A00EBD9BD /* GHUsers.m */,
+				6F7961AB132EC90D00C9446E /* GHUser.h */,
+				6F7961AC132EC90D00C9446E /* GHUser.m */,
+				6F9DD8791334B99C00D1E35E /* GHOrganizations.h */,
+				6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */,
+				6F35BD370F88B01900E978CD /* GHOrganization.h */,
+				6F35BD380F88B01900E978CD /* GHOrganization.m */,
+				6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */,
+				6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */,
+				6F1DC4470F7E5AA000FCD26D /* GHFeedEntry.h */,
+				6F1DC4480F7E5AA000FCD26D /* GHFeedEntry.m */,
+				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
+				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
+				8C6A99E60FABD01500A99483 /* GHIssue.h */,
+				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+			);
+			name = GitHub;
+			sourceTree = "<group>";
+		};
+		6FECA89C159070FE00878A74 /* Git */ = {
+			isa = PBXGroup;
+			children = (
+				6F797C5B1110E2BE007E5A8D /* CommitController.h */,
+				6F797C5C1110E2BE007E5A8D /* CommitController.m */,
+				6F2C77271114F430002665DA /* FilesController.h */,
+				6F2C77281114F430002665DA /* FilesController.m */,
+				6FF09F801115AF7800925109 /* DiffController.h */,
+				6FF09F811115AF7800925109 /* DiffController.m */,
+			);
+			name = Git;
+			sourceTree = "<group>";
+		};
+		6FECA89D1590710A00878A74 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
+				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
+				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
+				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		6FECA89E1590711F00878A74 /* Feeds */ = {
+			isa = PBXGroup;
+			children = (
+				6FCE4D860F7FE16A00451D6E /* MyFeedsController.h */,
+				6FCE4D870F7FE16A00451D6E /* MyFeedsController.m */,
+				6FED82FF0FACB91000BE5C81 /* FeedController.h */,
+				6FED83000FACB91000BE5C81 /* FeedController.m */,
+				6F72FAE60F9B47730069F092 /* FeedEntryController.h */,
+				6F72FAE70F9B47730069F092 /* FeedEntryController.m */,
+			);
+			name = Feeds;
 			sourceTree = "<group>";
 		};
 		6FED82980FACA2AE00BE5C81 /* Cells */ = {

@@ -17,6 +17,7 @@
 
 @interface IssueController ()
 - (void)displayIssue;
+- (void)displayComments;
 - (GHUser *)currentUser;
 - (BOOL)issueBelongsToCurrentUser;
 @end
@@ -37,7 +38,6 @@
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
     tableHeaderView.backgroundColor = background;
     self.tableView.tableHeaderView = tableHeaderView;
-	self.tableView.tableFooterView = tableFooterView;
 }
 
 // Add and remove observer in the view appearing methods
@@ -49,7 +49,7 @@
 	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(issue.isLoaded) ? [self displayIssue] : [issue loadData];
-	if (!issue.comments.isLoaded) [issue.comments loadData];
+	(issue.comments.isLoaded) ? [self displayComments] : [issue.comments loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -85,7 +85,6 @@
 		if (object == issue) {
 			if (issue.isLoaded) {
 				[self displayIssue];
-				[self.tableView reloadData];
 			} else if (issue.error) {
 				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 				[alert show];
@@ -93,7 +92,7 @@
 			}
 		} else if (object == issue.comments) {
 			if (issue.comments.isLoaded) {
-				[self.tableView reloadData];
+				[self displayComments];
 			} else if (issue.comments.error) {
 				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 				[alert show];
@@ -107,7 +106,6 @@
 			[alert show];
 			[alert release];
 			[self displayIssue];
-			[self.tableView reloadData];
 			[listController reloadIssues];
 		} else if (issue.error) {
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -137,6 +135,12 @@
 	[createdCell setContentText:[issue.created prettyDate]];
 	[updatedCell setContentText:[issue.updated prettyDate]];
 	[descriptionCell setContentText:issue.body];
+	[self.tableView reloadData];
+}
+
+- (void)displayComments {
+	self.tableView.tableFooterView = tableFooterView;
+	[self.tableView reloadData];
 }
 
 - (IBAction)showActions:(id)sender {
@@ -206,7 +210,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = commentCell;
 	}
-	GHIssueComment *comment = [issue.comments.comments objectAtIndex:indexPath.row];
+	GHComment *comment = [issue.comments.comments objectAtIndex:indexPath.row];
 	[cell setComment:comment];
 	return cell;
 }

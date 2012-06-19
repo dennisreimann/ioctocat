@@ -77,7 +77,9 @@
 		NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 		NSString *owner = [comps2 objectAtIndex:0];
 		NSString *name = [comps2 objectAtIndex:1];
-		self.eventItem = [GHRepository repositoryWithOwner:owner andName:name];
+		NSString *commitID = [linkURL lastPathComponent];
+		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
+		self.eventItem = [GHCommit commitWithRepository:repository andCommitID:commitID];
 	} else if ([eventType isEqualToString:@"issue_comment"]) {
 		NSArray *comps = [title componentsSeparatedByString:@" on "];
 		NSArray *issueComps = [[comps objectAtIndex:1] componentsSeparatedByString:@" "];
@@ -121,9 +123,9 @@
 		NSArray *comps = [path componentsSeparatedByString:@"/"];
 		NSString *owner = [comps objectAtIndex:1];
 		NSString *name = [comps objectAtIndex:2];
-		NSString *sha = [comps objectAtIndex:4];
+		NSString *commitID = [comps objectAtIndex:4];
 		GHRepository *repository = [GHRepository repositoryWithOwner:owner andName:name];
-		self.eventItem = [GHCommit commitWithRepository:repository andCommitID:sha];
+		self.eventItem = [GHCommit commitWithRepository:repository andCommitID:commitID];
 	} else if ([eventType isEqualToString:@"create"]) {
 		NSString *owner;
 		NSString *name;

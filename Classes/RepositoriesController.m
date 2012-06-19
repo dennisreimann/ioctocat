@@ -2,6 +2,8 @@
 #import "RepositoryController.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
+#import "GHOrganizations.h"
+#import "GHOrganization.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
 #import "RepositoryCell.h"
@@ -10,6 +12,7 @@
 
 
 @interface RepositoriesController ()
+- (void)loadOrganizationRepositories;
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section;
 @end
@@ -18,7 +21,6 @@
 @implementation RepositoriesController
 
 @synthesize user;
-@synthesize orgRepos;
 @synthesize privateRepositories;
 @synthesize publicRepositories;
 @synthesize watchedRepositories;
@@ -37,14 +39,16 @@
         self.user = self.currentUser;
         NSURL *repositoriesURL = [NSURL URLWithString:kUserAuthenticatedReposFormat];
         self.user.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
-        //self.orgRepos = [GHRepositories repositoriesWithURL:[NSURL URLWithFormat:kOrganizationsRepositoriesFormat]];
     }
-	//[self.orgRepos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self.organizationRepositories = [NSMutableArray array];
+	orgReposLoaded = 0;
+	
+	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
+	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
 	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
 	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
-	//(self.orgRepos.isLoaded) ? [self displayRepositories:self.orgRepos] : [self.orgRepos loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,10 +56,12 @@
 }
 
 - (void)dealloc {
+	for (GHOrganization *org in user.organizations.organizations) {
+		[org.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	}
+	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[orgRepos removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [orgRepos release], orgRepos = nil;
     [organizationRepositories release], organizationRepositories = nil;
 	[noPublicReposCell release], noPublicReposCell = nil;
 	[noPrivateReposCell release], noPrivateReposCell = nil;
@@ -68,13 +74,33 @@
     [super dealloc];
 }
 
+- (void)loadOrganizationRepositories {
+	// GitHub API v3 changed the way this has to be looked up. There
+	// is not a single call for these no more - we have to fetch each
+	// organizations repos
+	for (GHOrganization *org in user.organizations.organizations) {
+		GHRepositories *repos = org.repositories;
+		[repos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		repos.isLoaded ? [self displayRepositories:repos] : [repos loadData];
+	}
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHRepositories *repositories = object;
-		if (repositories.isLoaded) {
-			[self displayRepositories:repositories];
-		} else if (repositories.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repositories"];
+	if ([object isEqual:user.organizations]) {
+		GHOrganizations *organizations = (GHOrganizations *)object;
+		if (organizations.isLoaded) {
+			[self loadOrganizationRepositories];
+		} else if (organizations.error) {
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the organizations"];
+		}
+	} else {
+		if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+			GHRepositories *repositories = object;
+			if (repositories.isLoaded) {
+				[self displayRepositories:repositories];
+			} else if (repositories.error) {
+				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repositories"];
+			}
 		}
 	}
 }
@@ -90,7 +116,8 @@
 		}
 		return [repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
-
+	
+	// Private/Public repos
 	if ([repositories isEqual:user.repositories]) {
 		self.privateRepositories = [NSMutableArray array];
 		self.publicRepositories = [NSMutableArray array];
@@ -99,20 +126,23 @@
 		}
 		[self.publicRepositories sortUsingComparator:compareRepositories];
 		[self.privateRepositories sortUsingComparator:compareRepositories];
-    } 
-//    else if ([repositories isEqual:orgRepos]) {
-//        self.organizationRepositories = [NSMutableArray arrayWithArray:orgRepos.repositories];
-//		[self.organizationRepositories sortUsingComparator:compareRepositories];
-//    }
-    else {
+    }
+	// Watched repos
+    else if ([repositories isEqual:user.watchedRepositories]) {
         self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
 		[self.watchedRepositories sortUsingComparator:compareRepositories];
     }
-
-    if(user.repositories.isLoaded && user.watchedRepositories.isLoaded)
-        [self.watchedRepositories removeObjectsInArray:(NSArray *)user.repositories.repositories];
-//    if(orgRepos.isLoaded && user.watchedRepositories.isLoaded)
-//        [self.watchedRepositories removeObjectsInArray:(NSArray *)orgRepos.repositories];
+	// Organization repos
+	else {
+		orgReposLoaded += 1;
+		[self.organizationRepositories addObjectsFromArray:repositories.repositories];
+		[self.organizationRepositories sortUsingComparator:compareRepositories];
+	}
+	
+	// Remove already mentioned projects from watchlist
+    [self.watchedRepositories removeObjectsInArray:publicRepositories];
+    [self.watchedRepositories removeObjectsInArray:privateRepositories];
+    [self.watchedRepositories removeObjectsInArray:organizationRepositories];
     
 	[self.tableView reloadData];
 }
@@ -121,12 +151,11 @@
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section {
 	switch (section) {
 		case 0: return privateRepositories;
 		case 1: return publicRepositories;
-        //case 2: return organizationRepositories;
+        case 2: return organizationRepositories;
 		default: return watchedRepositories;
 	}
 }
@@ -134,10 +163,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSInteger count = 1;
-    if (user.repositories.isLoaded) count += 2;
-    if (orgRepos.isLoaded) count += 1;
-    return count;
+    return user.repositories.isLoaded ? 4 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -150,7 +176,7 @@
 	if (!user.repositories.isLoaded) return @"";
 	if (section == 0) return @"Private";
 	if (section == 1) return @"Public";
-    //if (section == 2) return @"Organizations";
+    if (section == 2) return @"Organizations";
 	return @"Watched";
 }
 
@@ -158,10 +184,10 @@
 	if (!user.repositories.isLoaded) return loadingReposCell;
 	if (indexPath.section == 0 && self.privateRepositories.count == 0) return noPrivateReposCell;
 	if (indexPath.section == 1 && self.publicRepositories.count == 0) return noPublicReposCell;
-//	if (indexPath.section == 2 && !orgRepos.isLoaded) return loadingReposCell;
-//	if (indexPath.section == 2 && self.organizationRepositories.count == 0) return noOrganizationReposCell;
-	if (indexPath.section == 2 && !user.watchedRepositories.isLoaded) return loadingReposCell;
-	if (indexPath.section == 2 && self.watchedRepositories.count == 0) return noWatchedReposCell;
+	if (indexPath.section == 2 && orgReposLoaded == 0) return loadingReposCell;
+	if (indexPath.section == 2 && self.organizationRepositories.count == 0) return noOrganizationReposCell;
+	if (indexPath.section == 3 && !user.watchedRepositories.isLoaded) return loadingReposCell;
+	if (indexPath.section == 3 && self.watchedRepositories.count == 0) return noWatchedReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];

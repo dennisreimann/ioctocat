@@ -20,7 +20,7 @@
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
     GHUsers *publicMembers;
-	GHRepositories *publicRepositories;
+	GHRepositories *repositories;
 	GHFeed *recentActivity;
   @private
 	GravatarLoader *gravatarLoader;
@@ -35,7 +35,7 @@
 @property(nonatomic,retain)NSURL *blogURL;
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHUsers *publicMembers;
-@property(nonatomic,retain)GHRepositories *publicRepositories;
+@property(nonatomic,retain)GHRepositories *repositories;
 @property(nonatomic,retain)GHFeed *recentActivity;
 @property(nonatomic)NSUInteger followersCount;
 @property(nonatomic)NSUInteger followingCount;

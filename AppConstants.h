@@ -60,8 +60,7 @@
 #define kOrganizationFeedFormat @"https://github.com/organizations/%@/%@.private.atom?token=%@"        // non-API atom
 #define kOrganizationFormat @"https://api.github.com/orgs/%@"                                          // v3
 #define kOrganizationMembersFormat @"https://api.github.com/orgs/%@/members?per_page=100"              // v3
-#define kOrganizationPublicRepositoriesFormat @"https://api.github.com/orgs/%@/repos?per_page=100"     // v3 not announced
-#define kOrganizationsRepositoriesFormat @"https://api.github.com/orgs/repos?per_page=100"             // v3 not available
+#define kOrganizationRepositoriesFormat @"https://api.github.com/orgs/%@/repos?per_page=100"           // v3
 
 // Issues
 #define kIssueStateOpen @"open"

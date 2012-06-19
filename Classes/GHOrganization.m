@@ -23,7 +23,7 @@
 @synthesize gravatarURL;
 @synthesize gravatar;
 @synthesize publicMembers;
-@synthesize publicRepositories;
+@synthesize repositories;
 @synthesize recentActivity;
 @synthesize followersCount;
 @synthesize followingCount;
@@ -55,7 +55,7 @@
 	[gravatarURL release], gravatarURL = nil;
 	[gravatar release], gravatar = nil;
 	[publicMembers release], publicMembers = nil;
-	[publicRepositories release], publicRepositories = nil;
+	[repositories release], repositories = nil;
 	[recentActivity release], recentActivity = nil;
     [super dealloc];
 }
@@ -82,11 +82,11 @@
 	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
 	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
     NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
-	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationPublicRepositoriesFormat, login];
+	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationRepositoriesFormat, login];
 	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationMembersFormat, login];
 
     self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
-	self.publicRepositories = [GHRepositories repositoriesWithURL:repositoriesURL];
+	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
 	self.publicMembers = [GHUsers usersWithURL:membersURL];
     self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
 }

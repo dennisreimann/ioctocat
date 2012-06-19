@@ -33,10 +33,10 @@
     [super viewDidLoad];
 	[organization addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[organization addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[organization.publicRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[organization.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[organization.publicMembers addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(organization.isLoaded) ? [self displayOrganization] : [organization loadData];
-	if (!organization.publicRepositories.isLoaded) [organization.publicRepositories loadData];
+	if (!organization.repositories.isLoaded) [organization.repositories loadData];
 	if (!organization.publicMembers.isLoaded) [organization.publicMembers loadData];
 	self.navigationItem.title = organization.login;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
@@ -49,7 +49,7 @@
 - (void)dealloc {
 	[organization removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[organization removeObserver:self forKeyPath:kUserGravatarKeyPath];
-	[organization.publicRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[organization.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[organization.publicMembers removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[organization release], organization = nil;
 	[tableHeaderView release], tableHeaderView = nil;
@@ -107,10 +107,10 @@
 		} else if (organization.error) {
 			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the organization"];
 		}
-	} else if (object == organization.publicRepositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (organization.publicRepositories.isLoaded) {
+	} else if (object == organization.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (organization.repositories.isLoaded) {
 			[self.tableView reloadData];
-		} else if (organization.publicRepositories.error) {
+		} else if (organization.repositories.error) {
 			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repositories"];
 		}
 	} else if (object == organization.publicMembers && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
@@ -134,8 +134,8 @@
 	if (section == 0) return 3;
     if (section == 1 && (!organization.publicMembers.isLoaded || organization.publicMembers.users.count == 0)) return 1;
 	if (section == 1) return organization.publicMembers.users.count;
-	if (section == 2 && (!organization.publicRepositories.isLoaded || organization.publicRepositories.repositories.count == 0)) return 1;
-	if (section == 2) return organization.publicRepositories.repositories.count;
+	if (section == 2 && (!organization.repositories.isLoaded || organization.repositories.repositories.count == 0)) return 1;
+	if (section == 2) return organization.repositories.repositories.count;
 	return 1;
 }
 
@@ -173,12 +173,12 @@
 		cell.user = [organization.publicMembers.users objectAtIndex:indexPath.row];
 		return cell;
 	}
-	if (section == 2 && !organization.publicRepositories.isLoaded) return loadingReposCell;
-	if (section == 2 && organization.publicRepositories.repositories.count == 0) return noPublicReposCell;
+	if (section == 2 && !organization.repositories.isLoaded) return loadingReposCell;
+	if (section == 2 && organization.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.repository = [organization.publicRepositories.repositories objectAtIndex:indexPath.row];
+		cell.repository = [organization.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
@@ -202,7 +202,7 @@
 		GHUser *selectedUser = [organization.publicMembers.users objectAtIndex:indexPath.row];
         viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
 	} else if (section == 2) {
-		GHRepository *repo = [organization.publicRepositories.repositories objectAtIndex:indexPath.row];
+		GHRepository *repo = [organization.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	}
 	// Maybe push a controller

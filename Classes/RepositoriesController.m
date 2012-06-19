@@ -74,9 +74,7 @@
 		if (repositories.isLoaded) {
 			[self displayRepositories:repositories];
 		} else if (repositories.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repositories" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repositories"];
 		}
 	}
 }

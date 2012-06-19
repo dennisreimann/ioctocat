@@ -127,17 +127,13 @@
 			if (commit.isLoaded) {
 				[self displayCommit];
 			} else if (commit.error) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the commit" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-				[alert release];
+				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the commit"];
 			}
 		} else if (object == commit.comments) {
 			if (commit.comments.isLoaded) {
 				[self displayComments];
 			} else if (commit.comments.error) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the commit comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-				[alert release];
+				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the commit comments"];
 			}
 		}
 	}

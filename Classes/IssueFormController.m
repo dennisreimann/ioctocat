@@ -42,9 +42,7 @@
 	
 	// Validate
 	if ([issue.title isEmpty] || [issue.body isEmpty] ) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation failed" message:@"Please enter a title and a text" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[[iOctocat sharedInstance] alert:@"Validation failed" with:@"Please enter a title and a text"];
 	} else {
 		saveButton.enabled = NO;
 		[activityView startAnimating];
@@ -56,15 +54,11 @@
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (issue.isSaving) return;
 		if (issue.isSaved) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Issue saved" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Issue saved" with:@""];
 			[listController reloadIssues];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (issue.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not save the issue"];
 		}
 		saveButton.enabled = YES;
 		[activityView stopAnimating];

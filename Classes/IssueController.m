@@ -86,31 +86,23 @@
 			if (issue.isLoaded) {
 				[self displayIssue];
 			} else if (issue.error) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-				[alert release];
+				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the issue"];
 			}
 		} else if (object == issue.comments) {
 			if (issue.comments.isLoaded) {
 				[self displayComments];
 			} else if (issue.comments.error) {
-				UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the issue comments" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-				[alert release];
+				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the issue comments"];
 			}
 		}
 	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (issue.isSaved) {
-			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];  
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];
+			[[iOctocat sharedInstance] alert:title with:@""];
 			[self displayIssue];
 			[listController reloadIssues];
 		} else if (issue.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not change issue state"];
 		}
 	}
 }

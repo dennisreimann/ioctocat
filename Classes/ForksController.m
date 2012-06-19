@@ -33,9 +33,7 @@
 		[self.tableView reloadData];
 		GHForks *theForks = (GHForks *)object;
 		if (!theForks.isLoading && theForks.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the forks" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the forks"];
 		}
 	}    
 }

@@ -135,6 +135,16 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return date;
 }
 
+- (void)alert:(NSString *)theTitle with:(NSString *)theMessage {
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:theTitle
+													message:theMessage
+												   delegate:nil
+										  cancelButtonTitle:@"OK"
+										  otherButtonTitles:nil];
+	[alert show];
+	[alert release];
+}
+
 #pragma mark Network
 
 + (ASINetworkQueue *)queue {

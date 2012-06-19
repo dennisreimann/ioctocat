@@ -104,17 +104,13 @@
 			[self displayRepository];
 			[self.tableView reloadData];
 		} else if (repository.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repository" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repository"];
 		}
 	} else if (object == repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.branches.isLoaded) {
 			[self.tableView reloadData];
 		} else if (repository.branches.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the branches" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the branches"];
 		}
 	}
 }

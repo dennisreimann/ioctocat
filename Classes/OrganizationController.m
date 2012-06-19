@@ -105,25 +105,19 @@
 			[self displayOrganization];
 			[self.tableView reloadData];
 		} else if (organization.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the organization" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the organization"];
 		}
 	} else if (object == organization.publicRepositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (organization.publicRepositories.isLoaded) {
 			[self.tableView reloadData];
 		} else if (organization.publicRepositories.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the repositories" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repositories"];
 		}
 	} else if (object == organization.publicMembers && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (organization.publicMembers.isLoaded) {
 			[self.tableView reloadData];
 		} else if (organization.publicMembers.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the members" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the members"];
 		}
 	}
 }

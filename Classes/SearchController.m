@@ -41,9 +41,7 @@
 		[self.tableView reloadData];
 		GHSearch *search = (GHSearch *)object;
 		if (!search.isLoading && search.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:@"Could not load the search results" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the search results"];
 		}
 	}
 }

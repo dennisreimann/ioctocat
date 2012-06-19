@@ -52,9 +52,7 @@
 }
 
 - (void)failWithMessage:(NSString *)theMessage {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Authentication failed" message:theMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+	[[iOctocat sharedInstance] alert:@"Authentication failed" with:theMessage];
 	submitButton.enabled = YES;
 }
 

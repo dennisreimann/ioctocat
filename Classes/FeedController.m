@@ -38,9 +38,7 @@
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
 			NSString *msg = [NSString stringWithFormat:@"Could not load the feed. Please ensure that you are providing your API token. You can set the token in the app settings.\n%@", [feed.error localizedDescription]];
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Loading error" message:msg delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Loading error" with:msg];
 		}
 	}
 }

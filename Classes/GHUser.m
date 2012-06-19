@@ -170,9 +170,7 @@
 
 - (void)followToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Follow toggle %@ failed: %@", [request url], [request error]);
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not change following status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+	[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not change following status"];
 }
 
 #pragma mark Watching
@@ -210,9 +208,7 @@
 
 - (void)watchToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Watch toggle %@ failed: %@", [request url], [request error]);
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not change watching status." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-	[alert show];
-	[alert release];
+	[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not change watching status"];
 }
 
 #pragma mark Gravatar

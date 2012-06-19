@@ -32,7 +32,8 @@
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin;
 - (NSDate *)lastReadingDateForURL:(NSURL *)url;
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
+- (void)alert:(NSString *)theTitle with:(NSString *)theMessage;
 - (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString;
-
+										 
 @end
 

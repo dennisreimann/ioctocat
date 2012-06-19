@@ -43,9 +43,7 @@
 	
 	// Validate
 	if ([comment.body isEmpty]) {
-		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Validation failed" message:@"Please enter a text" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-		[alert show];
-		[alert release];
+		[[iOctocat sharedInstance] alert:@"Validation failed" with:@"Please enter a text"];
 	} else {
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 		[comment saveData];
@@ -56,15 +54,11 @@
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (comment.isSaving) return;
 		if (comment.isSaved) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Comment saved" message:@"" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Comment saved" with:@""];
 			[comments loadData];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (comment.error) {
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request error" message:@"Could not proceed the request" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-			[alert show];
-			[alert release];
+			[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not proceed the request"];
 		}
 		self.navigationItem.rightBarButtonItem = postButton;
 	}

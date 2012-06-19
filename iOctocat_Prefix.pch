@@ -4,5 +4,6 @@
 	#import <UIKit/UIKit.h>
     #import "AppConstants.h"
     #import "JLog.h"
-    #import "Platform.h"
+	#import "Platform.h"
+	#import "iOctocat.h"
 #endif

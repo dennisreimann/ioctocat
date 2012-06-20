@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
-#import "GHUsers.h"
-#import "UserCell.h"
 
+@class GHUsers, UserCell;
 
 @interface UsersController : UITableViewController {
     GHUsers *users;

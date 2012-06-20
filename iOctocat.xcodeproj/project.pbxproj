@@ -34,6 +34,10 @@
 		6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* watch.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
+		6F27CD11159113D900E15B34 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
+		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
+		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
+		6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
@@ -162,6 +166,9 @@
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
+		6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
+		6FAF9D2B1592765200997A28 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2A1592765200997A28 /* Account.xib */; };
+		6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2E15927A8E00997A28 /* AccountController.m */; };
 		6FB3CBE713977DBE00CB0EAE /* MainWindow-ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE613977DBE00CB0EAE /* MainWindow-ipad.xib */; };
 		6FB3CBEA13977E4000CB0EAE /* MainWindow-iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE913977E4000CB0EAE /* MainWindow-iphone.xib */; };
 		6FB3CBF7139780D600CB0EAE /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */; };
@@ -201,7 +208,6 @@
 		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
 		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
 		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
-		6FE931D60FC72444008545A2 /* Archiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE931D50FC72444008545A2 /* Archiver.m */; };
 		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
 		6FED83010FACB91000BE5C81 /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
@@ -253,7 +259,6 @@
 		6F0BEB7D111098A000E95E5A /* BranchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BranchCell.h; sourceTree = "<group>"; };
 		6F0BEB7E111098A000E95E5A /* BranchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BranchCell.m; sourceTree = "<group>"; };
 		6F15FAA3123E3EE600E56F92 /* download.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = download.png; path = Images/Icons/download.png; sourceTree = "<group>"; };
-		6F1C379A0FCA8F4A00F2FFBF /* Archiving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archiving.h; sourceTree = "<group>"; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6F1DC4440F7E5A8A00FCD26D /* GHFeed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFeed.h; sourceTree = "<group>"; };
 		6F1DC4450F7E5A8A00FCD26D /* GHFeed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHFeed.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -270,6 +275,13 @@
 		6F1DC6590F7E8D6900FCD26D /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WebView.xib; path = IBFiles/WebView.xib; sourceTree = "<group>"; };
 		6F1DC6720F7E8E1900FCD26D /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		6F1DC6730F7E8E1900FCD26D /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
+		6F27CD0E159113D900E15B34 /* AccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsController.h; sourceTree = "<group>"; };
+		6F27CD0F159113D900E15B34 /* AccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsController.m; sourceTree = "<group>"; };
+		6F27CD151591188D00E15B34 /* GHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAccount.h; sourceTree = "<group>"; };
+		6F27CD161591188D00E15B34 /* GHAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAccount.m; sourceTree = "<group>"; };
+		6F27CD1D15911E4700E15B34 /* AccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountFormController.h; sourceTree = "<group>"; };
+		6F27CD1E15911E4700E15B34 /* AccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountFormController.m; sourceTree = "<group>"; };
+		6F27CD2215911E7E00E15B34 /* AccountForm.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountForm.xib; path = IBFiles/AccountForm.xib; sourceTree = "<group>"; };
 		6F2C76E81114EDEF002665DA /* file_added.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_added.png; path = Images/Icons/file_added.png; sourceTree = "<group>"; };
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
 		6F2C76EA1114EDEF002665DA /* file_removed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_removed.png; path = Images/Icons/file_removed.png; sourceTree = "<group>"; };
@@ -444,6 +456,11 @@
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
+		6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
+		6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extensions.m"; sourceTree = "<group>"; };
+		6FAF9D2A1592765200997A28 /* Account.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Account.xib; path = IBFiles/Account.xib; sourceTree = "<group>"; };
+		6FAF9D2D15927A8E00997A28 /* AccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountController.h; sourceTree = "<group>"; };
+		6FAF9D2E15927A8E00997A28 /* AccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountController.m; sourceTree = "<group>"; };
 		6FB3CBE613977DBE00CB0EAE /* MainWindow-ipad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "MainWindow-ipad.xib"; path = "IBFiles/iPad/MainWindow-ipad.xib"; sourceTree = "<group>"; };
 		6FB3CBE913977E4000CB0EAE /* MainWindow-iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow-iphone.xib"; sourceTree = "<group>"; };
 		6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
@@ -501,8 +518,6 @@
 		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		6FE91E4B0FAD13D500749370 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
-		6FE931D40FC72444008545A2 /* Archiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Archiver.h; sourceTree = "<group>"; };
-		6FE931D50FC72444008545A2 /* Archiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Archiver.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IssuesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesController.h; sourceTree = "<group>"; };
 		6FED82960FACA1E700BE5C81 /* IssuesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesController.m; sourceTree = "<group>"; };
 		6FED82990FACA2F000BE5C81 /* Issues.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issues.xib; path = IBFiles/Issues.xib; sourceTree = "<group>"; };
@@ -648,6 +663,8 @@
 				6FF6EB2D0FA61115000679FA /* Parser */,
 				6F7961A9132EC90D00C9446E /* GHResource.h */,
 				6F7961AA132EC90D00C9446E /* GHResource.m */,
+				6F27CD151591188D00E15B34 /* GHAccount.h */,
+				6F27CD161591188D00E15B34 /* GHAccount.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -655,6 +672,7 @@
 		6F1DC4A30F7E5D2200FCD26D /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6FAF9D2C15927A7A00997A28 /* Account */,
 				6FECA89E1590711F00878A74 /* Feeds */,
 				6FECA8A11590A27600878A74 /* Users and Orgs */,
 				6FECA89C159070FE00878A74 /* Git */,
@@ -765,6 +783,8 @@
 				6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */,
 				6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */,
 				6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */,
+				6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */,
+				6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */,
 				6F5E9A981119A96000752560 /* CDataScanner_Extensions.h */,
 				6F5E9A991119A96000752560 /* CDataScanner_Extensions.m */,
 				6F5E9A9A1119A96000752560 /* NSCharacterSet_Extensions.h */,
@@ -897,6 +917,19 @@
 			name = Backgrounds;
 			sourceTree = "<group>";
 		};
+		6FAF9D2C15927A7A00997A28 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				6F27CD0E159113D900E15B34 /* AccountsController.h */,
+				6F27CD0F159113D900E15B34 /* AccountsController.m */,
+				6F27CD1D15911E4700E15B34 /* AccountFormController.h */,
+				6F27CD1E15911E4700E15B34 /* AccountFormController.m */,
+				6FAF9D2D15927A8E00997A28 /* AccountController.h */,
+				6FAF9D2E15927A8E00997A28 /* AccountController.m */,
+			);
+			name = Account;
+			sourceTree = "<group>";
+		};
 		6FB3CBE513977DBC00CB0EAE /* iPad */ = {
 			isa = PBXGroup;
 			children = (
@@ -945,6 +978,8 @@
 				6FB3CBE513977DBC00CB0EAE /* iPad */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6FE91E180FAD088600749370 /* Login.xib */,
+				6FAF9D2A1592765200997A28 /* Account.xib */,
+				6F27CD2215911E7E00E15B34 /* AccountForm.xib */,
 				6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */,
 				6FCDC66B0FC04F180024E498 /* Feed.xib */,
 				6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */,
@@ -972,9 +1007,6 @@
 		6FE931D30FC7242A008545A2 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				6F1C379A0FCA8F4A00F2FFBF /* Archiving.h */,
-				6FE931D40FC72444008545A2 /* Archiver.h */,
-				6FE931D50FC72444008545A2 /* Archiver.m */,
 				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
 				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
 			);
@@ -1330,6 +1362,8 @@
 				6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */,
 				1AA16F5A1539D051000552BD /* repostat.png in Resources */,
 				6F2DEE23158F2AFA005C56E6 /* TabBarOrgs.png in Resources */,
+				6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */,
+				6FAF9D2B1592765200997A28 /* Account.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1375,7 +1409,6 @@
 				8CE686760FB8C56700A3D625 /* GHForks.m in Sources */,
 				8CE6867D0FB8C58400A3D625 /* ForksController.m in Sources */,
 				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
-				6FE931D60FC72444008545A2 /* Archiver.m in Sources */,
 				6F0AEFBE100CF5DB00FB323E /* IssueFormController.m in Sources */,
 				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
 				6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */,
@@ -1421,6 +1454,11 @@
 				6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */,
 				6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */,
 				6FD1DE31158FD14000D72A3D /* GHComment.m in Sources */,
+				6F27CD11159113D900E15B34 /* AccountsController.m in Sources */,
+				6F27CD171591188D00E15B34 /* GHAccount.m in Sources */,
+				6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */,
+				6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */,
+				6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

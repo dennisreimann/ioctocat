@@ -3,6 +3,7 @@
 #import "UserController.h"
 #import "OrganizationController.h"
 #import "WebController.h"
+#import "GHFeed.h"
 #import "GHFeedEntry.h"
 #import "GHUser.h"
 #import "GHRepository.h"

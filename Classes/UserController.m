@@ -2,6 +2,7 @@
 #import "RepositoryController.h"
 #import "OrganizationController.h"
 #import "WebController.h"
+#import "GHUsers.h"
 #import "GHUser.h"
 #import "GHOrganizations.h"
 #import "GHRepository.h"

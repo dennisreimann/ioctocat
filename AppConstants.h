@@ -4,6 +4,8 @@
 #define kLoginDefaultsKey @"username"
 #define kTokenDefaultsKey @"token"
 #define kPasswordDefaultsKey @"password"
+#define kEndpointDefaultsKey @"endpoint"
+#define kAccountsDefaultsKey @"accounts"
 
 // API
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"

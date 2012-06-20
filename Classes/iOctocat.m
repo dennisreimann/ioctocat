@@ -2,7 +2,6 @@
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
-#import "MyFeedsController.h"
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
@@ -29,7 +28,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
 	}
 	self.users = [NSMutableDictionary dictionary];
-	[window addSubview:tabBarController.view];
+	[window addSubview:accountsNavController.view];
 	launchDefault = YES;
 	[self performSelector:@selector(postLaunch) withObject:nil afterDelay:0.0];
 }
@@ -55,16 +54,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)dealloc {
-	[tabBarController release], tabBarController = nil;
-	[feedController release], feedController = nil;
+	[accountsNavController release], accountsNavController = nil;
 	[window release], window = nil;
 	[users release], users = nil;
-	
 	[super dealloc];
 }
 
 - (UIView *)currentView {
-    return tabBarController.modalViewController ? tabBarController.modalViewController.view : tabBarController.view;
+    return accountsNavController.modalViewController ? accountsNavController.modalViewController.view : accountsNavController.view;
 }
 
 - (GHUser *)currentUser {
@@ -160,7 +157,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (LoginController *)loginController {
     if (!loginController) {
-        loginController = [[LoginController alloc] initWithViewController:tabBarController];
+        loginController = [[LoginController alloc] initWithViewController:accountsNavController];
         loginController.delegate = self;
     }
     return loginController;
@@ -173,7 +170,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (void)finishedAuthenticating {
-	if (self.currentUser.isAuthenticated) [feedController setupFeeds];
+	//if (self.currentUser.isAuthenticated) [feedController setupFeeds];
 }
 
 #pragma mark Persistent State
@@ -205,9 +202,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 	NSDate *nowDate = [NSDate date];
 	self.didBecomeActiveDate = nowDate;
-	if ([tabBarController selectedIndex] == 0) {
-		[feedController refreshCurrentFeedIfRequired];
-	}
+//	if ([tabBarController selectedIndex] == 0) {
+//		[feedController refreshCurrentFeedIfRequired];
+//	}
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

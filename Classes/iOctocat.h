@@ -1,6 +1,6 @@
 #import <UIKit/UIKit.h>
+#import "AccountsController.h"
 #import "LoginController.h"
-#import "MyFeedsController.h"
 #import "ASINetworkQueue.h"
 
 
@@ -9,9 +9,8 @@
 @interface iOctocat : NSObject <UIApplicationDelegate, LoginControllerDelegate> {
   @private
     IBOutlet UIWindow *window;
-    IBOutlet UITabBarController *tabBarController;
-	IBOutlet MyFeedsController *feedController;
-    LoginController *loginController;
+	IBOutlet UINavigationController *accountsNavController;
+	LoginController *loginController;
 	NSMutableDictionary *users;
 	NSMutableDictionary *organizations;
 	NSDate *didBecomeActiveDate;

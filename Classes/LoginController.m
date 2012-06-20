@@ -1,7 +1,6 @@
 #import "LoginController.h"
 #import "NSString+Extensions.h"
 #import "GHUser.h"
-#import "iOctocat.h"
 #import "GradientButton.h"
 
 @interface LoginController ()

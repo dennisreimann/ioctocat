@@ -1,8 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHUser;
-@class GradientButton;
+@class GHUser, GradientButton;
 
 @interface LoginController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, UIWebViewDelegate> {
 	id delegate;

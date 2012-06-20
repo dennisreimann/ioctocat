@@ -1,5 +1,7 @@
 #import "UsersController.h"
 #import "UserController.h"
+#import "GHUsers.h"
+#import "UserCell.h"
 
 
 @implementation UsersController

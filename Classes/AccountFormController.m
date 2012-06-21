@@ -15,12 +15,6 @@
 @synthesize endpointField;
 @synthesize saveButton;
 
-+ (void)saveAccounts:(NSMutableArray *)theAccounts {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:theAccounts forKey:kAccountsDefaultsKey];
-	[defaults synchronize];
-}
-
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {    
     [super initWithNibName:@"AccountForm" bundle:nil];
 	self.index = theIndex;
@@ -75,7 +69,7 @@
 		if (index == NSNotFound) [accounts addObject:account];
 		
 		// Save
-		[AccountFormController saveAccounts:accounts];
+		[AccountsController saveAccounts:accounts];
 		
 		// Go back
 		[loginField resignFirstResponder];

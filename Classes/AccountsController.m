@@ -4,28 +4,67 @@
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "UserCell.h"
+#import "NSString+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 
+
+@interface AccountsController ()
+- (void)convertOldAccount;
+@end
 
 @implementation AccountsController
 
 @synthesize accounts;
+
++ (void)saveAccounts:(NSMutableArray *)theAccounts {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setValue:theAccounts forKey:kAccountsDefaultsKey];
+	[defaults synchronize];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *currentAccounts = [defaults objectForKey:kAccountsDefaultsKey];
-	self.accounts = (currentAccounts != nil) ?
+	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
- 
+
+	// Try to convert old account to new one
+	[self convertOldAccount];
+
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 	[self.tableView reloadData];
+}
+
+- (void)convertOldAccount {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *login = [defaults objectForKey:kLoginDefaultsKey];
+    NSString *password = [defaults objectForKey:kPasswordDefaultsKey];
+    NSString *token = [defaults objectForKey:kTokenDefaultsKey];
+
+	if (login != nil) {
+		// Convert if old account can be found
+		NSMutableDictionary *account = [NSMutableDictionary dictionary];
+		[account setValue:login forKey:kLoginDefaultsKey];
+		[account setValue:password forKey:kPasswordDefaultsKey];
+		[account setValue:token forKey:kTokenDefaultsKey];
+
+		// Add new account to list of accounts and save
+		[accounts addObject:account];
+		[self.class saveAccounts:accounts];
+
+		// Remove old data
+		[defaults removeObjectForKey:kLoginDefaultsKey];
+		[defaults removeObjectForKey:kPasswordDefaultsKey];
+		[defaults removeObjectForKey:kTokenDefaultsKey];
+		[defaults synchronize];
+	}
 }
 
 #pragma mark Actions
@@ -77,14 +116,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[accounts removeObjectAtIndex:indexPath.row];
-		[AccountFormController saveAccounts:accounts];
+		[self.class saveAccounts:accounts];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }  
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
 	[accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
-	[AccountFormController saveAccounts:accounts];
+	[self.class saveAccounts:accounts];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

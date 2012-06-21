@@ -10,6 +10,7 @@
 
 @property(nonatomic,retain)NSMutableArray *accounts;
 
++ (void)saveAccounts:(NSMutableArray *)theAccounts;
 - (IBAction)addAccount:(id)sender;
 
 @end

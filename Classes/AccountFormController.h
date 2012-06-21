@@ -14,7 +14,6 @@
 @property(nonatomic,retain)IBOutlet UITextField *endpointField;
 @property(nonatomic,retain)IBOutlet GradientButton *saveButton;
 
-+ (void)saveAccounts:(NSMutableArray *)theAccounts;
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
 - (IBAction)saveAccount:(id)sender;
 

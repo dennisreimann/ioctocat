@@ -1,5 +1,5 @@
 #import "GHResource.h"
-#import "iOctocat.h"
+#import "GHAccount.h"
 #import "CJSONSerializer.h"
 #import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
@@ -24,7 +24,7 @@
 @synthesize data;
 
 + (id)resourceWithURL:(NSURL *)theURL {
-	return [[[[self class] alloc] initWithURL:theURL] autorelease];
+	return [[[self.class alloc] initWithURL:theURL] autorelease];
 }
 
 - (id)initWithURL:(NSURL *)theURL {
@@ -48,18 +48,13 @@
 
 #pragma mark Request
 
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *login = [defaults stringForKey:kLoginDefaultsKey];
-    NSString *password = [defaults stringForKey:kPasswordDefaultsKey];
-	
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url withAccount:(GHAccount *)theAccount {
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setAuthenticationScheme:(NSString *) kCFHTTPAuthenticationSchemeBasic];
     [request setShouldPresentCredentialsBeforeChallenge:YES];
-    [request setUsername:login];
-    [request setPassword:password];
+    [request setUsername:theAccount.login];
+    [request setPassword:theAccount.password];
     [request setRequestMethod:@"GET"];
-	
     return request;
 }
 
@@ -88,7 +83,8 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL];
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL withAccount:account];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(loadingFinished:)];
 	[request setDidFailSelector:@selector(loadingFailed:)];
@@ -156,7 +152,8 @@
 	// Send the request
 	NSString *jsonString = [[CJSONSerializer serializer] serializeDictionary:theValues];
 	NSMutableData *postData = [[jsonString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL withAccount:account];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(savingFinished:)];
 	[request setDidFailSelector:@selector(savingFailed:)];

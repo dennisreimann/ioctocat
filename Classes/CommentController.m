@@ -43,7 +43,7 @@
 	
 	// Validate
 	if ([comment.body isEmpty]) {
-		[[iOctocat sharedInstance] alert:@"Validation failed" with:@"Please enter a text"];
+		[iOctocat alert:@"Validation failed" with:@"Please enter a text"];
 	} else {
 		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 		[comment saveData];
@@ -54,11 +54,11 @@
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (comment.isSaving) return;
 		if (comment.isSaved) {
-			[[iOctocat sharedInstance] alert:@"Comment saved" with:@""];
+			[iOctocat alert:@"Comment saved" with:@""];
 			[comments loadData];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (comment.error) {
-			[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not proceed the request"];
+			[iOctocat alert:@"Request error" with:@"Could not proceed the request"];
 		}
 		self.navigationItem.rightBarButtonItem = postButton;
 	}

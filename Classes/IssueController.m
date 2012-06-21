@@ -86,23 +86,23 @@
 			if (issue.isLoaded) {
 				[self displayIssue];
 			} else if (issue.error) {
-				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the issue"];
+				[iOctocat alert:@"Loading error" with:@"Could not load the issue"];
 			}
 		} else if (object == issue.comments) {
 			if (issue.comments.isLoaded) {
 				[self displayComments];
 			} else if (issue.comments.error) {
-				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the issue comments"];
+				[iOctocat alert:@"Loading error" with:@"Could not load the issue comments"];
 			}
 		}
 	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (issue.isSaved) {
 			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];
-			[[iOctocat sharedInstance] alert:title with:@""];
+			[iOctocat alert:title with:@""];
 			[self displayIssue];
 			[listController reloadIssues];
 		} else if (issue.error) {
-			[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not change issue state"];
+			[iOctocat alert:@"Request error" with:@"Could not change issue state"];
 		}
 	}
 }

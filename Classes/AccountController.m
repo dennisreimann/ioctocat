@@ -4,11 +4,6 @@
 #import "iOctocat.h"
 
 
-@interface AccountController ()
-- (void)authenticate;
-@end
-
-
 @implementation AccountController
 
 @synthesize account;
@@ -24,32 +19,10 @@
 	[super dealloc];
 }
 
-- (UIView *)currentView {
-    return self.modalViewController ? self.modalViewController.view : self.view;
-}
-
-- (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
-}
-
-#pragma mark Authentication
-
-- (LoginController *)loginController {
-    if (!loginController) {
-        loginController = [[LoginController alloc] initWithViewController:self];
-        loginController.delegate = self;
-    }
-    return loginController;
-}
-
-- (void)authenticate {
-	if (self.currentUser.isAuthenticated) return;
-    [self.loginController setUser:self.currentUser];
-	[self.loginController startAuthenticating];
-}
-
-- (void)finishedAuthenticating {
-	if (self.currentUser.isAuthenticated) [feedController setupFeeds];
+- (void)viewDidLoad {
+    [super viewDidLoad];
+	
+	[feedController setupFeeds];
 }
 
 @end

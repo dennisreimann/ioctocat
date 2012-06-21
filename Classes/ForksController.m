@@ -33,7 +33,7 @@
 		[self.tableView reloadData];
 		GHForks *theForks = (GHForks *)object;
 		if (!theForks.isLoading && theForks.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the forks"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the forks"];
 		}
 	}    
 }

@@ -54,7 +54,7 @@
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
-	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+	self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
 	self.isAuthenticated = NO;
 	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
@@ -154,7 +154,8 @@
 
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
 	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theUser.login];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL withAccount:account];
 	[request setDelegate:self];
 	[request setRequestMethod:(follow ? @"PUT" : @"DELETE")];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
@@ -170,7 +171,7 @@
 
 - (void)followToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Follow toggle %@ failed: %@", [request url], [request error]);
-	[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not change following status"];
+	[iOctocat alert:@"Request error" with:@"Could not change following status"];
 }
 
 #pragma mark Watching
@@ -192,7 +193,8 @@
 
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSURL *watchURL = [NSURL URLWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
-    ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchURL];
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchURL withAccount:account];
     [request setDelegate:self];
     [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];
@@ -208,7 +210,7 @@
 
 - (void)watchToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Watch toggle %@ failed: %@", [request url], [request error]);
-	[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not change watching status"];
+	[iOctocat alert:@"Request error" with:@"Could not change watching status"];
 }
 
 #pragma mark Gravatar
@@ -223,7 +225,7 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
+	[iOctocat cacheGravatar:gravatar forIdentifier:self.login];
 }
 
 @end

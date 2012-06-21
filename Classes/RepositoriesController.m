@@ -91,7 +91,7 @@
 		if (organizations.isLoaded) {
 			[self loadOrganizationRepositories];
 		} else if (organizations.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the organizations"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the organizations"];
 		}
 	} else {
 		if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
@@ -99,7 +99,7 @@
 			if (repositories.isLoaded) {
 				[self displayRepositories:repositories];
 			} else if (repositories.error) {
-				[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repositories"];
+				[iOctocat alert:@"Loading error" with:@"Could not load the repositories"];
 			}
 		}
 	}

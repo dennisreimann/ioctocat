@@ -42,7 +42,7 @@
 	
 	// Validate
 	if ([issue.title isEmpty] || [issue.body isEmpty] ) {
-		[[iOctocat sharedInstance] alert:@"Validation failed" with:@"Please enter a title and a text"];
+		[iOctocat alert:@"Validation failed" with:@"Please enter a title and a text"];
 	} else {
 		saveButton.enabled = NO;
 		[activityView startAnimating];
@@ -54,11 +54,11 @@
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (issue.isSaving) return;
 		if (issue.isSaved) {
-			[[iOctocat sharedInstance] alert:@"Issue saved" with:@""];
+			[iOctocat alert:@"Issue saved" with:@""];
 			[listController reloadIssues];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (issue.error) {
-			[[iOctocat sharedInstance] alert:@"Request error" with:@"Could not save the issue"];
+			[iOctocat alert:@"Request error" with:@"Could not save the issue"];
 		}
 		saveButton.enabled = YES;
 		[activityView stopAnimating];

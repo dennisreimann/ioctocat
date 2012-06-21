@@ -1,11 +1,13 @@
 #import "AccountsController.h"
 #import "AccountController.h"
 #import "AccountFormController.h"
+#import "AuthenticationController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "UserCell.h"
 #import "NSString+Extensions.h"
 #import "NSMutableArray+Extensions.h"
+#import "iOctocat.h"
 
 
 @interface AccountsController ()
@@ -102,9 +104,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSDictionary *accountDict = [accounts objectAtIndex:indexPath.row];
 	GHAccount *account = [GHAccount accountWithDict:accountDict];
-	AccountController *viewController = [[AccountController alloc] initWithAccount:account];
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+	[[iOctocat sharedInstance] setCurrentAccount:account];
+	[self.authController authenticateAccount:account];
 }
 
 #pragma mark Editing
@@ -134,6 +135,21 @@
 	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:accounts andIndex:indexPath.row];
 	[self.navigationController pushViewController:viewController animated:YES];
 	[viewController release];
+}
+
+#pragma mark Authentication
+
+- (AuthenticationController *)authController {
+    if (!authController) authController = [[AuthenticationController alloc] initWithDelegate:self];
+    return authController;
+}
+
+- (void)authenticatedAccount:(GHAccount *)theAccount {
+	if (theAccount.user.isAuthenticated) {
+		AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
+		[self.navigationController pushViewController:viewController animated:YES];
+		[viewController release];
+	}
 }
 
 #pragma mark Autorotation

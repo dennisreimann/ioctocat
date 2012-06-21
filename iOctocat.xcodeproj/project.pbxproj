@@ -206,8 +206,7 @@
 		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
 		6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
 		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
-		6FE91E190FAD088600749370 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE91E180FAD088600749370 /* Login.xib */; };
-		6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* LoginController.m */; };
+		6FE91E4C0FAD13D500749370 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* AuthenticationController.m */; };
 		6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IssuesController.m */; };
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
 		6FED83010FACB91000BE5C81 /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
@@ -515,9 +514,8 @@
 		6FE7D2B411568951004B4D68 /* GHIssueComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComments.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
 		6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
-		6FE91E180FAD088600749370 /* Login.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Login.xib; path = IBFiles/Login.xib; sourceTree = "<group>"; };
-		6FE91E4A0FAD13D500749370 /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
-		6FE91E4B0FAD13D500749370 /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		6FE91E4A0FAD13D500749370 /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
+		6FE91E4B0FAD13D500749370 /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IssuesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssuesController.h; sourceTree = "<group>"; };
 		6FED82960FACA1E700BE5C81 /* IssuesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssuesController.m; sourceTree = "<group>"; };
 		6FED82990FACA2F000BE5C81 /* Issues.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issues.xib; path = IBFiles/Issues.xib; sourceTree = "<group>"; };
@@ -926,6 +924,8 @@
 				6F27CD1E15911E4700E15B34 /* AccountFormController.m */,
 				6FAF9D2D15927A8E00997A28 /* AccountController.h */,
 				6FAF9D2E15927A8E00997A28 /* AccountController.m */,
+				6FE91E4A0FAD13D500749370 /* AuthenticationController.h */,
+				6FE91E4B0FAD13D500749370 /* AuthenticationController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -977,7 +977,6 @@
 				6FB3CBE813977E4000CB0EAE /* iPhone */,
 				6FB3CBE513977DBC00CB0EAE /* iPad */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
-				6FE91E180FAD088600749370 /* Login.xib */,
 				6FAF9D2A1592765200997A28 /* Account.xib */,
 				6F27CD2215911E7E00E15B34 /* AccountForm.xib */,
 				6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */,
@@ -1133,8 +1132,6 @@
 		6FECA8A01590A23C00878A74 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
-				6FE91E4A0FAD13D500749370 /* LoginController.h */,
-				6FE91E4B0FAD13D500749370 /* LoginController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
 				6FC0D428115819E400511B7F /* CommentController.h */,
@@ -1261,7 +1258,6 @@
 				6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */,
 				6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */,
 				6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */,
-				6FE91E190FAD088600749370 /* Login.xib in Resources */,
 				6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */,
 				6F358C090FB1EAE0004D2828 /* Overlay.xib in Resources */,
 				6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */,
@@ -1398,7 +1394,7 @@
 				8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */,
 				6FED82970FACA1E700BE5C81 /* IssuesController.m in Sources */,
 				6FED83010FACB91000BE5C81 /* FeedController.m in Sources */,
-				6FE91E4C0FAD13D500749370 /* LoginController.m in Sources */,
+				6FE91E4C0FAD13D500749370 /* AuthenticationController.m in Sources */,
 				8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* UserCell.m in Sources */,
 				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,

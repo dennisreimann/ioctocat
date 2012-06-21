@@ -34,13 +34,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	(repository.isLoaded) ? [self displayRepository] : [repository loadData];
 	if (!repository.branches.isLoaded) [repository.branches loadData];
-    // Background
+    
+	// Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
     tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
@@ -49,19 +51,19 @@
 - (void)dealloc {
 	[repository.branches removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[repository release];
-	[tableHeaderView release];
-	[nameLabel release];
-	[numbersLabel release];
-	[ownerLabel release];
-	[websiteLabel release];
-	[loadingCell release];
-	[ownerCell release];
-    [forkLabel release];
-	[websiteCell release];
-	[descriptionCell release];
-    [issuesCell release];
-    [iconView release];
+	[repository release], repository = nil;
+	[tableHeaderView release], tableHeaderView = nil;
+	[nameLabel release], nameLabel = nil;
+	[numbersLabel release], numbersLabel = nil;
+	[ownerLabel release], ownerLabel = nil;
+	[websiteLabel release], websiteLabel = nil;
+	[loadingCell release], loadingCell = nil;
+	[ownerCell release], ownerCell = nil;
+    [forkLabel release], forkLabel = nil;
+	[websiteCell release], websiteCell = nil;
+	[descriptionCell release], descriptionCell = nil;
+    [issuesCell release], issuesCell = nil;
+    [iconView release], iconView = nil;
     [super dealloc];
 }
 
@@ -104,13 +106,13 @@
 			[self displayRepository];
 			[self.tableView reloadData];
 		} else if (repository.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repository"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the repository"];
 		}
 	} else if (object == repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.branches.isLoaded) {
 			[self.tableView reloadData];
 		} else if (repository.branches.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the branches"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the branches"];
 		}
 	}
 }

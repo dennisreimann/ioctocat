@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 
 
+@class GHUser;
+
 @interface GHAccount : NSObject
 
 @property(nonatomic,retain)GHUser *user;

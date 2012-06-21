@@ -39,7 +39,7 @@
 - (id)initWithLogin:(NSString *)theLogin {
 	[self init];
 	self.login = theLogin;
-	self.gravatar = [UIImage imageWithContentsOfFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login]];
+	self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
     gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
@@ -123,7 +123,7 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[UIImagePNGRepresentation(theImage) writeToFile:[[iOctocat sharedInstance] cachedGravatarPathForIdentifier:self.login] atomically:YES];
+	[iOctocat cacheGravatar:gravatar forIdentifier:self.login];
 }
 
 @end

@@ -6,6 +6,7 @@
 #define kPasswordDefaultsKey @"password"
 #define kEndpointDefaultsKey @"endpoint"
 #define kAccountsDefaultsKey @"accounts"
+#define kLastActivatedDateDefaulsKey @"lastActivatedDate"
 
 // API
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"

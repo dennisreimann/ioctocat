@@ -79,7 +79,7 @@
 		} else {
 			[self issueLoadingFinished];
 			if (!theIssues.error) return;
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the issues"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the issues"];
 		}
 	}
 }

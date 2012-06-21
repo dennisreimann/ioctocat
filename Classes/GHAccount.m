@@ -1,5 +1,7 @@
 #import "GHAccount.h"
 #import "GHUser.h"
+#import "GHOrganizations.h"
+#import "iOctocat.h"
 
 
 @implementation GHAccount
@@ -16,11 +18,17 @@
 
 - (id)initWithDict:(NSDictionary *)theDict {
 	[super init];
+	
 	self.login = [theDict valueForKey:kLoginDefaultsKey];
 	self.password = [theDict valueForKey:kPasswordDefaultsKey];
 	self.token = [theDict valueForKey:kTokenDefaultsKey];
 	self.endpoint = [theDict valueForKey:kEndpointDefaultsKey];
+	
+	// User with authenticated URLs
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
+	self.user.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
+	self.user.organizations.resourceURL = [NSURL URLWithString:kUserAuthenticatedOrgsFormat];
+	
     return self;
 }
 

@@ -1,4 +1,5 @@
 #import "iOctocat.h"
+#import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
@@ -8,8 +9,10 @@
 
 
 @interface iOctocat ()
-- (void)postLaunch;
-- (void)authenticate;
+@property(nonatomic,retain)NSMutableDictionary *users;
+@property(nonatomic,retain)NSMutableDictionary *organizations;
+
++ (NSString *)gravatarPathForIdentifier:(NSString *)theString;
 - (void)clearAvatarCache;
 @end
 
@@ -18,7 +21,9 @@
 
 @synthesize users;
 @synthesize organizations;
-@synthesize didBecomeActiveDate;
+@synthesize window;
+@synthesize currentAccount;
+@synthesize accountsNavController;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
@@ -27,30 +32,18 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
 		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
 	}
-	self.users = [NSMutableDictionary dictionary];
-	[window addSubview:accountsNavController.view];
-	launchDefault = YES;
-	[self performSelector:@selector(postLaunch) withObject:nil afterDelay:0.0];
-}
-
-- (void)postLaunch {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSDate *nowDate = [NSDate date];
-
-	// Did-become-active date
-	self.didBecomeActiveDate = nowDate;
 	
 	// Avatar cache
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
 		[self clearAvatarCache];
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+		[defaults synchronize];
 	}
-	[defaults synchronize];
-    
-    // Authentication
-    if (launchDefault) {
-        [self authenticate];
-    }
+	
+	// Go
+	self.users = [NSMutableDictionary dictionary];
+	[window addSubview:accountsNavController.view];
 }
 
 - (void)dealloc {
@@ -60,21 +53,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	[super dealloc];
 }
 
-- (UIView *)currentView {
-    return accountsNavController.modalViewController ? accountsNavController.modalViewController.view : accountsNavController.view;
-}
+#pragma mark Users
 
 - (GHUser *)currentUser {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *login = [defaults valueForKey:kLoginDefaultsKey];
-	if (!login || [login isEmpty]) {
-        return nil;
-    } else {
-        GHUser *theUser = [self userWithLogin:login];
-        theUser.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
-        theUser.organizations.resourceURL = [NSURL URLWithString:kUserAuthenticatedOrgsFormat];
-        return theUser;
-    }
+	return self.currentAccount.user;
 }
 
 - (GHUser *)userWithLogin:(NSString *)theLogin {
@@ -97,25 +79,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return organization;
 }
 
-- (void)clearAvatarCache {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
-	for (NSString *path in documents) {
-		if ([path hasSuffix:@".png"]) {
-			NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
-			[fileManager removeItemAtPath:imagePath error:NULL];
-		}
-	}
-}
-
-- (NSString *)cachedGravatarPathForIdentifier:(NSString *)theString {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *imageName = [NSString stringWithFormat:@"%@.png", theString];
-	return [documentsPath stringByAppendingPathComponent:imageName];
-}
+#pragma mark Helpers
 
 + (NSDate *)parseDate:(NSString *)string {
     if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
@@ -132,7 +96,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return date;
 }
 
-- (void)alert:(NSString *)theTitle with:(NSString *)theMessage {
++ (void)alert:(NSString *)theTitle with:(NSString *)theMessage {
 	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:theTitle
 													message:theMessage
 												   delegate:nil
@@ -140,6 +104,38 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 										  otherButtonTitles:nil];
 	[alert show];
 	[alert release];
+}
+
+#pragma mark Avatars
+
+- (void)clearAvatarCache {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
+	for (NSString *path in documents) {
+		if ([path hasSuffix:@".png"]) {
+			NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
+			[fileManager removeItemAtPath:imagePath error:NULL];
+		}
+	}
+}
+
++ (NSString *)gravatarPathForIdentifier:(NSString *)theString {
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsPath = [paths objectAtIndex:0];
+	NSString *imageName = [NSString stringWithFormat:@"%@.png", theString];
+	return [documentsPath stringByAppendingPathComponent:imageName];
+}
+
++ (UIImage *)cachedGravatarForIdentifier:(NSString *)theString {
+	NSString *path = [self gravatarPathForIdentifier:theString];
+	return [UIImage imageWithContentsOfFile:path];
+}
+
++ (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString {
+	NSString *path = [self gravatarPathForIdentifier:theString];
+	[UIImagePNGRepresentation(theImage) writeToFile:path atomically:YES];
 }
 
 #pragma mark Network
@@ -153,69 +149,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return queue;
 }
 
-#pragma mark Authentication
-
-- (LoginController *)loginController {
-    if (!loginController) {
-        loginController = [[LoginController alloc] initWithViewController:accountsNavController];
-        loginController.delegate = self;
-    }
-    return loginController;
-}
-
-- (void)authenticate {
-	if (self.currentUser.isAuthenticated) return;
-    [self.loginController setUser:self.currentUser];
-	[self.loginController startAuthenticating];
-}
-
-- (void)finishedAuthenticating {
-	//if (self.currentUser.isAuthenticated) [feedController setupFeeds];
-}
-
-#pragma mark Persistent State
-
-- (NSDate *)lastReadingDateForURL:(NSURL *)url {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
-	NSObject *object = [userDefaults valueForKey:key];
-	DJLog(@"%@: %@", key, object);
-	if (![object isKindOfClass:[NSDate class]]) {
-		return nil;
-	}
-	return (NSDate *)object;
-}
-
-- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
-	DJLog(@"%@: %@", key, date);
-	[userDefaults setValue:date forKey:key];
-}
-
-- (void)saveLastReadingDates {
-	[[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 #pragma mark Application Events
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-	NSDate *nowDate = [NSDate date];
-	self.didBecomeActiveDate = nowDate;
-//	if ([tabBarController selectedIndex] == 0) {
-//		[feedController refreshCurrentFeedIfRequired];
-//	}
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
-	[self saveLastReadingDates];
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-    if (loginController) {
-        [loginController stopAuthenticating];
-    }
-	[self saveLastReadingDates];
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
+	[defaults synchronize];
 }
 
 @end

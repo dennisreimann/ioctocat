@@ -58,7 +58,7 @@
 	NSString *endpoint = [endpointField.text stringByTrimmingCharactersInSet:trimSet];
 	
 	if ([login isEmpty] || [password isEmpty]) {
-		[[iOctocat sharedInstance] alert:@"Validation failed" with:@"Please enter a login and a password"];
+		[iOctocat alert:@"Validation failed" with:@"Please enter a login and a password"];
 	} else {
 		[account setValue:login forKey:kLoginDefaultsKey];
 		[account setValue:password forKey:kPasswordDefaultsKey];

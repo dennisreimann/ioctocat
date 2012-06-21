@@ -39,7 +39,7 @@
     if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		if (!organizations.isLoading && organizations.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the organizations"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the organizations"];
 		}
 	}    
 }

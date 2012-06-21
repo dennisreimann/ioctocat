@@ -65,7 +65,7 @@
 		if (repository.isLoaded) {
 			[self loadData];
 		} else if (repository.error) {
-			[[iOctocat sharedInstance] alert:@"Loading error" with:@"Could not load the repository"];
+			[iOctocat alert:@"Loading error" with:@"Could not load the repository"];
 		}
 	}
 }

@@ -12,6 +12,8 @@
 
 @interface MyFeedsController ()
 - (GHUser *)currentUser;
+- (NSDate *)lastReadingDateForURL:(NSURL *)url;
+- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
 @end
 
 
@@ -51,7 +53,7 @@
 	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
 	for (GHFeed *feed in feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = [[iOctocat sharedInstance] lastReadingDateForURL:feed.resourceURL];
+		feed.lastReadingDate = [self lastReadingDateForURL:feed.resourceURL];
 	}
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
@@ -72,7 +74,8 @@
 
 - (BOOL)refreshCurrentFeedIfRequired {
 	if (!self.currentFeed.isLoaded) return NO;
-	if ([self.currentFeed.lastReadingDate compare:[[iOctocat sharedInstance] didBecomeActiveDate]] != NSOrderedAscending) return NO;
+	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
+	if ([self.currentFeed.lastReadingDate compare:lastActivatedDate] != NSOrderedAscending) return NO;
 	// the feed was loaded before this application became active again, refresh it
 	refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
 	[self pullRefreshAnimated:YES];
@@ -107,17 +110,17 @@
 			[self.tableView reloadData];
 			loadCounter -= 1;
 			refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
-			[[iOctocat sharedInstance] setLastReadingDate:feed.lastReadingDate forURL:feed.resourceURL];
+			[self setLastReadingDate:feed.lastReadingDate forURL:feed.resourceURL];
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
             NSString *msg = [NSString stringWithFormat:@"Could not load the feed.\n%@", [feed.error localizedDescription]];
-			[[iOctocat sharedInstance] alert:@"Loading error" with:msg];
+			[iOctocat alert:@"Loading error" with:msg];
 		}
 	} else if (object == self.currentUser.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (!self.currentUser.organizations.isLoading && self.currentUser.organizations.error) {
 			NSString *msg = [NSString stringWithFormat:@"Could not load the list of organizations.\n%@", [self.currentUser.organizations.error localizedDescription]];
-			[[iOctocat sharedInstance] alert:@"Loading error" with:msg];
+			[iOctocat alert:@"Loading error" with:msg];
 		} else if (self.currentUser.organizations.isLoaded) {
             [organizationItem setEnabled:(self.currentUser.organizations.organizations.count > 0)];
         }
@@ -166,6 +169,22 @@
 	UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
 	[self.navigationController pushViewController:userController animated:YES];
 	[userController release];
+}
+
+#pragma mark Persistent State
+
+- (NSDate *)lastReadingDateForURL:(NSURL *)url {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	NSDate *date = [userDefaults objectForKey:key];
+	return date;
+}
+
+- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	[defaults setValue:date forKey:key];
+	[defaults synchronize];
 }
 
 #pragma mark Autorotation

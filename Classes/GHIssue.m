@@ -103,8 +103,7 @@
 	self.savingStatus = GHResourceStatusProcessing;
 	NSURL *url = [NSURL URLWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
 	// Send the request
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url withAccount:account];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(stateTogglingFinished:)];
 	[request setDidFailSelector:@selector(stateTogglingFailed:)];

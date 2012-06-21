@@ -3,7 +3,7 @@
 
 @class GHAccount;
 
-@interface AuthenticationController : UIViewController <UIActionSheetDelegate, UIWebViewDelegate> {
+@interface AuthenticationController : UIViewController <UIActionSheetDelegate> {
   @private
 	UIViewController *delegate;
 	UIActionSheet *authSheet;

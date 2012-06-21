@@ -1,7 +1,6 @@
 #import "AccountsController.h"
 #import "AccountController.h"
 #import "AccountFormController.h"
-#import "AuthenticationController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "UserCell.h"
@@ -11,8 +10,13 @@
 
 
 @interface AccountsController ()
+@property(nonatomic,readonly)AuthenticationController *authController;
+@property(nonatomic,readonly)TokenResolverController *tokenController;
+
 - (void)convertOldAccount;
+- (void)editAccountAtIndex:(NSUInteger)theIndex;
 @end
+
 
 @implementation AccountsController
 
@@ -44,6 +48,8 @@
 	[self.tableView reloadData];
 }
 
+#pragma mark Accounts
+
 - (void)convertOldAccount {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *login = [defaults objectForKey:kLoginDefaultsKey];
@@ -69,12 +75,26 @@
 	}
 }
 
+- (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
+    return [[^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[obj objectForKey:kLoginDefaultsKey] isEqualToString:theLogin]) {
+			*stop = YES;
+			return YES;
+        }
+        return NO;
+    } copy] autorelease];
+}
+
 #pragma mark Actions
 
-- (IBAction)addAccount:(id)sender {
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:accounts andIndex:NSNotFound];
+- (void)editAccountAtIndex:(NSUInteger)theIndex {
+	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:accounts andIndex:theIndex];
 	[self.navigationController pushViewController:viewController animated:YES];
 	[viewController release];
+}
+
+- (IBAction)addAccount:(id)sender {
+	[self editAccountAtIndex:NSNotFound];
 }
 
 #pragma mark TableView
@@ -98,7 +118,6 @@
 	NSString *login = [accountDict objectForKey:kLoginDefaultsKey];
     cell.user = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
-
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -132,9 +151,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:accounts andIndex:indexPath.row];
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+	[self editAccountAtIndex:indexPath.row];
 }
 
 #pragma mark Authentication
@@ -144,12 +161,36 @@
     return authController;
 }
 
+- (TokenResolverController *)tokenController {
+    if (!tokenController) tokenController = [[TokenResolverController alloc] initWithDelegate:self];
+    return tokenController;
+}
+
 - (void)authenticatedAccount:(GHAccount *)theAccount {
 	if (theAccount.user.isAuthenticated) {
+		[[iOctocat sharedInstance] setCurrentAccount:theAccount];
 		AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
 		[self.navigationController pushViewController:viewController animated:YES];
 		[viewController release];
+		
+		// Resolve token
+		if ([theAccount.token length] < 32) {
+			[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
+		}
+	} else {
+		[iOctocat alert:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
+		NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
+		[self editAccountAtIndex:index];
 	}
+}
+
+#pragma mark Token
+
+- (void)resolvedToken:(NSString *)theToken forLogin:(NSString *)theLogin {
+	NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theLogin]];
+	NSDictionary *accountDict = [accounts objectAtIndex:index];
+	[accountDict setValue:theToken forKey:kTokenDefaultsKey];
+	[self.class saveAccounts:accounts];
 }
 
 #pragma mark Autorotation

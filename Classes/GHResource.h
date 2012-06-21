@@ -2,8 +2,6 @@
 #import "ASIFormDataRequest.h"
 
 
-@class GHAccount;
-
 typedef enum {
 	GHResourceStatusNotProcessed = 0,
 	GHResourceStatusProcessing = 1,
@@ -31,7 +29,7 @@ typedef enum {
 @property(nonatomic,readonly)BOOL isSaved;
 @property(nonatomic,readonly)BOOL isSaving;
 
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL withAccount:(GHAccount *)theAccount;
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
 + (id)resourceWithURL:(NSURL *)theURL;
 - (id)initWithURL:(NSURL *)theURL;
 - (void)addDelegate:(id)delegate;

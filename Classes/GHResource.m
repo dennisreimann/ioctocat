@@ -48,12 +48,13 @@
 
 #pragma mark Request
 
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url withAccount:(GHAccount *)theAccount {
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
     [request setAuthenticationScheme:(NSString *) kCFHTTPAuthenticationSchemeBasic];
     [request setShouldPresentCredentialsBeforeChallenge:YES];
-    [request setUsername:theAccount.login];
-    [request setPassword:theAccount.password];
+    [request setUsername:account.login];
+    [request setPassword:account.password];
     [request setRequestMethod:@"GET"];
     return request;
 }
@@ -83,8 +84,7 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL withAccount:account];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(loadingFinished:)];
 	[request setDidFailSelector:@selector(loadingFailed:)];
@@ -152,8 +152,7 @@
 	// Send the request
 	NSString *jsonString = [[CJSONSerializer serializer] serializeDictionary:theValues];
 	NSMutableData *postData = [[jsonString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL withAccount:account];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(savingFinished:)];
 	[request setDidFailSelector:@selector(savingFailed:)];

@@ -85,7 +85,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, isAuthenticated ? @"YES" : @"NO", loadingStatus, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
+    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d'>", login, isAuthenticated ? @"YES" : @"NO", loadingStatus];
 }
 
 - (int)compareByName:(GHUser *)theOtherUser {
@@ -154,8 +154,7 @@
 
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
 	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theUser.login];
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL withAccount:account];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
 	[request setDelegate:self];
 	[request setRequestMethod:(follow ? @"PUT" : @"DELETE")];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
@@ -193,8 +192,7 @@
 
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSURL *watchURL = [NSURL URLWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchURL withAccount:account];
+	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchURL];
     [request setDelegate:self];
     [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];

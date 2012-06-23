@@ -1,22 +1,32 @@
 #import "IssueFormController.h"
 #import "IssuesController.h"
+#import "GHIssue.h"
 #import "NSString+Extensions.h"
+
+
+@interface IssueFormController ()
+@property(nonatomic,retain)GHIssue *issue;
+@property(nonatomic,retain)IssuesController *listController;
+@end
 
 
 @implementation IssueFormController
 
+@synthesize issue;
+@synthesize listController;
+
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
     [super initWithNibName:@"IssueForm" bundle:nil];
-	issue = [theIssue retain];
-	listController = [theController retain];
-    return self;
+	self.issue = theIssue;
+	self.listController = theController;
+    [issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"%@ Issue", issue.isNew ? @"New" : @"Edit"];
 	self.tableView.tableFooterView = tableFooterView;
-	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	if (!issue.isNew) {
 		titleField.text = issue.title;
 		bodyField.text = issue.body;

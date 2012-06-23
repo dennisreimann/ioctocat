@@ -6,6 +6,8 @@
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
+#import "ASINetworkQueue.h"
+#import "AccountController.h"
 
 
 @interface iOctocat ()
@@ -21,9 +23,10 @@
 
 @synthesize users;
 @synthesize organizations;
-@synthesize window;
 @synthesize currentAccount;
-@synthesize accountsNavController;
+@synthesize window;
+@synthesize navController;
+@synthesize accountController;
 
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
@@ -41,13 +44,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 		[defaults synchronize];
 	}
 	
+	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+	
 	// Go
 	self.users = [NSMutableDictionary dictionary];
-	[window addSubview:accountsNavController.view];
+	[window addSubview:navController.view];
+	[window makeKeyAndVisible];
 }
 
 - (void)dealloc {
-	[accountsNavController release], accountsNavController = nil;
+	[accountController release], accountController = nil;
+	[navController release], navController = nil;
 	[window release], window = nil;
 	[users release], users = nil;
 	[super dealloc];

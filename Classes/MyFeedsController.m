@@ -6,60 +6,94 @@
 #import "GHFeedEntry.h"
 #import "FeedEntryCell.h"
 #import "GHUser.h"
+#import "GHOrganizations.h"
+#import "GHFeed.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
+#import "AccountController.h"
 
 
 @interface MyFeedsController ()
-- (GHUser *)currentUser;
+@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,retain)NSArray *feeds;
+@property(nonatomic,readonly)GHFeed *currentFeed;
+
 - (NSDate *)lastReadingDateForURL:(NSURL *)url;
 - (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
 @end
 
-
 @implementation MyFeedsController
+
+@synthesize user;
+@synthesize feeds;
+
++ (id)controllerWithUser:(GHUser *)theUser {
+	return [[[MyFeedsController alloc] initWithUser:theUser] autorelease];
+}
+
+- (id)initWithUser:(GHUser *)theUser {
+	[super initWithNibName:@"MyFeeds" bundle:nil];
+	
+	self.user = theUser;
+    [user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    loadCounter = 0;
+	
+	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, user.login];
+	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, user.login];
+	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
+	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
+	self.feeds = [NSArray arrayWithObjects:newsFeed, activityFeed, nil];
+	for (GHFeed *feed in feeds) {
+		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		feed.lastReadingDate = [self lastReadingDateForURL:feed.resourceURL];
+	}
+	
+	return self;
+}
+
+- (AccountController *)accountController {
+	return [[iOctocat sharedInstance] accountController];
+}
+
+- (UIViewController *)parentViewController {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
+}
+
+- (UINavigationItem *)navItem {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [organizationItem setEnabled:self.currentUser.organizations.isLoaded];
-    loadCounter = 0;
+	
+    [organizationItem setEnabled:user.organizations.isLoaded];
+	
+	[self viewWillAppear:NO];
+	
+	// Start loading the first feed
+	feedControl.selectedSegmentIndex = 0;
+    [self switchChanged:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.navItem.title = @"Feeds";
+	self.navItem.titleView = feedControl;
+	self.navItem.rightBarButtonItem = organizationItem;
+	
+    if (!user.organizations.isLoaded) [user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
 }
 
 - (void)dealloc {
 	for (GHFeed *feed in feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [self.currentUser.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+    [user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[feeds release], feeds = nil;
 	[noEntriesCell release], noEntriesCell = nil;
 	[feedEntryCell release], feedEntryCell = nil;
 	[feedControl release], feedControl = nil;
     [super dealloc];
-}
-
-- (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
-}
-
-- (void)setupFeeds {
-	[self.currentUser.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, self.currentUser.login];
-	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, self.currentUser.login];
-	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
-	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
-	feeds = [[NSArray alloc] initWithObjects:newsFeed, activityFeed, nil];
-	for (GHFeed *feed in feeds) {
-		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = [self lastReadingDateForURL:feed.resourceURL];
-	}
-	// Start loading the first feed
-	feedControl.selectedSegmentIndex = 0;
-    // Trigger it manually, latest iOS doesn't do this anymore
-    [self switchChanged:nil];
-    if (!self.currentUser.organizations.isLoaded) [self.currentUser.organizations loadData];
 }
 
 - (GHFeed *)currentFeed {
@@ -95,8 +129,7 @@
 }
 
 - (IBAction)selectOrganization:(id)sender {
-    OrganizationFeedsController *viewController = [[OrganizationFeedsController alloc] initWithOrganizations:self.currentUser.organizations];
-    viewController.hidesBottomBarWhenPushed = YES;
+    OrganizationFeedsController *viewController = [[OrganizationFeedsController alloc] initWithOrganizations:user.organizations];
     [self.navigationController pushViewController:viewController animated:YES];
     [viewController release];
 }
@@ -117,18 +150,14 @@
             NSString *msg = [NSString stringWithFormat:@"Could not load the feed.\n%@", [feed.error localizedDescription]];
 			[iOctocat alert:@"Loading error" with:msg];
 		}
-	} else if (object == self.currentUser.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (!self.currentUser.organizations.isLoading && self.currentUser.organizations.error) {
-			NSString *msg = [NSString stringWithFormat:@"Could not load the list of organizations.\n%@", [self.currentUser.organizations.error localizedDescription]];
+	} else if (object == user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (!user.organizations.isLoading && user.organizations.error) {
+			NSString *msg = [NSString stringWithFormat:@"Could not load the list of organizations.\n%@", [user.organizations.error localizedDescription]];
 			[iOctocat alert:@"Loading error" with:msg];
-		} else if (self.currentUser.organizations.isLoaded) {
-            [organizationItem setEnabled:(self.currentUser.organizations.organizations.count > 0)];
+		} else if (user.organizations.isLoaded) {
+            [organizationItem setEnabled:(user.organizations.organizations.count > 0)];
         }
     } 
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
 }
 
 #pragma mark TableView
@@ -159,7 +188,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentFeed.entries.count == 0) return;
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:self.currentFeed andCurrentIndex:indexPath.row];
-	entryController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }

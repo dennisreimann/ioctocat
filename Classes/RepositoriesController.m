@@ -1,5 +1,6 @@
 #import "RepositoriesController.h"
 #import "RepositoryController.h"
+#import "GHUser.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "GHOrganizations.h"
@@ -9,9 +10,18 @@
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
+#import "AccountController.h"
 
 
 @interface RepositoriesController ()
+@property(nonatomic,retain)NSMutableArray *publicRepositories;
+@property(nonatomic,retain)NSMutableArray *privateRepositories;
+@property(nonatomic,retain)NSMutableArray *watchedRepositories;
+@property(nonatomic,retain)NSMutableArray *organizationRepositories;
+@property(nonatomic,retain)NSMutableArray *observedOrgRepoLists;
+@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,readonly)GHUser *currentUser;
+
 - (void)loadOrganizationRepositories;
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section;
@@ -25,40 +35,29 @@
 @synthesize publicRepositories;
 @synthesize watchedRepositories;
 @synthesize organizationRepositories;
+@synthesize observedOrgRepoLists;
+
++ (id)controllerWithUser:(GHUser *)theUser {
+    return [[[RepositoriesController alloc] initWithUser:theUser] autorelease];
+}
 
 - (id)initWithUser:(GHUser *)theUser {
     [super initWithNibName:@"Repositories" bundle:nil];
+	
 	self.user = theUser;
-    return self;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    if (!user) {
-        // Set to currentUser in case this controller is initialized from the TabBar
-        self.user = self.currentUser;
-        NSURL *repositoriesURL = [NSURL URLWithString:kUserAuthenticatedReposFormat];
-        self.user.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
-    }
 	self.organizationRepositories = [NSMutableArray array];
 	orgReposLoaded = 0;
+	orgReposInitialized = NO;
 	
-	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    [user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];   
-	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
-	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
-	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [self.tableView reloadData];
+	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	
+	return self;
 }
 
 - (void)dealloc {
-	for (GHOrganization *org in user.organizations.organizations) {
-		[org.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	}
+	for (GHRepositories *repoList in observedOrgRepoLists) [repoList removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
@@ -71,21 +70,60 @@
 	[privateRepositories release], privateRepositories = nil;
     [watchedRepositories release], watchedRepositories = nil;
     [organizationRepositories release], organizationRepositories = nil;
+	[observedOrgRepoLists release], observedOrgRepoLists = nil;
     [super dealloc];
 }
 
+- (AccountController *)accountController {
+	return [[iOctocat sharedInstance] accountController];
+}
+
+- (UIViewController *)parentViewController {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
+}
+
+- (UINavigationItem *)navItem {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.navItem.title = @"Repositories";
+	self.navItem.titleView = nil;
+	self.navItem.rightBarButtonItem = nil;
+	
+	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
+	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
+	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
+}
+
 - (void)loadOrganizationRepositories {
+	// guard against reentry
+	if (orgReposInitialized) {
+		return;
+	} else {
+		orgReposInitialized = YES;
+	}
 	// GitHub API v3 changed the way this has to be looked up. There
 	// is not a single call for these no more - we have to fetch each
 	// organizations repos
 	for (GHOrganization *org in user.organizations.organizations) {
 		GHRepositories *repos = org.repositories;
-		[repos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		repos.isLoaded ? [self displayRepositories:repos] : [repos loadData];
+		if (repos.isLoaded) {
+			[self displayRepositories:repos];
+		} else if (!repos.isLoading && !repos.error) {
+			if ([observedOrgRepoLists containsObject:repos]) {
+				[repos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+				[observedOrgRepoLists addObject:repos];
+			}
+			[repos loadData];
+		}
 	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	// organizations
 	if ([object isEqual:user.organizations]) {
 		GHOrganizations *organizations = (GHOrganizations *)object;
 		if (organizations.isLoaded) {
@@ -93,7 +131,9 @@
 		} else if (organizations.error) {
 			[iOctocat alert:@"Loading error" with:@"Could not load the organizations"];
 		}
-	} else {
+	}
+	// repositories
+	else {
 		if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 			GHRepositories *repositories = object;
 			if (repositories.isLoaded) {
@@ -201,7 +241,6 @@
 	if (repos.count == 0) return;
 	GHRepository *repo = [repos objectAtIndex:indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
-	repoController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:repoController animated:YES];
 	[repoController release];
 }

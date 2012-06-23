@@ -1,7 +1,16 @@
 #import "AccountFormController.h"
+#import "AccountsController.h"
 #import "GHAccount.h"
 #import "GradientButton.h"
 #import "NSString+Extensions.h"
+#import "iOctocat.h"
+
+
+@interface AccountFormController ()
+@property(nonatomic,retain)NSMutableDictionary *account;
+@property(nonatomic,retain)NSMutableArray *accounts;
+@property(nonatomic,assign)NSUInteger index;
+@end
 
 
 @implementation AccountFormController
@@ -9,11 +18,6 @@
 @synthesize index;
 @synthesize account;
 @synthesize accounts;
-@synthesize loginField;
-@synthesize passwordField;
-@synthesize tokenField;
-@synthesize endpointField;
-@synthesize saveButton;
 
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {    
     [super initWithNibName:@"AccountForm" bundle:nil];

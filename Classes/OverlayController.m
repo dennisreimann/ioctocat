@@ -1,11 +1,18 @@
 #import "OverlayController.h"
 
 
+@interface OverlayController ()
+@property(nonatomic,retain)id target;
+@end
+
+
 @implementation OverlayController
+
+@synthesize target;
 
 - (id)initWithTarget:(id)theTarget andSelector:(SEL)theSelector {
 	[super initWithNibName:@"Overlay" bundle:nil];
-	target = [theTarget retain];
+	self.target = theTarget;
 	selector = theSelector;
 	return self;
 }
@@ -15,7 +22,7 @@
 }
 
 - (void)dealloc {
-	[target release];
+	[target release], target = nil;
 	[super dealloc];
 }
 

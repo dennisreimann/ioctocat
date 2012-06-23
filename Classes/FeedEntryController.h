@@ -4,10 +4,6 @@
 @class GHFeed, GHFeedEntry;
 
 @interface FeedEntryController : UIViewController <UIWebViewDelegate, UIActionSheetDelegate> {
-	GHFeed *feed;
-	GHFeedEntry *entry;
-	NSUInteger currentIndex;
-  @private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UIView *headView;
@@ -24,10 +20,11 @@
 	IBOutlet UIBarButtonItem *organizationItem;
 	IBOutlet UIBarButtonItem *issueItem;
 	IBOutlet UIBarButtonItem *commitItem;
+  @private
+	GHFeed *feed;
+	GHFeedEntry *entry;
+	NSUInteger currentIndex;
 }
-
-@property(nonatomic,retain)GHFeed *feed;
-@property(nonatomic,retain)GHFeedEntry *entry;
 
 - (id)initWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex;
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;

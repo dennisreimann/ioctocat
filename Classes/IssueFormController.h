@@ -1,8 +1,7 @@
 #import <UIKit/UIKit.h>
-#import "GHIssue.h"
 
 
-@class IssuesController;
+@class GHIssue, IssuesController;
 
 @interface IssueFormController : UITableViewController <UITextFieldDelegate> {
   @private

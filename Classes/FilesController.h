@@ -5,8 +5,6 @@
 	NSArray *files;
 }
 
-@property(nonatomic,retain)NSArray *files;
-
 - (id)initWithFiles:(NSArray *)theFiles;
 
 @end

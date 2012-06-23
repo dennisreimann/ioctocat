@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
-#import "GHUser.h"
 
+
+@class GHUser;
 
 @interface RepositoriesController : UITableViewController {
   @private
@@ -15,15 +16,10 @@
     NSMutableArray *watchedRepositories;
     NSMutableArray *organizationRepositories;
 	NSUInteger orgReposLoaded;
+	BOOL orgReposInitialized;
 }
 
-@property(nonatomic,retain) NSMutableArray *publicRepositories;
-@property(nonatomic,retain) NSMutableArray *privateRepositories;
-@property(nonatomic,retain) NSMutableArray *watchedRepositories;
-@property(nonatomic,retain) NSMutableArray *organizationRepositories;
-@property(nonatomic,retain) GHUser *user;
-@property(nonatomic,readonly) GHUser *currentUser;
-
++ (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
 
 @end

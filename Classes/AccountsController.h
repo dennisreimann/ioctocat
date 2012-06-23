@@ -6,14 +6,12 @@
 @class UserCell;
 
 @interface AccountsController : UITableViewController <AuthenticationControllerDelegate, TokenResolverControllerDelegate> {
-	NSMutableArray *accounts;
+	IBOutlet UserCell *userCell;
   @private
-    IBOutlet UserCell *userCell;
     AuthenticationController *authController;
 	TokenResolverController *tokenController;
+	NSMutableArray *accounts;
 }
-
-@property(nonatomic,retain)NSMutableArray *accounts;
 
 + (void)saveAccounts:(NSMutableArray *)theAccounts;
 - (IBAction)addAccount:(id)sender;

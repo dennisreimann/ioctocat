@@ -3,6 +3,9 @@
 
 
 @interface DiffController ()
+@property(nonatomic,retain)NSArray *files;
+@property(nonatomic,assign)NSUInteger index;
+
 - (NSString *)htmlFormatDiff:(NSString *)theDiff;
 @end
 
@@ -11,7 +14,6 @@
 
 @synthesize files;
 @synthesize index;
-@synthesize contentView;
 
 - (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
     [super initWithNibName:@"Diff" bundle:nil];
@@ -21,8 +23,8 @@
 }
 
 - (void)dealloc {
-    [files release], files = nil;
     [contentView release], contentView = nil;
+    [files release], files = nil;
     [super dealloc];
 }
 
@@ -32,7 +34,6 @@
 	self.title = [[fileInfo objectForKey:@"filename"] lastPathComponent];
 	NSString *patch = [fileInfo objectForKey:@"patch"];
 	NSString *formattedPatch = [self htmlFormatDiff:patch];
-	DJLog(@"Patch:\n-----------------------------------\n%@", patch);
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *html = [NSString stringWithFormat:format, formattedPatch];
@@ -43,10 +44,6 @@
 	[contentView stopLoading];
 	contentView.delegate = nil;
 	[super viewWillDisappear:animated];
-}
-					  
-- (void)viewDidUnload {
-	self.contentView = nil;
 }
 
 - (NSString *)htmlFormatDiff:(NSString *)theDiff {
@@ -72,7 +69,6 @@
 	if (width > webView.frame.size.width) {
 		NSString *js = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.width = '%dpx';", width];
 		[webView stringByEvaluatingJavaScriptFromString:js];
-		DJLog(@"Reset width: %@", js);
 	}
 }
 

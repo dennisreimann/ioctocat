@@ -2,12 +2,19 @@
 #import "FeedEntryController.h"
 
 
+@interface FeedController ()
+@property(nonatomic,retain)GHFeed *feed;
+@end
+
+
 @implementation FeedController
+
+@synthesize feed;
 
 - (id)initWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle {
 	[super initWithNibName:@"Feed" bundle:nil];
 	self.title = theTitle;
-	feed = [theFeed retain];
+	self.feed = theFeed;
 	[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
@@ -73,7 +80,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:feed andCurrentIndex:indexPath.row];
-	entryController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
 }

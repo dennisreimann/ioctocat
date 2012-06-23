@@ -17,9 +17,13 @@
 #import "FeedController.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
+#import "AccountController.h"
 
 
 @interface UserController ()
+@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,readonly)GHUser *currentUser;
+
 - (void)displayUser;
 @end
 
@@ -28,29 +32,55 @@
 
 @synthesize user;
 
++ (id)controllerWithUser:(GHUser *)theUser {
+	return [[[UserController alloc] initWithUser:theUser] autorelease];
+}
+
 - (id)initWithUser:(GHUser *)theUser {
     [super initWithNibName:@"User" bundle:nil];
+	
 	self.user = theUser;
-    return self;
+    [user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	
+	return self;
+}
+
+- (AccountController *)accountController {
+	return [[iOctocat sharedInstance] accountController];
+}
+
+- (UIViewController *)parentViewController {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
+}
+
+- (UINavigationItem *)navItem {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!user) self.user = self.currentUser; // Set to currentUser in case this controller is initialized from the TabBar
-	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
-	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(user.isLoaded) ? [self displayUser] : [user loadData];
-	if (!user.repositories.isLoaded) [user.repositories loadData];
-	if (!user.organizations.isLoaded) [user.organizations loadData];
-	self.navigationItem.title = (self.user == self.currentUser) ? @"Profile" : user.login;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-    // Background
+    
+	// Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
     tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	BOOL isProfile = [user.login isEqualToString:self.currentUser.login];
+	self.navItem.title = isProfile ? @"Profile" : user.login;
+	self.navItem.titleView = nil;
+	self.navItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	
+	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
+	(user.isLoaded) ? [self displayUser] : [user loadData];
+	if (!user.repositories.isLoaded) [user.repositories loadData];
+	if (!user.organizations.isLoaded) [user.organizations loadData];
 }
 
 - (void)dealloc {
@@ -88,20 +118,15 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet;
-	if ([self.currentUser isEqual:user]) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub",  nil];
-	} else {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
-	}
-    self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
+	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (![self.currentUser isEqual:user] && buttonIndex == 0) {
+	if (buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
-    } else if (([self.currentUser isEqual:user] && buttonIndex == 0) || (![self.currentUser isEqual:user] && buttonIndex == 1)) {
+    } else if (buttonIndex == 1) {
         NSURL *userURL = [NSURL URLWithFormat:kUserGithubFormat, user.login];
 		WebController *webController = [[WebController alloc] initWithURL:userURL];
 		[self.navigationController pushViewController:webController animated:YES];
@@ -217,10 +242,9 @@
 	if (section == 0 && row == 1 && user.blogURL) {
 		viewController = [[WebController alloc] initWithURL:user.blogURL];
 	} else if (section == 0 && row == 2 && user.email) {
-		MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
+		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:[NSArray arrayWithObject:user.email]];
-		
 		[self presentModalViewController:mailComposer animated:YES];
 		[mailComposer release];
 	} else if (section == 1 && row == 0) {
@@ -237,8 +261,8 @@
 	}
 	// Maybe push a controller
 	if (viewController) {
-		viewController.hidesBottomBarWhenPushed = YES;
-		[self.navigationController pushViewController:viewController animated:YES];
+		UINavigationController *navController = [[iOctocat sharedInstance] navController];
+		[navController pushViewController:viewController animated:YES];
 		[viewController release];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];

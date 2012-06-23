@@ -3,6 +3,11 @@
 #import "GHComment.h"
 
 
+@interface CommentController ()
+@property(nonatomic,retain)GHComment *comment;
+@property(nonatomic,retain)id comments;
+@end
+
 @implementation CommentController
 
 @synthesize comment;

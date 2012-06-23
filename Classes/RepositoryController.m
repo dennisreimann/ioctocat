@@ -20,23 +20,29 @@
 
 
 @interface RepositoryController ()
+@property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,readonly)GHUser *currentUser;
+
 - (void)displayRepository;
 @end
 
 
 @implementation RepositoryController
 
+@synthesize repository;
+
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Repository" bundle:nil];
-	repository = [theRepository retain];
+	self.repository = theRepository;
+	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	(repository.isLoaded) ? [self displayRepository] : [repository loadData];
@@ -73,7 +79,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isWatching:repository] ? @"Stop Watching" : @"Watch"), @"Show on GitHub", nil];
-	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 

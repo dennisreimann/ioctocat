@@ -10,11 +10,13 @@
 
 
 @interface AccountsController ()
+@property(nonatomic,retain)NSMutableArray *accounts;
 @property(nonatomic,readonly)AuthenticationController *authController;
 @property(nonatomic,readonly)TokenResolverController *tokenController;
 
 - (void)convertOldAccount;
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
+- (void)openAccount:(GHAccount *)theAccount;
 @end
 
 
@@ -26,6 +28,14 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:theAccounts forKey:kAccountsDefaultsKey];
 	[defaults synchronize];
+}
+
+- (void)dealloc {
+	[accounts release], accounts = nil;
+	[authController release], authController = nil;
+	[tokenController release], tokenController = nil;
+    [userCell release], userCell = nil;
+    [super dealloc];
 }
 
 - (void)viewDidLoad {
@@ -97,6 +107,17 @@
 	[self editAccountAtIndex:NSNotFound];
 }
 
+- (void)openAccount:(GHAccount *)theAccount {
+	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
+	[iOctocat sharedInstance].currentAccount = theAccount;
+	[iOctocat sharedInstance].accountController = viewController;
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
+
+	// Resolve token
+	if ([theAccount.token length] < 32) [self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
+}
+
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -123,8 +144,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSDictionary *accountDict = [accounts objectAtIndex:indexPath.row];
 	GHAccount *account = [GHAccount accountWithDict:accountDict];
-	[[iOctocat sharedInstance] setCurrentAccount:account];
-	[self.authController authenticateAccount:account];
+	[iOctocat sharedInstance].currentAccount = account;
+	if (account.user.isAuthenticated) {
+		[self openAccount:account];
+	} else {
+		[self.authController authenticateAccount:account];
+	}
 }
 
 #pragma mark Editing
@@ -168,15 +193,7 @@
 
 - (void)authenticatedAccount:(GHAccount *)theAccount {
 	if (theAccount.user.isAuthenticated) {
-		[[iOctocat sharedInstance] setCurrentAccount:theAccount];
-		AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
-		[self.navigationController pushViewController:viewController animated:YES];
-		[viewController release];
-		
-		// Resolve token
-		if ([theAccount.token length] < 32) {
-			[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
-		}
+		[self openAccount:theAccount];
 	} else {
 		[iOctocat alert:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
 		NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];

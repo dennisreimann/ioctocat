@@ -5,8 +5,8 @@
 @class GHUser, LabeledCell, OrganizationCell;
 
 @interface UserController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
-	GHUser *user;
   @private
+	GHUser *user;
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UIImageView *gravatarView;
 	IBOutlet UILabel *nameLabel;
@@ -28,9 +28,7 @@
     IBOutlet OrganizationCell *organizationCell;
 }
 
-@property(nonatomic,retain) GHUser *user;
-@property(nonatomic,readonly) GHUser *currentUser;
-
++ (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
 - (IBAction)showActions:(id)sender;
 

@@ -13,7 +13,6 @@
 - (id)initWithDelegate:(UIViewController *)theDelegate;
 - (void)authenticateAccount:(GHAccount *)theAccount;
 - (void)stopAuthenticating;
-
 @end
 
 @protocol AuthenticationControllerDelegate

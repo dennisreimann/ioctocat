@@ -1,5 +1,6 @@
 #import "GHAccount.h"
 #import "GHUser.h"
+#import "GHRepositories.h"
 #import "GHOrganizations.h"
 #import "iOctocat.h"
 
@@ -27,6 +28,7 @@
 	// User with authenticated URLs
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
 	self.user.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
+	self.user.repositories.resourceURL = [NSURL URLWithString:kUserAuthenticatedReposFormat];
 	self.user.organizations.resourceURL = [NSURL URLWithString:kUserAuthenticatedOrgsFormat];
 	
     return self;

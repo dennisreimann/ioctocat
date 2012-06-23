@@ -5,8 +5,8 @@
 @class GHOrganization, GHUser, LabeledCell, UserCell;
 
 @interface OrganizationController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
-	GHOrganization *organization;
   @private
+	GHOrganization *organization;
 	IBOutlet UIView *tableHeaderView;
 	IBOutlet UIImageView *gravatarView;
 	IBOutlet UILabel *nameLabel;
@@ -24,8 +24,6 @@
 	IBOutlet LabeledCell *emailCell;
     IBOutlet UserCell *userCell;
 }
-
-@property(nonatomic,retain) GHOrganization *organization;
 
 - (id)initWithOrganization:(GHOrganization *)theOrganization;
 - (IBAction)showActions:(id)sender;

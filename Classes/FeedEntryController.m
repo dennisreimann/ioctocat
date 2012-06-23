@@ -18,6 +18,12 @@
 #import "NSDate+Nibware.h"
 
 
+@interface FeedEntryController ()
+@property(nonatomic,retain)GHFeed *feed;
+@property(nonatomic,retain)GHFeedEntry *entry;
+@end
+
+
 @implementation FeedEntryController
 
 @synthesize feed;
@@ -32,8 +38,12 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (feed) self.navigationItem.rightBarButtonItem = controlItem;
-	self.entry = [feed.entries objectAtIndex:currentIndex];
+	
+	if (feed) {
+		self.navigationItem.rightBarButtonItem = controlItem;
+		self.entry = [feed.entries objectAtIndex:currentIndex];
+	}
+	
     // Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
     headView.backgroundColor = background;

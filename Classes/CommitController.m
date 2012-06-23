@@ -16,6 +16,8 @@
 
 
 @interface CommitController ()
+@property(nonatomic,retain)GHCommit *commit;
+
 - (void)displayCommit;
 @end
 
@@ -90,7 +92,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", [NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Show on GitHub", nil];
-	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 

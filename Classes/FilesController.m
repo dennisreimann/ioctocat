@@ -2,6 +2,11 @@
 #import "DiffController.h"
 
 
+@interface FilesController ()
+@property(nonatomic,retain)NSArray *files;
+@end
+
+
 @implementation FilesController
 
 @synthesize files;

@@ -2,9 +2,16 @@
 #import "IssueController.h"
 #import "IssueFormController.h"
 #import "GHIssue.h"
+#import "GHIssues.h"
+#import "IssueCell.h"
+#import "GHRepository.h"
 
 
 @interface IssuesController ()
+@property(nonatomic,retain)NSArray *issueList;
+@property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,readonly)GHIssues *currentIssues;
+
 - (void)issueLoadingStarted;
 - (void)issueLoadingFinished;
 @end
@@ -13,11 +20,14 @@
 @implementation IssuesController
 
 @synthesize repository;
+@synthesize issueList;
 
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"Issues";
     self.repository = theRepository;
+	self.issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
+	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
@@ -25,21 +35,20 @@
     [super viewDidLoad];
     self.navigationItem.titleView = issuesControl;
 	self.navigationItem.rightBarButtonItem = addButton;
-    issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
-	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    
 	issuesControl.selectedSegmentIndex = 0;
     if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
 }
 
 - (void)dealloc {
 	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[addButton release];
-	[issuesControl release];
-	[loadingIssuesCell release];
-	[noIssuesCell release];
-	[issueCell release];
-    [issueList release];
-    [repository release];
+	[addButton release], addButton = nil;
+	[issuesControl release], issuesControl = nil;
+	[loadingIssuesCell release], loadingIssuesCell = nil;
+	[noIssuesCell release], noIssuesCell = nil;
+	[issueCell release], issueCell = nil;
+    [issueList release], issueList = nil;
+    [repository release], repository = nil;
     [super dealloc];
 }
 

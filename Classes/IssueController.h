@@ -1,8 +1,7 @@
 #import <UIKit/UIKit.h>
-#import "GHIssue.h"
 
 
-@class LabeledCell, TextCell, CommentCell, IssuesController;
+@class GHIssue, LabeledCell, TextCell, CommentCell, IssuesController;
 
 @interface IssueController : UITableViewController <UIActionSheetDelegate> {
   @private

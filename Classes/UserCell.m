@@ -13,11 +13,11 @@
     [super dealloc];
 }
 
-- (void)viewWillAppear: (BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
 	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];    
 }
 
-- (void)viewWillDisappear: (BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
 	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
 }
 

@@ -2,10 +2,10 @@
 
 
 @interface WebController : UIViewController <UIWebViewDelegate> {
-  @private
-	NSURL *url;
 	IBOutlet UIWebView *webView;
 	IBOutlet UIActivityIndicatorView *activityView;
+  @private
+	NSURL *url;
 }
 
 - (id)initWithURL:(NSURL *)theURL;

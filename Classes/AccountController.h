@@ -1,19 +1,18 @@
 #import <UIKit/UIKit.h>
-#import "AccountController.h"
-#import "MyFeedsController.h"
 
 
 @class GHAccount;
 
-@interface AccountController : UITabBarController {
-  @private
-	IBOutlet MyFeedsController *feedController;
-	GHAccount *account;
+@interface AccountController : UIViewController <UITabBarDelegate> {
+	IBOutlet UITabBar *tabBar;
+	IBOutlet UITabBarItem *feedsTabBarItem;
+	IBOutlet UITabBarItem *reposTabBarItem;
+	IBOutlet UITabBarItem *profileTabBarItem;
+	IBOutlet UITabBarItem *orgsTabBarItem;
+	IBOutlet UITabBarItem *searchTabBarItem;
 }
 
-@property(nonatomic,retain)GHAccount *account;
-
++ (id)controllerWithAccount:(GHAccount *)theAccount;
 - (id)initWithAccount:(GHAccount *)theAccount;
 										 
 @end
-

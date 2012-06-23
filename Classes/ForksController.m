@@ -4,6 +4,12 @@
 #import "RepositoryCell.h"
 
 
+@interface ForksController ()
+@property(nonatomic,readonly)GHForks *currentForks;
+@property(nonatomic,retain)GHRepository *repository;
+@end
+
+
 @implementation ForksController
 
 @synthesize repository;
@@ -12,12 +18,12 @@
     [super initWithNibName:@"Forks" bundle:nil];
 	self.title = @"Forks";
     self.repository = theRepository;
+    [repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	if (![self.currentForks isLoaded]) [self.currentForks loadData];
 }
 

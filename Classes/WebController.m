@@ -1,11 +1,18 @@
 #import "WebController.h"
 
 
+@interface WebController ()
+@property(nonatomic,retain)NSURL *url;
+@end
+
+
 @implementation WebController
+
+@synthesize url;
 
 - (id)initWithURL:(NSURL *)theURL {
     [super initWithNibName:@"WebView" bundle:nil];
-	url = [theURL retain];
+	self.url = theURL;
     return self;
 }
 

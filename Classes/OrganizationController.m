@@ -15,6 +15,8 @@
 
 
 @interface OrganizationController ()
+@property(nonatomic,retain) GHOrganization *organization;
+
 - (void)displayOrganization;
 @end
 
@@ -75,7 +77,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub", nil];
-	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
@@ -207,7 +209,6 @@
 	}
 	// Maybe push a controller
 	if (viewController) {
-		viewController.hidesBottomBarWhenPushed = YES;
 		[self.navigationController pushViewController:viewController animated:YES];
 		[viewController release];
 	}

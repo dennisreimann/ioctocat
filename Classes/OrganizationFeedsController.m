@@ -1,7 +1,14 @@
 #import "OrganizationFeedsController.h"
 #import "OrganizationController.h"
+#import "OrganizationCell.h"
 #import "FeedController.h"
+#import "GHOrganizations.h"
 #import "GHOrganization.h"
+
+
+@interface OrganizationFeedsController ()
+@property(nonatomic,retain) GHOrganizations *organizations;
+@end
 
 
 @implementation OrganizationFeedsController

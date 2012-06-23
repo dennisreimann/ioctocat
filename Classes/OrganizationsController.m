@@ -1,13 +1,27 @@
 #import "OrganizationsController.h"
 #import "OrganizationController.h"
+#import "OrganizationCell.h"
 #import "FeedController.h"
+#import "GHOrganizations.h"
 #import "GHOrganization.h"
+#import "GHUser.h"
 #import "iOctocat.h"
+#import "AccountController.h"
+
+
+@interface OrganizationsController ()
+@property(nonatomic,retain)GHOrganizations *organizations;
+@property(nonatomic,readonly)GHUser *currentUser;
+@end
 
 
 @implementation OrganizationsController
 
 @synthesize organizations;
+
++ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
+    return [[[OrganizationsController alloc] initWithOrganizations:theOrganizations] autorelease];
+}
 
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
     [super initWithNibName:@"Organizations" bundle:nil];
@@ -16,10 +30,29 @@
     return self;
 }
 
+- (AccountController *)accountController {
+	return [[iOctocat sharedInstance] accountController];
+}
+
+- (UIViewController *)parentViewController {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
+}
+
+- (UINavigationItem *)navItem {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!organizations) self.organizations = self.currentUser.organizations; // Set to currentUser.organizations in case this controller is initialized from the TabBar
-    self.navigationItem.title = @"Organizations";
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+    self.navItem.title = @"Organizations";
+	self.navItem.titleView = nil;
+	self.navItem.rightBarButtonItem = nil;
+	
     if (!organizations.isLoaded) [organizations loadData];
 }
 

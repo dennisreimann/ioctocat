@@ -921,8 +921,6 @@
 		6FAF9D2C15927A7A00997A28 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				6FAAF67015935D6C003D0344 /* TokenResolverController.h */,
-				6FAAF67115935D6C003D0344 /* TokenResolverController.m */,
 				6F27CD0E159113D900E15B34 /* AccountsController.h */,
 				6F27CD0F159113D900E15B34 /* AccountsController.m */,
 				6F27CD1D15911E4700E15B34 /* AccountFormController.h */,
@@ -931,6 +929,8 @@
 				6FAF9D2E15927A8E00997A28 /* AccountController.m */,
 				6FE91E4A0FAD13D500749370 /* AuthenticationController.h */,
 				6FE91E4B0FAD13D500749370 /* AuthenticationController.m */,
+				6FAAF67015935D6C003D0344 /* TokenResolverController.h */,
+				6FAAF67115935D6C003D0344 /* TokenResolverController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";

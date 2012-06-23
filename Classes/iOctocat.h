@@ -1,19 +1,15 @@
 #import <UIKit/UIKit.h>
 #import "AppConstants.h"
-#import "AccountsController.h"
-#import "AuthenticationController.h"
-#import "ASINetworkQueue.h"
 
 
-@class GHAccount, GHUser, GHOrganization;
+@class ASINetworkQueue, AccountController, GHAccount, GHUser, GHOrganization;
 
-@interface iOctocat : NSObject <UIApplicationDelegate> {
-	GHAccount *currentAccount;
-}
+@interface iOctocat : NSObject <UIApplicationDelegate>
 
 @property(nonatomic,retain)GHAccount *currentAccount;
-@property(nonatomic,retain)IBOutlet UINavigationController *accountsNavController;
+@property(nonatomic,retain)AccountController *accountController;
 @property(nonatomic,retain)IBOutlet UIWindow *window;
+@property(nonatomic,retain)IBOutlet UINavigationController *navController;
 
 + (ASINetworkQueue *)queue;
 + (iOctocat *)sharedInstance;

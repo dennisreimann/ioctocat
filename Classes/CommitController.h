@@ -24,8 +24,6 @@
 	IBOutlet UIImageView *gravatarView;
 }
 
-@property(nonatomic,retain)GHCommit *commit;
-
 - (id)initWithCommit:(GHCommit *)theCommit;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;

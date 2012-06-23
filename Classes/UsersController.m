@@ -4,6 +4,11 @@
 #import "UserCell.h"
 
 
+@interface UsersController ()
+@property(nonatomic,retain)GHUsers *users;
+@end
+
+
 @implementation UsersController
 
 @synthesize users;
@@ -22,9 +27,9 @@
 
 - (void)dealloc {
 	[users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [noUsersCell release];
-    [loadingCell release];
-    [userCell release];
+    [noUsersCell release], noUsersCell = nil;
+    [loadingCell release], loadingCell = nil;
+    [userCell release], userCell = nil;
     [super dealloc];
 }
 

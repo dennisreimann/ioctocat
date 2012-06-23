@@ -1,4 +1,5 @@
 #import "GHOrganization.h"
+#import "GHAccount.h"
 #import "GHFeed.h"
 #import "GHUser.h"
 #import "GHUsers.h"
@@ -66,7 +67,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHOrganization login:'%@' status:'%d' name:'%@' email:'%@' company:'%@' location:'%@' blogURL:'%@' publicRepoCount:'%d' privateRepoCount:'%d'>", login, loadingStatus, name, email, company, location, blogURL, publicRepoCount, privateRepoCount];
+    return [NSString stringWithFormat:@"<GHOrganization login:'%@' status:'%d' name:'%@'>", login, loadingStatus, name];
 }
 
 - (int)compareByName:(GHOrganization *)theOtherOrg {
@@ -78,10 +79,8 @@
 	[login release];
 	login = theLogin;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *username = [defaults stringForKey:kLoginDefaultsKey];
-	NSString *token = [defaults stringForKey:kTokenDefaultsKey];
-    NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, username, token];
+    GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+    NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, account.login, account.token];
 	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationRepositoriesFormat, login];
 	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationMembersFormat, login];
 

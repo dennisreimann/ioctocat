@@ -13,21 +13,30 @@
 #import "NSURL+Extensions.h"
 #import "iOctocat.h"
 #import "GHUser.h"
+#import "GHIssue.h"
+#import "GHRepository.h"
 
 
 @interface IssueController ()
+@property(nonatomic,retain)GHIssue *issue;
+@property(nonatomic,retain)IssuesController *listController;
+
 - (void)displayIssue;
 - (void)displayComments;
 - (GHUser *)currentUser;
 - (BOOL)issueBelongsToCurrentUser;
 @end
 
+
 @implementation IssueController
+
+@synthesize issue;
+@synthesize listController;
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
     [super initWithNibName:@"Issue" bundle:nil];
-	issue = [theIssue retain];
-	listController = [theController retain];
+	self.issue = theIssue;
+	self.listController = theController;
     return self;
 }
 
@@ -142,7 +151,7 @@
     } else {
         actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
     }
-	self.tabBarController.tabBar.hidden ? [actionSheet showInView:self.view] : [actionSheet showFromTabBar:self.tabBarController.tabBar];
+	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 

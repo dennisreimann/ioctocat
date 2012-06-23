@@ -10,7 +10,6 @@
 
 - (id)initWithDelegate:(UIViewController *)theDelegate;
 - (void)resolveForLogin:(NSString *)theLogin andPassword:(NSString *)thePassword;
-
 @end
 
 @protocol TokenResolverControllerDelegate

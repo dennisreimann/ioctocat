@@ -2,32 +2,75 @@
 #import "RepositoryController.h"
 #import "UserController.h"
 #import "GHUser.h"
+#import "GHSearch.h"
+#import "OverlayController.h"
+#import "RepositoryCell.h"
+#import "UserCell.h"
+#import "AccountController.h"
+
+
+@interface SearchController ()
+@property(nonatomic,readonly)GHSearch *currentSearch;
+@property(nonatomic,retain)NSArray *searches;
+@end
 
 
 @implementation SearchController
 
+@synthesize searches;
+
++ (id)controllerWithUser:(GHUser *)theUser {
+	return [[[SearchController alloc] initWithUser:theUser] autorelease];
+}
+
+- (id)initWithUser:(GHUser *)theUser {
+	[super initWithNibName:@"Search" bundle:nil];
+	
+	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
+	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
+	self.searches = [NSArray arrayWithObjects:userSearch, repoSearch, nil];
+	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	
+	return self;
+}
+
+- (AccountController *)accountController {
+	return [[iOctocat sharedInstance] accountController];
+}
+
+- (UIViewController *)parentViewController {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
+}
+
+- (UINavigationItem *)navItem {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = @"Search";
 	self.tableView.tableHeaderView = searchBar;
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
 	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
-	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
-	searches = [[NSArray alloc] initWithObjects:userSearch, repoSearch, nil];
-	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.navItem.title = @"Search";
+	self.navItem.titleView = searchControl;
+	self.navItem.rightBarButtonItem = nil;
 }
 
 - (void)dealloc {
 	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[userCell release];
-	[searches release];
-	[overlayController release];
-	[searchBar release];
-	[searchControl release];
-	[loadingCell release];
-	[noResultsCell release];
+	[userCell release], userCell = nil;
+	[searches release], searches = nil;
+	[overlayController release], overlayController = nil;
+	[searchBar release], searchBar = nil;
+	[searchControl release], searchControl = nil;
+	[loadingCell release], loadingCell = nil;
+	[noResultsCell release], noResultsCell = nil;
     [super dealloc];
 }
 
@@ -110,7 +153,6 @@
 	} else if ([object isKindOfClass:[GHUser class]]) {
 		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
 	}
-	viewController.hidesBottomBarWhenPushed = YES;
 	[self.navigationController pushViewController:viewController animated:YES];
 	[viewController release];
 }

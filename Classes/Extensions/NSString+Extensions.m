@@ -100,4 +100,15 @@ finish:
     return result;
 }
 
+// Taken from https://gist.github.com/1256354
+- (NSString *)stringByEscapingForURLArgument {
+    // Encode all the reserved characters, per RFC 3986 (<http://www.ietf.org/rfc/rfc3986.txt>)
+    NSString *escapedString = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+                                                                                  (CFStringRef)self,
+                                                                                  NULL,
+                                                                                  (CFStringRef)@"!*'\"();:@&=+$,/?%#[] ",
+                                                                                  kCFStringEncodingUTF8);
+    return [escapedString autorelease];
+}
+
 @end

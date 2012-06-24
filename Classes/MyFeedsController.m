@@ -18,8 +18,8 @@
 @property(nonatomic,retain)NSArray *feeds;
 @property(nonatomic,readonly)GHFeed *currentFeed;
 
-- (NSDate *)lastReadingDateForURL:(NSURL *)url;
-- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url;
+- (NSDate *)lastReadingDateForPath:(NSString *)thePath;
+- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath;
 @end
 
 @implementation MyFeedsController
@@ -38,14 +38,14 @@
     [user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     loadCounter = 0;
 	
-	NSURL *newsFeedURL = [NSURL URLWithFormat:kUserNewsFeedFormat, user.login];
-	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserActivityFeedFormat, user.login];
-	GHFeed *newsFeed = [GHFeed resourceWithURL:newsFeedURL];
-	GHFeed *activityFeed = [GHFeed resourceWithURL:activityFeedURL];
+	NSString *newsFeedPath = [NSString stringWithFormat:kUserNewsFeedFormat, user.login];
+	NSString *activityFeedPath = [NSString stringWithFormat:kUserActivityFeedFormat, user.login];
+	GHFeed *newsFeed = [GHFeed resourceWithPath:newsFeedPath];
+	GHFeed *activityFeed = [GHFeed resourceWithPath:activityFeedPath];
 	self.feeds = [NSArray arrayWithObjects:newsFeed, activityFeed, nil];
 	for (GHFeed *feed in feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = [self lastReadingDateForURL:feed.resourceURL];
+		feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
 	}
 	
 	return self;
@@ -143,7 +143,7 @@
 			[self.tableView reloadData];
 			loadCounter -= 1;
 			refreshHeaderView.lastUpdatedDate = self.currentFeed.lastReadingDate;
-			[self setLastReadingDate:feed.lastReadingDate forURL:feed.resourceURL];
+			[self setLastReadingDate:feed.lastReadingDate forPath:feed.resourcePath];
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
@@ -201,16 +201,16 @@
 
 #pragma mark Persistent State
 
-- (NSDate *)lastReadingDateForURL:(NSURL *)url {
+- (NSDate *)lastReadingDateForPath:(NSString *)thePath {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
 	NSDate *date = [userDefaults objectForKey:key];
 	return date;
 }
 
-- (void)setLastReadingDate:(NSDate *)date forURL:(NSURL *)url {
+- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:[url absoluteString]];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
 	[defaults setValue:date forKey:key];
 	[defaults synchronize];
 }

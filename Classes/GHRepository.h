@@ -8,7 +8,7 @@
 	NSString *name;
 	NSString *owner;
 	NSString *descriptionText;
-	NSURL *githubURL;
+	NSURL *htmlURL;
 	NSURL *homepageURL;
 	NSInteger forkCount;
 	NSInteger watcherCount;
@@ -23,7 +23,7 @@
 @property(nonatomic,retain)NSString *name;
 @property(nonatomic,retain)NSString *owner;
 @property(nonatomic,retain)NSString *descriptionText;
-@property(nonatomic,retain)NSURL *githubURL;
+@property(nonatomic,retain)NSURL *htmlURL;
 @property(nonatomic,retain)NSURL *homepageURL;
 @property(nonatomic,retain)GHIssues *openIssues;
 @property(nonatomic,retain)GHIssues *closedIssues;

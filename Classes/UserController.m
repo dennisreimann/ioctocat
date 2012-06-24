@@ -41,7 +41,7 @@
 	
 	self.user = theUser;
     [user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	
@@ -85,7 +85,7 @@
 
 - (void)dealloc {
 	[user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user release], user = nil;
@@ -127,8 +127,7 @@
 	if (buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
     } else if (buttonIndex == 1) {
-        NSURL *userURL = [NSURL URLWithFormat:kUserGithubFormat, user.login];
-		WebController *webController = [[WebController alloc] initWithURL:userURL];
+		WebController *webController = [[WebController alloc] initWithURL:user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
     }
@@ -144,7 +143,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
+	if ([keyPath isEqualToString:kGravatarKeyPath]) {
 		gravatarView.image = user.gravatar;
 	} else if (object == user && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.isLoaded) {

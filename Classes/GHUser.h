@@ -12,6 +12,7 @@
 	NSString *location;
 	NSURL *gravatarURL;
 	NSURL *blogURL;
+	NSURL *htmlURL;
 	UIImage *gravatar;
 	NSUInteger publicGistCount;
 	NSUInteger privateGistCount;
@@ -37,6 +38,7 @@
 @property(nonatomic,retain)NSString *location;
 @property(nonatomic,retain)NSURL *gravatarURL;
 @property(nonatomic,retain)NSURL *blogURL;
+@property(nonatomic,retain)NSURL *htmlURL;
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHOrganizations *organizations;
 @property(nonatomic,retain)GHRepositories *repositories;

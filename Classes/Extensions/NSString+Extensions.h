@@ -6,4 +6,5 @@
 - (BOOL)isEmpty;
 - (NSString *)escapeHTML;
 - (NSString *)stringByDecodingXMLEntities;
+- (NSString *)stringByEscapingForURLArgument;
 @end

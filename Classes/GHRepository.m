@@ -12,7 +12,7 @@
 @synthesize name;
 @synthesize owner;
 @synthesize descriptionText;
-@synthesize githubURL;
+@synthesize htmlURL;
 @synthesize homepageURL;
 @synthesize isPrivate;
 @synthesize isFork;
@@ -25,7 +25,7 @@
 @synthesize pushedAtDate;
 
 + (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	return [[[[self class] alloc] initWithOwner:theOwner andName:theName] autorelease];
+	return [[[self.class alloc] initWithOwner:theOwner andName:theName] autorelease];
 }
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
@@ -35,15 +35,15 @@
 }
 
 - (void)dealloc {
-	[name release];
-	[owner release];
-	[descriptionText release];
-	[githubURL release];
-	[homepageURL release];
-    [openIssues release];
-    [closedIssues release];
-    [forks release];
-	[branches release];
+	[name release], name = nil;
+	[owner release], owner = nil;
+	[descriptionText release], descriptionText = nil;
+	[htmlURL release], htmlURL = nil;
+	[homepageURL release], homepageURL = nil;
+    [openIssues release], openIssues = nil;
+    [closedIssues release], closedIssues = nil;
+    [forks release], forks = nil;
+	[branches release], branches = nil;
     [super dealloc];
 }
 
@@ -57,7 +57,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' descriptionText:'%@' githubURL:'%@' homepageURL:'%@' isPrivate:'%@' isFork:'%@' forks:'%d' watchers:'%d'>", name, owner, descriptionText, githubURL, homepageURL, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO", forkCount, watcherCount];
+    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' isPrivate:'%@' isFork:'%@'>", name, owner, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO"];
 }
 
 - (NSString *)repoId {
@@ -68,20 +68,17 @@
     return [NSString stringWithFormat:@"%@/%@/%@", owner, isPrivate ? @"private" : @"public", name];
 }
 
-- (NSURL *)resourceURL {
+- (NSString *)resourcePath {
 	// Dynamic resourceURL, because it depends on the
 	// owner and name which isn't always available in advance
-	return [NSURL URLWithFormat:kRepoFormat, owner, name];
+	return [NSString stringWithFormat:kRepoFormat, owner, name];
 }
 
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-    // Forks
     self.forks = [GHForks forksWithRepository:self];
-	// Branches
     self.branches = [GHBranches branchesWithRepository:self];
-	// Issues
 	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
 	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];
 }
@@ -107,7 +104,7 @@
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
     
-    self.githubURL = [NSURL URLWithString:[resource objectForKey:@"url"]];
+    self.htmlURL = [NSURL URLWithString:[resource objectForKey:@"html_url"]];
     self.homepageURL = [NSURL smartURLFromString:[resource objectForKey:@"homepage"]];
     self.descriptionText = [resource objectForKey:@"description"];
     self.isFork = [[resource objectForKey:@"fork"] boolValue];

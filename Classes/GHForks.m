@@ -16,7 +16,7 @@
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super init];
     self.repository = theRepository;
-	self.resourceURL = [NSURL URLWithFormat:kRepoForksFormat, repository.owner, repository.name];
+	self.resourcePath = [NSString stringWithFormat:kRepoForksFormat, repository.owner, repository.name];
 	return self;    
 }
 

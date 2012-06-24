@@ -3,6 +3,7 @@
 #import "GHRepositories.h"
 #import "GHOrganizations.h"
 #import "iOctocat.h"
+#import "NSString+Extensions.h"
 
 
 @implementation GHAccount
@@ -12,6 +13,8 @@
 @synthesize password;
 @synthesize token;
 @synthesize endpoint;
+@synthesize endpointURL;
+@synthesize apiURL;
 
 + (id)accountWithDict:(NSDictionary *)theDict {
 	return [[[[self class] alloc] initWithDict:theDict] autorelease];
@@ -25,11 +28,20 @@
 	self.token = [theDict valueForKey:kTokenDefaultsKey];
 	self.endpoint = [theDict valueForKey:kEndpointDefaultsKey];
 	
-	// User with authenticated URLs
+	// construct endpoint URL
+	if ([endpoint isEmpty]) {
+		self.endpointURL = [NSURL URLWithString:kGitHubBaseURL];
+		self.apiURL = [NSURL URLWithString:kGitHubApiURL];
+	} else {
+		self.endpointURL = [NSURL URLWithString:endpoint];
+		self.apiURL = [endpointURL URLByAppendingPathComponent:kEnterpriseApiPath];
+	}
+	
+	// user with authenticated URLs
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.user.resourceURL = [NSURL URLWithString:kUserAuthenticatedFormat];
-	self.user.repositories.resourceURL = [NSURL URLWithString:kUserAuthenticatedReposFormat];
-	self.user.organizations.resourceURL = [NSURL URLWithString:kUserAuthenticatedOrgsFormat];
+	self.user.resourcePath = kUserAuthenticatedFormat;
+	self.user.repositories.resourcePath = kUserAuthenticatedReposFormat;
+	self.user.organizations.resourcePath = kUserAuthenticatedOrgsFormat;
 	
     return self;
 }
@@ -40,6 +52,7 @@
     [password release], password = nil;
 	[token release], token = nil;
 	[endpoint release], endpoint = nil;
+	[endpointURL release], endpointURL = nil;
 	[super dealloc];
 }
 

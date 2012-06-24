@@ -10,7 +10,7 @@
 @synthesize entry;
 
 - (void)dealloc {
-	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[entry release], entry = nil;
 	[dateLabel release], dateLabel = nil;
 	[titleLabel release], titleLabel = nil;
@@ -29,7 +29,7 @@
 	NSString *icon = [NSString stringWithFormat:@"%@.png", entry.eventType];
 	iconView.image = [UIImage imageNamed:icon];
 	// Gravatar
-	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[entry.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = entry.user.gravatar;
 	if (!gravatarView.image && !entry.user.isLoaded) [entry.user loadData];
 }
@@ -55,7 +55,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath] && entry.user.gravatar) {
+	if ([keyPath isEqualToString:kGravatarKeyPath] && entry.user.gravatar) {
 		gravatarView.image = entry.user.gravatar;
 	}
 }

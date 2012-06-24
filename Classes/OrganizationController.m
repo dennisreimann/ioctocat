@@ -34,7 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	[organization addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[organization addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[organization.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[organization.publicMembers addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(organization.isLoaded) ? [self displayOrganization] : [organization loadData];
@@ -50,7 +50,7 @@
 
 - (void)dealloc {
 	[organization removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[organization removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[organization removeObserver:self forKeyPath:kGravatarKeyPath];
 	[organization.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[organization.publicMembers removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[organization release], organization = nil;
@@ -83,8 +83,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-        NSURL *userURL = [NSURL URLWithFormat:kOrganizationGithubFormat, organization.login];
-		WebController *webController = [[WebController alloc] initWithURL:userURL];
+		WebController *webController = [[WebController alloc] initWithURL:organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
     }
@@ -100,7 +99,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kOrganizationGravatarKeyPath]) {
+	if ([keyPath isEqualToString:kGravatarKeyPath]) {
 		gravatarView.image = organization.gravatar;
 	} else if (object == organization && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (organization.isLoaded) {

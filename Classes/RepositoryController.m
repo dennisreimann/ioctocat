@@ -87,8 +87,7 @@
     if (buttonIndex == 0) {
         [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
     } else if (buttonIndex == 1) {
-        NSURL *theURL = [NSURL URLWithFormat:kRepoGithubFormat, repository.owner, repository.name];
-		WebController *webController = [[WebController alloc] initWithURL:theURL];
+		WebController *webController = [[WebController alloc] initWithURL:repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
     }

@@ -8,7 +8,7 @@
 
 @property(nonatomic,retain)NSMutableArray *repositories;
 
-+ (id)repositoriesWithURL:(NSURL *)theURL;
-- (id)initWithURL:(NSURL *)theURL;
++ (id)repositoriesWithPath:(NSString *)thePath;
+- (id)initWithPath:(NSString *)thePath;
 
 @end

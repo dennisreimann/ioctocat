@@ -26,7 +26,22 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHFeed resourceURL:'%@'>", resourceURL];
+    return [NSString stringWithFormat:@"<GHFeed resourcePath:'%@'>", resourcePath];
+}
+
+#pragma mark Loading
+
+- (void)loadData {
+	if (self.isLoading) return;
+	self.error = nil;
+	self.loadingStatus = GHResourceStatusProcessing;
+	// Send the request
+	ASIFormDataRequest *request = [GHResource feedRequestForPath:self.resourcePath];
+	[request setDelegate:self];
+	[request setDidFinishSelector:@selector(loadingFinished:)];
+	[request setDidFailSelector:@selector(loadingFailed:)];
+	DJLog(@"Loading %@\n\n====\n\n", [request url]);
+	[[iOctocat queue] addOperation:request];
 }
 
 #pragma mark Feed parsing

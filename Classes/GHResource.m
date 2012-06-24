@@ -7,6 +7,7 @@
 
 
 @interface GHResource ()
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
 - (void)loadingFinished:(ASIHTTPRequest *)request;
 - (void)loadingFailed:(ASIHTTPRequest *)request;
 - (void)savingFinished:(ASIHTTPRequest *)request;
@@ -19,17 +20,17 @@
 
 @synthesize loadingStatus;
 @synthesize savingStatus;
-@synthesize resourceURL;
+@synthesize resourcePath;
 @synthesize error;
 @synthesize data;
 
-+ (id)resourceWithURL:(NSURL *)theURL {
-	return [[[self.class alloc] initWithURL:theURL] autorelease];
++ (id)resourceWithPath:(NSString *)thePath {
+	return [[[self.class alloc] initWithPath:thePath] autorelease];
 }
 
-- (id)initWithURL:(NSURL *)theURL {
+- (id)initWithPath:(NSString *)thePath {
 	[super init];
-	self.resourceURL = theURL;
+	self.resourcePath = thePath;
 	self.loadingStatus = GHResourceStatusNotProcessed;
 	self.savingStatus = GHResourceStatusNotProcessed;
     return self;
@@ -37,7 +38,7 @@
 
 - (void)dealloc {
 	[delegates release], delegates = nil;
-	[resourceURL release], resourceURL = nil;
+	[resourcePath release], resourcePath = nil;
 	[error release], error = nil;
 	[data release], data = nil;
 	[super dealloc];
@@ -48,15 +49,29 @@
 
 #pragma mark Request
 
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)url {
++ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
 	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
+    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:theURL];
     [request setAuthenticationScheme:(NSString *) kCFHTTPAuthenticationSchemeBasic];
     [request setShouldPresentCredentialsBeforeChallenge:YES];
     [request setUsername:account.login];
     [request setPassword:account.password];
     [request setRequestMethod:@"GET"];
     return request;
+}
+
++ (ASIFormDataRequest *)apiRequestForPath:(NSString *)thePath {
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+	NSString *urlString = [account.apiURL.absoluteString stringByAppendingString:thePath];
+	NSURL *url = [NSURL URLWithString:urlString];
+    return [self authenticatedRequestForURL:url];
+}
+
++ (ASIFormDataRequest *)feedRequestForPath:(NSString *)thePath {
+	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
+	NSDictionary *params = [NSDictionary dictionaryWithObject:account.token forKey:kTokenParamKey];
+	NSURL *url = [[account.endpointURL URLByAppendingPathComponent:thePath] URLByAppendingParams:params];
+    return [self authenticatedRequestForURL:url];
 }
 
 #pragma mark Delegation
@@ -84,7 +99,7 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:self.resourceURL];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:self.resourcePath];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(loadingFinished:)];
 	[request setDidFailSelector:@selector(loadingFailed:)];
@@ -145,14 +160,14 @@
 
 #pragma mark Saving
 
-- (void)saveValues:(NSDictionary *)theValues withURL:(NSURL *)theURL andMethod:(NSString *)theMethod {
+- (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod {
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
 	NSString *jsonString = [[CJSONSerializer serializer] serializeDictionary:theValues];
 	NSMutableData *postData = [[jsonString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:theURL];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:thePath];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(savingFinished:)];
 	[request setDidFailSelector:@selector(savingFailed:)];

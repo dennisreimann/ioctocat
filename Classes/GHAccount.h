@@ -10,6 +10,8 @@
 @property(nonatomic,retain)NSString *password;
 @property(nonatomic,retain)NSString *token;
 @property(nonatomic,retain)NSString *endpoint;
+@property(nonatomic,retain)NSURL *endpointURL;
+@property(nonatomic,retain)NSURL *apiURL;
 
 + (id)accountWithDict:(NSDictionary *)theDict;
 - (id)initWithDict:(NSDictionary *)theDict;

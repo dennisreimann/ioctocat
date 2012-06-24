@@ -8,7 +8,7 @@
 
 @property(nonatomic,retain)NSMutableArray *users;
 
-+ (id)usersWithURL:(NSURL *)theURL;
-- (id)initWithURL:(NSURL *)theURL;
++ (id)usersWithPath:(NSString *)thePath;
+- (id)initWithPath:(NSString *)thePath;
 
 @end

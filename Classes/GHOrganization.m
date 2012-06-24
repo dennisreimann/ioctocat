@@ -20,6 +20,7 @@
 @synthesize email;
 @synthesize company;
 @synthesize blogURL;
+@synthesize htmlURL;
 @synthesize location;
 @synthesize gravatarURL;
 @synthesize gravatar;
@@ -51,6 +52,7 @@
 	[email release], email = nil;
 	[company release], company = nil;
 	[blogURL release], blogURL = nil;
+	[htmlURL release], htmlURL = nil;
 	[location release], location = nil;
     [gravatarLoader release], gravatarLoader = nil;
 	[gravatarURL release], gravatarURL = nil;
@@ -80,14 +82,14 @@
 	login = theLogin;
 
     GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-    NSURL *activityFeedURL = [NSURL URLWithFormat:kOrganizationFeedFormat, login, account.login, account.token];
-	NSURL *repositoriesURL = [NSURL URLWithFormat:kOrganizationRepositoriesFormat, login];
-	NSURL *membersURL = [NSURL URLWithFormat:kOrganizationMembersFormat, login];
+    NSString *activityFeedPath = [NSString stringWithFormat:kOrganizationFeedFormat, login, account.login, account.token];
+	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, login];
+	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, login];
 
-    self.resourceURL = [NSURL URLWithFormat:kOrganizationFormat, login];
-	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
-	self.publicMembers = [GHUsers usersWithURL:membersURL];
-    self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
+    self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, login];
+	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
+	self.publicMembers = [GHUsers usersWithPath:membersPath];
+    self.recentActivity = [GHFeed resourceWithPath:activityFeedPath];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
@@ -106,6 +108,7 @@
     self.publicRepoCount = [[resource objectForKey:@"public_repos"] integerValue];
     self.privateRepoCount = [[resource objectForKey:@"total_private_repos"] integerValue];
     self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
+    self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 }
 
 #pragma mark Gravatar

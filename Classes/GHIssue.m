@@ -26,6 +26,7 @@
 @synthesize closed;
 @synthesize num;
 @synthesize repository;
+@synthesize htmlURL;
 
 + (id)issueWithRepository:(GHRepository *)theRepository {
     return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
@@ -83,6 +84,7 @@
 	self.labels = [theDict objectForKey:@"labels"];
 	self.votes = [[theDict objectForKey:@"votes"] integerValue];
 	self.num = [[theDict objectForKey:@"number"] integerValue];
+    self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 }
 
 #pragma mark State toggling
@@ -101,9 +103,9 @@
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
-	NSURL *url = [NSURL URLWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
+	NSString *path = [NSString stringWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
 	// Send the request
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:url];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(stateTogglingFinished:)];
 	[request setDidFailSelector:@selector(stateTogglingFailed:)];
@@ -143,17 +145,17 @@
 #pragma mark Saving
 
 - (void)saveData {
-	NSURL *url;
+	NSString *path;
 	NSString *method;
 	if (self.isNew) {
-		url = [NSURL URLWithFormat:kIssueOpenFormat, repository.owner, repository.name];
+		path = [NSString stringWithFormat:kIssueOpenFormat, repository.owner, repository.name];
 		method = @"POST";
 	} else {
-		url = [NSURL URLWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
+		path = [NSString stringWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
 		method = @"PATCH";
 	}
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", body, @"body", state, @"state", nil];
-	[self saveValues:values withURL:url andMethod:method];
+	[self saveValues:values withPath:path andMethod:method];
 }
 
 @end

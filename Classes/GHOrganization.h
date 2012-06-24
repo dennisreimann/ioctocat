@@ -11,6 +11,7 @@
 	NSString *company;
 	NSString *location;
 	NSURL *blogURL;
+	NSURL *htmlURL;
 	NSURL *gravatarURL;
 	UIImage *gravatar;
     NSUInteger followersCount;
@@ -33,6 +34,7 @@
 @property(nonatomic,retain)NSString *location;
 @property(nonatomic,retain)NSURL *gravatarURL;
 @property(nonatomic,retain)NSURL *blogURL;
+@property(nonatomic,retain)NSURL *htmlURL;
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHUsers *publicMembers;
 @property(nonatomic,retain)GHRepositories *repositories;

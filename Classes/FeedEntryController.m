@@ -56,7 +56,7 @@
 	entry = theEntry;
 	
 	entry.read = YES;
-	[entry.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[entry.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [[entry.eventType capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
 	titleLabel.text = entry.title;
 	NSString *feedEntry = [NSString stringWithFormat:@"<div class='feed_entry'>%@</div>", entry.content];
@@ -105,7 +105,7 @@
 	[commitItem release], commitItem = nil;
     [organizationItem release], organizationItem = nil;
 	[navigationControl release], navigationControl = nil;
-	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[entry release], entry = nil;
 	[dateLabel release], dateLabel = nil;
 	[titleLabel release], titleLabel = nil;
@@ -122,7 +122,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath]) {
+	if ([keyPath isEqualToString:kGravatarKeyPath]) {
 		gravatarView.image = entry.user.gravatar;
 	}
 }
@@ -131,7 +131,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	currentIndex += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	[entry.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	self.entry = [feed.entries objectAtIndex:currentIndex];
 }
 

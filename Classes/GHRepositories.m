@@ -9,13 +9,13 @@
 
 @synthesize repositories;
 
-+ (id)repositoriesWithURL:(NSURL *)theURL {
-	return [[[[self class] alloc] initWithURL:theURL] autorelease];
++ (id)repositoriesWithPath:(NSString *)thePath {
+	return [[[[self class] alloc] initWithPath:thePath ] autorelease];
 }
 
-- (id)initWithURL:(NSURL *)theURL {
+- (id)initWithPath:(NSString *)thePath {
     [super init];
-    self.resourceURL = theURL;
+    self.resourcePath = thePath;
 	self.repositories = [NSMutableArray array];
 	return self;
 }
@@ -26,7 +26,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepositories resourceURL:'%@'>", resourceURL];
+    return [NSString stringWithFormat:@"<GHRepositories resourcePath:'%@'>", resourcePath];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {

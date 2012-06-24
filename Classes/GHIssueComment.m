@@ -37,8 +37,8 @@
 
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
-	NSURL *saveURL = [NSURL URLWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
-	[self saveValues:values withURL:saveURL andMethod:@"POST"];
+	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
+	[self saveValues:values withPath:path andMethod:@"POST"];
 }
 
 @end

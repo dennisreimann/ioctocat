@@ -12,7 +12,7 @@
 @synthesize dateLabel;
 
 - (void)dealloc {
-	[comment.user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
     [comment release], comment = nil;
 	[gravatarView release], gravatarView = nil;
 	[userLabel release], userLabel = nil;
@@ -32,13 +32,13 @@
 	[self setContentText:comment.body];
 	
 	// Gravatar
-	[comment.user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[comment.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = comment.user.gravatar;
 	if (!gravatarView.image && !comment.user.isLoaded) [comment.user loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath] && comment.user.gravatar) {
+	if ([keyPath isEqualToString:kGravatarKeyPath] && comment.user.gravatar) {
 		gravatarView.image = comment.user.gravatar;
 	}
 }

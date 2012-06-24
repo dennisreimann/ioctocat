@@ -32,6 +32,7 @@
 @synthesize blogURL;
 @synthesize location;
 @synthesize gravatarURL;
+@synthesize htmlURL;
 @synthesize gravatar;
 @synthesize organizations;
 @synthesize repositories;
@@ -69,6 +70,7 @@
 	[location release], location = nil;
     [gravatarLoader release], gravatarLoader = nil;
 	[gravatarURL release], gravatarURL = nil;
+	[htmlURL release], htmlURL = nil;
 	[gravatar release], gravatar = nil;
 	[organizations release], organizations = nil;
 	[repositories release], repositories = nil;
@@ -97,20 +99,20 @@
 	[login release];
 	login = theLogin;
     
-    NSURL *repositoriesURL = [NSURL URLWithFormat:kUserReposFormat, login];
-	NSURL *organizationsURL = [NSURL URLWithFormat:kUserOrganizationsFormat, login];
-	NSURL *watchedRepositoriesURL = [NSURL URLWithFormat:kUserWatchedReposFormat, login];
-    NSURL *followingURL = [NSURL URLWithFormat:kUserFollowingFormat, login];
-    NSURL *followersURL = [NSURL URLWithFormat:kUserFollowersFormat, login];
-	NSURL *activityFeedURL = [NSURL URLWithFormat:kUserFeedFormat, login];
+    NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, login];
+	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, login];
+	NSString *watchedReposPath  = [NSString stringWithFormat:kUserWatchedReposFormat, login];
+    NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
+    NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
+	NSString *activityFeedPath  = [NSString stringWithFormat:kUserFeedFormat, login];
 
-    self.resourceURL = [NSURL URLWithFormat:kUserFormat, login];
-	self.organizations = [GHOrganizations organizationsWithUser:self andURL:organizationsURL];
-	self.repositories = [GHRepositories repositoriesWithURL:repositoriesURL];
-	self.watchedRepositories = [GHRepositories repositoriesWithURL:watchedRepositoriesURL];
-    self.following = [GHUsers usersWithURL:followingURL];
-    self.followers = [GHUsers usersWithURL:followersURL];
-	self.recentActivity = [GHFeed resourceWithURL:activityFeedURL];
+    self.resourcePath = [NSString stringWithFormat:kUserFormat, login];
+	self.organizations = [GHOrganizations organizationsWithUser:self andPath:organizationsPath];
+	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
+	self.watchedRepositories = [GHRepositories repositoriesWithPath:watchedReposPath];
+    self.following = [GHUsers usersWithPath:followingPath];
+    self.followers = [GHUsers usersWithPath:followersPath];
+	self.recentActivity = [GHFeed resourceWithPath:activityFeedPath];
 }
 
 #pragma mark Loading
@@ -133,6 +135,7 @@
     self.followingCount = [[theDict objectForKey:@"following"] integerValue];
     self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
     self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
+    self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 }
 
 #pragma mark Following
@@ -153,8 +156,8 @@
 }
 
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
-	NSURL *followingURL = [NSURL URLWithFormat:kUserFollowFormat, theUser.login];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:followingURL];
+	NSString *path = [NSString stringWithFormat:kUserFollowFormat, theUser.login];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
 	[request setDelegate:self];
 	[request setRequestMethod:(follow ? @"PUT" : @"DELETE")];
 	[request setDidFinishSelector:@selector(followToggleFinished:)];
@@ -191,8 +194,8 @@
 }
 
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
-	NSURL *watchURL = [NSURL URLWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
-	ASIFormDataRequest *request = [GHResource authenticatedRequestForURL:watchURL];
+	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
     [request setDelegate:self];
     [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
 	[request setDidFinishSelector:@selector(watchToggleFinished:)];

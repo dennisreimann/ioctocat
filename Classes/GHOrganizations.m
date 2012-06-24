@@ -8,15 +8,15 @@
 
 @synthesize user, organizations;
 
-+ (id)organizationsWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
-    return [[[[self class] alloc] initWithUser:theUser andURL:theURL] autorelease];
++ (id)organizationsWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
+    return [[[[self class] alloc] initWithUser:theUser andPath:thePath] autorelease];
 }
 
-- (id)initWithUser:(GHUser *)theUser andURL:(NSURL *)theURL {
+- (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
     [super init];
     self.user = theUser;
 	self.organizations = [NSMutableArray array];
-    self.resourceURL = theURL;
+    self.resourcePath = thePath;
 	return self;    
 }
 
@@ -27,7 +27,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHOrganizations user:'%@' resourceURL:'%@'>", user, resourceURL];
+    return [NSString stringWithFormat:@"<GHOrganizations user:'%@' resourcePath:'%@'>", user, self.resourcePath];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {

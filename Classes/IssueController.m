@@ -173,8 +173,7 @@
     } else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
 		[self addComment:nil];                  
     } else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
-        NSURL *issueURL = [NSURL URLWithFormat:kIssueGithubFormat, issue.repository.owner, issue.repository.name, issue.num];
-		WebController *webController = [[WebController alloc] initWithURL:issueURL];
+        WebController *webController = [[WebController alloc] initWithURL:issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];                        
     }

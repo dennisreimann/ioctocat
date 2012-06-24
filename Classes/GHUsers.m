@@ -7,14 +7,14 @@
 
 @synthesize users;
 
-+ (id)usersWithURL:(NSURL *)theURL {
-    return [[[[self class] alloc] initWithURL:theURL] autorelease];
++ (id)usersWithPath:(NSString *)thePath {
+    return [[[[self class] alloc] initWithPath:thePath] autorelease];
 }
 
-- (id)initWithURL:(NSURL *)theURL {
+- (id)initWithPath:(NSString *)thePath {
     [super init];
 	self.users = [NSMutableArray array];
-    self.resourceURL = theURL;
+    self.resourcePath = thePath;
 	return self;    
 }
 
@@ -24,15 +24,12 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUsers resourceURL:'%@'>", resourceURL];
+    return [NSString stringWithFormat:@"<GHUsers resourcePath:'%@'>", resourcePath];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     NSMutableArray *resources = [NSMutableArray array];
-    // This looks weird, but we'll have to do it like that for
-    // the time we are switching from API v2 to v3…
-    NSArray *usersArray = [theDict isKindOfClass:[NSArray class]] ? theDict : [theDict objectForKey:@"users"];
-    for (NSDictionary *userDict in usersArray) {
+    for (NSDictionary *userDict in theDict) {
         NSString *login = [userDict objectForKey:@"login"];
         GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
         [theUser setValuesFromDict:userDict];

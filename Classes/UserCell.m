@@ -14,11 +14,11 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[user addObserver:self forKeyPath:kUserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];    
+	[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[user removeObserver:self forKeyPath:kUserGravatarKeyPath];
+	[user removeObserver:self forKeyPath:kGravatarKeyPath];
 }
 
 - (void)setUser:(GHUser *)aUser {
@@ -30,7 +30,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserGravatarKeyPath] && user.gravatar) {
+	if ([keyPath isEqualToString:kGravatarKeyPath] && user.gravatar) {
 		gravatarView.image = user.gravatar;
 	}
 }

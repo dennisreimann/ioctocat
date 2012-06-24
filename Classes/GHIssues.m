@@ -17,17 +17,18 @@
 
 - (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
     [super init];
+	
     self.repository = theRepository;
     self.issueState = theState;
-	self.resourceURL = [NSURL URLWithFormat:kIssuesFormat, repository.owner, repository.name, issueState];	
+	self.resourcePath = [NSString stringWithFormat:kIssuesFormat, repository.owner, repository.name, issueState];	
 	
 	return self;    
 }
 
 - (void)dealloc {
-	[repository release];
-	[issueState release];
-	[entries release];
+	[repository release], repository = nil;
+	[issueState release], issueState = nil;
+	[entries release], entries = nil;
     [super dealloc];
 }
 

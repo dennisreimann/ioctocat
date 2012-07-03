@@ -13,6 +13,8 @@
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
 		<string>Icon-iPad.png</string>
+		<string>Default-Landscape@2x~ipad.png</string>
+		<string>Default-Portrait@2x~ipad.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -23,9 +25,9 @@
 				<string>Icon.png</string>
 				<string>Icon@2x.png</string>
 				<string>Icon-iPad.png</string>
+				<string>Default-Landscape@2x~ipad.png</string>
+				<string>Default-Portrait@2x~ipad.png</string>
 			</array>
-			<key>UIPrerenderedIcon</key>
-			<false/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -47,8 +49,6 @@
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow-ipad</string>
 	<key>SBUsesNetwork</key>
-	<true/>
-	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

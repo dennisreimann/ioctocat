@@ -15,6 +15,13 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		6F064EFA15A370B700F0AFF0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF315A370B700F0AFF0 /* Icon-72.png */; };
+		6F064EFB15A370B700F0AFF0 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF415A370B700F0AFF0 /* Icon-72@2x.png */; };
+		6F064EFC15A370B700F0AFF0 /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF515A370B700F0AFF0 /* Icon-iPad@2x.png */; };
+		6F064EFD15A370B700F0AFF0 /* Icon-Small-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF615A370B700F0AFF0 /* Icon-Small-50@2x.png */; };
+		6F064EFE15A370B700F0AFF0 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF715A370B700F0AFF0 /* Icon-Small@2x.png */; };
+		6F064F0215A3715300F0AFF0 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064F0115A3715300F0AFF0 /* Default-Landscape@2x~ipad.png */; };
+		6F064F0415A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064F0315A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png */; };
 		6F0AEFB7100CAAE500FB323E /* Forks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFB6100CAAE500FB323E /* Forks.xib */; };
 		6F0AEFBE100CF5DB00FB323E /* IssueFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */; };
 		6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueForm.xib */; };
@@ -248,6 +255,13 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6F064EF315A370B700F0AFF0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
+		6F064EF415A370B700F0AFF0 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
+		6F064EF515A370B700F0AFF0 /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
+		6F064EF615A370B700F0AFF0 /* Icon-Small-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50@2x.png"; sourceTree = "<group>"; };
+		6F064EF715A370B700F0AFF0 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
+		6F064F0115A3715300F0AFF0 /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		6F064F0315A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		6F0AEFB6100CAAE500FB323E /* Forks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Forks.xib; path = IBFiles/Forks.xib; sourceTree = "<group>"; };
 		6F0AEFBB100CF5DB00FB323E /* IssueFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueFormController.h; sourceTree = "<group>"; };
 		6F0AEFBC100CF5DB00FB323E /* IssueFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueFormController.m; sourceTree = "<group>"; };
@@ -963,11 +977,18 @@
 				6F9DD8731334AFEF00D1E35E /* Icon@2x.png */,
 				6FB3CBF4139780D600CB0EAE /* Icon-Small-50.png */,
 				6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */,
+				6F064EF315A370B700F0AFF0 /* Icon-72.png */,
+				6F064EF415A370B700F0AFF0 /* Icon-72@2x.png */,
+				6F064EF515A370B700F0AFF0 /* Icon-iPad@2x.png */,
+				6F064EF615A370B700F0AFF0 /* Icon-Small-50@2x.png */,
+				6F064EF715A370B700F0AFF0 /* Icon-Small@2x.png */,
 				6FB3CBF5139780D600CB0EAE /* Icon-Small.png */,
 				6F9DD8751334B03400D1E35E /* Default.png */,
 				6F9DD8771334B09800D1E35E /* Default@2x.png */,
 				6FB3CBFF1397853B00CB0EAE /* Default-Portrait~ipad.png */,
+				6F064F0315A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png */,
 				6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */,
+				6F064F0115A3715300F0AFF0 /* Default-Landscape@2x~ipad.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
 				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
@@ -1365,6 +1386,13 @@
 				6F2DEE23158F2AFA005C56E6 /* TabBarOrgs.png in Resources */,
 				6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */,
 				6FAF9D2B1592765200997A28 /* Account.xib in Resources */,
+				6F064EFA15A370B700F0AFF0 /* Icon-72.png in Resources */,
+				6F064EFB15A370B700F0AFF0 /* Icon-72@2x.png in Resources */,
+				6F064EFC15A370B700F0AFF0 /* Icon-iPad@2x.png in Resources */,
+				6F064EFD15A370B700F0AFF0 /* Icon-Small-50@2x.png in Resources */,
+				6F064EFE15A370B700F0AFF0 /* Icon-Small@2x.png in Resources */,
+				6F064F0215A3715300F0AFF0 /* Default-Landscape@2x~ipad.png in Resources */,
+				6F064F0415A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1479,7 +1507,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1499,7 +1527,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1518,7 +1546,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				"ICON_NAME[arch=*]" = Icon;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1538,7 +1566,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1556,7 +1584,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1576,7 +1604,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -1597,7 +1625,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1618,7 +1646,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = iOctocat;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";

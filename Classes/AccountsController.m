@@ -17,6 +17,7 @@
 - (void)convertOldAccount;
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
 - (void)openAccount:(GHAccount *)theAccount;
+- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
 @end
 
 
@@ -41,6 +42,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *currentAccounts = [defaults objectForKey:kAccountsDefaultsKey];
 	self.accounts = currentAccounts != nil ?
@@ -50,7 +53,10 @@
 	// Try to convert old account to new one
 	[self convertOldAccount];
 
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	// Open account if there is only one
+	if ([accounts count] == 1) {
+		[self openOrAuthenticateAccountAtIndex:0];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,6 +113,17 @@
 	[self editAccountAtIndex:NSNotFound];
 }
 
+- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
+	NSDictionary *accountDict = [accounts objectAtIndex:theIndex];
+	GHAccount *account = [GHAccount accountWithDict:accountDict];
+	[iOctocat sharedInstance].currentAccount = account;
+	if (account.user.isAuthenticated) {
+		[self openAccount:account];
+	} else {
+		[self.authController authenticateAccount:account];
+	}
+}
+
 - (void)openAccount:(GHAccount *)theAccount {
 	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
 	[iOctocat sharedInstance].currentAccount = theAccount;
@@ -115,7 +132,9 @@
 	[viewController release];
 
 	// Resolve token
-	if ([theAccount.token length] < 32) [self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
+	if ([theAccount.token length] < 32) {
+		[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
+	}
 }
 
 #pragma mark TableView
@@ -142,14 +161,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *accountDict = [accounts objectAtIndex:indexPath.row];
-	GHAccount *account = [GHAccount accountWithDict:accountDict];
-	[iOctocat sharedInstance].currentAccount = account;
-	if (account.user.isAuthenticated) {
-		[self openAccount:account];
-	} else {
-		[self.authController authenticateAccount:account];
-	}
+	[self openOrAuthenticateAccountAtIndex:indexPath.row];
 }
 
 #pragma mark Editing

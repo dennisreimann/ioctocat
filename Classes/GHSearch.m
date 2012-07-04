@@ -26,10 +26,6 @@
     [super dealloc];
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourceURL:'%@'>", searchTerm, self.resourceURL];
-}
-
 - (NSURL *)resourceURL {
 	// Dynamic resourceURL, because it depends on the
 	// searchTerm which isn't always available in advance
@@ -37,6 +33,12 @@
 	NSURL *url = [NSURL URLWithFormat:urlFormat, encodedSearchTerm];
 	return url;
 }
+
+
+- (NSString *)description {
+    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourceURL:'%@'>", searchTerm, [self resourceURL]];
+}
+
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
     BOOL usersSearch = [theDict objectForKey:@"users"] ? YES : NO;

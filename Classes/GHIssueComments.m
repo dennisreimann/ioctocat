@@ -27,10 +27,10 @@
 	[super dealloc];
 }
 
-- (NSURL *)resourceURL {
-	// Dynamic resourceURL, because it depends on the
+- (NSURL *)resourcePath {
+	// Dynamic resourcePath, because it depends on the
 	// issue num which isn't always available in advance
-	return [NSURL URLWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
+	return [NSString stringWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
 }
 
 - (NSString *)description {

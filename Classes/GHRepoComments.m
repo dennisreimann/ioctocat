@@ -31,10 +31,10 @@
 	[super dealloc];
 }
 
-- (NSURL *)resourceURL {
-	// Dynamic resourceURL, because it depends on the
+- (NSURL *)resourcePath {
+	// Dynamic resourcePath, because it depends on the
 	// SHA which isn't always available in advance
-	return [NSURL URLWithFormat:kRepoCommentsFormat, repository.owner, repository.name, commitID];
+	return [NSString stringWithFormat:kRepoCommentsFormat, repository.owner, repository.name, commitID];
 }
 
 - (NSString *)description {

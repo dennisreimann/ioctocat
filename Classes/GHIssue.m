@@ -64,10 +64,10 @@
 	return [state isEqualToString:kIssueStateClosed];
 }
 
-- (NSURL *)resourceURL {
-	// Dynamic resourceURL, because it depends on the
+- (NSString *)resourcePath {
+	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
-	return [NSURL URLWithFormat:kIssueFormat, repository.owner, repository.name, num];
+    return [NSString stringWithFormat:kIssueFormat, repository.owner, repository.name, num];
 }
 
 #pragma mark Loading

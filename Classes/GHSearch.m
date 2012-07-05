@@ -10,7 +10,7 @@
 @synthesize searchTerm;
 
 + (id)searchWithURLFormat:(NSString *)theFormat {
-	return [[[[self class] alloc] initWithURLFormat:theFormat] autorelease];
+	return [[[self.class alloc] initWithURLFormat:theFormat] autorelease];
 }
 
 - (id)initWithURLFormat:(NSString *)theFormat {
@@ -27,7 +27,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourceURL:'%@'>", searchTerm, self.resourceURL];
+    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourcePath:'%@'>", searchTerm, self.resourcePath];
 }
 
 - (NSURL *)resourceURL {

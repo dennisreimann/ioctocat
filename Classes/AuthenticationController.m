@@ -3,6 +3,11 @@
 #import "GHUser.h"
 
 
+@interface AuthenticationController ()
+- (void)setAccount:(GHAccount *)theAccount;
+@end
+
+
 @implementation AuthenticationController
 
 - (id)initWithDelegate:(UIViewController *)theDelegate {

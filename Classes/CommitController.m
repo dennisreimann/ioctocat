@@ -19,6 +19,7 @@
 @property(nonatomic,retain)GHCommit *commit;
 
 - (void)displayCommit;
+- (void)displayComments;
 @end
 
 

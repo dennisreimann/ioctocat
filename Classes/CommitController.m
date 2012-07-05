@@ -32,6 +32,11 @@
     return self;
 }
 
+- (void)displayComments {
+	self.tableView.tableFooterView = tableFooterView;
+	[self.tableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
@@ -85,10 +90,7 @@
 	[self.tableView reloadData];
 }
 
-- (void)displayComments {
-	self.tableView.tableFooterView = tableFooterView;
-	[self.tableView reloadData];
-}
+
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", [NSString stringWithFormat:@"Show %@", commit.author.login], [NSString stringWithFormat:@"Show %@", commit.repository.name], @"Show on GitHub", nil];

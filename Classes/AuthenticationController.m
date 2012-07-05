@@ -13,7 +13,7 @@
 
 - (void)dealloc {
     [self stopAuthenticating];
-	self.account = nil;
+	account = nil;
 	[authSheet release], authSheet = nil;
     [super dealloc];
 }

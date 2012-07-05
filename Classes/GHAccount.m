@@ -20,13 +20,18 @@
 	return [[[[self class] alloc] initWithDict:theDict] autorelease];
 }
 
+- (id)dictionary:(NSDictionary *)dict valueForKey:(NSString *)key defaultsTo:(id)defaultValue {
+    id value = [dict valueForKey:key];
+    return (value != nil) ? value : defaultValue;
+}
+
 - (id)initWithDict:(NSDictionary *)theDict {
 	[super init];
 	
-	self.login = [theDict valueForKey:kLoginDefaultsKey];
-	self.password = [theDict valueForKey:kPasswordDefaultsKey];
-	self.token = [theDict valueForKey:kTokenDefaultsKey];
-	self.endpoint = [theDict valueForKey:kEndpointDefaultsKey];
+	self.login = [self dictionary:theDict valueForKey:kLoginDefaultsKey defaultsTo:@""];
+	self.password = [self dictionary:theDict valueForKey:kPasswordDefaultsKey defaultsTo:@""];
+	self.token = [self dictionary:theDict valueForKey:kTokenDefaultsKey defaultsTo:@""];
+	self.endpoint = [self dictionary:theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
 	
 	// construct endpoint URL
 	if ([endpoint isEmpty]) {

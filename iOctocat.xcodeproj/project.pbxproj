@@ -234,6 +234,8 @@
 		931D2FCB133513B400FAEF3E /* TabBarNetwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */; };
 		931D2FCC133513B400FAEF3E /* TabBarRepositories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */; };
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
+		E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
+		E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
 		E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */; };
 		FCC2C8D113944DF400C8E10D /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */; };
 		FCC2C8D213944DF400C8E10D /* ToolbarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */; };
@@ -565,6 +567,8 @@
 		931D2FC8133513B400FAEF3E /* TabBarNetwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarNetwork@2x.png"; sourceTree = "<group>"; };
 		931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarRepositories@2x.png"; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
+		E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
 		E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RefreshArrow@2x.png"; path = "Images/RefreshArrow@2x.png"; sourceTree = "<group>"; };
 		FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarDown.png; sourceTree = "<group>"; };
 		FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarDown@2x.png"; sourceTree = "<group>"; };
@@ -806,6 +810,8 @@
 				6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */,
 				6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */,
 				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
+				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
+				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
 				6F5E9A9E1119A96000752560 /* NSDictionary_JSONExtensions.h */,
 				6F5E9A9F1119A96000752560 /* NSDictionary_JSONExtensions.m */,
 				6F5E9AA01119A96000752560 /* NSScanner_Extensions.h */,
@@ -1393,6 +1399,7 @@
 				6F064EFE15A370B700F0AFF0 /* Icon-Small@2x.png in Resources */,
 				6F064F0215A3715300F0AFF0 /* Default-Landscape@2x~ipad.png in Resources */,
 				6F064F0415A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png in Resources */,
+				E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1489,6 +1496,7 @@
 				6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */,
 				6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */,
 				6FAAF67215935D6C003D0344 /* TokenResolverController.m in Sources */,
+				E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

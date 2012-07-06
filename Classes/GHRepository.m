@@ -69,8 +69,8 @@
 }
 
 - (NSString *)resourcePath {
-	// Dynamic resourceURL, because it depends on the
-	// owner and name which isn't always available in advance
+	// Dynamic path, because it depends on the owner and
+	// name which are not always available in advance
 	return [NSString stringWithFormat:kRepoFormat, owner, name];
 }
 

@@ -67,6 +67,10 @@
 	[selectedViewController release];
 	// set up new controller
 	selectedViewController = viewController;
+	selectedViewController.view.frame = CGRectMake(self.view.bounds.origin.x,
+												   self.view.bounds.origin.y,
+												   self.view.bounds.size.width,
+												   self.view.bounds.size.height - tabBar.bounds.size.height);
 	[self.view addSubview:selectedViewController.view];
 }
 

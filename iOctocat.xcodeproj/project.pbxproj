@@ -192,6 +192,8 @@
 		6FC0D42A115819E400511B7F /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* CommentController.m */; };
 		6FC0D42C11581A5200511B7F /* Comment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* Comment.xib */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
+		6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */; };
+		6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */; };
 		6FC95F1F0F8905F500FC0968 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
 		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCAF1660F895756005E1173 /* GravatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* GravatarLoader.m */; };
@@ -498,6 +500,8 @@
 		6FC0D42B11581A5200511B7F /* Comment.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Comment.xib; path = IBFiles/Comment.xib; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
 		6FC465160F9D1445003A8E7B /* GHCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHCommit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarIssue@2x.png"; sourceTree = "<group>"; };
+		6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarRepository@2x.png"; sourceTree = "<group>"; };
 		6FC95F1D0F8905F500FC0968 /* UserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
 		6FC95F1E0F8905F500FC0968 /* UserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
 		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
@@ -876,11 +880,13 @@
 				6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */,
 				6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */,
 				6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */,
+				6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */,
 				6F316D97111ADA4F00FC4FE9 /* ToolbarUnwatch.png */,
 				6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */,
 				6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */,
 				6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */,
 				6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */,
+				6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */,
 				6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */,
 			);
 			name = Toolbar;
@@ -1400,6 +1406,8 @@
 				6F064F0215A3715300F0AFF0 /* Default-Landscape@2x~ipad.png in Resources */,
 				6F064F0415A3715F00F0AFF0 /* Default-Portrait@2x~ipad.png in Resources */,
 				E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */,
+				6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */,
+				6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

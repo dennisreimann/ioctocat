@@ -4,6 +4,7 @@
 #import "GHRepoComments.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHCommit
@@ -75,16 +76,16 @@
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-    NSString *authorLogin = [theDict valueForKeyPath:@"author.login"];
-    NSString *committerLogin = [theDict valueForKeyPath:@"committer.login"];
-    NSString *authorDateString = [theDict valueForKeyPath:@"commit.author.date"];
-    NSString *committerDateString = [theDict valueForKeyPath:@"commit.committer.date"];
+    NSString *authorLogin = [theDict valueForKeyPath:@"author.login" defaultsTo:nil];
+    NSString *committerLogin = [theDict valueForKeyPath:@"committer.login" defaultsTo:nil];
+    NSString *authorDateString = [theDict valueForKeyPath:@"commit.author.date" defaultsTo:nil];
+    NSString *committerDateString = [theDict valueForKeyPath:@"commit.committer.date" defaultsTo:nil];
     
     self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
     self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
     self.authoredDate = [iOctocat parseDate:authorDateString];
     self.committedDate = [iOctocat parseDate:committerDateString];
-    self.message = [theDict valueForKeyPath:@"commit.message"];
+    self.message = [theDict valueForKeyPath:@"commit.message" defaultsTo:nil];
     
     // Files
     self.added = [NSMutableArray array];

@@ -86,25 +86,23 @@
 	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	
-	self.navItem.title = @"Repositories";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = nil;
+- (void)viewDidLoad {
+    [super viewDidLoad];
 	
 	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
 	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
 	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.navItem.title = @"Repositories";
+	self.navItem.titleView = nil;
+	self.navItem.rightBarButtonItem = nil;
+}
+
 - (void)loadOrganizationRepositories {
-	// guard against reentry
-	if (orgReposInitialized) {
-		return;
-	} else {
-		orgReposInitialized = YES;
-	}
 	// GitHub API v3 changed the way this has to be looked up. There
 	// is not a single call for these no more - we have to fetch each
 	// organizations repos

@@ -78,6 +78,26 @@
 	self.selectedViewController = [viewControllers objectAtIndex:0];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.selectedViewController viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self.selectedViewController viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.selectedViewController viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [self.selectedViewController viewDidDisappear:animated];
+    [super viewDidDisappear:animated];
+}
+
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
 	if (item == feedsTabBarItem) {
 		self.selectedViewController = [viewControllers objectAtIndex:0];

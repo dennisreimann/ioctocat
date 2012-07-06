@@ -68,8 +68,6 @@
 	
     [organizationItem setEnabled:user.organizations.isLoaded];
 	
-	[self viewWillAppear:NO];
-	
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
     [self switchChanged:nil];

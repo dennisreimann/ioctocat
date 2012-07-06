@@ -16,6 +16,9 @@
 @synthesize homepageURL;
 @synthesize isPrivate;
 @synthesize isFork;
+@synthesize hasIssues;
+@synthesize hasWiki;
+@synthesize hasDownloads;
 @synthesize forks;
 @synthesize watcherCount;
 @synthesize forkCount;
@@ -109,6 +112,9 @@
     self.descriptionText = [resource objectForKey:@"description"];
     self.isFork = [[resource objectForKey:@"fork"] boolValue];
     self.isPrivate = [[resource objectForKey:@"private"] boolValue];
+    self.hasIssues = [[resource objectForKey:@"has_issues"] boolValue];
+    self.hasWiki = [[resource objectForKey:@"has_wiki"] boolValue];
+    self.hasDownloads = [[resource objectForKey:@"has_downloads"] boolValue];
     self.forkCount = [[resource objectForKey:@"forks"] integerValue];
     self.watcherCount = [[resource objectForKey:@"watchers"] integerValue];
 	self.pushedAtDate = [resource objectForKey:@"pushed_at"];

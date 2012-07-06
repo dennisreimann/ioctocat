@@ -18,6 +18,9 @@
     GHBranches *branches;
 	BOOL isPrivate;
 	BOOL isFork;
+	BOOL hasIssues;
+	BOOL hasWiki;
+	BOOL hasDownloads;
 }
 
 @property(nonatomic,retain)NSString *name;
@@ -34,6 +37,9 @@
 @property(nonatomic,readwrite)NSInteger watcherCount;
 @property(nonatomic,readwrite)BOOL isPrivate;
 @property(nonatomic,readwrite)BOOL isFork;
+@property(nonatomic,readwrite)BOOL hasIssues;
+@property(nonatomic,readwrite)BOOL hasWiki;
+@property(nonatomic,readwrite)BOOL hasDownloads;
 @property (nonatomic, retain) NSDate *pushedAtDate;
 
 + (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName;

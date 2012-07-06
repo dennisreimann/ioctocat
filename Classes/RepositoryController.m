@@ -131,7 +131,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
 	if (section == 0) return descriptionCell.hasContent ? 3 : 2;
-	if (section == 1) return 2;
+	if (section == 1) return repository.hasIssues ? 2 : 1;
 	return [repository.branches.branches count];
 }
 
@@ -156,8 +156,8 @@
 		}
 	} else if (section == 1) {
 		switch (row) {
-			case 0: cell = issuesCell; break;
-			case 1: cell = forkCell; break;
+			case 0: cell = forkCell; break;
+			case 1: cell = issuesCell; break;
 		}    
     } else if (section == 2) {
 		BranchCell *cell = (BranchCell *)[tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
@@ -180,13 +180,13 @@
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 1 && row == 0) {
-		IssuesController *issuesController = [[IssuesController alloc] initWithRepository:repository];
-		[self.navigationController pushViewController:issuesController animated:YES];
-		[issuesController release];
-	} else if (section == 1 && row == 1) {
 		ForksController  *forksController = [[ForksController alloc] initWithRepository:repository];
 		[self.navigationController pushViewController:forksController animated:YES];
 		[forksController release];
+	} else if (section == 1 && row == 1) {
+		IssuesController *issuesController = [[IssuesController alloc] initWithRepository:repository];
+		[self.navigationController pushViewController:issuesController animated:YES];
+		[issuesController release];
 	} else if (section == 2) {
 		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
 		GHFeed *recentCommits = [branch recentCommits];

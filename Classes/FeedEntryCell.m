@@ -20,6 +20,7 @@
 }
 
 - (void)setEntry:(GHFeedEntry *)anEntry {
+	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[entry release];
 	entry = [anEntry retain];
 	titleLabel.text = entry.title;

@@ -52,6 +52,7 @@
 - (void)setEntry:(GHFeedEntry *)theEntry {
 	if (theEntry == entry) return;
 	[theEntry retain];
+	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[entry release];
 	entry = theEntry;
 	

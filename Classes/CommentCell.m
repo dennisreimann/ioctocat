@@ -23,6 +23,7 @@
 
 - (void)setComment:(GHComment *)theComment {
 	[theComment retain];
+	[comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[comment release];
 	comment = theComment;
 	

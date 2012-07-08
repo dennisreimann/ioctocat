@@ -13,6 +13,7 @@
 		<string>Icon.png</string>
 		<string>Icon@2x.png</string>
 		<string>Icon-iPad.png</string>
+		<string>Icon-iPad@2x.png</string>
 		<string>Default-Landscape@2x~ipad.png</string>
 		<string>Default-Portrait@2x~ipad.png</string>
 	</array>
@@ -25,6 +26,7 @@
 				<string>Icon.png</string>
 				<string>Icon@2x.png</string>
 				<string>Icon-iPad.png</string>
+				<string>Icon-iPad@2x.png</string>
 				<string>Default-Landscape@2x~ipad.png</string>
 				<string>Default-Portrait@2x~ipad.png</string>
 			</array>

@@ -82,6 +82,13 @@
 	
     if (!user.organizations.isLoaded) [user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
 }
 
 - (void)dealloc {
@@ -188,6 +195,11 @@
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:self.currentFeed andCurrentIndex:indexPath.row];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
+    
+    // reload and reselect the row in order to get the right background color
+    // when we return to this view
+    [tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -217,6 +229,12 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return YES;
+}
+
+#pragma mark Events
+
+- (void)applicationDidBecomeActive {
+    [self refreshCurrentFeedIfRequired];
 }
 
 @end

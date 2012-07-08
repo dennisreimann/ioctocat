@@ -132,7 +132,6 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	currentIndex += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	self.entry = [feed.entries objectAtIndex:currentIndex];
 }
 

@@ -30,12 +30,12 @@
     return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourcePath:'%@'>", searchTerm, self.resourcePath];
 }
 
-- (NSURL *)resourceURL {
-	// Dynamic resourceURL, because it depends on the
+- (NSString *)resourcePath {
+	// Dynamic resourcePath, because it depends on the
 	// searchTerm which isn't always available in advance
 	NSString *encodedSearchTerm = [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSURL *url = [NSURL URLWithFormat:urlFormat, encodedSearchTerm];
-	return url;
+	NSString *path = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
+	return path;
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {

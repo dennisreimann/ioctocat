@@ -98,7 +98,9 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
 	[self.tableView insertSubview:overlayController.view aboveSubview:self.parentViewController.view];
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)] autorelease];
+	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
+	self.navItem.rightBarButtonItem = cancelButton;
+	[cancelButton release];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
@@ -110,7 +112,7 @@
 - (void)quitSearching:(id)sender {
 	searchBar.text = self.currentSearch.searchTerm;
 	[searchBar resignFirstResponder];
-	self.navigationItem.rightBarButtonItem = nil;
+	self.navItem.rightBarButtonItem = nil;
 	[overlayController.view removeFromSuperview];
 }
 

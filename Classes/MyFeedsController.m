@@ -82,6 +82,13 @@
 	
     if (!user.organizations.isLoaded) [user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [super viewWillDisappear:animated];
 }
 
 - (void)dealloc {
@@ -217,6 +224,12 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return YES;
+}
+
+#pragma mark Events
+
+- (void)applicationDidBecomeActive {
+    [self refreshCurrentFeedIfRequired];
 }
 
 @end

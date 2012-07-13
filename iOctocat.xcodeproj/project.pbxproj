@@ -58,9 +58,7 @@
 		6F316D8C111AD2E400FC4FE9 /* TabBarRepositories.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D96111AD87700FC4FE9 /* ToolbarCompass.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */; };
-		6F316D99111ADA4F00FC4FE9 /* ToolbarUnwatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D97111ADA4F00FC4FE9 /* ToolbarUnwatch.png */; };
 		6F316D9A111ADA4F00FC4FE9 /* ToolbarWatch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */; };
-		6F316D9D111ADBA300FC4FE9 /* ToolbarFavorite.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
 		6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
 		6F358C090FB1EAE0004D2828 /* Overlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C050FB1EAE0004D2828 /* Overlay.xib */; };
@@ -173,6 +171,12 @@
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
 		6FA92B320FACD6EA001B1D1D /* MyFeeds.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */; };
 		6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */; };
+		6FA97E4615B0BF55000004F1 /* TabBarOrgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4515B0BF55000004F1 /* TabBarOrgs@2x.png */; };
+		6FA97E4915B0BF64000004F1 /* ToolbarUser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4715B0BF64000004F1 /* ToolbarUser@2x.png */; };
+		6FA97E4A15B0BF64000004F1 /* ToolbarWatch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4815B0BF64000004F1 /* ToolbarWatch@2x.png */; };
+		6FA97E4D15B0C257000004F1 /* ToolbarCommit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */; };
+		6FA97E4E15B0C257000004F1 /* ToolbarCompass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4C15B0C257000004F1 /* ToolbarCompass@2x.png */; };
+		6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */; };
 		6FAAF67215935D6C003D0344 /* TokenResolverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAAF67115935D6C003D0344 /* TokenResolverController.m */; };
 		6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
 		6FAF9D2B1592765200997A28 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2A1592765200997A28 /* Account.xib */; };
@@ -317,9 +321,7 @@
 		6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarRepositories.png; sourceTree = "<group>"; };
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
 		6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCompass.png; sourceTree = "<group>"; };
-		6F316D97111ADA4F00FC4FE9 /* ToolbarUnwatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUnwatch.png; sourceTree = "<group>"; };
 		6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWatch.png; sourceTree = "<group>"; };
-		6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarFavorite.png; sourceTree = "<group>"; };
 		6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRepository.png; sourceTree = "<group>"; };
 		6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
 		6F358C050FB1EAE0004D2828 /* Overlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Overlay.xib; path = IBFiles/Overlay.xib; sourceTree = "<group>"; };
@@ -474,6 +476,12 @@
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
 		6FA92B300FACD6EA001B1D1D /* MyFeeds.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyFeeds.xib; path = IBFiles/MyFeeds.xib; sourceTree = "<group>"; };
 		6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueCell.xib; path = IBFiles/IssueCell.xib; sourceTree = "<group>"; };
+		6FA97E4515B0BF55000004F1 /* TabBarOrgs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarOrgs@2x.png"; sourceTree = "<group>"; };
+		6FA97E4715B0BF64000004F1 /* ToolbarUser@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUser@2x.png"; sourceTree = "<group>"; };
+		6FA97E4815B0BF64000004F1 /* ToolbarWatch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWatch@2x.png"; sourceTree = "<group>"; };
+		6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarCommit@2x.png"; sourceTree = "<group>"; };
+		6FA97E4C15B0C257000004F1 /* ToolbarCompass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarCompass@2x.png"; sourceTree = "<group>"; };
+		6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUsers@2x.png"; sourceTree = "<group>"; };
 		6FAAF67015935D6C003D0344 /* TokenResolverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenResolverController.h; sourceTree = "<group>"; };
 		6FAAF67115935D6C003D0344 /* TokenResolverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenResolverController.m; sourceTree = "<group>"; };
 		6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
@@ -859,6 +867,7 @@
 			isa = PBXGroup;
 			children = (
 				6F2DEE22158F2AFA005C56E6 /* TabBarOrgs.png */,
+				6FA97E4515B0BF55000004F1 /* TabBarOrgs@2x.png */,
 				6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */,
 				931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */,
 				6F5E9C751119D43E00752560 /* TabBarFeeds.png */,
@@ -878,16 +887,19 @@
 				FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */,
 				FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */,
 				6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */,
-				6F316D9B111ADBA300FC4FE9 /* ToolbarFavorite.png */,
+				6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */,
 				6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */,
 				6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */,
-				6F316D97111ADA4F00FC4FE9 /* ToolbarUnwatch.png */,
 				6F316D98111ADA4F00FC4FE9 /* ToolbarWatch.png */,
+				6FA97E4815B0BF64000004F1 /* ToolbarWatch@2x.png */,
 				6F316D95111AD87700FC4FE9 /* ToolbarCompass.png */,
+				6FA97E4C15B0C257000004F1 /* ToolbarCompass@2x.png */,
 				6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */,
+				6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */,
 				6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */,
 				6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */,
 				6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */,
+				6FA97E4715B0BF64000004F1 /* ToolbarUser@2x.png */,
 			);
 			name = Toolbar;
 			path = Images/Toolbar;
@@ -1323,9 +1335,7 @@
 				6F316D8C111AD2E400FC4FE9 /* TabBarRepositories.png in Resources */,
 				6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */,
 				6F316D96111AD87700FC4FE9 /* ToolbarCompass.png in Resources */,
-				6F316D99111ADA4F00FC4FE9 /* ToolbarUnwatch.png in Resources */,
 				6F316D9A111ADA4F00FC4FE9 /* ToolbarWatch.png in Resources */,
-				6F316D9D111ADBA300FC4FE9 /* ToolbarFavorite.png in Resources */,
 				6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */,
 				6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */,
 				6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */,
@@ -1408,6 +1418,12 @@
 				E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */,
 				6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */,
 				6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */,
+				6FA97E4615B0BF55000004F1 /* TabBarOrgs@2x.png in Resources */,
+				6FA97E4915B0BF64000004F1 /* ToolbarUser@2x.png in Resources */,
+				6FA97E4A15B0BF64000004F1 /* ToolbarWatch@2x.png in Resources */,
+				6FA97E4D15B0C257000004F1 /* ToolbarCommit@2x.png in Resources */,
+				6FA97E4E15B0C257000004F1 /* ToolbarCompass@2x.png in Resources */,
+				6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

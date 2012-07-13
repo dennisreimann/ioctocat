@@ -23,3 +23,7 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
   * Clear the console (Cmd + K)
   * Move to where the error occurs
   * Copy the output in the console and attach it to your bug report
+
+## Attribution
+
+  * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)

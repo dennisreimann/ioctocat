@@ -3,12 +3,14 @@
 
 @interface WebController ()
 @property(nonatomic,retain)NSURL *url;
+@property(nonatomic,retain)NSString *html;
 @end
 
 
 @implementation WebController
 
 @synthesize url;
+@synthesize html;
 
 - (id)initWithURL:(NSURL *)theURL {
     [super initWithNibName:@"WebView" bundle:nil];
@@ -16,23 +18,37 @@
     return self;
 }
 
+- (id)initWithHTML:(NSString *)theHTML {
+	[super initWithNibName:@"WebView" bundle:nil];
+	self.html = theHTML;
+    return self;
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [url absoluteString];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
-	// Start loading the website
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-	[webView loadRequest:request];
-	[request release];
+	if (url) {
+		self.title = [url absoluteString];
+		// Start loading the website
+		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+		[webView loadRequest:request];
+		[request release];
+	} else if (html) {
+		NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+		NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
+		NSString *contentHTML = [NSString stringWithFormat:format, html];
+		[webView loadHTMLString:contentHTML baseURL:nil];
+	}
 }
 
 - (void)dealloc {
 	[self webViewDidFinishLoad:webView];
 	[webView stopLoading];
 	webView.delegate = nil;
-	[url release];
-	[activityView release];
-	[webView release];
+	[url release], url = nil;
+	[html release], html = nil;
+	[activityView release], activityView = nil;
+	[webView release], webView = nil;
     [super dealloc];
 }
 

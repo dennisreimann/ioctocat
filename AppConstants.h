@@ -21,6 +21,13 @@
 #define kGravatarKeyPath                @"gravatar"
 #define kImageGravatarMaxLogicalSize    50
 
+// Content Types
+#define kResourceContentTypeDefault     @"application/vnd.github+json"
+#define kResourceContentTypeHTML        @"application/vnd.github.html+json"
+#define kResourceContentTypeText        @"application/vnd.github.text+json"
+#define kResourceContentTypeFull        @"application/vnd.github.full+json"
+#define kResourceContentTypeRaw         @"application/vnd.github.raw+json"
+
 // Tables
 #define kRepositoryCellIdentifier       @"RepositoryCell"
 #define kFeedEntryCellIdentifier        @"FeedEntryCell"
@@ -59,6 +66,7 @@
 
 // Repos
 #define kRepoFormat                     @"repos/%@/%@"
+#define kRepoReadmeFormat               @"repos/%@/%@/readme"
 #define kRepoBranchesFormat             @"repos/%@/%@/branches"
 #define kRepoForksFormat                @"repos/%@/%@/forks"
 #define kRepoCommitsFormat              @"repos/%@/%@/commits"

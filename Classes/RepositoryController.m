@@ -1,5 +1,6 @@
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHReadme.h"
 #import "GHBranches.h"
 #import "GHCommit.h"
 #import "LabeledCell.h"
@@ -35,6 +36,7 @@
     [super initWithNibName:@"Repository" bundle:nil];
 	self.repository = theRepository;
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[repository.readme addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	
     return self;
@@ -46,6 +48,7 @@
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	(repository.isLoaded) ? [self displayRepository] : [repository loadData];
+	if (!repository.readme.isLoaded) [repository.readme loadData];
 	if (!repository.branches.isLoaded) [repository.branches loadData];
     
 	// Background
@@ -56,6 +59,7 @@
 
 - (void)dealloc {
 	[repository.branches removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[repository.readme removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[repository release], repository = nil;
 	[tableHeaderView release], tableHeaderView = nil;
@@ -63,12 +67,14 @@
 	[numbersLabel release], numbersLabel = nil;
 	[ownerLabel release], ownerLabel = nil;
 	[websiteLabel release], websiteLabel = nil;
-	[loadingCell release], loadingCell = nil;
-	[ownerCell release], ownerCell = nil;
     [forkLabel release], forkLabel = nil;
 	[websiteCell release], websiteCell = nil;
 	[descriptionCell release], descriptionCell = nil;
     [issuesCell release], issuesCell = nil;
+	[loadingCell release], loadingCell = nil;
+	[ownerCell release], ownerCell = nil;
+	[readmeCell release], readmeCell = nil;
+	[forkCell release], forkCell = nil;
     [iconView release], iconView = nil;
     [super dealloc];
 }
@@ -119,6 +125,12 @@
 		} else if (repository.branches.error) {
 			[iOctocat alert:@"Loading error" with:@"Could not load the branches"];
 		}
+	} else if (object == repository.readme && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (repository.readme.isLoaded) {
+			[self.tableView reloadData];
+		} else if (repository.readme.error) {
+			[iOctocat alert:@"Loading error" with:@"Could not load the README"];
+		}
 	}
 }
 
@@ -130,7 +142,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!repository.isLoaded) return 1;
-	if (section == 0) return descriptionCell.hasContent ? 3 : 2;
+	if (section == 0) {
+		NSInteger rows = 2;
+		if (descriptionCell.hasContent) rows += 1;
+		if (repository.readme.isLoaded) rows += 1;
+		return rows;
+	}
 	if (section == 1) return repository.hasIssues ? 2 : 1;
 	return [repository.branches.branches count];
 }
@@ -148,9 +165,10 @@
 		switch (row) {
 			case 0: cell = ownerCell; break;
 			case 1: cell = websiteCell; break;
-			case 2: cell = descriptionCell; break;
+			case 2: cell = descriptionCell.hasContent ? descriptionCell : readmeCell; break;
+			case 3: cell = readmeCell; break;
 		}
-		if (indexPath.row != 2) {
+		if (indexPath.row < 2) {
 			cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 			cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		}
@@ -177,6 +195,11 @@
 		[userController release];
 	} else if (section == 0 && row == 1 && repository.homepageURL) {
 		WebController *webController = [[WebController alloc] initWithURL:repository.homepageURL];
+		[self.navigationController pushViewController:webController animated:YES];
+		[webController release];
+	} else if (section == 0 && row >= 2) {
+		WebController *webController = [[WebController alloc] initWithHTML:repository.readme.bodyHTML];
+		webController.title = @"README";
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];
 	} else if (section == 1 && row == 0) {

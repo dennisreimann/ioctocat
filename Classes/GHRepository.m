@@ -3,6 +3,7 @@
 #import "iOctocat.h"
 #import "GHIssues.h"
 #import "GHForks.h"
+#import "GHReadme.h"
 #import "GHBranches.h"
 #import "NSURL+Extensions.h"
 
@@ -11,6 +12,7 @@
 
 @synthesize name;
 @synthesize owner;
+@synthesize readme;
 @synthesize descriptionText;
 @synthesize htmlURL;
 @synthesize homepageURL;
@@ -40,6 +42,7 @@
 - (void)dealloc {
 	[name release], name = nil;
 	[owner release], owner = nil;
+	[readme release], readme = nil;
 	[descriptionText release], descriptionText = nil;
 	[htmlURL release], htmlURL = nil;
 	[homepageURL release], homepageURL = nil;
@@ -81,6 +84,7 @@
 	self.owner = theOwner;
 	self.name = theName;
     self.forks = [GHForks forksWithRepository:self];
+    self.readme = [GHReadme readmeWithRepository:self];
     self.branches = [GHBranches branchesWithRepository:self];
 	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
 	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];

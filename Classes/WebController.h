@@ -6,8 +6,10 @@
 	IBOutlet UIActivityIndicatorView *activityView;
   @private
 	NSURL *url;
+	NSString *html;
 }
 
 - (id)initWithURL:(NSURL *)theURL;
+- (id)initWithHTML:(NSString *)theHTML;
 
 @end

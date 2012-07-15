@@ -123,6 +123,9 @@
 		6F7961AF132EC90D00C9446E /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AC132EC90D00C9446E /* GHUser.m */; };
 		6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
 		6F797C7E1110E842007E5A8D /* Commit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F797C7D1110E842007E5A8D /* Commit.xib */; };
+		6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
+		6F7C822615B3483300D37EE8 /* readme.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822415B3483300D37EE8 /* readme.png */; };
+		6F7C822715B3483300D37EE8 /* readme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822515B3483300D37EE8 /* readme@2x.png */; };
 		6F843154136D53350016E367 /* commit_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843150136D53350016E367 /* commit_comment.png */; };
 		6F843155136D53350016E367 /* commit_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843151136D53350016E367 /* commit_comment@2x.png */; };
 		6F843156136D53350016E367 /* issue_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843152136D53350016E367 /* issue_comment.png */; };
@@ -419,6 +422,10 @@
 		6F797C5B1110E2BE007E5A8D /* CommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitController.h; sourceTree = "<group>"; };
 		6F797C5C1110E2BE007E5A8D /* CommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitController.m; sourceTree = "<group>"; };
 		6F797C7D1110E842007E5A8D /* Commit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commit.xib; path = IBFiles/Commit.xib; sourceTree = "<group>"; };
+		6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHReadme.h; sourceTree = "<group>"; };
+		6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHReadme.m; sourceTree = "<group>"; };
+		6F7C822415B3483300D37EE8 /* readme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = readme.png; path = Images/Icons/readme.png; sourceTree = "<group>"; };
+		6F7C822515B3483300D37EE8 /* readme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "readme@2x.png"; path = "Images/Icons/readme@2x.png"; sourceTree = "<group>"; };
 		6F843150136D53350016E367 /* commit_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit_comment.png; path = Images/Icons/commit_comment.png; sourceTree = "<group>"; };
 		6F843151136D53350016E367 /* commit_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "commit_comment@2x.png"; path = "Images/Icons/commit_comment@2x.png"; sourceTree = "<group>"; };
 		6F843152136D53350016E367 /* issue_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue_comment.png; path = Images/Icons/issue_comment.png; sourceTree = "<group>"; };
@@ -746,6 +753,8 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6F7C822415B3483300D37EE8 /* readme.png */,
+				6F7C822515B3483300D37EE8 /* readme@2x.png */,
 				6F843150136D53350016E367 /* commit_comment.png */,
 				6F843151136D53350016E367 /* commit_comment@2x.png */,
 				6F843152136D53350016E367 /* issue_comment.png */,
@@ -1119,6 +1128,8 @@
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+				6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */,
+				6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */,
 			);
 			name = GitHub;
 			sourceTree = "<group>";
@@ -1424,6 +1435,8 @@
 				6FA97E4D15B0C257000004F1 /* ToolbarCommit@2x.png in Resources */,
 				6FA97E4E15B0C257000004F1 /* ToolbarCompass@2x.png in Resources */,
 				6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */,
+				6F7C822615B3483300D37EE8 /* readme.png in Resources */,
+				6F7C822715B3483300D37EE8 /* readme@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1521,6 +1534,7 @@
 				6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */,
 				6FAAF67215935D6C003D0344 /* TokenResolverController.m in Sources */,
 				E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */,
+				6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

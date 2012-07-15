@@ -8,11 +8,6 @@
 
 @interface GHResource ()
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
-- (void)loadingFinished:(ASIHTTPRequest *)request;
-- (void)loadingFailed:(ASIHTTPRequest *)request;
-- (void)savingFinished:(ASIHTTPRequest *)request;
-- (void)savingFailed:(ASIHTTPRequest *)request;
-- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject;
 @end
 
 
@@ -45,6 +40,10 @@
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
+}
+
+- (NSString *)resourceContentType {
+	return kResourceContentTypeDefault;
 }
 
 #pragma mark Request
@@ -100,6 +99,7 @@
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
 	ASIFormDataRequest *request = [GHResource apiRequestForPath:self.resourcePath];
+	[request addRequestHeader:@"Accept" value:self.resourceContentType];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(loadingFinished:)];
 	[request setDidFailSelector:@selector(loadingFailed:)];

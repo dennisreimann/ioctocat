@@ -40,6 +40,12 @@ typedef enum {
 - (void)parseData:(NSData *)theData;
 - (void)parsingFinished:(id)theResult;
 - (void)setValuesFromDict:(NSDictionary *)theDict;
+- (void)loadingFinished:(ASIHTTPRequest *)request;
+- (void)loadingFailed:(ASIHTTPRequest *)request;
+- (void)savingFinished:(ASIHTTPRequest *)request;
+- (void)savingFailed:(ASIHTTPRequest *)request;
+- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject;
+- (NSString *)resourceContentType;
 
 @end
 

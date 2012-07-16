@@ -2,8 +2,8 @@
 #import "MyFeedsController.h"
 #import "RepositoriesController.h"
 #import "UserController.h"
-#import "OrganizationsController.h"
 #import "SearchController.h"
+#import "MoreController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "iOctocat.h"
@@ -33,16 +33,16 @@
 	MyFeedsController *feedsController      = [MyFeedsController controllerWithUser:account.user];
 	RepositoriesController *reposController = [RepositoriesController controllerWithUser:account.user];
 	UserController *userController          = [UserController controllerWithUser:account.user];
-	OrganizationsController *orgsController = [OrganizationsController controllerWithOrganizations:account.user.organizations];
 	SearchController *searchController      = [SearchController controllerWithUser:account.user];
+	MoreController *moreController          = [MoreController controllerWithUser:account.user];
 	
 	// tabs
 	self.viewControllers = [NSArray arrayWithObjects:
 							feedsController,
 							reposController,
 							userController,
-							orgsController,
 							searchController,
+							moreController,
 							nil];
 	return self;
 }
@@ -55,7 +55,7 @@
 	[feedsTabBarItem release], feedsTabBarItem = nil;
 	[reposTabBarItem release], reposTabBarItem = nil;
 	[profileTabBarItem release], profileTabBarItem = nil;
-	[orgsTabBarItem release], orgsTabBarItem = nil;
+	[moreTabBarItem release], moreTabBarItem = nil;
 	[searchTabBarItem release], searchTabBarItem = nil;
 	[super dealloc];
 }
@@ -109,9 +109,9 @@
 		self.selectedViewController = [viewControllers objectAtIndex:1];
 	} else if (item == profileTabBarItem) {
 		self.selectedViewController = [viewControllers objectAtIndex:2];
-	} else if (item == orgsTabBarItem) {
-		self.selectedViewController = [viewControllers objectAtIndex:3];
 	} else if (item == searchTabBarItem) {
+		self.selectedViewController = [viewControllers objectAtIndex:3];
+	} else if (item == moreTabBarItem) {
 		self.selectedViewController = [viewControllers objectAtIndex:4];
 	}
 }

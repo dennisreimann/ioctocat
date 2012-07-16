@@ -8,7 +8,7 @@
 	IBOutlet UITabBarItem *feedsTabBarItem;
 	IBOutlet UITabBarItem *reposTabBarItem;
 	IBOutlet UITabBarItem *profileTabBarItem;
-	IBOutlet UITabBarItem *orgsTabBarItem;
+	IBOutlet UITabBarItem *moreTabBarItem;
 	IBOutlet UITabBarItem *searchTabBarItem;
 }
 

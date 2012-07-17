@@ -66,6 +66,8 @@
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
 		6F46107415B5E9E4005AB350 /* repostat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107215B5E9E4005AB350 /* repostat.png */; };
 		6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107315B5E9E4005AB350 /* repostat@2x.png */; };
+		6F46107815B5FC2E005AB350 /* MoreIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107615B5FC2E005AB350 /* MoreIssues.png */; };
+		6F46107915B5FC2E005AB350 /* MoreIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */; };
 		6F47B8F914C087FC00E0666B /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8E614C087FC00E0666B /* ASIAuthenticationDialog.m */; };
 		6F47B8FA14C087FC00E0666B /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8E914C087FC00E0666B /* ASIDataCompressor.m */; };
 		6F47B8FB14C087FC00E0666B /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8EB14C087FC00E0666B /* ASIDataDecompressor.m */; };
@@ -338,6 +340,8 @@
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepository.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F46107215B5E9E4005AB350 /* repostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repostat.png; path = Images/repostat.png; sourceTree = "<group>"; };
 		6F46107315B5E9E4005AB350 /* repostat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repostat@2x.png"; path = "Images/repostat@2x.png"; sourceTree = "<group>"; };
+		6F46107615B5FC2E005AB350 /* MoreIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreIssues.png; sourceTree = "<group>"; };
+		6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreIssues@2x.png"; sourceTree = "<group>"; };
 		6F47B8E514C087FC00E0666B /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = Classes/External/ASIHttpRequest/Classes/ASIAuthenticationDialog.h; sourceTree = SOURCE_ROOT; };
 		6F47B8E614C087FC00E0666B /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIAuthenticationDialog.m; path = Classes/External/ASIHttpRequest/Classes/ASIAuthenticationDialog.m; sourceTree = SOURCE_ROOT; };
 		6F47B8E714C087FC00E0666B /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = Classes/External/ASIHttpRequest/Classes/ASICacheDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -827,6 +831,8 @@
 		6F56163615B4A23700226B6D /* More */ = {
 			isa = PBXGroup;
 			children = (
+				6F46107615B5FC2E005AB350 /* MoreIssues.png */,
+				6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */,
 				6F56163715B4A23700226B6D /* MoreOrgs.png */,
 				6F56163815B4A23700226B6D /* MoreOrgs@2x.png */,
 			);
@@ -1459,6 +1465,8 @@
 				6F56163A15B4A23700226B6D /* MoreOrgs@2x.png in Resources */,
 				6F46107415B5E9E4005AB350 /* repostat.png in Resources */,
 				6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */,
+				6F46107815B5FC2E005AB350 /* MoreIssues.png in Resources */,
+				6F46107915B5FC2E005AB350 /* MoreIssues@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

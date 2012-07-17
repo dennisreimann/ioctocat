@@ -9,11 +9,14 @@
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
     IBOutlet UILabel *detailLabel;
-    IBOutlet UILabel *votesLabel;    
+    IBOutlet UILabel *votesLabel;   
+    IBOutlet UILabel *repoLabel;    
     IBOutlet UILabel *issueNumber;
 	IBOutlet UIImageView *iconView;
 }
 
 @property(nonatomic,retain)GHIssue *issue;
+
+- (void)hideRepo;
 
 @end

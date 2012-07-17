@@ -5,11 +5,13 @@
 #import "GHIssues.h"
 #import "IssueCell.h"
 #import "GHRepository.h"
+#import "GHUser.h"
 
 
 @interface IssuesController ()
 @property(nonatomic,retain)NSArray *issueList;
 @property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,retain)GHUser *user;
 @property(nonatomic,readonly)GHIssues *currentIssues;
 
 - (void)issueLoadingStarted;
@@ -20,13 +22,35 @@
 @implementation IssuesController
 
 @synthesize repository;
+@synthesize user;
 @synthesize issueList;
+
++ (id)controllerWithUser:(GHUser *)theUser {
+    return [[[IssuesController alloc] initWithUser:theUser] autorelease];
+}
+
++ (id)controllerWithRepository:(GHRepository *)theRepository {
+    return [[[IssuesController alloc] initWithRepository:theRepository] autorelease];
+}
+
+- (id)initWithUser:(GHUser *)theUser {
+    [super initWithNibName:@"Issues" bundle:nil];
+	self.title = @"My Issues";
+	self.user = theUser;
+	NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
+	NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
+	GHIssues *openIssues = [GHIssues issuesWithResourcePath:openPath];
+	GHIssues *closedIssues = [GHIssues issuesWithResourcePath:closedPath];
+	self.issueList = [NSArray arrayWithObjects:openIssues, closedIssues, nil];
+	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    return self;
+}
 
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"Issues";
     self.repository = theRepository;
-	self.issueList = [[NSArray alloc] initWithObjects:repository.openIssues, repository.closedIssues, nil];
+	self.issueList = [NSArray arrayWithObjects:repository.openIssues, repository.closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
@@ -34,7 +58,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.titleView = issuesControl;
-	self.navigationItem.rightBarButtonItem = addButton;
+	self.navigationItem.rightBarButtonItem = repository ? addButton : nil;
     
 	issuesControl.selectedSegmentIndex = 0;
     if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
@@ -122,6 +146,7 @@
 		cell = issueCell;
 	}
 	cell.issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
+	if (repository) [cell hideRepo];
 	return cell;
 }
 

@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHIssues, IssueCell, GHRepository;
+@class GHIssues, IssueCell, GHRepository, GHUser;
 
 @interface IssuesController : UITableViewController {
 	IBOutlet UISegmentedControl *issuesControl;
@@ -10,11 +10,15 @@
 	IBOutlet UIBarButtonItem *addButton;
 	IBOutlet IssueCell *issueCell;
   @private
+	GHUser *user;
     GHRepository *repository;
     NSArray *issueList;
 	NSUInteger loadCounter;
 }
 
++ (id)controllerWithUser:(GHUser *)theUser;
++ (id)controllerWithRepository:(GHRepository *)theRepository;
+- (id)initWithUser:(GHUser *)theUser;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)reloadIssues;
 - (IBAction)switchChanged:(id)sender;

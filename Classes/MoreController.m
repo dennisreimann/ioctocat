@@ -1,5 +1,6 @@
 #import "MoreController.h"
 #import "OrganizationsController.h"
+#import "IssuesController.h"
 #import "AccountController.h"
 #import "GHUser.h"
 #import "iOctocat.h"
@@ -17,11 +18,18 @@
 - (id)initWithUser:(GHUser *)theUser {
 	[super initWithNibName:@"More" bundle:nil];
 	
-	self.user = theUser;
+	// Organizations
 	NSArray *orgsVals = [NSArray arrayWithObjects:@"Organizations", @"MoreOrgs.png", nil];
 	NSArray *orgsKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *orgsDict = [NSDictionary dictionaryWithObjects:orgsVals forKeys:orgsKeys];
-	self.moreOptions = [NSArray arrayWithObjects:orgsDict, nil];
+	
+	// My Issues
+	NSArray *issuesVals = [NSArray arrayWithObjects:@"My Issues", @"MoreIssues.png", nil];
+	NSArray *issuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *issuesDict = [NSDictionary dictionaryWithObjects:issuesVals forKeys:issuesKeys];
+	
+	self.moreOptions = [NSArray arrayWithObjects:orgsDict, issuesDict, nil];
+	self.user = theUser;
 	
 	return self;
 }
@@ -78,6 +86,8 @@
 	UIViewController *viewController = nil;
 	if (row == 0) {
 		viewController = [OrganizationsController controllerWithOrganizations:user.organizations];
+	} else if (row == 1) {
+		viewController = [IssuesController controllerWithUser:user];
 	}
 	// Maybe push a controller
 	if (viewController) {

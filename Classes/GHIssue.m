@@ -5,6 +5,7 @@
 #import "iOctocat.h"
 #import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @interface GHIssue ()
@@ -85,6 +86,13 @@
 	self.votes = [[theDict objectForKey:@"votes"] integerValue];
 	self.num = [[theDict objectForKey:@"number"] integerValue];
     self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	if (!repository) {
+		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
+		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
+		if (owner && name) {
+			self.repository = [GHRepository repositoryWithOwner:owner andName:name];
+		}
+	}
 }
 
 #pragma mark State toggling

@@ -6,6 +6,7 @@
 #import "GHReadme.h"
 #import "GHBranches.h"
 #import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHRepository
@@ -113,7 +114,7 @@
     
     self.htmlURL = [NSURL URLWithString:[resource objectForKey:@"html_url"]];
     self.homepageURL = [NSURL smartURLFromString:[resource objectForKey:@"homepage"]];
-    self.descriptionText = [resource objectForKey:@"description"];
+    self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];
     self.isFork = [[resource objectForKey:@"fork"] boolValue];
     self.isPrivate = [[resource objectForKey:@"private"] boolValue];
     self.hasIssues = [[resource objectForKey:@"has_issues"] boolValue];

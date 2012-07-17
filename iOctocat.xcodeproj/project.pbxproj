@@ -10,7 +10,6 @@
 		01117CDC13E87CBF004F4E09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01117CDB13E87CBF004F4E09 /* libz.dylib */; };
 		01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
 		01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3A14FBF07D00AE08EC /* Reachability.m */; };
-		1AA16F5A1539D051000552BD /* repostat.png in Resources */ = {isa = PBXBuildFile; fileRef = 1AA16F591539D051000552BD /* repostat.png */; };
 		1D3623260D0F684500981E51 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -65,6 +64,8 @@
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F46107415B5E9E4005AB350 /* repostat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107215B5E9E4005AB350 /* repostat.png */; };
+		6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107315B5E9E4005AB350 /* repostat@2x.png */; };
 		6F47B8F914C087FC00E0666B /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8E614C087FC00E0666B /* ASIAuthenticationDialog.m */; };
 		6F47B8FA14C087FC00E0666B /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8E914C087FC00E0666B /* ASIDataCompressor.m */; };
 		6F47B8FB14C087FC00E0666B /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F47B8EB14C087FC00E0666B /* ASIDataDecompressor.m */; };
@@ -260,7 +261,6 @@
 		01554A3414FBF02E00AE08EC /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
 		01554A3914FBF07D00AE08EC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.h; sourceTree = SOURCE_ROOT; };
 		01554A3A14FBF07D00AE08EC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = SOURCE_ROOT; };
-		1AA16F591539D051000552BD /* repostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = repostat.png; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iOctocat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
@@ -336,6 +336,8 @@
 		6F35BD380F88B01900E978CD /* GHOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHOrganization.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepository.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6F46107215B5E9E4005AB350 /* repostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repostat.png; path = Images/repostat.png; sourceTree = "<group>"; };
+		6F46107315B5E9E4005AB350 /* repostat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repostat@2x.png"; path = "Images/repostat@2x.png"; sourceTree = "<group>"; };
 		6F47B8E514C087FC00E0666B /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASIAuthenticationDialog.h; path = Classes/External/ASIHttpRequest/Classes/ASIAuthenticationDialog.h; sourceTree = SOURCE_ROOT; };
 		6F47B8E614C087FC00E0666B /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASIAuthenticationDialog.m; path = Classes/External/ASIHttpRequest/Classes/ASIAuthenticationDialog.m; sourceTree = SOURCE_ROOT; };
 		6F47B8E714C087FC00E0666B /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASICacheDelegate.h; path = Classes/External/ASIHttpRequest/Classes/ASICacheDelegate.h; sourceTree = SOURCE_ROOT; };
@@ -758,6 +760,8 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6F46107215B5E9E4005AB350 /* repostat.png */,
+				6F46107315B5E9E4005AB350 /* repostat@2x.png */,
 				6F7C822415B3483300D37EE8 /* readme.png */,
 				6F7C822515B3483300D37EE8 /* readme@2x.png */,
 				6F843150136D53350016E367 /* commit_comment.png */,
@@ -816,7 +820,6 @@
 				6F1DC5C10F7E7F4600FCD26D /* merge.png */,
 				6F1DC5C20F7E7F4600FCD26D /* push.png */,
 				6F1DC5C40F7E7F4600FCD26D /* wiki.png */,
-				1AA16F591539D051000552BD /* repostat.png */,
 			);
 			name = Icons;
 			sourceTree = "<group>";
@@ -1432,7 +1435,6 @@
 				6F5E863B14F2A17200F340FE /* Icon.png in Resources */,
 				6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */,
 				6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */,
-				1AA16F5A1539D051000552BD /* repostat.png in Resources */,
 				6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */,
 				6FAF9D2B1592765200997A28 /* Account.xib in Resources */,
 				6F064EFA15A370B700F0AFF0 /* Icon-72.png in Resources */,
@@ -1455,6 +1457,8 @@
 				6F56163515B4A02200226B6D /* More.xib in Resources */,
 				6F56163915B4A23700226B6D /* MoreOrgs.png in Resources */,
 				6F56163A15B4A23700226B6D /* MoreOrgs@2x.png in Resources */,
+				6F46107415B5E9E4005AB350 /* repostat.png in Resources */,
+				6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

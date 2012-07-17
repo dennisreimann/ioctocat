@@ -1,6 +1,6 @@
 #import "RepositoryCell.h"
 
-#define REPOSTAT_ICON [UIImage imageNamed:@"repostat"]
+#define REPOSTAT_ICON [UIImage imageNamed:@"repostat.png"]
 #define REPOSTAT_ICON_Y(index) (index * -25 -3)
 
 @interface DetailView : UIView
@@ -41,7 +41,7 @@
     [[UIColor grayColor] set];
 
     [REPOSTAT_ICON drawAtPoint:CGPointMake(0, REPOSTAT_ICON_Y(0))];
-    [watcherText drawAtPoint:CGPointMake(24, 0) withFont:font];
+    [watcherText drawAtPoint:CGPointMake(26, 0) withFont:font];
 
     [REPOSTAT_ICON drawAtPoint:CGPointMake(60, REPOSTAT_ICON_Y(2))];
     [forkText drawAtPoint:CGPointMake(84, 0) withFont:font];
@@ -64,7 +64,10 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	
 	self.textLabel.font = [UIFont systemFontOfSize:16.0f];
+	self.textLabel.highlightedTextColor = [UIColor whiteColor];
+	self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	self.opaque = YES;
 
@@ -78,8 +81,8 @@
 }
 
 - (void)dealloc {
-    [detailView release];
-	[repository release];
+    [detailView release], detailView = nil;
+	[repository release], repository = nil;
     [super dealloc];
 }
 
@@ -87,9 +90,9 @@
 	[theRepository retain];
 	[repository release];
 	repository = theRepository;
+	
 	self.imageView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
     self.textLabel.text = [NSString stringWithFormat:@"%@/%@", repository.owner, repository.name];
-    
     self.detailTextLabel.text = [NSString stringWithFormat:@"W:%d F:%d", repository.watcherCount, repository.forkCount];
 
     self.detailView.forkCount = repository.forkCount;

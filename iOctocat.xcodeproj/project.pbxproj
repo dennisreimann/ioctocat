@@ -185,6 +185,8 @@
 		6FA97E4E15B0C257000004F1 /* ToolbarCompass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4C15B0C257000004F1 /* ToolbarCompass@2x.png */; };
 		6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */; };
 		6FAAF67215935D6C003D0344 /* TokenResolverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAAF67115935D6C003D0344 /* TokenResolverController.m */; };
+		6FAB77B015B9C79200B08E18 /* MoreApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AE15B9C79200B08E18 /* MoreApp.png */; };
+		6FAB77B115B9C79200B08E18 /* MoreApp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */; };
 		6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
 		6FAF9D2B1592765200997A28 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2A1592765200997A28 /* Account.xib */; };
 		6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2E15927A8E00997A28 /* AccountController.m */; };
@@ -500,6 +502,8 @@
 		6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUsers@2x.png"; sourceTree = "<group>"; };
 		6FAAF67015935D6C003D0344 /* TokenResolverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenResolverController.h; sourceTree = "<group>"; };
 		6FAAF67115935D6C003D0344 /* TokenResolverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenResolverController.m; sourceTree = "<group>"; };
+		6FAB77AE15B9C79200B08E18 /* MoreApp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreApp.png; sourceTree = "<group>"; };
+		6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreApp@2x.png"; sourceTree = "<group>"; };
 		6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
 		6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extensions.m"; sourceTree = "<group>"; };
 		6FAF9D2A1592765200997A28 /* Account.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Account.xib; path = IBFiles/Account.xib; sourceTree = "<group>"; };
@@ -831,6 +835,8 @@
 		6F56163615B4A23700226B6D /* More */ = {
 			isa = PBXGroup;
 			children = (
+				6FAB77AE15B9C79200B08E18 /* MoreApp.png */,
+				6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */,
 				6F46107615B5FC2E005AB350 /* MoreIssues.png */,
 				6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */,
 				6F56163715B4A23700226B6D /* MoreOrgs.png */,
@@ -1467,6 +1473,8 @@
 				6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */,
 				6F46107815B5FC2E005AB350 /* MoreIssues.png in Resources */,
 				6F46107915B5FC2E005AB350 /* MoreIssues@2x.png in Resources */,
+				6FAB77B015B9C79200B08E18 /* MoreApp.png in Resources */,
+				6FAB77B115B9C79200B08E18 /* MoreApp@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

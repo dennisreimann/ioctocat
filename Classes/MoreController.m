@@ -3,6 +3,7 @@
 #import "IssuesController.h"
 #import "AccountController.h"
 #import "GHUser.h"
+#import "GHRepository.h"
 #import "iOctocat.h"
 
 
@@ -24,11 +25,16 @@
 	NSDictionary *orgsDict = [NSDictionary dictionaryWithObjects:orgsVals forKeys:orgsKeys];
 	
 	// My Issues
-	NSArray *issuesVals = [NSArray arrayWithObjects:@"My Issues", @"MoreIssues.png", nil];
-	NSArray *issuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
-	NSDictionary *issuesDict = [NSDictionary dictionaryWithObjects:issuesVals forKeys:issuesKeys];
+	NSArray *myIssuesVals = [NSArray arrayWithObjects:@"My Issues", @"MoreIssues.png", nil];
+	NSArray *myIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *myIssuesDict = [NSDictionary dictionaryWithObjects:myIssuesVals forKeys:myIssuesKeys];
 	
-	self.moreOptions = [NSArray arrayWithObjects:orgsDict, issuesDict, nil];
+	// iOctocat Issues
+	NSArray *appIssuesVals = [NSArray arrayWithObjects:@"iOctocat Feedback", @"MoreApp.png", nil];
+	NSArray *appIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *appIssuesDict = [NSDictionary dictionaryWithObjects:appIssuesVals forKeys:appIssuesKeys];
+	
+	self.moreOptions = [NSArray arrayWithObjects:orgsDict, myIssuesDict, appIssuesDict, nil];
 	self.user = theUser;
 	
 	return self;
@@ -88,6 +94,9 @@
 		viewController = [OrganizationsController controllerWithOrganizations:user.organizations];
 	} else if (row == 1) {
 		viewController = [IssuesController controllerWithUser:user];
+	} else if (row == 2) {
+		GHRepository *repo = [GHRepository repositoryWithOwner:@"dennisreimann" andName:@"iOctocat"];
+		viewController = [IssuesController controllerWithRepository:repo];
 	}
 	// Maybe push a controller
 	if (viewController) {

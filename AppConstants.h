@@ -48,7 +48,7 @@
 #define kUserFeedFormat                 @"%@.atom"
 #define kUserNewsFeedFormat             @"%@.private.atom"
 #define kUserActivityFeedFormat         @"%@.private.actor.atom"
-#define kRepoFeedFormat                 @"feeds/%@/commits/%@/%@"
+#define kRepoFeedFormat                 @"%@/%@/commits/%@.atom"
 #define kOrganizationFeedFormat         @"organizations/%@/%@.private.atom"
 
 // Authenticated user

@@ -434,6 +434,7 @@
 		6F797C5B1110E2BE007E5A8D /* CommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitController.h; sourceTree = "<group>"; };
 		6F797C5C1110E2BE007E5A8D /* CommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitController.m; sourceTree = "<group>"; };
 		6F797C7D1110E842007E5A8D /* Commit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commit.xib; path = IBFiles/Commit.xib; sourceTree = "<group>"; };
+		6F7BC07C15C12E660012320A /* JLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLog.h; sourceTree = "<group>"; };
 		6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHReadme.h; sourceTree = "<group>"; };
 		6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHReadme.m; sourceTree = "<group>"; };
 		6F7C822415B3483300D37EE8 /* readme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = readme.png; path = Images/Icons/readme.png; sourceTree = "<group>"; };
@@ -669,6 +670,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6F7BC07C15C12E660012320A /* JLog.h */,
 				6FA512F11332659000C16D95 /* AppConstants.h */,
 				6FA512F01332657400C16D95 /* Platform.h */,
 				6F7961AD132EC90D00C9446E /* SynthesizeSingleton.h */,

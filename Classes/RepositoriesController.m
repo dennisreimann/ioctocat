@@ -222,10 +222,10 @@
 	if (!user.repositories.isLoaded) return loadingReposCell;
 	if (indexPath.section == 0 && self.privateRepositories.count == 0) return noPrivateReposCell;
 	if (indexPath.section == 1 && self.publicRepositories.count == 0) return noPublicReposCell;
-	if (indexPath.section == 2 && orgReposLoaded == 0) return loadingReposCell;
+	if (indexPath.section == 2 && orgReposLoaded == 0 && observedOrgRepoLists.count > 0) return loadingReposCell;
 	if (indexPath.section == 2 && self.organizationRepositories.count == 0) return noOrganizationReposCell;
 	if (indexPath.section == 3 && !user.watchedRepositories.isLoaded) return loadingReposCell;
-	if (indexPath.section == 3 && self.watchedRepositories.count == 0) return noWatchedReposCell;
+	if (indexPath.section == 3 && self.watchedRepositories.count == 0 && orgReposLoaded == observedOrgRepoLists.count) return noWatchedReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];

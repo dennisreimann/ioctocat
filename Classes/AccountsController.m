@@ -125,15 +125,15 @@
 }
 
 - (void)openAccount:(GHAccount *)theAccount {
-	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
-	[iOctocat sharedInstance].currentAccount = theAccount;
-	[iOctocat sharedInstance].accountController = viewController;
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
-
 	// Resolve token
 	if ([theAccount.token length] < 32) {
 		[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
+	} else {
+		AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
+		[iOctocat sharedInstance].currentAccount = theAccount;
+		[iOctocat sharedInstance].accountController = viewController;
+		[self.navigationController pushViewController:viewController animated:YES];
+		[viewController release];
 	}
 }
 
@@ -220,6 +220,13 @@
 	NSDictionary *accountDict = [accounts objectAtIndex:index];
 	[accountDict setValue:theToken forKey:kTokenDefaultsKey];
 	[self.class saveAccounts:accounts];
+	// open account
+	GHAccount *theAccount = [GHAccount accountWithDict:accountDict];
+	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
+	[iOctocat sharedInstance].currentAccount = theAccount;
+	[iOctocat sharedInstance].accountController = viewController;
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
 }
 
 #pragma mark Autorotation

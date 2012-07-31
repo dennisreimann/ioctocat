@@ -30,6 +30,8 @@
 				<string>Default-Landscape@2x~ipad.png</string>
 				<string>Default-Portrait@2x~ipad.png</string>
 			</array>
+			<key>UIPrerenderedIcon</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>CFBundleIdentifier</key>
@@ -46,13 +48,13 @@
 	<string>1.5.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIPrerenderedIcon</key>
-	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow-iphone</string>
 	<key>NSMainNibFile~ipad</key>
 	<string>MainWindow-ipad</string>
 	<key>SBUsesNetwork</key>
+	<true/>
+	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>

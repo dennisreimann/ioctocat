@@ -28,9 +28,8 @@ A = MAX;				\
 
 
 
-
 #ifndef JLog
-#define JLine(firstarg, ...)			([NSString stringWithFormat:@"\t(%08x.%04d)%s %@",self,__LINE__,__FUNCTION__,[NSString stringWithFormat:firstarg, ##__VA_ARGS__ ]])
+#define JLine(firstarg, ...)			([NSString stringWithFormat:@"\t%s %@",__FUNCTION__,[NSString stringWithFormat:firstarg, ##__VA_ARGS__ ]])
 #define JLineC(firstarg, ...)			([NSString stringWithFormat:@"\t(%08x.%04d) %s %s(): %@",NULL,__LINE__,__FILE__,__FUNCTION__,[NSString stringWithFormat:firstarg , ##__VA_ARGS__ ]])
 
 #define JLog(firstarg, ...)				NSLog(@"%@",JLine(firstarg , ##__VA_ARGS__ ))

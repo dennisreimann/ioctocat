@@ -78,7 +78,7 @@
             }
 
             if (gotNumber) {
-                [result appendFormat:@"%C", charCode];
+                [result appendFormat:@"%i", charCode];
                 [scanner scanString:@";" intoString:NULL];
             }
             else {

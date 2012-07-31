@@ -82,7 +82,7 @@
 	login = theLogin;
 
     GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-    NSString *activityFeedPath = [NSString stringWithFormat:kOrganizationFeedFormat, login, account.login, account.token];
+    NSString *activityFeedPath = [NSString stringWithFormat:kOrganizationFeedFormat, login, account.login];
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, login];
 	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, login];
 

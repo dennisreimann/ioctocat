@@ -152,7 +152,7 @@
 		if ((id) repo2.pushedAtDate == [NSNull null]) {
 			return NSOrderedAscending;
 		}
-		return [repo2.pushedAtDate compare:repo1.pushedAtDate];
+		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
 	
 	// Private/Public repos

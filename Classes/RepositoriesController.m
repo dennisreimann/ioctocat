@@ -215,7 +215,7 @@
 	if (section == 0) return @"Private";
 	if (section == 1) return @"Public";
     if (section == 2) return @"Organizations";
-	return @"Watched";
+	return @"Starred";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

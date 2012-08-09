@@ -102,7 +102,7 @@
 			NSString *username = [comps2 objectAtIndex:0];
 			self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
 		} else if ([eventType isEqualToString:@"watch"]) {
-			NSArray *comps1 = [title componentsSeparatedByString:@" started watching "];
+			NSArray *comps1 = [title componentsSeparatedByString:@" starred "];
 			NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@"/"];
 			NSString *owner = [comps2 objectAtIndex:0];
 			NSString *name = [comps2 objectAtIndex:1];

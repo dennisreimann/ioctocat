@@ -16,6 +16,7 @@
 #import "IssuesController.h"
 #import "iOctocat.h"
 #import "NSDate+Nibware.h"
+#import "NSString+Extensions.h"
 
 
 @interface FeedEntryController ()
@@ -195,7 +196,7 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if ([[[request URL] absoluteString] isEqualToString:@"about:blank"]) return YES;
 	NSArray *pathComponents = [[[[request URL] relativePath] substringFromIndex:1] componentsSeparatedByString:@"/"];
-	DJLog(@"Path: %@", pathComponents);
+	DJLog(@"Path: %@, EventType: %@, EventItem: %@", pathComponents, entry.eventType, entry.eventItem);
 	if ([pathComponents containsObject:@"commit"]) {
 		NSString *sha = [pathComponents lastObject];
 		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
@@ -203,14 +204,14 @@
 		[self.navigationController pushViewController:commitController animated:YES];
 		[commitController release];
 		[commit release];
-	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && [entry.content rangeOfString:@" is at"].location != NSNotFound) {
+	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && pathComponents.count == 2) {
 		NSString *owner = [pathComponents objectAtIndex:0];
 		NSString *name = [pathComponents objectAtIndex:1];
 		GHRepository *repo = [GHRepository repositoryWithOwner:owner andName:name];
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
-	} else if ([pathComponents count] == 1) {
+	} else if (pathComponents.count == 1) {
 		NSString *username = [pathComponents objectAtIndex:0];
 		GHUser *user = [[iOctocat sharedInstance] userWithLogin:username];
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];

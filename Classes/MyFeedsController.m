@@ -82,6 +82,7 @@
 	
     if (!user.organizations.isLoaded) [user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
+	[self.tableView reloadData];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }

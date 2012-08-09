@@ -100,6 +100,14 @@ finish:
     return result;
 }
 
+- (NSString *)stripHTML {
+	NSRange r;
+	NSString *s = [[self copy] autorelease];
+	while ((r = [s rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+		s = [s stringByReplacingCharactersInRange:r withString:@""];
+	return s;
+}
+
 // Taken from https://gist.github.com/1256354
 - (NSString *)stringByEscapingForURLArgument {
     // Encode all the reserved characters, per RFC 3986 (<http://www.ietf.org/rfc/rfc3986.txt>)

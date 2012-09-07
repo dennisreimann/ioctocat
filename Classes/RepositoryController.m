@@ -84,15 +84,25 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isWatching:repository] ? @"Unstar" : @"Star"), @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+															 delegate:self
+													cancelButtonTitle:@"Cancel"
+											   destructiveButtonTitle:nil
+													otherButtonTitles:
+								  ([self.currentUser isStarring:repository] ? @"Unstar" : @"Star"),
+								  ([self.currentUser isWatching:repository] ? @"Unwatch" : @"Watch"),
+								  @"Show on GitHub",
+								  nil];
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
+        [self.currentUser isStarring:repository] ? [self.currentUser unstarRepository:repository] : [self.currentUser starRepository:repository];
     } else if (buttonIndex == 1) {
+        [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
+    } else if (buttonIndex == 2) {
 		WebController *webController = [[WebController alloc] initWithURL:repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 		[webController release];             
@@ -104,7 +114,7 @@
 - (void)displayRepository {
     iconView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
 	nameLabel.text = repository.name;
-	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"watcher" : @"watchers", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
+	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"star" : @"stars", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
     if (repository.isFork) forkLabel.text = @"forked";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];

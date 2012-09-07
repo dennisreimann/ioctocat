@@ -59,8 +59,7 @@
 }
 
 - (NSUInteger)hash {
-	NSString *hashValue = [NSString stringWithFormat:@"%@/%@", [owner lowercaseString], [name lowercaseString]];
-	return [hashValue hash];
+	return [self.repoId hash];
 }
 
 - (NSString *)description {

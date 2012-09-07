@@ -22,6 +22,7 @@
     NSUInteger followingCount;
     GHOrganizations *organizations;
 	GHRepositories *repositories;
+	GHRepositories *starredRepositories;
 	GHRepositories *watchedRepositories;
 	GHFeed *recentActivity;
     GHUsers *following;
@@ -42,6 +43,7 @@
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHOrganizations *organizations;
 @property(nonatomic,retain)GHRepositories *repositories;
+@property(nonatomic,retain)GHRepositories *starredRepositories;
 @property(nonatomic,retain)GHRepositories *watchedRepositories;
 @property(nonatomic,retain)GHFeed *recentActivity;
 @property(nonatomic,retain)GHUsers *following;
@@ -59,9 +61,12 @@
 - (void)setLogin:(NSString *)theLogin;
 - (void)loadedGravatar:(UIImage *)theImage;
 - (BOOL)isFollowing:(GHUser *)anUser;
+- (BOOL)isStarring:(GHRepository *)aRepository;
 - (BOOL)isWatching:(GHRepository *)aRepository;
 - (void)followUser:(GHUser *)theUser;
 - (void)unfollowUser:(GHUser *)theUser;
+- (void)starRepository:(GHRepository *)theRepository;
+- (void)unstarRepository:(GHRepository *)theRepository;
 - (void)watchRepository:(GHRepository *)theRepository;
 - (void)unwatchRepository:(GHRepository *)theRepository;
 

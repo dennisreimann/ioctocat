@@ -356,6 +356,63 @@ AAgACAAIAAEAAQABAAE</bytes>
 				<reference key="IBUIContentView" ref="262904477"/>
 				<string key="IBUIReuseIdentifier">NoOrganizationReposCell</string>
 			</object>
+			<object class="IBUITableViewCell" id="766028208">
+				<reference key="NSNextResponder"/>
+				<int key="NSvFlags">292</int>
+				<object class="NSMutableArray" key="NSSubviews">
+					<bool key="EncodedWithXMLCoder">YES</bool>
+					<object class="IBUIView" id="185461061">
+						<reference key="NSNextResponder" ref="766028208"/>
+						<int key="NSvFlags">256</int>
+						<object class="NSMutableArray" key="NSSubviews">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUILabel" id="480626810">
+								<reference key="NSNextResponder" ref="185461061"/>
+								<int key="NSvFlags">295</int>
+								<string key="NSFrame">{{30, 12}, {259, 21}}</string>
+								<reference key="NSSuperview" ref="185461061"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
+								<bool key="IBUIOpaque">NO</bool>
+								<bool key="IBUIClipsSubviews">YES</bool>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<string key="IBUIText">You have no starred repos</string>
+								<object class="NSColor" key="IBUITextColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MCAwIDAgMC41AA</bytes>
+								</object>
+								<nil key="IBUIHighlightedColor"/>
+								<int key="IBUIBaselineAdjustment">1</int>
+								<float key="IBUIMinimumFontSize">10</float>
+								<int key="IBUINumberOfLines">4</int>
+								<int key="IBUITextAlignment">1</int>
+								<reference key="IBUIFontDescription" ref="798362766"/>
+								<reference key="IBUIFont" ref="723419284"/>
+							</object>
+						</object>
+						<string key="NSFrameSize">{320, 43}</string>
+						<reference key="NSSuperview" ref="766028208"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="480626810"/>
+						<reference key="IBUIBackgroundColor" ref="539577823"/>
+						<bool key="IBUIOpaque">NO</bool>
+						<bool key="IBUIClipsSubviews">YES</bool>
+						<int key="IBUIContentMode">4</int>
+						<bool key="IBUIMultipleTouchEnabled">YES</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+					</object>
+				</object>
+				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView" ref="185461061"/>
+				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+				<int key="IBUISelectionStyle">0</int>
+				<reference key="IBUIContentView" ref="185461061"/>
+				<string key="IBUIReuseIdentifier">NoStarredReposCell</string>
+			</object>
 			<object class="IBUITableViewCell" id="128007021">
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
@@ -478,6 +535,14 @@ AAgACAAIAAEAAQABAAE</bytes>
 					</object>
 					<int key="connectionID">24</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">noStarredReposCell</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="766028208"/>
+					</object>
+					<int key="connectionID">27</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -582,6 +647,20 @@ AAgACAAIAAEAAQABAAE</bytes>
 						<reference key="object" ref="281597163"/>
 						<reference key="parent" ref="876138557"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">25</int>
+						<reference key="object" ref="766028208"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="480626810"/>
+						</object>
+						<reference key="parent" ref="0"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">26</int>
+						<reference key="object" ref="480626810"/>
+						<reference key="parent" ref="766028208"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -599,6 +678,8 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<string>2.IBPluginDependency</string>
 					<string>22.IBPluginDependency</string>
 					<string>23.IBPluginDependency</string>
+					<string>25.IBPluginDependency</string>
+					<string>26.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
@@ -610,6 +691,8 @@ AAgACAAIAAEAAQABAAE</bytes>
 					<string>RepositoriesController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -637,7 +720,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">24</int>
+			<int key="maxID">27</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -653,10 +736,12 @@ AAgACAAIAAEAAQABAAE</bytes>
 							<string>noOrganizationReposCell</string>
 							<string>noPrivateReposCell</string>
 							<string>noPublicReposCell</string>
+							<string>noStarredReposCell</string>
 							<string>noWatchedReposCell</string>
 						</object>
 						<object class="NSArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
 							<string>UITableViewCell</string>
@@ -672,6 +757,7 @@ AAgACAAIAAEAAQABAAE</bytes>
 							<string>noOrganizationReposCell</string>
 							<string>noPrivateReposCell</string>
 							<string>noPublicReposCell</string>
+							<string>noStarredReposCell</string>
 							<string>noWatchedReposCell</string>
 						</object>
 						<object class="NSArray" key="dict.values">
@@ -693,6 +779,10 @@ AAgACAAIAAEAAQABAAE</bytes>
 								<string key="candidateClassName">UITableViewCell</string>
 							</object>
 							<object class="IBToOneOutletInfo">
+								<string key="name">noStarredReposCell</string>
+								<string key="candidateClassName">UITableViewCell</string>
+							</object>
+							<object class="IBToOneOutletInfo">
 								<string key="name">noWatchedReposCell</string>
 								<string key="candidateClassName">UITableViewCell</string>
 							</object>
@@ -710,10 +800,6 @@ AAgACAAIAAEAAQABAAE</bytes>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
 			<integer value="768" key="NS.object.0"/>
-		</object>
-		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencyDefaults">
-			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.iPhoneOS</string>
-			<real value="1296" key="NS.object.0"/>
 		</object>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDevelopmentDependencies">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.CocoaTouchPlugin.InterfaceBuilder3</string>

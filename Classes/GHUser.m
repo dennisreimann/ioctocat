@@ -36,6 +36,7 @@
 @synthesize gravatar;
 @synthesize organizations;
 @synthesize repositories;
+@synthesize starredRepositories;
 @synthesize watchedRepositories;
 @synthesize isAuthenticated;
 @synthesize recentActivity;
@@ -102,6 +103,7 @@
     NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, login];
 	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, login];
 	NSString *watchedReposPath  = [NSString stringWithFormat:kUserWatchedReposFormat, login];
+	NSString *starredReposPath  = [NSString stringWithFormat:kUserStarredReposFormat, login];
     NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
     NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
 	NSString *activityFeedPath  = [NSString stringWithFormat:kUserFeedFormat, login];
@@ -109,6 +111,7 @@
     self.resourcePath = [NSString stringWithFormat:kUserFormat, login];
 	self.organizations = [GHOrganizations organizationsWithUser:self andPath:organizationsPath];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
+	self.starredRepositories = [GHRepositories repositoriesWithPath:starredReposPath];
 	self.watchedRepositories = [GHRepositories repositoriesWithPath:watchedReposPath];
     self.following = [GHUsers usersWithPath:followingPath];
     self.followers = [GHUsers usersWithPath:followersPath];
@@ -174,6 +177,45 @@
 - (void)followToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Follow toggle %@ failed: %@", [request url], [request error]);
 	[iOctocat alert:@"Request error" with:@"Could not change following status"];
+}
+
+#pragma mark Stars
+
+- (BOOL)isStarring:(GHRepository *)aRepository {
+	if (!starredRepositories.isLoaded) [starredRepositories loadData];
+	return [starredRepositories.repositories containsObject:aRepository];
+}
+
+- (void)starRepository:(GHRepository *)theRepository {
+	[starredRepositories.repositories addObject:theRepository];
+	DJLog(@"%d", starredRepositories.repositories.count);
+	[self setStarring:YES forRepository:theRepository];
+}
+
+- (void)unstarRepository:(GHRepository *)theRepository {
+	[starredRepositories.repositories removeObject:theRepository];
+	[self setStarring:NO forRepository:theRepository];
+}
+
+- (void)setStarring:(BOOL)watch forRepository:(GHRepository *)theRepository {
+	NSString *path = [NSString stringWithFormat:kRepoStarFormat, theRepository.owner, theRepository.name];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
+    [request setDelegate:self];
+    [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
+	[request setDidFinishSelector:@selector(starToggleFinished:)];
+	[request setDidFailSelector:@selector(starToggleFailed:)];
+	[[iOctocat queue] addOperation:request];
+}
+
+- (void)starToggleFinished:(ASIHTTPRequest *)request {
+	DJLog(@"Star toggle %@ finished: %@", [request url], [request responseString]);
+	self.starredRepositories.loadingStatus = GHResourceStatusNotProcessed;
+    [self.starredRepositories loadData];
+}
+
+- (void)starToggleFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Star toggle %@ failed: %@", [request url], [request error]);
+	[iOctocat alert:@"Request error" with:@"Could not change starring status"];
 }
 
 #pragma mark Watching

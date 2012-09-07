@@ -58,12 +58,14 @@
 #define kUserAuthenticatedIssuesFormat  @"issues?state=%@&filter=%@&sort=%@&per_page=%d"
 #define kUserFollowFormat               @"user/following/%@"
 #define kRepoWatchFormat                @"user/watched/%@/%@"
+#define kRepoStarFormat                 @"user/starred/%@/%@"
 
 // Users
 #define kUserOrganizationsFormat        @"users/%@/orgs"
 #define kUserFormat                     @"users/%@"
 #define kUserReposFormat                @"users/%@/repos?per_page=100"
-#define kUserWatchedReposFormat         @"users/%@/watched?per_page=100"
+#define kUserStarredReposFormat         @"users/%@/starred?per_page=30&sort=pushed" // only load 30 repos, because these lists tend to be long…
+#define kUserWatchedReposFormat         @"users/%@/subscriptions?per_page=100" // @"users/%@/watched?per_page=100"
 #define kUserFollowingFormat            @"users/%@/following?per_page=100"
 #define kUserFollowersFormat            @"users/%@/followers?per_page=100"
 

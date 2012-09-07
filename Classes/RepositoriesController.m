@@ -16,6 +16,7 @@
 @interface RepositoriesController ()
 @property(nonatomic,retain)NSMutableArray *publicRepositories;
 @property(nonatomic,retain)NSMutableArray *privateRepositories;
+@property(nonatomic,retain)NSMutableArray *starredRepositories;
 @property(nonatomic,retain)NSMutableArray *watchedRepositories;
 @property(nonatomic,retain)NSMutableArray *organizationRepositories;
 @property(nonatomic,retain)NSMutableArray *observedOrgRepoLists;
@@ -33,6 +34,7 @@
 @synthesize user;
 @synthesize privateRepositories;
 @synthesize publicRepositories;
+@synthesize starredRepositories;
 @synthesize watchedRepositories;
 @synthesize organizationRepositories;
 @synthesize observedOrgRepoLists;
@@ -51,6 +53,7 @@
 	
     [user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user.starredRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	
 	return self;
@@ -60,6 +63,7 @@
 	for (GHRepositories *repoList in observedOrgRepoLists) [repoList removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[user.starredRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [organizationRepositories release], organizationRepositories = nil;
 	[noPublicReposCell release], noPublicReposCell = nil;
@@ -68,6 +72,7 @@
 	[noOrganizationReposCell release], noOrganizationReposCell = nil;
 	[publicRepositories release], publicRepositories = nil;
 	[privateRepositories release], privateRepositories = nil;
+    [starredRepositories release], starredRepositories = nil;
     [watchedRepositories release], watchedRepositories = nil;
     [organizationRepositories release], organizationRepositories = nil;
 	[observedOrgRepoLists release], observedOrgRepoLists = nil;
@@ -91,6 +96,7 @@
 	
 	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
 	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
+	(user.starredRepositories.isLoaded) ? [self displayRepositories:user.starredRepositories] : [user.starredRepositories loadData];
 	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
 }
 
@@ -165,6 +171,11 @@
 		[self.publicRepositories sortUsingComparator:compareRepositories];
 		[self.privateRepositories sortUsingComparator:compareRepositories];
     }
+	// Starred repos
+    else if ([repositories isEqual:user.starredRepositories]) {
+        self.starredRepositories = [NSMutableArray arrayWithArray:user.starredRepositories.repositories];
+		[self.starredRepositories sortUsingComparator:compareRepositories];
+    }
 	// Watched repos
     else if ([repositories isEqual:user.watchedRepositories]) {
         self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
@@ -177,10 +188,15 @@
 		[self.organizationRepositories sortUsingComparator:compareRepositories];
 	}
 	
-	// Remove already mentioned projects from watchlist
+	// Remove already mentioned projects from watch- and starlist
     [self.watchedRepositories removeObjectsInArray:publicRepositories];
     [self.watchedRepositories removeObjectsInArray:privateRepositories];
     [self.watchedRepositories removeObjectsInArray:organizationRepositories];
+	
+    [self.starredRepositories removeObjectsInArray:publicRepositories];
+    [self.starredRepositories removeObjectsInArray:privateRepositories];
+    [self.starredRepositories removeObjectsInArray:organizationRepositories];
+    [self.starredRepositories removeObjectsInArray:watchedRepositories];
     
 	[self.tableView reloadData];
 }
@@ -194,14 +210,15 @@
 		case 0: return privateRepositories;
 		case 1: return publicRepositories;
         case 2: return organizationRepositories;
-		default: return watchedRepositories;
+        case 3: return watchedRepositories;
+		default: return starredRepositories;
 	}
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return user.repositories.isLoaded ? 4 : 1;
+    return user.repositories.isLoaded ? 5 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -215,6 +232,7 @@
 	if (section == 0) return @"Private";
 	if (section == 1) return @"Public";
     if (section == 2) return @"Organizations";
+    if (section == 3) return @"Watched";
 	return @"Starred";
 }
 
@@ -226,6 +244,8 @@
 	if (indexPath.section == 2 && self.organizationRepositories.count == 0) return noOrganizationReposCell;
 	if (indexPath.section == 3 && !user.watchedRepositories.isLoaded) return loadingReposCell;
 	if (indexPath.section == 3 && self.watchedRepositories.count == 0 && orgReposLoaded == observedOrgRepoLists.count) return noWatchedReposCell;
+	if (indexPath.section == 4 && !user.starredRepositories.isLoaded) return loadingReposCell;
+	if (indexPath.section == 4 && self.starredRepositories.count == 0 && orgReposLoaded == observedOrgRepoLists.count) return noStarredReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];

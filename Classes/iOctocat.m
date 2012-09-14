@@ -48,7 +48,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	
 	// Go
 	self.users = [NSMutableDictionary dictionary];
-	[window addSubview:navController.view];
+	[window setRootViewController:navController];
 	[window makeKeyAndVisible];
 }
 
@@ -162,6 +162,12 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
 	[defaults synchronize];
+}
+
+#pragma mark Autorotation
+
+- (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
+	return UIInterfaceOrientationMaskAll;
 }
 
 @end

@@ -40,6 +40,7 @@
 		6F1DC6440F7E8BDA00FCD26D /* watch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* watch.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
+		6F1E48BB16030C3100359F46 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1E48BA16030C3100359F46 /* Default-568h@2x.png */; };
 		6F27CD11159113D900E15B34 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
@@ -310,6 +311,7 @@
 		6F1DC6590F7E8D6900FCD26D /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WebView.xib; path = IBFiles/WebView.xib; sourceTree = "<group>"; };
 		6F1DC6720F7E8E1900FCD26D /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		6F1DC6730F7E8E1900FCD26D /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
+		6F1E48BA16030C3100359F46 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		6F27CD0E159113D900E15B34 /* AccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsController.h; sourceTree = "<group>"; };
 		6F27CD0F159113D900E15B34 /* AccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsController.m; sourceTree = "<group>"; };
 		6F27CD151591188D00E15B34 /* GHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAccount.h; sourceTree = "<group>"; };
@@ -1059,6 +1061,7 @@
 				6F064EF615A370B700F0AFF0 /* Icon-Small-50@2x.png */,
 				6F064EF715A370B700F0AFF0 /* Icon-Small@2x.png */,
 				6FB3CBF5139780D600CB0EAE /* Icon-Small.png */,
+				6F1E48BA16030C3100359F46 /* Default-568h@2x.png */,
 				6F9DD8751334B03400D1E35E /* Default.png */,
 				6F9DD8771334B09800D1E35E /* Default@2x.png */,
 				6FB3CBFF1397853B00CB0EAE /* Default-Portrait~ipad.png */,
@@ -1311,7 +1314,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0450;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "iOctocat" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1493,6 +1496,7 @@
 				6FB73AFA15FA4E6A0055A937 /* subscribe@2x.png in Resources */,
 				6FB73AFD15FA50F10055A937 /* ToolbarStar.png in Resources */,
 				6FB73AFE15FA50F10055A937 /* ToolbarStar@2x.png in Resources */,
+				6F1E48BB16030C3100359F46 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

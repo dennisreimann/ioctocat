@@ -48,6 +48,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	
 	// Go
 	self.users = [NSMutableDictionary dictionary];
+	window.frame = [UIScreen mainScreen].bounds;
 	[window setRootViewController:navController];
 	[window makeKeyAndVisible];
 }

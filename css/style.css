@@ -5,6 +5,7 @@
 
 body {
 	font: 85%/1.5 normal helvetica, arial, clean, sans-serif;
+	background: #FFF url('../images/ipad.png') 25px 435px no-repeat;
 }
 
 h1 {
@@ -92,22 +93,24 @@ iframe {
 ul#screenshots {
 	position: relative;
 	width: 389px;
-	height: 814px;
+	height: 798px;
 	overflow: hidden;
 	list-style: none;
-	margin: 1.5em 0;
-	background: #FFF url('../images/iphone.jpg') no-repeat;
+	margin: 1.5em 0 0 0;
+	background: transparent url('../images/iphone.png') no-repeat;
 }
 
 #screenshots li {
 	position: absolute;
-	top: 119px;
-	left: 36px;
+	top: 134px;
+	left: 31px;
 	display: none;
 }
 
 #screenshots img {
 	display: block;
+  width: 320px;
+  height: 480px;
 }
 
 ul#reviews,
@@ -131,4 +134,8 @@ ul#twitter_update_list {
 #reviews a,
 #twitter_update_list a {
 	color: #666;
+}
+
+#twitter {
+  margin-top: 690px;
 }

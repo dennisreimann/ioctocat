@@ -198,13 +198,27 @@
 	NSArray *pathComponents = [[[[request URL] relativePath] substringFromIndex:1] componentsSeparatedByString:@"/"];
 	DJLog(@"Path: %@, EventType: %@, EventItem: %@", pathComponents, entry.eventType, entry.eventItem);
 	if ([pathComponents containsObject:@"commit"]) {
-		NSString *sha = [pathComponents lastObject];
-		GHCommit *commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
+		NSString *sha = [pathComponents objectAtIndex:3];
+		GHCommit *commit;
+		if ([entry.eventItem isKindOfClass:[GHCommit class]]) {
+			commit = entry.eventItem;
+		} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
+			commit = [[GHCommit alloc] initWithRepository:(GHRepository *)entry.eventItem andCommitID:sha];
+		} else {
+			NSString *owner = [pathComponents objectAtIndex:0];
+			NSString *name = [pathComponents objectAtIndex:1];
+			GHRepository *repo = [GHRepository repositoryWithOwner:owner andName:name];
+			commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
+		}
 		CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
 		[self.navigationController pushViewController:commitController animated:YES];
 		[commitController release];
 		[commit release];
-	} else if ([entry.eventItem isKindOfClass:[GHRepository class]] && pathComponents.count == 2) {
+	} else if ([entry.eventItem isKindOfClass:[GHIssue class]] && [pathComponents containsObject:@"issues"]) {
+		IssueController *issueController = [[IssueController alloc] initWithIssue:entry.eventItem andIssuesController:nil];
+		[self.navigationController pushViewController:issueController animated:YES];
+		[issueController release];
+	} else if (pathComponents.count == 2) {
 		NSString *owner = [pathComponents objectAtIndex:0];
 		NSString *name = [pathComponents objectAtIndex:1];
 		GHRepository *repo = [GHRepository repositoryWithOwner:owner andName:name];

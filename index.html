@@ -3,63 +3,118 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8"  />
   <meta name="google-site-verification" content="LXQXX11PQVQYRoRJgaX87Jt7xO4dIcVoCOF8ngjJ7ME" />
-  <meta name="description" content="iOctocat is your GitHub companion for your iOS device, it works with the iPad, iPhone, and iPod Touch">
+  <meta name="description" content="iOctocat is the GitHub app for your iOS device, it works with the iPad, iPhone, and iPod Touch">
   <meta name="keywords" content="GitHub,iPhone,iPad,iOS,client,app,github.com,Git">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>GitHub iOS App: iOctocat is the iPhone/iPad client for GitHub.com</title>
+  <title>GitHub app for iPhone and iPad: iOctocat is the iOS client for GitHub.com</title>
   <link rel="stylesheet" href="css/style.css" type="text/css" />
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" type="text/javascript"></script>
   <script src="js/scripts.js" type="text/javascript"></script>
 </head>
 <body>
   <div id="main">
-    <div id="content">
+    <div id="content" itemscope itemtype="http://schema.org/SoftwareApplication">
         <a href="http://github.com/dennisreimann/ioctocat"><img id="ribbon" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-        <h1>iOctocat</h1>
-        <p>… is your GitHub companion for your iOS device, it works with the iPad, iPhone, and iPod Touch.<br />
+        <h1 itemprop="name">iOctocat</h1>
+        <img itemprop="image" src="images/icon.png" id="icon" alt="iPhone app for GitHub" />
+        <p itemprop="description">is the GitHub app for your iOS device:<br />
+          It works on the iPhone, iPad, and iPod Touch.<br />
           It is <a href="http://github.com/dennisreimann/ioctocat">open source</a> and
-          <a href="http://itunes.com/apps/ioctocat">available on the App Store</a>…</p>
-        <p>iOctocat is the best way for staying up to date with what's happening with your coding projects and
+          <a href="http://itunes.com/apps/ioctocat" itemprop="url">available on the App Store</a>.</p>
+        <link itemprop="SoftwareApplicationCategory" href="http://schema.org/SocialNetworkingApplication" />
+        <p>iOctocat is the best way for staying up to date with what's happening with your projects and
           catching up with the open source ecosystem. Be informed about social coding news and don't
           miss changes to your favorite projects.</p>
-        <h2>See iOctocat in action</h2>
+        <h2>iOctocat in action</h2>
         <p><em>Click the iPhone to cycle through the screenshots.</em></p>
         <ul id="screenshots">
-          <li><img src="images/screenshots/NewsFeed.png" alt="News Feed" /></li>
-          <li><img src="images/screenshots/MyActivity.png" alt="Activity Feed" /></li>
-          <li><img src="images/screenshots/FeedEntry.png" alt="Feed Entry" /></li>
-          <li><img src="images/screenshots/OrganizationFeeds.png" alt="Organization Feeds" /></li>
-          <li><img src="images/screenshots/Repositories.png" alt="My Repositories" /></li>
-          <li><img src="images/screenshots/Repository-1.png" alt="Repository Details" /></li>
-          <li><img src="images/screenshots/Repository-2.png" alt="Repository Details" /></li>
-          <li><img src="images/screenshots/RepositoryActions.png" alt="Repository Actions" /></li>
-          <li><img src="images/screenshots/Readme.png" alt="README" /></li>
-          <li><img src="images/screenshots/RecentCommits.png" alt="Recent Commits" /></li>
-          <li><img src="images/screenshots/Commit.png" alt="Commit" /></li>
-          <li><img src="images/screenshots/CommitDetails.png" alt="Commit Details" /></li>
-          <li><img src="images/screenshots/ModifiedFiles.png" alt="Modified Files" /></li>
-          <li><img src="images/screenshots/Diff.png" alt="Diff" /></li>
-          <li><img src="images/screenshots/IssuesOpen.png" alt="Open Issues" /></li>
-          <li><img src="images/screenshots/IssuesClosed.png" alt="Closed Issues" /></li>
-          <li><img src="images/screenshots/Issue.png" alt="Issue" /></li>
-          <li><img src="images/screenshots/IssueActions.png" alt="Issue Actions" /></li>
-          <li><img src="images/screenshots/IssueEditing.png" alt="Issue Editing" /></li>
-          <li><img src="images/screenshots/Forks.png" alt="Forks" /></li>
-          <li><img src="images/screenshots/Profile.png" alt="User Details" /></li>
-          <li><img src="images/screenshots/Following.png" alt="Following" /></li>
-          <li><img src="images/screenshots/Followers.png" alt="Followers" /></li>
-          <li><img src="images/screenshots/UserActions.png" alt="User Actions" /></li>
-          <li><img src="images/screenshots/SearchUser.png" alt="User Search" /></li>
-          <li><img src="images/screenshots/SearchRepository.png" alt="Repository Search" /></li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/NewsFeed.png" alt="News Feed on the iPhone" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/MyActivity.png" alt="Activity Feed" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/FeedEntry.png" alt="Feed Entry" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/OrganizationFeeds.png" alt="Organization Feeds" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Repositories.png" alt="My Repositories" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Repository-1.png" alt="Repository Details" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Repository-2.png" alt="Repository Details" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/RepositoryActions.png" alt="Repository Actions" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Readme.png" alt="README" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/RecentCommits.png" alt="Recent Commits" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Commit.png" alt="Commit" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/CommitDetails.png" alt="Commit Details" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/ModifiedFiles.png" alt="Modified Files" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Diff.png" alt="Diff" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/IssuesOpen.png" alt="Manage Open Issues on your mobile phone" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/IssuesClosed.png" alt="Closed Issues" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Issue.png" alt="Issue" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/IssueActions.png" alt="Issue Actions" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/IssueEditing.png" alt="Issue Editing" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Forks.png" alt="Forks" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Profile.png" alt="User Details" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Following.png" alt="Following" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/Followers.png" alt="Followers" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/UserActions.png" alt="User Actions" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/SearchUser.png" alt="User Search" itemprop="contentURL" />
+          </li>
+          <li itemprop="screenshots" itemscope itemtype="http://schema.org/ImageObject">
+            <img src="images/screenshots/SearchRepository.png" alt="Repository Search on the mobile app" itemprop="contentURL" />
+          </li>
         </ul>
         <h2>Features</h2>
         <p>iOctocat has a full-blown feature set, including:</p>
-        <ul>
+        <ul itemprop="providedFeatures">
           <li><strong>Feeds:</strong> Your news feed with the latest events from your repositories, the ones you
             are watching and the things your friends are doing on GitHub. iOctocat also shows your own latest actions
             in your personal activity feed.</li>
-          <li><strong>Repositories:</strong> Your private and public repos plus the ones on your watchlist. Access
-            all the repositories and explore their details like recent commits to the different branches, the
+            <li><strong>Repositories:</strong> Your private and public repos plus the ones on your star- and watchlist.
+            Access all the repositories and explore their details like recent commits to the different branches, the
             network/forks or watch/unwatch a repository.</li>
           <li><strong>Commits:</strong> See detailed information about the files that were added, removed and modified.
             Browse the changes of the modified files viewing colored highlights of the added and removed lines
@@ -71,7 +126,7 @@
             followed by. Use iOctocat to immediately follow the person so you will be informed about his contributions
             to open source software.</li>
           <li><strong>Search:</strong> Look up users and repositories and explore them like mentioned above.</li>
-          <li><strong>Multiuser and GitHub Enterprise:</strong> Use iOctocat with multiple GitHub account and even
+          <li><strong>Multiuser and GitHub Enterprise:</strong> Use the app with multiple GitHub account and even
             your companies GitHub Enterprise installation.</li>
         </ul>
         <p>These are the major features, plus lots more. The project itself is
@@ -86,23 +141,35 @@
       <div id="sidebar">
         <div id="appstore">
           <a href="http://itunes.com/apps/ioctocat"><img src="images/appstore.png"  alt="Available on the App Store" /></a>
-          <p><em>iOS 4.3 or higher, iPhone 5 ready</em></p>
+          <p><em><span itemprop="operatingSystems">iOS</span> <span itemprop="operatingSystemVersion">4.3 or higher</span>,
+            iPhone 5 ready</em></p>
         </div>
         <h3>Reviews</h3>
         <ul id="reviews">
           <li>
-            <blockquote>Best GitHub app on the iPhone. Highly recommended.
-              <em>–<a href="http://twitter.com/julienXX">julienXX</a></em></blockquote>
+            <blockquote itemprop="reviews" itemscope itemtype="http://schema.org/Review">
+              <span itemprop="reviewBody">Best GitHub app on the iPhone. Highly recommended.</span>
+              <em>–<a href="http://twitter.com/julienXX" itemprop="author">julienXX</a></em>
+            </blockquote>
           </li>
           <li>
-            <blockquote>This developer has definitely done GitHub on the iPhone *right*. The interface is fast (even on EDGE),
-              very intuitive, and has just what you need. <em>–scottdt</em></blockquote>
+            <blockquote itemprop="reviews" itemscope itemtype="http://schema.org/Review">
+              <span itemprop="reviewBody">This developer has definitely done GitHub on the iPhone *right*.
+                The interface is fast (even on EDGE), very intuitive, and has just what you need.</span>
+              <em>–<span itemprop="author">scottdt</span></em>
+            </blockquote>
           </li>
           <li>
-            <blockquote>Issues management is awesome ! <em>–yayel</em></blockquote>
+            <blockquote itemprop="reviews" itemscope itemtype="http://schema.org/Review">
+              <span itemprop="reviewBody">Issues management is awesome!</span>
+              <em>–<span itemprop="author">yayel</span></em>
+            </blockquote>
           </li>
           <li>
-            <blockquote>I love this app. It's a fantastic and beautiful interface to GitHub. <em>–Fhoxh</em></blockquote>
+            <blockquote itemprop="reviews" itemscope itemtype="http://schema.org/Review">
+              <span itemprop="reviewBody">I love this app. It's a fantastic and beautiful interface to GitHub.</span>
+              <em>–<span itemprop="author">Fhoxh</span></em>
+            </blockquote>
           </li>
         </ul>
         <div id="twitter">
@@ -113,6 +180,12 @@
           <li><a href="http://twitter.com/ioctocat">iOctocat @ twitter</a></li>
           <li><a href="http://twitter.com/dennisreimann">dennisreimann @ twitter</a></li>
           <li><a href="http://github.com/dennisreimann">dennisreimann @ github</a></li>
+          <li itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <a itemprop="url" href="http://dennisreimann.de">
+              <span itemprop="name">Dennis Reimann</span> -
+              <span itemprop="jobTitle">Software Developer</span>
+            </a>
+          </li>
         </ul>
       </div>
       <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>

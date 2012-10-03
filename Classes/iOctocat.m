@@ -67,7 +67,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 }
 
 - (GHUser *)userWithLogin:(NSString *)theLogin {
-	if (!theLogin || [theLogin isEmpty]) return nil;
+	if (!theLogin || [theLogin isKindOfClass:[NSNull class]] || [theLogin isEmpty]) return nil;
 	GHUser *user = [users objectForKey:theLogin];
 	if (user == nil) {
 		user = [GHUser userWithLogin:theLogin];

@@ -2,6 +2,7 @@
 #import "GHRepository.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
+#import "GHGist.h"
 #import "iOctocat.h"
 
 
@@ -74,6 +75,9 @@
 			NSArray *comps1 = [title componentsSeparatedByString:@" following "];
 			NSString *username = [comps1 objectAtIndex:1];
 			self.eventItem = [[iOctocat sharedInstance] userWithLogin:username];
+		} else if ([eventType isEqualToString:@"gist"]) {
+			NSString *gistId = [comps objectAtIndex:1];
+			self.eventItem = [GHGist gistWithId:gistId];
 		} else if ([eventType isEqualToString:@"team_add"] || [eventType isEqualToString:@"member"]) {
 			NSArray *comps1 = [title componentsSeparatedByString:@" added "];
 			NSArray *comps2 = [[comps1 objectAtIndex:1] componentsSeparatedByString:@" to "];

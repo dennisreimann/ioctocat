@@ -2,6 +2,7 @@
 #import "RepositoryController.h"
 #import "UserController.h"
 #import "OrganizationController.h"
+#import "GistController.h"
 #import "WebController.h"
 #import "GHFeed.h"
 #import "GHFeedEntry.h"
@@ -10,6 +11,7 @@
 #import "GHOrganization.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
+#import "GHGist.h"
 #import "GravatarLoader.h"
 #import "CommitController.h"
 #import "IssueController.h"
@@ -86,6 +88,8 @@
 	} else if ([entry.eventItem isKindOfClass:[GHCommit class]]) {
 		[tbItems addObject:repositoryItem];
 		[tbItems addObject:commitItem];
+	} else if ([entry.eventItem isKindOfClass:[GHGist class]]) {
+		[tbItems addObject:gistItem];
 	}
 	[toolbar setItems:tbItems animated:NO];
 	// Update navigation control
@@ -105,6 +109,7 @@
 	[secondUserItem release], secondUserItem = nil;
 	[issueItem release], issueItem = nil;
 	[commitItem release], commitItem = nil;
+	[gistItem release], gistItem = nil;
     [organizationItem release], organizationItem = nil;
 	[navigationControl release], navigationControl = nil;
 	[entry.user removeObserver:self forKeyPath:kGravatarKeyPath];
@@ -191,12 +196,19 @@
 	[commitController release];
 }
 
+- (IBAction)showGist:(id)sender {
+	GHGist *gist = entry.eventItem;
+	GistController *gistController = [GistController controllerWithGist:gist];
+	[self.navigationController pushViewController:gistController animated:YES];
+}
+
 #pragma mark WebView
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 	if ([[[request URL] absoluteString] isEqualToString:@"about:blank"]) return YES;
 	NSArray *pathComponents = [[[[request URL] relativePath] substringFromIndex:1] componentsSeparatedByString:@"/"];
-	DJLog(@"Path: %@, EventType: %@, EventItem: %@", pathComponents, entry.eventType, entry.eventItem);
+	NSString *host = [[request URL] host];
+	DJLog(@"Host: %@, Path: %@, EventType: %@, EventItem: %@", host, pathComponents, entry.eventType, entry.eventItem);
 	if ([pathComponents containsObject:@"commit"]) {
 		NSString *sha = [pathComponents objectAtIndex:3];
 		GHCommit *commit;
@@ -225,12 +237,21 @@
 		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 		[self.navigationController pushViewController:repoController animated:YES];
 		[repoController release];
+	} else if ([host isEqualToString:@"gist.github.com"] && pathComponents.count == 1) {
+		NSString *gistId = [pathComponents objectAtIndex:0];
+		GHGist *gist = [GHGist gistWithId:gistId];
+		GistController *gistController = [GistController controllerWithGist:gist];
+		[self.navigationController pushViewController:gistController animated:YES];
 	} else if (pathComponents.count == 1) {
 		NSString *username = [pathComponents objectAtIndex:0];
 		GHUser *user = [[iOctocat sharedInstance] userWithLogin:username];
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 		[userController release];
+	} else {
+		WebController *webController = [[WebController alloc] initWithURL:[request URL]];
+		[self.navigationController pushViewController:webController animated:YES];
+		[webController release];
 	}
 	return NO;
 }

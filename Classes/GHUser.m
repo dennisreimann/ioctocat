@@ -4,6 +4,8 @@
 #import "GHFeed.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
+#import "GHGist.h"
+#import "GHGists.h"
 #import "GHResource.h"
 #import "GravatarLoader.h"
 #import "ASIFormDataRequest.h"
@@ -16,10 +18,16 @@
 @interface GHUser ()
 - (void)setFollowing:(BOOL)theMode forUser:(GHUser *)theUser;
 - (void)setWatching:(BOOL)theMode forRepository:(GHRepository *)theRepository;
+- (void)setStarring:(BOOL)theMode forRepository:(GHRepository *)theRepository;
+- (void)setStarring:(BOOL)theMode forGist:(GHGist *)theGist;
 - (void)followToggleFinished:(ASIHTTPRequest *)request;
 - (void)followToggleFailed:(ASIHTTPRequest *)request;
 - (void)watchToggleFinished:(ASIHTTPRequest *)request;
 - (void)watchToggleFailed:(ASIHTTPRequest *)request;
+- (void)starToggleFinished:(ASIHTTPRequest *)request;
+- (void)starToggleFailed:(ASIHTTPRequest *)request;
+- (void)gistStarToggleFinished:(ASIHTTPRequest *)request;
+- (void)gistStarToggleFailed:(ASIHTTPRequest *)request;
 @end
 
 
@@ -48,6 +56,8 @@
 @synthesize followersCount;
 @synthesize following;
 @synthesize followers;
+@synthesize gists;
+@synthesize starredGists;
 
 + (id)userWithLogin:(NSString *)theLogin {
 	return [[[[self class] alloc] initWithLogin:theLogin] autorelease];
@@ -107,6 +117,8 @@
     NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
     NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
 	NSString *activityFeedPath  = [NSString stringWithFormat:kUserFeedFormat, login];
+	NSString *gistsPath         = [NSString stringWithFormat:kUserGistsFormat, login];
+	NSString *starredGistsPath  = [NSString stringWithFormat:kStarredGistsFormat];
 
     self.resourcePath = [NSString stringWithFormat:kUserFormat, login];
 	self.organizations = [GHOrganizations organizationsWithUser:self andPath:organizationsPath];
@@ -115,6 +127,8 @@
 	self.watchedRepositories = [GHRepositories repositoriesWithPath:watchedReposPath];
     self.following = [GHUsers usersWithPath:followingPath];
     self.followers = [GHUsers usersWithPath:followersPath];
+    self.gists = [GHGists gistsWithPath:gistsPath];
+    self.starredGists = [GHGists gistsWithPath:starredGistsPath];
 	self.recentActivity = [GHFeed resourceWithPath:activityFeedPath];
 }
 
@@ -188,7 +202,6 @@
 
 - (void)starRepository:(GHRepository *)theRepository {
 	[starredRepositories.repositories addObject:theRepository];
-	DJLog(@"%d", starredRepositories.repositories.count);
 	[self setStarring:YES forRepository:theRepository];
 }
 
@@ -254,6 +267,44 @@
 - (void)watchToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Watch toggle %@ failed: %@", [request url], [request error]);
 	[iOctocat alert:@"Request error" with:@"Could not change watching status"];
+}
+
+#pragma mark Gists
+
+- (BOOL)isStarringGist:(GHGist *)theGist {
+	if (!starredGists.isLoaded) [starredGists loadData];
+	return [starredGists.gists containsObject:theGist];
+}
+
+- (void)starGist:(GHGist *)theGist {
+	[starredGists.gists addObject:theGist];
+	[self setStarring:YES forGist:theGist];
+}
+
+- (void)unstarGist:(GHGist *)theGist {
+	[starredGists.gists removeObject:theGist];
+	[self setStarring:NO forGist:theGist];
+}
+
+- (void)setStarring:(BOOL)watch forGist:(GHGist *)theGist {
+	NSString *path = [NSString stringWithFormat:kGistStarFormat, theGist.gistId];
+	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
+    [request setDelegate:self];
+    [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
+	[request setDidFinishSelector:@selector(gistStarToggleFinished:)];
+	[request setDidFailSelector:@selector(gistStarToggleFailed:)];
+	[[iOctocat queue] addOperation:request];
+}
+
+- (void)gistStarToggleFinished:(ASIHTTPRequest *)request {
+	DJLog(@"Gist star toggle %@ finished: %@", [request url], [request responseString]);
+	self.starredGists.loadingStatus = GHResourceStatusNotProcessed;
+    [self.starredGists loadData];
+}
+
+- (void)gistStarToggleFailed:(ASIHTTPRequest *)request {
+	DJLog(@"Gist star toggle %@ failed: %@", [request url], [request error]);
+	[iOctocat alert:@"Request error" with:@"Could not change gist starring status"];
 }
 
 #pragma mark Gravatar

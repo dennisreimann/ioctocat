@@ -1,3 +1,9 @@
 [submodule "Classes/External/ASIHttpRequest"]
 	path = Classes/External/ASIHttpRequest
 	url = git://github.com/pokeb/asi-http-request.git
+[submodule "Assets/rainbow"]
+	path = Assets/rainbow
+	url = git://github.com/ccampbell/rainbow.git
+[submodule "Assets/rainbow-linenumbers"]
+	path = Assets/rainbow-linenumbers
+	url = git://github.com/Sjeiti/rainbow.linenumbers.git

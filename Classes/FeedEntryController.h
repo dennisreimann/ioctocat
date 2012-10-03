@@ -20,6 +20,7 @@
 	IBOutlet UIBarButtonItem *organizationItem;
 	IBOutlet UIBarButtonItem *issueItem;
 	IBOutlet UIBarButtonItem *commitItem;
+	IBOutlet UIBarButtonItem *gistItem;
   @private
 	GHFeed *feed;
 	GHFeedEntry *entry;
@@ -35,5 +36,6 @@
 - (IBAction)showOrganization:(id)sender;
 - (IBAction)showIssue:(id)sender;
 - (IBAction)showCommit:(id)sender;
+- (IBAction)showGist:(id)sender;
 
 @end

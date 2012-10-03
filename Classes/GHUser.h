@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GravatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHFeed;
+@class GravatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHFeed, GHGists, GHGist;
 
 @interface GHUser : GHResource {
 	NSString *name;
@@ -27,6 +27,8 @@
 	GHFeed *recentActivity;
     GHUsers *following;
     GHUsers *followers;
+    GHGists *gists;
+    GHGists *starredGists;
 	BOOL isAuthenticated;
   @private
 	GravatarLoader *gravatarLoader;
@@ -48,6 +50,8 @@
 @property(nonatomic,retain)GHFeed *recentActivity;
 @property(nonatomic,retain)GHUsers *following;
 @property(nonatomic,retain)GHUsers *followers;
+@property(nonatomic,retain)GHGists *gists;
+@property(nonatomic,retain)GHGists *starredGists;
 @property(nonatomic)BOOL isAuthenticated;
 @property(nonatomic)NSUInteger publicGistCount;
 @property(nonatomic)NSUInteger privateGistCount;
@@ -69,5 +73,8 @@
 - (void)unstarRepository:(GHRepository *)theRepository;
 - (void)watchRepository:(GHRepository *)theRepository;
 - (void)unwatchRepository:(GHRepository *)theRepository;
+- (BOOL)isStarringGist:(GHGist *)theGist;
+- (void)starGist:(GHGist *)theGist;
+- (void)unstarGist:(GHGist *)theGist;
 
 @end

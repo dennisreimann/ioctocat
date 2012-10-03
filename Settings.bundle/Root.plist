@@ -6,6 +6,64 @@
 	<array>
 		<dict>
 			<key>Title</key>
+			<string>Code</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>DefaultValue</key>
+			<true/>
+			<key>Key</key>
+			<string>lineNumbers</string>
+			<key>Title</key>
+			<string>Line numbers</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Theme</string>
+			<key>Key</key>
+			<string>theme</string>
+			<key>DefaultValue</key>
+			<string>github</string>
+			<key>Titles</key>
+			<array>
+				<string>All Hallows Eve</string>
+				<string>Blackboard</string>
+				<string>Espresso Libre</string>
+				<string>GitHub</string>
+				<string>Obsidian</string>
+				<string>Pastie</string>
+				<string>Solarized Dark</string>
+				<string>Solarized Light</string>
+				<string>Sunburst</string>
+				<string>Tomorrow Night</string>
+				<string>Tricolore</string>
+				<string>Twilight</string>
+				<string>Zenburnesque</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<string>all-hallows-eve</string>
+				<string>blackboard</string>
+				<string>espresso-libre</string>
+				<string>github</string>
+				<string>obsidian</string>
+				<string>pastie</string>
+				<string>solarized-dark</string>
+				<string>solarized-light</string>
+				<string>sunburst</string>
+				<string>tomorrow-night</string>
+				<string>tricolore</string>
+				<string>twilight</string>
+				<string>zenburnesque</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Title</key>
 			<string>Avatar cache</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>

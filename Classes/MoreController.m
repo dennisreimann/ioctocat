@@ -1,6 +1,7 @@
 #import "MoreController.h"
 #import "OrganizationsController.h"
 #import "IssuesController.h"
+#import "GistsController.h"
 #import "AccountController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
@@ -29,12 +30,22 @@
 	NSArray *myIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *myIssuesDict = [NSDictionary dictionaryWithObjects:myIssuesVals forKeys:myIssuesKeys];
 	
+	// My Gists
+	NSArray *gistsVals = [NSArray arrayWithObjects:@"My Gists", @"MoreGists.png", nil];
+	NSArray *gistsKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *gistsDict = [NSDictionary dictionaryWithObjects:gistsVals forKeys:gistsKeys];
+	
+	// Starred Gists
+	NSArray *starredGistsVals = [NSArray arrayWithObjects:@"Starred Gists", @"MoreStarredGists.png", nil];
+	NSArray *starredGistsKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *starredGistsDict = [NSDictionary dictionaryWithObjects:starredGistsVals forKeys:starredGistsKeys];
+	
 	// iOctocat Issues
 	NSArray *appIssuesVals = [NSArray arrayWithObjects:@"iOctocat Feedback", @"MoreApp.png", nil];
 	NSArray *appIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *appIssuesDict = [NSDictionary dictionaryWithObjects:appIssuesVals forKeys:appIssuesKeys];
 	
-	self.moreOptions = [NSArray arrayWithObjects:orgsDict, myIssuesDict, appIssuesDict, nil];
+	self.moreOptions = [NSArray arrayWithObjects:orgsDict, myIssuesDict, gistsDict, starredGistsDict, appIssuesDict, nil];
 	self.user = theUser;
 	
 	return self;
@@ -80,11 +91,8 @@
 	NSDictionary *dict = [moreOptions objectAtIndex:row];
 	cell.textLabel.text = [dict valueForKey:@"label"];
 	cell.imageView.image = [UIImage imageNamed:[dict valueForKey:@"image"]];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
-}
-
-- (UITableViewCellAccessoryType)tableView:(UITableView *)tableView accessoryTypeForRowWithIndexPath:(NSIndexPath *)indexPath {
-	return UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,6 +103,12 @@
 	} else if (row == 1) {
 		viewController = [IssuesController controllerWithUser:user];
 	} else if (row == 2) {
+		viewController = [GistsController controllerWithGists:user.gists];
+		viewController.title = @"My Gists";
+	} else if (row == 3) {
+		viewController = [GistsController controllerWithGists:user.starredGists];
+		viewController.title = @"Starred Gists";
+	} else if (row == 4) {
 		GHRepository *repo = [GHRepository repositoryWithOwner:@"dennisreimann" andName:@"iOctocat"];
 		viewController = [IssuesController controllerWithRepository:repo];
 	}

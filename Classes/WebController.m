@@ -28,8 +28,6 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
 	if (url) {
-		self.title = [url absoluteString];
-		// Start loading the website
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 		[webView loadRequest:request];
 		[request release];

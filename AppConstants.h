@@ -7,6 +7,8 @@
 #define kEndpointDefaultsKey                 @"endpoint"
 #define kAccountsDefaultsKey                 @"accounts"
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
+#define kLineNumbersDefaultsKey              @"lineNumbers"
+#define kThemeDefaultsKey                    @"theme"
 
 // API
 #define kGitHubBaseURL                  @"https://github.com/"
@@ -59,6 +61,16 @@
 #define kUserFollowFormat               @"user/following/%@"
 #define kRepoWatchFormat                @"user/watched/%@/%@"
 #define kRepoStarFormat                 @"user/starred/%@/%@"
+#define kUserAuthenticatedGistsFormat   @"gists"
+#define kUserAuthenticatedGistsStarredFormat   @"gists/starred"
+
+// Gists
+#define kGistFormat                     @"gists/%@"
+#define kGistStarFormat                 @"gists/%@/star"
+#define kUserGistsFormat                @"users/%@/gists"
+#define kStarredGistsFormat             @"" // not implemented
+#define kGistCommentsFormat             @"gists/%@/comments"
+#define kGistCommentFormat              @"gists/comments/%d"
 
 // Users
 #define kUserOrganizationsFormat        @"users/%@/orgs"

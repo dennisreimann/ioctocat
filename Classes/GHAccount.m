@@ -1,5 +1,6 @@
 #import "GHAccount.h"
 #import "GHUser.h"
+#import "GHGists.h"
 #import "GHRepositories.h"
 #import "GHOrganizations.h"
 #import "iOctocat.h"
@@ -43,6 +44,8 @@
 	self.user.resourcePath = kUserAuthenticatedFormat;
 	self.user.repositories.resourcePath = kUserAuthenticatedReposFormat;
 	self.user.organizations.resourcePath = kUserAuthenticatedOrgsFormat;
+	self.user.gists.resourcePath = kUserAuthenticatedGistsFormat;
+	self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
 	
     return self;
 }

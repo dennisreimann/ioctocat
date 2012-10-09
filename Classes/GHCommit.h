@@ -40,6 +40,7 @@
 @property(nonatomic,retain)GHRepository *repository;
 @property(nonatomic,retain)GHRepoComments *comments;
 
++ (id)commitWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
 + (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
 

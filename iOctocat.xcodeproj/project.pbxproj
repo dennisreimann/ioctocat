@@ -145,6 +145,10 @@
 		6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
 		6F7C822615B3483300D37EE8 /* readme.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822415B3483300D37EE8 /* readme.png */; };
 		6F7C822715B3483300D37EE8 /* readme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822515B3483300D37EE8 /* readme@2x.png */; };
+		6F7F08271624A3C10074839B /* GHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08261624A3C10074839B /* GHTree.m */; };
+		6F7F082A1624A6F60074839B /* GHBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08291624A6F60074839B /* GHBlob.m */; };
+		6F7F082D1624A9D20074839B /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082C1624A9D20074839B /* GHTag.m */; };
+		6F7F08301624AC990074839B /* GHRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082F1624AC990074839B /* GHRef.m */; };
 		6F843154136D53350016E367 /* commit_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843150136D53350016E367 /* commit_comment.png */; };
 		6F843155136D53350016E367 /* commit_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843151136D53350016E367 /* commit_comment@2x.png */; };
 		6F843156136D53350016E367 /* issue_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843152136D53350016E367 /* issue_comment.png */; };
@@ -514,6 +518,14 @@
 		6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHReadme.m; sourceTree = "<group>"; };
 		6F7C822415B3483300D37EE8 /* readme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = readme.png; path = Images/Icons/readme.png; sourceTree = "<group>"; };
 		6F7C822515B3483300D37EE8 /* readme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "readme@2x.png"; path = "Images/Icons/readme@2x.png"; sourceTree = "<group>"; };
+		6F7F08251624A3C10074839B /* GHTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTree.h; sourceTree = "<group>"; };
+		6F7F08261624A3C10074839B /* GHTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTree.m; sourceTree = "<group>"; };
+		6F7F08281624A6F60074839B /* GHBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBlob.h; sourceTree = "<group>"; };
+		6F7F08291624A6F60074839B /* GHBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBlob.m; sourceTree = "<group>"; };
+		6F7F082B1624A9D20074839B /* GHTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTag.h; sourceTree = "<group>"; };
+		6F7F082C1624A9D20074839B /* GHTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTag.m; sourceTree = "<group>"; };
+		6F7F082E1624AC990074839B /* GHRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRef.h; sourceTree = "<group>"; };
+		6F7F082F1624AC990074839B /* GHRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRef.m; sourceTree = "<group>"; };
 		6F843150136D53350016E367 /* commit_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit_comment.png; path = Images/Icons/commit_comment.png; sourceTree = "<group>"; };
 		6F843151136D53350016E367 /* commit_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "commit_comment@2x.png"; path = "Images/Icons/commit_comment@2x.png"; sourceTree = "<group>"; };
 		6F843152136D53350016E367 /* issue_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue_comment.png; path = Images/Icons/issue_comment.png; sourceTree = "<group>"; };
@@ -1372,6 +1384,14 @@
 				6F0BEB57111090D300E95E5A /* GHBranch.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
 				6FC465160F9D1445003A8E7B /* GHCommit.m */,
+				6F7F08251624A3C10074839B /* GHTree.h */,
+				6F7F08261624A3C10074839B /* GHTree.m */,
+				6F7F08281624A6F60074839B /* GHBlob.h */,
+				6F7F08291624A6F60074839B /* GHBlob.m */,
+				6F7F082B1624A9D20074839B /* GHTag.h */,
+				6F7F082C1624A9D20074839B /* GHTag.m */,
+				6F7F082E1624AC990074839B /* GHRef.h */,
+				6F7F082F1624AC990074839B /* GHRef.m */,
 			);
 			name = Git;
 			sourceTree = "<group>";
@@ -1880,6 +1900,10 @@
 				6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */,
 				6F0879AE1623772300CE95D0 /* GHGistComment.m in Sources */,
 				6F0879AF1623772300CE95D0 /* GHGistComments.m in Sources */,
+				6F7F08271624A3C10074839B /* GHTree.m in Sources */,
+				6F7F082A1624A6F60074839B /* GHBlob.m in Sources */,
+				6F7F082D1624A9D20074839B /* GHTag.m in Sources */,
+				6F7F08301624AC990074839B /* GHRef.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

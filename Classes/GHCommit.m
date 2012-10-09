@@ -26,6 +26,10 @@
 @synthesize repository;
 @synthesize comments;
 
++ (id)commitWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
+	return [self commitWithRepository:theRepo andCommitID:theSha];
+}
+
 + (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
 	return [[[[self class] alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
 }

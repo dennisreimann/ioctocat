@@ -100,6 +100,16 @@
 #define kIssueEditFormat                @"repos/%@/%@/issues/%d"
 #define kIssueCommentsFormat            @"repos/%@/%@/issues/%d/comments?per_page=100"
 
-// Search
+// Code
+#define kRefFormat                      @"repos/%@/%@/git/refs/%@"
+#define kRefsFormat                     @"repos/%@/%@/git/refs"
+#define kTagFormat                      @"repos/%@/%@/git/tags/%@"
+#define kTagsFormat                     @"repos/%@/%@/git/refs/tags"
+#define kBlobFormat                     @"repos/%@/%@/git/blobs/%@"
+#define kCommitFormat                   @"repos/%@/%@/git/commits/%@"
+#define kTreeFormat                     @"repos/%@/%@/git/trees/%@"
+#define kTreeRecursiveFormat            @"repos/%@/%@/git/trees/%@?recursive=1"
+
+// Searc
 #define kUserSearchFormat               @"legacy/user/search/%@"
 #define kRepoSearchFormat               @"legacy/repos/search/%@"

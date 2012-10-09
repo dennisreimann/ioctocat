@@ -18,6 +18,7 @@
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "AccountController.h"
+#import "GistsController.h"
 
 
 @interface UserController ()
@@ -101,6 +102,7 @@
 	[emailCell release], emailCell = nil;
     [followersCell release], followersCell = nil;
     [followingCell release], followingCell = nil;
+    [gistsCell release], gistsCell = nil;
     [organizationCell release], organizationCell = nil;
 	[recentActivityCell release], recentActivityCell = nil;
 	[loadingUserCell release],loadingUserCell = nil;
@@ -177,7 +179,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
-    if (section == 1) return 3;
+    if (section == 1) return 4;
     if (section == 2 && (!user.repositories.isLoaded || user.repositories.repositories.count == 0)) return 1;
 	if (section == 2) return user.repositories.repositories.count;
 	if (section == 3 && (!user.organizations.isLoaded || user.organizations.organizations.count == 0)) return 1;
@@ -211,6 +213,7 @@
 	if (section == 1 && row == 0) return recentActivityCell;
 	if (section == 1 && row == 1) return followingCell;
 	if (section == 1 && row == 2) return followersCell;
+	if (section == 1 && row == 3) return gistsCell;
 	if (section == 2 && !user.repositories.isLoaded) return loadingReposCell;
 	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
@@ -248,6 +251,9 @@
 		[mailComposer release];
 	} else if (section == 1 && row == 0) {
         viewController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];     
+	} else if (section == 1 && row == 3) {
+        viewController = [[GistsController alloc] initWithGists:user.gists];
+		viewController.title = @"Gists";
 	} else if (section == 1) {
         viewController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";         

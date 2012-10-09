@@ -20,7 +20,8 @@
 	IBOutlet UITableViewCell *noPublicReposCell;
 	IBOutlet UITableViewCell *noPublicOrganizationsCell;
     IBOutlet UITableViewCell *followersCell; 
-    IBOutlet UITableViewCell *followingCell;   
+    IBOutlet UITableViewCell *followingCell;
+    IBOutlet UITableViewCell *gistsCell;
 	IBOutlet UITableViewCell *recentActivityCell;
 	IBOutlet LabeledCell *locationCell;
 	IBOutlet LabeledCell *blogCell;

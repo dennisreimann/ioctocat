@@ -5,6 +5,7 @@
 #import "FilesController.h"
 #import "AccountController.h"
 #import "NSString+Extensions.h"
+#import "NSDate+Nibware.h"
 
 
 @interface GistsController ()
@@ -93,7 +94,7 @@
     }
 	GHGist *gist = [gists.gists objectAtIndex:indexPath.row];
 	cell.textLabel.text = gist.title;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@, %d %@", gist.files.count, gist.files.count == 1 ? @"file" : @"files", gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments"];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@, %d %@, %@", gist.files.count, gist.files.count == 1 ? @"file" : @"files", gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments", [gist.createdAtDate prettyDate]];
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];

@@ -7,6 +7,7 @@
 	IBOutlet UIWebView *contentView;
 }
 
++ (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex;
 - (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex;
 
 @end

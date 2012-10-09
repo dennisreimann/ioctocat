@@ -9,6 +9,8 @@
 	NSString *html;
 }
 
++ (id)controllerWithURL:(NSURL *)theURL;
++ (id)controllerWithHTML:(NSString *)theHTML;
 - (id)initWithURL:(NSURL *)theURL;
 - (id)initWithHTML:(NSString *)theHTML;
 

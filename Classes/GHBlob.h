@@ -12,6 +12,7 @@
 @property(nonatomic,retain)NSString *mode;
 @property(nonatomic,retain)NSString *encoding;
 @property(nonatomic,retain)NSString *content;
+@property(nonatomic,retain)NSData *contentData;
 @property(nonatomic,readwrite)NSUInteger size;
 
 + (id)blobWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;

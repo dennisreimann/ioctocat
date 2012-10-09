@@ -27,6 +27,10 @@
 
 @synthesize commit;
 
++ (id)controllerWithCommit:(GHCommit *)theCommit {
+	return [[[self.class alloc] initWithCommit:theCommit] autorelease];
+}
+
 - (id)initWithCommit:(GHCommit *)theCommit {    
     [super initWithNibName:@"Commit" bundle:nil];
 	self.commit = theCommit;

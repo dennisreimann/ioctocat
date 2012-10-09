@@ -9,6 +9,7 @@
     GHRepository *repository;
 }
 
++ (id)controllerWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 
 @end

@@ -1,6 +1,9 @@
 #import "GHResource.h"
 #import "GHBlob.h"
 #import "GHRepository.h"
+#import "NSString+Base64.h"
+#import "NSString+Extensions.h"
+#import "NSData+Base64.h"
 
 
 @implementation GHBlob
@@ -9,6 +12,7 @@
 @synthesize repository;
 @synthesize encoding;
 @synthesize content;
+@synthesize contentData;
 @synthesize path;
 @synthesize mode;
 @synthesize size;
@@ -21,7 +25,7 @@
 	[super init];
 	self.repository = theRepo;
 	self.sha = theSha;
-	self.resourcePath = [NSString stringWithFormat:kBlobFormat, repository.owner, repository.name, sha];
+	self.resourcePath = [NSString stringWithFormat:kBlobFormat, repository.owner, repository.name, [sha stringByEscapingForURLArgument]];
 	return self;
 }
 
@@ -30,6 +34,7 @@
 	[sha release], sha = nil;
 	[encoding release], encoding = nil;
 	[content release], content = nil;
+	[contentData release], contentData = nil;
 	[path release], path = nil;
 	[mode release], mode = nil;
 	[super dealloc];
@@ -42,9 +47,15 @@
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-	self.encoding = [theDict valueForKey:@"encoding"];
-	self.content = [theDict valueForKey:@"content"];
 	self.size = [[theDict valueForKey:@"size"] integerValue];
+	self.encoding = [theDict valueForKey:@"encoding"];
+	if ([encoding isEqualToString:@"utf-8"]) {
+		self.content = [theDict valueForKey:@"content"];
+	} else if ([encoding isEqualToString:@"base64"]) {
+		NSString *cont = [theDict valueForKey:@"content"];
+		self.content = [NSString stringWithBase64EncodedString:cont];
+		self.contentData = [NSData dataWithBase64EncodedString:cont];
+	}
 }
 
 @end

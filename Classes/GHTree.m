@@ -2,13 +2,15 @@
 #import "GHTree.h"
 #import "GHBlob.h"
 #import "GHRepository.h"
+#import "NSString+Extensions.h"
 
 
 @implementation GHTree
 
 @synthesize sha;
 @synthesize repository;
-@synthesize tree;
+@synthesize trees;
+@synthesize blobs;
 @synthesize path;
 @synthesize mode;
 
@@ -20,14 +22,15 @@
 	[super init];
 	self.repository = theRepo;
 	self.sha = theSha;
-	self.resourcePath = [NSString stringWithFormat:kTreeFormat, repository.owner, repository.name, sha];
+	self.resourcePath = [NSString stringWithFormat:kTreeFormat, repository.owner, repository.name, [sha stringByEscapingForURLArgument]];
 	return self;
 }
 
 - (void)dealloc {
 	[repository release], repository = nil;
 	[sha release], sha = nil;
-	[tree release], tree = nil;
+	[trees release], trees = nil;
+	[blobs release], blobs = nil;
 	[path release], path = nil;
 	[mode release], mode = nil;
 	[super dealloc];
@@ -40,7 +43,8 @@
 #pragma mark Loading
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {
-	self.tree = [NSMutableArray array];
+	self.trees = [NSMutableArray array];
+	self.blobs = [NSMutableArray array];
 	for (NSDictionary *item in [theDict valueForKey:@"tree"]) {
 		NSString *type = [item valueForKey:@"type"];
 		NSString *theSha = [item valueForKey:@"sha"];
@@ -50,13 +54,13 @@
 			GHTree *obj = [GHTree treeWithRepo:repository andSha:theSha];
 			obj.path = thePath;
 			obj.mode = theMode;
-			[self.tree addObject:obj];
+			[self.trees addObject:obj];
 		} else if ([type isEqualToString:@"blob"]) {
 			GHBlob *obj = [GHBlob blobWithRepo:repository andSha:theSha];
 			obj.path = thePath;
 			obj.mode = theMode;
 			obj.size = [[item valueForKey:@"size"] integerValue];
-			[self.tree addObject:obj];
+			[self.blobs addObject:obj];
 		}
 	}
 }

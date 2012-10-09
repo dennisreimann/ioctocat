@@ -15,6 +15,10 @@
 @synthesize files;
 @synthesize index;
 
++ (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
+	return [[[self.class alloc] initWithFiles:theFiles currentIndex:theCurrentIndex] autorelease];
+}
+
 - (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
     [super initWithNibName:@"Diff" bundle:nil];
 	self.files = theFiles;

@@ -8,6 +8,7 @@
 	NSString *name;
 	NSString *owner;
 	NSString *descriptionText;
+	NSString *mainBranch;
 	NSURL *htmlURL;
 	NSURL *homepageURL;
 	NSInteger forkCount;
@@ -27,6 +28,7 @@
 @property(nonatomic,retain)NSString *name;
 @property(nonatomic,retain)NSString *owner;
 @property(nonatomic,retain)NSString *descriptionText;
+@property(nonatomic,retain)NSString *mainBranch;
 @property(nonatomic,retain)NSURL *htmlURL;
 @property(nonatomic,retain)NSURL *homepageURL;
 @property(nonatomic,retain)GHIssues *openIssues;

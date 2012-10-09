@@ -25,6 +25,10 @@
 
 @synthesize organization;
 
++ (id)initWithOrganization:(GHOrganization *)theOrganization {
+	return [[[self.class alloc] initWithOrganization:theOrganization] autorelease];
+}
+
 - (id)initWithOrganization:(GHOrganization *)theOrganization{
     [super initWithNibName:@"Organization" bundle:nil];
 	self.organization = theOrganization;

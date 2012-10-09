@@ -11,6 +11,10 @@
 
 @synthesize feed;
 
++ (id)controllerWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle {
+	return [[[self.class alloc] initWithFeed:theFeed andTitle:theTitle] autorelease];
+}
+
 - (id)initWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle {
 	[super initWithNibName:@"Feed" bundle:nil];
 	self.title = theTitle;

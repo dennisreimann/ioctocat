@@ -47,7 +47,6 @@
 }
 
 - (void)dealloc {
-	[self webViewDidFinishLoad:webView];
 	[webView stopLoading];
 	webView.delegate = nil;
 	[code release], code = nil;
@@ -61,18 +60,6 @@
 	[webView stopLoading];
 	webView.delegate = nil;
 	[super viewWillDisappear:animated];
-}
-
-#pragma mark WebView
-
-- (void)webViewDidStartLoad:(UIWebView *)webview {
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webview {
-	[webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].style.backgroundColor = document.getElementsByTagName('pre')[0].style.backgroundColor;"];
-}
-
-- (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
 }
 
 #pragma mark Autorotation

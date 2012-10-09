@@ -2,6 +2,7 @@
 #import "GHRepository.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
+#import "GHTree.h"
 #import "GHCommit.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
@@ -16,6 +17,7 @@
 #import "FeedController.h"
 #import "IssuesController.h"
 #import "ForksController.h"
+#import "TreeController.h"
 #import "BranchCell.h"
 #import "NSURL+Extensions.h"
 
@@ -25,6 +27,7 @@
 @property(nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayRepository;
+- (GHBranch *)branchForSection:(NSUInteger)section;
 @end
 
 
@@ -70,6 +73,7 @@
     [forkLabel release], forkLabel = nil;
 	[websiteCell release], websiteCell = nil;
 	[descriptionCell release], descriptionCell = nil;
+    [codeCell release], codeCell = nil;
     [issuesCell release], issuesCell = nil;
 	[loadingCell release], loadingCell = nil;
 	[ownerCell release], ownerCell = nil;
@@ -81,6 +85,12 @@
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
+}
+
+- (GHBranch *)branchForSection:(NSUInteger)section {
+	NSUInteger branchIndex = section - 2;
+	GHBranch *branch = [repository.branches.branches objectAtIndex:branchIndex];
+	return branch;
 }
 
 - (IBAction)showActions:(id)sender {
@@ -147,7 +157,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (repository.isLoaded) ? 3 : 1;
+	return (repository.isLoaded) ? 2 + repository.branches.branches.count : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -159,11 +169,13 @@
 		return rows;
 	}
 	if (section == 1) return repository.hasIssues ? 2 : 1;
-	return [repository.branches.branches count];
+	return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 2) ? @"Branches" : @"";
+	if (section < 2) return @"";
+	GHBranch *branch = [self branchForSection:section];
+	return [NSString stringWithFormat:@"%@ branch", branch.name];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -178,7 +190,7 @@
 			case 2: cell = descriptionCell.hasContent ? descriptionCell : readmeCell; break;
 			case 3: cell = readmeCell; break;
 		}
-		if (indexPath.row < 2) {
+		if (row < 2) {
 			cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 			cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		}
@@ -187,45 +199,52 @@
 			case 0: cell = forkCell; break;
 			case 1: cell = issuesCell; break;
 		}    
-    } else if (section == 2) {
-		BranchCell *cell = (BranchCell *)[tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
+    } else {
+		cell = (BranchCell *)[tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
 		if (cell == nil) cell = [[[BranchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		cell.branch = [repository.branches.branches objectAtIndex:indexPath.row];
-		return cell;
+		GHBranch *branch = [self branchForSection:section];
+		[(BranchCell *)cell setBranch:branch];
+		switch (row) {
+			case 0:
+				cell.imageView.image = [UIImage imageNamed:@"code.png"];
+				cell.textLabel.text = @"Code";
+				break;
+			case 1:
+				cell.imageView.image = [UIImage imageNamed:@"commit.png"];
+				cell.textLabel.text = @"Commits";
+				break;
+		}
     }
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	UIViewController *viewController = nil;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0 && repository.user) {
-		UserController *userController = [(UserController *)[UserController alloc] initWithUser:repository.user];
-		[self.navigationController pushViewController:userController animated:YES];
-		[userController release];
+		viewController = [UserController controllerWithUser:repository.user];
 	} else if (section == 0 && row == 1 && repository.homepageURL) {
-		WebController *webController = [[WebController alloc] initWithURL:repository.homepageURL];
-		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
+		viewController = [WebController controllerWithURL:repository.homepageURL];
 	} else if (section == 0 && row >= 2) {
-		WebController *webController = [[WebController alloc] initWithHTML:repository.readme.bodyHTML];
-		webController.title = @"README";
-		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
+		viewController = [WebController controllerWithHTML:repository.readme.bodyHTML];
+		viewController.title = @"README";
 	} else if (section == 1 && row == 0) {
-		ForksController  *forksController = [[ForksController alloc] initWithRepository:repository];
-		[self.navigationController pushViewController:forksController animated:YES];
-		[forksController release];
+		viewController = [ForksController controllerWithRepository:repository];
 	} else if (section == 1 && row == 1) {
-		IssuesController *issuesController = [[IssuesController alloc] initWithRepository:repository];
-		[self.navigationController pushViewController:issuesController animated:YES];
-		[issuesController release];
-	} else if (section == 2) {
-		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
-		GHFeed *recentCommits = [branch recentCommits];
-		FeedController *commitsController = [[FeedController alloc] initWithFeed:recentCommits andTitle:branch.name];
-		[self.navigationController pushViewController:commitsController animated:YES];
-		[commitsController release];
+		viewController = [IssuesController controllerWithRepository:repository];
+	} else {
+		GHBranch *branch = [self branchForSection:section];
+		if (row == 0) {
+			GHTree *tree = [GHTree treeWithRepo:repository andSha:branch.name];
+			viewController = [TreeController controllerWithTree:tree];
+		} else {
+			GHFeed *recentCommits = [branch recentCommits];
+			viewController = [FeedController controllerWithFeed:recentCommits andTitle:branch.name];
+		}
+	}
+	if (viewController) {
+		[self.navigationController pushViewController:viewController animated:YES];
 	}
 }
 

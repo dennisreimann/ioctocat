@@ -32,6 +32,10 @@
 @synthesize feed;
 @synthesize entry;
 
++ (id)controllerWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex {
+	return [[[self.class alloc] initWithFeed:theFeed andCurrentIndex:theCurrentIndex] autorelease];
+}
+
 - (id)initWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex {
 	[super initWithNibName:@"FeedEntry" bundle:nil];
 	currentIndex = theCurrentIndex;

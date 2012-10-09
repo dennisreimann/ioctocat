@@ -11,6 +11,7 @@
 	IBOutlet FeedEntryCell *feedEntryCell;
 }
 
++ (id)controllerWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle;
 - (id)initWithFeed:(GHFeed *)theFeed andTitle:(NSString *)theTitle;
 
 @end

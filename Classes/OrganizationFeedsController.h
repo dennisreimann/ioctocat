@@ -11,6 +11,7 @@
     IBOutlet OrganizationCell *organizationCell;
 }
 
++ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations;
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations;
 
 @end

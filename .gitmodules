@@ -7,3 +7,6 @@
 [submodule "Assets/rainbow-linenumbers"]
 	path = Assets/rainbow-linenumbers
 	url = git://github.com/Sjeiti/rainbow.linenumbers.git
+[submodule "Classes/External/Base64"]
+	path = Classes/External/Base64
+	url = git://github.com/nicklockwood/Base64.git

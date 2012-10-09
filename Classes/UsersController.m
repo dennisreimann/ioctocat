@@ -13,6 +13,10 @@
 
 @synthesize users;
 
++ (id)controllerWithUsers:(GHUsers *)theUsers {
+	return [[[self.class alloc] initWithUsers:theUsers] autorelease];
+}
+
 - (id)initWithUsers:(GHUsers *)theUsers {
     [super initWithNibName:@"Users" bundle:nil];
     self.users = theUsers;

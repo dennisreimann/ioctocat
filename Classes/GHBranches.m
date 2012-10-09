@@ -37,7 +37,11 @@
         NSString *name = [branchDict valueForKey:@"name"];
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:name];
 		branch.sha = [branchDict valueForKeyPath:@"commit.sha"];
-        [resources addObject:branch];
+		if ([branch.name isEqualToString:repository.mainBranch]) {
+			[resources insertObject:branch atIndex:0];
+		} else {
+			[resources addObject:branch];
+		}
 		[branch release];
     }
     self.branches = resources;

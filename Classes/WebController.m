@@ -12,6 +12,14 @@
 @synthesize url;
 @synthesize html;
 
++ (id)controllerWithURL:(NSURL *)theURL {
+	return [[[self.class alloc] initWithURL:theURL] autorelease];
+}
+
++ (id)controllerWithHTML:(NSString *)theHTML {
+	return [[[self.class alloc] controllerWithHTML:theHTML] autorelease];
+}
+
 - (id)initWithURL:(NSURL *)theURL {
     [super initWithNibName:@"WebView" bundle:nil];
 	self.url = theURL;

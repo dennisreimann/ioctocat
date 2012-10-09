@@ -14,6 +14,10 @@
 
 @synthesize repository;
 
++ (id)controllerWithRepository:(GHRepository *)theRepository {
+	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+}
+
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Forks" bundle:nil];
 	self.title = @"Forks";

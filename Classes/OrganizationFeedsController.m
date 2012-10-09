@@ -15,6 +15,10 @@
 
 @synthesize organizations;
 
++ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
+	return [[[self.class alloc] initWithOrganizations:theOrganizations] autorelease];
+}
+
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
     [super initWithNibName:@"Organizations" bundle:nil];
     self.organizations = theOrganizations;

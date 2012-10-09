@@ -10,6 +10,7 @@
     IBOutlet UserCell *userCell;
 }
 
++ (id)controllerWithUsers:(GHUsers *)theUsers;
 - (id)initWithUsers:(GHUsers *)theUsers;
 
 @end

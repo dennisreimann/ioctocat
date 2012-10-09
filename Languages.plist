@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>rb</key>
+	<string>ruby</string>
+	<key>py</key>
+	<string>python</string>
+	<key>coffee</key>
+	<string>coffeescript</string>
+	<key>st</key>
+	<string>smalltalk</string>
+	<key>js</key>
+	<string>javascript</string>
+	<key>sh</key>
+	<string>shell</string>
+	<key>zsh</key>
+	<string>shell</string>
+	<key>h</key>
+	<string>c</string>
+	<key>m</key>
+	<string>c</string>
+	<key>md</key>
+	<string>markdown</string>
+	<key>cs</key>
+	<string>csharp</string>
+	<key>ss</key>
+	<string>scheme</string>
+	<key>Gemfile</key>
+	<string>ruby</string>
+	<key>Rakefile</key>
+	<string>ruby</string>
+	<key>Procfile</key>
+	<string>ruby</string>
+	<key>ru</key>
+	<string>ruby</string>
+</dict>
+</plist>

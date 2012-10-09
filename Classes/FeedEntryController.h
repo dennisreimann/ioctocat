@@ -27,6 +27,7 @@
 	NSUInteger currentIndex;
 }
 
++ (id)controllerWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex;
 - (id)initWithFeed:(GHFeed *)theFeed andCurrentIndex:(NSUInteger)theCurrentIndex;
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 - (IBAction)showInWebView:(id)sender;

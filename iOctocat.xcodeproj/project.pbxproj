@@ -79,6 +79,12 @@
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F38090C162A05E0001017E2 /* branch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F38090A162A05CE001017E2 /* branch.png */; };
+		6F38090D162A05E0001017E2 /* branch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F38090B162A05D6001017E2 /* branch@2x.png */; };
+		6F380914162A110C001017E2 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
+		6F380916162A1553001017E2 /* Blobs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F380915162A1553001017E2 /* Blobs.xib */; };
+		6F38091D162A1DAA001017E2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F38091A162A1DAA001017E2 /* NSData+Base64.m */; };
+		6F38091E162A1DAA001017E2 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F38091C162A1DAA001017E2 /* NSString+Base64.m */; };
 		6F46107415B5E9E4005AB350 /* repostat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107215B5E9E4005AB350 /* repostat.png */; };
 		6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107315B5E9E4005AB350 /* repostat@2x.png */; };
 		6F46107815B5FC2E005AB350 /* MoreIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107615B5FC2E005AB350 /* MoreIssues.png */; };
@@ -149,6 +155,14 @@
 		6F7F082A1624A6F60074839B /* GHBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08291624A6F60074839B /* GHBlob.m */; };
 		6F7F082D1624A9D20074839B /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082C1624A9D20074839B /* GHTag.m */; };
 		6F7F08301624AC990074839B /* GHRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082F1624AC990074839B /* GHRef.m */; };
+		6F7F08371624B8970074839B /* code.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08311624B8970074839B /* code.png */; };
+		6F7F08381624B8970074839B /* code@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08321624B8970074839B /* code@2x.png */; };
+		6F7F08391624B8970074839B /* file.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08331624B8970074839B /* file.png */; };
+		6F7F083A1624B8970074839B /* file@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08341624B8970074839B /* file@2x.png */; };
+		6F7F083B1624B8970074839B /* folder.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08351624B8970074839B /* folder.png */; };
+		6F7F083C1624B8970074839B /* folder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08361624B8970074839B /* folder@2x.png */; };
+		6F7F083F1624B9DE0074839B /* TreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* TreeController.m */; };
+		6F7F08411624BEDD0074839B /* Tree.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F7F08401624BEDD0074839B /* Tree.xib */; };
 		6F843154136D53350016E367 /* commit_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843150136D53350016E367 /* commit_comment.png */; };
 		6F843155136D53350016E367 /* commit_comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843151136D53350016E367 /* commit_comment@2x.png */; };
 		6F843156136D53350016E367 /* issue_comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843152136D53350016E367 /* issue_comment.png */; };
@@ -282,6 +296,7 @@
 		6FDB4E831621AFA400AB11C3 /* rainbow.linenumbers.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E801621AFA400AB11C3 /* rainbow.linenumbers.min.js */; };
 		6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
+		6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD6648162B5DE6008AE561 /* Languages.plist */; };
 		6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */; };
 		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
@@ -420,6 +435,15 @@
 		6F35BD380F88B01900E978CD /* GHOrganization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHOrganization.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F35BD520F88B06200E978CD /* GHRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepository.h; sourceTree = "<group>"; };
 		6F35BD530F88B06200E978CD /* GHRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepository.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6F38090A162A05CE001017E2 /* branch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = branch.png; path = Images/Icons/branch.png; sourceTree = "<group>"; };
+		6F38090B162A05D6001017E2 /* branch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "branch@2x.png"; path = "Images/Icons/branch@2x.png"; sourceTree = "<group>"; };
+		6F380912162A110B001017E2 /* BlobsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobsController.h; sourceTree = "<group>"; };
+		6F380913162A110C001017E2 /* BlobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlobsController.m; sourceTree = "<group>"; };
+		6F380915162A1553001017E2 /* Blobs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Blobs.xib; path = IBFiles/Blobs.xib; sourceTree = "<group>"; };
+		6F380919162A1DAA001017E2 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		6F38091A162A1DAA001017E2 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
+		6F38091B162A1DAA001017E2 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
+		6F38091C162A1DAA001017E2 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
 		6F46107215B5E9E4005AB350 /* repostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repostat.png; path = Images/repostat.png; sourceTree = "<group>"; };
 		6F46107315B5E9E4005AB350 /* repostat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repostat@2x.png"; path = "Images/repostat@2x.png"; sourceTree = "<group>"; };
 		6F46107615B5FC2E005AB350 /* MoreIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreIssues.png; sourceTree = "<group>"; };
@@ -526,6 +550,15 @@
 		6F7F082C1624A9D20074839B /* GHTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTag.m; sourceTree = "<group>"; };
 		6F7F082E1624AC990074839B /* GHRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRef.h; sourceTree = "<group>"; };
 		6F7F082F1624AC990074839B /* GHRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRef.m; sourceTree = "<group>"; };
+		6F7F08311624B8970074839B /* code.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = code.png; path = Images/Icons/code.png; sourceTree = "<group>"; };
+		6F7F08321624B8970074839B /* code@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "code@2x.png"; path = "Images/Icons/code@2x.png"; sourceTree = "<group>"; };
+		6F7F08331624B8970074839B /* file.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file.png; path = Images/Icons/file.png; sourceTree = "<group>"; };
+		6F7F08341624B8970074839B /* file@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "file@2x.png"; path = "Images/Icons/file@2x.png"; sourceTree = "<group>"; };
+		6F7F08351624B8970074839B /* folder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = folder.png; path = Images/Icons/folder.png; sourceTree = "<group>"; };
+		6F7F08361624B8970074839B /* folder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "folder@2x.png"; path = "Images/Icons/folder@2x.png"; sourceTree = "<group>"; };
+		6F7F083D1624B9DE0074839B /* TreeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeController.h; sourceTree = "<group>"; };
+		6F7F083E1624B9DE0074839B /* TreeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TreeController.m; sourceTree = "<group>"; };
+		6F7F08401624BEDD0074839B /* Tree.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Tree.xib; path = IBFiles/Tree.xib; sourceTree = "<group>"; };
 		6F843150136D53350016E367 /* commit_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit_comment.png; path = Images/Icons/commit_comment.png; sourceTree = "<group>"; };
 		6F843151136D53350016E367 /* commit_comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "commit_comment@2x.png"; path = "Images/Icons/commit_comment@2x.png"; sourceTree = "<group>"; };
 		6F843152136D53350016E367 /* issue_comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue_comment.png; path = Images/Icons/issue_comment.png; sourceTree = "<group>"; };
@@ -688,6 +721,7 @@
 		6FDB4E86162221DF00AB11C3 /* CodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeController.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepositories.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6FDD6648162B5DE6008AE561 /* Languages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
 		6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
 		6FE7D14511557E8C004B4D68 /* GHIssueComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -819,6 +853,7 @@
 				6FB7FEA60F7E2C7500E8D702 /* IBFiles */,
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
+				6FDD6648162B5DE6008AE561 /* Languages.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 			);
 			name = Resources;
@@ -914,6 +949,14 @@
 		6F1DC5BB0F7E7F3400FCD26D /* Icons */ = {
 			isa = PBXGroup;
 			children = (
+				6F7F08311624B8970074839B /* code.png */,
+				6F38090A162A05CE001017E2 /* branch.png */,
+				6F38090B162A05D6001017E2 /* branch@2x.png */,
+				6F7F08321624B8970074839B /* code@2x.png */,
+				6F7F08331624B8970074839B /* file.png */,
+				6F7F08341624B8970074839B /* file@2x.png */,
+				6F7F08351624B8970074839B /* folder.png */,
+				6F7F08361624B8970074839B /* folder@2x.png */,
 				6F46107215B5E9E4005AB350 /* repostat.png */,
 				6F46107315B5E9E4005AB350 /* repostat@2x.png */,
 				6F7C822415B3483300D37EE8 /* readme.png */,
@@ -980,6 +1023,18 @@
 			name = Icons;
 			sourceTree = "<group>";
 		};
+		6F380918162A1DAA001017E2 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				6F380919162A1DAA001017E2 /* NSData+Base64.h */,
+				6F38091A162A1DAA001017E2 /* NSData+Base64.m */,
+				6F38091B162A1DAA001017E2 /* NSString+Base64.h */,
+				6F38091C162A1DAA001017E2 /* NSString+Base64.m */,
+			);
+			name = Base64;
+			path = Base64/Base64;
+			sourceTree = "<group>";
+		};
 		6F56163615B4A23700226B6D /* More */ = {
 			isa = PBXGroup;
 			children = (
@@ -1026,6 +1081,7 @@
 		6F5E9AA21119A96000752560 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				6F380918162A1DAA001017E2 /* Base64 */,
 				6F6F175411E316C5008B319F /* ASI */,
 				6F5E9AB01119A96000752560 /* JSON */,
 				6F6F175011E316B3008B319F /* Reachability */,
@@ -1228,6 +1284,7 @@
 				6FCDC66B0FC04F180024E498 /* Feed.xib */,
 				6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */,
 				6F879A5B0FB611FD00EBD9BD /* Users.xib */,
+				6F380915162A1553001017E2 /* Blobs.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F182C8D161CC47300E705CF /* Gists.xib */,
 				6F182C8B161CB7A100E705CF /* Gist.xib */,
@@ -1246,6 +1303,7 @@
 				6FB9CBF613355FB200C8DE29 /* Organizations.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
 				6F56163415B4A02200226B6D /* More.xib */,
+				6F7F08401624BEDD0074839B /* Tree.xib */,
 				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
 			name = IBFiles;
@@ -1442,6 +1500,10 @@
 				6F2C77281114F430002665DA /* FilesController.m */,
 				6FF09F801115AF7800925109 /* DiffController.h */,
 				6FF09F811115AF7800925109 /* DiffController.m */,
+				6F7F083D1624B9DE0074839B /* TreeController.h */,
+				6F7F083E1624B9DE0074839B /* TreeController.m */,
+				6F380912162A110B001017E2 /* BlobsController.h */,
+				6F380913162A110C001017E2 /* BlobsController.m */,
 			);
 			name = Git;
 			sourceTree = "<group>";
@@ -1794,6 +1856,17 @@
 				6FDB4E831621AFA400AB11C3 /* rainbow.linenumbers.min.js in Resources */,
 				6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */,
 				6F08799D1623635E00CE95D0 /* ToolbarGist@2x.png in Resources */,
+				6F7F08371624B8970074839B /* code.png in Resources */,
+				6F7F08381624B8970074839B /* code@2x.png in Resources */,
+				6F7F08391624B8970074839B /* file.png in Resources */,
+				6F7F083A1624B8970074839B /* file@2x.png in Resources */,
+				6F7F083B1624B8970074839B /* folder.png in Resources */,
+				6F7F083C1624B8970074839B /* folder@2x.png in Resources */,
+				6F7F08411624BEDD0074839B /* Tree.xib in Resources */,
+				6F38090C162A05E0001017E2 /* branch.png in Resources */,
+				6F38090D162A05E0001017E2 /* branch@2x.png in Resources */,
+				6F380916162A1553001017E2 /* Blobs.xib in Resources */,
+				6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1904,6 +1977,10 @@
 				6F7F082A1624A6F60074839B /* GHBlob.m in Sources */,
 				6F7F082D1624A9D20074839B /* GHTag.m in Sources */,
 				6F7F08301624AC990074839B /* GHRef.m in Sources */,
+				6F7F083F1624B9DE0074839B /* TreeController.m in Sources */,
+				6F380914162A110C001017E2 /* BlobsController.m in Sources */,
+				6F38091D162A1DAA001017E2 /* NSData+Base64.m in Sources */,
+				6F38091E162A1DAA001017E2 /* NSString+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,6 @@
 #import "IssuesController.h"
 #import "IssueController.h"
+#import "AccountController.h"
 #import "IssueFormController.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
@@ -55,13 +56,31 @@
     return self;
 }
 
+- (AccountController *)accountController {
+	return [[iOctocat sharedInstance] accountController];
+}
+
+- (UIViewController *)parentViewController {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
+}
+
+- (UINavigationItem *)navItem {
+	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.titleView = issuesControl;
-	self.navigationItem.rightBarButtonItem = repository ? addButton : nil;
     
 	issuesControl.selectedSegmentIndex = 0;
     if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	
+	self.navItem.title = @"Issues";
+	self.navItem.titleView = issuesControl;
+	self.navItem.rightBarButtonItem = repository ? addButton : nil;
 }
 
 - (void)dealloc {

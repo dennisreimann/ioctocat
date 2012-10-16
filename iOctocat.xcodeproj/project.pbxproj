@@ -144,6 +144,10 @@
 		6F609E4C162DFE3300A371BC /* tricolore.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3F162DFE3300A371BC /* tricolore.css */; };
 		6F609E4D162DFE3300A371BC /* twilight.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E40162DFE3300A371BC /* twilight.css */; };
 		6F609E4E162DFE3300A371BC /* zenburnesque.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E41162DFE3300A371BC /* zenburnesque.css */; };
+		6F609E51162E08A800A371BC /* TabBarIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E4F162E08A800A371BC /* TabBarIssues.png */; };
+		6F609E52162E08A800A371BC /* TabBarIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E50162E08A800A371BC /* TabBarIssues@2x.png */; };
+		6F609E55162E08B300A371BC /* MoreSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E53162E08B300A371BC /* MoreSearch.png */; };
+		6F609E56162E08B300A371BC /* MoreSearch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E54162E08B300A371BC /* MoreSearch@2x.png */; };
 		6F61F534139E3EE8005DBE67 /* HeadBackground90.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F530139E3EE8005DBE67 /* HeadBackground90.png */; };
 		6F61F535139E3EE8005DBE67 /* HeadBackground90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */; };
 		6F61F53E139E43FD005DBE67 /* AvatarBackground32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F538139E43FB005DBE67 /* AvatarBackground32.png */; };
@@ -527,6 +531,10 @@
 		6F609E3F162DFE3300A371BC /* tricolore.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tricolore.css; sourceTree = "<group>"; };
 		6F609E40162DFE3300A371BC /* twilight.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = twilight.css; sourceTree = "<group>"; };
 		6F609E41162DFE3300A371BC /* zenburnesque.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburnesque.css; sourceTree = "<group>"; };
+		6F609E4F162E08A800A371BC /* TabBarIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIssues.png; sourceTree = "<group>"; };
+		6F609E50162E08A800A371BC /* TabBarIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIssues@2x.png"; sourceTree = "<group>"; };
+		6F609E53162E08B300A371BC /* MoreSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreSearch.png; sourceTree = "<group>"; };
+		6F609E54162E08B300A371BC /* MoreSearch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreSearch@2x.png"; sourceTree = "<group>"; };
 		6F61F530139E3EE8005DBE67 /* HeadBackground90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HeadBackground90.png; path = Images/HeadBackground90.png; sourceTree = "<group>"; };
 		6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HeadBackground90@2x.png"; path = "Images/HeadBackground90@2x.png"; sourceTree = "<group>"; };
 		6F61F538139E43FB005DBE67 /* AvatarBackground32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AvatarBackground32.png; path = Images/AvatarBackground32.png; sourceTree = "<group>"; };
@@ -1038,6 +1046,8 @@
 		6F56163615B4A23700226B6D /* More */ = {
 			isa = PBXGroup;
 			children = (
+				6F609E53162E08B300A371BC /* MoreSearch.png */,
+				6F609E54162E08B300A371BC /* MoreSearch@2x.png */,
 				6F182C80161C5D6F00E705CF /* MoreGists.png */,
 				6F182C81161C5D6F00E705CF /* MoreGists@2x.png */,
 				6F182C8F161CC63F00E705CF /* MoreStarredGists.png */,
@@ -1113,6 +1123,8 @@
 		6F5E9C741119D43E00752560 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
+				6F609E4F162E08A800A371BC /* TabBarIssues.png */,
+				6F609E50162E08A800A371BC /* TabBarIssues@2x.png */,
 				6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */,
 				931D2FC9133513B400FAEF3E /* TabBarRepositories@2x.png */,
 				6F5E9C751119D43E00752560 /* TabBarFeeds.png */,
@@ -1867,6 +1879,10 @@
 				6F609E4C162DFE3300A371BC /* tricolore.css in Resources */,
 				6F609E4D162DFE3300A371BC /* twilight.css in Resources */,
 				6F609E4E162DFE3300A371BC /* zenburnesque.css in Resources */,
+				6F609E51162E08A800A371BC /* TabBarIssues.png in Resources */,
+				6F609E52162E08A800A371BC /* TabBarIssues@2x.png in Resources */,
+				6F609E55162E08B300A371BC /* MoreSearch.png in Resources */,
+				6F609E56162E08B300A371BC /* MoreSearch@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

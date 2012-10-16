@@ -2,13 +2,13 @@
 <archive type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="8.00">
 	<data>
 		<int key="IBDocument.SystemTarget">1536</int>
-		<string key="IBDocument.SystemVersion">11E53</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2840</string>
-		<string key="IBDocument.AppKitVersion">1138.47</string>
+		<string key="IBDocument.SystemVersion">11G63</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1926</string>
+			<string key="NS.object.0">1929</string>
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
@@ -79,9 +79,13 @@
 								<reference key="IBUITabBar" ref="204762923"/>
 							</object>
 							<object class="IBUITabBarItem" id="921227226">
+								<string key="IBUITitle">Issues</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">TabBarIssues.png</string>
+								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUITabBar" ref="204762923"/>
-								<int key="IBUISystemItemIdentifier">8</int>
 							</object>
 							<object class="IBUITabBarItem" id="983284953">
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -115,14 +119,6 @@
 						<reference key="destination" ref="472218577"/>
 					</object>
 					<int key="connectionID">119</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">searchTabBarItem</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="921227226"/>
-					</object>
-					<int key="connectionID">141</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -163,6 +159,14 @@
 						<reference key="destination" ref="983284953"/>
 					</object>
 					<int key="connectionID">153</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">issuesTabBarItem</string>
+						<reference key="source" ref="841351856"/>
+						<reference key="destination" ref="921227226"/>
+					</object>
+					<int key="connectionID">154</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -256,7 +260,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">153</int>
+			<int key="maxID">154</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -265,15 +269,19 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="feedsTabBarItem">UITabBarItem</string>
+						<string key="issuesTabBarItem">UITabBarItem</string>
 						<string key="moreTabBarItem">UITabBarItem</string>
 						<string key="profileTabBarItem">UITabBarItem</string>
 						<string key="reposTabBarItem">UITabBarItem</string>
-						<string key="searchTabBarItem">UITabBarItem</string>
 						<string key="tabBar">UITabBar</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="feedsTabBarItem">
 							<string key="name">feedsTabBarItem</string>
+							<string key="candidateClassName">UITabBarItem</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="issuesTabBarItem">
+							<string key="name">issuesTabBarItem</string>
 							<string key="candidateClassName">UITabBarItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="moreTabBarItem">
@@ -286,10 +294,6 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="reposTabBarItem">
 							<string key="name">reposTabBarItem</string>
-							<string key="candidateClassName">UITabBarItem</string>
-						</object>
-						<object class="IBToOneOutletInfo" key="searchTabBarItem">
-							<string key="name">searchTabBarItem</string>
 							<string key="candidateClassName">UITabBarItem</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tabBar">
@@ -314,9 +318,10 @@
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="TabBarFeeds.png">{26, 26}</string>
+			<string key="TabBarIssues.png">{14, 21}</string>
 			<string key="TabBarNetwork.png">{24, 21}</string>
 			<string key="TabBarRepositories.png">{26, 26}</string>
 		</dictionary>
-		<string key="IBCocoaTouchPluginVersion">1926</string>
+		<string key="IBCocoaTouchPluginVersion">1929</string>
 	</data>
 </archive>

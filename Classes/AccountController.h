@@ -8,8 +8,8 @@
 	IBOutlet UITabBarItem *feedsTabBarItem;
 	IBOutlet UITabBarItem *reposTabBarItem;
 	IBOutlet UITabBarItem *profileTabBarItem;
+	IBOutlet UITabBarItem *issuesTabBarItem;
 	IBOutlet UITabBarItem *moreTabBarItem;
-	IBOutlet UITabBarItem *searchTabBarItem;
 }
 
 + (id)controllerWithAccount:(GHAccount *)theAccount;

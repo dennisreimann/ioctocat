@@ -3,6 +3,7 @@
 #import "IssuesController.h"
 #import "GistsController.h"
 #import "AccountController.h"
+#import "SearchController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
@@ -25,10 +26,10 @@
 	NSArray *orgsKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *orgsDict = [NSDictionary dictionaryWithObjects:orgsVals forKeys:orgsKeys];
 	
-	// My Issues
-	NSArray *myIssuesVals = [NSArray arrayWithObjects:@"My Issues", @"MoreIssues.png", nil];
-	NSArray *myIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
-	NSDictionary *myIssuesDict = [NSDictionary dictionaryWithObjects:myIssuesVals forKeys:myIssuesKeys];
+	// Search
+	NSArray *searchVals = [NSArray arrayWithObjects:@"Search", @"MoreSearch.png", nil];
+	NSArray *searchKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *searchDict = [NSDictionary dictionaryWithObjects:searchVals forKeys:searchKeys];
 	
 	// My Gists
 	NSArray *gistsVals = [NSArray arrayWithObjects:@"My Gists", @"MoreGists.png", nil];
@@ -45,7 +46,7 @@
 	NSArray *appIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *appIssuesDict = [NSDictionary dictionaryWithObjects:appIssuesVals forKeys:appIssuesKeys];
 	
-	self.moreOptions = [NSArray arrayWithObjects:orgsDict, myIssuesDict, gistsDict, starredGistsDict, appIssuesDict, nil];
+	self.moreOptions = [NSArray arrayWithObjects:orgsDict, searchDict, gistsDict, starredGistsDict, appIssuesDict, nil];
 	self.user = theUser;
 	
 	return self;
@@ -101,7 +102,7 @@
 	if (row == 0) {
 		viewController = [OrganizationsController controllerWithOrganizations:user.organizations];
 	} else if (row == 1) {
-		viewController = [IssuesController controllerWithUser:user];
+		viewController = [SearchController controllerWithUser:user];
 	} else if (row == 2) {
 		viewController = [GistsController controllerWithGists:user.gists];
 		viewController.title = @"My Gists";

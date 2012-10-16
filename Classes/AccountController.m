@@ -2,7 +2,7 @@
 #import "MyFeedsController.h"
 #import "RepositoriesController.h"
 #import "UserController.h"
-#import "SearchController.h"
+#import "IssuesController.h"
 #import "MoreController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
@@ -33,7 +33,7 @@
 	MyFeedsController *feedsController      = [MyFeedsController controllerWithUser:account.user];
 	RepositoriesController *reposController = [RepositoriesController controllerWithUser:account.user];
 	UserController *userController          = [UserController controllerWithUser:account.user];
-	SearchController *searchController      = [SearchController controllerWithUser:account.user];
+	IssuesController *issuesController      = [IssuesController controllerWithUser:account.user];
 	MoreController *moreController          = [MoreController controllerWithUser:account.user];
 	
 	// tabs
@@ -41,7 +41,7 @@
 							feedsController,
 							reposController,
 							userController,
-							searchController,
+							issuesController,
 							moreController,
 							nil];
 	return self;
@@ -55,8 +55,8 @@
 	[feedsTabBarItem release], feedsTabBarItem = nil;
 	[reposTabBarItem release], reposTabBarItem = nil;
 	[profileTabBarItem release], profileTabBarItem = nil;
+	[issuesTabBarItem release], issuesTabBarItem = nil;
 	[moreTabBarItem release], moreTabBarItem = nil;
-	[searchTabBarItem release], searchTabBarItem = nil;
 	[super dealloc];
 }
 
@@ -109,7 +109,7 @@
 		self.selectedViewController = [viewControllers objectAtIndex:1];
 	} else if (item == profileTabBarItem) {
 		self.selectedViewController = [viewControllers objectAtIndex:2];
-	} else if (item == searchTabBarItem) {
+	} else if (item == issuesTabBarItem) {
 		self.selectedViewController = [viewControllers objectAtIndex:3];
 	} else if (item == moreTabBarItem) {
 		self.selectedViewController = [viewControllers objectAtIndex:4];

@@ -24,6 +24,9 @@
 	IBOutlet CommentCell *commentCell;
 }
 
++ (id)controllerWithIssue:(GHIssue *)theIssue;
++ (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
+- (id)initWithIssue:(GHIssue *)theIssue;
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;

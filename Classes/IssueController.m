@@ -33,9 +33,22 @@
 @synthesize issue;
 @synthesize listController;
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
++ (id)controllerWithIssue:(GHIssue *)theIssue {
+	return [[[self.class alloc] initWithIssue:theIssue] autorelease];
+}
+
++ (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
+	return [[[self.class alloc] initWithIssue:theIssue andIssuesController:theController] autorelease];
+}
+
+- (id)initWithIssue:(GHIssue *)theIssue {
     [super initWithNibName:@"Issue" bundle:nil];
 	self.issue = theIssue;
+    return self;
+}
+
+- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
+    [self initWithIssue:theIssue];
 	self.listController = theController;
     return self;
 }

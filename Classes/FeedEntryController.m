@@ -169,35 +169,30 @@
 }
 
 - (IBAction)showFirstUser:(id)sender {
-	UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
+	UserController *userController = [UserController controllerWithUser:entry.user];
 	[self.navigationController pushViewController:userController animated:YES];
-	[userController release];
 }
 
 - (IBAction)showSecondUser:(id)sender {
-	UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)entry.eventItem];
+	UserController *userController = [UserController controllerWithUser:(GHUser *)entry.eventItem];
 	[self.navigationController pushViewController:userController animated:YES];
-	[userController release];
 }
 
 - (IBAction)showOrganization:(id)sender {
-	OrganizationController *orgController = [[OrganizationController alloc] initWithOrganization:(GHOrganization *)entry.organization];
+	OrganizationController *orgController = [OrganizationController controllerWithOrganization:(GHOrganization *)entry.organization];
 	[self.navigationController pushViewController:orgController animated:YES];
-	[orgController release];
 }
 
 - (IBAction)showIssue:(id)sender {
 	GHIssue *issue = entry.eventItem;
-	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:nil];
+	IssueController *issueController = [IssueController controllerWithIssue:issue];
 	[self.navigationController pushViewController:issueController animated:YES];
-	[issueController release];
 }
 
 - (IBAction)showCommit:(id)sender {
 	GHCommit *commit = entry.eventItem;
-	CommitController *commitController = [[CommitController alloc] initWithCommit:commit];
+	CommitController *commitController = [CommitController controllerWithCommit:commit];
 	[self.navigationController pushViewController:commitController animated:YES];
-	[commitController release];
 }
 
 - (IBAction)showGist:(id)sender {

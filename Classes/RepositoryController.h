@@ -23,6 +23,7 @@
 	IBOutlet TextCell *descriptionCell;
 }
 
++ (id)controllerWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)showActions:(id)sender;
 

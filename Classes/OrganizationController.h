@@ -25,7 +25,7 @@
     IBOutlet UserCell *userCell;
 }
 
-+ (id)initWithOrganization:(GHOrganization *)theOrganization;
++ (id)controllerWithOrganization:(GHOrganization *)theOrganization;
 - (id)initWithOrganization:(GHOrganization *)theOrganization;
 - (IBAction)showActions:(id)sender;
 

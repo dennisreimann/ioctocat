@@ -25,7 +25,7 @@
 
 @synthesize organization;
 
-+ (id)initWithOrganization:(GHOrganization *)theOrganization {
++ (id)controllerWithOrganization:(GHOrganization *)theOrganization {
 	return [[[self.class alloc] initWithOrganization:theOrganization] autorelease];
 }
 

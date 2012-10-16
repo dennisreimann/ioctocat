@@ -1,6 +1,10 @@
 #import "MyFeedsController.h"
 #import "WebController.h"
 #import "UserController.h"
+#import "RepositoryController.h"
+#import "IssueController.h"
+#import "GistController.h"
+#import "CommitController.h"
 #import "OrganizationFeedsController.h"
 #import "FeedEntryController.h"
 #import "GHFeedEntry.h"
@@ -8,6 +12,10 @@
 #import "GHUser.h"
 #import "GHOrganizations.h"
 #import "GHFeed.h"
+#import "GHRepository.h"
+#import "GHCommit.h"
+#import "GHGist.h"
+#import "GHIssue.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
 #import "AccountController.h"
@@ -205,9 +213,24 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	UserController *userController = [(UserController *)[UserController alloc] initWithUser:entry.user];
-	[self.navigationController pushViewController:userController animated:YES];
-	[userController release];
+	id item = entry.eventItem;
+	if (!item) return;
+	UIViewController *viewController;
+	if ([item isKindOfClass:[GHUser class]]) {
+		viewController = [UserController controllerWithUser:item];
+	} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
+		viewController = [RepositoryController controllerWithRepository:item];
+	} else if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
+		viewController = [IssueController controllerWithIssue:item];
+	} else if ([entry.eventItem isKindOfClass:[GHCommit class]]) {
+		viewController = [CommitController controllerWithCommit:item];
+	} else if ([entry.eventItem isKindOfClass:[GHGist class]]) {
+		viewController = [GistController controllerWithGist:item];
+	}
+	// maybe push a view controller
+	if (viewController) {
+		[self.navigationController pushViewController:viewController animated:YES];
+	}
 }
 
 #pragma mark Persistent State

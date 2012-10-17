@@ -17,7 +17,7 @@
 }
 
 + (id)controllerWithHTML:(NSString *)theHTML {
-	return [[[self.class alloc] controllerWithHTML:theHTML] autorelease];
+	return [[[self.class alloc] initWithHTML:theHTML] autorelease];
 }
 
 - (id)initWithURL:(NSURL *)theURL {

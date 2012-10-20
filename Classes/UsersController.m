@@ -67,8 +67,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!users.isLoaded) return;
-    if (users.users.count == 0) return;
+    if (!users.isLoaded || users.users.count == 0) return;
     GHUser *selectedUser = [users.users objectAtIndex:indexPath.row];
     UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];

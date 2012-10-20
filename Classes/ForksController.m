@@ -53,7 +53,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   return ( self.currentForks.isLoading ) || (self.currentForks.entries.count == 0) ? 1 : self.currentForks.entries.count;
+   return (self.currentForks.isLoading|| self.currentForks.entries.count == 0) ? 1 : self.currentForks.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -66,6 +66,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!self.currentForks.isLoaded || self.currentForks.entries.count == 0) return;
 	GHRepository *repo = [self.currentForks.entries objectAtIndex:indexPath.row];
     RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
     [self.navigationController pushViewController:repoController animated:YES];

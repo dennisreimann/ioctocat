@@ -29,7 +29,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
-    return ([files count] == 0) ? 1 : [files count];
+    return (files.count == 0) ? 1 : files.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -39,7 +39,7 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
     }
-	if ([files count] == 0) {
+	if (files.count == 0) {
 		cell.textLabel.text = @"No files";
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -54,6 +54,7 @@
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (files.count == 0) return;
 	id fileInfo = [files objectAtIndex:indexPath.row];
 	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
 		DiffController *diffController = [[DiffController alloc] initWithFiles:files currentIndex:indexPath.row];

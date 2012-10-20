@@ -102,7 +102,7 @@
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (gists.isLoading) return;
+	if (!gists.isLoaded || gists.gists.count == 0) return;
 	GHGist *gist = [gists.gists objectAtIndex:indexPath.row];
 	GistController *gistController = [GistController controllerWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];

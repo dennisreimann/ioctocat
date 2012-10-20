@@ -170,6 +170,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!self.currentIssues.isLoaded || self.currentIssues.entries.count == 0) return;
 	GHIssue *issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
 	[self.navigationController pushViewController:issueController animated:YES];

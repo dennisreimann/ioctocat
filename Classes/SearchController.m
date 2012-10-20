@@ -155,8 +155,10 @@
 	} else if ([object isKindOfClass:[GHUser class]]) {
 		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
 	}
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+	if (viewController) {
+		[self.navigationController pushViewController:viewController animated:YES];
+		[viewController release];
+	}
 }
 
 #pragma mark Autorotation

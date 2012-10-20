@@ -98,8 +98,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!organizations.isLoaded) return;
-    if (organizations.organizations.count == 0) return;
+    if (!organizations.isLoaded || organizations.organizations.count == 0) return;
     GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
     OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];

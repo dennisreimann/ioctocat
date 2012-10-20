@@ -223,6 +223,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!repository.isLoaded) return;
 	UIViewController *viewController = nil;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;

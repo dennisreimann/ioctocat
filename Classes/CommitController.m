@@ -194,6 +194,7 @@
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!commit.isLoaded) return;
 	if (indexPath.section == 0) {
 		GHUser *user = (indexPath.row == 0) ? commit.author : commit.committer;
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
@@ -201,7 +202,7 @@
 		[userController release];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
-		if ([cell.files count] > 0) {
+		if (cell.files.count > 0) {
 			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];

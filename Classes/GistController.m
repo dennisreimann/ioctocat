@@ -196,6 +196,7 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (!gist.isLoaded) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0) {

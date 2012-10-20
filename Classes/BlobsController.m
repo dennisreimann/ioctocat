@@ -78,25 +78,18 @@
 	// the filename for files without extension (i.e. Rakefile)
 	NSString *ext = [theFilename pathExtension];
 	if (!ext) ext = theFilename;
-	NSString *lineNr = [defaults boolForKey:kLineNumbersDefaultsKey] ? @"1" : @"-1";
-	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
-	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
-	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"rainbow" ofType:@"js"];
-	NSString *linenumbersJsPath = [[NSBundle mainBundle] pathForResource:@"rainbow.linenumbers" ofType:@"js"];
-	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	// resolve language
 	NSString *languagesPath = [[NSBundle mainBundle] pathForResource:@"Languages" ofType:@"plist"];
 	NSDictionary *languages = [NSDictionary dictionaryWithContentsOfFile:languagesPath];
 	NSString *lang = [languages valueForKey:ext];
-	NSString *languageJsPath = [[NSBundle mainBundle] pathForResource:lang ofType:@"js"];
-	if (!languageJsPath) {
-		DJLog(@"Tried to load %@ highlighting, falling back to generic.", lang);
-		lang = @"generic";
-		languageJsPath = [[NSBundle mainBundle] pathForResource:lang ofType:@"js"];
-	}
+	if (!lang) lang = ext;
+	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
+	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
+	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
+	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *escapedCode = [theCode escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, lang, lineNr, escapedCode, highlightJsPath, languageJsPath, linenumbersJsPath];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, lang, escapedCode];
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
 	DJLog(@"Highlighting %@", lang);
 }

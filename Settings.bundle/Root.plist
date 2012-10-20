@@ -11,16 +11,6 @@
 			<string>PSGroupSpecifier</string>
 		</dict>
 		<dict>
-			<key>DefaultValue</key>
-			<true/>
-			<key>Key</key>
-			<string>lineNumbers</string>
-			<key>Title</key>
-			<string>Line numbers</string>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-		</dict>
-		<dict>
 			<key>Type</key>
 			<string>PSMultiValueSpecifier</string>
 			<key>Title</key>
@@ -31,35 +21,53 @@
 			<string>github</string>
 			<key>Titles</key>
 			<array>
-				<string>All Hallows Eve</string>
-				<string>Blackboard</string>
-				<string>Espresso Libre</string>
+				<string>Arta</string>
+				<string>Ascetic</string>
+				<string>Dark</string>
+				<string>Far</string>
 				<string>GitHub</string>
-				<string>Obsidian</string>
-				<string>Pastie</string>
+				<string>Google Code</string>
+				<string>Idea</string>
+				<string>IR Black</string>
+				<string>Magula</string>
+				<string>Monokai</string>
+				<string>Rainbow</string>
 				<string>Solarized Dark</string>
 				<string>Solarized Light</string>
 				<string>Sunburst</string>
+				<string>Tomorrow Night Blue</string>
+				<string>Tomorrow Night Bright</string>
+				<string>Tomorrow Night 80s</string>
 				<string>Tomorrow Night</string>
-				<string>Tricolore</string>
-				<string>Twilight</string>
-				<string>Zenburnesque</string>
+				<string>Tomorrow</string>
+				<string>Visual Studio</string>
+				<string>Xcode</string>
+				<string>Zenburn</string>
 			</array>
 			<key>Values</key>
 			<array>
-				<string>all-hallows-eve</string>
-				<string>blackboard</string>
-				<string>espresso-libre</string>
+				<string>arta</string>
+				<string>ascetic</string>
+				<string>dark</string>
+				<string>far</string>
 				<string>github</string>
-				<string>obsidian</string>
-				<string>pastie</string>
-				<string>solarized-dark</string>
-				<string>solarized-light</string>
+				<string>googlecode</string>
+				<string>idea</string>
+				<string>ir_black</string>
+				<string>magula</string>
+				<string>monokai</string>
+				<string>rainbow</string>
+				<string>solarized_dark</string>
+				<string>solarized_light</string>
 				<string>sunburst</string>
+				<string>tomorrow-night-blue</string>
+				<string>tomorrow-night-bright</string>
+				<string>tomorrow-night-eighties</string>
 				<string>tomorrow-night</string>
-				<string>tricolore</string>
-				<string>twilight</string>
-				<string>zenburnesque</string>
+				<string>tomorrow</string>
+				<string>vs</string>
+				<string>xcode</string>
+				<string>zenburn</string>
 			</array>
 		</dict>
 		<dict>

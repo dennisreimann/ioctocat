@@ -28,6 +28,4 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
   * ASIHTTPRequest by Ben Copsey - [ASIHTTPRequest](http://allseeing-i.com/ASIHTTPRequest/)
   * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)
-  * Rainbox syntax highlighter by Craig Campbell - [Rainbow](http://craig.is/making/rainbows)
-  * Rainbow line numbers extension by Ron Valster - [Rainbow Line Numbers](https://github.com/Sjeiti/rainbow.linenumbers)
-
+  * highlight.js by Ivan Sagalaev - [highlight.js](http://highlightjs.org/)

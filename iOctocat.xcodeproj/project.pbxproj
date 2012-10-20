@@ -59,7 +59,6 @@
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
 		6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
-		6F2AB70716331CF200C113CD /* xml.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F2AB70616331CF200C113CD /* xml.js */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
@@ -86,6 +85,32 @@
 		6F380916162A1553001017E2 /* Blobs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F380915162A1553001017E2 /* Blobs.xib */; };
 		6F38091D162A1DAA001017E2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F38091A162A1DAA001017E2 /* NSData+Base64.m */; };
 		6F38091E162A1DAA001017E2 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F38091C162A1DAA001017E2 /* NSString+Base64.m */; };
+		6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500A163343E4001DC916 /* highlight.pack.js */; };
+		6F3A502E163343E4001DC916 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500B163343E4001DC916 /* LICENSE */; };
+		6F3A502F163343E4001DC916 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500C163343E4001DC916 /* README.md */; };
+		6F3A5030163343E4001DC916 /* README.ru.md in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500D163343E4001DC916 /* README.ru.md */; };
+		6F3A5031163343E4001DC916 /* arta.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500F163343E4001DC916 /* arta.css */; };
+		6F3A5032163343E4001DC916 /* ascetic.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5010163343E4001DC916 /* ascetic.css */; };
+		6F3A5035163343E4001DC916 /* dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5013163343E4001DC916 /* dark.css */; };
+		6F3A5037163343E4001DC916 /* far.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5015163343E4001DC916 /* far.css */; };
+		6F3A5038163343E4001DC916 /* github.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5016163343E4001DC916 /* github.css */; };
+		6F3A5039163343E4001DC916 /* googlecode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5017163343E4001DC916 /* googlecode.css */; };
+		6F3A503A163343E4001DC916 /* idea.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5018163343E4001DC916 /* idea.css */; };
+		6F3A503B163343E4001DC916 /* ir_black.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5019163343E4001DC916 /* ir_black.css */; };
+		6F3A503C163343E4001DC916 /* magula.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A501A163343E4001DC916 /* magula.css */; };
+		6F3A503D163343E4001DC916 /* monokai.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A501B163343E4001DC916 /* monokai.css */; };
+		6F3A5040163343E4001DC916 /* rainbow.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A501E163343E4001DC916 /* rainbow.css */; };
+		6F3A5043163343E4001DC916 /* solarized_dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5021163343E4001DC916 /* solarized_dark.css */; };
+		6F3A5044163343E4001DC916 /* solarized_light.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5022163343E4001DC916 /* solarized_light.css */; };
+		6F3A5045163343E4001DC916 /* sunburst.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5023163343E4001DC916 /* sunburst.css */; };
+		6F3A5046163343E4001DC916 /* tomorrow-night-blue.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5024163343E4001DC916 /* tomorrow-night-blue.css */; };
+		6F3A5047163343E4001DC916 /* tomorrow-night-bright.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5025163343E4001DC916 /* tomorrow-night-bright.css */; };
+		6F3A5048163343E4001DC916 /* tomorrow-night-eighties.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5026163343E4001DC916 /* tomorrow-night-eighties.css */; };
+		6F3A5049163343E4001DC916 /* tomorrow-night.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5027163343E4001DC916 /* tomorrow-night.css */; };
+		6F3A504A163343E4001DC916 /* tomorrow.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5028163343E4001DC916 /* tomorrow.css */; };
+		6F3A504B163343E4001DC916 /* vs.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A5029163343E4001DC916 /* vs.css */; };
+		6F3A504C163343E4001DC916 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A502A163343E4001DC916 /* xcode.css */; };
+		6F3A504D163343E4001DC916 /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A502B163343E4001DC916 /* zenburn.css */; };
 		6F46107415B5E9E4005AB350 /* repostat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107215B5E9E4005AB350 /* repostat.png */; };
 		6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107315B5E9E4005AB350 /* repostat@2x.png */; };
 		6F46107815B5FC2E005AB350 /* MoreIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107615B5FC2E005AB350 /* MoreIssues.png */; };
@@ -132,19 +157,6 @@
 		6F5E9C7A1119D43E00752560 /* TabBarNetwork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C761119D43E00752560 /* TabBarNetwork.png */; };
 		6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */; };
 		6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */; };
-		6F609E42162DFE3300A371BC /* all-hallows-eve.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E35162DFE3300A371BC /* all-hallows-eve.css */; };
-		6F609E43162DFE3300A371BC /* blackboard.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E36162DFE3300A371BC /* blackboard.css */; };
-		6F609E44162DFE3300A371BC /* espresso-libre.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E37162DFE3300A371BC /* espresso-libre.css */; };
-		6F609E45162DFE3300A371BC /* github.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E38162DFE3300A371BC /* github.css */; };
-		6F609E46162DFE3300A371BC /* obsidian.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E39162DFE3300A371BC /* obsidian.css */; };
-		6F609E47162DFE3300A371BC /* pastie.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3A162DFE3300A371BC /* pastie.css */; };
-		6F609E48162DFE3300A371BC /* solarized-dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3B162DFE3300A371BC /* solarized-dark.css */; };
-		6F609E49162DFE3300A371BC /* solarized-light.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3C162DFE3300A371BC /* solarized-light.css */; };
-		6F609E4A162DFE3300A371BC /* sunburst.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3D162DFE3300A371BC /* sunburst.css */; };
-		6F609E4B162DFE3300A371BC /* tomorrow-night.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3E162DFE3300A371BC /* tomorrow-night.css */; };
-		6F609E4C162DFE3300A371BC /* tricolore.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E3F162DFE3300A371BC /* tricolore.css */; };
-		6F609E4D162DFE3300A371BC /* twilight.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E40162DFE3300A371BC /* twilight.css */; };
-		6F609E4E162DFE3300A371BC /* zenburnesque.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E41162DFE3300A371BC /* zenburnesque.css */; };
 		6F609E51162E08A800A371BC /* TabBarIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E4F162E08A800A371BC /* TabBarIssues.png */; };
 		6F609E52162E08A800A371BC /* TabBarIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E50162E08A800A371BC /* TabBarIssues@2x.png */; };
 		6F609E55162E08B300A371BC /* MoreSearch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F609E53162E08B300A371BC /* MoreSearch.png */; };
@@ -278,27 +290,6 @@
 		6FD6172D0FA774E1008C751B /* GHFeedParserDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */; };
 		6FDB4E351621ABAF00AB11C3 /* code.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE51621ABAF00AB11C3 /* code.html */; };
 		6FDB4E361621ABAF00AB11C3 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE61621ABAF00AB11C3 /* format.html */; };
-		6FDB4E491621ABAF00AB11C3 /* c.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DFD1621ABAF00AB11C3 /* c.js */; };
-		6FDB4E4A1621ABAF00AB11C3 /* coffeescript.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DFE1621ABAF00AB11C3 /* coffeescript.js */; };
-		6FDB4E4B1621ABAF00AB11C3 /* csharp.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DFF1621ABAF00AB11C3 /* csharp.js */; };
-		6FDB4E4C1621ABAF00AB11C3 /* css.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E001621ABAF00AB11C3 /* css.js */; };
-		6FDB4E4D1621ABAF00AB11C3 /* generic.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E011621ABAF00AB11C3 /* generic.js */; };
-		6FDB4E4E1621ABAF00AB11C3 /* go.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E021621ABAF00AB11C3 /* go.js */; };
-		6FDB4E4F1621ABAF00AB11C3 /* html.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E031621ABAF00AB11C3 /* html.js */; };
-		6FDB4E501621ABAF00AB11C3 /* java.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E041621ABAF00AB11C3 /* java.js */; };
-		6FDB4E511621ABAF00AB11C3 /* javascript.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E051621ABAF00AB11C3 /* javascript.js */; };
-		6FDB4E521621ABAF00AB11C3 /* lua.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E061621ABAF00AB11C3 /* lua.js */; };
-		6FDB4E531621ABAF00AB11C3 /* php.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E071621ABAF00AB11C3 /* php.js */; };
-		6FDB4E541621ABAF00AB11C3 /* python.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E081621ABAF00AB11C3 /* python.js */; };
-		6FDB4E551621ABAF00AB11C3 /* r.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E091621ABAF00AB11C3 /* r.js */; };
-		6FDB4E561621ABAF00AB11C3 /* ruby.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E0A1621ABAF00AB11C3 /* ruby.js */; };
-		6FDB4E571621ABAF00AB11C3 /* scheme.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E0B1621ABAF00AB11C3 /* scheme.js */; };
-		6FDB4E581621ABAF00AB11C3 /* shell.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E0C1621ABAF00AB11C3 /* shell.js */; };
-		6FDB4E591621ABAF00AB11C3 /* smalltalk.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E0D1621ABAF00AB11C3 /* smalltalk.js */; };
-		6FDB4E5A1621ABAF00AB11C3 /* rainbow.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E0E1621ABAF00AB11C3 /* rainbow.js */; };
-		6FDB4E5B1621ABAF00AB11C3 /* rainbow.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E0F1621ABAF00AB11C3 /* rainbow.min.js */; };
-		6FDB4E821621AFA400AB11C3 /* rainbow.linenumbers.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E7F1621AFA400AB11C3 /* rainbow.linenumbers.js */; };
-		6FDB4E831621AFA400AB11C3 /* rainbow.linenumbers.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4E801621AFA400AB11C3 /* rainbow.linenumbers.min.js */; };
 		6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD6648162B5DE6008AE561 /* Languages.plist */; };
@@ -413,7 +404,6 @@
 		6F27CD1D15911E4700E15B34 /* AccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountFormController.h; sourceTree = "<group>"; };
 		6F27CD1E15911E4700E15B34 /* AccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountFormController.m; sourceTree = "<group>"; };
 		6F27CD2215911E7E00E15B34 /* AccountForm.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountForm.xib; path = IBFiles/AccountForm.xib; sourceTree = "<group>"; };
-		6F2AB70616331CF200C113CD /* xml.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = xml.js; sourceTree = "<group>"; };
 		6F2C76E81114EDEF002665DA /* file_added.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_added.png; path = Images/Icons/file_added.png; sourceTree = "<group>"; };
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
 		6F2C76EA1114EDEF002665DA /* file_removed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_removed.png; path = Images/Icons/file_removed.png; sourceTree = "<group>"; };
@@ -450,6 +440,32 @@
 		6F38091A162A1DAA001017E2 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		6F38091B162A1DAA001017E2 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
 		6F38091C162A1DAA001017E2 /* NSString+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Base64.m"; sourceTree = "<group>"; };
+		6F3A500A163343E4001DC916 /* highlight.pack.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = highlight.pack.js; sourceTree = "<group>"; };
+		6F3A500B163343E4001DC916 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		6F3A500C163343E4001DC916 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		6F3A500D163343E4001DC916 /* README.ru.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.ru.md; sourceTree = "<group>"; };
+		6F3A500F163343E4001DC916 /* arta.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = arta.css; sourceTree = "<group>"; };
+		6F3A5010163343E4001DC916 /* ascetic.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ascetic.css; sourceTree = "<group>"; };
+		6F3A5013163343E4001DC916 /* dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = dark.css; sourceTree = "<group>"; };
+		6F3A5015163343E4001DC916 /* far.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = far.css; sourceTree = "<group>"; };
+		6F3A5016163343E4001DC916 /* github.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github.css; sourceTree = "<group>"; };
+		6F3A5017163343E4001DC916 /* googlecode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = googlecode.css; sourceTree = "<group>"; };
+		6F3A5018163343E4001DC916 /* idea.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = idea.css; sourceTree = "<group>"; };
+		6F3A5019163343E4001DC916 /* ir_black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ir_black.css; sourceTree = "<group>"; };
+		6F3A501A163343E4001DC916 /* magula.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = magula.css; sourceTree = "<group>"; };
+		6F3A501B163343E4001DC916 /* monokai.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = monokai.css; sourceTree = "<group>"; };
+		6F3A501E163343E4001DC916 /* rainbow.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = rainbow.css; sourceTree = "<group>"; };
+		6F3A5021163343E4001DC916 /* solarized_dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarized_dark.css; sourceTree = "<group>"; };
+		6F3A5022163343E4001DC916 /* solarized_light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarized_light.css; sourceTree = "<group>"; };
+		6F3A5023163343E4001DC916 /* sunburst.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = sunburst.css; sourceTree = "<group>"; };
+		6F3A5024163343E4001DC916 /* tomorrow-night-blue.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-blue.css"; sourceTree = "<group>"; };
+		6F3A5025163343E4001DC916 /* tomorrow-night-bright.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-bright.css"; sourceTree = "<group>"; };
+		6F3A5026163343E4001DC916 /* tomorrow-night-eighties.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-eighties.css"; sourceTree = "<group>"; };
+		6F3A5027163343E4001DC916 /* tomorrow-night.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night.css"; sourceTree = "<group>"; };
+		6F3A5028163343E4001DC916 /* tomorrow.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tomorrow.css; sourceTree = "<group>"; };
+		6F3A5029163343E4001DC916 /* vs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = vs.css; sourceTree = "<group>"; };
+		6F3A502A163343E4001DC916 /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
+		6F3A502B163343E4001DC916 /* zenburn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburn.css; sourceTree = "<group>"; };
 		6F46107215B5E9E4005AB350 /* repostat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = repostat.png; path = Images/repostat.png; sourceTree = "<group>"; };
 		6F46107315B5E9E4005AB350 /* repostat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repostat@2x.png"; path = "Images/repostat@2x.png"; sourceTree = "<group>"; };
 		6F46107615B5FC2E005AB350 /* MoreIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreIssues.png; sourceTree = "<group>"; };
@@ -520,19 +536,6 @@
 		6F5E9C761119D43E00752560 /* TabBarNetwork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarNetwork.png; sourceTree = "<group>"; };
 		6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarIssue.png; sourceTree = "<group>"; };
 		6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUser.png; sourceTree = "<group>"; };
-		6F609E35162DFE3300A371BC /* all-hallows-eve.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "all-hallows-eve.css"; sourceTree = "<group>"; };
-		6F609E36162DFE3300A371BC /* blackboard.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = blackboard.css; sourceTree = "<group>"; };
-		6F609E37162DFE3300A371BC /* espresso-libre.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "espresso-libre.css"; sourceTree = "<group>"; };
-		6F609E38162DFE3300A371BC /* github.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github.css; sourceTree = "<group>"; };
-		6F609E39162DFE3300A371BC /* obsidian.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = obsidian.css; sourceTree = "<group>"; };
-		6F609E3A162DFE3300A371BC /* pastie.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = pastie.css; sourceTree = "<group>"; };
-		6F609E3B162DFE3300A371BC /* solarized-dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "solarized-dark.css"; sourceTree = "<group>"; };
-		6F609E3C162DFE3300A371BC /* solarized-light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "solarized-light.css"; sourceTree = "<group>"; };
-		6F609E3D162DFE3300A371BC /* sunburst.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = sunburst.css; sourceTree = "<group>"; };
-		6F609E3E162DFE3300A371BC /* tomorrow-night.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night.css"; sourceTree = "<group>"; };
-		6F609E3F162DFE3300A371BC /* tricolore.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tricolore.css; sourceTree = "<group>"; };
-		6F609E40162DFE3300A371BC /* twilight.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = twilight.css; sourceTree = "<group>"; };
-		6F609E41162DFE3300A371BC /* zenburnesque.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburnesque.css; sourceTree = "<group>"; };
 		6F609E4F162E08A800A371BC /* TabBarIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarIssues.png; sourceTree = "<group>"; };
 		6F609E50162E08A800A371BC /* TabBarIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TabBarIssues@2x.png"; sourceTree = "<group>"; };
 		6F609E53162E08B300A371BC /* MoreSearch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreSearch.png; sourceTree = "<group>"; };
@@ -703,30 +706,6 @@
 		6FD6172C0FA774E1008C751B /* GHFeedParserDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFeedParserDelegate.m; sourceTree = "<group>"; };
 		6FDB4DE51621ABAF00AB11C3 /* code.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = code.html; sourceTree = "<group>"; };
 		6FDB4DE61621ABAF00AB11C3 /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
-		6FDB4DFD1621ABAF00AB11C3 /* c.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = c.js; sourceTree = "<group>"; };
-		6FDB4DFE1621ABAF00AB11C3 /* coffeescript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = coffeescript.js; sourceTree = "<group>"; };
-		6FDB4DFF1621ABAF00AB11C3 /* csharp.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = csharp.js; sourceTree = "<group>"; };
-		6FDB4E001621ABAF00AB11C3 /* css.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = css.js; sourceTree = "<group>"; };
-		6FDB4E011621ABAF00AB11C3 /* generic.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = generic.js; sourceTree = "<group>"; };
-		6FDB4E021621ABAF00AB11C3 /* go.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = go.js; sourceTree = "<group>"; };
-		6FDB4E031621ABAF00AB11C3 /* html.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = html.js; sourceTree = "<group>"; };
-		6FDB4E041621ABAF00AB11C3 /* java.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = java.js; sourceTree = "<group>"; };
-		6FDB4E051621ABAF00AB11C3 /* javascript.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = javascript.js; sourceTree = "<group>"; };
-		6FDB4E061621ABAF00AB11C3 /* lua.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = lua.js; sourceTree = "<group>"; };
-		6FDB4E071621ABAF00AB11C3 /* php.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = php.js; sourceTree = "<group>"; };
-		6FDB4E081621ABAF00AB11C3 /* python.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = python.js; sourceTree = "<group>"; };
-		6FDB4E091621ABAF00AB11C3 /* r.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = r.js; sourceTree = "<group>"; };
-		6FDB4E0A1621ABAF00AB11C3 /* ruby.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = ruby.js; sourceTree = "<group>"; };
-		6FDB4E0B1621ABAF00AB11C3 /* scheme.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = scheme.js; sourceTree = "<group>"; };
-		6FDB4E0C1621ABAF00AB11C3 /* shell.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = shell.js; sourceTree = "<group>"; };
-		6FDB4E0D1621ABAF00AB11C3 /* smalltalk.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = smalltalk.js; sourceTree = "<group>"; };
-		6FDB4E0E1621ABAF00AB11C3 /* rainbow.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = rainbow.js; sourceTree = "<group>"; };
-		6FDB4E0F1621ABAF00AB11C3 /* rainbow.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = rainbow.min.js; sourceTree = "<group>"; };
-		6FDB4E101621ABAF00AB11C3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		6FDB4E111621ABAF00AB11C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		6FDB4E7F1621AFA400AB11C3 /* rainbow.linenumbers.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = rainbow.linenumbers.js; sourceTree = "<group>"; };
-		6FDB4E801621AFA400AB11C3 /* rainbow.linenumbers.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = rainbow.linenumbers.min.js; sourceTree = "<group>"; };
-		6FDB4E811621AFA400AB11C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		6FDB4E85162221DF00AB11C3 /* CodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeController.h; sourceTree = "<group>"; };
 		6FDB4E86162221DF00AB11C3 /* CodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeController.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
@@ -1045,6 +1024,47 @@
 			path = Base64/Base64;
 			sourceTree = "<group>";
 		};
+		6F3A5008163343E4001DC916 /* highlight */ = {
+			isa = PBXGroup;
+			children = (
+				6F3A500A163343E4001DC916 /* highlight.pack.js */,
+				6F3A500B163343E4001DC916 /* LICENSE */,
+				6F3A500C163343E4001DC916 /* README.md */,
+				6F3A500D163343E4001DC916 /* README.ru.md */,
+				6F3A500E163343E4001DC916 /* styles */,
+			);
+			path = highlight;
+			sourceTree = "<group>";
+		};
+		6F3A500E163343E4001DC916 /* styles */ = {
+			isa = PBXGroup;
+			children = (
+				6F3A500F163343E4001DC916 /* arta.css */,
+				6F3A5010163343E4001DC916 /* ascetic.css */,
+				6F3A5013163343E4001DC916 /* dark.css */,
+				6F3A5015163343E4001DC916 /* far.css */,
+				6F3A5016163343E4001DC916 /* github.css */,
+				6F3A5017163343E4001DC916 /* googlecode.css */,
+				6F3A5018163343E4001DC916 /* idea.css */,
+				6F3A5019163343E4001DC916 /* ir_black.css */,
+				6F3A501A163343E4001DC916 /* magula.css */,
+				6F3A501B163343E4001DC916 /* monokai.css */,
+				6F3A501E163343E4001DC916 /* rainbow.css */,
+				6F3A5021163343E4001DC916 /* solarized_dark.css */,
+				6F3A5022163343E4001DC916 /* solarized_light.css */,
+				6F3A5023163343E4001DC916 /* sunburst.css */,
+				6F3A5024163343E4001DC916 /* tomorrow-night-blue.css */,
+				6F3A5025163343E4001DC916 /* tomorrow-night-bright.css */,
+				6F3A5026163343E4001DC916 /* tomorrow-night-eighties.css */,
+				6F3A5027163343E4001DC916 /* tomorrow-night.css */,
+				6F3A5028163343E4001DC916 /* tomorrow.css */,
+				6F3A5029163343E4001DC916 /* vs.css */,
+				6F3A502A163343E4001DC916 /* xcode.css */,
+				6F3A502B163343E4001DC916 /* zenburn.css */,
+			);
+			path = styles;
+			sourceTree = "<group>";
+		};
 		6F56163615B4A23700226B6D /* More */ = {
 			isa = PBXGroup;
 			children = (
@@ -1166,26 +1186,6 @@
 			);
 			name = Toolbar;
 			path = Images/Toolbar;
-			sourceTree = "<group>";
-		};
-		6F609E34162DFE3300A371BC /* themes */ = {
-			isa = PBXGroup;
-			children = (
-				6F609E35162DFE3300A371BC /* all-hallows-eve.css */,
-				6F609E36162DFE3300A371BC /* blackboard.css */,
-				6F609E37162DFE3300A371BC /* espresso-libre.css */,
-				6F609E38162DFE3300A371BC /* github.css */,
-				6F609E39162DFE3300A371BC /* obsidian.css */,
-				6F609E3A162DFE3300A371BC /* pastie.css */,
-				6F609E3B162DFE3300A371BC /* solarized-dark.css */,
-				6F609E3C162DFE3300A371BC /* solarized-light.css */,
-				6F609E3D162DFE3300A371BC /* sunburst.css */,
-				6F609E3E162DFE3300A371BC /* tomorrow-night.css */,
-				6F609E3F162DFE3300A371BC /* tricolore.css */,
-				6F609E40162DFE3300A371BC /* twilight.css */,
-				6F609E41162DFE3300A371BC /* zenburnesque.css */,
-			);
-			path = themes;
 			sourceTree = "<group>";
 		};
 		6F6F175011E316B3008B319F /* Reachability */ = {
@@ -1346,76 +1346,11 @@
 		6FDB4DE41621ABAF00AB11C3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				6F3A5008163343E4001DC916 /* highlight */,
 				6FDB4DE51621ABAF00AB11C3 /* code.html */,
 				6FDB4DE61621ABAF00AB11C3 /* format.html */,
-				6FDB4DE71621ABAF00AB11C3 /* rainbow */,
-				6FDB4E7D1621AFA400AB11C3 /* rainbow-linenumbers */,
-				6F609E34162DFE3300A371BC /* themes */,
 			);
 			path = Assets;
-			sourceTree = "<group>";
-		};
-		6FDB4DE71621ABAF00AB11C3 /* rainbow */ = {
-			isa = PBXGroup;
-			children = (
-				6FDB4DFB1621ABAF00AB11C3 /* js */,
-				6FDB4E101621ABAF00AB11C3 /* LICENSE */,
-				6FDB4E111621ABAF00AB11C3 /* README.md */,
-			);
-			path = rainbow;
-			sourceTree = "<group>";
-		};
-		6FDB4DFB1621ABAF00AB11C3 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				6FDB4DFC1621ABAF00AB11C3 /* language */,
-				6FDB4E0E1621ABAF00AB11C3 /* rainbow.js */,
-				6FDB4E0F1621ABAF00AB11C3 /* rainbow.min.js */,
-			);
-			path = js;
-			sourceTree = "<group>";
-		};
-		6FDB4DFC1621ABAF00AB11C3 /* language */ = {
-			isa = PBXGroup;
-			children = (
-				6FDB4DFD1621ABAF00AB11C3 /* c.js */,
-				6FDB4DFE1621ABAF00AB11C3 /* coffeescript.js */,
-				6FDB4DFF1621ABAF00AB11C3 /* csharp.js */,
-				6FDB4E001621ABAF00AB11C3 /* css.js */,
-				6FDB4E011621ABAF00AB11C3 /* generic.js */,
-				6FDB4E021621ABAF00AB11C3 /* go.js */,
-				6FDB4E031621ABAF00AB11C3 /* html.js */,
-				6FDB4E041621ABAF00AB11C3 /* java.js */,
-				6FDB4E051621ABAF00AB11C3 /* javascript.js */,
-				6FDB4E061621ABAF00AB11C3 /* lua.js */,
-				6F2AB70616331CF200C113CD /* xml.js */,
-				6FDB4E071621ABAF00AB11C3 /* php.js */,
-				6FDB4E081621ABAF00AB11C3 /* python.js */,
-				6FDB4E091621ABAF00AB11C3 /* r.js */,
-				6FDB4E0A1621ABAF00AB11C3 /* ruby.js */,
-				6FDB4E0B1621ABAF00AB11C3 /* scheme.js */,
-				6FDB4E0C1621ABAF00AB11C3 /* shell.js */,
-				6FDB4E0D1621ABAF00AB11C3 /* smalltalk.js */,
-			);
-			path = language;
-			sourceTree = "<group>";
-		};
-		6FDB4E7D1621AFA400AB11C3 /* rainbow-linenumbers */ = {
-			isa = PBXGroup;
-			children = (
-				6FDB4E7E1621AFA400AB11C3 /* js */,
-				6FDB4E811621AFA400AB11C3 /* README.md */,
-			);
-			path = "rainbow-linenumbers";
-			sourceTree = "<group>";
-		};
-		6FDB4E7E1621AFA400AB11C3 /* js */ = {
-			isa = PBXGroup;
-			children = (
-				6FDB4E7F1621AFA400AB11C3 /* rainbow.linenumbers.js */,
-				6FDB4E801621AFA400AB11C3 /* rainbow.linenumbers.min.js */,
-			);
-			path = js;
 			sourceTree = "<group>";
 		};
 		6FE931D30FC7242A008545A2 /* Utils */ = {
@@ -1835,28 +1770,6 @@
 				6F182C92161CC64500E705CF /* MoreStarredGists@2x.png in Resources */,
 				6FDB4E351621ABAF00AB11C3 /* code.html in Resources */,
 				6FDB4E361621ABAF00AB11C3 /* format.html in Resources */,
-				6FDB4E491621ABAF00AB11C3 /* c.js in Resources */,
-				6FDB4E4A1621ABAF00AB11C3 /* coffeescript.js in Resources */,
-				6FDB4E4B1621ABAF00AB11C3 /* csharp.js in Resources */,
-				6FDB4E4C1621ABAF00AB11C3 /* css.js in Resources */,
-				6FDB4E4D1621ABAF00AB11C3 /* generic.js in Resources */,
-				6FDB4E4E1621ABAF00AB11C3 /* go.js in Resources */,
-				6FDB4E4F1621ABAF00AB11C3 /* html.js in Resources */,
-				6FDB4E501621ABAF00AB11C3 /* java.js in Resources */,
-				6FDB4E511621ABAF00AB11C3 /* javascript.js in Resources */,
-				6FDB4E521621ABAF00AB11C3 /* lua.js in Resources */,
-				6FDB4E531621ABAF00AB11C3 /* php.js in Resources */,
-				6FDB4E541621ABAF00AB11C3 /* python.js in Resources */,
-				6FDB4E551621ABAF00AB11C3 /* r.js in Resources */,
-				6FDB4E561621ABAF00AB11C3 /* ruby.js in Resources */,
-				6FDB4E571621ABAF00AB11C3 /* scheme.js in Resources */,
-				6FDB4E581621ABAF00AB11C3 /* shell.js in Resources */,
-				6FDB4E591621ABAF00AB11C3 /* smalltalk.js in Resources */,
-				6FDB4E5A1621ABAF00AB11C3 /* rainbow.js in Resources */,
-				6FDB4E5B1621ABAF00AB11C3 /* rainbow.min.js in Resources */,
-				6FDB4E821621AFA400AB11C3 /* rainbow.linenumbers.js in Resources */,
-				6FDB4E831621AFA400AB11C3 /* rainbow.linenumbers.min.js in Resources */,
-				6F2AB70716331CF200C113CD /* xml.js in Resources */,
 				6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */,
 				6F08799D1623635E00CE95D0 /* ToolbarGist@2x.png in Resources */,
 				6F7F08371624B8970074839B /* code.png in Resources */,
@@ -1870,23 +1783,36 @@
 				6F38090D162A05E0001017E2 /* branch@2x.png in Resources */,
 				6F380916162A1553001017E2 /* Blobs.xib in Resources */,
 				6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */,
-				6F609E42162DFE3300A371BC /* all-hallows-eve.css in Resources */,
-				6F609E43162DFE3300A371BC /* blackboard.css in Resources */,
-				6F609E44162DFE3300A371BC /* espresso-libre.css in Resources */,
-				6F609E45162DFE3300A371BC /* github.css in Resources */,
-				6F609E46162DFE3300A371BC /* obsidian.css in Resources */,
-				6F609E47162DFE3300A371BC /* pastie.css in Resources */,
-				6F609E48162DFE3300A371BC /* solarized-dark.css in Resources */,
-				6F609E49162DFE3300A371BC /* solarized-light.css in Resources */,
-				6F609E4A162DFE3300A371BC /* sunburst.css in Resources */,
-				6F609E4B162DFE3300A371BC /* tomorrow-night.css in Resources */,
-				6F609E4C162DFE3300A371BC /* tricolore.css in Resources */,
-				6F609E4D162DFE3300A371BC /* twilight.css in Resources */,
-				6F609E4E162DFE3300A371BC /* zenburnesque.css in Resources */,
 				6F609E51162E08A800A371BC /* TabBarIssues.png in Resources */,
 				6F609E52162E08A800A371BC /* TabBarIssues@2x.png in Resources */,
 				6F609E55162E08B300A371BC /* MoreSearch.png in Resources */,
 				6F609E56162E08B300A371BC /* MoreSearch@2x.png in Resources */,
+				6F3A502E163343E4001DC916 /* LICENSE in Resources */,
+				6F3A502F163343E4001DC916 /* README.md in Resources */,
+				6F3A5030163343E4001DC916 /* README.ru.md in Resources */,
+				6F3A5031163343E4001DC916 /* arta.css in Resources */,
+				6F3A5032163343E4001DC916 /* ascetic.css in Resources */,
+				6F3A5035163343E4001DC916 /* dark.css in Resources */,
+				6F3A5037163343E4001DC916 /* far.css in Resources */,
+				6F3A5038163343E4001DC916 /* github.css in Resources */,
+				6F3A5039163343E4001DC916 /* googlecode.css in Resources */,
+				6F3A503A163343E4001DC916 /* idea.css in Resources */,
+				6F3A503B163343E4001DC916 /* ir_black.css in Resources */,
+				6F3A503C163343E4001DC916 /* magula.css in Resources */,
+				6F3A503D163343E4001DC916 /* monokai.css in Resources */,
+				6F3A5040163343E4001DC916 /* rainbow.css in Resources */,
+				6F3A5043163343E4001DC916 /* solarized_dark.css in Resources */,
+				6F3A5044163343E4001DC916 /* solarized_light.css in Resources */,
+				6F3A5045163343E4001DC916 /* sunburst.css in Resources */,
+				6F3A5046163343E4001DC916 /* tomorrow-night-blue.css in Resources */,
+				6F3A5047163343E4001DC916 /* tomorrow-night-bright.css in Resources */,
+				6F3A5048163343E4001DC916 /* tomorrow-night-eighties.css in Resources */,
+				6F3A5049163343E4001DC916 /* tomorrow-night.css in Resources */,
+				6F3A504A163343E4001DC916 /* tomorrow.css in Resources */,
+				6F3A504B163343E4001DC916 /* vs.css in Resources */,
+				6F3A504C163343E4001DC916 /* xcode.css in Resources */,
+				6F3A504D163343E4001DC916 /* zenburn.css in Resources */,
+				6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

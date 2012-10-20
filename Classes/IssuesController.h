@@ -8,6 +8,7 @@
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
 	IBOutlet UIBarButtonItem *addButton;
+    IBOutlet UIBarButtonItem *refreshButton;
 	IBOutlet IssueCell *issueCell;
   @private
 	GHUser *user;
@@ -23,5 +24,6 @@
 - (void)reloadIssues;
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)createNewIssue:(id)sender;
+- (IBAction)refresh:(id)sender;
 
 @end

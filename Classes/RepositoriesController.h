@@ -11,6 +11,7 @@
 	IBOutlet UITableViewCell *noStarredReposCell;
 	IBOutlet UITableViewCell *noWatchedReposCell;
     IBOutlet UITableViewCell *noOrganizationReposCell;
+    IBOutlet UIBarButtonItem *refreshButton;
 	GHUser *user;
 	NSMutableArray *publicRepositories;
 	NSMutableArray *privateRepositories;
@@ -23,5 +24,6 @@
 
 + (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
+- (IBAction)refresh:(id)sender;
 
 @end

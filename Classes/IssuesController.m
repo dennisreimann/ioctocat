@@ -80,12 +80,13 @@
 	
 	self.navItem.title = @"Issues";
 	self.navItem.titleView = issuesControl;
-	self.navItem.rightBarButtonItem = repository ? addButton : nil;
+	self.navItem.rightBarButtonItem = repository ? addButton : refreshButton;
 }
 
 - (void)dealloc {
 	for (GHIssues *issues in issueList) [issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[addButton release], addButton = nil;
+	[refreshButton release], refreshButton = nil;
 	[issuesControl release], issuesControl = nil;
 	[loadingIssuesCell release], loadingIssuesCell = nil;
 	[noIssuesCell release], noIssuesCell = nil;
@@ -116,6 +117,11 @@
 	[self.navigationController pushViewController:formController animated:YES];
 	[formController release];
 	[newIssue release];
+}
+
+- (IBAction)refresh:(id)sender {
+	[self.currentIssues loadData];
+    [self.tableView reloadData];
 }
 
 - (void)reloadIssues {

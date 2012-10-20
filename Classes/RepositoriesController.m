@@ -76,6 +76,7 @@
     [watchedRepositories release], watchedRepositories = nil;
     [organizationRepositories release], organizationRepositories = nil;
 	[observedOrgRepoLists release], observedOrgRepoLists = nil;
+	[refreshButton release], refreshButton = nil;
     [super dealloc];
 }
 
@@ -105,7 +106,7 @@
 	
 	self.navItem.title = @"Repositories";
 	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = nil;
+	self.navItem.rightBarButtonItem = refreshButton;
 }
 
 - (void)loadOrganizationRepositories {
@@ -213,6 +214,18 @@
         case 3: return watchedRepositories;
 		default: return starredRepositories;
 	}
+}
+
+#pragma mark Actions
+
+- (IBAction)refresh:(id)sender {
+	[user.repositories loadData];
+	[user.starredRepositories loadData];
+	[user.watchedRepositories loadData];
+	for (GHOrganization *org in user.organizations.organizations) {
+		[org.repositories loadData];
+	}
+    [self.tableView reloadData];
 }
 
 #pragma mark TableView

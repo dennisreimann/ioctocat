@@ -82,7 +82,7 @@
 		6F38090C162A05E0001017E2 /* branch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F38090A162A05CE001017E2 /* branch.png */; };
 		6F38090D162A05E0001017E2 /* branch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F38090B162A05D6001017E2 /* branch@2x.png */; };
 		6F380914162A110C001017E2 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
-		6F380916162A1553001017E2 /* Blobs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F380915162A1553001017E2 /* Blobs.xib */; };
+		6F380916162A1553001017E2 /* Code.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F380915162A1553001017E2 /* Code.xib */; };
 		6F38091D162A1DAA001017E2 /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F38091A162A1DAA001017E2 /* NSData+Base64.m */; };
 		6F38091E162A1DAA001017E2 /* NSString+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F38091C162A1DAA001017E2 /* NSString+Base64.m */; };
 		6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500A163343E4001DC916 /* highlight.pack.js */; };
@@ -435,7 +435,7 @@
 		6F38090B162A05D6001017E2 /* branch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "branch@2x.png"; path = "Images/Icons/branch@2x.png"; sourceTree = "<group>"; };
 		6F380912162A110B001017E2 /* BlobsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobsController.h; sourceTree = "<group>"; };
 		6F380913162A110C001017E2 /* BlobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlobsController.m; sourceTree = "<group>"; };
-		6F380915162A1553001017E2 /* Blobs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Blobs.xib; path = IBFiles/Blobs.xib; sourceTree = "<group>"; };
+		6F380915162A1553001017E2 /* Code.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Code.xib; path = IBFiles/Code.xib; sourceTree = "<group>"; };
 		6F380919162A1DAA001017E2 /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
 		6F38091A162A1DAA001017E2 /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		6F38091B162A1DAA001017E2 /* NSString+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Base64.h"; sourceTree = "<group>"; };
@@ -872,6 +872,8 @@
 				6F182C86161C5E3600E705CF /* GistsController.m */,
 				6F182C88161CB77600E705CF /* GistController.h */,
 				6F182C89161CB77600E705CF /* GistController.m */,
+				6FDB4E85162221DF00AB11C3 /* CodeController.h */,
+				6FDB4E86162221DF00AB11C3 /* CodeController.m */,
 			);
 			name = Gists;
 			sourceTree = "<group>";
@@ -1318,7 +1320,7 @@
 				6FCDC66B0FC04F180024E498 /* Feed.xib */,
 				6FA92AFC0FACD51A001B1D1D /* FeedEntry.xib */,
 				6F879A5B0FB611FD00EBD9BD /* Users.xib */,
-				6F380915162A1553001017E2 /* Blobs.xib */,
+				6F380915162A1553001017E2 /* Code.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F182C8D161CC47300E705CF /* Gists.xib */,
 				6F182C8B161CB7A100E705CF /* Gist.xib */,
@@ -1508,8 +1510,6 @@
 				6FFA282215B3DB4C007C2065 /* MoreController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
-				6FDB4E85162221DF00AB11C3 /* CodeController.h */,
-				6FDB4E86162221DF00AB11C3 /* CodeController.m */,
 				6FC0D428115819E400511B7F /* CommentController.h */,
 				6FC0D429115819E400511B7F /* CommentController.m */,
 			);
@@ -1781,7 +1781,7 @@
 				6F7F08411624BEDD0074839B /* Tree.xib in Resources */,
 				6F38090C162A05E0001017E2 /* branch.png in Resources */,
 				6F38090D162A05E0001017E2 /* branch@2x.png in Resources */,
-				6F380916162A1553001017E2 /* Blobs.xib in Resources */,
+				6F380916162A1553001017E2 /* Code.xib in Resources */,
 				6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */,
 				6F609E51162E08A800A371BC /* TabBarIssues.png in Resources */,
 				6F609E52162E08A800A371BC /* TabBarIssues@2x.png in Resources */,

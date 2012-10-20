@@ -2,14 +2,18 @@
 
 
 @interface CodeController : UIViewController <UIWebViewDelegate> {
-	IBOutlet UIWebView *webView;
-	IBOutlet UIActivityIndicatorView *activityView;
+	IBOutlet UIView *activityView;
+	IBOutlet UIWebView *contentView;
+	IBOutlet UIBarButtonItem *controlItem;
+	IBOutlet UISegmentedControl *navigationControl;
   @private
-	NSString *code;
-	NSString *language;
+	NSArray *files;
+	NSUInteger index;
+	NSDictionary *file;
 }
 
-+ (id)controllerWithCode:(NSString *)theCode language:(NSString *)theLang;
-- (id)initWithCode:(NSString *)theCode language:(NSString *)theLang;
++ (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex;
+- (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex;
+- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 
 @end

@@ -26,7 +26,7 @@
 }
 
 - (id)initWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
-	[super initWithNibName:@"Blobs" bundle:nil];
+	[super initWithNibName:@"Code" bundle:nil];
 	self.blobs = theBlobs;
 	self.index = theCurrentIndex;
 	return self;
@@ -44,7 +44,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = controlItem;
+	self.navigationItem.rightBarButtonItem = blobs.count > 1 ? controlItem : nil;
 	self.blob = [blobs objectAtIndex:index];
 	activityView.layer.cornerRadius = 10;
 	activityView.layer.masksToBounds = YES;

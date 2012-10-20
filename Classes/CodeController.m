@@ -3,32 +3,63 @@
 
 
 @interface CodeController ()
-@property(nonatomic,retain)NSString *code;
-@property(nonatomic,retain)NSString *language;
+@property(nonatomic,retain)NSDictionary *file;
+@property(nonatomic,retain)NSArray *files;
+@property(nonatomic,assign)NSUInteger index;
 @end
 
 
 @implementation CodeController
 
-@synthesize code;
-@synthesize language;
+@synthesize file;
+@synthesize files;
+@synthesize index;
 
-+ (id)controllerWithCode:(NSString *)theCode language:(NSString *)theLang {
-	return [[[self.class alloc] initWithCode:theCode language:theLang] autorelease];
++ (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
+	return [[[self.class alloc] initWithFiles:theFiles currentIndex:theCurrentIndex] autorelease];
 }
 
-- (id)initWithCode:(NSString *)theCode language:(NSString *)theLang {
-	[super initWithNibName:@"WebView" bundle:nil];
-	self.code = theCode;
-	self.language = (theLang && ![theLang isKindOfClass:[NSNull class]] && ![theLang isEmpty]) ? [theLang lowercaseString] : @"generic";
+- (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
+	[super initWithNibName:@"Code" bundle:nil];
+	self.files = theFiles;
+	self.index = theCurrentIndex;
     return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[activityView setHidden:YES];
+	self.navigationItem.rightBarButtonItem = files.count > 1 ? controlItem : nil;
+	self.file = [files objectAtIndex:index];
+}
+
+- (void)dealloc {
+	[contentView stopLoading];
+	contentView.delegate = nil;
+	[files release], files = nil;
+	[contentView release], contentView = nil;
+	[activityView release], activityView = nil;
+    [super dealloc];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[contentView stopLoading];
+	contentView.delegate = nil;
+	[super viewWillDisappear:animated];
+}
+
+- (void)setFile:(NSDictionary *)theFile {
+	if (theFile == file) return;
+	[theFile retain];
+	[file release];
+	file = theFile;
+	
+	NSString *fileName = [file valueForKey:@"filename"];
+	NSString *code = [file valueForKey:@"content"];
+	NSString *lang = [file valueForKey:@"language"];
+	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-	NSString *lang = language;
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
@@ -36,24 +67,18 @@
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *escapedCode = [code escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, lang, escapedCode];
-	[webView loadHTMLString:contentHTML baseURL:baseUrl];
-	DJLog(@"Highlighting %@", lang);
+	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
+
+	self.title = fileName;
+	
+	// Update navigation control
+	[navigationControl setEnabled:(index > 0) forSegmentAtIndex:0];
+	[navigationControl setEnabled:(index < files.count-1) forSegmentAtIndex:1];
 }
 
-- (void)dealloc {
-	[webView stopLoading];
-	webView.delegate = nil;
-	[code release], code = nil;
-	[language release], language = nil;
-	[webView release], webView = nil;
-	[activityView release], activityView = nil;
-    [super dealloc];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[webView stopLoading];
-	webView.delegate = nil;
-	[super viewWillDisappear:animated];
+- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
+	index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
+	self.file = [files objectAtIndex:index];
 }
 
 #pragma mark Autorotation

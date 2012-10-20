@@ -200,12 +200,8 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0) {
-		NSDictionary *file = [[gist.files allValues] objectAtIndex:row];
-		NSString *fileName = [file valueForKey:@"filename"];
-		NSString *fileContent = [file valueForKey:@"content"];
-		NSString *language = [file valueForKey:@"language"];
-		CodeController *codeController = [CodeController controllerWithCode:fileContent language:language];
-		codeController.title = fileName;
+		NSArray *files = [gist.files allValues];
+		CodeController *codeController = [CodeController controllerWithFiles:files currentIndex:row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

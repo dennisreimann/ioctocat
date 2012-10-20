@@ -88,9 +88,9 @@
 	NSString *languagesPath = [[NSBundle mainBundle] pathForResource:@"Languages" ofType:@"plist"];
 	NSDictionary *languages = [NSDictionary dictionaryWithContentsOfFile:languagesPath];
 	NSString *lang = [languages valueForKey:ext];
-	if (!lang) lang = ext;
 	NSString *languageJsPath = [[NSBundle mainBundle] pathForResource:lang ofType:@"js"];
 	if (!languageJsPath) {
+		DJLog(@"Tried to load %@ highlighting, falling back to generic.", lang);
 		lang = @"generic";
 		languageJsPath = [[NSBundle mainBundle] pathForResource:lang ofType:@"js"];
 	}
@@ -98,6 +98,7 @@
 	NSString *escapedCode = [theCode escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, lang, lineNr, escapedCode, highlightJsPath, languageJsPath, linenumbersJsPath];
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
+	DJLog(@"Highlighting %@", lang);
 }
 
 - (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename {

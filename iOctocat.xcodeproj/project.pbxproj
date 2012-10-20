@@ -59,6 +59,7 @@
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
 		6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
+		6F2AB70716331CF200C113CD /* xml.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F2AB70616331CF200C113CD /* xml.js */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
@@ -412,6 +413,7 @@
 		6F27CD1D15911E4700E15B34 /* AccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountFormController.h; sourceTree = "<group>"; };
 		6F27CD1E15911E4700E15B34 /* AccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountFormController.m; sourceTree = "<group>"; };
 		6F27CD2215911E7E00E15B34 /* AccountForm.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountForm.xib; path = IBFiles/AccountForm.xib; sourceTree = "<group>"; };
+		6F2AB70616331CF200C113CD /* xml.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = xml.js; sourceTree = "<group>"; };
 		6F2C76E81114EDEF002665DA /* file_added.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_added.png; path = Images/Icons/file_added.png; sourceTree = "<group>"; };
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
 		6F2C76EA1114EDEF002665DA /* file_removed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_removed.png; path = Images/Icons/file_removed.png; sourceTree = "<group>"; };
@@ -1344,11 +1346,11 @@
 		6FDB4DE41621ABAF00AB11C3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				6F609E34162DFE3300A371BC /* themes */,
 				6FDB4DE51621ABAF00AB11C3 /* code.html */,
 				6FDB4DE61621ABAF00AB11C3 /* format.html */,
 				6FDB4DE71621ABAF00AB11C3 /* rainbow */,
 				6FDB4E7D1621AFA400AB11C3 /* rainbow-linenumbers */,
+				6F609E34162DFE3300A371BC /* themes */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -1386,6 +1388,7 @@
 				6FDB4E041621ABAF00AB11C3 /* java.js */,
 				6FDB4E051621ABAF00AB11C3 /* javascript.js */,
 				6FDB4E061621ABAF00AB11C3 /* lua.js */,
+				6F2AB70616331CF200C113CD /* xml.js */,
 				6FDB4E071621ABAF00AB11C3 /* php.js */,
 				6FDB4E081621ABAF00AB11C3 /* python.js */,
 				6FDB4E091621ABAF00AB11C3 /* r.js */,
@@ -1853,6 +1856,7 @@
 				6FDB4E5B1621ABAF00AB11C3 /* rainbow.min.js in Resources */,
 				6FDB4E821621AFA400AB11C3 /* rainbow.linenumbers.js in Resources */,
 				6FDB4E831621AFA400AB11C3 /* rainbow.linenumbers.min.js in Resources */,
+				6F2AB70716331CF200C113CD /* xml.js in Resources */,
 				6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */,
 				6F08799D1623635E00CE95D0 /* ToolbarGist@2x.png in Resources */,
 				6F7F08371624B8970074839B /* code.png in Resources */,

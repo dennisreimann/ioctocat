@@ -34,5 +34,13 @@
 	<string>ruby</string>
 	<key>ru</key>
 	<string>ruby</string>
+	<key>sass</key>
+	<string>css</string>
+	<key>scss</key>
+	<string>css</string>
+	<key>less</key>
+	<string>css</string>
+	<key>styl</key>
+	<string>css</string>
 </dict>
 </plist>

@@ -37,6 +37,7 @@
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	NSString *languageJsPath = [[NSBundle mainBundle] pathForResource:lang ofType:@"js"];
 	if (!languageJsPath) {
+		DJLog(@"Tried to load %@ highlighting, falling back to generic.", lang);
 		lang = @"generic";
 		languageJsPath = [[NSBundle mainBundle] pathForResource:lang ofType:@"js"];
 	}
@@ -44,6 +45,7 @@
 	NSString *escapedCode = [code escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, lang, lineNr, escapedCode, highlightJsPath, languageJsPath, linenumbersJsPath];
 	[webView loadHTMLString:contentHTML baseURL:baseUrl];
+	DJLog(@"Highlighting %@", lang);
 }
 
 - (void)dealloc {

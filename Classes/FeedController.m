@@ -1,5 +1,16 @@
 #import "FeedController.h"
 #import "FeedEntryController.h"
+#import "GHFeedEntry.h"
+#import "UserController.h"
+#import "RepositoryController.h"
+#import "IssueController.h"
+#import "CommitController.h"
+#import "GistController.h"
+#import "GHUser.h"
+#import "GHRepository.h"
+#import "GHIssue.h"
+#import "GHCommit.h"
+#import "GHGist.h"
 
 
 @interface FeedController ()
@@ -78,7 +89,7 @@
 		cell = feedEntryCell;
 	}
 	cell.entry = [feed.entries objectAtIndex:indexPath.row];
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	return cell;
 }
 
@@ -87,6 +98,28 @@
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:feed andCurrentIndex:indexPath.row];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	GHFeedEntry *entry = [feed.entries objectAtIndex:indexPath.row];
+	id item = entry.eventItem;
+	if (!item) return;
+	UIViewController *viewController;
+	if ([item isKindOfClass:[GHUser class]]) {
+		viewController = [UserController controllerWithUser:item];
+	} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
+		viewController = [RepositoryController controllerWithRepository:item];
+	} else if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
+		viewController = [IssueController controllerWithIssue:item];
+	} else if ([entry.eventItem isKindOfClass:[GHCommit class]]) {
+		viewController = [CommitController controllerWithCommit:item];
+	} else if ([entry.eventItem isKindOfClass:[GHGist class]]) {
+		viewController = [GistController controllerWithGist:item];
+	}
+	// maybe push a view controller
+	if (viewController) {
+		[self.navigationController pushViewController:viewController animated:YES];
+	}
 }
 
 #pragma mark Autorotation

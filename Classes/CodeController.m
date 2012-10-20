@@ -54,9 +54,16 @@
 	[file release];
 	file = theFile;
 	
-	NSString *fileName = [file valueForKey:@"filename"];
-	NSString *code = [file valueForKey:@"content"];
+	NSString *fileName = [[file valueForKey:@"filename"] lastPathComponent];
+	NSString *fileContent = [file valueForKey:@"content"];
 	NSString *lang = [file valueForKey:@"language"];
+	NSString *patch = [file valueForKey:@"patch"];
+	
+	// if it's not a gist it must be a commit, so use the patch 
+	if (!fileContent) {
+		fileContent = patch;
+		lang = @"diff";
+	}
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
@@ -65,7 +72,7 @@
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *escapedCode = [code escapeHTML];
+	NSString *escapedCode = [fileContent escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, lang, escapedCode];
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
 

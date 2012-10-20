@@ -11,7 +11,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "WebController.h"
-#import "FilesController.h"
+#import "DiffFilesController.h"
 #import "CommentController.h"
 
 
@@ -203,7 +203,7 @@
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
 		if (cell.files.count > 0) {
-			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
+			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 			[filesController release];

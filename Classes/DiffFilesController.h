@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface FilesController : UITableViewController {
+@interface DiffFilesController : UITableViewController {
 	NSArray *files;
 }
 

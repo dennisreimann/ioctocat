@@ -2,7 +2,6 @@
 #import "GHGist.h"
 #import "GistsController.h"
 #import "GistController.h"
-#import "FilesController.h"
 #import "AccountController.h"
 #import "NSString+Extensions.h"
 #import "NSDate+Nibware.h"

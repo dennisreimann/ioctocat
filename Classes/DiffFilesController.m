@@ -1,13 +1,13 @@
-#import "FilesController.h"
-#import "DiffController.h"
+#import "DiffFilesController.h"
+#import "CodeController.h"
 
 
-@interface FilesController ()
+@interface DiffFilesController ()
 @property(nonatomic,retain)NSArray *files;
 @end
 
 
-@implementation FilesController
+@implementation DiffFilesController
 
 @synthesize files;
 
@@ -57,9 +57,8 @@
 	if (files.count == 0) return;
 	id fileInfo = [files objectAtIndex:indexPath.row];
 	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
-		DiffController *diffController = [[DiffController alloc] initWithFiles:files currentIndex:indexPath.row];
-		[self.navigationController pushViewController:diffController animated:YES];
-		[diffController release];
+		CodeController *codeController = [CodeController controllerWithFiles:files currentIndex:indexPath.row];
+		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }
 

@@ -43,6 +43,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	NSString *path = [[webView.request URL] path];
+	DJLog(@"Resolving token:  %@", path);
     if ([path isEqualToString:@"/login"]) {
 		NSString *js = [NSString stringWithFormat:@"$('#login_field').val('%@');$('#password').val('%@');$('#login_field')[0].form.submit()", login, password];
 		loginAttempts += 1;

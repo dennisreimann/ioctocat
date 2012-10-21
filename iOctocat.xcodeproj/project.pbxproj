@@ -1909,7 +1909,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1948,7 +1948,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				"ICON_NAME[arch=*]" = Icon;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1986,7 +1986,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2027,7 +2027,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocat;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

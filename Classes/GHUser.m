@@ -9,7 +9,6 @@
 #import "GHResource.h"
 #import "GravatarLoader.h"
 #import "ASIFormDataRequest.h"
-#import "CJSONDeserializer.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "iOctocat.h"

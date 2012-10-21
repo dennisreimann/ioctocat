@@ -201,6 +201,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentFeed.entries.count == 0) return;
+    if (!self.currentFeed.isLoaded) return;
 	FeedEntryController *entryController = [[FeedEntryController alloc] initWithFeed:self.currentFeed andCurrentIndex:indexPath.row];
 	[self.navigationController pushViewController:entryController animated:YES];
 	[entryController release];

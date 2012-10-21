@@ -5,8 +5,6 @@
 #import "GHRepositories.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"

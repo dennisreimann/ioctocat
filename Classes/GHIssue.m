@@ -134,7 +134,6 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
     NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:theData options:kNilOptions error:&parseError];
-    //[[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
 	id res = parseError ? (id)parseError : (id)[resultDict valueForKeyPath:@"issue.state"];
 	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:res waitUntilDone:YES];
     [pool release];

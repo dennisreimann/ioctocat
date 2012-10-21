@@ -1,5 +1,6 @@
 #import "CodeController.h"
 #import "NSString+Extensions.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 @interface CodeController ()
@@ -28,9 +29,10 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[activityView setHidden:YES];
 	self.navigationItem.rightBarButtonItem = files.count > 1 ? controlItem : nil;
 	self.file = [files objectAtIndex:index];
+	activityView.layer.cornerRadius = 10;
+	activityView.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
@@ -86,6 +88,20 @@
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
 	self.file = [files objectAtIndex:index];
+}
+
+#pragma mark WebView
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+	[activityView setHidden:NO];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	[activityView setHidden:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+	[activityView setHidden:YES];
 }
 
 #pragma mark Autorotation

@@ -138,6 +138,20 @@
 	self.blob = [blobs objectAtIndex:index];
 }
 
+#pragma mark WebView
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+	[activityView setHidden:NO];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+	[activityView setHidden:YES];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+	[activityView setHidden:YES];
+}
+
 #pragma mark Autorotation
 
 - (BOOL)shouldAutorotate {

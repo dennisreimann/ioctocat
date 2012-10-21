@@ -49,6 +49,7 @@
 + (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
 	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:theURL];
+    [request setUserAgentString:[ASIHTTPRequest defaultUserAgentString]];
     [request setAuthenticationScheme:(NSString *) kCFHTTPAuthenticationSchemeBasic];
     [request setShouldPresentCredentialsBeforeChallenge:YES];
     [request setUsername:account.login];

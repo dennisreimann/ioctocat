@@ -304,7 +304,6 @@
 		6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* Issues.xib */; };
 		6FED83010FACB91000BE5C81 /* FeedController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED83000FACB91000BE5C81 /* FeedController.m */; };
 		6FF09E65111589D600925109 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
-		6FF09F861115AFB500925109 /* Diff.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FF09F851115AFB500925109 /* Diff.xib */; };
 		6FFA282315B3DB4C007C2065 /* MoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FFA282215B3DB4C007C2065 /* MoreController.m */; };
 		8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
 		8C53B4D70FB0F32600C3A8E0 /* UserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserCell.m */; };
@@ -729,7 +728,6 @@
 		6FED83000FACB91000BE5C81 /* FeedController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedController.m; sourceTree = "<group>"; };
 		6FF09E63111589D600925109 /* FilesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesCell.h; sourceTree = "<group>"; };
 		6FF09E64111589D600925109 /* FilesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesCell.m; sourceTree = "<group>"; };
-		6FF09F851115AFB500925109 /* Diff.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Diff.xib; path = IBFiles/Diff.xib; sourceTree = "<group>"; };
 		6FFA282115B3DB4C007C2065 /* MoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreController.h; sourceTree = "<group>"; };
 		6FFA282215B3DB4C007C2065 /* MoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreController.m; sourceTree = "<group>"; };
 		8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsersController.h; sourceTree = "<group>"; };
@@ -1331,7 +1329,6 @@
 				6FC0D42B11581A5200511B7F /* Comment.xib */,
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
-				6FF09F851115AFB500925109 /* Diff.xib */,
 				6FB9CBE413354AC200C8DE29 /* Organization.xib */,
 				6FB9CBF613355FB200C8DE29 /* Organizations.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
@@ -1646,7 +1643,6 @@
 				6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */,
 				6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */,
 				6F2C77441114F6DE002665DA /* Files.xib in Resources */,
-				6FF09F861115AFB500925109 /* Diff.xib in Resources */,
 				6F5E9BC61119B6C000752560 /* RefreshArrow.png in Resources */,
 				6F5E9C791119D43E00752560 /* TabBarFeeds.png in Resources */,
 				6F5E9C7A1119D43E00752560 /* TabBarNetwork.png in Resources */,

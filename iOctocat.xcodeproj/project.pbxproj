@@ -145,9 +145,6 @@
 		6F5E9ABF1119A96000752560 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA11119A96000752560 /* NSScanner_Extensions.m */; };
 		6F5E9AC41119A96000752560 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAD1119A96000752560 /* CDataScanner.m */; };
 		6F5E9AC51119A96000752560 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */; };
-		6F5E9AC61119A96000752560 /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB21119A96000752560 /* CJSONDeserializer.m */; };
-		6F5E9AC71119A96000752560 /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB41119A96000752560 /* CJSONScanner.m */; };
-		6F5E9AC81119A96000752560 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB61119A96000752560 /* CJSONSerializer.m */; };
 		6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
 		6F5E9B631119AD2100752560 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
 		6F5E9B6E1119AD5B00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
@@ -518,12 +515,6 @@
 		6F5E9AAD1119A96000752560 /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
 		6F5E9AAE1119A96000752560 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
-		6F5E9AB11119A96000752560 /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
-		6F5E9AB21119A96000752560 /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
-		6F5E9AB31119A96000752560 /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONScanner.h; sourceTree = "<group>"; };
-		6F5E9AB41119A96000752560 /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
-		6F5E9AB51119A96000752560 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
-		6F5E9AB61119A96000752560 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
 		6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableViewController.m; sourceTree = "<group>"; };
 		6F5E9AFB1119AACC00752560 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -1112,7 +1103,6 @@
 			children = (
 				6F380918162A1DAA001017E2 /* Base64 */,
 				6F6F175411E316C5008B319F /* ASI */,
-				6F5E9AB01119A96000752560 /* JSON */,
 				6F6F175011E316B3008B319F /* Reachability */,
 				6F5E9AAC1119A96000752560 /* CDataScanner.h */,
 				6F5E9AAD1119A96000752560 /* CDataScanner.m */,
@@ -1124,19 +1114,6 @@
 				6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */,
 			);
 			path = External;
-			sourceTree = "<group>";
-		};
-		6F5E9AB01119A96000752560 /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				6F5E9AB11119A96000752560 /* CJSONDeserializer.h */,
-				6F5E9AB21119A96000752560 /* CJSONDeserializer.m */,
-				6F5E9AB31119A96000752560 /* CJSONScanner.h */,
-				6F5E9AB41119A96000752560 /* CJSONScanner.m */,
-				6F5E9AB51119A96000752560 /* CJSONSerializer.h */,
-				6F5E9AB61119A96000752560 /* CJSONSerializer.m */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		6F5E9C741119D43E00752560 /* Tabbar */ = {
@@ -1863,9 +1840,6 @@
 				6F5E9ABF1119A96000752560 /* NSScanner_Extensions.m in Sources */,
 				6F5E9AC41119A96000752560 /* CDataScanner.m in Sources */,
 				6F5E9AC51119A96000752560 /* EGORefreshTableHeaderView.m in Sources */,
-				6F5E9AC61119A96000752560 /* CJSONDeserializer.m in Sources */,
-				6F5E9AC71119A96000752560 /* CJSONScanner.m in Sources */,
-				6F5E9AC81119A96000752560 /* CJSONSerializer.m in Sources */,
 				6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */,
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
 				6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */,

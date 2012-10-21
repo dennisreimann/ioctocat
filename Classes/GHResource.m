@@ -1,7 +1,5 @@
 #import "GHResource.h"
 #import "GHAccount.h"
-#import "CJSONSerializer.h"
-#import "CJSONDeserializer.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 
@@ -136,7 +134,7 @@
 - (void)parseData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:theData options:kNilOptions error:&parseError];
     id res = parseError ? (id)parseError : (id)dict;
 	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
     [pool release];
@@ -165,15 +163,15 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-	NSString *jsonString = [[CJSONSerializer serializer] serializeDictionary:theValues];
-	NSMutableData *postData = [[jsonString dataUsingEncoding:NSUTF8StringEncoding] mutableCopy];
+    NSError *parseError = nil;
+	NSMutableData *postData = [[NSJSONSerialization dataWithJSONObject:theValues options:kNilOptions error:&parseError] mutableCopy];
 	ASIFormDataRequest *request = [GHResource apiRequestForPath:thePath];
 	[request setDelegate:self];
 	[request setDidFinishSelector:@selector(savingFinished:)];
 	[request setDidFailSelector:@selector(savingFailed:)];
 	[request setRequestMethod:theMethod];
 	[request setPostBody:postData];
-	DJLog(@"Saving %@ - %@", [request url], jsonString);
+    DJLog(@"Saving %@ - %@", [request url], postData);
 	[[iOctocat queue] addOperation:request];
 }
 
@@ -198,7 +196,7 @@
 - (void)parseSaveData:(NSData *)theData {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSError *parseError = nil;
-    NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:theData error:&parseError];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:theData options:kNilOptions error:&parseError];
     id res = parseError ? (id)parseError : (id)dict;
 	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
     [pool release];

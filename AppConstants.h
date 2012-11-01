@@ -70,7 +70,6 @@
 #define kUserGistsFormat                @"users/%@/gists"
 #define kStarredGistsFormat             @"" // not implemented
 #define kGistCommentsFormat             @"gists/%@/comments"
-#define kGistCommentFormat              @"gists/comments/%d"
 
 // Users
 #define kUserOrganizationsFormat        @"users/%@/orgs"

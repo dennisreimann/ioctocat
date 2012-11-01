@@ -10,16 +10,12 @@
 	IBOutlet UITableViewCell *noPrivateReposCell;
 	IBOutlet UITableViewCell *noStarredReposCell;
 	IBOutlet UITableViewCell *noWatchedReposCell;
-    IBOutlet UITableViewCell *noOrganizationReposCell;
     IBOutlet UIBarButtonItem *refreshButton;
 	GHUser *user;
 	NSMutableArray *publicRepositories;
 	NSMutableArray *privateRepositories;
     NSMutableArray *starredRepositories;
     NSMutableArray *watchedRepositories;
-    NSMutableArray *organizationRepositories;
-	NSUInteger orgReposLoaded;
-	BOOL orgReposInitialized;
 }
 
 + (id)controllerWithUser:(GHUser *)theUser;

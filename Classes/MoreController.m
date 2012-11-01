@@ -1,5 +1,6 @@
 #import "MoreController.h"
 #import "OrganizationsController.h"
+#import "OrganizationRepositoriesController.h"
 #import "IssuesController.h"
 #import "GistsController.h"
 #import "AccountController.h"
@@ -26,6 +27,11 @@
 	NSArray *orgsKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *orgsDict = [NSDictionary dictionaryWithObjects:orgsVals forKeys:orgsKeys];
 	
+	// Organization Repositories
+	NSArray *orgReposVals = [NSArray arrayWithObjects:@"Organization Repos", @"MoreOrgRepos.png", nil];
+	NSArray *orgReposKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
+	NSDictionary *orgReposDict = [NSDictionary dictionaryWithObjects:orgReposVals forKeys:orgReposKeys];
+	
 	// Search
 	NSArray *searchVals = [NSArray arrayWithObjects:@"Search", @"MoreSearch.png", nil];
 	NSArray *searchKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
@@ -46,7 +52,7 @@
 	NSArray *appIssuesKeys = [NSArray arrayWithObjects:@"label", @"image", nil];
 	NSDictionary *appIssuesDict = [NSDictionary dictionaryWithObjects:appIssuesVals forKeys:appIssuesKeys];
 	
-	self.moreOptions = [NSArray arrayWithObjects:orgsDict, searchDict, gistsDict, starredGistsDict, appIssuesDict, nil];
+	self.moreOptions = [NSArray arrayWithObjects:orgsDict, orgReposDict, searchDict, gistsDict, starredGistsDict, appIssuesDict, nil];
 	self.user = theUser;
 	
 	return self;
@@ -102,14 +108,16 @@
 	if (row == 0) {
 		viewController = [OrganizationsController controllerWithOrganizations:user.organizations];
 	} else if (row == 1) {
-		viewController = [SearchController controllerWithUser:user];
+		viewController = [OrganizationRepositoriesController controllerWithUser:user];
 	} else if (row == 2) {
+		viewController = [SearchController controllerWithUser:user];
+	} else if (row == 3) {
 		viewController = [GistsController controllerWithGists:user.gists];
 		viewController.title = @"My Gists";
-	} else if (row == 3) {
+	} else if (row == 4) {
 		viewController = [GistsController controllerWithGists:user.starredGists];
 		viewController.title = @"Starred Gists";
-	} else if (row == 4) {
+	} else if (row == 5) {
 		GHRepository *repo = [GHRepository repositoryWithOwner:@"dennisreimann" andName:@"iOctocat"];
 		viewController = [IssuesController controllerWithRepository:repo];
 	}

@@ -45,6 +45,8 @@
 #define kBranchCellIdentifier           @"BranchCell"
 #define kCommentCellIdentifier          @"CommentCell"
 #define kOrganizationCellIdentifier     @"OrganizationCell"
+#define kLoadingCellIdentifier          @"LoadingCell"
+#define kEmptyCellIdentifier            @"EmptyCell"
 
 // Feeds
 #define kUserFeedFormat                 @"%@.atom"

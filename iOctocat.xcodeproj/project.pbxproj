@@ -127,6 +127,12 @@
 		6F4CBD2D16430AC600D587FB /* vs.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD1016430AC600D587FB /* vs.css */; };
 		6F4CBD2E16430AC600D587FB /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD1116430AC600D587FB /* xcode.css */; };
 		6F4CBD2F16430AC600D587FB /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD1216430AC600D587FB /* zenburn.css */; };
+		6F4CBD3216431D6300D587FB /* OrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */; };
+		6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */; };
+		6F4CBD371643205E00D587FB /* MoreOrgRepos.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD351643205D00D587FB /* MoreOrgRepos.png */; };
+		6F4CBD381643205E00D587FB /* MoreOrgRepos@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD361643205D00D587FB /* MoreOrgRepos@2x.png */; };
+		6F4CBD3A164328FD00D587FB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD39164328FD00D587FB /* LoadingCell.xib */; };
+		6F4CBD3C16432A9E00D587FB /* EmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */; };
 		6F56163515B4A02200226B6D /* More.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F56163415B4A02200226B6D /* More.xib */; };
 		6F56163915B4A23700226B6D /* MoreOrgs.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F56163715B4A23700226B6D /* MoreOrgs.png */; };
 		6F56163A15B4A23700226B6D /* MoreOrgs@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F56163815B4A23700226B6D /* MoreOrgs@2x.png */; };
@@ -492,6 +498,13 @@
 		6F4CBD1016430AC600D587FB /* vs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = vs.css; sourceTree = "<group>"; };
 		6F4CBD1116430AC600D587FB /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
 		6F4CBD1216430AC600D587FB /* zenburn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburn.css; sourceTree = "<group>"; };
+		6F4CBD3016431D6300D587FB /* OrganizationRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationRepositoriesController.h; sourceTree = "<group>"; };
+		6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationRepositoriesController.m; sourceTree = "<group>"; };
+		6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrganizationRepositories.xib; path = IBFiles/OrganizationRepositories.xib; sourceTree = "<group>"; };
+		6F4CBD351643205D00D587FB /* MoreOrgRepos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreOrgRepos.png; sourceTree = "<group>"; };
+		6F4CBD361643205D00D587FB /* MoreOrgRepos@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreOrgRepos@2x.png"; sourceTree = "<group>"; };
+		6F4CBD39164328FD00D587FB /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoadingCell.xib; path = IBFiles/LoadingCell.xib; sourceTree = "<group>"; };
+		6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmptyCell.xib; path = IBFiles/EmptyCell.xib; sourceTree = "<group>"; };
 		6F56163415B4A02200226B6D /* More.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = More.xib; path = IBFiles/More.xib; sourceTree = "<group>"; };
 		6F56163715B4A23700226B6D /* MoreOrgs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreOrgs.png; sourceTree = "<group>"; };
 		6F56163815B4A23700226B6D /* MoreOrgs@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreOrgs@2x.png"; sourceTree = "<group>"; };
@@ -1069,6 +1082,8 @@
 				6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */,
 				6F56163715B4A23700226B6D /* MoreOrgs.png */,
 				6F56163815B4A23700226B6D /* MoreOrgs@2x.png */,
+				6F4CBD351643205D00D587FB /* MoreOrgRepos.png */,
+				6F4CBD361643205D00D587FB /* MoreOrgRepos@2x.png */,
 			);
 			name = More;
 			path = Images/More;
@@ -1298,6 +1313,7 @@
 				6F182C8D161CC47300E705CF /* Gists.xib */,
 				6F182C8B161CB7A100E705CF /* Gist.xib */,
 				6F59BC930FC6C51800412597 /* Repositories.xib */,
+				6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				6F0AEFB6100CAAE500FB323E /* Forks.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
@@ -1500,6 +1516,8 @@
 				8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserController.m */,
+				6F4CBD3016431D6300D587FB /* OrganizationRepositoriesController.h */,
+				6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */,
 			);
 			name = "Users and Orgs";
 			sourceTree = "<group>";
@@ -1512,6 +1530,8 @@
 				6F9DD87F1334DBF500D1E35E /* OrganizationCell.xib */,
 				6FA92B4D0FACD7ED001B1D1D /* IssueCell.xib */,
 				6FE7D1C911562498004B4D68 /* CommentCell.xib */,
+				6F4CBD39164328FD00D587FB /* LoadingCell.xib */,
+				6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1786,6 +1806,11 @@
 				6F4CBD2D16430AC600D587FB /* vs.css in Resources */,
 				6F4CBD2E16430AC600D587FB /* xcode.css in Resources */,
 				6F4CBD2F16430AC600D587FB /* zenburn.css in Resources */,
+				6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */,
+				6F4CBD371643205E00D587FB /* MoreOrgRepos.png in Resources */,
+				6F4CBD381643205E00D587FB /* MoreOrgRepos@2x.png in Resources */,
+				6F4CBD3A164328FD00D587FB /* LoadingCell.xib in Resources */,
+				6F4CBD3C16432A9E00D587FB /* EmptyCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1896,6 +1921,7 @@
 				6F380914162A110C001017E2 /* BlobsController.m in Sources */,
 				6F38091D162A1DAA001017E2 /* NSData+Base64.m in Sources */,
 				6F38091E162A1DAA001017E2 /* NSString+Base64.m in Sources */,
+				6F4CBD3216431D6300D587FB /* OrganizationRepositoriesController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

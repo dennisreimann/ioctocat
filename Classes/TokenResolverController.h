@@ -5,8 +5,10 @@
   @private
 	UIViewController *delegate;
 	UIActionSheet *resolveSheet;
+	UIWebView *webView;
 	NSString *login;
 	NSString *password;
+	NSTimer *timeout;
 	NSUInteger loginAttempts;
 }
 
@@ -17,4 +19,5 @@
 
 @protocol TokenResolverControllerDelegate
 - (void)resolvedToken:(NSString *)theToken forLogin:(NSString *)theLogin;
+- (void)resolvingTokenFailedForLogin:(NSString *)theLogin;
 @end

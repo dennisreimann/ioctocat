@@ -125,16 +125,11 @@
 }
 
 - (void)openAccount:(GHAccount *)theAccount {
-	// Resolve token
-	if ([theAccount.token length] < 32) {
-		[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
-	} else {
-		AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
-		[iOctocat sharedInstance].currentAccount = theAccount;
-		[iOctocat sharedInstance].accountController = viewController;
-		[self.navigationController pushViewController:viewController animated:YES];
-		[viewController release];
-	}
+	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
+	[iOctocat sharedInstance].currentAccount = theAccount;
+	[iOctocat sharedInstance].accountController = viewController;
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
 }
 
 #pragma mark TableView
@@ -144,7 +139,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [accounts count];
+    return accounts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,7 +200,12 @@
 
 - (void)authenticatedAccount:(GHAccount *)theAccount {
 	if (theAccount.user.isAuthenticated) {
-		[self openAccount:theAccount];
+		// Resolve token
+		if ([theAccount.token length] < 32) {
+			[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
+		} else {
+			[self openAccount:theAccount];
+		}
 	} else {
 		[iOctocat alert:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
 		NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
@@ -220,13 +220,15 @@
 	NSDictionary *accountDict = [accounts objectAtIndex:index];
 	[accountDict setValue:theToken forKey:kTokenDefaultsKey];
 	[self.class saveAccounts:accounts];
-	// open account
 	GHAccount *theAccount = [GHAccount accountWithDict:accountDict];
-	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
-	[iOctocat sharedInstance].currentAccount = theAccount;
-	[iOctocat sharedInstance].accountController = viewController;
-	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
+	[self openAccount:theAccount];
+}
+
+- (void)resolvingTokenFailedForLogin:(NSString *)theLogin {
+	NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theLogin]];
+	NSDictionary *accountDict = [accounts objectAtIndex:index];
+	GHAccount *theAccount = [GHAccount accountWithDict:accountDict];
+	[self openAccount:theAccount];
 }
 
 #pragma mark Autorotation

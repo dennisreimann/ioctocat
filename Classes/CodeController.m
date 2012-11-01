@@ -58,13 +58,11 @@
 	
 	NSString *fileName = [[file valueForKey:@"filename"] lastPathComponent];
 	NSString *fileContent = [file valueForKey:@"content"];
-	NSString *lang = [file valueForKey:@"language"];
 	NSString *patch = [file valueForKey:@"patch"];
 	
 	// if it's not a gist it must be a commit, so use the patch 
 	if (!fileContent) {
 		fileContent = patch;
-		lang = @"diff";
 	}
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -75,7 +73,7 @@
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *escapedCode = [fileContent escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, lang, escapedCode];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, escapedCode];
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
 
 	self.title = fileName;

@@ -293,7 +293,6 @@
 		6FDB4E361621ABAF00AB11C3 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE61621ABAF00AB11C3 /* format.html */; };
 		6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
-		6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6FDD6648162B5DE6008AE561 /* Languages.plist */; };
 		6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */; };
 		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
@@ -707,7 +706,6 @@
 		6FDB4E86162221DF00AB11C3 /* CodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeController.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepositories.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		6FDD6648162B5DE6008AE561 /* Languages.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Languages.plist; sourceTree = "<group>"; };
 		6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
 		6FE7D14511557E8C004B4D68 /* GHIssueComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -836,7 +834,6 @@
 				6FB7FEA60F7E2C7500E8D702 /* IBFiles */,
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				6FDD6648162B5DE6008AE561 /* Languages.plist */,
 				6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */,
 			);
 			name = Resources;
@@ -1755,7 +1752,6 @@
 				6F38090C162A05E0001017E2 /* branch.png in Resources */,
 				6F38090D162A05E0001017E2 /* branch@2x.png in Resources */,
 				6F380916162A1553001017E2 /* Code.xib in Resources */,
-				6FDD6649162B5DE6008AE561 /* Languages.plist in Resources */,
 				6F609E51162E08A800A371BC /* TabBarIssues.png in Resources */,
 				6F609E52162E08A800A371BC /* TabBarIssues@2x.png in Resources */,
 				6F609E55162E08B300A371BC /* MoreSearch.png in Resources */,

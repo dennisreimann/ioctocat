@@ -74,24 +74,14 @@
 - (void)displayCode:(NSString *)theCode withFilename:(NSString *)theFilename {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
-	// get file extension to resolve the language and fallback to
-	// the filename for files without extension (i.e. Rakefile)
-	NSString *ext = [theFilename pathExtension];
-	if (!ext) ext = theFilename;
-	// resolve language
-	NSString *languagesPath = [[NSBundle mainBundle] pathForResource:@"Languages" ofType:@"plist"];
-	NSDictionary *languages = [NSDictionary dictionaryWithContentsOfFile:languagesPath];
-	NSString *lang = [languages valueForKey:ext];
-	if (!lang) lang = ext;
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *escapedCode = [theCode escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, lang, escapedCode];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, escapedCode];
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
-	DJLog(@"Highlighting %@", lang);
 }
 
 - (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename {

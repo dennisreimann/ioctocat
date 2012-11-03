@@ -67,13 +67,16 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
+	NSString *codeCssPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"css"];
+	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *escapedCode = [fileContent escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, highlightJsPath, escapedCode];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, escapedCode];
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
 
 	self.title = fileName;

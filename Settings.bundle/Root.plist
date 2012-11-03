@@ -71,6 +71,16 @@
 			</array>
 		</dict>
 		<dict>
+			<key>DefaultValue</key>
+			<false/>
+			<key>Key</key>
+			<string>lineNumbers</string>
+			<key>Title</key>
+			<string>Line numbers</string>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+		</dict>
+		<dict>
 			<key>Title</key>
 			<string>Avatar cache</string>
 			<key>Type</key>

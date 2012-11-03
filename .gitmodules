@@ -7,3 +7,6 @@
 [submodule "Assets/highlight.js"]
 	path = Assets/highlight.js
 	url = git://github.com/iOctocat/highlight.js.git
+[submodule "Classes/External/NoticeView"]
+	path = Classes/External/NoticeView
+	url = git://github.com/tciuro/NoticeView.git

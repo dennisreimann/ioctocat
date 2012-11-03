@@ -134,13 +134,13 @@
 			if (commit.isLoaded) {
 				[self displayCommit];
 			} else if (commit.error) {
-				[iOctocat alert:@"Loading error" with:@"Could not load the commit"];
+				[iOctocat reportLoadingError:@"Could not load the commit"];
 			}
 		} else if (object == commit.comments) {
 			if (commit.comments.isLoaded) {
 				[self displayComments];
 			} else if (commit.comments.error) {
-				[iOctocat alert:@"Loading error" with:@"Could not load the commit comments"];
+				[iOctocat reportLoadingError:@"Could not load the commit comments"];
 			}
 		}
 	}

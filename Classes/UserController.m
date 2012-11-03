@@ -152,19 +152,19 @@
 			[self displayUser];
 			[self.tableView reloadData];
 		} else if (user.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the user"];
+			[iOctocat reportLoadingError:@"Could not load the user"];
 		}
 	} else if (object == user.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.repositories.isLoaded) {
 			[self.tableView reloadData];
 		} else if (user.repositories.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the repositories"];
+			[iOctocat reportLoadingError:@"Could not load the repositories"];
 		}
 	} else if (object == user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (user.organizations.isLoaded) {
 			[self.tableView reloadData];
 		} else if (user.organizations.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the organizations"];
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
 	}
 }

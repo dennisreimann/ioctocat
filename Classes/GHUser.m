@@ -189,7 +189,7 @@
 
 - (void)followToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Follow toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat alert:@"Request error" with:@"Could not change following status"];
+	[iOctocat reportError:@"Request error" with:@"Could not change following status"];
 }
 
 #pragma mark Stars
@@ -227,7 +227,7 @@
 
 - (void)starToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Star toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat alert:@"Request error" with:@"Could not change starring status"];
+	[iOctocat reportError:@"Request error" with:@"Could not change starring status"];
 }
 
 #pragma mark Watching
@@ -265,7 +265,7 @@
 
 - (void)watchToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Watch toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat alert:@"Request error" with:@"Could not change watching status"];
+	[iOctocat reportError:@"Request error" with:@"Could not change watching status"];
 }
 
 #pragma mark Gists
@@ -303,7 +303,7 @@
 
 - (void)gistStarToggleFailed:(ASIHTTPRequest *)request {
 	DJLog(@"Gist star toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat alert:@"Request error" with:@"Could not change gist starring status"];
+	[iOctocat reportError:@"Request error" with:@"Could not change gist starring status"];
 }
 
 #pragma mark Gravatar

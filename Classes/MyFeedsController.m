@@ -162,12 +162,12 @@
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
             NSString *msg = [NSString stringWithFormat:@"Could not load the feed.\n%@", [feed.error localizedDescription]];
-			[iOctocat alert:@"Loading error" with:msg];
+			[iOctocat reportLoadingError:msg];
 		}
 	} else if (object == user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (!user.organizations.isLoading && user.organizations.error) {
 			NSString *msg = [NSString stringWithFormat:@"Could not load the list of organizations.\n%@", [user.organizations.error localizedDescription]];
-			[iOctocat alert:@"Loading error" with:msg];
+			[iOctocat reportLoadingError:msg];
 		} else if (user.organizations.isLoaded) {
             [organizationItem setEnabled:(user.organizations.organizations.count > 0)];
         }

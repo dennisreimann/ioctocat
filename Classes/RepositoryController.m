@@ -141,19 +141,19 @@
 			[self displayRepository];
 			[self.tableView reloadData];
 		} else if (repository.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the repository"];
+			[iOctocat reportLoadingError:@"Could not load the repository"];
 		}
 	} else if (object == repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.branches.isLoaded) {
 			[self.tableView reloadData];
 		} else if (repository.branches.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the branches"];
+			[iOctocat reportLoadingError:@"Could not load the branches"];
 		}
 	} else if (object == repository.readme && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.readme.isLoaded) {
 			[self.tableView reloadData];
 		} else if (repository.readme.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the README"];
+			[iOctocat reportLoadingError:@"Could not load the README"];
 		}
 	}
 }

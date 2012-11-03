@@ -84,7 +84,7 @@
 		[self.tableView reloadData];
 		GHSearch *search = (GHSearch *)object;
 		if (!search.isLoading && search.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the search results"];
+			[iOctocat reportLoadingError:@"Could not load the search results"];
 		}
 	}
 }

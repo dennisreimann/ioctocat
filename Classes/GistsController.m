@@ -67,7 +67,7 @@
 		[self.tableView reloadData];
 		GHGists *theGists = (GHGists *)object;
 		if (!theGists.isLoading && theGists.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the gists"];
+			[iOctocat reportLoadingError:@"Could not load the gists"];
 		}
 	}
 }

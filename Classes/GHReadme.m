@@ -39,7 +39,7 @@
 		if (repository.isLoaded) {
 			[self loadData];
 		} else if (repository.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the repository"];
+			[iOctocat reportLoadingError:@"Could not load the repository"];
 		}
 	}
 }

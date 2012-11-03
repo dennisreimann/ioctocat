@@ -64,7 +64,7 @@
 		} else {
 			[self displayBlob:theBlob];
 			if (!theBlob.error) return;
-			[iOctocat alert:@"Loading error" with:@"Could not load the file"];
+			[iOctocat reportLoadingError:@"Could not load the file"];
 		}
 	}
 }
@@ -96,7 +96,7 @@
 		[contentView loadData:theData MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
 		[contentView setScalesPageToFit:YES];
 	} else {
-		[iOctocat alert:@"Unknown content" with:[NSString stringWithFormat:@"Cannot display %@", theFilename]];
+		[iOctocat reportError:@"Unknown content" with:[NSString stringWithFormat:@"Cannot display %@", theFilename]];
 	}
 }
 

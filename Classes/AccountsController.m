@@ -207,7 +207,7 @@
 			[self openAccount:theAccount];
 		}
 	} else {
-		[iOctocat alert:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
+		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
 		NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
 		[self editAccountAtIndex:index];
 	}

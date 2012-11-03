@@ -41,7 +41,7 @@
     if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		if (!users.isLoading && users.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the users"];
+			[iOctocat reportLoadingError:@"Could not load the users"];
 		}
 	}    
 }

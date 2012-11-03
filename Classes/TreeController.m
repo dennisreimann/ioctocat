@@ -50,7 +50,7 @@
 		if (theTree.isLoaded) {
 			[self displayTree];
 		} else if (!theTree.isLoading && theTree.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the tree"];
+			[iOctocat reportLoadingError:@"Could not load the tree"];
 		}
 	}    
 }

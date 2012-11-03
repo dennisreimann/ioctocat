@@ -16,7 +16,9 @@
 + (NSDate *)parseDate:(NSString *)theString;
 + (UIImage *)cachedGravatarForIdentifier:(NSString *)theString;
 + (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString;
-+ (void)alert:(NSString *)theTitle with:(NSString *)theMessage;
++ (void)reportError:(NSString *)theTitle with:(NSString *)theMessage;
++ (void)reportLoadingError:(NSString *)theMessage;
++ (void)reportSuccess:(NSString *)theMessage;
 - (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)theLogin;
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin;

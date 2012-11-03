@@ -137,7 +137,7 @@
 		} else {
 			[self issueLoadingFinished];
 			if (!theIssues.error) return;
-			[iOctocat alert:@"Loading error" with:@"Could not load the issues"];
+			[iOctocat reportLoadingError:@"Could not load the issues"];
 		}
 	}
 }

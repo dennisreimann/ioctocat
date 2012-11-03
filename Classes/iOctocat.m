@@ -8,6 +8,8 @@
 #import "NSURL+Extensions.h"
 #import "ASINetworkQueue.h"
 #import "AccountController.h"
+#import "WBErrorNoticeView.h"
+#import "WBSuccessNoticeView.h"
 
 
 @interface iOctocat ()
@@ -103,14 +105,24 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	return date;
 }
 
-+ (void)alert:(NSString *)theTitle with:(NSString *)theMessage {
-	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:theTitle
-													message:theMessage
-												   delegate:nil
-										  cancelButtonTitle:@"OK"
-										  otherButtonTitles:nil];
-	[alert show];
-	[alert release];
++ (void)reportError:(NSString *)theTitle with:(NSString *)theMessage {
+	WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:[iOctocat sharedInstance].window
+															   title:theTitle
+															 message:theMessage];
+	notice.originY = [[UIApplication sharedApplication] statusBarFrame].size.height;
+	[notice show];
+	
+}
+
++ (void)reportLoadingError:(NSString *)theMessage {
+	[self reportError:@"Loading error" with:theMessage];
+}
+
++ (void)reportSuccess:(NSString *)theMessage {
+	WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:[iOctocat sharedInstance].window
+																	 title:theMessage];
+	notice.originY = [[UIApplication sharedApplication] statusBarFrame].size.height;
+	[notice show];
 }
 
 #pragma mark Avatars

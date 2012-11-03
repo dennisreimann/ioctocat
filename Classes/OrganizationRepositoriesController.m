@@ -107,7 +107,7 @@
 		if (organizations.isLoaded) {
 			[self loadOrganizationRepositories];
 		} else if (organizations.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the organizations"];
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
 	}
 	// repositories
@@ -116,7 +116,7 @@
 		if (repositories.isLoaded) {
 			[self displayRepositories:repositories];
 		} else if (repositories.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the repositories"];
+			[iOctocat reportLoadingError:@"Could not load the repositories"];
 		}
 	}
 }

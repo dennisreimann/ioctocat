@@ -119,13 +119,13 @@
 			[self displayGist];
 			[self.tableView reloadData];
 		} else if (gist.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the gist"];
+			[iOctocat reportLoadingError:@"Could not load the gist"];
 		}
 	} else if (object == gist.comments && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (gist.comments.isLoaded) {
 			[self displayComments];
 		} else if (gist.comments.error) {
-			[iOctocat alert:@"Loading error" with:@"Could not load the comments"];
+			[iOctocat reportLoadingError:@"Could not load the comments"];
 		}
 	}
 }

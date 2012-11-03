@@ -85,7 +85,7 @@
 - (void)fireTimeout {
 	[self killTimeout];
 	[self stopResolving];
-	[iOctocat alert:@"Timeout" with:@"Resolving the token failed, we will try it again next time you log in :)"];
+	[iOctocat reportError:@"Timeout" with:@"Resolving the token failed, we will try it again next time you log in :)"];
 	[delegate performSelector:@selector(resolvingTokenFailedForLogin:) withObject:login];
 }
 

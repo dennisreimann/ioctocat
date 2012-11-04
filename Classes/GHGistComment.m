@@ -37,7 +37,7 @@
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
 	NSString *path = [NSString stringWithFormat:kGistCommentsFormat, gist.gistId];
-	[self saveValues:values withPath:path andMethod:@"POST"];
+	[self saveValues:values withPath:path andMethod:@"POST" useResult:nil];
 }
 
 @end

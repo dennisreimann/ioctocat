@@ -1,5 +1,6 @@
 #import "GHUser.h"
 #import "GHRepository.h"
+#import "GHRepositories.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
 #import "GHTree.h"
@@ -42,6 +43,7 @@
 - (id)initWithRepository:(GHRepository *)theRepository {
     [super initWithNibName:@"Repository" bundle:nil];
 	self.repository = theRepository;
+	
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository.readme addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -57,7 +59,9 @@
 	(repository.isLoaded) ? [self displayRepository] : [repository loadData];
 	if (!repository.readme.isLoaded) [repository.readme loadData];
 	if (!repository.branches.isLoaded) [repository.branches loadData];
-    
+    if (!self.currentUser.starredRepositories.isLoaded) [self.currentUser.starredRepositories loadData];
+    if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadData];
+	
 	// Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
     tableHeaderView.backgroundColor = background;

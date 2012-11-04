@@ -1,12 +1,9 @@
 #import "GHResource.h"
 #import "GHAccount.h"
+#import "GHApiClient.h"
+#import "iOctocat.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
-
-
-@interface GHResource ()
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL;
-@end
 
 
 @implementation GHResource
@@ -30,8 +27,8 @@
 }
 
 - (void)dealloc {
-	[delegates release], delegates = nil;
 	[resourcePath release], resourcePath = nil;
+	[delegates release], delegates = nil;
 	[error release], error = nil;
 	[data release], data = nil;
 	[super dealloc];
@@ -40,39 +37,23 @@
 - (void)setValuesFromDict:(NSDictionary *)theDict {
 }
 
+// TODO: Use this method instead of setValuesFromDict, clean up subclasses
+
+- (void)setValues:(id)theResponse {
+	[self setValuesFromDict:theResponse];
+}
+
 - (NSString *)resourceContentType {
 	return kResourceContentTypeDefault;
 }
 
-#pragma mark Request
-
-+ (ASIFormDataRequest *)authenticatedRequestForURL:(NSURL *)theURL {
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:theURL];
-    [request setUserAgentString:[ASIHTTPRequest defaultUserAgentString]];
-    [request setAuthenticationScheme:(NSString *) kCFHTTPAuthenticationSchemeBasic];
-    [request setShouldPresentCredentialsBeforeChallenge:YES];
-    [request setUsername:account.login];
-    [request setPassword:account.password];
-    [request setRequestMethod:@"GET"];
-    return request;
-}
-
-+ (ASIFormDataRequest *)apiRequestForPath:(NSString *)thePath {
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	NSString *urlString = [account.apiURL.absoluteString stringByAppendingString:thePath];
-	NSURL *url = [NSURL URLWithString:urlString];
-    return [self authenticatedRequestForURL:url];
-}
-
-+ (ASIFormDataRequest *)feedRequestForPath:(NSString *)thePath {
-	GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-	NSDictionary *params = [NSDictionary dictionaryWithObject:account.token forKey:kTokenParamKey];
-	NSURL *url = [[account.endpointURL URLByAppendingPathComponent:thePath] URLByAppendingParams:params];
-    return [self authenticatedRequestForURL:url];
+- (GHAccount *)currentAccount {
+	return [iOctocat sharedInstance].currentAccount;
 }
 
 #pragma mark Delegation
+
+// TODO: Use or remove delegation.
 
 - (void)addDelegate:(id)delegate {
 	[delegates addObject:delegate];
@@ -97,127 +78,55 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:self.resourcePath];
-	[request addRequestHeader:@"Accept" value:self.resourceContentType];
-	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(loadingFinished:)];
-	[request setDidFailSelector:@selector(loadingFailed:)];
-	DJLog(@"Loading %@\n\n====\n\n", [request url]);
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)loadingFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Loading %@ finished: %@\n\n====\n\n", [request url], [request responseString]);
-    if (request.responseStatusCode == 404) {
-        NSMutableDictionary* details = [NSMutableDictionary dictionary];
-        NSString *msg = [NSString stringWithFormat:@"%@ could not be found.", [request url]];
-        [details setValue:msg forKey:NSLocalizedDescriptionKey];
-        request.error = [NSError errorWithDomain:@"GitHubAPI" code:404 userInfo:details];
-        [self loadingFailed:request];
-    } else {
-        [self performSelectorInBackground:@selector(parseData:) withObject:[request responseData]];
-    }
-}
-
-- (void)loadingFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Loading %@ failed: %@", [request url], [request error]);
-	
-	self.error = [request error];
-	self.loadingStatus = GHResourceStatusNotProcessed;
-	
-	for (id delegate in delegates) {
-		if ([delegate respondsToSelector:@selector(resource:failed:)]) {
-			[delegate resource:self failed:error];
+	DJLog(@"Loading %@\n\n====\n\n", self.resourcePath);
+	[self.currentAccount.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
+	[self.currentAccount.apiClient getPath:self.resourcePath parameters:nil
+		success:^(AFHTTPRequestOperation *theOperation, id theResponse) {
+			DJLog(@"Loading %@ finished: %@\n\n====\n\n", self.resourcePath, theResponse);
+			[self setValues:theResponse];
+			self.loadingStatus = GHResourceStatusProcessed;
+			[self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
 		}
-	}
-}
-
-- (void)parseData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:theData options:kNilOptions error:&parseError];
-    id res = parseError ? (id)parseError : (id)dict;
-	[self performSelectorOnMainThread:@selector(parsingFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)parsingFinished:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-        DJLog(@"JSON parsing failed: %@", theResult);
-        
-		self.error = theResult;
-        
-		self.loadingStatus = GHResourceStatusNotProcessed;
-        [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
-	} else {
-        [self setValuesFromDict:theResult];
-        
-        self.loadingStatus = GHResourceStatusProcessed;
-        [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
-	}
+		failure:^(AFHTTPRequestOperation *theOperation, NSError *theError) {
+			 DJLog(@"Loading %@ failed: %@", self.resourcePath, theError);
+			 self.error = theError;
+			 self.loadingStatus = GHResourceStatusNotProcessed;
+			 [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
+		}
+	];
 }
 
 #pragma mark Saving
 
-- (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod {
+- (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod useResult:(void (^)(id theResponse))useResult {
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-    NSError *parseError = nil;
-	NSMutableData *postData = [[NSJSONSerialization dataWithJSONObject:theValues options:kNilOptions error:&parseError] mutableCopy];
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:thePath];
-	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(savingFinished:)];
-	[request setDidFailSelector:@selector(savingFailed:)];
-	[request setRequestMethod:theMethod];
-	[request setPostBody:postData];
-    DJLog(@"Saving %@ - %@", [request url], postData);
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)savingFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Saving %@ finished: %@", [request url], [request responseString]);
-	[self performSelectorInBackground:@selector(parseSaveData:) withObject:[request responseData]];
-}
-
-- (void)savingFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Saving %@ failed: %@", [request url], [request error]);
-	
-	self.error = [request error];
-	self.savingStatus = GHResourceStatusNotProcessed;
-	
-	for (id delegate in delegates) {
-		if ([delegate respondsToSelector:@selector(resource:failed:)]) {
-			[delegate resource:self failed:error];
+    DJLog(@"Saving %@ (%@)\n\n%@\n\n====\n\n", thePath, theMethod, theValues);
+	NSMutableURLRequest *request = [self.currentAccount.apiClient requestWithMethod:theMethod
+												path:thePath
+										  parameters:theValues];
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+		success:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, id theJSON) {
+			DJLog(@"Saving %@ finished: %@\n\n====\n\n", thePath, theJSON);
+			if (useResult) {
+				useResult(theJSON);
+			}
+			self.savingStatus = GHResourceStatusProcessed;
+			[self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
 		}
-	}
+		failure:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, NSError *theError, id theJSON) {
+			DJLog(@"Saving %@ failed: %@\n\n====\n\n", thePath, theError);
+			self.error = theError;
+			self.savingStatus = GHResourceStatusNotProcessed;
+			[self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
+		}
+	];
+	[operation start];
 }
 
-- (void)parseSaveData:(NSData *)theData {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:theData options:kNilOptions error:&parseError];
-    id res = parseError ? (id)parseError : (id)dict;
-	[self performSelectorOnMainThread:@selector(parsingSaveFinished:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
 
-- (void)parsingSaveFinished:(id)theResult {
-    if ([theResult isKindOfClass:[NSError class]]) {
-        DJLog(@"JSON parsing for saved data failed: %@", theResult);
-        
-		self.error = theResult;
-        
-		self.savingStatus = GHResourceStatusNotProcessed;
-        [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
-	} else {
-        [self setValuesFromDict:theResult];
-        
-        self.savingStatus = GHResourceStatusProcessed;
-        [self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
-	}
-}
 
 #pragma mark Convenience Accessors
 

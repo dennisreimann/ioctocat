@@ -1,10 +1,12 @@
 #import <Foundation/Foundation.h>
 
 
-@class GHUser;
+@class GHApiClient, GHFeedClient, GHUser;
 
 @interface GHAccount : NSObject
 
+@property(nonatomic,retain)GHApiClient *apiClient;
+@property(nonatomic,retain)GHFeedClient *feedClient;
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)NSString *login;
 @property(nonatomic,retain)NSString *password;

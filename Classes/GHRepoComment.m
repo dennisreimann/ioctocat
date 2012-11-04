@@ -47,7 +47,7 @@
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
 	NSString *savePath = [NSString stringWithFormat:kRepoCommentsFormat, repository.owner, repository.name, commitID];
-	[self saveValues:values withPath:savePath andMethod:@"POST"];
+	[self saveValues:values withPath:savePath andMethod:@"POST" useResult:nil];
 }
 
 @end

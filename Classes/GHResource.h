@@ -1,5 +1,4 @@
 #import <Foundation/Foundation.h>
-#import "ASIFormDataRequest.h"
 
 
 typedef enum {
@@ -29,21 +28,15 @@ typedef enum {
 @property(nonatomic,readonly)BOOL isSaved;
 @property(nonatomic,readonly)BOOL isSaving;
 
-+ (ASIFormDataRequest *)feedRequestForPath:(NSString *)thePath;
-+ (ASIFormDataRequest *)apiRequestForPath:(NSString *)thePath;
 + (id)resourceWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;
+- (GHAccount *)currentAccount;
 - (void)addDelegate:(id)delegate;
 - (void)removeDelegate:(id)delegate;
 - (void)loadData;
-- (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod;
-- (void)parseData:(NSData *)theData;
-- (void)parsingFinished:(id)theResult;
+- (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod useResult:(void (^)(id theResponse))useResult;
+- (void)setValues:(id)theResponse;
 - (void)setValuesFromDict:(NSDictionary *)theDict;
-- (void)loadingFinished:(ASIHTTPRequest *)request;
-- (void)loadingFailed:(ASIHTTPRequest *)request;
-- (void)savingFinished:(ASIHTTPRequest *)request;
-- (void)savingFailed:(ASIHTTPRequest *)request;
 - (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject;
 - (NSString *)resourceContentType;
 

@@ -36,6 +36,7 @@
 #define kResourceContentTypeText        @"application/vnd.github.text+json"
 #define kResourceContentTypeFull        @"application/vnd.github.full+json"
 #define kResourceContentTypeRaw         @"application/vnd.github.raw+json"
+#define kResourceContentTypeAtom        @"application/atom+xml"
 
 // Tables
 #define kRepositoryCellIdentifier       @"RepositoryCell"

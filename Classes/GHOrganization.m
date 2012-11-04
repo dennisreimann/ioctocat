@@ -6,7 +6,6 @@
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "GravatarLoader.h"
-#import "ASIFormDataRequest.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "iOctocat.h"

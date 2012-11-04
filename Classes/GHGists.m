@@ -2,7 +2,6 @@
 #import "GHGist.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "ASIFormDataRequest.h"
 
 
 @implementation GHGists

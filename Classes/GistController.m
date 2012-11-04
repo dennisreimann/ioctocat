@@ -1,5 +1,6 @@
 #import "GHUser.h"
 #import "GHGist.h"
+#import "GHGists.h"
 #import "GHGistComment.h"
 #import "GHGistComments.h"
 #import "WebController.h"
@@ -45,6 +46,7 @@
 	[self displayGist];
 	if (!gist.isLoaded) [gist loadData];
 	(gist.comments.isLoaded) ? [self displayComments] : [gist.comments loadData];
+    if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
 
 	// Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];

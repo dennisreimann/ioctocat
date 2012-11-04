@@ -1,4 +1,6 @@
 #import "GHAccount.h"
+#import "GHApiClient.h"
+#import "GHFeedClient.h"
 #import "GHUser.h"
 #import "GHGists.h"
 #import "GHRepositories.h"
@@ -10,6 +12,8 @@
 
 @implementation GHAccount
 
+@synthesize apiClient;
+@synthesize feedClient;
 @synthesize user;
 @synthesize login;
 @synthesize password;
@@ -30,7 +34,7 @@
 	self.token = [theDict valueForKey:kTokenDefaultsKey defaultsTo:@""];
 	self.endpoint = [theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
 	
-	// construct endpoint URL
+	// construct endpoint URL and set up API client
 	if ([endpoint isEmpty]) {
 		self.endpointURL = [NSURL URLWithString:kGitHubBaseURL];
 		self.apiURL = [NSURL URLWithString:kGitHubApiURL];
@@ -38,6 +42,10 @@
 		self.endpointURL = [NSURL URLWithString:endpoint];
 		self.apiURL = [endpointURL URLByAppendingPathComponent:kEnterpriseApiPath];
 	}
+	self.apiClient = [GHApiClient clientWithBaseURL:apiURL];
+	[self.apiClient setAuthorizationHeaderWithUsername:login password:password];
+	self.feedClient = [GHFeedClient clientWithBaseURL:endpointURL];
+	[self.feedClient setAuthorizationHeaderWithUsername:login password:password];
 	
 	// user with authenticated URLs
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];

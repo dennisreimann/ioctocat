@@ -2,8 +2,6 @@
 #import "GHReadme.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
 
 
 @implementation GHReadme
@@ -30,10 +28,6 @@
 	[super dealloc];
 }
 
-- (NSString *)resourceContentType {
-	return kResourceContentTypeHTML;
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.isLoaded) {
@@ -48,18 +42,14 @@
 	repository.isLoaded ? [super loadData] : [repository loadData];
 }
 
-- (void)loadingFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Loading %@ finished: %@\n\n====\n\n", [request url], [request responseString]);
-	if (request.responseStatusCode == 404) {
-		[self loadingFailed:request];
-	} else {
-		// Actually, this isn't a dictionary, because we requested
-		// the html mime type which returns the HTML representation
-		self.bodyHTML = [request responseString];
-		// What would the superclass do?
-		self.loadingStatus = GHResourceStatusProcessed;
-		[self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
-	}
+- (NSString *)resourceContentType {
+	return kResourceContentTypeHTML;
+}
+
+- (void)setValues:(id)theResponse {
+	// the response is not a dictionary, because we requested
+	// the html mime type which returns the HTML representation
+	self.bodyHTML = [[[NSString alloc] initWithData:(NSData *)theResponse encoding:NSUTF8StringEncoding] autorelease];
 }
 
 @end

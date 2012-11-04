@@ -8,7 +8,6 @@
 #import "GHGists.h"
 #import "GHResource.h"
 #import "GravatarLoader.h"
-#import "ASIFormDataRequest.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "iOctocat.h"
@@ -19,14 +18,6 @@
 - (void)setWatching:(BOOL)theMode forRepository:(GHRepository *)theRepository;
 - (void)setStarring:(BOOL)theMode forRepository:(GHRepository *)theRepository;
 - (void)setStarring:(BOOL)theMode forGist:(GHGist *)theGist;
-- (void)followToggleFinished:(ASIHTTPRequest *)request;
-- (void)followToggleFailed:(ASIHTTPRequest *)request;
-- (void)watchToggleFinished:(ASIHTTPRequest *)request;
-- (void)watchToggleFailed:(ASIHTTPRequest *)request;
-- (void)starToggleFinished:(ASIHTTPRequest *)request;
-- (void)starToggleFailed:(ASIHTTPRequest *)request;
-- (void)gistStarToggleFinished:(ASIHTTPRequest *)request;
-- (void)gistStarToggleFailed:(ASIHTTPRequest *)request;
 @end
 
 
@@ -173,23 +164,7 @@
 
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
 	NSString *path = [NSString stringWithFormat:kUserFollowFormat, theUser.login];
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
-	[request setDelegate:self];
-	[request setRequestMethod:(follow ? @"PUT" : @"DELETE")];
-	[request setDidFinishSelector:@selector(followToggleFinished:)];
-	[request setDidFailSelector:@selector(followToggleFailed:)];
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)followToggleFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Follow toggle %@ finished: %@", [request url], [request responseString]);
-	self.following.loadingStatus = GHResourceStatusNotProcessed;
-    [self.following loadData];
-}
-
-- (void)followToggleFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Follow toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat reportError:@"Request error" with:@"Could not change following status"];
+	[self saveValues:nil withPath:path andMethod:(follow ? @"PUT" : @"DELETE") useResult:nil];
 }
 
 #pragma mark Stars
@@ -211,23 +186,7 @@
 
 - (void)setStarring:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSString *path = [NSString stringWithFormat:kRepoStarFormat, theRepository.owner, theRepository.name];
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
-    [request setDelegate:self];
-    [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
-	[request setDidFinishSelector:@selector(starToggleFinished:)];
-	[request setDidFailSelector:@selector(starToggleFailed:)];
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)starToggleFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Star toggle %@ finished: %@", [request url], [request responseString]);
-	self.starredRepositories.loadingStatus = GHResourceStatusNotProcessed;
-    [self.starredRepositories loadData];
-}
-
-- (void)starToggleFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Star toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat reportError:@"Request error" with:@"Could not change starring status"];
+	[self saveValues:nil withPath:path andMethod:(watch ? @"PUT" : @"DELETE") useResult:nil];
 }
 
 #pragma mark Watching
@@ -249,23 +208,7 @@
 
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
-    [request setDelegate:self];
-    [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
-	[request setDidFinishSelector:@selector(watchToggleFinished:)];
-	[request setDidFailSelector:@selector(watchToggleFailed:)];
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)watchToggleFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Watch toggle %@ finished: %@", [request url], [request responseString]);
-	self.watchedRepositories.loadingStatus = GHResourceStatusNotProcessed;
-    [self.watchedRepositories loadData];
-}
-
-- (void)watchToggleFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Watch toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat reportError:@"Request error" with:@"Could not change watching status"];
+	[self saveValues:nil withPath:path andMethod:(watch ? @"PUT" : @"DELETE") useResult:nil];
 }
 
 #pragma mark Gists
@@ -285,25 +228,9 @@
 	[self setStarring:NO forGist:theGist];
 }
 
-- (void)setStarring:(BOOL)watch forGist:(GHGist *)theGist {
+- (void)setStarring:(BOOL)starred forGist:(GHGist *)theGist {
 	NSString *path = [NSString stringWithFormat:kGistStarFormat, theGist.gistId];
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
-    [request setDelegate:self];
-    [request setRequestMethod:(watch ? @"PUT": @"DELETE")];
-	[request setDidFinishSelector:@selector(gistStarToggleFinished:)];
-	[request setDidFailSelector:@selector(gistStarToggleFailed:)];
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)gistStarToggleFinished:(ASIHTTPRequest *)request {
-	DJLog(@"Gist star toggle %@ finished: %@", [request url], [request responseString]);
-	self.starredGists.loadingStatus = GHResourceStatusNotProcessed;
-    [self.starredGists loadData];
-}
-
-- (void)gistStarToggleFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Gist star toggle %@ failed: %@", [request url], [request error]);
-	[iOctocat reportError:@"Request error" with:@"Could not change gist starring status"];
+	[self saveValues:nil withPath:path andMethod:(starred ? @"PUT" : @"DELETE") useResult:nil];
 }
 
 #pragma mark Gravatar

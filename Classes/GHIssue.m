@@ -7,11 +7,6 @@
 #import "NSDictionary+Extensions.h"
 
 
-@interface GHIssue ()
-- (void)toggledIssueStateTo:(id)theResult;
-@end
-
-
 @implementation GHIssue
 
 @synthesize user;
@@ -106,49 +101,6 @@
 	[self saveData];
 }
 
-- (void)setIssueState:(NSString *)theToggle {
-	if (self.isSaving) return;
-	self.error = nil;
-	self.savingStatus = GHResourceStatusProcessing;
-	NSString *path = [NSString stringWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
-	// Send the request
-	ASIFormDataRequest *request = [GHResource apiRequestForPath:path];
-	[request setDelegate:self];
-	[request setDidFinishSelector:@selector(stateTogglingFinished:)];
-	[request setDidFailSelector:@selector(stateTogglingFailed:)];
-	[request setRequestMethod:@"PATCH"];
-	DJLog(@"Sending save request: %@", request);
-	[[iOctocat queue] addOperation:request];
-}
-
-- (void)stateTogglingFinished:(ASIHTTPRequest *)request {
-	[self performSelectorInBackground:@selector(parseToggleData:) withObject:[request responseData]];
-}
-
-- (void)stateTogglingFailed:(ASIHTTPRequest *)request {
-	DJLog(@"Save request for url '%@' failed: %@", [request url], [request error]);
-	[self toggledIssueStateTo:[request error]];
-}
-
-- (void)parseToggleData:(NSData *)theData {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSError *parseError = nil;
-    NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:theData options:kNilOptions error:&parseError];
-	id res = parseError ? (id)parseError : (id)[resultDict valueForKeyPath:@"issue.state"];
-	[self performSelectorOnMainThread:@selector(toggledIssueStateTo:) withObject:res waitUntilDone:YES];
-    [pool release];
-}
-
-- (void)toggledIssueStateTo:(id)theResult {
-	if ([theResult isKindOfClass:[NSError class]]) {
-		self.error = theResult;
-		self.savingStatus = GHResourceStatusNotProcessed;
-	} else {
-		self.state = theResult;
-		self.savingStatus = GHResourceStatusProcessed;
-	}
-}
-
 #pragma mark Saving
 
 - (void)saveData {
@@ -162,7 +114,9 @@
 		method = @"PATCH";
 	}
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", body, @"body", state, @"state", nil];
-	[self saveValues:values withPath:path andMethod:method];
+	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
+		[self setValuesFromDict:theResponse];
+	}];
 }
 
 @end

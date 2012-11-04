@@ -52,7 +52,6 @@
     }
 }
 
-// TODO: We need to do this differently
 - (void)stopAuthenticating {
     [authSheet dismissWithClickedButtonIndex:0 animated:YES];
 }

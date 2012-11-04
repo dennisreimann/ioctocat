@@ -13,7 +13,6 @@
 #import "GravatarLoader.h"
 #import "iOctocat.h"
 #import "UsersController.h"
-#import "ASIFormDataRequest.h"
 #import "FeedController.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"

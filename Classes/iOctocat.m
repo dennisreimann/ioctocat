@@ -6,7 +6,6 @@
 #import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "ASINetworkQueue.h"
 #import "AccountController.h"
 #import "WBErrorNoticeView.h"
 #import "WBSuccessNoticeView.h"
@@ -30,6 +29,7 @@
 @synthesize navController;
 @synthesize accountController;
 
+// TODO: Refactor this
 SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
@@ -47,7 +47,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 	}
 	
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	
+    
 	// Go
 	self.users = [NSMutableDictionary dictionary];
 	[window setRootViewController:navController];
@@ -155,17 +155,6 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
 + (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString {
 	NSString *path = [self gravatarPathForIdentifier:theString];
 	[UIImagePNGRepresentation(theImage) writeToFile:path atomically:YES];
-}
-
-#pragma mark Network
-
-+ (ASINetworkQueue *)queue {
-	static ASINetworkQueue *queue;
-	if (queue == nil) {
-		queue = [[ASINetworkQueue queue] retain];
-		[queue go];
-	}
-	return queue;
 }
 
 #pragma mark Application Events

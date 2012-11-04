@@ -3,7 +3,6 @@
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
-#import "SynthesizeSingleton.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "AccountController.h"
@@ -29,8 +28,9 @@
 @synthesize navController;
 @synthesize accountController;
 
-// TODO: Refactor this
-SYNTHESIZE_SINGLETON_FOR_CLASS(iOctocat);
++ (id)sharedInstance {
+    return [[UIApplication sharedApplication] delegate];
+}
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	// Beware of zombies!

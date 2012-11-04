@@ -24,6 +24,9 @@
 @interface FeedEntryController ()
 @property(nonatomic,retain)GHFeed *feed;
 @property(nonatomic,retain)GHFeedEntry *entry;
+
+- (void)setUpGestureRecognizers;
+- (void)tearDownGestureRecognizers;
 @end
 
 
@@ -45,15 +48,23 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[self setUpGestureRecognizers];
 	
 	if (feed) {
 		self.navigationItem.rightBarButtonItem = controlItem;
 		self.entry = [feed.entries objectAtIndex:currentIndex];
 	}
 	
+	contentView.scrollView.bounces = NO;
+	
     // Background
     UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
     headView.backgroundColor = background;
+}
+
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	[self tearDownGestureRecognizers];
 }
 
 - (void)setEntry:(GHFeedEntry *)theEntry {
@@ -140,9 +151,20 @@
 
 #pragma mark Actions
 
-- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
-	currentIndex += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
+- (void)goToPrev {
+	if (currentIndex == 0) return;
+	currentIndex -= 1;
 	self.entry = [feed.entries objectAtIndex:currentIndex];
+}
+
+- (void)goToNext {
+	if (currentIndex == feed.entries.count - 1) return;
+	currentIndex += 1;
+	self.entry = [feed.entries objectAtIndex:currentIndex];
+}
+
+- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
+	segmentedControl.selectedSegmentIndex == 0 ? [self goToPrev] : [self goToNext];
 }
 
 - (IBAction)showInWebView:(id)sender {
@@ -263,6 +285,28 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
 	return [self shouldAutorotate];
+}
+
+#pragma mark Gestures
+
+- (void)setUpGestureRecognizers {
+    // swipe right or up: go to prev entry
+    UISwipeGestureRecognizer *prevGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToPrev)];
+    prevGesture.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:prevGesture];
+    [prevGesture release];
+	
+    // swipe left or down: go to next entry
+    UISwipeGestureRecognizer *nextGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(goToNext)];
+    nextGesture.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:nextGesture];
+    [nextGesture release];
+}
+
+- (void)tearDownGestureRecognizers {
+    for (UIGestureRecognizer *gestureRecognizer in self.view.gestureRecognizers) {
+        [self.view removeGestureRecognizer:gestureRecognizer];
+    }
 }
 
 @end

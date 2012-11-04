@@ -108,6 +108,7 @@
 		ownerLabel.text = [NSString stringWithFormat:@"%@, %@", gist.user ? gist.user.login : @"unknown user", [gist.createdAtDate prettyDate]];
 		numbersLabel.text = gist.isLoaded ? [NSString stringWithFormat:@"%d %@", gist.forksCount, gist.forksCount == 1 ? @"fork" : @"forks"] : @"";
 	}
+	[self.tableView reloadData];
 }
 
 - (void)displayComments {
@@ -119,15 +120,16 @@
 	if (object == gist && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (gist.isLoaded) {
 			[self displayGist];
-			[self.tableView reloadData];
 		} else if (gist.error) {
-			[iOctocat reportLoadingError:@"Could not load the gist"];
+			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
+			[self.tableView reloadData];
 		}
 	} else if (object == gist.comments && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (gist.comments.isLoaded) {
 			[self displayComments];
 		} else if (gist.comments.error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
+			[self.tableView reloadData];
 		}
 	}
 }
@@ -143,11 +145,11 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (gist.isLoaded) ? 2 : 1;
+	return (gist.isLoading) ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!gist.isLoaded) return 1;
+	if (gist.isLoading) return 1;
 	if (section == 0)	return gist.files.count;
 	if (section == 1 && !gist.comments.isLoaded) return 1;
 	return gist.comments.comments.count == 0 ? 1 : gist.comments.comments.count;
@@ -160,8 +162,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (!gist.isLoaded) return loadingCell;
-	if (gist.isLoaded && gist.files.count == 0) return noFilesCell;
+	if (gist.isLoading) return loadingCell;
+	if (!gist.isLoading && gist.files.count == 0) return noFilesCell;
 	static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -170,9 +172,10 @@
     }
 	if (section == 0) {
 		NSDictionary *file = [[gist.files allValues] objectAtIndex:row];
+		NSString *fileContent = [file valueForKey:@"content"];
 		cell.textLabel.text = [file valueForKey:@"filename"];
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
 		if (!gist.comments.isLoaded) return loadingCommentsCell;
 		if (gist.comments.comments.count == 0) return noCommentsCell;

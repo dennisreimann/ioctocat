@@ -54,6 +54,8 @@
 	self.user.organizations.resourcePath = kUserAuthenticatedOrgsFormat;
 	self.user.gists.resourcePath = kUserAuthenticatedGistsFormat;
 	self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
+	self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
+	self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
 	
     return self;
 }

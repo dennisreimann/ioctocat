@@ -208,7 +208,8 @@
 
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
-	[self saveValues:nil withPath:path andMethod:(watch ? @"PUT" : @"DELETE") useResult:nil];
+	id values = watch ? [NSDictionary dictionaryWithObject:@"true" forKey:@"subscribed"] : nil;
+	[self saveValues:values withPath:path andMethod:(watch ? @"PUT" : @"DELETE") useResult:nil];
 }
 
 #pragma mark Gists

@@ -61,11 +61,13 @@
 #define kUserAuthenticatedOrgsFormat    @"user/orgs?per_page=100"
 #define kUserAuthenticatedReposFormat   @"user/repos?per_page=100"
 #define kUserAuthenticatedIssuesFormat  @"issues?state=%@&filter=%@&sort=%@&per_page=%d"
-#define kUserFollowFormat               @"user/following/%@"
-#define kRepoWatchFormat                @"user/watched/%@/%@"
-#define kRepoStarFormat                 @"user/starred/%@/%@"
 #define kUserAuthenticatedGistsFormat   @"gists"
 #define kUserAuthenticatedGistsStarredFormat   @"gists/starred"
+#define kUserAuthenticatedStarredReposFormat   @"user/starred?per_page=30&sort=pushed"
+#define kUserAuthenticatedWatchedReposFormat   @"user/subscriptions?per_page=100"
+#define kUserFollowFormat               @"user/following/%@"
+#define kRepoWatchFormat                @"repos/%@/%@/subscription"
+#define kRepoStarFormat                 @"user/starred/%@/%@"
 
 // Gists
 #define kGistFormat                     @"gists/%@"

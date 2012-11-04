@@ -258,7 +258,6 @@
 		6FA97E4D15B0C257000004F1 /* ToolbarCommit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */; };
 		6FA97E4E15B0C257000004F1 /* ToolbarCompass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4C15B0C257000004F1 /* ToolbarCompass@2x.png */; };
 		6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */; };
-		6FAAF67215935D6C003D0344 /* TokenResolverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAAF67115935D6C003D0344 /* TokenResolverController.m */; };
 		6FAB77B015B9C79200B08E18 /* MoreApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AE15B9C79200B08E18 /* MoreApp.png */; };
 		6FAB77B115B9C79200B08E18 /* MoreApp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */; };
 		6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
@@ -673,8 +672,6 @@
 		6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarCommit@2x.png"; sourceTree = "<group>"; };
 		6FA97E4C15B0C257000004F1 /* ToolbarCompass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarCompass@2x.png"; sourceTree = "<group>"; };
 		6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUsers@2x.png"; sourceTree = "<group>"; };
-		6FAAF67015935D6C003D0344 /* TokenResolverController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TokenResolverController.h; sourceTree = "<group>"; };
-		6FAAF67115935D6C003D0344 /* TokenResolverController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TokenResolverController.m; sourceTree = "<group>"; };
 		6FAB77AE15B9C79200B08E18 /* MoreApp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreApp.png; sourceTree = "<group>"; };
 		6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreApp@2x.png"; sourceTree = "<group>"; };
 		6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
@@ -1278,8 +1275,6 @@
 				6FAF9D2E15927A8E00997A28 /* AccountController.m */,
 				6FE91E4A0FAD13D500749370 /* AuthenticationController.h */,
 				6FE91E4B0FAD13D500749370 /* AuthenticationController.m */,
-				6FAAF67015935D6C003D0344 /* TokenResolverController.h */,
-				6FAAF67115935D6C003D0344 /* TokenResolverController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -1927,7 +1922,6 @@
 				6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */,
 				6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */,
 				6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */,
-				6FAAF67215935D6C003D0344 /* TokenResolverController.m in Sources */,
 				E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */,
 				6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */,
 				6FFA282315B3DB4C007C2065 /* MoreController.m in Sources */,

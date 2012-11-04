@@ -1,15 +1,13 @@
 #import <UIKit/UIKit.h>
 #import "AuthenticationController.h"
-#import "TokenResolverController.h"
 
 
 @class UserCell;
 
-@interface AccountsController : UITableViewController <AuthenticationControllerDelegate, TokenResolverControllerDelegate> {
+@interface AccountsController : UITableViewController <AuthenticationControllerDelegate> {
 	IBOutlet UserCell *userCell;
   @private
     AuthenticationController *authController;
-	TokenResolverController *tokenController;
 	NSMutableArray *accounts;
 }
 

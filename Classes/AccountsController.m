@@ -12,7 +12,6 @@
 @interface AccountsController ()
 @property(nonatomic,retain)NSMutableArray *accounts;
 @property(nonatomic,readonly)AuthenticationController *authController;
-@property(nonatomic,readonly)TokenResolverController *tokenController;
 
 - (void)convertOldAccount;
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
@@ -34,7 +33,6 @@
 - (void)dealloc {
 	[accounts release], accounts = nil;
 	[authController release], authController = nil;
-	[tokenController release], tokenController = nil;
     [userCell release], userCell = nil;
     [super dealloc];
 }
@@ -70,14 +68,12 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSString *login = [defaults objectForKey:kLoginDefaultsKey];
     NSString *password = [defaults objectForKey:kPasswordDefaultsKey];
-    NSString *token = [defaults objectForKey:kTokenDefaultsKey];
 
 	if (login != nil) {
 		// Convert if old account can be found
 		NSMutableDictionary *account = [NSMutableDictionary dictionary];
 		[account setValue:login forKey:kLoginDefaultsKey];
 		[account setValue:password forKey:kPasswordDefaultsKey];
-		[account setValue:token forKey:kTokenDefaultsKey];
 
 		// Add new account to list of accounts and save
 		[accounts addObject:account];
@@ -86,7 +82,6 @@
 		// Remove old data
 		[defaults removeObjectForKey:kLoginDefaultsKey];
 		[defaults removeObjectForKey:kPasswordDefaultsKey];
-		[defaults removeObjectForKey:kTokenDefaultsKey];
 		[defaults synchronize];
 	}
 }
@@ -193,42 +188,14 @@
     return authController;
 }
 
-- (TokenResolverController *)tokenController {
-    if (!tokenController) tokenController = [[TokenResolverController alloc] initWithDelegate:self];
-    return tokenController;
-}
-
 - (void)authenticatedAccount:(GHAccount *)theAccount {
 	if (theAccount.user.isAuthenticated) {
-		// Resolve token
-		if ([theAccount.token length] < 32) {
-			[self.tokenController resolveForLogin:theAccount.login andPassword:theAccount.password];
-		} else {
-			[self openAccount:theAccount];
-		}
+		[self openAccount:theAccount];
 	} else {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
 		NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
 		[self editAccountAtIndex:index];
 	}
-}
-
-#pragma mark Token
-
-- (void)resolvedToken:(NSString *)theToken forLogin:(NSString *)theLogin {
-	NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theLogin]];
-	NSDictionary *accountDict = [accounts objectAtIndex:index];
-	[accountDict setValue:theToken forKey:kTokenDefaultsKey];
-	[self.class saveAccounts:accounts];
-	GHAccount *theAccount = [GHAccount accountWithDict:accountDict];
-	[self openAccount:theAccount];
-}
-
-- (void)resolvingTokenFailedForLogin:(NSString *)theLogin {
-	NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theLogin]];
-	NSDictionary *accountDict = [accounts objectAtIndex:index];
-	GHAccount *theAccount = [GHAccount accountWithDict:accountDict];
-	[self openAccount:theAccount];
 }
 
 #pragma mark Autorotation

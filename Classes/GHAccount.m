@@ -17,7 +17,6 @@
 @synthesize user;
 @synthesize login;
 @synthesize password;
-@synthesize token;
 @synthesize endpoint;
 @synthesize endpointURL;
 @synthesize apiURL;
@@ -31,7 +30,6 @@
 	
 	self.login = [theDict valueForKey:kLoginDefaultsKey defaultsTo:@""];
 	self.password = [theDict valueForKey:kPasswordDefaultsKey defaultsTo:@""];
-	self.token = [theDict valueForKey:kTokenDefaultsKey defaultsTo:@""];
 	self.endpoint = [theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
 	
 	// construct endpoint URL and set up API client
@@ -64,7 +62,6 @@
     [user release], user = nil;
     [login release], login = nil;
     [password release], password = nil;
-	[token release], token = nil;
 	[endpoint release], endpoint = nil;
 	[endpointURL release], endpointURL = nil;
 	[super dealloc];

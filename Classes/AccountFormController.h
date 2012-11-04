@@ -6,7 +6,6 @@
 @interface AccountFormController : UIViewController <UITextFieldDelegate> {
 	IBOutlet UITextField *loginField;
 	IBOutlet UITextField *passwordField;
-	IBOutlet UITextField *tokenField;
 	IBOutlet UITextField *endpointField;
 	IBOutlet GradientButton *saveButton;
 }

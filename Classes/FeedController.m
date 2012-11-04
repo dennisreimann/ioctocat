@@ -59,7 +59,7 @@
 			[super dataSourceDidFinishLoadingNewData];
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
-			NSString *msg = [NSString stringWithFormat:@"Could not load the feed. Please ensure that you are providing your API token. You can set the token in the app settings.\n%@", [feed.error localizedDescription]];
+			NSString *msg = [NSString stringWithFormat:@"Could not load the feed.\n%@", [feed.error localizedDescription]];
 			[iOctocat reportLoadingError:msg];
 		}
 	}

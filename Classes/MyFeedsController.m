@@ -8,7 +8,6 @@
 #import "OrganizationFeedsController.h"
 #import "FeedEntryController.h"
 #import "GHFeedEntry.h"
-#import "FeedEntryCell.h"
 #import "GHUser.h"
 #import "GHOrganizations.h"
 #import "GHFeed.h"
@@ -24,16 +23,20 @@
 @interface MyFeedsController ()
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)NSArray *feeds;
+@property(nonatomic,retain)NSIndexPath *detailedIndexPath;
 @property(nonatomic,readonly)GHFeed *currentFeed;
 
 - (NSDate *)lastReadingDateForPath:(NSString *)thePath;
 - (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath;
+- (void)setUpGestureRecognizers;
+- (void)tearDownGestureRecognizers;
 @end
 
 @implementation MyFeedsController
 
 @synthesize user;
 @synthesize feeds;
+@synthesize detailedIndexPath;
 
 + (id)controllerWithUser:(GHUser *)theUser {
 	return [[[MyFeedsController alloc] initWithUser:theUser] autorelease];
@@ -73,12 +76,18 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+	[self setUpGestureRecognizers];
 	
     [organizationItem setEnabled:user.organizations.isLoaded];
 	
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
     [self switchChanged:nil];
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+	[self tearDownGestureRecognizers];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,6 +116,7 @@
 	[noEntriesCell release], noEntriesCell = nil;
 	[feedEntryCell release], feedEntryCell = nil;
 	[feedControl release], feedControl = nil;
+	[detailedIndexPath release], detailedIndexPath = nil;
     [super dealloc];
 }
 
@@ -174,6 +184,26 @@
     } 
 }
 
+- (void)openEventItem:(id)theEventItem {
+	UIViewController *viewController;
+	if ([theEventItem isKindOfClass:[GHUser class]]) {
+		viewController = [UserController controllerWithUser:theEventItem];
+	} else if ([theEventItem isKindOfClass:[GHRepository class]]) {
+		viewController = [RepositoryController controllerWithRepository:theEventItem];
+	} else if ([theEventItem isKindOfClass:[GHIssue class]]) {
+		viewController = [IssueController controllerWithIssue:theEventItem];
+	} else if ([theEventItem isKindOfClass:[GHCommit class]]) {
+		viewController = [CommitController controllerWithCommit:theEventItem];
+	} else if ([theEventItem isKindOfClass:[GHGist class]]) {
+		viewController = [GistController controllerWithGist:theEventItem];
+	}
+	// maybe push a view controller
+	if (viewController) {
+		[self.navigationController pushViewController:viewController animated:YES];
+	}
+
+}
+
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -192,6 +222,7 @@
     if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"FeedEntryCell" owner:self options:nil];
 		cell = feedEntryCell;
+		cell.delegate = self;
 	}
 	GHFeedEntry *theEntry = [self.currentFeed.entries objectAtIndex:indexPath.row];
 	cell.entry = theEntry;
@@ -214,24 +245,11 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	GHFeedEntry *entry = [self.currentFeed.entries objectAtIndex:indexPath.row];
-	id item = entry.eventItem;
-	if (!item) return;
-	UIViewController *viewController;
-	if ([item isKindOfClass:[GHUser class]]) {
-		viewController = [UserController controllerWithUser:item];
-	} else if ([entry.eventItem isKindOfClass:[GHRepository class]]) {
-		viewController = [RepositoryController controllerWithRepository:item];
-	} else if ([entry.eventItem isKindOfClass:[GHIssue class]]) {
-		viewController = [IssueController controllerWithIssue:item];
-	} else if ([entry.eventItem isKindOfClass:[GHCommit class]]) {
-		viewController = [CommitController controllerWithCommit:item];
-	} else if ([entry.eventItem isKindOfClass:[GHGist class]]) {
-		viewController = [GistController controllerWithGist:item];
-	}
-	// maybe push a view controller
-	if (viewController) {
-		[self.navigationController pushViewController:viewController animated:YES];
-	}
+	if (entry.eventItem) [self openEventItem:entry.eventItem];
+}
+
+- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return [indexPath isEqual:self.detailedIndexPath] ? 115.0 : 70.0;
 }
 
 #pragma mark Persistent State
@@ -264,6 +282,33 @@
 
 - (void)applicationDidBecomeActive {
     [self refreshCurrentFeedIfRequired];
+}
+
+#pragma mark Gestures
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)gestureRecognizer {
+	if (gestureRecognizer.state != UIGestureRecognizerStateBegan) return;
+    CGPoint p = [gestureRecognizer locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:p];
+    if (indexPath) {
+		[self.tableView beginUpdates];
+		self.detailedIndexPath = [self.detailedIndexPath isEqual:indexPath] ? nil : indexPath;
+		[self.tableView endUpdates];
+	}
+}
+
+- (void)setUpGestureRecognizers {
+	UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]
+										  initWithTarget:self action:@selector(handleLongPress:)];
+	longPress.delegate = self;
+    [self.tableView addGestureRecognizer:longPress];
+    [longPress release];
+}
+
+- (void)tearDownGestureRecognizers {
+    for (UIGestureRecognizer *gestureRecognizer in self.view.gestureRecognizers) {
+        [self.view removeGestureRecognizer:gestureRecognizer];
+    }
 }
 
 @end

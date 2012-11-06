@@ -13,7 +13,6 @@
 @property(nonatomic,retain)NSMutableArray *accounts;
 @property(nonatomic,readonly)AuthenticationController *authController;
 
-- (void)convertOldAccount;
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
 - (void)openAccount:(GHAccount *)theAccount;
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
@@ -48,11 +47,8 @@
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
 
-	// Try to convert old account to new one
-	[self convertOldAccount];
-
 	// Open account if there is only one
-	if ([accounts count] == 1) {
+	if (accounts.count == 1) {
 		[self openOrAuthenticateAccountAtIndex:0];
 	}
 }
@@ -63,28 +59,6 @@
 }
 
 #pragma mark Accounts
-
-- (void)convertOldAccount {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *login = [defaults objectForKey:kLoginDefaultsKey];
-    NSString *password = [defaults objectForKey:kPasswordDefaultsKey];
-
-	if (login != nil) {
-		// Convert if old account can be found
-		NSMutableDictionary *account = [NSMutableDictionary dictionary];
-		[account setValue:login forKey:kLoginDefaultsKey];
-		[account setValue:password forKey:kPasswordDefaultsKey];
-
-		// Add new account to list of accounts and save
-		[accounts addObject:account];
-		[self.class saveAccounts:accounts];
-
-		// Remove old data
-		[defaults removeObjectForKey:kLoginDefaultsKey];
-		[defaults removeObjectForKey:kPasswordDefaultsKey];
-		[defaults synchronize];
-	}
-}
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
     return [[^(id obj, NSUInteger idx, BOOL *stop) {

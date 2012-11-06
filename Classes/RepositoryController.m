@@ -3,6 +3,8 @@
 #import "GHRepositories.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
+#import "GHEvents.h"
+#import "GHBranch.h"
 #import "GHTree.h"
 #import "GHCommit.h"
 #import "LabeledCell.h"
@@ -11,15 +13,12 @@
 #import "UserController.h"
 #import "WebController.h"
 #import "iOctocat.h"
-#import "FeedEntryCell.h"
-#import "FeedEntryController.h"
 #import "IssueController.h"
 #import "IssueCell.h"
-#import "FeedController.h"
+#import "EventsController.h"
 #import "IssuesController.h"
 #import "ForksController.h"
 #import "TreeController.h"
-#import "BranchCell.h"
 #import "NSURL+Extensions.h"
 
 
@@ -28,7 +27,6 @@
 @property(nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayRepository;
-- (GHBranch *)branchForSection:(NSUInteger)section;
 @end
 
 
@@ -81,11 +79,11 @@
     [forkLabel release], forkLabel = nil;
 	[websiteCell release], websiteCell = nil;
 	[descriptionCell release], descriptionCell = nil;
-    [codeCell release], codeCell = nil;
     [issuesCell release], issuesCell = nil;
 	[loadingCell release], loadingCell = nil;
 	[ownerCell release], ownerCell = nil;
 	[readmeCell release], readmeCell = nil;
+	[eventsCell release], eventsCell = nil;
 	[forkCell release], forkCell = nil;
     [iconView release], iconView = nil;
     [super dealloc];
@@ -93,12 +91,6 @@
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
-}
-
-- (GHBranch *)branchForSection:(NSUInteger)section {
-	NSUInteger branchIndex = section - 2;
-	GHBranch *branch = [repository.branches.branches objectAtIndex:branchIndex];
-	return branch;
 }
 
 - (IBAction)showActions:(id)sender {
@@ -156,8 +148,6 @@
 	} else if (object == repository.readme && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.readme.isLoaded) {
 			[self.tableView reloadData];
-		} else if (repository.readme.error) {
-			[iOctocat reportLoadingError:@"Could not load the README"];
 		}
 	}
 }
@@ -165,7 +155,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (repository.isLoaded) ? 2 + repository.branches.branches.count : 1;
+	return (repository.isLoaded) ? 3 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -176,14 +166,13 @@
 		if (repository.readme.isLoaded) rows += 1;
 		return rows;
 	}
-	if (section == 1) return repository.hasIssues ? 2 : 1;
-	return 2;
+	if (section == 1) return repository.hasIssues ? 3 : 2;
+	return repository.branches.branches.count;
 }
 
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section < 2) return @"";
-	GHBranch *branch = [self branchForSection:section];
-	return [NSString stringWithFormat:@"%@ branch", branch.name];
+	return (section < 2) ? @"" : @"Code";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -206,22 +195,19 @@
 		switch (row) {
 			case 0: cell = forkCell; break;
 			case 1: cell = issuesCell; break;
+			case 2: cell = eventsCell; break;
 		}    
     } else {
-		cell = (BranchCell *)[tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
-		if (cell == nil) cell = [[[BranchCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kRepositoryCellIdentifier] autorelease];
-		GHBranch *branch = [self branchForSection:section];
-		[(BranchCell *)cell setBranch:branch];
-		switch (row) {
-			case 0:
-				cell.imageView.image = [UIImage imageNamed:@"code.png"];
-				cell.textLabel.text = @"Code";
-				break;
-			case 1:
-				cell.imageView.image = [UIImage imageNamed:@"commit.png"];
-				cell.textLabel.text = @"Commits";
-				break;
+		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
+		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier] autorelease];
+			cell.imageView.image = [UIImage imageNamed:@"code.png"];
+			cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.opaque = YES;
 		}
+		cell.textLabel.text = branch.name;
     }
 	return cell;
 }
@@ -242,15 +228,13 @@
 		viewController = [ForksController controllerWithRepository:repository];
 	} else if (section == 1 && row == 1) {
 		viewController = [IssuesController controllerWithRepository:repository];
+	} else if (section == 1 && row == 2) {
+		viewController = [EventsController controllerWithEvents:repository.events];
+		viewController.title = repository.name;
 	} else {
-		GHBranch *branch = [self branchForSection:section];
-		if (row == 0) {
-			GHTree *tree = [GHTree treeWithRepo:repository andSha:branch.name];
-			viewController = [TreeController controllerWithTree:tree];
-		} else {
-			GHFeed *recentCommits = [branch recentCommits];
-			viewController = [FeedController controllerWithFeed:recentCommits andTitle:branch.name];
-		}
+		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
+		GHTree *tree = [GHTree treeWithRepo:repository andSha:branch.name];
+		viewController = [TreeController controllerWithTree:tree];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

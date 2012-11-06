@@ -13,7 +13,7 @@
 #import "GravatarLoader.h"
 #import "iOctocat.h"
 #import "UsersController.h"
-#import "FeedController.h"
+#import "EventsController.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "AccountController.h"
@@ -250,7 +250,8 @@
 		[self presentModalViewController:mailComposer animated:YES];
 		[mailComposer release];
 	} else if (section == 1 && row == 0) {
-        viewController = [[FeedController alloc] initWithFeed:user.recentActivity andTitle:@"Recent Activity"];     
+        viewController = [EventsController controllerWithEvents:user.events];
+		viewController.title = @"Recent Activity";
 	} else if (section == 1 && row == 3) {
         viewController = [[GistsController alloc] initWithGists:user.gists];
 		viewController.title = @"Gists";

@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GHIssues, GHForks, GHBranches, GHUser, GHReadme;
+@class GHIssues, GHForks, GHBranches, GHUser, GHReadme, GHEvents;
 
 @interface GHRepository : GHResource {
 	NSString *name;
@@ -18,6 +18,7 @@
     GHForks *forks;
     GHBranches *branches;
     GHReadme *readme;
+	GHEvents *events;
 	BOOL isPrivate;
 	BOOL isFork;
 	BOOL hasIssues;
@@ -36,6 +37,7 @@
 @property(nonatomic,retain)GHForks *forks;
 @property(nonatomic,retain)GHBranches *branches;
 @property(nonatomic,retain)GHReadme *readme;
+@property(nonatomic,retain)GHEvents *events;
 @property(nonatomic,readonly)GHUser *user;
 @property(nonatomic,readwrite)NSInteger forkCount;
 @property(nonatomic,readwrite)NSInteger watcherCount;

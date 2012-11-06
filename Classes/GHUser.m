@@ -1,7 +1,7 @@
 #import "GHUser.h"
 #import "GHUsers.h"
 #import "GHOrganizations.h"
-#import "GHFeed.h"
+#import "GHEvents.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "GHGist.h"
@@ -37,7 +37,7 @@
 @synthesize starredRepositories;
 @synthesize watchedRepositories;
 @synthesize isAuthenticated;
-@synthesize recentActivity;
+@synthesize events;
 @synthesize publicGistCount;
 @synthesize privateGistCount;
 @synthesize publicRepoCount;
@@ -76,7 +76,7 @@
 	[organizations release], organizations = nil;
 	[repositories release], repositories = nil;
 	[watchedRepositories release], watchedRepositories = nil;
-	[recentActivity release], recentActivity = nil;
+	[events release], events = nil;
     [following release], following = nil;
     [followers release], followers = nil;
     [super dealloc];
@@ -106,7 +106,7 @@
 	NSString *starredReposPath  = [NSString stringWithFormat:kUserStarredReposFormat, login];
     NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
     NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
-	NSString *activityFeedPath  = [NSString stringWithFormat:kUserFeedFormat, login];
+	NSString *eventsPath        = [NSString stringWithFormat:kUserEventsFormat, login];
 	NSString *gistsPath         = [NSString stringWithFormat:kUserGistsFormat, login];
 	NSString *starredGistsPath  = [NSString stringWithFormat:kStarredGistsFormat];
 
@@ -119,7 +119,7 @@
     self.followers = [GHUsers usersWithPath:followersPath];
     self.gists = [GHGists gistsWithPath:gistsPath];
     self.starredGists = [GHGists gistsWithPath:starredGistsPath];
-	self.recentActivity = [GHFeed resourceWithPath:activityFeedPath];
+	self.events = [GHEvents resourceWithPath:eventsPath];
 }
 
 #pragma mark Loading

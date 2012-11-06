@@ -1,7 +1,6 @@
 #import "OrganizationsController.h"
 #import "OrganizationController.h"
 #import "OrganizationCell.h"
-#import "FeedController.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
 #import "GHUser.h"

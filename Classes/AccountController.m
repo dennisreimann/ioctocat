@@ -1,5 +1,5 @@
 #import "AccountController.h"
-#import "MyFeedsController.h"
+#import "MyEventsController.h"
 #import "RepositoriesController.h"
 #import "UserController.h"
 #import "IssuesController.h"
@@ -30,7 +30,7 @@
 	[self initWithNibName:@"Account" bundle:nil];
 	self.account = theAccount;
 	
-	MyFeedsController *feedsController      = [MyFeedsController controllerWithUser:account.user];
+	MyEventsController *feedsController      = [MyEventsController controllerWithUser:account.user];
 	RepositoriesController *reposController = [RepositoriesController controllerWithUser:account.user];
 	UserController *userController          = [UserController controllerWithUser:account.user];
 	IssuesController *issuesController      = [IssuesController controllerWithUser:account.user];

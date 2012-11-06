@@ -1,6 +1,6 @@
 #import "GHOrganization.h"
 #import "GHAccount.h"
-#import "GHFeed.h"
+#import "GHEvents.h"
 #import "GHUser.h"
 #import "GHUsers.h"
 #import "GHRepository.h"
@@ -24,7 +24,7 @@
 @synthesize gravatar;
 @synthesize publicMembers;
 @synthesize repositories;
-@synthesize recentActivity;
+@synthesize events;
 @synthesize followersCount;
 @synthesize followingCount;
 @synthesize publicGistCount;
@@ -57,7 +57,7 @@
 	[gravatar release], gravatar = nil;
 	[publicMembers release], publicMembers = nil;
 	[repositories release], repositories = nil;
-	[recentActivity release], recentActivity = nil;
+	[events release], events = nil;
     [super dealloc];
 }
 
@@ -80,14 +80,14 @@
 	login = theLogin;
 
     GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-    NSString *activityFeedPath = [NSString stringWithFormat:kOrganizationFeedFormat, login, account.login];
+    NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, account.login, login];
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, login];
 	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, login];
 
     self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, login];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
 	self.publicMembers = [GHUsers usersWithPath:membersPath];
-    self.recentActivity = [GHFeed resourceWithPath:activityFeedPath];
+    self.events = [GHEvents resourceWithPath:eventsPath];
 }
 
 - (void)setValuesFromDict:(NSDictionary *)theDict {

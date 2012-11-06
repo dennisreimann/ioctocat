@@ -1,7 +1,7 @@
 #import "OrganizationFeedsController.h"
 #import "OrganizationController.h"
 #import "OrganizationCell.h"
-#import "FeedController.h"
+#import "EventsController.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
 
@@ -72,9 +72,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!organizations.isLoaded || organizations.organizations.count == 0) return;
     GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
-    FeedController *viewController = [[FeedController alloc] initWithFeed:org.recentActivity andTitle:org.login];
+    EventsController *viewController = [EventsController controllerWithEvents:org.events];
+	viewController.title = org.login;
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 #pragma mark Autorotation

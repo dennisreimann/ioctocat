@@ -14,9 +14,9 @@
     IBOutlet UILabel *forkLabel;
 	IBOutlet UITableViewCell *loadingCell;
     IBOutlet UITableViewCell *readmeCell;
-    IBOutlet UITableViewCell *codeCell;
     IBOutlet UITableViewCell *issuesCell;
     IBOutlet UITableViewCell *forkCell;
+    IBOutlet UITableViewCell *eventsCell;
     IBOutlet UIImageView *iconView;
 	IBOutlet LabeledCell *ownerCell;
 	IBOutlet LabeledCell *websiteCell;

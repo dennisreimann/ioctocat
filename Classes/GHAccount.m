@@ -1,6 +1,5 @@
 #import "GHAccount.h"
 #import "GHApiClient.h"
-#import "GHFeedClient.h"
 #import "GHUser.h"
 #import "GHGists.h"
 #import "GHRepositories.h"
@@ -13,7 +12,6 @@
 @implementation GHAccount
 
 @synthesize apiClient;
-@synthesize feedClient;
 @synthesize user;
 @synthesize login;
 @synthesize password;
@@ -42,8 +40,6 @@
 	}
 	self.apiClient = [GHApiClient clientWithBaseURL:apiURL];
 	[self.apiClient setAuthorizationHeaderWithUsername:login password:password];
-	self.feedClient = [GHFeedClient clientWithBaseURL:endpointURL];
-	[self.feedClient setAuthorizationHeaderWithUsername:login password:password];
 	
 	// user with authenticated URLs
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];

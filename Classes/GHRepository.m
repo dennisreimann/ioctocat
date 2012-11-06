@@ -3,6 +3,7 @@
 #import "iOctocat.h"
 #import "GHIssues.h"
 #import "GHForks.h"
+#import "GHEvents.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
 #import "NSURL+Extensions.h"
@@ -24,6 +25,7 @@
 @synthesize hasWiki;
 @synthesize hasDownloads;
 @synthesize forks;
+@synthesize events;
 @synthesize watcherCount;
 @synthesize forkCount;
 @synthesize openIssues;
@@ -51,6 +53,7 @@
     [openIssues release], openIssues = nil;
     [closedIssues release], closedIssues = nil;
     [forks release], forks = nil;
+    [events release], events = nil;
 	[branches release], branches = nil;
     [super dealloc];
 }
@@ -87,6 +90,7 @@
     self.forks = [GHForks forksWithRepository:self];
     self.readme = [GHReadme readmeWithRepository:self];
     self.branches = [GHBranches branchesWithRepository:self];
+    self.events = [GHEvents eventsWithRepository:self];
 	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
 	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];
 }

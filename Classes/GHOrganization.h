@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GravatarLoader, GHUsers, GHRepositories, GHRepository, GHFeed;
+@class GravatarLoader, GHUsers, GHRepositories, GHRepository, GHEvents;
 
 @interface GHOrganization : GHResource {
 	NSString *name;
@@ -21,8 +21,8 @@
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
     GHUsers *publicMembers;
+	GHEvents *events;
 	GHRepositories *repositories;
-	GHFeed *recentActivity;
   @private
 	GravatarLoader *gravatarLoader;
 }
@@ -37,8 +37,8 @@
 @property(nonatomic,retain)NSURL *htmlURL;
 @property(nonatomic,retain)UIImage *gravatar;
 @property(nonatomic,retain)GHUsers *publicMembers;
+@property(nonatomic,retain)GHEvents *events;
 @property(nonatomic,retain)GHRepositories *repositories;
-@property(nonatomic,retain)GHFeed *recentActivity;
 @property(nonatomic)NSUInteger followersCount;
 @property(nonatomic)NSUInteger followingCount;
 @property(nonatomic)NSUInteger publicGistCount;

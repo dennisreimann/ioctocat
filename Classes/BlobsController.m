@@ -48,6 +48,7 @@
 	self.blob = [blobs objectAtIndex:index];
 	activityView.layer.cornerRadius = 10;
 	activityView.layer.masksToBounds = YES;
+	contentView.scrollView.bounces = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

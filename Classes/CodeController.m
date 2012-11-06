@@ -33,6 +33,7 @@
 	self.file = [files objectAtIndex:index];
 	activityView.layer.cornerRadius = 10;
 	activityView.layer.masksToBounds = YES;
+	contentView.scrollView.bounces = NO;
 }
 
 - (void)dealloc {

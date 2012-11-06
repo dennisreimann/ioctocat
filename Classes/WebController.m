@@ -35,6 +35,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
+	
+	webView.scrollView.bounces = NO;
 	if (url) {
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
 		[webView loadRequest:request];

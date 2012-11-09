@@ -34,7 +34,6 @@ typedef enum {
 - (void)loadData;
 - (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod useResult:(void (^)(id theResponse))useResult;
 - (void)setValues:(id)theResponse;
-- (void)setValuesFromDict:(NSDictionary *)theDict;
 - (NSString *)resourceContentType;
 
 @end

@@ -67,7 +67,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
 	NSString *login = [theDict valueForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
 	self.created = [iOctocat parseDate:[theDict objectForKey:@"created_at"]];
@@ -115,7 +115,7 @@
 	}
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", body, @"body", state, @"state", nil];
 	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
-		[self setValuesFromDict:theResponse];
+		[self setValues:theResponse];
 	}];
 }
 

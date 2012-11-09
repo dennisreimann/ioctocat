@@ -37,9 +37,9 @@
     return [NSString stringWithFormat:@"<GHIssueComments issue:'%@'>", issue];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theDict) {
+	for (NSDictionary *dict in theResponse) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];

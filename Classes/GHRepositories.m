@@ -28,14 +28,13 @@
     return [NSString stringWithFormat:@"<GHRepositories resourcePath:'%@'>", resourcePath];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-	NSArray *reposArray = [theDict isKindOfClass:[NSArray class]] ? theDict : [theDict objectForKey:@"repositories"];
-	for (NSDictionary *dict in reposArray) {
+	for (NSDictionary *dict in theResponse) {
         id own = [dict objectForKey:@"owner"];
         NSString *owner = [own isKindOfClass:[NSDictionary class]] ? [own objectForKey:@"login"] : own;
 		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:[dict objectForKey:@"name"]];
-        [resource setValuesFromDict:dict];
+        [resource setValues:dict];
         [resources addObject:resource];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

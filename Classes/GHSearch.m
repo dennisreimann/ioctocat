@@ -38,17 +38,17 @@
 	return path;
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(NSDictionary *)theDict {
     BOOL usersSearch = [theDict objectForKey:@"users"] ? YES : NO;
     NSMutableArray *resources = [NSMutableArray array];
     for (NSDictionary *dict in (usersSearch ? [theDict objectForKey:@"users"] : [theDict objectForKey:@"repositories"])) {
         GHResource *resource = nil;
         if (usersSearch) {
             resource = [GHUser userWithLogin:[dict objectForKey:@"login"]];
-            [resource setValuesFromDict:dict];
+            [resource setValues:dict];
         } else {
             resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
-            [resource setValuesFromDict:dict];
+            [resource setValues:dict];
         }
         [resources addObject:resource];
     }

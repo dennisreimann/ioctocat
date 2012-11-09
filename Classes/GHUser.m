@@ -124,7 +124,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
     if (![login isEqualToString:[theDict objectForKey:@"login"]]) self.login = [theDict objectForKey:@"login"];
     self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
     NSString *mail = [theDict objectForKey:@"email"];

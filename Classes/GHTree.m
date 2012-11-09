@@ -42,7 +42,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
 	self.trees = [NSMutableArray array];
 	self.blobs = [NSMutableArray array];
 	for (NSDictionary *item in [theDict valueForKey:@"tree"]) {

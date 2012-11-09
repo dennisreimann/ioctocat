@@ -30,11 +30,11 @@
     return [NSString stringWithFormat:@"<GHOrganizations user:'%@' resourcePath:'%@'>", user, self.resourcePath];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *dict in theDict) {
+    for (NSDictionary *dict in theResponse) {
 		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:[dict objectForKey:@"login"]];
-        [theOrg setValuesFromDict:dict];
+        [theOrg setValues:dict];
         [resources addObject:theOrg];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

@@ -79,7 +79,7 @@
 	repository.isLoaded ? [super loadData] : [repository loadData];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
     NSString *authorLogin = [theDict valueForKeyPath:@"author.login" defaultsTo:nil];
     NSString *committerLogin = [theDict valueForKeyPath:@"committer.login" defaultsTo:nil];
     NSString *authorDateString = [theDict valueForKeyPath:@"commit.author.date" defaultsTo:nil];

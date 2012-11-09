@@ -54,7 +54,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
 	NSString *login = [theDict valueForKeyPath:@"user.login"];
 	self.gistId = [theDict valueForKey:@"id"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];

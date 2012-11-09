@@ -30,13 +30,13 @@
     return [NSString stringWithFormat:@"<GHForks repository:'%@'>", repository];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *repoDict in theDict) {
+    for (NSDictionary *repoDict in theResponse) {
         NSString *owner = [repoDict valueForKeyPath:@"owner.login"];
         NSString *name = [repoDict valueForKey:@"name"];
 		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:name];
-        [resource setValuesFromDict:repoDict];
+        [resource setValues:repoDict];
         [resources addObject:resource];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

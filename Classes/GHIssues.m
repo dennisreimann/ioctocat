@@ -50,11 +50,11 @@
     return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theDict) {
+	for (NSDictionary *dict in theResponse) {
 		GHIssue *theIssue = [GHIssue issueWithRepository:repository];
-    	[theIssue setValuesFromDict:dict];
+    	[theIssue setValues:dict];
     	[resources addObject:theIssue];
 	}
 	self.entries = resources;

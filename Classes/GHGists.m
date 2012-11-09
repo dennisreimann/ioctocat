@@ -28,11 +28,11 @@
     return [NSString stringWithFormat:@"<Gists resourcePath:'%@'>", resourcePath];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theDict) {
+	for (NSDictionary *dict in theResponse) {
 		GHGist *resource = [GHGist gistWithId:[dict valueForKey:@"id"]];
-		[resource setValuesFromDict:dict];
+		[resource setValues:dict];
 		[resources addObject:resource];
 	}
 	self.gists = resources;

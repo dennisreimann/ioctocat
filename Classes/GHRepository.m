@@ -113,7 +113,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
     NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
     
     self.htmlURL = [NSURL URLWithString:[resource objectForKey:@"html_url"]];

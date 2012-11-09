@@ -27,12 +27,12 @@
     return [NSString stringWithFormat:@"<GHUsers resourcePath:'%@'>", resourcePath];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *userDict in theDict) {
+    for (NSDictionary *userDict in theResponse) {
         NSString *login = [userDict objectForKey:@"login"];
         GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
-        [theUser setValuesFromDict:userDict];
+        [theUser setValues:userDict];
         [resources addObject:theUser];
     }
     [resources sortUsingSelector:@selector(compareByName:)];

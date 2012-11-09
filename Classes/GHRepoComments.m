@@ -41,9 +41,9 @@
     return [NSString stringWithFormat:@"<GHRepoComments owner:'%@' name:'%@' commitID:'%@'>", repository.owner, repository.name, commitID];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theDict) {
+	for (NSDictionary *dict in theResponse) {
 		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:repository andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];

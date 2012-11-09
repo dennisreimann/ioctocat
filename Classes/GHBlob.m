@@ -46,7 +46,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
 	self.size = [[theDict valueForKey:@"size"] integerValue];
 	self.encoding = [theDict valueForKey:@"encoding"];
 	if ([encoding isEqualToString:@"utf-8"]) {

@@ -45,7 +45,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
 	self.tag = [theDict valueForKey:@"tag"];
 	self.message = [theDict valueForKey:@"message"];
 	self.taggerName = [theDict valueForKeyPath:@"tagger.name"];

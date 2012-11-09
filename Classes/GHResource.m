@@ -34,13 +34,7 @@
 	[super dealloc];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
-}
-
-// TODO: Use this method instead of setValuesFromDict, clean up subclasses
-
 - (void)setValues:(id)theResponse {
-	[self setValuesFromDict:theResponse];
 }
 
 - (NSString *)resourceContentType {

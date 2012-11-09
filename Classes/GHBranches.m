@@ -31,9 +31,9 @@
     return [NSString stringWithFormat:@"<GHBranches repository:'%@'>", repository];
 }
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theResponse {
     NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *branchDict in theDict) {
+	for (NSDictionary *branchDict in theResponse) {
         NSString *name = [branchDict valueForKey:@"name"];
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:name];
 		branch.sha = [branchDict valueForKeyPath:@"commit.sha"];

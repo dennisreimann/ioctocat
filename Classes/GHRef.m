@@ -36,7 +36,7 @@
 
 #pragma mark Loading
 
-- (void)setValuesFromDict:(NSDictionary *)theDict {
+- (void)setValues:(id)theDict {
 	NSString *type = [theDict valueForKeyPath:@"object.type"];
 	NSString *sha = [theDict valueForKeyPath:@"sha"];
 	if ([type isEqualToString:@"commit"]) {

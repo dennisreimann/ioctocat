@@ -4,7 +4,7 @@
 
 @class GHIssueComments, GHRepository, GHUser;
 
-@interface GHIssue : GHResource <GHResourceDelegate> {
+@interface GHIssue : GHResource {
 	GHUser *user;
 	GHRepository *repository;
 	GHIssueComments *comments;

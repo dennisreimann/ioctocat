@@ -31,22 +31,10 @@ typedef enum {
 + (id)resourceWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;
 - (GHAccount *)currentAccount;
-- (void)addDelegate:(id)delegate;
-- (void)removeDelegate:(id)delegate;
 - (void)loadData;
 - (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod useResult:(void (^)(id theResponse))useResult;
 - (void)setValues:(id)theResponse;
 - (void)setValuesFromDict:(NSDictionary *)theDict;
-- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject;
 - (NSString *)resourceContentType;
 
-@end
-
-
-@protocol GHResourceDelegate;
-
-@protocol GHResourceDelegate <NSObject>
-@optional
-- (void)resource:(GHResource *)theResource finished:(NSDictionary *)resultDict;
-- (void)resource:(GHResource *)theResource failed:(NSError *)theError;
 @end

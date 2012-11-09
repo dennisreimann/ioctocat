@@ -51,26 +51,6 @@
 	return [iOctocat sharedInstance].currentAccount;
 }
 
-#pragma mark Delegation
-
-// TODO: Use or remove delegation.
-
-- (void)addDelegate:(id)delegate {
-	[delegates addObject:delegate];
-}
-
-- (void)removeDelegate:(id)delegate {
-	[delegates removeObject:delegate];
-}
-
-- (void)notifyDelegates:(SEL)selector withObject:(id)firstObject withObject:(id)secondObject {
-    for (id delegate in delegates) {
-        if ([delegate respondsToSelector:selector]) {
-            [delegate performSelector:selector withObject:firstObject withObject:(id)secondObject];
-        }
-    }
-}
-
 #pragma mark Loading
 
 - (void)loadData {
@@ -85,13 +65,11 @@
 			DJLog(@"Loading %@ finished: %@\n\n====\n\n", self.resourcePath, theResponse);
 			[self setValues:theResponse];
 			self.loadingStatus = GHResourceStatusProcessed;
-			[self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
 		}
 		failure:^(AFHTTPRequestOperation *theOperation, NSError *theError) {
 			 DJLog(@"Loading %@ failed: %@", self.resourcePath, theError);
 			 self.error = theError;
 			 self.loadingStatus = GHResourceStatusNotProcessed;
-			 [self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
 		}
 	];
 }
@@ -114,19 +92,15 @@
 				useResult(theJSON);
 			}
 			self.savingStatus = GHResourceStatusProcessed;
-			[self notifyDelegates:@selector(resource:finished:) withObject:self withObject:data];
 		}
 		failure:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, NSError *theError, id theJSON) {
 			DJLog(@"Saving %@ failed: %@\n\n====\n\n", thePath, theError);
 			self.error = theError;
 			self.savingStatus = GHResourceStatusNotProcessed;
-			[self notifyDelegates:@selector(resource:failed:) withObject:self withObject:error];
 		}
 	];
 	[operation start];
 }
-
-
 
 #pragma mark Convenience Accessors
 

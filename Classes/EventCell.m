@@ -67,7 +67,7 @@
 	CGFloat m = 10.0;
 	CGFloat o = self.frame.size.width;
 	CGFloat x = o / 2 - (buttons.count * (w+m) / 2);
-	CGFloat y = 6.0;
+	CGFloat y = 7.0;
 	for (UIButton *btn in buttons) {
 		[actionsView addSubview:btn];
 		btn.frame = CGRectMake(x, y, w, h);
@@ -83,7 +83,7 @@
 }
 
 - (void)markAsNew {
-	UIColor *highlightColor = [UIColor colorWithHue:0.45 saturation:0.05 brightness:0.9 alpha:1.0];
+	UIColor *highlightColor = [UIColor colorWithHue:0.587 saturation:0.187 brightness:1.0 alpha:1.0];
 	[self setCustomBackgroundColor:highlightColor];
 }
 

@@ -125,7 +125,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return [indexPath isEqual:self.detailedIndexPath] ? 115.0 : 70.0;
+	return [indexPath isEqual:self.detailedIndexPath] ? 120.0 : 70.0;
 }
 
 #pragma mark Persistent State

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		01117CDC13E87CBF004F4E09 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01117CDB13E87CBF004F4E09 /* libz.dylib */; };
 		01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
-		01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3A14FBF07D00AE08EC /* Reachability.m */; };
 		1D3623260D0F684500981E51 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -361,8 +360,6 @@
 		01117CDB13E87CBF004F4E09 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		01554A3314FBF02E00AE08EC /* GradientButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradientButton.h; sourceTree = "<group>"; };
 		01554A3414FBF02E00AE08EC /* GradientButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradientButton.m; sourceTree = "<group>"; };
-		01554A3914FBF07D00AE08EC /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.h; sourceTree = SOURCE_ROOT; };
-		01554A3A14FBF07D00AE08EC /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Classes/External/ASIHttpRequest/External/Reachability/Reachability.m; sourceTree = SOURCE_ROOT; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* iOctocat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* iOctocat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iOctocat.m; sourceTree = "<group>"; };
@@ -1135,7 +1132,6 @@
 			children = (
 				6F6E4B041645D27100E03FD9 /* AFNetworking */,
 				6F380918162A1DAA001017E2 /* Base64 */,
-				6F6F175011E316B3008B319F /* Reachability */,
 				6F6E4AE01645C3E300E03FD9 /* WBNoticeView */,
 				01554A3314FBF02E00AE08EC /* GradientButton.h */,
 				01554A3414FBF02E00AE08EC /* GradientButton.m */,
@@ -1244,15 +1240,6 @@
 			);
 			name = AFNetworking;
 			path = AFNetworking/AFNetworking;
-			sourceTree = "<group>";
-		};
-		6F6F175011E316B3008B319F /* Reachability */ = {
-			isa = PBXGroup;
-			children = (
-				01554A3914FBF07D00AE08EC /* Reachability.h */,
-				01554A3A14FBF07D00AE08EC /* Reachability.m */,
-			);
-			path = Reachability;
 			sourceTree = "<group>";
 		};
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
@@ -1980,7 +1967,6 @@
 				6F9DD8981334E1BA00D1E35E /* OrganizationsController.m in Sources */,
 				6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */,
 				01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */,
-				01554A3B14FBF07D00AE08EC /* Reachability.m in Sources */,
 				6F2DEE26158F2B7B005C56E6 /* OrganizationFeedsController.m in Sources */,
 				6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */,
 				6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */,

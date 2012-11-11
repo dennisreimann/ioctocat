@@ -127,6 +127,8 @@
 		6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
 		6F5A41790F90C42800427ED7 /* Repository.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A41780F90C42800427ED7 /* Repository.xib */; };
 		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
+		6F5B58FD164FC252009ADE17 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B58FB164FC252009ADE17 /* CellBackground.png */; };
+		6F5B58FE164FC252009ADE17 /* CellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */; };
 		6F5E863B14F2A17200F340FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8711334AFE300D1E35E /* Icon.png */; };
 		6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8731334AFEF00D1E35E /* Icon@2x.png */; };
 		6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */; };
@@ -509,6 +511,8 @@
 		6F5A41780F90C42800427ED7 /* Repository.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repository.xib; path = IBFiles/Repository.xib; sourceTree = "<group>"; };
 		6F5A420C0F90CE0500427ED7 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
 		6F5A420D0F90CE0500427ED7 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
+		6F5B58FB164FC252009ADE17 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellBackground.png; path = Images/CellBackground.png; sourceTree = "<group>"; };
+		6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CellBackground@2x.png"; path = "Images/CellBackground@2x.png"; sourceTree = "<group>"; };
 		6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		6F5E9A9A1119A96000752560 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
 		6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCharacterSet_Extensions.m; sourceTree = "<group>"; };
@@ -1253,6 +1257,8 @@
 				6F61F53B139E43FC005DBE67 /* AvatarBackground50@2x.png */,
 				6F61F53C139E43FC005DBE67 /* HeadBackground80.png */,
 				6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */,
+				6F5B58FB164FC252009ADE17 /* CellBackground.png */,
+				6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";
@@ -1902,6 +1908,8 @@
 				6FB85B20164D9FE000F6C90E /* PullRequestOpenedEvent@2x.png in Resources */,
 				6FB85B23164DA10E00F6C90E /* PullRequestSynchronizeEvent.png in Resources */,
 				6FB85B24164DA10E00F6C90E /* PullRequestSynchronizeEvent@2x.png in Resources */,
+				6F5B58FD164FC252009ADE17 /* CellBackground.png in Resources */,
+				6F5B58FE164FC252009ADE17 /* CellBackground@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

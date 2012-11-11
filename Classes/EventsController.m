@@ -115,13 +115,26 @@
 	GHEvent *event = [self.events.events objectAtIndex:indexPath.row];
 	cell.event = event;
 	(event.read) ? [cell markAsRead] : [cell markAsNew];
+	([self.detailedIndexPath isEqual:indexPath]) ? [cell showDetails] : [cell hideDetails];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSMutableArray *indexPaths = [NSMutableArray array];
 	[self.tableView beginUpdates];
-	self.detailedIndexPath = [self.detailedIndexPath isEqual:indexPath] ? nil : indexPath;
+	if (self.detailedIndexPath && ![self.detailedIndexPath isEqual:indexPath]) {
+		[indexPaths addObject:self.detailedIndexPath];
+	}
+	// set and mark new cell
+	if (![self.detailedIndexPath isEqual:indexPath]) {
+		self.detailedIndexPath = indexPath;
+		[indexPaths addObject:self.detailedIndexPath];
+	} else {
+		self.detailedIndexPath = nil;
+	}
+	[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
 	[self.tableView endUpdates];
+	
 }
 
 - (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

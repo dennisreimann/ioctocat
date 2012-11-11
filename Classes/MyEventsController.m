@@ -122,6 +122,7 @@
 
 - (IBAction)switchChanged:(id)sender {
     refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
+    self.detailedIndexPath = nil;
     [self.tableView reloadData];
     if ([self refreshCurrentFeedIfRequired]) return;
     if (self.events.isLoaded) return;

@@ -23,6 +23,7 @@
 	[gravatarView release], gravatarView = nil;
 	[iconView release], iconView = nil;
 	[repositoryButton release], repositoryButton = nil;
+	[detailBackgroundView release], detailBackgroundView = nil;
 	[otherRepositoryButton release], otherRepositoryButton = nil;
 	[userButton release], userButton = nil;
 	[otherUserButton release], otherUserButton = nil;
@@ -38,12 +39,9 @@
 	[event release];
 	event = [theEvent retain];
 	titleLabel.text = event.title;
-	// Date
     dateLabel.text = [event.date prettyDate];
-	// Icon
 	NSString *icon = [NSString stringWithFormat:@"%@.png", event.extendedEventType];
 	iconView.image = [UIImage imageNamed:icon];
-	// Gravatar
 	[event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = event.user.gravatar;
 	if (!gravatarView.image && !event.user.isLoaded) [event.user loadData];
@@ -83,13 +81,24 @@
 }
 
 - (void)markAsNew {
-	UIColor *highlightColor = [UIColor colorWithHue:0.587 saturation:0.187 brightness:1.0 alpha:1.0];
+	UIColor *highlightColor = [UIColor colorWithHue:0.586 saturation:0.087 brightness:1.0 alpha:1.0];
 	[self setCustomBackgroundColor:highlightColor];
 }
 
 - (void)markAsRead {
 	UIColor *normalColor = [UIColor whiteColor];
 	[self setCustomBackgroundColor:normalColor];
+}
+
+- (void)showDetails {
+	detailBackgroundView.hidden = NO;
+	actionsView.hidden = NO;
+	[self markAsRead];
+}
+
+- (void)hideDetails {
+	detailBackgroundView.hidden = YES;
+	actionsView.hidden = YES;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

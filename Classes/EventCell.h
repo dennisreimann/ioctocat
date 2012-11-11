@@ -17,6 +17,7 @@
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UIImageView *iconView;
 	IBOutlet UIImageView *gravatarView;
+	IBOutlet UIImageView *detailBackgroundView;
 	IBOutlet UIButton *repositoryButton;
 	IBOutlet UIButton *otherRepositoryButton;
 	IBOutlet UIButton *userButton;
@@ -32,6 +33,8 @@
 
 - (void)markAsNew;
 - (void)markAsRead;
+- (void)showDetails;
+- (void)hideDetails;
 - (IBAction)showRepository:(id)sender;
 - (IBAction)showOtherRepository:(id)sender;
 - (IBAction)showUser:(id)sender;

@@ -289,6 +289,21 @@
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBUIImageView" id="662181455">
+								<reference key="NSNextResponder" ref="110279202"/>
+								<int key="NSvFlags">-2147483358</int>
+								<string key="NSFrameSize">{320, 10}</string>
+								<reference key="NSSuperview" ref="110279202"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView" ref="455427023"/>
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIUserInteractionEnabled">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">CellBackground.png</string>
+								</object>
+							</object>
 							<object class="IBUIImageView" id="879242024">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
@@ -413,7 +428,7 @@
 						<string key="NSFrameSize">{320, 69}</string>
 						<reference key="NSSuperview" ref="597012738"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="455427023"/>
+						<reference key="NSNextKeyView" ref="662181455"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MCAwAA</bytes>
@@ -447,7 +462,7 @@
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="597012738"/>
 					</object>
-					<int key="connectionID">55</int>
+					<int key="connectionID">70</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
@@ -552,6 +567,14 @@
 						<reference key="destination" ref="60642613"/>
 					</object>
 					<int key="connectionID">62</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">detailBackgroundView</string>
+						<reference key="source" ref="597012738"/>
+						<reference key="destination" ref="662181455"/>
+					</object>
+					<int key="connectionID">69</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
@@ -659,6 +682,7 @@
 							<reference ref="813831787"/>
 							<reference ref="879242024"/>
 							<reference ref="31224032"/>
+							<reference ref="662181455"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -732,6 +756,11 @@
 						<reference key="object" ref="31224032"/>
 						<reference key="parent" ref="597012738"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">66</int>
+						<reference key="object" ref="662181455"/>
+						<reference key="parent" ref="597012738"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -765,6 +794,7 @@
 					<string>56.IBPluginDependency</string>
 					<string>56.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 					<string>6.IBPluginDependency</string>
+					<string>66.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
 				</object>
 				<object class="NSArray" key="dict.values">
@@ -797,6 +827,7 @@
 					<real value="0.0"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -811,7 +842,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">65</int>
+			<int key="maxID">70</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -900,6 +931,7 @@
 							<string>actionsView</string>
 							<string>commitButton</string>
 							<string>dateLabel</string>
+							<string>detailBackgroundView</string>
 							<string>gistButton</string>
 							<string>gravatarView</string>
 							<string>iconView</string>
@@ -916,6 +948,7 @@
 							<string>UIView</string>
 							<string>UIButton</string>
 							<string>UILabel</string>
+							<string>UIImageView</string>
 							<string>UIButton</string>
 							<string>UIImageView</string>
 							<string>UIImageView</string>
@@ -935,6 +968,7 @@
 							<string>actionsView</string>
 							<string>commitButton</string>
 							<string>dateLabel</string>
+							<string>detailBackgroundView</string>
 							<string>gistButton</string>
 							<string>gravatarView</string>
 							<string>iconView</string>
@@ -959,6 +993,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">dateLabel</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">detailBackgroundView</string>
+								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">gistButton</string>
@@ -1150,6 +1188,7 @@
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>AvatarBackground32.png</string>
+				<string>CellBackground.png</string>
 				<string>FeedButton.png</string>
 				<string>ToolbarCommit.png</string>
 				<string>ToolbarGist.png</string>
@@ -1161,6 +1200,7 @@
 			<object class="NSArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{32, 32}</string>
+				<string>{1, 10}</string>
 				<string>{40, 32}</string>
 				<string>{22, 22}</string>
 				<string>{14, 18}</string>

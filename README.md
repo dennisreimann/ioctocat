@@ -26,6 +26,5 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
 ## Attribution
 
-  * ASIHTTPRequest by Ben Copsey - [ASIHTTPRequest](http://allseeing-i.com/ASIHTTPRequest/)
   * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)
   * highlight.js by Ivan Sagalaev - [highlight.js](http://highlightjs.org/)

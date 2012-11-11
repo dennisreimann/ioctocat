@@ -9,6 +9,14 @@
 
 @synthesize issue;
 
++ (id)commentWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
+	return [[[self.class alloc] initWithIssue:theIssue andDictionary:theDict] autorelease];
+}
+
++ (id)commentWithIssue:(GHIssue *)theIssue {
+	return [[[self.class alloc] initWithIssue:theIssue] autorelease];
+}
+
 - (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
 	[self initWithIssue:theIssue];	
 	

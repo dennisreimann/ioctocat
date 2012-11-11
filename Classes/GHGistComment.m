@@ -8,6 +8,14 @@
 
 @synthesize gist;
 
++ (id)commentWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
+	return [[[self.class alloc] initWithGist:theGist andDictionary:theDict] autorelease];
+}
+
++ (id)commentWithGist:(GHGist *)theGist {
+	return [[[self.class alloc] initWithGist:theGist] autorelease];
+}
+
 - (id)initWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
 	[self initWithGist:theGist];
 

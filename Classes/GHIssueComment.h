@@ -11,6 +11,8 @@
 
 @property(nonatomic,retain)GHIssue *issue;
 
++ (id)commentWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
++ (id)commentWithIssue:(GHIssue *)theIssue;
 - (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
 - (id)initWithIssue:(GHIssue *)theIssue;
 

@@ -5,6 +5,8 @@
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "GHUser.h"
+#import "GHRepoComment.h"
+#import "GHIssueComment.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
 
@@ -24,6 +26,7 @@
 @synthesize gist;
 @synthesize issue;
 @synthesize pages;
+@synthesize comment;
 @synthesize commits;
 @synthesize repository;
 @synthesize otherRepository;
@@ -59,6 +62,7 @@
 	[gist release], gist = nil;
 	[issue release], issue = nil;
 	[pages release], pages = nil;
+	[comment release], comment = nil;
 	[commits release], commits = nil;
 	[repository release], repository = nil;
 	[otherRepository release], otherRepository = nil;
@@ -136,6 +140,15 @@
 		self.issue.num = issueNumber;
 	}
 	
+	// Issue Comment
+	if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
+		self.comment = [GHIssueComment commentWithIssue:self.issue andDictionary:[payload valueForKey:@"comment"]];
+		if (!self.commits) {
+			GHCommit *commit = [GHCommit commitWithRepo:self.repository andSha:[payload valueForKeyPath:@"comment.commit_id"]];
+			self.commits = [NSArray arrayWithObject:commit];
+		}
+	}
+	
 	// Gist
 	NSString *gistId = [payload valueForKeyPath:@"gist.id"];
 	if (gistId) {
@@ -154,6 +167,15 @@
 		}
 	}
 	
+	// Commit Comment
+	if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
+		self.comment = [GHRepoComment commentWithRepo:self.repository andDictionary:[payload valueForKey:@"comment"]];
+		if (!self.commits) {
+			GHCommit *commit = [GHCommit commitWithRepo:self.repository andSha:[payload valueForKeyPath:@"comment.commit_id"]];
+			self.commits = [NSArray arrayWithObject:commit];
+		}
+	}
+	
 	// Wiki
 	NSArray *_pages = [payload valueForKey:@"pages"];
 	if (_pages) {
@@ -163,10 +185,14 @@
 		}
 	}
 	
-	// User
+	// Other user
 	self.otherUserLogin = [payload valueForKeyPath:@"target.login"];
 	if (!self.otherUserLogin) self.otherUserLogin = [payload valueForKeyPath:@"member.login"];
 	if (!self.otherUserLogin) self.otherUserLogin = [payload valueForKeyPath:@"user.login"];
+	if (!self.otherUserLogin && !self.organization && [eventType isEqualToString:@"WatchEvent"]) {
+		// use repo owner as fallback
+		self.otherUserLogin = [[[theDict valueForKeyPath:@"repo.name"]  componentsSeparatedByString:@"/"] objectAtIndex:0];
+	}
 }
 
 - (NSString *)title {
@@ -282,16 +308,12 @@
 		self._content = [payload valueForKey:@"description"];
 	}
 	
-	else if ([eventType isEqualToString:@"DeleteEvent"]) {
-		self._content = @"";
-	}
-	
 	else if ([eventType isEqualToString:@"ForkEvent"]) {
-		self._content = @"";
+		self._content = otherRepository.descriptionText;
 	}
 	
 	else if ([eventType isEqualToString:@"GistEvent"]) {
-		self._content = @"";
+		self._content = gist.description;
 	}
 	
 	else if ([eventType isEqualToString:@"GollumEvent"]) {
@@ -306,10 +328,6 @@
 		self._content = @"";
 	}
 	
-	else if ([eventType isEqualToString:@"PublicEvent"]) {
-		self._content = @"";
-	}
-	
 	else if ([eventType isEqualToString:@"PullRequestEvent"]) {
 		self._content = @"";
 	}
@@ -319,14 +337,6 @@
 	}
 	
 	else if ([eventType isEqualToString:@"PushEvent"]) {
-		self._content = @"";
-	}
-	
-	else if ([eventType isEqualToString:@"TeamAddEvent"]) {
-		self._content = @"";
-	}
-	
-	else if ([eventType isEqualToString:@"WatchEvent"]) {
 		self._content = @"";
 	}
 	

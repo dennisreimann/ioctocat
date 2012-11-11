@@ -12,6 +12,14 @@
 @synthesize position;
 @synthesize line;
 
++ (id)commentWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
+	return [[[self.class alloc] initWithRepo:theRepo andDictionary:theDict] autorelease];
+}
+
++ (id)commentWithRepo:(GHRepository *)theRepo {
+	return [[[self.class alloc] initWithRepo:theRepo] autorelease];
+}
+
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
 	[self initWithRepo:theRepo];	
 	

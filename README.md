@@ -28,7 +28,7 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
 iOctocat uses some thrid party components and libraries:
 
-  * AFNetworking by Gowalla - [ASIHTTPRequest](http://allseeing-i.com/ASIHTTPRequest/)
+  * AFNetworking by Gowalla - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
   * Base64 by Nick Lockwood - [Base64](https://github.com/nicklockwood/Base64)
   * NoticeView by Tito Ciuro - [NoticeView](https://github.com/tciuro/NoticeView)
   * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)

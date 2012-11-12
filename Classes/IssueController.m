@@ -109,12 +109,14 @@
 				[self displayIssue];
 			} else if (issue.error) {
 				[iOctocat reportLoadingError:@"Could not load the issue"];
+				[self.tableView reloadData];
 			}
 		} else if (object == issue.comments) {
 			if (issue.comments.isLoaded) {
 				[self displayComments];
-			} else if (issue.comments.error) {
+			} else if (issue.comments.error && !issue.error) {
 				[iOctocat reportLoadingError:@"Could not load the issue comments"];
+				[self.tableView reloadData];
 			}
 		}
 	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
@@ -169,11 +171,9 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	GHIssueComment *comment = [[GHIssueComment alloc] initWithIssue:issue];
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:issue.comments];
+	GHIssueComment *comment = [GHIssueComment commentWithParent:issue];
+	CommentController *viewController = [CommentController controllerWithComment:comment andComments:issue.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
-	[comment release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -195,10 +195,11 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
-	return 2;
+	return (issue.isLoaded) ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
+	if (issue.error) return 0;
 	if (!issue.isLoaded) return 1;
 	if (section == 0) {
 		return [issue.body isEmpty] ? 2 : 3;

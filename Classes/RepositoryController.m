@@ -54,7 +54,8 @@
 	
 	self.title = repository.name;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	(repository.isLoaded) ? [self displayRepository] : [repository loadData];
+	[self displayRepository];
+	if (!repository.isLoaded) [repository loadData];
 	if (!repository.readme.isLoaded) [repository.readme loadData];
 	if (!repository.branches.isLoaded) [repository.branches loadData];
     if (!self.currentUser.starredRepositories.isLoaded) [self.currentUser.starredRepositories loadData];
@@ -122,7 +123,7 @@
 #pragma mark Actions
 
 - (void)displayRepository {
-    iconView.image = [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")];
+    iconView.image = repository.isLoaded ? [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")] : nil;
 	nameLabel.text = repository.name;
 	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"star" : @"stars", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
     if (repository.isFork) forkLabel.text = @"forked";
@@ -138,11 +139,12 @@
 			[self.tableView reloadData];
 		} else if (repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
+			[self.tableView reloadData];
 		}
 	} else if (object == repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.branches.isLoaded) {
 			[self.tableView reloadData];
-		} else if (repository.branches.error) {
+		} else if (repository.branches.error && !repository.isLoading && !repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the branches"];
 		}
 	} else if (object == repository.readme && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
@@ -155,7 +157,13 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (repository.isLoaded) ? 3 : 1;
+	if (repository.isLoaded) {
+		return 3;
+	} else if (repository.isLoading) {
+		return 1;
+	} else {
+		return 0;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

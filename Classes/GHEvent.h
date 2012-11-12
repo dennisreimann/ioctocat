@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 
-@class GHUser, GHOrganization, GHRepository, GHGist, GHIssue, GHComment;
+@class GHUser, GHOrganization, GHRepository, GHGist, GHIssue, GHPullRequest, GHComment;
 
 @interface GHEvent : NSObject
 
@@ -19,6 +19,7 @@
 @property(nonatomic,retain)GHComment *comment;
 @property(nonatomic,retain)GHRepository *repository;
 @property(nonatomic,retain)GHRepository *otherRepository;
+@property(nonatomic,retain)GHPullRequest *pullRequest;
 @property(nonatomic,retain)NSMutableArray *pages;
 @property(nonatomic,retain)NSMutableArray *commits;
 @property(nonatomic,readonly)GHUser *user;

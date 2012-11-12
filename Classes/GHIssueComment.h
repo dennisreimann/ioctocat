@@ -3,17 +3,17 @@
 #import "GHComment.h"
 
 
-@class GHIssue, GHUser;
+@class GHUser;
 
 @interface GHIssueComment : GHComment {
-	GHIssue *issue;
+	id parent; // a GHIssue or GHPullRequest instance
 }
 
-@property(nonatomic,retain)GHIssue *issue;
+@property(nonatomic,retain)id parent;
 
-+ (id)commentWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
-+ (id)commentWithIssue:(GHIssue *)theIssue;
-- (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict;
-- (id)initWithIssue:(GHIssue *)theIssue;
++ (id)commentWithParent:(id)theParent andDictionary:(NSDictionary *)theDict;
++ (id)commentWithParent:(id)theParent;
+- (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict;
+- (id)initWithParent:(id)theParent;
 
 @end

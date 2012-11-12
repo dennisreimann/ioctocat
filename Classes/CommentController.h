@@ -11,6 +11,7 @@
 	id comments;
 }
 
++ (id)controllerWithComment:(GHComment *)theComment andComments:(id)theComments;
 - (id)initWithComment:(GHComment *)theComment andComments:(id)theComments;
 - (IBAction)postComment:(id)sender;
 

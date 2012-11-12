@@ -1,4 +1,4 @@
-#import "GHIssue.h"
+#import "GHPullRequest.h"
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
 #import "GHRepository.h"
@@ -7,7 +7,7 @@
 #import "NSDictionary+Extensions.h"
 
 
-@implementation GHIssue
+@implementation GHPullRequest
 
 @synthesize user;
 @synthesize comments;
@@ -23,8 +23,8 @@
 @synthesize repository;
 @synthesize htmlURL;
 
-+ (id)issueWithRepository:(GHRepository *)theRepository {
-    return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
++ (id)pullRequestWithRepository:(GHRepository *)theRepository {
+    return [[[self.class alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -62,7 +62,7 @@
 - (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
-    return [NSString stringWithFormat:kIssueFormat, repository.owner, repository.name, num];
+    return [NSString stringWithFormat:kPullRequestFormat, repository.owner, repository.name, num];
 }
 
 #pragma mark Loading
@@ -91,14 +91,8 @@
 
 #pragma mark State toggling
 
-- (void)closeIssue {
-	self.state = kIssueStateClosed;
-	[self saveData];
-}
-
-- (void)reopenIssue {
-	self.state = kIssueStateOpen;
-	[self saveData];
+- (void)mergePullRequest {
+	// TODO: Implement
 }
 
 #pragma mark Saving

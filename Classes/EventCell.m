@@ -7,6 +7,7 @@
 #import "GHCommit.h"
 #import "GHGist.h"
 #import "GHIssue.h"
+#import "GHPullRequest.h"
 
 
 @implementation EventCell
@@ -52,7 +53,7 @@
 	if (event.otherUser) [buttons addObject:otherUserButton];
 	if (event.repository) [buttons addObject:repositoryButton];
 	if (event.otherRepository) [buttons addObject:otherRepositoryButton];
-	if (event.issue) [buttons addObject:issueButton];
+	if (event.issue && !event.pullRequest) [buttons addObject:issueButton];
 	if (event.commits) [buttons addObject:commitButton];
 	if (event.gist) [buttons addObject:gistButton];
 	// remove old action buttons

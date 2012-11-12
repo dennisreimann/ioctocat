@@ -13,6 +13,10 @@
 @synthesize comment;
 @synthesize comments;
 
++ (id)controllerWithComment:(GHComment *)theComment andComments:(id)theComments {
+    return [[[self.class alloc] initWithComment:theComment andComments:theComments] autorelease];
+}
+
 - (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {    
     [super initWithNibName:@"Comment" bundle:nil];
 	

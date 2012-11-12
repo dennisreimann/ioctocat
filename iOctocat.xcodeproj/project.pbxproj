@@ -325,6 +325,7 @@
 		6FDB4E361621ABAF00AB11C3 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE61621ABAF00AB11C3 /* format.html */; };
 		6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
+		6FDD2150165194FF0017E8BA /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD214F165194FF0017E8BA /* GHPullRequest.m */; };
 		6FE1B6CD139FA63E0003A0D1 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */; };
 		6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
@@ -771,6 +772,8 @@
 		6FDB4E86162221DF00AB11C3 /* CodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeController.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepositories.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6FDD214E165194FF0017E8BA /* GHPullRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHPullRequest.h; sourceTree = "<group>"; };
+		6FDD214F165194FF0017E8BA /* GHPullRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequest.m; sourceTree = "<group>"; };
 		6FE1B6CC139FA63D0003A0D1 /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		6FE7D14411557E8C004B4D68 /* GHIssueComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComment.h; sourceTree = "<group>"; };
 		6FE7D14511557E8C004B4D68 /* GHIssueComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComment.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1514,6 +1517,8 @@
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+				6FDD214E165194FF0017E8BA /* GHPullRequest.h */,
+				6FDD214F165194FF0017E8BA /* GHPullRequest.m */,
 				6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */,
 				6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */,
 			);
@@ -2024,6 +2029,7 @@
 				6FB1CF881649A6B100337EBE /* GHEvents.m in Sources */,
 				6FB1CF8A1649AE2500337EBE /* GHEvent.m in Sources */,
 				6FB1CF8E1649AEB200337EBE /* EventsController.m in Sources */,
+				6FDD2150165194FF0017E8BA /* GHPullRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

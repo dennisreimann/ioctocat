@@ -5,6 +5,7 @@
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "GHUser.h"
+#import "GHPullRequest.h"
 #import "GHRepoComment.h"
 #import "GHIssueComment.h"
 #import "iOctocat.h"
@@ -30,6 +31,7 @@
 @synthesize commits;
 @synthesize repository;
 @synthesize otherRepository;
+@synthesize pullRequest;
 @synthesize payload;
 @synthesize actorLogin;
 @synthesize otherUserLogin;
@@ -66,6 +68,7 @@
 	[commits release], commits = nil;
 	[repository release], repository = nil;
 	[otherRepository release], otherRepository = nil;
+	[pullRequest release], pullRequest = nil;
 	[payload release], payload = nil;
 	[actorLogin release], actorLogin = nil;
 	[otherUserLogin release], otherUserLogin = nil;
@@ -132,21 +135,27 @@
 	}
 	
 	// Issue
-	// TODO: Handle Pull Requests differently
 	NSInteger issueNumber = [[payload valueForKeyPath:@"issue.number"] integerValue];
-	if (!issueNumber || issueNumber < 0) issueNumber = [[payload valueForKeyPath:@"pull_request.number"] integerValue];
 	if (issueNumber > 0) {
 		self.issue = [GHIssue issueWithRepository:self.repository];
 		self.issue.num = issueNumber;
+		[self.issue setValues:[payload valueForKey:@"issue"]];
 	}
 	
-	// Issue Comment
+	// Pull Request
+	NSDictionary *pullPayload = [payload valueForKey:@"pull_request"];
+	if (!pullPayload) pullPayload = [payload valueForKeyPath:@"issue.pull_request"];
+	if (pullPayload) {
+		NSInteger pullNumber = [[pullPayload valueForKey:@"number"] integerValue];
+		if (!pullNumber) pullNumber = issue.num;
+		self.pullRequest = [GHPullRequest pullRequestWithRepository:self.repository];
+		self.pullRequest.num = pullNumber;
+	}
+	
+	// Issue Comment (which might also be a pull request comment)
 	if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
-		self.comment = [GHIssueComment commentWithIssue:self.issue andDictionary:[payload valueForKey:@"comment"]];
-		if (!self.commits) {
-			GHCommit *commit = [GHCommit commitWithRepo:self.repository andSha:[payload valueForKeyPath:@"comment.commit_id"]];
-			self.commits = [NSArray arrayWithObject:commit];
-		}
+		id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
+		self.comment = [GHIssueComment commentWithParent:issueCommentParent andDictionary:[payload valueForKey:@"comment"]];
 	}
 	
 	// Gist
@@ -253,7 +262,10 @@
 	}
 	
 	else if ([eventType isEqualToString:@"IssueCommentEvent"]) {
-		self._title = [NSString stringWithFormat:@"%@ commented on %@#%d", actorLogin, repoName, issue.num];
+		id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
+		NSString *parentType = self.pullRequest ? @"pull request" : @"issue";
+		NSUInteger num = [(GHIssue *)issueCommentParent num];
+		self._title = [NSString stringWithFormat:@"%@ commented on %@ %@#%d", actorLogin, parentType, repoName, num];
 	}
 	
 	else if ([eventType isEqualToString:@"IssuesEvent"]) {
@@ -271,11 +283,12 @@
 	
 	else if ([eventType isEqualToString:@"PullRequestEvent"]) {
 		NSString *action = [payload valueForKey:@"action"];
-		self._title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", actorLogin, action, repoName, issue.num];
+		if ([action isEqualToString:@"closed"]) action = @"merged";
+		self._title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", actorLogin, action, repoName, pullRequest.num];
 	}
 	
 	else if ([eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
-		self._title = [NSString stringWithFormat:@"%@ commented on issue %@#%d", actorLogin, repoName, issue.num];
+		self._title = [NSString stringWithFormat:@"%@ commented on pull request %@#%d", actorLogin, repoName, pullRequest.num];
 	}
 	
 	else if ([eventType isEqualToString:@"PushEvent"]) {

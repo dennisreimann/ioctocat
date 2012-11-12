@@ -1,5 +1,6 @@
 #import "GHIssueComment.h"
 #import "GHIssue.h"
+#import "GHPullRequest.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
@@ -7,18 +8,18 @@
 
 @implementation GHIssueComment
 
-@synthesize issue;
+@synthesize parent;
 
-+ (id)commentWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
-	return [[[self.class alloc] initWithIssue:theIssue andDictionary:theDict] autorelease];
++ (id)commentWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
+	return [[[self.class alloc] initWithParent:theParent andDictionary:theDict] autorelease];
 }
 
-+ (id)commentWithIssue:(GHIssue *)theIssue {
-	return [[[self.class alloc] initWithIssue:theIssue] autorelease];
++ (id)commentWithParent:(id)theParent {
+	return [[[self.class alloc] initWithParent:theParent] autorelease];
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue andDictionary:(NSDictionary *)theDict {
-	[self initWithIssue:theIssue];	
+- (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
+	[self initWithParent:theParent];
 	
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
@@ -30,14 +31,14 @@
 	return self;
 }
 
-- (id)initWithIssue:(GHIssue *)theIssue {
+- (id)initWithParent:(id)theParent {
 	[super init];
-	self.issue = theIssue;
+	self.parent = theParent;
 	return self;
 }
 
 - (void)dealloc {
-	[issue release], issue = nil;
+	[parent release], parent = nil;
 	[super dealloc];
 }
 
@@ -45,7 +46,9 @@
 
 - (void)saveData {
 	NSDictionary *values = [NSDictionary dictionaryWithObject:body forKey:@"body"];
-	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, issue.repository.owner, issue.repository.name, issue.num];
+	GHRepository *repo = [(GHIssue *)parent repository];
+	NSUInteger num = [(GHIssue *)parent num];
+	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
 	[self saveValues:values withPath:path andMethod:@"POST" useResult:nil];
 }
 

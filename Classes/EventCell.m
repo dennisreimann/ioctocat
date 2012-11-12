@@ -88,6 +88,7 @@
 - (void)markAsRead {
 	UIColor *normalColor = [UIColor whiteColor];
 	[self setCustomBackgroundColor:normalColor];
+	event.read = YES;
 }
 
 - (void)showDetails {

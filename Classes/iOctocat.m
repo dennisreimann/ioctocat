@@ -33,6 +33,8 @@
 }
 
 - (void)dealloc {
+	for (GHOrganization *org in organizations) [org removeObserver:self forKeyPath:kGravatarKeyPath];
+	for (GHUser *user in users) [user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[accountController release], accountController = nil;
 	[navController release], navController = nil;
 	[window release], window = nil;
@@ -76,6 +78,7 @@
 	GHUser *user = [users objectForKey:theLogin];
 	if (user == nil) {
 		user = [GHUser userWithLogin:theLogin];
+		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[users setObject:user forKey:theLogin];
 	}
 	return user;
@@ -86,10 +89,23 @@
 	GHOrganization *organization = [organizations objectForKey:theLogin];
 	if (organization == nil) {
 		organization = [GHOrganization organizationWithLogin:theLogin];
+		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[organizations setObject:organization forKey:theLogin];
 	}
 	return organization;
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kGravatarKeyPath]) {
+		// might be a GHUser or GHOrganization instance,
+		// both respond to gravatar, so this is okay
+		GHUser *user = (GHUser *)object;
+		if (user.gravatar) {
+			[iOctocat cacheGravatar:user.gravatar forIdentifier:user.login];
+		}
+	}
+}
+
 
 #pragma mark Helpers
 

@@ -1,7 +1,5 @@
 #import "GHRepoComment.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
-#import "NSURL+Extensions.h"
 
 
 @implementation GHRepoComment
@@ -25,7 +23,8 @@
 	
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKeyPath:@"user.login"]];
+	NSDictionary *userDict = [theDict valueForKey:@"user"];
+	[self setUserWithValues:userDict];
 	self.created = [iOctocat parseDate:createdAt];
 	self.updated = [iOctocat parseDate:updatedAt];
 	self.body = [theDict valueForKey:@"body"];

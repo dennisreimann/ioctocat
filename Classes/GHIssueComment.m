@@ -2,8 +2,6 @@
 #import "GHIssue.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
-#import "NSURL+Extensions.h"
 
 
 @implementation GHIssueComment
@@ -23,8 +21,9 @@
 	
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
+	NSDictionary *userDict = [theDict valueForKey:@"user"];
+	[self setUserWithValues:userDict];
 	self.body = [theDict valueForKey:@"body"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:[theDict valueForKeyPath:@"user.login"]];
 	self.created = [iOctocat parseDate:createdAt];
 	self.updated = [iOctocat parseDate:updatedAt];
 	

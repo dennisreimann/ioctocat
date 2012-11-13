@@ -10,7 +10,6 @@
 #import "GravatarLoader.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "iOctocat.h"
 
 
 @interface GHUser ()
@@ -50,7 +49,7 @@
 @synthesize starredGists;
 
 + (id)userWithLogin:(NSString *)theLogin {
-	return [[[[self class] alloc] initWithLogin:theLogin] autorelease];
+	return [[[self.class alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
@@ -246,7 +245,6 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[iOctocat cacheGravatar:gravatar forIdentifier:self.login];
 }
 
 @end

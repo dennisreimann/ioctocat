@@ -19,5 +19,6 @@
 @property(nonatomic,retain)NSDate *updated;
 
 - (void)saveData;
+- (void)setUserWithValues:(NSDictionary *)userDict;
 
 @end

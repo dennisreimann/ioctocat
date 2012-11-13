@@ -8,7 +8,6 @@
 #import "GravatarLoader.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "iOctocat.h"
 
 
 @implementation GHOrganization
@@ -33,7 +32,7 @@
 @synthesize privateRepoCount;
 
 + (id)organizationWithLogin:(NSString *)theLogin {
-	return [[[[self class] alloc] initWithLogin:theLogin] autorelease];
+	return [[[self.class alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
@@ -123,7 +122,6 @@
 
 - (void)loadedGravatar:(UIImage *)theImage {
 	self.gravatar = theImage;
-	[iOctocat cacheGravatar:gravatar forIdentifier:self.login];
 }
 
 @end

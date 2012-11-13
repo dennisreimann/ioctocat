@@ -8,9 +8,9 @@
 
 - (void)dealloc {
 	[user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[user release];
-    [userLabel release];
-    [gravatarView release];
+	[user release], user = nil;
+    [userLabel release], userLabel = nil;
+    [gravatarView release], gravatarView = nil;
     [super dealloc];
 }
 

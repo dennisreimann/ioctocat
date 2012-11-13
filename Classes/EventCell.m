@@ -45,7 +45,7 @@
 	iconView.image = [UIImage imageNamed:icon];
 	[event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	gravatarView.image = event.user.gravatar;
-	if (!gravatarView.image && !event.user.isLoaded) [event.user loadData];
+	if (!gravatarView.image && !event.user.gravatarURL) [event.user loadData];
 	// actions
 	NSMutableArray *buttons = [NSMutableArray array];
 	if (event.user) [buttons addObject:userButton];

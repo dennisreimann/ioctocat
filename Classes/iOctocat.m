@@ -32,34 +32,37 @@
     return [[UIApplication sharedApplication] delegate];
 }
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
-	// Beware of zombies!
-	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
-		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
-	}
-	
-	// Avatar cache
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		[self clearAvatarCache];
-		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
-		[defaults synchronize];
-	}
-	
-	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    
-	// Go
-	self.users = [NSMutableDictionary dictionary];
-	[window setRootViewController:navController];
-	[window makeKeyAndVisible];
-}
-
 - (void)dealloc {
 	[accountController release], accountController = nil;
 	[navController release], navController = nil;
 	[window release], window = nil;
 	[users release], users = nil;
 	[super dealloc];
+}
+
+#pragma mark Application Events
+
+- (void)applicationDidFinishLaunching:(UIApplication *)application {
+	// Beware of zombies!
+	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
+		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
+	}
+	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+	// Go
+	self.users = [NSMutableDictionary dictionary];
+	[window setRootViewController:navController];
+	[window makeKeyAndVisible];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
+	// Avatar cache
+	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
+		[self clearAvatarCache];
+		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+	}
+	[defaults synchronize];
 }
 
 #pragma mark Users
@@ -111,7 +114,6 @@
 															 message:theMessage];
 	notice.originY = [[UIApplication sharedApplication] statusBarFrame].size.height;
 	[notice show];
-	
 }
 
 + (void)reportLoadingError:(NSString *)theMessage {
@@ -155,14 +157,6 @@
 + (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString {
 	NSString *path = [self gravatarPathForIdentifier:theString];
 	[UIImagePNGRepresentation(theImage) writeToFile:path atomically:YES];
-}
-
-#pragma mark Application Events
-
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
-	[defaults synchronize];
 }
 
 #pragma mark Autorotation

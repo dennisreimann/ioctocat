@@ -174,7 +174,9 @@
 	// Pull Request
 	NSDictionary *pullPayload = [payload valueForKey:@"pull_request"];
 	if (!pullPayload) pullPayload = [payload valueForKeyPath:@"issue.pull_request"];
-	if (pullPayload) {
+	// this check is somehow hacky, but the API provides empty pull_request
+	// urls in case there is no pull request associated with an issue
+	if (pullPayload && ![[pullPayload valueForKey:@"html_url"] isKindOfClass:[NSNull class]]) {
 		NSInteger pullNumber = [[pullPayload valueForKey:@"number"] integerValue];
 		if (!pullNumber) pullNumber = issue.num;
 		self.pullRequest = [GHPullRequest pullRequestWithRepository:self.repository];

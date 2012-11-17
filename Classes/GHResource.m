@@ -52,11 +52,11 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	DJLog(@"Loading %@\n\n====\n\n", self.resourcePath);
+	D3JLog(@"Loading %@", self.resourcePath);
 	[self.currentAccount.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	[self.currentAccount.apiClient getPath:self.resourcePath parameters:nil
 		success:^(AFHTTPRequestOperation *theOperation, id theResponse) {
-			DJLog(@"Loading %@ finished: %@\n\n====\n\n", self.resourcePath, theResponse);
+			D3JLog(@"Loading %@ finished: %@", self.resourcePath, theResponse);
 			[self setValues:theResponse];
 			self.loadingStatus = GHResourceStatusProcessed;
 		}
@@ -75,20 +75,20 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-    DJLog(@"Saving %@ (%@)\n\n%@\n\n====\n\n", thePath, theMethod, theValues);
+    D3JLog(@"Saving %@ (%@)\n\n%@", thePath, theMethod, theValues);
 	NSMutableURLRequest *request = [self.currentAccount.apiClient requestWithMethod:theMethod
 												path:thePath
 										  parameters:theValues];
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 		success:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, id theJSON) {
-			DJLog(@"Saving %@ finished: %@\n\n====\n\n", thePath, theJSON);
+			D3JLog(@"Saving %@ finished: %@", thePath, theJSON);
 			if (useResult) {
 				useResult(theJSON);
 			}
 			self.savingStatus = GHResourceStatusProcessed;
 		}
 		failure:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, NSError *theError, id theJSON) {
-			DJLog(@"Saving %@ failed: %@\n\n====\n\n", thePath, theError);
+			DJLog(@"Saving %@ failed: %@", thePath, theError);
 			self.error = theError;
 			self.savingStatus = GHResourceStatusNotProcessed;
 		}

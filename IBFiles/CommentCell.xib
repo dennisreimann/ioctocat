@@ -3,12 +3,12 @@
 	<data>
 		<int key="IBDocument.SystemTarget">768</int>
 		<string key="IBDocument.SystemVersion">11G63</string>
-		<string key="IBDocument.InterfaceBuilderVersion">2843</string>
+		<string key="IBDocument.InterfaceBuilderVersion">2844</string>
 		<string key="IBDocument.AppKitVersion">1138.51</string>
 		<string key="IBDocument.HIToolboxVersion">569.00</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginVersions">
 			<string key="NS.key.0">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-			<string key="NS.object.0">1929</string>
+			<string key="NS.object.0">1930</string>
 		</object>
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -49,7 +49,7 @@
 							<object class="IBUILabel" id="925582897">
 								<reference key="NSNextResponder" ref="357517048"/>
 								<int key="NSvFlags">294</int>
-								<string key="NSFrame">{{36, 5}, {146, 21}}</string>
+								<string key="NSFrame">{{36, 5}, {170, 21}}</string>
 								<reference key="NSSuperview" ref="357517048"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="304141778"/>
@@ -81,7 +81,7 @@
 							<object class="IBUILabel" id="304141778">
 								<reference key="NSNextResponder" ref="357517048"/>
 								<int key="NSvFlags">291</int>
-								<string key="NSFrame">{{190, 5}, {100, 21}}</string>
+								<string key="NSFrame">{{210, 5}, {100, 21}}</string>
 								<reference key="NSSuperview" ref="357517048"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="636034722"/>
@@ -104,12 +104,16 @@
 							<object class="IBUITextView" id="636034722">
 								<reference key="NSNextResponder" ref="357517048"/>
 								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{5, 34}, {310, 25}}</string>
+								<string key="NSFrame">{{0, 30}, {320, 25}}</string>
 								<reference key="NSSuperview" ref="357517048"/>
 								<reference key="NSWindow"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<double key="IBUIContentInset.top">0.0</double>
+								<double key="IBUIContentInset.bottom">8</double>
+								<double key="IBUIContentInset.left">2</double>
+								<double key="IBUIContentInset.right">10</double>
 								<bool key="IBUIBounces">NO</bool>
 								<bool key="IBUIScrollEnabled">NO</bool>
 								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
@@ -581,35 +585,14 @@
 					<string key="className">TextCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>contentTextLabel</string>
-							<string>contentTextView</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UILabel</string>
-							<string>UITextView</string>
-						</object>
+						<string key="NS.key.0">contentTextView</string>
+						<string key="NS.object.0">UITextView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>contentTextLabel</string>
-							<string>contentTextView</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">contentTextLabel</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">contentTextView</string>
-								<string key="candidateClassName">UITextView</string>
-							</object>
+						<string key="NS.key.0">contentTextView</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">contentTextView</string>
+							<string key="candidateClassName">UITextView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
@@ -639,6 +622,6 @@
 			<string key="NS.key.0">DefaultGravatar.png</string>
 			<string key="NS.object.0">{32, 32}</string>
 		</object>
-		<string key="IBCocoaTouchPluginVersion">1929</string>
+		<string key="IBCocoaTouchPluginVersion">1930</string>
 	</data>
 </archive>

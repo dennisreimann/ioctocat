@@ -136,7 +136,6 @@
 	if (object == repository && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (repository.isLoaded) {
 			[self displayRepository];
-			[self.tableView reloadData];
 		} else if (repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
 			[self.tableView reloadData];
@@ -250,8 +249,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && descriptionCell.hasContent && indexPath.row == 2) return [(TextCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] height];
-	return [(UITableViewCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] frame].size.height;
+	if (indexPath.section == 0 && descriptionCell.hasContent && indexPath.row == 2) {
+		return [descriptionCell heightForOuterWidth:tableView.frame.size.width];
+	}
+	return 44.0f;
 }
 
 #pragma mark Autorotation

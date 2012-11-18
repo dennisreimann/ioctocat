@@ -194,11 +194,11 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return (issue.isLoaded) ? 2 : 1;
 }
 
-- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (issue.error) return 0;
 	if (!issue.isLoaded) return 1;
 	if (section == 0) {
@@ -213,7 +213,7 @@
 	return (section == 1) ? @"Comments" : @"";
 }
 
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && !issue.isLoaded) return loadingCell;
 	if (indexPath.section == 0 && indexPath.row == 0) return createdCell;             
 	if (indexPath.section == 0 && indexPath.row == 1) return updatedCell;
@@ -221,7 +221,7 @@
 	if (!issue.comments.isLoaded) return loadingCommentsCell;
 	if (issue.comments.comments.count == 0) return noCommentsCell;
 	
-	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = commentCell;
@@ -231,11 +231,11 @@
 	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 2) return [(TextCell *)descriptionCell height];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 0 && indexPath.row == 2) return [descriptionCell heightForOuterWidth:tableView.frame.size.width];
 	if (indexPath.section == 1 && issue.comments.isLoaded && issue.comments.comments.count > 0) {
-		CommentCell *cell = (CommentCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
-		return [cell height];
+		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		return [cell heightForOuterWidth:tableView.frame.size.width];
 	}
 	return 44.0f;
 }

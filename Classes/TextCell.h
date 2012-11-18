@@ -2,16 +2,13 @@
 
 
 @interface TextCell : UITableViewCell {
-  @private
-	IBOutlet UILabel *contentTextLabel;
 	IBOutlet UITextView *contentTextView;
-	CGFloat maxWidth;
-	CGFloat paddingY;
 }
 
 @property(nonatomic,readonly)BOOL hasContent;
 @property(nonatomic,readonly)CGFloat height;
 
+- (CGFloat)heightForOuterWidth:(CGFloat)outerWidth;
 - (void)setContentText:(NSString *)text;
 
 @end

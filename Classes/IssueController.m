@@ -232,10 +232,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 2) return [descriptionCell heightForOuterWidth:tableView.frame.size.width];
+	if (indexPath.section == 0 && indexPath.row == 2) return [descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && issue.comments.isLoaded && issue.comments.comments.count > 0) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-		return [cell heightForOuterWidth:tableView.frame.size.width];
+		return [cell heightForTableView:tableView];
 	}
 	return 44.0f;
 }

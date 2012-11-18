@@ -8,7 +8,7 @@
 @property(nonatomic,readonly)BOOL hasContent;
 @property(nonatomic,readonly)CGFloat height;
 
-- (CGFloat)heightForOuterWidth:(CGFloat)outerWidth;
+- (CGFloat)heightForTableView:(UITableView *)tableView;
 - (void)setContentText:(NSString *)text;
 
 @end

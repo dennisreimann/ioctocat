@@ -250,7 +250,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && descriptionCell.hasContent && indexPath.row == 2) {
-		return [descriptionCell heightForOuterWidth:tableView.frame.size.width];
+		return [descriptionCell heightForTableView:tableView];
 	}
 	return 44.0f;
 }

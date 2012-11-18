@@ -21,12 +21,20 @@
 	[super dealloc];
 }
 
-- (CGFloat)paddingHorizontal {
-	return 2.0f;
+- (CGFloat)marginTop {
+	return 0.0f;
 }
 
-- (CGFloat)paddingVertical {
-	return 0.0f;
+- (CGFloat)marginRight {
+	return 1.0f;
+}
+
+- (CGFloat)marginBottom {
+	return 3.0f;
+}
+
+- (CGFloat)marginLeft {
+	return 1.0f;
 }
 
 - (void)setComment:(GHComment *)theComment {
@@ -50,8 +58,8 @@
 	}
 }
 
-- (CGFloat)heightForOuterWidth:(CGFloat)outerWidth {
-	return [super heightForOuterWidth:outerWidth] + 30.0f; // the header is 30px high
+- (CGFloat)heightForTableView:(UITableView *)tableView {
+	return [super heightForTableView:tableView] + 30.0f; // the header is 30px high
 }
 
 @end

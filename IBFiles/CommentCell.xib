@@ -103,17 +103,14 @@
 							</object>
 							<object class="IBUITextView" id="636034722">
 								<reference key="NSNextResponder" ref="357517048"/>
-								<int key="NSvFlags">290</int>
-								<string key="NSFrame">{{0, 30}, {320, 25}}</string>
+								<int key="NSvFlags">274</int>
+								<string key="NSFrame">{{1, 30}, {318, 25}}</string>
 								<reference key="NSSuperview" ref="357517048"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIMultipleTouchEnabled">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<double key="IBUIContentInset.top">0.0</double>
-								<double key="IBUIContentInset.bottom">8</double>
-								<double key="IBUIContentInset.left">2</double>
-								<double key="IBUIContentInset.right">10</double>
 								<bool key="IBUIBounces">NO</bool>
 								<bool key="IBUIScrollEnabled">NO</bool>
 								<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>

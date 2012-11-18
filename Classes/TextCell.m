@@ -3,8 +3,10 @@
 
 
 @interface TextCell ()
-- (CGFloat)paddingHorizontal;
-- (CGFloat)paddingVertical;
+- (CGFloat)marginTop;
+- (CGFloat)marginRight;
+- (CGFloat)marginBottom;
+- (CGFloat)marginLeft;
 @end
 
 @implementation TextCell
@@ -14,40 +16,46 @@
     [super dealloc];
 }
 
-- (void)adjustTextViewHeight {
-	CGRect frame = contentTextView.frame;
-    frame.size.height = contentTextView.contentSize.height;
-    contentTextView.frame = frame;
-}
-
 - (void)setContentText:(NSString *)theText {
     contentTextView.text = theText;
-	[self adjustTextViewHeight];
 }
 
-- (CGFloat)paddingHorizontal {
+- (CGFloat)marginTop {
+	return 0.0f;
+}
+
+- (CGFloat)marginRight {
 	return 5.0f;
 }
 
-- (CGFloat)paddingVertical {
-	return 2.0f;
+- (CGFloat)marginBottom {
+	return 0.0f;
 }
 
-- (CGFloat)heightForOuterWidth:(CGFloat)outerWidth {
+- (CGFloat)marginLeft {
+	return 5.0f;
+}
+
+- (CGFloat)heightForTableView:(UITableView *)tableView {
 	if (!self.hasContent) return 0;
-	CGFloat width = outerWidth - 20.0f;
+	// calculate the outer width of the cell based on the tableView style
+	CGFloat outerWidth = tableView.frame.size.width;
+	if (tableView.style == UITableViewStyleGrouped) {
+		// on the iPhone the inset is 20px, on the iPad 90px
+		outerWidth -= [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 20.0f : 90.0f;
+	}
 	CGFloat maxHeight = 50000.0f;
-	CGFloat textViewPadding = 16.0f; // contentTextView has an inset of 8px on each side
-	CGFloat paddingH  = self.paddingHorizontal * 2;
-	CGFloat paddingV  = self.paddingVertical * 2;
-	CGFloat textWidth = width - textViewPadding - paddingH;
+	CGFloat textInset = 16.0f;
+	CGFloat marginH  = self.marginLeft + self.marginRight;
+	CGFloat marginV  = self.marginTop + self.marginBottom;
+	// calculate the text width: UITextView has an inset of 8px on each side
+	CGFloat width = outerWidth - marginH;
+	CGFloat textWidth = width - textInset;
 	CGSize constraint = CGSizeMake(textWidth, maxHeight);
 	CGSize size = [contentTextView.text sizeWithFont:contentTextView.font
 								   constrainedToSize:constraint
 									   lineBreakMode:UILineBreakModeWordWrap];
-	CGFloat height = size.height + paddingV + textViewPadding;
-
-	DJLog(@"o width: %f\nwidth:   %f\no height: %f\nheight:   %f", width, textWidth, size.height, height);
+	CGFloat height = size.height + textInset + marginV;
 	return height;
 }
 

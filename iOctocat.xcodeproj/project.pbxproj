@@ -86,29 +86,6 @@
 		6F46107515B5E9E4005AB350 /* repostat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107315B5E9E4005AB350 /* repostat@2x.png */; };
 		6F46107815B5FC2E005AB350 /* MoreIssues.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107615B5FC2E005AB350 /* MoreIssues.png */; };
 		6F46107915B5FC2E005AB350 /* MoreIssues@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */; };
-		6F4CBD1316430AC600D587FB /* arta.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCF616430AC600D587FB /* arta.css */; };
-		6F4CBD1416430AC600D587FB /* ascetic.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCF716430AC600D587FB /* ascetic.css */; };
-		6F4CBD1716430AC600D587FB /* dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCFA16430AC600D587FB /* dark.css */; };
-		6F4CBD1816430AC600D587FB /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCFB16430AC600D587FB /* default.css */; };
-		6F4CBD1916430AC600D587FB /* far.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCFC16430AC600D587FB /* far.css */; };
-		6F4CBD1A16430AC600D587FB /* github.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCFD16430AC600D587FB /* github.css */; };
-		6F4CBD1B16430AC600D587FB /* googlecode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCFE16430AC600D587FB /* googlecode.css */; };
-		6F4CBD1C16430AC600D587FB /* idea.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBCFF16430AC600D587FB /* idea.css */; };
-		6F4CBD1D16430AC600D587FB /* ir_black.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0016430AC600D587FB /* ir_black.css */; };
-		6F4CBD1E16430AC600D587FB /* magula.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0116430AC600D587FB /* magula.css */; };
-		6F4CBD1F16430AC600D587FB /* monokai.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0216430AC600D587FB /* monokai.css */; };
-		6F4CBD2216430AC600D587FB /* rainbow.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0516430AC600D587FB /* rainbow.css */; };
-		6F4CBD2516430AC600D587FB /* solarized_dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0816430AC600D587FB /* solarized_dark.css */; };
-		6F4CBD2616430AC600D587FB /* solarized_light.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0916430AC600D587FB /* solarized_light.css */; };
-		6F4CBD2716430AC600D587FB /* sunburst.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0A16430AC600D587FB /* sunburst.css */; };
-		6F4CBD2816430AC600D587FB /* tomorrow-night-blue.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0B16430AC600D587FB /* tomorrow-night-blue.css */; };
-		6F4CBD2916430AC600D587FB /* tomorrow-night-bright.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0C16430AC600D587FB /* tomorrow-night-bright.css */; };
-		6F4CBD2A16430AC600D587FB /* tomorrow-night-eighties.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0D16430AC600D587FB /* tomorrow-night-eighties.css */; };
-		6F4CBD2B16430AC600D587FB /* tomorrow-night.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0E16430AC600D587FB /* tomorrow-night.css */; };
-		6F4CBD2C16430AC600D587FB /* tomorrow.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD0F16430AC600D587FB /* tomorrow.css */; };
-		6F4CBD2D16430AC600D587FB /* vs.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD1016430AC600D587FB /* vs.css */; };
-		6F4CBD2E16430AC600D587FB /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD1116430AC600D587FB /* xcode.css */; };
-		6F4CBD2F16430AC600D587FB /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD1216430AC600D587FB /* zenburn.css */; };
 		6F4CBD3216431D6300D587FB /* OrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */; };
 		6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */; };
 		6F4CBD371643205E00D587FB /* MoreOrgRepos.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD351643205D00D587FB /* MoreOrgRepos.png */; };
@@ -271,6 +248,29 @@
 		6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */; };
 		6FAB77B015B9C79200B08E18 /* MoreApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AE15B9C79200B08E18 /* MoreApp.png */; };
 		6FAB77B115B9C79200B08E18 /* MoreApp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */; };
+		6FAF8787165AD63900248E11 /* arta.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876A165AD63900248E11 /* arta.css */; };
+		6FAF8788165AD63900248E11 /* ascetic.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876B165AD63900248E11 /* ascetic.css */; };
+		6FAF878B165AD63900248E11 /* dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876E165AD63900248E11 /* dark.css */; };
+		6FAF878C165AD63900248E11 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876F165AD63900248E11 /* default.css */; };
+		6FAF878D165AD63900248E11 /* far.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8770165AD63900248E11 /* far.css */; };
+		6FAF878E165AD63900248E11 /* github.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8771165AD63900248E11 /* github.css */; };
+		6FAF878F165AD63900248E11 /* googlecode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8772165AD63900248E11 /* googlecode.css */; };
+		6FAF8790165AD63900248E11 /* idea.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8773165AD63900248E11 /* idea.css */; };
+		6FAF8791165AD63900248E11 /* ir_black.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8774165AD63900248E11 /* ir_black.css */; };
+		6FAF8792165AD63900248E11 /* magula.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8775165AD63900248E11 /* magula.css */; };
+		6FAF8793165AD63900248E11 /* monokai.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8776165AD63900248E11 /* monokai.css */; };
+		6FAF8796165AD63900248E11 /* rainbow.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8779165AD63900248E11 /* rainbow.css */; };
+		6FAF8799165AD63900248E11 /* solarized_dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF877C165AD63900248E11 /* solarized_dark.css */; };
+		6FAF879A165AD63900248E11 /* solarized_light.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF877D165AD63900248E11 /* solarized_light.css */; };
+		6FAF879B165AD63900248E11 /* sunburst.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF877E165AD63900248E11 /* sunburst.css */; };
+		6FAF879C165AD63900248E11 /* tomorrow-night-blue.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF877F165AD63900248E11 /* tomorrow-night-blue.css */; };
+		6FAF879D165AD63900248E11 /* tomorrow-night-bright.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8780165AD63900248E11 /* tomorrow-night-bright.css */; };
+		6FAF879E165AD63900248E11 /* tomorrow-night-eighties.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8781165AD63900248E11 /* tomorrow-night-eighties.css */; };
+		6FAF879F165AD63900248E11 /* tomorrow-night.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8782165AD63900248E11 /* tomorrow-night.css */; };
+		6FAF87A0165AD63900248E11 /* tomorrow.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8783165AD63900248E11 /* tomorrow.css */; };
+		6FAF87A1165AD63900248E11 /* vs.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8784165AD63900248E11 /* vs.css */; };
+		6FAF87A2165AD63900248E11 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8785165AD63900248E11 /* xcode.css */; };
+		6FAF87A3165AD63900248E11 /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8786165AD63900248E11 /* zenburn.css */; };
 		6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
 		6FAF9D2B1592765200997A28 /* Account.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2A1592765200997A28 /* Account.xib */; };
 		6FAF9D2F15927A8E00997A28 /* AccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D2E15927A8E00997A28 /* AccountController.m */; };
@@ -467,29 +467,6 @@
 		6F46107315B5E9E4005AB350 /* repostat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "repostat@2x.png"; path = "Images/repostat@2x.png"; sourceTree = "<group>"; };
 		6F46107615B5FC2E005AB350 /* MoreIssues.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreIssues.png; sourceTree = "<group>"; };
 		6F46107715B5FC2E005AB350 /* MoreIssues@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreIssues@2x.png"; sourceTree = "<group>"; };
-		6F4CBCF616430AC600D587FB /* arta.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = arta.css; sourceTree = "<group>"; };
-		6F4CBCF716430AC600D587FB /* ascetic.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ascetic.css; sourceTree = "<group>"; };
-		6F4CBCFA16430AC600D587FB /* dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = dark.css; sourceTree = "<group>"; };
-		6F4CBCFB16430AC600D587FB /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
-		6F4CBCFC16430AC600D587FB /* far.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = far.css; sourceTree = "<group>"; };
-		6F4CBCFD16430AC600D587FB /* github.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github.css; sourceTree = "<group>"; };
-		6F4CBCFE16430AC600D587FB /* googlecode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = googlecode.css; sourceTree = "<group>"; };
-		6F4CBCFF16430AC600D587FB /* idea.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = idea.css; sourceTree = "<group>"; };
-		6F4CBD0016430AC600D587FB /* ir_black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ir_black.css; sourceTree = "<group>"; };
-		6F4CBD0116430AC600D587FB /* magula.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = magula.css; sourceTree = "<group>"; };
-		6F4CBD0216430AC600D587FB /* monokai.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = monokai.css; sourceTree = "<group>"; };
-		6F4CBD0516430AC600D587FB /* rainbow.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = rainbow.css; sourceTree = "<group>"; };
-		6F4CBD0816430AC600D587FB /* solarized_dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarized_dark.css; sourceTree = "<group>"; };
-		6F4CBD0916430AC600D587FB /* solarized_light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarized_light.css; sourceTree = "<group>"; };
-		6F4CBD0A16430AC600D587FB /* sunburst.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = sunburst.css; sourceTree = "<group>"; };
-		6F4CBD0B16430AC600D587FB /* tomorrow-night-blue.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-blue.css"; sourceTree = "<group>"; };
-		6F4CBD0C16430AC600D587FB /* tomorrow-night-bright.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-bright.css"; sourceTree = "<group>"; };
-		6F4CBD0D16430AC600D587FB /* tomorrow-night-eighties.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-eighties.css"; sourceTree = "<group>"; };
-		6F4CBD0E16430AC600D587FB /* tomorrow-night.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night.css"; sourceTree = "<group>"; };
-		6F4CBD0F16430AC600D587FB /* tomorrow.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tomorrow.css; sourceTree = "<group>"; };
-		6F4CBD1016430AC600D587FB /* vs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = vs.css; sourceTree = "<group>"; };
-		6F4CBD1116430AC600D587FB /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
-		6F4CBD1216430AC600D587FB /* zenburn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburn.css; sourceTree = "<group>"; };
 		6F4CBD3016431D6300D587FB /* OrganizationRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationRepositoriesController.h; sourceTree = "<group>"; };
 		6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationRepositoriesController.m; sourceTree = "<group>"; };
 		6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrganizationRepositories.xib; path = IBFiles/OrganizationRepositories.xib; sourceTree = "<group>"; };
@@ -700,6 +677,29 @@
 		6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUsers@2x.png"; sourceTree = "<group>"; };
 		6FAB77AE15B9C79200B08E18 /* MoreApp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreApp.png; sourceTree = "<group>"; };
 		6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreApp@2x.png"; sourceTree = "<group>"; };
+		6FAF876A165AD63900248E11 /* arta.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = arta.css; sourceTree = "<group>"; };
+		6FAF876B165AD63900248E11 /* ascetic.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ascetic.css; sourceTree = "<group>"; };
+		6FAF876E165AD63900248E11 /* dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = dark.css; sourceTree = "<group>"; };
+		6FAF876F165AD63900248E11 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
+		6FAF8770165AD63900248E11 /* far.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = far.css; sourceTree = "<group>"; };
+		6FAF8771165AD63900248E11 /* github.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = github.css; sourceTree = "<group>"; };
+		6FAF8772165AD63900248E11 /* googlecode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = googlecode.css; sourceTree = "<group>"; };
+		6FAF8773165AD63900248E11 /* idea.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = idea.css; sourceTree = "<group>"; };
+		6FAF8774165AD63900248E11 /* ir_black.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ir_black.css; sourceTree = "<group>"; };
+		6FAF8775165AD63900248E11 /* magula.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = magula.css; sourceTree = "<group>"; };
+		6FAF8776165AD63900248E11 /* monokai.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = monokai.css; sourceTree = "<group>"; };
+		6FAF8779165AD63900248E11 /* rainbow.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = rainbow.css; sourceTree = "<group>"; };
+		6FAF877C165AD63900248E11 /* solarized_dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarized_dark.css; sourceTree = "<group>"; };
+		6FAF877D165AD63900248E11 /* solarized_light.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = solarized_light.css; sourceTree = "<group>"; };
+		6FAF877E165AD63900248E11 /* sunburst.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = sunburst.css; sourceTree = "<group>"; };
+		6FAF877F165AD63900248E11 /* tomorrow-night-blue.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-blue.css"; sourceTree = "<group>"; };
+		6FAF8780165AD63900248E11 /* tomorrow-night-bright.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-bright.css"; sourceTree = "<group>"; };
+		6FAF8781165AD63900248E11 /* tomorrow-night-eighties.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night-eighties.css"; sourceTree = "<group>"; };
+		6FAF8782165AD63900248E11 /* tomorrow-night.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "tomorrow-night.css"; sourceTree = "<group>"; };
+		6FAF8783165AD63900248E11 /* tomorrow.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = tomorrow.css; sourceTree = "<group>"; };
+		6FAF8784165AD63900248E11 /* vs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = vs.css; sourceTree = "<group>"; };
+		6FAF8785165AD63900248E11 /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
+		6FAF8786165AD63900248E11 /* zenburn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburn.css; sourceTree = "<group>"; };
 		6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
 		6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extensions.m"; sourceTree = "<group>"; };
 		6FAF9D2A1592765200997A28 /* Account.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Account.xib; path = IBFiles/Account.xib; sourceTree = "<group>"; };
@@ -1058,37 +1058,6 @@
 			path = Base64/Base64;
 			sourceTree = "<group>";
 		};
-		6F4CBCF516430AC600D587FB /* styles */ = {
-			isa = PBXGroup;
-			children = (
-				6F4CBCF616430AC600D587FB /* arta.css */,
-				6F4CBCF716430AC600D587FB /* ascetic.css */,
-				6F4CBCFA16430AC600D587FB /* dark.css */,
-				6F4CBCFB16430AC600D587FB /* default.css */,
-				6F4CBCFC16430AC600D587FB /* far.css */,
-				6F4CBCFD16430AC600D587FB /* github.css */,
-				6F4CBCFE16430AC600D587FB /* googlecode.css */,
-				6F4CBCFF16430AC600D587FB /* idea.css */,
-				6F4CBD0016430AC600D587FB /* ir_black.css */,
-				6F4CBD0116430AC600D587FB /* magula.css */,
-				6F4CBD0216430AC600D587FB /* monokai.css */,
-				6F4CBD0516430AC600D587FB /* rainbow.css */,
-				6F4CBD0816430AC600D587FB /* solarized_dark.css */,
-				6F4CBD0916430AC600D587FB /* solarized_light.css */,
-				6F4CBD0A16430AC600D587FB /* sunburst.css */,
-				6F4CBD0B16430AC600D587FB /* tomorrow-night-blue.css */,
-				6F4CBD0C16430AC600D587FB /* tomorrow-night-bright.css */,
-				6F4CBD0D16430AC600D587FB /* tomorrow-night-eighties.css */,
-				6F4CBD0E16430AC600D587FB /* tomorrow-night.css */,
-				6F4CBD0F16430AC600D587FB /* tomorrow.css */,
-				6F4CBD1016430AC600D587FB /* vs.css */,
-				6F4CBD1116430AC600D587FB /* xcode.css */,
-				6F4CBD1216430AC600D587FB /* zenburn.css */,
-			);
-			name = styles;
-			path = highlight.js/src/styles;
-			sourceTree = "<group>";
-		};
 		6F56163615B4A23700226B6D /* More */ = {
 			isa = PBXGroup;
 			children = (
@@ -1319,6 +1288,37 @@
 			name = Events;
 			sourceTree = "<group>";
 		};
+		6FAF8769165AD63900248E11 /* styles */ = {
+			isa = PBXGroup;
+			children = (
+				6FAF876A165AD63900248E11 /* arta.css */,
+				6FAF876B165AD63900248E11 /* ascetic.css */,
+				6FAF876E165AD63900248E11 /* dark.css */,
+				6FAF876F165AD63900248E11 /* default.css */,
+				6FAF8770165AD63900248E11 /* far.css */,
+				6FAF8771165AD63900248E11 /* github.css */,
+				6FAF8772165AD63900248E11 /* googlecode.css */,
+				6FAF8773165AD63900248E11 /* idea.css */,
+				6FAF8774165AD63900248E11 /* ir_black.css */,
+				6FAF8775165AD63900248E11 /* magula.css */,
+				6FAF8776165AD63900248E11 /* monokai.css */,
+				6FAF8779165AD63900248E11 /* rainbow.css */,
+				6FAF877C165AD63900248E11 /* solarized_dark.css */,
+				6FAF877D165AD63900248E11 /* solarized_light.css */,
+				6FAF877E165AD63900248E11 /* sunburst.css */,
+				6FAF877F165AD63900248E11 /* tomorrow-night-blue.css */,
+				6FAF8780165AD63900248E11 /* tomorrow-night-bright.css */,
+				6FAF8781165AD63900248E11 /* tomorrow-night-eighties.css */,
+				6FAF8782165AD63900248E11 /* tomorrow-night.css */,
+				6FAF8783165AD63900248E11 /* tomorrow.css */,
+				6FAF8784165AD63900248E11 /* vs.css */,
+				6FAF8785165AD63900248E11 /* xcode.css */,
+				6FAF8786165AD63900248E11 /* zenburn.css */,
+			);
+			name = styles;
+			path = highlight.js/src/styles;
+			sourceTree = "<group>";
+		};
 		6FAF9D2C15927A7A00997A28 /* Account */ = {
 			isa = PBXGroup;
 			children = (
@@ -1426,7 +1426,7 @@
 		6FDB4DE41621ABAF00AB11C3 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				6F4CBCF516430AC600D587FB /* styles */,
+				6FAF8769165AD63900248E11 /* styles */,
 				6F3A500A163343E4001DC916 /* highlight.pack.js */,
 				6F6E4ADE1645C1A900E03FD9 /* code.css */,
 				6FDB4DE51621ABAF00AB11C3 /* code.html */,
@@ -1856,29 +1856,6 @@
 				6F609E55162E08B300A371BC /* MoreSearch.png in Resources */,
 				6F609E56162E08B300A371BC /* MoreSearch@2x.png in Resources */,
 				6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */,
-				6F4CBD1316430AC600D587FB /* arta.css in Resources */,
-				6F4CBD1416430AC600D587FB /* ascetic.css in Resources */,
-				6F4CBD1716430AC600D587FB /* dark.css in Resources */,
-				6F4CBD1816430AC600D587FB /* default.css in Resources */,
-				6F4CBD1916430AC600D587FB /* far.css in Resources */,
-				6F4CBD1A16430AC600D587FB /* github.css in Resources */,
-				6F4CBD1B16430AC600D587FB /* googlecode.css in Resources */,
-				6F4CBD1C16430AC600D587FB /* idea.css in Resources */,
-				6F4CBD1D16430AC600D587FB /* ir_black.css in Resources */,
-				6F4CBD1E16430AC600D587FB /* magula.css in Resources */,
-				6F4CBD1F16430AC600D587FB /* monokai.css in Resources */,
-				6F4CBD2216430AC600D587FB /* rainbow.css in Resources */,
-				6F4CBD2516430AC600D587FB /* solarized_dark.css in Resources */,
-				6F4CBD2616430AC600D587FB /* solarized_light.css in Resources */,
-				6F4CBD2716430AC600D587FB /* sunburst.css in Resources */,
-				6F4CBD2816430AC600D587FB /* tomorrow-night-blue.css in Resources */,
-				6F4CBD2916430AC600D587FB /* tomorrow-night-bright.css in Resources */,
-				6F4CBD2A16430AC600D587FB /* tomorrow-night-eighties.css in Resources */,
-				6F4CBD2B16430AC600D587FB /* tomorrow-night.css in Resources */,
-				6F4CBD2C16430AC600D587FB /* tomorrow.css in Resources */,
-				6F4CBD2D16430AC600D587FB /* vs.css in Resources */,
-				6F4CBD2E16430AC600D587FB /* xcode.css in Resources */,
-				6F4CBD2F16430AC600D587FB /* zenburn.css in Resources */,
 				6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */,
 				6F4CBD371643205E00D587FB /* MoreOrgRepos.png in Resources */,
 				6F4CBD381643205E00D587FB /* MoreOrgRepos@2x.png in Resources */,
@@ -1915,6 +1892,29 @@
 				6FB85B24164DA10E00F6C90E /* PullRequestSynchronizeEvent@2x.png in Resources */,
 				6F5B58FD164FC252009ADE17 /* CellBackground.png in Resources */,
 				6F5B58FE164FC252009ADE17 /* CellBackground@2x.png in Resources */,
+				6FAF8787165AD63900248E11 /* arta.css in Resources */,
+				6FAF8788165AD63900248E11 /* ascetic.css in Resources */,
+				6FAF878B165AD63900248E11 /* dark.css in Resources */,
+				6FAF878C165AD63900248E11 /* default.css in Resources */,
+				6FAF878D165AD63900248E11 /* far.css in Resources */,
+				6FAF878E165AD63900248E11 /* github.css in Resources */,
+				6FAF878F165AD63900248E11 /* googlecode.css in Resources */,
+				6FAF8790165AD63900248E11 /* idea.css in Resources */,
+				6FAF8791165AD63900248E11 /* ir_black.css in Resources */,
+				6FAF8792165AD63900248E11 /* magula.css in Resources */,
+				6FAF8793165AD63900248E11 /* monokai.css in Resources */,
+				6FAF8796165AD63900248E11 /* rainbow.css in Resources */,
+				6FAF8799165AD63900248E11 /* solarized_dark.css in Resources */,
+				6FAF879A165AD63900248E11 /* solarized_light.css in Resources */,
+				6FAF879B165AD63900248E11 /* sunburst.css in Resources */,
+				6FAF879C165AD63900248E11 /* tomorrow-night-blue.css in Resources */,
+				6FAF879D165AD63900248E11 /* tomorrow-night-bright.css in Resources */,
+				6FAF879E165AD63900248E11 /* tomorrow-night-eighties.css in Resources */,
+				6FAF879F165AD63900248E11 /* tomorrow-night.css in Resources */,
+				6FAF87A0165AD63900248E11 /* tomorrow.css in Resources */,
+				6FAF87A1165AD63900248E11 /* vs.css in Resources */,
+				6FAF87A2165AD63900248E11 /* xcode.css in Resources */,
+				6FAF87A3165AD63900248E11 /* zenburn.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

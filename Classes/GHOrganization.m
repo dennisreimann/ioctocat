@@ -78,10 +78,9 @@
 	[login release];
 	login = theLogin;
 
-    GHAccount *account = [[iOctocat sharedInstance] currentAccount];
-    NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, account.login, login];
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, login];
 	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, login];
+    NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, login];
 
     self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, login];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];

@@ -14,6 +14,7 @@
 	IBOutlet UILabel *locationLabel;
 	IBOutlet UILabel *blogLabel;
 	IBOutlet UILabel *emailLabel;
+	IBOutlet UITableViewCell *recentActivityCell;
 	IBOutlet UITableViewCell *loadingOrganizationCell;
 	IBOutlet UITableViewCell *loadingReposCell;
 	IBOutlet UITableViewCell *loadingMembersCell;

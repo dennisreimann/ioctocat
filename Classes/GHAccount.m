@@ -2,7 +2,9 @@
 #import "GHApiClient.h"
 #import "GHUser.h"
 #import "GHGists.h"
+#import "GHEvents.h"
 #import "GHRepositories.h"
+#import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
@@ -51,16 +53,26 @@
 	self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 	self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
 	
+	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     return self;
 }
 
 - (void)dealloc {
+	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
     [user release], user = nil;
     [login release], login = nil;
     [password release], password = nil;
 	[endpoint release], endpoint = nil;
 	[endpointURL release], endpointURL = nil;
 	[super dealloc];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath] && object == user.organizations && user.organizations.isLoaded) {
+		for (GHOrganization *org in user.organizations.organizations) {
+			org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.login, org.login];
+		}
+	}
 }
 
 @end

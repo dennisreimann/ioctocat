@@ -2,6 +2,7 @@
 #import "RepositoryController.h"
 #import "UserController.h"
 #import "WebController.h"
+#import "EventsController.h"
 #import "GHOrganization.h"
 #import "GHUser.h"
 #import "GHUsers.h"
@@ -69,6 +70,7 @@
 	[blogCell release], blogCell = nil;
 	[emailCell release], emailCell = nil;
     [userCell release], userCell = nil;
+	[recentActivityCell release], recentActivityCell = nil;
     [loadingOrganizationCell release], loadingOrganizationCell = nil;
 	[loadingMembersCell release],loadingMembersCell = nil;
 	[loadingReposCell release], loadingReposCell = nil;
@@ -131,22 +133,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (!organization.isLoaded) return 1;
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!organization.isLoaded) return 1;
 	if (section == 0) return 3;
-    if (section == 1 && (!organization.publicMembers.isLoaded || organization.publicMembers.users.count == 0)) return 1;
-	if (section == 1) return organization.publicMembers.users.count;
-	if (section == 2 && (!organization.repositories.isLoaded || organization.repositories.repositories.count == 0)) return 1;
-	if (section == 2) return organization.repositories.repositories.count;
+	if (section == 1) return 1;
+    if (section == 2 && (!organization.publicMembers.isLoaded || organization.publicMembers.users.count == 0)) return 1;
+	if (section == 2) return organization.publicMembers.users.count;
+	if (section == 3 && (!organization.repositories.isLoaded || organization.repositories.repositories.count == 0)) return 1;
+	if (section == 3) return organization.repositories.repositories.count;
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 1) return @"Members";
-    if (section == 2) return @"Repositories";
+	if (section == 2) return @"Members";
+    if (section == 3) return @"Repositories";
     return @"";
 }
 
@@ -167,9 +170,10 @@
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-    if (section == 1 && !organization.publicMembers.isLoaded) return loadingMembersCell;
-    if (section == 1 && organization.publicMembers.users.count == 0) return noPublicMembersCell;
-	if (section == 1) {
+	if (section == 1) return recentActivityCell;
+    if (section == 2 && !organization.publicMembers.isLoaded) return loadingMembersCell;
+    if (section == 2 && organization.publicMembers.users.count == 0) return noPublicMembersCell;
+	if (section == 2) {
 		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 		if (cell == nil) {
             [[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
@@ -178,9 +182,9 @@
 		cell.user = [organization.publicMembers.users objectAtIndex:indexPath.row];
 		return cell;
 	}
-	if (section == 2 && !organization.repositories.isLoaded) return loadingReposCell;
-	if (section == 2 && organization.repositories.repositories.count == 0) return noPublicReposCell;
-	if (section == 2) {
+	if (section == 3 && !organization.repositories.isLoaded) return loadingReposCell;
+	if (section == 3 && organization.repositories.repositories.count == 0) return noPublicReposCell;
+	if (section == 3) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 		cell.repository = [organization.repositories.repositories objectAtIndex:indexPath.row];
@@ -204,9 +208,12 @@
 		[self presentModalViewController:mailComposer animated:YES];
 		[mailComposer release];
 	} else if (section == 1) {
+		viewController = [EventsController controllerWithEvents:organization.events];
+		viewController.title = @"Recent Activity";
+	} else if (section == 2) {
 		GHUser *selectedUser = [organization.publicMembers.users objectAtIndex:indexPath.row];
         viewController = [UserController controllerWithUser:(GHUser *)selectedUser];
-	} else if (section == 2) {
+	} else if (section == 3) {
 		GHRepository *repo = [organization.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [RepositoryController controllerWithRepository:repo];
 	}

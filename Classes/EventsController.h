@@ -9,7 +9,7 @@
 	IBOutlet UITableViewCell *noEntriesCell;
 	IBOutlet EventCell *eventCell;
 }
-@property(nonatomic,retain)NSIndexPath *detailedIndexPath;
+@property(nonatomic,retain)NSIndexPath *selectedIndexPath;
 
 + (id)controllerWithEvents:(GHEvents *)theEvents;
 - (id)initWithEvents:(GHEvents *)theEvents;

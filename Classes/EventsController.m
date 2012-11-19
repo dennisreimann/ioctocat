@@ -22,7 +22,7 @@
 @implementation EventsController
 
 @synthesize events;
-@synthesize detailedIndexPath;
+@synthesize selectedIndexPath;
 
 + (id)controllerWithEvents:(GHEvents *)theEvents {
 	return [[[self.class alloc] initWithEvents:theEvents] autorelease];
@@ -46,7 +46,7 @@
 
 - (void)dealloc {
 	[events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[detailedIndexPath release], detailedIndexPath = nil;
+	[selectedIndexPath release], selectedIndexPath = nil;
 	[noEntriesCell release], noEntriesCell = nil;
 	[eventCell release], eventCell = nil;
 	[events release], events = nil;
@@ -109,36 +109,34 @@
 	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
     if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
+		UIImage *bgImage = [[UIImage imageNamed:@"CellBackground.png"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:10.0f];
 		cell = eventCell;
 		cell.delegate = self;
+		cell.selectedBackgroundView = [[[UIImageView alloc] initWithImage:bgImage] autorelease];
 	}
 	GHEvent *event = [self.events.events objectAtIndex:indexPath.row];
 	cell.event = event;
 	(event.read) ? [cell markAsRead] : [cell markAsNew];
-	([self.detailedIndexPath isEqual:indexPath]) ? [cell showDetails] : [cell hideDetails];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSMutableArray *indexPaths = [NSMutableArray array];
 	[self.tableView beginUpdates];
-	if (self.detailedIndexPath && ![self.detailedIndexPath isEqual:indexPath]) {
-		[indexPaths addObject:self.detailedIndexPath];
+	if ([self.selectedIndexPath isEqual:indexPath]) {
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 	}
-	// set and mark new cell
-	if (![self.detailedIndexPath isEqual:indexPath]) {
-		self.detailedIndexPath = indexPath;
-		[indexPaths addObject:self.detailedIndexPath];
-	} else {
-		self.detailedIndexPath = nil;
-	}
-	[self.tableView reloadRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationNone];
+	self.selectedIndexPath = [tableView indexPathForSelectedRow];
 	[self.tableView endUpdates];
-	
 }
 
-- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return [indexPath isEqual:self.detailedIndexPath] ? 120.0 : 70.0;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if ([indexPath isEqual:self.selectedIndexPath]) {
+//		EventCell *cell = (EventCell *)[tableView cellForRowAtIndexPath:indexPath];
+//		return [cell heightForTableView:tableView];
+		return 120.0f;
+	} else {
+		return 70.0;
+	}
 }
 
 #pragma mark Persistent State

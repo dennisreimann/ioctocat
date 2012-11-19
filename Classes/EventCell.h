@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "TextCell.h"
 
 
 @protocol EventCellDelegate
@@ -8,7 +9,7 @@
 
 @class GHEvent;
 
-@interface EventCell : UITableViewCell {
+@interface EventCell : TextCell {
 	GHEvent *event;
 	id<EventCellDelegate> delegate;
   @private
@@ -17,7 +18,6 @@
 	IBOutlet UILabel *titleLabel;
 	IBOutlet UIImageView *iconView;
 	IBOutlet UIImageView *gravatarView;
-	IBOutlet UIImageView *detailBackgroundView;
 	IBOutlet UIButton *repositoryButton;
 	IBOutlet UIButton *otherRepositoryButton;
 	IBOutlet UIButton *userButton;
@@ -43,5 +43,4 @@
 - (IBAction)showIssue:(id)sender;
 - (IBAction)showCommit:(id)sender;
 - (IBAction)showGist:(id)sender;
-
 @end

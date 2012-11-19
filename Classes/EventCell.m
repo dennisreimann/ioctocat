@@ -24,7 +24,6 @@
 	[gravatarView release], gravatarView = nil;
 	[iconView release], iconView = nil;
 	[repositoryButton release], repositoryButton = nil;
-	[detailBackgroundView release], detailBackgroundView = nil;
 	[otherRepositoryButton release], otherRepositoryButton = nil;
 	[userButton release], userButton = nil;
 	[otherUserButton release], otherUserButton = nil;
@@ -60,6 +59,10 @@
 	for (UIView *subview in actionsView.subviews) {
 		[subview removeFromSuperview];
 	}
+	// set content text
+	if (event.content) {
+		[self setContentText:event.content];
+	}
 	// add new action buttons
 	CGFloat w = 40.0;
 	CGFloat h = 32.0;
@@ -93,13 +96,11 @@
 }
 
 - (void)showDetails {
-	detailBackgroundView.hidden = NO;
 	actionsView.hidden = NO;
 	[self markAsRead];
 }
 
 - (void)hideDetails {
-	detailBackgroundView.hidden = YES;
 	actionsView.hidden = YES;
 }
 
@@ -107,6 +108,10 @@
 	if ([keyPath isEqualToString:kGravatarKeyPath] && event.user.gravatar) {
 		gravatarView.image = event.user.gravatar;
 	}
+}
+
+- (CGFloat)heightForTableView:(UITableView *)tableView {
+	return [super heightForTableView:tableView] + 70.0f + 40.0f;
 }
 
 #pragma mark Actions
@@ -142,6 +147,24 @@
 
 - (IBAction)showGist:(id)sender {
 	if (delegate && event.gist) [delegate openEventItem:event.gist];
+}
+
+#pragma mark Layout
+
+- (CGFloat)marginTop {
+	return 0.0f;
+}
+
+- (CGFloat)marginRight {
+	return 2.0f;
+}
+
+- (CGFloat)marginBottom {
+	return 0.0f;
+}
+
+- (CGFloat)marginLeft {
+	return 2.0f;
 }
 
 @end

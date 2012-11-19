@@ -242,7 +242,7 @@
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && user.blogURL) {
-		viewController = [[WebController alloc] initWithURL:user.blogURL];
+		viewController = [WebController controllerWithURL:user.blogURL];
 	} else if (section == 0 && row == 2 && user.email) {
 		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
@@ -253,23 +253,22 @@
         viewController = [EventsController controllerWithEvents:user.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 1 && row == 3) {
-        viewController = [[GistsController alloc] initWithGists:user.gists];
+        viewController = [GistsController controllerWithGists:user.gists];
 		viewController.title = @"Gists";
 	} else if (section == 1) {
-        viewController = [[UsersController alloc] initWithUsers:(row == 1 ? user.following : user.followers)];
+        viewController = [UsersController controllerWithUsers:(row == 1 ? user.following : user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";         
 	} else if (section == 2) {
 		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
-		viewController = [[RepositoryController alloc] initWithRepository:repo];
+		viewController = [RepositoryController controllerWithRepository:repo];
 	} else if (section == 3) {
 		GHOrganization *org = [user.organizations.organizations objectAtIndex:indexPath.row];
-        viewController = [[OrganizationController alloc] initWithOrganization:org];
+        viewController = [OrganizationController controllerWithOrganization:org];
 	}
 	// Maybe push a controller
 	if (viewController) {
 		UINavigationController *navController = [[iOctocat sharedInstance] navController];
 		[navController pushViewController:viewController animated:YES];
-		[viewController release];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

@@ -196,25 +196,23 @@
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && organization.blogURL) {
-		viewController = [[WebController alloc] initWithURL:organization.blogURL];
+		viewController = [WebController controllerWithURL:organization.blogURL];
 	} else if (section == 0 && row == 2 && organization.email) {
 		MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:[NSArray arrayWithObject:organization.email]];
-		
 		[self presentModalViewController:mailComposer animated:YES];
 		[mailComposer release];
 	} else if (section == 1) {
 		GHUser *selectedUser = [organization.publicMembers.users objectAtIndex:indexPath.row];
-        viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
+        viewController = [UserController controllerWithUser:(GHUser *)selectedUser];
 	} else if (section == 2) {
 		GHRepository *repo = [organization.repositories.repositories objectAtIndex:indexPath.row];
-		viewController = [[RepositoryController alloc] initWithRepository:repo];
+		viewController = [RepositoryController controllerWithRepository:repo];
 	}
 	// Maybe push a controller
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
-		[viewController release];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

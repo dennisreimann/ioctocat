@@ -18,6 +18,7 @@
 + (void)reportError:(NSString *)theTitle with:(NSString *)theMessage;
 + (void)reportLoadingError:(NSString *)theMessage;
 + (void)reportSuccess:(NSString *)theMessage;
+- (BOOL)openURL:(NSURL *)url;
 - (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)theLogin;
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin;

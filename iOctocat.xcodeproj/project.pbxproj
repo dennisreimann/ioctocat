@@ -248,6 +248,7 @@
 		6FA97E5015B0C397000004F1 /* ToolbarUsers@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */; };
 		6FAB77B015B9C79200B08E18 /* MoreApp.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AE15B9C79200B08E18 /* MoreApp.png */; };
 		6FAB77B115B9C79200B08E18 /* MoreApp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */; };
+		6FAE3439165B6FD300C3502A /* GHApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE3438165B6FD300C3502A /* GHApplication.m */; };
 		6FAF8787165AD63900248E11 /* arta.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876A165AD63900248E11 /* arta.css */; };
 		6FAF8788165AD63900248E11 /* ascetic.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876B165AD63900248E11 /* ascetic.css */; };
 		6FAF878B165AD63900248E11 /* dark.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF876E165AD63900248E11 /* dark.css */; };
@@ -677,6 +678,8 @@
 		6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUsers@2x.png"; sourceTree = "<group>"; };
 		6FAB77AE15B9C79200B08E18 /* MoreApp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MoreApp.png; sourceTree = "<group>"; };
 		6FAB77AF15B9C79200B08E18 /* MoreApp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MoreApp@2x.png"; sourceTree = "<group>"; };
+		6FAE3437165B6FD300C3502A /* GHApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHApplication.h; sourceTree = "<group>"; };
+		6FAE3438165B6FD300C3502A /* GHApplication.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHApplication.m; sourceTree = "<group>"; };
 		6FAF876A165AD63900248E11 /* arta.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = arta.css; sourceTree = "<group>"; };
 		6FAF876B165AD63900248E11 /* ascetic.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = ascetic.css; sourceTree = "<group>"; };
 		6FAF876E165AD63900248E11 /* dark.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = dark.css; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 				6FA512F11332659000C16D95 /* AppConstants.h */,
 				6FA512F01332657400C16D95 /* Platform.h */,
 				28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */,
+				6FAE3437165B6FD300C3502A /* GHApplication.h */,
+				6FAE3438165B6FD300C3502A /* GHApplication.m */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
@@ -2030,6 +2035,7 @@
 				6FB1CF8A1649AE2500337EBE /* GHEvent.m in Sources */,
 				6FB1CF8E1649AEB200337EBE /* EventsController.m in Sources */,
 				6FDD2150165194FF0017E8BA /* GHPullRequest.m in Sources */,
+				6FAE3439165B6FD300C3502A /* GHApplication.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

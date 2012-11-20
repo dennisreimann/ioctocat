@@ -6,6 +6,7 @@
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "AccountController.h"
+#import "WebController.h"
 #import "WBErrorNoticeView.h"
 #import "WBSuccessNoticeView.h"
 
@@ -65,6 +66,19 @@
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
+}
+
+#pragma mark External resources
+
+- (BOOL)openURL:(NSURL *)url {
+	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
+	if (isGitHubLink) {
+		WebController *webController = [WebController controllerWithURL:url];
+		[navController pushViewController:webController animated:YES];
+		return YES;
+	} else {
+		return NO;
+	}
 }
 
 #pragma mark Users

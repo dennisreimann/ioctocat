@@ -13,20 +13,20 @@
 	[issue release], issue = nil;
 	[dateLabel release], dateLabel = nil;
 	[titleLabel release], titleLabel = nil;
-	[detailLabel release], detailLabel = nil;    
-    [votesLabel release], votesLabel = nil;    
-    [repoLabel release], repoLabel = nil;       
-    [iconView release], iconView = nil;        
-    [super dealloc];
+	[detailLabel release], detailLabel = nil;
+	[votesLabel release], votesLabel = nil;
+	[repoLabel release], repoLabel = nil;
+	[iconView release], iconView = nil;
+	[super dealloc];
 }
 
 - (void)setIssue:(GHIssue *)anIssue {
 	[issue release];
 	issue = [anIssue retain];
 	titleLabel.text = issue.title;
-    detailLabel.text = issue.body;
+	detailLabel.text = issue.body;
 	repoLabel.text = issue.repository.repoId;
-    issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
+	issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
 	dateLabel.text = [issue.updated prettyDate];
 	// Icon
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];

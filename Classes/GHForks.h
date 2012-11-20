@@ -6,8 +6,8 @@
 
 @interface GHForks : GHResource {
 	NSArray *entries;
-  @private
-    GHRepository *repository;
+	@private
+	GHRepository *repository;
 }
 
 @property(nonatomic,retain)GHRepository *repository;
@@ -17,4 +17,3 @@
 - (id)initWithRepository:(GHRepository *)theRepository;
 
 @end
-

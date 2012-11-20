@@ -22,6 +22,5 @@
 - (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)theLogin;
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin;
-										 
-@end
 
+@end

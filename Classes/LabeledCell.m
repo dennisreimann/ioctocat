@@ -9,7 +9,7 @@
 - (void)dealloc {
 	[label release], label = nil;
 	[content release], content = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)setLabelText:(NSString *)text {

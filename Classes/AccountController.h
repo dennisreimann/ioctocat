@@ -14,5 +14,5 @@
 
 + (id)controllerWithAccount:(GHAccount *)theAccount;
 - (id)initWithAccount:(GHAccount *)theAccount;
-										 
+
 @end

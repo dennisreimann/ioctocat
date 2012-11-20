@@ -4,11 +4,11 @@
 @class GHOrganizations, OrganizationCell;
 
 @interface OrganizationsController : UITableViewController {
-  @private
-    GHOrganizations *organizations;
+	@private
+	GHOrganizations *organizations;
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noOrganizationsCell;
-    IBOutlet OrganizationCell *organizationCell;
+	IBOutlet OrganizationCell *organizationCell;
 }
 
 + (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations;

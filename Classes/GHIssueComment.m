@@ -18,7 +18,7 @@
 
 - (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
 	[self initWithParent:theParent];
-	
+
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
 	NSDictionary *userDict = [theDict valueForKey:@"user"];
@@ -26,7 +26,7 @@
 	self.body = [theDict valueForKey:@"body"];
 	self.created = [iOctocat parseDate:createdAt];
 	self.updated = [iOctocat parseDate:updatedAt];
-	
+
 	return self;
 }
 

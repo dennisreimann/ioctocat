@@ -31,25 +31,23 @@
 	return [[[self.class alloc] initWithCommit:theCommit] autorelease];
 }
 
-- (id)initWithCommit:(GHCommit *)theCommit {    
-    [super initWithNibName:@"Commit" bundle:nil];
+- (id)initWithCommit:(GHCommit *)theCommit {
+	[super initWithNibName:@"Commit" bundle:nil];
 	self.commit = theCommit;
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
+	[super viewDidLoad];
 	[commit addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[commit.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [commit.commitID substringToIndex:8];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	(commit.isLoaded) ? [self displayCommit] : [commit loadData];
-    (commit.comments.isLoaded) ? [self displayComments] : [commit.comments loadData];
-	
+	(commit.comments.isLoaded) ? [self displayComments] : [commit.comments loadData];
 	// Background
-    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
-    tableHeaderView.backgroundColor = background;
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
+	tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
@@ -57,23 +55,23 @@
 	[commit removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[commit.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[commit release], commit = nil;
-    [tableHeaderView release], tableHeaderView = nil;
+	[tableHeaderView release], tableHeaderView = nil;
 	[tableFooterView release], tableFooterView = nil;
 	[loadingCell release], loadingCell = nil;
-    [authorCell release], authorCell = nil;
-    [committerCell release], committerCell = nil;
+	[authorCell release], authorCell = nil;
+	[committerCell release], committerCell = nil;
 	[addedCell release], addedCell = nil;
 	[modifiedCell release], modifiedCell = nil;
 	[removedCell release], removedCell = nil;
 	[loadingCommentsCell release], loadingCommentsCell = nil;
 	[noCommentsCell release], noCommentsCell = nil;
 	[commentCell release], commentCell = nil;
-    [authorLabel release], authorLabel = nil;
-    [committerLabel release], committerLabel = nil;
-    [dateLabel release], dateLabel = nil;
-    [titleLabel release], titleLabel = nil;
-    [gravatarView release], gravatarView = nil;
-    [super dealloc];
+	[authorLabel release], authorLabel = nil;
+	[committerLabel release], committerLabel = nil;
+	[dateLabel release], dateLabel = nil;
+	[titleLabel release], titleLabel = nil;
+	[gravatarView release], gravatarView = nil;
+	[super dealloc];
 }
 
 #pragma mark Actions
@@ -112,7 +110,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self addComment:nil]; 
+		[self addComment:nil];
 	} else if (buttonIndex == 1) {
 		UserController *userController = [(UserController *)[UserController alloc] initWithUser:commit.author];
 		[self.navigationController pushViewController:userController animated:YES];
@@ -174,7 +172,7 @@
 	if (indexPath.section == 1 && indexPath.row == 2) return modifiedCell;
 	if (!commit.comments.isLoaded) return loadingCommentsCell;
 	if (commit.comments.comments.count == 0) return noCommentsCell;
-	
+
 	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

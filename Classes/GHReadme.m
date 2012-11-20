@@ -23,8 +23,8 @@
 
 - (void)dealloc {
 	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [repository release], repository = nil;
-    [bodyHTML release], bodyHTML = nil;
+	[repository release], repository = nil;
+	[bodyHTML release], bodyHTML = nil;
 	[super dealloc];
 }
 

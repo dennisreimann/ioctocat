@@ -4,7 +4,7 @@
 
 @interface GHSearch : GHResource {
 	NSArray *results;
-  @private
+	@private
 	NSString *urlFormat;
 	NSString *searchTerm;
 }
@@ -16,5 +16,3 @@
 - (id)initWithURLFormat:(NSString *)theFormat;
 
 @end
-
-

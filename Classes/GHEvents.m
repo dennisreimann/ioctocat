@@ -16,7 +16,7 @@
 - (void)dealloc {
 	[events release], events = nil;
 	[lastReadingDate release], lastReadingDate = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)setValues:(id)theDicts {
@@ -31,7 +31,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHEvents resourcePath:'%@'>", resourcePath];
+	return [NSString stringWithFormat:@"<GHEvents resourcePath:'%@'>", resourcePath];
 }
 
 @end

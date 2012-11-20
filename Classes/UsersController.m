@@ -43,7 +43,7 @@
 		if (!users.isLoading && users.error) {
 			[iOctocat reportLoadingError:@"Could not load the users"];
 		}
-	}    
+	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -85,4 +85,3 @@
 }
 
 @end
-

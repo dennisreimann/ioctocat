@@ -24,7 +24,7 @@
 @synthesize htmlURL;
 
 + (id)pullRequestWithRepository:(GHRepository *)theRepository {
-    return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -35,15 +35,15 @@
 }
 
 - (void)dealloc {
-    [user release], user = nil;
+	[user release], user = nil;
 	[comments release], comments = nil;
-    [title release], title = nil;
-    [labels release], labels = nil;    
-    [body release], body = nil;
-    [state release], state = nil;
-    [created release], created = nil;
-    [updated release], updated = nil;
-    [closed release], closed = nil;
+	[title release], title = nil;
+	[labels release], labels = nil;
+	[body release], body = nil;
+	[state release], state = nil;
+	[created release], created = nil;
+	[updated release], updated = nil;
+	[closed release], closed = nil;
 	[super dealloc];
 }
 
@@ -62,7 +62,7 @@
 - (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
-    return [NSString stringWithFormat:kPullRequestFormat, repository.owner, repository.name, num];
+	return [NSString stringWithFormat:kPullRequestFormat, repository.owner, repository.name, num];
 }
 
 #pragma mark Loading
@@ -79,7 +79,7 @@
 	self.labels = [theDict objectForKey:@"labels"];
 	self.votes = [[theDict objectForKey:@"votes"] integerValue];
 	self.num = [[theDict objectForKey:@"number"] integerValue];
-    self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 	if (!repository) {
 		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
 		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];

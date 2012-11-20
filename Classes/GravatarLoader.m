@@ -30,7 +30,7 @@
 }
 
 - (void)loadURL:(NSURL *)theURL {
-    NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", theURL, self.gravatarSize];
+	NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", theURL, self.gravatarSize];
 	[self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
 }
 
@@ -39,7 +39,7 @@
 	NSData *gravatarData = [NSData dataWithContentsOfURL:theURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
- 	[pool release];
+	[pool release];
 }
 
 @end

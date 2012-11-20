@@ -21,21 +21,21 @@
 }
 
 - (id)initWithURL:(NSURL *)theURL {
-    [super initWithNibName:@"WebView" bundle:nil];
+	[super initWithNibName:@"WebView" bundle:nil];
 	self.url = theURL;
-    return self;
+	return self;
 }
 
 - (id)initWithHTML:(NSString *)theHTML {
 	[super initWithNibName:@"WebView" bundle:nil];
 	self.html = theHTML;
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
-	
+
 	webView.scrollView.bounces = NO;
 	if (url) {
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
@@ -57,7 +57,7 @@
 	[html release], html = nil;
 	[activityView release], activityView = nil;
 	[webView release], webView = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

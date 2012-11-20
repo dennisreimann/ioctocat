@@ -6,7 +6,7 @@
 	IBOutlet UIWebView *contentView;
 	IBOutlet UIBarButtonItem *controlItem;
 	IBOutlet UISegmentedControl *navigationControl;
-  @private
+	@private
 	NSArray *files;
 	NSUInteger index;
 	NSDictionary *file;

@@ -3,10 +3,10 @@
 
 
 @interface ForksController : UITableViewController {
-    IBOutlet UITableViewCell *loadingForksCell;
+	IBOutlet UITableViewCell *loadingForksCell;
 	IBOutlet UITableViewCell *noForksCell;
-  @private
-    GHRepository *repository;
+  	@private
+		GHRepository *repository;
 }
 
 + (id)controllerWithRepository:(GHRepository *)theRepository;

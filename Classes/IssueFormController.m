@@ -15,16 +15,16 @@
 @synthesize issue;
 @synthesize listController;
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {    
-    [super initWithNibName:@"IssueForm" bundle:nil];
+- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
+	[super initWithNibName:@"IssueForm" bundle:nil];
 	self.issue = theIssue;
 	self.listController = theController;
-    [issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"%@ Issue", issue.isNew ? @"New" : @"Edit"];
 	self.tableView.tableFooterView = tableFooterView;
 	if (!issue.isNew) {
@@ -39,17 +39,17 @@
 	[listController release];
 	[titleField release];
 	[bodyField release];
-    [titleCell release];
+	[titleCell release];
 	[bodyCell release];
-    [tableFooterView release];
+	[tableFooterView release];
 	[saveButton release];
-    [super dealloc];
+	[super dealloc];
 }
 
 - (IBAction)saveIssue:(id)sender {
 	issue.title = titleField.text;
 	issue.body = bodyField.text;
-	
+
 	// Validate
 	if ([issue.title isEmpty] || [issue.body isEmpty] ) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a title and a text"];
@@ -74,7 +74,7 @@
 		[activityView stopAnimating];
 	}
 }
-	
+
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

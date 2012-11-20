@@ -6,8 +6,8 @@
 
 @interface GHIssues : GHResource {
 	NSArray *entries;
-  @private
-    GHRepository *repository;
+	@private
+	GHRepository *repository;
 	NSString *issueState;
 }
 

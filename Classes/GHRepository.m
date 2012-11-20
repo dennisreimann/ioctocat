@@ -115,7 +115,7 @@
 
 - (void)setValues:(id)theDict {
     NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
-    
+
     self.htmlURL = [NSURL URLWithString:[resource objectForKey:@"html_url"]];
     self.homepageURL = [NSURL smartURLFromString:[resource objectForKey:@"homepage"]];
     self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];

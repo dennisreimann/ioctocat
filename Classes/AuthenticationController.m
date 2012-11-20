@@ -17,10 +17,10 @@
 }
 
 - (void)dealloc {
-    [self stopAuthenticating];
+	[self stopAuthenticating];
 	self.account = nil;
 	[authSheet release], authSheet = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)setAccount:(GHAccount *)theAccount {
@@ -30,7 +30,7 @@
 	[account release];
 	// assign new account
 	account = theAccount;
-    [account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
+	[account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)authenticateAccount:(GHAccount *)theAccount {
@@ -42,18 +42,18 @@
 	if (account.user.isLoading) {
 		authSheet = [[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n"
 												delegate:self
-									   cancelButtonTitle:nil
-								  destructiveButtonTitle:nil
-									   otherButtonTitles:nil];
+										 cancelButtonTitle:nil
+									destructiveButtonTitle:nil
+										 otherButtonTitles:nil];
 		[authSheet showInView:[iOctocat sharedInstance].window];
 	} else {
-        [self stopAuthenticating];
+		[self stopAuthenticating];
 		[delegate performSelector:@selector(authenticatedAccount:) withObject:account];
-    }
+	}
 }
 
 - (void)stopAuthenticating {
-    [authSheet dismissWithClickedButtonIndex:0 animated:YES];
+	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 @end

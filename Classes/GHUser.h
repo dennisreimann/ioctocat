@@ -18,19 +18,19 @@
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
-    NSUInteger followersCount;
-    NSUInteger followingCount;
-    GHOrganizations *organizations;
+	NSUInteger followersCount;
+	NSUInteger followingCount;
+	GHOrganizations *organizations;
 	GHRepositories *repositories;
 	GHRepositories *starredRepositories;
 	GHRepositories *watchedRepositories;
 	GHEvents *events;
-    GHUsers *following;
-    GHUsers *followers;
-    GHGists *gists;
-    GHGists *starredGists;
+	GHUsers *following;
+	GHUsers *followers;
+	GHGists *gists;
+	GHGists *starredGists;
 	BOOL isAuthenticated;
-  @private
+	@private
 	GravatarLoader *gravatarLoader;
 }
 

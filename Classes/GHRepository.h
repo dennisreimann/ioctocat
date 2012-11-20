@@ -13,11 +13,11 @@
 	NSURL *homepageURL;
 	NSInteger forkCount;
 	NSInteger watcherCount;
-    GHIssues *openIssues;
-    GHIssues *closedIssues;
-    GHForks *forks;
-    GHBranches *branches;
-    GHReadme *readme;
+	GHIssues *openIssues;
+	GHIssues *closedIssues;
+	GHForks *forks;
+	GHBranches *branches;
+	GHReadme *readme;
 	GHEvents *events;
 	BOOL isPrivate;
 	BOOL isFork;

@@ -19,47 +19,47 @@
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-    [super initWithNibName:@"Forks" bundle:nil];
+	[super initWithNibName:@"Forks" bundle:nil];
 	self.title = @"Forks";
-    self.repository = theRepository;
-    [repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    return self;
+	self.repository = theRepository;
+	[repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	if (![self.currentForks isLoaded]) [self.currentForks loadData];
 }
 
 - (void)dealloc {
-    [repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [loadingForksCell release], loadingForksCell = nil;
-    [noForksCell release], noForksCell = nil;
-    [super dealloc];
+	[repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[loadingForksCell release], loadingForksCell = nil;
+	[noForksCell release], noForksCell = nil;
+	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		GHForks *theForks = (GHForks *)object;
 		if (theForks.error) {
 			[iOctocat reportLoadingError:@"Could not load the forks"];
 		}
-	}    
+	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-   return (self.currentForks.isLoading || self.currentForks.entries.count == 0) ? 1 : self.currentForks.entries.count;
+	 return (self.currentForks.isLoading || self.currentForks.entries.count == 0) ? 1 : self.currentForks.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentForks.isLoading) return loadingForksCell;
 	if (self.currentForks.entries.count == 0) return noForksCell;
-    RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
 	cell.repository = [self.currentForks.entries objectAtIndex:indexPath.row];
 	return cell;
@@ -68,13 +68,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentForks.isLoaded || self.currentForks.entries.count == 0) return;
 	GHRepository *repo = [self.currentForks.entries objectAtIndex:indexPath.row];
-    RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
-    [self.navigationController pushViewController:repoController animated:YES];
-    [repoController release];    
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
+	[self.navigationController pushViewController:repoController animated:YES];
+	[repoController release];
 }
 
 - (GHForks *)currentForks {
-   return repository.forks;
+	return repository.forks;
 }
 
 #pragma mark Autorotation

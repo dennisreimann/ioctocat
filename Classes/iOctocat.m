@@ -30,7 +30,7 @@
 @synthesize accountController;
 
 + (id)sharedInstance {
-    return [[UIApplication sharedApplication] delegate];
+		return [[UIApplication sharedApplication] delegate];
 }
 
 - (void)dealloc {
@@ -124,23 +124,23 @@
 #pragma mark Helpers
 
 + (NSDate *)parseDate:(NSString *)string {
-    if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
+		if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
 	static NSDateFormatter *dateFormatter;
 	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = kISO8601TimeFormat;
-    // Fix for timezone format
-    if ([string hasSuffix:@"Z"]) {
-        string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
-    } else if ([string length] >= 24) {
-        string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
-    }
+		dateFormatter.dateFormat = kISO8601TimeFormat;
+		// Fix for timezone format
+		if ([string hasSuffix:@"Z"]) {
+				string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
+		} else if ([string length] >= 24) {
+				string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+		}
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }
 
 + (void)reportError:(NSString *)theTitle with:(NSString *)theMessage {
 	WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:[iOctocat sharedInstance].window
-															   title:theTitle
+																 title:theTitle
 															 message:theMessage];
 	notice.originY = [[UIApplication sharedApplication] statusBarFrame].size.height;
 	[notice show];

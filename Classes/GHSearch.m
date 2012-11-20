@@ -23,11 +23,11 @@
 	[searchTerm release], searchTerm = nil;
 	[urlFormat release], urlFormat = nil;
 	[results release], results = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourcePath:'%@'>", searchTerm, self.resourcePath];
+	return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourcePath:'%@'>", searchTerm, self.resourcePath];
 }
 
 - (NSString *)resourcePath {
@@ -39,20 +39,20 @@
 }
 
 - (void)setValues:(NSDictionary *)theDict {
-    BOOL usersSearch = [theDict objectForKey:@"users"] ? YES : NO;
-    NSMutableArray *resources = [NSMutableArray array];
-    for (NSDictionary *dict in (usersSearch ? [theDict objectForKey:@"users"] : [theDict objectForKey:@"repositories"])) {
-        GHResource *resource = nil;
-        if (usersSearch) {
-            resource = [GHUser userWithLogin:[dict objectForKey:@"login"]];
-            [resource setValues:dict];
-        } else {
-            resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
-            [resource setValues:dict];
-        }
-        [resources addObject:resource];
-    }
-    self.results = resources;
+	BOOL usersSearch = [theDict objectForKey:@"users"] ? YES : NO;
+	NSMutableArray *resources = [NSMutableArray array];
+	for (NSDictionary *dict in (usersSearch ? [theDict objectForKey:@"users"] : [theDict objectForKey:@"repositories"])) {
+		GHResource *resource = nil;
+		if (usersSearch) {
+			resource = [GHUser userWithLogin:[dict objectForKey:@"login"]];
+			[resource setValues:dict];
+		} else {
+			resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+			[resource setValues:dict];
+		}
+		[resources addObject:resource];
+	}
+	self.results = resources;
 }
 
 @end

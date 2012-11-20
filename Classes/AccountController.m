@@ -29,13 +29,13 @@
 - (id)initWithAccount:(GHAccount *)theAccount {
 	[self initWithNibName:@"Account" bundle:nil];
 	self.account = theAccount;
-	
+
 	MyEventsController *feedsController      = [MyEventsController controllerWithUser:account.user];
 	RepositoriesController *reposController = [RepositoriesController controllerWithUser:account.user];
 	UserController *userController          = [UserController controllerWithUser:account.user];
 	IssuesController *issuesController      = [IssuesController controllerWithUser:account.user];
 	MoreController *moreController          = [MoreController controllerWithUser:account.user];
-	
+
 	// tabs
 	self.viewControllers = [NSArray arrayWithObjects:
 							feedsController,
@@ -75,7 +75,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	// setting the selectedItem somehow does not trigger the didSelectItem,
 	// that's why we also set the selectedViewController manually afterwards.
 	tabBar.selectedItem = feedsTabBarItem;
@@ -83,23 +83,23 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.selectedViewController viewWillAppear:animated];
+	[super viewWillAppear:animated];
+	[self.selectedViewController viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self.selectedViewController viewDidAppear:animated];
+	[super viewDidAppear:animated];
+	[self.selectedViewController viewDidAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self.selectedViewController viewWillDisappear:animated];
-    [super viewWillDisappear:animated];
+	[self.selectedViewController viewWillDisappear:animated];
+	[super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
-    [self.selectedViewController viewDidDisappear:animated];
-    [super viewDidDisappear:animated];
+	[self.selectedViewController viewDidDisappear:animated];
+	[super viewDidDisappear:animated];
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {

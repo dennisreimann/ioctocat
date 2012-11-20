@@ -31,18 +31,18 @@
 @synthesize watchedRepositories;
 
 + (id)controllerWithUser:(GHUser *)theUser {
-    return [[[RepositoriesController alloc] initWithUser:theUser] autorelease];
+	return [[[RepositoriesController alloc] initWithUser:theUser] autorelease];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"Repositories" bundle:nil];
-	
+	[super initWithNibName:@"Repositories" bundle:nil];
+
 	self.user = theUser;
-	
+
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.starredRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	
+
 	return self;
 }
 
@@ -55,10 +55,10 @@
 	[noWatchedReposCell release], noWatchedReposCell = nil;
 	[publicRepositories release], publicRepositories = nil;
 	[privateRepositories release], privateRepositories = nil;
-    [starredRepositories release], starredRepositories = nil;
-    [watchedRepositories release], watchedRepositories = nil;
+	[starredRepositories release], starredRepositories = nil;
+	[watchedRepositories release], watchedRepositories = nil;
 	[refreshButton release], refreshButton = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (AccountController *)accountController {
@@ -74,8 +74,8 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
+	[super viewDidLoad];
+
 	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
 	(user.starredRepositories.isLoaded) ? [self displayRepositories:user.starredRepositories] : [user.starredRepositories loadData];
 	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
@@ -83,7 +83,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
 	self.navItem.title = @"Repositories";
 	self.navItem.titleView = nil;
 	self.navItem.rightBarButtonItem = refreshButton;
@@ -111,7 +111,7 @@
 		}
 		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
-	
+
 	// Private/Public repos
 	if ([repositories isEqual:user.repositories]) {
 		self.privateRepositories = [NSMutableArray array];
@@ -121,26 +121,26 @@
 		}
 		[self.publicRepositories sortUsingComparator:compareRepositories];
 		[self.privateRepositories sortUsingComparator:compareRepositories];
-    }
+	}
 	// Starred repos
-    else if ([repositories isEqual:user.starredRepositories]) {
-        self.starredRepositories = [NSMutableArray arrayWithArray:user.starredRepositories.repositories];
+	else if ([repositories isEqual:user.starredRepositories]) {
+		self.starredRepositories = [NSMutableArray arrayWithArray:user.starredRepositories.repositories];
 		[self.starredRepositories sortUsingComparator:compareRepositories];
-    }
+	}
 	// Watched repos
-    else if ([repositories isEqual:user.watchedRepositories]) {
-        self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
+	else if ([repositories isEqual:user.watchedRepositories]) {
+		self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
 		[self.watchedRepositories sortUsingComparator:compareRepositories];
-    }
-	
+	}
+
 	// Remove already mentioned projects from watch- and starlist
-    [self.watchedRepositories removeObjectsInArray:publicRepositories];
-    [self.watchedRepositories removeObjectsInArray:privateRepositories];
-	
-    [self.starredRepositories removeObjectsInArray:publicRepositories];
-    [self.starredRepositories removeObjectsInArray:privateRepositories];
-    [self.starredRepositories removeObjectsInArray:watchedRepositories];
-    
+	[self.watchedRepositories removeObjectsInArray:publicRepositories];
+	[self.watchedRepositories removeObjectsInArray:privateRepositories];
+
+	[self.starredRepositories removeObjectsInArray:publicRepositories];
+	[self.starredRepositories removeObjectsInArray:privateRepositories];
+	[self.starredRepositories removeObjectsInArray:watchedRepositories];
+
 	[self.tableView reloadData];
 }
 
@@ -152,7 +152,7 @@
 	switch (section) {
 		case 0: return privateRepositories;
 		case 1: return publicRepositories;
-        case 2: return watchedRepositories;
+		case 2: return watchedRepositories;
 		default: return starredRepositories;
 	}
 }
@@ -163,13 +163,13 @@
 	[user.repositories loadData];
 	[user.starredRepositories loadData];
 	[user.watchedRepositories loadData];
-    [self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return user.repositories.isLoaded ? 4 : 1;
+	return user.repositories.isLoaded ? 4 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -182,7 +182,7 @@
 	if (!user.repositories.isLoaded) return @"";
 	if (section == 0) return @"Private";
 	if (section == 1) return @"Public";
-    if (section == 2) return @"Watched";
+	if (section == 2) return @"Watched";
 	return @"Starred";
 }
 
@@ -221,4 +221,3 @@
 }
 
 @end
-

@@ -25,7 +25,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<Gists resourcePath:'%@'>", resourcePath];
+		return [NSString stringWithFormat:@"<Gists resourcePath:'%@'>", resourcePath];
 }
 
 - (void)setValues:(id)theResponse {

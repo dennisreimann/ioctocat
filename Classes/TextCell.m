@@ -12,12 +12,12 @@
 @implementation TextCell
 
 - (void)dealloc {
-    [contentTextView release], contentTextView = nil;
-    [super dealloc];
+	[contentTextView release], contentTextView = nil;
+	[super dealloc];
 }
 
 - (void)setContentText:(NSString *)theText {
-    contentTextView.text = theText;
+	contentTextView.text = theText;
 }
 
 - (CGFloat)marginTop {
@@ -53,14 +53,14 @@
 	CGFloat textWidth = width - textInset;
 	CGSize constraint = CGSizeMake(textWidth, maxHeight);
 	CGSize size = [contentTextView.text sizeWithFont:contentTextView.font
-								   constrainedToSize:constraint
-									   lineBreakMode:UILineBreakModeWordWrap];
+	constrainedToSize:constraint
+	lineBreakMode:UILineBreakModeWordWrap];
 	CGFloat height = size.height + textInset + marginV;
 	return height;
 }
 
 - (BOOL)hasContent {
-    return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
+	return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
 }
 
 @end

@@ -24,7 +24,7 @@
 	[super initWithNibName:@"Code" bundle:nil];
 	self.files = theFiles;
 	self.index = theCurrentIndex;
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
@@ -42,7 +42,7 @@
 	[files release], files = nil;
 	[contentView release], contentView = nil;
 	[activityView release], activityView = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -56,16 +56,14 @@
 	[theFile retain];
 	[file release];
 	file = theFile;
-	
+
 	NSString *fileName = [[file valueForKey:@"filename"] lastPathComponent];
 	NSString *fileContent = [file valueForKey:@"content"];
 	NSString *patch = [file valueForKey:@"patch"];
-	
-	// if it's not a gist it must be a commit, so use the patch 
-	if (!fileContent) {
-		fileContent = patch;
-	}
-	
+
+	// if it's not a gist it must be a commit, so use the patch
+	if (!fileContent) fileContent = patch;
+
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
@@ -81,7 +79,7 @@
 	[contentView loadHTMLString:contentHTML baseURL:baseUrl];
 
 	self.title = fileName;
-	
+
 	// Update navigation control
 	[navigationControl setEnabled:(index > 0) forSegmentAtIndex:0];
 	[navigationControl setEnabled:(index < files.count-1) forSegmentAtIndex:1];

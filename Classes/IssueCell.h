@@ -5,13 +5,13 @@
 
 @interface IssueCell : UITableViewCell {
 	GHIssue *issue;
-  @private
+	@private
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;
-    IBOutlet UILabel *detailLabel;
-    IBOutlet UILabel *votesLabel;   
-    IBOutlet UILabel *repoLabel;    
-    IBOutlet UILabel *issueNumber;
+	IBOutlet UILabel *detailLabel;
+	IBOutlet UILabel *votesLabel;
+	IBOutlet UILabel *repoLabel;
+	IBOutlet UILabel *issueNumber;
 	IBOutlet UIImageView *iconView;
 }
 

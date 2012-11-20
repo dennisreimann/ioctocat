@@ -25,12 +25,12 @@
 
 - (id)initWithUser:(GHUser *)theUser {
 	[super initWithNibName:@"Search" bundle:nil];
-	
+
 	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
 	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
 	self.searches = [NSArray arrayWithObjects:userSearch, repoSearch, nil];
 	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	
+
 	return self;
 }
 
@@ -47,7 +47,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	self.tableView.tableHeaderView = searchBar;
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
@@ -56,7 +56,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
 	self.navItem.title = @"Search";
 	self.navItem.titleView = searchControl;
 	self.navItem.rightBarButtonItem = nil;
@@ -71,11 +71,11 @@
 	[searchControl release], searchControl = nil;
 	[loadingCell release], loadingCell = nil;
 	[noResultsCell release], noResultsCell = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (GHSearch *)currentSearch {
-	return searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
+	return searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
 		nil : [searches objectAtIndex:searchControl.selectedSegmentIndex];
 }
 
@@ -117,18 +117,18 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.currentSearch.isLoading) return 1;
+	if (self.currentSearch.isLoading) return 1;
 	if (self.currentSearch.isLoaded && self.currentSearch.results.count == 0) return 1;
 	return self.currentSearch.results.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.currentSearch.isLoaded) return loadingCell;
-    if (self.currentSearch.results.count == 0) return noResultsCell;
+	if (!self.currentSearch.isLoaded) return loadingCell;
+	if (self.currentSearch.results.count == 0) return noResultsCell;
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
@@ -144,7 +144,7 @@
 		cell.user = (GHUser *)object;
 		return cell;
 	}
-    return nil;
+	return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -172,4 +172,3 @@
 }
 
 @end
-

@@ -4,10 +4,10 @@
 @class GHTree;
 
 @interface TreeController : UITableViewController {
-    IBOutlet UITableViewCell *loadingTreeCell;
+	IBOutlet UITableViewCell *loadingTreeCell;
 	IBOutlet UITableViewCell *noEntriesCell;
-  @private
-    GHTree *tree;
+	@private
+	GHTree *tree;
 }
 
 + (id)controllerWithTree:(GHTree *)theTree;

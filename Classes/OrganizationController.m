@@ -31,13 +31,13 @@
 }
 
 - (id)initWithOrganization:(GHOrganization *)theOrganization{
-    [super initWithNibName:@"Organization" bundle:nil];
+	[super initWithNibName:@"Organization" bundle:nil];
 	self.organization = theOrganization;
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	[organization addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[organization.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -46,10 +46,10 @@
 	if (!organization.repositories.isLoaded) [organization.repositories loadData];
 	if (!organization.publicMembers.isLoaded) [organization.publicMembers loadData];
 	self.navigationItem.title = organization.login;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-    // Background
-    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-    tableHeaderView.backgroundColor = background;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	// Background
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
@@ -69,14 +69,14 @@
 	[locationCell release], locationCell = nil;
 	[blogCell release], blogCell = nil;
 	[emailCell release], emailCell = nil;
-    [userCell release], userCell = nil;
+	[userCell release], userCell = nil;
 	[recentActivityCell release], recentActivityCell = nil;
-    [loadingOrganizationCell release], loadingOrganizationCell = nil;
+	[loadingOrganizationCell release], loadingOrganizationCell = nil;
 	[loadingMembersCell release],loadingMembersCell = nil;
 	[loadingReposCell release], loadingReposCell = nil;
 	[noPublicReposCell release], noPublicReposCell = nil;
 	[noPublicMembersCell release], noPublicMembersCell = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 #pragma mark Actions
@@ -91,8 +91,8 @@
 	if (buttonIndex == 0) {
 		WebController *webController = [[WebController alloc] initWithURL:organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];             
-    }
+		[webController release];
+	}
 }
 
 - (void)displayOrganization {
@@ -132,15 +132,15 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (!organization.isLoaded) return 1;
-    return 4;
+	if (!organization.isLoaded) return 1;
+	return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!organization.isLoaded) return 1;
 	if (section == 0) return 3;
 	if (section == 1) return 1;
-    if (section == 2 && (!organization.publicMembers.isLoaded || organization.publicMembers.users.count == 0)) return 1;
+	if (section == 2 && (!organization.publicMembers.isLoaded || organization.publicMembers.users.count == 0)) return 1;
 	if (section == 2) return organization.publicMembers.users.count;
 	if (section == 3 && (!organization.repositories.isLoaded || organization.repositories.repositories.count == 0)) return 1;
 	if (section == 3) return organization.repositories.repositories.count;
@@ -149,8 +149,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 2) return @"Members";
-    if (section == 3) return @"Repositories";
-    return @"";
+	if (section == 3) return @"Repositories";
+	return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -171,14 +171,14 @@
 		return cell;
 	}
 	if (section == 1) return recentActivityCell;
-    if (section == 2 && !organization.publicMembers.isLoaded) return loadingMembersCell;
-    if (section == 2 && organization.publicMembers.users.count == 0) return noPublicMembersCell;
+	if (section == 2 && !organization.publicMembers.isLoaded) return loadingMembersCell;
+	if (section == 2 && organization.publicMembers.users.count == 0) return noPublicMembersCell;
 	if (section == 2) {
 		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 		if (cell == nil) {
-            [[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-            cell = userCell;
-        }
+			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
+			cell = userCell;
+		}
 		cell.user = [organization.publicMembers.users objectAtIndex:indexPath.row];
 		return cell;
 	}
@@ -212,7 +212,7 @@
 		viewController.title = @"Recent Activity";
 	} else if (section == 2) {
 		GHUser *selectedUser = [organization.publicMembers.users objectAtIndex:indexPath.row];
-        viewController = [UserController controllerWithUser:(GHUser *)selectedUser];
+		viewController = [UserController controllerWithUser:(GHUser *)selectedUser];
 	} else if (section == 3) {
 		GHRepository *repo = [organization.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [RepositoryController controllerWithRepository:repo];

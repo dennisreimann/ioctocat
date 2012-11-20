@@ -4,7 +4,7 @@
 @class GHGists;
 
 @interface GistsController : UITableViewController {
-    IBOutlet UITableViewCell *loadingGistsCell;
+	IBOutlet UITableViewCell *loadingGistsCell;
 	IBOutlet UITableViewCell *noGistsCell;
 	GHGists *gists;
 }

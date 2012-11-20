@@ -27,15 +27,15 @@
 @synthesize issueList;
 
 + (id)controllerWithUser:(GHUser *)theUser {
-    return [[[IssuesController alloc] initWithUser:theUser] autorelease];
+	return [[[IssuesController alloc] initWithUser:theUser] autorelease];
 }
 
 + (id)controllerWithRepository:(GHRepository *)theRepository {
-    return [[[IssuesController alloc] initWithRepository:theRepository] autorelease];
+	return [[[IssuesController alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"Issues" bundle:nil];
+	[super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"My Issues";
 	self.user = theUser;
 	NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
@@ -44,16 +44,16 @@
 	GHIssues *closedIssues = [GHIssues issuesWithResourcePath:closedPath];
 	self.issueList = [NSArray arrayWithObjects:openIssues, closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    return self;
+	return self;
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-    [super initWithNibName:@"Issues" bundle:nil];
+	[super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"Issues";
-    self.repository = theRepository;
+	self.repository = theRepository;
 	self.issueList = [NSArray arrayWithObjects:repository.openIssues, repository.closedIssues, nil];
 	for (GHIssues *issues in issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    return self;
+	return self;
 }
 
 - (AccountController *)accountController {
@@ -69,15 +69,15 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
+	[super viewDidLoad];
+
 	issuesControl.selectedSegmentIndex = 0;
-    if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
+	if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
 	self.navItem.title = @"Issues";
 	self.navItem.titleView = issuesControl;
 	self.navItem.rightBarButtonItem = repository ? addButton : refreshButton;
@@ -91,23 +91,23 @@
 	[loadingIssuesCell release], loadingIssuesCell = nil;
 	[noIssuesCell release], noIssuesCell = nil;
 	[issueCell release], issueCell = nil;
-    [issueList release], issueList = nil;
-    [repository release], repository = nil;
-    [super dealloc];
+	[issueList release], issueList = nil;
+	[repository release], repository = nil;
+	[super dealloc];
 }
 
 - (GHIssues *)currentIssues {
-	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? 
-		nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
+	return issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
+	nil : [issueList objectAtIndex:issuesControl.selectedSegmentIndex];
 }
 
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-    [self.tableView reloadData];
-    if (self.currentIssues.isLoaded) return;
-    [self.currentIssues loadData];
-    [self.tableView reloadData];    
+	[self.tableView reloadData];
+	if (self.currentIssues.isLoaded) return;
+	[self.currentIssues loadData];
+	[self.tableView reloadData];
 }
 
 - (IBAction)createNewIssue:(id)sender {
@@ -121,7 +121,7 @@
 
 - (IBAction)refresh:(id)sender {
 	[self.currentIssues loadData];
-    [self.tableView reloadData];
+	[self.tableView reloadData];
 }
 
 - (void)reloadIssues {
@@ -155,11 +155,11 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (self.currentIssues.isLoading ) || (self.currentIssues.entries.count == 0) ? 1 : self.currentIssues.entries.count;
+	return (self.currentIssues.isLoading ) || (self.currentIssues.entries.count == 0) ? 1 : self.currentIssues.entries.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -194,4 +194,3 @@
 }
 
 @end
-

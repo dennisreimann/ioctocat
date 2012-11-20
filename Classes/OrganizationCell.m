@@ -10,9 +10,9 @@
 - (void)dealloc {
 	[organization removeObserver:self forKeyPath:kGravatarKeyPath];
 	[organization release], organization = nil;
-    [loginLabel release], loginLabel = nil;
-    [gravatarView release], gravatarView = nil;
-    [super dealloc];
+  [loginLabel release], loginLabel = nil;
+  [gravatarView release], gravatarView = nil;
+  [super dealloc];
 }
 
 - (void)setOrganization:(GHOrganization *)theOrg {
@@ -21,7 +21,7 @@
 	organization = theOrg;
 	loginLabel.text = (!organization.name || [organization.name isEmpty]) ? organization.login : organization.name;
 	[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    gravatarView.image = organization.gravatar;
+  gravatarView.image = organization.gravatar;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

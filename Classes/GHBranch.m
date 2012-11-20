@@ -13,7 +13,7 @@
 	[super init];
 	self.repository = theRepository;
 	self.name = theName;
-    return self;
+	return self;
 }
 
 - (void)dealloc {

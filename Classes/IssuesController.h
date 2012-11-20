@@ -8,12 +8,12 @@
 	IBOutlet UITableViewCell *loadingIssuesCell;
 	IBOutlet UITableViewCell *noIssuesCell;
 	IBOutlet UIBarButtonItem *addButton;
-    IBOutlet UIBarButtonItem *refreshButton;
+	IBOutlet UIBarButtonItem *refreshButton;
 	IBOutlet IssueCell *issueCell;
-  @private
+	@private
 	GHUser *user;
-    GHRepository *repository;
-    NSArray *issueList;
+	GHRepository *repository;
+	NSArray *issueList;
 	NSUInteger loadCounter;
 }
 

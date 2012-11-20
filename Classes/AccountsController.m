@@ -32,13 +32,13 @@
 - (void)dealloc {
 	[accounts release], accounts = nil;
 	[authController release], authController = nil;
-    [userCell release], userCell = nil;
-    [super dealloc];
+	[userCell release], userCell = nil;
+	[super dealloc];
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
+	[super viewDidLoad];
+
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -54,20 +54,20 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+	[super viewDidAppear:animated];
 	[self.tableView reloadData];
 }
 
 #pragma mark Accounts
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
-    return [[^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([[obj objectForKey:kLoginDefaultsKey] isEqualToString:theLogin]) {
+	return [[^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([[obj objectForKey:kLoginDefaultsKey] isEqualToString:theLogin]) {
 			*stop = YES;
 			return YES;
-        }
-        return NO;
-    } copy] autorelease];
+		}
+		return NO;
+	} copy] autorelease];
 }
 
 #pragma mark Actions
@@ -108,11 +108,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return accounts.count;
+	return accounts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
 		cell = userCell;
@@ -120,7 +120,7 @@
 	}
 	NSDictionary *accountDict = [accounts objectAtIndex:indexPath.row];
 	NSString *login = [accountDict objectForKey:kLoginDefaultsKey];
-    cell.user = [[iOctocat sharedInstance] userWithLogin:login];
+	cell.user = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
 }
 
@@ -131,15 +131,15 @@
 #pragma mark Editing
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+	return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
+	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[accounts removeObjectAtIndex:indexPath.row];
 		[self.class saveAccounts:accounts];
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }  
+		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
@@ -148,7 +148,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+	return YES;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -158,8 +158,8 @@
 #pragma mark Authentication
 
 - (AuthenticationController *)authController {
-    if (!authController) authController = [[AuthenticationController alloc] initWithDelegate:self];
-    return authController;
+	if (!authController) authController = [[AuthenticationController alloc] initWithDelegate:self];
+	return authController;
 }
 
 - (void)authenticatedAccount:(GHAccount *)theAccount {

@@ -21,19 +21,19 @@
 }
 
 - (id)initWithGists:(GHGists *)theGists {
-    [super initWithNibName:@"Gists" bundle:nil];
+	[super initWithNibName:@"Gists" bundle:nil];
 	self.gists = theGists;
 	[self.gists addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	
+
 	return self;
 }
 
 - (void)dealloc {
 	[gists removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [gists release], gists = nil;
-    [loadingGistsCell release], loadingGistsCell = nil;
-    [noGistsCell release], noGistsCell = nil;
-    [super dealloc];
+	[gists release], gists = nil;
+	[loadingGistsCell release], loadingGistsCell = nil;
+	[noGistsCell release], noGistsCell = nil;
+	[super dealloc];
 }
 
 - (AccountController *)accountController {
@@ -49,17 +49,17 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
-    self.navItem.title = [self.title isEmpty] ? @"Gists" : self.title;
+
+	self.navItem.title = [self.title isEmpty] ? @"Gists" : self.title;
 	self.navItem.titleView = nil;
 	self.navItem.rightBarButtonItem = nil;
-	
-    if (!gists.isLoaded) [gists loadData];
+
+	if (!gists.isLoaded) [gists loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -75,29 +75,29 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
-    return (gists.isLoading || gists.gists.count == 0) ? 1 : gists.gists.count;
+	return (gists.isLoading || gists.gists.count == 0) ? 1 : gists.gists.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (gists.isLoading) return loadingGistsCell;
 	if (gists.gists.count == 0) return noGistsCell;
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+	static NSString *CellIdentifier = @"Cell";
+	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
-    }
+	}
 	GHGist *gist = [gists.gists objectAtIndex:indexPath.row];
 	cell.textLabel.text = gist.title;
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@, %d %@, %@", gist.files.count, gist.files.count == 1 ? @"file" : @"files", gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments", [gist.createdAtDate prettyDate]];
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];
-    return cell;
+	return cell;
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -118,4 +118,3 @@
 }
 
 @end
-

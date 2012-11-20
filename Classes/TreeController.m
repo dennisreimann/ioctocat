@@ -20,23 +20,23 @@
 }
 
 - (id)initWithTree:(GHTree *)theTree {
-    [super initWithNibName:@"Tree" bundle:nil];
+	[super initWithNibName:@"Tree" bundle:nil];
 	self.tree = theTree;
-    [tree addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    return self;
+	[tree addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	[self displayTree];
 	if (![tree isLoaded]) [tree loadData];
 }
 
 - (void)dealloc {
-    [tree removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [loadingTreeCell release], loadingTreeCell = nil;
-    [noEntriesCell release], noEntriesCell = nil;
-    [super dealloc];
+	[tree removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[loadingTreeCell release], loadingTreeCell = nil;
+	[noEntriesCell release], noEntriesCell = nil;
+	[super dealloc];
 }
 
 - (void)displayTree {
@@ -44,7 +44,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		GHTree *theTree = (GHTree *)object;
 		if (theTree.isLoaded) {
@@ -52,12 +52,12 @@
 		} else if (!theTree.isLoading && theTree.error) {
 			[iOctocat reportLoadingError:@"Could not load the tree"];
 		}
-	}    
+	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return tree.isLoading ? 1 : 2;
-	
+
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -70,13 +70,13 @@
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+	}
 	if (section == 0) {
 		GHTree *obj = (GHTree *)[tree.trees objectAtIndex:row];
 		cell.textLabel.text = obj.path;

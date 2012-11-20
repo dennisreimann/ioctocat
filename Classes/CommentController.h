@@ -6,7 +6,7 @@
 	IBOutlet UITextView *bodyView;
 	IBOutlet UIBarButtonItem *postButton;
 	IBOutlet UIActivityIndicatorView *activityView;
-  @private
+	@private
 	GHComment *comment;
 	id comments;
 }

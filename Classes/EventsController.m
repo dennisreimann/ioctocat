@@ -32,11 +32,11 @@
 	[super initWithNibName:@"Events" bundle:nil];
 	self.events = theEvents;
 	[events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	if (!events.isLoaded) {
 		[self showReloadAnimationAnimated:NO];
 		[events loadData];
@@ -50,7 +50,7 @@
 	[noEntriesCell release], noEntriesCell = nil;
 	[eventCell release], eventCell = nil;
 	[events release], events = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -95,7 +95,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -105,9 +105,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.events.events.count == 0) return noEntriesCell;
+	if (self.events.events.count == 0) return noEntriesCell;
 	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
-    if (cell == nil) {
+		if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
 		UIImage *bgImage = [[UIImage imageNamed:@"CellBackground.png"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:10.0f];
 		cell = eventCell;
@@ -117,7 +117,7 @@
 	GHEvent *event = [self.events.events objectAtIndex:indexPath.row];
 	cell.event = event;
 	(event.read) ? [cell markAsRead] : [cell markAsNew];
-    return cell;
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -166,4 +166,3 @@
 }
 
 @end
-

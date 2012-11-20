@@ -118,10 +118,10 @@
 	[blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[blob release];
 	blob = theBlob;
-	
+
 	self.title = blob.path;
 	blob.isLoaded ? [self displayBlob:theBlob] : [blob loadData];
-	
+
 	// Update navigation control
 	[navigationControl setEnabled:(index > 0) forSegmentAtIndex:0];
 	[navigationControl setEnabled:(index < blobs.count-1) forSegmentAtIndex:1];

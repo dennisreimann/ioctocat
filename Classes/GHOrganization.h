@@ -14,16 +14,16 @@
 	NSURL *htmlURL;
 	NSURL *gravatarURL;
 	UIImage *gravatar;
-    NSUInteger followersCount;
-    NSUInteger followingCount;
+	NSUInteger followersCount;
+	NSUInteger followingCount;
 	NSUInteger publicGistCount;
 	NSUInteger privateGistCount;
 	NSUInteger publicRepoCount;
 	NSUInteger privateRepoCount;
-    GHUsers *publicMembers;
+	GHUsers *publicMembers;
 	GHEvents *events;
 	GHRepositories *repositories;
-  @private
+	@private
 	GravatarLoader *gravatarLoader;
 }
 

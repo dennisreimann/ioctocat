@@ -36,16 +36,16 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHIssueComments parent:'%@'>", parent];
+	return [NSString stringWithFormat:@"<GHIssueComments parent:'%@'>", parent];
 }
 
 - (void)setValues:(id)theResponse {
-    NSMutableArray *resources = [NSMutableArray array];
+	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
 		GHIssueComment *comment = [GHIssueComment commentWithParent:parent andDictionary:dict];
 		[resources addObject:comment];
 	}
-    self.comments = resources;
+	self.comments = resources;
 }
 
 @end

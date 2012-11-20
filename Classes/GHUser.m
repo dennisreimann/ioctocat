@@ -68,7 +68,7 @@
 	[company release], company = nil;
 	[blogURL release], blogURL = nil;
 	[location release], location = nil;
-    [gravatarLoader release], gravatarLoader = nil;
+	[gravatarLoader release], gravatarLoader = nil;
 	[gravatarURL release], gravatarURL = nil;
 	[htmlURL release], htmlURL = nil;
 	[gravatar release], gravatar = nil;
@@ -76,9 +76,9 @@
 	[repositories release], repositories = nil;
 	[watchedRepositories release], watchedRepositories = nil;
 	[events release], events = nil;
-    [following release], following = nil;
-    [followers release], followers = nil;
-    [super dealloc];
+	[following release], following = nil;
+	[followers release], followers = nil;
+	[super dealloc];
 }
 
 - (NSUInteger)hash {
@@ -87,61 +87,61 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d'>", login, isAuthenticated ? @"YES" : @"NO", loadingStatus];
+	return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d'>", login, isAuthenticated ? @"YES" : @"NO", loadingStatus];
 }
 
 - (int)compareByName:(GHUser *)theOtherUser {
-    return [login localizedCaseInsensitiveCompare:[theOtherUser login]];
+	return [login localizedCaseInsensitiveCompare:[theOtherUser login]];
 }
 
 - (void)setLogin:(NSString *)theLogin {
 	[theLogin retain];
 	[login release];
 	login = theLogin;
-    
-    NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, login];
+
+	NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, login];
 	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, login];
 	NSString *watchedReposPath  = [NSString stringWithFormat:kUserWatchedReposFormat, login];
 	NSString *starredReposPath  = [NSString stringWithFormat:kUserStarredReposFormat, login];
-    NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
-    NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
+	NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
+	NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
 	NSString *eventsPath        = [NSString stringWithFormat:kUserEventsFormat, login];
 	NSString *gistsPath         = [NSString stringWithFormat:kUserGistsFormat, login];
 	NSString *starredGistsPath  = [NSString stringWithFormat:kStarredGistsFormat];
 
-    self.resourcePath = [NSString stringWithFormat:kUserFormat, login];
+	self.resourcePath = [NSString stringWithFormat:kUserFormat, login];
 	self.organizations = [GHOrganizations organizationsWithUser:self andPath:organizationsPath];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
 	self.starredRepositories = [GHRepositories repositoriesWithPath:starredReposPath];
 	self.watchedRepositories = [GHRepositories repositoriesWithPath:watchedReposPath];
-    self.following = [GHUsers usersWithPath:followingPath];
-    self.followers = [GHUsers usersWithPath:followersPath];
-    self.gists = [GHGists gistsWithPath:gistsPath];
-    self.starredGists = [GHGists gistsWithPath:starredGistsPath];
+	self.following = [GHUsers usersWithPath:followingPath];
+	self.followers = [GHUsers usersWithPath:followersPath];
+	self.gists = [GHGists gistsWithPath:gistsPath];
+	self.starredGists = [GHGists gistsWithPath:starredGistsPath];
 	self.events = [GHEvents resourceWithPath:eventsPath];
 }
 
 #pragma mark Loading
 
 - (void)setValues:(id)theDict {
-    if (![login isEqualToString:[theDict objectForKey:@"login"]]) self.login = [theDict objectForKey:@"login"];
-    self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
-    NSString *mail = [theDict objectForKey:@"email"];
-    if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
-        self.email = mail;
-    }
-    self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
-    self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];
-    self.blogURL = [NSURL smartURLFromString:[theDict objectForKey:@"blog"]];
-    self.publicGistCount = [[theDict objectForKey:@"public_gists"] integerValue];
-    self.privateGistCount = [[theDict objectForKey:@"private_gists"] integerValue];
-    self.publicRepoCount = [[theDict objectForKey:@"public_repos"] integerValue];
-    self.privateRepoCount = [[theDict objectForKey:@"total_private_repos"] integerValue];
-    self.followersCount = [[theDict objectForKey:@"followers"] integerValue];
-    self.followingCount = [[theDict objectForKey:@"following"] integerValue];
-    self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
-    self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
-    self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	if (![login isEqualToString:[theDict objectForKey:@"login"]]) self.login = [theDict objectForKey:@"login"];
+	self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
+	NSString *mail = [theDict objectForKey:@"email"];
+	if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
+		self.email = mail;
+	}
+	self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
+	self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];
+	self.blogURL = [NSURL smartURLFromString:[theDict objectForKey:@"blog"]];
+	self.publicGistCount = [[theDict objectForKey:@"public_gists"] integerValue];
+	self.privateGistCount = [[theDict objectForKey:@"private_gists"] integerValue];
+	self.publicRepoCount = [[theDict objectForKey:@"public_repos"] integerValue];
+	self.privateRepoCount = [[theDict objectForKey:@"total_private_repos"] integerValue];
+	self.followersCount = [[theDict objectForKey:@"followers"] integerValue];
+	self.followingCount = [[theDict objectForKey:@"following"] integerValue];
+	self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
+	self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
+	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 }
 
 #pragma mark Following
@@ -236,7 +236,7 @@
 #pragma mark Gravatar
 
 - (void)setGravatarURL:(NSURL *)theURL {
-    [theURL retain];
+	[theURL retain];
 	[gravatarURL release];
 	gravatarURL = theURL;
 

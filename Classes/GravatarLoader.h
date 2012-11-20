@@ -2,7 +2,7 @@
 
 
 @interface GravatarLoader : NSObject {
-  @private
+	@private
 	id target;
 	SEL handle;
 }
@@ -13,4 +13,3 @@
 @property(nonatomic,readonly)NSInteger gravatarSize;
 
 @end
-

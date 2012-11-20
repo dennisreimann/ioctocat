@@ -30,16 +30,16 @@
 @synthesize observedOrgRepoLists;
 
 + (id)controllerWithUser:(GHUser *)theUser {
-    return [[[OrganizationRepositoriesController alloc] initWithUser:theUser] autorelease];
+	return [[[OrganizationRepositoriesController alloc] initWithUser:theUser] autorelease];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"OrganizationRepositories" bundle:nil];
+	[super initWithNibName:@"OrganizationRepositories" bundle:nil];
 
 	self.user = theUser;
 	self.organizationRepositories = [NSMutableArray array];
-	
-    [user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+
+	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 
 	return self;
 }
@@ -69,7 +69,7 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 
 	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
 }
@@ -159,7 +159,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return user.organizations.isLoaded ? user.organizations.organizations.count : 1;
+	return user.organizations.isLoaded ? user.organizations.organizations.count : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -220,4 +220,3 @@
 }
 
 @end
-

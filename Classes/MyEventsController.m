@@ -36,11 +36,11 @@
 
 - (id)initWithUser:(GHUser *)theUser {
 	[super initWithNibName:@"MyEvents" bundle:nil];
-	
+
 	self.user = theUser;
-    [user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    loadCounter = 0;
-	
+	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	loadCounter = 0;
+
 	NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, user.login];
 	NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, user.login];
 	GHEvents *receivedEvents = [GHEvents resourceWithPath:receivedEventsPath];
@@ -50,7 +50,7 @@
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
 	}
-	
+
 	return self;
 }
 
@@ -67,45 +67,45 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
-    [organizationItem setEnabled:user.organizations.isLoaded];
-	
+	[super viewDidLoad];
+
+	[organizationItem setEnabled:user.organizations.isLoaded];
+
 	// Start loading the first feed
 	feedControl.selectedSegmentIndex = 0;
-    [self switchChanged:nil];
+	[self switchChanged:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
 	self.navItem.title = @"My Events";
 	self.navItem.titleView = feedControl;
 	self.navItem.rightBarButtonItem = organizationItem;
-	
-    if (!user.organizations.isLoaded) [user.organizations loadData];
+
+	if (!user.organizations.isLoaded) [user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
 	[self.tableView reloadData];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super viewWillDisappear:animated];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[super viewWillDisappear:animated];
 }
 
 - (void)dealloc {
 	for (GHEvents *feed in self.feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[feeds release], feeds = nil;
 	[feedControl release], feedControl = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (GHEvents *)events {
-	return (feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) ? 
-		nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
+	return (feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) ?
+	nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
 }
 
 - (BOOL)refreshCurrentFeedIfRequired {
@@ -121,24 +121,24 @@
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-    refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
-    self.selectedIndexPath = nil;
-    [self.tableView reloadData];
-    if ([self refreshCurrentFeedIfRequired]) return;
-    if (self.events.isLoaded) return;
-    [self.events loadData];
-    if (self.events.isLoading) [self showReloadAnimationAnimated:NO];
-    [self.tableView reloadData];
+	refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
+	self.selectedIndexPath = nil;
+	[self.tableView reloadData];
+	if ([self refreshCurrentFeedIfRequired]) return;
+	if (self.events.isLoaded) return;
+	[self.events loadData];
+	if (self.events.isLoading) [self showReloadAnimationAnimated:NO];
+	[self.tableView reloadData];
 }
 
 - (IBAction)selectOrganization:(id)sender {
-    OrganizationFeedsController *viewController = [[OrganizationFeedsController alloc] initWithOrganizations:user.organizations];
-    [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
+	OrganizationFeedsController *viewController = [[OrganizationFeedsController alloc] initWithOrganizations:user.organizations];
+	[self.navigationController pushViewController:viewController animated:YES];
+	[viewController release];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([object isKindOfClass:[GHEvents class]] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	if ([object isKindOfClass:[GHEvents class]] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHEvents *feed = (GHEvents *)object;
 		if (feed.isLoading) {
 			loadCounter += 1;
@@ -156,16 +156,15 @@
 		if (!user.organizations.isLoading && user.organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the list of organizations."];
 		} else if (user.organizations.isLoaded) {
-            [organizationItem setEnabled:(user.organizations.organizations.count > 0)];
-        }
-    } 
+			[organizationItem setEnabled:(user.organizations.organizations.count > 0)];
+		}
+	}
 }
 
 #pragma mark Events
 
 - (void)applicationDidBecomeActive {
-    [self refreshCurrentFeedIfRequired];
+	[self refreshCurrentFeedIfRequired];
 }
 
 @end
-

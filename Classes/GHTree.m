@@ -15,7 +15,7 @@
 @synthesize mode;
 
 + (id)treeWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-  return [[[self.class alloc] initWithRepo:theRepo andSha:theSha] autorelease];
+	return [[[self.class alloc] initWithRepo:theRepo andSha:theSha] autorelease];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {

@@ -37,14 +37,14 @@
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-    [super initWithNibName:@"User" bundle:nil];
-	
+	[super initWithNibName:@"User" bundle:nil];
+
 	self.user = theUser;
-    [user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	
+
 	return self;
 }
 
@@ -61,22 +61,22 @@
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    
+	[super viewDidLoad];
+
 	// Background
-    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-    tableHeaderView.backgroundColor = background;
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
 	BOOL isProfile = [user.login isEqualToString:self.currentUser.login];
 	self.navItem.title = isProfile ? @"Profile" : user.login;
 	self.navItem.titleView = nil;
 	self.navItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	
+
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
 	(user.isLoaded) ? [self displayUser] : [user loadData];
 	if (!user.repositories.isLoaded) [user.repositories loadData];
@@ -99,17 +99,17 @@
 	[locationCell release], locationCell = nil;
 	[blogCell release], blogCell = nil;
 	[emailCell release], emailCell = nil;
-    [followersCell release], followersCell = nil;
-    [followingCell release], followingCell = nil;
-    [gistsCell release], gistsCell = nil;
-    [organizationCell release], organizationCell = nil;
+	[followersCell release], followersCell = nil;
+	[followingCell release], followingCell = nil;
+	[gistsCell release], gistsCell = nil;
+	[organizationCell release], organizationCell = nil;
 	[recentActivityCell release], recentActivityCell = nil;
 	[loadingUserCell release],loadingUserCell = nil;
 	[loadingReposCell release], loadingReposCell = nil;
-    [loadingOrganizationsCell release], loadingOrganizationsCell = nil;
+	[loadingOrganizationsCell release], loadingOrganizationsCell = nil;
 	[noPublicReposCell release], noPublicReposCell = nil;
 	[noPublicOrganizationsCell release], noPublicOrganizationsCell = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -127,16 +127,16 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
-    } else if (buttonIndex == 1) {
+	} else if (buttonIndex == 1) {
 		WebController *webController = [[WebController alloc] initWithURL:user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];             
-    }
+		[webController release];
+	}
 }
 
 - (void)displayUser {
 	nameLabel.text = (!user.name || [user.name isEmpty]) ? user.login : user.name;
-    companyLabel.text = (!user.company || [user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", user.followersCount] : user.company;
+	companyLabel.text = (!user.company || [user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", user.followersCount] : user.company;
 	gravatarView.image = user.gravatar;
 	[locationCell setContentText:user.location];
 	[blogCell setContentText:[user.blogURL host]];
@@ -171,15 +171,15 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (!user.isLoaded) return 1;
-    return 4;
+	if (!user.isLoaded) return 1;
+	return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!user.isLoaded) return 1;
 	if (section == 0) return 3;
-    if (section == 1) return 4;
-    if (section == 2 && (!user.repositories.isLoaded || user.repositories.repositories.count == 0)) return 1;
+	if (section == 1) return 4;
+	if (section == 2 && (!user.repositories.isLoaded || user.repositories.repositories.count == 0)) return 1;
 	if (section == 2) return user.repositories.repositories.count;
 	if (section == 3 && (!user.organizations.isLoaded || user.organizations.organizations.count == 0)) return 1;
 	if (section == 3) return user.organizations.organizations.count;
@@ -188,8 +188,8 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 2) return @"Repositories";
-    if (section == 3) return @"Organizations";
-    return @"";
+	if (section == 3) return @"Organizations";
+	return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -222,14 +222,14 @@
 		[cell hideOwner];
 		return cell;
 	}
-    if (section == 3 && !user.organizations.isLoaded) return loadingOrganizationsCell;
-    if (section == 3 && user.organizations.organizations.count == 0) return noPublicOrganizationsCell;
+	if (section == 3 && !user.organizations.isLoaded) return loadingOrganizationsCell;
+	if (section == 3 && user.organizations.organizations.count == 0) return noPublicOrganizationsCell;
 	if (section == 3) {
 		OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:kOrganizationCellIdentifier];
 		if (cell == nil) {
-            [[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
-            cell = organizationCell;
-        }
+			[[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
+			cell = organizationCell;
+		}
 		cell.organization = [user.organizations.organizations objectAtIndex:indexPath.row];
 		return cell;
 	}
@@ -250,20 +250,20 @@
 		[self presentModalViewController:mailComposer animated:YES];
 		[mailComposer release];
 	} else if (section == 1 && row == 0) {
-        viewController = [EventsController controllerWithEvents:user.events];
+		viewController = [EventsController controllerWithEvents:user.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 1 && row == 3) {
-        viewController = [GistsController controllerWithGists:user.gists];
+		viewController = [GistsController controllerWithGists:user.gists];
 		viewController.title = @"Gists";
 	} else if (section == 1) {
-        viewController = [UsersController controllerWithUsers:(row == 1 ? user.following : user.followers)];
-		viewController.title = (row == 1) ? @"Following" : @"Followers";         
+		viewController = [UsersController controllerWithUsers:(row == 1 ? user.following : user.followers)];
+		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2) {
 		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [RepositoryController controllerWithRepository:repo];
 	} else if (section == 3) {
 		GHOrganization *org = [user.organizations.organizations objectAtIndex:indexPath.row];
-        viewController = [OrganizationController controllerWithOrganization:org];
+		viewController = [OrganizationController controllerWithOrganization:org];
 	}
 	// Maybe push a controller
 	if (viewController) {

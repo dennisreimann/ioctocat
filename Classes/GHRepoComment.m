@@ -19,8 +19,8 @@
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
-	[self initWithRepo:theRepo];	
-	
+	[self initWithRepo:theRepo];
+
 	NSString *createdAt = [theDict valueForKey:@"created_at"];
 	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
 	NSDictionary *userDict = [theDict valueForKey:@"user"];
@@ -32,7 +32,7 @@
 	self.path = [theDict valueForKey:@"path"];
 	self.position = (NSUInteger)[theDict valueForKey:@"position"];
 	self.line = (NSUInteger)[theDict valueForKey:@"line"];
-	
+
 	return self;
 }
 

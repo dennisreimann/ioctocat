@@ -40,17 +40,17 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+
 	self.title = @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayGist];
 	if (!gist.isLoaded) [gist loadData];
 	(gist.comments.isLoaded) ? [self displayComments] : [gist.comments loadData];
-    if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
+	if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
 
 	// Background
-    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-    tableHeaderView.backgroundColor = background;
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
@@ -68,8 +68,8 @@
 	[loadingCommentsCell release], loadingCommentsCell = nil;
 	[noCommentsCell release], noCommentsCell = nil;
 	[commentCell release], commentCell = nil;
-    [iconView release], iconView = nil;
-    [super dealloc];
+	[iconView release], iconView = nil;
+	[super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -80,29 +80,28 @@
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 															 delegate:self
 													cancelButtonTitle:@"Cancel"
-											   destructiveButtonTitle:nil
+												 destructiveButtonTitle:nil
 													otherButtonTitles:
-								  ([self.currentUser isStarringGist:gist] ? @"Unstar" : @"Star"),
-								  @"Show on GitHub",
-								  nil];
+									([self.currentUser isStarringGist:gist] ? @"Unstar" : @"Star"),
+									@"Show on GitHub",
+									nil];
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self.currentUser isStarringGist:gist] ? [self.currentUser unstarGist:gist] : [self.currentUser starGist:gist];
-    } else if (buttonIndex == 1) {
-		WebController *webController = [[WebController alloc] initWithURL:gist.htmlURL];
+	if (buttonIndex == 0) {
+		[self.currentUser isStarringGist:gist] ? [self.currentUser unstarGist:gist] : [self.currentUser starGist:gist];
+	} else if (buttonIndex == 1) {
+		WebController *webController = [WebController controllerWithURL:gist.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
-    }
+	}
 }
 
 #pragma mark Actions
 
 - (void)displayGist {
-    iconView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];
+	iconView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];
 	descriptionLabel.text = gist.title;
 	if (gist.createdAtDate) {
 		ownerLabel.text = [NSString stringWithFormat:@"%@, %@", gist.user ? gist.user.login : @"unknown user", [gist.createdAtDate prettyDate]];
@@ -165,11 +164,11 @@
 	if (gist.isLoading) return loadingCell;
 	if (!gist.isLoading && gist.files.count == 0) return noFilesCell;
 	static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
-    }
+		}
 	if (section == 0) {
 		NSDictionary *file = [[gist.files allValues] objectAtIndex:row];
 		NSString *fileContent = [file valueForKey:@"content"];
@@ -179,7 +178,6 @@
 	} else if (section == 1) {
 		if (!gist.comments.isLoaded) return loadingCommentsCell;
 		if (gist.comments.comments.count == 0) return noCommentsCell;
-		
 		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

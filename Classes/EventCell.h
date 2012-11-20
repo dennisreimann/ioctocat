@@ -12,7 +12,7 @@
 @interface EventCell : TextCell {
 	GHEvent *event;
 	id<EventCellDelegate> delegate;
-  @private
+	@private
 	IBOutlet UIView *actionsView;
 	IBOutlet UILabel *dateLabel;
 	IBOutlet UILabel *titleLabel;

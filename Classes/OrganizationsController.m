@@ -47,11 +47,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	
+
     self.navItem.title = @"Organizations";
 	self.navItem.titleView = nil;
 	self.navItem.rightBarButtonItem = nil;
-	
+
     if (!organizations.isLoaded) [organizations loadData];
 }
 
@@ -73,7 +73,7 @@
 		if (!organizations.isLoading && organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
-	}    
+	}
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -115,4 +115,3 @@
 }
 
 @end
-

@@ -20,41 +20,41 @@
 }
 
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
-    [super initWithNibName:@"Organizations" bundle:nil];
-    self.organizations = theOrganizations;
+	[super initWithNibName:@"Organizations" bundle:nil];
+	self.organizations = theOrganizations;
 	[organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationItem.title = @"Organizations";
-    if (!organizations.isLoaded) [organizations loadData];
+	[super viewDidLoad];
+	self.navigationItem.title = @"Organizations";
+	if (!organizations.isLoaded) [organizations loadData];
 }
 
 - (void)dealloc {
 	[organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [noOrganizationsCell release], noOrganizationsCell = nil;
-    [organizationCell release], organizationCell = nil;
-    [loadingCell release], loadingCell = nil;
-    [super dealloc];
+	[noOrganizationsCell release], noOrganizationsCell = nil;
+	[organizationCell release], organizationCell = nil;
+	[loadingCell release], loadingCell = nil;
+	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
 		if (!organizations.isLoading && organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}
-	}    
+		 [iOctocat reportLoadingError:@"Could not load the organizations"];
+	 }
+ }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!organizations.isLoaded) || (organizations.organizations.count == 0) ? 1 : organizations.organizations.count;
+	return (!organizations.isLoaded) || (organizations.organizations.count == 0) ? 1 : organizations.organizations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -65,16 +65,16 @@
 		[[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
 		cell = organizationCell;
 	}
-    cell.organization = [organizations.organizations objectAtIndex:indexPath.row];
+	cell.organization = [organizations.organizations objectAtIndex:indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!organizations.isLoaded || organizations.organizations.count == 0) return;
-    GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
-    EventsController *viewController = [EventsController controllerWithEvents:org.events];
+	if (!organizations.isLoaded || organizations.organizations.count == 0) return;
+	GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
+	EventsController *viewController = [EventsController controllerWithEvents:org.events];
 	viewController.title = org.login;
-    [self.navigationController pushViewController:viewController animated:YES];
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark Autorotation
@@ -88,4 +88,3 @@
 }
 
 @end
-

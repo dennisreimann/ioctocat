@@ -42,31 +42,31 @@
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue {
-    [super initWithNibName:@"Issue" bundle:nil];
+	[super initWithNibName:@"Issue" bundle:nil];
 	self.issue = theIssue;
-    return self;
+	return self;
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-    [self initWithIssue:theIssue];
+	[self initWithIssue:theIssue];
 	self.listController = theController;
-    return self;
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+	[super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
-    // Background
-    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-    tableHeaderView.backgroundColor = background;
-    self.tableView.tableHeaderView = tableHeaderView;
+	// Background
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = tableHeaderView;
 }
 
 // Add and remove observer in the view appearing methods
 // because otherwise they will still trigger when the
 // issue gets edited by the IssueForm
 - (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+	[super viewWillAppear:animated];
 	[issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -75,7 +75,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+	[super viewWillDisappear:animated];
 	[issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
@@ -88,8 +88,8 @@
 	[tableFooterView release], tableFooterView = nil;
 	[titleLabel release], titleLabel = nil;
 	[createdLabel release], createdLabel = nil;
-    [updatedLabel release], updatedLabel = nil;
-    [voteLabel release], voteLabel = nil;
+	[updatedLabel release], updatedLabel = nil;
+	[voteLabel release], voteLabel = nil;
 	[createdCell release], createdCell = nil;
 	[updatedCell release], updatedCell = nil;
 	[descriptionCell release], descriptionCell = nil;
@@ -97,9 +97,9 @@
 	[noCommentsCell release], noCommentsCell = nil;
 	[commentCell release], commentCell = nil;
 	[loadingCell release], loadingCell = nil;
-    [issueNumber release], issueNumber = nil;
+	[issueNumber release], issueNumber = nil;
 	[iconView release], iconView = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -136,18 +136,18 @@
 }
 
 - (BOOL)issueBelongsToCurrentUser {
-    return self.currentUser && [issue.user.login isEqualToString:self.currentUser.login];
+	return self.currentUser && [issue.user.login isEqualToString:self.currentUser.login];
 }
 
 #pragma mark Actions
 
 - (void)displayIssue {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-    NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
 	iconView.image = [UIImage imageNamed:icon];
 	titleLabel.text = issue.title;
-    voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
-    issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
+	voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
+	issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
 	[createdCell setContentText:[issue.created prettyDate]];
 	[updatedCell setContentText:[issue.updated prettyDate]];
 	[descriptionCell setContentText:issue.body];
@@ -161,11 +161,11 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet;
-    if (self.issueBelongsToCurrentUser) {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
-    } else {
-        actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
-    }
+		if (self.issueBelongsToCurrentUser) {
+				actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+		} else {
+				actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+		}
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
@@ -180,16 +180,16 @@
 	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
 		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:issue andIssuesController:listController];
 		[self.navigationController pushViewController:formController animated:YES];
-		[formController release];  
+		[formController release];
 	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
-		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];      
-    } else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
-		[self addComment:nil];                  
-    } else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
-        WebController *webController = [[WebController alloc] initWithURL:issue.htmlURL];
+		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];
+		} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
+		[self addComment:nil];
+		} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
+				WebController *webController = [[WebController alloc] initWithURL:issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];                        
-    }
+		[webController release];
+		}
 }
 
 #pragma mark TableView
@@ -215,12 +215,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && !issue.isLoaded) return loadingCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return createdCell;             
+	if (indexPath.section == 0 && indexPath.row == 0) return createdCell;
 	if (indexPath.section == 0 && indexPath.row == 1) return updatedCell;
 	if (indexPath.section == 0 && indexPath.row == 2) return descriptionCell;
 	if (!issue.comments.isLoaded) return loadingCommentsCell;
 	if (issue.comments.comments.count == 0) return noCommentsCell;
-	
+
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

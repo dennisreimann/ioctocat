@@ -27,7 +27,6 @@
 	[comments release], comments = nil;
 	[repository release], repository = nil;
 	[commitID release], commitID = nil;
-	
 	[super dealloc];
 }
 
@@ -38,17 +37,17 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepoComments owner:'%@' name:'%@' commitID:'%@'>", repository.owner, repository.name, commitID];
+	return [NSString stringWithFormat:@"<GHRepoComments owner:'%@' name:'%@' commitID:'%@'>", repository.owner, repository.name, commitID];
 }
 
 - (void)setValues:(id)theResponse {
-    NSMutableArray *resources = [NSMutableArray array];
+	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
 		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:repository andDictionary:dict];
 		[resources addObject:comment];
 		[comment release];
 	}
-    self.comments = resources;
+	self.comments = resources;
 }
 
 @end

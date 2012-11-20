@@ -6,8 +6,8 @@
 
 @interface AccountsController : UITableViewController <AuthenticationControllerDelegate> {
 	IBOutlet UserCell *userCell;
-  @private
-    AuthenticationController *authController;
+	@private
+	AuthenticationController *authController;
 	NSMutableArray *accounts;
 }
 

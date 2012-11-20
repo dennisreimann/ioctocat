@@ -4,7 +4,7 @@
 @class GHIssue, LabeledCell, TextCell, CommentCell, IssuesController;
 
 @interface IssueController : UITableViewController <UIActionSheetDelegate> {
-  @private
+	@private
 	GHIssue *issue;
 	IssuesController *listController;
 	IBOutlet UIView *tableHeaderView;
@@ -13,7 +13,7 @@
 	IBOutlet UILabel *updatedLabel;
 	IBOutlet UILabel *voteLabel;
 	IBOutlet UILabel *titleLabel;
-    IBOutlet UILabel *issueNumber;
+	IBOutlet UILabel *issueNumber;
 	IBOutlet UIImageView *iconView;
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *loadingCommentsCell;

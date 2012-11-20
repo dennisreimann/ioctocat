@@ -6,8 +6,8 @@
 
 @interface GHBranch : GHResource {
 	GHRepository *repository;
-    NSString *name;
-    NSString *sha;
+	NSString *name;
+	NSString *sha;
 }
 
 @property(nonatomic,retain)GHRepository *repository;

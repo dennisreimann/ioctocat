@@ -13,11 +13,10 @@
 
 - (void)dealloc {
 	[comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-    [comment release], comment = nil;
+	[comment release], comment = nil;
 	[gravatarView release], gravatarView = nil;
 	[userLabel release], userLabel = nil;
 	[dateLabel release], dateLabel = nil;
-	
 	[super dealloc];
 }
 

@@ -39,7 +39,7 @@
 	[self init];
 	self.login = theLogin;
 	self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
-    gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
+	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
 	return self;
 }
 
@@ -51,13 +51,13 @@
 	[blogURL release], blogURL = nil;
 	[htmlURL release], htmlURL = nil;
 	[location release], location = nil;
-    [gravatarLoader release], gravatarLoader = nil;
+	[gravatarLoader release], gravatarLoader = nil;
 	[gravatarURL release], gravatarURL = nil;
 	[gravatar release], gravatar = nil;
 	[publicMembers release], publicMembers = nil;
 	[repositories release], repositories = nil;
 	[events release], events = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (NSUInteger)hash {
@@ -66,11 +66,11 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"<GHOrganization login:'%@' status:'%d' name:'%@'>", login, loadingStatus, name];
+	return [NSString stringWithFormat:@"<GHOrganization login:'%@' status:'%d' name:'%@'>", login, loadingStatus, name];
 }
 
 - (int)compareByName:(GHOrganization *)theOtherOrg {
-    return [login localizedCaseInsensitiveCompare:[theOtherOrg login]];
+	return [login localizedCaseInsensitiveCompare:[theOtherOrg login]];
 }
 
 - (void)setLogin:(NSString *)theLogin {
@@ -80,43 +80,43 @@
 
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, login];
 	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, login];
-    NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, login];
+	NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, login];
 
-    self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, login];
+	self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, login];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
 	self.publicMembers = [GHUsers usersWithPath:membersPath];
-    self.events = [GHEvents resourceWithPath:eventsPath];
+	self.events = [GHEvents resourceWithPath:eventsPath];
 }
 
 - (void)setValues:(id)theDict {
-    NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
+	NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
 
-    if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
-    self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
-    self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
-    self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
-    self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
-    self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
-    self.followersCount = [[resource objectForKey:@"followers"] integerValue];
-    self.followingCount = [[resource objectForKey:@"following"] integerValue];
-    self.publicGistCount = [[resource objectForKey:@"public_gists"] integerValue];
-    self.privateGistCount = [[resource objectForKey:@"private_gists"] integerValue];
-    self.publicRepoCount = [[resource objectForKey:@"public_repos"] integerValue];
-    self.privateRepoCount = [[resource objectForKey:@"total_private_repos"] integerValue];
-    self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
-    self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
+	self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
+	self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
+	self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
+	self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
+	self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
+	self.followersCount = [[resource objectForKey:@"followers"] integerValue];
+	self.followingCount = [[resource objectForKey:@"following"] integerValue];
+	self.publicGistCount = [[resource objectForKey:@"public_gists"] integerValue];
+	self.privateGistCount = [[resource objectForKey:@"private_gists"] integerValue];
+	self.publicRepoCount = [[resource objectForKey:@"public_repos"] integerValue];
+	self.privateRepoCount = [[resource objectForKey:@"total_private_repos"] integerValue];
+	self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
+	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 }
 
 #pragma mark Gravatar
 
 - (void)setGravatarURL:(NSURL *)theURL {
-    [theURL retain];
+	[theURL retain];
 	[gravatarURL release];
 	gravatarURL = theURL;
 
 	if (gravatarURL) {
-        [gravatarLoader loadURL:gravatarURL];
-    }
+		[gravatarLoader loadURL:gravatarURL];
+	}
 }
 
 - (void)loadedGravatar:(UIImage *)theImage {

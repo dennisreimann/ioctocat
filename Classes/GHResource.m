@@ -23,7 +23,7 @@
 	self.resourcePath = thePath;
 	self.loadingStatus = GHResourceStatusNotProcessed;
 	self.savingStatus = GHResourceStatusNotProcessed;
-    return self;
+		return self;
 }
 
 - (void)dealloc {
@@ -75,10 +75,10 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-    D3JLog(@"Saving %@ (%@)\n\n%@", thePath, theMethod, theValues);
+		D3JLog(@"Saving %@ (%@)\n\n%@", thePath, theMethod, theValues);
 	NSMutableURLRequest *request = [self.currentAccount.apiClient requestWithMethod:theMethod
 												path:thePath
-										  parameters:theValues];
+											parameters:theValues];
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 		success:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, id theJSON) {
 			D3JLog(@"Saving %@ finished: %@", thePath, theJSON);

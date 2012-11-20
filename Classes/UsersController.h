@@ -3,11 +3,11 @@
 @class GHUsers, UserCell;
 
 @interface UsersController : UITableViewController {
-  @private
-    GHUsers *users;
+	@private
+	GHUsers *users;
 	IBOutlet UITableViewCell *loadingCell;
 	IBOutlet UITableViewCell *noUsersCell;
-    IBOutlet UserCell *userCell;
+	IBOutlet UserCell *userCell;
 }
 
 + (id)controllerWithUsers:(GHUsers *)theUsers;

@@ -31,7 +31,7 @@
 	[issueButton release], issueButton = nil;
 	[commitButton release], commitButton = nil;
 	[gistButton release], gistButton = nil;
-    [super dealloc];
+	[super dealloc];
 }
 
 - (void)setEvent:(GHEvent *)theEvent {
@@ -39,7 +39,7 @@
 	[event release];
 	event = [theEvent retain];
 	titleLabel.text = event.title;
-    dateLabel.text = [event.date prettyDate];
+	dateLabel.text = [event.date prettyDate];
 	NSString *icon = [NSString stringWithFormat:@"%@.png", event.extendedEventType];
 	iconView.image = [UIImage imageNamed:icon];
 	[event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -78,10 +78,10 @@
 }
 
 - (void)setCustomBackgroundColor:(UIColor *)theColor {
-    if (!self.backgroundView) {
-        self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
-    }
-    self.backgroundView.backgroundColor = theColor;
+	if (!self.backgroundView) {
+			self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+	}
+	self.backgroundView.backgroundColor = theColor;
 }
 
 - (void)markAsNew {

@@ -14,25 +14,25 @@
 @synthesize comments;
 
 + (id)controllerWithComment:(GHComment *)theComment andComments:(id)theComments {
-    return [[[self.class alloc] initWithComment:theComment andComments:theComments] autorelease];
+	return [[[self.class alloc] initWithComment:theComment andComments:theComments] autorelease];
 }
 
-- (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {    
-    [super initWithNibName:@"Comment" bundle:nil];
-	
+- (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {
+	[super initWithNibName:@"Comment" bundle:nil];
+
 	self.comment = theComment;
 	self.comments = theComments;
-    [comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	
+	[comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+
 	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
+	[super viewDidLoad];
+
 	self.title = @"Post comment";
 	self.navigationItem.rightBarButtonItem = postButton;
-	
+
 	[bodyView becomeFirstResponder];
 }
 
@@ -43,13 +43,11 @@
 	[bodyView release], bodyView = nil;
 	[postButton release], postButton = nil;
 	[activityView release], activityView = nil;
-	
-    [super dealloc];
+	[super dealloc];
 }
 
 - (IBAction)postComment:(id)sender {
 	comment.body = bodyView.text;
-	
 	// Validate
 	if ([comment.body isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];

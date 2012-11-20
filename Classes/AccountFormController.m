@@ -19,18 +19,16 @@
 @synthesize account;
 @synthesize accounts;
 
-- (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {    
+- (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
     [super initWithNibName:@"AccountForm" bundle:nil];
 	self.index = theIndex;
 	self.accounts = theAccounts;
-	
 	// Find existing or initialize a new account
 	if (index == NSNotFound) {
 		self.account = [NSMutableDictionary dictionary];
 	} else {
 		self.account = [accounts objectAtIndex:index];
 	}
-    
 	return self;
 }
 
@@ -57,32 +55,28 @@
 	NSString *login = [loginField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *password = [passwordField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *endpoint = [endpointField.text stringByTrimmingCharactersInSet:trimSet];
-	
 	if ([login isEmpty] || [password isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a login and a password"];
 	} else {
 		[account setValue:login forKey:kLoginDefaultsKey];
 		[account setValue:password forKey:kPasswordDefaultsKey];
 		[account setValue:endpoint forKey:kEndpointDefaultsKey];
-		
 		// Add new account to list of accounts
 		if (index == NSNotFound) [accounts addObject:account];
-		
 		// Save
 		[AccountsController saveAccounts:accounts];
-		
 		// Go back
 		[loginField resignFirstResponder];
 		[passwordField resignFirstResponder];
 		[endpointField resignFirstResponder];
-		
 		[self.navigationController popViewControllerAnimated:YES];
 	}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[loginField resignFirstResponder];
-	[passwordField resignFirstResponder];	[endpointField resignFirstResponder];
+	[passwordField resignFirstResponder];
+	[endpointField resignFirstResponder];
 }
 
 #pragma mark Keyboard

@@ -5,7 +5,7 @@
 
 @interface UserCell : UITableViewCell {
 	GHUser *user;
-  @private
+	@private
 	IBOutlet UILabel *userLabel;
 	IBOutlet UIImageView *gravatarView;
 }

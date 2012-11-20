@@ -4,7 +4,7 @@
 @class GHAccount;
 
 @interface AuthenticationController : UIViewController <UIActionSheetDelegate> {
-  @private
+	@private
 	UIViewController *delegate;
 	UIActionSheet *authSheet;
 	GHAccount *account;

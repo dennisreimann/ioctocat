@@ -39,31 +39,31 @@
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-    [super initWithNibName:@"Repository" bundle:nil];
+	[super initWithNibName:@"Repository" bundle:nil];
 	self.repository = theRepository;
-	
+
 	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository.readme addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	
-    return self;
+
+	return self;
 }
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
-	
+	[super viewDidLoad];
+
 	self.title = repository.name;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayRepository];
 	if (!repository.isLoaded) [repository loadData];
 	if (!repository.readme.isLoaded) [repository.readme loadData];
 	if (!repository.branches.isLoaded) [repository.branches loadData];
-    if (!self.currentUser.starredRepositories.isLoaded) [self.currentUser.starredRepositories loadData];
-    if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadData];
-	
+	if (!self.currentUser.starredRepositories.isLoaded) [self.currentUser.starredRepositories loadData];
+	if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadData];
+
 	// Background
-    UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-    tableHeaderView.backgroundColor = background;
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = tableHeaderView;
 }
 
@@ -77,17 +77,17 @@
 	[numbersLabel release], numbersLabel = nil;
 	[ownerLabel release], ownerLabel = nil;
 	[websiteLabel release], websiteLabel = nil;
-    [forkLabel release], forkLabel = nil;
+	[forkLabel release], forkLabel = nil;
 	[websiteCell release], websiteCell = nil;
 	[descriptionCell release], descriptionCell = nil;
-    [issuesCell release], issuesCell = nil;
+	[issuesCell release], issuesCell = nil;
 	[loadingCell release], loadingCell = nil;
 	[ownerCell release], ownerCell = nil;
 	[readmeCell release], readmeCell = nil;
 	[eventsCell release], eventsCell = nil;
 	[forkCell release], forkCell = nil;
-    [iconView release], iconView = nil;
-    [super dealloc];
+	[iconView release], iconView = nil;
+	[super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -96,37 +96,37 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
-															 delegate:self
-													cancelButtonTitle:@"Cancel"
-											   destructiveButtonTitle:nil
-													otherButtonTitles:
-								  ([self.currentUser isStarring:repository] ? @"Unstar" : @"Star"),
-								  ([self.currentUser isWatching:repository] ? @"Unwatch" : @"Watch"),
-								  @"Show on GitHub",
-								  nil];
+	delegate:self
+	cancelButtonTitle:@"Cancel"
+	destructiveButtonTitle:nil
+	otherButtonTitles:
+	([self.currentUser isStarring:repository] ? @"Unstar" : @"Star"),
+	([self.currentUser isWatching:repository] ? @"Unwatch" : @"Watch"),
+	@"Show on GitHub",
+	nil];
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) {
-        [self.currentUser isStarring:repository] ? [self.currentUser unstarRepository:repository] : [self.currentUser starRepository:repository];
-    } else if (buttonIndex == 1) {
-        [self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
-    } else if (buttonIndex == 2) {
+	if (buttonIndex == 0) {
+		[self.currentUser isStarring:repository] ? [self.currentUser unstarRepository:repository] : [self.currentUser starRepository:repository];
+	} else if (buttonIndex == 1) {
+		[self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
+	} else if (buttonIndex == 2) {
 		WebController *webController = [[WebController alloc] initWithURL:repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];             
-    }
+		[webController release];
+	}
 }
 
 #pragma mark Actions
 
 - (void)displayRepository {
-    iconView.image = repository.isLoaded ? [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")] : nil;
+	iconView.image = repository.isLoaded ? [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")] : nil;
 	nameLabel.text = repository.name;
 	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"star" : @"stars", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
-    if (repository.isFork) forkLabel.text = @"forked";
+	if (repository.isFork) forkLabel.text = @"forked";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];
 	[descriptionCell setContentText:repository.descriptionText];
@@ -177,7 +177,6 @@
 	return repository.branches.branches.count;
 }
 
-
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	return (section < 2) ? @"" : @"Code";
 }
@@ -203,8 +202,8 @@
 			case 0: cell = forkCell; break;
 			case 1: cell = issuesCell; break;
 			case 2: cell = eventsCell; break;
-		}    
-    } else {
+		}
+	} else {
 		GHBranch *branch = [repository.branches.branches objectAtIndex:row];
 		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
 		if (cell == nil) {
@@ -215,7 +214,7 @@
 			cell.opaque = YES;
 		}
 		cell.textLabel.text = branch.name;
-    }
+	}
 	return cell;
 }
 

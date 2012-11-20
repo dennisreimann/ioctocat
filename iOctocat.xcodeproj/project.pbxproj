@@ -109,10 +109,7 @@
 		6F5E863B14F2A17200F340FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8711334AFE300D1E35E /* Icon.png */; };
 		6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8731334AFEF00D1E35E /* Icon@2x.png */; };
 		6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */; };
-		6F5E9ABC1119A96000752560 /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */; };
 		6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
-		6F5E9ABE1119A96000752560 /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9F1119A96000752560 /* NSDictionary_JSONExtensions.m */; };
-		6F5E9ABF1119A96000752560 /* NSScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AA11119A96000752560 /* NSScanner_Extensions.m */; };
 		6F5E9AC51119A96000752560 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */; };
 		6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
 		6F5E9B631119AD2100752560 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
@@ -493,14 +490,8 @@
 		6F5B58FB164FC252009ADE17 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellBackground.png; path = Images/CellBackground.png; sourceTree = "<group>"; };
 		6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CellBackground@2x.png"; path = "Images/CellBackground@2x.png"; sourceTree = "<group>"; };
 		6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
-		6F5E9A9A1119A96000752560 /* NSCharacterSet_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCharacterSet_Extensions.h; sourceTree = "<group>"; };
-		6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSCharacterSet_Extensions.m; sourceTree = "<group>"; };
 		6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
 		6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
-		6F5E9A9E1119A96000752560 /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
-		6F5E9A9F1119A96000752560 /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
-		6F5E9AA01119A96000752560 /* NSScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSScanner_Extensions.h; sourceTree = "<group>"; };
-		6F5E9AA11119A96000752560 /* NSScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSScanner_Extensions.m; sourceTree = "<group>"; };
 		6F5E9AAE1119A96000752560 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
 		6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
 		6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
@@ -1094,16 +1085,10 @@
 				6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */,
 				6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */,
 				6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */,
-				6F5E9A9A1119A96000752560 /* NSCharacterSet_Extensions.h */,
-				6F5E9A9B1119A96000752560 /* NSCharacterSet_Extensions.m */,
 				6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */,
 				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
 				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
 				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
-				6F5E9A9E1119A96000752560 /* NSDictionary_JSONExtensions.h */,
-				6F5E9A9F1119A96000752560 /* NSDictionary_JSONExtensions.m */,
-				6F5E9AA01119A96000752560 /* NSScanner_Extensions.h */,
-				6F5E9AA11119A96000752560 /* NSScanner_Extensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1966,10 +1951,7 @@
 				6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */,
 				6F2C77291114F430002665DA /* DiffFilesController.m in Sources */,
 				6FF09E65111589D600925109 /* FilesCell.m in Sources */,
-				6F5E9ABC1119A96000752560 /* NSCharacterSet_Extensions.m in Sources */,
 				6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */,
-				6F5E9ABE1119A96000752560 /* NSDictionary_JSONExtensions.m in Sources */,
-				6F5E9ABF1119A96000752560 /* NSScanner_Extensions.m in Sources */,
 				6F5E9AC51119A96000752560 /* EGORefreshTableHeaderView.m in Sources */,
 				6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */,
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,

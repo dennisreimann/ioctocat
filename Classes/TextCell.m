@@ -7,6 +7,7 @@
 - (CGFloat)marginRight;
 - (CGFloat)marginBottom;
 - (CGFloat)marginLeft;
+- (void)adjustTextViewHeight;
 @end
 
 @implementation TextCell
@@ -18,6 +19,7 @@
 
 - (void)setContentText:(NSString *)theText {
 	contentTextView.text = theText;
+	[self adjustTextViewHeight];
 }
 
 - (CGFloat)marginTop {
@@ -61,6 +63,13 @@
 
 - (BOOL)hasContent {
 	return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
+}
+
+
+- (void)adjustTextViewHeight {
+	CGRect frame = contentTextView.frame;
+	frame.size.height = self.hasContent ? contentTextView.contentSize.height : 0;
+	contentTextView.frame = frame;
 }
 
 @end

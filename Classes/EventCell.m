@@ -40,6 +40,7 @@
 	event = [theEvent retain];
 	titleLabel.text = event.title;
 	dateLabel.text = [event.date prettyDate];
+	[self setContentText:event.content];
 	NSString *icon = [NSString stringWithFormat:@"%@.png", event.extendedEventType];
 	iconView.image = [UIImage imageNamed:icon];
 	[event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -59,22 +60,22 @@
 	for (UIView *subview in actionsView.subviews) {
 		[subview removeFromSuperview];
 	}
-	// set content text
-	if (event.content) {
-		[self setContentText:event.content];
-	}
 	// add new action buttons
-	CGFloat w = 40.0;
-	CGFloat h = 32.0;
-	CGFloat m = 10.0;
+	CGFloat w = 48.0;
+	CGFloat h = 36.0;
+	CGFloat m = 12.0;
 	CGFloat o = self.frame.size.width;
 	CGFloat x = o / 2 - (buttons.count * (w+m) / 2);
-	CGFloat y = 7.0;
+	CGFloat y = 9.0;
 	for (UIButton *btn in buttons) {
 		[actionsView addSubview:btn];
 		btn.frame = CGRectMake(x, y, w, h);
 		x += w + m;
 	}
+	// position action view at bottom
+	CGRect frame = actionsView.frame;
+	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
+	actionsView.frame = frame;
 }
 
 - (void)setCustomBackgroundColor:(UIColor *)theColor {
@@ -95,13 +96,15 @@
 	event.read = YES;
 }
 
-- (void)showDetails {
-	actionsView.hidden = NO;
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    for (UIButton *btn in actionsView.subviews) [btn setHighlighted:NO];
 	[self markAsRead];
 }
 
-- (void)hideDetails {
-	actionsView.hidden = YES;
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
+    [super setHighlighted:highlighted animated:animated];
+    for (UIButton *btn in actionsView.subviews) [btn setHighlighted:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -111,7 +114,7 @@
 }
 
 - (CGFloat)heightForTableView:(UITableView *)tableView {
-	return [super heightForTableView:tableView] + 70.0f + 40.0f;
+	return 70.0f + [super heightForTableView:tableView] + actionsView.frame.size.height;
 }
 
 #pragma mark Actions
@@ -156,7 +159,7 @@
 }
 
 - (CGFloat)marginRight {
-	return 2.0f;
+	return 1.0f;
 }
 
 - (CGFloat)marginBottom {
@@ -164,7 +167,7 @@
 }
 
 - (CGFloat)marginLeft {
-	return 2.0f;
+	return 1.0f;
 }
 
 @end

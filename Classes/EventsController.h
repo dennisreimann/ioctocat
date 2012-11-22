@@ -1,14 +1,17 @@
 #import <UIKit/UIKit.h>
-#import "GHEvents.h"
 #import "EventCell.h"
 #import "PullToRefreshTableViewController.h"
 
 
+@class GHEvents;
+
 @interface EventsController : PullToRefreshTableViewController <EventCellDelegate> {
 	GHEvents *events;
-	IBOutlet UITableViewCell *noEntriesCell;
 	IBOutlet EventCell *eventCell;
+	IBOutlet UITableViewCell *noEntriesCell;
 }
+
+@property(nonatomic,retain)EventCell *selectedCell;
 @property(nonatomic,retain)NSIndexPath *selectedIndexPath;
 
 + (id)controllerWithEvents:(GHEvents *)theEvents;

@@ -40,6 +40,7 @@
 @property (nonatomic, retain) UIColor *strokeColor;
 - (void)useAlertStyle;
 - (void)useRedDeleteStyle;
+- (void)useGithubStyle;
 - (void)useWhiteStyle;
 - (void)useBlackStyle;
 - (void)useWhiteActionSheetStyle;

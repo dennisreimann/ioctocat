@@ -1,5 +1,6 @@
 #import "EventsController.h"
 #import "GHEvent.h"
+#import "GHEvents.h"
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "IssueController.h"
@@ -22,6 +23,7 @@
 @implementation EventsController
 
 @synthesize events;
+@synthesize selectedCell;
 @synthesize selectedIndexPath;
 
 + (id)controllerWithEvents:(GHEvents *)theEvents {
@@ -48,6 +50,7 @@
 	[events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[selectedIndexPath release], selectedIndexPath = nil;
 	[noEntriesCell release], noEntriesCell = nil;
+	[selectedCell release], selectedCell = nil;
 	[eventCell release], eventCell = nil;
 	[events release], events = nil;
 	[super dealloc];
@@ -123,19 +126,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[self.tableView beginUpdates];
 	if ([self.selectedIndexPath isEqual:indexPath]) {
+		self.selectedCell = nil;
+		self.selectedIndexPath = nil;
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+	} else {
+		self.selectedCell = (EventCell *)[tableView cellForRowAtIndexPath:indexPath];
+		self.selectedIndexPath = indexPath;
 	}
-	self.selectedIndexPath = [tableView indexPathForSelectedRow];
 	[self.tableView endUpdates];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if ([indexPath isEqual:self.selectedIndexPath]) {
-//		EventCell *cell = (EventCell *)[tableView cellForRowAtIndexPath:indexPath];
-//		return [cell heightForTableView:tableView];
-		return 120.0f;
+		return [self.selectedCell heightForTableView:tableView];
 	} else {
-		return 70.0;
+		return 70.0f;
 	}
 }
 

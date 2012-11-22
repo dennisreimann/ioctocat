@@ -340,7 +340,8 @@
 	}
 
 	else if ([eventType isEqualToString:@"CreateEvent"]) {
-		self._content = [payload valueForKey:@"description"];
+		NSString *refType = [payload valueForKey:@"ref_type"];
+		self._content = [refType isEqualToString:@"repository"] ? repository.descriptionText : @"";
 	}
 
 	else if ([eventType isEqualToString:@"ForkEvent"]) {
@@ -348,11 +349,11 @@
 	}
 
 	else if ([eventType isEqualToString:@"GistEvent"]) {
-		self._content = gist.description;
+		self._content = gist.descriptionText;
 	}
 
 	else if ([eventType isEqualToString:@"GollumEvent"]) {
-		self._content = @"";
+		self._content = @""; // TODO
 	}
 
 	else if ([eventType isEqualToString:@"IssueCommentEvent"]) {
@@ -360,11 +361,11 @@
 	}
 
 	else if ([eventType isEqualToString:@"IssuesEvent"]) {
-		self._content = @"";
+		self._content = issue.title;
 	}
 
 	else if ([eventType isEqualToString:@"PullRequestEvent"]) {
-		self._content = @"";
+		self._content = pullRequest.title;
 	}
 
 	else if ([eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
@@ -372,7 +373,7 @@
 	}
 
 	else if ([eventType isEqualToString:@"PushEvent"]) {
-		self._content = @"";
+		self._content = @""; // TODO
 	}
 
 	return _content;

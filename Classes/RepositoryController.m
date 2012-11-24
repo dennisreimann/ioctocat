@@ -228,6 +228,7 @@
 	} else if (section == 0 && row == 1 && repository.homepageURL) {
 		viewController = [WebController controllerWithURL:repository.homepageURL];
 	} else if (section == 0 && row >= 2) {
+		if (!repository.readme.isLoaded) return;
 		viewController = [WebController controllerWithHTML:repository.readme.bodyHTML];
 		viewController.title = @"README";
 	} else if (section == 1 && row == 0) {

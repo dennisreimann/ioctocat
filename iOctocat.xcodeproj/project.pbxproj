@@ -144,6 +144,7 @@
 		6F61F541139E43FD005DBE67 /* AvatarBackground50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53B139E43FC005DBE67 /* AvatarBackground50@2x.png */; };
 		6F61F542139E43FD005DBE67 /* HeadBackground80.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53C139E43FC005DBE67 /* HeadBackground80.png */; };
 		6F61F543139E43FD005DBE67 /* HeadBackground80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */; };
+		6F6399E416618E1E00BF2FF0 /* GHTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6399E316618E1E00BF2FF0 /* GHTextField.m */; };
 		6F6E4ADF1645C1A900E03FD9 /* code.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E4ADE1645C1A900E03FD9 /* code.css */; };
 		6F6E4AF31645C3E300E03FD9 /* NoticeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E4AE11645C3E300E03FD9 /* NoticeView.bundle */; };
 		6F6E4AF41645C3E300E03FD9 /* UILabel+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E4AE31645C3E300E03FD9 /* UILabel+WBExtensions.m */; };
@@ -536,6 +537,8 @@
 		6F61F53B139E43FC005DBE67 /* AvatarBackground50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AvatarBackground50@2x.png"; path = "Images/AvatarBackground50@2x.png"; sourceTree = "<group>"; };
 		6F61F53C139E43FC005DBE67 /* HeadBackground80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HeadBackground80.png; path = Images/HeadBackground80.png; sourceTree = "<group>"; };
 		6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HeadBackground80@2x.png"; path = "Images/HeadBackground80@2x.png"; sourceTree = "<group>"; };
+		6F6399E216618E1E00BF2FF0 /* GHTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTextField.h; sourceTree = "<group>"; };
+		6F6399E316618E1E00BF2FF0 /* GHTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTextField.m; sourceTree = "<group>"; };
 		6F6E4ADE1645C1A900E03FD9 /* code.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = code.css; sourceTree = "<group>"; };
 		6F6E4AE11645C3E300E03FD9 /* NoticeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NoticeView.bundle; sourceTree = "<group>"; };
 		6F6E4AE21645C3E300E03FD9 /* UILabel+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WBExtensions.h"; sourceTree = "<group>"; };
@@ -1000,6 +1003,8 @@
 				6FF09E64111589D600925109 /* FilesCell.m */,
 				6FE7D1BC115622D1004B4D68 /* CommentCell.h */,
 				6FE7D1BD115622D1004B4D68 /* CommentCell.m */,
+				6F6399E216618E1E00BF2FF0 /* GHTextField.h */,
+				6F6399E316618E1E00BF2FF0 /* GHTextField.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -2050,6 +2055,7 @@
 				6FB1CF8E1649AEB200337EBE /* EventsController.m in Sources */,
 				6FDD2150165194FF0017E8BA /* GHPullRequest.m in Sources */,
 				6FAE3439165B6FD300C3502A /* GHApplication.m in Sources */,
+				6F6399E416618E1E00BF2FF0 /* GHTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -186,7 +186,7 @@
 	if (section == 3 && organization.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 3) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		if (cell == nil) cell = [RepositoryCell cell];
 		cell.repository = [organization.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
 		return cell;

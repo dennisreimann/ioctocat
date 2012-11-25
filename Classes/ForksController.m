@@ -60,7 +60,7 @@
 	if (self.currentForks.isLoading) return loadingForksCell;
 	if (self.currentForks.entries.count == 0) return noForksCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+	if (cell == nil) cell = [RepositoryCell cell];
 	cell.repository = [self.currentForks.entries objectAtIndex:indexPath.row];
 	return cell;
 }

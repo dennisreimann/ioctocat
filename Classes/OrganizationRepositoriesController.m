@@ -194,7 +194,7 @@
 		}
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		if (cell == nil) cell = [RepositoryCell cell];
 		[(RepositoryCell *)cell setRepository:[repos.repositories objectAtIndex:indexPath.row]];
 		[(RepositoryCell *)cell hideOwner];
 	}

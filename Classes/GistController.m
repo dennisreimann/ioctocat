@@ -116,14 +116,15 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (object == gist && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	if (![keyPath isEqualToString:kResourceLoadingStatusKeyPath]) return;
+	if (object == gist) {
 		if (gist.isLoaded) {
 			[self displayGist];
 		} else if (gist.error) {
 			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
 			[self.tableView reloadData];
 		}
-	} else if (object == gist.comments && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	} else if (object == gist.comments && !gist.isLoading && !gist.error) {
 		if (gist.comments.isLoaded) {
 			[self displayComments];
 		} else if (gist.comments.error) {
@@ -144,12 +145,12 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (gist.isLoading) ? 1 : 2;
+	return (!gist.isLoaded) ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (gist.isLoading) return 1;
-	if (section == 0)	return gist.files.count;
+	if (!gist.isLoaded) return 1;
+	if (section == 0) return gist.files.count;
 	if (section == 1 && !gist.comments.isLoaded) return 1;
 	return gist.comments.comments.count == 0 ? 1 : gist.comments.comments.count;
 }

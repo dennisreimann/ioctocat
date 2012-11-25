@@ -10,13 +10,15 @@
 #import "GHRepoComment.h"
 #import "GHIssueComment.h"
 #import "iOctocat.h"
-#import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @interface GHEvent ()
 @property(nonatomic,retain)NSString *_title;
 @property(nonatomic,retain)NSString *_content;
+- (NSString *)shortenMessage:(NSString *)longMessage;
 - (NSString *)shortenSha:(NSString *)longSha;
 - (NSString *)shortenRef:(NSString *)longRef;
 @end
@@ -176,11 +178,12 @@
 	if (!pullPayload) pullPayload = [payload valueForKeyPath:@"issue.pull_request"];
 	// this check is somehow hacky, but the API provides empty pull_request
 	// urls in case there is no pull request associated with an issue
-	if (pullPayload && ![[pullPayload valueForKey:@"html_url"] isKindOfClass:[NSNull class]]) {
+	if (pullPayload && ![[pullPayload valueForKey:@"html_url" defaultsTo:@""] isEmpty]) {
 		NSInteger pullNumber = [[pullPayload valueForKey:@"number"] integerValue];
 		if (!pullNumber) pullNumber = issue.num;
 		self.pullRequest = [GHPullRequest pullRequestWithRepository:self.repository];
 		self.pullRequest.num = pullNumber;
+		self.pullRequest.title = [payload valueForKeyPath:@"pull_request.title"];
 	}
 
 	// Issue Comment (which might also be a pull request comment)
@@ -193,6 +196,7 @@
 	NSString *gistId = [payload valueForKeyPath:@"gist.id"];
 	if (gistId) {
 		self.gist = [GHGist gistWithId:gistId];
+		[self.gist setValues:[payload valueForKey:@"gist"]];
 	}
 
 	// Commits
@@ -202,7 +206,7 @@
 		for (NSDictionary *commitDict in _commits) {
 			NSString *theSha = [commitDict valueForKey:@"sha"];
 			GHCommit *commit = [GHCommit commitWithRepo:self.repository andSha:theSha];
-			commit.message = [commitDict valueForKey:@"message"];
+			commit.message = [commitDict valueForKey:@"message" defaultsTo:@""];
 			[self.commits addObject:commit];
 		}
 	}
@@ -280,7 +284,8 @@
 	else if ([eventType isEqualToString:@"GollumEvent"]) {
 		NSDictionary *firstPage = [pages objectAtIndex:0];
 		NSString *action = [firstPage valueForKey:@"action"];
-		self._title = [NSString stringWithFormat:@"%@ %@ the %@ wiki", user.login, action, repository.repoId];
+		NSString *pageName = [firstPage valueForKey:@"page_name"];
+		self._title = [NSString stringWithFormat:@"%@ %@ \"%@\" in the %@ wiki", user.login, action, pageName, repository.repoId];
 	}
 
 	else if ([eventType isEqualToString:@"IssueCommentEvent"]) {
@@ -340,7 +345,8 @@
 	}
 
 	else if ([eventType isEqualToString:@"CreateEvent"]) {
-		self._content = [payload valueForKey:@"description"];
+		NSString *refType = [payload valueForKey:@"ref_type"];
+		self._content = [refType isEqualToString:@"repository"] ? repository.descriptionText : @"";
 	}
 
 	else if ([eventType isEqualToString:@"ForkEvent"]) {
@@ -348,11 +354,12 @@
 	}
 
 	else if ([eventType isEqualToString:@"GistEvent"]) {
-		self._content = gist.description;
+		self._content = gist.descriptionText;
 	}
 
 	else if ([eventType isEqualToString:@"GollumEvent"]) {
-		self._content = @"";
+		NSDictionary *firstPage = [pages objectAtIndex:0];
+		self._content = [firstPage valueForKey:@"summary" defaultsTo:@""];
 	}
 
 	else if ([eventType isEqualToString:@"IssueCommentEvent"]) {
@@ -360,11 +367,11 @@
 	}
 
 	else if ([eventType isEqualToString:@"IssuesEvent"]) {
-		self._content = @"";
+		self._content = issue.title;
 	}
 
 	else if ([eventType isEqualToString:@"PullRequestEvent"]) {
-		self._content = @"";
+		self._content = pullRequest.title;
 	}
 
 	else if ([eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
@@ -372,10 +379,21 @@
 	}
 
 	else if ([eventType isEqualToString:@"PushEvent"]) {
-		self._content = @"";
+		NSMutableArray *messages = [NSMutableArray arrayWithCapacity:self.commits.count];
+		for (GHCommit *commit in self.commits) {
+			NSString *formatted = [NSString stringWithFormat:@"• %@", [self shortenMessage:commit.message]];
+			[messages addObject:formatted];
+		}
+		self._content = [messages componentsJoinedByString:@"\n"];
 	}
 
 	return _content;
+}
+
+
+- (NSString *)shortenMessage:(NSString *)longMessage {
+	NSArray *comps = [longMessage componentsSeparatedByString:@"\n"];
+	return [comps objectAtIndex:0];
 }
 
 - (NSString *)shortenSha:(NSString *)longSha {

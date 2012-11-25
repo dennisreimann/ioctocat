@@ -7,6 +7,7 @@
 - (CGFloat)marginRight;
 - (CGFloat)marginBottom;
 - (CGFloat)marginLeft;
+- (void)adjustTextViewHeight;
 @end
 
 @implementation TextCell
@@ -18,6 +19,23 @@
 
 - (void)setContentText:(NSString *)theText {
 	contentTextView.text = theText;
+	[self adjustTextViewHeight];
+}
+
+- (BOOL)hasContent {
+	return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
+}
+
+- (void)adjustTextViewHeight {
+	CGRect frame = contentTextView.frame;
+	frame.size.height = self.hasContent ? contentTextView.contentSize.height + self.textInset : 0.0f;
+	contentTextView.frame = frame;
+}
+
+#pragma mark Layout
+
+- (CGFloat)textInset {
+	return 8.0f; // UITextView has an inset of 8px on each side
 }
 
 - (CGFloat)marginTop {
@@ -45,10 +63,9 @@
 		outerWidth -= [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 20.0f : 90.0f;
 	}
 	CGFloat maxHeight = 50000.0f;
-	CGFloat textInset = 16.0f;
+	CGFloat textInset = self.textInset * 2;
 	CGFloat marginH  = self.marginLeft + self.marginRight;
 	CGFloat marginV  = self.marginTop + self.marginBottom;
-	// calculate the text width: UITextView has an inset of 8px on each side
 	CGFloat width = outerWidth - marginH;
 	CGFloat textWidth = width - textInset;
 	CGSize constraint = CGSizeMake(textWidth, maxHeight);
@@ -57,10 +74,6 @@
 	lineBreakMode:UILineBreakModeWordWrap];
 	CGFloat height = size.height + textInset + marginV;
 	return height;
-}
-
-- (BOOL)hasContent {
-	return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
 }
 
 @end

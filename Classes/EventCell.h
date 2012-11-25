@@ -9,38 +9,36 @@
 
 @class GHEvent;
 
-@interface EventCell : TextCell {
-	GHEvent *event;
-	id<EventCellDelegate> delegate;
-	@private
-	IBOutlet UIView *actionsView;
-	IBOutlet UILabel *dateLabel;
-	IBOutlet UILabel *titleLabel;
-	IBOutlet UIImageView *iconView;
-	IBOutlet UIImageView *gravatarView;
-	IBOutlet UIButton *repositoryButton;
-	IBOutlet UIButton *otherRepositoryButton;
-	IBOutlet UIButton *userButton;
-	IBOutlet UIButton *otherUserButton;
-	IBOutlet UIButton *organizationButton;
-	IBOutlet UIButton *issueButton;
-	IBOutlet UIButton *commitButton;
-	IBOutlet UIButton *gistButton;
-}
+@interface EventCell : TextCell
 
-@property(nonatomic,retain)GHEvent *event;
 @property(assign)id<EventCellDelegate> delegate;
+@property(nonatomic,retain)GHEvent *event;
+@property(nonatomic,retain)IBOutlet UIView *actionsView;
+@property(nonatomic,retain)IBOutlet UILabel *dateLabel;
+@property(nonatomic,retain)IBOutlet UILabel *titleLabel;
+@property(nonatomic,retain)IBOutlet UIImageView *iconView;
+@property(nonatomic,retain)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,retain)IBOutlet UIButton *repositoryButton;
+@property(nonatomic,retain)IBOutlet UIButton *otherRepositoryButton;
+@property(nonatomic,retain)IBOutlet UIButton *userButton;
+@property(nonatomic,retain)IBOutlet UIButton *otherUserButton;
+@property(nonatomic,retain)IBOutlet UIButton *organizationButton;
+@property(nonatomic,retain)IBOutlet UIButton *issueButton;
+@property(nonatomic,retain)IBOutlet UIButton *pullRequestButton;
+@property(nonatomic,retain)IBOutlet UIButton *wikiButton;
+@property(nonatomic,retain)IBOutlet UIButton *commitButton;
+@property(nonatomic,retain)IBOutlet UIButton *gistButton;
 
 - (void)markAsNew;
 - (void)markAsRead;
-- (void)showDetails;
-- (void)hideDetails;
 - (IBAction)showRepository:(id)sender;
 - (IBAction)showOtherRepository:(id)sender;
 - (IBAction)showUser:(id)sender;
 - (IBAction)showOtherUser:(id)sender;
 - (IBAction)showOrganization:(id)sender;
 - (IBAction)showIssue:(id)sender;
+- (IBAction)showPullRequest:(id)sender;
+- (IBAction)showWiki:(id)sender;
 - (IBAction)showCommit:(id)sender;
 - (IBAction)showGist:(id)sender;
 @end

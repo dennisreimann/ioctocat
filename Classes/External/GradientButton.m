@@ -156,6 +156,35 @@
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
 }
+- (void)useGithubStyle
+{
+    NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
+	UIColor *color = [UIColor colorWithWhite:0.897 alpha:1.000];
+	[colors addObject:(id)[color CGColor]];
+	color = [UIColor colorWithWhite:0.970 alpha:1.000];
+	[colors addObject:(id)[color CGColor]];
+    self.normalGradientColors = colors;
+    self.normalGradientLocations = [NSMutableArray arrayWithObjects:
+                                    [NSNumber numberWithFloat:0.0f],
+                                    [NSNumber numberWithFloat:1.0f],
+                                    nil];
+    
+    NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
+	color = [UIColor colorWithRed:0.147 green:0.362 blue:0.670 alpha:1.000];
+	[colors2 addObject:(id)[color CGColor]];
+	color = [UIColor colorWithRed:0.278 green:0.521 blue:0.852 alpha:1.000];
+	[colors2 addObject:(id)[color CGColor]];
+    self.highlightGradientColors = colors2;
+    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
+                                       [NSNumber numberWithFloat:0.0f],
+                                       [NSNumber numberWithFloat:1.0f],
+									   [NSNumber numberWithFloat:0.601f],
+                                       nil];
+    
+    self.cornerRadius = 5.f;
+    [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+}
 - (void)useWhiteStyle
 {
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:3];
@@ -549,11 +578,11 @@
         [self setNormalGradientLocations:[decoder decodeObjectForKey:@"normalGradientLocations"]];
         [self setHighlightGradientColors:[decoder decodeObjectForKey:@"highlightGradientColors"]];
         [self setHighlightGradientLocations:[decoder decodeObjectForKey:@"highlightGradientLocations"]];
-        self.strokeColor = [UIColor colorWithRed:0.076 green:0.103 blue:0.195 alpha:1.0];
+        self.strokeColor = [UIColor colorWithWhite:0.853 alpha:1.000];
         self.strokeWeight = 1.0;
     
         if (self.normalGradientColors == nil)
-            [self useWhiteStyle];
+            [self useGithubStyle];
         
         [self setOpaque:NO];
         self.backgroundColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.0];

@@ -8,8 +8,9 @@
 #import "GHGists.h"
 #import "GHResource.h"
 #import "GravatarLoader.h"
-#import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @interface GHUser ()
@@ -124,15 +125,16 @@
 #pragma mark Loading
 
 - (void)setValues:(id)theDict {
-	if (![login isEqualToString:[theDict objectForKey:@"login"]]) self.login = [theDict objectForKey:@"login"];
-	self.name = [[theDict objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"name"];
-	NSString *mail = [theDict objectForKey:@"email"];
-	if (![mail isKindOfClass:[NSNull class]] && ![mail isEmpty]) {
-		self.email = mail;
-	}
-	self.company = [[theDict objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"company"];
-	self.location = [[theDict objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [theDict objectForKey:@"location"];
-	self.blogURL = [NSURL smartURLFromString:[theDict objectForKey:@"blog"]];
+	NSString *theLogin = [theDict valueForKey:@"login" defaultsTo:@""];
+	if (![theLogin isEmpty] && ![login isEqualToString:theLogin]) self.login = [theDict objectForKey:@"login"];
+	
+	self.name = [theDict valueForKey:@"name" defaultsTo:@""];
+	self.email = [theDict valueForKey:@"email" defaultsTo:@""];
+	self.company = [theDict valueForKey:@"company" defaultsTo:@""];
+	self.location = [theDict valueForKey:@"location" defaultsTo:@""];
+	self.blogURL = [NSURL smartURLFromString:[theDict valueForKey:@"blog" defaultsTo:@""]];
+	self.htmlURL = [NSURL smartURLFromString:[theDict valueForKey:@"html_url" defaultsTo:@""]];
+	self.gravatarURL = [NSURL smartURLFromString:[theDict valueForKey:@"avatar_url" defaultsTo:@""]];
 	self.publicGistCount = [[theDict objectForKey:@"public_gists"] integerValue];
 	self.privateGistCount = [[theDict objectForKey:@"private_gists"] integerValue];
 	self.publicRepoCount = [[theDict objectForKey:@"public_repos"] integerValue];
@@ -140,8 +142,6 @@
 	self.followersCount = [[theDict objectForKey:@"followers"] integerValue];
 	self.followingCount = [[theDict objectForKey:@"following"] integerValue];
 	self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
-	self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
-	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
 }
 
 #pragma mark Following

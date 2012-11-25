@@ -145,6 +145,18 @@
 		6F61F542139E43FD005DBE67 /* HeadBackground80.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53C139E43FC005DBE67 /* HeadBackground80.png */; };
 		6F61F543139E43FD005DBE67 /* HeadBackground80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */; };
 		6F6399E416618E1E00BF2FF0 /* GHTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6399E316618E1E00BF2FF0 /* GHTextField.m */; };
+		6F6399EA1662307E00BF2FF0 /* ToolbarWeb.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399E61662307E00BF2FF0 /* ToolbarWeb.png */; };
+		6F6399EB1662307E00BF2FF0 /* ToolbarWeb@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399E71662307E00BF2FF0 /* ToolbarWeb@2x.png */; };
+		6F6399EC1662307E00BF2FF0 /* ToolbarWebOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399E81662307E00BF2FF0 /* ToolbarWebOn.png */; };
+		6F6399ED1662307E00BF2FF0 /* ToolbarWebOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399E91662307E00BF2FF0 /* ToolbarWebOn@2x.png */; };
+		6F6399F61662377100BF2FF0 /* ToolbarPullRequest.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399EE1662377100BF2FF0 /* ToolbarPullRequest.png */; };
+		6F6399F71662377100BF2FF0 /* ToolbarPullRequest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399EF1662377100BF2FF0 /* ToolbarPullRequest@2x.png */; };
+		6F6399F81662377100BF2FF0 /* ToolbarPullRequestOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F01662377100BF2FF0 /* ToolbarPullRequestOn.png */; };
+		6F6399F91662377100BF2FF0 /* ToolbarPullRequestOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F11662377100BF2FF0 /* ToolbarPullRequestOn@2x.png */; };
+		6F6399FA1662377100BF2FF0 /* ToolbarWiki.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F21662377100BF2FF0 /* ToolbarWiki.png */; };
+		6F6399FB1662377100BF2FF0 /* ToolbarWiki@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F31662377100BF2FF0 /* ToolbarWiki@2x.png */; };
+		6F6399FC1662377100BF2FF0 /* ToolbarWikiOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F41662377100BF2FF0 /* ToolbarWikiOn.png */; };
+		6F6399FD1662377100BF2FF0 /* ToolbarWikiOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F51662377100BF2FF0 /* ToolbarWikiOn@2x.png */; };
 		6F6E4ADF1645C1A900E03FD9 /* code.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E4ADE1645C1A900E03FD9 /* code.css */; };
 		6F6E4AF31645C3E300E03FD9 /* NoticeView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E4AE11645C3E300E03FD9 /* NoticeView.bundle */; };
 		6F6E4AF41645C3E300E03FD9 /* UILabel+WBExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E4AE31645C3E300E03FD9 /* UILabel+WBExtensions.m */; };
@@ -539,6 +551,18 @@
 		6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HeadBackground80@2x.png"; path = "Images/HeadBackground80@2x.png"; sourceTree = "<group>"; };
 		6F6399E216618E1E00BF2FF0 /* GHTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTextField.h; sourceTree = "<group>"; };
 		6F6399E316618E1E00BF2FF0 /* GHTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTextField.m; sourceTree = "<group>"; };
+		6F6399E61662307E00BF2FF0 /* ToolbarWeb.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWeb.png; sourceTree = "<group>"; };
+		6F6399E71662307E00BF2FF0 /* ToolbarWeb@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWeb@2x.png"; sourceTree = "<group>"; };
+		6F6399E81662307E00BF2FF0 /* ToolbarWebOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWebOn.png; sourceTree = "<group>"; };
+		6F6399E91662307E00BF2FF0 /* ToolbarWebOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWebOn@2x.png"; sourceTree = "<group>"; };
+		6F6399EE1662377100BF2FF0 /* ToolbarPullRequest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarPullRequest.png; sourceTree = "<group>"; };
+		6F6399EF1662377100BF2FF0 /* ToolbarPullRequest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarPullRequest@2x.png"; sourceTree = "<group>"; };
+		6F6399F01662377100BF2FF0 /* ToolbarPullRequestOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarPullRequestOn.png; sourceTree = "<group>"; };
+		6F6399F11662377100BF2FF0 /* ToolbarPullRequestOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarPullRequestOn@2x.png"; sourceTree = "<group>"; };
+		6F6399F21662377100BF2FF0 /* ToolbarWiki.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWiki.png; sourceTree = "<group>"; };
+		6F6399F31662377100BF2FF0 /* ToolbarWiki@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWiki@2x.png"; sourceTree = "<group>"; };
+		6F6399F41662377100BF2FF0 /* ToolbarWikiOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWikiOn.png; sourceTree = "<group>"; };
+		6F6399F51662377100BF2FF0 /* ToolbarWikiOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWikiOn@2x.png"; sourceTree = "<group>"; };
 		6F6E4ADE1645C1A900E03FD9 /* code.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = code.css; sourceTree = "<group>"; };
 		6F6E4AE11645C3E300E03FD9 /* NoticeView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = NoticeView.bundle; sourceTree = "<group>"; };
 		6F6E4AE21645C3E300E03FD9 /* UILabel+WBExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WBExtensions.h"; sourceTree = "<group>"; };
@@ -1167,6 +1191,18 @@
 				6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */,
 				6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */,
 				6FA97E4715B0BF64000004F1 /* ToolbarUser@2x.png */,
+				6F6399E61662307E00BF2FF0 /* ToolbarWeb.png */,
+				6F6399E71662307E00BF2FF0 /* ToolbarWeb@2x.png */,
+				6F6399E81662307E00BF2FF0 /* ToolbarWebOn.png */,
+				6F6399E91662307E00BF2FF0 /* ToolbarWebOn@2x.png */,
+				6F6399EE1662377100BF2FF0 /* ToolbarPullRequest.png */,
+				6F6399EF1662377100BF2FF0 /* ToolbarPullRequest@2x.png */,
+				6F6399F01662377100BF2FF0 /* ToolbarPullRequestOn.png */,
+				6F6399F11662377100BF2FF0 /* ToolbarPullRequestOn@2x.png */,
+				6F6399F21662377100BF2FF0 /* ToolbarWiki.png */,
+				6F6399F31662377100BF2FF0 /* ToolbarWiki@2x.png */,
+				6F6399F41662377100BF2FF0 /* ToolbarWikiOn.png */,
+				6F6399F51662377100BF2FF0 /* ToolbarWikiOn@2x.png */,
 				6F3616AB166184200098AE4A /* ToolbarCommitOn.png */,
 				6F3616AC166184200098AE4A /* ToolbarCommitOn@2x.png */,
 				6F3616AD166184200098AE4A /* ToolbarGistOn.png */,
@@ -1942,6 +1978,18 @@
 				6F3616C4166184200098AE4A /* ToolbarUserOn@2x.png in Resources */,
 				6F3616C5166184200098AE4A /* ToolbarUsersOn.png in Resources */,
 				6F3616C6166184200098AE4A /* ToolbarUsersOn@2x.png in Resources */,
+				6F6399EA1662307E00BF2FF0 /* ToolbarWeb.png in Resources */,
+				6F6399EB1662307E00BF2FF0 /* ToolbarWeb@2x.png in Resources */,
+				6F6399EC1662307E00BF2FF0 /* ToolbarWebOn.png in Resources */,
+				6F6399ED1662307E00BF2FF0 /* ToolbarWebOn@2x.png in Resources */,
+				6F6399F61662377100BF2FF0 /* ToolbarPullRequest.png in Resources */,
+				6F6399F71662377100BF2FF0 /* ToolbarPullRequest@2x.png in Resources */,
+				6F6399F81662377100BF2FF0 /* ToolbarPullRequestOn.png in Resources */,
+				6F6399F91662377100BF2FF0 /* ToolbarPullRequestOn@2x.png in Resources */,
+				6F6399FA1662377100BF2FF0 /* ToolbarWiki.png in Resources */,
+				6F6399FB1662377100BF2FF0 /* ToolbarWiki@2x.png in Resources */,
+				6F6399FC1662377100BF2FF0 /* ToolbarWikiOn.png in Resources */,
+				6F6399FD1662377100BF2FF0 /* ToolbarWikiOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

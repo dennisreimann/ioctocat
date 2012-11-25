@@ -183,6 +183,7 @@
 		if (!pullNumber) pullNumber = issue.num;
 		self.pullRequest = [GHPullRequest pullRequestWithRepository:self.repository];
 		self.pullRequest.num = pullNumber;
+		self.pullRequest.title = [payload valueForKeyPath:@"pull_request.title"];
 	}
 
 	// Issue Comment (which might also be a pull request comment)

@@ -17,52 +17,53 @@
 
 @implementation EventCell
 
-@synthesize event;
-@synthesize delegate;
-
 - (void)dealloc {
-	[event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[event release], event = nil;
-	[dateLabel release], dateLabel = nil;
-	[titleLabel release], titleLabel = nil;
-	[actionsView release], actionsView = nil;
-	[gravatarView release], gravatarView = nil;
-	[iconView release], iconView = nil;
-	[repositoryButton release], repositoryButton = nil;
-	[otherRepositoryButton release], otherRepositoryButton = nil;
-	[userButton release], userButton = nil;
-	[otherUserButton release], otherUserButton = nil;
-	[organizationButton release], organizationButton = nil;
-	[issueButton release], issueButton = nil;
-	[commitButton release], commitButton = nil;
-	[gistButton release], gistButton = nil;
+	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[_event release], _event = nil;
+	[_dateLabel release], _dateLabel = nil;
+	[_titleLabel release], _titleLabel = nil;
+	[_actionsView release], _actionsView = nil;
+	[_gravatarView release], _gravatarView = nil;
+	[_iconView release], _iconView = nil;
+	[_repositoryButton release], _repositoryButton = nil;
+	[_otherRepositoryButton release], _otherRepositoryButton = nil;
+	[_userButton release], _userButton = nil;
+	[_otherUserButton release], _otherUserButton = nil;
+	[_organizationButton release], _organizationButton = nil;
+	[_issueButton release], _issueButton = nil;
+	[_pullRequestButton release], _pullRequestButton = nil;
+	[_wikiButton release], _wikiButton = nil;
+	[_commitButton release], _commitButton = nil;
+	[_gistButton release], _gistButton = nil;
 	[super dealloc];
 }
 
 - (void)setEvent:(GHEvent *)theEvent {
-	[event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[event release];
-	event = [theEvent retain];
-	titleLabel.text = event.title;
-	dateLabel.text = [event.date prettyDate];
-	[self setContentText:event.content];
-	NSString *icon = [NSString stringWithFormat:@"%@.png", event.extendedEventType];
-	iconView.image = [UIImage imageNamed:icon];
-	[event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	gravatarView.image = event.user.gravatar;
-	if (!gravatarView.image && !event.user.gravatarURL) [event.user loadData];
+	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[_event release];
+	_event = [theEvent retain];
+	self.titleLabel.text = self.event.title;
+	self.dateLabel.text = [self.event.date prettyDate];
+	[self setContentText:self.event.content];
+	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
+	self.iconView.image = [UIImage imageNamed:icon];
+	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self.gravatarView.image = self.event.user.gravatar;
+	if (!self.gravatarView.image && !self.event.user.gravatarURL) [self.event.user loadData];
 	// actions
 	NSMutableArray *buttons = [NSMutableArray array];
-	if (event.user) [buttons addObject:userButton];
-	if (event.organization) [buttons addObject:organizationButton];
-	if (event.otherUser) [buttons addObject:otherUserButton];
-	if (event.repository) [buttons addObject:repositoryButton];
-	if (event.otherRepository) [buttons addObject:otherRepositoryButton];
-	if (event.issue && !event.pullRequest) [buttons addObject:issueButton];
-	if (event.commits) [buttons addObject:commitButton];
-	if (event.gist) [buttons addObject:gistButton];
+	if (self.event.user) [buttons addObject:self.userButton];
+	if (self.event.organization) [buttons addObject:self.organizationButton];
+	if (self.event.otherUser) [buttons addObject:self.otherUserButton];
+	if (self.event.repository) [buttons addObject:self.repositoryButton];
+	if (self.event.otherRepository) [buttons addObject:self.otherRepositoryButton];
+	if (self.event.issue && !self.event.pullRequest) [buttons addObject:self.issueButton];
+	if (self.event.pullRequest) [buttons addObject:self.pullRequestButton];
+	if (self.event.commits) [buttons addObject:self.commitButton];
+	if (self.event.gist) [buttons addObject:self.gistButton];
+	if (self.event.pages) [buttons addObject:self.wikiButton];
 	// remove old action buttons
-	for (UIView *subview in actionsView.subviews) {
+	for (UIView *subview in self.actionsView.subviews) {
 		[subview removeFromSuperview];
 	}
 	// add new action buttons
@@ -73,7 +74,7 @@
 	CGFloat x = o / 2 - (buttons.count * (w+m) / 2);
 	CGFloat y = 9.0;
 	for (UIButton *btn in buttons) {
-		[actionsView addSubview:btn];
+		[self.actionsView addSubview:btn];
 		btn.frame = CGRectMake(x, y, w, h);
 		x += w + m;
 	}
@@ -95,63 +96,71 @@
 - (void)markAsRead {
 	UIColor *normalColor = [UIColor whiteColor];
 	[self setCustomBackgroundColor:normalColor];
-	event.read = YES;
+	self.event.read = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    for (UIButton *btn in actionsView.subviews) [btn setHighlighted:NO];
-	[self markAsRead];
+    for (UIButton *btn in self.actionsView.subviews) [btn setHighlighted:NO];
 }
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     [super setHighlighted:highlighted animated:animated];
-    for (UIButton *btn in actionsView.subviews) [btn setHighlighted:NO];
+    for (UIButton *btn in self.actionsView.subviews) [btn setHighlighted:NO];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath] && event.user.gravatar) {
-		gravatarView.image = event.user.gravatar;
+	if ([keyPath isEqualToString:kGravatarKeyPath] && self.event.user.gravatar) {
+		self.gravatarView.image = self.event.user.gravatar;
 	}
 }
 
 - (CGFloat)heightForTableView:(UITableView *)tableView {
-	return 70.0f + [super heightForTableView:tableView] + actionsView.frame.size.height;
+	return 70.0f + [super heightForTableView:tableView] + self.actionsView.frame.size.height;
 }
 
 #pragma mark Actions
 
 - (IBAction)showRepository:(id)sender {
-	if (delegate && event.repository) [delegate openEventItem:event.repository];
+	if (self.delegate && self.event.repository) [self.delegate openEventItem:self.event.repository];
 }
 
 - (IBAction)showOtherRepository:(id)sender {
-	if (delegate && event.otherRepository) [delegate openEventItem:event.otherRepository];
+	if (self.delegate && self.event.otherRepository) [self.delegate openEventItem:self.event.otherRepository];
 }
 
 - (IBAction)showUser:(id)sender {
-	if (delegate && event.repository) [delegate openEventItem:event.user];
+	if (self.delegate && self.event.repository) [self.delegate openEventItem:self.event.user];
 }
 
 - (IBAction)showOtherUser:(id)sender {
-	if (delegate && event.otherUser) [delegate openEventItem:event.otherUser];
+	if (self.delegate && self.event.otherUser) [self.delegate openEventItem:self.event.otherUser];
 }
 
 - (IBAction)showOrganization:(id)sender {
-	if (delegate && event.organization) [delegate openEventItem:event.organization];
+	if (self.delegate && self.event.organization) [self.delegate openEventItem:self.event.organization];
 }
 
 - (IBAction)showIssue:(id)sender {
-	if (delegate && event.issue) [delegate openEventItem:event.issue];
+	if (self.delegate && self.event.issue) [self.delegate openEventItem:self.event.issue];
+}
+
+- (IBAction)showPullRequest:(id)sender {
+	if (self.delegate && self.event.pullRequest) [self.delegate openEventItem:self.event.pullRequest];
+}
+
+- (IBAction)showWiki:(id)sender {
+	NSDictionary *wiki = [self.event.pages objectAtIndex:0];
+	if (self.delegate && wiki) [self.delegate openEventItem:wiki];
 }
 
 - (IBAction)showCommit:(id)sender {
-	GHCommit *commit = [event.commits objectAtIndex:0];
-	if (delegate && commit) [delegate openEventItem:commit];
+	GHCommit *commit = [self.event.commits objectAtIndex:0];
+	if (self.delegate && commit) [self.delegate openEventItem:commit];
 }
 
 - (IBAction)showGist:(id)sender {
-	if (delegate && event.gist) [delegate openEventItem:event.gist];
+	if (self.delegate && self.event.gist) [self.delegate openEventItem:self.event.gist];
 }
 
 #pragma mark Layout
@@ -174,9 +183,9 @@
 
 - (void)positionActionView {
 	// position action view at bottom
-	CGRect frame = actionsView.frame;
+	CGRect frame = self.actionsView.frame;
 	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
-	actionsView.frame = frame;
+	self.actionsView.frame = frame;
 }
 
 @end

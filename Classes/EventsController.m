@@ -7,6 +7,7 @@
 #import "CommitController.h"
 #import "GistController.h"
 #import "WebController.h"
+#import "CommitsController.h"
 #import "OrganizationController.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -101,6 +102,11 @@
 		if (url) {
 			viewController = [WebController controllerWithURL:url];
 			viewController.title = [theEventItem valueForKey:@"page_name" defaultsTo:@""];
+		}
+	} else if ([theEventItem isKindOfClass:[NSArray class]]) {
+		id firstEntry = [theEventItem objectAtIndex:0];
+		if ([firstEntry isKindOfClass:[GHCommit class]]) {
+			viewController = [CommitsController controllerWithCommits:theEventItem];
 		}
 	}
 	if (viewController) {

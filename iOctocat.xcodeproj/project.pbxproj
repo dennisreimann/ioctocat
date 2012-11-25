@@ -179,6 +179,9 @@
 		6F6F177411E316FE008B319F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F177311E316FE008B319F /* MobileCoreServices.framework */; };
 		6F72FB2F0F9B53810069F092 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* EventCell.m */; };
 		6F74DD890FA76CCA00FD90AB /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD880FA76CCA00FD90AB /* EventCell.xib */; };
+		6F76CDC116628FF500A2353E /* CommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* CommitsController.m */; };
+		6F76CDC41662964C00A2353E /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* CommitCell.m */; };
+		6F76CDC616629BC800A2353E /* Commits.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F76CDC516629BC800A2353E /* Commits.xib */; };
 		6F7769CD164B0DDF0009CB06 /* FollowEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769C6164B0DDB0009CB06 /* FollowEvent.png */; };
 		6F7769CE164B0DDF0009CB06 /* ForkEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769C7164B0DDB0009CB06 /* ForkEvent.png */; };
 		6F7769CF164B0DDF0009CB06 /* ForkEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769C8164B0DDC0009CB06 /* ForkEvent@2x.png */; };
@@ -604,6 +607,11 @@
 		6F72FB2E0F9B53810069F092 /* EventCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventCell.m; sourceTree = "<group>"; };
 		6F74DD880FA76CCA00FD90AB /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EventCell.xib; path = IBFiles/EventCell.xib; sourceTree = "<group>"; };
 		6F74DD8A0FA76CE000FD90AB /* MIT-LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "MIT-LICENSE"; sourceTree = "<group>"; };
+		6F76CDBF16628FF500A2353E /* CommitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitsController.h; sourceTree = "<group>"; };
+		6F76CDC016628FF500A2353E /* CommitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitsController.m; sourceTree = "<group>"; };
+		6F76CDC21662964B00A2353E /* CommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitCell.h; sourceTree = "<group>"; };
+		6F76CDC31662964C00A2353E /* CommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitCell.m; sourceTree = "<group>"; };
+		6F76CDC516629BC800A2353E /* Commits.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Commits.xib; path = IBFiles/Commits.xib; sourceTree = "<group>"; };
 		6F7769C6164B0DDB0009CB06 /* FollowEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FollowEvent.png; path = Images/Icons/FollowEvent.png; sourceTree = "<group>"; };
 		6F7769C7164B0DDB0009CB06 /* ForkEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForkEvent.png; path = Images/Icons/ForkEvent.png; sourceTree = "<group>"; };
 		6F7769C8164B0DDC0009CB06 /* ForkEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ForkEvent@2x.png"; path = "Images/Icons/ForkEvent@2x.png"; sourceTree = "<group>"; };
@@ -1019,6 +1027,8 @@
 				8C53B4D60FB0F32600C3A8E0 /* UserCell.m */,
 				6FB93A940FB2231E002B43AD /* RepositoryCell.h */,
 				6FB93A950FB2231E002B43AD /* RepositoryCell.m */,
+				6F76CDC21662964B00A2353E /* CommitCell.h */,
+				6F76CDC31662964C00A2353E /* CommitCell.m */,
 				6FF09E63111589D600925109 /* FilesCell.h */,
 				6FF09E64111589D600925109 /* FilesCell.m */,
 				6FE7D1BC115622D1004B4D68 /* CommentCell.h */,
@@ -1455,6 +1465,7 @@
 				6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				6F0AEFB6100CAAE500FB323E /* Forks.xib */,
+				6F76CDC516629BC800A2353E /* Commits.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6FED82990FACA2F000BE5C81 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
@@ -1620,6 +1631,8 @@
 				6F5A41740F90C38300427ED7 /* RepositoryController.m */,
 				8CE6867C0FB8C58400A3D625 /* ForksController.h */,
 				8CE6867B0FB8C58400A3D625 /* ForksController.m */,
+				6F76CDBF16628FF500A2353E /* CommitsController.h */,
+				6F76CDC016628FF500A2353E /* CommitsController.m */,
 				6FED82950FACA1E700BE5C81 /* IssuesController.h */,
 				6FED82960FACA1E700BE5C81 /* IssuesController.m */,
 				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
@@ -1982,6 +1995,7 @@
 				6F6399FB1662377100BF2FF0 /* ToolbarWiki@2x.png in Resources */,
 				6F6399FC1662377100BF2FF0 /* ToolbarWikiOn.png in Resources */,
 				6F6399FD1662377100BF2FF0 /* ToolbarWikiOn@2x.png in Resources */,
+				6F76CDC616629BC800A2353E /* Commits.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2096,6 +2110,8 @@
 				6FDD2150165194FF0017E8BA /* GHPullRequest.m in Sources */,
 				6FAE3439165B6FD300C3502A /* GHApplication.m in Sources */,
 				6F6399E416618E1E00BF2FF0 /* GHTextField.m in Sources */,
+				6F76CDC116628FF500A2353E /* CommitsController.m in Sources */,
+				6F76CDC41662964C00A2353E /* CommitCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -206,6 +206,7 @@
 		for (NSDictionary *commitDict in _commits) {
 			NSString *theSha = [commitDict valueForKey:@"sha"];
 			GHCommit *commit = [GHCommit commitWithRepo:self.repository andSha:theSha];
+			commit.author = self.user;
 			commit.message = [commitDict valueForKey:@"message" defaultsTo:@""];
 			[self.commits addObject:commit];
 		}
@@ -389,7 +390,6 @@
 
 	return _content;
 }
-
 
 - (NSString *)shortenMessage:(NSString *)longMessage {
 	NSArray *comps = [longMessage componentsSeparatedByString:@"\n"];

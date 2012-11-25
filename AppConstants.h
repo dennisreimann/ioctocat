@@ -43,6 +43,7 @@
 #define kIssueCellIdentifier            @"IssueCell"
 #define kUserCellIdentifier             @"UserCell"
 #define kCommentCellIdentifier          @"CommentCell"
+#define kCommitCellIdentifier           @"CommitCell"
 #define kOrganizationCellIdentifier     @"OrganizationCell"
 #define kLoadingCellIdentifier          @"LoadingCell"
 #define kEmptyCellIdentifier            @"EmptyCell"

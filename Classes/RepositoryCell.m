@@ -23,13 +23,12 @@
 }
 
 - (void)dealloc {
-	self.repository = nil;
+	[_repository release], _repository = nil;
     [super dealloc];
 }
 
 - (void)setRepository:(GHRepository *)theRepository {
 	[theRepository retain];
-	
 	[_repository release];
 	_repository = theRepository;
 	

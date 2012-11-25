@@ -4,12 +4,10 @@
 
 @class GHFeed, GHUser, EventCell;
 
-@interface MyEventsController : EventsController {
-  @private
-	NSUInteger loadCounter;
-	IBOutlet UISegmentedControl *feedControl;
-	IBOutlet UIBarButtonItem *organizationItem;
-}
+@interface MyEventsController : EventsController
+
+@property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *organizationItem;
 
 + (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;

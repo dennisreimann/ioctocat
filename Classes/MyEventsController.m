@@ -20,15 +20,13 @@
 
 
 @interface MyEventsController ()
-@property(nonatomic,retain)GHUser *user;
-@property(nonatomic,retain)NSArray *feeds;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSArray *feeds;
+@property(nonatomic,readwrite)NSUInteger loadCounter;
 @property(nonatomic,readonly)GHEvents *events;
 @end
 
 @implementation MyEventsController
-
-@synthesize user;
-@synthesize feeds;
 
 + (id)controllerWithUser:(GHUser *)theUser {
 	return [[[MyEventsController alloc] initWithUser:theUser] autorelease];
@@ -38,15 +36,15 @@
 	[super initWithNibName:@"MyEvents" bundle:nil];
 
 	self.user = theUser;
-	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	loadCounter = 0;
+	[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self.loadCounter = 0;
 
-	NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, user.login];
-	NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, user.login];
+	NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
+	NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
 	GHEvents *receivedEvents = [GHEvents resourceWithPath:receivedEventsPath];
 	GHEvents *ownEvents = [GHEvents resourceWithPath:eventsPath];
 	self.feeds = [NSArray arrayWithObjects:receivedEvents, ownEvents, nil];
-	for (GHEvents *feed in feeds) {
+	for (GHEvents *feed in self.feeds) {
 		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
 	}
@@ -69,10 +67,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
-	[organizationItem setEnabled:user.organizations.isLoaded];
+	[self.organizationItem setEnabled:self.user.organizations.isLoaded];
 
 	// Start loading the first feed
-	feedControl.selectedSegmentIndex = 0;
+	self.feedControl.selectedSegmentIndex = 0;
 	[self switchChanged:nil];
 }
 
@@ -80,10 +78,10 @@
 	[super viewWillAppear:animated];
 
 	self.navItem.title = @"My Events";
-	self.navItem.titleView = feedControl;
-	self.navItem.rightBarButtonItem = organizationItem;
+	self.navItem.titleView = self.feedControl;
+	self.navItem.rightBarButtonItem = self.organizationItem;
 
-	if (!user.organizations.isLoaded) [user.organizations loadData];
+	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
 	[self.tableView reloadData];
 
@@ -97,15 +95,15 @@
 
 - (void)dealloc {
 	for (GHEvents *feed in self.feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[feeds release], feeds = nil;
-	[feedControl release], feedControl = nil;
+	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_feeds release], _feeds = nil;
+	[_feedControl release], _feedControl = nil;
 	[super dealloc];
 }
 
 - (GHEvents *)events {
-	return (feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) ?
-	nil : [feeds objectAtIndex:feedControl.selectedSegmentIndex];
+	return (self.feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) ?
+	nil : [self.feeds objectAtIndex:self.feedControl.selectedSegmentIndex];
 }
 
 - (BOOL)refreshCurrentFeedIfRequired {
@@ -132,19 +130,18 @@
 }
 
 - (IBAction)selectOrganization:(id)sender {
-	OrganizationFeedsController *viewController = [[OrganizationFeedsController alloc] initWithOrganizations:user.organizations];
+	OrganizationFeedsController *viewController = [OrganizationFeedsController controllerWithOrganizations:self.user.organizations];
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([object isKindOfClass:[GHEvents class]] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHEvents *feed = (GHEvents *)object;
 		if (feed.isLoading) {
-			loadCounter += 1;
+			self.loadCounter += 1;
 		} else if (feed.isLoaded) {
 			[self.tableView reloadData];
-			loadCounter -= 1;
+			self.loadCounter -= 1;
 			refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
 			[self setLastReadingDate:feed.lastReadingDate forPath:feed.resourcePath];
 			[super dataSourceDidFinishLoadingNewData];
@@ -152,11 +149,11 @@
 			[super dataSourceDidFinishLoadingNewData];
 			[iOctocat reportLoadingError:@"Could not load the feed."];
 		}
-	} else if (object == user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (!user.organizations.isLoading && user.organizations.error) {
+	} else if (object == self.user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (!self.user.organizations.isLoading && self.user.organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the list of organizations."];
-		} else if (user.organizations.isLoaded) {
-			[organizationItem setEnabled:(user.organizations.organizations.count > 0)];
+		} else if (self.user.organizations.isLoaded) {
+			[self.organizationItem setEnabled:(self.user.organizations.organizations.count > 0)];
 		}
 	}
 }

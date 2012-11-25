@@ -39,9 +39,10 @@
 }
 
 - (void)setEvent:(GHEvent *)theEvent {
+	[theEvent retain];
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[_event release];
-	_event = [theEvent retain];
+	_event = theEvent;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
 	[self setContentText:self.event.content];

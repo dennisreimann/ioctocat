@@ -111,12 +111,9 @@
 }
 
 - (IBAction)createNewIssue:(id)sender {
-	GHIssue *newIssue = [[GHIssue alloc] init];
-	newIssue.repository = repository;
-	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:newIssue andIssuesController:self];
+	GHIssue *theIssue = [GHIssue issueWithRepository:repository];
+	IssueFormController *formController = [IssueFormController controllerWithIssue:theIssue andIssuesController:self];
 	[self.navigationController pushViewController:formController animated:YES];
-	[formController release];
-	[newIssue release];
 }
 
 - (IBAction)refresh:(id)sender {
@@ -178,9 +175,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentIssues.isLoaded || self.currentIssues.entries.count == 0) return;
 	GHIssue *issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
-	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
+	IssueController *issueController = [IssueController controllerWithIssue:issue andIssuesController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
-	[issueController release];
 }
 
 #pragma mark Autorotation

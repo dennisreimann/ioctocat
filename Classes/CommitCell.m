@@ -31,9 +31,10 @@
 }
 
 - (void)setCommit:(GHCommit *)theCommit {
+	[theCommit retain];
 	[self.commit.author removeObserver:self forKeyPath:kGravatarKeyPath];
 	[_commit release];
-	_commit = [theCommit retain];
+	_commit = theCommit;
 	
 	[self.commit.author addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.imageView.image = self.commit.author.gravatar;

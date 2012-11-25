@@ -5,13 +5,11 @@
 
 @class GHEvents;
 
-@interface EventsController : PullToRefreshTableViewController <EventCellDelegate> {
-	GHEvents *events;
-	IBOutlet EventCell *eventCell;
-	IBOutlet UITableViewCell *noEntriesCell;
-}
+@interface EventsController : PullToRefreshTableViewController <EventCellDelegate>
 
-@property(nonatomic,retain)EventCell *selectedCell;
+@property(nonatomic,retain)IBOutlet UITableViewCell *noEntriesCell;
+@property(nonatomic,retain)IBOutlet EventCell *selectedCell;
+@property(nonatomic,retain)IBOutlet EventCell *eventCell;
 @property(nonatomic,retain)NSIndexPath *selectedIndexPath;
 
 + (id)controllerWithEvents:(GHEvents *)theEvents;

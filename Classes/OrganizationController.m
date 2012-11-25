@@ -89,9 +89,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		WebController *webController = [[WebController alloc] initWithURL:organization.htmlURL];
+		WebController *webController = [WebController controllerWithURL:organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
 	}
 }
 

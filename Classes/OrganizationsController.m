@@ -99,9 +99,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!organizations.isLoaded || organizations.organizations.count == 0) return;
     GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
-    OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
+    OrganizationController *viewController = [OrganizationController controllerWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
-    [viewController release];
 }
 
 #pragma mark Autorotation

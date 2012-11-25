@@ -128,9 +128,8 @@
 	if (buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
 	} else if (buttonIndex == 1) {
-		WebController *webController = [[WebController alloc] initWithURL:user.htmlURL];
+		WebController *webController = [WebController controllerWithURL:user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
 	}
 }
 

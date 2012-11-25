@@ -151,13 +151,12 @@
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:[GHRepository class]]) {
-		viewController = [(RepositoryController *)[RepositoryController alloc] initWithRepository:(GHRepository *)object];
+		viewController = [RepositoryController controllerWithRepository:(GHRepository *)object];
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		viewController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)object];
+		viewController = [UserController controllerWithUser:(GHUser *)object];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
-		[viewController release];
 	}
 }
 

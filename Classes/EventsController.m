@@ -27,10 +27,6 @@
 
 @implementation EventsController
 
-@synthesize events;
-@synthesize selectedCell;
-@synthesize selectedIndexPath;
-
 + (id)controllerWithEvents:(GHEvents *)theEvents {
 	return [[[self.class alloc] initWithEvents:theEvents] autorelease];
 }
@@ -38,36 +34,36 @@
 - (id)initWithEvents:(GHEvents *)theEvents {
 	[super initWithNibName:@"Events" bundle:nil];
 	self.events = theEvents;
-	[events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (!events.isLoaded) {
+	if (!self.events.isLoaded) {
 		[self showReloadAnimationAnimated:NO];
-		[events loadData];
+		[self.events loadData];
 	}
-	refreshHeaderView.lastUpdatedDate = events.lastReadingDate;
+	refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
 }
 
 - (void)dealloc {
-	[events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[selectedIndexPath release], selectedIndexPath = nil;
-	[noEntriesCell release], noEntriesCell = nil;
-	[selectedCell release], selectedCell = nil;
-	[eventCell release], eventCell = nil;
-	[events release], events = nil;
+	[self.events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_selectedIndexPath release], _selectedIndexPath = nil;
+	[_noEntriesCell release], _noEntriesCell = nil;
+	[_selectedCell release], _selectedCell = nil;
+	[_eventCell release], _eventCell = nil;
+	[_events release], _events = nil;
 	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (events.isLoaded) {
+		if (self.events.isLoaded) {
 			[self.tableView reloadData];
-			refreshHeaderView.lastUpdatedDate = events.lastReadingDate;
+			refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
 			[super dataSourceDidFinishLoadingNewData];
-		} else if (events.error) {
+		} else if (self.events.error) {
 			[super dataSourceDidFinishLoadingNewData];
 			[iOctocat reportLoadingError:@"Could not load the feed."];
 		}
@@ -128,12 +124,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.events.events.count == 0) return noEntriesCell;
+	if (self.events.events.count == 0) return self.noEntriesCell;
 	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
-		if (cell == nil) {
+	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
 		UIImage *bgImage = [[UIImage imageNamed:@"CellBackground.png"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:10.0f];
-		cell = eventCell;
+		cell = self.eventCell;
 		cell.delegate = self;
 		cell.selectedBackgroundView = [[[UIImageView alloc] initWithImage:bgImage] autorelease];
 	}

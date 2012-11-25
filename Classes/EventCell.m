@@ -67,12 +67,12 @@
 		[subview removeFromSuperview];
 	}
 	// add new action buttons
-	CGFloat w = 48.0;
-	CGFloat h = 36.0;
-	CGFloat m = 12.0;
+	CGFloat w = 46.0f;
+	CGFloat h = 36.0f;
+	CGFloat m = 12.0f;
 	CGFloat o = self.frame.size.width;
 	CGFloat x = o / 2 - (buttons.count * (w+m) / 2);
-	CGFloat y = 9.0;
+	CGFloat y = 3.0f;
 	for (UIButton *btn in buttons) {
 		[self.actionsView addSubview:btn];
 		btn.frame = CGRectMake(x, y, w, h);
@@ -116,7 +116,7 @@
 }
 
 - (CGFloat)heightForTableView:(UITableView *)tableView {
-	return 70.0f + [super heightForTableView:tableView] + self.actionsView.frame.size.height;
+	return self.normalHeight + [super heightForTableView:tableView] + self.actionsView.frame.size.height;
 }
 
 #pragma mark Actions
@@ -165,6 +165,10 @@
 
 #pragma mark Layout
 
+- (CGFloat)normalHeight {
+	return 70.0f;
+}
+
 - (CGFloat)marginTop {
 	return 0.0f;
 }
@@ -185,6 +189,7 @@
 	// position action view at bottom
 	CGRect frame = self.actionsView.frame;
 	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
+	if (frame.origin.y < self.normalHeight) frame.origin.y = self.normalHeight;
 	self.actionsView.frame = frame;
 }
 

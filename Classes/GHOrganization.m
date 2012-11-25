@@ -6,8 +6,9 @@
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "GravatarLoader.h"
-#import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHOrganization
@@ -90,13 +91,14 @@
 
 - (void)setValues:(id)theDict {
 	NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
-
-	if (![login isEqualToString:[resource objectForKey:@"login"]]) self.login = [resource objectForKey:@"login"];
-	self.email = [[resource objectForKey:@"email"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"email"];
-	self.name = [[resource objectForKey:@"name"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"name"];
-	self.company = [[resource objectForKey:@"company"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"company"];
-	self.location = [[resource objectForKey:@"location"] isKindOfClass:[NSNull class]] ? nil : [resource objectForKey:@"location"];
-	self.blogURL = [[resource objectForKey:@"blog"] isKindOfClass:[NSNull class]] ? nil : [NSURL smartURLFromString:[resource objectForKey:@"blog"]];
+	NSString *theLogin = [resource valueForKey:@"login" defaultsTo:@""];
+	
+	if (![theLogin isEmpty] && ![login isEqualToString:theLogin]) self.login = theLogin;
+	self.name = [resource valueForKey:@"name" defaultsTo:@""];
+	self.email = [resource valueForKey:@"email" defaultsTo:@""];
+	self.company = [resource valueForKey:@"company" defaultsTo:@""];
+	self.location = [resource valueForKey:@"location" defaultsTo:@""];
+	self.blogURL = [NSURL smartURLFromString:[resource valueForKey:@"blog" defaultsTo:@""]];
 	self.followersCount = [[resource objectForKey:@"followers"] integerValue];
 	self.followingCount = [[resource objectForKey:@"following"] integerValue];
 	self.publicGistCount = [[resource objectForKey:@"public_gists"] integerValue];

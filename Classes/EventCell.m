@@ -10,6 +10,11 @@
 #import "GHPullRequest.h"
 
 
+@interface EventCell ()
+- (void)positionActionView;
+@end
+
+
 @implementation EventCell
 
 @synthesize event;
@@ -72,10 +77,7 @@
 		btn.frame = CGRectMake(x, y, w, h);
 		x += w + m;
 	}
-	// position action view at bottom
-	CGRect frame = actionsView.frame;
-	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
-	actionsView.frame = frame;
+	[self positionActionView];
 }
 
 - (void)setCustomBackgroundColor:(UIColor *)theColor {
@@ -168,6 +170,13 @@
 
 - (CGFloat)marginLeft {
 	return 1.0f;
+}
+
+- (void)positionActionView {
+	// position action view at bottom
+	CGRect frame = actionsView.frame;
+	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
+	actionsView.frame = frame;
 }
 
 @end

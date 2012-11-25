@@ -92,6 +92,7 @@
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
+		[self.selectedCell setHighlighted:NO];
 	}
 }
 

@@ -7,7 +7,6 @@
 - (CGFloat)marginRight;
 - (CGFloat)marginBottom;
 - (CGFloat)marginLeft;
-- (void)adjustTextViewHeight;
 @end
 
 @implementation TextCell

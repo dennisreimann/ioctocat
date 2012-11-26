@@ -71,20 +71,23 @@
 	CGFloat w = 46.0f;
 	CGFloat h = 36.0f;
 	CGFloat m = 12.0f;
-	CGFloat o = self.frame.size.width;
-	CGFloat x = o / 2 - (buttons.count * (w+m) / 2);
+	CGFloat x = 0.0f;
 	CGFloat y = 3.0f;
 	for (UIButton *btn in buttons) {
 		[self.actionsView addSubview:btn];
 		btn.frame = CGRectMake(x, y, w, h);
 		x += w + m;
 	}
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
 	[self positionActionView];
 }
 
 - (void)setCustomBackgroundColor:(UIColor *)theColor {
 	if (!self.backgroundView) {
-			self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
 	}
 	self.backgroundView.backgroundColor = theColor;
 }
@@ -191,8 +194,11 @@
 }
 
 - (void)positionActionView {
+	[super adjustTextViewHeight];
 	// position action view at bottom
 	CGRect frame = self.actionsView.frame;
+	frame.size.width = self.actionsView.subviews.count * 58.0f;
+	frame.origin.x = self.frame.size.width / 2 - frame.size.width / 2;
 	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
 	if (frame.origin.y < self.normalHeight) frame.origin.y = self.normalHeight;
 	self.actionsView.frame = frame;

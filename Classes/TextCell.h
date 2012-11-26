@@ -11,5 +11,6 @@
 - (CGFloat)textInset;
 - (CGFloat)heightForTableView:(UITableView *)tableView;
 - (void)setContentText:(NSString *)text;
+- (void)adjustTextViewHeight;
 
 @end

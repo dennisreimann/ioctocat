@@ -44,6 +44,7 @@
 		[self showReloadAnimationAnimated:NO];
 		[self.events loadData];
 	}
+	self.clearsSelectionOnViewWillAppear = NO;
 	refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
 }
 

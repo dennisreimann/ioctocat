@@ -2,12 +2,13 @@
 #import "GHEvent.h"
 #import "GHUser.h"
 #import "GravatarLoader.h"
-#import "NSDate+Nibware.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "GHPullRequest.h"
+#import "NSDate+Nibware.h"
+#import "NSString+TruncateToSize.h"
 
 
 @interface EventCell ()
@@ -45,7 +46,14 @@
 	_event = theEvent;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
-	[self setContentText:self.event.content];
+	// Truncate long comments
+	if (self.event.isCommentEvent) {
+		CGFloat textWidth = [self textWidthForOuterWidth:self.frame.size.width] * 2;
+		NSString *text = [self.event.content truncateToSize:CGSizeMake(textWidth, 75) withFont:contentTextView.font lineBreakMode:NSLineBreakByTruncatingTail];
+		[self setContentText:text];
+	} else {
+		[self setContentText:self.event.content];
+	}
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
 	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];

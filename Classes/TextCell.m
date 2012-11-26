@@ -53,6 +53,14 @@
 	return 5.0f;
 }
 
+- (CGFloat)textWidthForOuterWidth:(CGFloat)outerWidth {
+	CGFloat textInset = self.textInset * 2;
+	CGFloat marginH  = self.marginLeft + self.marginRight;
+	CGFloat width = outerWidth - marginH;
+	CGFloat textWidth = width - textInset;
+	return textWidth;
+}
+
 - (CGFloat)heightForTableView:(UITableView *)tableView {
 	if (!self.hasContent) return 0;
 	// calculate the outer width of the cell based on the tableView style
@@ -63,10 +71,8 @@
 	}
 	CGFloat maxHeight = 50000.0f;
 	CGFloat textInset = self.textInset * 2;
-	CGFloat marginH  = self.marginLeft + self.marginRight;
 	CGFloat marginV  = self.marginTop + self.marginBottom;
-	CGFloat width = outerWidth - marginH;
-	CGFloat textWidth = width - textInset;
+	CGFloat textWidth = [self textWidthForOuterWidth:outerWidth];
 	CGSize constraint = CGSizeMake(textWidth, maxHeight);
 	CGSize size = [contentTextView.text sizeWithFont:contentTextView.font
 	constrainedToSize:constraint

@@ -98,6 +98,10 @@
 	return eventType;
 }
 
+- (BOOL)isCommentEvent {
+	return [self.eventType hasSuffix:@"CommentEvent"];
+}
+
 - (void)setValues:(id)theDict {
 	self.eventID = [theDict valueForKey:@"id"];
 	self.eventType = [theDict valueForKey:@"type"];

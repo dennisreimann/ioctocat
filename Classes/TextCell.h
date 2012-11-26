@@ -10,6 +10,7 @@
 
 - (CGFloat)textInset;
 - (CGFloat)heightForTableView:(UITableView *)tableView;
+- (CGFloat)textWidthForOuterWidth:(CGFloat)outerWidth;
 - (void)setContentText:(NSString *)text;
 - (void)adjustTextViewHeight;
 

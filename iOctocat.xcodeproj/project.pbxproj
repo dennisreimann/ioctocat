@@ -13,6 +13,7 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		6F0103AF16641A4F00D9B715 /* NSString+TruncateToSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0103AE16641A4F00D9B715 /* NSString+TruncateToSize.m */; };
 		6F064EFA15A370B700F0AFF0 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF315A370B700F0AFF0 /* Icon-72.png */; };
 		6F064EFB15A370B700F0AFF0 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF415A370B700F0AFF0 /* Icon-72@2x.png */; };
 		6F064EFC15A370B700F0AFF0 /* Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F064EF515A370B700F0AFF0 /* Icon-iPad@2x.png */; };
@@ -390,6 +391,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		6F0103AD16641A4F00D9B715 /* NSString+TruncateToSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TruncateToSize.h"; sourceTree = "<group>"; };
+		6F0103AE16641A4F00D9B715 /* NSString+TruncateToSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TruncateToSize.m"; sourceTree = "<group>"; };
 		6F064EF315A370B700F0AFF0 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		6F064EF415A370B700F0AFF0 /* Icon-72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72@2x.png"; sourceTree = "<group>"; };
 		6F064EF515A370B700F0AFF0 /* Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad@2x.png"; sourceTree = "<group>"; };
@@ -1138,6 +1141,8 @@
 				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
 				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
 				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
+				6F0103AD16641A4F00D9B715 /* NSString+TruncateToSize.h */,
+				6F0103AE16641A4F00D9B715 /* NSString+TruncateToSize.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2112,6 +2117,7 @@
 				6F6399E416618E1E00BF2FF0 /* GHTextField.m in Sources */,
 				6F76CDC116628FF500A2353E /* CommitsController.m in Sources */,
 				6F76CDC41662964C00A2353E /* CommitCell.m in Sources */,
+				6F0103AF16641A4F00D9B715 /* NSString+TruncateToSize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -25,6 +25,7 @@
 @property(nonatomic,readonly)NSString *title;
 @property(nonatomic,readonly)NSString *content;
 @property(nonatomic,readonly)NSString *extendedEventType;
+@property(nonatomic,readonly)BOOL isCommentEvent;
 @property(nonatomic,readwrite)BOOL read;
 
 + (id)eventWithDict:(NSDictionary *)theDict;

@@ -128,9 +128,8 @@
 	if (buttonIndex == 0) {
 		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
 	} else if (buttonIndex == 1) {
-		WebController *webController = [[WebController alloc] initWithURL:user.htmlURL];
+		WebController *webController = [WebController controllerWithURL:user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
 	}
 }
 
@@ -217,7 +216,7 @@
 	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		if (cell == nil) cell = [RepositoryCell cell];
 		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
 		return cell;

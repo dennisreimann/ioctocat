@@ -89,9 +89,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		WebController *webController = [[WebController alloc] initWithURL:organization.htmlURL];
+		WebController *webController = [WebController controllerWithURL:organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
 	}
 }
 
@@ -186,7 +185,7 @@
 	if (section == 3 && organization.repositories.repositories.count == 0) return noPublicReposCell;
 	if (section == 3) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+		if (cell == nil) cell = [RepositoryCell cell];
 		cell.repository = [organization.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
 		return cell;

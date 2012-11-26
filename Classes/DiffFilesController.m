@@ -9,7 +9,9 @@
 
 @implementation DiffFilesController
 
-@synthesize files;
++ (id)controllerWithFiles:(NSArray *)theFiles {
+	return [[[self.class alloc] initWithFiles:theFiles] autorelease];
+}
 
 - (id)initWithFiles:(NSArray *)theFiles {
 	[super initWithNibName:@"Files" bundle:nil];
@@ -18,7 +20,7 @@
 }
 
 - (void)dealloc {
-	[files release], files = nil;
+	[_files release], _files = nil;
 	[super dealloc];
 }
 
@@ -29,7 +31,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
-	return (files.count == 0) ? 1 : files.count;
+	return (self.files.count == 0) ? 1 : self.files.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -39,12 +41,12 @@
 		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 	}
-	if (files.count == 0) {
+	if (self.files.count == 0) {
 		cell.textLabel.text = @"No files";
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	} else {
-		NSDictionary *fileInfo = [files objectAtIndex:indexPath.row];
+		NSDictionary *fileInfo = [self.files objectAtIndex:indexPath.row];
 		NSString *patch =  [fileInfo objectForKey:@"patch"];
 		cell.textLabel.text = [fileInfo objectForKey:@"filename"];
 		cell.selectionStyle = patch ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
@@ -54,10 +56,10 @@
 }
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (files.count == 0) return;
-	id fileInfo = [files objectAtIndex:indexPath.row];
+	if (self.files.count == 0) return;
+	id fileInfo = [self.files objectAtIndex:indexPath.row];
 	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
-		CodeController *codeController = [CodeController controllerWithFiles:files currentIndex:indexPath.row];
+		CodeController *codeController = [CodeController controllerWithFiles:self.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

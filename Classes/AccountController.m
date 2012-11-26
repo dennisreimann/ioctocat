@@ -18,10 +18,6 @@
 
 @implementation AccountController
 
-@synthesize account;
-@synthesize viewControllers;
-@synthesize selectedViewController;
-
 + (id)controllerWithAccount:(GHAccount *)theAccount {
 	return [[[self.class alloc] initWithAccount:theAccount] autorelease];
 }
@@ -30,11 +26,11 @@
 	[self initWithNibName:@"Account" bundle:nil];
 	self.account = theAccount;
 
-	MyEventsController *feedsController      = [MyEventsController controllerWithUser:account.user];
-	RepositoriesController *reposController = [RepositoriesController controllerWithUser:account.user];
-	UserController *userController          = [UserController controllerWithUser:account.user];
-	IssuesController *issuesController      = [IssuesController controllerWithUser:account.user];
-	MoreController *moreController          = [MoreController controllerWithUser:account.user];
+	MyEventsController *feedsController     = [MyEventsController controllerWithUser:self.account.user];
+	RepositoriesController *reposController = [RepositoriesController controllerWithUser:self.account.user];
+	UserController *userController          = [UserController controllerWithUser:self.account.user];
+	IssuesController *issuesController      = [IssuesController controllerWithUser:self.account.user];
+	MoreController *moreController          = [MoreController controllerWithUser:self.account.user];
 
 	// tabs
 	self.viewControllers = [NSArray arrayWithObjects:
@@ -48,38 +44,38 @@
 }
 
 - (void)dealloc {
-	[account release], account = nil;
-	[viewControllers release], viewControllers = nil;
-	[selectedViewController release], selectedViewController = nil;
-	[tabBar release], tabBar = nil;
-	[feedsTabBarItem release], feedsTabBarItem = nil;
-	[reposTabBarItem release], reposTabBarItem = nil;
-	[profileTabBarItem release], profileTabBarItem = nil;
-	[issuesTabBarItem release], issuesTabBarItem = nil;
-	[moreTabBarItem release], moreTabBarItem = nil;
+	[_account release], _account = nil;
+	[_viewControllers release], _viewControllers = nil;
+	[_selectedViewController release], _selectedViewController = nil;
+	[_tabBar release], _tabBar = nil;
+	[_feedsTabBarItem release], _feedsTabBarItem = nil;
+	[_reposTabBarItem release], _reposTabBarItem = nil;
+	[_profileTabBarItem release], _profileTabBarItem = nil;
+	[_issuesTabBarItem release], _issuesTabBarItem = nil;
+	[_moreTabBarItem release], _moreTabBarItem = nil;
 	[super dealloc];
 }
 
 - (void)setSelectedViewController:(UIViewController *)viewController {
 	[viewController retain];
 	// clear out old controller
-	[selectedViewController.view removeFromSuperview];
-	[selectedViewController release];
+	[self.selectedViewController.view removeFromSuperview];
+	[self.selectedViewController release];
 	// set up new controller
-	selectedViewController = viewController;
-	selectedViewController.view.frame = CGRectMake(self.view.bounds.origin.x,
+	_selectedViewController = viewController;
+	self.selectedViewController.view.frame = CGRectMake(self.view.bounds.origin.x,
 												   self.view.bounds.origin.y,
 												   self.view.bounds.size.width,
-												   self.view.bounds.size.height - tabBar.bounds.size.height);
-	[self.view addSubview:selectedViewController.view];
+												   self.view.bounds.size.height - self.tabBar.bounds.size.height);
+	[self.view addSubview:self.selectedViewController.view];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// setting the selectedItem somehow does not trigger the didSelectItem,
 	// that's why we also set the selectedViewController manually afterwards.
-	tabBar.selectedItem = feedsTabBarItem;
-	self.selectedViewController = [viewControllers objectAtIndex:0];
+	self.tabBar.selectedItem = self.feedsTabBarItem;
+	self.selectedViewController = [self.viewControllers objectAtIndex:0];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,16 +99,16 @@
 }
 
 - (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-	if (item == feedsTabBarItem) {
-		self.selectedViewController = [viewControllers objectAtIndex:0];
-	} else if (item == reposTabBarItem) {
-		self.selectedViewController = [viewControllers objectAtIndex:1];
-	} else if (item == profileTabBarItem) {
-		self.selectedViewController = [viewControllers objectAtIndex:2];
-	} else if (item == issuesTabBarItem) {
-		self.selectedViewController = [viewControllers objectAtIndex:3];
-	} else if (item == moreTabBarItem) {
-		self.selectedViewController = [viewControllers objectAtIndex:4];
+	if (item == self.feedsTabBarItem) {
+		self.selectedViewController = [self.viewControllers objectAtIndex:0];
+	} else if (item == self.reposTabBarItem) {
+		self.selectedViewController = [self.viewControllers objectAtIndex:1];
+	} else if (item == self.profileTabBarItem) {
+		self.selectedViewController = [self.viewControllers objectAtIndex:2];
+	} else if (item == self.issuesTabBarItem) {
+		self.selectedViewController = [self.viewControllers objectAtIndex:3];
+	} else if (item == self.moreTabBarItem) {
+		self.selectedViewController = [self.viewControllers objectAtIndex:4];
 	}
 }
 

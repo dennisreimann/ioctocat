@@ -135,11 +135,9 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	GHGistComment *comment = [[GHGistComment alloc] initWithGist:gist];
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:gist.comments];
+	GHGistComment *comment = [GHGistComment commentWithGist:gist];
+	CommentController *viewController = [CommentController controllerWithComment:comment andComments:gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
-	[comment release];
 }
 
 #pragma mark TableView

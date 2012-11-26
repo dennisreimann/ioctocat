@@ -10,8 +10,8 @@
 
 
 @interface AccountsController ()
-@property(nonatomic,retain)NSMutableArray *accounts;
-@property(nonatomic,readonly)AuthenticationController *authController;
+@property(nonatomic,strong)NSMutableArray *accounts;
+@property(nonatomic,strong)AuthenticationController *authController;
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
 - (void)openAccount:(GHAccount *)theAccount;
@@ -21,8 +21,6 @@
 
 @implementation AccountsController
 
-@synthesize accounts;
-
 + (void)saveAccounts:(NSMutableArray *)theAccounts {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:theAccounts forKey:kAccountsDefaultsKey];
@@ -30,9 +28,9 @@
 }
 
 - (void)dealloc {
-	[accounts release], accounts = nil;
-	[authController release], authController = nil;
-	[userCell release], userCell = nil;
+	[_authController release], _authController = nil;
+	[_userCell release], _userCell = nil;
+	[_accounts release], _accounts = nil;
 	[super dealloc];
 }
 
@@ -48,7 +46,7 @@
 		[NSMutableArray array];
 
 	// Open account if there is only one
-	if (accounts.count == 1) {
+	if (self.accounts.count == 1) {
 		[self openOrAuthenticateAccountAtIndex:0];
 	}
 }
@@ -73,9 +71,8 @@
 #pragma mark Actions
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex {
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:accounts andIndex:theIndex];
+	AccountFormController *viewController = [AccountFormController controllerWithAccounts:self.accounts andIndex:theIndex];
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
 }
 
 - (IBAction)addAccount:(id)sender {
@@ -83,7 +80,7 @@
 }
 
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
-	NSDictionary *accountDict = [accounts objectAtIndex:theIndex];
+	NSDictionary *accountDict = [self.accounts objectAtIndex:theIndex];
 	GHAccount *account = [GHAccount accountWithDict:accountDict];
 	[iOctocat sharedInstance].currentAccount = account;
 	if (account.user.isAuthenticated) {
@@ -94,11 +91,10 @@
 }
 
 - (void)openAccount:(GHAccount *)theAccount {
-	AccountController *viewController = [[AccountController alloc] initWithAccount:theAccount];
+	AccountController *viewController = [AccountController controllerWithAccount:theAccount];
 	[iOctocat sharedInstance].currentAccount = theAccount;
 	[iOctocat sharedInstance].accountController = viewController;
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
 }
 
 #pragma mark TableView
@@ -108,17 +104,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return accounts.count;
+	return self.accounts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = userCell;
+		cell = self.userCell;
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
-	NSDictionary *accountDict = [accounts objectAtIndex:indexPath.row];
+	NSDictionary *accountDict = [self.accounts objectAtIndex:indexPath.row];
 	NSString *login = [accountDict objectForKey:kLoginDefaultsKey];
 	cell.user = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
@@ -136,15 +132,15 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		[accounts removeObjectAtIndex:indexPath.row];
-		[self.class saveAccounts:accounts];
+		[self.accounts removeObjectAtIndex:indexPath.row];
+		[self.class saveAccounts:self.accounts];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
-	[accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
-	[self.class saveAccounts:accounts];
+	[self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
+	[self.class saveAccounts:self.accounts];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -158,8 +154,8 @@
 #pragma mark Authentication
 
 - (AuthenticationController *)authController {
-	if (!authController) authController = [[AuthenticationController alloc] initWithDelegate:self];
-	return authController;
+	if (!_authController) _authController = [[AuthenticationController alloc] initWithDelegate:self];
+	return _authController;
 }
 
 - (void)authenticatedAccount:(GHAccount *)theAccount {
@@ -167,7 +163,7 @@
 		[self openAccount:theAccount];
 	} else {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger index = [accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
+		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
 		[self editAccountAtIndex:index];
 	}
 }

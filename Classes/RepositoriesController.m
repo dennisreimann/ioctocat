@@ -195,7 +195,7 @@
 	if (indexPath.section == 3 && !user.starredRepositories.isLoaded) return loadingReposCell;
 	if (indexPath.section == 3 && self.starredRepositories.count == 0) return noStarredReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [[[RepositoryCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier] autorelease];
+	if (cell == nil) cell = [RepositoryCell cell];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	cell.repository = [repos objectAtIndex:indexPath.row];
 	if (indexPath.section == 0 || indexPath.section == 1) [cell hideOwner];

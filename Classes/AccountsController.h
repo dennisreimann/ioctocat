@@ -4,12 +4,9 @@
 
 @class UserCell;
 
-@interface AccountsController : UITableViewController <AuthenticationControllerDelegate> {
-	IBOutlet UserCell *userCell;
-	@private
-	AuthenticationController *authController;
-	NSMutableArray *accounts;
-}
+@interface AccountsController : UITableViewController <AuthenticationControllerDelegate>
+
+@property(nonatomic,strong)IBOutlet UserCell *userCell;
 
 + (void)saveAccounts:(NSMutableArray *)theAccounts;
 - (IBAction)addAccount:(id)sender;

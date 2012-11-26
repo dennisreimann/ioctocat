@@ -2,12 +2,12 @@
 #import "GHRepository.h"
 
 
-@interface RepositoryCell : UITableViewCell {
-	GHRepository *repository;
-}
+@interface RepositoryCell : UITableViewCell
 
 @property(nonatomic,retain)GHRepository *repository;
 
++ (id)cell;
++ (id)cellWithIdentifier:(NSString *)reuseIdentifier;
 - (void)hideOwner;
 
 @end

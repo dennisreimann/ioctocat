@@ -178,18 +178,16 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
-		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:issue andIssuesController:listController];
+		IssueFormController *formController = [IssueFormController controllerWithIssue:issue andIssuesController:listController];
 		[self.navigationController pushViewController:formController animated:YES];
-		[formController release];
 	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
 		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];
-		} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
 		[self addComment:nil];
-		} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
-				WebController *webController = [[WebController alloc] initWithURL:issue.htmlURL];
+	} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
+		WebController *webController = [WebController controllerWithURL:issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
-		}
+	}
 }
 
 #pragma mark TableView
@@ -220,7 +218,6 @@
 	if (indexPath.section == 0 && indexPath.row == 2) return descriptionCell;
 	if (!issue.comments.isLoaded) return loadingCommentsCell;
 	if (issue.comments.comments.count == 0) return noCommentsCell;
-
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

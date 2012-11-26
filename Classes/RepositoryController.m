@@ -114,9 +114,8 @@
 	} else if (buttonIndex == 1) {
 		[self.currentUser isWatching:repository] ? [self.currentUser unwatchRepository:repository] : [self.currentUser watchRepository:repository];
 	} else if (buttonIndex == 2) {
-		WebController *webController = [[WebController alloc] initWithURL:repository.htmlURL];
+		WebController *webController = [WebController controllerWithURL:repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
 	}
 }
 
@@ -125,7 +124,7 @@
 - (void)displayRepository {
 	iconView.image = repository.isLoaded ? [UIImage imageNamed:(repository.isPrivate ? @"private.png" : @"public.png")] : nil;
 	nameLabel.text = repository.name;
-	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@ / %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"star" : @"stars", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
+	numbersLabel.text = repository.isLoaded ? [NSString stringWithFormat:@"%d %@, %d %@", repository.watcherCount, repository.watcherCount == 1 ? @"star" : @"stars", repository.forkCount, repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
 	if (repository.isFork) forkLabel.text = @"forked";
 	[ownerCell setContentText:repository.owner];
 	[websiteCell setContentText:[repository.homepageURL host]];

@@ -4,12 +4,7 @@
 
 @class GHComment;
 
-@interface CommentCell : TextCell {
-	GHComment *comment;
-	UIImageView *gravatarView;
-	UILabel *userLabel;
-	UILabel *dateLabel;
-}
+@interface CommentCell : TextCell
 
 @property(nonatomic,retain)GHComment *comment;
 @property(nonatomic,retain)IBOutlet UIImageView *gravatarView;

@@ -6,17 +6,12 @@
 
 @implementation CommentCell
 
-@synthesize comment;
-@synthesize gravatarView;
-@synthesize userLabel;
-@synthesize dateLabel;
-
 - (void)dealloc {
-	[comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[comment release], comment = nil;
-	[gravatarView release], gravatarView = nil;
-	[userLabel release], userLabel = nil;
-	[dateLabel release], dateLabel = nil;
+	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[_comment release], _comment = nil;
+	[_gravatarView release], _gravatarView = nil;
+	[_userLabel release], _userLabel = nil;
+	[_dateLabel release], _dateLabel = nil;
 	[super dealloc];
 }
 
@@ -38,22 +33,22 @@
 
 - (void)setComment:(GHComment *)theComment {
 	[theComment retain];
-	[comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[comment release];
-	comment = theComment;
+	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.comment release];
+	_comment = theComment;
 	// Text
-	self.userLabel.text = comment.user.login;
-	self.dateLabel.text = [comment.updated prettyDate];
-	[self setContentText:comment.body];
+	self.userLabel.text = self.comment.user.login;
+	self.dateLabel.text = [self.comment.updated prettyDate];
+	[self setContentText:self.comment.body];
 	// Gravatar
-	[comment.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	gravatarView.image = comment.user.gravatar;
-	if (!gravatarView.image && !comment.user.gravatarURL) [comment.user loadData];
+	[self.comment.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self.gravatarView.image = self.comment.user.gravatar;
+	if (!self.gravatarView.image && !self.comment.user.gravatarURL) [self.comment.user loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath] && comment.user.gravatar) {
-		gravatarView.image = comment.user.gravatar;
+	if ([keyPath isEqualToString:kGravatarKeyPath] && self.comment.user.gravatar) {
+		self.gravatarView.image = self.comment.user.gravatar;
 	}
 }
 

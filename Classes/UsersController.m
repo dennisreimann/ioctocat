@@ -69,9 +69,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!users.isLoaded || users.users.count == 0) return;
     GHUser *selectedUser = [users.users objectAtIndex:indexPath.row];
-    UserController *userController = [(UserController *)[UserController alloc] initWithUser:(GHUser *)selectedUser];
+    UserController *userController = [UserController controllerWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
-    [userController release];
 }
 
 #pragma mark Autorotation

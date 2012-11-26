@@ -3,14 +3,14 @@
 
 @class GHAccount;
 
-@interface AccountController : UIViewController <UITabBarDelegate> {
-	IBOutlet UITabBar *tabBar;
-	IBOutlet UITabBarItem *feedsTabBarItem;
-	IBOutlet UITabBarItem *reposTabBarItem;
-	IBOutlet UITabBarItem *profileTabBarItem;
-	IBOutlet UITabBarItem *issuesTabBarItem;
-	IBOutlet UITabBarItem *moreTabBarItem;
-}
+@interface AccountController : UIViewController <UITabBarDelegate>
+
+@property(nonatomic,strong)IBOutlet UITabBar *tabBar;
+@property(nonatomic,strong)IBOutlet UITabBarItem *feedsTabBarItem;
+@property(nonatomic,strong)IBOutlet UITabBarItem *reposTabBarItem;
+@property(nonatomic,strong)IBOutlet UITabBarItem *profileTabBarItem;
+@property(nonatomic,strong)IBOutlet UITabBarItem *issuesTabBarItem;
+@property(nonatomic,strong)IBOutlet UITabBarItem *moreTabBarItem;
 
 + (id)controllerWithAccount:(GHAccount *)theAccount;
 - (id)initWithAccount:(GHAccount *)theAccount;

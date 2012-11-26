@@ -100,29 +100,24 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:commit.repository];
+	GHRepoComment *comment = [GHRepoComment commentWithRepo:commit.repository];
 	comment.commitID = commit.commitID;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:commit.comments];
+	CommentController *viewController = [CommentController controllerWithComment:comment andComments:commit.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
-	[viewController release];
-	[comment release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		[self addComment:nil];
 	} else if (buttonIndex == 1) {
-		UserController *userController = [(UserController *)[UserController alloc] initWithUser:commit.author];
+		UserController *userController = [UserController controllerWithUser:commit.author];
 		[self.navigationController pushViewController:userController animated:YES];
-		[userController release];
 	} else if (buttonIndex == 2) {
-		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:commit.repository];
+		RepositoryController *repoController = [RepositoryController controllerWithRepository:commit.repository];
 		[self.navigationController pushViewController:repoController animated:YES];
-		[repoController release];
 	} else if (buttonIndex == 3) {
-		WebController *webController = [[WebController alloc] initWithURL:commit.commitURL];
+		WebController *webController = [WebController controllerWithURL:commit.commitURL];
 		[self.navigationController pushViewController:webController animated:YES];
-		[webController release];
 	}
 }
 
@@ -195,16 +190,14 @@
 	if (!commit.isLoaded) return;
 	if (indexPath.section == 0) {
 		GHUser *user = (indexPath.row == 0) ? commit.author : commit.committer;
-		UserController *userController = [(UserController *)[UserController alloc] initWithUser:user];
+		UserController *userController = [UserController controllerWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
-		[userController release];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
 		if (cell.files.count > 0) {
-			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
+			DiffFilesController *filesController = [DiffFilesController controllerWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
-			[filesController release];
 		}
 	}
 }

@@ -33,7 +33,7 @@
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-	[super initWithNibName:@"MyEvents" bundle:nil];
+	self = [super initWithNibName:@"MyEvents" bundle:nil];
 
 	self.user = theUser;
 	[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];

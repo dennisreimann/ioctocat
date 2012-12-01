@@ -4,11 +4,7 @@
 
 @class GHUser;
 
-@interface GHOrganizations : GHResource {
-	NSMutableArray *organizations;
-  @private
-    GHUser *user;
-}
+@interface GHOrganizations : GHResource
 
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)NSMutableArray *organizations;

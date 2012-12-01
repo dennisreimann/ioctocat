@@ -12,17 +12,17 @@
 
 @implementation ForksController
 
-@synthesize repository;
-
 + (id)controllerWithRepository:(GHRepository *)theRepository {
 	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super initWithNibName:@"Forks" bundle:nil];
-	self.title = @"Forks";
-	self.repository = theRepository;
-	[repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super initWithNibName:@"Forks" bundle:nil];
+	if (self) {
+		self.title = @"Forks";
+		self.repository = theRepository;
+		[self.repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
@@ -32,9 +32,9 @@
 }
 
 - (void)dealloc {
-	[repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[loadingForksCell release], loadingForksCell = nil;
-	[noForksCell release], noForksCell = nil;
+	[self.repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_loadingForksCell release], _loadingForksCell = nil;
+	[_noForksCell release], _noForksCell = nil;
 	[super dealloc];
 }
 
@@ -57,8 +57,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentForks.isLoading) return loadingForksCell;
-	if (self.currentForks.entries.count == 0) return noForksCell;
+	if (self.currentForks.isLoading) return self.loadingForksCell;
+	if (self.currentForks.entries.count == 0) return self.noForksCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	cell.repository = [self.currentForks.entries objectAtIndex:indexPath.row];
@@ -73,7 +73,7 @@
 }
 
 - (GHForks *)currentForks {
-	return repository.forks;
+	return self.repository.forks;
 }
 
 #pragma mark Autorotation

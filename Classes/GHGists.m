@@ -6,26 +6,22 @@
 
 @implementation GHGists
 
-@synthesize gists;
-
 + (id)gistsWithPath:(NSString *)thePath {
-	return [[[[self class] alloc] initWithPath:thePath ] autorelease];
+	return [[[self.class alloc] initWithPath:thePath ] autorelease];
 }
 
 - (id)initWithPath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
-	self.gists = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+		self.gists = [NSMutableArray array];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[gists release], gists = nil;
+	[_gists release], _gists = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-		return [NSString stringWithFormat:@"<Gists resourcePath:'%@'>", resourcePath];
 }
 
 - (void)setValues:(id)theResponse {

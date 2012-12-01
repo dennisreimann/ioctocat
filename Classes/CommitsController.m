@@ -16,9 +16,11 @@
 }
 
 - (id)initWithCommits:(NSArray *)theCommits {
-	[super initWithNibName:@"Commits" bundle:nil];
-	self.title = @"Commits";
-	self.commits = theCommits;
+	self = [super initWithNibName:@"Commits" bundle:nil];
+	if (self) {
+		self.title = @"Commits";
+		self.commits = theCommits;
+	}
 	return self;
 }
 

@@ -4,27 +4,7 @@
 
 @class GHIssues, GHForks, GHBranches, GHUser, GHReadme, GHEvents;
 
-@interface GHRepository : GHResource {
-	NSString *name;
-	NSString *owner;
-	NSString *descriptionText;
-	NSString *mainBranch;
-	NSURL *htmlURL;
-	NSURL *homepageURL;
-	NSInteger forkCount;
-	NSInteger watcherCount;
-	GHIssues *openIssues;
-	GHIssues *closedIssues;
-	GHForks *forks;
-	GHBranches *branches;
-	GHReadme *readme;
-	GHEvents *events;
-	BOOL isPrivate;
-	BOOL isFork;
-	BOOL hasIssues;
-	BOOL hasWiki;
-	BOOL hasDownloads;
-}
+@interface GHRepository : GHResource
 
 @property(nonatomic,retain)NSString *name;
 @property(nonatomic,retain)NSString *owner;

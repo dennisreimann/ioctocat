@@ -6,10 +6,10 @@
 
 @interface iOctocat : NSObject <UIApplicationDelegate>
 
-@property(nonatomic,retain)GHAccount *currentAccount;
-@property(nonatomic,retain)AccountController *accountController;
-@property(nonatomic,retain)IBOutlet UIWindow *window;
-@property(nonatomic,retain)IBOutlet UINavigationController *navController;
+@property(nonatomic,strong)GHAccount *currentAccount;
+@property(nonatomic,strong)AccountController *accountController;
+@property(nonatomic,strong)IBOutlet UIWindow *window;
+@property(nonatomic,strong)IBOutlet UINavigationController *navController;
 
 + (iOctocat *)sharedInstance;
 + (NSDate *)parseDate:(NSString *)theString;

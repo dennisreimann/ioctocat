@@ -6,35 +6,28 @@
 
 @implementation GHSearch
 
-@synthesize results;
-@synthesize searchTerm;
-
 + (id)searchWithURLFormat:(NSString *)theFormat {
 	return [[[self.class alloc] initWithURLFormat:theFormat] autorelease];
 }
 
 - (id)initWithURLFormat:(NSString *)theFormat {
-	[super init];
-	urlFormat = [theFormat retain];
+	self = [super init];
+	self.urlFormat = [theFormat retain];
 	return self;
 }
 
 - (void)dealloc {
-	[searchTerm release], searchTerm = nil;
-	[urlFormat release], urlFormat = nil;
-	[results release], results = nil;
+	[_searchTerm release], _searchTerm = nil;
+	[_urlFormat release], _urlFormat = nil;
+	[_results release], _results = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHSearch searchTerm:'%@' resourcePath:'%@'>", searchTerm, self.resourcePath];
 }
 
 - (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// searchTerm which isn't always available in advance
-	NSString *encodedSearchTerm = [searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	NSString *path = [NSString stringWithFormat:urlFormat, encodedSearchTerm];
+	NSString *encodedSearchTerm = [self.searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	NSString *path = [NSString stringWithFormat:self.urlFormat, encodedSearchTerm];
 	return path;
 }
 

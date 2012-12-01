@@ -8,11 +8,6 @@
 
 @implementation GHIssues
 
-@synthesize entries;
-@synthesize repository;
-@synthesize issueState;
-
-
 + (id)issuesWithResourcePath:(NSString *)thePath {
 	return [[[self.class alloc] initWithResourcePath:thePath] autorelease];
 }
@@ -22,34 +17,34 @@
 }
 
 - (id)initWithResourcePath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+	}
 	return self;
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
 	NSString *path = [NSString stringWithFormat:kIssuesFormat, theRepository.owner, theRepository.name, theState];
-	[self initWithResourcePath:path];
-	self.repository = theRepository;
-	self.issueState = theState;
+	self = [self initWithResourcePath:path];
+	if (self) {
+		self.repository = theRepository;
+		self.issueState = theState;
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository release], repository = nil;
-	[issueState release], issueState = nil;
-	[entries release], entries = nil;
+	[_repository release], _repository = nil;
+	[_issueState release], _issueState = nil;
+	[_entries release], _entries = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHIssues repository:'%@' state:'%@'>", repository, issueState];
 }
 
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHIssue *theIssue = [GHIssue issueWithRepository:repository];
+		GHIssue *theIssue = [GHIssue issueWithRepository:self.repository];
 		[theIssue setValues:dict];
 		[resources addObject:theIssue];
 	}

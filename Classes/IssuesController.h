@@ -3,19 +3,14 @@
 
 @class GHIssues, IssueCell, GHRepository, GHUser;
 
-@interface IssuesController : UITableViewController {
-	IBOutlet UISegmentedControl *issuesControl;
-	IBOutlet UITableViewCell *loadingIssuesCell;
-	IBOutlet UITableViewCell *noIssuesCell;
-	IBOutlet UIBarButtonItem *addButton;
-	IBOutlet UIBarButtonItem *refreshButton;
-	IBOutlet IssueCell *issueCell;
-	@private
-	GHUser *user;
-	GHRepository *repository;
-	NSArray *issueList;
-	NSUInteger loadCounter;
-}
+@interface IssuesController : UITableViewController
+
+@property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *addButton;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,strong)IBOutlet IssueCell *issueCell;
 
 + (id)controllerWithUser:(GHUser *)theUser;
 + (id)controllerWithRepository:(GHRepository *)theRepository;

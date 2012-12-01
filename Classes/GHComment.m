@@ -7,17 +7,11 @@
 
 @implementation GHComment
 
-@synthesize user;
-@synthesize commentID;
-@synthesize body;
-@synthesize created;
-@synthesize updated;
-
 - (void)dealloc {
-	[user release], user = nil;
-	[body release], body = nil;
-	[created release], created = nil;
-	[updated release], updated = nil;
+	[_user release], _user = nil;
+	[_body release], _body = nil;
+	[_created release], _created = nil;
+	[_updated release], _updated = nil;
 	[super dealloc];
 }
 
@@ -31,8 +25,8 @@
 
 #pragma mark Saving
 
+// Implement this in the subclass
 - (void)saveData {
-	// Implement this in the subclass
 }
 
 @end

@@ -4,30 +4,28 @@
 
 @class GHUser, LabeledCell, OrganizationCell;
 
-@interface UserController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate> {
-  @private
-  GHUser *user;
-  IBOutlet UIView *tableHeaderView;
-  IBOutlet UIImageView *gravatarView;
-  IBOutlet UILabel *nameLabel;
-  IBOutlet UILabel *companyLabel;
-  IBOutlet UILabel *locationLabel;
-  IBOutlet UILabel *blogLabel;
-  IBOutlet UILabel *emailLabel;
-  IBOutlet UITableViewCell *loadingUserCell;
-  IBOutlet UITableViewCell *loadingReposCell;
-  IBOutlet UITableViewCell *loadingOrganizationsCell;
-  IBOutlet UITableViewCell *noPublicReposCell;
-  IBOutlet UITableViewCell *noPublicOrganizationsCell;
-  IBOutlet UITableViewCell *followersCell;
-  IBOutlet UITableViewCell *followingCell;
-  IBOutlet UITableViewCell *gistsCell;
-  IBOutlet UITableViewCell *recentActivityCell;
-  IBOutlet LabeledCell *locationCell;
-  IBOutlet LabeledCell *blogCell;
-  IBOutlet LabeledCell *emailCell;
-  IBOutlet OrganizationCell *organizationCell;
-}
+@interface UserController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+
+@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,strong)IBOutlet UILabel *nameLabel;
+@property(nonatomic,strong)IBOutlet UILabel *companyLabel;
+@property(nonatomic,strong)IBOutlet UILabel *locationLabel;
+@property(nonatomic,strong)IBOutlet UILabel *blogLabel;
+@property(nonatomic,strong)IBOutlet UILabel *emailLabel;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingUserCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *followersCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *followingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *gistsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
+@property(nonatomic,strong)IBOutlet OrganizationCell *organizationCell;
 
 + (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;

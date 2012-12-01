@@ -4,16 +4,13 @@
 
 @class GHRepository;
 
-@interface GHBranch : GHResource {
-	GHRepository *repository;
-	NSString *name;
-	NSString *sha;
-}
+@interface GHBranch : GHResource
 
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)NSString *name;
-@property(nonatomic,retain)NSString *sha;
+@property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)NSString *name;
+@property(nonatomic,strong)NSString *sha;
 
++ (id)branchWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
 
 @end

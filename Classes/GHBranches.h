@@ -4,13 +4,10 @@
 
 @class GHRepository;
 
-@interface GHBranches : GHResource {
-	NSMutableArray *branches;
-	GHRepository *repository;
-}
+@interface GHBranches : GHResource
 
-@property(nonatomic,retain)NSMutableArray *branches;
-@property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,strong)NSMutableArray *branches;
+@property(nonatomic,strong)GHRepository *repository;
 
 + (id)branchesWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;

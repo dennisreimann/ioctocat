@@ -4,10 +4,7 @@
 
 @class GHGist;
 
-@interface GHGistComments : GHResource {
-	NSMutableArray *comments;
-	GHGist *gist;
-}
+@interface GHGistComments : GHResource
 
 @property(nonatomic,retain)NSMutableArray *comments;
 @property(nonatomic,retain)GHGist *gist;

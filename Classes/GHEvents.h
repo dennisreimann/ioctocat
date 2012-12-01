@@ -4,13 +4,10 @@
 
 @class GHRepository;
 
-@interface GHEvents : GHResource {
-	NSDate *lastReadingDate;
-	NSArray *events;
-}
+@interface GHEvents : GHResource
 
-@property(nonatomic,retain)NSArray *events;
-@property(nonatomic,retain)NSDate *lastReadingDate;
+@property(nonatomic,strong)NSArray *events;
+@property(nonatomic,strong)NSDate *lastReadingDate;
 
 + (id)eventsWithRepository:(GHRepository *)theRepository;
 

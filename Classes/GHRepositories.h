@@ -2,11 +2,9 @@
 #import "GHResource.h"
 
 
-@interface GHRepositories : GHResource {
-	NSMutableArray *repositories;
-}
+@interface GHRepositories : GHResource
 
-@property(nonatomic,retain)NSMutableArray *repositories;
+@property(nonatomic,strong)NSMutableArray *repositories;
 
 + (id)repositoriesWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;

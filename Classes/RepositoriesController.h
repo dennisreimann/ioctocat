@@ -3,20 +3,14 @@
 
 @class GHUser;
 
-@interface RepositoriesController : UITableViewController {
-  @private
-  IBOutlet UITableViewCell *loadingReposCell;
-  IBOutlet UITableViewCell *noPublicReposCell;
-  IBOutlet UITableViewCell *noPrivateReposCell;
-  IBOutlet UITableViewCell *noStarredReposCell;
-  IBOutlet UITableViewCell *noWatchedReposCell;
-  IBOutlet UIBarButtonItem *refreshButton;
-  GHUser *user;
-  NSMutableArray *publicRepositories;
-  NSMutableArray *privateRepositories;
-  NSMutableArray *starredRepositories;
-  NSMutableArray *watchedRepositories;
-}
+@interface RepositoriesController : UITableViewController
+
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPrivateReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noStarredReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noWatchedReposCell;
 
 + (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;

@@ -9,74 +9,59 @@
 
 @implementation GHCommit
 
-@synthesize commitID;
-@synthesize message;
-@synthesize commitURL;
-@synthesize authorName;
-@synthesize authorEmail;
-@synthesize committerName;
-@synthesize committerEmail;
-@synthesize committedDate;
-@synthesize authoredDate;
-@synthesize added;
-@synthesize modified;
-@synthesize removed;
-@synthesize author;
-@synthesize committer;
-@synthesize repository;
-@synthesize comments;
-
 + (id)commitWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
 	return [self commitWithRepository:theRepo andCommitID:theSha];
 }
 
 + (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
-	return [[[[self class] alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
+	return [[[self.class alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
-	[super init];
-	self.repository = theRepository;
-	self.commitID = theCommitID;
-	self.resourcePath = [NSString stringWithFormat:kRepoCommitFormat, repository.owner, repository.name, commitID];
-	self.comments = [GHRepoComments commentsWithRepo:repository andCommitID:commitID];
-	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.commitID = theCommitID;
+		self.resourcePath = [NSString stringWithFormat:kRepoCommitFormat, self.repository.owner, self.repository.name, self.commitID];
+		self.comments = [GHRepoComments commentsWithRepo:self.repository andCommitID:self.commitID];
+		[self.repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[commitID release], commitID = nil;
-	[message release], message = nil;
-	[commitURL release], commitURL = nil;
-	[authorName release], authorName = nil;
-	[authorEmail release], authorEmail = nil;
-	[committerName release], committerName = nil;
-	[committerEmail release], committerEmail = nil;
-	[committedDate release], committedDate = nil;
-	[authoredDate release], authoredDate = nil;
-	[added release], added = nil;
-	[modified release], modified = nil;
-	[removed release], removed = nil;
-	[author release], author = nil;
-	[committer release], committer = nil;
-	[repository release], repository = nil;
-	[comments release], comments = nil;
+	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_commitID release], _commitID = nil;
+	[_message release], _message = nil;
+	[_commitURL release], _commitURL = nil;
+	[_authorName release], _authorName = nil;
+	[_authorEmail release], _authorEmail = nil;
+	[_committerName release], _committerName = nil;
+	[_committerEmail release], _committerEmail = nil;
+	[_committedDate release], _committedDate = nil;
+	[_authoredDate release], _authoredDate = nil;
+	[_added release], _added = nil;
+	[_modified release], _modified = nil;
+	[_removed release], _removed = nil;
+	[_author release], _author = nil;
+	[_committer release], _committer = nil;
+	[_repository release], _repository = nil;
+	[_comments release], _comments = nil;
 	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (repository.isLoaded) {
+		if (self.repository.isLoaded) {
 			[self loadData];
-		} else if (repository.error) {
+		} else if (self.repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
 		}
 	}
 }
 
 - (void)loadData {
-	repository.isLoaded ? [super loadData] : [repository loadData];
+	self.repository.isLoaded ? [super loadData] : [self.repository loadData];
 }
 
 - (void)setValues:(id)theDict {

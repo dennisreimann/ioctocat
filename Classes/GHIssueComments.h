@@ -2,13 +2,10 @@
 #import "GHResource.h"
 
 
-@interface GHIssueComments : GHResource {
-	NSMutableArray *comments;
-	id parent; // a GHIssue or GHPullRequest instance
-}
+@interface GHIssueComments : GHResource
 
-@property(nonatomic,retain)NSMutableArray *comments;
-@property(nonatomic,retain)id parent;
+@property(nonatomic,strong)NSMutableArray *comments;
+@property(nonatomic,strong)id parent; // a GHIssue or GHPullRequest instance
 
 + (id)commentsWithParent:(id)theParent;
 - (id)initWithParent:(id)theParent;

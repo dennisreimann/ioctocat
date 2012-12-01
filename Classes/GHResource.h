@@ -7,14 +7,7 @@ typedef enum {
 	GHResourceStatusProcessed = 2
 } GHResourceStatus;
 
-@interface GHResource : NSObject {
-	GHResourceStatus loadingStatus;
-	GHResourceStatus savingStatus;
-	NSMutableSet *delegates;
-	NSString *resourcePath;
-	NSError *error;
-	NSDictionary *data;
-}
+@interface GHResource : NSObject
 
 @property(nonatomic,assign)GHResourceStatus loadingStatus;
 @property(nonatomic,assign)GHResourceStatus savingStatus;

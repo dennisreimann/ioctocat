@@ -14,13 +14,15 @@
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-	[super initWithStyle:style reuseIdentifier:reuseIdentifier];
-	self.textLabel.font = [UIFont systemFontOfSize:15.0f];
-	self.textLabel.highlightedTextColor = [UIColor whiteColor];
-	self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
-	self.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
-	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	self.opaque = YES;
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	if (self) {
+		self.textLabel.font = [UIFont systemFontOfSize:15.0f];
+		self.textLabel.highlightedTextColor = [UIColor whiteColor];
+		self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
+		self.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
+		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		self.opaque = YES;
+	}
 	return self;
 }
 

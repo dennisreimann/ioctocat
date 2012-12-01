@@ -3,13 +3,10 @@
 
 @class GHOrganization;
 
-@interface OrganizationCell : UITableViewCell {
-	GHOrganization *organization;
-  @private
-	IBOutlet UILabel *loginLabel;
-	IBOutlet UIImageView *gravatarView;
-}
+@interface OrganizationCell : UITableViewCell
 
-@property(nonatomic,retain)GHOrganization *organization;
+@property(nonatomic,strong)GHOrganization *organization;
+@property(nonatomic,strong)IBOutlet UILabel *loginLabel;
+@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
 
 @end

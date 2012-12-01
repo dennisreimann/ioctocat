@@ -6,41 +6,30 @@
 
 @implementation GHTag
 
-@synthesize sha;
-@synthesize repository;
-@synthesize commit;
-@synthesize tag;
-@synthesize message;
-@synthesize taggerName;
-@synthesize taggerEmail;
-@synthesize taggerDate;
-
 + (id)tagWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
 	return [[[self.class alloc] initWithRepo:theRepo andSha:theSha] autorelease];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-	[super init];
-	self.repository = theRepo;
-	self.sha = theSha;
-	self.resourcePath = [NSString stringWithFormat:kTagFormat, repository.owner, repository.name, sha];
+	self = [super init];
+	if (self) {
+		self.repository = theRepo;
+		self.sha = theSha;
+		self.resourcePath = [NSString stringWithFormat:kTagFormat, self.repository.owner, self.repository.name, self.sha];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository release], repository = nil;
-	[sha release], sha = nil;
-	[tag release], tag = nil;
-	[message release], message = nil;
-	[taggerName release], taggerName = nil;
-	[taggerEmail release], taggerEmail = nil;
-	[taggerDate release], taggerDate = nil;
-	[commit release], commit = nil;
+	[_repository release], _repository = nil;
+	[_sha release], _sha = nil;
+	[_tag release], _tag = nil;
+	[_message release], _message = nil;
+	[_taggerName release], _taggerName = nil;
+	[_taggerEmail release], _taggerEmail = nil;
+	[_taggerDate release], _taggerDate = nil;
+	[_commit release], _commit = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHTag sha:'%@', tag:'%@'>", sha, tag];
 }
 
 #pragma mark Loading
@@ -51,7 +40,7 @@
 	self.taggerName = [theDict valueForKeyPath:@"tagger.name"];
 	self.taggerEmail = [theDict valueForKeyPath:@"tagger.email"];
 	self.taggerDate = [iOctocat parseDate:[theDict valueForKey:@"tagger.date"]];
-	self.commit = [GHCommit commitWithRepository:repository andCommitID:[theDict valueForKey:@"object.sha"]];
+	self.commit = [GHCommit commitWithRepository:self.repository andCommitID:[theDict valueForKey:@"object.sha"]];
 }
 
 @end

@@ -3,13 +3,11 @@
 
 @class GHOrganizations, OrganizationCell;
 
-@interface OrganizationsController : UITableViewController {
-	@private
-	GHOrganizations *organizations;
-	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *noOrganizationsCell;
-	IBOutlet OrganizationCell *organizationCell;
-}
+@interface OrganizationsController : UITableViewController
+
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noOrganizationsCell;
+@property(nonatomic,strong)IBOutlet OrganizationCell *organizationCell;
 
 + (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations;
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations;

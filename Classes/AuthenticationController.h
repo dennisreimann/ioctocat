@@ -3,12 +3,11 @@
 
 @class GHAccount;
 
-@interface AuthenticationController : UIViewController <UIActionSheetDelegate> {
-	@private
-	UIViewController *delegate;
-	UIActionSheet *authSheet;
-	GHAccount *account;
-}
+@interface AuthenticationController : UIViewController <UIActionSheetDelegate>
+
+@property(nonatomic,assign)UIViewController *delegate;
+@property(nonatomic,strong)UIActionSheet *authSheet;
+@property(nonatomic,strong)GHAccount *account;
 
 - (id)initWithDelegate:(UIViewController *)theDelegate;
 - (void)authenticateAccount:(GHAccount *)theAccount;

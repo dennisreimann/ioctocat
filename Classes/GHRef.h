@@ -6,9 +6,9 @@
 
 @interface GHRef : GHResource
 
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)NSString *ref;
-@property(nonatomic,retain)id object;
+@property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)NSString *ref;
+@property(nonatomic,strong)id object;
 
 + (id)refWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef;
 - (id)initWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef;

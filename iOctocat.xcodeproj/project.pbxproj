@@ -63,7 +63,6 @@
 		6F2C77291114F430002665DA /* DiffFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* DiffFilesController.m */; };
 		6F2C77441114F6DE002665DA /* Files.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C77431114F6DE002665DA /* Files.xib */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
-		6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9B500FB19AF800FFABE9 /* OverlayController.m */; };
 		6F2DEE26158F2B7B005C56E6 /* OrganizationFeedsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */; };
 		6F316D8C111AD2E400FC4FE9 /* TabBarRepositories.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
@@ -445,8 +444,6 @@
 		6F2C77431114F6DE002665DA /* Files.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Files.xib; path = IBFiles/Files.xib; sourceTree = "<group>"; };
 		6F2D9A870FB1887300FFABE9 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
-		6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverlayController.h; sourceTree = "<group>"; };
-		6F2D9B500FB19AF800FFABE9 /* OverlayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayController.m; sourceTree = "<group>"; };
 		6F2DEE24158F2B7B005C56E6 /* OrganizationFeedsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationFeedsController.h; sourceTree = "<group>"; };
 		6F2DEE25158F2B7B005C56E6 /* OrganizationFeedsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationFeedsController.m; sourceTree = "<group>"; };
 		6F316D8B111AD2E400FC4FE9 /* TabBarRepositories.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TabBarRepositories.png; sourceTree = "<group>"; };
@@ -957,7 +954,6 @@
 				6FECA89C159070FE00878A74 /* Git */,
 				6F182C84161C5E2500E705CF /* Gists */,
 				6FECA89F1590A20200878A74 /* Repos */,
-				6FECA89D1590710A00878A74 /* Search */,
 				6FECA8A01590A23C00878A74 /* Misc */,
 				1D3623240D0F684500981E51 /* iOctocat.h */,
 				1D3623250D0F684500981E51 /* iOctocat.m */,
@@ -1502,17 +1498,6 @@
 			name = Git;
 			sourceTree = "<group>";
 		};
-		6FECA89D1590710A00878A74 /* Search */ = {
-			isa = PBXGroup;
-			children = (
-				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
-				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
-				6F2D9B4F0FB19AF800FFABE9 /* OverlayController.h */,
-				6F2D9B500FB19AF800FFABE9 /* OverlayController.m */,
-			);
-			name = Search;
-			sourceTree = "<group>";
-		};
 		6FECA89E1590711F00878A74 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -1548,6 +1533,8 @@
 		6FECA8A01590A23C00878A74 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
+				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
+				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
 				6FFA282115B3DB4C007C2065 /* MoreController.h */,
 				6FFA282215B3DB4C007C2065 /* MoreController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
@@ -1952,7 +1939,6 @@
 				8C53B4D00FB0F20B00C3A8E0 /* UsersController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* UserCell.m in Sources */,
 				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,
-				6F2D9B510FB19AF800FFABE9 /* OverlayController.m in Sources */,
 				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
 				6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */,
 				6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */,
@@ -2057,8 +2043,10 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocat;
 				PROVISIONING_PROFILE = "9773998A-81C1-4132-96C4-3DEFF1253FCF";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Release;
 		};
@@ -2097,7 +2085,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = iOctocat;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = iphoneos;
+				WARNING_CFLAGS = "-Wall";
 			};
 			name = Debug;
 		};

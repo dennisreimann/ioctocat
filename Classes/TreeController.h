@@ -3,12 +3,10 @@
 
 @class GHTree;
 
-@interface TreeController : UITableViewController {
-	IBOutlet UITableViewCell *loadingTreeCell;
-	IBOutlet UITableViewCell *noEntriesCell;
-	@private
-	GHTree *tree;
-}
+@interface TreeController : UITableViewController
+
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingTreeCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
 
 + (id)controllerWithTree:(GHTree *)theTree;
 - (id)initWithTree:(GHTree *)theTree;

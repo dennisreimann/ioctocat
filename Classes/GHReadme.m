@@ -6,40 +6,39 @@
 
 @implementation GHReadme
 
-@synthesize bodyHTML;
-@synthesize repository;
-
 + (id)readmeWithRepository:(GHRepository *)theRepository {
-	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
+	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super init];
-	self.repository = theRepository;
-	self.resourcePath = [NSString stringWithFormat:kRepoReadmeFormat, repository.owner, repository.name];
-	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.resourcePath = [NSString stringWithFormat:kRepoReadmeFormat, self.repository.owner, self.repository.name];
+		[self.repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[repository release], repository = nil;
-	[bodyHTML release], bodyHTML = nil;
+	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_repository release], _repository = nil;
+	[_bodyHTML release], _bodyHTML = nil;
 	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (repository.isLoaded) {
+		if (self.repository.isLoaded) {
 			[self loadData];
-		} else if (repository.error) {
+		} else if (self.repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
 		}
 	}
 }
 
 - (void)loadData {
-	repository.isLoaded ? [super loadData] : [repository loadData];
+	self.repository.isLoaded ? [super loadData] : [self.repository loadData];
 }
 
 - (NSString *)resourceContentType {

@@ -4,21 +4,30 @@
 
 
 @interface GravatarLoader ()
+@property(nonatomic,strong)id target;
+@property(nonatomic,assign)SEL handle;
+
 - (void)requestWithURL:(NSURL *)theURL;
 @end
 
 
 @implementation GravatarLoader
 
++ (id)loaderWithTarget:(id)theTarget andHandle:(SEL)theHandle {
+	return [[[self.class alloc] initWithTarget:theTarget andHandle:theHandle] autorelease];
+}
+
 - (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle {
-	[super init];
-	target = [theTarget retain];
-	handle = theHandle;
+	self = [super init];
+	if (self) {
+		self.target = theTarget;
+		self.handle = theHandle;
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[target release];
+	[_target release], _target = nil;
 	[super dealloc];
 }
 
@@ -38,7 +47,7 @@
 	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 	NSData *gravatarData = [NSData dataWithContentsOfURL:theURL];
 	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
-	if (gravatarImage) [target performSelectorOnMainThread:handle withObject:gravatarImage waitUntilDone:NO];
+	if (gravatarImage) [self.target performSelectorOnMainThread:self.handle withObject:gravatarImage waitUntilDone:NO];
 	[pool release];
 }
 

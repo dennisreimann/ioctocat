@@ -7,34 +7,33 @@
 
 @implementation IssueCell
 
-@synthesize issue;
-
 - (void)dealloc {
-	[issue release], issue = nil;
-	[dateLabel release], dateLabel = nil;
-	[titleLabel release], titleLabel = nil;
-	[detailLabel release], detailLabel = nil;
-	[votesLabel release], votesLabel = nil;
-	[repoLabel release], repoLabel = nil;
-	[iconView release], iconView = nil;
+	[_issue release], _issue = nil;
+	[_dateLabel release], _dateLabel = nil;
+	[_titleLabel release], _titleLabel = nil;
+	[_detailLabel release], _detailLabel = nil;
+	[_votesLabel release], _votesLabel = nil;
+	[_repoLabel release], _repoLabel = nil;
+	[_iconView release], _iconView = nil;
 	[super dealloc];
 }
 
 - (void)setIssue:(GHIssue *)anIssue {
-	[issue release];
-	issue = [anIssue retain];
-	titleLabel.text = issue.title;
-	detailLabel.text = issue.body;
-	repoLabel.text = issue.repository.repoId;
-	issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-	dateLabel.text = [issue.updated prettyDate];
+	[anIssue retain];
+	[_issue release];
+	_issue = anIssue;
+	self.titleLabel.text = self.issue.title;
+	self.detailLabel.text = self.issue.body;
+	self.repoLabel.text = self.issue.repository.repoId;
+	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.dateLabel.text = [self.issue.updated prettyDate];
 	// Icon
-	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
-	iconView.image = [UIImage imageNamed:icon];
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", self.issue.state];
+	self.iconView.image = [UIImage imageNamed:icon];
 }
 
 - (void)hideRepo {
-	repoLabel.text = @"";
+	self.repoLabel.text = @"";
 }
 
 @end

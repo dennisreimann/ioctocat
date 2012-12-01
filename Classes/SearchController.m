@@ -3,7 +3,6 @@
 #import "UserController.h"
 #import "GHUser.h"
 #import "GHSearch.h"
-#import "OverlayController.h"
 #import "RepositoryCell.h"
 #import "UserCell.h"
 #import "AccountController.h"
@@ -17,20 +16,18 @@
 
 @implementation SearchController
 
-@synthesize searches;
-
 + (id)controllerWithUser:(GHUser *)theUser {
 	return [[[SearchController alloc] initWithUser:theUser] autorelease];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-	[super initWithNibName:@"Search" bundle:nil];
-
-	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
-	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
-	self.searches = [NSArray arrayWithObjects:userSearch, repoSearch, nil];
-	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-
+	self = [super initWithNibName:@"Search" bundle:nil];
+	if (self) {
+		GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
+		GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
+		self.searches = [NSArray arrayWithObjects:userSearch, repoSearch, nil];
+		for (GHSearch *search in self.searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
@@ -48,35 +45,31 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.tableView.tableHeaderView = searchBar;
-	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
-	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
+	self.tableView.tableHeaderView = self.searchBar;
+	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
 	self.navItem.title = @"Search";
-	self.navItem.titleView = searchControl;
+	self.navItem.titleView = self.searchControl;
 	self.navItem.rightBarButtonItem = nil;
 }
 
 - (void)dealloc {
-	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[userCell release], userCell = nil;
-	[searches release], searches = nil;
-	[overlayController release], overlayController = nil;
-	[searchBar release], searchBar = nil;
-	[searchControl release], searchControl = nil;
-	[loadingCell release], loadingCell = nil;
-	[noResultsCell release], noResultsCell = nil;
+	for (GHSearch *search in self.searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_userCell release], _userCell = nil;
+	[_searches release], _searches = nil;
+	[_searchBar release], _searchBar = nil;
+	[_searchControl release], _searchControl = nil;
+	[_loadingCell release], _loadingCell = nil;
+	[_noResultsCell release], _noResultsCell = nil;
 	[super dealloc];
 }
 
 - (GHSearch *)currentSearch {
-	return searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
-		nil : [searches objectAtIndex:searchControl.selectedSegmentIndex];
+	return self.searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
+		nil : [self.searches objectAtIndex:self.searchControl.selectedSegmentIndex];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -93,27 +86,24 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
-	searchBar.text = self.currentSearch.searchTerm;
+	self.searchBar.text = self.currentSearch.searchTerm;
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-	[self.tableView insertSubview:overlayController.view aboveSubview:self.parentViewController.view];
-	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
+	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)] autorelease];
 	self.navItem.rightBarButtonItem = cancelButton;
-	[cancelButton release];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
-	self.currentSearch.searchTerm = searchBar.text;
+	self.currentSearch.searchTerm = self.searchBar.text;
 	[self.currentSearch loadData];
 	[self quitSearching:nil];
 }
 
 - (void)quitSearching:(id)sender {
-	searchBar.text = self.currentSearch.searchTerm;
-	[searchBar resignFirstResponder];
+	self.searchBar.text = self.currentSearch.searchTerm;
+	[self.searchBar resignFirstResponder];
 	self.navItem.rightBarButtonItem = nil;
-	[overlayController.view removeFromSuperview];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -127,8 +117,8 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentSearch.isLoaded) return loadingCell;
-	if (self.currentSearch.results.count == 0) return noResultsCell;
+	if (!self.currentSearch.isLoaded) return self.loadingCell;
+	if (self.currentSearch.results.count == 0) return self.noResultsCell;
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
@@ -139,7 +129,7 @@
 		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-			cell = userCell;
+			cell = self.userCell;
 		}
 		cell.user = (GHUser *)object;
 		return cell;

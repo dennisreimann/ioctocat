@@ -4,25 +4,25 @@
 
 @class LabeledCell, FilesCell, CommentCell;
 
-@interface CommitController : UITableViewController <UIActionSheetDelegate> {
-	GHCommit *commit;
-	IBOutlet LabeledCell *authorCell;
-	IBOutlet LabeledCell *committerCell;
-	IBOutlet FilesCell *addedCell;
-	IBOutlet FilesCell *modifiedCell;
-	IBOutlet FilesCell *removedCell;
-	IBOutlet CommentCell *commentCell;
-	IBOutlet UIView *tableHeaderView;
-	IBOutlet UIView *tableFooterView;
-	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *loadingCommentsCell;
-	IBOutlet UITableViewCell *noCommentsCell;
-	IBOutlet UILabel *authorLabel;
-	IBOutlet UILabel *committerLabel;
-	IBOutlet UILabel *dateLabel;
-	IBOutlet UILabel *titleLabel;
-	IBOutlet UIImageView *gravatarView;
-}
+@interface CommitController : UITableViewController <UIActionSheetDelegate>
+
+@property(nonatomic,strong)GHCommit *commit;
+@property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *committerCell;
+@property(nonatomic,strong)IBOutlet FilesCell *addedCell;
+@property(nonatomic,strong)IBOutlet FilesCell *modifiedCell;
+@property(nonatomic,strong)IBOutlet FilesCell *removedCell;
+@property(nonatomic,strong)IBOutlet CommentCell *commentCell;
+@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,strong)IBOutlet UIView *tableFooterView;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
+@property(nonatomic,strong)IBOutlet UILabel *authorLabel;
+@property(nonatomic,strong)IBOutlet UILabel *committerLabel;
+@property(nonatomic,strong)IBOutlet UILabel *dateLabel;
+@property(nonatomic,strong)IBOutlet UILabel *titleLabel;
+@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
 
 + (id)controllerWithCommit:(GHCommit *)theCommit;
 - (id)initWithCommit:(GHCommit *)theCommit;

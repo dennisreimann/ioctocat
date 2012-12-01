@@ -4,14 +4,10 @@
 
 @class GHRepository;
 
-@interface GHForks : GHResource {
-	NSArray *entries;
-	@private
-	GHRepository *repository;
-}
+@interface GHForks : GHResource
 
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)NSArray *entries;
+@property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)NSArray *entries;
 
 + (id)forksWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;

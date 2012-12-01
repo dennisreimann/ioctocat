@@ -6,28 +6,24 @@
 
 @implementation GHOrganizations
 
-@synthesize user, organizations;
-
 + (id)organizationsWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
-	return [[[[self class] alloc] initWithUser:theUser andPath:thePath] autorelease];
+	return [[[self.class alloc] initWithUser:theUser andPath:thePath] autorelease];
 }
 
 - (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
-	[super init];
-	self.user = theUser;
-	self.organizations = [NSMutableArray array];
-	self.resourcePath = thePath;
+	self = [super init];
+	if (self) {
+		self.user = theUser;
+		self.organizations = [NSMutableArray array];
+		self.resourcePath = thePath;
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[user release], user = nil;
-	[organizations release], organizations = nil;
+	[_user release], _user = nil;
+	[_organizations release], _organizations = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHOrganizations user:'%@' resourcePath:'%@'>", user, self.resourcePath];
 }
 
 - (void)setValues:(id)theResponse {

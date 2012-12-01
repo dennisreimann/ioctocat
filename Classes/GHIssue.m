@@ -9,60 +9,48 @@
 
 @implementation GHIssue
 
-@synthesize user;
-@synthesize comments;
-@synthesize title;
-@synthesize body;
-@synthesize state;
-@synthesize labels;
-@synthesize votes;
-@synthesize created;
-@synthesize updated;
-@synthesize closed;
-@synthesize num;
-@synthesize repository;
-@synthesize htmlURL;
-
 + (id)issueWithRepository:(GHRepository *)theRepository {
-	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
+	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super init];
-	self.repository = theRepository;
-	self.comments = [GHIssueComments commentsWithParent:self];
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.comments = [GHIssueComments commentsWithParent:self];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[user release], user = nil;
-	[comments release], comments = nil;
-	[title release], title = nil;
-	[labels release], labels = nil;
-	[body release], body = nil;
-	[state release], state = nil;
-	[created release], created = nil;
-	[updated release], updated = nil;
-	[closed release], closed = nil;
+	[_user release], _user = nil;
+	[_comments release], _comments = nil;
+	[_title release], _title = nil;
+	[_labels release], _labels = nil;
+	[_body release], _body = nil;
+	[_state release], _state = nil;
+	[_created release], _created = nil;
+	[_updated release], _updated = nil;
+	[_closed release], _closed = nil;
 	[super dealloc];
 }
 
 - (BOOL)isNew {
-	return !num ? YES : NO;
+	return !self.num ? YES : NO;
 }
 
 - (BOOL)isOpen {
-	return [state isEqualToString:kIssueStateOpen];
+	return [self.state isEqualToString:kIssueStateOpen];
 }
 
 - (BOOL)isClosed {
-	return [state isEqualToString:kIssueStateClosed];
+	return [self.state isEqualToString:kIssueStateClosed];
 }
 
 - (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
-	return [NSString stringWithFormat:kIssueFormat, repository.owner, repository.name, num];
+	return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.num];
 }
 
 #pragma mark Loading
@@ -80,7 +68,7 @@
 	self.votes = [[theDict objectForKey:@"votes"] integerValue];
 	self.num = [[theDict objectForKey:@"number"] integerValue];
 	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
-	if (!repository) {
+	if (!self.repository) {
 		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
 		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
 		if (owner && name) {
@@ -107,13 +95,13 @@
 	NSString *path;
 	NSString *method;
 	if (self.isNew) {
-		path = [NSString stringWithFormat:kIssueOpenFormat, repository.owner, repository.name];
+		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
 		method = @"POST";
 	} else {
-		path = [NSString stringWithFormat:kIssueEditFormat, repository.owner, repository.name, num];
+		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
 		method = @"PATCH";
 	}
-	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:title, @"title", body, @"body", state, @"state", nil];
+	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:self.title, @"title", self.body, @"body", self.state, @"state", nil];
 	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
 		[self setValues:theResponse];
 	}];

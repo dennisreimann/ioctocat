@@ -21,7 +21,7 @@
 
 
 @interface UserController ()
-@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,strong)GHUser *user;
 @property(nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayUser;
@@ -30,21 +30,19 @@
 
 @implementation UserController
 
-@synthesize user;
-
 + (id)controllerWithUser:(GHUser *)theUser {
 	return [[[UserController alloc] initWithUser:theUser] autorelease];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
-	[super initWithNibName:@"User" bundle:nil];
-
-	self.user = theUser;
-	[user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-
+	self = [super initWithNibName:@"User" bundle:nil];
+	if (self) {
+		self.user = theUser;
+		[self.user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
@@ -62,53 +60,50 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = tableHeaderView;
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-	BOOL isProfile = [user.login isEqualToString:self.currentUser.login];
-	self.navItem.title = isProfile ? @"Profile" : user.login;
+	BOOL isProfile = [self.user.login isEqualToString:self.currentUser.login];
+	self.navItem.title = isProfile ? @"Profile" : self.user.login;
 	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-
+	self.navItem.rightBarButtonItem = isProfile ? nil : [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
-	(user.isLoaded) ? [self displayUser] : [user loadData];
-	if (!user.repositories.isLoaded) [user.repositories loadData];
-	if (!user.organizations.isLoaded) [user.organizations loadData];
+	(self.user.isLoaded) ? [self displayUser] : [self.user loadData];
+	if (!self.user.repositories.isLoaded) [self.user.repositories loadData];
+	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
 }
 
 - (void)dealloc {
-	[user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user release], user = nil;
-	[tableHeaderView release], tableHeaderView = nil;
-	[gravatarView release], gravatarView = nil;
-	[nameLabel release], nameLabel = nil;
-	[companyLabel release], companyLabel = nil;
-	[locationLabel release], locationLabel = nil;
-	[blogLabel release], blogLabel = nil;
-	[emailLabel release], emailLabel = nil;
-	[locationCell release], locationCell = nil;
-	[blogCell release], blogCell = nil;
-	[emailCell release], emailCell = nil;
-	[followersCell release], followersCell = nil;
-	[followingCell release], followingCell = nil;
-	[gistsCell release], gistsCell = nil;
-	[organizationCell release], organizationCell = nil;
-	[recentActivityCell release], recentActivityCell = nil;
-	[loadingUserCell release],loadingUserCell = nil;
-	[loadingReposCell release], loadingReposCell = nil;
-	[loadingOrganizationsCell release], loadingOrganizationsCell = nil;
-	[noPublicReposCell release], noPublicReposCell = nil;
-	[noPublicOrganizationsCell release], noPublicOrganizationsCell = nil;
+	[self.user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_user release], _user = nil;
+	[_tableHeaderView release], _tableHeaderView = nil;
+	[_gravatarView release], _gravatarView = nil;
+	[_nameLabel release], _nameLabel = nil;
+	[_companyLabel release], _companyLabel = nil;
+	[_locationLabel release], _locationLabel = nil;
+	[_blogLabel release], _blogLabel = nil;
+	[_emailLabel release], _emailLabel = nil;
+	[_locationCell release], _locationCell = nil;
+	[_blogCell release], _blogCell = nil;
+	[_emailCell release], _emailCell = nil;
+	[_followersCell release], _followersCell = nil;
+	[_followingCell release], _followingCell = nil;
+	[_gistsCell release], _gistsCell = nil;
+	[_organizationCell release], _organizationCell = nil;
+	[_recentActivityCell release], _recentActivityCell = nil;
+	[_loadingUserCell release], _loadingUserCell = nil;
+	[_loadingReposCell release], _loadingReposCell = nil;
+	[_loadingOrganizationsCell release], _loadingOrganizationsCell = nil;
+	[_noPublicReposCell release], _noPublicReposCell = nil;
+	[_noPublicOrganizationsCell release], _noPublicOrganizationsCell = nil;
 	[super dealloc];
 }
 
@@ -119,49 +114,49 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:self.user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self.currentUser isFollowing:user] ? [self.currentUser unfollowUser:user] : [self.currentUser followUser:user];
+		[self.currentUser isFollowing:self.user] ? [self.currentUser unfollowUser:self.user] : [self.currentUser followUser:self.user];
 	} else if (buttonIndex == 1) {
-		WebController *webController = [WebController controllerWithURL:user.htmlURL];
+		WebController *webController = [WebController controllerWithURL:self.user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
 
 - (void)displayUser {
-	nameLabel.text = (!user.name || [user.name isEmpty]) ? user.login : user.name;
-	companyLabel.text = (!user.company || [user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", user.followersCount] : user.company;
-	gravatarView.image = user.gravatar;
-	[locationCell setContentText:user.location];
-	[blogCell setContentText:[user.blogURL host]];
-	[emailCell setContentText:user.email];
+	self.nameLabel.text = (!self.user.name || [self.user.name isEmpty]) ? self.user.login : self.user.name;
+	self.companyLabel.text = (!self.user.company || [self.user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", self.user.followersCount] : self.user.company;
+	self.gravatarView.image = self.user.gravatar;
+	[self.locationCell setContentText:self.user.location];
+	[self.blogCell setContentText:[self.user.blogURL host]];
+	[self.emailCell setContentText:self.user.email];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kGravatarKeyPath]) {
-		gravatarView.image = user.gravatar;
-	} else if (object == user && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (user.isLoaded) {
+		self.gravatarView.image = self.user.gravatar;
+	} else if (object == self.user && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (self.user.isLoaded) {
 			[self displayUser];
 			[self.tableView reloadData];
-		} else if (user.error) {
+		} else if (self.user.error) {
 			[iOctocat reportLoadingError:@"Could not load the user"];
 		}
-	} else if (object == user.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (user.repositories.isLoaded) {
+	} else if (object == self.user.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (self.user.repositories.isLoaded) {
 			[self.tableView reloadData];
-		} else if (user.repositories.error) {
+		} else if (self.user.repositories.error) {
 			[iOctocat reportLoadingError:@"Could not load the repositories"];
 		}
-	} else if (object == user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (user.organizations.isLoaded) {
+	} else if (object == self.user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		if (self.user.organizations.isLoaded) {
 			[self.tableView reloadData];
-		} else if (user.organizations.error) {
+		} else if (self.user.organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
 	}
@@ -170,18 +165,18 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (!user.isLoaded) return 1;
+	if (!self.user.isLoaded) return 1;
 	return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!user.isLoaded) return 1;
+	if (!self.user.isLoaded) return 1;
 	if (section == 0) return 3;
 	if (section == 1) return 4;
-	if (section == 2 && (!user.repositories.isLoaded || user.repositories.repositories.count == 0)) return 1;
-	if (section == 2) return user.repositories.repositories.count;
-	if (section == 3 && (!user.organizations.isLoaded || user.organizations.organizations.count == 0)) return 1;
-	if (section == 3) return user.organizations.organizations.count;
+	if (section == 2 && (!self.user.repositories.isLoaded || self.user.repositories.repositories.count == 0)) return 1;
+	if (section == 2) return self.user.repositories.repositories.count;
+	if (section == 3 && (!self.user.organizations.isLoaded || self.user.organizations.organizations.count == 0)) return 1;
+	if (section == 3) return self.user.organizations.organizations.count;
 	return 1;
 }
 
@@ -194,13 +189,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (!user.isLoaded) return loadingUserCell;
+	if (!self.user.isLoaded) return self.loadingUserCell;
 	if (section == 0) {
 		LabeledCell *cell;
 		switch (row) {
-			case 0: cell = locationCell; break;
-			case 1: cell = blogCell; break;
-			case 2: cell = emailCell; break;
+			case 0: cell = self.locationCell; break;
+			case 1: cell = self.blogCell; break;
+			case 2: cell = self.emailCell; break;
 			default: cell = nil;
 		}
 		BOOL isSelectable = row != 0 && cell.hasContent;
@@ -208,60 +203,60 @@
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-	if (section == 1 && row == 0) return recentActivityCell;
-	if (section == 1 && row == 1) return followingCell;
-	if (section == 1 && row == 2) return followersCell;
-	if (section == 1 && row == 3) return gistsCell;
-	if (section == 2 && !user.repositories.isLoaded) return loadingReposCell;
-	if (section == 2 && user.repositories.repositories.count == 0) return noPublicReposCell;
+	if (section == 1 && row == 0) return self.recentActivityCell;
+	if (section == 1 && row == 1) return self.followingCell;
+	if (section == 1 && row == 2) return self.followersCell;
+	if (section == 1 && row == 3) return self.gistsCell;
+	if (section == 2 && !self.user.repositories.isLoaded) return self.loadingReposCell;
+	if (section == 2 && self.user.repositories.repositories.count == 0) return self.noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = [user.repositories.repositories objectAtIndex:indexPath.row];
+		cell.repository = [self.user.repositories.repositories objectAtIndex:indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
-	if (section == 3 && !user.organizations.isLoaded) return loadingOrganizationsCell;
-	if (section == 3 && user.organizations.organizations.count == 0) return noPublicOrganizationsCell;
+	if (section == 3 && !self.user.organizations.isLoaded) return self.loadingOrganizationsCell;
+	if (section == 3 && self.user.organizations.organizations.count == 0) return self.noPublicOrganizationsCell;
 	if (section == 3) {
 		OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:kOrganizationCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
-			cell = organizationCell;
+			cell = self.organizationCell;
 		}
-		cell.organization = [user.organizations.organizations objectAtIndex:indexPath.row];
+		cell.organization = [self.user.organizations.organizations objectAtIndex:indexPath.row];
 		return cell;
 	}
 	return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!user.isLoaded) return;
+	if (!self.user.isLoaded) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
-	if (section == 0 && row == 1 && user.blogURL) {
-		viewController = [WebController controllerWithURL:user.blogURL];
-	} else if (section == 0 && row == 2 && user.email) {
+	if (section == 0 && row == 1 && self.user.blogURL) {
+		viewController = [WebController controllerWithURL:self.user.blogURL];
+	} else if (section == 0 && row == 2 && self.user.email) {
 		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
-		[mailComposer setToRecipients:[NSArray arrayWithObject:user.email]];
+		[mailComposer setToRecipients:[NSArray arrayWithObject:self.user.email]];
 		[self presentModalViewController:mailComposer animated:YES];
 		[mailComposer release];
 	} else if (section == 1 && row == 0) {
-		viewController = [EventsController controllerWithEvents:user.events];
+		viewController = [EventsController controllerWithEvents:self.user.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 1 && row == 3) {
-		viewController = [GistsController controllerWithGists:user.gists];
+		viewController = [GistsController controllerWithGists:self.user.gists];
 		viewController.title = @"Gists";
 	} else if (section == 1) {
-		viewController = [UsersController controllerWithUsers:(row == 1 ? user.following : user.followers)];
+		viewController = [UsersController controllerWithUsers:(row == 1 ? self.user.following : self.user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2) {
-		GHRepository *repo = [user.repositories.repositories objectAtIndex:indexPath.row];
+		GHRepository *repo = [self.user.repositories.repositories objectAtIndex:indexPath.row];
 		viewController = [RepositoryController controllerWithRepository:repo];
 	} else if (section == 3) {
-		GHOrganization *org = [user.organizations.organizations objectAtIndex:indexPath.row];
+		GHOrganization *org = [self.user.organizations.organizations objectAtIndex:indexPath.row];
 		viewController = [OrganizationController controllerWithOrganization:org];
 	}
 	// Maybe push a controller

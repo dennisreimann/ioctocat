@@ -3,13 +3,10 @@
 
 @class GHUser;
 
-@interface UserCell : UITableViewCell {
-	GHUser *user;
-	@private
-	IBOutlet UILabel *userLabel;
-	IBOutlet UIImageView *gravatarView;
-}
+@interface UserCell : UITableViewCell
 
-@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)IBOutlet UILabel *userLabel;
+@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
 
 @end

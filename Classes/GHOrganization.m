@@ -13,77 +13,56 @@
 
 @implementation GHOrganization
 
-@synthesize name;
-@synthesize login;
-@synthesize email;
-@synthesize company;
-@synthesize blogURL;
-@synthesize htmlURL;
-@synthesize location;
-@synthesize gravatarURL;
-@synthesize gravatar;
-@synthesize publicMembers;
-@synthesize repositories;
-@synthesize events;
-@synthesize followersCount;
-@synthesize followingCount;
-@synthesize publicGistCount;
-@synthesize privateGistCount;
-@synthesize publicRepoCount;
-@synthesize privateRepoCount;
-
 + (id)organizationWithLogin:(NSString *)theLogin {
 	return [[[self.class alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
-	[self init];
-	self.login = theLogin;
-	self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
+	self = [self init];
+	if (self) {
+		self.login = theLogin;
+		self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
+		self.gravatarLoader = [GravatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[name release], name = nil;
-	[login release], login = nil;
-	[email release], email = nil;
-	[company release], company = nil;
-	[blogURL release], blogURL = nil;
-	[htmlURL release], htmlURL = nil;
-	[location release], location = nil;
-	[gravatarLoader release], gravatarLoader = nil;
-	[gravatarURL release], gravatarURL = nil;
-	[gravatar release], gravatar = nil;
-	[publicMembers release], publicMembers = nil;
-	[repositories release], repositories = nil;
-	[events release], events = nil;
+	[_name release], _name = nil;
+	[_login release], _login = nil;
+	[_email release], _email = nil;
+	[_company release], _company = nil;
+	[_blogURL release], _blogURL = nil;
+	[_htmlURL release], _htmlURL = nil;
+	[_location release], _location = nil;
+	[_gravatarLoader release], _gravatarLoader = nil;
+	[_gravatarURL release], _gravatarURL = nil;
+	[_gravatar release], _gravatar = nil;
+	[_publicMembers release], _publicMembers = nil;
+	[_repositories release], _repositories = nil;
+	[_events release], _events = nil;
 	[super dealloc];
 }
 
 - (NSUInteger)hash {
-	NSString *hashValue = [login lowercaseString];
+	NSString *hashValue = [self.login lowercaseString];
 	return [hashValue hash];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHOrganization login:'%@' status:'%d' name:'%@'>", login, loadingStatus, name];
-}
-
 - (int)compareByName:(GHOrganization *)theOtherOrg {
-	return [login localizedCaseInsensitiveCompare:[theOtherOrg login]];
+	return [self.login localizedCaseInsensitiveCompare:theOtherOrg.login];
 }
 
 - (void)setLogin:(NSString *)theLogin {
 	[theLogin retain];
-	[login release];
-	login = theLogin;
+	[_login release];
+	_login = theLogin;
 
-	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, login];
-	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, login];
-	NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, login];
+	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, self.login];
+	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, self.login];
+	NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, self.login];
 
-	self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, login];
+	self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, self.login];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
 	self.publicMembers = [GHUsers usersWithPath:membersPath];
 	self.events = [GHEvents resourceWithPath:eventsPath];
@@ -93,7 +72,7 @@
 	NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
 	NSString *theLogin = [resource valueForKey:@"login" defaultsTo:@""];
 	
-	if (![theLogin isEmpty] && ![login isEqualToString:theLogin]) self.login = theLogin;
+	if (![theLogin isEmpty] && ![self.login isEqualToString:theLogin]) self.login = theLogin;
 	self.name = [resource valueForKey:@"name" defaultsTo:@""];
 	self.email = [resource valueForKey:@"email" defaultsTo:@""];
 	self.company = [resource valueForKey:@"company" defaultsTo:@""];
@@ -113,11 +92,11 @@
 
 - (void)setGravatarURL:(NSURL *)theURL {
 	[theURL retain];
-	[gravatarURL release];
-	gravatarURL = theURL;
+	[_gravatarURL release];
+	_gravatarURL = theURL;
 
-	if (gravatarURL) {
-		[gravatarLoader loadURL:gravatarURL];
+	if (self.gravatarURL) {
+		[self.gravatarLoader loadURL:self.gravatarURL];
 	}
 }
 

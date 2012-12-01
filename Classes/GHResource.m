@@ -8,29 +8,24 @@
 
 @implementation GHResource
 
-@synthesize loadingStatus;
-@synthesize savingStatus;
-@synthesize resourcePath;
-@synthesize error;
-@synthesize data;
-
 + (id)resourceWithPath:(NSString *)thePath {
 	return [[[self.class alloc] initWithPath:thePath] autorelease];
 }
 
 - (id)initWithPath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
-	self.loadingStatus = GHResourceStatusNotProcessed;
-	self.savingStatus = GHResourceStatusNotProcessed;
-		return self;
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+		self.loadingStatus = GHResourceStatusNotProcessed;
+		self.savingStatus = GHResourceStatusNotProcessed;
+	}
+	return self;
 }
 
 - (void)dealloc {
-	[resourcePath release], resourcePath = nil;
-	[delegates release], delegates = nil;
-	[error release], error = nil;
-	[data release], data = nil;
+	[_resourcePath release], _resourcePath = nil;
+	[_error release], _error = nil;
+	[_data release], _data = nil;
 	[super dealloc];
 }
 
@@ -99,19 +94,19 @@
 #pragma mark Convenience Accessors
 
 - (BOOL)isLoading {
-	return loadingStatus == GHResourceStatusProcessing;
+	return self.loadingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isLoaded {
-	return loadingStatus == GHResourceStatusProcessed;
+	return self.loadingStatus == GHResourceStatusProcessed;
 }
 
 - (BOOL)isSaving {
-	return savingStatus == GHResourceStatusProcessing;
+	return self.savingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isSaved {
-	return savingStatus == GHResourceStatusProcessed;
+	return self.savingStatus == GHResourceStatusProcessed;
 }
 
 @end

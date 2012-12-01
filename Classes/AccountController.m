@@ -23,23 +23,22 @@
 }
 
 - (id)initWithAccount:(GHAccount *)theAccount {
-	[self initWithNibName:@"Account" bundle:nil];
-	self.account = theAccount;
-
-	MyEventsController *feedsController     = [MyEventsController controllerWithUser:self.account.user];
-	RepositoriesController *reposController = [RepositoriesController controllerWithUser:self.account.user];
-	UserController *userController          = [UserController controllerWithUser:self.account.user];
-	IssuesController *issuesController      = [IssuesController controllerWithUser:self.account.user];
-	MoreController *moreController          = [MoreController controllerWithUser:self.account.user];
-
-	// tabs
-	self.viewControllers = [NSArray arrayWithObjects:
-							feedsController,
-							reposController,
-							userController,
-							issuesController,
-							moreController,
-							nil];
+	self = [self initWithNibName:@"Account" bundle:nil];
+	if (self) {
+		self.account = theAccount;
+		MyEventsController *feedsController     = [MyEventsController controllerWithUser:self.account.user];
+		RepositoriesController *reposController = [RepositoriesController controllerWithUser:self.account.user];
+		UserController *userController          = [UserController controllerWithUser:self.account.user];
+		IssuesController *issuesController      = [IssuesController controllerWithUser:self.account.user];
+		MoreController *moreController          = [MoreController controllerWithUser:self.account.user];
+		self.viewControllers = [NSArray arrayWithObjects:
+								feedsController,
+								reposController,
+								userController,
+								issuesController,
+								moreController,
+								nil];
+	}
 	return self;
 }
 
@@ -60,7 +59,7 @@
 	[viewController retain];
 	// clear out old controller
 	[self.selectedViewController.view removeFromSuperview];
-	[self.selectedViewController release];
+	[_selectedViewController release];
 	// set up new controller
 	_selectedViewController = viewController;
 	self.selectedViewController.view.frame = CGRectMake(self.view.bounds.origin.x,

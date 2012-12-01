@@ -18,9 +18,6 @@
 
 
 @interface IssueController ()
-@property(nonatomic,retain)GHIssue *issue;
-@property(nonatomic,retain)IssuesController *listController;
-
 - (void)displayIssue;
 - (void)displayComments;
 - (GHUser *)currentUser;
@@ -29,9 +26,6 @@
 
 
 @implementation IssueController
-
-@synthesize issue;
-@synthesize listController;
 
 + (id)controllerWithIssue:(GHIssue *)theIssue {
 	return [[[self.class alloc] initWithIssue:theIssue] autorelease];
@@ -42,24 +36,28 @@
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue {
-	[super initWithNibName:@"Issue" bundle:nil];
-	self.issue = theIssue;
+	self = [super initWithNibName:@"Issue" bundle:nil];
+	if (self) {
+		self.issue = theIssue;
+	}
 	return self;
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	[self initWithIssue:theIssue];
-	self.listController = theController;
+	self = [self initWithIssue:theIssue];
+	if (self) {
+		self.listController = theController;
+	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"Issue #%d", issue.num];
+	self.title = [NSString stringWithFormat:@"Issue #%d", self.issue.num];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = tableHeaderView;
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
 // Add and remove observer in the view appearing methods
@@ -67,65 +65,65 @@
 // issue gets edited by the IssueForm
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(issue.isLoaded) ? [self displayIssue] : [issue loadData];
-	(issue.comments.isLoaded) ? [self displayComments] : [issue.comments loadData];
+	[self.issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	(self.issue.isLoaded) ? [self displayIssue] : [self.issue loadData];
+	(self.issue.comments.isLoaded) ? [self displayComments] : [self.issue.comments loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
+	[self.issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }
 
 - (void)dealloc {
-	[issue release], issue = nil;
-	[listController release], listController = nil;
-	[tableHeaderView release], tableHeaderView = nil;
-	[tableFooterView release], tableFooterView = nil;
-	[titleLabel release], titleLabel = nil;
-	[createdLabel release], createdLabel = nil;
-	[updatedLabel release], updatedLabel = nil;
-	[voteLabel release], voteLabel = nil;
-	[createdCell release], createdCell = nil;
-	[updatedCell release], updatedCell = nil;
-	[descriptionCell release], descriptionCell = nil;
-	[loadingCommentsCell release], loadingCommentsCell = nil;
-	[noCommentsCell release], noCommentsCell = nil;
-	[commentCell release], commentCell = nil;
-	[loadingCell release], loadingCell = nil;
-	[issueNumber release], issueNumber = nil;
-	[iconView release], iconView = nil;
+	[_issue release], _issue = nil;
+	[_listController release], _listController = nil;
+	[_tableHeaderView release], _tableHeaderView = nil;
+	[_tableFooterView release], _tableFooterView = nil;
+	[_titleLabel release], _titleLabel = nil;
+	[_createdLabel release], _createdLabel = nil;
+	[_updatedLabel release], _updatedLabel = nil;
+	[_voteLabel release], _voteLabel = nil;
+	[_createdCell release], _createdCell = nil;
+	[_updatedCell release], _updatedCell = nil;
+	[_descriptionCell release], _descriptionCell = nil;
+	[_loadingCommentsCell release], _loadingCommentsCell = nil;
+	[_noCommentsCell release], _noCommentsCell = nil;
+	[_commentCell release], _commentCell = nil;
+	[_loadingCell release], _loadingCell = nil;
+	[_issueNumber release], _issueNumber = nil;
+	[_iconView release], _iconView = nil;
 	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (object == issue) {
-			if (issue.isLoaded) {
+		if (object == self.issue) {
+			if (self.issue.isLoaded) {
 				[self displayIssue];
-			} else if (issue.error) {
+			} else if (self.issue.error) {
 				[iOctocat reportLoadingError:@"Could not load the issue"];
 				[self.tableView reloadData];
 			}
-		} else if (object == issue.comments) {
-			if (issue.comments.isLoaded) {
+		} else if (object == self.issue.comments) {
+			if (self.issue.comments.isLoaded) {
 				[self displayComments];
-			} else if (issue.comments.error && !issue.error) {
+			} else if (self.issue.comments.error && !self.issue.error) {
 				[iOctocat reportLoadingError:@"Could not load the issue comments"];
 				[self.tableView reloadData];
 			}
 		}
 	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
-		if (issue.isSaved) {
-			NSString *title = [NSString stringWithFormat:@"Issue %@", (issue.isOpen ? @"reopened" : @"closed")];
+		if (self.issue.isSaved) {
+			NSString *title = [NSString stringWithFormat:@"Issue %@", (self.issue.isOpen ? @"reopened" : @"closed")];
 			[iOctocat reportSuccess:title];
 			[self displayIssue];
-			[listController reloadIssues];
-		} else if (issue.error) {
+			[self.listController reloadIssues];
+		} else if (self.issue.error) {
 			[iOctocat reportError:@"Request error" with:@"Could not change issue state"];
 		}
 	}
@@ -136,56 +134,56 @@
 }
 
 - (BOOL)issueBelongsToCurrentUser {
-	return self.currentUser && [issue.user.login isEqualToString:self.currentUser.login];
+	return self.currentUser && [self.issue.user.login isEqualToString:self.currentUser.login];
 }
 
 #pragma mark Actions
 
 - (void)displayIssue {
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
-	iconView.image = [UIImage imageNamed:icon];
-	titleLabel.text = issue.title;
-	voteLabel.text = [NSString stringWithFormat:@"%d votes", issue.votes];
-	issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-	[createdCell setContentText:[issue.created prettyDate]];
-	[updatedCell setContentText:[issue.updated prettyDate]];
-	[descriptionCell setContentText:issue.body];
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", self.issue.state];
+	self.iconView.image = [UIImage imageNamed:icon];
+	self.titleLabel.text = self.issue.title;
+	self.voteLabel.text = [NSString stringWithFormat:@"%d votes", self.issue.votes];
+	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
+	[self.createdCell setContentText:[self.issue.created prettyDate]];
+	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
+	[self.descriptionCell setContentText:self.issue.body];
 	[self.tableView reloadData];
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = tableFooterView;
+	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet;
-		if (self.issueBelongsToCurrentUser) {
-				actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
-		} else {
-				actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
-		}
+	if (self.issueBelongsToCurrentUser) {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Edit", (self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+	} else {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+	}
 	[actionSheet showInView:self.view];
 	[actionSheet release];
 }
 
 - (IBAction)addComment:(id)sender {
-	GHIssueComment *comment = [GHIssueComment commentWithParent:issue];
-	CommentController *viewController = [CommentController controllerWithComment:comment andComments:issue.comments];
+	GHIssueComment *comment = [GHIssueComment commentWithParent:self.issue];
+	CommentController *viewController = [CommentController controllerWithComment:comment andComments:self.issue.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
-		IssueFormController *formController = [IssueFormController controllerWithIssue:issue andIssuesController:listController];
+		IssueFormController *formController = [IssueFormController controllerWithIssue:self.issue andIssuesController:self.listController];
 		[self.navigationController pushViewController:formController animated:YES];
 	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
-		issue.isOpen ? [issue closeIssue] : [issue reopenIssue];
+		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
 	} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
 		[self addComment:nil];
 	} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
-		WebController *webController = [WebController controllerWithURL:issue.htmlURL];
+		WebController *webController = [WebController controllerWithURL:self.issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -193,18 +191,16 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (issue.isLoaded) ? 2 : 1;
+	return (self.issue.isLoaded) ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (issue.error) return 0;
-	if (!issue.isLoaded) return 1;
-	if (section == 0) {
-		return [issue.body isEmpty] ? 2 : 3;
-	}
-	if (!issue.comments.isLoaded) return 1;
-	if (issue.comments.comments.count == 0) return 1;
-	return issue.comments.comments.count;
+	if (self.issue.error) return 0;
+	if (!self.issue.isLoaded) return 1;
+	if (section == 0) return [self.issue.body isEmpty] ? 2 : 3;
+	if (!self.issue.comments.isLoaded) return 1;
+	if (self.issue.comments.comments.count == 0) return 1;
+	return self.issue.comments.comments.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -212,25 +208,25 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && !issue.isLoaded) return loadingCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return createdCell;
-	if (indexPath.section == 0 && indexPath.row == 1) return updatedCell;
-	if (indexPath.section == 0 && indexPath.row == 2) return descriptionCell;
-	if (!issue.comments.isLoaded) return loadingCommentsCell;
-	if (issue.comments.comments.count == 0) return noCommentsCell;
+	if (indexPath.section == 0 && !self.issue.isLoaded) return self.loadingCell;
+	if (indexPath.section == 0 && indexPath.row == 0) return self.createdCell;
+	if (indexPath.section == 0 && indexPath.row == 1) return self.updatedCell;
+	if (indexPath.section == 0 && indexPath.row == 2) return self.descriptionCell;
+	if (!self.issue.comments.isLoaded) return self.loadingCommentsCell;
+	if (self.issue.comments.comments.count == 0) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
-		cell = commentCell;
+		cell = self.commentCell;
 	}
-	GHComment *comment = [issue.comments.comments objectAtIndex:indexPath.row];
+	GHComment *comment = [self.issue.comments.comments objectAtIndex:indexPath.row];
 	[cell setComment:comment];
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 2) return [descriptionCell heightForTableView:tableView];
-	if (indexPath.section == 1 && issue.comments.isLoaded && issue.comments.comments.count > 0) {
+	if (indexPath.section == 0 && indexPath.row == 2) return [self.descriptionCell heightForTableView:tableView];
+	if (indexPath.section == 1 && self.issue.comments.isLoaded && self.issue.comments.comments.count > 0) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}

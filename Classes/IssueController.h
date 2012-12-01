@@ -3,26 +3,25 @@
 
 @class GHIssue, LabeledCell, TextCell, CommentCell, IssuesController;
 
-@interface IssueController : UITableViewController <UIActionSheetDelegate> {
-	@private
-	GHIssue *issue;
-	IssuesController *listController;
-	IBOutlet UIView *tableHeaderView;
-	IBOutlet UIView *tableFooterView;
-	IBOutlet UILabel *createdLabel;
-	IBOutlet UILabel *updatedLabel;
-	IBOutlet UILabel *voteLabel;
-	IBOutlet UILabel *titleLabel;
-	IBOutlet UILabel *issueNumber;
-	IBOutlet UIImageView *iconView;
-	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *loadingCommentsCell;
-	IBOutlet UITableViewCell *noCommentsCell;
-	IBOutlet LabeledCell *createdCell;
-	IBOutlet LabeledCell *updatedCell;
-	IBOutlet TextCell *descriptionCell;
-	IBOutlet CommentCell *commentCell;
-}
+@interface IssueController : UITableViewController <UIActionSheetDelegate>
+
+@property(nonatomic,strong)GHIssue *issue;
+@property(nonatomic,strong)IssuesController *listController;
+@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,strong)IBOutlet UIView *tableFooterView;
+@property(nonatomic,strong)IBOutlet UILabel *createdLabel;
+@property(nonatomic,strong)IBOutlet UILabel *updatedLabel;
+@property(nonatomic,strong)IBOutlet UILabel *voteLabel;
+@property(nonatomic,strong)IBOutlet UILabel *titleLabel;
+@property(nonatomic,strong)IBOutlet UILabel *issueNumber;
+@property(nonatomic,strong)IBOutlet UIImageView *iconView;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
+@property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
+@property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 
 + (id)controllerWithIssue:(GHIssue *)theIssue;
 + (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;

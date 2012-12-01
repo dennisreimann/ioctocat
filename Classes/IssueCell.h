@@ -3,19 +3,16 @@
 
 @class GHIssue;
 
-@interface IssueCell : UITableViewCell {
-	GHIssue *issue;
-	@private
-	IBOutlet UILabel *dateLabel;
-	IBOutlet UILabel *titleLabel;
-	IBOutlet UILabel *detailLabel;
-	IBOutlet UILabel *votesLabel;
-	IBOutlet UILabel *repoLabel;
-	IBOutlet UILabel *issueNumber;
-	IBOutlet UIImageView *iconView;
-}
+@interface IssueCell : UITableViewCell
 
-@property(nonatomic,retain)GHIssue *issue;
+@property(nonatomic,strong)GHIssue *issue;
+@property(nonatomic,strong)IBOutlet UILabel *dateLabel;
+@property(nonatomic,strong)IBOutlet UILabel *titleLabel;
+@property(nonatomic,strong)IBOutlet UILabel *detailLabel;
+@property(nonatomic,strong)IBOutlet UILabel *votesLabel;
+@property(nonatomic,strong)IBOutlet UILabel *repoLabel;
+@property(nonatomic,strong)IBOutlet UILabel *issueNumber;
+@property(nonatomic,strong)IBOutlet UIImageView *iconView;
 
 - (void)hideRepo;
 

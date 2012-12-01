@@ -4,15 +4,11 @@
 
 @class GHRepository;
 
-@interface GHRepoComments : GHResource {
-	NSMutableArray *comments;
-	NSString *commitID;
-	GHRepository *repository;
-}
+@interface GHRepoComments : GHResource
 
-@property(nonatomic,retain)NSMutableArray *comments;
-@property(nonatomic,retain)NSString *commitID;
-@property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,strong)NSMutableArray *comments;
+@property(nonatomic,strong)NSString *commitID;
+@property(nonatomic,strong)GHRepository *repository;
 
 + (id)commentsWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID;
 - (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID;

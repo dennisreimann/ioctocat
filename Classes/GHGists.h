@@ -2,11 +2,9 @@
 #import "GHResource.h"
 
 
-@interface GHGists : GHResource {
-	NSMutableArray *gists;
-}
+@interface GHGists : GHResource
 
-@property(nonatomic,retain)NSMutableArray *gists;
+@property(nonatomic,strong)NSMutableArray *gists;
 
 + (id)gistsWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;

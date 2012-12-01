@@ -9,9 +9,6 @@
 
 @implementation WebController
 
-@synthesize url;
-@synthesize html;
-
 + (id)controllerWithURL:(NSURL *)theURL {
 	return [[[self.class alloc] initWithURL:theURL] autorelease];
 }
@@ -21,65 +18,69 @@
 }
 
 - (id)initWithURL:(NSURL *)theURL {
-	[super initWithNibName:@"WebView" bundle:nil];
-	self.url = theURL;
+	self = [super initWithNibName:@"WebView" bundle:nil];
+	if (self) {
+		self.url = theURL;
+	}
 	return self;
 }
 
 - (id)initWithHTML:(NSString *)theHTML {
-	[super initWithNibName:@"WebView" bundle:nil];
-	self.html = theHTML;
+	self = [super initWithNibName:@"WebView" bundle:nil];
+	if (self) {
+		self.html = theHTML;
+	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:activityView] autorelease];
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:self.activityView] autorelease];
 
-	webView.scrollView.bounces = NO;
-	if (url) {
-		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-		[webView loadRequest:request];
+	self.webView.scrollView.bounces = NO;
+	if (self.url) {
+		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.url];
+		[self.webView loadRequest:request];
 		[request release];
-	} else if (html) {
+	} else if (self.html) {
 		NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
 		NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-		NSString *contentHTML = [NSString stringWithFormat:format, html];
-		[webView loadHTMLString:contentHTML baseURL:nil];
+		NSString *contentHTML = [NSString stringWithFormat:format, self.html];
+		[self.webView loadHTMLString:contentHTML baseURL:nil];
 	}
 }
 
 - (void)dealloc {
-	[self webViewDidFinishLoad:webView];
-	[webView stopLoading];
-	webView.delegate = nil;
-	[url release], url = nil;
-	[html release], html = nil;
-	[activityView release], activityView = nil;
-	[webView release], webView = nil;
+	[self webViewDidFinishLoad:self.webView];
+	[self.webView stopLoading];
+	self.webView.delegate = nil;
+	[_url release], _url = nil;
+	[_html release], _html = nil;
+	[_activityView release], _activityView = nil;
+	[_webView release], _webView = nil;
 	[super dealloc];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[webView stopLoading];
-	webView.delegate = nil;
+	[self.webView stopLoading];
+	self.webView.delegate = nil;
 	[super viewWillDisappear:animated];
 }
 
 #pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webview {
-	[activityView startAnimating];
+	[self.activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview {
-	[activityView stopAnimating];
+	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
-	[activityView stopAnimating];
+	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 

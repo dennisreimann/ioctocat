@@ -34,7 +34,7 @@
 - (void)setComment:(GHComment *)theComment {
 	[theComment retain];
 	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[self.comment release];
+	[_comment release];
 	_comment = theComment;
 	// Text
 	self.userLabel.text = self.comment.user.login;

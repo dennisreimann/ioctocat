@@ -6,13 +6,13 @@
 
 @interface GHBlob : GHResource
 
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)NSString *sha;
-@property(nonatomic,retain)NSString *path;
-@property(nonatomic,retain)NSString *mode;
-@property(nonatomic,retain)NSString *encoding;
-@property(nonatomic,retain)NSString *content;
-@property(nonatomic,retain)NSData *contentData;
+@property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)NSString *sha;
+@property(nonatomic,strong)NSString *path;
+@property(nonatomic,strong)NSString *mode;
+@property(nonatomic,strong)NSString *encoding;
+@property(nonatomic,strong)NSString *content;
+@property(nonatomic,strong)NSData *contentData;
 @property(nonatomic,readwrite)NSUInteger size;
 
 + (id)blobWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;

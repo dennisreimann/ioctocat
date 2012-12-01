@@ -5,13 +5,7 @@
 
 @class GHRepository, GHUser;
 
-@interface GHRepoComment : GHComment {
-	GHRepository *repository;
-	NSString *commitID;
-	NSString *path;
-	NSUInteger position;
-	NSUInteger line;
-}
+@interface GHRepoComment : GHComment
 
 @property(nonatomic,retain)GHRepository *repository;
 @property(nonatomic,retain)NSString *commitID;

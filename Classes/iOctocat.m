@@ -21,24 +21,18 @@
 
 @implementation iOctocat
 
-@synthesize users;
-@synthesize organizations;
-@synthesize currentAccount;
-@synthesize window;
-@synthesize navController;
-@synthesize accountController;
-
 + (id)sharedInstance {
-		return [[UIApplication sharedApplication] delegate];
+	return [[UIApplication sharedApplication] delegate];
 }
 
 - (void)dealloc {
-	for (GHOrganization *org in organizations) [org removeObserver:self forKeyPath:kGravatarKeyPath];
-	for (GHUser *user in users) [user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[accountController release], accountController = nil;
-	[navController release], navController = nil;
-	[window release], window = nil;
-	[users release], users = nil;
+	for (GHOrganization *org in self.organizations) [org removeObserver:self forKeyPath:kGravatarKeyPath];
+	for (GHUser *user in self.users) [user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[_accountController release], _accountController = nil;
+	[_navController release], _navController = nil;
+	[_window release], _window = nil;
+	[_users release], _users = nil;
+	[_organizations release], _organizations = nil;
 	[super dealloc];
 }
 
@@ -52,8 +46,8 @@
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	// Go
 	self.users = [NSMutableDictionary dictionary];
-	[window setRootViewController:navController];
-	[window makeKeyAndVisible];
+	[self.window setRootViewController:self.navController];
+	[self.window makeKeyAndVisible];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -73,7 +67,7 @@
 	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
 	if (isGitHubLink) {
 		WebController *webController = [WebController controllerWithURL:url];
-		[navController pushViewController:webController animated:YES];
+		[self.navController pushViewController:webController animated:YES];
 		return YES;
 	} else {
 		return NO;
@@ -88,22 +82,22 @@
 
 - (GHUser *)userWithLogin:(NSString *)theLogin {
 	if (!theLogin || [theLogin isKindOfClass:[NSNull class]] || [theLogin isEmpty]) return nil;
-	GHUser *user = [users objectForKey:theLogin];
+	GHUser *user = [self.users objectForKey:theLogin];
 	if (user == nil) {
 		user = [GHUser userWithLogin:theLogin];
 		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[users setObject:user forKey:theLogin];
+		[self.users setObject:user forKey:theLogin];
 	}
 	return user;
 }
 
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin {
 	if (!theLogin || [theLogin isEmpty]) return nil;
-	GHOrganization *organization = [organizations objectForKey:theLogin];
+	GHOrganization *organization = [self.organizations objectForKey:theLogin];
 	if (organization == nil) {
 		organization = [GHOrganization organizationWithLogin:theLogin];
 		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[organizations setObject:organization forKey:theLogin];
+		[self.organizations setObject:organization forKey:theLogin];
 	}
 	return organization;
 }
@@ -123,16 +117,16 @@
 #pragma mark Helpers
 
 + (NSDate *)parseDate:(NSString *)string {
-		if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
+	if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
 	static NSDateFormatter *dateFormatter;
 	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
-		dateFormatter.dateFormat = kISO8601TimeFormat;
-		// Fix for timezone format
-		if ([string hasSuffix:@"Z"]) {
-				string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
-		} else if ([string length] >= 24) {
-				string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
-		}
+	dateFormatter.dateFormat = kISO8601TimeFormat;
+	// Fix for timezone format
+	if ([string hasSuffix:@"Z"]) {
+		string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
+	} else if ([string length] >= 24) {
+		string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+	}
 	NSDate *date = [dateFormatter dateFromString:string];
 	return date;
 }

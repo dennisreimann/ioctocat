@@ -1,14 +1,13 @@
 #import <UIKit/UIKit.h>
 
+
 @class GHUsers, UserCell;
 
-@interface UsersController : UITableViewController {
-	@private
-	GHUsers *users;
-	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *noUsersCell;
-	IBOutlet UserCell *userCell;
-}
+@interface UsersController : UITableViewController
+
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
+@property(nonatomic,strong)IBOutlet UserCell *userCell;
 
 + (id)controllerWithUsers:(GHUsers *)theUsers;
 - (id)initWithUsers:(GHUsers *)theUsers;

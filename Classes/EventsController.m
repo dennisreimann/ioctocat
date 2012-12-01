@@ -32,9 +32,11 @@
 }
 
 - (id)initWithEvents:(GHEvents *)theEvents {
-	[super initWithNibName:@"Events" bundle:nil];
-	self.events = theEvents;
-	[self.events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super initWithNibName:@"Events" bundle:nil];
+	if (self) {
+		self.events = theEvents;
+		[self.events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
@@ -78,7 +80,7 @@
 }
 
 - (void)openEventItem:(id)theEventItem {
-	UIViewController *viewController;
+	UIViewController *viewController = nil;
 	if ([theEventItem isKindOfClass:[GHUser class]]) {
 		viewController = [UserController controllerWithUser:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHOrganization class]]) {

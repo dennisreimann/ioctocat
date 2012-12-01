@@ -4,12 +4,7 @@
 
 @class GHRepository;
 
-@interface GHIssues : GHResource {
-	NSArray *entries;
-	@private
-	GHRepository *repository;
-	NSString *issueState;
-}
+@interface GHIssues : GHResource
 
 @property(nonatomic,retain)GHRepository *repository;
 @property(nonatomic,retain)NSArray *entries;

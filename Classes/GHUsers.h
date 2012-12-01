@@ -2,11 +2,9 @@
 #import "GHResource.h"
 
 
-@interface GHUsers : GHResource {
-	NSMutableArray *users;
-}
+@interface GHUsers : GHResource
 
-@property(nonatomic,retain)NSMutableArray *users;
+@property(nonatomic,strong)NSMutableArray *users;
 
 + (id)usersWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;

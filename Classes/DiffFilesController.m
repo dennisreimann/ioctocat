@@ -14,7 +14,7 @@
 }
 
 - (id)initWithFiles:(NSArray *)theFiles {
-	[super initWithNibName:@"Files" bundle:nil];
+	self = [super initWithNibName:@"Files" bundle:nil];
 	self.files = theFiles;
 	return self;
 }

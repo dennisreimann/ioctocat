@@ -6,28 +6,23 @@
 
 @implementation GHForks
 
-@synthesize entries;
-@synthesize repository;
-
 + (id)forksWithRepository:(GHRepository *)theRepository {
-	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
+	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super init];
-	self.repository = theRepository;
-	self.resourcePath = [NSString stringWithFormat:kRepoForksFormat, repository.owner, repository.name];
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.resourcePath = [NSString stringWithFormat:kRepoForksFormat, self.repository.owner, self.repository.name];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository release], repository = nil;
-	[entries release], entries = nil;
+	[_repository release], _repository = nil;
+	[_entries release], _entries = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHForks repository:'%@'>", repository];
 }
 
 - (void)setValues:(id)theResponse {

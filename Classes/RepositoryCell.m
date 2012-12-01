@@ -12,7 +12,7 @@
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-	[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	self.textLabel.font = [UIFont systemFontOfSize:16.0f];
 	self.textLabel.highlightedTextColor = [UIColor whiteColor];
 	self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];

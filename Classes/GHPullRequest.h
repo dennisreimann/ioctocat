@@ -4,21 +4,7 @@
 
 @class GHIssueComments, GHRepository, GHUser;
 
-@interface GHPullRequest : GHResource {
-	GHUser *user;
-	GHRepository *repository;
-	GHIssueComments *comments;
-	NSString *title;
-	NSString *body;
-	NSString *state;
-	NSArray *labels;
-	NSDate *created;
-	NSDate *updated;
-	NSDate *closed;
-	NSURL *htmlURL;
-	NSInteger votes;
-	NSInteger num;
-}
+@interface GHPullRequest : GHResource
 
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)GHRepository *repository;

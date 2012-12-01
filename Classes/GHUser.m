@@ -23,94 +23,66 @@
 
 @implementation GHUser
 
-@synthesize name;
-@synthesize login;
-@synthesize email;
-@synthesize company;
-@synthesize blogURL;
-@synthesize location;
-@synthesize gravatarURL;
-@synthesize htmlURL;
-@synthesize gravatar;
-@synthesize organizations;
-@synthesize repositories;
-@synthesize starredRepositories;
-@synthesize watchedRepositories;
-@synthesize isAuthenticated;
-@synthesize events;
-@synthesize publicGistCount;
-@synthesize privateGistCount;
-@synthesize publicRepoCount;
-@synthesize privateRepoCount;
-@synthesize followingCount;
-@synthesize followersCount;
-@synthesize following;
-@synthesize followers;
-@synthesize gists;
-@synthesize starredGists;
-
 + (id)userWithLogin:(NSString *)theLogin {
 	return [[[self.class alloc] initWithLogin:theLogin] autorelease];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
-	[self init];
-	self.login = theLogin;
-	self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
-	self.isAuthenticated = NO;
-	gravatarLoader = [[GravatarLoader alloc] initWithTarget:self andHandle:@selector(loadedGravatar:)];
+	self = [self init];
+	if (self) {
+		self.login = theLogin;
+		self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
+		self.isAuthenticated = NO;
+		self.gravatarLoader = [GravatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[name release], name = nil;
-	[login release], login = nil;
-	[email release], email = nil;
-	[company release], company = nil;
-	[blogURL release], blogURL = nil;
-	[location release], location = nil;
-	[gravatarLoader release], gravatarLoader = nil;
-	[gravatarURL release], gravatarURL = nil;
-	[htmlURL release], htmlURL = nil;
-	[gravatar release], gravatar = nil;
-	[organizations release], organizations = nil;
-	[repositories release], repositories = nil;
-	[watchedRepositories release], watchedRepositories = nil;
-	[events release], events = nil;
-	[following release], following = nil;
-	[followers release], followers = nil;
+	[_name release], _name = nil;
+	[_login release], _login = nil;
+	[_email release], _email = nil;
+	[_company release], _company = nil;
+	[_blogURL release], _blogURL = nil;
+	[_location release], _location = nil;
+	[_gravatarLoader release], _gravatarLoader = nil;
+	[_gravatarURL release], _gravatarURL = nil;
+	[_htmlURL release], _htmlURL = nil;
+	[_gravatar release], _gravatar = nil;
+	[_organizations release], _organizations = nil;
+	[_repositories release], _repositories = nil;
+	[_watchedRepositories release], _watchedRepositories = nil;
+	[_events release], _events = nil;
+	[_following release], _following = nil;
+	[_followers release], _followers = nil;
 	[super dealloc];
 }
 
 - (NSUInteger)hash {
-	NSString *hashValue = [login lowercaseString];
+	NSString *hashValue = [self.login lowercaseString];
 	return [hashValue hash];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHUser login:'%@' isAuthenticated:'%@' status:'%d'>", login, isAuthenticated ? @"YES" : @"NO", loadingStatus];
-}
-
 - (int)compareByName:(GHUser *)theOtherUser {
-	return [login localizedCaseInsensitiveCompare:[theOtherUser login]];
+	return [self.login localizedCaseInsensitiveCompare:theOtherUser.login];
 }
 
 - (void)setLogin:(NSString *)theLogin {
 	[theLogin retain];
-	[login release];
-	login = theLogin;
+	[_login release];
+	_login = theLogin;
 
-	NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, login];
-	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, login];
-	NSString *watchedReposPath  = [NSString stringWithFormat:kUserWatchedReposFormat, login];
-	NSString *starredReposPath  = [NSString stringWithFormat:kUserStarredReposFormat, login];
-	NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, login];
-	NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, login];
-	NSString *eventsPath        = [NSString stringWithFormat:kUserEventsFormat, login];
-	NSString *gistsPath         = [NSString stringWithFormat:kUserGistsFormat, login];
+	NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, self.login];
+	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, self.login];
+	NSString *watchedReposPath  = [NSString stringWithFormat:kUserWatchedReposFormat, self.login];
+	NSString *starredReposPath  = [NSString stringWithFormat:kUserStarredReposFormat, self.login];
+	NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, self.login];
+	NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, self.login];
+	NSString *eventsPath        = [NSString stringWithFormat:kUserEventsFormat, self.login];
+	NSString *gistsPath         = [NSString stringWithFormat:kUserGistsFormat, self.login];
 	NSString *starredGistsPath  = [NSString stringWithFormat:kStarredGistsFormat];
 
-	self.resourcePath = [NSString stringWithFormat:kUserFormat, login];
+	self.resourcePath = [NSString stringWithFormat:kUserFormat, self.login];
 	self.organizations = [GHOrganizations organizationsWithUser:self andPath:organizationsPath];
 	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
 	self.starredRepositories = [GHRepositories repositoriesWithPath:starredReposPath];
@@ -126,7 +98,7 @@
 
 - (void)setValues:(id)theDict {
 	NSString *theLogin = [theDict valueForKey:@"login" defaultsTo:@""];
-	if (![theLogin isEmpty] && ![login isEqualToString:theLogin]) self.login = [theDict objectForKey:@"login"];
+	if (![theLogin isEmpty] && ![self.login isEqualToString:theLogin]) self.login = [theDict objectForKey:@"login"];
 	
 	self.name = [theDict valueForKey:@"name" defaultsTo:@""];
 	self.email = [theDict valueForKey:@"email" defaultsTo:@""];
@@ -147,17 +119,17 @@
 #pragma mark Following
 
 - (BOOL)isFollowing:(GHUser *)anUser {
-	if (!following.isLoaded) [following loadData];
-	return [following.users containsObject:anUser];
+	if (!self.following.isLoaded) [self.following loadData];
+	return [self.following.users containsObject:anUser];
 }
 
 - (void)followUser:(GHUser *)theUser {
-	[following.users addObject:theUser];
+	[self.following.users addObject:theUser];
 	[self setFollowing:YES forUser:theUser];
 }
 
 - (void)unfollowUser:(GHUser *)theUser {
-	[following.users removeObject:theUser];
+	[self.following.users removeObject:theUser];
 	[self setFollowing:NO forUser:theUser];
 }
 
@@ -169,17 +141,17 @@
 #pragma mark Stars
 
 - (BOOL)isStarring:(GHRepository *)aRepository {
-	if (!starredRepositories.isLoaded) [starredRepositories loadData];
-	return [starredRepositories.repositories containsObject:aRepository];
+	if (!self.starredRepositories.isLoaded) [self.starredRepositories loadData];
+	return [self.starredRepositories.repositories containsObject:aRepository];
 }
 
 - (void)starRepository:(GHRepository *)theRepository {
-	[starredRepositories.repositories addObject:theRepository];
+	[self.starredRepositories.repositories addObject:theRepository];
 	[self setStarring:YES forRepository:theRepository];
 }
 
 - (void)unstarRepository:(GHRepository *)theRepository {
-	[starredRepositories.repositories removeObject:theRepository];
+	[self.starredRepositories.repositories removeObject:theRepository];
 	[self setStarring:NO forRepository:theRepository];
 }
 
@@ -191,17 +163,17 @@
 #pragma mark Watching
 
 - (BOOL)isWatching:(GHRepository *)aRepository {
-	if (!watchedRepositories.isLoaded) [watchedRepositories loadData];
-	return [watchedRepositories.repositories containsObject:aRepository];
+	if (!self.watchedRepositories.isLoaded) [self.watchedRepositories loadData];
+	return [self.watchedRepositories.repositories containsObject:aRepository];
 }
 
 - (void)watchRepository:(GHRepository *)theRepository {
-	[watchedRepositories.repositories addObject:theRepository];
+	[self.watchedRepositories.repositories addObject:theRepository];
 	[self setWatching:YES forRepository:theRepository];
 }
 
 - (void)unwatchRepository:(GHRepository *)theRepository {
-	[watchedRepositories.repositories removeObject:theRepository];
+	[self.watchedRepositories.repositories removeObject:theRepository];
 	[self setWatching:NO forRepository:theRepository];
 }
 
@@ -214,17 +186,17 @@
 #pragma mark Gists
 
 - (BOOL)isStarringGist:(GHGist *)theGist {
-	if (!starredGists.isLoaded) [starredGists loadData];
-	return [starredGists.gists containsObject:theGist];
+	if (!self.starredGists.isLoaded) [self.starredGists loadData];
+	return [self.starredGists.gists containsObject:theGist];
 }
 
 - (void)starGist:(GHGist *)theGist {
-	[starredGists.gists addObject:theGist];
+	[self.starredGists.gists addObject:theGist];
 	[self setStarring:YES forGist:theGist];
 }
 
 - (void)unstarGist:(GHGist *)theGist {
-	[starredGists.gists removeObject:theGist];
+	[self.starredGists.gists removeObject:theGist];
 	[self setStarring:NO forGist:theGist];
 }
 
@@ -237,10 +209,10 @@
 
 - (void)setGravatarURL:(NSURL *)theURL {
 	[theURL retain];
-	[gravatarURL release];
-	gravatarURL = theURL;
+	[_gravatarURL release];
+	_gravatarURL = theURL;
 
-	if (gravatarURL) [gravatarLoader loadURL:gravatarURL];
+	if (self.gravatarURL) [self.gravatarLoader loadURL:self.gravatarURL];
 }
 
 - (void)loadedGravatar:(UIImage *)theImage {

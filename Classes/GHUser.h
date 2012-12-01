@@ -4,35 +4,7 @@
 
 @class GravatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHEvents, GHGists, GHGist;
 
-@interface GHUser : GHResource {
-	NSString *name;
-	NSString *login;
-	NSString *email;
-	NSString *company;
-	NSString *location;
-	NSURL *gravatarURL;
-	NSURL *blogURL;
-	NSURL *htmlURL;
-	UIImage *gravatar;
-	NSUInteger publicGistCount;
-	NSUInteger privateGistCount;
-	NSUInteger publicRepoCount;
-	NSUInteger privateRepoCount;
-	NSUInteger followersCount;
-	NSUInteger followingCount;
-	GHOrganizations *organizations;
-	GHRepositories *repositories;
-	GHRepositories *starredRepositories;
-	GHRepositories *watchedRepositories;
-	GHEvents *events;
-	GHUsers *following;
-	GHUsers *followers;
-	GHGists *gists;
-	GHGists *starredGists;
-	BOOL isAuthenticated;
-	@private
-	GravatarLoader *gravatarLoader;
-}
+@interface GHUser : GHResource
 
 @property(nonatomic,retain)NSString *name;
 @property(nonatomic,retain)NSString *login;
@@ -43,6 +15,7 @@
 @property(nonatomic,retain)NSURL *blogURL;
 @property(nonatomic,retain)NSURL *htmlURL;
 @property(nonatomic,retain)UIImage *gravatar;
+@property(nonatomic,retain)GravatarLoader *gravatarLoader;
 @property(nonatomic,retain)GHOrganizations *organizations;
 @property(nonatomic,retain)GHRepositories *repositories;
 @property(nonatomic,retain)GHRepositories *starredRepositories;

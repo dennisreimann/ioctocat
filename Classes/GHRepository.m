@@ -12,49 +12,30 @@
 
 @implementation GHRepository
 
-@synthesize name;
-@synthesize owner;
-@synthesize readme;
-@synthesize descriptionText;
-@synthesize mainBranch;
-@synthesize htmlURL;
-@synthesize homepageURL;
-@synthesize isPrivate;
-@synthesize isFork;
-@synthesize hasIssues;
-@synthesize hasWiki;
-@synthesize hasDownloads;
-@synthesize forks;
-@synthesize events;
-@synthesize watcherCount;
-@synthesize forkCount;
-@synthesize openIssues;
-@synthesize closedIssues;
-@synthesize branches;
-@synthesize pushedAtDate;
-
 + (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	return [[[self.class alloc] initWithOwner:theOwner andName:theName] autorelease];
 }
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	[super init];
-	[self setOwner:theOwner andName:theName];
+	self = [super init];
+	if (self) {
+		[self setOwner:theOwner andName:theName];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[name release], name = nil;
-	[owner release], owner = nil;
-	[readme release], readme = nil;
-	[descriptionText release], descriptionText = nil;
-	[htmlURL release], htmlURL = nil;
-	[homepageURL release], homepageURL = nil;
-    [openIssues release], openIssues = nil;
-    [closedIssues release], closedIssues = nil;
-    [forks release], forks = nil;
-    [events release], events = nil;
-	[branches release], branches = nil;
+	[_name release], _name = nil;
+	[_owner release], _owner = nil;
+    [_forks release], _forks = nil;
+	[_readme release], _readme = nil;
+    [_events release], _events = nil;
+	[_htmlURL release], _htmlURL = nil;
+	[_branches release], _branches = nil;
+    [_openIssues release], _openIssues = nil;
+	[_homepageURL release], _homepageURL = nil;
+    [_closedIssues release], _closedIssues = nil;
+	[_descriptionText release], _descriptionText = nil;
     [super dealloc];
 }
 
@@ -66,22 +47,18 @@
 	return [self.repoId hash];
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' isPrivate:'%@' isFork:'%@'>", name, owner, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO"];
-}
-
 - (NSString *)repoId {
-    return [NSString stringWithFormat:@"%@/%@", owner, name];
+    return [NSString stringWithFormat:@"%@/%@", self.owner, self.name];
 }
 
 - (NSString *)repoIdAndStatus {
-    return [NSString stringWithFormat:@"%@/%@/%@", owner, isPrivate ? @"private" : @"public", name];
+    return [NSString stringWithFormat:@"%@/%@/%@", self.owner, self.isPrivate ? @"private" : @"public", self.name];
 }
 
 - (NSString *)resourcePath {
 	// Dynamic path, because it depends on the owner and
 	// name which are not always available in advance
-	return [NSString stringWithFormat:kRepoFormat, owner, name];
+	return [NSString stringWithFormat:kRepoFormat, self.owner, self.name];
 }
 
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
@@ -96,19 +73,19 @@
 }
 
 - (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:owner];
+	return [[iOctocat sharedInstance] userWithLogin:self.owner];
 }
 
 - (int)compareByRepoId:(GHRepository *)theOtherRepository {
-    return [[self repoId] localizedCaseInsensitiveCompare:[theOtherRepository repoId]];
+    return [self.repoId localizedCaseInsensitiveCompare:theOtherRepository.repoId];
 }
 
 - (int)compareByRepoIdAndStatus:(GHRepository *)theOtherRepository {
-    return [[self repoIdAndStatus] localizedCaseInsensitiveCompare:[theOtherRepository repoIdAndStatus]];
+    return [self.repoIdAndStatus localizedCaseInsensitiveCompare:theOtherRepository.repoIdAndStatus];
 }
 
 - (int)compareByName:(GHRepository *)theOtherRepository {
-    return [[self name] localizedCaseInsensitiveCompare:[theOtherRepository name]];
+    return [self.name localizedCaseInsensitiveCompare:theOtherRepository.name];
 }
 
 #pragma mark Loading

@@ -1,16 +1,12 @@
 #import <UIKit/UIKit.h>
 
 
-@interface CodeController : UIViewController <UIWebViewDelegate> {
-	IBOutlet UIView *activityView;
-	IBOutlet UIWebView *contentView;
-	IBOutlet UIBarButtonItem *controlItem;
-	IBOutlet UISegmentedControl *navigationControl;
-	@private
-	NSArray *files;
-	NSUInteger index;
-	NSDictionary *file;
-}
+@interface CodeController : UIViewController <UIWebViewDelegate>
+
+@property(nonatomic,strong)IBOutlet UIView *activityView;
+@property(nonatomic,strong)IBOutlet UIWebView *contentView;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
+@property(nonatomic,strong)IBOutlet UISegmentedControl *navigationControl;
 
 + (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex;
 - (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex;

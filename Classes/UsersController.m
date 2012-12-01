@@ -11,36 +11,36 @@
 
 @implementation UsersController
 
-@synthesize users;
-
 + (id)controllerWithUsers:(GHUsers *)theUsers {
 	return [[[self.class alloc] initWithUsers:theUsers] autorelease];
 }
 
 - (id)initWithUsers:(GHUsers *)theUsers {
-    [super initWithNibName:@"Users" bundle:nil];
-    self.users = theUsers;
-	[users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    self = [super initWithNibName:@"Users" bundle:nil];
+	if (self) {
+		self.users = theUsers;
+		[self.users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!users.isLoaded) [users loadData];
+    if (!self.users.isLoaded) [self.users loadData];
 }
 
 - (void)dealloc {
-	[users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [noUsersCell release], noUsersCell = nil;
-    [loadingCell release], loadingCell = nil;
-    [userCell release], userCell = nil;
+	[self.users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+    [_noUsersCell release], _noUsersCell = nil;
+    [_loadingCell release], _loadingCell = nil;
+    [_userCell release], _userCell = nil;
     [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
-		if (!users.isLoading && users.error) {
+		if (!self.users.isLoading && self.users.error) {
 			[iOctocat reportLoadingError:@"Could not load the users"];
 		}
 	}
@@ -51,24 +51,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!users.isLoaded) || (users.users.count == 0) ? 1 : users.users.count;
+    return (!self.users.isLoaded) || (self.users.users.count == 0) ? 1 : self.users.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!users.isLoaded) return loadingCell;
-	if (users.users.count == 0) return noUsersCell;
+	if (!self.users.isLoaded) return self.loadingCell;
+	if (self.users.users.count == 0) return self.noUsersCell;
 	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = userCell;
+		cell = self.userCell;
 	}
-    cell.user = [users.users objectAtIndex:indexPath.row];
+    cell.user = [self.users.users objectAtIndex:indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!users.isLoaded || users.users.count == 0) return;
-    GHUser *selectedUser = [users.users objectAtIndex:indexPath.row];
+    if (!self.users.isLoaded || self.users.users.count == 0) return;
+    GHUser *selectedUser = [self.users.users objectAtIndex:indexPath.row];
     UserController *userController = [UserController controllerWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
 }

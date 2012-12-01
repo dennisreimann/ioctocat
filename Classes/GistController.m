@@ -24,17 +24,17 @@
 
 @implementation GistController
 
-@synthesize gist;
-
 + (id)controllerWithGist:(GHGist *)theGist {
 	return [[[self alloc] initWithGist:theGist] autorelease];
 }
 
 - (id)initWithGist:(GHGist *)theGist {
-	[super initWithNibName:@"Gist" bundle:nil];
-	self.gist = theGist;
-	[gist addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[gist.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super initWithNibName:@"Gist" bundle:nil];
+	if (self) {
+		self.gist = theGist;
+		[self.gist addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.gist.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
@@ -42,33 +42,33 @@
 	[super viewDidLoad];
 
 	self.title = @"Gist";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
 	[self displayGist];
-	if (!gist.isLoaded) [gist loadData];
-	(gist.comments.isLoaded) ? [self displayComments] : [gist.comments loadData];
+	if (!self.gist.isLoaded) [self.gist loadData];
+	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
 	if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
 
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = tableHeaderView;
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
 - (void)dealloc {
-	[gist.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[gist removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[gist release], gist = nil;
-	[tableHeaderView release], tableHeaderView = nil;
-	[tableFooterView release], tableFooterView = nil;
-	[descriptionLabel release], descriptionLabel = nil;
-	[numbersLabel release], numbersLabel = nil;
-	[ownerLabel release], ownerLabel = nil;
-	[loadingCell release], loadingCell = nil;
-	[noFilesCell release], noFilesCell = nil;
-	[loadingCommentsCell release], loadingCommentsCell = nil;
-	[noCommentsCell release], noCommentsCell = nil;
-	[commentCell release], commentCell = nil;
-	[iconView release], iconView = nil;
+	[self.gist.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.gist removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_gist release], _gist = nil;
+	[_tableHeaderView release], _tableHeaderView = nil;
+	[_tableFooterView release], _tableFooterView = nil;
+	[_descriptionLabel release], _descriptionLabel = nil;
+	[_numbersLabel release], _numbersLabel = nil;
+	[_ownerLabel release], _ownerLabel = nil;
+	[_loadingCell release], _loadingCell = nil;
+	[_noFilesCell release], _noFilesCell = nil;
+	[_loadingCommentsCell release], _loadingCommentsCell = nil;
+	[_noCommentsCell release], _noCommentsCell = nil;
+	[_commentCell release], _commentCell = nil;
+	[_iconView release], _iconView = nil;
 	[super dealloc];
 }
 
@@ -82,7 +82,7 @@
 													cancelButtonTitle:@"Cancel"
 												 destructiveButtonTitle:nil
 													otherButtonTitles:
-									([self.currentUser isStarringGist:gist] ? @"Unstar" : @"Star"),
+									([self.currentUser isStarringGist:self.gist] ? @"Unstar" : @"Star"),
 									@"Show on GitHub",
 									nil];
 	[actionSheet showInView:self.view];
@@ -91,9 +91,9 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self.currentUser isStarringGist:gist] ? [self.currentUser unstarGist:gist] : [self.currentUser starGist:gist];
+		[self.currentUser isStarringGist:self.gist] ? [self.currentUser unstarGist:self.gist] : [self.currentUser starGist:self.gist];
 	} else if (buttonIndex == 1) {
-		WebController *webController = [WebController controllerWithURL:gist.htmlURL];
+		WebController *webController = [WebController controllerWithURL:self.gist.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -101,33 +101,33 @@
 #pragma mark Actions
 
 - (void)displayGist {
-	iconView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];
-	descriptionLabel.text = gist.title;
-	if (gist.createdAtDate) {
-		ownerLabel.text = [NSString stringWithFormat:@"%@, %@", gist.user ? gist.user.login : @"unknown user", [gist.createdAtDate prettyDate]];
-		numbersLabel.text = gist.isLoaded ? [NSString stringWithFormat:@"%d %@", gist.forksCount, gist.forksCount == 1 ? @"fork" : @"forks"] : @"";
+	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"private.png" : @"public.png")];
+	self.descriptionLabel.text = self.gist.title;
+	if (self.gist.createdAtDate) {
+		self.ownerLabel.text = [NSString stringWithFormat:@"%@, %@", self.gist.user ? self.gist.user.login : @"unknown user", [self.gist.createdAtDate prettyDate]];
+		self.numbersLabel.text = self.gist.isLoaded ? [NSString stringWithFormat:@"%d %@", self.gist.forksCount, self.gist.forksCount == 1 ? @"fork" : @"forks"] : @"";
 	}
 	[self.tableView reloadData];
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = tableFooterView;
+	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (![keyPath isEqualToString:kResourceLoadingStatusKeyPath]) return;
-	if (object == gist) {
-		if (gist.isLoaded) {
+	if (object == self.gist) {
+		if (self.gist.isLoaded) {
 			[self displayGist];
-		} else if (gist.error) {
+		} else if (self.gist.error) {
 			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
 			[self.tableView reloadData];
 		}
-	} else if (object == gist.comments && !gist.isLoading && !gist.error) {
-		if (gist.comments.isLoaded) {
+	} else if (object == self.gist.comments && !self.gist.isLoading && !self.gist.error) {
+		if (self.gist.comments.isLoaded) {
 			[self displayComments];
-		} else if (gist.comments.error) {
+		} else if (self.gist.comments.error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
 			[self.tableView reloadData];
 		}
@@ -135,22 +135,22 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	GHGistComment *comment = [GHGistComment commentWithGist:gist];
-	CommentController *viewController = [CommentController controllerWithComment:comment andComments:gist.comments];
+	GHGistComment *comment = [GHGistComment commentWithGist:self.gist];
+	CommentController *viewController = [CommentController controllerWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (!gist.isLoaded) ? 1 : 2;
+	return (!self.gist.isLoaded) ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!gist.isLoaded) return 1;
-	if (section == 0) return gist.files.count;
-	if (section == 1 && !gist.comments.isLoaded) return 1;
-	return gist.comments.comments.count == 0 ? 1 : gist.comments.comments.count;
+	if (!self.gist.isLoaded) return 1;
+	if (section == 0) return self.gist.files.count;
+	if (section == 1 && !self.gist.comments.isLoaded) return 1;
+	return self.gist.comments.comments.count == 0 ? 1 : self.gist.comments.comments.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -160,8 +160,8 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (gist.isLoading) return loadingCell;
-	if (!gist.isLoading && gist.files.count == 0) return noFilesCell;
+	if (self.gist.isLoading) return self.loadingCell;
+	if (!self.gist.isLoading && self.gist.files.count == 0) return self.noFilesCell;
 	static NSString *CellIdentifier = @"Cell";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
@@ -169,27 +169,27 @@
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		}
 	if (section == 0) {
-		NSDictionary *file = [[gist.files allValues] objectAtIndex:row];
+		NSDictionary *file = [[self.gist.files allValues] objectAtIndex:row];
 		NSString *fileContent = [file valueForKey:@"content"];
 		cell.textLabel.text = [file valueForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
-		if (!gist.comments.isLoaded) return loadingCommentsCell;
-		if (gist.comments.comments.count == 0) return noCommentsCell;
+		if (!self.gist.comments.isLoaded) return self.loadingCommentsCell;
+		if (self.gist.comments.comments.count == 0) return self.noCommentsCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
-			cell = commentCell;
+			cell = self.commentCell;
 		}
-		GHComment *comment = [gist.comments.comments objectAtIndex:indexPath.row];
+		GHComment *comment = [self.gist.comments.comments objectAtIndex:indexPath.row];
 		[(CommentCell *)cell setComment:comment];
 	}
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 1 && gist.comments.isLoaded && gist.comments.comments.count > 0) {
+	if (indexPath.section == 1 && self.gist.comments.isLoaded && self.gist.comments.comments.count > 0) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
@@ -198,11 +198,11 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!gist.isLoaded) return;
+	if (!self.gist.isLoaded) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0) {
-		NSArray *files = [gist.files allValues];
+		NSArray *files = [self.gist.files allValues];
 		CodeController *codeController = [CodeController controllerWithFiles:files currentIndex:row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}

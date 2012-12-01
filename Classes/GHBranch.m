@@ -5,21 +5,23 @@
 
 @implementation GHBranch
 
-@synthesize repository;
-@synthesize name;
-@synthesize sha;
++ (id)branchWithRepository:(GHRepository *)theRepository andName:(NSString *)theName {
+	return [[[self.class alloc] initWithRepository:theRepository andName:theName] autorelease];
+}
 
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName {
-	[super init];
-	self.repository = theRepository;
-	self.name = theName;
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.name = theName;
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository release], repository = nil;
-	[name release], name = nil;
-	[sha release], sha = nil;
+	[_repository release], _repository = nil;
+	[_name release], _name = nil;
+	[_sha release], _sha = nil;
 	[super dealloc];
 }
 

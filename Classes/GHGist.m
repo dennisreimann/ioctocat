@@ -10,46 +10,33 @@
 
 @implementation GHGist
 
-@synthesize gistId;
-@synthesize user;
-@synthesize files;
-@synthesize htmlURL;
-@synthesize createdAtDate;
-@synthesize descriptionText;
-@synthesize commentsCount;
-@synthesize comments;
-@synthesize forksCount;
-@synthesize isPrivate;
-
 + (id)gistWithId:(NSString *)theId {
 	return [[[self.class alloc] initWithId:theId] autorelease];
 }
 
 - (id)initWithId:(NSString *)theId {
-	[super init];
-	self.gistId = theId;
-	self.resourcePath = [NSString stringWithFormat:kGistFormat, theId];
-	self.comments = [GHGistComments commentsWithGist:self];
+	self = [super init];
+	if (self) {
+		self.gistId = theId;
+		self.resourcePath = [NSString stringWithFormat:kGistFormat, theId];
+		self.comments = [GHGistComments commentsWithGist:self];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[gistId release], gistId = nil;
-	[user release], user = nil;
-	[files release], files = nil;
-	[htmlURL release], htmlURL = nil;
-	[createdAtDate release], createdAtDate = nil;
-	[descriptionText release], descriptionText = nil;
-	[comments release], comments = nil;
+	[_gistId release], _gistId = nil;
+	[_user release], _user = nil;
+	[_files release], _files = nil;
+	[_htmlURL release], _htmlURL = nil;
+	[_createdAtDate release], _createdAtDate = nil;
+	[_descriptionText release], _descriptionText = nil;
+	[_comments release], _comments = nil;
 	[super dealloc];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHGist id:'%@' user:'%@' isPrivate:'%@'>", gistId, user.login, isPrivate ? @"YES" : @"NO"];
-}
-
 - (NSString *)title {
-	return ([descriptionText isEmpty] && files.count > 0) ? [[files allKeys] objectAtIndex:0] : descriptionText;
+	return ([self.descriptionText isEmpty] && self.files.count > 0) ? [[self.files allKeys] objectAtIndex:0] : self.descriptionText;
 }
 
 #pragma mark Loading

@@ -6,26 +6,22 @@
 
 @implementation GHRepositories
 
-@synthesize repositories;
-
 + (id)repositoriesWithPath:(NSString *)thePath {
-	return [[[[self class] alloc] initWithPath:thePath ] autorelease];
+	return [[[self.class alloc] initWithPath:thePath ] autorelease];
 }
 
 - (id)initWithPath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
-	self.repositories = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+		self.repositories = [NSMutableArray array];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repositories release], repositories = nil;
+	[_repositories release], _repositories = nil;
 	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHRepositories resourcePath:'%@'>", resourcePath];
 }
 
 - (void)setValues:(id)theResponse {

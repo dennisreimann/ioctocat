@@ -20,14 +20,16 @@
 }
 
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
-    [super initWithNibName:@"AccountForm" bundle:nil];
-	self.index = theIndex;
-	self.accounts = theAccounts;
-	// Find existing or initialize a new account
-	if (self.index == NSNotFound) {
-		self.account = [NSMutableDictionary dictionary];
-	} else {
-		self.account = [self.accounts objectAtIndex:self.index];
+    self = [super initWithNibName:@"AccountForm" bundle:nil];
+	if (self) {
+		self.index = theIndex;
+		self.accounts = theAccounts;
+		// Find existing or initialize a new account
+		if (self.index == NSNotFound) {
+			self.account = [NSMutableDictionary dictionary];
+		} else {
+			self.account = [self.accounts objectAtIndex:self.index];
+		}
 	}
 	return self;
 }

@@ -4,23 +4,21 @@
 
 @implementation LabeledCell
 
-@synthesize hasContent;
-
 - (void)dealloc {
-	[label release], label = nil;
-	[content release], content = nil;
+	[_label release], _label = nil;
+	[_content release], _content = nil;
 	[super dealloc];
 }
 
 - (void)setLabelText:(NSString *)text {
-	label.text = text;
+	self.label.text = text;
 }
 
 - (void)setContentText:(NSString *)text {
-	hasContent = (![text isKindOfClass:[NSNull class]] && text != nil && ![text isEmpty]);
-	content.text = hasContent ? text : @"n/a";
-	content.textColor = hasContent ? [UIColor blackColor] : [UIColor grayColor];
-	content.highlightedTextColor = [UIColor whiteColor];
+	self.hasContent = (![text isKindOfClass:[NSNull class]] && text != nil && ![text isEmpty]);
+	self.content.text = self.hasContent ? text : @"n/a";
+	self.content.textColor = self.hasContent ? [UIColor blackColor] : [UIColor grayColor];
+	self.content.highlightedTextColor = [UIColor whiteColor];
 }
 
 @end

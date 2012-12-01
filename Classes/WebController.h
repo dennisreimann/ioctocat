@@ -1,13 +1,10 @@
 #import <UIKit/UIKit.h>
 
 
-@interface WebController : UIViewController <UIWebViewDelegate> {
-	IBOutlet UIWebView *webView;
-	IBOutlet UIActivityIndicatorView *activityView;
-  @private
-	NSURL *url;
-	NSString *html;
-}
+@interface WebController : UIViewController <UIWebViewDelegate>
+
+@property(nonatomic,strong)IBOutlet UIWebView *webView;
+@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
 
 + (id)controllerWithURL:(NSURL *)theURL;
 + (id)controllerWithHTML:(NSString *)theHTML;

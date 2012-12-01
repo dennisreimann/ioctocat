@@ -4,19 +4,13 @@
 
 @class GHUser;
 
-@interface GHComment : GHResource {
-	GHUser *user;
-	NSUInteger commentID;
-	NSString *body;
-	NSDate *created;
-	NSDate *updated;
-}
+@interface GHComment : GHResource
 
-@property(nonatomic,retain)GHUser *user;
 @property(nonatomic,assign)NSUInteger commentID;
-@property(nonatomic,retain)NSString *body;
-@property(nonatomic,retain)NSDate *created;
-@property(nonatomic,retain)NSDate *updated;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSString *body;
+@property(nonatomic,strong)NSDate *created;
+@property(nonatomic,strong)NSDate *updated;
 
 - (void)saveData;
 - (void)setUserWithValues:(NSDictionary *)userDict;

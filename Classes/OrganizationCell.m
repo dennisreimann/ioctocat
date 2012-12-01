@@ -5,28 +5,26 @@
 
 @implementation OrganizationCell
 
-@synthesize organization;
-
 - (void)dealloc {
-	[organization removeObserver:self forKeyPath:kGravatarKeyPath];
-	[organization release], organization = nil;
-  [loginLabel release], loginLabel = nil;
-  [gravatarView release], gravatarView = nil;
-  [super dealloc];
+	[self.organization removeObserver:self forKeyPath:kGravatarKeyPath];
+	[_organization release], _organization = nil;
+	[_gravatarView release], _gravatarView = nil;
+	[_loginLabel release], _loginLabel = nil;
+	[super dealloc];
 }
 
 - (void)setOrganization:(GHOrganization *)theOrg {
 	[theOrg retain];
-	[organization release];
-	organization = theOrg;
-	loginLabel.text = (!organization.name || [organization.name isEmpty]) ? organization.login : organization.name;
-	[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-  gravatarView.image = organization.gravatar;
+	[_organization release];
+	_organization = theOrg;
+	self.loginLabel.text = (!self.organization.name || [self.organization.name isEmpty]) ? self.organization.login : self.organization.name;
+	[self.organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self.gravatarView.image = self.organization.gravatar;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath] && organization.gravatar) {
-		gravatarView.image = organization.gravatar;
+	if ([keyPath isEqualToString:kGravatarKeyPath] && self.organization.gravatar) {
+		self.gravatarView.image = self.organization.gravatar;
 	}
 }
 

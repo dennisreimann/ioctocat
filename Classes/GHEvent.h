@@ -22,8 +22,8 @@
 @property(nonatomic,retain)GHUser *user;
 @property(nonatomic,retain)GHUser *otherUser;
 @property(nonatomic,retain)GHOrganization *organization;
-@property(nonatomic,readonly)NSString *title;
-@property(nonatomic,readonly)NSString *content;
+@property(nonatomic,retain)NSString *title;
+@property(nonatomic,retain)NSString *content;
 @property(nonatomic,readonly)NSString *extendedEventType;
 @property(nonatomic,readonly)BOOL isCommentEvent;
 @property(nonatomic,readwrite)BOOL read;

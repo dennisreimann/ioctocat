@@ -15,7 +15,7 @@
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	[super initWithNibName:@"IssueForm" bundle:nil];
+	self = [super initWithNibName:@"IssueForm" bundle:nil];
 	self.issue = theIssue;
 	self.listController = theController;
 	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];

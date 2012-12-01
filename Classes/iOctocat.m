@@ -7,8 +7,7 @@
 #import "NSURL+Extensions.h"
 #import "AccountController.h"
 #import "WebController.h"
-#import "WBErrorNoticeView.h"
-#import "WBSuccessNoticeView.h"
+#import "YRDropdownView.h"
 
 
 @interface iOctocat ()
@@ -139,11 +138,17 @@
 }
 
 + (void)reportError:(NSString *)theTitle with:(NSString *)theMessage {
-	WBErrorNoticeView *notice = [WBErrorNoticeView errorNoticeInView:[iOctocat sharedInstance].window
-																 title:theTitle
-															 message:theMessage];
-	notice.originY = [[UIApplication sharedApplication] statusBarFrame].size.height;
-	[notice show];
+	UIImage *image = [UIImage imageNamed:@"warning.png"];
+	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
+	UIColor *textColor = [UIColor whiteColor];
+	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
+								 title:theTitle
+								detail:theMessage
+								 image:image
+							 textColor:textColor
+					   backgroundColor:bgColor
+							  animated:YES
+							 hideAfter:3.0];
 }
 
 + (void)reportLoadingError:(NSString *)theMessage {
@@ -151,10 +156,17 @@
 }
 
 + (void)reportSuccess:(NSString *)theMessage {
-	WBSuccessNoticeView *notice = [WBSuccessNoticeView successNoticeInView:[iOctocat sharedInstance].window
-																	 title:theMessage];
-	notice.originY = [[UIApplication sharedApplication] statusBarFrame].size.height;
-	[notice show];
+	UIImage *image = [UIImage imageNamed:@"check.png"];
+	UIColor *bgColor = [UIColor colorWithRed:0.147 green:0.362 blue:0.670 alpha:1.000];
+	UIColor *textColor = [UIColor whiteColor];
+	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
+								 title:theMessage
+								detail:nil
+								 image:image
+							 textColor:textColor
+					   backgroundColor:bgColor
+							  animated:YES
+							 hideAfter:3.0];
 }
 
 #pragma mark Avatars

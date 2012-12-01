@@ -30,6 +30,6 @@ iOctocat uses some thrid party components and libraries:
 
   * AFNetworking by Gowalla - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
   * Base64 by Nick Lockwood - [Base64](https://github.com/nicklockwood/Base64)
-  * NoticeView by Tito Ciuro - [NoticeView](https://github.com/tciuro/NoticeView)
+  * YRDropdownView by One Mighty Roar - [YRDropdownView](https://github.com/onemightyroar/YRDropdownView)
   * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)
   * highlight.js by Ivan Sagalaev - [highlight.js](http://highlightjs.org/)

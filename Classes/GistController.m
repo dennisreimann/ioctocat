@@ -188,10 +188,10 @@
 	return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)theTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1 && gist.comments.isLoaded && gist.comments.comments.count > 0) {
-		CommentCell *cell = (CommentCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
-		return [cell height];
+		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		return [cell heightForTableView:tableView];
 	}
 	return 44.0f;
 }

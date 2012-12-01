@@ -1,10 +1,12 @@
 
 PODS:
 - AFNetworking (1.0)
+- Base64 (1.0.0)
 - YRDropdownView (0.0.3)
 
 DEPENDENCIES:
 - AFNetworking (= 1.0)
+- Base64
 - YRDropdownView (from `https://github.com/iOctocat/YRDropdownView.git')
 
 EXTERNAL SOURCES:
@@ -13,6 +15,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   AFNetworking: 758a1cb1ab5a0d22795ba1c44abb9cad395bc126
+  Base64: 285e4864ccacb72cb921c09fd7a19af3b47f450d
   YRDropdownView: 2b53afcbf74c9bda6faacaa5932a50c7b76b476a
 
 COCOAPODS: 0.16.0

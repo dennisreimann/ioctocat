@@ -1,9 +1,8 @@
 #import "GHResource.h"
 #import "GHBlob.h"
 #import "GHRepository.h"
-#import "NSString+Base64.h"
 #import "NSString+Extensions.h"
-#import "NSData+Base64.h"
+#import "MF_Base64Additions.h"
 
 
 @implementation GHBlob
@@ -53,8 +52,8 @@
 		self.content = [theDict valueForKey:@"content"];
 	} else if ([encoding isEqualToString:@"base64"]) {
 		NSString *cont = [theDict valueForKey:@"content"];
-		self.content = [NSString stringWithBase64EncodedString:cont];
-		self.contentData = [NSData dataWithBase64EncodedString:cont];
+		self.content = [NSString stringFromBase64String:cont];
+		self.contentData = [NSData dataWithBase64String:cont];
 	}
 }
 

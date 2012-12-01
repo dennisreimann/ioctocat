@@ -920,7 +920,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6F1DC39A0F7E52F000FCD26D /* Settings.bundle */,
 			);
-			comments = "Open Source iPhone app for the awesome GitHub.com";
 			name = CustomTemplate;
 			sourceTree = "<group>";
 		};

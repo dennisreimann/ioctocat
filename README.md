@@ -26,7 +26,7 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
 ## Attribution
 
-iOctocat uses some thrid party components and libraries:
+iOctocat uses some third party components and libraries:
 
   * AFNetworking by Gowalla - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
   * Base64 by Nick Lockwood - [Base64](https://github.com/nicklockwood/Base64)

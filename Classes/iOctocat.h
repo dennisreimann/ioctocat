@@ -9,7 +9,7 @@
 @property(nonatomic,strong)GHAccount *currentAccount;
 @property(nonatomic,strong)AccountController *accountController;
 @property(nonatomic,strong)IBOutlet UIWindow *window;
-@property(nonatomic,strong)IBOutlet UINavigationController *navController;
+@property(nonatomic,weak)IBOutlet UINavigationController *navController;
 
 + (iOctocat *)sharedInstance;
 + (NSDate *)parseDate:(NSString *)theString;

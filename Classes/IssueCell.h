@@ -6,13 +6,13 @@
 @interface IssueCell : UITableViewCell
 
 @property(nonatomic,strong)GHIssue *issue;
-@property(nonatomic,strong)IBOutlet UILabel *dateLabel;
-@property(nonatomic,strong)IBOutlet UILabel *titleLabel;
-@property(nonatomic,strong)IBOutlet UILabel *detailLabel;
-@property(nonatomic,strong)IBOutlet UILabel *votesLabel;
-@property(nonatomic,strong)IBOutlet UILabel *repoLabel;
-@property(nonatomic,strong)IBOutlet UILabel *issueNumber;
-@property(nonatomic,strong)IBOutlet UIImageView *iconView;
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UILabel *titleLabel;
+@property(nonatomic,weak)IBOutlet UILabel *detailLabel;
+@property(nonatomic,weak)IBOutlet UILabel *votesLabel;
+@property(nonatomic,weak)IBOutlet UILabel *repoLabel;
+@property(nonatomic,weak)IBOutlet UILabel *issueNumber;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
 
 - (void)hideRepo;
 

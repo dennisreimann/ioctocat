@@ -5,12 +5,12 @@
 
 @interface IssuesController : UITableViewController
 
-@property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *addButton;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
-@property(nonatomic,strong)IBOutlet IssueCell *issueCell;
+@property(nonatomic,weak)IBOutlet UISegmentedControl *issuesControl;
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingIssuesCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noIssuesCell;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *addButton;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,weak)IBOutlet IssueCell *issueCell;
 
 + (id)controllerWithUser:(GHUser *)theUser;
 + (id)controllerWithRepository:(GHRepository *)theRepository;

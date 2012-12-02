@@ -5,9 +5,9 @@
 
 @interface UsersController : UITableViewController
 
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
-@property(nonatomic,strong)IBOutlet UserCell *userCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noUsersCell;
+@property(nonatomic,weak)IBOutlet UserCell *userCell;
 
 + (id)controllerWithUsers:(GHUsers *)theUsers;
 - (id)initWithUsers:(GHUsers *)theUsers;

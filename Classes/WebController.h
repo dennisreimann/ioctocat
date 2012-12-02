@@ -3,8 +3,8 @@
 
 @interface WebController : UIViewController <UIWebViewDelegate>
 
-@property(nonatomic,strong)IBOutlet UIWebView *webView;
-@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
+@property(nonatomic,weak)IBOutlet UIWebView *webView;
+@property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
 
 + (id)controllerWithURL:(NSURL *)theURL;
 + (id)controllerWithHTML:(NSString *)theHTML;

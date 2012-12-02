@@ -5,7 +5,7 @@
 
 @property(nonatomic,readonly)BOOL hasContent;
 @property(nonatomic,readonly)CGFloat height;
-@property(nonatomic,strong)IBOutlet UITextView *contentTextView;
+@property(nonatomic,weak)IBOutlet UITextView *contentTextView;
 
 - (CGFloat)textInset;
 - (CGFloat)heightForTableView:(UITableView *)tableView;

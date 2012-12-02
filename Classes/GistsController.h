@@ -5,8 +5,8 @@
 
 @interface GistsController : UITableViewController
 
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingGistsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noGistsCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingGistsCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noGistsCell;
 
 + (id)controllerWithGists:(GHGists *)theGists;
 - (id)initWithGists:(GHGists *)theGists;

@@ -4,9 +4,9 @@
 
 @interface CommentController : UIViewController <UITextFieldDelegate>
 
-@property(nonatomic,strong)IBOutlet UITextView *bodyView;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *postButton;
-@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
+@property(nonatomic,weak)IBOutlet UITextView *bodyView;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *postButton;
+@property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,strong)id comments;
 

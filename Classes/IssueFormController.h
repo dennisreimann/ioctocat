@@ -7,13 +7,13 @@
 
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IssuesController *listController;
-@property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet UITextField *titleField;
-@property(nonatomic,strong)IBOutlet UITextView *bodyField;
-@property(nonatomic,strong)IBOutlet UITableViewCell *titleCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *bodyCell;
-@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
-@property(nonatomic,strong)IBOutlet UIButton *saveButton;
+@property(nonatomic,weak)IBOutlet UIView *tableFooterView;
+@property(nonatomic,weak)IBOutlet UITextField *titleField;
+@property(nonatomic,weak)IBOutlet UITextView *bodyField;
+@property(nonatomic,weak)IBOutlet UITableViewCell *titleCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *bodyCell;
+@property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
+@property(nonatomic,weak)IBOutlet UIButton *saveButton;
 
 + (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;

@@ -4,8 +4,8 @@
 
 @interface ForksController : UITableViewController
 
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingForksCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noForksCell;	
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingForksCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noForksCell;	
 
 + (id)controllerWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;

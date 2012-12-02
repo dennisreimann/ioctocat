@@ -3,8 +3,8 @@
 
 @interface LabeledCell : UITableViewCell
   
-@property(nonatomic,strong)IBOutlet UILabel *label;
-@property(nonatomic,strong)IBOutlet UILabel *content;
+@property(nonatomic,weak)IBOutlet UILabel *label;
+@property(nonatomic,weak)IBOutlet UILabel *content;
 @property(nonatomic,readwrite)BOOL hasContent;
 
 - (void)setLabelText:(NSString *)text;

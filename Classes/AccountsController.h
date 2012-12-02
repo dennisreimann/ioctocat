@@ -6,7 +6,7 @@
 
 @interface AccountsController : UITableViewController <AuthenticationControllerDelegate>
 
-@property(nonatomic,strong)IBOutlet UserCell *userCell;
+@property(nonatomic,weak)IBOutlet UserCell *userCell;
 
 + (void)saveAccounts:(NSMutableArray *)theAccounts;
 - (IBAction)addAccount:(id)sender;

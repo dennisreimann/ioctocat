@@ -13,21 +13,21 @@
 
 @property(weak)id<EventCellDelegate> delegate;
 @property(nonatomic,strong)GHEvent *event;
-@property(nonatomic,strong)IBOutlet UIView *actionsView;
-@property(nonatomic,strong)IBOutlet UILabel *dateLabel;
-@property(nonatomic,strong)IBOutlet UILabel *titleLabel;
-@property(nonatomic,strong)IBOutlet UIImageView *iconView;
-@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
-@property(nonatomic,strong)IBOutlet UIButton *repositoryButton;
-@property(nonatomic,strong)IBOutlet UIButton *otherRepositoryButton;
-@property(nonatomic,strong)IBOutlet UIButton *userButton;
-@property(nonatomic,strong)IBOutlet UIButton *otherUserButton;
-@property(nonatomic,strong)IBOutlet UIButton *organizationButton;
-@property(nonatomic,strong)IBOutlet UIButton *issueButton;
-@property(nonatomic,strong)IBOutlet UIButton *pullRequestButton;
-@property(nonatomic,strong)IBOutlet UIButton *wikiButton;
-@property(nonatomic,strong)IBOutlet UIButton *commitButton;
-@property(nonatomic,strong)IBOutlet UIButton *gistButton;
+@property(nonatomic,weak)IBOutlet UIView *actionsView;
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UILabel *titleLabel;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UIButton *repositoryButton;
+@property(nonatomic,weak)IBOutlet UIButton *otherRepositoryButton;
+@property(nonatomic,weak)IBOutlet UIButton *userButton;
+@property(nonatomic,weak)IBOutlet UIButton *otherUserButton;
+@property(nonatomic,weak)IBOutlet UIButton *organizationButton;
+@property(nonatomic,weak)IBOutlet UIButton *issueButton;
+@property(nonatomic,weak)IBOutlet UIButton *pullRequestButton;
+@property(nonatomic,weak)IBOutlet UIButton *wikiButton;
+@property(nonatomic,weak)IBOutlet UIButton *commitButton;
+@property(nonatomic,weak)IBOutlet UIButton *gistButton;
 
 - (void)markAsNew;
 - (void)markAsRead;

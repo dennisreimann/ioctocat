@@ -5,10 +5,10 @@
 
 @interface BlobsController : UIViewController <UIWebViewDelegate>
 
-@property(nonatomic,strong)IBOutlet UIView *activityView;
-@property(nonatomic,strong)IBOutlet UIWebView *contentView;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
-@property(nonatomic,strong)IBOutlet UISegmentedControl *navigationControl;
+@property(nonatomic,weak)IBOutlet UIView *activityView;
+@property(nonatomic,weak)IBOutlet UIWebView *contentView;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *controlItem;
+@property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 
 + (id)controllerWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex;
 - (id)initWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex;

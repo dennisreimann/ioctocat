@@ -6,7 +6,7 @@
 @interface UserCell : UITableViewCell
 
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)IBOutlet UILabel *userLabel;
-@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UILabel *userLabel;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 
 @end

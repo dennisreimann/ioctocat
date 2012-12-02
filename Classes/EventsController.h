@@ -7,9 +7,9 @@
 
 @interface EventsController : PullToRefreshTableViewController <EventCellDelegate>
 
-@property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
-@property(nonatomic,strong)IBOutlet EventCell *selectedCell;
-@property(nonatomic,strong)IBOutlet EventCell *eventCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noEntriesCell;
+@property(nonatomic,weak)IBOutlet EventCell *selectedCell;
+@property(nonatomic,weak)IBOutlet EventCell *eventCell;
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 
 + (id)controllerWithEvents:(GHEvents *)theEvents;

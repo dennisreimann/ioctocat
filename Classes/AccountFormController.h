@@ -5,10 +5,10 @@
 
 @interface AccountFormController : UIViewController <UITextFieldDelegate>
 
-@property(nonatomic,strong)IBOutlet UITextField *loginField;
-@property(nonatomic,strong)IBOutlet UITextField *passwordField;
-@property(nonatomic,strong)IBOutlet UITextField *endpointField;
-@property(nonatomic,strong)IBOutlet GradientButton *saveButton;
+@property(nonatomic,weak)IBOutlet UITextField *loginField;
+@property(nonatomic,weak)IBOutlet UITextField *passwordField;
+@property(nonatomic,weak)IBOutlet UITextField *endpointField;
+@property(nonatomic,weak)IBOutlet GradientButton *saveButton;
 
 + (id)controllerWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;

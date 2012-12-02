@@ -6,8 +6,8 @@
 
 @interface MyEventsController : EventsController
 
-@property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *organizationItem;
+@property(nonatomic,weak)IBOutlet UISegmentedControl *feedControl;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *organizationItem;
 
 + (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;

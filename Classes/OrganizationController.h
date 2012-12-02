@@ -6,23 +6,23 @@
 
 @interface OrganizationController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 
-@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
-@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
-@property(nonatomic,strong)IBOutlet UILabel *nameLabel;
-@property(nonatomic,strong)IBOutlet UILabel *companyLabel;
-@property(nonatomic,strong)IBOutlet UILabel *locationLabel;
-@property(nonatomic,strong)IBOutlet UILabel *blogLabel;
-@property(nonatomic,strong)IBOutlet UILabel *emailLabel;
-@property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingMembersCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicMembersCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
-@property(nonatomic,strong)IBOutlet UserCell *userCell;
+@property(nonatomic,weak)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UILabel *nameLabel;
+@property(nonatomic,weak)IBOutlet UILabel *companyLabel;
+@property(nonatomic,weak)IBOutlet UILabel *locationLabel;
+@property(nonatomic,weak)IBOutlet UILabel *blogLabel;
+@property(nonatomic,weak)IBOutlet UILabel *emailLabel;
+@property(nonatomic,weak)IBOutlet UITableViewCell *recentActivityCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingOrganizationCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingReposCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *loadingMembersCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noPublicReposCell;
+@property(nonatomic,weak)IBOutlet UITableViewCell *noPublicMembersCell;
+@property(nonatomic,weak)IBOutlet LabeledCell *locationCell;
+@property(nonatomic,weak)IBOutlet LabeledCell *blogCell;
+@property(nonatomic,weak)IBOutlet LabeledCell *emailCell;
+@property(nonatomic,weak)IBOutlet UserCell *userCell;
 
 + (id)controllerWithOrganization:(GHOrganization *)theOrganization;
 - (id)initWithOrganization:(GHOrganization *)theOrganization;

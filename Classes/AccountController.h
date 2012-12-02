@@ -5,12 +5,12 @@
 
 @interface AccountController : UIViewController <UITabBarDelegate>
 
-@property(nonatomic,strong)IBOutlet UITabBar *tabBar;
-@property(nonatomic,strong)IBOutlet UITabBarItem *feedsTabBarItem;
-@property(nonatomic,strong)IBOutlet UITabBarItem *reposTabBarItem;
-@property(nonatomic,strong)IBOutlet UITabBarItem *profileTabBarItem;
-@property(nonatomic,strong)IBOutlet UITabBarItem *issuesTabBarItem;
-@property(nonatomic,strong)IBOutlet UITabBarItem *moreTabBarItem;
+@property(nonatomic,weak)IBOutlet UITabBar *tabBar;
+@property(nonatomic,weak)IBOutlet UITabBarItem *feedsTabBarItem;
+@property(nonatomic,weak)IBOutlet UITabBarItem *reposTabBarItem;
+@property(nonatomic,weak)IBOutlet UITabBarItem *profileTabBarItem;
+@property(nonatomic,weak)IBOutlet UITabBarItem *issuesTabBarItem;
+@property(nonatomic,weak)IBOutlet UITabBarItem *moreTabBarItem;
 
 + (id)controllerWithAccount:(GHAccount *)theAccount;
 - (id)initWithAccount:(GHAccount *)theAccount;

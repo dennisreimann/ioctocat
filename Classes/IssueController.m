@@ -39,6 +39,7 @@
 	self = [super initWithNibName:@"Issue" bundle:nil];
 	if (self) {
 		self.issue = theIssue;
+		[self.issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -49,6 +50,10 @@
 		self.listController = theController;
 	}
 	return self;
+}
+
+- (void)dealloc {
+	[self.issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
@@ -67,14 +72,12 @@
 	[super viewWillAppear:animated];
 	[self.issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(self.issue.isLoaded) ? [self displayIssue] : [self.issue loadData];
 	(self.issue.comments.isLoaded) ? [self displayComments] : [self.issue.comments loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[self.issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }

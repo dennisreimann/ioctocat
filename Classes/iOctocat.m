@@ -33,10 +33,6 @@
 #pragma mark Application Events
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
-	// Beware of zombies!
-	if(getenv("NSZombieEnabled") || getenv("NSAutoreleaseFreedObjectCheckEnabled")) {
-		JLog(@"NSZombieEnabled/NSAutoreleaseFreedObjectCheckEnabled enabled!");
-	}
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	// Go
 	self.users = [NSMutableDictionary dictionary];
@@ -145,7 +141,7 @@
 
 + (void)reportSuccess:(NSString *)theMessage {
 	UIImage *image = [UIImage imageNamed:@"check.png"];
-	UIColor *bgColor = [UIColor colorWithRed:0.147 green:0.362 blue:0.670 alpha:1.000];
+	UIColor *bgColor = [UIColor colorWithRed:0.150 green:0.320 blue:0.672 alpha:1.000];
 	UIColor *textColor = [UIColor whiteColor];
 	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
 								 title:theMessage

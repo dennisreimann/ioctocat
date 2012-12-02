@@ -35,7 +35,10 @@
 	self = [super initWithNibName:@"Events" bundle:nil];
 	if (self) {
 		self.events = theEvents;
-		[self.events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		// take care: subclasses may override events (like MyEventsController does),
+		// so we must ensure, that observers in this parent class are only added on
+		// the actual instance variables, and not the getter for the instance var.
+		[_events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -51,7 +54,7 @@
 }
 
 - (void)dealloc {
-	[self.events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[_events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

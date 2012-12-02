@@ -2,6 +2,7 @@
 #import "BlobsController.h"
 #import "GHTree.h"
 #import "GHBlob.h"
+#import "iOctocat.h"
 
 
 @interface TreeController ()

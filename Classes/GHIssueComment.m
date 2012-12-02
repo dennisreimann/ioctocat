@@ -2,6 +2,7 @@
 #import "GHIssue.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
+#import "iOctocat.h"
 
 
 @implementation GHIssueComment

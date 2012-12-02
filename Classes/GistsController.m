@@ -5,6 +5,7 @@
 #import "AccountController.h"
 #import "NSString+Extensions.h"
 #import "NSDate+Nibware.h"
+#import "iOctocat.h"
 
 
 @interface GistsController ()

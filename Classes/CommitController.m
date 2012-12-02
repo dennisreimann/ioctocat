@@ -13,6 +13,7 @@
 #import "WebController.h"
 #import "DiffFilesController.h"
 #import "CommentController.h"
+#import "iOctocat.h"
 
 
 @interface CommitController ()

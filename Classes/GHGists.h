@@ -3,10 +3,8 @@
 
 
 @interface GHGists : GHResource
-
 @property(nonatomic,strong)NSMutableArray *gists;
 
 + (id)gistsWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;
-
 @end

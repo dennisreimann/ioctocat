@@ -8,6 +8,7 @@
 #import "GHGists.h"
 #import "GHResource.h"
 #import "GravatarLoader.h"
+#import "iOctocat.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"

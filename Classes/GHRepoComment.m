@@ -1,5 +1,6 @@
 #import "GHRepoComment.h"
 #import "GHRepository.h"
+#import "iOctocat.h"
 
 
 @implementation GHRepoComment

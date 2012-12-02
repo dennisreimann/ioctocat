@@ -6,6 +6,7 @@
 #import "RepositoryCell.h"
 #import "UserCell.h"
 #import "AccountController.h"
+#import "iOctocat.h"
 
 
 @interface SearchController ()

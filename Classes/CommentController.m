@@ -1,6 +1,7 @@
 #import "CommentController.h"
 #import "NSString+Extensions.h"
 #import "GHComment.h"
+#import "iOctocat.h"
 
 
 @interface CommentController ()

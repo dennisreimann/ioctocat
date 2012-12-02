@@ -7,6 +7,9 @@ typedef enum {
 	GHResourceStatusProcessed = 2
 } GHResourceStatus;
 
+
+@class GHAccount;
+
 @interface GHResource : NSObject
 
 @property(nonatomic,assign)GHResourceStatus loadingStatus;

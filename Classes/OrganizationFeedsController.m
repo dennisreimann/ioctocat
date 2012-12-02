@@ -4,6 +4,7 @@
 #import "EventsController.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
+#import "iOctocat.h"
 
 
 @interface OrganizationFeedsController ()

@@ -1,6 +1,7 @@
 #import "AuthenticationController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
+#import "iOctocat.h"
 
 
 @interface AuthenticationController ()

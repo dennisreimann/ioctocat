@@ -2,6 +2,7 @@
 #import "IssuesController.h"
 #import "GHIssue.h"
 #import "NSString+Extensions.h"
+#import "iOctocat.h"
 
 
 @interface IssueFormController ()

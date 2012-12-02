@@ -1,6 +1,7 @@
 #import "BlobsController.h"
 #import "GHBlob.h"
 #import "NSString+Extensions.h"
+#import "iOctocat.h"
 #import <QuartzCore/QuartzCore.h>
 
 

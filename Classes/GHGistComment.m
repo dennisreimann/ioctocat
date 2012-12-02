@@ -1,5 +1,6 @@
 #import "GHGistComment.h"
 #import "GHGist.h"
+#import "iOctocat.h"
 
 
 @implementation GHGistComment

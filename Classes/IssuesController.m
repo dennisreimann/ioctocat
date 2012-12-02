@@ -7,6 +7,7 @@
 #import "IssueCell.h"
 #import "GHRepository.h"
 #import "GHUser.h"
+#import "iOctocat.h"
 
 
 @interface IssuesController ()

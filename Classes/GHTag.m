@@ -2,6 +2,7 @@
 #import "GHTag.h"
 #import "GHCommit.h"
 #import "GHRepository.h"
+#import "iOctocat.h"
 
 
 @implementation GHTag

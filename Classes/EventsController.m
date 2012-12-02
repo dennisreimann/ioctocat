@@ -18,6 +18,7 @@
 #import "GHPullRequest.h"
 #import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
+#import "iOctocat.h"
 
 
 @interface EventsController ()

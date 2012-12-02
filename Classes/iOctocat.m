@@ -1,4 +1,5 @@
 #import "iOctocat.h"
+#import "iOctocat+Private.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -8,15 +9,6 @@
 #import "AccountController.h"
 #import "WebController.h"
 #import "YRDropdownView.h"
-
-
-@interface iOctocat ()
-@property(nonatomic,strong)NSMutableDictionary *users;
-@property(nonatomic,strong)NSMutableDictionary *organizations;
-
-+ (NSString *)gravatarPathForIdentifier:(NSString *)theString;
-- (void)clearAvatarCache;
-@end
 
 
 @implementation iOctocat

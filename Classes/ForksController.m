@@ -2,6 +2,7 @@
 #import "GHForks.h"
 #import "RepositoryController.h"
 #import "RepositoryCell.h"
+#import "iOctocat.h"
 
 
 @interface ForksController ()

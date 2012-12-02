@@ -2,6 +2,7 @@
 #import "UserController.h"
 #import "GHUsers.h"
 #import "UserCell.h"
+#import "iOctocat.h"
 
 
 @interface UsersController ()

@@ -26,13 +26,13 @@
 	self = [self initWithNibName:@"Account" bundle:nil];
 	if (self) {
 		self.account = theAccount;
-		MyEventsController *feedsController     = [MyEventsController controllerWithUser:self.account.user];
+		MyEventsController *myEventsController  = [MyEventsController controllerWithUser:self.account.user];
 		RepositoriesController *reposController = [RepositoriesController controllerWithUser:self.account.user];
 		UserController *userController          = [UserController controllerWithUser:self.account.user];
 		IssuesController *issuesController      = [IssuesController controllerWithUser:self.account.user];
 		MoreController *moreController          = [MoreController controllerWithUser:self.account.user];
 		self.viewControllers = [NSArray arrayWithObjects:
-								feedsController,
+								myEventsController,
 								reposController,
 								userController,
 								issuesController,

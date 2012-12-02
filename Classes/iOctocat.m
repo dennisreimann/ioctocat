@@ -11,8 +11,8 @@
 
 
 @interface iOctocat ()
-@property(nonatomic,retain)NSMutableDictionary *users;
-@property(nonatomic,retain)NSMutableDictionary *organizations;
+@property(nonatomic,strong)NSMutableDictionary *users;
+@property(nonatomic,strong)NSMutableDictionary *organizations;
 
 + (NSString *)gravatarPathForIdentifier:(NSString *)theString;
 - (void)clearAvatarCache;
@@ -28,12 +28,6 @@
 - (void)dealloc {
 	for (GHOrganization *org in self.organizations) [org removeObserver:self forKeyPath:kGravatarKeyPath];
 	for (GHUser *user in self.users) [user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_accountController release], _accountController = nil;
-	[_navController release], _navController = nil;
-	[_window release], _window = nil;
-	[_users release], _users = nil;
-	[_organizations release], _organizations = nil;
-	[super dealloc];
 }
 
 #pragma mark Application Events

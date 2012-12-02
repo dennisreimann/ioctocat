@@ -15,7 +15,7 @@
 @implementation GistsController
 
 + (id)controllerWithGists:(GHGists *)theGists {
-	return [[[self.class alloc] initWithGists:theGists] autorelease];
+	return [[self.class alloc] initWithGists:theGists];
 }
 
 - (id)initWithGists:(GHGists *)theGists {
@@ -29,10 +29,6 @@
 
 - (void)dealloc {
 	[self.gists removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_loadingGistsCell release], _loadingGistsCell = nil;
-	[_noGistsCell release], _noGistsCell = nil;
-	[_gists release], _gists = nil;
-	[super dealloc];
 }
 
 - (AccountController *)accountController {
@@ -87,7 +83,7 @@
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 	}
 	GHGist *gist = [self.gists.gists objectAtIndex:indexPath.row];

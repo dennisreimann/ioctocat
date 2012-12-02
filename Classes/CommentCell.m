@@ -8,11 +8,6 @@
 
 - (void)dealloc {
 	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_comment release], _comment = nil;
-	[_gravatarView release], _gravatarView = nil;
-	[_userLabel release], _userLabel = nil;
-	[_dateLabel release], _dateLabel = nil;
-	[super dealloc];
 }
 
 - (CGFloat)marginTop {
@@ -32,9 +27,7 @@
 }
 
 - (void)setComment:(GHComment *)theComment {
-	[theComment retain];
 	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_comment release];
 	_comment = theComment;
 	// Text
 	self.userLabel.text = self.comment.user.login;

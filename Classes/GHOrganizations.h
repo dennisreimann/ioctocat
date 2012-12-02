@@ -6,8 +6,8 @@
 
 @interface GHOrganizations : GHResource
 
-@property(nonatomic,retain)GHUser *user;
-@property(nonatomic,retain)NSMutableArray *organizations;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSMutableArray *organizations;
 
 + (id)organizationsWithUser:(GHUser *)theUser andPath:(NSString *)thePath;
 - (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath;

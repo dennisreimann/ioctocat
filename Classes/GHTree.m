@@ -8,7 +8,7 @@
 @implementation GHTree
 
 + (id)treeWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-	return [[[self.class alloc] initWithRepo:theRepo andSha:theSha] autorelease];
+	return [[self.class alloc] initWithRepo:theRepo andSha:theSha];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
@@ -19,16 +19,6 @@
 		self.resourcePath = [NSString stringWithFormat:kTreeFormat, self.repository.owner, self.repository.name, [self.sha stringByEscapingForURLArgument]];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_trees release], _trees = nil;
-	[_blobs release], _blobs = nil;
-	[_path release], _path = nil;
-	[_mode release], _mode = nil;
-	[_sha release], _sha = nil;
-	[super dealloc];
 }
 
 #pragma mark Loading

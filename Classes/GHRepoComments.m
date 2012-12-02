@@ -8,7 +8,7 @@
 @implementation GHRepoComments
 
 + (id)commentsWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
-	return [[[self.class alloc] initWithRepo:theRepo andCommitID:theCommitID] autorelease];
+	return [[self.class alloc] initWithRepo:theRepo andCommitID:theCommitID];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
@@ -19,13 +19,6 @@
 		self.comments = [NSMutableArray array];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_comments release], _comments = nil;
-	[_commitID release], _commitID = nil;
-	[super dealloc];
 }
 
 - (NSURL *)resourcePath {

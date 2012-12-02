@@ -6,17 +6,17 @@
 
 @interface GHPullRequest : GHResource
 
-@property(nonatomic,retain)GHUser *user;
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)GHIssueComments *comments;
-@property(nonatomic,retain)NSString *title;
-@property(nonatomic,retain)NSString *body;
-@property(nonatomic,retain)NSString *state;
-@property(nonatomic,retain)NSArray *labels;
-@property(nonatomic,retain)NSDate *created;
-@property(nonatomic,retain)NSDate *updated;
-@property(nonatomic,retain)NSDate *closed;
-@property(nonatomic,retain)NSURL *htmlURL;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)GHIssueComments *comments;
+@property(nonatomic,strong)NSString *title;
+@property(nonatomic,strong)NSString *body;
+@property(nonatomic,strong)NSString *state;
+@property(nonatomic,strong)NSArray *labels;
+@property(nonatomic,strong)NSDate *created;
+@property(nonatomic,strong)NSDate *updated;
+@property(nonatomic,strong)NSDate *closed;
+@property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,readwrite)NSInteger num;
 @property(nonatomic,readwrite)NSInteger votes;
 @property(nonatomic,readonly)BOOL isNew;

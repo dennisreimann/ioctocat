@@ -2,6 +2,7 @@
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
 #import "GHRepository.h"
+#import "GHUser.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -10,7 +11,7 @@
 @implementation GHIssue
 
 + (id)issueWithRepository:(GHRepository *)theRepository {
-	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -20,19 +21,6 @@
 		self.comments = [GHIssueComments commentsWithParent:self];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_user release], _user = nil;
-	[_comments release], _comments = nil;
-	[_title release], _title = nil;
-	[_labels release], _labels = nil;
-	[_body release], _body = nil;
-	[_state release], _state = nil;
-	[_created release], _created = nil;
-	[_updated release], _updated = nil;
-	[_closed release], _closed = nil;
-	[super dealloc];
 }
 
 - (BOOL)isNew {

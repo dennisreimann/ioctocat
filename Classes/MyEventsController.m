@@ -23,13 +23,13 @@
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *feeds;
 @property(nonatomic,readwrite)NSUInteger loadCounter;
-@property(nonatomic,readonly)GHEvents *events;
+@property(weak, nonatomic,readonly)GHEvents *events;
 @end
 
 @implementation MyEventsController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[MyEventsController alloc] initWithUser:theUser] autorelease];
+	return [[MyEventsController alloc] initWithUser:theUser];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -95,9 +95,6 @@
 - (void)dealloc {
 	for (GHEvents *feed in self.feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_feeds release], _feeds = nil;
-	[_feedControl release], _feedControl = nil;
-	[super dealloc];
 }
 
 - (GHEvents *)events {

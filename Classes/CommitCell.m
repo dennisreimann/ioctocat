@@ -10,7 +10,7 @@
 }
 
 + (id)cellWithIdentifier:(id)reuseIdentifier {
-	return [[[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -28,14 +28,10 @@
 
 - (void)dealloc {
 	[self.commit.author removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_commit release], _commit = nil;
-    [super dealloc];
 }
 
 - (void)setCommit:(GHCommit *)theCommit {
-	[theCommit retain];
 	[self.commit.author removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_commit release];
 	_commit = theCommit;
 	
 	[self.commit.author addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];

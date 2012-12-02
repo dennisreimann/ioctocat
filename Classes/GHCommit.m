@@ -14,7 +14,7 @@
 }
 
 + (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
-	return [[[self.class alloc] initWithRepository:theRepository andCommitID:theCommitID] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository andCommitID:theCommitID];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
@@ -31,23 +31,6 @@
 
 - (void)dealloc {
 	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_commitID release], _commitID = nil;
-	[_message release], _message = nil;
-	[_commitURL release], _commitURL = nil;
-	[_authorName release], _authorName = nil;
-	[_authorEmail release], _authorEmail = nil;
-	[_committerName release], _committerName = nil;
-	[_committerEmail release], _committerEmail = nil;
-	[_committedDate release], _committedDate = nil;
-	[_authoredDate release], _authoredDate = nil;
-	[_added release], _added = nil;
-	[_modified release], _modified = nil;
-	[_removed release], _removed = nil;
-	[_author release], _author = nil;
-	[_committer release], _committer = nil;
-	[_repository release], _repository = nil;
-	[_comments release], _comments = nil;
-	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

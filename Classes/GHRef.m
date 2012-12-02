@@ -8,7 +8,7 @@
 @implementation GHRef
 
 + (id)refWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef {
-  return [[[self.class alloc] initWithRepo:theRepo andRef:theRef] autorelease];
+  return [[self.class alloc] initWithRepo:theRepo andRef:theRef];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef {
@@ -19,13 +19,6 @@
 		self.resourcePath = [NSString stringWithFormat:kTagFormat, self.repository.owner, self.repository.name, self.ref];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_object release], _object = nil;
-	[_ref release], _ref = nil;
-	[super dealloc];
 }
 
 #pragma mark Loading

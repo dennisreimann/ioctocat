@@ -7,20 +7,13 @@
 @implementation GHSearch
 
 + (id)searchWithURLFormat:(NSString *)theFormat {
-	return [[[self.class alloc] initWithURLFormat:theFormat] autorelease];
+	return [[self.class alloc] initWithURLFormat:theFormat];
 }
 
 - (id)initWithURLFormat:(NSString *)theFormat {
 	self = [super init];
-	self.urlFormat = [theFormat retain];
+	self.urlFormat = theFormat;
 	return self;
-}
-
-- (void)dealloc {
-	[_searchTerm release], _searchTerm = nil;
-	[_urlFormat release], _urlFormat = nil;
-	[_results release], _results = nil;
-	[super dealloc];
 }
 
 - (NSString *)resourcePath {

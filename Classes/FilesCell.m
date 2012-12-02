@@ -11,12 +11,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[_files release], _files = nil;
-	[_description release], _description = nil;
-	[super dealloc];
-}
-
 - (void)setFiles:(NSArray *)theFiles andDescription:(NSString *)theDescription {
 	self.files = theFiles;
 	self.description = theDescription;

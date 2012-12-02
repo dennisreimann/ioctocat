@@ -27,10 +27,6 @@
 	self.tableView.showsVerticalScrollIndicator = YES;
 }
 
-- (void)dealloc {
-	[refreshHeaderView release];
-    [super dealloc];
-}
 
 #pragma mark State Changes
 
@@ -82,7 +78,7 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 	return cell;
 }

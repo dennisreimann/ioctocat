@@ -8,7 +8,7 @@
 @property(nonatomic,strong)NSMutableArray *organizationRepositories;
 @property(nonatomic,strong)NSMutableArray *observedOrgRepoLists;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(weak, nonatomic,readonly)GHUser *currentUser;
 
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;

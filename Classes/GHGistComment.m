@@ -5,11 +5,11 @@
 @implementation GHGistComment
 
 + (id)commentWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
-	return [[[self.class alloc] initWithGist:theGist andDictionary:theDict] autorelease];
+	return [[self.class alloc] initWithGist:theGist andDictionary:theDict];
 }
 
 + (id)commentWithGist:(GHGist *)theGist {
-	return [[[self.class alloc] initWithGist:theGist] autorelease];
+	return [[self.class alloc] initWithGist:theGist];
 }
 
 - (id)initWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
@@ -32,11 +32,6 @@
 		self.gist = theGist;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_gist release], _gist = nil;
-	[super dealloc];
 }
 
 #pragma mark Saving

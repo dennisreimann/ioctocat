@@ -4,7 +4,7 @@
 @implementation GHApiClient
 
 + (id)clientWithBaseURL:(NSURL *)url {
-	return [[[self.class alloc] initWithBaseURL:url] autorelease];
+	return [[self.class alloc] initWithBaseURL:url];
 }
 
 - (id)initWithBaseURL:(NSURL *)url {

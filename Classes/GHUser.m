@@ -24,7 +24,7 @@
 @implementation GHUser
 
 + (id)userWithLogin:(NSString *)theLogin {
-	return [[[self.class alloc] initWithLogin:theLogin] autorelease];
+	return [[self.class alloc] initWithLogin:theLogin];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
@@ -38,26 +38,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[_name release], _name = nil;
-	[_login release], _login = nil;
-	[_email release], _email = nil;
-	[_company release], _company = nil;
-	[_blogURL release], _blogURL = nil;
-	[_location release], _location = nil;
-	[_gravatarLoader release], _gravatarLoader = nil;
-	[_gravatarURL release], _gravatarURL = nil;
-	[_htmlURL release], _htmlURL = nil;
-	[_gravatar release], _gravatar = nil;
-	[_organizations release], _organizations = nil;
-	[_repositories release], _repositories = nil;
-	[_watchedRepositories release], _watchedRepositories = nil;
-	[_events release], _events = nil;
-	[_following release], _following = nil;
-	[_followers release], _followers = nil;
-	[super dealloc];
-}
-
 - (NSUInteger)hash {
 	NSString *hashValue = [self.login lowercaseString];
 	return [hashValue hash];
@@ -68,8 +48,6 @@
 }
 
 - (void)setLogin:(NSString *)theLogin {
-	[theLogin retain];
-	[_login release];
 	_login = theLogin;
 
 	NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, self.login];
@@ -208,8 +186,6 @@
 #pragma mark Gravatar
 
 - (void)setGravatarURL:(NSURL *)theURL {
-	[theURL retain];
-	[_gravatarURL release];
 	_gravatarURL = theURL;
 
 	if (self.gravatarURL) [self.gravatarLoader loadURL:self.gravatarURL];

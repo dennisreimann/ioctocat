@@ -7,7 +7,7 @@
 @implementation GHGists
 
 + (id)gistsWithPath:(NSString *)thePath {
-	return [[[self.class alloc] initWithPath:thePath ] autorelease];
+	return [[self.class alloc] initWithPath:thePath ];
 }
 
 - (id)initWithPath:(NSString *)thePath {
@@ -17,11 +17,6 @@
 		self.gists = [NSMutableArray array];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_gists release], _gists = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

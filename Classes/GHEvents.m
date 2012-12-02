@@ -10,12 +10,6 @@
 	return [super resourceWithPath:path];
 }
 
-- (void)dealloc {
-	[_lastReadingDate release], _lastReadingDate = nil;
-	[_events release], _events = nil;
-	[super dealloc];
-}
-
 - (void)setValues:(id)theDicts {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theDicts) {

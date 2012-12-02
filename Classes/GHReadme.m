@@ -7,7 +7,7 @@
 @implementation GHReadme
 
 + (id)readmeWithRepository:(GHRepository *)theRepository {
-	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -22,9 +22,6 @@
 
 - (void)dealloc {
 	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_repository release], _repository = nil;
-	[_bodyHTML release], _bodyHTML = nil;
-	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -48,7 +45,7 @@
 - (void)setValues:(id)theResponse {
 	// the response is not a dictionary, because we requested
 	// the html mime type which returns the HTML representation
-	self.bodyHTML = [[[NSString alloc] initWithData:(NSData *)theResponse encoding:NSUTF8StringEncoding] autorelease];
+	self.bodyHTML = [[NSString alloc] initWithData:(NSData *)theResponse encoding:NSUTF8StringEncoding];
 }
 
 @end

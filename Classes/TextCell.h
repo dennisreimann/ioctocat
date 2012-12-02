@@ -1,12 +1,11 @@
 #import <UIKit/UIKit.h>
 
 
-@interface TextCell : UITableViewCell {
-	IBOutlet UITextView *contentTextView;
-}
+@interface TextCell : UITableViewCell
 
 @property(nonatomic,readonly)BOOL hasContent;
 @property(nonatomic,readonly)CGFloat height;
+@property(nonatomic,strong)IBOutlet UITextView *contentTextView;
 
 - (CGFloat)textInset;
 - (CGFloat)heightForTableView:(UITableView *)tableView;

@@ -151,7 +151,6 @@
     }
     
     NSString *result = [NSString stringWithString: truncatedString];
-    [truncatedString release];
     return result;
 } /* (NSString *)truncateToSize: withFont: lineBreakMode: withStartingAnchor: withEndingAnchor: */
 

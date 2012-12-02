@@ -7,7 +7,7 @@
 + (NSURL *)URLWithFormat:(NSString *)formatString, ... {
 	va_list args;
 	va_start(args, formatString);
-	NSString *urlString = [[[NSString alloc] initWithFormat:formatString arguments:args] autorelease];
+	NSString *urlString = [[NSString alloc] initWithFormat:formatString arguments:args];
 	va_end(args);
 	return [NSURL URLWithString:urlString];
 }
@@ -28,7 +28,7 @@
 
 // Taken from https://gist.github.com/1256354
 - (NSURL *)URLByAppendingParams:(NSDictionary *)theParams {
-	NSMutableString *query = [[[self query] mutableCopy] autorelease];
+	NSMutableString *query = [[self query] mutableCopy];
 
 	if (!query) {
 		query = [NSMutableString stringWithString:@""];

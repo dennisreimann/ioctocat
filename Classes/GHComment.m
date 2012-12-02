@@ -7,14 +7,6 @@
 
 @implementation GHComment
 
-- (void)dealloc {
-	[_user release], _user = nil;
-	[_body release], _body = nil;
-	[_created release], _created = nil;
-	[_updated release], _updated = nil;
-	[super dealloc];
-}
-
 - (void)setUserWithValues:(NSDictionary *)userDict {
 	self.user = [[iOctocat sharedInstance] userWithLogin:[userDict valueForKey:@"login"]];
 	NSString *avatarURL = [userDict valueForKey:@"avatar_url"];

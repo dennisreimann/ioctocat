@@ -7,8 +7,8 @@
 
 
 @interface AccountFormController ()
-@property(nonatomic,retain)NSMutableDictionary *account;
-@property(nonatomic,retain)NSMutableArray *accounts;
+@property(nonatomic,strong)NSMutableDictionary *account;
+@property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,assign)NSUInteger index;
 @end
 
@@ -16,7 +16,7 @@
 @implementation AccountFormController
 
 + (id)controllerWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
-	return [[[self.class alloc] initWithAccounts:theAccounts andIndex:theIndex] autorelease];
+	return [[self.class alloc] initWithAccounts:theAccounts andIndex:theIndex];
 }
 
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
@@ -40,16 +40,6 @@
 	self.loginField.text = [self.account valueForKey:kLoginDefaultsKey];
 	self.passwordField.text = [self.account valueForKey:kPasswordDefaultsKey];
 	self.endpointField.text = [self.account valueForKey:kEndpointDefaultsKey];
-}
-
-- (void)dealloc {
-	[_account release], _account = nil;
-	[_accounts release], _accounts = nil;
-	[_loginField release], _loginField = nil;
-    [_passwordField release], _passwordField = nil;
-    [_endpointField release], _endpointField = nil;
-	[_saveButton release], _saveButton = nil;
-    [super dealloc];
 }
 
 - (IBAction)saveAccount:(id)sender {

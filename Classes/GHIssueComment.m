@@ -7,11 +7,11 @@
 @implementation GHIssueComment
 
 + (id)commentWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
-	return [[[self.class alloc] initWithParent:theParent andDictionary:theDict] autorelease];
+	return [[self.class alloc] initWithParent:theParent andDictionary:theDict];
 }
 
 + (id)commentWithParent:(id)theParent {
-	return [[[self.class alloc] initWithParent:theParent] autorelease];
+	return [[self.class alloc] initWithParent:theParent];
 }
 
 - (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
@@ -32,11 +32,6 @@
 	self = [super init];
 	self.parent = theParent;
 	return self;
-}
-
-- (void)dealloc {
-	[_parent release], _parent = nil;
-	[super dealloc];
 }
 
 #pragma mark Saving

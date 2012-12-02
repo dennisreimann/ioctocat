@@ -4,8 +4,8 @@
 
 
 @interface CodeController ()
-@property(nonatomic,retain)NSDictionary *file;
-@property(nonatomic,retain)NSArray *files;
+@property(nonatomic,strong)NSDictionary *file;
+@property(nonatomic,strong)NSArray *files;
 @property(nonatomic,assign)NSUInteger index;
 @end
 
@@ -13,7 +13,7 @@
 @implementation CodeController
 
 + (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
-	return [[[self.class alloc] initWithFiles:theFiles currentIndex:theCurrentIndex] autorelease];
+	return [[self.class alloc] initWithFiles:theFiles currentIndex:theCurrentIndex];
 }
 
 - (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
@@ -37,10 +37,6 @@
 - (void)dealloc {
 	[self.contentView stopLoading];
 	self.contentView.delegate = nil;
-	[_files release], _files = nil;
-	[_contentView release], _contentView = nil;
-	[_activityView release], _activityView = nil;
-	[super dealloc];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -51,8 +47,6 @@
 
 - (void)setFile:(NSDictionary *)theFile {
 	if (theFile == self.file) return;
-	[theFile retain];
-	[_file release];
 	_file = theFile;
 
 	NSString *fileName = [[self.file valueForKey:@"filename"] lastPathComponent];

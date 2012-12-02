@@ -7,20 +7,7 @@
 
 @implementation IssueCell
 
-- (void)dealloc {
-	[_issue release], _issue = nil;
-	[_dateLabel release], _dateLabel = nil;
-	[_titleLabel release], _titleLabel = nil;
-	[_detailLabel release], _detailLabel = nil;
-	[_votesLabel release], _votesLabel = nil;
-	[_repoLabel release], _repoLabel = nil;
-	[_iconView release], _iconView = nil;
-	[super dealloc];
-}
-
 - (void)setIssue:(GHIssue *)anIssue {
-	[anIssue retain];
-	[_issue release];
 	_issue = anIssue;
 	self.titleLabel.text = self.issue.title;
 	self.detailLabel.text = self.issue.body;

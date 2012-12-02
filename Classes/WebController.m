@@ -2,19 +2,19 @@
 
 
 @interface WebController ()
-@property(nonatomic,retain)NSURL *url;
-@property(nonatomic,retain)NSString *html;
+@property(nonatomic,strong)NSURL *url;
+@property(nonatomic,strong)NSString *html;
 @end
 
 
 @implementation WebController
 
 + (id)controllerWithURL:(NSURL *)theURL {
-	return [[[self.class alloc] initWithURL:theURL] autorelease];
+	return [[self.class alloc] initWithURL:theURL];
 }
 
 + (id)controllerWithHTML:(NSString *)theHTML {
-	return [[[self.class alloc] initWithHTML:theHTML] autorelease];
+	return [[self.class alloc] initWithHTML:theHTML];
 }
 
 - (id)initWithURL:(NSURL *)theURL {
@@ -35,13 +35,12 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:self.activityView] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
 
 	self.webView.scrollView.bounces = NO;
 	if (self.url) {
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.url];
 		[self.webView loadRequest:request];
-		[request release];
 	} else if (self.html) {
 		NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
 		NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
@@ -54,11 +53,6 @@
 	[self webViewDidFinishLoad:self.webView];
 	[self.webView stopLoading];
 	self.webView.delegate = nil;
-	[_url release], _url = nil;
-	[_html release], _html = nil;
-	[_activityView release], _activityView = nil;
-	[_webView release], _webView = nil;
-	[super dealloc];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

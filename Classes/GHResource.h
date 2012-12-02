@@ -11,9 +11,9 @@ typedef enum {
 
 @property(nonatomic,assign)GHResourceStatus loadingStatus;
 @property(nonatomic,assign)GHResourceStatus savingStatus;
-@property(nonatomic,retain)NSString *resourcePath;
-@property(nonatomic,retain)NSError *error;
-@property(nonatomic,retain)NSDictionary *data;
+@property(nonatomic,strong)NSString *resourcePath;
+@property(nonatomic,strong)NSError *error;
+@property(nonatomic,strong)NSDictionary *data;
 
 // Convenience Accessors
 @property(nonatomic,readonly)BOOL isLoaded;

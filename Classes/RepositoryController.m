@@ -23,8 +23,8 @@
 
 
 @interface RepositoryController ()
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)GHRepository *repository;
+@property(weak, nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayRepository;
 @end
@@ -33,7 +33,7 @@
 @implementation RepositoryController
 
 + (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -51,7 +51,7 @@
 	[super viewDidLoad];
 
 	self.title = self.repository.name;
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayRepository];
 	if (!self.repository.isLoaded) [self.repository loadData];
 	if (!self.repository.readme.isLoaded) [self.repository.readme loadData];
@@ -69,23 +69,6 @@
 	[self.repository.branches removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.repository.readme removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_repository release], _repository = nil;
-	[_tableHeaderView release], _tableHeaderView = nil;
-	[_nameLabel release], _nameLabel = nil;
-	[_numbersLabel release], _numbersLabel = nil;
-	[_ownerLabel release], _ownerLabel = nil;
-	[_websiteLabel release], _websiteLabel = nil;
-	[_forkLabel release], _forkLabel = nil;
-	[_websiteCell release], _websiteCell = nil;
-	[_descriptionCell release], _descriptionCell = nil;
-	[_issuesCell release], _issuesCell = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[_ownerCell release], _ownerCell = nil;
-	[_readmeCell release], _readmeCell = nil;
-	[_eventsCell release], _eventsCell = nil;
-	[_forkCell release], _forkCell = nil;
-	[_iconView release], _iconView = nil;
-	[super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -103,7 +86,6 @@
 	@"Show on GitHub",
 	nil];
 	[actionSheet showInView:self.view];
-	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -200,7 +182,7 @@
 		GHBranch *branch = [self.repository.branches.branches objectAtIndex:row];
 		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier] autorelease];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier];
 			cell.imageView.image = [UIImage imageNamed:@"code.png"];
 			cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

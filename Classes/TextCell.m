@@ -11,24 +11,19 @@
 
 @implementation TextCell
 
-- (void)dealloc {
-	[contentTextView release], contentTextView = nil;
-	[super dealloc];
-}
-
 - (void)setContentText:(NSString *)theText {
-	contentTextView.text = theText;
+	self.contentTextView.text = theText;
 	[self adjustTextViewHeight];
 }
 
 - (BOOL)hasContent {
-	return !(contentTextView.text == nil || [contentTextView.text isEmpty]);
+	return !(self.contentTextView.text == nil || [self.contentTextView.text isEmpty]);
 }
 
 - (void)adjustTextViewHeight {
-	CGRect frame = contentTextView.frame;
-	frame.size.height = self.hasContent ? contentTextView.contentSize.height + self.textInset : 0.0f;
-	contentTextView.frame = frame;
+	CGRect frame = self.contentTextView.frame;
+	frame.size.height = self.hasContent ? self.contentTextView.contentSize.height + self.textInset : 0.0f;
+	self.contentTextView.frame = frame;
 }
 
 #pragma mark Layout
@@ -74,7 +69,7 @@
 	CGFloat marginV  = self.marginTop + self.marginBottom;
 	CGFloat textWidth = [self textWidthForOuterWidth:outerWidth];
 	CGSize constraint = CGSizeMake(textWidth, maxHeight);
-	CGSize size = [contentTextView.text sizeWithFont:contentTextView.font
+	CGSize size = [self.contentTextView.text sizeWithFont:self.contentTextView.font
 	constrainedToSize:constraint
 	lineBreakMode:UILineBreakModeWordWrap];
 	CGFloat height = size.height + textInset + marginV;

@@ -7,7 +7,7 @@
 @implementation GHTag
 
 + (id)tagWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-	return [[[self.class alloc] initWithRepo:theRepo andSha:theSha] autorelease];
+	return [[self.class alloc] initWithRepo:theRepo andSha:theSha];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
@@ -18,18 +18,6 @@
 		self.resourcePath = [NSString stringWithFormat:kTagFormat, self.repository.owner, self.repository.name, self.sha];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_sha release], _sha = nil;
-	[_tag release], _tag = nil;
-	[_message release], _message = nil;
-	[_taggerName release], _taggerName = nil;
-	[_taggerEmail release], _taggerEmail = nil;
-	[_taggerDate release], _taggerDate = nil;
-	[_commit release], _commit = nil;
-	[super dealloc];
 }
 
 #pragma mark Loading

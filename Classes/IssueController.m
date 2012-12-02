@@ -28,11 +28,11 @@
 @implementation IssueController
 
 + (id)controllerWithIssue:(GHIssue *)theIssue {
-	return [[[self.class alloc] initWithIssue:theIssue] autorelease];
+	return [[self.class alloc] initWithIssue:theIssue];
 }
 
 + (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	return [[[self.class alloc] initWithIssue:theIssue andIssuesController:theController] autorelease];
+	return [[self.class alloc] initWithIssue:theIssue andIssuesController:theController];
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue {
@@ -79,27 +79,6 @@
 	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }
 
-- (void)dealloc {
-	[_issue release], _issue = nil;
-	[_listController release], _listController = nil;
-	[_tableHeaderView release], _tableHeaderView = nil;
-	[_tableFooterView release], _tableFooterView = nil;
-	[_titleLabel release], _titleLabel = nil;
-	[_createdLabel release], _createdLabel = nil;
-	[_updatedLabel release], _updatedLabel = nil;
-	[_voteLabel release], _voteLabel = nil;
-	[_createdCell release], _createdCell = nil;
-	[_updatedCell release], _updatedCell = nil;
-	[_descriptionCell release], _descriptionCell = nil;
-	[_loadingCommentsCell release], _loadingCommentsCell = nil;
-	[_noCommentsCell release], _noCommentsCell = nil;
-	[_commentCell release], _commentCell = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[_issueNumber release], _issueNumber = nil;
-	[_iconView release], _iconView = nil;
-	[super dealloc];
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (object == self.issue) {
@@ -140,7 +119,7 @@
 #pragma mark Actions
 
 - (void)displayIssue {
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", self.issue.state];
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.issue.title;
@@ -165,7 +144,6 @@
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
 	}
 	[actionSheet showInView:self.view];
-	[actionSheet release];
 }
 
 - (IBAction)addComment:(id)sender {

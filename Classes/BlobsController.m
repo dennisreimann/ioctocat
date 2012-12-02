@@ -18,7 +18,7 @@
 @implementation BlobsController
 
 + (id)controllerWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
-	return [[[self.class alloc] initWithBlobs:theBlobs currentIndex:theCurrentIndex] autorelease];
+	return [[self.class alloc] initWithBlobs:theBlobs currentIndex:theCurrentIndex];
 }
 
 - (id)initWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
@@ -31,13 +31,7 @@
 }
 
 - (void)dealloc {
-	self.blob = nil;
-	[_navigationControl release], _navigationControl = nil;
-	[_activityView release], _activityView = nil;
-	[_controlItem release], _controlItem = nil;
-	[_contentView release], _contentView = nil;
-	[_blobs release], _blobs = nil;
-	[super dealloc];
+	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
@@ -111,10 +105,8 @@
 
 - (void)setBlob:(GHBlob *)theBlob {
 	if (theBlob == self.blob) return;
-	[theBlob retain];
 	[theBlob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_blob release];
 	_blob = theBlob;
 
 	self.title = self.blob.path;

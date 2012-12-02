@@ -4,7 +4,7 @@
 
 @interface RepositoryCell : UITableViewCell
 
-@property(nonatomic,retain)GHRepository *repository;
+@property(nonatomic,strong)GHRepository *repository;
 
 + (id)cell;
 + (id)cellWithIdentifier:(NSString *)reuseIdentifier;

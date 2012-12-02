@@ -7,7 +7,7 @@
 @implementation GHRepositories
 
 + (id)repositoriesWithPath:(NSString *)thePath {
-	return [[[self.class alloc] initWithPath:thePath ] autorelease];
+	return [[self.class alloc] initWithPath:thePath ];
 }
 
 - (id)initWithPath:(NSString *)thePath {
@@ -17,11 +17,6 @@
 		self.repositories = [NSMutableArray array];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repositories release], _repositories = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

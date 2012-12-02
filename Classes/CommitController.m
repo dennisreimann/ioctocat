@@ -24,7 +24,7 @@
 @implementation CommitController
 
 + (id)controllerWithCommit:(GHCommit *)theCommit {
-	return [[[self.class alloc] initWithCommit:theCommit] autorelease];
+	return [[self.class alloc] initWithCommit:theCommit];
 }
 
 - (id)initWithCommit:(GHCommit *)theCommit {
@@ -40,7 +40,7 @@
 	[self.commit addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.commit.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [self.commit.commitID substringToIndex:8];
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	(self.commit.isLoaded) ? [self displayCommit] : [self.commit loadData];
 	(self.commit.comments.isLoaded) ? [self displayComments] : [self.commit.comments loadData];
 	// Background
@@ -52,24 +52,6 @@
 - (void)dealloc {
 	[self.commit removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.commit.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_commit release], _commit = nil;
-	[_tableHeaderView release], _tableHeaderView = nil;
-	[_tableFooterView release], _tableFooterView = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[_authorCell release], _authorCell = nil;
-	[_committerCell release], _committerCell = nil;
-	[_addedCell release], _addedCell = nil;
-	[_modifiedCell release], _modifiedCell = nil;
-	[_removedCell release], _removedCell = nil;
-	[_loadingCommentsCell release], _loadingCommentsCell = nil;
-	[_noCommentsCell release], _noCommentsCell = nil;
-	[_commentCell release], _commentCell = nil;
-	[_authorLabel release], _authorLabel = nil;
-	[_committerLabel release], _committerLabel = nil;
-	[_dateLabel release], _dateLabel = nil;
-	[_titleLabel release], _titleLabel = nil;
-	[_gravatarView release], _gravatarView = nil;
-	[super dealloc];
 }
 
 #pragma mark Actions
@@ -94,7 +76,6 @@
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", [NSString stringWithFormat:@"Show %@", self.commit.author.login], [NSString stringWithFormat:@"Show %@", self.commit.repository.name], @"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
-	[actionSheet release];
 }
 
 - (IBAction)addComment:(id)sender {

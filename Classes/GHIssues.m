@@ -9,11 +9,11 @@
 @implementation GHIssues
 
 + (id)issuesWithResourcePath:(NSString *)thePath {
-	return [[[self.class alloc] initWithResourcePath:thePath] autorelease];
+	return [[self.class alloc] initWithResourcePath:thePath];
 }
 
 + (id)issuesWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
-	return [[[self.class alloc] initWithRepository:theRepository andState:theState] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository andState:theState];
 }
 
 - (id)initWithResourcePath:(NSString *)thePath {
@@ -32,13 +32,6 @@
 		self.issueState = theState;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_issueState release], _issueState = nil;
-	[_entries release], _entries = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

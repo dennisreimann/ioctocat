@@ -9,7 +9,7 @@
 @implementation GHResource
 
 + (id)resourceWithPath:(NSString *)thePath {
-	return [[[self.class alloc] initWithPath:thePath] autorelease];
+	return [[self.class alloc] initWithPath:thePath];
 }
 
 - (id)initWithPath:(NSString *)thePath {
@@ -20,13 +20,6 @@
 		self.savingStatus = GHResourceStatusNotProcessed;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_resourcePath release], _resourcePath = nil;
-	[_error release], _error = nil;
-	[_data release], _data = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

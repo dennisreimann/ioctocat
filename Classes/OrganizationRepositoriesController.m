@@ -21,7 +21,7 @@
 @implementation OrganizationRepositoriesController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[OrganizationRepositoriesController alloc] initWithUser:theUser] autorelease];
+	return [[OrganizationRepositoriesController alloc] initWithUser:theUser];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -37,13 +37,6 @@
 - (void)dealloc {
 	for (GHRepositories *repoList in self.observedOrgRepoLists) [repoList removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_organizationRepositories release], _organizationRepositories = nil;
-	[_emptyCell release], _emptyCell = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[_loadingOrganizationsCell release], _loadingOrganizationsCell = nil;
-	[_observedOrgRepoLists release], _observedOrgRepoLists = nil;
-	[_refreshButton release], _refreshButton = nil;
-	[super dealloc];
 }
 
 - (AccountController *)accountController {

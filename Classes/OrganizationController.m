@@ -25,7 +25,7 @@
 @implementation OrganizationController
 
 + (id)controllerWithOrganization:(GHOrganization *)theOrganization {
-	return [[[self.class alloc] initWithOrganization:theOrganization] autorelease];
+	return [[self.class alloc] initWithOrganization:theOrganization];
 }
 
 - (id)initWithOrganization:(GHOrganization *)theOrganization{
@@ -46,7 +46,7 @@
 	if (!self.organization.repositories.isLoaded) [self.organization.repositories loadData];
 	if (!self.organization.publicMembers.isLoaded) [self.organization.publicMembers loadData];
 	self.navigationItem.title = self.organization.login;
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -58,25 +58,6 @@
 	[self.organization removeObserver:self forKeyPath:kGravatarKeyPath];
 	[self.organization.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.organization.publicMembers removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_organization release], _organization = nil;
-	[_tableHeaderView release], _tableHeaderView = nil;
-	[_gravatarView release], _gravatarView = nil;
-	[_nameLabel release], _nameLabel = nil;
-	[_companyLabel release], _companyLabel = nil;
-	[_locationLabel release], _locationLabel = nil;
-	[_blogLabel release], _blogLabel = nil;
-	[_emailLabel release], _emailLabel = nil;
-	[_locationCell release], _locationCell = nil;
-	[_blogCell release], _blogCell = nil;
-	[_emailCell release], _emailCell = nil;
-	[_userCell release], _userCell = nil;
-	[_recentActivityCell release], _recentActivityCell = nil;
-	[_loadingOrganizationCell release], _loadingOrganizationCell = nil;
-	[_loadingMembersCell release],_loadingMembersCell = nil;
-	[_loadingReposCell release], _loadingReposCell = nil;
-	[_noPublicReposCell release], _noPublicReposCell = nil;
-	[_noPublicMembersCell release], _noPublicMembersCell = nil;
-	[super dealloc];
 }
 
 #pragma mark Actions
@@ -84,7 +65,6 @@
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub", nil];
 	[actionSheet showInView:self.view];
-	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -205,7 +185,6 @@
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:[NSArray arrayWithObject:self.organization.email]];
 		[self presentModalViewController:mailComposer animated:YES];
-		[mailComposer release];
 	} else if (section == 1) {
 		viewController = [EventsController controllerWithEvents:self.organization.events];
 		viewController.title = @"Recent Activity";

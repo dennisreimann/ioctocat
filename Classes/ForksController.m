@@ -5,15 +5,15 @@
 
 
 @interface ForksController ()
-@property(nonatomic,readonly)GHForks *currentForks;
-@property(nonatomic,retain)GHRepository *repository;
+@property(weak, nonatomic,readonly)GHForks *currentForks;
+@property(nonatomic,strong)GHRepository *repository;
 @end
 
 
 @implementation ForksController
 
 + (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -33,9 +33,6 @@
 
 - (void)dealloc {
 	[self.repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_loadingForksCell release], _loadingForksCell = nil;
-	[_noForksCell release], _noForksCell = nil;
-	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

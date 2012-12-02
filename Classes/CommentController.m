@@ -6,7 +6,7 @@
 @implementation CommentController
 
 + (id)controllerWithComment:(GHComment *)theComment andComments:(id)theComments {
-	return [[[self.class alloc] initWithComment:theComment andComments:theComments] autorelease];
+	return [[self.class alloc] initWithComment:theComment andComments:theComments];
 }
 
 - (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {
@@ -28,12 +28,6 @@
 
 - (void)dealloc {
 	[self.comment removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-	[_comment release], _comment = nil;
-	[_comments release], _comments = nil;
-	[_bodyView release], _bodyView = nil;
-	[_postButton release], _postButton = nil;
-	[_activityView release], _activityView = nil;
-	[super dealloc];
 }
 
 - (IBAction)postComment:(id)sender {
@@ -42,7 +36,7 @@
 	if ([self.comment.body isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
 	} else {
-		self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithCustomView:self.activityView] autorelease];
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
 		[self.comment saveData];
 	}
 }

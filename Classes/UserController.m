@@ -22,7 +22,7 @@
 
 @interface UserController ()
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(weak, nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayUser;
 @end
@@ -31,7 +31,7 @@
 @implementation UserController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[UserController alloc] initWithUser:theUser] autorelease];
+	return [[UserController alloc] initWithUser:theUser];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -71,7 +71,7 @@
 	BOOL isProfile = [self.user.login isEqualToString:self.currentUser.login];
 	self.navItem.title = isProfile ? @"Profile" : self.user.login;
 	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = isProfile ? nil : [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	self.navItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
 	(self.user.isLoaded) ? [self displayUser] : [self.user loadData];
 	if (!self.user.repositories.isLoaded) [self.user.repositories loadData];
@@ -83,28 +83,6 @@
 	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[self.user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_user release], _user = nil;
-	[_tableHeaderView release], _tableHeaderView = nil;
-	[_gravatarView release], _gravatarView = nil;
-	[_nameLabel release], _nameLabel = nil;
-	[_companyLabel release], _companyLabel = nil;
-	[_locationLabel release], _locationLabel = nil;
-	[_blogLabel release], _blogLabel = nil;
-	[_emailLabel release], _emailLabel = nil;
-	[_locationCell release], _locationCell = nil;
-	[_blogCell release], _blogCell = nil;
-	[_emailCell release], _emailCell = nil;
-	[_followersCell release], _followersCell = nil;
-	[_followingCell release], _followingCell = nil;
-	[_gistsCell release], _gistsCell = nil;
-	[_organizationCell release], _organizationCell = nil;
-	[_recentActivityCell release], _recentActivityCell = nil;
-	[_loadingUserCell release], _loadingUserCell = nil;
-	[_loadingReposCell release], _loadingReposCell = nil;
-	[_loadingOrganizationsCell release], _loadingOrganizationsCell = nil;
-	[_noPublicReposCell release], _noPublicReposCell = nil;
-	[_noPublicOrganizationsCell release], _noPublicOrganizationsCell = nil;
-	[super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -116,7 +94,6 @@
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:self.user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
 	[actionSheet showInView:self.view];
-	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -242,7 +219,6 @@
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:[NSArray arrayWithObject:self.user.email]];
 		[self presentModalViewController:mailComposer animated:YES];
-		[mailComposer release];
 	} else if (section == 1 && row == 0) {
 		viewController = [EventsController controllerWithEvents:self.user.events];
 		viewController.title = @"Recent Activity";

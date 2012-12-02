@@ -27,13 +27,6 @@
 	[defaults synchronize];
 }
 
-- (void)dealloc {
-	[_authController release], _authController = nil;
-	[_userCell release], _userCell = nil;
-	[_accounts release], _accounts = nil;
-	[super dealloc];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 
@@ -59,13 +52,13 @@
 #pragma mark Accounts
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
-	return [[^(id obj, NSUInteger idx, BOOL *stop) {
+	return [^(id obj, NSUInteger idx, BOOL *stop) {
 		if ([[obj objectForKey:kLoginDefaultsKey] isEqualToString:theLogin]) {
 			*stop = YES;
 			return YES;
 		}
 		return NO;
-	} copy] autorelease];
+	} copy];
 }
 
 #pragma mark Actions

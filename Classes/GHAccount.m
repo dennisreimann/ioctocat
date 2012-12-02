@@ -14,7 +14,7 @@
 @implementation GHAccount
 
 + (id)accountWithDict:(NSDictionary *)theDict {
-	return [[[self.class alloc] initWithDict:theDict] autorelease];
+	return [[self.class alloc] initWithDict:theDict];
 }
 
 - (id)initWithDict:(NSDictionary *)theDict {
@@ -49,12 +49,6 @@
 
 - (void)dealloc {
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_user release], _user = nil;
-	[_login release], _login = nil;
-	[_password release], _password = nil;
-	[_endpoint release], _endpoint = nil;
-	[_endpointURL release], _endpointURL = nil;
-	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

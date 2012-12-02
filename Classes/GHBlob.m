@@ -8,7 +8,7 @@
 @implementation GHBlob
 
 + (id)blobWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-  return [[[self.class alloc] initWithRepo:theRepo andSha:theSha] autorelease];
+  return [[self.class alloc] initWithRepo:theRepo andSha:theSha];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
@@ -19,17 +19,6 @@
 		self.resourcePath = [NSString stringWithFormat:kBlobFormat, self.repository.owner, self.repository.name, [self.sha stringByEscapingForURLArgument]];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_sha release], _sha = nil;
-	[_encoding release], _encoding = nil;
-	[_content release], _content = nil;
-	[_contentData release], _contentData = nil;
-	[_path release], _path = nil;
-	[_mode release], _mode = nil;
-	[super dealloc];
 }
 
 #pragma mark Loading

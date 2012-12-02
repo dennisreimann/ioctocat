@@ -7,7 +7,7 @@
 @implementation GHOrganizations
 
 + (id)organizationsWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
-	return [[[self.class alloc] initWithUser:theUser andPath:thePath] autorelease];
+	return [[self.class alloc] initWithUser:theUser andPath:thePath];
 }
 
 - (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
@@ -18,12 +18,6 @@
 		self.resourcePath = thePath;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_user release], _user = nil;
-	[_organizations release], _organizations = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

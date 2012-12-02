@@ -5,14 +5,14 @@
 
 
 @interface UsersController ()
-@property(nonatomic,retain)GHUsers *users;
+@property(nonatomic,strong)GHUsers *users;
 @end
 
 
 @implementation UsersController
 
 + (id)controllerWithUsers:(GHUsers *)theUsers {
-	return [[[self.class alloc] initWithUsers:theUsers] autorelease];
+	return [[self.class alloc] initWithUsers:theUsers];
 }
 
 - (id)initWithUsers:(GHUsers *)theUsers {
@@ -31,10 +31,6 @@
 
 - (void)dealloc {
 	[self.users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [_noUsersCell release], _noUsersCell = nil;
-    [_loadingCell release], _loadingCell = nil;
-    [_userCell release], _userCell = nil;
-    [super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

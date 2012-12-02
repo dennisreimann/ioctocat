@@ -6,10 +6,10 @@
 
 @interface CommentCell : TextCell
 
-@property(nonatomic,retain)GHComment *comment;
-@property(nonatomic,retain)IBOutlet UIImageView *gravatarView;
-@property(nonatomic,retain)IBOutlet UILabel *userLabel;
-@property(nonatomic,retain)IBOutlet UILabel *dateLabel;
+@property(nonatomic,strong)GHComment *comment;
+@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,strong)IBOutlet UILabel *userLabel;
+@property(nonatomic,strong)IBOutlet UILabel *dateLabel;
 
 - (void)setComment:(GHComment *)theComment;
 

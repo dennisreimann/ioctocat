@@ -13,7 +13,7 @@
 @implementation MoreController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[MoreController alloc] initWithUser:theUser] autorelease];
+	return [[MoreController alloc] initWithUser:theUser];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -82,7 +82,7 @@
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 	}
 	NSUInteger row = indexPath.row;
 	NSDictionary *dict = [self.moreOptions objectAtIndex:row];
@@ -117,11 +117,6 @@
 		[navController pushViewController:viewController animated:YES];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)dealloc {
-	[_moreOptions release], _moreOptions = nil;
-	[super dealloc];
 }
 
 @end

@@ -6,8 +6,8 @@
 
 @interface GHGistComments : GHResource
 
-@property(nonatomic,retain)NSMutableArray *comments;
-@property(nonatomic,retain)GHGist *gist;
+@property(nonatomic,strong)NSMutableArray *comments;
+@property(nonatomic,strong)GHGist *gist;
 
 + (id)commentsWithGist:(GHGist *)theGist;
 - (id)initWithGist:(GHGist *)theGist;

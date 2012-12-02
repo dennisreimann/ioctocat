@@ -10,16 +10,16 @@
 
 
 @interface AccountController ()
-@property(nonatomic,retain)GHAccount *account;
-@property(nonatomic,retain)NSArray *viewControllers;
-@property(nonatomic,retain)UIViewController *selectedViewController;
+@property(nonatomic,strong)GHAccount *account;
+@property(nonatomic,strong)NSArray *viewControllers;
+@property(nonatomic,strong)UIViewController *selectedViewController;
 @end
 
 
 @implementation AccountController
 
 + (id)controllerWithAccount:(GHAccount *)theAccount {
-	return [[[self.class alloc] initWithAccount:theAccount] autorelease];
+	return [[self.class alloc] initWithAccount:theAccount];
 }
 
 - (id)initWithAccount:(GHAccount *)theAccount {
@@ -42,24 +42,9 @@
 	return self;
 }
 
-- (void)dealloc {
-	[_account release], _account = nil;
-	[_viewControllers release], _viewControllers = nil;
-	[_selectedViewController release], _selectedViewController = nil;
-	[_tabBar release], _tabBar = nil;
-	[_feedsTabBarItem release], _feedsTabBarItem = nil;
-	[_reposTabBarItem release], _reposTabBarItem = nil;
-	[_profileTabBarItem release], _profileTabBarItem = nil;
-	[_issuesTabBarItem release], _issuesTabBarItem = nil;
-	[_moreTabBarItem release], _moreTabBarItem = nil;
-	[super dealloc];
-}
-
 - (void)setSelectedViewController:(UIViewController *)viewController {
-	[viewController retain];
 	// clear out old controller
 	[self.selectedViewController.view removeFromSuperview];
-	[_selectedViewController release];
 	// set up new controller
 	_selectedViewController = viewController;
 	self.selectedViewController.view.frame = CGRectMake(self.view.bounds.origin.x,

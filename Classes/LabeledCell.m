@@ -4,12 +4,6 @@
 
 @implementation LabeledCell
 
-- (void)dealloc {
-	[_label release], _label = nil;
-	[_content release], _content = nil;
-	[super dealloc];
-}
-
 - (void)setLabelText:(NSString *)text {
 	self.label.text = text;
 }

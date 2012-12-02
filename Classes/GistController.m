@@ -14,8 +14,8 @@
 
 
 @interface GistController ()
-@property(nonatomic,retain)GHGist *gist;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)GHGist *gist;
+@property(weak, nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayGist;
 - (void)displayComments;
@@ -25,7 +25,7 @@
 @implementation GistController
 
 + (id)controllerWithGist:(GHGist *)theGist {
-	return [[[self alloc] initWithGist:theGist] autorelease];
+	return [[self alloc] initWithGist:theGist];
 }
 
 - (id)initWithGist:(GHGist *)theGist {
@@ -42,7 +42,7 @@
 	[super viewDidLoad];
 
 	self.title = @"Gist";
-	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)] autorelease];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayGist];
 	if (!self.gist.isLoaded) [self.gist loadData];
 	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
@@ -57,19 +57,6 @@
 - (void)dealloc {
 	[self.gist.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.gist removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_gist release], _gist = nil;
-	[_tableHeaderView release], _tableHeaderView = nil;
-	[_tableFooterView release], _tableFooterView = nil;
-	[_descriptionLabel release], _descriptionLabel = nil;
-	[_numbersLabel release], _numbersLabel = nil;
-	[_ownerLabel release], _ownerLabel = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[_noFilesCell release], _noFilesCell = nil;
-	[_loadingCommentsCell release], _loadingCommentsCell = nil;
-	[_noCommentsCell release], _noCommentsCell = nil;
-	[_commentCell release], _commentCell = nil;
-	[_iconView release], _iconView = nil;
-	[super dealloc];
 }
 
 - (GHUser *)currentUser {
@@ -86,7 +73,6 @@
 									@"Show on GitHub",
 									nil];
 	[actionSheet showInView:self.view];
-	[actionSheet release];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
@@ -165,7 +151,7 @@
 	static NSString *CellIdentifier = @"Cell";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
-				cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+				cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		}
 	if (section == 0) {

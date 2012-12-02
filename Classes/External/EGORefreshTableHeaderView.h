@@ -18,7 +18,7 @@
 	BOOL isFlipped;
 }
 
-@property(nonatomic,retain)NSDate *lastUpdatedDate;
+@property(nonatomic,strong)NSDate *lastUpdatedDate;
 @property BOOL isFlipped;
 
 - (void)flipImageAnimated:(BOOL)animated;

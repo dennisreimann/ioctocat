@@ -7,7 +7,7 @@
 @implementation GHForks
 
 + (id)forksWithRepository:(GHRepository *)theRepository {
-	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository {
@@ -17,12 +17,6 @@
 		self.resourcePath = [NSString stringWithFormat:kRepoForksFormat, self.repository.owner, self.repository.name];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_entries release], _entries = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

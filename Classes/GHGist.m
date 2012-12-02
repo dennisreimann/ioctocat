@@ -11,7 +11,7 @@
 @implementation GHGist
 
 + (id)gistWithId:(NSString *)theId {
-	return [[[self.class alloc] initWithId:theId] autorelease];
+	return [[self.class alloc] initWithId:theId];
 }
 
 - (id)initWithId:(NSString *)theId {
@@ -22,17 +22,6 @@
 		self.comments = [GHGistComments commentsWithGist:self];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_gistId release], _gistId = nil;
-	[_user release], _user = nil;
-	[_files release], _files = nil;
-	[_htmlURL release], _htmlURL = nil;
-	[_createdAtDate release], _createdAtDate = nil;
-	[_descriptionText release], _descriptionText = nil;
-	[_comments release], _comments = nil;
-	[super dealloc];
 }
 
 - (NSString *)title {

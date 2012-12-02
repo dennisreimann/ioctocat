@@ -24,7 +24,7 @@
 @implementation GHEvent
 
 + (id)eventWithDict:(NSDictionary *)theDict {
-	return [[[self.class alloc] initWithDict:theDict] autorelease];
+	return [[self.class alloc] initWithDict:theDict];
 }
 
 - (id)initWithDict:(NSDictionary *)theDict {
@@ -34,29 +34,6 @@
 		[self setValues:theDict];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_eventID release], _eventID = nil;
-	[_eventType release], _eventType = nil;
-	[_date release], _date = nil;
-	[_gist release], _gist = nil;
-	[_issue release], _issue = nil;
-	[_pages release], _pages = nil;
-	[_comment release], _comment = nil;
-	[_commits release], _commits = nil;
-	[_repository release], _repository = nil;
-	[_user release], _user = nil;
-	[_otherUser release], _otherUser = nil;
-	[_organization release], _organization = nil;
-	[_otherRepository release], _otherRepository = nil;
-	[_pullRequest release], _pullRequest = nil;
-	[_payload release], _payload = nil;
-	[_repoName release], _repoName = nil;
-	[_otherRepoName release], _otherRepoName = nil;
-	[_title release], _title = nil;
-	[_content release], _content = nil;
-	[super dealloc];
 }
 
 - (NSString *)extendedEventType {

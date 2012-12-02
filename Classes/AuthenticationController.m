@@ -18,15 +18,11 @@
 
 - (void)dealloc {
 	[self stopAuthenticating];
-	self.account = nil;
-	[_authSheet release], _authSheet = nil;
-	[super dealloc];
+	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
 }
 
 - (void)setAccount:(GHAccount *)theAccount {
-	[theAccount retain];
 	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
-	[_account release];
 	_account = theAccount;
 	[self.account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
 }
@@ -38,11 +34,11 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if (self.account.user.isLoading) {
-		self.authSheet = [[[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n"
+		self.authSheet = [[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n"
 													  delegate:self
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
-											 otherButtonTitles:nil] autorelease];
+											 otherButtonTitles:nil];
 		[self.authSheet showInView:[iOctocat sharedInstance].window];
 	} else {
 		[self stopAuthenticating];

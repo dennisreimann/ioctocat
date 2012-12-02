@@ -21,14 +21,14 @@
 
 
 @interface EventsController ()
-@property(nonatomic,retain)GHEvents *events;
+@property(nonatomic,strong)GHEvents *events;
 @end
 
 
 @implementation EventsController
 
 + (id)controllerWithEvents:(GHEvents *)theEvents {
-	return [[[self.class alloc] initWithEvents:theEvents] autorelease];
+	return [[self.class alloc] initWithEvents:theEvents];
 }
 
 - (id)initWithEvents:(GHEvents *)theEvents {
@@ -52,12 +52,6 @@
 
 - (void)dealloc {
 	[self.events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_selectedIndexPath release], _selectedIndexPath = nil;
-	[_noEntriesCell release], _noEntriesCell = nil;
-	[_selectedCell release], _selectedCell = nil;
-	[_eventCell release], _eventCell = nil;
-	[_events release], _events = nil;
-	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -134,7 +128,7 @@
 		UIImage *bgImage = [[UIImage imageNamed:@"CellBackground.png"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:10.0f];
 		cell = self.eventCell;
 		cell.delegate = self;
-		cell.selectedBackgroundView = [[[UIImageView alloc] initWithImage:bgImage] autorelease];
+		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:bgImage];
 	}
 	GHEvent *event = [self.events.events objectAtIndex:indexPath.row];
 	cell.event = event;

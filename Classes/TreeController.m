@@ -5,7 +5,7 @@
 
 
 @interface TreeController ()
-@property(nonatomic,retain)GHTree *tree;
+@property(nonatomic,strong)GHTree *tree;
 
 - (void)displayTree;
 @end
@@ -14,7 +14,7 @@
 @implementation TreeController
 
 + (id)controllerWithTree:(GHTree *)theTree {
-	return [[[self.class alloc] initWithTree:theTree] autorelease];
+	return [[self.class alloc] initWithTree:theTree];
 }
 
 - (id)initWithTree:(GHTree *)theTree {
@@ -34,10 +34,6 @@
 
 - (void)dealloc {
 	[self.tree removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_loadingTreeCell release], _loadingTreeCell = nil;
-	[_noEntriesCell release], _noEntriesCell = nil;
-	[_tree release], _tree = nil;
-	[super dealloc];
 }
 
 - (void)displayTree {
@@ -73,7 +69,7 @@
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

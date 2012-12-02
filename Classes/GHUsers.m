@@ -6,7 +6,7 @@
 @implementation GHUsers
 
 + (id)usersWithPath:(NSString *)thePath {
-	return [[[self.class alloc] initWithPath:thePath] autorelease];
+	return [[self.class alloc] initWithPath:thePath];
 }
 
 - (id)initWithPath:(NSString *)thePath {
@@ -16,11 +16,6 @@
 		self.resourcePath = thePath;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_users release], _users = nil;
-	[super dealloc];
 }
 
 - (void)setValues:(id)theResponse {

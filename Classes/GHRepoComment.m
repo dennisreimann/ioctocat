@@ -5,11 +5,11 @@
 @implementation GHRepoComment
 
 + (id)commentWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
-	return [[[self.class alloc] initWithRepo:theRepo andDictionary:theDict] autorelease];
+	return [[self.class alloc] initWithRepo:theRepo andDictionary:theDict];
 }
 
 + (id)commentWithRepo:(GHRepository *)theRepo {
-	return [[[self.class alloc] initWithRepo:theRepo] autorelease];
+	return [[self.class alloc] initWithRepo:theRepo];
 }
 
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
@@ -36,13 +36,6 @@
 		self.repository = theRepo;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_commitID release], _commitID = nil;
-	[_path release], _path = nil;
-	[super dealloc];
 }
 
 #pragma mark Saving

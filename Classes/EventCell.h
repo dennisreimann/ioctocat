@@ -11,23 +11,23 @@
 
 @interface EventCell : TextCell
 
-@property(assign)id<EventCellDelegate> delegate;
-@property(nonatomic,retain)GHEvent *event;
-@property(nonatomic,retain)IBOutlet UIView *actionsView;
-@property(nonatomic,retain)IBOutlet UILabel *dateLabel;
-@property(nonatomic,retain)IBOutlet UILabel *titleLabel;
-@property(nonatomic,retain)IBOutlet UIImageView *iconView;
-@property(nonatomic,retain)IBOutlet UIImageView *gravatarView;
-@property(nonatomic,retain)IBOutlet UIButton *repositoryButton;
-@property(nonatomic,retain)IBOutlet UIButton *otherRepositoryButton;
-@property(nonatomic,retain)IBOutlet UIButton *userButton;
-@property(nonatomic,retain)IBOutlet UIButton *otherUserButton;
-@property(nonatomic,retain)IBOutlet UIButton *organizationButton;
-@property(nonatomic,retain)IBOutlet UIButton *issueButton;
-@property(nonatomic,retain)IBOutlet UIButton *pullRequestButton;
-@property(nonatomic,retain)IBOutlet UIButton *wikiButton;
-@property(nonatomic,retain)IBOutlet UIButton *commitButton;
-@property(nonatomic,retain)IBOutlet UIButton *gistButton;
+@property(weak)id<EventCellDelegate> delegate;
+@property(nonatomic,strong)GHEvent *event;
+@property(nonatomic,strong)IBOutlet UIView *actionsView;
+@property(nonatomic,strong)IBOutlet UILabel *dateLabel;
+@property(nonatomic,strong)IBOutlet UILabel *titleLabel;
+@property(nonatomic,strong)IBOutlet UIImageView *iconView;
+@property(nonatomic,strong)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,strong)IBOutlet UIButton *repositoryButton;
+@property(nonatomic,strong)IBOutlet UIButton *otherRepositoryButton;
+@property(nonatomic,strong)IBOutlet UIButton *userButton;
+@property(nonatomic,strong)IBOutlet UIButton *otherUserButton;
+@property(nonatomic,strong)IBOutlet UIButton *organizationButton;
+@property(nonatomic,strong)IBOutlet UIButton *issueButton;
+@property(nonatomic,strong)IBOutlet UIButton *pullRequestButton;
+@property(nonatomic,strong)IBOutlet UIButton *wikiButton;
+@property(nonatomic,strong)IBOutlet UIButton *commitButton;
+@property(nonatomic,strong)IBOutlet UIButton *gistButton;
 
 - (void)markAsNew;
 - (void)markAsRead;

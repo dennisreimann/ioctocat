@@ -11,7 +11,7 @@
 @implementation IssueFormController
 
 + (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	return [[[self.class alloc] initWithIssue:theIssue andIssuesController:theController] autorelease];
+	return [[self.class alloc] initWithIssue:theIssue andIssuesController:theController];
 }
 
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
@@ -34,15 +34,6 @@
 
 - (void)dealloc {
 	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-	[_issue release], _issue = nil;
-	[_tableFooterView release], _tableFooterView = nil;
-	[_listController release], _listController = nil;
-	[_titleField release], _titleField = nil;
-	[_bodyField release], _bodyField = nil;
-	[_titleCell release], _titleCell = nil;
-	[_bodyCell release], _bodyCell = nil;
-	[_saveButton release], _saveButton = nil;
-	[super dealloc];
 }
 
 - (IBAction)saveIssue:(id)sender {

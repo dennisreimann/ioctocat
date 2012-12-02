@@ -14,7 +14,7 @@
 @implementation OrganizationFeedsController
 
 + (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
-	return [[[self.class alloc] initWithOrganizations:theOrganizations] autorelease];
+	return [[self.class alloc] initWithOrganizations:theOrganizations];
 }
 
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
@@ -34,10 +34,6 @@
 
 - (void)dealloc {
 	[self.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_noOrganizationsCell release], _noOrganizationsCell = nil;
-	[_organizationCell release], _organizationCell = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[super dealloc];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

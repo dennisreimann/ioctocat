@@ -3,25 +3,20 @@
 
 
 @interface DiffFilesController ()
-@property(nonatomic,retain)NSArray *files;
+@property(nonatomic,strong)NSArray *files;
 @end
 
 
 @implementation DiffFilesController
 
 + (id)controllerWithFiles:(NSArray *)theFiles {
-	return [[[self.class alloc] initWithFiles:theFiles] autorelease];
+	return [[self.class alloc] initWithFiles:theFiles];
 }
 
 - (id)initWithFiles:(NSArray *)theFiles {
 	self = [super initWithNibName:@"Files" bundle:nil];
 	self.files = theFiles;
 	return self;
-}
-
-- (void)dealloc {
-	[_files release], _files = nil;
-	[super dealloc];
 }
 
 #pragma mark TableView
@@ -38,7 +33,7 @@
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 	}
 	if (self.files.count == 0) {

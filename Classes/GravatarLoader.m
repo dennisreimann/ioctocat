@@ -14,7 +14,7 @@
 @implementation GravatarLoader
 
 + (id)loaderWithTarget:(id)theTarget andHandle:(SEL)theHandle {
-	return [[[self.class alloc] initWithTarget:theTarget andHandle:theHandle] autorelease];
+	return [[self.class alloc] initWithTarget:theTarget andHandle:theHandle];
 }
 
 - (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle {
@@ -24,11 +24,6 @@
 		self.handle = theHandle;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_target release], _target = nil;
-	[super dealloc];
 }
 
 - (NSInteger)gravatarSize {
@@ -44,11 +39,11 @@
 }
 
 - (void)requestWithURL:(NSURL *)theURL {
-	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-	NSData *gravatarData = [NSData dataWithContentsOfURL:theURL];
-	UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
-	if (gravatarImage) [self.target performSelectorOnMainThread:self.handle withObject:gravatarImage waitUntilDone:NO];
-	[pool release];
+	@autoreleasepool {
+		NSData *gravatarData = [NSData dataWithContentsOfURL:theURL];
+		UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
+		if (gravatarImage) [self.target performSelectorOnMainThread:self.handle withObject:gravatarImage waitUntilDone:NO];
+	}
 }
 
 @end

@@ -14,7 +14,7 @@
 @implementation GHOrganization
 
 + (id)organizationWithLogin:(NSString *)theLogin {
-	return [[[self.class alloc] initWithLogin:theLogin] autorelease];
+	return [[self.class alloc] initWithLogin:theLogin];
 }
 
 - (id)initWithLogin:(NSString *)theLogin {
@@ -27,23 +27,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[_name release], _name = nil;
-	[_login release], _login = nil;
-	[_email release], _email = nil;
-	[_company release], _company = nil;
-	[_blogURL release], _blogURL = nil;
-	[_htmlURL release], _htmlURL = nil;
-	[_location release], _location = nil;
-	[_gravatarLoader release], _gravatarLoader = nil;
-	[_gravatarURL release], _gravatarURL = nil;
-	[_gravatar release], _gravatar = nil;
-	[_publicMembers release], _publicMembers = nil;
-	[_repositories release], _repositories = nil;
-	[_events release], _events = nil;
-	[super dealloc];
-}
-
 - (NSUInteger)hash {
 	NSString *hashValue = [self.login lowercaseString];
 	return [hashValue hash];
@@ -54,8 +37,6 @@
 }
 
 - (void)setLogin:(NSString *)theLogin {
-	[theLogin retain];
-	[_login release];
 	_login = theLogin;
 
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, self.login];
@@ -91,8 +72,6 @@
 #pragma mark Gravatar
 
 - (void)setGravatarURL:(NSURL *)theURL {
-	[theURL retain];
-	[_gravatarURL release];
 	_gravatarURL = theURL;
 
 	if (self.gravatarURL) {

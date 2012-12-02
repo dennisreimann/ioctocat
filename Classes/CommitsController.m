@@ -12,7 +12,7 @@
 @implementation CommitsController
 
 + (id)controllerWithCommits:(NSArray *)theCommits {
-	return [[[self.class alloc] initWithCommits:theCommits] autorelease];
+	return [[self.class alloc] initWithCommits:theCommits];
 }
 
 - (id)initWithCommits:(NSArray *)theCommits {
@@ -22,11 +22,6 @@
 		self.commits = theCommits;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_commits release], _commits = nil;
-	[super dealloc];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

@@ -13,7 +13,7 @@
 @implementation GHRepository
 
 + (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	return [[[self.class alloc] initWithOwner:theOwner andName:theName] autorelease];
+	return [[self.class alloc] initWithOwner:theOwner andName:theName];
 }
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
@@ -22,21 +22,6 @@
 		[self setOwner:theOwner andName:theName];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_name release], _name = nil;
-	[_owner release], _owner = nil;
-    [_forks release], _forks = nil;
-	[_readme release], _readme = nil;
-    [_events release], _events = nil;
-	[_htmlURL release], _htmlURL = nil;
-	[_branches release], _branches = nil;
-    [_openIssues release], _openIssues = nil;
-	[_homepageURL release], _homepageURL = nil;
-    [_closedIssues release], _closedIssues = nil;
-	[_descriptionText release], _descriptionText = nil;
-    [super dealloc];
 }
 
 - (BOOL)isEqual:(id)anObject {

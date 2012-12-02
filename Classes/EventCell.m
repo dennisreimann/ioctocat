@@ -20,36 +20,17 @@
 
 - (void)dealloc {
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_event release], _event = nil;
-	[_dateLabel release], _dateLabel = nil;
-	[_titleLabel release], _titleLabel = nil;
-	[_actionsView release], _actionsView = nil;
-	[_gravatarView release], _gravatarView = nil;
-	[_iconView release], _iconView = nil;
-	[_repositoryButton release], _repositoryButton = nil;
-	[_otherRepositoryButton release], _otherRepositoryButton = nil;
-	[_userButton release], _userButton = nil;
-	[_otherUserButton release], _otherUserButton = nil;
-	[_organizationButton release], _organizationButton = nil;
-	[_issueButton release], _issueButton = nil;
-	[_pullRequestButton release], _pullRequestButton = nil;
-	[_wikiButton release], _wikiButton = nil;
-	[_commitButton release], _commitButton = nil;
-	[_gistButton release], _gistButton = nil;
-	[super dealloc];
 }
 
 - (void)setEvent:(GHEvent *)theEvent {
-	[theEvent retain];
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_event release];
 	_event = theEvent;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
 	// Truncate long comments
 	if (self.event.isCommentEvent) {
 		CGFloat textWidth = [self textWidthForOuterWidth:self.frame.size.width] * 2;
-		NSString *text = [self.event.content truncateToSize:CGSizeMake(textWidth, 75) withFont:contentTextView.font lineBreakMode:NSLineBreakByTruncatingTail];
+		NSString *text = [self.event.content truncateToSize:CGSizeMake(textWidth, 75) withFont:self.contentTextView.font lineBreakMode:NSLineBreakByTruncatingTail];
 		[self setContentText:text];
 	} else {
 		[self setContentText:self.event.content];
@@ -95,7 +76,7 @@
 
 - (void)setCustomBackgroundColor:(UIColor *)theColor {
 	if (!self.backgroundView) {
-		self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
 	}
 	self.backgroundView.backgroundColor = theColor;
 }
@@ -207,7 +188,7 @@
 	CGRect frame = self.actionsView.frame;
 	frame.size.width = self.actionsView.subviews.count * 58.0f;
 	frame.origin.x = self.frame.size.width / 2 - frame.size.width / 2;
-	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
+	frame.origin.y = self.contentTextView.frame.origin.y + self.contentTextView.frame.size.height;
 	if (frame.origin.y < self.normalHeight) frame.origin.y = self.normalHeight;
 	self.actionsView.frame = frame;
 }

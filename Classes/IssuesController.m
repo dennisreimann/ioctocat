@@ -14,7 +14,7 @@
 @property(nonatomic,strong)NSArray *issueList;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,readonly)GHIssues *currentIssues;
+@property(weak, nonatomic,readonly)GHIssues *currentIssues;
 
 - (void)issueLoadingStarted;
 - (void)issueLoadingFinished;
@@ -24,11 +24,11 @@
 @implementation IssuesController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[IssuesController alloc] initWithUser:theUser] autorelease];
+	return [[IssuesController alloc] initWithUser:theUser];
 }
 
 + (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[[IssuesController alloc] initWithRepository:theRepository] autorelease];
+	return [[IssuesController alloc] initWithRepository:theRepository];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -81,15 +81,6 @@
 
 - (void)dealloc {
 	for (GHIssues *issues in self.issueList) [issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_addButton release], _addButton = nil;
-	[_refreshButton release], _refreshButton = nil;
-	[_issuesControl release], _issuesControl = nil;
-	[_loadingIssuesCell release], _loadingIssuesCell = nil;
-	[_noIssuesCell release], _noIssuesCell = nil;
-	[_issueCell release], _issueCell = nil;
-	[_issueList release], _issueList = nil;
-	[_repository release], _repository = nil;
-	[super dealloc];
 }
 
 - (GHIssues *)currentIssues {

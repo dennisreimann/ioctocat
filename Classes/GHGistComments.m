@@ -7,7 +7,7 @@
 @implementation GHGistComments
 
 + (id)commentsWithGist:(GHGist *)theGist {
-	return [[[self.class alloc] initWithGist:theGist] autorelease];
+	return [[self.class alloc] initWithGist:theGist];
 }
 
 - (id)initWithGist:(GHGist *)theGist {
@@ -17,12 +17,6 @@
 		self.comments = [NSMutableArray array];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_comments release], _comments = nil;
-	[_gist release], _gist = nil;
-	[super dealloc];
 }
 
 - (NSURL *)resourcePath {

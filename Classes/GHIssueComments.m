@@ -8,7 +8,7 @@
 @implementation GHIssueComments
 
 + (id)commentsWithParent:(id)theParent {
-	return [[[self.class alloc] initWithParent:theParent] autorelease];
+	return [[self.class alloc] initWithParent:theParent];
 }
 
 - (id)initWithParent:(id)theParent {
@@ -18,12 +18,6 @@
 		self.comments = [NSMutableArray array];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_comments release], _comments = nil;
-	[_parent release], _parent = nil;
-	[super dealloc];
 }
 
 - (NSURL *)resourcePath {

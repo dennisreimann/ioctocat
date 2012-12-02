@@ -5,7 +5,7 @@
 
 @interface AuthenticationController : UIViewController <UIActionSheetDelegate>
 
-@property(nonatomic,assign)UIViewController *delegate;
+@property(nonatomic,weak)UIViewController *delegate;
 @property(nonatomic,strong)UIActionSheet *authSheet;
 @property(nonatomic,strong)GHAccount *account;
 

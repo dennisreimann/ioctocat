@@ -9,15 +9,15 @@
 
 
 @interface OrganizationsController ()
-@property(nonatomic,retain)GHOrganizations *organizations;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)GHOrganizations *organizations;
+@property(weak, nonatomic,readonly)GHUser *currentUser;
 @end
 
 
 @implementation OrganizationsController
 
 + (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
-    return [[[OrganizationsController alloc] initWithOrganizations:theOrganizations] autorelease];
+    return [[OrganizationsController alloc] initWithOrganizations:theOrganizations];
 }
 
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
@@ -55,10 +55,6 @@
 
 - (void)dealloc {
 	[self.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [_noOrganizationsCell release], _noOrganizationsCell = nil;
-    [_organizationCell release], _organizationCell = nil;
-    [_loadingCell release], _loadingCell = nil;
-    [super dealloc];
 }
 
 - (GHUser *)currentUser {

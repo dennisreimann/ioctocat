@@ -9,15 +9,15 @@
 
 
 @interface SearchController ()
-@property(nonatomic,readonly)GHSearch *currentSearch;
-@property(nonatomic,retain)NSArray *searches;
+@property(weak, nonatomic,readonly)GHSearch *currentSearch;
+@property(nonatomic,strong)NSArray *searches;
 @end
 
 
 @implementation SearchController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[SearchController alloc] initWithUser:theUser] autorelease];
+	return [[SearchController alloc] initWithUser:theUser];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -58,13 +58,6 @@
 
 - (void)dealloc {
 	for (GHSearch *search in self.searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_userCell release], _userCell = nil;
-	[_searches release], _searches = nil;
-	[_searchBar release], _searchBar = nil;
-	[_searchControl release], _searchControl = nil;
-	[_loadingCell release], _loadingCell = nil;
-	[_noResultsCell release], _noResultsCell = nil;
-	[super dealloc];
 }
 
 - (GHSearch *)currentSearch {
@@ -90,7 +83,7 @@
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-	UIBarButtonItem *cancelButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)] autorelease];
+	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
 	self.navItem.rightBarButtonItem = cancelButton;
 }
 

@@ -5,14 +5,14 @@
 
 @interface GHAccount : NSObject
 
-@property(nonatomic,retain)GHApiClient *apiClient;
-@property(nonatomic,retain)GHFeedClient *feedClient;
-@property(nonatomic,retain)GHUser *user;
-@property(nonatomic,retain)NSString *login;
-@property(nonatomic,retain)NSString *password;
-@property(nonatomic,retain)NSString *endpoint;
-@property(nonatomic,retain)NSURL *endpointURL;
-@property(nonatomic,retain)NSURL *apiURL;
+@property(nonatomic,strong)GHApiClient *apiClient;
+@property(nonatomic,strong)GHFeedClient *feedClient;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSString *login;
+@property(nonatomic,strong)NSString *password;
+@property(nonatomic,strong)NSString *endpoint;
+@property(nonatomic,strong)NSURL *endpointURL;
+@property(nonatomic,strong)NSURL *apiURL;
 
 + (id)accountWithDict:(NSDictionary *)theDict;
 - (id)initWithDict:(NSDictionary *)theDict;

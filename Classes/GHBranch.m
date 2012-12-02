@@ -6,7 +6,7 @@
 @implementation GHBranch
 
 + (id)branchWithRepository:(GHRepository *)theRepository andName:(NSString *)theName {
-	return [[[self.class alloc] initWithRepository:theRepository andName:theName] autorelease];
+	return [[self.class alloc] initWithRepository:theRepository andName:theName];
 }
 
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName {
@@ -16,13 +16,6 @@
 		self.name = theName;
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[_repository release], _repository = nil;
-	[_name release], _name = nil;
-	[_sha release], _sha = nil;
-	[super dealloc];
 }
 
 @end

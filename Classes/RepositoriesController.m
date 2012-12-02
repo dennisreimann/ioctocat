@@ -15,7 +15,7 @@
 @property(nonatomic,strong)NSMutableArray *starredRepositories;
 @property(nonatomic,strong)NSMutableArray *watchedRepositories;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(weak, nonatomic,readonly)GHUser *currentUser;
 
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section;
@@ -25,7 +25,7 @@
 @implementation RepositoriesController
 
 + (id)controllerWithUser:(GHUser *)theUser {
-	return [[[RepositoriesController alloc] initWithUser:theUser] autorelease];
+	return [[RepositoriesController alloc] initWithUser:theUser];
 }
 
 - (id)initWithUser:(GHUser *)theUser {
@@ -43,15 +43,6 @@
 	[self.user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.starredRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[_noPublicReposCell release], _noPublicReposCell = nil;
-	[_noPrivateReposCell release], _noPrivateReposCell = nil;
-	[_noWatchedReposCell release], _noWatchedReposCell = nil;
-	[_publicRepositories release], _publicRepositories = nil;
-	[_privateRepositories release], _privateRepositories = nil;
-	[_starredRepositories release], _starredRepositories = nil;
-	[_watchedRepositories release], _watchedRepositories = nil;
-	[_refreshButton release], _refreshButton = nil;
-	[super dealloc];
 }
 
 - (AccountController *)accountController {

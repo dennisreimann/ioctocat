@@ -16,6 +16,7 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
   * Clone the repo and open the terminal with the directory you cloned it into
   * Run this command in the terminal: `git submodule update --init`
+  * [Install CocoaPods](http://cocoapods.org/) and run `pod install`
   * Open the project in Xcode
   * Select "iOctocat > iPhone Simulator" in the upper left corner
   * Build and run the app by pressing the play button

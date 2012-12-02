@@ -35,21 +35,20 @@
 
 - (id)initWithUser:(GHUser *)theUser {
 	self = [super initWithNibName:@"MyEvents" bundle:nil];
-
-	self.user = theUser;
-	[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.loadCounter = 0;
-
-	NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
-	NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
-	GHEvents *receivedEvents = [GHEvents resourceWithPath:receivedEventsPath];
-	GHEvents *ownEvents = [GHEvents resourceWithPath:eventsPath];
-	self.feeds = [NSArray arrayWithObjects:receivedEvents, ownEvents, nil];
-	for (GHEvents *feed in self.feeds) {
-		[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
+	if (self) {
+		self.user = theUser;
+		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		self.loadCounter = 0;
+		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
+		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
+		GHEvents *receivedEvents = [GHEvents resourceWithPath:receivedEventsPath];
+		GHEvents *ownEvents = [GHEvents resourceWithPath:eventsPath];
+		self.feeds = [NSArray arrayWithObjects:receivedEvents, ownEvents, nil];
+		for (GHEvents *feed in self.feeds) {
+			[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+			feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
+		}
 	}
-
 	return self;
 }
 
@@ -99,8 +98,11 @@
 }
 
 - (GHEvents *)events {
-	return (self.feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) ?
-	nil : [self.feeds objectAtIndex:self.feedControl.selectedSegmentIndex];
+	if (self.feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
+		return nil;
+	} else {
+		return [self.feeds objectAtIndex:self.feedControl.selectedSegmentIndex];
+	}
 }
 
 - (BOOL)refreshCurrentFeedIfRequired {

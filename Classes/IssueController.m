@@ -204,7 +204,7 @@
 		cell = self.commentCell;
 	}
 	GHComment *comment = [self.issue.comments.comments objectAtIndex:indexPath.row];
-	[cell setComment:comment];
+	cell.comment = comment;
 	return cell;
 }
 

@@ -5,6 +5,8 @@
 
 
 @interface IssueFormController ()
+@property(nonatomic,strong)GHIssue *issue;
+@property(nonatomic,strong)IssuesController *listController;
 @end
 
 

@@ -4,6 +4,10 @@
 
 
 @interface AuthenticationController ()
+@property(nonatomic,weak)UIViewController *delegate;
+@property(nonatomic,strong)UIActionSheet *authSheet;
+@property(nonatomic,strong)GHAccount *account;
+
 - (void)setAccount:(GHAccount *)theAccount;
 @end
 

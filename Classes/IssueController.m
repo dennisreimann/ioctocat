@@ -18,6 +18,9 @@
 
 
 @interface IssueController ()
+@property(nonatomic,strong)GHIssue *issue;
+@property(nonatomic,strong)IssuesController *listController;
+
 - (void)displayIssue;
 - (void)displayComments;
 - (GHUser *)currentUser;

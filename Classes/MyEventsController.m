@@ -22,8 +22,9 @@
 @interface MyEventsController ()
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *feeds;
+@property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @property(nonatomic,readwrite)NSUInteger loadCounter;
-@property(weak, nonatomic,readonly)GHEvents *events;
+@property(nonatomic,weak,readonly)GHEvents *events;
 @end
 
 @implementation MyEventsController

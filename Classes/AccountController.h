@@ -4,7 +4,6 @@
 @class GHAccount;
 
 @interface AccountController : UIViewController <UITabBarDelegate>
-
 @property(nonatomic,weak)IBOutlet UITabBar *tabBar;
 @property(nonatomic,weak)IBOutlet UITabBarItem *feedsTabBarItem;
 @property(nonatomic,weak)IBOutlet UITabBarItem *reposTabBarItem;
@@ -14,5 +13,4 @@
 
 + (id)controllerWithAccount:(GHAccount *)theAccount;
 - (id)initWithAccount:(GHAccount *)theAccount;
-
 @end

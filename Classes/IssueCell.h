@@ -4,7 +4,6 @@
 @class GHIssue;
 
 @interface IssueCell : UITableViewCell
-
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
@@ -15,5 +14,4 @@
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 
 - (void)hideRepo;
-
 @end

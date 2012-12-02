@@ -22,6 +22,7 @@
 
 @interface EventsController ()
 @property(nonatomic,strong)GHEvents *events;
+@property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @end
 
 
@@ -129,7 +130,7 @@
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
 		UIImage *bgImage = [[UIImage imageNamed:@"CellBackground.png"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:10.0f];
-		cell = self.eventCell;
+		cell = _eventCell;
 		cell.delegate = self;
 		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:bgImage];
 	}

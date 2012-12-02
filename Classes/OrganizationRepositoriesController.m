@@ -12,6 +12,11 @@
 
 
 @interface OrganizationRepositoriesController ()
+@property(nonatomic,weak,readonly)GHUser *currentUser;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSMutableArray *observedOrgRepoLists;
+@property(nonatomic,strong)NSMutableArray *organizationRepositories;
+
 - (void)loadOrganizationRepositories;
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (GHRepositories *)repositoriesInSection:(NSInteger)section;

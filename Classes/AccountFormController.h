@@ -4,7 +4,6 @@
 @class GradientButton;
 
 @interface AccountFormController : UIViewController <UITextFieldDelegate>
-
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
@@ -13,5 +12,4 @@
 + (id)controllerWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
 - (IBAction)saveAccount:(id)sender;
-
 @end

@@ -68,7 +68,6 @@
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
 		6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
-		6F358C090FB1EAE0004D2828 /* Overlay.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C050FB1EAE0004D2828 /* Overlay.xib */; };
 		6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
@@ -242,7 +241,6 @@
 		6F9DD8801334DBF500D1E35E /* OrganizationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD87F1334DBF500D1E35E /* OrganizationCell.xib */; };
 		6F9DD8831334DC4100D1E35E /* OrganizationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8821334DC4100D1E35E /* OrganizationCell.m */; };
 		6F9DD8981334E1BA00D1E35E /* OrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */; };
-		6FA92AFE0FACD51A001B1D1D /* Event.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFC0FACD51A001B1D1D /* Event.xib */; };
 		6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFD0FACD51A001B1D1D /* Issue.xib */; };
 		6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issues_closed.png */; };
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
@@ -450,7 +448,6 @@
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
 		6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRepository.png; sourceTree = "<group>"; };
 		6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
-		6F358C050FB1EAE0004D2828 /* Overlay.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Overlay.xib; path = IBFiles/Overlay.xib; sourceTree = "<group>"; };
 		6F358C060FB1EAE0004D2828 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Search.xib; path = IBFiles/Search.xib; sourceTree = "<group>"; };
 		6F358C5A0FB1EEC4004D2828 /* GHSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSearch.h; sourceTree = "<group>"; };
 		6F358C5B0FB1EEC4004D2828 /* GHSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHSearch.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -657,7 +654,6 @@
 		6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationsController.m; sourceTree = "<group>"; };
 		6FA512F01332657400C16D95 /* Platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Platform.h; sourceTree = "<group>"; };
 		6FA512F11332659000C16D95 /* AppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppConstants.h; sourceTree = "<group>"; };
-		6FA92AFC0FACD51A001B1D1D /* Event.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Event.xib; path = IBFiles/Event.xib; sourceTree = "<group>"; };
 		6FA92AFD0FACD51A001B1D1D /* Issue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issue.xib; path = IBFiles/Issue.xib; sourceTree = "<group>"; };
 		6FA92B1A0FACD648001B1D1D /* issues_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_closed.png; path = Images/Icons/issues_closed.png; sourceTree = "<group>"; };
 		6FA92B1B0FACD648001B1D1D /* issues_open.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_open.png; path = Images/Icons/issues_open.png; sourceTree = "<group>"; };
@@ -1353,7 +1349,6 @@
 				6F27CD2215911E7E00E15B34 /* AccountForm.xib */,
 				6FA92B300FACD6EA001B1D1D /* MyEvents.xib */,
 				6FCDC66B0FC04F180024E498 /* Events.xib */,
-				6FA92AFC0FACD51A001B1D1D /* Event.xib */,
 				6F879A5B0FB611FD00EBD9BD /* Users.xib */,
 				6F380915162A1553001017E2 /* Code.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
@@ -1376,7 +1371,6 @@
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
 				6F56163415B4A02200226B6D /* More.xib */,
 				6F7F08401624BEDD0074839B /* Tree.xib */,
-				6F358C050FB1EAE0004D2828 /* Overlay.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -1652,14 +1646,12 @@
 				6F5653070F99CB62001B6703 /* public.png in Resources */,
 				6F74DD890FA76CCA00FD90AB /* EventCell.xib in Resources */,
 				6FED829A0FACA2F000BE5C81 /* Issues.xib in Resources */,
-				6FA92AFE0FACD51A001B1D1D /* Event.xib in Resources */,
 				6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */,
 				6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */,
 				6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */,
 				6FA92B320FACD6EA001B1D1D /* MyEvents.xib in Resources */,
 				6FA92B4E0FACD7ED001B1D1D /* IssueCell.xib in Resources */,
 				6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */,
-				6F358C090FB1EAE0004D2828 /* Overlay.xib in Resources */,
 				6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */,
 				6F879A1E0FB60CB500EBD9BD /* user.png in Resources */,
 				6F879A5C0FB611FD00EBD9BD /* UserCell.xib in Resources */,

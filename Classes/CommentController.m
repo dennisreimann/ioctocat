@@ -3,6 +3,12 @@
 #import "GHComment.h"
 
 
+@interface CommentController ()
+@property(nonatomic,strong)GHComment *comment;
+@property(nonatomic,strong)id comments;
+@end
+
+
 @implementation CommentController
 
 + (id)controllerWithComment:(GHComment *)theComment andComments:(id)theComments {

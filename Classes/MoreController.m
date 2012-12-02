@@ -10,6 +10,12 @@
 #import "iOctocat.h"
 
 
+@interface MoreController ()
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSArray *moreOptions;
+@end
+
+
 @implementation MoreController
 
 + (id)controllerWithUser:(GHUser *)theUser {

@@ -16,6 +16,8 @@
 
 
 @interface CommitController ()
+@property(nonatomic,strong)GHCommit *commit;
+
 - (void)displayCommit;
 - (void)displayComments;
 @end

@@ -6,9 +6,12 @@
 #import "GHOrganizations.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
+#import "AccountMenuController.h"
 #import "WebController.h"
 #import "YRDropdownView.h"
+#import "ECSlidingViewController.h"
+
+#define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 
 
 @implementation iOctocat
@@ -28,7 +31,10 @@
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	// Go
 	self.users = [NSMutableDictionary dictionary];
-	[self.window setRootViewController:self.navController];
+	self.organizations = [NSMutableDictionary dictionary];
+	self.slidingViewController.anchorRightRevealAmount = 270;
+	self.slidingViewController.underLeftViewController = self.menuNavController;
+	[self.window addGestureRecognizer:self.slidingViewController.panGesture];
 	[self.window makeKeyAndVisible];
 }
 
@@ -43,13 +49,36 @@
 	[defaults synchronize];
 }
 
+- (void)setCurrentAccount:(GHAccount *)theAccount {
+	_currentAccount = theAccount;
+	if (!self.currentAccount) {
+		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
+		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
+		[self.slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:YES animations:^{
+			CGFloat width = UIInterfaceOrientationIsPortrait(self.menuNavController.interfaceOrientation) ? self.window.frame.size.width :
+				self.window.frame.size.height;
+			CGRect viewFrame = self.menuNavController.view.frame;
+			viewFrame.size.width = width;
+			self.menuNavController.view.frame = viewFrame;
+			self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+		} onComplete:^{
+			[self.slidingViewController setTopViewController:nil];
+			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
+		}];
+	} else if (self.currentAccount.user.isAuthenticated) {
+		AccountMenuController *menuController = [[AccountMenuController alloc] initWithAccount:self.currentAccount];
+		[self.menuNavController popToRootViewControllerAnimated:NO];
+		[self.menuNavController pushViewController:menuController animated:YES];
+	}
+}
+
 #pragma mark External resources
 
 - (BOOL)openURL:(NSURL *)url {
 	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
 	if (isGitHubLink) {
 		WebController *webController = [WebController controllerWithURL:url];
-		[self.navController pushViewController:webController animated:YES];
+		[(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
 		return YES;
 	} else {
 		return NO;
@@ -94,7 +123,6 @@
 		}
 	}
 }
-
 
 #pragma mark Helpers
 
@@ -146,6 +174,8 @@
 }
 
 #pragma mark Avatars
+
+// TODO: Extract into AvatarCache
 
 + (void)clearAvatarCache {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

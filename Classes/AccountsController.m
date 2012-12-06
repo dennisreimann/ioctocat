@@ -1,5 +1,6 @@
 #import "AccountsController.h"
-#import "AccountController.h"
+#import "MyEventsController.h"
+#import "AccountMenuController.h"
 #import "AccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
@@ -14,7 +15,6 @@
 @property(nonatomic,strong)AuthenticationController *authController;
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
-- (void)openAccount:(GHAccount *)theAccount;
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
 @end
 
@@ -29,15 +29,12 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *currentAccounts = [defaults objectForKey:kAccountsDefaultsKey];
 	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
-
 	// Open account if there is only one
 	if (self.accounts.count == 1) {
 		[self openOrAuthenticateAccountAtIndex:0];
@@ -45,7 +42,10 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
+	[super viewWillAppear:animated];
+	if ([iOctocat sharedInstance].currentAccount) {
+		[iOctocat sharedInstance].currentAccount = nil;
+	}
 	[self.tableView reloadData];
 }
 
@@ -76,18 +76,9 @@
 	NSDictionary *accountDict = [self.accounts objectAtIndex:theIndex];
 	GHAccount *account = [GHAccount accountWithDict:accountDict];
 	[iOctocat sharedInstance].currentAccount = account;
-	if (account.user.isAuthenticated) {
-		[self openAccount:account];
-	} else {
+	if (!account.user.isAuthenticated) {
 		[self.authController authenticateAccount:account];
 	}
-}
-
-- (void)openAccount:(GHAccount *)theAccount {
-	AccountController *viewController = [AccountController controllerWithAccount:theAccount];
-	[iOctocat sharedInstance].currentAccount = theAccount;
-	[iOctocat sharedInstance].accountController = viewController;
-	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark TableView
@@ -152,9 +143,8 @@
 }
 
 - (void)authenticatedAccount:(GHAccount *)theAccount {
-	if (theAccount.user.isAuthenticated) {
-		[self openAccount:theAccount];
-	} else {
+	[iOctocat sharedInstance].currentAccount = theAccount;
+	if (!theAccount.user.isAuthenticated) {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
 		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
 		[self editAccountAtIndex:index];

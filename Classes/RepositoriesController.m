@@ -6,7 +6,6 @@
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
 
 
 @interface RepositoriesController ()
@@ -45,30 +44,13 @@
 	[self.user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = @"Repositories";
+	self.navigationItem.rightBarButtonItem = self.refreshButton;
 	(self.user.repositories.isLoaded) ? [self displayRepositories:self.user.repositories] : [self.user.repositories loadData];
 	(self.user.starredRepositories.isLoaded) ? [self displayRepositories:self.user.starredRepositories] : [self.user.starredRepositories loadData];
 	(self.user.watchedRepositories.isLoaded) ? [self displayRepositories:self.user.watchedRepositories] : [self.user.watchedRepositories loadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	self.navItem.title = @"Repositories";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = self.refreshButton;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

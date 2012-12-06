@@ -5,10 +5,8 @@
 #import "IssueController.h"
 #import "GistController.h"
 #import "CommitController.h"
-#import "OrganizationFeedsController.h"
 #import "GHEvent.h"
 #import "GHUser.h"
-#import "GHOrganizations.h"
 #import "GHEvents.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
@@ -16,7 +14,6 @@
 #import "GHIssue.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
 
 
 @interface MyEventsController ()
@@ -37,7 +34,6 @@
 	self = [super initWithNibName:@"MyEvents" bundle:nil];
 	if (self) {
 		self.user = theUser;
-		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		self.loadCounter = 0;
 		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
 		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
@@ -52,22 +48,11 @@
 	return self;
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	[self.organizationItem setEnabled:self.user.organizations.isLoaded];
+	
+	self.navigationItem.title = @"My Events";
+	self.navigationItem.titleView = self.feedControl;
 
 	// Start loading the first feed
 	self.feedControl.selectedSegmentIndex = 0;
@@ -76,15 +61,11 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-
-	self.navItem.title = @"My Events";
-	self.navItem.titleView = self.feedControl;
-	self.navItem.rightBarButtonItem = self.organizationItem;
-
-	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
 	[self refreshCurrentFeedIfRequired];
-
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(applicationDidBecomeActive)
+												 name:UIApplicationDidBecomeActiveNotification
+											   object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -94,7 +75,6 @@
 
 - (void)dealloc {
 	for (GHEvents *feed in self.feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (GHEvents *)events {
@@ -128,11 +108,6 @@
 	[self.tableView reloadData];
 }
 
-- (IBAction)selectOrganization:(id)sender {
-	OrganizationFeedsController *viewController = [OrganizationFeedsController controllerWithOrganizations:self.user.organizations];
-	[self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([object isKindOfClass:[GHEvents class]] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHEvents *feed = (GHEvents *)object;
@@ -147,12 +122,6 @@
 		} else if (feed.error) {
 			[super dataSourceDidFinishLoadingNewData];
 			[iOctocat reportLoadingError:@"Could not load the feed."];
-		}
-	} else if (object == self.user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (!self.user.organizations.isLoading && self.user.organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the list of organizations."];
-		} else if (self.user.organizations.isLoaded) {
-			[self.organizationItem setEnabled:(self.user.organizations.organizations.count > 0)];
 		}
 	}
 }

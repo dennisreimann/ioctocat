@@ -2,7 +2,6 @@
 #import "GHGist.h"
 #import "GistsController.h"
 #import "GistController.h"
-#import "AccountController.h"
 #import "NSString+Extensions.h"
 #import "NSDate+Nibware.h"
 #import "iOctocat.h"
@@ -32,29 +31,12 @@
 	[self.gists removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-	self.navItem.title = [self.title isEmpty] ? @"Gists" : self.title;
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = nil;
-
+	
+	self.navigationItem.title = [self.title isEmpty] ? @"Gists" : self.title;
+	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	
 	if (!self.gists.isLoaded) [self.gists loadData];
 }
 
@@ -66,6 +48,12 @@
 			[iOctocat reportLoadingError:@"Could not load the gists"];
 		}
 	}
+}
+#pragma mark Actions
+
+- (IBAction)refresh:(id)sender {
+	[self.gists loadData];
+	[self.tableView reloadData];
 }
 
 #pragma mark TableView

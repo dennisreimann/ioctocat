@@ -1,15 +1,14 @@
 #import <UIKit/UIKit.h>
-#import "AppConstants.h"
 
 
-@class AccountController, GHAccount, GHUser, GHOrganization;
+@class ECSlidingViewController, GHAccount, GHUser, GHOrganization;
 
 @interface iOctocat : NSObject <UIApplicationDelegate>
 
 @property(nonatomic,strong)GHAccount *currentAccount;
-@property(nonatomic,strong)AccountController *accountController;
 @property(nonatomic,strong)IBOutlet UIWindow *window;
-@property(nonatomic,weak)IBOutlet UINavigationController *navController;
+@property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
+@property(nonatomic,strong)IBOutlet ECSlidingViewController *slidingViewController;
 
 + (iOctocat *)sharedInstance;
 + (NSDate *)parseDate:(NSString *)theString;

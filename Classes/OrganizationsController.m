@@ -5,7 +5,6 @@
 #import "GHOrganization.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "AccountController.h"
 
 
 @interface OrganizationsController ()
@@ -29,27 +28,10 @@
     return self;
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-    self.navItem.title = @"Organizations";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = nil;
+    self.navigationItem.title = @"Organizations";
+	self.navigationItem.rightBarButtonItem = nil;
     if (!self.organizations.isLoaded) [self.organizations loadData];
 }
 

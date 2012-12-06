@@ -8,7 +8,6 @@
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
 
 
 @interface OrganizationRepositoriesController ()
@@ -44,28 +43,11 @@
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = @"Organization Repositories";
+	self.navigationItem.rightBarButtonItem = self.refreshButton;
 	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	self.navItem.title = @"Organization Repos";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = self.refreshButton;
 }
 
 - (void)loadOrganizationRepositories {

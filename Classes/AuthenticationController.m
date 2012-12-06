@@ -44,7 +44,7 @@
 											 cancelButtonTitle:nil
 										destructiveButtonTitle:nil
 											 otherButtonTitles:nil];
-		[self.authSheet showInView:[iOctocat sharedInstance].window];
+		[self.authSheet showInView:[iOctocat sharedInstance].window.rootViewController.view];
 	} else {
 		[self stopAuthenticating];
 		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];

@@ -5,7 +5,6 @@
 #import "GHSearch.h"
 #import "RepositoryCell.h"
 #import "UserCell.h"
-#import "AccountController.h"
 #import "iOctocat.h"
 
 
@@ -32,29 +31,13 @@
 	return self;
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = @"Search";
+	self.navigationItem.titleView = self.searchControl;
+	self.navigationItem.rightBarButtonItem = nil;
 	self.tableView.tableHeaderView = self.searchBar;
 	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	self.navItem.title = @"Search";
-	self.navItem.titleView = self.searchControl;
-	self.navItem.rightBarButtonItem = nil;
 }
 
 - (void)dealloc {
@@ -85,7 +68,7 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
-	self.navItem.rightBarButtonItem = cancelButton;
+	self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
@@ -97,7 +80,7 @@
 - (void)quitSearching:(id)sender {
 	self.searchBar.text = self.currentSearch.searchTerm;
 	[self.searchBar resignFirstResponder];
-	self.navItem.rightBarButtonItem = nil;
+	self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

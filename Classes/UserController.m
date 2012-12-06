@@ -16,7 +16,6 @@
 #import "EventsController.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
 #import "GistsController.h"
 
 
@@ -46,36 +45,19 @@
 	return self;
 }
 
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	// Background
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
 	BOOL isProfile = [self.user.login isEqualToString:self.currentUser.login];
-	self.navItem.title = isProfile ? @"Profile" : self.user.login;
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.navigationItem.title = isProfile ? @"Profile" : self.user.login;
+	self.navigationItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
 	(self.user.isLoaded) ? [self displayUser] : [self.user loadData];
 	if (!self.user.repositories.isLoaded) [self.user.repositories loadData];
 	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
+	// Background
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
 - (void)dealloc {
@@ -237,8 +219,7 @@
 	}
 	// Maybe push a controller
 	if (viewController) {
-		UINavigationController *navController = [[iOctocat sharedInstance] navController];
-		[navController pushViewController:viewController animated:YES];
+		[self.navigationController pushViewController:viewController animated:YES];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

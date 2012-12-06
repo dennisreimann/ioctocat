@@ -6,5 +6,5 @@
 @property(nonatomic,strong)NSMutableDictionary *organizations;
 
 + (NSString *)gravatarPathForIdentifier:(NSString *)theString;
-- (void)clearAvatarCache;
++ (void)clearAvatarCache;
 @end

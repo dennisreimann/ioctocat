@@ -3,22 +3,51 @@
 #import "iOctocat+Private.h"
 
 
+@interface iOctocatUnitTests ()
+@property(nonatomic,strong)NSString *gravatarPath;
+@property(nonatomic,strong)UIImage *gravatar;
+@end
+
+
 @implementation iOctocatUnitTests
 
 - (void)setUp {
     [super setUp];
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	self.gravatar = [UIImage imageNamed:@"Icon.png"];
+	self.gravatarPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"gravatar.png"];
 }
 
 - (void)tearDown {
     [super tearDown];
+	[[NSFileManager defaultManager] removeItemAtPath:self.gravatarPath error:NULL];
 }
 
 - (void)testGravatarPathForIdentifier {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *expected = [documentsPath stringByAppendingPathComponent:@"dennisreimann.png"];
-    NSString *actual = [iOctocat gravatarPathForIdentifier:@"dennisreimann"];
-	STAssertEqualObjects(expected, actual, @"Paths do not match");
+	NSString *actual = [iOctocat gravatarPathForIdentifier:@"gravatar"];
+	STAssertEqualObjects(self.gravatarPath, actual, @"Paths do not match");
+}
+
+- (void)testCacheGravatarForIdentifier {
+	[iOctocat cacheGravatar:self.gravatar forIdentifier:@"gravatar"];
+	STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:self.gravatarPath], @"Gravatar was not written to documents directory");
+}
+
+- (void)testCachedGravatarForIdentifier {
+	[UIImagePNGRepresentation(self.gravatar) writeToFile:self.gravatarPath atomically:YES];
+	UIImage *actual = [iOctocat cachedGravatarForIdentifier:@"gravatar"];
+	STAssertEquals([UIImage class], actual.class, @"Gravatar was not returned as an UIImage instance");
+}
+
+- (void)testCachedGravatarForIdentifierNoGravatar {
+	UIImage *actual = [iOctocat cachedGravatarForIdentifier:@"gravatar"];
+	STAssertNil(actual, @"Gravatar was found even though it should not exist");
+}
+
+- (void)testClearAvatarCache {
+	[UIImagePNGRepresentation(self.gravatar) writeToFile:self.gravatarPath atomically:YES];
+	[iOctocat clearAvatarCache];
+	STAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:self.gravatarPath], @"Gravatar did not get removed from documents directory");
 }
 
 @end

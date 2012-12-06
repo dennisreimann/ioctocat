@@ -37,7 +37,7 @@
 	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		[self clearAvatarCache];
+		[iOctocat clearAvatarCache];
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
@@ -147,7 +147,7 @@
 
 #pragma mark Avatars
 
-- (void)clearAvatarCache {
++ (void)clearAvatarCache {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsPath = [paths objectAtIndex:0];
 	NSFileManager *fileManager = [NSFileManager defaultManager];

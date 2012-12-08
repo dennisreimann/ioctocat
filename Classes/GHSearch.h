@@ -8,7 +8,6 @@
 @property(nonatomic,strong)NSString *searchTerm;
 @property(nonatomic,strong)NSString *urlFormat;
 
-+ (id)searchWithURLFormat:(NSString *)theFormat;
 - (id)initWithURLFormat:(NSString *)theFormat;
 
 @end

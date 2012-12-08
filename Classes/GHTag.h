@@ -15,7 +15,6 @@
 @property(nonatomic,strong)NSString *taggerEmail;
 @property(nonatomic,strong)NSDate *taggerDate;
 
-+ (id)tagWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
 
 @end

@@ -30,14 +30,6 @@
 
 @implementation IssueController
 
-+ (id)controllerWithIssue:(GHIssue *)theIssue {
-	return [[self.class alloc] initWithIssue:theIssue];
-}
-
-+ (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	return [[self.class alloc] initWithIssue:theIssue andIssuesController:theController];
-}
-
 - (id)initWithIssue:(GHIssue *)theIssue {
 	self = [super initWithNibName:@"Issue" bundle:nil];
 	if (self) {
@@ -153,21 +145,21 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	GHIssueComment *comment = [GHIssueComment commentWithParent:self.issue];
-	CommentController *viewController = [CommentController controllerWithComment:comment andComments:self.issue.comments];
+	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
-		IssueFormController *formController = [IssueFormController controllerWithIssue:self.issue andIssuesController:self.listController];
+		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:self.issue andIssuesController:self.listController];
 		[self.navigationController pushViewController:formController animated:YES];
 	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
 		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
 	} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
 		[self addComment:nil];
 	} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
-		WebController *webController = [WebController controllerWithURL:self.issue.htmlURL];
+		WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }

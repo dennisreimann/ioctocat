@@ -13,10 +13,6 @@
 
 @implementation GHAccount
 
-+ (id)accountWithDict:(NSDictionary *)theDict {
-	return [[self.class alloc] initWithDict:theDict];
-}
-
 - (id)initWithDict:(NSDictionary *)theDict {
 	self = [super init];
 	if (self) {
@@ -31,7 +27,7 @@
 			self.endpointURL = [NSURL URLWithString:self.endpoint];
 			self.apiURL = [self.endpointURL URLByAppendingPathComponent:kEnterpriseApiPath];
 		}
-		self.apiClient = [GHApiClient clientWithBaseURL:self.apiURL];
+		self.apiClient = [[GHApiClient alloc] initWithBaseURL:self.apiURL];
 		[self.apiClient setAuthorizationHeaderWithUsername:self.login password:self.password];
 		// user with authenticated URLs
 		self.user = [[iOctocat sharedInstance] userWithLogin:self.login];

@@ -26,10 +26,6 @@
 
 @implementation MyEventsController
 
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[MyEventsController alloc] initWithUser:theUser];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
 	self = [super initWithNibName:@"MyEvents" bundle:nil];
 	if (self) {
@@ -37,8 +33,8 @@
 		self.loadCounter = 0;
 		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
 		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
-		GHEvents *receivedEvents = [GHEvents resourceWithPath:receivedEventsPath];
-		GHEvents *ownEvents = [GHEvents resourceWithPath:eventsPath];
+		GHEvents *receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath];
+		GHEvents *ownEvents = [[GHEvents alloc] initWithPath:eventsPath];
 		self.feeds = [NSArray arrayWithObjects:receivedEvents, ownEvents, nil];
 		for (GHEvents *feed in self.feeds) {
 			[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];

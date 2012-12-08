@@ -15,7 +15,6 @@
 @property(nonatomic,strong)NSData *contentData;
 @property(nonatomic,readwrite)NSUInteger size;
 
-+ (id)blobWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
 
 @end

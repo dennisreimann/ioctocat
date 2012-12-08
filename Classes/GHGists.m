@@ -6,10 +6,6 @@
 
 @implementation GHGists
 
-+ (id)gistsWithPath:(NSString *)thePath {
-	return [[self.class alloc] initWithPath:thePath ];
-}
-
 - (id)initWithPath:(NSString *)thePath {
 	self = [super init];
 	if (self) {
@@ -22,7 +18,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHGist *resource = [GHGist gistWithId:[dict valueForKey:@"id"]];
+		GHGist *resource = [[GHGist alloc] initWithId:[dict valueForKey:@"id"]];
 		[resource setValues:dict];
 		[resources addObject:resource];
 	}

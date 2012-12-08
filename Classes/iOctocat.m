@@ -77,7 +77,7 @@
 - (BOOL)openURL:(NSURL *)url {
 	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
 	if (isGitHubLink) {
-		WebController *webController = [WebController controllerWithURL:url];
+		WebController *webController = [[WebController alloc] initWithURL:url];
 		[(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
 		return YES;
 	} else {
@@ -95,7 +95,7 @@
 	if (!theLogin || [theLogin isKindOfClass:[NSNull class]] || [theLogin isEmpty]) return nil;
 	GHUser *user = [self.users objectForKey:theLogin];
 	if (user == nil) {
-		user = [GHUser userWithLogin:theLogin];
+		user = [[GHUser alloc] initWithLogin:theLogin];
 		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.users setObject:user forKey:theLogin];
 	}
@@ -106,7 +106,7 @@
 	if (!theLogin || [theLogin isEmpty]) return nil;
 	GHOrganization *organization = [self.organizations objectForKey:theLogin];
 	if (organization == nil) {
-		organization = [GHOrganization organizationWithLogin:theLogin];
+		organization = [[GHOrganization alloc] initWithLogin:theLogin];
 		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.organizations setObject:organization forKey:theLogin];
 	}

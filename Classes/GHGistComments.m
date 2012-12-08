@@ -6,10 +6,6 @@
 
 @implementation GHGistComments
 
-+ (id)commentsWithGist:(GHGist *)theGist {
-	return [[self.class alloc] initWithGist:theGist];
-}
-
 - (id)initWithGist:(GHGist *)theGist {
 	self = [super init];
 	if (self) {
@@ -28,7 +24,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHGistComment *comment = [GHGistComment commentWithGist:self.gist andDictionary:dict];
+		GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist andDictionary:dict];
 		[resources addObject:comment];
 	}
 	self.comments = resources;

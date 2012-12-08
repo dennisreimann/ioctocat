@@ -23,10 +23,6 @@
 
 @implementation RepositoriesController
 
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[RepositoriesController alloc] initWithUser:theUser];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
 	self = [super initWithNibName:@"Repositories" bundle:nil];
 	if (self) {
@@ -170,7 +166,7 @@
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.count == 0) return;
 	GHRepository *repo = [repos objectAtIndex:indexPath.row];
-	RepositoryController *repoController = [RepositoryController controllerWithRepository:repo];
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

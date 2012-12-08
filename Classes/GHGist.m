@@ -10,16 +10,12 @@
 
 @implementation GHGist
 
-+ (id)gistWithId:(NSString *)theId {
-	return [[self.class alloc] initWithId:theId];
-}
-
 - (id)initWithId:(NSString *)theId {
 	self = [super init];
 	if (self) {
 		self.gistId = theId;
 		self.resourcePath = [NSString stringWithFormat:kGistFormat, theId];
-		self.comments = [GHGistComments commentsWithGist:self];
+		self.comments = [[GHGistComments alloc] initWithGist:self];
 	}
 	return self;
 }

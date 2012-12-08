@@ -8,6 +8,5 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
 
-+ (id)controllerWithUsers:(GHUsers *)theUsers;
 - (id)initWithUsers:(GHUsers *)theUsers;
 @end

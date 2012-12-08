@@ -10,7 +10,6 @@
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *sha;
 
-+ (id)branchWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
 
 @end

@@ -12,7 +12,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *titleCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *bodyCell;
 
-+ (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
 - (IBAction)saveIssue:(id)sender;
 @end

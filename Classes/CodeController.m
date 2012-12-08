@@ -12,10 +12,6 @@
 
 @implementation CodeController
 
-+ (id)controllerWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
-	return [[self.class alloc] initWithFiles:theFiles currentIndex:theCurrentIndex];
-}
-
 - (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {

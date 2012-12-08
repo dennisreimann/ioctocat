@@ -24,7 +24,6 @@ typedef enum {
 @property(nonatomic,readonly)BOOL isSaved;
 @property(nonatomic,readonly)BOOL isSaving;
 
-+ (id)resourceWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;
 - (GHAccount *)currentAccount;
 - (void)loadData;

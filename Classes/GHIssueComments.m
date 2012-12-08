@@ -7,10 +7,6 @@
 
 @implementation GHIssueComments
 
-+ (id)commentsWithParent:(id)theParent {
-	return [[self.class alloc] initWithParent:theParent];
-}
-
 - (id)initWithParent:(id)theParent {
 	self = [super init];
 	if (self) {
@@ -31,7 +27,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHIssueComment *comment = [GHIssueComment commentWithParent:self.parent andDictionary:dict];
+		GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.parent andDictionary:dict];
 		[resources addObject:comment];
 	}
 	self.comments = resources;

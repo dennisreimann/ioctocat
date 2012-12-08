@@ -2,5 +2,4 @@
 
 
 @interface GHApiClient : AFHTTPClient
-+ (id)clientWithBaseURL:(NSURL *)url;
 @end

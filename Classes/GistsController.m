@@ -14,10 +14,6 @@
 
 @implementation GistsController
 
-+ (id)controllerWithGists:(GHGists *)theGists {
-	return [[self.class alloc] initWithGists:theGists];
-}
-
 - (id)initWithGists:(GHGists *)theGists {
 	self = [super initWithNibName:@"Gists" bundle:nil];
 	if (self) {
@@ -87,7 +83,7 @@
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gists.isLoaded || self.gists.gists.count == 0) return;
 	GHGist *gist = [self.gists.gists objectAtIndex:indexPath.row];
-	GistController *gistController = [GistController controllerWithGist:gist];
+	GistController *gistController = [[GistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
 }
 

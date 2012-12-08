@@ -9,6 +9,6 @@
 @property(nonatomic,strong)NSArray *events;
 @property(nonatomic,strong)NSDate *lastReadingDate;
 
-+ (id)eventsWithRepository:(GHRepository *)theRepository;
+- (id)initWithRepository:(GHRepository *)theRepository;
 
 @end

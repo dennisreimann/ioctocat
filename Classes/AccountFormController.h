@@ -9,7 +9,6 @@
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
 @property(nonatomic,weak)IBOutlet GradientButton *saveButton;
 
-+ (id)controllerWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
 - (IBAction)saveAccount:(id)sender;
 @end

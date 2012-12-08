@@ -9,7 +9,6 @@
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSArray *entries;
 
-+ (id)forksWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 
 @end

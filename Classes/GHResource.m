@@ -8,10 +8,6 @@
 
 @implementation GHResource
 
-+ (id)resourceWithPath:(NSString *)thePath {
-	return [[self.class alloc] initWithPath:thePath];
-}
-
 - (id)initWithPath:(NSString *)thePath {
 	self = [super init];
 	if (self) {

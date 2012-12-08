@@ -9,7 +9,6 @@
 @property(nonatomic,strong)NSMutableArray *comments;
 @property(nonatomic,strong)GHGist *gist;
 
-+ (id)commentsWithGist:(GHGist *)theGist;
 - (id)initWithGist:(GHGist *)theGist;
 
 @end

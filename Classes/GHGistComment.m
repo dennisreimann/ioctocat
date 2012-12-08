@@ -5,14 +5,6 @@
 
 @implementation GHGistComment
 
-+ (id)commentWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
-	return [[self.class alloc] initWithGist:theGist andDictionary:theDict];
-}
-
-+ (id)commentWithGist:(GHGist *)theGist {
-	return [[self.class alloc] initWithGist:theGist];
-}
-
 - (id)initWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
 	self = [self initWithGist:theGist];
 	if (self) {

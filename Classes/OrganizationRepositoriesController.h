@@ -9,7 +9,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
-+ (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
 - (IBAction)refresh:(id)sender;
 @end

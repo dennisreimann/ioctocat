@@ -26,7 +26,6 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
 @property(nonatomic,strong)IBOutlet OrganizationCell *organizationCell;
 
-+ (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
 - (IBAction)showActions:(id)sender;
 @end

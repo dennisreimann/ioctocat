@@ -220,8 +220,8 @@
 			if (row == 0) {
 				viewController = [[SearchController alloc] initWithUser:self.user];
 			} else if (row == 1) {
-				GHRepository *repo = [GHRepository repositoryWithOwner:@"dennisreimann" andName:@"iOctocat"];
-				viewController = [IssuesController controllerWithRepository:repo];
+				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
+				viewController = [[IssuesController alloc] initWithRepository:repo];
 			}
 			break;
 	}

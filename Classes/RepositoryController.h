@@ -20,7 +20,6 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 
-+ (id)controllerWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (IBAction)showActions:(id)sender;
 @end

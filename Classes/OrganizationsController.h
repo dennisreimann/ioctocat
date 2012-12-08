@@ -8,6 +8,5 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *noOrganizationsCell;
 @property(nonatomic,strong)IBOutlet OrganizationCell *organizationCell;
 
-+ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations;
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations;
 @end

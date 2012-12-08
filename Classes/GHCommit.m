@@ -9,21 +9,13 @@
 
 @implementation GHCommit
 
-+ (id)commitWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-	return [self commitWithRepository:theRepo andCommitID:theSha];
-}
-
-+ (id)commitWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
-	return [[self.class alloc] initWithRepository:theRepository andCommitID:theCommitID];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID {
 	self = [super init];
 	if (self) {
 		self.repository = theRepository;
 		self.commitID = theCommitID;
 		self.resourcePath = [NSString stringWithFormat:kRepoCommitFormat, self.repository.owner, self.repository.name, self.commitID];
-		self.comments = [GHRepoComments commentsWithRepo:self.repository andCommitID:self.commitID];
+		self.comments = [[GHRepoComments alloc] initWithRepo:self.repository andCommitID:self.commitID];
 		[self.repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;

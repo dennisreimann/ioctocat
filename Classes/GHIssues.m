@@ -8,14 +8,6 @@
 
 @implementation GHIssues
 
-+ (id)issuesWithResourcePath:(NSString *)thePath {
-	return [[self.class alloc] initWithResourcePath:thePath];
-}
-
-+ (id)issuesWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
-	return [[self.class alloc] initWithRepository:theRepository andState:theState];
-}
-
 - (id)initWithResourcePath:(NSString *)thePath {
 	self = [super init];
 	if (self) {
@@ -37,7 +29,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHIssue *theIssue = [GHIssue issueWithRepository:self.repository];
+		GHIssue *theIssue = [[GHIssue alloc] initWithRepository:self.repository];
 		[theIssue setValues:dict];
 		[resources addObject:theIssue];
 	}

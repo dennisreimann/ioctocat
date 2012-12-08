@@ -18,10 +18,6 @@
 
 @implementation BlobsController
 
-+ (id)controllerWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
-	return [[self.class alloc] initWithBlobs:theBlobs currentIndex:theCurrentIndex];
-}
-
 - (id)initWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {

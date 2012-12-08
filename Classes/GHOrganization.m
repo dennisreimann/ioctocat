@@ -14,10 +14,6 @@
 
 @implementation GHOrganization
 
-+ (id)organizationWithLogin:(NSString *)theLogin {
-	return [[self.class alloc] initWithLogin:theLogin];
-}
-
 - (id)initWithLogin:(NSString *)theLogin {
 	self = [self init];
 	if (self) {
@@ -45,9 +41,9 @@
 	NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, self.login];
 
 	self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, self.login];
-	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
-	self.publicMembers = [GHUsers usersWithPath:membersPath];
-	self.events = [GHEvents resourceWithPath:eventsPath];
+	self.repositories = [[GHRepositories alloc] initWithPath:repositoriesPath];
+	self.publicMembers = [[GHUsers alloc] initWithPath:membersPath];
+	self.events = [[GHEvents alloc] initWithPath:eventsPath];
 }
 
 - (void)setValues:(id)theDict {

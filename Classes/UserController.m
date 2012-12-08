@@ -29,10 +29,6 @@
 
 @implementation UserController
 
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[UserController alloc] initWithUser:theUser];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
 	self = [super initWithNibName:@"User" bundle:nil];
 	if (self) {
@@ -82,7 +78,7 @@
 	if (buttonIndex == 0) {
 		[self.currentUser isFollowing:self.user] ? [self.currentUser unfollowUser:self.user] : [self.currentUser followUser:self.user];
 	} else if (buttonIndex == 1) {
-		WebController *webController = [WebController controllerWithURL:self.user.htmlURL];
+		WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -195,27 +191,27 @@
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.user.blogURL) {
-		viewController = [WebController controllerWithURL:self.user.blogURL];
+		viewController = [[WebController alloc] initWithURL:self.user.blogURL];
 	} else if (section == 0 && row == 2 && self.user.email) {
 		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:[NSArray arrayWithObject:self.user.email]];
 		[self presentModalViewController:mailComposer animated:YES];
 	} else if (section == 1 && row == 0) {
-		viewController = [EventsController controllerWithEvents:self.user.events];
+		viewController = [[EventsController alloc] initWithEvents:self.user.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 1 && row == 3) {
-		viewController = [GistsController controllerWithGists:self.user.gists];
+		viewController = [[GistsController alloc] initWithGists:self.user.gists];
 		viewController.title = @"Gists";
 	} else if (section == 1) {
-		viewController = [UsersController controllerWithUsers:(row == 1 ? self.user.following : self.user.followers)];
+		viewController = [[UsersController alloc] initWithUsers:(row == 1 ? self.user.following : self.user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2) {
 		GHRepository *repo = [self.user.repositories.repositories objectAtIndex:indexPath.row];
-		viewController = [RepositoryController controllerWithRepository:repo];
+		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3) {
 		GHOrganization *org = [self.user.organizations.organizations objectAtIndex:indexPath.row];
-		viewController = [OrganizationController controllerWithOrganization:org];
+		viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller
 	if (viewController) {

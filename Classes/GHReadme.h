@@ -9,7 +9,6 @@
 @property(nonatomic,strong)NSString *bodyHTML;
 @property(nonatomic,strong)GHRepository *repository;
 
-+ (id)readmeWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 
 @end

@@ -11,10 +11,6 @@
 
 @implementation CommitsController
 
-+ (id)controllerWithCommits:(NSArray *)theCommits {
-	return [[self.class alloc] initWithCommits:theCommits];
-}
-
 - (id)initWithCommits:(NSArray *)theCommits {
 	self = [super initWithNibName:@"Commits" bundle:nil];
 	if (self) {
@@ -41,7 +37,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHCommit *commit = [self.commits objectAtIndex:indexPath.row];
-	CommitController *viewController = [CommitController controllerWithCommit:commit];
+	CommitController *viewController = [[CommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

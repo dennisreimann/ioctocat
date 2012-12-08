@@ -23,10 +23,6 @@
 
 @implementation GHEvent
 
-+ (id)eventWithDict:(NSDictionary *)theDict {
-	return [[self.class alloc] initWithDict:theDict];
-}
-
 - (id)initWithDict:(NSDictionary *)theDict {
 	self = [super init];
 	if (self) {
@@ -107,7 +103,7 @@
 	NSString *rOwner = [rParts objectAtIndex:0];
 	NSString *rName = [rParts objectAtIndex:1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
-		self.repository = [GHRepository repositoryWithOwner:rOwner andName:rName];
+		self.repository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
 		self.repository.descriptionText = [self.payload valueForKey:@"description"];
 	}
 
@@ -117,14 +113,14 @@
 	rOwner = [rParts objectAtIndex:0];
 	rName = [rParts objectAtIndex:1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
-		self.otherRepository = [GHRepository repositoryWithOwner:rOwner andName:rName];
+		self.otherRepository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
 		self.otherRepository.descriptionText = [self.payload valueForKeyPath:@"forkee.description"];
 	}
 
 	// Issue
 	NSInteger issueNumber = [[self.payload valueForKeyPath:@"issue.number"] integerValue];
 	if (issueNumber > 0) {
-		self.issue = [GHIssue issueWithRepository:self.repository];
+		self.issue = [[GHIssue alloc] initWithRepository:self.repository];
 		self.issue.num = issueNumber;
 		[self.issue setValues:[self.payload valueForKey:@"issue"]];
 	}
@@ -137,7 +133,7 @@
 	if (pullPayload && ![[pullPayload valueForKey:@"html_url" defaultsTo:@""] isEmpty]) {
 		NSInteger pullNumber = [[pullPayload valueForKey:@"number"] integerValue];
 		if (!pullNumber) pullNumber = self.issue.num;
-		self.pullRequest = [GHPullRequest pullRequestWithRepository:self.repository];
+		self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
 		self.pullRequest.num = pullNumber;
 		self.pullRequest.title = [self.payload valueForKeyPath:@"pull_request.title"];
 	}
@@ -145,14 +141,14 @@
 	// Issue Comment (which might also be a pull request comment)
 	if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
 		id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
-		self.comment = [GHIssueComment commentWithParent:issueCommentParent
+		self.comment = [[GHIssueComment alloc] initWithParent:issueCommentParent
 										   andDictionary:[self.payload valueForKey:@"comment"]];
 	}
 
 	// Gist
 	NSString *gistId = [self.payload valueForKeyPath:@"gist.id"];
 	if (gistId) {
-		self.gist = [GHGist gistWithId:gistId];
+		self.gist = [[GHGist alloc] initWithId:gistId];
 		[self.gist setValues:[self.payload valueForKey:@"gist"]];
 	}
 
@@ -162,7 +158,7 @@
 		self.commits = [NSMutableArray arrayWithCapacity:commits.count];
 		for (NSDictionary *commitDict in commits) {
 			NSString *theSha = [commitDict valueForKey:@"sha"];
-			GHCommit *commit = [GHCommit commitWithRepo:self.repository andSha:theSha];
+			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:theSha];
 			commit.author = self.user;
 			commit.message = [commitDict valueForKey:@"message" defaultsTo:@""];
 			[self.commits addObject:commit];
@@ -171,11 +167,11 @@
 
 	// Commit Comment
 	if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
-		self.comment = [GHRepoComment commentWithRepo:self.repository
+		self.comment = [[GHRepoComment alloc] initWithRepo:self.repository
 										andDictionary:[self.payload valueForKey:@"comment"]];
 		if (!self.commits) {
-			GHCommit *commit = [GHCommit commitWithRepo:self.repository
-												 andSha:[self.payload valueForKeyPath:@"comment.commit_id"]];
+			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
+												 andCommitID:[self.payload valueForKeyPath:@"comment.commit_id"]];
 			self.commits = [NSArray arrayWithObject:commit];
 		}
 	}

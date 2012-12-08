@@ -10,15 +10,11 @@
 
 @implementation GHPullRequest
 
-+ (id)pullRequestWithRepository:(GHRepository *)theRepository {
-	return [[self.class alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
 	self = [super init];
 	if (self) {
 		self.repository = theRepository;
-		self.comments = [GHIssueComments commentsWithParent:self];
+		self.comments = [[GHIssueComments alloc] initWithParent:self];
 	}
 	return self;
 }
@@ -60,7 +56,7 @@
 		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
 		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
 		if (owner && name) {
-			self.repository = [GHRepository repositoryWithOwner:owner andName:name];
+			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}
 	}
 }

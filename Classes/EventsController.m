@@ -29,10 +29,6 @@
 
 @implementation EventsController
 
-+ (id)controllerWithEvents:(GHEvents *)theEvents {
-	return [[self.class alloc] initWithEvents:theEvents];
-}
-
 - (id)initWithEvents:(GHEvents *)theEvents {
 	self = [super initWithNibName:@"Events" bundle:nil];
 	if (self) {
@@ -81,30 +77,30 @@
 - (void)openEventItem:(id)theEventItem {
 	UIViewController *viewController = nil;
 	if ([theEventItem isKindOfClass:[GHUser class]]) {
-		viewController = [UserController controllerWithUser:theEventItem];
+		viewController = [[UserController alloc] initWithUser:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHOrganization class]]) {
-		viewController = [OrganizationController controllerWithOrganization:theEventItem];
+		viewController = [[OrganizationController alloc] initWithOrganization:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHRepository class]]) {
-		viewController = [RepositoryController controllerWithRepository:theEventItem];
+		viewController = [[RepositoryController alloc] initWithRepository:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHIssue class]]) {
-		viewController = [IssueController controllerWithIssue:theEventItem];
+		viewController = [[IssueController alloc] initWithIssue:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHCommit class]]) {
-		viewController = [CommitController controllerWithCommit:theEventItem];
+		viewController = [[CommitController alloc] initWithCommit:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHGist class]]) {
-		viewController = [GistController controllerWithGist:theEventItem];
+		viewController = [[GistController alloc] initWithGist:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHPullRequest class]]) {
-		viewController = [IssueController controllerWithIssue:theEventItem];
+		viewController = [[IssueController alloc] initWithIssue:theEventItem];
 	} else if ([theEventItem isKindOfClass:[NSDictionary class]]) {
 		NSString *htmlURL = [theEventItem valueForKey:@"html_url" defaultsTo:@""];
 		NSURL *url = [NSURL smartURLFromString:htmlURL];
 		if (url) {
-			viewController = [WebController controllerWithURL:url];
+			viewController = [[WebController alloc] initWithURL:url];
 			viewController.title = [theEventItem valueForKey:@"page_name" defaultsTo:@""];
 		}
 	} else if ([theEventItem isKindOfClass:[NSArray class]]) {
 		id firstEntry = [theEventItem objectAtIndex:0];
 		if ([firstEntry isKindOfClass:[GHCommit class]]) {
-			viewController = [CommitsController controllerWithCommits:theEventItem];
+			viewController = [[CommitsController alloc] initWithCommits:theEventItem];
 		}
 	}
 	if (viewController) {

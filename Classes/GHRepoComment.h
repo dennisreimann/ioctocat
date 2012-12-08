@@ -13,8 +13,6 @@
 @property(nonatomic,assign)NSUInteger position;
 @property(nonatomic,assign)NSUInteger line;
 
-+ (id)commentWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict;
-+ (id)commentWithRepo:(GHRepository *)theRepo;
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict;
 - (id)initWithRepo:(GHRepository *)theRepo;
 

@@ -6,10 +6,6 @@
 
 @implementation GHBranches
 
-+ (id)branchesWithRepository:(GHRepository *)theRepository {
-	return [[self.class alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
 	self = [super init];
 	if (self) {
@@ -24,7 +20,7 @@
     NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *branchDict in theResponse) {
         NSString *name = [branchDict valueForKey:@"name"];
-		GHBranch *branch = [GHBranch branchWithRepository:self.repository andName:name];
+		GHBranch *branch = [[GHBranch alloc] initWithRepository:self.repository andName:name];
 		branch.sha = [branchDict valueForKeyPath:@"commit.sha"];
 		if ([branch.name isEqualToString:self.repository.mainBranch]) {
 			[resources insertObject:branch atIndex:0];

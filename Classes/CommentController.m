@@ -12,10 +12,6 @@
 
 @implementation CommentController
 
-+ (id)controllerWithComment:(GHComment *)theComment andComments:(id)theComments {
-	return [[self.class alloc] initWithComment:theComment andComments:theComments];
-}
-
 - (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {
 	self = [super initWithNibName:@"Comment" bundle:nil];
 	if (self) {

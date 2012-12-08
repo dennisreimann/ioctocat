@@ -9,14 +9,6 @@
 
 @implementation WebController
 
-+ (id)controllerWithURL:(NSURL *)theURL {
-	return [[self.class alloc] initWithURL:theURL];
-}
-
-+ (id)controllerWithHTML:(NSString *)theHTML {
-	return [[self.class alloc] initWithHTML:theHTML];
-}
-
 - (id)initWithURL:(NSURL *)theURL {
 	self = [super initWithNibName:@"WebView" bundle:nil];
 	if (self) {

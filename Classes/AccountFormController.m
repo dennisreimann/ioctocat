@@ -15,10 +15,6 @@
 
 @implementation AccountFormController
 
-+ (id)controllerWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
-	return [[self.class alloc] initWithAccounts:theAccounts andIndex:theIndex];
-}
-
 - (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
 	if (self) {

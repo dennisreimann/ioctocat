@@ -9,10 +9,6 @@
 
 @implementation DiffFilesController
 
-+ (id)controllerWithFiles:(NSArray *)theFiles {
-	return [[self.class alloc] initWithFiles:theFiles];
-}
-
 - (id)initWithFiles:(NSArray *)theFiles {
 	self = [super initWithNibName:@"Files" bundle:nil];
 	self.files = theFiles;
@@ -54,7 +50,7 @@
 	if (self.files.count == 0) return;
 	id fileInfo = [self.files objectAtIndex:indexPath.row];
 	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
-		CodeController *codeController = [CodeController controllerWithFiles:self.files currentIndex:indexPath.row];
+		CodeController *codeController = [[CodeController alloc] initWithFiles:self.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

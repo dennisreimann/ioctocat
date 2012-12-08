@@ -26,10 +26,6 @@
 
 @implementation CommitController
 
-+ (id)controllerWithCommit:(GHCommit *)theCommit {
-	return [[self.class alloc] initWithCommit:theCommit];
-}
-
 - (id)initWithCommit:(GHCommit *)theCommit {
 	self = [super initWithNibName:@"Commit" bundle:nil];
 	if (self) {
@@ -77,14 +73,20 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", [NSString stringWithFormat:@"Show %@", self.commit.author.login], [NSString stringWithFormat:@"Show %@", self.commit.repository.name], @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+															 delegate:self
+													cancelButtonTitle:@"Cancel"
+											   destructiveButtonTitle:nil
+													otherButtonTitles:@"Add comment",
+								  [NSString stringWithFormat:@"Show %@", self.commit.author.login],
+								  [NSString stringWithFormat:@"Show %@", self.commit.repository.name], @"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
 }
 
 - (IBAction)addComment:(id)sender {
-	GHRepoComment *comment = [GHRepoComment commentWithRepo:self.commit.repository];
+	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
 	comment.commitID = self.commit.commitID;
-	CommentController *viewController = [CommentController controllerWithComment:comment andComments:self.commit.comments];
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -92,13 +94,13 @@
 	if (buttonIndex == 0) {
 		[self addComment:nil];
 	} else if (buttonIndex == 1) {
-		UserController *userController = [UserController controllerWithUser:self.commit.author];
+		UserController *userController = [[UserController alloc] initWithUser:self.commit.author];
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (buttonIndex == 2) {
-		RepositoryController *repoController = [RepositoryController controllerWithRepository:self.commit.repository];
+		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.commit.repository];
 		[self.navigationController pushViewController:repoController animated:YES];
 	} else if (buttonIndex == 3) {
-		WebController *webController = [WebController controllerWithURL:self.commit.commitURL];
+		WebController *webController = [[WebController alloc] initWithURL:self.commit.commitURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -172,12 +174,12 @@
 	if (!self.commit.isLoaded) return;
 	if (indexPath.section == 0) {
 		GHUser *user = (indexPath.row == 0) ? self.commit.author : self.commit.committer;
-		UserController *userController = [UserController controllerWithUser:user];
+		UserController *userController = [[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
 		if (cell.files.count > 0) {
-			DiffFilesController *filesController = [DiffFilesController controllerWithFiles:cell.files];
+			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}

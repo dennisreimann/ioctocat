@@ -23,7 +23,6 @@
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isClosed;
 
-+ (id)issueWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)closeIssue;
 - (void)reopenIssue;

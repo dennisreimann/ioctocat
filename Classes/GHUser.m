@@ -24,10 +24,6 @@
 
 @implementation GHUser
 
-+ (id)userWithLogin:(NSString *)theLogin {
-	return [[self.class alloc] initWithLogin:theLogin];
-}
-
 - (id)initWithLogin:(NSString *)theLogin {
 	self = [self init];
 	if (self) {
@@ -62,15 +58,15 @@
 	NSString *starredGistsPath  = [NSString stringWithFormat:kStarredGistsFormat];
 
 	self.resourcePath = [NSString stringWithFormat:kUserFormat, self.login];
-	self.organizations = [GHOrganizations organizationsWithUser:self andPath:organizationsPath];
-	self.repositories = [GHRepositories repositoriesWithPath:repositoriesPath];
-	self.starredRepositories = [GHRepositories repositoriesWithPath:starredReposPath];
-	self.watchedRepositories = [GHRepositories repositoriesWithPath:watchedReposPath];
-	self.following = [GHUsers usersWithPath:followingPath];
-	self.followers = [GHUsers usersWithPath:followersPath];
-	self.gists = [GHGists gistsWithPath:gistsPath];
-	self.starredGists = [GHGists gistsWithPath:starredGistsPath];
-	self.events = [GHEvents resourceWithPath:eventsPath];
+	self.organizations = [[GHOrganizations alloc] initWithUser:self andPath:organizationsPath];
+	self.repositories = [[GHRepositories alloc] initWithPath:repositoriesPath];
+	self.starredRepositories = [[GHRepositories alloc] initWithPath:starredReposPath];
+	self.watchedRepositories = [[GHRepositories alloc] initWithPath:watchedReposPath];
+	self.starredGists = [[GHGists alloc] initWithPath:starredGistsPath];
+	self.following = [[GHUsers alloc] initWithPath:followingPath];
+	self.followers = [[GHUsers alloc] initWithPath:followersPath];
+	self.events = [[GHEvents alloc] initWithPath:eventsPath];
+	self.gists = [[GHGists alloc] initWithPath:gistsPath];
 }
 
 #pragma mark Loading

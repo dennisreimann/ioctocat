@@ -7,10 +7,6 @@
 
 @implementation GHRef
 
-+ (id)refWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef {
-  return [[self.class alloc] initWithRepo:theRepo andRef:theRef];
-}
-
 - (id)initWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef {
 	self = [super init];
 	if (self) {
@@ -27,9 +23,9 @@
 	NSString *type = [theDict valueForKeyPath:@"object.type"];
 	NSString *sha = [theDict valueForKeyPath:@"sha"];
 	if ([type isEqualToString:@"commit"]) {
-		self.object = [GHCommit commitWithRepo:self.repository andSha:sha];
+		self.object = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 	} else if ([type isEqualToString:@"tag"]) {
-		self.object = [GHTag tagWithRepo:self.repository andSha:sha];
+		self.object = [[GHTag alloc] initWithRepo:self.repository andSha:sha];
 	}
 }
 

@@ -7,7 +7,6 @@
 @property(nonatomic,strong)NSMutableArray *comments;
 @property(nonatomic,strong)id parent; // a GHIssue or GHPullRequest instance
 
-+ (id)commentsWithParent:(id)theParent;
 - (id)initWithParent:(id)theParent;
 
 @end

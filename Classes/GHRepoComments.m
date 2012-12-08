@@ -7,10 +7,6 @@
 
 @implementation GHRepoComments
 
-+ (id)commentsWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
-	return [[self.class alloc] initWithRepo:theRepo andCommitID:theCommitID];
-}
-
 - (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
 	self = [super init];
 	if (self) {
@@ -30,7 +26,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHRepoComment *comment = [GHRepoComment commentWithRepo:self.repository andDictionary:dict];
+		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository andDictionary:dict];
 		[resources addObject:comment];
 	}
 	self.comments = resources;

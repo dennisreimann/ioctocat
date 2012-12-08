@@ -6,10 +6,6 @@
 
 @implementation GHSearch
 
-+ (id)searchWithURLFormat:(NSString *)theFormat {
-	return [[self.class alloc] initWithURLFormat:theFormat];
-}
-
 - (id)initWithURLFormat:(NSString *)theFormat {
 	self = [super init];
 	self.urlFormat = theFormat;
@@ -30,10 +26,10 @@
 	for (NSDictionary *dict in (usersSearch ? [theDict objectForKey:@"users"] : [theDict objectForKey:@"repositories"])) {
 		GHResource *resource = nil;
 		if (usersSearch) {
-			resource = [GHUser userWithLogin:[dict objectForKey:@"login"]];
+			resource = [[GHUser alloc] initWithLogin:[dict objectForKey:@"login"]];
 			[resource setValues:dict];
 		} else {
-			resource = [GHRepository repositoryWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+			resource = [[GHRepository alloc] initWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
 			[resource setValues:dict];
 		}
 		[resources addObject:resource];

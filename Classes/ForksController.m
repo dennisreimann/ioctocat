@@ -13,10 +13,6 @@
 
 @implementation ForksController
 
-+ (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[self.class alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
 	self = [super initWithNibName:@"Forks" bundle:nil];
 	if (self) {
@@ -66,7 +62,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentForks.isLoaded || self.currentForks.entries.count == 0) return;
 	GHRepository *repo = [self.currentForks.entries objectAtIndex:indexPath.row];
-	RepositoryController *repoController = [RepositoryController controllerWithRepository:repo];
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

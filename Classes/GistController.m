@@ -24,10 +24,6 @@
 
 @implementation GistController
 
-+ (id)controllerWithGist:(GHGist *)theGist {
-	return [[self alloc] initWithGist:theGist];
-}
-
 - (id)initWithGist:(GHGist *)theGist {
 	self = [super initWithNibName:@"Gist" bundle:nil];
 	if (self) {
@@ -79,7 +75,7 @@
 	if (buttonIndex == 0) {
 		[self.currentUser isStarringGist:self.gist] ? [self.currentUser unstarGist:self.gist] : [self.currentUser starGist:self.gist];
 	} else if (buttonIndex == 1) {
-		WebController *webController = [WebController controllerWithURL:self.gist.htmlURL];
+		WebController *webController = [[WebController alloc] initWithURL:self.gist.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -121,8 +117,8 @@
 }
 
 - (IBAction)addComment:(id)sender {
-	GHGistComment *comment = [GHGistComment commentWithGist:self.gist];
-	CommentController *viewController = [CommentController controllerWithComment:comment andComments:self.gist.comments];
+	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -189,7 +185,7 @@
 	NSInteger row = indexPath.row;
 	if (section == 0) {
 		NSArray *files = [self.gist.files allValues];
-		CodeController *codeController = [CodeController controllerWithFiles:files currentIndex:row];
+		CodeController *codeController = [[CodeController alloc] initWithFiles:files currentIndex:row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

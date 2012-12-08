@@ -6,10 +6,6 @@
 
 @implementation GHReadme
 
-+ (id)readmeWithRepository:(GHRepository *)theRepository {
-	return [[self.class alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
 	self = [super init];
 	if (self) {

@@ -15,10 +15,6 @@
 
 @implementation OrganizationsController
 
-+ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
-    return [[OrganizationsController alloc] initWithOrganizations:theOrganizations];
-}
-
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
     self = [super initWithNibName:@"Organizations" bundle:nil];
 	if (self) {
@@ -75,7 +71,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.organizations.isLoaded || self.organizations.organizations.count == 0) return;
     GHOrganization *org = [self.organizations.organizations objectAtIndex:indexPath.row];
-    OrganizationController *viewController = [OrganizationController controllerWithOrganization:org];
+    OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

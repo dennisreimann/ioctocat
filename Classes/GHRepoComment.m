@@ -5,14 +5,6 @@
 
 @implementation GHRepoComment
 
-+ (id)commentWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
-	return [[self.class alloc] initWithRepo:theRepo andDictionary:theDict];
-}
-
-+ (id)commentWithRepo:(GHRepository *)theRepo {
-	return [[self.class alloc] initWithRepo:theRepo];
-}
-
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
 	self = [self initWithRepo:theRepo];
 	if (self) {

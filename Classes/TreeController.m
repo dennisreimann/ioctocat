@@ -14,10 +14,6 @@
 
 @implementation TreeController
 
-+ (id)controllerWithTree:(GHTree *)theTree {
-	return [[self.class alloc] initWithTree:theTree];
-}
-
 - (id)initWithTree:(GHTree *)theTree {
 	self = [super initWithNibName:@"Tree" bundle:nil];
 	if (self) {
@@ -93,10 +89,10 @@
 	NSUInteger row = indexPath.row;
 	if (section == 0) {
 		GHTree *obj = (GHTree *)[self.tree.trees objectAtIndex:row];
-		TreeController *treeController = [TreeController controllerWithTree:obj];
+		TreeController *treeController = [[TreeController alloc] initWithTree:obj];
 		[self.navigationController pushViewController:treeController animated:YES];
 	} else {
-		BlobsController *blobsController = [BlobsController controllerWithBlobs:self.tree.blobs currentIndex:row];
+		BlobsController *blobsController = [[BlobsController alloc] initWithBlobs:self.tree.blobs currentIndex:row];
 		[self.navigationController pushViewController:blobsController animated:YES];
 	}
 }

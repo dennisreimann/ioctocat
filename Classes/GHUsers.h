@@ -6,7 +6,6 @@
 
 @property(nonatomic,strong)NSMutableArray *users;
 
-+ (id)usersWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;
 
 @end

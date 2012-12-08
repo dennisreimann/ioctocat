@@ -12,10 +12,6 @@
 
 @implementation GHRepository
 
-+ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	return [[self.class alloc] initWithOwner:theOwner andName:theName];
-}
-
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self = [super init];
 	if (self) {
@@ -49,12 +45,12 @@
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-    self.forks = [GHForks forksWithRepository:self];
-    self.readme = [GHReadme readmeWithRepository:self];
-    self.branches = [GHBranches branchesWithRepository:self];
-    self.events = [GHEvents eventsWithRepository:self];
-	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
-	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];
+    self.forks = [[GHForks alloc] initWithRepository:self];
+    self.readme = [[GHReadme alloc] initWithRepository:self];
+    self.events = [[GHEvents alloc] initWithRepository:self];
+    self.branches = [[GHBranches alloc] initWithRepository:self];
+	self.openIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen];
+	self.closedIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed];
 }
 
 - (GHUser *)user {

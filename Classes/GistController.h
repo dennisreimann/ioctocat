@@ -16,7 +16,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 
-+ (id)controllerWithGist:(GHGist *)theGist;
 - (id)initWithGist:(GHGist *)theGist;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;

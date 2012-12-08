@@ -64,7 +64,7 @@
 #pragma mark Actions
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex {
-	AccountFormController *viewController = [AccountFormController controllerWithAccounts:self.accounts andIndex:theIndex];
+	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:self.accounts andIndex:theIndex];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -74,7 +74,7 @@
 
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
 	NSDictionary *accountDict = [self.accounts objectAtIndex:theIndex];
-	GHAccount *account = [GHAccount accountWithDict:accountDict];
+	GHAccount *account = [[GHAccount alloc] initWithDict:accountDict];
 	[iOctocat sharedInstance].currentAccount = account;
 	if (!account.user.isAuthenticated) {
 		[self.authController authenticateAccount:account];

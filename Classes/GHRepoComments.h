@@ -10,7 +10,6 @@
 @property(nonatomic,strong)NSString *commitID;
 @property(nonatomic,strong)GHRepository *repository;
 
-+ (id)commentsWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID;
 - (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID;
 
 @end

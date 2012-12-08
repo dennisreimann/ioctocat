@@ -32,10 +32,6 @@
 
 @implementation RepositoryController
 
-+ (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[self.class alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
 	self = [super initWithNibName:@"Repository" bundle:nil];
 	if (self) {
@@ -94,7 +90,7 @@
 	} else if (buttonIndex == 1) {
 		[self.currentUser isWatching:self.repository] ? [self.currentUser unwatchRepository:self.repository] : [self.currentUser watchRepository:self.repository];
 	} else if (buttonIndex == 2) {
-		WebController *webController = [WebController controllerWithURL:self.repository.htmlURL];
+		WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -199,24 +195,24 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0 && self.repository.user) {
-		viewController = [UserController controllerWithUser:self.repository.user];
+		viewController = [[UserController alloc] initWithUser:self.repository.user];
 	} else if (section == 0 && row == 1 && self.repository.homepageURL) {
-		viewController = [WebController controllerWithURL:self.repository.homepageURL];
+		viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
 	} else if (section == 0 && row >= 2) {
 		if (!self.repository.readme.isLoaded) return;
-		viewController = [WebController controllerWithHTML:self.repository.readme.bodyHTML];
+		viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
 		viewController.title = @"README";
 	} else if (section == 1 && row == 0) {
-		viewController = [ForksController controllerWithRepository:self.repository];
+		viewController = [[ForksController alloc] initWithRepository:self.repository];
 	} else if (section == 1 && row == 1) {
-		viewController = [IssuesController controllerWithRepository:self.repository];
+		viewController = [[IssuesController alloc] initWithRepository:self.repository];
 	} else if (section == 1 && row == 2) {
-		viewController = [EventsController controllerWithEvents:self.repository.events];
+		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 		viewController.title = self.repository.name;
 	} else {
 		GHBranch *branch = [self.repository.branches.branches objectAtIndex:row];
-		GHTree *tree = [GHTree treeWithRepo:self.repository andSha:branch.name];
-		viewController = [TreeController controllerWithTree:tree];
+		GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
+		viewController = [[TreeController alloc] initWithTree:tree];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

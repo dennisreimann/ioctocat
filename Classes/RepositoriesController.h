@@ -11,7 +11,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *noStarredReposCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noWatchedReposCell;
 
-+ (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
 - (IBAction)refresh:(id)sender;
 @end

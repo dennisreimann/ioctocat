@@ -18,7 +18,6 @@
 @property(nonatomic,readwrite)BOOL isPrivate;
 @property(weak, nonatomic,readonly)NSString *title;
 
-+ (id)gistWithId:(NSString *)theId;
 - (id)initWithId:(NSString *)theId;
 
 @end

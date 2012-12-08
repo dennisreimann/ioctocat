@@ -22,7 +22,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 
-+ (id)controllerWithCommit:(GHCommit *)theCommit;
 - (id)initWithCommit:(GHCommit *)theCommit;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;

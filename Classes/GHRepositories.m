@@ -6,10 +6,6 @@
 
 @implementation GHRepositories
 
-+ (id)repositoriesWithPath:(NSString *)thePath {
-	return [[self.class alloc] initWithPath:thePath ];
-}
-
 - (id)initWithPath:(NSString *)thePath {
 	self = [super init];
 	if (self) {
@@ -24,7 +20,7 @@
 	for (NSDictionary *dict in theResponse) {
 		id own = [dict objectForKey:@"owner"];
 		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? [own objectForKey:@"login"] : own;
-		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:[dict objectForKey:@"name"]];
+		GHRepository *resource = [[GHRepository alloc] initWithOwner:owner andName:[dict objectForKey:@"name"]];
 		[resource setValues:dict];
 		[resources addObject:resource];
 	}

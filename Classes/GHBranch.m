@@ -5,10 +5,6 @@
 
 @implementation GHBranch
 
-+ (id)branchWithRepository:(GHRepository *)theRepository andName:(NSString *)theName {
-	return [[self.class alloc] initWithRepository:theRepository andName:theName];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName {
 	self = [super init];
 	if (self) {

@@ -5,10 +5,6 @@
 
 @implementation GHUsers
 
-+ (id)usersWithPath:(NSString *)thePath {
-	return [[self.class alloc] initWithPath:thePath];
-}
-
 - (id)initWithPath:(NSString *)thePath {
 	self = [super init];
 	if (self) {

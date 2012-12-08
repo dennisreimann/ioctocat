@@ -12,10 +12,6 @@
 
 @implementation UsersController
 
-+ (id)controllerWithUsers:(GHUsers *)theUsers {
-	return [[self.class alloc] initWithUsers:theUsers];
-}
-
 - (id)initWithUsers:(GHUsers *)theUsers {
     self = [super initWithNibName:@"Users" bundle:nil];
 	if (self) {
@@ -66,7 +62,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.users.isLoaded || self.users.users.count == 0) return;
     GHUser *selectedUser = [self.users.users objectAtIndex:indexPath.row];
-    UserController *userController = [UserController controllerWithUser:(GHUser *)selectedUser];
+    UserController *userController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
 }
 

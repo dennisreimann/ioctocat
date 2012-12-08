@@ -7,10 +7,6 @@
 
 @implementation GHTag
 
-+ (id)tagWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-	return [[self.class alloc] initWithRepo:theRepo andSha:theSha];
-}
-
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
 	self = [super init];
 	if (self) {
@@ -29,7 +25,7 @@
 	self.taggerName = [theDict valueForKeyPath:@"tagger.name"];
 	self.taggerEmail = [theDict valueForKeyPath:@"tagger.email"];
 	self.taggerDate = [iOctocat parseDate:[theDict valueForKey:@"tagger.date"]];
-	self.commit = [GHCommit commitWithRepository:self.repository andCommitID:[theDict valueForKey:@"object.sha"]];
+	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:[theDict valueForKey:@"object.sha"]];
 }
 
 @end

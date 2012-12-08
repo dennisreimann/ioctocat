@@ -14,10 +14,6 @@
 
 @implementation OrganizationFeedsController
 
-+ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
-	return [[self.class alloc] initWithOrganizations:theOrganizations];
-}
-
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
 	self = [super initWithNibName:@"Organizations" bundle:nil];
 	if (self) {
@@ -69,7 +65,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.organizations.isLoaded || self.organizations.organizations.count == 0) return;
 	GHOrganization *org = [self.organizations.organizations objectAtIndex:indexPath.row];
-	EventsController *viewController = [EventsController controllerWithEvents:org.events];
+	EventsController *viewController = [[EventsController alloc] initWithEvents:org.events];
 	viewController.title = org.login;
 	[self.navigationController pushViewController:viewController animated:YES];
 }

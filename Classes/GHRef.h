@@ -10,7 +10,6 @@
 @property(nonatomic,strong)NSString *ref;
 @property(nonatomic,strong)id object;
 
-+ (id)refWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef;
 - (id)initWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef;
 
 @end

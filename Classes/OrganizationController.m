@@ -25,10 +25,6 @@
 
 @implementation OrganizationController
 
-+ (id)controllerWithOrganization:(GHOrganization *)theOrganization {
-	return [[self.class alloc] initWithOrganization:theOrganization];
-}
-
 - (id)initWithOrganization:(GHOrganization *)theOrganization{
 	self = [super initWithNibName:@"Organization" bundle:nil];
 	if (self) {
@@ -70,7 +66,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		WebController *webController = [WebController controllerWithURL:self.organization.htmlURL];
+		WebController *webController = [[WebController alloc] initWithURL:self.organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -180,21 +176,21 @@
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.organization.blogURL) {
-		viewController = [WebController controllerWithURL:self.organization.blogURL];
+		viewController = [[WebController alloc] initWithURL:self.organization.blogURL];
 	} else if (section == 0 && row == 2 && self.organization.email) {
 		MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:[NSArray arrayWithObject:self.organization.email]];
 		[self presentModalViewController:mailComposer animated:YES];
 	} else if (section == 1) {
-		viewController = [EventsController controllerWithEvents:self.organization.events];
+		viewController = [[EventsController alloc] initWithEvents:self.organization.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 2) {
 		GHUser *selectedUser = [self.organization.publicMembers.users objectAtIndex:indexPath.row];
-		viewController = [UserController controllerWithUser:(GHUser *)selectedUser];
+		viewController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
 	} else if (section == 3) {
 		GHRepository *repo = [self.organization.repositories.repositories objectAtIndex:indexPath.row];
-		viewController = [RepositoryController controllerWithRepository:repo];
+		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	}
 	// Maybe push a controller
 	if (viewController) {

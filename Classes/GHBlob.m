@@ -7,10 +7,6 @@
 
 @implementation GHBlob
 
-+ (id)blobWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
-  return [[self.class alloc] initWithRepo:theRepo andSha:theSha];
-}
-
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
 	self = [super init];
 	if (self) {

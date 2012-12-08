@@ -16,15 +16,11 @@
 
 @implementation SearchController
 
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[SearchController alloc] initWithUser:theUser];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
 	self = [super initWithNibName:@"Search" bundle:nil];
 	if (self) {
-		GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
-		GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
+		GHSearch *userSearch = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
+		GHSearch *repoSearch = [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
 		self.searches = [NSArray arrayWithObjects:userSearch, repoSearch, nil];
 		for (GHSearch *search in self.searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
@@ -118,9 +114,9 @@
 	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:[GHRepository class]]) {
-		viewController = [RepositoryController controllerWithRepository:(GHRepository *)object];
+		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		viewController = [UserController controllerWithUser:(GHUser *)object];
+		viewController = [[UserController alloc] initWithUser:(GHUser *)object];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

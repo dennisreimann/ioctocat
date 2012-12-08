@@ -28,7 +28,6 @@
 @property(nonatomic,readwrite)BOOL hasDownloads;
 @property (nonatomic, strong) NSDate *pushedAtDate;
 
-+ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (int)compareByName:(GHRepository*)repo;

@@ -7,7 +7,6 @@
 @interface MyEventsController : EventsController
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 
-+ (id)controllerWithUser:(GHUser *)theUser;
 - (id)initWithUser:(GHUser *)theUser;
 - (BOOL)refreshCurrentFeedIfRequired;
 - (IBAction)switchChanged:(id)sender;

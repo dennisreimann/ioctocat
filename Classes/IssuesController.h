@@ -11,8 +11,6 @@
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 @property(nonatomic,strong)IBOutlet IssueCell *issueCell;
 
-+ (id)controllerWithUser:(GHUser *)theUser;
-+ (id)controllerWithRepository:(GHRepository *)theRepository;
 - (id)initWithUser:(GHUser *)theUser;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)reloadIssues;

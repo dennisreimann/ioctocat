@@ -6,7 +6,6 @@
 
 @property(nonatomic,strong)NSMutableArray *repositories;
 
-+ (id)repositoriesWithPath:(NSString *)thePath;
 - (id)initWithPath:(NSString *)thePath;
 
 @end

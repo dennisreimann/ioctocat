@@ -6,10 +6,6 @@
 
 @implementation GHForks
 
-+ (id)forksWithRepository:(GHRepository *)theRepository {
-	return [[self.class alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
 	self = [super init];
 	if (self) {
@@ -24,7 +20,7 @@
 	for (NSDictionary *repoDict in theResponse) {
 		NSString *owner = [repoDict valueForKeyPath:@"owner.login"];
 		NSString *name = [repoDict valueForKey:@"name"];
-		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:name];
+		GHRepository *resource = [[GHRepository alloc] initWithOwner:owner andName:name];
 		[resource setValues:repoDict];
 		[resources addObject:resource];
 	}

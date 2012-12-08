@@ -23,22 +23,14 @@
 
 @implementation IssuesController
 
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[IssuesController alloc] initWithUser:theUser];
-}
-
-+ (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[IssuesController alloc] initWithRepository:theRepository];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
 	self = [super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"My Issues";
 	self.user = theUser;
 	NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 	NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
-	GHIssues *openIssues = [GHIssues issuesWithResourcePath:openPath];
-	GHIssues *closedIssues = [GHIssues issuesWithResourcePath:closedPath];
+	GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
+	GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
 	self.issueList = [NSArray arrayWithObjects:openIssues, closedIssues, nil];
 	for (GHIssues *issues in self.issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
@@ -79,8 +71,8 @@
 }
 
 - (IBAction)createNewIssue:(id)sender {
-	GHIssue *theIssue = [GHIssue issueWithRepository:self.repository];
-	IssueFormController *formController = [IssueFormController controllerWithIssue:theIssue andIssuesController:self];
+	GHIssue *theIssue = [[GHIssue alloc] initWithRepository:self.repository];
+	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:theIssue andIssuesController:self];
 	[self.navigationController pushViewController:formController animated:YES];
 }
 
@@ -143,7 +135,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentIssues.isLoaded || self.currentIssues.entries.count == 0) return;
 	GHIssue *issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
-	IssueController *issueController = [IssueController controllerWithIssue:issue andIssuesController:self];
+	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 }
 

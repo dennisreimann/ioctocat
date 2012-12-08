@@ -14,7 +14,6 @@
 @property(nonatomic,strong)NSURL *endpointURL;
 @property(nonatomic,strong)NSURL *apiURL;
 
-+ (id)accountWithDict:(NSDictionary *)theDict;
 - (id)initWithDict:(NSDictionary *)theDict;
 
 @end

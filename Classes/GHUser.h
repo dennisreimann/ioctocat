@@ -33,7 +33,6 @@
 @property(nonatomic)NSUInteger followersCount;
 @property(nonatomic)NSUInteger followingCount;
 
-+ (id)userWithLogin:(NSString *)theLogin;
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;
 - (void)loadedGravatar:(UIImage *)theImage;

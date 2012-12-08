@@ -13,10 +13,6 @@
 
 @implementation IssueFormController
 
-+ (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	return [[self.class alloc] initWithIssue:theIssue andIssuesController:theController];
-}
-
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
 	self = [super initWithNibName:@"IssueForm" bundle:nil];
 	self.issue = theIssue;

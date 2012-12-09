@@ -14,6 +14,11 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHUser ()
+@property(nonatomic,strong)IOCAvatarLoader *gravatarLoader;
+@end
+
+
 @implementation GHUser
 
 - (id)initWithLogin:(NSString *)theLogin {
@@ -21,7 +26,6 @@
 	if (self) {
 		self.login = theLogin;
 		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
-		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
 		self.isAuthenticated = NO;
 	}
 	return self;
@@ -177,7 +181,10 @@
 - (void)setGravatarURL:(NSURL *)theURL {
 	_gravatarURL = theURL;
 
-	if (self.gravatarURL) [self.gravatarLoader loadURL:self.gravatarURL];
+	if (self.gravatarURL && !self.gravatar) {
+		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
+		[self.gravatarLoader loadURL:self.gravatarURL];
+	}
 }
 
 - (void)loadedGravatar:(UIImage *)theImage {

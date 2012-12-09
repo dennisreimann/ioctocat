@@ -1,8 +1,8 @@
-#import "GHTextField.h"
+#import "IOCTextField.h"
 #import <QuartzCore/QuartzCore.h>
 
 
-@implementation GHTextField
+@implementation IOCTextField
 
 - (void)awakeFromNib {
 	CGColorRef lightGray = [UIColor colorWithWhite:0.853 alpha:1.000].CGColor;

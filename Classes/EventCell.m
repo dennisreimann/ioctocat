@@ -1,7 +1,7 @@
 #import "EventCell.h"
 #import "GHEvent.h"
 #import "GHUser.h"
-#import "GravatarLoader.h"
+#import "IOCAvatarLoader.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
 #import "GHGist.h"

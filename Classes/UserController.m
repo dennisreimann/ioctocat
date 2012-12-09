@@ -10,7 +10,7 @@
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
 #import "OrganizationCell.h"
-#import "GravatarLoader.h"
+#import "IOCAvatarLoader.h"
 #import "iOctocat.h"
 #import "UsersController.h"
 #import "EventsController.h"

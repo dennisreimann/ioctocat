@@ -1,9 +1,9 @@
 #import <CommonCrypto/CommonDigest.h>
-#import "GravatarLoader.h"
+#import "IOCAvatarLoader.h"
 #import "NSURL+Extensions.h"
 
 
-@interface GravatarLoader ()
+@interface IOCAvatarLoader ()
 @property(nonatomic,strong)id target;
 @property(nonatomic,assign)SEL handle;
 
@@ -11,7 +11,7 @@
 @end
 
 
-@implementation GravatarLoader
+@implementation IOCAvatarLoader
 
 + (id)loaderWithTarget:(id)theTarget andHandle:(SEL)theHandle {
 	return [[self.class alloc] initWithTarget:theTarget andHandle:theHandle];

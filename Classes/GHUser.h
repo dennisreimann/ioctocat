@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GravatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHEvents, GHGists, GHGist;
+@class IOCAvatarLoader, GHUsers, GHOrganizations, GHRepositories, GHRepository, GHEvents, GHGists, GHGist;
 
 @interface GHUser : GHResource
 
@@ -15,7 +15,7 @@
 @property(nonatomic,strong)NSURL *blogURL;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)UIImage *gravatar;
-@property(nonatomic,strong)GravatarLoader *gravatarLoader;
+@property(nonatomic,strong)IOCAvatarLoader *gravatarLoader;
 @property(nonatomic,strong)GHOrganizations *organizations;
 @property(nonatomic,strong)GHRepositories *repositories;
 @property(nonatomic,strong)GHRepositories *starredRepositories;

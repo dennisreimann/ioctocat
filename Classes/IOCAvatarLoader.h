@@ -1,7 +1,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface GravatarLoader : NSObject
+@interface IOCAvatarLoader : NSObject
 
 + (id)loaderWithTarget:(id)theTarget andHandle:(SEL)theHandle;
 - (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle;

@@ -7,7 +7,7 @@
 #import "GHGist.h"
 #import "GHGists.h"
 #import "GHResource.h"
-#import "GravatarLoader.h"
+#import "IOCAvatarLoader.h"
 #import "IOCAvatarCache.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
@@ -29,7 +29,7 @@
 	if (self) {
 		self.login = theLogin;
 		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
-		self.gravatarLoader = [GravatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
+		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
 		self.isAuthenticated = NO;
 	}
 	return self;

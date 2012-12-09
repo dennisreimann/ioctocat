@@ -11,8 +11,6 @@
 @property(nonatomic,strong)NSString *login;
 @property(nonatomic,strong)NSString *password;
 @property(nonatomic,strong)NSString *endpoint;
-@property(nonatomic,strong)NSURL *endpointURL;
-@property(nonatomic,strong)NSURL *apiURL;
 
 - (id)initWithDict:(NSDictionary *)theDict;
 

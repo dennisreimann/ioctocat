@@ -20,14 +20,11 @@
 		self.password = [theDict valueForKey:kPasswordDefaultsKey defaultsTo:@""];
 		self.endpoint = [theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
 		// construct endpoint URL and set up API client
-		if ([self.endpoint isEmpty]) {
-			self.endpointURL = [NSURL URLWithString:kGitHubBaseURL];
-			self.apiURL = [NSURL URLWithString:kGitHubApiURL];
-		} else {
-			self.endpointURL = [NSURL URLWithString:self.endpoint];
-			self.apiURL = [self.endpointURL URLByAppendingPathComponent:kEnterpriseApiPath];
+		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
+		if (![self.endpoint isEmpty]) {
+			apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
 		}
-		self.apiClient = [[GHApiClient alloc] initWithBaseURL:self.apiURL];
+		self.apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
 		[self.apiClient setAuthorizationHeaderWithUsername:self.login password:self.password];
 		// user with authenticated URLs
 		self.user = [[iOctocat sharedInstance] userWithLogin:self.login];

@@ -1,4 +1,4 @@
-#import "AccountMenuController.h"
+#import "MenuController.h"
 #import "MyEventsController.h"
 #import "UserController.h"
 #import "RepositoriesController.h"
@@ -7,7 +7,6 @@
 #import "IssuesController.h"
 #import "GistsController.h"
 #import "SearchController.h"
-#import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
@@ -21,22 +20,20 @@
 #define kCellHeight 40.0f
 #define kSectionHeaderHeight 24.0f
 
-@interface AccountMenuController ()
-@property(nonatomic,weak)GHUser *user;
-@property(nonatomic,strong)GHAccount *account;
+@interface MenuController ()
+@property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSMutableArray *menu;
 @end
 
 
-@implementation AccountMenuController
+@implementation MenuController
 
-- (id)initWithAccount:(GHAccount *)theAccount {
+- (id)initWithUser:(GHUser *)theUser {
 	self = [self initWithNibName:@"AccountMenu" bundle:nil];
 	if (self) {
 		NSString *menuPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
 		self.menu = [NSMutableArray arrayWithContentsOfFile:menuPath];
-		self.account = theAccount;
-		self.user = self.account.user;
+		self.user = theUser;
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -180,7 +177,7 @@
 	switch (section) {
 		case 0:
 			if (row == 0) {
-				viewController = [[MyEventsController alloc] initWithUser:self.account.user];
+				viewController = [[MyEventsController alloc] initWithUser:self.user];
 			} else {
 				GHOrganization *org = [self.user.organizations.organizations objectAtIndex:row - 1];
 				viewController = [[EventsController alloc] initWithEvents:org.events];
@@ -190,7 +187,7 @@
 			
 		case 1:
 			if (row == 0) {
-				viewController = [[UserController alloc] initWithUser:self.account.user];
+				viewController = [[UserController alloc] initWithUser:self.user];
 			} else if (row == 1) {
 				viewController = [[OrganizationsController alloc] initWithOrganizations:self.user.organizations];
 			}
@@ -198,20 +195,20 @@
 			
 		case 2:
 			if (row == 0) {
-				viewController = [[RepositoriesController alloc] initWithUser:self.account.user];
+				viewController = [[RepositoriesController alloc] initWithUser:self.user];
 			} else if (row == 1) {
 				viewController = [[OrganizationRepositoriesController alloc] initWithUser:self.user];
 			} else if (row == 2) {
-				viewController = [[IssuesController alloc] initWithUser:self.account.user];
+				viewController = [[IssuesController alloc] initWithUser:self.user];
 			}
 			break;
 			
 		case 3:
 			if (row == 0) {
-				viewController = [[GistsController alloc] initWithGists:self.account.user.gists];
+				viewController = [[GistsController alloc] initWithGists:self.user.gists];
 				viewController.title = @"Gists";
 			} else if (row == 1) {
-				viewController = [[GistsController alloc] initWithGists:self.account.user.starredGists];
+				viewController = [[GistsController alloc] initWithGists:self.user.starredGists];
 				viewController.title = @"Starred Gists";
 			}
 			break;

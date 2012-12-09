@@ -1,6 +1,6 @@
 #import "AccountsController.h"
 #import "MyEventsController.h"
-#import "AccountMenuController.h"
+#import "MenuController.h"
 #import "AccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"

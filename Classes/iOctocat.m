@@ -6,7 +6,7 @@
 #import "GHOrganizations.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
-#import "AccountMenuController.h"
+#import "MenuController.h"
 #import "WebController.h"
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
@@ -71,7 +71,7 @@
 			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
 		}];
 	} else if (self.currentAccount.user.isAuthenticated) {
-		AccountMenuController *menuController = [[AccountMenuController alloc] initWithAccount:self.currentAccount];
+		MenuController *menuController = [[MenuController alloc] initWithUser:self.currentAccount.user];
 		[self.menuNavController popToRootViewControllerAnimated:NO];
 		[self.menuNavController pushViewController:menuController animated:YES];
 	}

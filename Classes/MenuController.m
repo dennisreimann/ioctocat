@@ -29,7 +29,7 @@
 @implementation MenuController
 
 - (id)initWithUser:(GHUser *)theUser {
-	self = [self initWithNibName:@"AccountMenu" bundle:nil];
+	self = [self initWithNibName:@"Menu" bundle:nil];
 	if (self) {
 		NSString *menuPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
 		self.menu = [NSMutableArray arrayWithContentsOfFile:menuPath];

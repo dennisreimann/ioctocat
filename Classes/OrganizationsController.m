@@ -1,6 +1,6 @@
 #import "OrganizationsController.h"
 #import "OrganizationController.h"
-#import "OrganizationCell.h"
+#import "UserObjectCell.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
 #import "GHUser.h"
@@ -59,12 +59,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.organizations.isLoaded) return self.loadingCell;
 	if (self.organizations.organizations.count == 0) return self.noOrganizationsCell;
-	OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:kOrganizationCellIdentifier];
+	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
-		cell = self.organizationCell;
+		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+		cell = self.userObjectCell;
 	}
-    cell.organization = [self.organizations.organizations objectAtIndex:indexPath.row];
+    cell.userObject = [self.organizations.organizations objectAtIndex:indexPath.row];
 	return cell;
 }
 

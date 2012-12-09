@@ -10,7 +10,7 @@
 #import "GHRepositories.h"
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
-#import "UserCell.h"
+#import "UserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "iOctocat.h"
@@ -150,12 +150,12 @@
 	if (section == 2 && !self.organization.publicMembers.isLoaded) return self.loadingMembersCell;
 	if (section == 2 && self.organization.publicMembers.users.count == 0) return self.noPublicMembersCell;
 	if (section == 2) {
-		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
-			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-			cell = self.userCell;
+			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+			cell = self.userObjectCell;
 		}
-		cell.user = [self.organization.publicMembers.users objectAtIndex:indexPath.row];
+		cell.userObject = [self.organization.publicMembers.users objectAtIndex:indexPath.row];
 		return cell;
 	}
 	if (section == 3 && !self.organization.repositories.isLoaded) return self.loadingReposCell;

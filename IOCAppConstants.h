@@ -29,11 +29,10 @@
 #define kResourceContentTypeAtom        @"application/atom+xml"
 
 // Tables
+#define kUserObjectCellIdentifier       @"UserObjectCell"
 #define kRepositoryCellIdentifier       @"RepositoryCell"
-#define kUserCellIdentifier             @"UserCell"
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
-#define kOrganizationCellIdentifier     @"OrganizationCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"

@@ -4,7 +4,7 @@
 #import "GHUser.h"
 #import "GHSearch.h"
 #import "RepositoryCell.h"
-#import "UserCell.h"
+#import "UserObjectCell.h"
 #import "iOctocat.h"
 
 
@@ -99,12 +99,12 @@
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
-			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-			cell = self.userCell;
+			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+			cell = self.userObjectCell;
 		}
-		cell.user = (GHUser *)object;
+		cell.userObject = object;
 		return cell;
 	}
 	return nil;

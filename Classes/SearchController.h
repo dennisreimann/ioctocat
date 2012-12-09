@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHUser, UserCell;
+@class GHUser, UserObjectCell;
 
 @interface SearchController : UITableViewController
-@property(nonatomic,strong)UserCell *userCell;
+@property(nonatomic,strong)UserObjectCell *userObjectCell;
 @property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;

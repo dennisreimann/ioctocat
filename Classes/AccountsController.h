@@ -2,10 +2,10 @@
 #import "AuthenticationController.h"
 
 
-@class UserCell;
+@class UserObjectCell;
 
 @interface AccountsController : UITableViewController <AuthenticationControllerDelegate>
-@property(nonatomic,strong)IBOutlet UserCell *userCell;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
 + (void)saveAccounts:(NSMutableArray *)theAccounts;
 - (IBAction)addAccount:(id)sender;

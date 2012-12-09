@@ -4,7 +4,7 @@
 #import "AccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
-#import "UserCell.h"
+#import "UserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
@@ -92,15 +92,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = self.userCell;
+		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+		cell = self.userObjectCell;
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
 	NSDictionary *accountDict = [self.accounts objectAtIndex:indexPath.row];
 	NSString *login = [accountDict objectForKey:kLoginDefaultsKey];
-	cell.user = [[iOctocat sharedInstance] userWithLogin:login];
+	cell.userObject = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
 }
 

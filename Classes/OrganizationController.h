@@ -2,7 +2,7 @@
 #import <MessageUI/MessageUI.h>
 
 
-@class GHOrganization, GHUser, LabeledCell, UserCell;
+@class GHOrganization, GHUser, LabeledCell, UserObjectCell;
 
 @interface OrganizationController : UITableViewController <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
@@ -21,7 +21,7 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
-@property(nonatomic,strong)IBOutlet UserCell *userCell;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
 - (id)initWithOrganization:(GHOrganization *)theOrganization;
 - (IBAction)showActions:(id)sender;

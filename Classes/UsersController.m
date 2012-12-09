@@ -1,7 +1,7 @@
 #import "UsersController.h"
 #import "UserController.h"
 #import "GHUsers.h"
-#import "UserCell.h"
+#import "UserObjectCell.h"
 #import "iOctocat.h"
 
 
@@ -50,12 +50,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.users.isLoaded) return self.loadingCell;
 	if (self.users.users.count == 0) return self.noUsersCell;
-	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = self.userCell;
+		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+		cell = self.userObjectCell;
 	}
-    cell.user = [self.users.users objectAtIndex:indexPath.row];
+    cell.userObject = [self.users.users objectAtIndex:indexPath.row];
 	return cell;
 }
 

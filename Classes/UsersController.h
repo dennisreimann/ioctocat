@@ -1,10 +1,10 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHUsers, UserCell;
+@class GHUsers, UserObjectCell;
 
 @interface UsersController : UITableViewController
-@property(nonatomic,strong)IBOutlet UserCell *userCell;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
 

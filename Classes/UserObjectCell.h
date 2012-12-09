@@ -1,10 +1,8 @@
 #import <UIKit/UIKit.h>
 
 
-@class GHOrganization;
-
-@interface OrganizationCell : UITableViewCell
-@property(nonatomic,strong)GHOrganization *organization;
+@interface UserObjectCell : UITableViewCell
+@property(nonatomic,strong)id userObject;
 @property(nonatomic,weak)IBOutlet UILabel *loginLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 @end

@@ -9,7 +9,7 @@
 #import "GHRepositories.h"
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
-#import "OrganizationCell.h"
+#import "UserObjectCell.h"
 #import "IOCAvatarLoader.h"
 #import "iOctocat.h"
 #import "UsersController.h"
@@ -174,12 +174,12 @@
 	if (section == 3 && !self.user.organizations.isLoaded) return self.loadingOrganizationsCell;
 	if (section == 3 && self.user.organizations.organizations.count == 0) return self.noPublicOrganizationsCell;
 	if (section == 3) {
-		OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:kOrganizationCellIdentifier];
+		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
-			[[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
-			cell = self.organizationCell;
+			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+			cell = self.userObjectCell;
 		}
-		cell.organization = [self.user.organizations.organizations objectAtIndex:indexPath.row];
+		cell.userObject = [self.user.organizations.organizations objectAtIndex:indexPath.row];
 		return cell;
 	}
 	return nil;

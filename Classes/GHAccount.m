@@ -35,7 +35,10 @@
 		self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
 		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
-		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.organizations addObserver:self
+								  forKeyPath:kResourceLoadingStatusKeyPath
+									 options:NSKeyValueObservingOptionNew
+									 context:nil];
 	}
 	return self;
 }

@@ -12,13 +12,14 @@
 @property(nonatomic,strong)NSString *mainBranch;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)NSURL *homepageURL;
+@property(nonatomic,strong)NSDate *pushedAtDate;
 @property(nonatomic,strong)GHIssues *openIssues;
 @property(nonatomic,strong)GHIssues *closedIssues;
 @property(nonatomic,strong)GHForks *forks;
 @property(nonatomic,strong)GHBranches *branches;
 @property(nonatomic,strong)GHReadme *readme;
 @property(nonatomic,strong)GHEvents *events;
-@property(weak, nonatomic,readonly)GHUser *user;
+@property(nonatomic,readonly)GHUser *user;
 @property(nonatomic,readwrite)NSInteger forkCount;
 @property(nonatomic,readwrite)NSInteger watcherCount;
 @property(nonatomic,readwrite)BOOL isPrivate;
@@ -26,7 +27,6 @@
 @property(nonatomic,readwrite)BOOL hasIssues;
 @property(nonatomic,readwrite)BOOL hasWiki;
 @property(nonatomic,readwrite)BOOL hasDownloads;
-@property (nonatomic, strong) NSDate *pushedAtDate;
 
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;

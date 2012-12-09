@@ -17,8 +17,6 @@ typedef enum {
 @property(nonatomic,strong)NSString *resourcePath;
 @property(nonatomic,strong)NSError *error;
 @property(nonatomic,strong)NSDictionary *data;
-
-// Convenience Accessors
 @property(nonatomic,readonly)BOOL isLoaded;
 @property(nonatomic,readonly)BOOL isLoading;
 @property(nonatomic,readonly)BOOL isSaved;

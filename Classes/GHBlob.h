@@ -13,7 +13,7 @@
 @property(nonatomic,strong)NSString *encoding;
 @property(nonatomic,strong)NSString *content;
 @property(nonatomic,strong)NSData *contentData;
-@property(nonatomic,readwrite)NSUInteger size;
+@property(nonatomic,assign)NSUInteger size;
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
 

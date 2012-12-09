@@ -24,7 +24,7 @@
 @property(nonatomic,strong)GHOrganization *organization;
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *content;
-@property(weak, nonatomic,readonly)NSString *extendedEventType;
+@property(nonatomic,readonly)NSString *extendedEventType;
 @property(nonatomic,readonly)BOOL isCommentEvent;
 @property(nonatomic,readwrite)BOOL read;
 

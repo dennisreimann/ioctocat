@@ -13,10 +13,10 @@
 @property(nonatomic,strong)NSDate *createdAtDate;
 @property(nonatomic,strong)NSString *descriptionText;
 @property(nonatomic,strong)NSDictionary *files;
+@property(nonatomic,readonly)NSString *title;
 @property(nonatomic,readwrite)NSUInteger commentsCount;
 @property(nonatomic,readwrite)NSUInteger forksCount;
 @property(nonatomic,readwrite)BOOL isPrivate;
-@property(weak, nonatomic,readonly)NSString *title;
 
 - (id)initWithId:(NSString *)theId;
 

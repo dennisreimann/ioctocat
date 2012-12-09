@@ -19,12 +19,12 @@
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)GHRepositories *repositories;
 @property(nonatomic,strong)IOCAvatarLoader *gravatarLoader;
-@property(nonatomic)NSUInteger followersCount;
-@property(nonatomic)NSUInteger followingCount;
-@property(nonatomic)NSUInteger publicGistCount;
-@property(nonatomic)NSUInteger privateGistCount;
-@property(nonatomic)NSUInteger publicRepoCount;
-@property(nonatomic)NSUInteger privateRepoCount;
+@property(nonatomic,assign)NSUInteger followersCount;
+@property(nonatomic,assign)NSUInteger followingCount;
+@property(nonatomic,assign)NSUInteger publicGistCount;
+@property(nonatomic,assign)NSUInteger privateGistCount;
+@property(nonatomic,assign)NSUInteger publicRepoCount;
+@property(nonatomic,assign)NSUInteger privateRepoCount;
 
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;

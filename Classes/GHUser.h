@@ -25,13 +25,13 @@
 @property(nonatomic,strong)GHUsers *followers;
 @property(nonatomic,strong)GHGists *gists;
 @property(nonatomic,strong)GHGists *starredGists;
-@property(nonatomic)BOOL isAuthenticated;
-@property(nonatomic)NSUInteger publicGistCount;
-@property(nonatomic)NSUInteger privateGistCount;
-@property(nonatomic)NSUInteger publicRepoCount;
-@property(nonatomic)NSUInteger privateRepoCount;
-@property(nonatomic)NSUInteger followersCount;
-@property(nonatomic)NSUInteger followingCount;
+@property(nonatomic,assign)BOOL isAuthenticated;
+@property(nonatomic,assign)NSUInteger publicGistCount;
+@property(nonatomic,assign)NSUInteger privateGistCount;
+@property(nonatomic,assign)NSUInteger publicRepoCount;
+@property(nonatomic,assign)NSUInteger privateRepoCount;
+@property(nonatomic,assign)NSUInteger followersCount;
+@property(nonatomic,assign)NSUInteger followingCount;
 
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;

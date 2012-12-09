@@ -14,14 +14,6 @@
 #import "NSDictionary+Extensions.h"
 
 
-@interface GHUser ()
-- (void)setFollowing:(BOOL)theMode forUser:(GHUser *)theUser;
-- (void)setWatching:(BOOL)theMode forRepository:(GHRepository *)theRepository;
-- (void)setStarring:(BOOL)theMode forRepository:(GHRepository *)theRepository;
-- (void)setStarring:(BOOL)theMode forGist:(GHGist *)theGist;
-@end
-
-
 @implementation GHUser
 
 - (id)initWithLogin:(NSString *)theLogin {

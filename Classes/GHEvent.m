@@ -15,12 +15,6 @@
 #import "NSDictionary+Extensions.h"
 
 
-@interface GHEvent ()
-- (NSString *)shortenMessage:(NSString *)longMessage;
-- (NSString *)shortenSha:(NSString *)longSha;
-- (NSString *)shortenRef:(NSString *)longRef;
-@end
-
 @implementation GHEvent
 
 - (id)initWithDict:(NSDictionary *)theDict {

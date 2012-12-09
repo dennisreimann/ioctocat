@@ -9,21 +9,23 @@
 
 - (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
 	self = [self initWithParent:theParent];
-
-	NSString *createdAt = [theDict valueForKey:@"created_at"];
-	NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-	NSDictionary *userDict = [theDict valueForKey:@"user"];
-	[self setUserWithValues:userDict];
-	self.body = [theDict valueForKey:@"body"];
-	self.created = [iOctocat parseDate:createdAt];
-	self.updated = [iOctocat parseDate:updatedAt];
-
+	if (self) {
+		NSString *createdAt = [theDict valueForKey:@"created_at"];
+		NSString *updatedAt = [theDict valueForKey:@"updated_at"];
+		NSDictionary *userDict = [theDict valueForKey:@"user"];
+		[self setUserWithValues:userDict];
+		self.body = [theDict valueForKey:@"body"];
+		self.created = [iOctocat parseDate:createdAt];
+		self.updated = [iOctocat parseDate:updatedAt];
+	}
 	return self;
 }
 
 - (id)initWithParent:(id)theParent {
 	self = [super init];
-	self.parent = theParent;
+	if (self) {
+		self.parent = theParent;
+	}
 	return self;
 }
 

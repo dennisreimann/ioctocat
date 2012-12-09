@@ -14,7 +14,6 @@
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
 #import "MenuCell.h"
-#import "NSString+Extensions.h"
 
 
 #define kCellHeight 40.0f
@@ -157,7 +156,7 @@
 		GHUser *object = (row == 0) ? self.user : [self.user.organizations.organizations objectAtIndex:row - 1];
 		cell.imageView.highlightedImage = object.gravatar;
 		cell.imageView.image = object.gravatar;
-		cell.textLabel.text = [object.name isEmpty] ? object.login : object.name;
+		cell.textLabel.text = object.login;
 	} else {
 		NSDictionary *dict = [menu objectAtIndex:row];
 		NSString *imageName = [dict valueForKey:@"image"];

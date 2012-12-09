@@ -8,7 +8,6 @@
 #import "GHIssue.h"
 #import "GHPullRequest.h"
 #import "NSDate+Nibware.h"
-#import "NSString+TruncateToSize.h"
 
 
 @interface EventCell ()
@@ -61,12 +60,16 @@
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
 	// Truncate long comments
+	NSString *text = self.event.content;
 	if (self.event.isCommentEvent) {
-		CGFloat textWidth = [self textWidthForOuterWidth:self.frame.size.width] * 2;
-		NSString *text = [self.event.content truncateToSize:CGSizeMake(textWidth, 75) withFont:self.contentTextView.font lineBreakMode:NSLineBreakByTruncatingTail];
+		NSInteger truncateLength = 175;
+		if (text.length > truncateLength) {
+			NSRange range = {0, truncateLength};
+			text = [NSString stringWithFormat:@"%@ […]", [self.event.content substringWithRange:range]];
+		}
 		[self setContentText:text];
 	} else {
-		[self setContentText:self.event.content];
+		[self setContentText:text];
 	}
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];

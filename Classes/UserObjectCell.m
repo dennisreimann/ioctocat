@@ -4,6 +4,8 @@
 
 @interface UserObjectCell ()
 @property(nonatomic,readonly)GHUser *object;
+@property(nonatomic,weak)IBOutlet UILabel *loginLabel;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 @end
 
 

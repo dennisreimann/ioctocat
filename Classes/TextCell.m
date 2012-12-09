@@ -3,11 +3,16 @@
 
 
 @interface TextCell ()
+@property(nonatomic,weak)IBOutlet UITextView *contentTextView;
+
+- (void)adjustTextViewHeight;
+- (CGFloat)textInset;
 - (CGFloat)marginTop;
 - (CGFloat)marginRight;
 - (CGFloat)marginBottom;
 - (CGFloat)marginLeft;
 @end
+
 
 @implementation TextCell
 

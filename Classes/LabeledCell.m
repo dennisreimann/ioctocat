@@ -2,6 +2,13 @@
 #import "NSString+Extensions.h"
 
 
+@interface LabeledCell ()
+@property(nonatomic,assign)BOOL hasContent;
+@property(nonatomic,weak)IBOutlet UILabel *label;
+@property(nonatomic,weak)IBOutlet UILabel *content;
+@end
+
+
 @implementation LabeledCell
 
 - (void)setLabelText:(NSString *)text {

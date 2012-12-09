@@ -12,7 +12,40 @@
 
 
 @interface EventCell ()
+@property(nonatomic,weak)IBOutlet UIView *actionsView;
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UILabel *titleLabel;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UITextView *contentTextView;
+@property(nonatomic,strong)IBOutlet UIButton *repositoryButton;
+@property(nonatomic,strong)IBOutlet UIButton *otherRepositoryButton;
+@property(nonatomic,strong)IBOutlet UIButton *userButton;
+@property(nonatomic,strong)IBOutlet UIButton *otherUserButton;
+@property(nonatomic,strong)IBOutlet UIButton *organizationButton;
+@property(nonatomic,strong)IBOutlet UIButton *issueButton;
+@property(nonatomic,strong)IBOutlet UIButton *pullRequestButton;
+@property(nonatomic,strong)IBOutlet UIButton *wikiButton;
+@property(nonatomic,strong)IBOutlet UIButton *commitButton;
+@property(nonatomic,strong)IBOutlet UIButton *gistButton;
+
+- (CGFloat)marginTop;
+- (CGFloat)marginRight;
+- (CGFloat)marginBottom;
+- (CGFloat)marginLeft;
+- (CGFloat)textInset;
+- (void)adjustTextViewHeight;
 - (void)positionActionView;
+- (IBAction)showRepository:(id)sender;
+- (IBAction)showOtherRepository:(id)sender;
+- (IBAction)showUser:(id)sender;
+- (IBAction)showOtherUser:(id)sender;
+- (IBAction)showOrganization:(id)sender;
+- (IBAction)showIssue:(id)sender;
+- (IBAction)showPullRequest:(id)sender;
+- (IBAction)showWiki:(id)sender;
+- (IBAction)showCommit:(id)sender;
+- (IBAction)showGist:(id)sender;
 @end
 
 
@@ -108,6 +141,18 @@
 	}
 }
 
+- (void)adjustTextViewHeight {
+	CGRect frame = self.contentTextView.frame;
+	frame.size.height = self.hasContent ? self.contentTextView.contentSize.height + self.textInset : 0.0f;
+	self.contentTextView.frame = frame;
+}
+
+#pragma mark Layout
+
+- (CGFloat)textInset {
+	return 8.0f; // UITextView has an inset of 8px on each side
+}
+
 - (CGFloat)heightForTableView:(UITableView *)tableView {
 	return self.normalHeight + [super heightForTableView:tableView] + self.actionsView.frame.size.height;
 }
@@ -183,7 +228,7 @@
 }
 
 - (void)positionActionView {
-	[super adjustTextViewHeight];
+	[self adjustTextViewHeight];
 	// position action view at bottom
 	CGRect frame = self.actionsView.frame;
 	frame.size.width = self.actionsView.subviews.count * 58.0f;

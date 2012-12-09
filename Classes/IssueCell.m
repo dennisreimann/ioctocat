@@ -5,6 +5,17 @@
 #import "NSDate+Nibware.h"
 
 
+@interface IssueCell ()
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UILabel *titleLabel;
+@property(nonatomic,weak)IBOutlet UILabel *detailLabel;
+@property(nonatomic,weak)IBOutlet UILabel *votesLabel;
+@property(nonatomic,weak)IBOutlet UILabel *repoLabel;
+@property(nonatomic,weak)IBOutlet UILabel *issueNumber;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@end
+
+
 @implementation IssueCell
 
 - (void)setIssue:(GHIssue *)anIssue {

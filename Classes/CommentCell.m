@@ -4,6 +4,13 @@
 #import "GHUser.h"
 
 
+@interface CommentCell ()
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UILabel *userLabel;
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@end
+
+
 @implementation CommentCell
 
 - (void)dealloc {

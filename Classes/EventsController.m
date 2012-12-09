@@ -20,6 +20,9 @@
 #import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
 
+#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
+#define kEventCellIdentifier @"EventCell"
+
 
 @interface EventsController ()
 @property(nonatomic,strong)GHEvents *events;

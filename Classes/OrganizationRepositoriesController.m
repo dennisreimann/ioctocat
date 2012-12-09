@@ -9,6 +9,9 @@
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
 
+#define kLoadingCellIdentifier @"LoadingCell"
+#define kEmptyCellIdentifier @"EmptyCell"
+
 
 @interface OrganizationRepositoriesController ()
 @property(nonatomic,weak,readonly)GHUser *currentUser;

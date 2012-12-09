@@ -8,6 +8,8 @@
 #import "GHUser.h"
 #import "iOctocat.h"
 
+#define kIssueCellIdentifier @"IssueCell"
+
 
 @interface IssuesController ()
 @property(nonatomic,assign)NSUInteger loadCounter;

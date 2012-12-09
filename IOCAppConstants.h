@@ -1,5 +1,4 @@
 // Settings
-#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kLoginDefaultsKey                    @"username"
 #define kPasswordDefaultsKey                 @"password"
 #define kEndpointDefaultsKey                 @"endpoint"
@@ -25,7 +24,6 @@
 #define kResourceLoadingStatusKeyPath   @"loadingStatus"
 #define kResourceSavingStatusKeyPath    @"savingStatus"
 #define kGravatarKeyPath                @"gravatar"
-#define kImageGravatarMaxLogicalSize    50
 
 // Content Types
 #define kResourceContentTypeDefault     @"application/vnd.github+json"
@@ -36,16 +34,11 @@
 #define kResourceContentTypeAtom        @"application/atom+xml"
 
 // Tables
-#define kCodeCellIdentifier             @"CodeCell"
 #define kRepositoryCellIdentifier       @"RepositoryCell"
-#define kEventCellIdentifier            @"EventCell"
-#define kIssueCellIdentifier            @"IssueCell"
 #define kUserCellIdentifier             @"UserCell"
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
 #define kOrganizationCellIdentifier     @"OrganizationCell"
-#define kLoadingCellIdentifier          @"LoadingCell"
-#define kEmptyCellIdentifier            @"EmptyCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"
@@ -115,6 +108,6 @@
 #define kTreeFormat                     @"repos/%@/%@/git/trees/%@"
 #define kTreeRecursiveFormat            @"repos/%@/%@/git/trees/%@?recursive=1"
 
-// Searc
+// Search
 #define kUserSearchFormat               @"legacy/user/search/%@"
 #define kRepoSearchFormat               @"legacy/repos/search/%@"

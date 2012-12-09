@@ -21,6 +21,8 @@
 #import "TreeController.h"
 #import "NSURL+Extensions.h"
 
+#define kCodeCellIdentifier @"CodeCell"
+
 
 @interface RepositoryController ()
 @property(nonatomic,strong)GHRepository *repository;

@@ -4,7 +4,7 @@
 #import "iOctocat.h"
 
 
-@interface AuthenticationController ()
+@interface AuthenticationController () <UIActionSheetDelegate>
 @property(nonatomic,weak)UIViewController *delegate;
 @property(nonatomic,strong)UIActionSheet *authSheet;
 @property(nonatomic,strong)GHAccount *account;

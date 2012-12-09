@@ -1,9 +1,11 @@
 #import "WebController.h"
 
 
-@interface WebController ()
+@interface WebController () <UIWebViewDelegate>
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,strong)NSString *html;
+@property(nonatomic,weak)IBOutlet UIWebView *webView;
+@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
 @end
 
 

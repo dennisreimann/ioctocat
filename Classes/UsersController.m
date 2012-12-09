@@ -7,6 +7,9 @@
 
 @interface UsersController ()
 @property(nonatomic,strong)GHUsers *users;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
 @end
 
 

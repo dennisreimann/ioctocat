@@ -9,8 +9,16 @@
 
 
 @interface SearchController ()
-@property(weak, nonatomic,readonly)GHSearch *currentSearch;
+@property(nonatomic,readonly)GHSearch *currentSearch;
 @property(nonatomic,strong)NSArray *searches;
+@property(nonatomic,strong)UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
+@property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noResultsCell;
+
+- (IBAction)quitSearching:(id)sender;
+- (IBAction)switchChanged:(id)sender;
 @end
 
 

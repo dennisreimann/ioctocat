@@ -22,6 +22,9 @@
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @property(nonatomic,readwrite)NSUInteger loadCounter;
 @property(nonatomic,weak,readonly)GHEvents *events;
+@property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
+
+- (IBAction)switchChanged:(id)sender;
 @end
 
 @implementation MyEventsController

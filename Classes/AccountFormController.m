@@ -6,10 +6,16 @@
 #import "iOctocat.h"
 
 
-@interface AccountFormController ()
+@interface AccountFormController () <UITextFieldDelegate>
 @property(nonatomic,strong)NSMutableDictionary *account;
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,assign)NSUInteger index;
+@property(nonatomic,weak)IBOutlet UITextField *loginField;
+@property(nonatomic,weak)IBOutlet UITextField *passwordField;
+@property(nonatomic,weak)IBOutlet UITextField *endpointField;
+@property(nonatomic,weak)IBOutlet GradientButton *saveButton;
+
+- (IBAction)saveAccount:(id)sender;
 @end
 
 

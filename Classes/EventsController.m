@@ -19,14 +19,18 @@
 #import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
+#import "EventCell.h"
 
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kEventCellIdentifier @"EventCell"
 
 
-@interface EventsController ()
+@interface EventsController () <EventCellDelegate>
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
+@property(nonatomic,strong)IBOutlet EventCell *selectedCell;
+@property(nonatomic,strong)IBOutlet EventCell *eventCell;
 @end
 
 

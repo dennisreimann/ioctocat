@@ -3,10 +3,16 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface CodeController ()
+@interface CodeController () <UIWebViewDelegate>
 @property(nonatomic,strong)NSDictionary *file;
 @property(nonatomic,strong)NSArray *files;
 @property(nonatomic,assign)NSUInteger index;
+@property(nonatomic,weak)IBOutlet UIView *activityView;
+@property(nonatomic,weak)IBOutlet UIWebView *contentView;
+@property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
+
+- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 @end
 
 

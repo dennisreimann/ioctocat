@@ -1,3 +1,4 @@
+#import <MessageUI/MessageUI.h>
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "OrganizationController.h"
@@ -19,11 +20,32 @@
 #import "GistsController.h"
 
 
-@interface UserController ()
+@interface UserController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property(nonatomic,strong)GHUser *user;
-@property(weak, nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UILabel *nameLabel;
+@property(nonatomic,weak)IBOutlet UILabel *companyLabel;
+@property(nonatomic,weak)IBOutlet UILabel *locationLabel;
+@property(nonatomic,weak)IBOutlet UILabel *blogLabel;
+@property(nonatomic,weak)IBOutlet UILabel *emailLabel;
+@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingUserCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *followersCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *followingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *gistsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
 - (void)displayUser;
+- (IBAction)showActions:(id)sender;
 @end
 
 

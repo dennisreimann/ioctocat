@@ -9,6 +9,11 @@
 
 @interface GistsController ()
 @property(nonatomic,strong)GHGists *gists;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingGistsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noGistsCell;
+
+- (IBAction)refresh:(id)sender;
 @end
 
 

@@ -13,12 +13,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
 @interface NSString (truncateToSize)
-
 - (NSString *)truncateToSize: (CGSize)size withFont: (UIFont *)font lineBreakMode: (UILineBreakMode)lineBreakMode;
 - (NSString *)truncateToSize: (CGSize)size withFont: (UIFont *)font lineBreakMode: (UILineBreakMode)lineBreakMode withAnchor: (NSString *)anchor;
 - (NSString *)truncateToSize: (CGSize)size withFont: (UIFont *)font lineBreakMode: (UILineBreakMode)lineBreakMode withStartingAnchor: (NSString *)startingAnchor withEndingAnchor: (NSString *)endingAnchor;
-
 @end

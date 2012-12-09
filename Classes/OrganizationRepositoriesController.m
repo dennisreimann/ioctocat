@@ -18,10 +18,15 @@
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSMutableArray *observedOrgRepoLists;
 @property(nonatomic,strong)NSMutableArray *organizationRepositories;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
 - (void)loadOrganizationRepositories;
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (GHRepositories *)repositoriesInSection:(NSInteger)section;
+- (IBAction)refresh:(id)sender;
 @end
 
 

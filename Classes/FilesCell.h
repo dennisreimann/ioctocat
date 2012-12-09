@@ -1,6 +1,3 @@
-#import <UIKit/UIKit.h>
-
-
 @interface FilesCell : UITableViewCell
 @property(nonatomic,strong)NSArray *files;
 @property(nonatomic,strong)NSString *description;

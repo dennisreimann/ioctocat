@@ -4,9 +4,14 @@
 #import "iOctocat.h"
 
 
-@interface CommentController ()
+@interface CommentController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,strong)id comments;
+@property(nonatomic,weak)IBOutlet UITextView *bodyView;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *postButton;
+@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
+
+- (IBAction)postComment:(id)sender;
 @end
 
 

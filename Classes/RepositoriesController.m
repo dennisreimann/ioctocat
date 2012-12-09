@@ -14,10 +14,17 @@
 @property(nonatomic,strong)NSMutableArray *starredRepositories;
 @property(nonatomic,strong)NSMutableArray *watchedRepositories;
 @property(nonatomic,strong)GHUser *user;
-@property(weak, nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPrivateReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noStarredReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noWatchedReposCell;
 
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section;
+- (IBAction)refresh:(id)sender;
 @end
 
 

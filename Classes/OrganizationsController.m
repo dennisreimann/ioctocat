@@ -9,7 +9,10 @@
 
 @interface OrganizationsController ()
 @property(nonatomic,strong)GHOrganizations *organizations;
-@property(weak, nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 @end
 
 

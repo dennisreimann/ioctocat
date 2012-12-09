@@ -19,10 +19,19 @@
 @property(nonatomic,strong)NSArray *issueList;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
-@property(weak, nonatomic,readonly)GHIssues *currentIssues;
+@property(nonatomic,readonly)GHIssues *currentIssues;
+@property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *addButton;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,strong)IBOutlet IssueCell *issueCell;
 
 - (void)issueLoadingStarted;
 - (void)issueLoadingFinished;
+- (IBAction)switchChanged:(id)sender;
+- (IBAction)createNewIssue:(id)sender;
+- (IBAction)refresh:(id)sender;
 @end
 
 

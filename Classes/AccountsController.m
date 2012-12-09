@@ -8,14 +8,17 @@
 #import "NSString+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
+#import "AuthenticationController.h"
 
 
-@interface AccountsController ()
+@interface AccountsController () <AuthenticationControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)AuthenticationController *authController;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
+- (IBAction)addAccount:(id)sender;
 @end
 
 

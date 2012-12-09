@@ -15,9 +15,11 @@
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 
 
-@interface iOctocat ()
+@interface iOctocat () <UIApplicationDelegate>
 @property(nonatomic,strong)NSMutableDictionary *users;
 @property(nonatomic,strong)NSMutableDictionary *organizations;
+@property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
+@property(nonatomic,strong)IBOutlet ECSlidingViewController *slidingViewController;
 @end
 
 

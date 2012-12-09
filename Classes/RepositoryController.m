@@ -24,11 +24,27 @@
 #define kCodeCellIdentifier @"CodeCell"
 
 
-@interface RepositoryController ()
+@interface RepositoryController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHRepository *repository;
-@property(weak, nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,weak)IBOutlet UILabel *nameLabel;
+@property(nonatomic,weak)IBOutlet UILabel *numbersLabel;
+@property(nonatomic,weak)IBOutlet UILabel *ownerLabel;
+@property(nonatomic,weak)IBOutlet UILabel *websiteLabel;
+@property(nonatomic,weak)IBOutlet UILabel *forkLabel;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *readmeCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *issuesCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *forkCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
+@property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 
 - (void)displayRepository;
+- (IBAction)showActions:(id)sender;
 @end
 
 

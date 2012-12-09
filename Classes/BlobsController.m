@@ -5,14 +5,19 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface BlobsController ()
+@interface BlobsController () <UIWebViewDelegate>
 @property(nonatomic,strong)GHBlob *blob;
 @property(nonatomic,strong)NSArray *blobs;
 @property(nonatomic,assign)NSUInteger index;
+@property(nonatomic,weak)IBOutlet UIView *activityView;
+@property(nonatomic,weak)IBOutlet UIWebView *contentView;
+@property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
 
 - (void)displayBlob:(GHBlob *)theBlob;
 - (void)displayCode:(NSString *)theCode withFilename:(NSString *)theFilename;
 - (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename;
+- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 @end
 
 

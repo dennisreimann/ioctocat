@@ -16,12 +16,13 @@
 #import "GHCommit.h"
 #import "GHGist.h"
 #import "GHPullRequest.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
 #import "EventCell.h"
+#import "NSDate+Nibware.h"
+#import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
+#import "UIScrollView+SVPullToRefresh.h"
 
-#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 #define kEventCellIdentifier @"EventCell"
 
 
@@ -50,12 +51,11 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (!self.events.isLoaded) {
-		[self showReloadAnimationAnimated:NO];
-		[self.events loadData];
-	}
 	self.clearsSelectionOnViewWillAppear = NO;
-	refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
+	[self.tableView addPullToRefreshWithActionHandler:^{
+		[self.events loadData];
+	}];
+	[self.tableView triggerPullToRefresh];
 }
 
 - (void)dealloc {
@@ -65,20 +65,20 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (self.events.isLoaded) {
+			self.events.lastReadingDate = [NSDate date];
+			[self updateRefreshDate];
+			[self.tableView.pullToRefreshView stopAnimating];
 			[self.tableView reloadData];
-			refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
-			[super dataSourceDidFinishLoadingNewData];
 		} else if (self.events.error) {
-			[super dataSourceDidFinishLoadingNewData];
+			[self.tableView.pullToRefreshView stopAnimating];
 			[iOctocat reportLoadingError:@"Could not load the feed."];
 		}
 	}
 }
 
-- (void)reloadTableViewDataSource {
-	if (self.events && self.events.isLoading) return;
-	self.events.lastReadingDate = [NSDate date];
-	[self.events loadData];
+- (void)updateRefreshDate {
+	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastReadingDate prettyDate]];
+	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 }
 
 - (void)openEventItem:(id)theEventItem {
@@ -164,22 +164,6 @@
 	} else {
 		return 70.0f;
 	}
-}
-
-#pragma mark Persistent State
-
-- (NSDate *)lastReadingDateForPath:(NSString *)thePath {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
-	NSDate *date = [userDefaults objectForKey:key];
-	return date;
-}
-
-- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
-	[defaults setValue:date forKey:key];
-	[defaults synchronize];
 }
 
 #pragma mark Autorotation

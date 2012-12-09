@@ -102,7 +102,6 @@
 		6F48DB7C166C0C7C00F8FF16 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
 		6F48DB7D166C0C7C00F8FF16 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
 		6F48DB7F166C0C7C00F8FF16 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
-		6F48DB81166C0C7C00F8FF16 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
 		6F48DB82166C0C7C00F8FF16 /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
 		6F48DB83166C0C7C00F8FF16 /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
 		6F48DB84166C0C7C00F8FF16 /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
@@ -182,7 +181,6 @@
 		6F48DBD2166C0FD500F8FF16 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		6F48DBD3166C0FDF00F8FF16 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
 		6F48DBD4166C0FEB00F8FF16 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
-		6F48DBD5166C101F00F8FF16 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */; };
 		6F4CBD3216431D6300D587FB /* OrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */; };
 		6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */; };
 		6F4CBD3A164328FD00D587FB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD39164328FD00D587FB /* LoadingCell.xib */; };
@@ -207,11 +205,8 @@
 		6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8731334AFEF00D1E35E /* Icon@2x.png */; };
 		6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */; };
 		6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
-		6F5E9AC51119A96000752560 /* EGORefreshTableHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */; };
-		6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */; };
 		6F5E9B631119AD2100752560 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
 		6F5E9B6E1119AD5B00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
-		6F5E9BC61119B6C000752560 /* RefreshArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9BC51119B6C000752560 /* RefreshArrow.png */; };
 		6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */; };
 		6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */; };
 		6F61F534139E3EE8005DBE67 /* HeadBackground90.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F530139E3EE8005DBE67 /* HeadBackground90.png */; };
@@ -462,7 +457,6 @@
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 		E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
 		E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
-		E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */; };
 		EF7248196E634C6AB69D25C9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67ECF03BCF254C88A027B814 /* libPods.a */; };
 		FCC2C8D113944DF400C8E10D /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */; };
 		FCC2C8D213944DF400C8E10D /* ToolbarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */; };
@@ -624,14 +618,9 @@
 		6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
 		6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
-		6F5E9AAE1119A96000752560 /* EGORefreshTableHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EGORefreshTableHeaderView.h; sourceTree = "<group>"; };
-		6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EGORefreshTableHeaderView.m; sourceTree = "<group>"; };
-		6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullToRefreshTableViewController.h; sourceTree = "<group>"; };
-		6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullToRefreshTableViewController.m; sourceTree = "<group>"; };
 		6F5E9AFB1119AACC00752560 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6F5E9B011119AB1900752560 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6F5E9B621119AD2100752560 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		6F5E9BC51119B6C000752560 /* RefreshArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RefreshArrow.png; path = Images/RefreshArrow.png; sourceTree = "<group>"; };
 		6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarIssue.png; sourceTree = "<group>"; };
 		6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUser.png; sourceTree = "<group>"; };
 		6F61F530139E3EE8005DBE67 /* HeadBackground90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HeadBackground90.png; path = Images/HeadBackground90.png; sourceTree = "<group>"; };
@@ -940,7 +929,6 @@
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
 		E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
-		E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "RefreshArrow@2x.png"; path = "Images/RefreshArrow@2x.png"; sourceTree = "<group>"; };
 		FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarDown.png; sourceTree = "<group>"; };
 		FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarDown@2x.png"; sourceTree = "<group>"; };
 		FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUp.png; sourceTree = "<group>"; };
@@ -1251,10 +1239,6 @@
 			children = (
 				01554A3314FBF02E00AE08EC /* GradientButton.h */,
 				01554A3414FBF02E00AE08EC /* GradientButton.m */,
-				6F5E9AAE1119A96000752560 /* EGORefreshTableHeaderView.h */,
-				6F5E9AAF1119A96000752560 /* EGORefreshTableHeaderView.m */,
-				6F5E9AB71119A96000752560 /* PullToRefreshTableViewController.h */,
-				6F5E9AB81119A96000752560 /* PullToRefreshTableViewController.m */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -1469,8 +1453,6 @@
 				6F064F0115A3715300F0AFF0 /* Default-Landscape@2x~ipad.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
-				6F5E9BC51119B6C000752560 /* RefreshArrow.png */,
-				E0497E5E13914C89005E2C92 /* RefreshArrow@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1676,10 +1658,10 @@
 		6FECA89E1590711F00878A74 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				6FCE4D860F7FE16A00451D6E /* MyEventsController.h */,
-				6FCE4D870F7FE16A00451D6E /* MyEventsController.m */,
 				6FB1CF8C1649AEA200337EBE /* EventsController.h */,
 				6FB1CF8D1649AEB200337EBE /* EventsController.m */,
+				6FCE4D860F7FE16A00451D6E /* MyEventsController.h */,
+				6FCE4D870F7FE16A00451D6E /* MyEventsController.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";
@@ -1865,7 +1847,6 @@
 				6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */,
 				6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */,
 				6F2C77441114F6DE002665DA /* Files.xib in Resources */,
-				6F5E9BC61119B6C000752560 /* RefreshArrow.png in Resources */,
 				6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */,
 				6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */,
 				6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */,
@@ -1911,7 +1892,6 @@
 				6F843155136D53350016E367 /* CommitCommentEvent@2x.png in Resources */,
 				6F843156136D53350016E367 /* IssueCommentEvent.png in Resources */,
 				6F843157136D53350016E367 /* IssueCommentEvent@2x.png in Resources */,
-				E0497E5F13914C89005E2C92 /* RefreshArrow@2x.png in Resources */,
 				6FB3CBE713977DBE00CB0EAE /* MainWindow-ipad.xib in Resources */,
 				6FB3CBEA13977E4000CB0EAE /* MainWindow-iphone.xib in Resources */,
 				6FB3CBF7139780D600CB0EAE /* Icon-Small-50.png in Resources */,
@@ -2176,8 +2156,6 @@
 				6F2C77291114F430002665DA /* DiffFilesController.m in Sources */,
 				6FF09E65111589D600925109 /* FilesCell.m in Sources */,
 				6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */,
-				6F5E9AC51119A96000752560 /* EGORefreshTableHeaderView.m in Sources */,
-				6F5E9AC91119A96000752560 /* PullToRefreshTableViewController.m in Sources */,
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
 				6FE7D1BE115622D1004B4D68 /* CommentCell.m in Sources */,
 				6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */,
@@ -2233,14 +2211,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6F48DBD5166C101F00F8FF16 /* EGORefreshTableHeaderView.m in Sources */,
 				6F48DB79166C0C7C00F8FF16 /* NSURL+Extensions.m in Sources */,
 				6F48DB7A166C0C7C00F8FF16 /* NSString+Extensions.m in Sources */,
 				6F48DB7B166C0C7C00F8FF16 /* NSMutableArray+Extensions.m in Sources */,
 				6F48DB7C166C0C7C00F8FF16 /* NSDate+Nibware.m in Sources */,
 				6F48DB7D166C0C7C00F8FF16 /* NSDictionary+Extensions.m in Sources */,
 				6F48DB7F166C0C7C00F8FF16 /* GradientButton.m in Sources */,
-				6F48DB81166C0C7C00F8FF16 /* PullToRefreshTableViewController.m in Sources */,
 				6F48DB82166C0C7C00F8FF16 /* IOCAvatarLoader.m in Sources */,
 				6F48DB83166C0C7C00F8FF16 /* GHGists.m in Sources */,
 				6F48DB84166C0C7C00F8FF16 /* GHGist.m in Sources */,

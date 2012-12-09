@@ -13,7 +13,11 @@
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "iOctocat.h"
+#import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
+#import "UIScrollView+SVPullToRefresh.h"
+
+#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 
 
 @interface MyEventsController ()
@@ -24,8 +28,11 @@
 @property(nonatomic,weak,readonly)GHEvents *events;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 
+- (NSDate *)lastReadingDateForPath:(NSString *)thePath;
+- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath;
 - (IBAction)switchChanged:(id)sender;
 @end
+
 
 @implementation MyEventsController
 
@@ -49,10 +56,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
 	self.navigationItem.title = @"My Events";
 	self.navigationItem.titleView = self.feedControl;
-
 	// Start loading the first feed
 	self.feedControl.selectedSegmentIndex = 0;
 	[self switchChanged:nil];
@@ -60,7 +65,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self refreshCurrentFeedIfRequired];
+	[self updateRefreshDate];
+	[self refreshEventsIfRequired];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(applicationDidBecomeActive)
 												 name:UIApplicationDidBecomeActiveNotification
@@ -84,27 +90,21 @@
 	}
 }
 
-- (BOOL)refreshCurrentFeedIfRequired {
-	if (!self.events.isLoaded) return NO;
+- (void)refreshEventsIfRequired {
 	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if ([self.events.lastReadingDate compare:lastActivatedDate] != NSOrderedAscending) return NO;
-	// the feed was loaded before this application became active again, refresh it
-	refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
-	[self pullRefreshAnimated:YES];
-	return YES;
+	if (!self.events.isLoaded || [self.events.lastReadingDate compare:lastActivatedDate] == NSOrderedAscending) {
+		// the feed was loaded before this application became active again, refresh it
+		[self.tableView triggerPullToRefresh];
+	}
 }
 
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-	refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
+	[self updateRefreshDate];
 	self.selectedIndexPath = nil;
 	[self.tableView reloadData];
-	if ([self refreshCurrentFeedIfRequired]) return;
-	if (self.events.isLoaded) return;
-	[self.events loadData];
-	if (self.events.isLoading) [self showReloadAnimationAnimated:NO];
-	[self.tableView reloadData];
+	[self refreshEventsIfRequired];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -115,11 +115,11 @@
 		} else if (feed.isLoaded) {
 			[self.tableView reloadData];
 			self.loadCounter -= 1;
-			refreshHeaderView.lastUpdatedDate = self.events.lastReadingDate;
+			[self updateRefreshDate];
 			[self setLastReadingDate:feed.lastReadingDate forPath:feed.resourcePath];
-			[super dataSourceDidFinishLoadingNewData];
+			[self.tableView.pullToRefreshView stopAnimating];
 		} else if (feed.error) {
-			[super dataSourceDidFinishLoadingNewData];
+			[self.tableView.pullToRefreshView stopAnimating];
 			[iOctocat reportLoadingError:@"Could not load the feed."];
 		}
 	}
@@ -128,7 +128,23 @@
 #pragma mark Events
 
 - (void)applicationDidBecomeActive {
-	[self refreshCurrentFeedIfRequired];
+	[self refreshEventsIfRequired];
+}
+
+#pragma mark Persistent State
+
+- (NSDate *)lastReadingDateForPath:(NSString *)thePath {
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
+	NSDate *date = [userDefaults objectForKey:key];
+	return date;
+}
+
+- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
+	[defaults setValue:date forKey:key];
+	[defaults synchronize];
 }
 
 @end

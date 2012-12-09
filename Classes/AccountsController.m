@@ -32,7 +32,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = self.editButtonItem;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *currentAccounts = [defaults objectForKey:kAccountsDefaultsKey];
 	self.accounts = currentAccounts != nil ?
@@ -49,6 +48,7 @@
 	if ([iOctocat sharedInstance].currentAccount) {
 		[iOctocat sharedInstance].currentAccount = nil;
 	}
+	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
 	[self.tableView reloadData];
 }
 
@@ -122,6 +122,7 @@
 		[self.accounts removeObjectAtIndex:indexPath.row];
 		[self.class saveAccounts:self.accounts];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
 	}
 }
 

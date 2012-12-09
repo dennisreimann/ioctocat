@@ -29,8 +29,9 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
 iOctocat uses some third party components and libraries:
 
-  * AFNetworking by Gowalla - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
-  * Base64 by Nick Lockwood - [Base64](https://github.com/nicklockwood/Base64)
-  * YRDropdownView by One Mighty Roar - [YRDropdownView](https://github.com/onemightyroar/YRDropdownView)
-  * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)
-  * highlight.js by Ivan Sagalaev - [highlight.js](http://highlightjs.org/)
+  * [AFNetworking](https://github.com/AFNetworking/AFNetworking) by Gowalla
+  * [Base64](https://github.com/ekscrypto/Base64) by ekscrypto
+  * [YRDropdownView](https://github.com/onemightyroar/YRDropdownView) by One Mighty Roar
+  * [ECSlidingViewController](https://github.com/edgecase/ECSlidingViewController) by EdgeCase
+  * [Glyphish Pro](http://glyphish.com/) icons
+  * [highlight.js](http://highlightjs.org/) by Ivan Sagalaev

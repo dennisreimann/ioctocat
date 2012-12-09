@@ -9,6 +9,9 @@
 #import "iOctocat.h"
 
 #define kIssueCellIdentifier @"IssueCell"
+#define kIssueSortCreated @"created"
+#define kIssueSortUpdated @"updated"
+#define kIssueSortComments @"comments"
 
 
 @interface IssuesController ()

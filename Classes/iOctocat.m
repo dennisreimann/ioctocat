@@ -12,6 +12,7 @@
 #import "ECSlidingViewController.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
+#define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 
 
 @interface iOctocat ()

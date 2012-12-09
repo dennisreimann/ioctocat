@@ -15,6 +15,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;

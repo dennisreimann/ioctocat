@@ -6,6 +6,7 @@
 #import "CommentCell.h"
 #import "IssuesController.h"
 #import "IssueFormController.h"
+#import "UserController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
@@ -123,6 +124,7 @@
 	self.titleLabel.text = self.issue.title;
 	self.voteLabel.text = [NSString stringWithFormat:@"%d votes", self.issue.votes];
 	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
+	[self.authorCell setContentText:self.issue.user.login];
 	[self.createdCell setContentText:[self.issue.created prettyDate]];
 	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
 	[self.descriptionCell setContentText:self.issue.body];
@@ -173,7 +175,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.issue.error) return 0;
 	if (!self.issue.isLoaded) return 1;
-	if (section == 0) return [self.issue.body isEmpty] ? 2 : 3;
+	if (section == 0) return [self.issue.body isEmpty] ? 3 : 4;
 	if (!self.issue.comments.isLoaded) return 1;
 	if (self.issue.comments.comments.count == 0) return 1;
 	return self.issue.comments.comments.count;
@@ -185,9 +187,10 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && !self.issue.isLoaded) return self.loadingCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return self.createdCell;
-	if (indexPath.section == 0 && indexPath.row == 1) return self.updatedCell;
-	if (indexPath.section == 0 && indexPath.row == 2) return self.descriptionCell;
+	if (indexPath.section == 0 && indexPath.row == 0) return self.authorCell;
+	if (indexPath.section == 0 && indexPath.row == 1) return self.createdCell;
+	if (indexPath.section == 0 && indexPath.row == 2) return self.updatedCell;
+	if (indexPath.section == 0 && indexPath.row == 3) return self.descriptionCell;
 	if (!self.issue.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.issue.comments.comments.count == 0) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
@@ -201,12 +204,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 2) return [self.descriptionCell heightForTableView:tableView];
+	if (indexPath.section == 0 && indexPath.row == 3) return [self.descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && self.issue.comments.isLoaded && self.issue.comments.comments.count > 0) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
 	return 44.0f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section == 0 && indexPath.row == 0 && self.issue.user) {
+		UserController *userController = [[UserController alloc] initWithUser:self.issue.user];
+		[self.navigationController pushViewController:userController animated:YES];
+	}
 }
 
 #pragma mark Autorotation

@@ -3,9 +3,6 @@
 //
 //  Created by Jeff LaMarche on 5/17/10.
 //
-
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
 
 @interface GradientButton : UIButton 

@@ -1,4 +1,3 @@
-#import <QuartzCore/QuartzCore.h>
 #import "MenuCell.h"
 
 

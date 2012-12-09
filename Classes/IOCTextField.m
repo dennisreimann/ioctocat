@@ -1,5 +1,4 @@
 #import "IOCTextField.h"
-#import <QuartzCore/QuartzCore.h>
 
 
 @implementation IOCTextField

@@ -12,8 +12,6 @@
 
 + (iOctocat *)sharedInstance;
 + (NSDate *)parseDate:(NSString *)theString;
-+ (UIImage *)cachedGravatarForIdentifier:(NSString *)theString;
-+ (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString;
 + (void)reportError:(NSString *)theTitle with:(NSString *)theMessage;
 + (void)reportLoadingError:(NSString *)theMessage;
 + (void)reportSuccess:(NSString *)theMessage;

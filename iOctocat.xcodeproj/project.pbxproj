@@ -94,7 +94,7 @@
 		6F48DB5F166C03F900F8FF16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		6F48DB60166C03F900F8FF16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		6F48DB66166C03F900F8FF16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F48DB64166C03F900F8FF16 /* InfoPlist.strings */; };
-		6F48DB69166C03F900F8FF16 /* iOctocatUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F48DB68166C03F900F8FF16 /* iOctocatUnitTests.m */; };
+		6F48DB69166C03F900F8FF16 /* iOctocatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F48DB68166C03F900F8FF16 /* iOctocatTests.m */; };
 		6F48DB72166C07B600F8FF16 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F48DB71166C07B600F8FF16 /* SenTestingKit.framework */; };
 		6F48DB74166C0B6500F8FF16 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
 		6F48DB79166C0C7C00F8FF16 /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
@@ -201,6 +201,11 @@
 		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6F5B58FD164FC252009ADE17 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B58FB164FC252009ADE17 /* CellBackground.png */; };
 		6F5B58FE164FC252009ADE17 /* CellBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */; };
+		6F5C02941674A67D005AC6FA /* IOCAvatarCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */; };
+		6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
+		6F5C03F41674A76A005AC6FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
+		6F5C03F51674A8FB005AC6FA /* AccountMenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* AccountMenuController.m */; };
+		6F5C03F61674A913005AC6FA /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
 		6F5E863B14F2A17200F340FE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8711334AFE300D1E35E /* Icon.png */; };
 		6F5E863C14F2A17800F340FE /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8731334AFEF00D1E35E /* Icon@2x.png */; };
 		6F5E863E14F2A1AA00F340FE /* Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */; };
@@ -596,11 +601,10 @@
 		6F48DB5C166C03F900F8FF16 /* iOctocatUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOctocatUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F48DB63166C03F900F8FF16 /* iOctocatUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOctocatUnitTests-Info.plist"; sourceTree = "<group>"; };
 		6F48DB65166C03F900F8FF16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		6F48DB67166C03F900F8FF16 /* iOctocatUnitTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOctocatUnitTests.h; sourceTree = "<group>"; };
-		6F48DB68166C03F900F8FF16 /* iOctocatUnitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOctocatUnitTests.m; sourceTree = "<group>"; };
+		6F48DB67166C03F900F8FF16 /* iOctocatTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iOctocatTests.h; sourceTree = "<group>"; };
+		6F48DB68166C03F900F8FF16 /* iOctocatTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOctocatTests.m; sourceTree = "<group>"; };
 		6F48DB6A166C03F900F8FF16 /* iOctocatUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOctocatUnitTests-Prefix.pch"; sourceTree = "<group>"; };
 		6F48DB71166C07B600F8FF16 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		6F48DB73166C08B900F8FF16 /* iOctocat+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "iOctocat+Private.h"; sourceTree = "<group>"; };
 		6F4CBD3016431D6300D587FB /* OrganizationRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationRepositoriesController.h; sourceTree = "<group>"; };
 		6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationRepositoriesController.m; sourceTree = "<group>"; };
 		6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrganizationRepositories.xib; path = IBFiles/OrganizationRepositories.xib; sourceTree = "<group>"; };
@@ -620,6 +624,10 @@
 		6F5A420D0F90CE0500427ED7 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
 		6F5B58FB164FC252009ADE17 /* CellBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CellBackground.png; path = Images/CellBackground.png; sourceTree = "<group>"; };
 		6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CellBackground@2x.png"; path = "Images/CellBackground@2x.png"; sourceTree = "<group>"; };
+		6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAvatarCacheTests.h; sourceTree = "<group>"; };
+		6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAvatarCacheTests.m; sourceTree = "<group>"; };
+		6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAvatarCache.h; sourceTree = "<group>"; };
+		6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAvatarCache.m; sourceTree = "<group>"; };
 		6F5E863D14F2A1AA00F340FE /* Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-iPad.png"; sourceTree = "<group>"; };
 		6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
 		6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
@@ -1110,7 +1118,6 @@
 				6FECA89F1590A20200878A74 /* Repos */,
 				6FECA8A01590A23C00878A74 /* Misc */,
 				1D3623240D0F684500981E51 /* iOctocat.h */,
-				6F48DB73166C08B900F8FF16 /* iOctocat+Private.h */,
 				1D3623250D0F684500981E51 /* iOctocat.m */,
 			);
 			name = Controller;
@@ -1214,9 +1221,11 @@
 		6F48DB61166C03F900F8FF16 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				6F48DB67166C03F900F8FF16 /* iOctocatUnitTests.h */,
-				6F48DB68166C03F900F8FF16 /* iOctocatUnitTests.m */,
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
+				6F48DB67166C03F900F8FF16 /* iOctocatTests.h */,
+				6F48DB68166C03F900F8FF16 /* iOctocatTests.m */,
+				6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */,
+				6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */,
 			);
 			name = "Unit Tests";
 			path = iOctocatUnitTests;
@@ -1578,6 +1587,8 @@
 			children = (
 				6FCAF1640F895756005E1173 /* GravatarLoader.h */,
 				6FCAF1650F895756005E1173 /* GravatarLoader.m */,
+				6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */,
+				6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -2234,6 +2245,7 @@
 				6F0103AF16641A4F00D9B715 /* NSString+TruncateToSize.m in Sources */,
 				6F98765A166FEC380031E31B /* AccountMenuController.m in Sources */,
 				6FE440271673D53C00226F42 /* MenuCell.m in Sources */,
+				6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2323,8 +2335,12 @@
 				6F48DBCB166C0C7C00F8FF16 /* CommentCell.m in Sources */,
 				6F48DBCC166C0C7C00F8FF16 /* GHTextField.m in Sources */,
 				6F48DBCD166C0C7C00F8FF16 /* GHApplication.m in Sources */,
-				6F48DB69166C03F900F8FF16 /* iOctocatUnitTests.m in Sources */,
+				6F48DB69166C03F900F8FF16 /* iOctocatTests.m in Sources */,
 				6F48DB74166C0B6500F8FF16 /* iOctocat.m in Sources */,
+				6F5C02941674A67D005AC6FA /* IOCAvatarCacheTests.m in Sources */,
+				6F5C03F41674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
+				6F5C03F51674A8FB005AC6FA /* AccountMenuController.m in Sources */,
+				6F5C03F61674A913005AC6FA /* MenuCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

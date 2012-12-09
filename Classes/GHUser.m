@@ -8,7 +8,7 @@
 #import "GHGists.h"
 #import "GHResource.h"
 #import "GravatarLoader.h"
-#import "iOctocat.h"
+#import "IOCAvatarCache.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -28,9 +28,9 @@
 	self = [self init];
 	if (self) {
 		self.login = theLogin;
-		self.gravatar = [iOctocat cachedGravatarForIdentifier:self.login];
-		self.isAuthenticated = NO;
+		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 		self.gravatarLoader = [GravatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
+		self.isAuthenticated = NO;
 	}
 	return self;
 }

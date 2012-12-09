@@ -1,5 +1,5 @@
 #import "iOctocat.h"
-#import "iOctocat+Private.h"
+#import "IOCAvatarCache.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -12,6 +12,12 @@
 #import "ECSlidingViewController.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
+
+
+@interface iOctocat ()
+@property(nonatomic,strong)NSMutableDictionary *users;
+@property(nonatomic,strong)NSMutableDictionary *organizations;
+@end
 
 
 @implementation iOctocat
@@ -29,7 +35,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	// Go
 	self.users = [NSMutableDictionary dictionary];
 	self.organizations = [NSMutableDictionary dictionary];
 	self.slidingViewController.anchorRightRevealAmount = 270;
@@ -43,7 +48,7 @@
 	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
 	// Avatar cache
 	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		[iOctocat clearAvatarCache];
+		[IOCAvatarCache clearAvatarCache];
 		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
 	}
 	[defaults synchronize];
@@ -119,7 +124,7 @@
 		// both respond to gravatar, so this is okay
 		GHUser *user = (GHUser *)object;
 		if (user.gravatar) {
-			[iOctocat cacheGravatar:user.gravatar forIdentifier:user.login];
+			[IOCAvatarCache cacheGravatar:user.gravatar forIdentifier:user.login];
 		}
 	}
 }
@@ -171,40 +176,6 @@
 					   backgroundColor:bgColor
 							  animated:YES
 							 hideAfter:3.0];
-}
-
-#pragma mark Avatars
-
-// TODO: Extract into AvatarCache
-
-+ (void)clearAvatarCache {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
-	for (NSString *path in documents) {
-		if ([path hasSuffix:@".png"]) {
-			NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
-			[fileManager removeItemAtPath:imagePath error:NULL];
-		}
-	}
-}
-
-+ (NSString *)gravatarPathForIdentifier:(NSString *)theString {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
-	NSString *imageName = [NSString stringWithFormat:@"%@.png", theString];
-	return [documentsPath stringByAppendingPathComponent:imageName];
-}
-
-+ (UIImage *)cachedGravatarForIdentifier:(NSString *)theString {
-	NSString *path = [self gravatarPathForIdentifier:theString];
-	return [UIImage imageWithContentsOfFile:path];
-}
-
-+ (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString {
-	NSString *path = [self gravatarPathForIdentifier:theString];
-	[UIImagePNGRepresentation(theImage) writeToFile:path atomically:YES];
 }
 
 #pragma mark Autorotation

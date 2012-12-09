@@ -1,15 +1,14 @@
-#import "iOctocatUnitTests.h"
-#import "iOctocat.h"
-#import "iOctocat+Private.h"
+#import "IOCAvatarCacheTests.h"
+#import "IOCAvatarCache.h"
 
 
-@interface iOctocatUnitTests ()
+@interface IOCAvatarCacheTests ()
 @property(nonatomic,strong)NSString *gravatarPath;
 @property(nonatomic,strong)UIImage *gravatar;
 @end
 
 
-@implementation iOctocatUnitTests
+@implementation IOCAvatarCacheTests
 
 - (void)setUp {
     [super setUp];
@@ -24,29 +23,29 @@
 }
 
 - (void)testGravatarPathForIdentifier {
-	NSString *actual = [iOctocat gravatarPathForIdentifier:@"gravatar"];
+	NSString *actual = [IOCAvatarCache gravatarPathForIdentifier:@"gravatar"];
 	STAssertEqualObjects(self.gravatarPath, actual, @"Paths do not match");
 }
 
 - (void)testCacheGravatarForIdentifier {
-	[iOctocat cacheGravatar:self.gravatar forIdentifier:@"gravatar"];
+	[IOCAvatarCache cacheGravatar:self.gravatar forIdentifier:@"gravatar"];
 	STAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:self.gravatarPath], @"Gravatar was not written to documents directory");
 }
 
 - (void)testCachedGravatarForIdentifier {
 	[UIImagePNGRepresentation(self.gravatar) writeToFile:self.gravatarPath atomically:YES];
-	UIImage *actual = [iOctocat cachedGravatarForIdentifier:@"gravatar"];
+	UIImage *actual = [IOCAvatarCache cachedGravatarForIdentifier:@"gravatar"];
 	STAssertEquals([UIImage class], actual.class, @"Gravatar was not returned as an UIImage instance");
 }
 
 - (void)testCachedGravatarForIdentifierNoGravatar {
-	UIImage *actual = [iOctocat cachedGravatarForIdentifier:@"gravatar"];
+	UIImage *actual = [IOCAvatarCache cachedGravatarForIdentifier:@"gravatar"];
 	STAssertNil(actual, @"Gravatar was found even though it should not exist");
 }
 
 - (void)testClearAvatarCache {
 	[UIImagePNGRepresentation(self.gravatar) writeToFile:self.gravatarPath atomically:YES];
-	[iOctocat clearAvatarCache];
+	[IOCAvatarCache clearAvatarCache];
 	STAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:self.gravatarPath], @"Gravatar did not get removed from documents directory");
 }
 

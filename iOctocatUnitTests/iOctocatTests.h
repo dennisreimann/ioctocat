@@ -1,5 +1,5 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface iOctocatUnitTests : SenTestCase
+@interface iOctocatTests : SenTestCase
 @end

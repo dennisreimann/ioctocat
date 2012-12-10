@@ -4,10 +4,9 @@
 @implementation IOCTextField
 
 - (void)awakeFromNib {
-	CGColorRef lightGray = [UIColor colorWithWhite:0.853 alpha:1.000].CGColor;
-	self.layer.borderColor = lightGray;
+	self.layer.cornerRadius = 5;
 	self.layer.borderWidth = 1;
-	self.layer.cornerRadius = 5.0f;
+	self.layer.borderColor = [UIColor colorWithWhite:0.853 alpha:1.000].CGColor;
 }
 
 - (CGFloat)paddingHorizontal {

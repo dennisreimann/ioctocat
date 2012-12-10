@@ -19,6 +19,7 @@
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
 - (IBAction)addAccount:(id)sender;
+- (IBAction)toggleEditAccounts:(id)sender;
 @end
 
 
@@ -48,8 +49,8 @@
 	if ([iOctocat sharedInstance].currentAccount) {
 		[iOctocat sharedInstance].currentAccount = nil;
 	}
-	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
 	[self.tableView reloadData];
+	[self updateEditButtonItem];
 }
 
 #pragma mark Accounts
@@ -71,6 +72,10 @@
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
+- (IBAction)toggleEditAccounts:(id)sender {
+	self.tableView.editing = !self.tableView.isEditing;
+}
+
 - (IBAction)addAccount:(id)sender {
 	[self editAccountAtIndex:NSNotFound];
 }
@@ -82,6 +87,10 @@
 	if (!account.user.isAuthenticated) {
 		[self.authController authenticateAccount:account];
 	}
+}
+
+- (void)updateEditButtonItem {
+	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
 }
 
 #pragma mark TableView
@@ -122,7 +131,7 @@
 		[self.accounts removeObjectAtIndex:indexPath.row];
 		[self.class saveAccounts:self.accounts];
 		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-		self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
+		[self updateEditButtonItem];
 	}
 }
 

@@ -89,6 +89,11 @@
 		6F3D9776166A5FB8009CB887 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9772166A5FB8009CB887 /* check@2x.png */; };
 		6F3D9777166A5FB8009CB887 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9773166A5FB8009CB887 /* warning.png */; };
 		6F3D9778166A5FB8009CB887 /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9774166A5FB8009CB887 /* warning@2x.png */; };
+		6F3FD6931675E2B900E90A6E /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */; };
+		6F3FD6941675E2B900E90A6E /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */; };
+		6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FD6961675E3E600E90A6E /* OAuth.plist */; };
+		6F3FD6981675E3E600E90A6E /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FD6961675E3E600E90A6E /* OAuth.plist */; };
+		6F3FD69A1675E80700E90A6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6F48DB5F166C03F900F8FF16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		6F48DB60166C03F900F8FF16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		6F48DB66166C03F900F8FF16 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6F48DB64166C03F900F8FF16 /* InfoPlist.strings */; };
@@ -582,6 +587,10 @@
 		6F3D9772166A5FB8009CB887 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		6F3D9773166A5FB8009CB887 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		6F3D9774166A5FB8009CB887 /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning@2x.png"; sourceTree = "<group>"; };
+		6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Client.m; sourceTree = "<group>"; };
+		6F3FD6921675E2B900E90A6E /* AFOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Client.h; sourceTree = "<group>"; };
+		6F3FD6961675E3E600E90A6E /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
+		6F3FD6991675E80700E90A6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6F48DB5C166C03F900F8FF16 /* iOctocatUnitTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOctocatUnitTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F48DB63166C03F900F8FF16 /* iOctocatUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOctocatUnitTests-Info.plist"; sourceTree = "<group>"; };
 		6F48DB65166C03F900F8FF16 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -937,6 +946,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F3FD69A1675E80700E90A6E /* Security.framework in Frameworks */,
 				6F6F177411E316FE008B319F /* MobileCoreServices.framework in Frameworks */,
 				01117CDC13E87CBF004F4E09 /* libz.dylib in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
@@ -1028,6 +1038,7 @@
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				6F0B11201670A2BD00375136 /* Menu.plist */,
+				6F3FD6961675E3E600E90A6E /* OAuth.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1036,6 +1047,7 @@
 			isa = PBXGroup;
 			children = (
 				01117CDB13E87CBF004F4E09 /* libz.dylib */,
+				6F3FD6991675E80700E90A6E /* Security.framework */,
 				6F6F176F11E316F3008B319F /* SystemConfiguration.framework */,
 				6F6F177311E316FE008B319F /* MobileCoreServices.framework */,
 				8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */,
@@ -1232,6 +1244,8 @@
 		6F5E9AA21119A96000752560 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				6F3FD6921675E2B900E90A6E /* AFOAuth2Client.h */,
+				6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */,
 				01554A3314FBF02E00AE08EC /* GradientButton.h */,
 				01554A3414FBF02E00AE08EC /* GradientButton.m */,
 			);
@@ -2067,6 +2081,7 @@
 				6FE440901673E67100226F42 /* MenuRepositories@2x.png in Resources */,
 				6FE440911673E67100226F42 /* MenuRepositoriesOn.png in Resources */,
 				6FE440921673E67100226F42 /* MenuRepositoriesOn@2x.png in Resources */,
+				6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2075,6 +2090,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F48DB66166C03F900F8FF16 /* InfoPlist.strings in Resources */,
+				6F3FD6981675E3E600E90A6E /* OAuth.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2198,6 +2214,7 @@
 				6F98765A166FEC380031E31B /* MenuController.m in Sources */,
 				6FE440271673D53C00226F42 /* MenuCell.m in Sources */,
 				6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
+				6F3FD6931675E2B900E90A6E /* AFOAuth2Client.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2289,6 +2306,7 @@
 				6F5C03F41674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
 				6F5C03F51674A8FB005AC6FA /* MenuController.m in Sources */,
 				6F5C03F61674A913005AC6FA /* MenuCell.m in Sources */,
+				6F3FD6941675E2B900E90A6E /* AFOAuth2Client.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

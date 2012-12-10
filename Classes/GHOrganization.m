@@ -52,11 +52,15 @@
 
 - (void)setValues:(id)theDict {
 	NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
-	NSString *theLogin = [resource valueForKey:@"login" defaultsTo:@""];
-	
-	if (![theLogin isEmpty] && ![self.login isEqualToString:theLogin]) self.login = theLogin;
+	NSString *login = [resource valueForKey:@"login" defaultsTo:@""];
+	// TODO: Remove email check once the API change is done.
+	id email = [resource valueForKeyPath:@"email" defaultsTo:@""];
+	if ([email isKindOfClass:[NSDictionary class]])	{
+		email = [[email valueForKey:@"state"] isEqualToString:@"verified"] ? [resource valueForKey:@"email"] : @"";
+	}
+	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = login;
 	self.name = [resource valueForKey:@"name" defaultsTo:@""];
-	self.email = [resource valueForKey:@"email" defaultsTo:@""];
+	self.email = email;
 	self.company = [resource valueForKey:@"company" defaultsTo:@""];
 	self.location = [resource valueForKey:@"location" defaultsTo:@""];
 	self.blogURL = [NSURL smartURLFromString:[resource valueForKey:@"blog" defaultsTo:@""]];

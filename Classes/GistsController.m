@@ -78,7 +78,7 @@
 	}
 	GHGist *gist = [self.gists.gists objectAtIndex:indexPath.row];
 	cell.textLabel.text = gist.title;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%d %@, %d %@, %@", gist.files.count, gist.files.count == 1 ? @"file" : @"files", gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments", [gist.createdAtDate prettyDate]];
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %d %@", [gist.createdAtDate prettyDate], gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments"];
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];

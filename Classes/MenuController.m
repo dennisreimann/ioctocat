@@ -21,7 +21,7 @@
 
 @interface MenuController ()
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)NSMutableArray *menu;
+@property(nonatomic,strong)NSArray *menu;
 @end
 
 
@@ -31,7 +31,7 @@
 	self = [self initWithNibName:@"Menu" bundle:nil];
 	if (self) {
 		NSString *menuPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
-		self.menu = [NSMutableArray arrayWithContentsOfFile:menuPath];
+		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = theUser;
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}

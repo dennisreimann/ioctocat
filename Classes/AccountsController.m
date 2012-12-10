@@ -150,7 +150,7 @@
 	[iOctocat sharedInstance].currentAccount = theAccount;
 	if (!theAccount.user.isAuthenticated) {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
+		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.user.login]];
 		[self editAccountAtIndex:index];
 	}
 }

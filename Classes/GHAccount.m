@@ -11,6 +11,13 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHAccount ()
+@property(nonatomic,strong)NSString *login;
+@property(nonatomic,strong)NSString *password;
+@property(nonatomic,strong)NSString *endpoint;
+@end
+
+
 @implementation GHAccount
 
 - (id)initWithDict:(NSDictionary *)theDict {

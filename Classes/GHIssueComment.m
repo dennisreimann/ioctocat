@@ -36,7 +36,7 @@
 	GHRepository *repo = [(GHIssue *)self.parent repository];
 	NSUInteger num = [(GHIssue *)self.parent num];
 	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
-	[self saveValues:values withPath:path andMethod:@"POST" useResult:nil];
+	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:nil];
 }
 
 @end

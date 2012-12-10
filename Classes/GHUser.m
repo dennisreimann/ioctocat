@@ -106,7 +106,7 @@
 
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
 	NSString *path = [NSString stringWithFormat:kUserFollowFormat, theUser.login];
-	[self saveValues:nil withPath:path andMethod:(follow ? @"PUT" : @"DELETE") useResult:nil];
+	[self saveValues:nil withPath:path andMethod:(follow ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Stars
@@ -128,7 +128,7 @@
 
 - (void)setStarring:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSString *path = [NSString stringWithFormat:kRepoStarFormat, theRepository.owner, theRepository.name];
-	[self saveValues:nil withPath:path andMethod:(watch ? @"PUT" : @"DELETE") useResult:nil];
+	[self saveValues:nil withPath:path andMethod:(watch ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Watching
@@ -151,7 +151,7 @@
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
 	id values = watch ? [NSDictionary dictionaryWithObject:@"true" forKey:@"subscribed"] : nil;
-	[self saveValues:values withPath:path andMethod:(watch ? @"PUT" : @"DELETE") useResult:nil];
+	[self saveValues:values withPath:path andMethod:(watch ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Gists
@@ -173,7 +173,7 @@
 
 - (void)setStarring:(BOOL)starred forGist:(GHGist *)theGist {
 	NSString *path = [NSString stringWithFormat:kGistStarFormat, theGist.gistId];
-	[self saveValues:nil withPath:path andMethod:(starred ? @"PUT" : @"DELETE") useResult:nil];
+	[self saveValues:nil withPath:path andMethod:(starred ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Gravatar

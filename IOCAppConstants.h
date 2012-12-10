@@ -8,6 +8,10 @@
 #define kThemeDefaultsKey                    @"theme"
 
 // API
+#define kRequestMethodPut               @"PUT"
+#define kRequestMethodPost              @"POST"
+#define kRequestMethodPatch             @"PATCH"
+#define kRequestMethodDelete            @"DELETE"
 #define kGitHubApiURL                   @"https://api.github.com/"
 #define kEnterpriseApiPath              @"api/v3/"
 #define kIssueStateOpen                 @"open"

@@ -74,10 +74,10 @@
 	NSString *method;
 	if (self.isNew) {
 		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
-		method = @"POST";
+		method = kRequestMethodPost;
 	} else {
 		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
-		method = @"PATCH";
+		method = kRequestMethodPatch;
 	}
 	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:self.title, @"title", self.body, @"body", self.state, @"state", nil];
 	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {

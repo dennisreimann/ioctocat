@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>note</key>
+	<string>iOctocat - GitHub client for iOS</string>
+	<key>note_url</key>
+	<string>http://dennisreimann.github.com/ioctocat/</string>
+	<key>scopes</key>
+	<array>
+		<string>user</string>
+		<string>repo</string>
+		<string>gist</string>
+		<string>notifications</string>
+	</array>
+</dict>
+</plist>

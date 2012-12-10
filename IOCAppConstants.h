@@ -1,6 +1,7 @@
 // Settings
 #define kLoginDefaultsKey                    @"username"
-#define kPasswordDefaultsKey                 @"password"
+#define kAuthIdDefaultsKey                   @"authId"
+#define kAuthTokenDefaultsKey                @"authToken"
 #define kEndpointDefaultsKey                 @"endpoint"
 #define kAccountsDefaultsKey                 @"accounts"
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
@@ -48,6 +49,8 @@
 #define kOrganizationEventsFormat               @"/orgs/%@/events"
 
 // Authenticated user
+#define kAuthorizationsFormat                   @"authorizations"
+#define kAuthorizationFormat                    @"authorizations/%@"
 #define kUserAuthenticatedFormat                @"user"
 #define kUserAuthenticatedOrgsFormat            @"user/orgs?per_page=100"
 #define kUserAuthenticatedReposFormat           @"user/repos?per_page=100"

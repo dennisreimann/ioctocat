@@ -1,5 +1,6 @@
 #import "AFNetworking.h"
+#import "AFOAuth2Client.h"
 
 
-@interface GHApiClient : AFHTTPClient
+@interface GHApiClient : AFOAuth2Client
 @end

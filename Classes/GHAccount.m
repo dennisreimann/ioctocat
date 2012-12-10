@@ -9,12 +9,13 @@
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+#import "AFOAuth2Client.h"
 
 
 @interface GHAccount ()
 @property(nonatomic,strong)NSString *login;
-@property(nonatomic,strong)NSString *password;
 @property(nonatomic,strong)NSString *endpoint;
+@property(nonatomic,strong)NSString *authToken;
 @end
 
 
@@ -24,15 +25,15 @@
 	self = [super init];
 	if (self) {
 		self.login = [theDict valueForKey:kLoginDefaultsKey defaultsTo:@""];
-		self.password = [theDict valueForKey:kPasswordDefaultsKey defaultsTo:@""];
 		self.endpoint = [theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
+		self.authToken = [theDict valueForKey:kAuthTokenDefaultsKey defaultsTo:@""];
 		// construct endpoint URL and set up API client
 		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
 		if (![self.endpoint isEmpty]) {
 			apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
 		}
 		self.apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
-		[self.apiClient setAuthorizationHeaderWithUsername:self.login password:self.password];
+		[self.apiClient setAuthorizationHeaderWithToken:self.authToken];
 		// user with authenticated URLs
 		self.user = [[iOctocat sharedInstance] userWithLogin:self.login];
 		self.user.resourcePath = kUserAuthenticatedFormat;

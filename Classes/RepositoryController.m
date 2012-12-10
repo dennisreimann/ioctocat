@@ -136,7 +136,7 @@
 	} else if (object == self.repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (self.repository.branches.isLoaded) {
 			[self.tableView reloadData];
-		} else if (self.repository.branches.error && !self.repository.isLoading && !self.repository.error) {
+		} else if (self.repository.branches.error && !self.repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the branches"];
 		}
 	} else if (object == self.repository.readme && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {

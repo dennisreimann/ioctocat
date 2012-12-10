@@ -119,10 +119,10 @@
 			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
 			[self.tableView reloadData];
 		}
-	} else if (object == self.gist.comments && !self.gist.isLoading && !self.gist.error) {
+	} else if (object == self.gist.comments) {
 		if (self.gist.comments.isLoaded) {
 			[self displayComments];
-		} else if (self.gist.comments.error) {
+		} else if (self.gist.comments.error && !self.gist.error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
 			[self.tableView reloadData];
 		}

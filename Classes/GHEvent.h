@@ -4,7 +4,6 @@
 @class GHUser, GHOrganization, GHRepository, GHGist, GHIssue, GHPullRequest, GHComment;
 
 @interface GHEvent : NSObject
-
 @property(nonatomic,strong)NSString *eventID;
 @property(nonatomic,strong)NSString *eventType;
 @property(nonatomic,strong)NSDate *date;
@@ -29,5 +28,4 @@
 @property(nonatomic,readwrite)BOOL read;
 
 - (id)initWithDict:(NSDictionary *)theDict;
-
 @end

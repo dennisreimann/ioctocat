@@ -5,11 +5,9 @@
 @class GHRepository;
 
 @interface GHBranch : GHResource
-
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *sha;
 
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
-
 @end

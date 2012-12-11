@@ -5,7 +5,6 @@
 @class GHIssueComments, GHRepository, GHUser;
 
 @interface GHIssue : GHResource
-
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHIssueComments *comments;
@@ -27,5 +26,4 @@
 - (void)closeIssue;
 - (void)reopenIssue;
 - (void)saveData;
-
 @end

@@ -11,7 +11,6 @@ typedef enum {
 @class GHAccount;
 
 @interface GHResource : NSObject
-
 @property(nonatomic,strong)NSString *resourcePath;
 @property(nonatomic,strong)NSError *error;
 @property(nonatomic,readonly)BOOL isLoaded;
@@ -24,5 +23,4 @@ typedef enum {
 - (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod useResult:(void (^)(id theResponse))useResult;
 - (void)setValues:(id)theResponse;
 - (NSString *)resourceContentType;
-
 @end

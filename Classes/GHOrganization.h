@@ -4,7 +4,6 @@
 @class GHUsers, GHRepositories, GHEvents;
 
 @interface GHOrganization : GHResource
-
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *login;
 @property(nonatomic,strong)NSString *email;
@@ -27,5 +26,4 @@
 - (id)initWithLogin:(NSString *)theLogin;
 - (void)setLogin:(NSString *)theLogin;
 - (void)loadedGravatar:(UIImage *)theImage;
-
 @end

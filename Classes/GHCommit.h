@@ -5,7 +5,6 @@
 @class GHUser, GHRepository, GHRepoComments;
 
 @interface GHCommit : GHResource
-
 @property(nonatomic,strong)NSString *commitID;
 @property(nonatomic,strong)NSString *message;
 @property(nonatomic,strong)NSURL *commitURL;
@@ -24,5 +23,4 @@
 @property(nonatomic,strong)GHRepoComments *comments;
 
 - (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
-
 @end

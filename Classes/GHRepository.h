@@ -5,7 +5,6 @@
 @class GHIssues, GHForks, GHBranches, GHUser, GHReadme, GHEvents;
 
 @interface GHRepository : GHResource
-
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *owner;
 @property(nonatomic,strong)NSString *descriptionText;
@@ -34,5 +33,4 @@
 - (int)compareByRepoId:(GHRepository*)repo;
 - (int)compareByRepoIdAndStatus:(GHRepository*)repo;
 - (NSString *)repoId;
-
 @end

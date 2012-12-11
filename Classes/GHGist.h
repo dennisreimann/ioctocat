@@ -5,7 +5,6 @@
 @class GHUser, GHGistComments;
 
 @interface GHGist : GHResource
-
 @property(nonatomic,strong)NSString *gistId;
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)GHGistComments *comments;
@@ -19,5 +18,4 @@
 @property(nonatomic,readwrite)BOOL isPrivate;
 
 - (id)initWithId:(NSString *)theId;
-
 @end

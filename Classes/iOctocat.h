@@ -1,7 +1,6 @@
 @class GHAccount, GHUser, GHOrganization;
 
 @interface iOctocat : NSObject
-
 @property(nonatomic,strong)GHAccount *currentAccount;
 @property(nonatomic,strong)IBOutlet UIWindow *window;
 

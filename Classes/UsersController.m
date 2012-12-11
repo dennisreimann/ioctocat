@@ -1,46 +1,42 @@
 #import "UsersController.h"
 #import "UserController.h"
 #import "GHUsers.h"
-#import "UserCell.h"
+#import "UserObjectCell.h"
+#import "iOctocat.h"
 
 
 @interface UsersController ()
-@property(nonatomic,retain)GHUsers *users;
+@property(nonatomic,strong)GHUsers *users;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
 @end
 
 
 @implementation UsersController
 
-@synthesize users;
-
-+ (id)controllerWithUsers:(GHUsers *)theUsers {
-	return [[[self.class alloc] initWithUsers:theUsers] autorelease];
-}
-
 - (id)initWithUsers:(GHUsers *)theUsers {
-    [super initWithNibName:@"Users" bundle:nil];
-    self.users = theUsers;
-	[users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    self = [super initWithNibName:@"Users" bundle:nil];
+	if (self) {
+		self.users = theUsers;
+		[self.users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!users.isLoaded) [users loadData];
+    if (!self.users.isLoaded) [self.users loadData];
 }
 
 - (void)dealloc {
-	[users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [noUsersCell release], noUsersCell = nil;
-    [loadingCell release], loadingCell = nil;
-    [userCell release], userCell = nil;
-    [super dealloc];
+	[self.users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
-		if (!users.isLoading && users.error) {
+		if (!self.users.isLoading && self.users.error) {
 			[iOctocat reportLoadingError:@"Could not load the users"];
 		}
 	}
@@ -51,25 +47,25 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!users.isLoaded) || (users.users.count == 0) ? 1 : users.users.count;
+    return !self.users.isLoaded || self.users.isEmpty ? 1 : self.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!users.isLoaded) return loadingCell;
-	if (users.users.count == 0) return noUsersCell;
-	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+	if (!self.users.isLoaded) return self.loadingCell;
+	if (self.users.isEmpty) return self.noUsersCell;
+	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = userCell;
+		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+		cell = self.userObjectCell;
 	}
-    cell.user = [users.users objectAtIndex:indexPath.row];
+    cell.userObject = (self.users)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!users.isLoaded || users.users.count == 0) return;
-    GHUser *selectedUser = [users.users objectAtIndex:indexPath.row];
-    UserController *userController = [UserController controllerWithUser:(GHUser *)selectedUser];
+    if (!self.users.isLoaded || self.users.isEmpty) return;
+    GHUser *selectedUser = (self.users)[indexPath.row];
+    UserController *userController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
 }
 

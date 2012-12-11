@@ -1,29 +1,7 @@
-#import <UIKit/UIKit.h>
+@class GHRepository, GHUser;
 
-
-@class GHIssues, IssueCell, GHRepository, GHUser;
-
-@interface IssuesController : UITableViewController {
-	IBOutlet UISegmentedControl *issuesControl;
-	IBOutlet UITableViewCell *loadingIssuesCell;
-	IBOutlet UITableViewCell *noIssuesCell;
-	IBOutlet UIBarButtonItem *addButton;
-	IBOutlet UIBarButtonItem *refreshButton;
-	IBOutlet IssueCell *issueCell;
-	@private
-	GHUser *user;
-	GHRepository *repository;
-	NSArray *issueList;
-	NSUInteger loadCounter;
-}
-
-+ (id)controllerWithUser:(GHUser *)theUser;
-+ (id)controllerWithRepository:(GHRepository *)theRepository;
+@interface IssuesController : UITableViewController
 - (id)initWithUser:(GHUser *)theUser;
 - (id)initWithRepository:(GHRepository *)theRepository;
 - (void)reloadIssues;
-- (IBAction)switchChanged:(id)sender;
-- (IBAction)createNewIssue:(id)sender;
-- (IBAction)refresh:(id)sender;
-
 @end

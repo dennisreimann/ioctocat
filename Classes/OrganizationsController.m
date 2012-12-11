@@ -1,66 +1,41 @@
 #import "OrganizationsController.h"
 #import "OrganizationController.h"
-#import "OrganizationCell.h"
+#import "UserObjectCell.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "AccountController.h"
 
 
 @interface OrganizationsController ()
-@property(nonatomic,retain)GHOrganizations *organizations;
+@property(nonatomic,strong)GHOrganizations *organizations;
 @property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 @end
 
 
 @implementation OrganizationsController
 
-@synthesize organizations;
-
-+ (id)controllerWithOrganizations:(GHOrganizations *)theOrganizations {
-    return [[[OrganizationsController alloc] initWithOrganizations:theOrganizations] autorelease];
-}
-
 - (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
-    [super initWithNibName:@"Organizations" bundle:nil];
-    self.organizations = theOrganizations;
-	[organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    self = [super initWithNibName:@"Organizations" bundle:nil];
+	if (self) {
+		self.organizations = theOrganizations;
+		[self.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    }
     return self;
-}
-
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-    self.navItem.title = @"Organizations";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = nil;
-
-    if (!organizations.isLoaded) [organizations loadData];
+    self.navigationItem.title = @"Organizations";
+	self.navigationItem.rightBarButtonItem = nil;
+    if (!self.organizations.isLoaded) [self.organizations loadData];
 }
 
 - (void)dealloc {
-	[organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-    [noOrganizationsCell release], noOrganizationsCell = nil;
-    [organizationCell release], organizationCell = nil;
-    [loadingCell release], loadingCell = nil;
-    [super dealloc];
+	[self.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (GHUser *)currentUser {
@@ -70,7 +45,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
-		if (!organizations.isLoading && organizations.error) {
+		if (!self.organizations.isLoading && self.organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
 	}
@@ -81,25 +56,25 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!organizations.isLoaded) || (organizations.organizations.count == 0) ? 1 : organizations.organizations.count;
+    return (!self.organizations.isLoaded) || (self.organizations.isEmpty) ? 1 : self.organizations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!organizations.isLoaded) return loadingCell;
-	if (organizations.organizations.count == 0) return noOrganizationsCell;
-	OrganizationCell *cell = (OrganizationCell *)[tableView dequeueReusableCellWithIdentifier:kOrganizationCellIdentifier];
+	if (!self.organizations.isLoaded) return self.loadingCell;
+	if (self.organizations.count == 0) return self.noOrganizationsCell;
+	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"OrganizationCell" owner:self options:nil];
-		cell = organizationCell;
+		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+		cell = self.userObjectCell;
 	}
-    cell.organization = [organizations.organizations objectAtIndex:indexPath.row];
+    cell.userObject = (self.organizations)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!organizations.isLoaded || organizations.organizations.count == 0) return;
-    GHOrganization *org = [organizations.organizations objectAtIndex:indexPath.row];
-    OrganizationController *viewController = [OrganizationController controllerWithOrganization:org];
+    if (!self.organizations.isLoaded || self.organizations.isEmpty) return;
+    GHOrganization *org = (self.organizations)[indexPath.row];
+    OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

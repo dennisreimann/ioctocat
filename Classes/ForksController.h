@@ -2,14 +2,9 @@
 #import "GHRepository.h"
 
 
-@interface ForksController : UITableViewController {
-	IBOutlet UITableViewCell *loadingForksCell;
-	IBOutlet UITableViewCell *noForksCell;
-  	@private
-		GHRepository *repository;
-}
+@interface ForksController : UITableViewController
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingForksCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noForksCell;	
 
-+ (id)controllerWithRepository:(GHRepository *)theRepository;
 - (id)initWithRepository:(GHRepository *)theRepository;
-
 @end

@@ -6,39 +6,23 @@
 
 @implementation GHOrganizations
 
-@synthesize user, organizations;
-
-+ (id)organizationsWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
-	return [[[[self class] alloc] initWithUser:theUser andPath:thePath] autorelease];
-}
-
 - (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
-	[super init];
-	self.user = theUser;
-	self.organizations = [NSMutableArray array];
-	self.resourcePath = thePath;
+	self = [super init];
+	if (self) {
+		self.user = theUser;
+		self.resourcePath = thePath;
+	}
 	return self;
 }
 
-- (void)dealloc {
-	[user release], user = nil;
-	[organizations release], organizations = nil;
-	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHOrganizations user:'%@' resourcePath:'%@'>", user, self.resourcePath];
-}
-
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:[dict objectForKey:@"login"]];
-		[theOrg setValues:dict];
-		[resources addObject:theOrg];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHOrganization *org = [[iOctocat sharedInstance] organizationWithLogin:dict[@"login"]];
+		[org setValues:dict];
+		[self addObject:org];
 	}
-	[resources sortUsingSelector:@selector(compareByName:)];
-	self.organizations = resources;
+	[self.items sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

@@ -1,12 +1,3 @@
-[submodule "Classes/External/Base64"]
-	path = Classes/External/Base64
-	url = git://github.com/nicklockwood/Base64.git
 [submodule "Assets/highlight.js"]
 	path = Assets/highlight.js
 	url = git://github.com/iOctocat/highlight.js.git
-[submodule "Classes/External/NoticeView"]
-	path = Classes/External/NoticeView
-	url = git://github.com/tciuro/NoticeView.git
-[submodule "Classes/External/AFNetworking"]
-	path = Classes/External/AFNetworking
-	url = git://github.com/AFNetworking/AFNetworking.git

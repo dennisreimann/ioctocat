@@ -2,10 +2,11 @@
 #import "BlobsController.h"
 #import "GHTree.h"
 #import "GHBlob.h"
+#import "iOctocat.h"
 
 
 @interface TreeController ()
-@property(nonatomic,retain)GHTree *tree;
+@property(nonatomic,strong)GHTree *tree;
 
 - (void)displayTree;
 @end
@@ -13,34 +14,27 @@
 
 @implementation TreeController
 
-@synthesize tree;
-
-+ (id)controllerWithTree:(GHTree *)theTree {
-	return [[[self.class alloc] initWithTree:theTree] autorelease];
-}
-
 - (id)initWithTree:(GHTree *)theTree {
-	[super initWithNibName:@"Tree" bundle:nil];
-	self.tree = theTree;
-	[tree addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super initWithNibName:@"Tree" bundle:nil];
+	if (self) {
+		self.tree = theTree;
+		[self.tree addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	[self displayTree];
-	if (![tree isLoaded]) [tree loadData];
+	if (![self.tree isLoaded]) [self.tree loadData];
 }
 
 - (void)dealloc {
-	[tree removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[loadingTreeCell release], loadingTreeCell = nil;
-	[noEntriesCell release], noEntriesCell = nil;
-	[super dealloc];
+	[self.tree removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)displayTree {
-	self.title = tree.path ? tree.path : tree.sha;
+	self.title = self.tree.path ? self.tree.path : self.tree.sha;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -56,33 +50,33 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return tree.isLoading ? 1 : 2;
+	return self.tree.isLoading ? 1 : 2;
 
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (tree.isLoading) return 1;
-	return section == 0 ? tree.trees.count : tree.blobs.count;
+	if (self.tree.isLoading) return 1;
+	return section == 0 ? self.tree.trees.count : self.tree.blobs.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (tree.isLoading) return loadingTreeCell;
+	if (self.tree.isLoading) return self.loadingTreeCell;
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	if (section == 0) {
-		GHTree *obj = (GHTree *)[tree.trees objectAtIndex:row];
+		GHTree *obj = (GHTree *)(self.tree.trees)[row];
 		cell.textLabel.text = obj.path;
 		cell.imageView.image = [UIImage imageNamed:@"folder.png"];
 	} else {
-		GHBlob *obj = (GHBlob *)[tree.blobs objectAtIndex:row];
+		GHBlob *obj = (GHBlob *)(self.tree.blobs)[row];
 		cell.textLabel.text = obj.path;
 		cell.imageView.image = [UIImage imageNamed:@"file.png"];
 	}
@@ -90,15 +84,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!tree.isLoaded) return;
+	if (!self.tree.isLoaded) return;
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	if (section == 0) {
-		GHTree *obj = (GHTree *)[tree.trees objectAtIndex:row];
-		TreeController *treeController = [TreeController controllerWithTree:obj];
+		GHTree *obj = (GHTree *)(self.tree.trees)[row];
+		TreeController *treeController = [[TreeController alloc] initWithTree:obj];
 		[self.navigationController pushViewController:treeController animated:YES];
 	} else {
-		BlobsController *blobsController = [BlobsController controllerWithBlobs:tree.blobs currentIndex:row];
+		BlobsController *blobsController = [[BlobsController alloc] initWithBlobs:self.tree.blobs currentIndex:row];
 		[self.navigationController pushViewController:blobsController animated:YES];
 	}
 }

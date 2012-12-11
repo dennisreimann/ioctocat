@@ -7,20 +7,6 @@
 
 @implementation GHComment
 
-@synthesize user;
-@synthesize commentID;
-@synthesize body;
-@synthesize created;
-@synthesize updated;
-
-- (void)dealloc {
-	[user release], user = nil;
-	[body release], body = nil;
-	[created release], created = nil;
-	[updated release], updated = nil;
-	[super dealloc];
-}
-
 - (void)setUserWithValues:(NSDictionary *)userDict {
 	self.user = [[iOctocat sharedInstance] userWithLogin:[userDict valueForKey:@"login"]];
 	NSString *avatarURL = [userDict valueForKey:@"avatar_url"];
@@ -31,8 +17,8 @@
 
 #pragma mark Saving
 
+// Implement this in the subclass
 - (void)saveData {
-	// Implement this in the subclass
 }
 
 @end

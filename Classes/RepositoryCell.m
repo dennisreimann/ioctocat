@@ -8,11 +8,11 @@
 }
 
 + (id)cellWithIdentifier:(id)reuseIdentifier {
-	return [[[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier] autorelease];
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-	[super initWithStyle:style reuseIdentifier:reuseIdentifier];
+	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
 	self.textLabel.font = [UIFont systemFontOfSize:16.0f];
 	self.textLabel.highlightedTextColor = [UIColor whiteColor];
 	self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
@@ -22,14 +22,7 @@
 	return self;
 }
 
-- (void)dealloc {
-	[_repository release], _repository = nil;
-    [super dealloc];
-}
-
 - (void)setRepository:(GHRepository *)theRepository {
-	[theRepository retain];
-	[_repository release];
 	_repository = theRepository;
 	
 	self.imageView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"private.png" : @"public.png")];

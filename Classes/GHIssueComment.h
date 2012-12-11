@@ -5,14 +5,10 @@
 
 @class GHUser;
 
-@interface GHIssueComment : GHComment {
-	id parent; // a GHIssue or GHPullRequest instance
-}
+@interface GHIssueComment : GHComment
 
-@property(nonatomic,retain)id parent;
+@property(nonatomic,strong)id parent; // a GHIssue or GHPullRequest instance
 
-+ (id)commentWithParent:(id)theParent andDictionary:(NSDictionary *)theDict;
-+ (id)commentWithParent:(id)theParent;
 - (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict;
 - (id)initWithParent:(id)theParent;
 

@@ -5,36 +5,33 @@
 #import "NSDate+Nibware.h"
 
 
+@interface IssueCell ()
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UILabel *titleLabel;
+@property(nonatomic,weak)IBOutlet UILabel *detailLabel;
+@property(nonatomic,weak)IBOutlet UILabel *votesLabel;
+@property(nonatomic,weak)IBOutlet UILabel *repoLabel;
+@property(nonatomic,weak)IBOutlet UILabel *issueNumber;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@end
+
+
 @implementation IssueCell
 
-@synthesize issue;
-
-- (void)dealloc {
-	[issue release], issue = nil;
-	[dateLabel release], dateLabel = nil;
-	[titleLabel release], titleLabel = nil;
-	[detailLabel release], detailLabel = nil;
-	[votesLabel release], votesLabel = nil;
-	[repoLabel release], repoLabel = nil;
-	[iconView release], iconView = nil;
-	[super dealloc];
-}
-
 - (void)setIssue:(GHIssue *)anIssue {
-	[issue release];
-	issue = [anIssue retain];
-	titleLabel.text = issue.title;
-	detailLabel.text = issue.body;
-	repoLabel.text = issue.repository.repoId;
-	issueNumber.text = [NSString stringWithFormat:@"#%d", issue.num];
-	dateLabel.text = [issue.updated prettyDate];
+	_issue = anIssue;
+	self.titleLabel.text = self.issue.title;
+	self.detailLabel.text = self.issue.body;
+	self.repoLabel.text = self.issue.repository.repoId;
+	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.dateLabel.text = [self.issue.updated prettyDate];
 	// Icon
-	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", issue.state];
-	iconView.image = [UIImage imageNamed:icon];
+	NSString *icon = [NSString stringWithFormat:@"issues_%@.png", self.issue.state];
+	self.iconView.image = [UIImage imageNamed:icon];
 }
 
 - (void)hideRepo {
-	repoLabel.text = @"";
+	self.repoLabel.text = @"";
 }
 
 @end

@@ -1,15 +1,6 @@
-#import <UIKit/UIKit.h>
-
-
 @class GHAccount;
 
-@interface AuthenticationController : UIViewController <UIActionSheetDelegate> {
-	@private
-	UIViewController *delegate;
-	UIActionSheet *authSheet;
-	GHAccount *account;
-}
-
+@interface AuthenticationController : UIViewController
 - (id)initWithDelegate:(UIViewController *)theDelegate;
 - (void)authenticateAccount:(GHAccount *)theAccount;
 - (void)stopAuthenticating;

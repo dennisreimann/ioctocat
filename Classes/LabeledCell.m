@@ -2,25 +2,24 @@
 #import "NSString+Extensions.h"
 
 
+@interface LabeledCell ()
+@property(nonatomic,assign)BOOL hasContent;
+@property(nonatomic,weak)IBOutlet UILabel *label;
+@property(nonatomic,weak)IBOutlet UILabel *content;
+@end
+
+
 @implementation LabeledCell
 
-@synthesize hasContent;
-
-- (void)dealloc {
-	[label release], label = nil;
-	[content release], content = nil;
-	[super dealloc];
-}
-
 - (void)setLabelText:(NSString *)text {
-	label.text = text;
+	self.label.text = text;
 }
 
 - (void)setContentText:(NSString *)text {
-	hasContent = (![text isKindOfClass:[NSNull class]] && text != nil && ![text isEmpty]);
-	content.text = hasContent ? text : @"n/a";
-	content.textColor = hasContent ? [UIColor blackColor] : [UIColor grayColor];
-	content.highlightedTextColor = [UIColor whiteColor];
+	self.hasContent = (![text isKindOfClass:[NSNull class]] && text != nil && ![text isEmpty]);
+	self.content.text = self.hasContent ? text : @"n/a";
+	self.content.textColor = self.hasContent ? [UIColor blackColor] : [UIColor grayColor];
+	self.content.highlightedTextColor = [UIColor whiteColor];
 }
 
 @end

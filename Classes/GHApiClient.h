@@ -1,6 +1,6 @@
 #import "AFNetworking.h"
+#import "AFOAuth2Client.h"
 
 
-@interface GHApiClient : AFHTTPClient
-+ (id)clientWithBaseURL:(NSURL *)url;
+@interface GHApiClient : AFOAuth2Client
 @end

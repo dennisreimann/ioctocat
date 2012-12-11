@@ -6,45 +6,27 @@
 
 @implementation GHBranches
 
-@synthesize branches;
-@synthesize repository;
-
-+ (id)branchesWithRepository:(GHRepository *)theRepository {
-	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super init];
-	self.repository = theRepository;
-	self.branches = [NSMutableArray array];
-	self.resourcePath = [NSString stringWithFormat:kRepoBranchesFormat, repository.owner, repository.name];
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.resourcePath = [NSString stringWithFormat:kRepoBranchesFormat, self.repository.owner, self.repository.name];
+	}
 	return self;
 }
 
-- (void)dealloc {
-	[branches release], branches = nil;
-	[repository release], repository = nil;
-	[super dealloc];
-}
-
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<GHBranches repository:'%@'>", repository];
-}
-
-- (void)setValues:(id)theResponse {
-    NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *branchDict in theResponse) {
-        NSString *name = [branchDict valueForKey:@"name"];
-		GHBranch *branch = [[GHBranch alloc] initWithRepository:repository andName:name];
-		branch.sha = [branchDict valueForKeyPath:@"commit.sha"];
-		if ([branch.name isEqualToString:repository.mainBranch]) {
-			[resources insertObject:branch atIndex:0];
+- (void)setValues:(id)values {
+    self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+        NSString *name = [dict valueForKey:@"name"];
+		GHBranch *branch = [[GHBranch alloc] initWithRepository:self.repository andName:name];
+		[branch setValues:dict];
+		if ([branch.name isEqualToString:self.repository.mainBranch]) {
+			[self insertObject:branch atIndex:0];
 		} else {
-			[resources addObject:branch];
+			[self addObject:branch];
 		}
-		[branch release];
     }
-    self.branches = resources;
 }
 
 @end

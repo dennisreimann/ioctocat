@@ -2,20 +2,28 @@
 #import "IssuesController.h"
 #import "GHIssue.h"
 #import "NSString+Extensions.h"
+#import "iOctocat.h"
 
 
-@interface IssueFormController ()
+@interface IssueFormController () <UITextFieldDelegate>
+@property(nonatomic,strong)GHIssue *issue;
+@property(nonatomic,strong)IssuesController *listController;
+@property(nonatomic,weak)IBOutlet UITextField *titleField;
+@property(nonatomic,weak)IBOutlet UITextView *bodyField;
+@property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
+@property(nonatomic,weak)IBOutlet UIButton *saveButton;
+@property(nonatomic,strong)IBOutlet UIView *tableFooterView;
+@property(nonatomic,strong)IBOutlet UITableViewCell *titleCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *bodyCell;
+
+- (IBAction)saveIssue:(id)sender;
 @end
 
 
 @implementation IssueFormController
 
-+ (id)controllerWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	return [[[self.class alloc] initWithIssue:theIssue andIssuesController:theController] autorelease];
-}
-
 - (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
-	[super initWithNibName:@"IssueForm" bundle:nil];
+	self = [super initWithNibName:@"IssueForm" bundle:nil];
 	self.issue = theIssue;
 	self.listController = theController;
 	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -34,15 +42,6 @@
 
 - (void)dealloc {
 	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-	[_issue release], _issue = nil;
-	[_tableFooterView release], _tableFooterView = nil;
-	[_listController release], _listController = nil;
-	[_titleField release], _titleField = nil;
-	[_bodyField release], _bodyField = nil;
-	[_titleCell release], _titleCell = nil;
-	[_bodyCell release], _bodyCell = nil;
-	[_saveButton release], _saveButton = nil;
-	[super dealloc];
 }
 
 - (IBAction)saveIssue:(id)sender {

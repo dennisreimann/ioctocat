@@ -7,7 +7,7 @@
 + (NSURL *)URLWithFormat:(NSString *)formatString, ... {
 	va_list args;
 	va_start(args, formatString);
-	NSString *urlString = [[[NSString alloc] initWithFormat:formatString arguments:args] autorelease];
+	NSString *urlString = [[NSString alloc] initWithFormat:formatString arguments:args];
 	va_end(args);
 	return [NSURL URLWithString:urlString];
 }
@@ -28,7 +28,7 @@
 
 // Taken from https://gist.github.com/1256354
 - (NSURL *)URLByAppendingParams:(NSDictionary *)theParams {
-	NSMutableString *query = [[[self query] mutableCopy] autorelease];
+	NSMutableString *query = [[self query] mutableCopy];
 
 	if (!query) {
 		query = [NSMutableString stringWithString:@""];
@@ -39,7 +39,7 @@
 	parameterNames = [parameterNames sortedArrayUsingSelector:@selector(compare:)];
 
 	for (NSString *parameterName in parameterNames) {
-		id value = [theParams objectForKey:parameterName];
+		id value = theParams[parameterName];
 		NSAssert3([parameterName isKindOfClass:[NSString class]], @"Got '%@' of type %@ as key for parameter with value '%@'. Expected an NSString.", parameterName, NSStringFromClass([parameterName class]), value);
 
 		// The value needs to be an NSString, or be able to give us an NSString

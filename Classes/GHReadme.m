@@ -6,40 +6,32 @@
 
 @implementation GHReadme
 
-@synthesize bodyHTML;
-@synthesize repository;
-
-+ (id)readmeWithRepository:(GHRepository *)theRepository {
-	return [[[[self class] alloc] initWithRepository:theRepository] autorelease];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super init];
-	self.repository = theRepository;
-	self.resourcePath = [NSString stringWithFormat:kRepoReadmeFormat, repository.owner, repository.name];
-	[repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super init];
+	if (self) {
+		self.repository = theRepository;
+		self.resourcePath = [NSString stringWithFormat:kRepoReadmeFormat, self.repository.owner, self.repository.name];
+		[self.repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[repository release], repository = nil;
-	[bodyHTML release], bodyHTML = nil;
-	[super dealloc];
+	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (repository.isLoaded) {
+		if (self.repository.isLoaded) {
 			[self loadData];
-		} else if (repository.error) {
+		} else if (self.repository.error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
 		}
 	}
 }
 
 - (void)loadData {
-	repository.isLoaded ? [super loadData] : [repository loadData];
+	self.repository.isLoaded ? [super loadData] : [self.repository loadData];
 }
 
 - (NSString *)resourceContentType {
@@ -49,7 +41,7 @@
 - (void)setValues:(id)theResponse {
 	// the response is not a dictionary, because we requested
 	// the html mime type which returns the HTML representation
-	self.bodyHTML = [[[NSString alloc] initWithData:(NSData *)theResponse encoding:NSUTF8StringEncoding] autorelease];
+	self.bodyHTML = [[NSString alloc] initWithData:(NSData *)theResponse encoding:NSUTF8StringEncoding];
 }
 
 @end

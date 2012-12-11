@@ -1,14 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
-@interface GHGists : GHResource {
-	NSMutableArray *gists;
-}
-
-@property(nonatomic,retain)NSMutableArray *gists;
-
-+ (id)gistsWithPath:(NSString *)thePath;
+@interface GHGists : GHCollection
 - (id)initWithPath:(NSString *)thePath;
-
 @end

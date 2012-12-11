@@ -1,11 +1,9 @@
-// Prefix header for all source files of the 'iOctocat' target in the 'iOctocat' project
 #ifdef __OBJC__
 	#import <Foundation/Foundation.h>
 	#import <UIKit/UIKit.h>
+	#import <QuartzCore/QuartzCore.h>
 	#import <SystemConfiguration/SystemConfiguration.h>
 	#import <MobileCoreServices/MobileCoreServices.h>
-	#import "AppConstants.h"
+	#import "IOCAppConstants.h"
 	#import "JLog.h"
-	#import "Platform.h"
-	#import "iOctocat.h"
 #endif

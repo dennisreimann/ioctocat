@@ -8,92 +8,64 @@
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
+
+#define kLoadingCellIdentifier @"LoadingCell"
+#define kEmptyCellIdentifier @"EmptyCell"
 
 
 @interface OrganizationRepositoriesController ()
-@property(nonatomic,retain)NSMutableArray *organizationRepositories;
-@property(nonatomic,retain)NSMutableArray *observedOrgRepoLists;
-@property(nonatomic,retain)GHUser *user;
-@property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,weak,readonly)GHUser *currentUser;
+@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSMutableArray *observedOrgRepoLists;
+@property(nonatomic,strong)NSMutableArray *organizationRepositories;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
 - (void)loadOrganizationRepositories;
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (GHRepositories *)repositoriesInSection:(NSInteger)section;
+- (IBAction)refresh:(id)sender;
 @end
 
 
 @implementation OrganizationRepositoriesController
 
-@synthesize user;
-@synthesize organizationRepositories;
-@synthesize observedOrgRepoLists;
-
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[[OrganizationRepositoriesController alloc] initWithUser:theUser] autorelease];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
-	[super initWithNibName:@"OrganizationRepositories" bundle:nil];
-
-	self.user = theUser;
-	self.organizationRepositories = [NSMutableArray array];
-
-	[user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-
+	self = [super initWithNibName:@"OrganizationRepositories" bundle:nil];
+	if (self) {
+		self.user = theUser;
+		self.organizationRepositories = [NSMutableArray array];
+		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	for (GHRepositories *repoList in observedOrgRepoLists) [repoList removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[organizationRepositories release], organizationRepositories = nil;
-	[emptyCell release], emptyCell = nil;
-	[loadingCell release], loadingCell = nil;
-	[loadingOrganizationsCell release], loadingOrganizationsCell = nil;
-	[observedOrgRepoLists release], observedOrgRepoLists = nil;
-	[refreshButton release], refreshButton = nil;
-	[super dealloc];
-}
-
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+	for (GHRepositories *repoList in self.observedOrgRepoLists) [repoList removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	(user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [user.organizations loadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-	self.navItem.title = @"Organization Repos";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = refreshButton;
+	self.navigationItem.title = @"Organization Repositories";
+	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
 }
 
 - (void)loadOrganizationRepositories {
 	// GitHub API v3 changed the way this has to be looked up. There
 	// is not a single call for these no more - we have to fetch each
 	// organizations repos
-	for (GHOrganization *org in user.organizations.organizations) {
+	for (GHOrganization *org in self.user.organizations.items) {
 		GHRepositories *repos = org.repositories;
 		if (repos.isLoaded) {
 			[self displayRepositories:repos];
 		} else if (!repos.isLoading && !repos.error) {
-			if (![observedOrgRepoLists containsObject:repos]) {
+			if (![self.observedOrgRepoLists containsObject:repos]) {
 				[repos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-				[observedOrgRepoLists addObject:repos];
+				[self.observedOrgRepoLists addObject:repos];
 			}
 			[repos loadData];
 		}
@@ -102,7 +74,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	// organizations
-	if ([object isEqual:user.organizations]) {
+	if ([object isEqual:self.user.organizations]) {
 		GHOrganizations *organizations = (GHOrganizations *)object;
 		if (organizations.isLoaded) {
 			[self loadOrganizationRepositories];
@@ -132,9 +104,7 @@
 		}
 		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
-
-	[repositories.repositories sortUsingComparator:compareRepositories];
-
+	[repositories.items sortUsingComparator:compareRepositories];
 	[self.tableView reloadData];
 }
 
@@ -143,14 +113,14 @@
 }
 
 - (GHRepositories *)repositoriesInSection:(NSInteger)section {
-	GHOrganization *organization = [user.organizations.organizations objectAtIndex:section];
+	GHOrganization *organization = (self.user.organizations)[section];
 	return organization.repositories;
 }
 
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	for (GHOrganization *org in user.organizations.organizations) {
+	for (GHOrganization *org in self.user.organizations.items) {
 		[org.repositories loadData];
 	}
 	[self.tableView reloadData];
@@ -159,43 +129,42 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return user.organizations.isLoaded ? user.organizations.organizations.count : 1;
+	return self.user.organizations.isLoaded ? self.user.organizations.count : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!user.organizations.isLoaded) return 1;
-	GHOrganization *organization = [user.organizations.organizations objectAtIndex:section];
+	if (!self.user.organizations.isLoaded) return 1;
+	GHOrganization *organization = (self.user.organizations)[section];
 	GHRepositories *repos = organization.repositories;
-	NSUInteger count = repos.repositories.count;
-	return (!repos.isLoaded || count == 0) ? 1 : count;
+	return (!repos.isLoaded || repos.isEmpty) ? 1 : repos.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (!user.organizations.isLoaded) return @"";
-	GHOrganization *organization = [user.organizations.organizations objectAtIndex:section];
+	if (!self.user.organizations.isLoaded) return @"";
+	GHOrganization *organization = (self.user.organizations)[section];
 	return organization.login;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!user.organizations.isLoaded) return loadingOrganizationsCell;
+	if (!self.user.organizations.isLoaded) return self.loadingOrganizationsCell;
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	UITableViewCell *cell;
 	if (!repos.isLoaded) {
 		cell = [tableView dequeueReusableCellWithIdentifier:kLoadingCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"LoadingCell" owner:self options:nil];
-			cell = loadingCell;
+			cell = self.loadingCell;
 		}
-	} else if (repos.repositories.count == 0) {
+	} else if (repos.isEmpty) {
 		cell = [tableView dequeueReusableCellWithIdentifier:kEmptyCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"EmptyCell" owner:self options:nil];
-			cell = emptyCell;
+			cell = self.emptyCell;
 		}
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		[(RepositoryCell *)cell setRepository:[repos.repositories objectAtIndex:indexPath.row]];
+		[(RepositoryCell *)cell setRepository:(repos)[indexPath.row]];
 		[(RepositoryCell *)cell hideOwner];
 	}
 	return cell;
@@ -203,9 +172,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
-	if (repos.repositories.count == 0) return;
-	GHRepository *repo = [repos.repositories objectAtIndex:indexPath.row];
-	RepositoryController *repoController = [RepositoryController controllerWithRepository:repo];
+	if (repos.isEmpty) return;
+	GHRepository *repo = (repos)[indexPath.row];
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

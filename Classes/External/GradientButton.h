@@ -3,9 +3,6 @@
 //
 //  Created by Jeff LaMarche on 5/17/10.
 //
-
-#import <UIKit/UIKit.h>
-#import <QuartzCore/QuartzCore.h>
 #import <CoreGraphics/CoreGraphics.h>
 
 @interface GradientButton : UIButton 
@@ -31,13 +28,13 @@
     CGGradientRef   normalGradient;
     CGGradientRef   highlightGradient;
 }
-@property (nonatomic, retain) NSArray *normalGradientColors;
-@property (nonatomic, retain) NSArray *normalGradientLocations;
-@property (nonatomic, retain) NSArray *highlightGradientColors;
-@property (nonatomic, retain) NSArray *highlightGradientLocations;
+@property (nonatomic, strong) NSArray *normalGradientColors;
+@property (nonatomic, strong) NSArray *normalGradientLocations;
+@property (nonatomic, strong) NSArray *highlightGradientColors;
+@property (nonatomic, strong) NSArray *highlightGradientLocations;
 @property (nonatomic) CGFloat cornerRadius;
 @property (nonatomic) CGFloat strokeWeight;
-@property (nonatomic, retain) UIColor *strokeColor;
+@property (nonatomic, strong) UIColor *strokeColor;
 - (void)useAlertStyle;
 - (void)useRedDeleteStyle;
 - (void)useGithubStyle;

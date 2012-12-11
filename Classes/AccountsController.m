@@ -1,21 +1,25 @@
 #import "AccountsController.h"
-#import "AccountController.h"
+#import "MyEventsController.h"
+#import "MenuController.h"
 #import "AccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
-#import "UserCell.h"
+#import "UserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
+#import "AuthenticationController.h"
 
 
-@interface AccountsController ()
+@interface AccountsController () <AuthenticationControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)AuthenticationController *authController;
+@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex;
-- (void)openAccount:(GHAccount *)theAccount;
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
+- (IBAction)addAccount:(id)sender;
+- (IBAction)toggleEditAccounts:(id)sender;
 @end
 
 
@@ -27,24 +31,13 @@
 	[defaults synchronize];
 }
 
-- (void)dealloc {
-	[_authController release], _authController = nil;
-	[_userCell release], _userCell = nil;
-	[_accounts release], _accounts = nil;
-	[super dealloc];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSArray *currentAccounts = [defaults objectForKey:kAccountsDefaultsKey];
 	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
-
 	// Open account if there is only one
 	if (self.accounts.count == 1) {
 		[self openOrAuthenticateAccountAtIndex:0];
@@ -52,27 +45,35 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
+	[super viewWillAppear:animated];
+	if ([iOctocat sharedInstance].currentAccount) {
+		[iOctocat sharedInstance].currentAccount = nil;
+	}
 	[self.tableView reloadData];
+	[self updateEditButtonItem];
 }
 
 #pragma mark Accounts
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
-	return [[^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([[obj objectForKey:kLoginDefaultsKey] isEqualToString:theLogin]) {
+	return [^(id obj, NSUInteger idx, BOOL *stop) {
+		if ([obj[kLoginDefaultsKey] isEqualToString:theLogin]) {
 			*stop = YES;
 			return YES;
 		}
 		return NO;
-	} copy] autorelease];
+	} copy];
 }
 
 #pragma mark Actions
 
 - (void)editAccountAtIndex:(NSUInteger)theIndex {
-	AccountFormController *viewController = [AccountFormController controllerWithAccounts:self.accounts andIndex:theIndex];
+	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:self.accounts andIndex:theIndex];
 	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (IBAction)toggleEditAccounts:(id)sender {
+	self.tableView.editing = !self.tableView.isEditing;
 }
 
 - (IBAction)addAccount:(id)sender {
@@ -80,21 +81,16 @@
 }
 
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
-	NSDictionary *accountDict = [self.accounts objectAtIndex:theIndex];
-	GHAccount *account = [GHAccount accountWithDict:accountDict];
+	NSDictionary *accountDict = (self.accounts)[theIndex];
+	GHAccount *account = [[GHAccount alloc] initWithDict:accountDict];
 	[iOctocat sharedInstance].currentAccount = account;
-	if (account.user.isAuthenticated) {
-		[self openAccount:account];
-	} else {
+	if (!account.user.isAuthenticated) {
 		[self.authController authenticateAccount:account];
 	}
 }
 
-- (void)openAccount:(GHAccount *)theAccount {
-	AccountController *viewController = [AccountController controllerWithAccount:theAccount];
-	[iOctocat sharedInstance].currentAccount = theAccount;
-	[iOctocat sharedInstance].accountController = viewController;
-	[self.navigationController pushViewController:viewController animated:YES];
+- (void)updateEditButtonItem {
+	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
 }
 
 #pragma mark TableView
@@ -108,15 +104,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-		cell = self.userCell;
+		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+		cell = self.userObjectCell;
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
-	NSDictionary *accountDict = [self.accounts objectAtIndex:indexPath.row];
-	NSString *login = [accountDict objectForKey:kLoginDefaultsKey];
-	cell.user = [[iOctocat sharedInstance] userWithLogin:login];
+	NSDictionary *accountDict = (self.accounts)[indexPath.row];
+	NSString *login = accountDict[kLoginDefaultsKey];
+	cell.userObject = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
 }
 
@@ -134,7 +130,8 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[self.accounts removeObjectAtIndex:indexPath.row];
 		[self.class saveAccounts:self.accounts];
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[self updateEditButtonItem];
 	}
 }
 
@@ -159,11 +156,10 @@
 }
 
 - (void)authenticatedAccount:(GHAccount *)theAccount {
-	if (theAccount.user.isAuthenticated) {
-		[self openAccount:theAccount];
-	} else {
+	[iOctocat sharedInstance].currentAccount = theAccount;
+	if (!theAccount.user.isAuthenticated) {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.login]];
+		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.user.login]];
 		[self editAccountAtIndex:index];
 	}
 }

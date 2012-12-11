@@ -1,14 +1,6 @@
-#import <UIKit/UIKit.h>
-
-
-@interface FilesCell : UITableViewCell {
-	NSArray *files;
-	NSString *description;
-}
-
-@property(nonatomic,retain)NSArray *files;
-@property(nonatomic,copy)NSString *description;
+@interface FilesCell : UITableViewCell
+@property(nonatomic,strong)NSArray *files;
+@property(nonatomic,strong)NSString *description;
 
 - (void)setFiles:(NSArray *)theFiles andDescription:(NSString *)theDescription;
-
 @end

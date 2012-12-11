@@ -5,14 +5,10 @@
 
 @class GHGist, GHUser;
 
-@interface GHGistComment : GHComment {
-	GHGist *gist;
-}
+@interface GHGistComment : GHComment
 
-@property(nonatomic,retain)GHGist *gist;
+@property(nonatomic,strong)GHGist *gist;
 
-+ (id)commentWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict;
-+ (id)commentWithGist:(GHGist *)theGist;
 - (id)initWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict;
 - (id)initWithGist:(GHGist *)theGist;
 

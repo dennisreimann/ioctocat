@@ -1,0 +1,2 @@
+@interface IOCApplication : UIApplication
+@end

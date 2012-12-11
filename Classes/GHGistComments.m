@@ -6,44 +6,26 @@
 
 @implementation GHGistComments
 
-@synthesize comments;
-@synthesize gist;
-
-+ (id)commentsWithGist:(GHGist *)theGist {
-	return [[[self.class alloc] initWithGist:theGist] autorelease];
-}
-
 - (id)initWithGist:(GHGist *)theGist {
-	[super init];
-	self.gist = theGist;
-	self.comments = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.gist = theGist;
+	}
 	return self;
-}
-
-- (void)dealloc {
-	[comments release], comments = nil;
-	[gist release], gist = nil;
-	[super dealloc];
 }
 
 - (NSURL *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// gist id which isn't always available in advance
-	return [NSString stringWithFormat:kGistCommentsFormat, gist.gistId];
+	return [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHGistComments gist:'%@'>", gist];
-}
-
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHGistComment *comment = [[GHGistComment alloc] initWithGist:gist andDictionary:dict];
-		[resources addObject:comment];
-		[comment release];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist andDictionary:dict];
+		[self addObject:comment];
 	}
-	self.comments = resources;
 }
 
 @end

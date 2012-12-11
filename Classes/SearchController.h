@@ -1,22 +1,5 @@
-#import <UIKit/UIKit.h>
+@class GHUser;
 
-
-@class GHUser, OverlayController, UserCell;
-
-@interface SearchController : UITableViewController {
-	IBOutlet UISearchBar *searchBar;
-	IBOutlet UISegmentedControl *searchControl;
-	IBOutlet UITableViewCell *loadingCell;
-	IBOutlet UITableViewCell *noResultsCell;
-  @private
-	NSArray *searches;
-	OverlayController *overlayController;
-	UserCell *userCell;
-}
-
-+ (id)controllerWithUser:(GHUser *)theUser;
+@interface SearchController : UITableViewController
 - (id)initWithUser:(GHUser *)theUser;
-- (void)quitSearching:(id)sender;
-- (IBAction)switchChanged:(id)sender;
-
 @end

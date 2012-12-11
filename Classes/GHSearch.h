@@ -2,17 +2,10 @@
 #import "GHResource.h"
 
 
-@interface GHSearch : GHResource {
-	NSArray *results;
-	@private
-	NSString *urlFormat;
-	NSString *searchTerm;
-}
+@interface GHSearch : GHResource
+@property(nonatomic,strong)NSArray *results;
+@property(nonatomic,strong)NSString *searchTerm;
+@property(nonatomic,strong)NSString *urlFormat;
 
-@property(nonatomic,retain)NSArray *results;
-@property(nonatomic,retain)NSString *searchTerm;
-
-+ (id)searchWithURLFormat:(NSString *)theFormat;
 - (id)initWithURLFormat:(NSString *)theFormat;
-
 @end

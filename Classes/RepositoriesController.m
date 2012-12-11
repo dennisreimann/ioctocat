@@ -6,87 +6,54 @@
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
-#import "AccountController.h"
 
 
 @interface RepositoriesController ()
-@property(nonatomic,retain)NSMutableArray *publicRepositories;
-@property(nonatomic,retain)NSMutableArray *privateRepositories;
-@property(nonatomic,retain)NSMutableArray *starredRepositories;
-@property(nonatomic,retain)NSMutableArray *watchedRepositories;
-@property(nonatomic,retain)GHUser *user;
+@property(nonatomic,strong)NSMutableArray *publicRepositories;
+@property(nonatomic,strong)NSMutableArray *privateRepositories;
+@property(nonatomic,strong)NSMutableArray *starredRepositories;
+@property(nonatomic,strong)NSMutableArray *watchedRepositories;
+@property(nonatomic,strong)GHUser *user;
 @property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPrivateReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noStarredReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noWatchedReposCell;
 
 - (void)displayRepositories:(GHRepositories *)repositories;
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section;
+- (IBAction)refresh:(id)sender;
 @end
 
 
 @implementation RepositoriesController
 
-@synthesize user;
-@synthesize privateRepositories;
-@synthesize publicRepositories;
-@synthesize starredRepositories;
-@synthesize watchedRepositories;
-
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[[RepositoriesController alloc] initWithUser:theUser] autorelease];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
-	[super initWithNibName:@"Repositories" bundle:nil];
-
-	self.user = theUser;
-
-	[user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.starredRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-
+	self = [super initWithNibName:@"Repositories" bundle:nil];
+	if (self) {
+		self.user = theUser;
+		[self.user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.starredRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.watchedRepositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)dealloc {
-	[user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user.starredRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[noPublicReposCell release], noPublicReposCell = nil;
-	[noPrivateReposCell release], noPrivateReposCell = nil;
-	[noWatchedReposCell release], noWatchedReposCell = nil;
-	[publicRepositories release], publicRepositories = nil;
-	[privateRepositories release], privateRepositories = nil;
-	[starredRepositories release], starredRepositories = nil;
-	[watchedRepositories release], watchedRepositories = nil;
-	[refreshButton release], refreshButton = nil;
-	[super dealloc];
-}
-
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
+	[self.user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.starredRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.watchedRepositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
-	(user.repositories.isLoaded) ? [self displayRepositories:user.repositories] : [user.repositories loadData];
-	(user.starredRepositories.isLoaded) ? [self displayRepositories:user.starredRepositories] : [user.starredRepositories loadData];
-	(user.watchedRepositories.isLoaded) ? [self displayRepositories:user.watchedRepositories] : [user.watchedRepositories loadData];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-	self.navItem.title = @"Repositories";
-	self.navItem.titleView = nil;
-	self.navItem.rightBarButtonItem = refreshButton;
+	self.navigationItem.title = @"Repositories";
+	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	(self.user.repositories.isLoaded) ? [self displayRepositories:self.user.repositories] : [self.user.repositories loadData];
+	(self.user.starredRepositories.isLoaded) ? [self displayRepositories:self.user.starredRepositories] : [self.user.starredRepositories loadData];
+	(self.user.watchedRepositories.isLoaded) ? [self displayRepositories:self.user.watchedRepositories] : [self.user.watchedRepositories loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -113,33 +80,33 @@
 	};
 
 	// Private/Public repos
-	if ([repositories isEqual:user.repositories]) {
+	if ([repositories isEqual:self.user.repositories]) {
 		self.privateRepositories = [NSMutableArray array];
 		self.publicRepositories = [NSMutableArray array];
-		for (GHRepository *repo in user.repositories.repositories) {
-			(repo.isPrivate) ? [privateRepositories addObject:repo] : [publicRepositories addObject:repo];
+		for (GHRepository *repo in self.user.repositories.items) {
+			(repo.isPrivate) ? [self.privateRepositories addObject:repo] : [self.publicRepositories addObject:repo];
 		}
 		[self.publicRepositories sortUsingComparator:compareRepositories];
 		[self.privateRepositories sortUsingComparator:compareRepositories];
 	}
 	// Starred repos
-	else if ([repositories isEqual:user.starredRepositories]) {
-		self.starredRepositories = [NSMutableArray arrayWithArray:user.starredRepositories.repositories];
+	else if ([repositories isEqual:self.user.starredRepositories]) {
+		self.starredRepositories = [NSMutableArray arrayWithArray:self.user.starredRepositories.items];
 		[self.starredRepositories sortUsingComparator:compareRepositories];
 	}
 	// Watched repos
-	else if ([repositories isEqual:user.watchedRepositories]) {
-		self.watchedRepositories = [NSMutableArray arrayWithArray:user.watchedRepositories.repositories];
+	else if ([repositories isEqual:self.user.watchedRepositories]) {
+		self.watchedRepositories = [NSMutableArray arrayWithArray:self.user.watchedRepositories.items];
 		[self.watchedRepositories sortUsingComparator:compareRepositories];
 	}
 
 	// Remove already mentioned projects from watch- and starlist
-	[self.watchedRepositories removeObjectsInArray:publicRepositories];
-	[self.watchedRepositories removeObjectsInArray:privateRepositories];
+	[self.watchedRepositories removeObjectsInArray:self.publicRepositories];
+	[self.watchedRepositories removeObjectsInArray:self.privateRepositories];
 
-	[self.starredRepositories removeObjectsInArray:publicRepositories];
-	[self.starredRepositories removeObjectsInArray:privateRepositories];
-	[self.starredRepositories removeObjectsInArray:watchedRepositories];
+	[self.starredRepositories removeObjectsInArray:self.publicRepositories];
+	[self.starredRepositories removeObjectsInArray:self.privateRepositories];
+	[self.starredRepositories removeObjectsInArray:self.watchedRepositories];
 
 	[self.tableView reloadData];
 }
@@ -150,36 +117,36 @@
 
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section {
 	switch (section) {
-		case 0: return privateRepositories;
-		case 1: return publicRepositories;
-		case 2: return watchedRepositories;
-		default: return starredRepositories;
+		case 0: return self.privateRepositories;
+		case 1: return self.publicRepositories;
+		case 2: return self.watchedRepositories;
+		default: return self.starredRepositories;
 	}
 }
 
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	[user.repositories loadData];
-	[user.starredRepositories loadData];
-	[user.watchedRepositories loadData];
+	[self.user.repositories loadData];
+	[self.user.starredRepositories loadData];
+	[self.user.watchedRepositories loadData];
 	[self.tableView reloadData];
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return user.repositories.isLoaded ? 4 : 1;
+	return self.user.repositories.isLoaded ? 4 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!user.repositories.isLoaded) return 1;
+	if (!self.user.repositories.isLoaded) return 1;
 	NSInteger count = [[self repositoriesInSection:section] count];
 	return count == 0 ? 1 : count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (!user.repositories.isLoaded) return @"";
+	if (!self.user.repositories.isLoaded) return @"";
 	if (section == 0) return @"Private";
 	if (section == 1) return @"Public";
 	if (section == 2) return @"Watched";
@@ -187,17 +154,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!user.repositories.isLoaded) return loadingReposCell;
-	if (indexPath.section == 0 && self.privateRepositories.count == 0) return noPrivateReposCell;
-	if (indexPath.section == 1 && self.publicRepositories.count == 0) return noPublicReposCell;
-	if (indexPath.section == 2 && !user.watchedRepositories.isLoaded) return loadingReposCell;
-	if (indexPath.section == 2 && self.watchedRepositories.count == 0) return noWatchedReposCell;
-	if (indexPath.section == 3 && !user.starredRepositories.isLoaded) return loadingReposCell;
-	if (indexPath.section == 3 && self.starredRepositories.count == 0) return noStarredReposCell;
+	if (!self.user.repositories.isLoaded) return self.loadingReposCell;
+	if (indexPath.section == 0 && self.privateRepositories.count == 0) return self.noPrivateReposCell;
+	if (indexPath.section == 1 && self.publicRepositories.count == 0) return self.noPublicReposCell;
+	if (indexPath.section == 2 && !self.user.watchedRepositories.isLoaded) return self.loadingReposCell;
+	if (indexPath.section == 2 && self.watchedRepositories.count == 0) return self.noWatchedReposCell;
+	if (indexPath.section == 3 && !self.user.starredRepositories.isLoaded) return self.loadingReposCell;
+	if (indexPath.section == 3 && self.starredRepositories.count == 0) return self.noStarredReposCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
-	cell.repository = [repos objectAtIndex:indexPath.row];
+	cell.repository = repos[indexPath.row];
 	if (indexPath.section == 0 || indexPath.section == 1) [cell hideOwner];
 	return cell;
 }
@@ -205,8 +172,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.count == 0) return;
-	GHRepository *repo = [repos objectAtIndex:indexPath.row];
-	RepositoryController *repoController = [RepositoryController controllerWithRepository:repo];
+	GHRepository *repo = repos[indexPath.row];
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

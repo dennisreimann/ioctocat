@@ -6,36 +6,21 @@
 
 @implementation GHGists
 
-@synthesize gists;
-
-+ (id)gistsWithPath:(NSString *)thePath {
-	return [[[[self class] alloc] initWithPath:thePath ] autorelease];
-}
-
 - (id)initWithPath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
-	self.gists = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+	}
 	return self;
 }
 
-- (void)dealloc {
-	[gists release], gists = nil;
-	[super dealloc];
-}
-
-- (NSString *)description {
-		return [NSString stringWithFormat:@"<Gists resourcePath:'%@'>", resourcePath];
-}
-
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHGist *resource = [GHGist gistWithId:[dict valueForKey:@"id"]];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHGist *resource = [[GHGist alloc] initWithId:[dict valueForKey:@"id"]];
 		[resource setValues:dict];
-		[resources addObject:resource];
+		[self addObject:resource];
 	}
-	self.gists = resources;
 }
 
 @end

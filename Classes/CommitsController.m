@@ -11,20 +11,13 @@
 
 @implementation CommitsController
 
-+ (id)controllerWithCommits:(NSArray *)theCommits {
-	return [[[self.class alloc] initWithCommits:theCommits] autorelease];
-}
-
 - (id)initWithCommits:(NSArray *)theCommits {
-	[super initWithNibName:@"Commits" bundle:nil];
-	self.title = @"Commits";
-	self.commits = theCommits;
+	self = [super initWithNibName:@"Commits" bundle:nil];
+	if (self) {
+		self.title = @"Commits";
+		self.commits = theCommits;
+	}
 	return self;
-}
-
-- (void)dealloc {
-	[_commits release], _commits = nil;
-	[super dealloc];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -38,13 +31,13 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
 	if (cell == nil) cell = [CommitCell cell];
-	cell.commit = [self.commits objectAtIndex:indexPath.row];
+	cell.commit = (self.commits)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	GHCommit *commit = [self.commits objectAtIndex:indexPath.row];
-	CommitController *viewController = [CommitController controllerWithCommit:commit];
+	GHCommit *commit = (self.commits)[indexPath.row];
+	CommitController *viewController = [[CommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

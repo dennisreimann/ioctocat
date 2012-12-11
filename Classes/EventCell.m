@@ -1,17 +1,50 @@
 #import "EventCell.h"
 #import "GHEvent.h"
 #import "GHUser.h"
-#import "GravatarLoader.h"
-#import "NSDate+Nibware.h"
+#import "IOCAvatarLoader.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "GHPullRequest.h"
+#import "NSDate+Nibware.h"
 
 
 @interface EventCell ()
+@property(nonatomic,weak)IBOutlet UIView *actionsView;
+@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UILabel *titleLabel;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UITextView *contentTextView;
+@property(nonatomic,strong)IBOutlet UIButton *repositoryButton;
+@property(nonatomic,strong)IBOutlet UIButton *otherRepositoryButton;
+@property(nonatomic,strong)IBOutlet UIButton *userButton;
+@property(nonatomic,strong)IBOutlet UIButton *otherUserButton;
+@property(nonatomic,strong)IBOutlet UIButton *organizationButton;
+@property(nonatomic,strong)IBOutlet UIButton *issueButton;
+@property(nonatomic,strong)IBOutlet UIButton *pullRequestButton;
+@property(nonatomic,strong)IBOutlet UIButton *wikiButton;
+@property(nonatomic,strong)IBOutlet UIButton *commitButton;
+@property(nonatomic,strong)IBOutlet UIButton *gistButton;
+
+- (CGFloat)marginTop;
+- (CGFloat)marginRight;
+- (CGFloat)marginBottom;
+- (CGFloat)marginLeft;
+- (CGFloat)textInset;
+- (void)adjustTextViewHeight;
 - (void)positionActionView;
+- (IBAction)showRepository:(id)sender;
+- (IBAction)showOtherRepository:(id)sender;
+- (IBAction)showUser:(id)sender;
+- (IBAction)showOtherUser:(id)sender;
+- (IBAction)showOrganization:(id)sender;
+- (IBAction)showIssue:(id)sender;
+- (IBAction)showPullRequest:(id)sender;
+- (IBAction)showWiki:(id)sender;
+- (IBAction)showCommit:(id)sender;
+- (IBAction)showGist:(id)sender;
 @end
 
 
@@ -19,33 +52,25 @@
 
 - (void)dealloc {
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_event release], _event = nil;
-	[_dateLabel release], _dateLabel = nil;
-	[_titleLabel release], _titleLabel = nil;
-	[_actionsView release], _actionsView = nil;
-	[_gravatarView release], _gravatarView = nil;
-	[_iconView release], _iconView = nil;
-	[_repositoryButton release], _repositoryButton = nil;
-	[_otherRepositoryButton release], _otherRepositoryButton = nil;
-	[_userButton release], _userButton = nil;
-	[_otherUserButton release], _otherUserButton = nil;
-	[_organizationButton release], _organizationButton = nil;
-	[_issueButton release], _issueButton = nil;
-	[_pullRequestButton release], _pullRequestButton = nil;
-	[_wikiButton release], _wikiButton = nil;
-	[_commitButton release], _commitButton = nil;
-	[_gistButton release], _gistButton = nil;
-	[super dealloc];
 }
 
 - (void)setEvent:(GHEvent *)theEvent {
-	[theEvent retain];
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[_event release];
 	_event = theEvent;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
-	[self setContentText:self.event.content];
+	// Truncate long comments
+	NSString *text = self.event.content;
+	if (self.event.isCommentEvent) {
+		NSInteger truncateLength = 175;
+		if (text.length > truncateLength) {
+			NSRange range = {0, truncateLength};
+			text = [NSString stringWithFormat:@"%@ […]", [self.event.content substringWithRange:range]];
+		}
+		[self setContentText:text];
+	} else {
+		[self setContentText:text];
+	}
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
 	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -71,20 +96,23 @@
 	CGFloat w = 46.0f;
 	CGFloat h = 36.0f;
 	CGFloat m = 12.0f;
-	CGFloat o = self.frame.size.width;
-	CGFloat x = o / 2 - (buttons.count * (w+m) / 2);
+	CGFloat x = 0.0f;
 	CGFloat y = 3.0f;
 	for (UIButton *btn in buttons) {
 		[self.actionsView addSubview:btn];
 		btn.frame = CGRectMake(x, y, w, h);
 		x += w + m;
 	}
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
 	[self positionActionView];
 }
 
 - (void)setCustomBackgroundColor:(UIColor *)theColor {
 	if (!self.backgroundView) {
-			self.backgroundView = [[[UIView alloc] initWithFrame:CGRectZero] autorelease];
+		self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
 	}
 	self.backgroundView.backgroundColor = theColor;
 }
@@ -114,6 +142,18 @@
 	if ([keyPath isEqualToString:kGravatarKeyPath] && self.event.user.gravatar) {
 		self.gravatarView.image = self.event.user.gravatar;
 	}
+}
+
+- (void)adjustTextViewHeight {
+	CGRect frame = self.contentTextView.frame;
+	frame.size.height = self.hasContent ? self.contentTextView.contentSize.height + self.textInset : 0.0f;
+	self.contentTextView.frame = frame;
+}
+
+#pragma mark Layout
+
+- (CGFloat)textInset {
+	return 8.0f; // UITextView has an inset of 8px on each side
 }
 
 - (CGFloat)heightForTableView:(UITableView *)tableView {
@@ -151,13 +191,13 @@
 }
 
 - (IBAction)showWiki:(id)sender {
-	NSDictionary *wiki = [self.event.pages objectAtIndex:0];
+	NSDictionary *wiki = (self.event.pages)[0];
 	if (self.delegate && wiki) [self.delegate openEventItem:wiki];
 }
 
 - (IBAction)showCommit:(id)sender {
 	if (self.event.commits.count == 1) {
-		GHCommit *commit = [self.event.commits objectAtIndex:0];
+		GHCommit *commit = (self.event.commits)[0];
 		if (self.delegate) [self.delegate openEventItem:commit];
 	} else if (self.event.commits.count > 1) {
 		if (self.delegate) [self.delegate openEventItem:self.event.commits];
@@ -191,9 +231,12 @@
 }
 
 - (void)positionActionView {
+	[self adjustTextViewHeight];
 	// position action view at bottom
 	CGRect frame = self.actionsView.frame;
-	frame.origin.y = contentTextView.frame.origin.y + contentTextView.frame.size.height;
+	frame.size.width = self.actionsView.subviews.count * 58.0f;
+	frame.origin.x = self.frame.size.width / 2 - frame.size.width / 2;
+	frame.origin.y = self.contentTextView.frame.origin.y + self.contentTextView.frame.size.height;
 	if (frame.origin.y < self.normalHeight) frame.origin.y = self.normalHeight;
 	self.actionsView.frame = frame;
 }

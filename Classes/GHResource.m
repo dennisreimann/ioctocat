@@ -2,36 +2,25 @@
 #import "GHAccount.h"
 #import "GHApiClient.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
+
+
+@interface GHResource ()
+@property(nonatomic,strong)NSDictionary *data;
+@property(nonatomic,assign)GHResourceStatus loadingStatus;
+@property(nonatomic,assign)GHResourceStatus savingStatus;
+@end
 
 
 @implementation GHResource
 
-@synthesize loadingStatus;
-@synthesize savingStatus;
-@synthesize resourcePath;
-@synthesize error;
-@synthesize data;
-
-+ (id)resourceWithPath:(NSString *)thePath {
-	return [[[self.class alloc] initWithPath:thePath] autorelease];
-}
-
 - (id)initWithPath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
-	self.loadingStatus = GHResourceStatusNotProcessed;
-	self.savingStatus = GHResourceStatusNotProcessed;
-		return self;
-}
-
-- (void)dealloc {
-	[resourcePath release], resourcePath = nil;
-	[delegates release], delegates = nil;
-	[error release], error = nil;
-	[data release], data = nil;
-	[super dealloc];
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+		self.loadingStatus = GHResourceStatusNotProcessed;
+		self.savingStatus = GHResourceStatusNotProcessed;
+	}
+	return self;
 }
 
 - (void)setValues:(id)theResponse {
@@ -41,8 +30,8 @@
 	return kResourceContentTypeDefault;
 }
 
-- (GHAccount *)currentAccount {
-	return [iOctocat sharedInstance].currentAccount;
+- (GHApiClient *)apiClient {
+	return [iOctocat sharedInstance].currentAccount.apiClient;
 }
 
 #pragma mark Loading
@@ -53,8 +42,8 @@
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
 	D3JLog(@"Loading %@", self.resourcePath);
-	[self.currentAccount.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
-	[self.currentAccount.apiClient getPath:self.resourcePath parameters:nil
+	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
+	[self.apiClient getPath:self.resourcePath parameters:nil
 		success:^(AFHTTPRequestOperation *theOperation, id theResponse) {
 			D3JLog(@"Loading %@ finished: %@", self.resourcePath, theResponse);
 			[self setValues:theResponse];
@@ -75,10 +64,10 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-		D3JLog(@"Saving %@ (%@)\n\n%@", thePath, theMethod, theValues);
-	NSMutableURLRequest *request = [self.currentAccount.apiClient requestWithMethod:theMethod
-												path:thePath
-											parameters:theValues];
+	D3JLog(@"Saving %@ (%@)\n\n%@", thePath, theMethod, theValues);
+	NSMutableURLRequest *request = [self.apiClient requestWithMethod:theMethod
+																path:thePath
+														  parameters:theValues];
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 		success:^(NSURLRequest *theRequest, NSHTTPURLResponse *theResponse, id theJSON) {
 			D3JLog(@"Saving %@ finished: %@", thePath, theJSON);
@@ -99,19 +88,19 @@
 #pragma mark Convenience Accessors
 
 - (BOOL)isLoading {
-	return loadingStatus == GHResourceStatusProcessing;
+	return self.loadingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isLoaded {
-	return loadingStatus == GHResourceStatusProcessed;
+	return self.loadingStatus == GHResourceStatusProcessed;
 }
 
 - (BOOL)isSaving {
-	return savingStatus == GHResourceStatusProcessing;
+	return self.savingStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isSaved {
-	return savingStatus == GHResourceStatusProcessed;
+	return self.savingStatus == GHResourceStatusProcessed;
 }
 
 @end

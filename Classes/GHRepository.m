@@ -12,50 +12,12 @@
 
 @implementation GHRepository
 
-@synthesize name;
-@synthesize owner;
-@synthesize readme;
-@synthesize descriptionText;
-@synthesize mainBranch;
-@synthesize htmlURL;
-@synthesize homepageURL;
-@synthesize isPrivate;
-@synthesize isFork;
-@synthesize hasIssues;
-@synthesize hasWiki;
-@synthesize hasDownloads;
-@synthesize forks;
-@synthesize events;
-@synthesize watcherCount;
-@synthesize forkCount;
-@synthesize openIssues;
-@synthesize closedIssues;
-@synthesize branches;
-@synthesize pushedAtDate;
-
-+ (id)repositoryWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	return [[[self.class alloc] initWithOwner:theOwner andName:theName] autorelease];
-}
-
 - (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName {
-	[super init];
-	[self setOwner:theOwner andName:theName];
+	self = [super init];
+	if (self) {
+		[self setOwner:theOwner andName:theName];
+	}
 	return self;
-}
-
-- (void)dealloc {
-	[name release], name = nil;
-	[owner release], owner = nil;
-	[readme release], readme = nil;
-	[descriptionText release], descriptionText = nil;
-	[htmlURL release], htmlURL = nil;
-	[homepageURL release], homepageURL = nil;
-    [openIssues release], openIssues = nil;
-    [closedIssues release], closedIssues = nil;
-    [forks release], forks = nil;
-    [events release], events = nil;
-	[branches release], branches = nil;
-    [super dealloc];
 }
 
 - (BOOL)isEqual:(id)anObject {
@@ -66,68 +28,67 @@
 	return [self.repoId hash];
 }
 
-- (NSString *)description {
-    return [NSString stringWithFormat:@"<GHRepository name:'%@' owner:'%@' isPrivate:'%@' isFork:'%@'>", name, owner, isPrivate ? @"YES" : @"NO", isFork ? @"YES" : @"NO"];
-}
-
 - (NSString *)repoId {
-    return [NSString stringWithFormat:@"%@/%@", owner, name];
+    return [NSString stringWithFormat:@"%@/%@", self.owner, self.name];
 }
 
 - (NSString *)repoIdAndStatus {
-    return [NSString stringWithFormat:@"%@/%@/%@", owner, isPrivate ? @"private" : @"public", name];
+    return [NSString stringWithFormat:@"%@/%@/%@", self.owner, self.isPrivate ? @"private" : @"public", self.name];
 }
 
 - (NSString *)resourcePath {
 	// Dynamic path, because it depends on the owner and
 	// name which are not always available in advance
-	return [NSString stringWithFormat:kRepoFormat, owner, name];
+	return [NSString stringWithFormat:kRepoFormat, self.owner, self.name];
 }
 
 - (void)setOwner:(NSString *)theOwner andName:(NSString *)theName {
 	self.owner = theOwner;
 	self.name = theName;
-    self.forks = [GHForks forksWithRepository:self];
-    self.readme = [GHReadme readmeWithRepository:self];
-    self.branches = [GHBranches branchesWithRepository:self];
-    self.events = [GHEvents eventsWithRepository:self];
-	self.openIssues = [GHIssues issuesWithRepository:self andState:kIssueStateOpen];
-	self.closedIssues = [GHIssues issuesWithRepository:self andState:kIssueStateClosed];
+    self.forks = [[GHForks alloc] initWithRepository:self];
+    self.readme = [[GHReadme alloc] initWithRepository:self];
+    self.events = [[GHEvents alloc] initWithRepository:self];
+    self.branches = [[GHBranches alloc] initWithRepository:self];
+	self.openIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen];
+	self.closedIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed];
 }
 
 - (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:owner];
+	return [[iOctocat sharedInstance] userWithLogin:self.owner];
 }
 
 - (int)compareByRepoId:(GHRepository *)theOtherRepository {
-    return [[self repoId] localizedCaseInsensitiveCompare:[theOtherRepository repoId]];
+    return [self.repoId localizedCaseInsensitiveCompare:theOtherRepository.repoId];
 }
 
 - (int)compareByRepoIdAndStatus:(GHRepository *)theOtherRepository {
-    return [[self repoIdAndStatus] localizedCaseInsensitiveCompare:[theOtherRepository repoIdAndStatus]];
+    return [self.repoIdAndStatus localizedCaseInsensitiveCompare:theOtherRepository.repoIdAndStatus];
 }
 
 - (int)compareByName:(GHRepository *)theOtherRepository {
-    return [[self name] localizedCaseInsensitiveCompare:[theOtherRepository name]];
+    return [self.name localizedCaseInsensitiveCompare:theOtherRepository.name];
 }
 
 #pragma mark Loading
 
 - (void)setValues:(id)theDict {
-    NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
+    NSDictionary *resource = theDict[@"repository"] ? theDict[@"repository"] : theDict;
 
-    self.htmlURL = [NSURL URLWithString:[resource objectForKey:@"html_url"]];
-    self.homepageURL = [NSURL smartURLFromString:[resource objectForKey:@"homepage"]];
+    self.htmlURL = [NSURL URLWithString:resource[@"html_url"]];
+    self.homepageURL = [NSURL smartURLFromString:resource[@"homepage"]];
     self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];
-    self.mainBranch = [theDict valueForKeyPath:@"master_branch" defaultsTo:@"master"];
-    self.isFork = [[resource objectForKey:@"fork"] boolValue];
-    self.isPrivate = [[resource objectForKey:@"private"] boolValue];
-    self.hasIssues = [[resource objectForKey:@"has_issues"] boolValue];
-    self.hasWiki = [[resource objectForKey:@"has_wiki"] boolValue];
-    self.hasDownloads = [[resource objectForKey:@"has_downloads"] boolValue];
-    self.forkCount = [[resource objectForKey:@"forks"] integerValue];
-    self.watcherCount = [[resource objectForKey:@"watchers"] integerValue];
-	self.pushedAtDate = [resource objectForKey:@"pushed_at"];
+    self.isFork = [resource[@"fork"] boolValue];
+    self.isPrivate = [resource[@"private"] boolValue];
+    self.hasIssues = [resource[@"has_issues"] boolValue];
+    self.hasWiki = [resource[@"has_wiki"] boolValue];
+    self.hasDownloads = [resource[@"has_downloads"] boolValue];
+    self.forkCount = [resource[@"forks"] integerValue];
+    self.watcherCount = [resource[@"watchers"] integerValue];
+    self.pushedAtDate = resource[@"pushed_at"];
+    // TODO: Remove master_branch once the API change is done.
+    self.mainBranch = [theDict valueForKeyPath:@"master_branch"] ?
+        [theDict valueForKeyPath:@"master_branch" defaultsTo:@"master"] :
+        [theDict valueForKeyPath:@"default_branch" defaultsTo:@"master"];
 }
 
 @end

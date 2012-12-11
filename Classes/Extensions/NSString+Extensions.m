@@ -16,18 +16,18 @@
 	[result replaceOccurrencesOfString:@">" withString:@"&gt;" options:NSLiteralSearch range:NSMakeRange(0, [result length])];
 	[result replaceOccurrencesOfString:@"\"" withString:@"&quot;" options:NSLiteralSearch range:NSMakeRange(0, [result length])];
 	[result replaceOccurrencesOfString:@"'" withString:@"&#39;" options:NSLiteralSearch range:NSMakeRange(0, [result length])];
-	return [result autorelease];
+	return result;
 }
 
 // Taken from https://gist.github.com/1256354
 - (NSString *)stringByEscapingForURLArgument {
 	// Encode all the reserved characters, per RFC 3986 (<http://www.ietf.org/rfc/rfc3986.txt>)
-	NSString *escapedString = (NSString *)CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+	NSString *escapedString = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
 																				  (CFStringRef)self,
 																				  NULL,
 																				  (CFStringRef)@"!*'\"();:@&=+$,/?%#[] ",
-																				  kCFStringEncodingUTF8);
-	return [escapedString autorelease];
+																				  kCFStringEncodingUTF8));
+	return escapedString;
 }
 
 @end

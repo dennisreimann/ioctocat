@@ -3,80 +3,54 @@
 #import "UserController.h"
 #import "GHUser.h"
 #import "GHSearch.h"
-#import "OverlayController.h"
 #import "RepositoryCell.h"
-#import "UserCell.h"
-#import "AccountController.h"
+#import "UserObjectCell.h"
+#import "iOctocat.h"
 
 
 @interface SearchController ()
 @property(nonatomic,readonly)GHSearch *currentSearch;
-@property(nonatomic,retain)NSArray *searches;
+@property(nonatomic,strong)NSArray *searches;
+@property(nonatomic,strong)UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
+@property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
+@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noResultsCell;
+
+- (IBAction)quitSearching:(id)sender;
+- (IBAction)switchChanged:(id)sender;
 @end
 
 
 @implementation SearchController
 
-@synthesize searches;
-
-+ (id)controllerWithUser:(GHUser *)theUser {
-	return [[[SearchController alloc] initWithUser:theUser] autorelease];
-}
-
 - (id)initWithUser:(GHUser *)theUser {
-	[super initWithNibName:@"Search" bundle:nil];
-
-	GHSearch *userSearch = [GHSearch searchWithURLFormat:kUserSearchFormat];
-	GHSearch *repoSearch = [GHSearch searchWithURLFormat:kRepoSearchFormat];
-	self.searches = [NSArray arrayWithObjects:userSearch, repoSearch, nil];
-	for (GHSearch *search in searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-
+	self = [super initWithNibName:@"Search" bundle:nil];
+	if (self) {
+		GHSearch *userSearch = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
+		GHSearch *repoSearch = [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
+		self.searches = @[userSearch, repoSearch];
+		for (GHSearch *search in self.searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
-}
-
-- (AccountController *)accountController {
-	return [[iOctocat sharedInstance] accountController];
-}
-
-- (UIViewController *)parentViewController {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController : nil;
-}
-
-- (UINavigationItem *)navItem {
-	return [[[[iOctocat sharedInstance] navController] topViewController] isEqual:self.accountController] ? self.accountController.navigationItem : self.navigationItem;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.tableView.tableHeaderView = searchBar;
-	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	overlayController = [[OverlayController alloc] initWithTarget:self andSelector:@selector(quitSearching:)];
-	overlayController.view.frame = CGRectMake(0, self.navigationController.navigationBar.frame.size.height, self.view.frame.size.width, self.view.frame.size.height);
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-
-	self.navItem.title = @"Search";
-	self.navItem.titleView = searchControl;
-	self.navItem.rightBarButtonItem = nil;
+	self.navigationItem.title = @"Search";
+	self.navigationItem.titleView = self.searchControl;
+	self.navigationItem.rightBarButtonItem = nil;
+	self.tableView.tableHeaderView = self.searchBar;
+	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
 - (void)dealloc {
-	for (GHSearch *search in searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[userCell release], userCell = nil;
-	[searches release], searches = nil;
-	[overlayController release], overlayController = nil;
-	[searchBar release], searchBar = nil;
-	[searchControl release], searchControl = nil;
-	[loadingCell release], loadingCell = nil;
-	[noResultsCell release], noResultsCell = nil;
-	[super dealloc];
+	for (GHSearch *search in self.searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (GHSearch *)currentSearch {
-	return searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
-		nil : [searches objectAtIndex:searchControl.selectedSegmentIndex];
+	return self.searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
+		nil : (self.searches)[self.searchControl.selectedSegmentIndex];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -93,27 +67,24 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
-	searchBar.text = self.currentSearch.searchTerm;
+	self.searchBar.text = self.currentSearch.searchTerm;
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
-	[self.tableView insertSubview:overlayController.view aboveSubview:self.parentViewController.view];
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
-	self.navItem.rightBarButtonItem = cancelButton;
-	[cancelButton release];
+	self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
-	self.currentSearch.searchTerm = searchBar.text;
+	self.currentSearch.searchTerm = self.searchBar.text;
 	[self.currentSearch loadData];
 	[self quitSearching:nil];
 }
 
 - (void)quitSearching:(id)sender {
-	searchBar.text = self.currentSearch.searchTerm;
-	[searchBar resignFirstResponder];
-	self.navItem.rightBarButtonItem = nil;
-	[overlayController.view removeFromSuperview];
+	self.searchBar.text = self.currentSearch.searchTerm;
+	[self.searchBar resignFirstResponder];
+	self.navigationItem.rightBarButtonItem = nil;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -127,33 +98,33 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentSearch.isLoaded) return loadingCell;
-	if (self.currentSearch.results.count == 0) return noResultsCell;
-	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
+	if (!self.currentSearch.isLoaded) return self.loadingCell;
+	if (self.currentSearch.results.count == 0) return self.noResultsCell;
+	id object = (self.currentSearch.results)[indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		UserCell *cell = (UserCell *)[tableView dequeueReusableCellWithIdentifier:kUserCellIdentifier];
+		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
-			[[NSBundle mainBundle] loadNibNamed:@"UserCell" owner:self options:nil];
-			cell = userCell;
+			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
+			cell = self.userObjectCell;
 		}
-		cell.user = (GHUser *)object;
+		cell.userObject = object;
 		return cell;
 	}
 	return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	id object = [self.currentSearch.results objectAtIndex:indexPath.row];
+	id object = (self.currentSearch.results)[indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:[GHRepository class]]) {
-		viewController = [RepositoryController controllerWithRepository:(GHRepository *)object];
+		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];
 	} else if ([object isKindOfClass:[GHUser class]]) {
-		viewController = [UserController controllerWithUser:(GHUser *)object];
+		viewController = [[UserController alloc] initWithUser:(GHUser *)object];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

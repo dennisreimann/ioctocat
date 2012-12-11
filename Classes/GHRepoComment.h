@@ -5,22 +5,14 @@
 
 @class GHRepository, GHUser;
 
-@interface GHRepoComment : GHComment {
-	GHRepository *repository;
-	NSString *commitID;
-	NSString *path;
-	NSUInteger position;
-	NSUInteger line;
-}
+@interface GHRepoComment : GHComment
 
-@property(nonatomic,retain)GHRepository *repository;
-@property(nonatomic,retain)NSString *commitID;
-@property(nonatomic,retain)NSString *path;
+@property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)NSString *commitID;
+@property(nonatomic,strong)NSString *path;
 @property(nonatomic,assign)NSUInteger position;
 @property(nonatomic,assign)NSUInteger line;
 
-+ (id)commentWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict;
-+ (id)commentWithRepo:(GHRepository *)theRepo;
 - (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict;
 - (id)initWithRepo:(GHRepository *)theRepo;
 

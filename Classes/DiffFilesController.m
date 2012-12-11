@@ -3,25 +3,16 @@
 
 
 @interface DiffFilesController ()
-@property(nonatomic,retain)NSArray *files;
+@property(nonatomic,strong)NSArray *files;
 @end
 
 
 @implementation DiffFilesController
 
-+ (id)controllerWithFiles:(NSArray *)theFiles {
-	return [[[self.class alloc] initWithFiles:theFiles] autorelease];
-}
-
 - (id)initWithFiles:(NSArray *)theFiles {
-	[super initWithNibName:@"Files" bundle:nil];
+	self = [super initWithNibName:@"Files" bundle:nil];
 	self.files = theFiles;
 	return self;
-}
-
-- (void)dealloc {
-	[_files release], _files = nil;
-	[super dealloc];
 }
 
 #pragma mark TableView
@@ -38,7 +29,7 @@
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 	}
 	if (self.files.count == 0) {
@@ -46,9 +37,9 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	} else {
-		NSDictionary *fileInfo = [self.files objectAtIndex:indexPath.row];
-		NSString *patch =  [fileInfo objectForKey:@"patch"];
-		cell.textLabel.text = [fileInfo objectForKey:@"filename"];
+		NSDictionary *fileInfo = (self.files)[indexPath.row];
+		NSString *patch =  fileInfo[@"patch"];
+		cell.textLabel.text = fileInfo[@"filename"];
 		cell.selectionStyle = patch ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = patch ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
@@ -57,9 +48,9 @@
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.files.count == 0) return;
-	id fileInfo = [self.files objectAtIndex:indexPath.row];
+	id fileInfo = (self.files)[indexPath.row];
 	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
-		CodeController *codeController = [CodeController controllerWithFiles:self.files currentIndex:indexPath.row];
+		CodeController *codeController = [[CodeController alloc] initWithFiles:self.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

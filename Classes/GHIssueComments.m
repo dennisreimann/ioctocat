@@ -7,45 +7,28 @@
 
 @implementation GHIssueComments
 
-@synthesize comments;
-@synthesize parent;
-
-+ (id)commentsWithParent:(id)theParent {
-	return [[[[self class] alloc] initWithParent:theParent] autorelease];
-}
-
 - (id)initWithParent:(id)theParent {
-	[super init];
-	self.parent = theParent;
-	self.comments = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.parent = theParent;
+	}
 	return self;
-}
-
-- (void)dealloc {
-	[comments release], comments = nil;
-	[parent release], parent = nil;
-	[super dealloc];
 }
 
 - (NSURL *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// issue num which isn't always available in advance
-	GHRepository *repo = [(GHIssue *)parent repository];
-	NSUInteger num = [(GHIssue *)parent num];
+	GHRepository *repo = [(GHIssue *)self.parent repository];
+	NSUInteger num = [(GHIssue *)self.parent num];
 	return [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHIssueComments parent:'%@'>", parent];
-}
-
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHIssueComment *comment = [GHIssueComment commentWithParent:parent andDictionary:dict];
-		[resources addObject:comment];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.parent andDictionary:dict];
+		[self addObject:comment];
 	}
-	self.comments = resources;
 }
 
 @end

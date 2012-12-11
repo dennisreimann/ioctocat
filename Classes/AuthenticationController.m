@@ -1,9 +1,14 @@
 #import "AuthenticationController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
+#import "iOctocat.h"
 
 
-@interface AuthenticationController ()
+@interface AuthenticationController () <UIActionSheetDelegate>
+@property(nonatomic,weak)UIViewController *delegate;
+@property(nonatomic,strong)UIActionSheet *authSheet;
+@property(nonatomic,strong)GHAccount *account;
+
 - (void)setAccount:(GHAccount *)theAccount;
 @end
 
@@ -11,49 +16,43 @@
 @implementation AuthenticationController
 
 - (id)initWithDelegate:(UIViewController *)theDelegate {
-	[super init];
-	delegate = theDelegate;
+	self = [super init];
+	self.delegate = theDelegate;
 	return self;
 }
 
 - (void)dealloc {
 	[self stopAuthenticating];
-	self.account = nil;
-	[authSheet release], authSheet = nil;
-	[super dealloc];
+	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
 }
 
 - (void)setAccount:(GHAccount *)theAccount {
-	[theAccount retain];
-	// clear out old account
-	[account removeObserver:self forKeyPath:@"user.loadingStatus"];
-	[account release];
-	// assign new account
-	account = theAccount;
-	[account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
+	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
+	_account = theAccount;
+	[self.account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)authenticateAccount:(GHAccount *)theAccount {
 	self.account = theAccount;
-	[account.user loadData];
+	[self.account.user loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (account.user.isLoading) {
-		authSheet = [[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n"
-												delegate:self
-										 cancelButtonTitle:nil
-									destructiveButtonTitle:nil
-										 otherButtonTitles:nil];
-		[authSheet showInView:[iOctocat sharedInstance].window];
+	if (self.account.user.isLoading) {
+		self.authSheet = [[UIActionSheet alloc] initWithTitle:@"\nAuthenticating, please wait…\n\n"
+													  delegate:self
+											 cancelButtonTitle:nil
+										destructiveButtonTitle:nil
+											 otherButtonTitles:nil];
+		[self.authSheet showInView:[iOctocat sharedInstance].window.rootViewController.view];
 	} else {
 		[self stopAuthenticating];
-		[delegate performSelector:@selector(authenticatedAccount:) withObject:account];
+		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];
 	}
 }
 
 - (void)stopAuthenticating {
-	[authSheet dismissWithClickedButtonIndex:0 animated:YES];
+	[self.authSheet dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 @end

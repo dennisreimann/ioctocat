@@ -6,39 +6,24 @@
 
 @implementation GHRepositories
 
-@synthesize repositories;
-
-+ (id)repositoriesWithPath:(NSString *)thePath {
-	return [[[[self class] alloc] initWithPath:thePath ] autorelease];
-}
-
 - (id)initWithPath:(NSString *)thePath {
-	[super init];
-	self.resourcePath = thePath;
-	self.repositories = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.resourcePath = thePath;
+	}
 	return self;
 }
 
-- (void)dealloc {
-	[repositories release], repositories = nil;
-	[super dealloc];
-}
-
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHRepositories resourcePath:'%@'>", resourcePath];
-}
-
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		id own = [dict objectForKey:@"owner"];
-		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? [own objectForKey:@"login"] : own;
-		GHRepository *resource = [GHRepository repositoryWithOwner:owner andName:[dict objectForKey:@"name"]];
-		[resource setValues:dict];
-		[resources addObject:resource];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		id own = dict[@"owner"];
+		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? own[@"login"] : own;
+		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:dict[@"name"]];
+		[repo setValues:dict];
+		[self addObject:repo];
 	}
-	[resources sortUsingSelector:@selector(compareByName:)];
-	self.repositories = resources;
+	[self.items sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

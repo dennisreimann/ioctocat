@@ -16,6 +16,7 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
   * Clone the repo and open the terminal with the directory you cloned it into
   * Run this command in the terminal: `git submodule update --init`
+  * [Install CocoaPods](http://cocoapods.org/) and run `pod install`
   * Open the project in Xcode
   * Select "iOctocat > iPhone Simulator" in the upper left corner
   * Build and run the app by pressing the play button
@@ -26,10 +27,12 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
 
 ## Attribution
 
-iOctocat uses some thrid party components and libraries:
+iOctocat uses some third party components and libraries:
 
-  * AFNetworking by Gowalla - [AFNetworking](https://github.com/AFNetworking/AFNetworking)
-  * Base64 by Nick Lockwood - [Base64](https://github.com/nicklockwood/Base64)
-  * NoticeView by Tito Ciuro - [NoticeView](https://github.com/tciuro/NoticeView)
-  * Tab- and toolbar icons by Glyphish - [Glyphish Pro](http://glyphish.com/)
-  * highlight.js by Ivan Sagalaev - [highlight.js](http://highlightjs.org/)
+  * [AFNetworking](https://github.com/AFNetworking/AFNetworking) by Gowalla
+  * [Base64](https://github.com/ekscrypto/Base64) by ekscrypto
+  * [YRDropdownView](https://github.com/onemightyroar/YRDropdownView) by One Mighty Roar
+  * [ECSlidingViewController](https://github.com/edgecase/ECSlidingViewController) by EdgeCase
+  * [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh) by Sam Vermette
+  * [Glyphish Pro](http://glyphish.com/) icons
+  * [highlight.js](http://highlightjs.org/) by Ivan Sagalaev

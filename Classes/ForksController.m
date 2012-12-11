@@ -2,27 +2,24 @@
 #import "GHForks.h"
 #import "RepositoryController.h"
 #import "RepositoryCell.h"
+#import "iOctocat.h"
 
 
 @interface ForksController ()
-@property(nonatomic,readonly)GHForks *currentForks;
-@property(nonatomic,retain)GHRepository *repository;
+@property(weak, nonatomic,readonly)GHForks *currentForks;
+@property(nonatomic,strong)GHRepository *repository;
 @end
 
 
 @implementation ForksController
 
-@synthesize repository;
-
-+ (id)controllerWithRepository:(GHRepository *)theRepository {
-	return [[[self.class alloc] initWithRepository:theRepository] autorelease];
-}
-
 - (id)initWithRepository:(GHRepository *)theRepository {
-	[super initWithNibName:@"Forks" bundle:nil];
-	self.title = @"Forks";
-	self.repository = theRepository;
-	[repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self = [super initWithNibName:@"Forks" bundle:nil];
+	if (self) {
+		self.title = @"Forks";
+		self.repository = theRepository;
+		[self.repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
@@ -32,10 +29,7 @@
 }
 
 - (void)dealloc {
-	[repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[loadingForksCell release], loadingForksCell = nil;
-	[noForksCell release], noForksCell = nil;
-	[super dealloc];
+	[self.repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -53,27 +47,27 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	 return (self.currentForks.isLoading || self.currentForks.entries.count == 0) ? 1 : self.currentForks.entries.count;
+	 return (self.currentForks.isLoading || self.currentForks.isEmpty) ? 1 : self.currentForks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentForks.isLoading) return loadingForksCell;
-	if (self.currentForks.entries.count == 0) return noForksCell;
+	if (self.currentForks.isLoading) return self.loadingForksCell;
+	if (self.currentForks.isEmpty) return self.noForksCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
-	cell.repository = [self.currentForks.entries objectAtIndex:indexPath.row];
+	cell.repository = (self.currentForks)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentForks.isLoaded || self.currentForks.entries.count == 0) return;
-	GHRepository *repo = [self.currentForks.entries objectAtIndex:indexPath.row];
-	RepositoryController *repoController = [RepositoryController controllerWithRepository:repo];
+	if (!self.currentForks.isLoaded || self.currentForks.isEmpty) return;
+	GHRepository *repo = (self.currentForks)[indexPath.row];
+	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 
 - (GHForks *)currentForks {
-	return repository.forks;
+	return self.repository.forks;
 }
 
 #pragma mark Autorotation

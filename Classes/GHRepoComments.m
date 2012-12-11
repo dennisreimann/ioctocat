@@ -7,47 +7,27 @@
 
 @implementation GHRepoComments
 
-@synthesize comments;
-@synthesize repository;
-@synthesize commitID;
-
-+ (id)commentsWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
-	return [[[[self class] alloc] initWithRepo:theRepo andCommitID:theCommitID] autorelease];
-}
-
 - (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
-	[super init];
-	self.repository = theRepo;
-	self.commitID = theCommitID;
-	self.comments = [NSMutableArray array];
+	self = [super init];
+	if (self) {
+		self.repository = theRepo;
+		self.commitID = theCommitID;
+	}
 	return self;
-}
-
-- (void)dealloc {
-	[comments release], comments = nil;
-	[repository release], repository = nil;
-	[commitID release], commitID = nil;
-	[super dealloc];
 }
 
 - (NSURL *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// SHA which isn't always available in advance
-	return [NSString stringWithFormat:kRepoCommentsFormat, repository.owner, repository.name, commitID];
+	return [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
 }
 
-- (NSString *)description {
-	return [NSString stringWithFormat:@"<GHRepoComments owner:'%@' name:'%@' commitID:'%@'>", repository.owner, repository.name, commitID];
-}
-
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:repository andDictionary:dict];
-		[resources addObject:comment];
-		[comment release];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository andDictionary:dict];
+		[self addObject:comment];
 	}
-	self.comments = resources;
 }
 
 @end

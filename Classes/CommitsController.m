@@ -31,12 +31,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
 	if (cell == nil) cell = [CommitCell cell];
-	cell.commit = [self.commits objectAtIndex:indexPath.row];
+	cell.commit = (self.commits)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	GHCommit *commit = [self.commits objectAtIndex:indexPath.row];
+	GHCommit *commit = (self.commits)[indexPath.row];
 	CommitController *viewController = [[CommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

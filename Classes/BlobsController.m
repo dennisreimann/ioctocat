@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
-	self.blob = [self.blobs objectAtIndex:self.index];
+	self.blob = (self.blobs)[self.index];
 	self.activityView.layer.cornerRadius = 10;
 	self.activityView.layer.masksToBounds = YES;
 	self.contentView.scrollView.bounces = NO;
@@ -83,7 +83,7 @@
 
 - (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename {
 	NSString *ext = [theFilename pathExtension];
-	NSArray *imageTypes = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff", nil];
+	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
 	NSString *mimeType;
 	if ([imageTypes containsObject:ext]) {
 		mimeType = [NSString stringWithFormat:@"image/%@", ext];
@@ -120,7 +120,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	self.index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	self.blob = [self.blobs objectAtIndex:self.index];
+	self.blob = (self.blobs)[self.index];
 }
 
 #pragma mark WebView

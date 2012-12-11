@@ -164,7 +164,7 @@
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
-	cell.repository = [repos objectAtIndex:indexPath.row];
+	cell.repository = repos[indexPath.row];
 	if (indexPath.section == 0 || indexPath.section == 1) [cell hideOwner];
 	return cell;
 }
@@ -172,7 +172,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSArray *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.count == 0) return;
-	GHRepository *repo = [repos objectAtIndex:indexPath.row];
+	GHRepository *repo = repos[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }

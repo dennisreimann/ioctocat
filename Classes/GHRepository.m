@@ -72,19 +72,19 @@
 #pragma mark Loading
 
 - (void)setValues:(id)theDict {
-    NSDictionary *resource = [theDict objectForKey:@"repository"] ? [theDict objectForKey:@"repository"] : theDict;
+    NSDictionary *resource = theDict[@"repository"] ? theDict[@"repository"] : theDict;
 
-    self.htmlURL = [NSURL URLWithString:[resource objectForKey:@"html_url"]];
-    self.homepageURL = [NSURL smartURLFromString:[resource objectForKey:@"homepage"]];
+    self.htmlURL = [NSURL URLWithString:resource[@"html_url"]];
+    self.homepageURL = [NSURL smartURLFromString:resource[@"homepage"]];
     self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];
-    self.isFork = [[resource objectForKey:@"fork"] boolValue];
-    self.isPrivate = [[resource objectForKey:@"private"] boolValue];
-    self.hasIssues = [[resource objectForKey:@"has_issues"] boolValue];
-    self.hasWiki = [[resource objectForKey:@"has_wiki"] boolValue];
-    self.hasDownloads = [[resource objectForKey:@"has_downloads"] boolValue];
-    self.forkCount = [[resource objectForKey:@"forks"] integerValue];
-    self.watcherCount = [[resource objectForKey:@"watchers"] integerValue];
-    self.pushedAtDate = [resource objectForKey:@"pushed_at"];
+    self.isFork = [resource[@"fork"] boolValue];
+    self.isPrivate = [resource[@"private"] boolValue];
+    self.hasIssues = [resource[@"has_issues"] boolValue];
+    self.hasWiki = [resource[@"has_wiki"] boolValue];
+    self.hasDownloads = [resource[@"has_downloads"] boolValue];
+    self.forkCount = [resource[@"forks"] integerValue];
+    self.watcherCount = [resource[@"watchers"] integerValue];
+    self.pushedAtDate = resource[@"pushed_at"];
     // TODO: Remove master_branch once the API change is done.
     self.mainBranch = [theDict valueForKeyPath:@"master_branch"] ?
         [theDict valueForKeyPath:@"master_branch" defaultsTo:@"master"] :

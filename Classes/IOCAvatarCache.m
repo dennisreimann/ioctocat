@@ -5,7 +5,7 @@
 
 + (void)clearAvatarCache {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
+	NSString *documentsPath = paths[0];
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
 	for (NSString *path in documents) {
@@ -18,7 +18,7 @@
 
 + (NSString *)gravatarPathForIdentifier:(NSString *)theString {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = [paths objectAtIndex:0];
+	NSString *documentsPath = paths[0];
 	NSString *imageName = [NSString stringWithFormat:@"%@.png", theString];
 	return [documentsPath stringByAppendingPathComponent:imageName];
 }

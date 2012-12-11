@@ -79,7 +79,7 @@
 	if (!otherUserDict) otherUserDict = [self.payload valueForKey:@"user"];
 	if (!otherUserDict && !self.organization && [self.eventType isEqualToString:@"WatchEvent"]) {
 		// use repo owner as fallback
-		otherUserLogin = [[[theDict valueForKeyPath:@"repo.name"] componentsSeparatedByString:@"/"] objectAtIndex:0];
+		otherUserLogin = [[theDict valueForKeyPath:@"repo.name"] componentsSeparatedByString:@"/"][0];
 	} else if (otherUserDict) {
 		otherUserLogin = [otherUserDict valueForKey:@"login"];
 		otherUserAvatarURL = [otherUserDict valueForKey:@"avatar_url"];
@@ -94,8 +94,8 @@
 	// Repository
 	self.repoName = [theDict valueForKeyPath:@"repo.name"];
 	NSArray *rParts = [self.repoName componentsSeparatedByString:@"/"];
-	NSString *rOwner = [rParts objectAtIndex:0];
-	NSString *rName = [rParts objectAtIndex:1];
+	NSString *rOwner = rParts[0];
+	NSString *rName = rParts[1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
 		self.repository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
 		self.repository.descriptionText = [self.payload valueForKey:@"description"];
@@ -104,8 +104,8 @@
 	// Other Repository
 	self.otherRepoName = [self.payload valueForKeyPath:@"forkee.full_name"];
 	rParts = [self.otherRepoName componentsSeparatedByString:@"/"];
-	rOwner = [rParts objectAtIndex:0];
-	rName = [rParts objectAtIndex:1];
+	rOwner = rParts[0];
+	rName = rParts[1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
 		self.otherRepository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
 		self.otherRepository.descriptionText = [self.payload valueForKeyPath:@"forkee.description"];
@@ -166,7 +166,7 @@
 		if (!self.commits) {
 			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
 												 andCommitID:[self.payload valueForKeyPath:@"comment.commit_id"]];
-			self.commits = [NSArray arrayWithObject:commit];
+			self.commits = [@[commit] mutableCopy];
 		}
 	}
 
@@ -232,7 +232,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"GollumEvent"]) {
-		NSDictionary *firstPage = [self.pages objectAtIndex:0];
+		NSDictionary *firstPage = (self.pages)[0];
 		NSString *action = [firstPage valueForKey:@"action"];
 		NSString *pageName = [firstPage valueForKey:@"page_name"];
 		self.title = [NSString stringWithFormat:@"%@ %@ \"%@\" in the %@ wiki", self.user.login, action, pageName, self.repository.repoId];
@@ -308,7 +308,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"GollumEvent"]) {
-		NSDictionary *firstPage = [self.pages objectAtIndex:0];
+		NSDictionary *firstPage = (self.pages)[0];
 		self.content = [firstPage valueForKey:@"summary" defaultsTo:@""];
 	}
 
@@ -342,7 +342,7 @@
 
 - (NSString *)shortenMessage:(NSString *)longMessage {
 	NSArray *comps = [longMessage componentsSeparatedByString:@"\n"];
-	return [comps objectAtIndex:0];
+	return comps[0];
 }
 
 - (NSString *)shortenSha:(NSString *)longSha {

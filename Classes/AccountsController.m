@@ -57,7 +57,7 @@
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
 	return [^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([[obj objectForKey:kLoginDefaultsKey] isEqualToString:theLogin]) {
+		if ([obj[kLoginDefaultsKey] isEqualToString:theLogin]) {
 			*stop = YES;
 			return YES;
 		}
@@ -81,7 +81,7 @@
 }
 
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
-	NSDictionary *accountDict = [self.accounts objectAtIndex:theIndex];
+	NSDictionary *accountDict = (self.accounts)[theIndex];
 	GHAccount *account = [[GHAccount alloc] initWithDict:accountDict];
 	[iOctocat sharedInstance].currentAccount = account;
 	if (!account.user.isAuthenticated) {
@@ -110,8 +110,8 @@
 		cell = self.userObjectCell;
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
-	NSDictionary *accountDict = [self.accounts objectAtIndex:indexPath.row];
-	NSString *login = [accountDict objectForKey:kLoginDefaultsKey];
+	NSDictionary *accountDict = (self.accounts)[indexPath.row];
+	NSString *login = accountDict[kLoginDefaultsKey];
 	cell.userObject = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
 }
@@ -130,7 +130,7 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[self.accounts removeObjectAtIndex:indexPath.row];
 		[self.class saveAccounts:self.accounts];
-		[tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 		[self updateEditButtonItem];
 	}
 }

@@ -21,7 +21,7 @@
 }
 
 - (NSString *)title {
-	return ([self.descriptionText isEmpty] && self.files.count > 0) ? [[self.files allKeys] objectAtIndex:0] : self.descriptionText;
+	return ([self.descriptionText isEmpty] && self.files.count > 0) ? [self.files allKeys][0] : self.descriptionText;
 }
 
 #pragma mark Loading
@@ -31,12 +31,12 @@
 	self.gistId = [theDict valueForKey:@"id"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
 	self.files = [theDict valueForKey:@"files"];
-	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
 	self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];
-	self.isPrivate = ![[theDict objectForKey:@"public"] boolValue];
-	self.commentsCount = [[theDict objectForKey:@"comments"] integerValue];
-	self.forksCount = [[theDict objectForKey:@"forks"] count];
-	self.createdAtDate = [iOctocat parseDate:[theDict objectForKey:@"created_at"]];
+	self.isPrivate = ![theDict[@"public"] boolValue];
+	self.commentsCount = [theDict[@"comments"] integerValue];
+	self.forksCount = [theDict[@"forks"] count];
+	self.createdAtDate = [iOctocat parseDate:theDict[@"created_at"]];
 }
 
 @end

@@ -189,7 +189,7 @@
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = [self.user.repositories.repositories objectAtIndex:indexPath.row];
+		cell.repository = (self.user.repositories.repositories)[indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
@@ -201,7 +201,7 @@
 			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 			cell = self.userObjectCell;
 		}
-		cell.userObject = [self.user.organizations.organizations objectAtIndex:indexPath.row];
+		cell.userObject = (self.user.organizations.organizations)[indexPath.row];
 		return cell;
 	}
 	return nil;
@@ -217,7 +217,7 @@
 	} else if (section == 0 && row == 2 && self.user.email) {
 		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
-		[mailComposer setToRecipients:[NSArray arrayWithObject:self.user.email]];
+		[mailComposer setToRecipients:@[self.user.email]];
 		[self presentModalViewController:mailComposer animated:YES];
 	} else if (section == 1 && row == 0) {
 		viewController = [[EventsController alloc] initWithEvents:self.user.events];
@@ -229,10 +229,10 @@
 		viewController = [[UsersController alloc] initWithUsers:(row == 1 ? self.user.following : self.user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2) {
-		GHRepository *repo = [self.user.repositories.repositories objectAtIndex:indexPath.row];
+		GHRepository *repo = (self.user.repositories.repositories)[indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3) {
-		GHOrganization *org = [self.user.organizations.organizations objectAtIndex:indexPath.row];
+		GHOrganization *org = (self.user.organizations.organizations)[indexPath.row];
 		viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller

@@ -101,22 +101,22 @@
 
 - (GHUser *)userWithLogin:(NSString *)theLogin {
 	if (!theLogin || [theLogin isKindOfClass:[NSNull class]] || [theLogin isEmpty]) return nil;
-	GHUser *user = [self.users objectForKey:theLogin];
+	GHUser *user = (self.users)[theLogin];
 	if (user == nil) {
 		user = [[GHUser alloc] initWithLogin:theLogin];
 		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.users setObject:user forKey:theLogin];
+		(self.users)[theLogin] = user;
 	}
 	return user;
 }
 
 - (GHOrganization *)organizationWithLogin:(NSString *)theLogin {
 	if (!theLogin || [theLogin isEmpty]) return nil;
-	GHOrganization *organization = [self.organizations objectForKey:theLogin];
+	GHOrganization *organization = (self.organizations)[theLogin];
 	if (organization == nil) {
 		organization = [[GHOrganization alloc] initWithLogin:theLogin];
 		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.organizations setObject:organization forKey:theLogin];
+		(self.organizations)[theLogin] = organization;
 	}
 	return organization;
 }

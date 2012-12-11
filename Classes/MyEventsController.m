@@ -45,7 +45,7 @@
 		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
 		GHEvents *receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath];
 		GHEvents *ownEvents = [[GHEvents alloc] initWithPath:eventsPath];
-		self.feeds = [NSArray arrayWithObjects:receivedEvents, ownEvents, nil];
+		self.feeds = @[receivedEvents, ownEvents];
 		for (GHEvents *feed in self.feeds) {
 			[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 			feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
@@ -86,7 +86,7 @@
 	if (self.feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
 		return nil;
 	} else {
-		return [self.feeds objectAtIndex:self.feedControl.selectedSegmentIndex];
+		return (self.feeds)[self.feedControl.selectedSegmentIndex];
 	}
 }
 

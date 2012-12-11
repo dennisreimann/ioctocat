@@ -58,13 +58,13 @@
 		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 		cell = self.userObjectCell;
 	}
-    cell.userObject = [self.users.users objectAtIndex:indexPath.row];
+    cell.userObject = (self.users.users)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.users.isLoaded || self.users.users.count == 0) return;
-    GHUser *selectedUser = [self.users.users objectAtIndex:indexPath.row];
+    GHUser *selectedUser = (self.users.users)[indexPath.row];
     UserController *userController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
 }

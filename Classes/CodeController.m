@@ -29,7 +29,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.files.count > 1 ? self.controlItem : nil;
-	self.file = [self.files objectAtIndex:self.index];
+	self.file = (self.files)[self.index];
 	self.activityView.layer.cornerRadius = 10;
 	self.activityView.layer.masksToBounds = YES;
 	self.contentView.scrollView.bounces = NO;
@@ -80,7 +80,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	self.index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	self.file = [self.files objectAtIndex:self.index];
+	self.file = (self.files)[self.index];
 }
 
 #pragma mark WebView

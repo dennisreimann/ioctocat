@@ -76,7 +76,7 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 	}
-	GHGist *gist = [self.gists.gists objectAtIndex:indexPath.row];
+	GHGist *gist = (self.gists.gists)[indexPath.row];
 	cell.textLabel.text = gist.title;
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %d %@", [gist.createdAtDate prettyDate], gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments"];
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -87,7 +87,7 @@
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gists.isLoaded || self.gists.gists.count == 0) return;
-	GHGist *gist = [self.gists.gists objectAtIndex:indexPath.row];
+	GHGist *gist = (self.gists.gists)[indexPath.row];
 	GistController *gistController = [[GistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
 }

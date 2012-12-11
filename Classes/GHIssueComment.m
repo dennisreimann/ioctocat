@@ -32,7 +32,7 @@
 #pragma mark Saving
 
 - (void)saveData {
-	NSDictionary *values = [NSDictionary dictionaryWithObject:self.body forKey:@"body"];
+	NSDictionary *values = @{@"body": self.body};
 	GHRepository *repo = [(GHIssue *)self.parent repository];
 	NSUInteger num = [(GHIssue *)self.parent num];
 	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];

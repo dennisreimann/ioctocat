@@ -216,7 +216,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHComment *comment = [self.issue.comments.comments objectAtIndex:indexPath.row];
+	GHComment *comment = (self.issue.comments.comments)[indexPath.row];
 	cell.comment = comment;
 	return cell;
 }

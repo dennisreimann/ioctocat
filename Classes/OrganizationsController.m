@@ -67,13 +67,13 @@
 		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 		cell = self.userObjectCell;
 	}
-    cell.userObject = [self.organizations.organizations objectAtIndex:indexPath.row];
+    cell.userObject = (self.organizations.organizations)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.organizations.isLoaded || self.organizations.organizations.count == 0) return;
-    GHOrganization *org = [self.organizations.organizations objectAtIndex:indexPath.row];
+    GHOrganization *org = (self.organizations.organizations)[indexPath.row];
     OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
 }

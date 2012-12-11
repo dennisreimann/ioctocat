@@ -175,7 +175,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHRepoComment *comment = [self.commit.comments.comments objectAtIndex:indexPath.row];
+	GHRepoComment *comment = (self.commit.comments.comments)[indexPath.row];
 	[cell setComment:comment];
 	return cell;
 }

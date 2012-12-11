@@ -51,7 +51,7 @@
 }
 
 - (void)setValues:(id)theDict {
-	NSDictionary *resource = [theDict objectForKey:@"organization"] ? [theDict objectForKey:@"organization"] : theDict;
+	NSDictionary *resource = theDict[@"organization"] ? theDict[@"organization"] : theDict;
 	NSString *login = [resource valueForKey:@"login" defaultsTo:@""];
 	// TODO: Remove email check once the API change is done.
 	id email = [resource valueForKeyPath:@"email" defaultsTo:@""];
@@ -64,14 +64,14 @@
 	self.company = [resource valueForKey:@"company" defaultsTo:@""];
 	self.location = [resource valueForKey:@"location" defaultsTo:@""];
 	self.blogURL = [NSURL smartURLFromString:[resource valueForKey:@"blog" defaultsTo:@""]];
-	self.followersCount = [[resource objectForKey:@"followers"] integerValue];
-	self.followingCount = [[resource objectForKey:@"following"] integerValue];
-	self.publicGistCount = [[resource objectForKey:@"public_gists"] integerValue];
-	self.privateGistCount = [[resource objectForKey:@"private_gists"] integerValue];
-	self.publicRepoCount = [[resource objectForKey:@"public_repos"] integerValue];
-	self.privateRepoCount = [[resource objectForKey:@"total_private_repos"] integerValue];
-	self.gravatarURL = [NSURL URLWithString:[theDict objectForKey:@"avatar_url"]];
-	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	self.followersCount = [resource[@"followers"] integerValue];
+	self.followingCount = [resource[@"following"] integerValue];
+	self.publicGistCount = [resource[@"public_gists"] integerValue];
+	self.privateGistCount = [resource[@"private_gists"] integerValue];
+	self.publicRepoCount = [resource[@"public_repos"] integerValue];
+	self.privateRepoCount = [resource[@"total_private_repos"] integerValue];
+	self.gravatarURL = [NSURL URLWithString:theDict[@"avatar_url"]];
+	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
 }
 
 #pragma mark Gravatar

@@ -21,15 +21,15 @@
 }
 
 - (void)setValues:(NSDictionary *)theDict {
-	BOOL usersSearch = [theDict objectForKey:@"users"] ? YES : NO;
+	BOOL usersSearch = theDict[@"users"] ? YES : NO;
 	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in (usersSearch ? [theDict objectForKey:@"users"] : [theDict objectForKey:@"repositories"])) {
+	for (NSDictionary *dict in (usersSearch ? theDict[@"users"] : theDict[@"repositories"])) {
 		GHResource *resource = nil;
 		if (usersSearch) {
-			resource = [[GHUser alloc] initWithLogin:[dict objectForKey:@"login"]];
+			resource = [[GHUser alloc] initWithLogin:dict[@"login"]];
 			[resource setValues:dict];
 		} else {
-			resource = [[GHRepository alloc] initWithOwner:[dict objectForKey:@"owner"] andName:[dict objectForKey:@"name"]];
+			resource = [[GHRepository alloc] initWithOwner:dict[@"owner"] andName:dict[@"name"]];
 			[resource setValues:dict];
 		}
 		[resources addObject:resource];

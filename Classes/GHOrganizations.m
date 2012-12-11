@@ -19,7 +19,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:[dict objectForKey:@"login"]];
+		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:dict[@"login"]];
 		[theOrg setValues:dict];
 		[resources addObject:theOrg];
 	}

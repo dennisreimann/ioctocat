@@ -39,7 +39,7 @@
 	parameterNames = [parameterNames sortedArrayUsingSelector:@selector(compare:)];
 
 	for (NSString *parameterName in parameterNames) {
-		id value = [theParams objectForKey:parameterName];
+		id value = theParams[parameterName];
 		NSAssert3([parameterName isKindOfClass:[NSString class]], @"Got '%@' of type %@ as key for parameter with value '%@'. Expected an NSString.", parameterName, NSStringFromClass([parameterName class]), value);
 
 		// The value needs to be an NSString, or be able to give us an NSString

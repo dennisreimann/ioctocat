@@ -18,9 +18,9 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *dict in theResponse) {
-		id own = [dict objectForKey:@"owner"];
-		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? [own objectForKey:@"login"] : own;
-		GHRepository *resource = [[GHRepository alloc] initWithOwner:owner andName:[dict objectForKey:@"name"]];
+		id own = dict[@"owner"];
+		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? own[@"login"] : own;
+		GHRepository *resource = [[GHRepository alloc] initWithOwner:owner andName:dict[@"name"]];
 		[resource setValues:dict];
 		[resources addObject:resource];
 	}

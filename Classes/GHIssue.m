@@ -42,16 +42,16 @@
 - (void)setValues:(id)theDict {
 	NSString *login = [theDict valueForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:[theDict objectForKey:@"created_at"]];
-	self.updated = [iOctocat parseDate:[theDict objectForKey:@"updated_at"]];
-	self.closed = [iOctocat parseDate:[theDict objectForKey:@"closed_at"]];
-	self.title = [theDict objectForKey:@"title"];
-	self.body = [theDict objectForKey:@"body"];
-	self.state = [theDict objectForKey:@"state"];
-	self.labels = [theDict objectForKey:@"labels"];
-	self.votes = [[theDict objectForKey:@"votes"] integerValue];
-	self.num = [[theDict objectForKey:@"number"] integerValue];
-	self.htmlURL = [NSURL URLWithString:[theDict objectForKey:@"html_url"]];
+	self.created = [iOctocat parseDate:theDict[@"created_at"]];
+	self.updated = [iOctocat parseDate:theDict[@"updated_at"]];
+	self.closed = [iOctocat parseDate:theDict[@"closed_at"]];
+	self.title = theDict[@"title"];
+	self.body = theDict[@"body"];
+	self.state = theDict[@"state"];
+	self.labels = theDict[@"labels"];
+	self.votes = [theDict[@"votes"] integerValue];
+	self.num = [theDict[@"number"] integerValue];
+	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
 	if (!self.repository) {
 		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
 		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
@@ -85,7 +85,7 @@
 		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
 		method = kRequestMethodPatch;
 	}
-	NSDictionary *values = [NSDictionary dictionaryWithObjectsAndKeys:self.title, @"title", self.body, @"body", self.state, @"state", nil];
+	NSDictionary *values = @{@"title": self.title, @"body": self.body, @"state": self.state};
 	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
 		[self setValues:theResponse];
 	}];

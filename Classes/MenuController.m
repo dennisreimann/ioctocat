@@ -98,7 +98,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSInteger rowCount = [[self.menu objectAtIndex:section] count];
+	NSInteger rowCount = [(self.menu)[section] count];
 	if (section == 0) {
 		rowCount += self.user.organizations.organizations.count;
 	}
@@ -132,9 +132,8 @@
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
 	CAGradientLayer *gradient = [CAGradientLayer layer];
 	gradient.frame = view.bounds;
-	gradient.colors = [NSArray arrayWithObjects:
-					   (id)[UIColor colorWithWhite:0.980 alpha:1.000].CGColor,
-					   (id)[UIColor colorWithWhite:0.902 alpha:1.000].CGColor, nil];
+	gradient.colors = @[(id)[UIColor colorWithWhite:0.980 alpha:1.000].CGColor,
+					   (id)[UIColor colorWithWhite:0.902 alpha:1.000].CGColor];
 	[view.layer insertSublayer:gradient atIndex:0];
     [view addSubview:label];
 	
@@ -149,16 +148,16 @@
 	}
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	NSArray *menu = [self.menu objectAtIndex:indexPath.section];
+	NSArray *menu = (self.menu)[indexPath.section];
 	if (section == 0) {
 		// object is either a user or an organization.
 		// both have gravatar, name and login properties.
-		GHUser *object = (row == 0) ? self.user : [self.user.organizations.organizations objectAtIndex:row - 1];
+		GHUser *object = (row == 0) ? self.user : (self.user.organizations.organizations)[row - 1];
 		cell.imageView.highlightedImage = object.gravatar;
 		cell.imageView.image = object.gravatar;
 		cell.textLabel.text = object.login;
 	} else {
-		NSDictionary *dict = [menu objectAtIndex:row];
+		NSDictionary *dict = menu[row];
 		NSString *imageName = [dict valueForKey:@"image"];
 		cell.textLabel.text = [dict valueForKey:@"title"];
 		if (imageName) {
@@ -178,7 +177,7 @@
 			if (row == 0) {
 				viewController = [[MyEventsController alloc] initWithUser:self.user];
 			} else {
-				GHOrganization *org = [self.user.organizations.organizations objectAtIndex:row - 1];
+				GHOrganization *org = (self.user.organizations.organizations)[row - 1];
 				viewController = [[EventsController alloc] initWithEvents:org.events];
 				viewController.title = org.login;
 			}

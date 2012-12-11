@@ -17,7 +17,7 @@
 - (void)setValues:(id)theResponse {
 	NSMutableArray *resources = [NSMutableArray array];
 	for (NSDictionary *userDict in theResponse) {
-		NSString *login = [userDict objectForKey:@"login"];
+		NSString *login = userDict[@"login"];
 		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
 		[theUser setValues:userDict];
 		[resources addObject:theUser];

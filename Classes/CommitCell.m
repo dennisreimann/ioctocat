@@ -44,7 +44,7 @@
 
 - (NSString *)shortenMessage:(NSString *)longMessage {
 	NSArray *comps = [longMessage componentsSeparatedByString:@"\n"];
-	return [comps objectAtIndex:0];
+	return comps[0];
 }
 
 - (NSString *)shortenSha:(NSString *)longSha {

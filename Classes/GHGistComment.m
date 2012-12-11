@@ -30,7 +30,7 @@
 #pragma mark Saving
 
 - (void)saveData {
-	NSDictionary *values = [NSDictionary dictionaryWithObject:self.body forKey:@"body"];
+	NSDictionary *values = @{@"body": self.body};
 	NSString *path = [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
 	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:nil];
 }

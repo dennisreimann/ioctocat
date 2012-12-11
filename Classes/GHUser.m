@@ -69,7 +69,7 @@
 
 - (void)setValues:(id)theDict {
 	NSString *login = [theDict valueForKey:@"login" defaultsTo:@""];
-	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = [theDict objectForKey:@"login"];
+	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = theDict[@"login"];
 	// TODO: Remove email check once the API change is done.
 	id email = [theDict valueForKeyPath:@"email" defaultsTo:@""];
 	if ([email isKindOfClass:[NSDictionary class]])	{
@@ -82,13 +82,13 @@
 	self.blogURL = [NSURL smartURLFromString:[theDict valueForKey:@"blog" defaultsTo:@""]];
 	self.htmlURL = [NSURL smartURLFromString:[theDict valueForKey:@"html_url" defaultsTo:@""]];
 	self.gravatarURL = [NSURL smartURLFromString:[theDict valueForKey:@"avatar_url" defaultsTo:@""]];
-	self.publicGistCount = [[theDict objectForKey:@"public_gists"] integerValue];
-	self.privateGistCount = [[theDict objectForKey:@"private_gists"] integerValue];
-	self.publicRepoCount = [[theDict objectForKey:@"public_repos"] integerValue];
-	self.privateRepoCount = [[theDict objectForKey:@"total_private_repos"] integerValue];
-	self.followersCount = [[theDict objectForKey:@"followers"] integerValue];
-	self.followingCount = [[theDict objectForKey:@"following"] integerValue];
-	self.isAuthenticated = [theDict objectForKey:@"plan"] ? YES : NO;
+	self.publicGistCount = [theDict[@"public_gists"] integerValue];
+	self.privateGistCount = [theDict[@"private_gists"] integerValue];
+	self.publicRepoCount = [theDict[@"public_repos"] integerValue];
+	self.privateRepoCount = [theDict[@"total_private_repos"] integerValue];
+	self.followersCount = [theDict[@"followers"] integerValue];
+	self.followingCount = [theDict[@"following"] integerValue];
+	self.isAuthenticated = theDict[@"plan"] ? YES : NO;
 }
 
 #pragma mark Following
@@ -154,7 +154,7 @@
 
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
 	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
-	id values = watch ? [NSDictionary dictionaryWithObject:@"true" forKey:@"subscribed"] : nil;
+	id values = watch ? @{@"subscribed": @"true"} : nil;
 	[self saveValues:values withPath:path andMethod:(watch ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 

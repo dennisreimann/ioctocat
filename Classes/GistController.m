@@ -164,7 +164,7 @@
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		}
 	if (section == 0) {
-		NSDictionary *file = [[self.gist.files allValues] objectAtIndex:row];
+		NSDictionary *file = [self.gist.files allValues][row];
 		NSString *fileContent = [file valueForKey:@"content"];
 		cell.textLabel.text = [file valueForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
@@ -177,7 +177,7 @@
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 			cell = self.commentCell;
 		}
-		GHComment *comment = [self.gist.comments.comments objectAtIndex:indexPath.row];
+		GHComment *comment = (self.gist.comments.comments)[indexPath.row];
 		[(CommentCell *)cell setComment:comment];
 	}
 	return cell;

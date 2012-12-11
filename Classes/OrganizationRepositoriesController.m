@@ -115,7 +115,7 @@
 }
 
 - (GHRepositories *)repositoriesInSection:(NSInteger)section {
-	GHOrganization *organization = [self.user.organizations.organizations objectAtIndex:section];
+	GHOrganization *organization = (self.user.organizations.organizations)[section];
 	return organization.repositories;
 }
 
@@ -136,7 +136,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.user.organizations.isLoaded) return 1;
-	GHOrganization *organization = [self.user.organizations.organizations objectAtIndex:section];
+	GHOrganization *organization = (self.user.organizations.organizations)[section];
 	GHRepositories *repos = organization.repositories;
 	NSUInteger count = repos.repositories.count;
 	return (!repos.isLoaded || count == 0) ? 1 : count;
@@ -144,7 +144,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (!self.user.organizations.isLoaded) return @"";
-	GHOrganization *organization = [self.user.organizations.organizations objectAtIndex:section];
+	GHOrganization *organization = (self.user.organizations.organizations)[section];
 	return organization.login;
 }
 
@@ -167,7 +167,7 @@
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		[(RepositoryCell *)cell setRepository:[repos.repositories objectAtIndex:indexPath.row]];
+		[(RepositoryCell *)cell setRepository:(repos.repositories)[indexPath.row]];
 		[(RepositoryCell *)cell hideOwner];
 	}
 	return cell;
@@ -176,7 +176,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.repositories.count == 0) return;
-	GHRepository *repo = [repos.repositories objectAtIndex:indexPath.row];
+	GHRepository *repo = (repos.repositories)[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }

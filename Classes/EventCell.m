@@ -191,13 +191,13 @@
 }
 
 - (IBAction)showWiki:(id)sender {
-	NSDictionary *wiki = [self.event.pages objectAtIndex:0];
+	NSDictionary *wiki = (self.event.pages)[0];
 	if (self.delegate && wiki) [self.delegate openEventItem:wiki];
 }
 
 - (IBAction)showCommit:(id)sender {
 	if (self.event.commits.count == 1) {
-		GHCommit *commit = [self.event.commits objectAtIndex:0];
+		GHCommit *commit = (self.event.commits)[0];
 		if (self.delegate) [self.delegate openEventItem:commit];
 	} else if (self.event.commits.count > 1) {
 		if (self.delegate) [self.delegate openEventItem:self.event.commits];

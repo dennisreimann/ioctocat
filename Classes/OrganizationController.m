@@ -174,7 +174,7 @@
 			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 			cell = self.userObjectCell;
 		}
-		cell.userObject = [self.organization.publicMembers.users objectAtIndex:indexPath.row];
+		cell.userObject = (self.organization.publicMembers.users)[indexPath.row];
 		return cell;
 	}
 	if (section == 3 && !self.organization.repositories.isLoaded) return self.loadingReposCell;
@@ -182,7 +182,7 @@
 	if (section == 3) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = [self.organization.repositories.repositories objectAtIndex:indexPath.row];
+		cell.repository = (self.organization.repositories.repositories)[indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
@@ -199,16 +199,16 @@
 	} else if (section == 0 && row == 2 && self.organization.email) {
 		MFMailComposeViewController * mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
-		[mailComposer setToRecipients:[NSArray arrayWithObject:self.organization.email]];
+		[mailComposer setToRecipients:@[self.organization.email]];
 		[self presentModalViewController:mailComposer animated:YES];
 	} else if (section == 1) {
 		viewController = [[EventsController alloc] initWithEvents:self.organization.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 2) {
-		GHUser *selectedUser = [self.organization.publicMembers.users objectAtIndex:indexPath.row];
+		GHUser *selectedUser = (self.organization.publicMembers.users)[indexPath.row];
 		viewController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
 	} else if (section == 3) {
-		GHRepository *repo = [self.organization.repositories.repositories objectAtIndex:indexPath.row];
+		GHRepository *repo = (self.organization.repositories.repositories)[indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	}
 	// Maybe push a controller

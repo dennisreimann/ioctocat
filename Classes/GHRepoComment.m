@@ -34,7 +34,7 @@
 #pragma mark Saving
 
 - (void)saveData {
-	NSDictionary *values = [NSDictionary dictionaryWithObject:self.body forKey:@"body"];
+	NSDictionary *values = @{@"body": self.body};
 	NSString *savePath = [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
 	[self saveValues:values withPath:savePath andMethod:kRequestMethodPost useResult:nil];
 }

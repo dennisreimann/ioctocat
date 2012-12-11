@@ -30,7 +30,7 @@
         CGFloat locations[locCount];
         for (int i = 0; i < [normalGradientLocations count]; i++)
         {
-            NSNumber *location = [normalGradientLocations objectAtIndex:i];
+            NSNumber *location = normalGradientLocations[i];
             locations[i] = [location floatValue];
         }
         CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
@@ -48,7 +48,7 @@
         CGFloat locations[[highlightGradientLocations count]];
         for (int i = 0; i < [highlightGradientLocations count]; i++)
         {
-            NSNumber *location = [highlightGradientLocations objectAtIndex:i];
+            NSNumber *location = highlightGradientLocations[i];
             locations[i] = [location floatValue];
         }
         CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
@@ -83,11 +83,9 @@
     color = [UIColor colorWithRed:0.186 green:0.223 blue:0.326 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
-    self.normalGradientLocations = [NSArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.483f],
-                                    nil];
+    self.normalGradientLocations = @[@0.0f,
+                                    @1.0f,
+                                    @0.483f];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:4];
     color = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:1.0];
@@ -99,12 +97,10 @@
     color = [UIColor colorWithRed:0.237 green:0.257 blue:0.305 alpha:1.0];
     [colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
-    self.highlightGradientLocations = [NSArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.51f],
-                                       [NSNumber numberWithFloat:0.654f],
-                                       nil];
+    self.highlightGradientLocations = @[@0.0f,
+                                       @1.0f,
+                                       @0.51f,
+                                       @0.654f];
     self.cornerRadius = 7.0f;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -124,13 +120,11 @@
     color = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
-    self.normalGradientLocations = [NSArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.582f],
-                                    [NSNumber numberWithFloat:0.418f],
-                                    [NSNumber numberWithFloat:0.346],
-                                    nil];
+    self.normalGradientLocations = @[@0.0f,
+                                    @1.0f,
+                                    @0.582f,
+                                    @0.418f,
+                                    @0.346f];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:5];
     color = [UIColor colorWithRed:0.467 green:0.009 blue:0.005 alpha:1.0];
@@ -145,13 +139,11 @@
     [colors addObject:(id)[color CGColor]];
     
     self.highlightGradientColors = colors;
-    self.highlightGradientLocations = [NSArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.715f],
-                                       [NSNumber numberWithFloat:0.513f],
-                                       [NSNumber numberWithFloat:0.445f],
-                                       nil];
+    self.highlightGradientLocations = @[@0.0f,
+                                       @1.0f,
+                                       @0.715f,
+                                       @0.513f,
+                                       @0.445f];
     self.cornerRadius = 9.f;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -165,8 +157,8 @@
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
+                                    @0.0f,
+                                    @1.0f,
                                     nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
@@ -176,9 +168,9 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-									   [NSNumber numberWithFloat:0.601f],
+                                       @0.0f,
+                                       @1.0f,
+									   @0.601f,
                                        nil];
     
     self.cornerRadius = 5.f;
@@ -196,9 +188,9 @@
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.601f],
+                                    @0.0f,
+                                    @1.0f,
+                                    @0.601f,
                                     nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:3];
@@ -210,9 +202,9 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.601f],
+                                       @0.0f,
+                                       @1.0f,
+                                       @0.601f,
                                        nil];
     
     self.cornerRadius = 9.f;
@@ -232,10 +224,10 @@
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.548f],
-                                    [NSNumber numberWithFloat:0.462f],
+                                    @0.0f,
+                                    @1.0f,
+                                    @0.548f,
+                                    @0.462f,
                                     nil];
     self.cornerRadius = 9.0f;
     
@@ -251,10 +243,10 @@
     
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.548f],
-                                       [NSNumber numberWithFloat:0.462f],
+                                       @0.0f,
+                                       @1.0f,
+                                       @0.548f,
+                                       @0.462f,
                                        nil];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
@@ -269,9 +261,9 @@
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.601f],
+                                    @0.0f,
+                                    @1.0f,
+                                    @0.601f,
                                     nil];
     
 	NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:7];
@@ -291,13 +283,13 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.957f],
-                                       [NSNumber numberWithFloat:0.574f],
-                                       [NSNumber numberWithFloat:0.541],
-                                       [NSNumber numberWithFloat:0.185f],
-                                       [NSNumber numberWithFloat:0.812f],
+                                       @0.0f,
+                                       @1.0f,
+                                       @0.957f,
+                                       @0.574f,
+                                       @0.541f,
+                                       @0.185f,
+                                       @0.812f,
                                        nil];
     
     self.cornerRadius = 9.f;
@@ -317,10 +309,10 @@
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.548f],
-                                    [NSNumber numberWithFloat:0.462f],
+                                    @0.0f,
+                                    @1.0f,
+                                    @0.548f,
+                                    @0.462f,
                                     nil];
     self.cornerRadius = 9.0f;
     
@@ -341,13 +333,13 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.957f],
-                                       [NSNumber numberWithFloat:0.574f],
-                                       [NSNumber numberWithFloat:0.541],
-                                       [NSNumber numberWithFloat:0.185],
-                                       [NSNumber numberWithFloat:0.812f],
+                                       @0.0f,
+                                       @1.0f,
+                                       @0.957f,
+                                       @0.574f,
+                                       @0.541f,
+                                       @0.185f,
+                                       @0.812f,
                                        nil];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
@@ -361,8 +353,8 @@
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
+                                    @0.0f,
+                                    @1.0f,
                                     nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:3];
@@ -374,9 +366,9 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.498f],
+                                       @0.0f,
+                                       @1.0f,
+                                       @0.498f,
                                        nil];
     
     self.cornerRadius = 9.f;
@@ -397,11 +389,11 @@
     [colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
     self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    [NSNumber numberWithFloat:0.0f],
-                                    [NSNumber numberWithFloat:1.0f],
-                                    [NSNumber numberWithFloat:0.582f],
-                                    [NSNumber numberWithFloat:0.418f],
-                                    [NSNumber numberWithFloat:0.346],
+                                    @0.0f,
+                                    @1.0f,
+                                    @0.582f,
+                                    @0.418f,
+                                    @0.346f,
                                     nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:5];
@@ -418,11 +410,11 @@
 	
     self.highlightGradientColors = colors;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       [NSNumber numberWithFloat:0.0f],
-                                       [NSNumber numberWithFloat:1.0f],
-                                       [NSNumber numberWithFloat:0.715f],
-                                       [NSNumber numberWithFloat:0.513f],
-                                       [NSNumber numberWithFloat:0.445f],
+                                       @0.0f,
+                                       @1.0f,
+                                       @0.715f,
+                                       @0.513f,
+                                       @0.445f,
                                        nil];
     self.cornerRadius = 9.f;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

@@ -37,9 +37,9 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 	} else {
-		NSDictionary *fileInfo = [self.files objectAtIndex:indexPath.row];
-		NSString *patch =  [fileInfo objectForKey:@"patch"];
-		cell.textLabel.text = [fileInfo objectForKey:@"filename"];
+		NSDictionary *fileInfo = (self.files)[indexPath.row];
+		NSString *patch =  fileInfo[@"patch"];
+		cell.textLabel.text = fileInfo[@"filename"];
 		cell.selectionStyle = patch ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = patch ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	}
@@ -48,7 +48,7 @@
 
 - (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.files.count == 0) return;
-	id fileInfo = [self.files objectAtIndex:indexPath.row];
+	id fileInfo = (self.files)[indexPath.row];
 	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
 		CodeController *codeController = [[CodeController alloc] initWithFiles:self.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];

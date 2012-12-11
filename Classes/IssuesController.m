@@ -45,7 +45,7 @@
 	NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 	GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
 	GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
-	self.issueList = [NSArray arrayWithObjects:openIssues, closedIssues, nil];
+	self.issueList = @[openIssues, closedIssues];
 	for (GHIssues *issues in self.issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
@@ -54,7 +54,7 @@
 	self = [super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"Issues";
 	self.repository = theRepository;
-	self.issueList = [NSArray arrayWithObjects:self.repository.openIssues, self.repository.closedIssues, nil];
+	self.issueList = @[self.repository.openIssues, self.repository.closedIssues];
 	for (GHIssues *issues in self.issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
@@ -72,7 +72,7 @@
 }
 
 - (GHIssues *)currentIssues {
-	return self.issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? nil : [self.issueList objectAtIndex:self.issuesControl.selectedSegmentIndex];
+	return self.issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? nil : (self.issueList)[self.issuesControl.selectedSegmentIndex];
 }
 
 #pragma mark Actions
@@ -141,14 +141,14 @@
 		[[NSBundle mainBundle] loadNibNamed:@"IssueCell" owner:self options:nil];
 		cell = self.issueCell;
 	}
-	cell.issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
+	cell.issue = (self.currentIssues.entries)[indexPath.row];
 	if (self.repository) [cell hideRepo];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentIssues.isLoaded || self.currentIssues.entries.count == 0) return;
-	GHIssue *issue = [self.currentIssues.entries objectAtIndex:indexPath.row];
+	GHIssue *issue = (self.currentIssues.entries)[indexPath.row];
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 }

@@ -55,13 +55,13 @@
 	if (self.currentForks.entries.count == 0) return self.noForksCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
-	cell.repository = [self.currentForks.entries objectAtIndex:indexPath.row];
+	cell.repository = (self.currentForks.entries)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentForks.isLoaded || self.currentForks.entries.count == 0) return;
-	GHRepository *repo = [self.currentForks.entries objectAtIndex:indexPath.row];
+	GHRepository *repo = (self.currentForks.entries)[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }

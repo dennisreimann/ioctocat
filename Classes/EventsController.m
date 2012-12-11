@@ -105,7 +105,7 @@
 			viewController.title = [theEventItem valueForKey:@"page_name" defaultsTo:@""];
 		}
 	} else if ([theEventItem isKindOfClass:[NSArray class]]) {
-		id firstEntry = [theEventItem objectAtIndex:0];
+		id firstEntry = theEventItem[0];
 		if ([firstEntry isKindOfClass:[GHCommit class]]) {
 			viewController = [[CommitsController alloc] initWithCommits:theEventItem];
 		}
@@ -138,7 +138,7 @@
 		cell.delegate = self;
 		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:bgImage];
 	}
-	GHEvent *event = [self.events.events objectAtIndex:indexPath.row];
+	GHEvent *event = (self.events.events)[indexPath.row];
 	cell.event = event;
 	(event.read) ? [cell markAsRead] : [cell markAsNew];
 	return cell;

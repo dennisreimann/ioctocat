@@ -193,7 +193,7 @@
 			case 2: cell = self.eventsCell; break;
 		}
 	} else {
-		GHBranch *branch = [self.repository.branches.branches objectAtIndex:row];
+		GHBranch *branch = (self.repository.branches.branches)[row];
 		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier];
@@ -228,7 +228,7 @@
 		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 		viewController.title = self.repository.name;
 	} else {
-		GHBranch *branch = [self.repository.branches.branches objectAtIndex:row];
+		GHBranch *branch = (self.repository.branches.branches)[row];
 		GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
 		viewController = [[TreeController alloc] initWithTree:tree];
 	}

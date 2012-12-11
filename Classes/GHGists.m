@@ -10,19 +10,17 @@
 	self = [super init];
 	if (self) {
 		self.resourcePath = thePath;
-		self.gists = [NSMutableArray array];
 	}
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
 		GHGist *resource = [[GHGist alloc] initWithId:[dict valueForKey:@"id"]];
 		[resource setValues:dict];
-		[resources addObject:resource];
+		[self addObject:resource];
 	}
-	self.gists = resources;
 }
 
 @end

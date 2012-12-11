@@ -1,11 +1,7 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
-@interface GHUsers : GHResource
-
-@property(nonatomic,strong)NSMutableArray *users;
-
+@interface GHUsers : GHCollection
 - (id)initWithPath:(NSString *)thePath;
-
 @end

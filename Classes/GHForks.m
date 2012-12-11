@@ -15,17 +15,16 @@
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *repoDict in theResponse) {
-		NSString *owner = [repoDict valueForKeyPath:@"owner.login"];
-		NSString *name = [repoDict valueForKey:@"name"];
-		GHRepository *resource = [[GHRepository alloc] initWithOwner:owner andName:name];
-		[resource setValues:repoDict];
-		[resources addObject:resource];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		NSString *owner = [dict valueForKeyPath:@"owner.login"];
+		NSString *name = [dict valueForKey:@"name"];
+		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
+		[repo setValues:dict];
+		[self addObject:repo];
 	}
-	[resources sortUsingSelector:@selector(compareByName:)];
-	self.entries = resources;
+	[self.items sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

@@ -1,14 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
 @class GHGist;
 
-@interface GHGistComments : GHResource
-
-@property(nonatomic,strong)NSMutableArray *comments;
+@interface GHGistComments : GHCollection
 @property(nonatomic,strong)GHGist *gist;
 
 - (id)initWithGist:(GHGist *)theGist;
-
 @end

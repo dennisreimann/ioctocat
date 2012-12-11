@@ -10,7 +10,6 @@
 	self = [super init];
 	if (self) {
 		self.gist = theGist;
-		self.comments = [NSMutableArray array];
 	}
 	return self;
 }
@@ -21,13 +20,12 @@
 	return [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
 		GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist andDictionary:dict];
-		[resources addObject:comment];
+		[self addObject:comment];
 	}
-	self.comments = resources;
 }
 
 @end

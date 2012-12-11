@@ -135,10 +135,10 @@
 	if (!self.organization.isLoaded) return 1;
 	if (section == 0) return 3;
 	if (section == 1) return 1;
-	if (section == 2 && (!self.organization.publicMembers.isLoaded || self.organization.publicMembers.users.count == 0)) return 1;
-	if (section == 2) return self.organization.publicMembers.users.count;
-	if (section == 3 && (!self.organization.repositories.isLoaded || self.organization.repositories.repositories.count == 0)) return 1;
-	if (section == 3) return self.organization.repositories.repositories.count;
+	if (section == 2 && (!self.organization.publicMembers.isLoaded || self.organization.publicMembers.isEmpty)) return 1;
+	if (section == 2) return self.organization.publicMembers.count;
+	if (section == 3 && (!self.organization.repositories.isLoaded || self.organization.repositories.isEmpty)) return 1;
+	if (section == 3) return self.organization.repositories.count;
 	return 1;
 }
 
@@ -167,22 +167,22 @@
 	}
 	if (section == 1) return self.recentActivityCell;
 	if (section == 2 && !self.organization.publicMembers.isLoaded) return self.loadingMembersCell;
-	if (section == 2 && self.organization.publicMembers.users.count == 0) return self.noPublicMembersCell;
+	if (section == 2 && self.organization.publicMembers.isEmpty) return self.noPublicMembersCell;
 	if (section == 2) {
 		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 			cell = self.userObjectCell;
 		}
-		cell.userObject = (self.organization.publicMembers.users)[indexPath.row];
+		cell.userObject = (self.organization.publicMembers)[indexPath.row];
 		return cell;
 	}
 	if (section == 3 && !self.organization.repositories.isLoaded) return self.loadingReposCell;
-	if (section == 3 && self.organization.repositories.repositories.count == 0) return self.noPublicReposCell;
+	if (section == 3 && self.organization.repositories.isEmpty) return self.noPublicReposCell;
 	if (section == 3) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = (self.organization.repositories.repositories)[indexPath.row];
+		cell.repository = (self.organization.repositories)[indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
@@ -205,10 +205,10 @@
 		viewController = [[EventsController alloc] initWithEvents:self.organization.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 2) {
-		GHUser *selectedUser = (self.organization.publicMembers.users)[indexPath.row];
+		GHUser *selectedUser = (self.organization.publicMembers)[indexPath.row];
 		viewController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
 	} else if (section == 3) {
-		GHRepository *repo = (self.organization.repositories.repositories)[indexPath.row];
+		GHRepository *repo = (self.organization.repositories)[indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	}
 	// Maybe push a controller

@@ -1,14 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
 @class GHUser;
 
-@interface GHOrganizations : GHResource
-
+@interface GHOrganizations : GHCollection
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)NSMutableArray *organizations;
 
 - (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath;
-
 @end

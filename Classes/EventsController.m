@@ -124,12 +124,12 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.events.isLoading) return 0;
-	if (self.events.isLoaded && self.events.events.count == 0) return 1;
-	return self.events.events.count;
+	if (self.events.isLoaded && self.events.count == 0) return 1;
+	return self.events.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.events.events.count == 0) return self.noEntriesCell;
+	if (self.events.isEmpty) return self.noEntriesCell;
 	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
@@ -138,7 +138,7 @@
 		cell.delegate = self;
 		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:bgImage];
 	}
-	GHEvent *event = (self.events.events)[indexPath.row];
+	GHEvent *event = (self.events)[indexPath.row];
 	cell.event = event;
 	(event.read) ? [cell markAsRead] : [cell markAsNew];
 	return cell;

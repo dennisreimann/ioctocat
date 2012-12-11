@@ -5,7 +5,6 @@
 @class GHUser;
 
 @interface GHComment : GHResource
-
 @property(nonatomic,assign)NSUInteger commentID;
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSString *body;
@@ -14,5 +13,4 @@
 
 - (void)saveData;
 - (void)setUserWithValues:(NSDictionary *)userDict;
-
 @end

@@ -11,7 +11,6 @@
 	self = [super init];
 	if (self) {
 		self.parent = theParent;
-		self.comments = [NSMutableArray array];
 	}
 	return self;
 }
@@ -24,13 +23,12 @@
 	return [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.parent andDictionary:dict];
-		[resources addObject:comment];
+		[self addObject:comment];
 	}
-	self.comments = resources;
 }
 
 @end

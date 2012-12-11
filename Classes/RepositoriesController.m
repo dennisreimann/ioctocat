@@ -83,7 +83,7 @@
 	if ([repositories isEqual:self.user.repositories]) {
 		self.privateRepositories = [NSMutableArray array];
 		self.publicRepositories = [NSMutableArray array];
-		for (GHRepository *repo in self.user.repositories.repositories) {
+		for (GHRepository *repo in self.user.repositories.items) {
 			(repo.isPrivate) ? [self.privateRepositories addObject:repo] : [self.publicRepositories addObject:repo];
 		}
 		[self.publicRepositories sortUsingComparator:compareRepositories];
@@ -91,12 +91,12 @@
 	}
 	// Starred repos
 	else if ([repositories isEqual:self.user.starredRepositories]) {
-		self.starredRepositories = [NSMutableArray arrayWithArray:self.user.starredRepositories.repositories];
+		self.starredRepositories = [NSMutableArray arrayWithArray:self.user.starredRepositories.items];
 		[self.starredRepositories sortUsingComparator:compareRepositories];
 	}
 	// Watched repos
 	else if ([repositories isEqual:self.user.watchedRepositories]) {
-		self.watchedRepositories = [NSMutableArray arrayWithArray:self.user.watchedRepositories.repositories];
+		self.watchedRepositories = [NSMutableArray arrayWithArray:self.user.watchedRepositories.items];
 		[self.watchedRepositories sortUsingComparator:compareRepositories];
 	}
 

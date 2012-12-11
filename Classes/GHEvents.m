@@ -10,14 +10,13 @@
 	return [super initWithPath:path];
 }
 
-- (void)setValues:(id)theDicts {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theDicts) {
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
 		GHEvent *event = [[GHEvent alloc] initWithDict:dict];
 		if ([event.date compare:self.lastReadingDate] != NSOrderedDescending) event.read = YES;
-		[resources addObject:event];
+		[self addObject:event];
 	}
-	self.events = resources;
 	self.lastReadingDate = [NSDate date];
 }
 

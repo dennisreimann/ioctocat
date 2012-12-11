@@ -57,7 +57,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath] && object == self.user.organizations && self.user.organizations.isLoaded) {
-		for (GHOrganization *org in self.user.organizations.organizations) {
+		for (GHOrganization *org in self.user.organizations.items) {
 			org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.login, org.login];
 		}
 	}

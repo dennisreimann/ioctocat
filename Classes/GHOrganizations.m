@@ -10,21 +10,19 @@
 	self = [super init];
 	if (self) {
 		self.user = theUser;
-		self.organizations = [NSMutableArray array];
 		self.resourcePath = thePath;
 	}
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHOrganization *theOrg = [[iOctocat sharedInstance] organizationWithLogin:dict[@"login"]];
-		[theOrg setValues:dict];
-		[resources addObject:theOrg];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHOrganization *org = [[iOctocat sharedInstance] organizationWithLogin:dict[@"login"]];
+		[org setValues:dict];
+		[self addObject:org];
 	}
-	[resources sortUsingSelector:@selector(compareByName:)];
-	self.organizations = resources;
+	[self.items sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

@@ -150,10 +150,10 @@
 	if (!self.user.isLoaded) return 1;
 	if (section == 0) return 3;
 	if (section == 1) return 4;
-	if (section == 2 && (!self.user.repositories.isLoaded || self.user.repositories.repositories.count == 0)) return 1;
-	if (section == 2) return self.user.repositories.repositories.count;
-	if (section == 3 && (!self.user.organizations.isLoaded || self.user.organizations.organizations.count == 0)) return 1;
-	if (section == 3) return self.user.organizations.organizations.count;
+	if (section == 2 && (!self.user.repositories.isLoaded || self.user.repositories.isEmpty)) return 1;
+	if (section == 2) return self.user.repositories.count;
+	if (section == 3 && (!self.user.organizations.isLoaded || self.user.organizations.isEmpty)) return 1;
+	if (section == 3) return self.user.organizations.count;
 	return 1;
 }
 
@@ -185,23 +185,23 @@
 	if (section == 1 && row == 2) return self.followersCell;
 	if (section == 1 && row == 3) return self.gistsCell;
 	if (section == 2 && !self.user.repositories.isLoaded) return self.loadingReposCell;
-	if (section == 2 && self.user.repositories.repositories.count == 0) return self.noPublicReposCell;
+	if (section == 2 && self.user.repositories.isEmpty) return self.noPublicReposCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = (self.user.repositories.repositories)[indexPath.row];
+		cell.repository = (self.user.repositories)[indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
 	if (section == 3 && !self.user.organizations.isLoaded) return self.loadingOrganizationsCell;
-	if (section == 3 && self.user.organizations.organizations.count == 0) return self.noPublicOrganizationsCell;
+	if (section == 3 && self.user.organizations.isEmpty) return self.noPublicOrganizationsCell;
 	if (section == 3) {
 		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 			cell = self.userObjectCell;
 		}
-		cell.userObject = (self.user.organizations.organizations)[indexPath.row];
+		cell.userObject = (self.user.organizations)[indexPath.row];
 		return cell;
 	}
 	return nil;
@@ -229,10 +229,10 @@
 		viewController = [[UsersController alloc] initWithUsers:(row == 1 ? self.user.following : self.user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2) {
-		GHRepository *repo = (self.user.repositories.repositories)[indexPath.row];
+		GHRepository *repo = (self.user.repositories)[indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3) {
-		GHOrganization *org = (self.user.organizations.organizations)[indexPath.row];
+		GHOrganization *org = (self.user.organizations)[indexPath.row];
 		viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller

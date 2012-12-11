@@ -47,21 +47,21 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	 return (self.currentForks.isLoading || self.currentForks.entries.count == 0) ? 1 : self.currentForks.entries.count;
+	 return (self.currentForks.isLoading || self.currentForks.isEmpty) ? 1 : self.currentForks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentForks.isLoading) return self.loadingForksCell;
-	if (self.currentForks.entries.count == 0) return self.noForksCell;
+	if (self.currentForks.isEmpty) return self.noForksCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
-	cell.repository = (self.currentForks.entries)[indexPath.row];
+	cell.repository = (self.currentForks)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentForks.isLoaded || self.currentForks.entries.count == 0) return;
-	GHRepository *repo = (self.currentForks.entries)[indexPath.row];
+	if (!self.currentForks.isLoaded || self.currentForks.isEmpty) return;
+	GHRepository *repo = (self.currentForks)[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }

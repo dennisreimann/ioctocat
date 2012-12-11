@@ -93,19 +93,19 @@
 
 #pragma mark Following
 
-- (BOOL)isFollowing:(GHUser *)anUser {
+- (BOOL)isFollowing:(GHUser *)user {
 	if (!self.following.isLoaded) [self.following loadData];
-	return [self.following.users containsObject:anUser];
+	return [self.following containsObject:user];
 }
 
-- (void)followUser:(GHUser *)theUser {
-	[self.following.users addObject:theUser];
-	[self setFollowing:YES forUser:theUser];
+- (void)followUser:(GHUser *)user {
+	[self.following addObject:user];
+	[self setFollowing:YES forUser:user];
 }
 
-- (void)unfollowUser:(GHUser *)theUser {
-	[self.following.users removeObject:theUser];
-	[self setFollowing:NO forUser:theUser];
+- (void)unfollowUser:(GHUser *)user {
+	[self.following removeObject:user];
+	[self setFollowing:NO forUser:user];
 }
 
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
@@ -115,64 +115,64 @@
 
 #pragma mark Stars
 
-- (BOOL)isStarring:(GHRepository *)aRepository {
+- (BOOL)isStarring:(GHRepository *)repo {
 	if (!self.starredRepositories.isLoaded) [self.starredRepositories loadData];
-	return [self.starredRepositories.repositories containsObject:aRepository];
+	return [self.starredRepositories containsObject:repo];
 }
 
-- (void)starRepository:(GHRepository *)theRepository {
-	[self.starredRepositories.repositories addObject:theRepository];
-	[self setStarring:YES forRepository:theRepository];
+- (void)starRepository:(GHRepository *)repo {
+	[self.starredRepositories addObject:repo];
+	[self setStarring:YES forRepository:repo];
 }
 
-- (void)unstarRepository:(GHRepository *)theRepository {
-	[self.starredRepositories.repositories removeObject:theRepository];
-	[self setStarring:NO forRepository:theRepository];
+- (void)unstarRepository:(GHRepository *)repo {
+	[self.starredRepositories removeObject:repo];
+	[self setStarring:NO forRepository:repo];
 }
 
-- (void)setStarring:(BOOL)watch forRepository:(GHRepository *)theRepository {
-	NSString *path = [NSString stringWithFormat:kRepoStarFormat, theRepository.owner, theRepository.name];
+- (void)setStarring:(BOOL)watch forRepository:(GHRepository *)repo {
+	NSString *path = [NSString stringWithFormat:kRepoStarFormat, repo.owner, repo.name];
 	[self saveValues:nil withPath:path andMethod:(watch ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Watching
 
-- (BOOL)isWatching:(GHRepository *)aRepository {
+- (BOOL)isWatching:(GHRepository *)repo {
 	if (!self.watchedRepositories.isLoaded) [self.watchedRepositories loadData];
-	return [self.watchedRepositories.repositories containsObject:aRepository];
+	return [self.watchedRepositories containsObject:repo];
 }
 
-- (void)watchRepository:(GHRepository *)theRepository {
-	[self.watchedRepositories.repositories addObject:theRepository];
-	[self setWatching:YES forRepository:theRepository];
+- (void)watchRepository:(GHRepository *)repo {
+	[self.watchedRepositories addObject:repo];
+	[self setWatching:YES forRepository:repo];
 }
 
-- (void)unwatchRepository:(GHRepository *)theRepository {
-	[self.watchedRepositories.repositories removeObject:theRepository];
-	[self setWatching:NO forRepository:theRepository];
+- (void)unwatchRepository:(GHRepository *)repo {
+	[self.watchedRepositories removeObject:repo];
+	[self setWatching:NO forRepository:repo];
 }
 
-- (void)setWatching:(BOOL)watch forRepository:(GHRepository *)theRepository {
-	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, theRepository.owner, theRepository.name];
+- (void)setWatching:(BOOL)watch forRepository:(GHRepository *)repo {
+	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, repo.owner, repo.name];
 	id values = watch ? @{@"subscribed": @"true"} : nil;
 	[self saveValues:values withPath:path andMethod:(watch ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Gists
 
-- (BOOL)isStarringGist:(GHGist *)theGist {
+- (BOOL)isStarringGist:(GHGist *)gist {
 	if (!self.starredGists.isLoaded) [self.starredGists loadData];
-	return [self.starredGists.gists containsObject:theGist];
+	return [self.starredGists containsObject:gist];
 }
 
-- (void)starGist:(GHGist *)theGist {
-	[self.starredGists.gists addObject:theGist];
-	[self setStarring:YES forGist:theGist];
+- (void)starGist:(GHGist *)gist {
+	[self.starredGists addObject:gist];
+	[self setStarring:YES forGist:gist];
 }
 
-- (void)unstarGist:(GHGist *)theGist {
-	[self.starredGists.gists removeObject:theGist];
-	[self setStarring:NO forGist:theGist];
+- (void)unstarGist:(GHGist *)gist {
+	[self.starredGists removeObject:gist];
+	[self setStarring:NO forGist:gist];
 }
 
 - (void)setStarring:(BOOL)starred forGist:(GHGist *)theGist {

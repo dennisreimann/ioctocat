@@ -47,24 +47,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!self.users.isLoaded) || (self.users.users.count == 0) ? 1 : self.users.users.count;
+    return !self.users.isLoaded || self.users.isEmpty ? 1 : self.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.users.isLoaded) return self.loadingCell;
-	if (self.users.users.count == 0) return self.noUsersCell;
+	if (self.users.isEmpty) return self.noUsersCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 		cell = self.userObjectCell;
 	}
-    cell.userObject = (self.users.users)[indexPath.row];
+    cell.userObject = (self.users)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.users.isLoaded || self.users.users.count == 0) return;
-    GHUser *selectedUser = (self.users.users)[indexPath.row];
+    if (!self.users.isLoaded || self.users.isEmpty) return;
+    GHUser *selectedUser = (self.users)[indexPath.row];
     UserController *userController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
     [self.navigationController pushViewController:userController animated:YES];
 }

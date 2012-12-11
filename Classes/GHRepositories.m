@@ -10,22 +10,20 @@
 	self = [super init];
 	if (self) {
 		self.resourcePath = thePath;
-		self.repositories = [NSMutableArray array];
 	}
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
 		id own = dict[@"owner"];
 		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? own[@"login"] : own;
-		GHRepository *resource = [[GHRepository alloc] initWithOwner:owner andName:dict[@"name"]];
-		[resource setValues:dict];
-		[resources addObject:resource];
+		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:dict[@"name"]];
+		[repo setValues:dict];
+		[self addObject:repo];
 	}
-	[resources sortUsingSelector:@selector(compareByName:)];
-	self.repositories = resources;
+	[self.items sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

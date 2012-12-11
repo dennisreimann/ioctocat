@@ -145,7 +145,8 @@
 	if (!self.gist.isLoaded) return 1;
 	if (section == 0) return self.gist.files.count;
 	if (section == 1 && !self.gist.comments.isLoaded) return 1;
-	return self.gist.comments.comments.count == 0 ? 1 : self.gist.comments.comments.count;
+	if (self.gist.comments.isEmpty) return 1;
+	return self.gist.comments.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -171,20 +172,20 @@
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
 		if (!self.gist.comments.isLoaded) return self.loadingCommentsCell;
-		if (self.gist.comments.comments.count == 0) return self.noCommentsCell;
+		if (self.gist.comments.isEmpty) return self.noCommentsCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 			cell = self.commentCell;
 		}
-		GHComment *comment = (self.gist.comments.comments)[indexPath.row];
+		GHComment *comment = (self.gist.comments)[indexPath.row];
 		[(CommentCell *)cell setComment:comment];
 	}
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 1 && self.gist.comments.isLoaded && self.gist.comments.comments.count > 0) {
+	if (indexPath.section == 1 && self.gist.comments.isLoaded && !self.gist.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}

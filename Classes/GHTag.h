@@ -5,7 +5,6 @@
 @class GHRepository, GHCommit;
 
 @interface GHTag : GHResource
-
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)NSString *sha;
@@ -16,5 +15,4 @@
 @property(nonatomic,strong)NSDate *taggerDate;
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
-
 @end

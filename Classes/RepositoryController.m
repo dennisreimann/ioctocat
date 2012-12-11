@@ -163,7 +163,7 @@
 		return rows;
 	}
 	if (section == 1) return self.repository.hasIssues ? 3 : 2;
-	return self.repository.branches.branches.count;
+	return self.repository.branches.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -193,7 +193,7 @@
 			case 2: cell = self.eventsCell; break;
 		}
 	} else {
-		GHBranch *branch = (self.repository.branches.branches)[row];
+		GHBranch *branch = (self.repository.branches)[row];
 		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier];
@@ -228,7 +228,7 @@
 		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 		viewController.title = self.repository.name;
 	} else {
-		GHBranch *branch = (self.repository.branches.branches)[row];
+		GHBranch *branch = (self.repository.branches)[row];
 		GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
 		viewController = [[TreeController alloc] initWithTree:tree];
 	}

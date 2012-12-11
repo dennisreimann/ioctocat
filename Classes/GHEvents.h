@@ -1,14 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
 @class GHRepository;
 
-@interface GHEvents : GHResource
-
-@property(nonatomic,strong)NSArray *events;
+@interface GHEvents : GHCollection
 @property(nonatomic,strong)NSDate *lastReadingDate;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
-
 @end

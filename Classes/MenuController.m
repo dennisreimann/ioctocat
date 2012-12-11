@@ -100,7 +100,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSInteger rowCount = [(self.menu)[section] count];
 	if (section == 0) {
-		rowCount += self.user.organizations.organizations.count;
+		rowCount += self.user.organizations.count;
 	}
 	return rowCount;
 }
@@ -152,7 +152,7 @@
 	if (section == 0) {
 		// object is either a user or an organization.
 		// both have gravatar, name and login properties.
-		GHUser *object = (row == 0) ? self.user : (self.user.organizations.organizations)[row - 1];
+		GHUser *object = (row == 0) ? self.user : (self.user.organizations)[row - 1];
 		cell.imageView.highlightedImage = object.gravatar;
 		cell.imageView.image = object.gravatar;
 		cell.textLabel.text = object.login;
@@ -177,7 +177,7 @@
 			if (row == 0) {
 				viewController = [[MyEventsController alloc] initWithUser:self.user];
 			} else {
-				GHOrganization *org = (self.user.organizations.organizations)[row - 1];
+				GHOrganization *org = (self.user.organizations)[row - 1];
 				viewController = [[EventsController alloc] initWithEvents:org.events];
 				viewController.title = org.login;
 			}

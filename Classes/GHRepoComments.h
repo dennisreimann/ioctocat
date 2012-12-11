@@ -1,15 +1,12 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
 @class GHRepository;
 
-@interface GHRepoComments : GHResource
-
-@property(nonatomic,strong)NSMutableArray *comments;
+@interface GHRepoComments : GHCollection
 @property(nonatomic,strong)NSString *commitID;
 @property(nonatomic,strong)GHRepository *repository;
 
 - (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID;
-
 @end

@@ -12,7 +12,6 @@
 	if (self) {
 		self.repository = theRepo;
 		self.commitID = theCommitID;
-		self.comments = [NSMutableArray array];
 	}
 	return self;
 }
@@ -23,13 +22,12 @@
 	return [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
 		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository andDictionary:dict];
-		[resources addObject:comment];
+		[self addObject:comment];
 	}
-	self.comments = resources;
 }
 
 @end

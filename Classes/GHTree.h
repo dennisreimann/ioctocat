@@ -5,7 +5,6 @@
 @class GHRepository;
 
 @interface GHTree : GHResource
-
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSString *sha;
 @property(nonatomic,strong)NSString *path;
@@ -14,5 +13,4 @@
 @property(nonatomic,strong)NSMutableArray *blobs;
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
-
 @end

@@ -56,24 +56,24 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!self.organizations.isLoaded) || (self.organizations.organizations.count == 0) ? 1 : self.organizations.organizations.count;
+    return (!self.organizations.isLoaded) || (self.organizations.isEmpty) ? 1 : self.organizations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.organizations.isLoaded) return self.loadingCell;
-	if (self.organizations.organizations.count == 0) return self.noOrganizationsCell;
+	if (self.organizations.count == 0) return self.noOrganizationsCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
 		cell = self.userObjectCell;
 	}
-    cell.userObject = (self.organizations.organizations)[indexPath.row];
+    cell.userObject = (self.organizations)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.organizations.isLoaded || self.organizations.organizations.count == 0) return;
-    GHOrganization *org = (self.organizations.organizations)[indexPath.row];
+    if (!self.organizations.isLoaded || self.organizations.isEmpty) return;
+    GHOrganization *org = (self.organizations)[indexPath.row];
     OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
 }

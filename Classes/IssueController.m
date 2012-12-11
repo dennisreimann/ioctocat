@@ -195,8 +195,8 @@
 	if (!self.issue.isLoaded) return 1;
 	if (section == 0) return [self.issue.body isEmpty] ? 3 : 4;
 	if (!self.issue.comments.isLoaded) return 1;
-	if (self.issue.comments.comments.count == 0) return 1;
-	return self.issue.comments.comments.count;
+	if (self.issue.comments.isEmpty) return 1;
+	return self.issue.comments.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -210,20 +210,20 @@
 	if (indexPath.section == 0 && indexPath.row == 2) return self.updatedCell;
 	if (indexPath.section == 0 && indexPath.row == 3) return self.descriptionCell;
 	if (!self.issue.comments.isLoaded) return self.loadingCommentsCell;
-	if (self.issue.comments.comments.count == 0) return self.noCommentsCell;
+	if (self.issue.comments.isEmpty) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHComment *comment = (self.issue.comments.comments)[indexPath.row];
+	GHComment *comment = (self.issue.comments)[indexPath.row];
 	cell.comment = comment;
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == 3) return [self.descriptionCell heightForTableView:tableView];
-	if (indexPath.section == 1 && self.issue.comments.isLoaded && self.issue.comments.comments.count > 0) {
+	if (indexPath.section == 1 && self.issue.comments.isLoaded && !self.issue.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}

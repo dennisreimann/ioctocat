@@ -10,25 +10,23 @@
 	self = [super init];
 	if (self) {
 		self.repository = theRepository;
-		self.branches = [NSMutableArray array];
 		self.resourcePath = [NSString stringWithFormat:kRepoBranchesFormat, self.repository.owner, self.repository.name];
 	}
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-    NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *branchDict in theResponse) {
-        NSString *name = [branchDict valueForKey:@"name"];
+- (void)setValues:(id)values {
+    self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+        NSString *name = [dict valueForKey:@"name"];
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:self.repository andName:name];
-		branch.sha = [branchDict valueForKeyPath:@"commit.sha"];
+		branch.sha = [dict valueForKeyPath:@"commit.sha"];
 		if ([branch.name isEqualToString:self.repository.mainBranch]) {
-			[resources insertObject:branch atIndex:0];
+			[self insertObject:branch atIndex:0];
 		} else {
-			[resources addObject:branch];
+			[self addObject:branch];
 		}
     }
-    self.branches = resources;
 }
 
 @end

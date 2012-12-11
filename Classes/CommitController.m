@@ -156,8 +156,8 @@
 	if (section == 0) return 2;
 	if (section == 1) return 3;
 	if (!self.commit.comments.isLoaded) return 1;
-	if (self.commit.comments.comments.count == 0) return 1;
-	return self.commit.comments.comments.count;
+	if (self.commit.comments.isEmpty) return 1;
+	return self.commit.comments.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -168,20 +168,20 @@
 	if (indexPath.section == 1 && indexPath.row == 1) return self.removedCell;
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
 	if (!self.commit.comments.isLoaded) return self.loadingCommentsCell;
-	if (self.commit.comments.comments.count == 0) return self.noCommentsCell;
+	if (self.commit.comments.isEmpty) return self.noCommentsCell;
 
 	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHRepoComment *comment = (self.commit.comments.comments)[indexPath.row];
+	GHRepoComment *comment = (self.commit.comments)[indexPath.row];
 	[cell setComment:comment];
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 2 && self.commit.comments.isLoaded && self.commit.comments.comments.count > 0) {
+	if (indexPath.section == 2 && self.commit.comments.isLoaded && !self.commit.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}

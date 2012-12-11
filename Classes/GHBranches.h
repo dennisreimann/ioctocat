@@ -1,14 +1,11 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
 @class GHRepository;
 
-@interface GHBranches : GHResource
-
-@property(nonatomic,strong)NSMutableArray *branches;
+@interface GHBranches : GHCollection
 @property(nonatomic,strong)GHRepository *repository;
 
 - (id)initWithRepository:(GHRepository *)theRepository;
-
 @end

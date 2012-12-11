@@ -8,22 +8,20 @@
 - (id)initWithPath:(NSString *)thePath {
 	self = [super init];
 	if (self) {
-		self.users = [NSMutableArray array];
 		self.resourcePath = thePath;
 	}
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *userDict in theResponse) {
-		NSString *login = userDict[@"login"];
-		GHUser *theUser = [[iOctocat sharedInstance] userWithLogin:login];
-		[theUser setValues:userDict];
-		[resources addObject:theUser];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		NSString *login = dict[@"login"];
+		GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
+		[user setValues:dict];
+		[self addObject:user];
 	}
-	[resources sortUsingSelector:@selector(compareByName:)];
-	self.users = resources;
+	[self.items sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

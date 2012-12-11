@@ -130,25 +130,25 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.currentIssues.isLoading ) || (self.currentIssues.entries.count == 0) ? 1 : self.currentIssues.entries.count;
+	return (self.currentIssues.isLoading ) || (self.currentIssues.count == 0) ? 1 : self.currentIssues.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentIssues.isLoading) return self.loadingIssuesCell;
-	if (self.currentIssues.entries.count == 0) return self.noIssuesCell;
+	if (self.currentIssues.count == 0) return self.noIssuesCell;
 	IssueCell *cell = (IssueCell *)[tableView dequeueReusableCellWithIdentifier:kIssueCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"IssueCell" owner:self options:nil];
 		cell = self.issueCell;
 	}
-	cell.issue = (self.currentIssues.entries)[indexPath.row];
+	cell.issue = (self.currentIssues)[indexPath.row];
 	if (self.repository) [cell hideRepo];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentIssues.isLoaded || self.currentIssues.entries.count == 0) return;
-	GHIssue *issue = (self.currentIssues.entries)[indexPath.row];
+	if (!self.currentIssues.isLoaded || self.currentIssues.count == 0) return;
+	GHIssue *issue = (self.currentIssues)[indexPath.row];
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 }

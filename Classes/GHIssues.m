@@ -26,14 +26,13 @@
 	return self;
 }
 
-- (void)setValues:(id)theResponse {
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in theResponse) {
-		GHIssue *theIssue = [[GHIssue alloc] initWithRepository:self.repository];
-		[theIssue setValues:dict];
-		[resources addObject:theIssue];
+- (void)setValues:(id)values {
+	self.items = [NSMutableArray array];
+	for (NSDictionary *dict in values) {
+		GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
+		[issue setValues:dict];
+		[self addObject:issue];
 	}
-	self.entries = resources;
 }
 
 @end

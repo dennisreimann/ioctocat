@@ -58,7 +58,7 @@
 	// GitHub API v3 changed the way this has to be looked up. There
 	// is not a single call for these no more - we have to fetch each
 	// organizations repos
-	for (GHOrganization *org in self.user.organizations.organizations) {
+	for (GHOrganization *org in self.user.organizations.items) {
 		GHRepositories *repos = org.repositories;
 		if (repos.isLoaded) {
 			[self displayRepositories:repos];
@@ -104,9 +104,7 @@
 		}
 		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
-
-	[repositories.repositories sortUsingComparator:compareRepositories];
-
+	[repositories.items sortUsingComparator:compareRepositories];
 	[self.tableView reloadData];
 }
 
@@ -115,14 +113,14 @@
 }
 
 - (GHRepositories *)repositoriesInSection:(NSInteger)section {
-	GHOrganization *organization = (self.user.organizations.organizations)[section];
+	GHOrganization *organization = (self.user.organizations)[section];
 	return organization.repositories;
 }
 
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	for (GHOrganization *org in self.user.organizations.organizations) {
+	for (GHOrganization *org in self.user.organizations.items) {
 		[org.repositories loadData];
 	}
 	[self.tableView reloadData];
@@ -131,20 +129,19 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.user.organizations.isLoaded ? self.user.organizations.organizations.count : 1;
+	return self.user.organizations.isLoaded ? self.user.organizations.count : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.user.organizations.isLoaded) return 1;
-	GHOrganization *organization = (self.user.organizations.organizations)[section];
+	GHOrganization *organization = (self.user.organizations)[section];
 	GHRepositories *repos = organization.repositories;
-	NSUInteger count = repos.repositories.count;
-	return (!repos.isLoaded || count == 0) ? 1 : count;
+	return (!repos.isLoaded || repos.isEmpty) ? 1 : repos.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (!self.user.organizations.isLoaded) return @"";
-	GHOrganization *organization = (self.user.organizations.organizations)[section];
+	GHOrganization *organization = (self.user.organizations)[section];
 	return organization.login;
 }
 
@@ -158,7 +155,7 @@
 			[[NSBundle mainBundle] loadNibNamed:@"LoadingCell" owner:self options:nil];
 			cell = self.loadingCell;
 		}
-	} else if (repos.repositories.count == 0) {
+	} else if (repos.isEmpty) {
 		cell = [tableView dequeueReusableCellWithIdentifier:kEmptyCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"EmptyCell" owner:self options:nil];
@@ -167,7 +164,7 @@
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		[(RepositoryCell *)cell setRepository:(repos.repositories)[indexPath.row]];
+		[(RepositoryCell *)cell setRepository:(repos)[indexPath.row]];
 		[(RepositoryCell *)cell hideOwner];
 	}
 	return cell;
@@ -175,8 +172,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
-	if (repos.repositories.count == 0) return;
-	GHRepository *repo = (repos.repositories)[indexPath.row];
+	if (repos.isEmpty) return;
+	GHRepository *repo = (repos)[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }

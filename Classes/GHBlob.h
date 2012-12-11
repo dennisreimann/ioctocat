@@ -5,7 +5,6 @@
 @class GHRepository;
 
 @interface GHBlob : GHResource
-
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSString *sha;
 @property(nonatomic,strong)NSString *path;
@@ -16,5 +15,4 @@
 @property(nonatomic,assign)NSUInteger size;
 
 - (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
-
 @end

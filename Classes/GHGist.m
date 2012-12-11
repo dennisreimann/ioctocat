@@ -10,11 +10,11 @@
 
 @implementation GHGist
 
-- (id)initWithId:(NSString *)theId {
+- (id)initWithId:(NSString *)gistId {
 	self = [super init];
 	if (self) {
-		self.gistId = theId;
-		self.resourcePath = [NSString stringWithFormat:kGistFormat, theId];
+		self.gistId = gistId;
+		self.resourcePath = [NSString stringWithFormat:kGistFormat, gistId];
 		self.comments = [[GHGistComments alloc] initWithGist:self];
 	}
 	return self;
@@ -24,19 +24,22 @@
 	return ([self.descriptionText isEmpty] && self.files.count > 0) ? [self.files allKeys][0] : self.descriptionText;
 }
 
+- (GHUser *)user {
+	return [[iOctocat sharedInstance] userWithLogin:self.userLogin];
+}
+
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-	NSString *login = [theDict valueForKeyPath:@"user.login"];
-	self.gistId = [theDict valueForKey:@"id"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.files = [theDict valueForKey:@"files"];
-	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
-	self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];
-	self.isPrivate = ![theDict[@"public"] boolValue];
-	self.commentsCount = [theDict[@"comments"] integerValue];
-	self.forksCount = [theDict[@"forks"] count];
-	self.createdAtDate = [iOctocat parseDate:theDict[@"created_at"]];
+- (void)setValues:(id)dict {
+	self.gistId = dict[@"id"];
+	self.files = dict[@"files"];
+	self.htmlURL = [NSURL URLWithString:dict[@"html_url"]];
+	self.userLogin = [dict valueForKeyPath:@"user.login" defaultsTo:nil];
+	self.descriptionText = [dict valueForKeyPath:@"description" defaultsTo:@""];
+	self.isPrivate = ![dict[@"public"] boolValue];
+	self.forksCount = [dict[@"forks"] count];
+	self.commentsCount = [dict[@"comments"] integerValue];
+	self.createdAtDate = [iOctocat parseDate:dict[@"created_at"]];
 }
 
 @end

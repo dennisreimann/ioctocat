@@ -17,7 +17,7 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		GHGist *resource = [[GHGist alloc] initWithId:[dict valueForKey:@"id"]];
+		GHGist *resource = [[GHGist alloc] initWithId:dict[@"id"]];
 		[resource setValues:dict];
 		[self addObject:resource];
 	}

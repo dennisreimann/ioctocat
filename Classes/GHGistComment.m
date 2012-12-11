@@ -3,26 +3,28 @@
 #import "iOctocat.h"
 
 
+@interface GHGistComment ()
+@property(nonatomic,weak)GHGist *gist;
+@end
+
+
 @implementation GHGistComment
 
-- (id)initWithGist:(GHGist *)theGist andDictionary:(NSDictionary *)theDict {
-	self = [self initWithGist:theGist];
+- (id)initWithGist:(GHGist *)gist andDictionary:(NSDictionary *)dict {
+	self = [self initWithGist:gist];
 	if (self) {
-		NSString *createdAt = [theDict valueForKey:@"created_at"];
-		NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-		NSDictionary *userDict = [theDict valueForKey:@"user"];
-		[self setUserWithValues:userDict];
-		self.body = [theDict valueForKey:@"body"];
-		self.created = [iOctocat parseDate:createdAt];
-		self.updated = [iOctocat parseDate:updatedAt];
+		[self setUserWithValues:dict[@"user"]];
+		self.body = dict[@"body"];
+		self.created = [iOctocat parseDate:dict[@"created_at"]];
+		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
 	}
 	return self;
 }
 
-- (id)initWithGist:(GHGist *)theGist {
+- (id)initWithGist:(GHGist *)gist {
 	self = [super init];
 	if (self) {
-		self.gist = theGist;
+		self.gist = gist;
 	}
 	return self;
 }

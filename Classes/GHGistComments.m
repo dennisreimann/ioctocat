@@ -4,6 +4,11 @@
 #import "NSURL+Extensions.h"
 
 
+@interface GHGistComments ()
+@property(nonatomic,weak)GHGist *gist;
+@end
+
+
 @implementation GHGistComments
 
 - (id)initWithGist:(GHGist *)theGist {

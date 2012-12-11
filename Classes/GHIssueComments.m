@@ -5,12 +5,16 @@
 #import "NSURL+Extensions.h"
 
 
+@interface GHIssueComments ()
+@property(nonatomic,weak)id parent; // a GHIssue or GHPullRequest instance
+@end
+
 @implementation GHIssueComments
 
-- (id)initWithParent:(id)theParent {
+- (id)initWithParent:(id)parent {
 	self = [super init];
 	if (self) {
-		self.parent = theParent;
+		self.parent = parent;
 	}
 	return self;
 }

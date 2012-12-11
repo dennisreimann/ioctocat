@@ -5,13 +5,18 @@
 #import "NSURL+Extensions.h"
 
 
+@interface GHRepoComments ()
+@property(nonatomic,weak)GHRepository *repository;
+@property(nonatomic,strong)NSString *commitID;
+@end
+
 @implementation GHRepoComments
 
-- (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
+- (id)initWithRepo:(GHRepository *)repo andCommitID:(NSString *)commitID {
 	self = [super init];
 	if (self) {
-		self.repository = theRepo;
-		self.commitID = theCommitID;
+		self.repository = repo;
+		self.commitID = commitID;
 	}
 	return self;
 }

@@ -5,26 +5,27 @@
 #import "iOctocat.h"
 
 
+@interface GHIssueComment ()
+@property(nonatomic,weak)id parent; // a GHIssue or GHPullRequest instance
+@end
+
 @implementation GHIssueComment
 
-- (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
-	self = [self initWithParent:theParent];
+- (id)initWithParent:(id)parent andDictionary:(NSDictionary *)dict {
+	self = [self initWithParent:parent];
 	if (self) {
-		NSString *createdAt = [theDict valueForKey:@"created_at"];
-		NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-		NSDictionary *userDict = [theDict valueForKey:@"user"];
-		[self setUserWithValues:userDict];
-		self.body = [theDict valueForKey:@"body"];
-		self.created = [iOctocat parseDate:createdAt];
-		self.updated = [iOctocat parseDate:updatedAt];
+		[self setUserWithValues:dict[@"user"]];
+		self.body = dict[@"body"];
+		self.created = [iOctocat parseDate:dict[@"created_at"]];
+		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
 	}
 	return self;
 }
 
-- (id)initWithParent:(id)theParent {
+- (id)initWithParent:(id)parent {
 	self = [super init];
 	if (self) {
-		self.parent = theParent;
+		self.parent = parent;
 	}
 	return self;
 }

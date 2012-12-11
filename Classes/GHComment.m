@@ -7,9 +7,13 @@
 
 @implementation GHComment
 
+- (GHUser *)user {
+	return [[iOctocat sharedInstance] userWithLogin:self.userLogin];
+}
+
 - (void)setUserWithValues:(NSDictionary *)userDict {
-	self.user = [[iOctocat sharedInstance] userWithLogin:[userDict valueForKey:@"login"]];
-	NSString *avatarURL = [userDict valueForKey:@"avatar_url"];
+	self.userLogin = userDict[@"login"];
+	NSString *avatarURL = userDict[@"avatar_url"];
 	if (!self.user.gravatarURL && ![avatarURL isEmpty]) {
 		self.user.gravatarURL = [NSURL smartURLFromString:avatarURL];
 	}

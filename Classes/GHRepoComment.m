@@ -3,22 +3,23 @@
 #import "iOctocat.h"
 
 
+@interface GHRepoComment ()
+@property(nonatomic,weak)GHRepository *repository;
+@end
+
 @implementation GHRepoComment
 
-- (id)initWithRepo:(GHRepository *)theRepo andDictionary:(NSDictionary *)theDict {
-	self = [self initWithRepo:theRepo];
+- (id)initWithRepo:(GHRepository *)repo andDictionary:(NSDictionary *)dict {
+	self = [self initWithRepo:repo];
 	if (self) {
-		NSString *createdAt = [theDict valueForKey:@"created_at"];
-		NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-		NSDictionary *userDict = [theDict valueForKey:@"user"];
-		[self setUserWithValues:userDict];
-		self.created = [iOctocat parseDate:createdAt];
-		self.updated = [iOctocat parseDate:updatedAt];
-		self.body = [theDict valueForKey:@"body"];
-		self.commitID = [theDict valueForKey:@"commit_id"];
-		self.path = [theDict valueForKey:@"path"];
-		self.position = (NSUInteger)[theDict valueForKey:@"position"];
-		self.line = (NSUInteger)[theDict valueForKey:@"line"];
+		[self setUserWithValues:dict[@"user"]];
+		self.body = dict[@"body"];
+		self.path = dict[@"path"];
+		self.line = [dict[@"line"] integerValue];
+		self.created = [iOctocat parseDate:dict[@"created_at"]];
+		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
+		self.position = [dict[@"position"] integerValue];
+		self.commitID = dict[@"commit_id"];
 	}
 	return self;
 }

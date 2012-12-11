@@ -2,12 +2,13 @@
 #import "GHResource.h"
 
 
-@class GHRepository;
+@class GHRepository, GHCommit, GHUser;
 
 @interface GHBranch : GHResource
+@property(nonatomic,readonly)GHUser *author;
 @property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)NSString *name;
-@property(nonatomic,strong)NSString *sha;
 
 - (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
 @end

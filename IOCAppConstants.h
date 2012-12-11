@@ -97,6 +97,7 @@
 #define kIssueOpenFormat                @"repos/%@/%@/issues"
 #define kIssueEditFormat                @"repos/%@/%@/issues/%d"
 #define kIssueCommentsFormat            @"repos/%@/%@/issues/%d/comments?per_page=100"
+#define kPullRequestsFormat             @"repos/%@/%@/pulls?state=%@"
 #define kPullRequestFormat              @"repos/%@/%@/pulls/%d"
 
 // Code

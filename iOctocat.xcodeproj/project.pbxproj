@@ -321,6 +321,8 @@
 		6F9DD8981334E1BA00D1E35E /* OrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */; };
 		6FA1329B16772F3B001C0804 /* GHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329A16772F3B001C0804 /* GHCollection.m */; };
 		6FA1329C16772F3B001C0804 /* GHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329A16772F3B001C0804 /* GHCollection.m */; };
+		6FA132A01677415C001C0804 /* GHPullRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329F16774158001C0804 /* GHPullRequests.m */; };
+		6FA132A11677415C001C0804 /* GHPullRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329F16774158001C0804 /* GHPullRequests.m */; };
 		6FA92AFF0FACD51A001B1D1D /* Issue.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92AFD0FACD51A001B1D1D /* Issue.xib */; };
 		6FA92B1C0FACD648001B1D1D /* issues_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issues_closed.png */; };
 		6FA92B1D0FACD648001B1D1D /* issues_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issues_open.png */; };
@@ -760,6 +762,8 @@
 		6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationsController.m; sourceTree = "<group>"; };
 		6FA1329916772F3B001C0804 /* GHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCollection.h; sourceTree = "<group>"; };
 		6FA1329A16772F3B001C0804 /* GHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCollection.m; sourceTree = "<group>"; };
+		6FA1329E16774147001C0804 /* GHPullRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHPullRequests.h; sourceTree = "<group>"; };
+		6FA1329F16774158001C0804 /* GHPullRequests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequests.m; sourceTree = "<group>"; };
 		6FA512F11332659000C16D95 /* IOCAppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAppConstants.h; sourceTree = "<group>"; };
 		6FA92AFD0FACD51A001B1D1D /* Issue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issue.xib; path = IBFiles/Issue.xib; sourceTree = "<group>"; };
 		6FA92B1A0FACD648001B1D1D /* issues_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issues_closed.png; path = Images/Icons/issues_closed.png; sourceTree = "<group>"; };
@@ -1647,6 +1651,8 @@
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
 				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+				6FA1329E16774147001C0804 /* GHPullRequests.h */,
+				6FA1329F16774158001C0804 /* GHPullRequests.m */,
 				6FDD214E165194FF0017E8BA /* GHPullRequest.h */,
 				6FDD214F165194FF0017E8BA /* GHPullRequest.m */,
 				6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */,
@@ -2222,6 +2228,7 @@
 				6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
 				6F3FD6931675E2B900E90A6E /* AFOAuth2Client.m in Sources */,
 				6FA1329B16772F3B001C0804 /* GHCollection.m in Sources */,
+				6FA132A01677415C001C0804 /* GHPullRequests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2315,6 +2322,7 @@
 				6F5C03F61674A913005AC6FA /* MenuCell.m in Sources */,
 				6F3FD6941675E2B900E90A6E /* AFOAuth2Client.m in Sources */,
 				6FA1329C16772F3B001C0804 /* GHCollection.m in Sources */,
+				6FA132A11677415C001C0804 /* GHPullRequests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

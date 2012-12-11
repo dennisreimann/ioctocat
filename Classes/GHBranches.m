@@ -20,7 +20,7 @@
 	for (NSDictionary *dict in values) {
         NSString *name = [dict valueForKey:@"name"];
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:self.repository andName:name];
-		branch.sha = [dict valueForKeyPath:@"commit.sha"];
+		[branch setValues:dict];
 		if ([branch.name isEqualToString:self.repository.mainBranch]) {
 			[self insertObject:branch atIndex:0];
 		} else {

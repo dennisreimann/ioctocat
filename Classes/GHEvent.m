@@ -28,10 +28,10 @@
 
 - (NSString *)extendedEventType {
 	if ([self.eventType isEqualToString:@"IssuesEvent"]) {
-		NSString *action = [self.payload valueForKey:@"action"];
+		NSString *action = self.payload[@"action"];
 		return [action isEqualToString:@"closed"] ? @"IssuesClosedEvent" : @"IssuesOpenedEvent";
 	} else if ([self.eventType isEqualToString:@"PullRequestEvent"]) {
-		NSString *action = [self.payload valueForKey:@"action"];
+		NSString *action = self.payload[@"action"];
 		if ([action isEqualToString:@"synchronize"]) {
 			return @"PullRequestSynchronizeEvent";
 		}
@@ -44,19 +44,19 @@
 	return [self.eventType hasSuffix:@"CommentEvent"];
 }
 
-- (void)setValues:(id)theDict {
-	self.eventID = [theDict valueForKey:@"id"];
-	self.eventType = [theDict valueForKey:@"type"];
-	self.date = [iOctocat parseDate:[theDict valueForKey:@"created_at"]];
-	self.payload = [theDict valueForKeyPath:@"payload"];
+- (void)setValues:(id)dict {
+	self.eventID = dict[@"id"];
+	self.eventType = dict[@"type"];
+	self.date = [iOctocat parseDate:dict[@"created_at"]];
+	self.payload = dict[@"payload"];
 
-	NSString *actorLogin = [theDict valueForKeyPath:@"actor.login"];
-	NSString *orgLogin = [theDict valueForKeyPath:@"org.login"];
+	NSString *actorLogin = [dict valueForKeyPath:@"actor.login"];
+	NSString *orgLogin = [dict valueForKeyPath:@"org.login"];
 
 	// User
 	if (![actorLogin isEmpty]) {
 		self.user = [[iOctocat sharedInstance] userWithLogin:actorLogin];
-		NSString *avatarURL = [theDict valueForKeyPath:@"actor.avatar_url"];
+		NSString *avatarURL = [dict valueForKeyPath:@"actor.avatar_url"];
 		if (!self.user.gravatarURL && ![avatarURL isEmpty]) {
 			self.user.gravatarURL = [NSURL smartURLFromString:avatarURL];
 		}
@@ -65,7 +65,7 @@
 	// Organization
 	if (![orgLogin isEmpty]) {
 		self.organization = [[iOctocat sharedInstance] organizationWithLogin:orgLogin];
-		NSString *avatarURL = [theDict valueForKeyPath:@"org.avatar_url"];
+		NSString *avatarURL = [dict valueForKeyPath:@"org.avatar_url"];
 		if (!self.organization.gravatarURL && ![avatarURL isEmpty]) {
 			self.organization.gravatarURL = [NSURL smartURLFromString:avatarURL];
 		}
@@ -74,15 +74,15 @@
 	// Other user
 	NSString *otherUserLogin = nil;
 	NSString *otherUserAvatarURL = nil;
-	NSDictionary *otherUserDict = [self.payload valueForKey:@"target"];
-	if (!otherUserDict) otherUserDict = [self.payload valueForKey:@"member"];
-	if (!otherUserDict) otherUserDict = [self.payload valueForKey:@"user"];
+	NSDictionary *otherUserDict = self.payload[@"target"];
+	if (!otherUserDict) otherUserDict = self.payload[@"member"];
+	if (!otherUserDict) otherUserDict = self.payload[@"user"];
 	if (!otherUserDict && !self.organization && [self.eventType isEqualToString:@"WatchEvent"]) {
 		// use repo owner as fallback
-		otherUserLogin = [[theDict valueForKeyPath:@"repo.name"] componentsSeparatedByString:@"/"][0];
+		otherUserLogin = [[dict valueForKeyPath:@"repo.name"] componentsSeparatedByString:@"/"][0];
 	} else if (otherUserDict) {
-		otherUserLogin = [otherUserDict valueForKey:@"login"];
-		otherUserAvatarURL = [otherUserDict valueForKey:@"avatar_url"];
+		otherUserLogin = otherUserDict[@"login"];
+		otherUserAvatarURL = otherUserDict[@"avatar_url"];
 	}
 	if (![otherUserLogin isEmpty]) {
 		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];
@@ -92,13 +92,13 @@
 	}
 
 	// Repository
-	self.repoName = [theDict valueForKeyPath:@"repo.name"];
+	self.repoName = [dict valueForKeyPath:@"repo.name"];
 	NSArray *rParts = [self.repoName componentsSeparatedByString:@"/"];
 	NSString *rOwner = rParts[0];
 	NSString *rName = rParts[1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
 		self.repository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
-		self.repository.descriptionText = [self.payload valueForKey:@"description"];
+		self.repository.descriptionText = self.payload[@"description"];
 	}
 
 	// Other Repository
@@ -112,20 +112,20 @@
 	}
 
 	// Issue
-	NSInteger issueNumber = [[self.payload valueForKeyPath:@"issue.number"] integerValue];
+	NSInteger issueNumber = [[self.payload valueForKeyPath:@"issue.number" defaultsTo:nil] integerValue];
 	if (issueNumber > 0) {
 		self.issue = [[GHIssue alloc] initWithRepository:self.repository];
 		self.issue.num = issueNumber;
-		[self.issue setValues:[self.payload valueForKey:@"issue"]];
+		[self.issue setValues:self.payload[@"issue"]];
 	}
 
 	// Pull Request
-	NSDictionary *pullPayload = [self.payload valueForKey:@"pull_request"];
+	NSDictionary *pullPayload = self.payload[@"pull_request"];
 	if (!pullPayload) pullPayload = [self.payload valueForKeyPath:@"issue.pull_request"];
 	// this check is somehow hacky, but the API provides empty pull_request
 	// urls in case there is no pull request associated with an issue
 	if (pullPayload && ![[pullPayload valueForKey:@"html_url" defaultsTo:@""] isEmpty]) {
-		NSInteger pullNumber = [[pullPayload valueForKey:@"number"] integerValue];
+		NSInteger pullNumber = [[pullPayload valueForKey:@"number" defaultsTo:nil] integerValue];
 		if (!pullNumber) pullNumber = self.issue.num;
 		self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
 		self.pullRequest.num = pullNumber;
@@ -136,25 +136,25 @@
 	if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
 		id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
 		self.comment = [[GHIssueComment alloc] initWithParent:issueCommentParent
-										   andDictionary:[self.payload valueForKey:@"comment"]];
+												andDictionary:self.payload[@"comment"]];
 	}
 
 	// Gist
 	NSString *gistId = [self.payload valueForKeyPath:@"gist.id"];
 	if (gistId) {
 		self.gist = [[GHGist alloc] initWithId:gistId];
-		[self.gist setValues:[self.payload valueForKey:@"gist"]];
+		[self.gist setValues:self.payload[@"gist"]];
 	}
 
 	// Commits
-	NSArray *commits = [self.payload valueForKey:@"commits"];
+	NSArray *commits = self.payload[@"commits"];
 	if (commits) {
 		self.commits = [NSMutableArray arrayWithCapacity:commits.count];
-		for (NSDictionary *commitDict in commits) {
-			NSString *theSha = [commitDict valueForKey:@"sha"];
-			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:theSha];
-			commit.author = self.user;
-			commit.message = [commitDict valueForKey:@"message" defaultsTo:@""];
+		for (NSDictionary *dict in commits) {
+			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
+														andCommitID:dict[@"sha"]];
+			commit.authorLogin = self.user.login;
+			commit.message = [dict valueForKey:@"message" defaultsTo:@""];
 			[self.commits addObject:commit];
 		}
 	}
@@ -162,7 +162,7 @@
 	// Commit Comment
 	if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
 		self.comment = [[GHRepoComment alloc] initWithRepo:self.repository
-										andDictionary:[self.payload valueForKey:@"comment"]];
+											 andDictionary:self.payload[@"comment"]];
 		if (!self.commits) {
 			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
 												 andCommitID:[self.payload valueForKeyPath:@"comment.commit_id"]];
@@ -171,7 +171,7 @@
 	}
 
 	// Wiki
-	NSArray *pages = [self.payload valueForKey:@"pages"];
+	NSArray *pages = self.payload[@"pages"];
 	if (pages) {
 		self.pages = [NSMutableArray arrayWithCapacity:pages.count];
 		for (NSDictionary *pageDict in pages) {
@@ -189,8 +189,8 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"CreateEvent"]) {
-		NSString *ref = [self.payload valueForKey:@"ref"];
-		NSString *refType = [self.payload valueForKey:@"ref_type"];
+		NSString *ref = self.payload[@"ref"];
+		NSString *refType = self.payload[@"ref_type"];
 		if ([refType isEqualToString:@"repository"]) { // created repository
 			self.title = [NSString stringWithFormat:@"%@ created %@ %@", self.user.login, refType, self.repository.name];
 		} else { // created branch or tag
@@ -199,8 +199,8 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"DeleteEvent"]) {
-		NSString *ref = [self.payload valueForKey:@"ref"];
-		NSString *refType = [self.payload valueForKey:@"ref_type"];
+		NSString *ref = self.payload[@"ref"];
+		NSString *refType = self.payload[@"ref_type"];
 		self.title = [NSString stringWithFormat:@"%@ deleted %@ %@ at %@", self.user.login, refType, ref, self.repoName];
 	}
 
@@ -222,7 +222,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"GistEvent"]) {
-		NSString *action = [self.payload valueForKey:@"action"];
+		NSString *action = self.payload[@"action"];
 		if ([action isEqualToString:@"create"]) {
 			action = @"created";
 		} else if ([action isEqualToString:@"update"]) {
@@ -233,8 +233,8 @@
 
 	else if ([self.eventType isEqualToString:@"GollumEvent"]) {
 		NSDictionary *firstPage = (self.pages)[0];
-		NSString *action = [firstPage valueForKey:@"action"];
-		NSString *pageName = [firstPage valueForKey:@"page_name"];
+		NSString *action = firstPage[@"action"];
+		NSString *pageName = firstPage[@"page_name"];
 		self.title = [NSString stringWithFormat:@"%@ %@ \"%@\" in the %@ wiki", self.user.login, action, pageName, self.repository.repoId];
 	}
 
@@ -246,7 +246,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"IssuesEvent"]) {
-		NSString *action = [self.payload valueForKey:@"action"];
+		NSString *action = self.payload[@"action"];
 		self.title = [NSString stringWithFormat:@"%@ %@ issue %@#%d", self.user.login, action, self.repoName, self.issue.num];
 	}
 
@@ -259,7 +259,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"PullRequestEvent"]) {
-		NSString *action = [self.payload valueForKey:@"action"];
+		NSString *action = self.payload[@"action"];
 		if ([action isEqualToString:@"closed"]) action = @"merged";
 		self.title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", self.user.login, action, self.repoName, self.pullRequest.num];
 	}
@@ -269,7 +269,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"PushEvent"]) {
-		NSString *ref = [self shortenRef:[self.payload valueForKey:@"ref"]];
+		NSString *ref = [self shortenRef:self.payload[@"ref"]];
 		self.title = [NSString stringWithFormat:@"%@ pushed to %@ at %@", self.user.login, ref, self.repoName];
 	}
 
@@ -295,7 +295,7 @@
 	}
 
 	else if ([self.eventType isEqualToString:@"CreateEvent"]) {
-		NSString *refType = [self.payload valueForKey:@"ref_type"];
+		NSString *refType = self.payload[@"ref_type"];
 		self.content = [refType isEqualToString:@"repository"] ? self.repository.descriptionText : @"";
 	}
 

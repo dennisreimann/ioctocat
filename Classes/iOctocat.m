@@ -1,3 +1,4 @@
+#import <HockeySDK/HockeySDK.h>
 #import "iOctocat.h"
 #import "IOCAvatarCache.h"
 #import "GHAccount.h"
@@ -15,7 +16,7 @@
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 
 
-@interface iOctocat () <UIApplicationDelegate>
+@interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate>
 @property(nonatomic,strong)NSMutableDictionary *users;
 @property(nonatomic,strong)NSMutableDictionary *organizations;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
@@ -37,6 +38,7 @@
 #pragma mark Application Events
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
+	[self setupHockeySDK];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	self.users = [NSMutableDictionary dictionary];
 	self.organizations = [NSMutableDictionary dictionary];
@@ -90,6 +92,17 @@
 		return YES;
 	} else {
 		return NO;
+	}
+}
+
+- (void)setupHockeySDK {
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
+	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+	if (dict) {
+		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:dict[@"beta_identifier"]
+															 liveIdentifier:dict[@"live_identifier"]
+																   delegate:self];
+		[[BITHockeyManager sharedHockeyManager] startManager];
 	}
 }
 

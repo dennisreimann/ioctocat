@@ -22,5 +22,5 @@
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHRepoComments *comments;
 
-- (id)initWithRepository:(GHRepository *)theRepository andCommitID:(NSString *)theCommitID;
+- (id)initWithRepository:(GHRepository *)repo andCommitID:(NSString *)commitID;
 @end

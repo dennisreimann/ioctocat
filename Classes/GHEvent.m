@@ -153,7 +153,7 @@
 		for (NSDictionary *dict in commits) {
 			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
 														andCommitID:dict[@"sha"]];
-			commit.authorLogin = self.user.login;
+			commit.author = self.user;
 			commit.message = [dict valueForKey:@"message" defaultsTo:@""];
 			[self.commits addObject:commit];
 		}

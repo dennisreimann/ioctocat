@@ -11,27 +11,8 @@
 	if (self) {
 		self.repository = theRepository;
 		self.resourcePath = [NSString stringWithFormat:kRepoReadmeFormat, self.repository.owner, self.repository.name];
-		[self.repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.repository.isLoaded) {
-			[self loadData];
-		} else if (self.repository.error) {
-			[iOctocat reportLoadingError:@"Could not load the repository"];
-		}
-	}
-}
-
-- (void)loadData {
-	self.repository.isLoaded ? [super loadData] : [self.repository loadData];
 }
 
 - (NSString *)resourceContentType {

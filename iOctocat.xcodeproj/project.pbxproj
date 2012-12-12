@@ -189,6 +189,8 @@
 		6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */; };
 		6F4CBD3A164328FD00D587FB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD39164328FD00D587FB /* LoadingCell.xib */; };
 		6F4CBD3C16432A9E00D587FB /* EmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */; };
+		6F552DA216788A0400698524 /* Octocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DA016788A0400698524 /* Octocat.png */; };
+		6F552DA316788A0400698524 /* Octocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DA116788A0400698524 /* Octocat@2x.png */; };
 		6F5652E10F99C85C001B6703 /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
 		6F5653060F99CB62001B6703 /* private.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653040F99CB62001B6703 /* private.png */; };
@@ -607,6 +609,8 @@
 		6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrganizationRepositories.xib; path = IBFiles/OrganizationRepositories.xib; sourceTree = "<group>"; };
 		6F4CBD39164328FD00D587FB /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoadingCell.xib; path = IBFiles/LoadingCell.xib; sourceTree = "<group>"; };
 		6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmptyCell.xib; path = IBFiles/EmptyCell.xib; sourceTree = "<group>"; };
+		6F552DA016788A0400698524 /* Octocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Octocat.png; path = Images/Octocat.png; sourceTree = "<group>"; };
+		6F552DA116788A0400698524 /* Octocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Octocat@2x.png"; path = "Images/Octocat@2x.png"; sourceTree = "<group>"; };
 		6F5652DF0F99C85C001B6703 /* RepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoriesController.h; sourceTree = "<group>"; };
 		6F5652E00F99C85C001B6703 /* RepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoriesController.m; sourceTree = "<group>"; };
 		6F5653020F99CB52001B6703 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue.png; path = Images/Icons/issue.png; sourceTree = "<group>"; };
@@ -1472,6 +1476,8 @@
 				6F064F0115A3715300F0AFF0 /* Default-Landscape@2x~ipad.png */,
 				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
 				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
+				6F552DA016788A0400698524 /* Octocat.png */,
+				6F552DA116788A0400698524 /* Octocat@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -2094,6 +2100,8 @@
 				6FE440911673E67100226F42 /* MenuRepositoriesOn.png in Resources */,
 				6FE440921673E67100226F42 /* MenuRepositoriesOn@2x.png in Resources */,
 				6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */,
+				6F552DA216788A0400698524 /* Octocat.png in Resources */,
+				6F552DA316788A0400698524 /* Octocat@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

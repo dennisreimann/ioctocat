@@ -52,9 +52,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
-	[self.tableView addPullToRefreshWithActionHandler:^{
-		[self.events loadData];
-	}];
+	[self setupPullToRefresh];
 	[self.tableView triggerPullToRefresh];
 }
 
@@ -164,6 +162,32 @@
 	} else {
 		return 70.0f;
 	}
+}
+
+- (void)setupPullToRefresh {
+	UIImage *loadingImage = [UIImage imageNamed:@"Octocat.png"];
+	UIImageView *loadingView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, loadingImage.size.width, loadingImage.size.height)];
+	loadingView.image = loadingImage;
+	
+	CABasicAnimation *pulse = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+	pulse.duration = 0.75;
+	scale.duration = 0.75;
+	pulse.repeatCount = HUGE_VALF;
+	scale.repeatCount = HUGE_VALF;
+	pulse.autoreverses = YES;
+	scale.autoreverses = YES;
+	pulse.fromValue = @0.85;
+	scale.fromValue = @1;
+	pulse.toValue = @0.25;
+	scale.toValue = @0.85;
+	[loadingView.layer addAnimation:pulse forKey:nil];
+	[loadingView.layer addAnimation:scale forKey:nil];
+	
+	[self.tableView addPullToRefreshWithActionHandler:^{
+		[self.events loadData];
+	}];
+	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }
 
 #pragma mark Autorotation

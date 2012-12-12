@@ -1,5 +1,5 @@
 @class GHCommit;
 
 @interface CommitController : UITableViewController
-- (id)initWithCommit:(GHCommit *)theCommit;
+- (id)initWithCommit:(GHCommit *)commit;
 @end

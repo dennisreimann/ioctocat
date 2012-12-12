@@ -86,7 +86,7 @@
 
 - (IBAction)createNewIssue:(id)sender {
 	GHIssue *theIssue = [[GHIssue alloc] initWithRepository:self.repository];
-	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:theIssue andIssuesController:self];
+	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:theIssue];
 	[self.navigationController pushViewController:formController animated:YES];
 }
 

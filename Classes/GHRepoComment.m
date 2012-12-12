@@ -1,6 +1,7 @@
 #import "GHRepoComment.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
+#import "NSDictionary+Extensions.h"
 
 
 @interface GHRepoComment ()
@@ -12,13 +13,13 @@
 - (id)initWithRepo:(GHRepository *)repo andDictionary:(NSDictionary *)dict {
 	self = [self initWithRepo:repo];
 	if (self) {
-		[self setUserWithValues:dict[@"user"]];
+		[self setUserWithValues:[dict valueForKey:@"user" defaultsTo:nil]];
 		self.body = dict[@"body"];
 		self.path = dict[@"path"];
-		self.line = [dict[@"line"] integerValue];
+		self.line = [[dict valueForKey:@"line" defaultsTo:nil] integerValue];
 		self.created = [iOctocat parseDate:dict[@"created_at"]];
 		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
-		self.position = [dict[@"position"] integerValue];
+		self.position = [[dict valueForKey:@"position" defaultsTo:nil] integerValue];
 		self.commitID = dict[@"commit_id"];
 	}
 	return self;

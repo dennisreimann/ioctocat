@@ -3,6 +3,7 @@
 #import "GHPullRequest.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
+#import "NSDictionary+Extensions.h"
 
 
 @interface GHIssueComment ()
@@ -14,7 +15,7 @@
 - (id)initWithParent:(id)parent andDictionary:(NSDictionary *)dict {
 	self = [self initWithParent:parent];
 	if (self) {
-		[self setUserWithValues:dict[@"user"]];
+		[self setUserWithValues:[dict valueForKey:@"user" defaultsTo:nil]];
 		self.body = dict[@"body"];
 		self.created = [iOctocat parseDate:dict[@"created_at"]];
 		self.updated = [iOctocat parseDate:dict[@"updated_at"]];

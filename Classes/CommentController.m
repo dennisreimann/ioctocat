@@ -6,7 +6,7 @@
 
 @interface CommentController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHComment *comment;
-@property(nonatomic,strong)id comments;
+@property(nonatomic,weak)id comments;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *postButton;
 @property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
@@ -54,7 +54,7 @@
 		if (self.comment.isSaving) return;
 		if (self.comment.isSaved) {
 			[iOctocat reportSuccess:@"Comment saved"];
-			[self.comments loadData];
+			[self.comments needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (self.comment.error) {
 			[iOctocat reportError:@"Request error" with:@"Could not proceed the request"];

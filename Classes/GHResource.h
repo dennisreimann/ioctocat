@@ -20,7 +20,8 @@ typedef enum {
 
 - (id)initWithPath:(NSString *)thePath;
 - (void)loadData;
-- (void)saveValues:(NSDictionary *)theValues withPath:(NSString *)thePath andMethod:(NSString *)theMethod useResult:(void (^)(id theResponse))useResult;
-- (void)setValues:(id)theResponse;
+- (void)needsReload;
+- (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id theResponse))useResult;
+- (void)setValues:(id)response;
 - (NSString *)resourceContentType;
 @end

@@ -44,31 +44,38 @@
 
 @implementation CommitController
 
-- (id)initWithCommit:(GHCommit *)theCommit {
+NSString *const CommitLoadingKeyPath = @"loadingStatus";
+NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
+
+- (id)initWithCommit:(GHCommit *)commit {
 	self = [super initWithNibName:@"Commit" bundle:nil];
 	if (self) {
-		self.commit = theCommit;
+		self.commit = commit;
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self.commit addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.commit.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.commit addObserver:self forKeyPath:CommitLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.commit addObserver:self forKeyPath:CommitCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [self.commit.commitID substringToIndex:8];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	(self.commit.isLoaded) ? [self displayCommit] : [self.commit loadData];
-	(self.commit.comments.isLoaded) ? [self displayComments] : [self.commit.comments loadData];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	(self.commit.isLoaded) ? [self displayCommit] : [self.commit loadData];
+	(self.commit.comments.isLoaded) ? [self displayComments] : [self.commit.comments loadData];
+}
+
 - (void)dealloc {
-	[self.commit removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.commit.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.commit removeObserver:self forKeyPath:CommitCommentsLoadingKeyPath];
+	[self.commit removeObserver:self forKeyPath:CommitLoadingKeyPath];
 }
 
 #pragma mark Actions
@@ -124,19 +131,19 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (object == self.commit) {
-			if (self.commit.isLoaded) {
-				[self displayCommit];
-			} else if (self.commit.error) {
-				[iOctocat reportLoadingError:@"Could not load the commit"];
-			}
-		} else if (object == self.commit.comments) {
-			if (self.commit.comments.isLoaded) {
-				[self displayComments];
-			} else if (self.commit.comments.error) {
-				[iOctocat reportLoadingError:@"Could not load the commit comments"];
-			}
+	if ([keyPath isEqualToString:CommitLoadingKeyPath]) {
+		if (self.commit.isLoaded) {
+			[self displayCommit];
+		} else if (self.commit.error) {
+			[iOctocat reportLoadingError:@"Could not load the commit"];
+		}
+	} else if ([keyPath isEqualToString:CommitCommentsLoadingKeyPath]) {
+		if (self.commit.comments.isLoading && self.commit.isLoaded) {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+		} if (self.commit.comments.isLoaded) {
+			[self displayComments];
+		} else if (self.commit.comments.error) {
+			[iOctocat reportLoadingError:@"Could not load the commit comments"];
 		}
 	}
 }

@@ -49,11 +49,15 @@
 
 @implementation IssueController
 
+NSString *const IssueSavingKeyPath = @"savingStatus";
+NSString *const IssueLoadingKeyPath = @"loadingStatus";
+NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
+
 - (id)initWithIssue:(GHIssue *)theIssue {
 	self = [super initWithNibName:@"Issue" bundle:nil];
 	if (self) {
 		self.issue = theIssue;
-		[self.issue.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.issue addObserver:self forKeyPath:IssueCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -67,7 +71,7 @@
 }
 
 - (void)dealloc {
-	[self.issue.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.issue removeObserver:self forKeyPath:IssueCommentsLoadingKeyPath];
 }
 
 - (void)viewDidLoad {
@@ -84,36 +88,27 @@
 // issue gets edited by the IssueForm
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.issue addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.issue addObserver:self forKeyPath:IssueLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.issue addObserver:self forKeyPath:IssueSavingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(self.issue.isLoaded) ? [self displayIssue] : [self.issue loadData];
 	(self.issue.comments.isLoaded) ? [self displayComments] : [self.issue.comments loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[self.issue removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
+	[self.issue removeObserver:self forKeyPath:IssueLoadingKeyPath];
+	[self.issue removeObserver:self forKeyPath:IssueSavingKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (object == self.issue) {
-			if (self.issue.isLoaded) {
-				[self displayIssue];
-			} else if (self.issue.error) {
-				[iOctocat reportLoadingError:@"Could not load the issue"];
-				[self.tableView reloadData];
-			}
-		} else if (object == self.issue.comments) {
-			if (self.issue.comments.isLoaded) {
-				[self displayComments];
-			} else if (self.issue.comments.error && !self.issue.error) {
-				[iOctocat reportLoadingError:@"Could not load the issue comments"];
-				[self.tableView reloadData];
-			}
+	if ([keyPath isEqualToString:IssueLoadingKeyPath]) {
+		if (self.issue.isLoaded) {
+			[self displayIssue];
+		} else if (self.issue.error) {
+			[iOctocat reportLoadingError:@"Could not load the issue"];
+			[self.tableView reloadData];
 		}
-	} else if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
+	} else if ([keyPath isEqualToString:IssueSavingKeyPath]) {
 		if (self.issue.isSaved) {
 			NSString *title = [NSString stringWithFormat:@"Issue %@", (self.issue.isOpen ? @"reopened" : @"closed")];
 			[iOctocat reportSuccess:title];
@@ -121,6 +116,15 @@
 			[self.listController reloadIssues];
 		} else if (self.issue.error) {
 			[iOctocat reportError:@"Request error" with:@"Could not change issue state"];
+		}
+	} else if ([keyPath isEqualToString:IssueCommentsLoadingKeyPath]) {
+		if (self.issue.comments.isLoading && self.issue.isLoaded) {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+		} else if (self.issue.comments.isLoaded) {
+			[self displayComments];
+		} else if (self.issue.comments.error && !self.issue.error) {
+			[iOctocat reportLoadingError:@"Could not load the issue comments"];
+			[self.tableView reloadData];
 		}
 	}
 }
@@ -172,7 +176,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
-		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:self.issue andIssuesController:self.listController];
+		IssueFormController *formController = [[IssueFormController alloc] initWithIssue:self.issue];
 		[self.navigationController pushViewController:formController animated:YES];
 	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
 		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];

@@ -1,5 +1,4 @@
 #import "IssueFormController.h"
-#import "IssuesController.h"
 #import "GHIssue.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
@@ -7,7 +6,6 @@
 
 @interface IssueFormController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHIssue *issue;
-@property(nonatomic,strong)IssuesController *listController;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
 @property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
@@ -22,10 +20,9 @@
 
 @implementation IssueFormController
 
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController {
+- (id)initWithIssue:(GHIssue *)issue {
 	self = [super initWithNibName:@"IssueForm" bundle:nil];
-	self.issue = theIssue;
-	self.listController = theController;
+	self.issue = issue;
 	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	return self;
 }
@@ -63,7 +60,7 @@
 		if (self.issue.isSaving) return;
 		if (self.issue.isSaved) {
 			[iOctocat reportSuccess:@"Issue saved"];
-			[self.listController reloadIssues];
+			[self.issue needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (self.issue.error) {
 			[iOctocat reportError:@"Request error" with:@"Could not save the issue"];

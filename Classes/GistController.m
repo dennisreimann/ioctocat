@@ -37,35 +37,39 @@
 
 @implementation GistController
 
-- (id)initWithGist:(GHGist *)theGist {
+NSString *const GistLoadingKeyPath = @"loadingStatus";
+NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
+
+- (id)initWithGist:(GHGist *)gist {
 	self = [super initWithNibName:@"Gist" bundle:nil];
 	if (self) {
-		self.gist = theGist;
-		[self.gist addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.gist.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		self.gist = gist;
+		[self.gist addObserver:self forKeyPath:GistLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.gist addObserver:self forKeyPath:GistCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	self.title = @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	[self displayGist];
-	if (!self.gist.isLoaded) [self.gist loadData];
-	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
 	if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
-
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	(self.gist.isLoaded) ? [self displayGist] : [self.gist loadData];
+	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
+}
+
 - (void)dealloc {
-	[self.gist.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.gist removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.gist removeObserver:self forKeyPath:GistCommentsLoadingKeyPath];
+	[self.gist removeObserver:self forKeyPath:GistLoadingKeyPath];
 }
 
 - (GHUser *)currentUser {
@@ -111,16 +115,17 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (![keyPath isEqualToString:kResourceLoadingStatusKeyPath]) return;
-	if (object == self.gist) {
+	if ([keyPath isEqualToString:GistLoadingKeyPath]) {
 		if (self.gist.isLoaded) {
 			[self displayGist];
 		} else if (self.gist.error) {
 			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
 			[self.tableView reloadData];
 		}
-	} else if (object == self.gist.comments) {
-		if (self.gist.comments.isLoaded) {
+	} else if ([keyPath isEqualToString:GistCommentsLoadingKeyPath]) {
+		if (self.gist.comments.isLoading && self.gist.isLoaded) {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+		} else if (self.gist.comments.isLoaded) {
 			[self displayComments];
 		} else if (self.gist.comments.error && !self.gist.error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];

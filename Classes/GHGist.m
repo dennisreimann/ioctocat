@@ -33,13 +33,13 @@
 - (void)setValues:(id)dict {
 	self.gistId = dict[@"id"];
 	self.files = dict[@"files"];
-	self.htmlURL = [NSURL URLWithString:dict[@"html_url"]];
-	self.userLogin = [dict valueForKeyPath:@"user.login" defaultsTo:nil];
-	self.descriptionText = [dict valueForKeyPath:@"description" defaultsTo:nil];
-	self.isPrivate = ![dict[@"public"] boolValue];
+	self.htmlURL = [dict safeURLForKey:@"html_url"];
+	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
+	self.descriptionText = [dict safeStringForKey:@"description"];
+	self.isPrivate = ![dict safeBoolForKey:@"public"];
 	self.forksCount = [dict[@"forks"] count];
-	self.commentsCount = [dict[@"comments"] integerValue];
-	self.createdAtDate = [iOctocat parseDate:dict[@"created_at"]];
+	self.commentsCount = [dict safeIntegerForKey:@"comments"];
+	self.createdAtDate = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
 }
 
 @end

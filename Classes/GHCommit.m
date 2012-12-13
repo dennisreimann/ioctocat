@@ -20,22 +20,22 @@
 	return self;
 }
 
-- (void)setValues:(id)theDict {
-	NSString *authorLogin = [theDict valueForKeyPath:@"author.login" defaultsTo:nil];
-	NSString *committerLogin = [theDict valueForKeyPath:@"committer.login" defaultsTo:nil];
-	NSString *authorDateString = [theDict valueForKeyPath:@"commit.author.date" defaultsTo:nil];
-	NSString *committerDateString = [theDict valueForKeyPath:@"commit.committer.date" defaultsTo:nil];
+- (void)setValues:(id)dict {
+	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
+	NSString *committerLogin = [dict safeStringForKeyPath:@"committer.login"];
+	NSString *authorDateString = [dict safeStringForKeyPath:@"commit.author.date"];
+	NSString *committerDateString = [dict safeStringForKeyPath:@"commit.committer.date"];
 	self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
 	self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
 	self.authoredDate = [iOctocat parseDate:authorDateString];
 	self.committedDate = [iOctocat parseDate:committerDateString];
-	self.message = [theDict valueForKeyPath:@"commit.message" defaultsTo:nil];
+	self.message = [dict safeStringForKeyPath:@"commit.message"];
 	// Files
 	self.added = [NSMutableArray array];
 	self.modified = [NSMutableArray array];
 	self.removed = [NSMutableArray array];
-	for (NSDictionary *file in theDict[@"files"]) {
-		NSString *status = [file valueForKey:@"status"];
+	for (NSDictionary *file in [dict safeDictForKey:@"files"]) {
+		NSString *status = [file safeStringForKey:@"status"];
 		if ([status isEqualToString:@"removed"]) {
 			[self.removed addObject:file];
 		} else if ([status isEqualToString:@"added"]) {

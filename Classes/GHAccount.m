@@ -21,12 +21,12 @@
 
 @implementation GHAccount
 
-- (id)initWithDict:(NSDictionary *)theDict {
+- (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {
-		self.login = [theDict valueForKey:kLoginDefaultsKey defaultsTo:@""];
-		self.endpoint = [theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
-		self.authToken = [theDict valueForKey:kAuthTokenDefaultsKey defaultsTo:@""];
+		self.login = [dict safeStringForKey:kLoginDefaultsKey];
+		self.endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
+		self.authToken = [dict safeStringForKey:kAuthTokenDefaultsKey];
 		// construct endpoint URL and set up API client
 		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
 		if (![self.endpoint isEmpty]) {

@@ -8,8 +8,12 @@
 - (BOOL)safeBoolForKeyPath:(NSString *)keyPath;
 - (NSInteger)safeIntegerForKey:(NSString *)key;
 - (NSInteger)safeIntegerForKeyPath:(NSString *)keyPath;
+- (NSDictionary *)safeDictForKey:(NSString *)key;
+- (NSDictionary *)safeDictForKeyPath:(NSString *)keyPath;
 - (NSString *)safeStringForKey:(NSString *)key;
 - (NSString *)safeStringForKeyPath:(NSString *)keyPath;
+- (NSArray *)safeArrayForKey:(NSString *)key;
+- (NSArray *)safeArrayForKeyPath:(NSString *)keyPath;
 - (NSDate *)safeDateForKey:(NSString *)key;
 - (NSDate *)safeDateForKeyPath:(NSString *)keyPath;
 - (NSURL *)safeURLForKey:(NSString *)key;

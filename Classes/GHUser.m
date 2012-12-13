@@ -67,28 +67,29 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-	NSString *login = [theDict valueForKey:@"login" defaultsTo:@""];
-	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = theDict[@"login"];
+- (void)setValues:(id)dict {
+	NSString *login = [dict safeStringForKey:@"login"];
+	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = [dict safeStringForKey:@"login"];
 	// TODO: Remove email check once the API change is done.
-	id email = [theDict valueForKeyPath:@"email" defaultsTo:@""];
-	if ([email isKindOfClass:[NSDictionary class]])	{
-		email = [[email valueForKey:@"state"] isEqualToString:@"verified"] ? [theDict valueForKey:@"email"] : @"";
+	id email = [dict valueForKeyPath:@"email" defaultsTo:nil];
+	if ([email isKindOfClass:NSDictionary.class]) {
+		NSString *state = [email safeStringForKey:@"state"];
+		email = [state isEqualToString:@"verified"] ? [dict safeStringForKey:@"email"] : nil;
 	}
-	self.name = [theDict valueForKey:@"name" defaultsTo:@""];
+	self.name = [dict safeStringForKey:@"name"];
 	self.email = email;
-	self.company = [theDict valueForKey:@"company" defaultsTo:@""];
-	self.location = [theDict valueForKey:@"location" defaultsTo:@""];
-	self.blogURL = [NSURL smartURLFromString:[theDict valueForKey:@"blog" defaultsTo:@""]];
-	self.htmlURL = [NSURL smartURLFromString:[theDict valueForKey:@"html_url" defaultsTo:@""]];
-	self.gravatarURL = [NSURL smartURLFromString:[theDict valueForKey:@"avatar_url" defaultsTo:@""]];
-	self.publicGistCount = [theDict[@"public_gists"] integerValue];
-	self.privateGistCount = [theDict[@"private_gists"] integerValue];
-	self.publicRepoCount = [theDict[@"public_repos"] integerValue];
-	self.privateRepoCount = [theDict[@"total_private_repos"] integerValue];
-	self.followersCount = [theDict[@"followers"] integerValue];
-	self.followingCount = [theDict[@"following"] integerValue];
-	self.isAuthenticated = theDict[@"plan"] ? YES : NO;
+	self.company = [dict safeStringForKey:@"company"];
+	self.location = [dict safeStringForKey:@"location"];
+	self.blogURL = [dict safeURLForKey:@"blog"];
+	self.htmlURL = [dict safeURLForKey:@"html_url"];
+	self.gravatarURL = [dict safeURLForKey:@"avatar_url"];
+	self.publicGistCount = [dict safeIntegerForKey:@"public_gists"];
+	self.privateGistCount = [dict safeIntegerForKey:@"private_gists"];
+	self.publicRepoCount = [dict safeIntegerForKey:@"public_repos"];
+	self.privateRepoCount = [dict safeIntegerForKey:@"total_private_repos"];
+	self.followersCount = [dict safeIntegerForKey:@"followers"];
+	self.followingCount = [dict safeIntegerForKey:@"following"];
+	self.isAuthenticated = [dict safeDictForKey:@"plan"] ? YES : NO;
 }
 
 #pragma mark Following

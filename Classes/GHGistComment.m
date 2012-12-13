@@ -14,10 +14,10 @@
 - (id)initWithGist:(GHGist *)gist andDictionary:(NSDictionary *)dict {
 	self = [self initWithGist:gist];
 	if (self) {
-		[self setUserWithValues:[dict valueForKey:@"user" defaultsTo:nil]];
-		self.body = dict[@"body"];
-		self.created = [iOctocat parseDate:dict[@"created_at"]];
-		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
+		[self setUserWithValues:[dict safeDictForKey:@"user"]];
+		self.body = [dict safeStringForKey:@"body"];
+		self.created = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
+		self.updated = [iOctocat parseDate:[dict safeStringForKey:@"updated_at"]];
 	}
 	return self;
 }

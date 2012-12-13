@@ -82,30 +82,29 @@
 
 - (void)openEventItem:(id)theEventItem {
 	UIViewController *viewController = nil;
-	if ([theEventItem isKindOfClass:[GHUser class]]) {
+	if ([theEventItem isKindOfClass:GHUser.class]) {
 		viewController = [[UserController alloc] initWithUser:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHOrganization class]]) {
+	} else if ([theEventItem isKindOfClass:GHOrganization.class]) {
 		viewController = [[OrganizationController alloc] initWithOrganization:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHRepository class]]) {
+	} else if ([theEventItem isKindOfClass:GHRepository.class]) {
 		viewController = [[RepositoryController alloc] initWithRepository:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHIssue class]]) {
+	} else if ([theEventItem isKindOfClass:GHIssue.class]) {
 		viewController = [[IssueController alloc] initWithIssue:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHCommit class]]) {
+	} else if ([theEventItem isKindOfClass:GHCommit.class]) {
 		viewController = [[CommitController alloc] initWithCommit:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHGist class]]) {
+	} else if ([theEventItem isKindOfClass:GHGist.class]) {
 		viewController = [[GistController alloc] initWithGist:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHPullRequest class]]) {
+	} else if ([theEventItem isKindOfClass:GHPullRequest.class]) {
 		viewController = [[PullRequestController alloc] initWithPullRequest:theEventItem];
-	} else if ([theEventItem isKindOfClass:[NSDictionary class]]) {
-		NSString *htmlURL = [theEventItem valueForKey:@"html_url" defaultsTo:@""];
-		NSURL *url = [NSURL smartURLFromString:htmlURL];
+	} else if ([theEventItem isKindOfClass:NSDictionary.class]) {
+		NSURL *url = [theEventItem safeURLForKey:@"html_url"];
 		if (url) {
 			viewController = [[WebController alloc] initWithURL:url];
-			viewController.title = [theEventItem valueForKey:@"page_name" defaultsTo:@""];
+			viewController.title = [theEventItem safeStringForKey:@"page_name"];
 		}
-	} else if ([theEventItem isKindOfClass:[NSArray class]]) {
+	} else if ([theEventItem isKindOfClass:NSArray.class]) {
 		id firstEntry = theEventItem[0];
-		if ([firstEntry isKindOfClass:[GHCommit class]]) {
+		if ([firstEntry isKindOfClass:GHCommit.class]) {
 			viewController = [[CommitsController alloc] initWithCommits:theEventItem];
 		}
 	}

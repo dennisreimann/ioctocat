@@ -3,6 +3,7 @@
 #import "GHBlob.h"
 #import "GHRepository.h"
 #import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHTree
@@ -19,24 +20,24 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
+- (void)setValues:(id)dict {
 	self.trees = [NSMutableArray array];
 	self.blobs = [NSMutableArray array];
-	for (NSDictionary *item in [theDict valueForKey:@"tree"]) {
-		NSString *type = [item valueForKey:@"type"];
-		NSString *theSha = [item valueForKey:@"sha"];
-		NSString *thePath = [item valueForKey:@"path"];
-		NSString *theMode = [item valueForKey:@"mode"];
+	for (NSDictionary *item in [dict valueForKey:@"tree"]) {
+		NSString *type = [item safeStringForKey:@"type"];
+		NSString *path = [item safeStringForKey:@"path"];
+		NSString *mode = [item safeStringForKey:@"mode"];
+		NSString *sha = [item safeStringForKey:@"sha"];
 		if ([type isEqualToString:@"tree"]) {
-			GHTree *obj = [[GHTree alloc] initWithRepo:self.repository andSha:theSha];
-			obj.path = thePath;
-			obj.mode = theMode;
+			GHTree *obj = [[GHTree alloc] initWithRepo:self.repository andSha:sha];
+			obj.path = path;
+			obj.mode = mode;
 			[self.trees addObject:obj];
 		} else if ([type isEqualToString:@"blob"]) {
-			GHBlob *obj = [[GHBlob alloc] initWithRepo:self.repository andSha:theSha];
-			obj.path = thePath;
-			obj.mode = theMode;
-			obj.size = [[item valueForKey:@"size"] integerValue];
+			GHBlob *obj = [[GHBlob alloc] initWithRepo:self.repository andSha:sha];
+			obj.path = path;
+			obj.mode = mode;
+			obj.size = [item safeIntegerForKey:@"size"];
 			[self.blobs addObject:obj];
 		}
 	}

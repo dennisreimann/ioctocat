@@ -34,6 +34,16 @@
 	return (!value || value == [NSNull null]) ? (int)nil : [value integerValue];
 }
 
+- (NSDictionary *)safeDictForKey:(NSString *)key {
+	id value = [self valueForKey:key defaultsTo:@""];
+	return ([value isKindOfClass:NSDictionary.class]) ? value : nil;
+}
+
+- (NSDictionary *)safeDictForKeyPath:(NSString *)keyPath {
+	id value = [self valueForKeyPath:keyPath defaultsTo:@""];
+	return ([value isKindOfClass:NSDictionary.class]) ? value : nil;
+}
+
 - (NSString *)safeStringForKey:(NSString *)key {
 	id value = [self valueForKey:key defaultsTo:@""];
 	return ([value isKindOfClass:NSString.class]) ? value : @"";
@@ -42,6 +52,16 @@
 - (NSString *)safeStringForKeyPath:(NSString *)keyPath {
 	id value = [self valueForKeyPath:keyPath defaultsTo:@""];
 	return ([value isKindOfClass:NSString.class]) ? value : @"";
+}
+
+- (NSArray *)safeArrayForKey:(NSString *)key {
+	id value = [self valueForKey:key defaultsTo:nil];
+	return ([value isKindOfClass:NSArray.class]) ? value : nil;
+}
+
+- (NSArray *)safeArrayForKeyPath:(NSString *)keyPath {
+	id value = [self valueForKeyPath:keyPath defaultsTo:nil];
+	return ([value isKindOfClass:NSArray.class]) ? value : nil;
 }
 
 - (NSDate *)safeDateForKey:(NSString *)key {

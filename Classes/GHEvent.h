@@ -9,7 +9,6 @@
 @property(nonatomic,strong)NSDate *date;
 @property(nonatomic,strong)NSDictionary *payload;
 @property(nonatomic,strong)NSString *repoName;
-@property(nonatomic,strong)NSString *otherRepoName;
 @property(nonatomic,strong)GHGist *gist;
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)GHComment *comment;

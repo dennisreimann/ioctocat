@@ -64,7 +64,7 @@
 		[apiClient setAuthorizationHeaderWithUsername:login password:password];
 		// remove existing authId if the login changed,
 		// because we are authenticating another user.
-		NSString *oldLogin = (self.account)[kLoginDefaultsKey];
+		NSString *oldLogin = self.account[kLoginDefaultsKey];
 		if (![login isEqualToString:oldLogin]) {
 			[self.account removeObjectForKey:kAuthIdDefaultsKey];
 		}

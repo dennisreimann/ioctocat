@@ -4,7 +4,7 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
@@ -40,21 +40,21 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSString *login = [dict valueForKeyPath:@"user.login"];
+	NSString *login = [dict safeStringForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:dict[@"created_at"]];
-	self.updated = [iOctocat parseDate:dict[@"updated_at"]];
-	self.closed = [iOctocat parseDate:dict[@"closed_at"]];
-	self.title = dict[@"title"];
-	self.body = dict[@"body"];
-	self.state = dict[@"state"];
-	self.labels = dict[@"labels"];
-	self.num = [[dict valueForKey:@"number" defaultsTo:nil] integerValue];
-	self.htmlURL = [NSURL smartURLFromString:dict[@"html_url"]];
+	self.created = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
+	self.updated = [iOctocat parseDate:[dict safeStringForKey:@"updated_at"]];
+	self.closed = [iOctocat parseDate:[dict safeStringForKey:@"closed_at"]];
+	self.title = [dict safeStringForKey:@"title"];
+	self.body = [dict safeStringForKey:@"body"];
+	self.state = [dict safeStringForKey:@"state"];
+	self.labels = [dict safeArrayForKey:@"labels"];
+	self.num = [dict safeIntegerForKey:@"number"];
+	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	if (!self.repository) {
-		NSString *owner = [dict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
-		NSString *name = [dict valueForKeyPath:@"repository.name" defaultsTo:nil];
-		if (owner && name) {
+		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
+		NSString *name = [dict safeStringForKeyPath:@"repository.name"];
+		if (![owner isEmpty] && ![name isEmpty]) {
 			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}
 	}

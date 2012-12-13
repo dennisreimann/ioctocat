@@ -15,8 +15,8 @@
 - (id)initWithParent:(id)parent andDictionary:(NSDictionary *)dict {
 	self = [self initWithParent:parent];
 	if (self) {
-		[self setUserWithValues:[dict valueForKey:@"user" defaultsTo:nil]];
-		self.body = dict[@"body"];
+		[self setUserWithValues:[dict safeDictForKey:@"user"]];
+		self.body = [dict safeStringForKey:@"body"];
 		self.created = [iOctocat parseDate:dict[@"created_at"]];
 		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
 	}

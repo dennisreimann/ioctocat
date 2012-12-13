@@ -1,11 +1,12 @@
-#import "IssueFormController.h"
+#import "IssueObjectFormController.h"
 #import "GHIssue.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 
 
-@interface IssueFormController () <UITextFieldDelegate>
-@property(nonatomic,strong)GHIssue *issue;
+@interface IssueObjectFormController () <UITextFieldDelegate>
+@property(nonatomic,readonly)GHIssue *object;
+@property(nonatomic,strong)id issueObject;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
 @property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
@@ -18,51 +19,57 @@
 @end
 
 
-@implementation IssueFormController
+@implementation IssueObjectFormController
 
-- (id)initWithIssue:(GHIssue *)issue {
+- (id)initWithIssueObject:(id)object {
 	self = [super initWithNibName:@"IssueForm" bundle:nil];
-	self.issue = issue;
-	[self.issue addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (self) {
+		self.issueObject = object;
+		[self.object addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"%@ Issue", self.issue.isNew ? @"New" : @"Edit"];
+	self.title = [NSString stringWithFormat:@"%@ Issue", self.object.isNew ? @"New" : @"Edit"];
 	self.tableView.tableFooterView = self.tableFooterView;
-	if (!self.issue.isNew) {
-		self.titleField.text = self.issue.title;
-		self.bodyField.text = self.issue.body;
+	if (!self.object.isNew) {
+		self.titleField.text = self.object.title;
+		self.bodyField.text = self.object.body;
 	}
 }
 
+- (GHIssue *)object {
+	return self.issueObject;
+}
+
 - (void)dealloc {
-	[self.issue removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
+	[self.object removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 }
 
 - (IBAction)saveIssue:(id)sender {
-	self.issue.title = self.titleField.text;
-	self.issue.body = self.bodyField.text;
+	self.object.title = self.titleField.text;
+	self.object.body = self.bodyField.text;
 
 	// Validate
-	if ([self.issue.title isEmpty] || [self.issue.body isEmpty] ) {
+	if ([self.object.title isEmpty] || [self.object.body isEmpty] ) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a title and a text"];
 	} else {
 		self.saveButton.enabled = NO;
 		[self.activityView startAnimating];
-		[self.issue saveData];
+		[self.object saveData];
 	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
-		if (self.issue.isSaving) return;
-		if (self.issue.isSaved) {
+		if (self.object.isSaving) return;
+		if (self.object.isSaved) {
 			[iOctocat reportSuccess:@"Issue saved"];
-			[self.issue needsReload];
+			[self.object needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
-		} else if (self.issue.error) {
+		} else if (self.object.error) {
 			[iOctocat reportError:@"Request error" with:@"Could not save the issue"];
 		}
 		self.saveButton.enabled = YES;

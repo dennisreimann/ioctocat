@@ -39,22 +39,21 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-	NSString *login = [theDict valueForKeyPath:@"user.login"];
+- (void)setValues:(id)dict {
+	NSString *login = [dict valueForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:theDict[@"created_at"]];
-	self.updated = [iOctocat parseDate:theDict[@"updated_at"]];
-	self.closed = [iOctocat parseDate:theDict[@"closed_at"]];
-	self.title = theDict[@"title"];
-	self.body = theDict[@"body"];
-	self.state = theDict[@"state"];
-	self.labels = theDict[@"labels"];
-	self.votes = [theDict[@"votes"] integerValue];
-	self.num = [theDict[@"number"] integerValue];
-	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
+	self.created = [iOctocat parseDate:dict[@"created_at"]];
+	self.updated = [iOctocat parseDate:dict[@"updated_at"]];
+	self.closed = [iOctocat parseDate:dict[dict]];
+	self.title = dict[@"title"];
+	self.body = dict[@"body"];
+	self.state = dict[@"state"];
+	self.labels = dict[@"labels"];
+	self.num = [[dict valueForKey:@"number" defaultsTo:nil] integerValue];
+	self.htmlURL = [NSURL smartURLFromString:dict[@"html_url"]];
 	if (!self.repository) {
-		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
-		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
+		NSString *owner = [dict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
+		NSString *name = [dict valueForKeyPath:@"repository.name" defaultsTo:nil];
 		if (owner && name) {
 			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}

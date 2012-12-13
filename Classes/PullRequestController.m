@@ -1,10 +1,10 @@
-#import "IssueController.h"
+#import "PullRequestController.h"
 #import "CommentController.h"
 #import "WebController.h"
 #import "TextCell.h"
 #import "LabeledCell.h"
 #import "CommentCell.h"
-#import "IssuesController.h"
+#import "PullRequestsController.h"
 #import "IssueObjectFormController.h"
 #import "UserController.h"
 #import "GHIssueComments.h"
@@ -14,13 +14,13 @@
 #import "NSURL+Extensions.h"
 #import "iOctocat.h"
 #import "GHUser.h"
-#import "GHIssue.h"
+#import "GHPullRequest.h"
 #import "GHRepository.h"
 
 
-@interface IssueController () <UIActionSheetDelegate>
-@property(nonatomic,strong)GHIssue *issue;
-@property(nonatomic,strong)IssuesController *listController;
+@interface PullRequestController () <UIActionSheetDelegate>
+@property(nonatomic,strong)GHPullRequest *pullRequest;
+@property(nonatomic,strong)PullRequestsController *listController;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
@@ -37,32 +37,32 @@
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 
-- (void)displayIssue;
+- (void)displayPullRequest;
 - (void)displayComments;
 - (GHUser *)currentUser;
-- (BOOL)issueBelongsToCurrentUser;
+- (BOOL)pullRequestBelongsToCurrentUser;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;
 @end
 
 
-@implementation IssueController
+@implementation PullRequestController
 
-NSString *const IssueSavingKeyPath = @"savingStatus";
-NSString *const IssueLoadingKeyPath = @"loadingStatus";
-NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
+NSString *const PullRequestSavingKeyPath = @"savingStatus";
+NSString *const PullRequestLoadingKeyPath = @"loadingStatus";
+NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 
-- (id)initWithIssue:(GHIssue *)theIssue {
-	self = [super initWithNibName:@"Issue" bundle:nil];
+- (id)initWithPullRequest:(GHPullRequest *)pullRequest {
+	self = [super initWithNibName:@"PullRequest" bundle:nil];
 	if (self) {
-		self.issue = theIssue;
-		[self.issue addObserver:self forKeyPath:IssueCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		self.pullRequest = pullRequest;
+		[self.pullRequest addObserver:self forKeyPath:PullRequestCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
-- (id)initWithIssue:(GHIssue *)issue andListController:(IssuesController *)controller {
-	self = [self initWithIssue:issue];
+- (id)initWithPullRequest:(GHPullRequest *)pullRequest andListController:(PullRequestsController *)controller {
+	self = [self initWithPullRequest:pullRequest];
 	if (self) {
 		self.listController = controller;
 	}
@@ -70,12 +70,12 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)dealloc {
-	[self.issue removeObserver:self forKeyPath:IssueCommentsLoadingKeyPath];
+	[self.pullRequest removeObserver:self forKeyPath:PullRequestCommentsLoadingKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.title = [NSString stringWithFormat:@"#%d", self.pullRequest.num];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -84,44 +84,44 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 // Add and remove observer in the view appearing methods
 // because otherwise they will still trigger when the
-// issue gets edited by the form
+// pull request gets edited by the form
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self.issue addObserver:self forKeyPath:IssueLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.issue addObserver:self forKeyPath:IssueSavingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(self.issue.isLoaded) ? [self displayIssue] : [self.issue loadData];
-	(self.issue.comments.isLoaded) ? [self displayComments] : [self.issue.comments loadData];
+	[self.pullRequest addObserver:self forKeyPath:PullRequestLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.pullRequest addObserver:self forKeyPath:PullRequestSavingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	(self.pullRequest.isLoaded) ? [self displayPullRequest] : [self.pullRequest loadData];
+	(self.pullRequest.comments.isLoaded) ? [self displayComments] : [self.pullRequest.comments loadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	[self.issue removeObserver:self forKeyPath:IssueLoadingKeyPath];
-	[self.issue removeObserver:self forKeyPath:IssueSavingKeyPath];
+	[self.pullRequest removeObserver:self forKeyPath:PullRequestLoadingKeyPath];
+	[self.pullRequest removeObserver:self forKeyPath:PullRequestSavingKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:IssueLoadingKeyPath]) {
-		if (self.issue.isLoaded) {
-			[self displayIssue];
-		} else if (self.issue.error) {
-			[iOctocat reportLoadingError:@"Could not load the issue"];
+	if ([keyPath isEqualToString:PullRequestLoadingKeyPath]) {
+		if (self.pullRequest.isLoaded) {
+			[self displayPullRequest];
+		} else if (self.pullRequest.error) {
+			[iOctocat reportLoadingError:@"Could not load the pull request"];
 			[self.tableView reloadData];
 		}
-	} else if ([keyPath isEqualToString:IssueSavingKeyPath]) {
-		if (self.issue.isSaved) {
-			NSString *title = [NSString stringWithFormat:@"Issue %@", (self.issue.isOpen ? @"reopened" : @"closed")];
+	} else if ([keyPath isEqualToString:PullRequestSavingKeyPath]) {
+		if (self.pullRequest.isSaved) {
+			NSString *title = [NSString stringWithFormat:@"Pull Request %@", (self.pullRequest.isOpen ? @"reopened" : @"closed")];
 			[iOctocat reportSuccess:title];
-			[self displayIssue];
-			[self.listController reloadIssues];
-		} else if (self.issue.error) {
+			[self displayPullRequest];
+			[self.listController reloadPullRequests];
+		} else if (self.pullRequest.error) {
 			[iOctocat reportError:@"Request error" with:@"Could not change the state"];
 		}
-	} else if ([keyPath isEqualToString:IssueCommentsLoadingKeyPath]) {
-		if (self.issue.comments.isLoading && self.issue.isLoaded) {
+	} else if ([keyPath isEqualToString:PullRequestCommentsLoadingKeyPath]) {
+		if (self.pullRequest.comments.isLoading && self.pullRequest.isLoaded) {
 			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-		} else if (self.issue.comments.isLoaded) {
+		} else if (self.pullRequest.comments.isLoaded) {
 			[self displayComments];
-		} else if (self.issue.comments.error && !self.issue.error) {
+		} else if (self.pullRequest.comments.error && !self.pullRequest.error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
 			[self.tableView reloadData];
 		}
@@ -132,22 +132,22 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-- (BOOL)issueBelongsToCurrentUser {
-	return self.currentUser && [self.issue.user.login isEqualToString:self.currentUser.login];
+- (BOOL)pullRequestBelongsToCurrentUser {
+	return self.currentUser && [self.pullRequest.user.login isEqualToString:self.currentUser.login];
 }
 
 #pragma mark Actions
 
-- (void)displayIssue {
+- (void)displayPullRequest {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	NSString *icon = [NSString stringWithFormat:@"issue_%@.png", self.issue.state];
+	NSString *icon = [NSString stringWithFormat:@"pull_request_%@.png", self.pullRequest.state];
 	self.iconView.image = [UIImage imageNamed:icon];
-	self.titleLabel.text = self.issue.title;
-	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
-	[self.authorCell setContentText:self.issue.user.login];
-	[self.createdCell setContentText:[self.issue.created prettyDate]];
-	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
-	[self.descriptionCell setContentText:self.issue.body];
+	self.titleLabel.text = self.pullRequest.title;
+	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.pullRequest.num];
+	[self.authorCell setContentText:self.pullRequest.user.login];
+	[self.createdCell setContentText:[self.pullRequest.created prettyDate]];
+	[self.updatedCell setContentText:[self.pullRequest.updated prettyDate]];
+	[self.descriptionCell setContentText:self.pullRequest.body];
 	[self.tableView reloadData];
 }
 
@@ -158,38 +158,36 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet;
-	if (self.issueBelongsToCurrentUser) {
+	if (self.pullRequestBelongsToCurrentUser) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 												  delegate:self
 										 cancelButtonTitle:@"Cancel"
 									destructiveButtonTitle:nil
-										 otherButtonTitles:@"Edit", (self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:@"Edit", @"Add comment", @"Show on GitHub", nil];
 	} else {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 												  delegate:self
 										 cancelButtonTitle:@"Cancel"
 									destructiveButtonTitle:nil
-										 otherButtonTitles:(self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:@"Add comment", @"Show on GitHub", nil];
 	}
 	[actionSheet showInView:self.view];
 }
 
 - (IBAction)addComment:(id)sender {
-	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
+	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
-		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
+	if (buttonIndex == 0 && self.pullRequestBelongsToCurrentUser) {
+		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
 		[self.navigationController pushViewController:formController animated:YES];
-	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
-		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
-	} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 1 && self.pullRequestBelongsToCurrentUser) || (buttonIndex == 0 && !self.pullRequestBelongsToCurrentUser)) {
 		[self addComment:nil];
-	} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
-		WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+	} else if ((buttonIndex == 2 && self.pullRequestBelongsToCurrentUser) || (buttonIndex == 1 && !self.pullRequestBelongsToCurrentUser)) {
+		WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -197,16 +195,16 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (self.issue.isLoaded) ? 2 : 1;
+	return (self.pullRequest.isLoaded) ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.issue.error) return 0;
-	if (!self.issue.isLoaded) return 1;
-	if (section == 0) return [self.issue.body isEmpty] ? 3 : 4;
-	if (!self.issue.comments.isLoaded) return 1;
-	if (self.issue.comments.isEmpty) return 1;
-	return self.issue.comments.count;
+	if (self.pullRequest.error) return 0;
+	if (!self.pullRequest.isLoaded) return 1;
+	if (section == 0) return [self.pullRequest.body isEmpty] ? 3 : 4;
+	if (!self.pullRequest.comments.isLoaded) return 1;
+	if (self.pullRequest.comments.isEmpty) return 1;
+	return self.pullRequest.comments.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -214,26 +212,26 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && !self.issue.isLoaded) return self.loadingCell;
+	if (indexPath.section == 0 && !self.pullRequest.isLoaded) return self.loadingCell;
 	if (indexPath.section == 0 && indexPath.row == 0) return self.authorCell;
 	if (indexPath.section == 0 && indexPath.row == 1) return self.createdCell;
 	if (indexPath.section == 0 && indexPath.row == 2) return self.updatedCell;
 	if (indexPath.section == 0 && indexPath.row == 3) return self.descriptionCell;
-	if (!self.issue.comments.isLoaded) return self.loadingCommentsCell;
-	if (self.issue.comments.isEmpty) return self.noCommentsCell;
+	if (!self.pullRequest.comments.isLoaded) return self.loadingCommentsCell;
+	if (self.pullRequest.comments.isEmpty) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHComment *comment = (self.issue.comments)[indexPath.row];
+	GHComment *comment = (self.pullRequest.comments)[indexPath.row];
 	cell.comment = comment;
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == 3) return [self.descriptionCell heightForTableView:tableView];
-	if (indexPath.section == 1 && self.issue.comments.isLoaded && !self.issue.comments.isEmpty) {
+	if (indexPath.section == 1 && self.pullRequest.comments.isLoaded && !self.pullRequest.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
@@ -241,8 +239,8 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 0 && self.issue.user) {
-		UserController *userController = [[UserController alloc] initWithUser:self.issue.user];
+	if (indexPath.section == 0 && indexPath.row == 0 && self.pullRequest.user) {
+		UserController *userController = [[UserController alloc] initWithUser:self.pullRequest.user];
 		[self.navigationController pushViewController:userController animated:YES];
 	}
 }

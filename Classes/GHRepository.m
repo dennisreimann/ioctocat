@@ -2,6 +2,7 @@
 #import "GHResource.h"
 #import "iOctocat.h"
 #import "GHIssues.h"
+#import "GHPullRequests.h"
 #import "GHForks.h"
 #import "GHEvents.h"
 #import "GHReadme.h"
@@ -51,6 +52,8 @@
     self.branches = [[GHBranches alloc] initWithRepository:self];
 	self.openIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen];
 	self.closedIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed];
+	self.openPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateOpen];
+	self.closedPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateClosed];
 }
 
 - (GHUser *)user {
@@ -71,24 +74,23 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-    NSDictionary *resource = theDict[@"repository"] ? theDict[@"repository"] : theDict;
-
-    self.htmlURL = [NSURL URLWithString:resource[@"html_url"]];
-    self.homepageURL = [NSURL smartURLFromString:resource[@"homepage"]];
-    self.descriptionText = [theDict valueForKeyPath:@"description" defaultsTo:@""];
-    self.isFork = [resource[@"fork"] boolValue];
-    self.isPrivate = [resource[@"private"] boolValue];
-    self.hasIssues = [resource[@"has_issues"] boolValue];
-    self.hasWiki = [resource[@"has_wiki"] boolValue];
-    self.hasDownloads = [resource[@"has_downloads"] boolValue];
-    self.forkCount = [resource[@"forks"] integerValue];
-    self.watcherCount = [resource[@"watchers"] integerValue];
-    self.pushedAtDate = resource[@"pushed_at"];
+- (void)setValues:(id)dict {
+    NSDictionary *resource = dict[@"repository"] ? dict[@"repository"] : dict;
+    self.htmlURL = [resource safeURLForKey:@"html_url"];
+    self.homepageURL = [resource safeURLForKey:@"homepage"];
+    self.descriptionText = [resource safeStringForKey:@"description"];
+    self.isFork = [resource safeBoolForKey:@"fork"];
+    self.isPrivate = [resource safeBoolForKey:@"private"];
+    self.hasIssues = [resource safeBoolForKey:@"has_issues"];
+    self.hasWiki = [resource safeBoolForKey:@"has_wiki"];
+    self.hasDownloads = [resource safeBoolForKey:@"has_downloads"];
+    self.forkCount = [resource safeIntegerForKey:@"forks"];
+    self.watcherCount = [resource safeIntegerForKey:@"watchers"];
+    self.pushedAtDate = [resource safeDateForKey:@"pushed_at"];
     // TODO: Remove master_branch once the API change is done.
-    self.mainBranch = [theDict valueForKeyPath:@"master_branch"] ?
-        [theDict valueForKeyPath:@"master_branch" defaultsTo:@"master"] :
-        [theDict valueForKeyPath:@"default_branch" defaultsTo:@"master"];
+    self.mainBranch = [resource valueForKeyPath:@"master_branch"] ?
+        [resource valueForKeyPath:@"master_branch" defaultsTo:@"master"] :
+        [resource valueForKeyPath:@"default_branch" defaultsTo:@"master"];
 }
 
 @end

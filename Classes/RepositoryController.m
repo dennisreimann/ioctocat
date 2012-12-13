@@ -14,9 +14,10 @@
 #import "WebController.h"
 #import "iOctocat.h"
 #import "IssueController.h"
-#import "IssueCell.h"
+#import "IssueObjectCell.h"
 #import "EventsController.h"
 #import "IssuesController.h"
+#import "PullRequestsController.h"
 #import "ForksController.h"
 #import "TreeController.h"
 #import "NSURL+Extensions.h"
@@ -37,6 +38,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *readmeCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *issuesCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *pullRequestsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *forkCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
@@ -104,9 +106,13 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self.currentUser isStarring:self.repository] ? [self.currentUser unstarRepository:self.repository] : [self.currentUser starRepository:self.repository];
+		[self.currentUser isStarring:self.repository] ?
+			[self.currentUser unstarRepository:self.repository] :
+			[self.currentUser starRepository:self.repository];
 	} else if (buttonIndex == 1) {
-		[self.currentUser isWatching:self.repository] ? [self.currentUser unwatchRepository:self.repository] : [self.currentUser watchRepository:self.repository];
+		[self.currentUser isWatching:self.repository] ?
+			[self.currentUser unwatchRepository:self.repository] :
+			[self.currentUser watchRepository:self.repository];
 	} else if (buttonIndex == 2) {
 		WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
@@ -116,8 +122,8 @@
 #pragma mark Actions
 
 - (void)displayRepository {
-	self.iconView.image = self.repository.isLoaded ? [UIImage imageNamed:(self.repository.isPrivate ? @"private.png" : @"public.png")] : nil;
 	self.nameLabel.text = self.repository.name;
+	self.iconView.image = self.repository.isLoaded ? [UIImage imageNamed:(self.repository.isPrivate ? @"private.png" : @"public.png")] : nil;
 	self.numbersLabel.text = self.repository.isLoaded ? [NSString stringWithFormat:@"%d %@, %d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
 	if (self.repository.isFork) self.forkLabel.text = @"forked";
 	[self.ownerCell setContentText:self.repository.owner];
@@ -162,7 +168,7 @@
 		if (self.repository.readme.isLoaded) rows += 1;
 		return rows;
 	}
-	if (section == 1) return self.repository.hasIssues ? 3 : 2;
+	if (section == 1) return self.repository.hasIssues ? 4 : 3;
 	return self.repository.branches.count;
 }
 
@@ -189,8 +195,9 @@
 	} else if (section == 1) {
 		switch (row) {
 			case 0: cell = self.forkCell; break;
-			case 1: cell = self.issuesCell; break;
-			case 2: cell = self.eventsCell; break;
+			case 1: cell = self.pullRequestsCell; break;
+			case 2: cell = self.issuesCell; break;
+			case 3: cell = self.eventsCell; break;
 		}
 	} else {
 		GHBranch *branch = (self.repository.branches)[row];
@@ -223,8 +230,12 @@
 	} else if (section == 1 && row == 0) {
 		viewController = [[ForksController alloc] initWithRepository:self.repository];
 	} else if (section == 1 && row == 1) {
-		viewController = [[IssuesController alloc] initWithRepository:self.repository];
+		viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
+		viewController.title = @"Pull Requests";
 	} else if (section == 1 && row == 2) {
+		viewController = [[IssuesController alloc] initWithRepository:self.repository];
+		viewController.title = @"Issues";
+	} else if (section == 1 && row == 3) {
 		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 		viewController.title = self.repository.name;
 	} else {

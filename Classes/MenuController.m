@@ -8,6 +8,7 @@
 #import "GistsController.h"
 #import "SearchController.h"
 #import "GHUser.h"
+#import "GHIssues.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHRepository.h"
@@ -198,6 +199,7 @@
 				viewController = [[OrganizationRepositoriesController alloc] initWithUser:self.user];
 			} else if (row == 2) {
 				viewController = [[IssuesController alloc] initWithUser:self.user];
+				viewController.title = @"My Issues";
 			}
 			break;
 			
@@ -217,6 +219,7 @@
 			} else if (row == 1) {
 				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
 				viewController = [[IssuesController alloc] initWithRepository:repo];
+				viewController.title = @"Issues";
 			}
 			break;
 	}

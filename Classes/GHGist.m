@@ -35,7 +35,7 @@
 	self.files = dict[@"files"];
 	self.htmlURL = [NSURL URLWithString:dict[@"html_url"]];
 	self.userLogin = [dict valueForKeyPath:@"user.login" defaultsTo:nil];
-	self.descriptionText = [dict valueForKeyPath:@"description" defaultsTo:@""];
+	self.descriptionText = [dict valueForKeyPath:@"description" defaultsTo:nil];
 	self.isPrivate = ![dict[@"public"] boolValue];
 	self.forksCount = [dict[@"forks"] count];
 	self.commentsCount = [dict[@"comments"] integerValue];

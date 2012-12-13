@@ -98,7 +98,7 @@
 	NSString *rName = rParts[1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
 		self.repository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
-		self.repository.descriptionText = self.payload[@"description"];
+		self.repository.descriptionText = [self.payload valueForKey:@"description" defaultsTo:@""];
 	}
 
 	// Other Repository
@@ -108,7 +108,7 @@
 	rName = rParts[1];
 	if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
 		self.otherRepository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
-		self.otherRepository.descriptionText = [self.payload valueForKeyPath:@"forkee.description"];
+		self.otherRepository.descriptionText = [self.payload valueForKeyPath:@"forkee.description" defaultsTo:@""];
 	}
 
 	// Issue

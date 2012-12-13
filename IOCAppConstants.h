@@ -24,6 +24,9 @@
 #define kResourceLoadingStatusKeyPath   @"loadingStatus"
 #define kResourceSavingStatusKeyPath    @"savingStatus"
 #define kGravatarKeyPath                @"gravatar"
+#define kIssueSortCreated               @"created"
+#define kIssueSortUpdated               @"updated"
+#define kIssueSortComments              @"comments"
 
 // Content Types
 #define kResourceContentTypeDefault     @"application/vnd.github+json"
@@ -38,6 +41,7 @@
 #define kRepositoryCellIdentifier       @"RepositoryCell"
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
+#define kIssueObjectCellIdentifier      @"IssueObjectCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"

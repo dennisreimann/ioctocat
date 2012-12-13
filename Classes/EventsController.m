@@ -4,6 +4,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "IssueController.h"
+#import "PullRequestController.h"
 #import "CommitController.h"
 #import "GistController.h"
 #import "WebController.h"
@@ -94,7 +95,7 @@
 	} else if ([theEventItem isKindOfClass:[GHGist class]]) {
 		viewController = [[GistController alloc] initWithGist:theEventItem];
 	} else if ([theEventItem isKindOfClass:[GHPullRequest class]]) {
-		viewController = [[IssueController alloc] initWithIssue:theEventItem];
+		viewController = [[PullRequestController alloc] initWithPullRequest:theEventItem];
 	} else if ([theEventItem isKindOfClass:[NSDictionary class]]) {
 		NSString *htmlURL = [theEventItem valueForKey:@"html_url" defaultsTo:@""];
 		NSURL *url = [NSURL smartURLFromString:htmlURL];

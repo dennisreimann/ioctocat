@@ -17,7 +17,6 @@
 @property(nonatomic,strong)NSDate *closed;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,assign)NSInteger num;
-@property(nonatomic,assign)NSInteger votes;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isClosed;

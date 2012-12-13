@@ -52,9 +52,9 @@
 
 - (void)setValues:(id)theDict {
 	NSDictionary *resource = theDict[@"organization"] ? theDict[@"organization"] : theDict;
-	NSString *login = [resource valueForKey:@"login" defaultsTo:@""];
+	NSString *login = [resource valueForKey:@"login" defaultsTo:nil];
 	// TODO: Remove email check once the API change is done.
-	id email = [resource valueForKeyPath:@"email" defaultsTo:@""];
+	id email = [resource valueForKeyPath:@"email" defaultsTo:nil];
 	if ([email isKindOfClass:[NSDictionary class]])	{
 		email = [[email valueForKey:@"state"] isEqualToString:@"verified"] ? [resource valueForKey:@"email"] : @"";
 	}
@@ -64,12 +64,12 @@
 	self.company = [resource valueForKey:@"company" defaultsTo:@""];
 	self.location = [resource valueForKey:@"location" defaultsTo:@""];
 	self.blogURL = [NSURL smartURLFromString:[resource valueForKey:@"blog" defaultsTo:@""]];
-	self.followersCount = [resource[@"followers"] integerValue];
-	self.followingCount = [resource[@"following"] integerValue];
-	self.publicGistCount = [resource[@"public_gists"] integerValue];
-	self.privateGistCount = [resource[@"private_gists"] integerValue];
-	self.publicRepoCount = [resource[@"public_repos"] integerValue];
-	self.privateRepoCount = [resource[@"total_private_repos"] integerValue];
+	self.followersCount = [[resource valueForKey:@"followers" defaultsTo:nil] integerValue];
+	self.followingCount = [[resource valueForKey:@"following" defaultsTo:nil] integerValue];
+	self.publicGistCount = [[resource valueForKey:@"public_gists" defaultsTo:nil] integerValue];
+	self.privateGistCount = [[resource valueForKey:@"private_gists" defaultsTo:nil] integerValue];
+	self.publicRepoCount = [[resource valueForKey:@"public_repos" defaultsTo:nil] integerValue];
+	self.privateRepoCount = [[resource valueForKey:@"total_private_repos" defaultsTo:nil] integerValue];
 	self.gravatarURL = [NSURL URLWithString:theDict[@"avatar_url"]];
 	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
 }

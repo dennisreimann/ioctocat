@@ -54,9 +54,9 @@
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
 }
 
-- (void)setEvent:(GHEvent *)theEvent {
+- (void)setEvent:(GHEvent *)event {
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	_event = theEvent;
+	_event = event;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
 	// Truncate long comments
@@ -110,11 +110,11 @@
 	[self positionActionView];
 }
 
-- (void)setCustomBackgroundColor:(UIColor *)theColor {
+- (void)setCustomBackgroundColor:(UIColor *)color {
 	if (!self.backgroundView) {
 		self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
 	}
-	self.backgroundView.backgroundColor = theColor;
+	self.backgroundView.backgroundColor = color;
 }
 
 - (void)markAsNew {

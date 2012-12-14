@@ -16,8 +16,8 @@
 
 @implementation TextCell
 
-- (void)setContentText:(NSString *)theText {
-	self.contentTextView.text = theText;
+- (void)setContentText:(NSString *)text {
+	self.contentTextView.text = text;
 	[self adjustTextViewHeight];
 }
 

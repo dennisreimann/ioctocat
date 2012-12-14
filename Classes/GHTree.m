@@ -8,11 +8,11 @@
 
 @implementation GHTree
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
+- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha {
 	self = [super init];
 	if (self) {
-		self.repository = theRepo;
-		self.sha = theSha;
+		self.repository = repo;
+		self.sha = sha;
 		self.resourcePath = [NSString stringWithFormat:kTreeFormat, self.repository.owner, self.repository.name, [self.sha stringByEscapingForURLArgument]];
 	}
 	return self;

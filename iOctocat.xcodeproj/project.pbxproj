@@ -1769,14 +1769,14 @@
 		6FECA8A11590A27600878A74 /* Users and Orgs */ = {
 			isa = PBXGroup;
 			children = (
-				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
-				6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */,
-				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
-				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
 				8C53B4CE0FB0F20B00C3A8E0 /* UsersController.h */,
 				8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */,
 				6FC95F1D0F8905F500FC0968 /* UserController.h */,
 				6FC95F1E0F8905F500FC0968 /* UserController.m */,
+				6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */,
+				6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */,
+				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
+				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
 				6F4CBD3016431D6300D587FB /* OrganizationRepositoriesController.h */,
 				6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */,
 			);

@@ -6,10 +6,10 @@
 
 @implementation GHReadme
 
-- (id)initWithRepository:(GHRepository *)theRepository {
+- (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
-		self.repository = theRepository;
+		self.repository = repo;
 		self.resourcePath = [NSString stringWithFormat:kRepoReadmeFormat, self.repository.owner, self.repository.name];
 	}
 	return self;
@@ -19,10 +19,10 @@
 	return kResourceContentTypeHTML;
 }
 
-- (void)setValues:(id)theResponse {
+- (void)setValues:(id)response {
 	// the response is not a dictionary, because we requested
 	// the html mime type which returns the HTML representation
-	self.bodyHTML = [[NSString alloc] initWithData:(NSData *)theResponse encoding:NSUTF8StringEncoding];
+	self.bodyHTML = [[NSString alloc] initWithData:(NSData *)response encoding:NSUTF8StringEncoding];
 }
 
 @end

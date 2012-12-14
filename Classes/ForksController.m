@@ -13,11 +13,11 @@
 
 @implementation ForksController
 
-- (id)initWithRepository:(GHRepository *)theRepository {
+- (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithNibName:@"Forks" bundle:nil];
 	if (self) {
 		self.title = @"Forks";
-		self.repository = theRepository;
+		self.repository = repo;
 		[self.repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;

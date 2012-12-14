@@ -24,13 +24,15 @@
 
 @implementation SearchController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"Search" bundle:nil];
 	if (self) {
 		GHSearch *userSearch = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
 		GHSearch *repoSearch = [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
 		self.searches = @[userSearch, repoSearch];
-		for (GHSearch *search in self.searches) [search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		for (GHSearch *search in self.searches) {
+			[search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		}
 	}
 	return self;
 }
@@ -45,7 +47,9 @@
 }
 
 - (void)dealloc {
-	for (GHSearch *search in self.searches) [search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	for (GHSearch *search in self.searches) {
+		[search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	}
 }
 
 - (GHSearch *)currentSearch {
@@ -70,12 +74,12 @@
 	self.searchBar.text = self.currentSearch.searchTerm;
 }
 
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)theSearchBar {
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
 	self.navigationItem.rightBarButtonItem = cancelButton;
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)theSearchBar {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	self.currentSearch.searchTerm = self.searchBar.text;
 	[self.currentSearch loadData];
 	[self quitSearching:nil];
@@ -93,14 +97,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.currentSearch.isLoading) return 1;
-	if (self.currentSearch.isLoaded && self.currentSearch.results.count == 0) return 1;
-	return self.currentSearch.results.count;
+	if (self.currentSearch.isLoaded && self.currentSearch.isEmpty) return 1;
+	return self.currentSearch.searchResults.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentSearch.isLoaded) return self.loadingCell;
-	if (self.currentSearch.results.count == 0) return self.noResultsCell;
-	id object = (self.currentSearch.results)[indexPath.row];
+	if (self.currentSearch.isEmpty) return self.noResultsCell;
+	id object = self.currentSearch.searchResults[indexPath.row];
 	if ([object isKindOfClass:[GHRepository class]]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
@@ -119,7 +123,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	id object = (self.currentSearch.results)[indexPath.row];
+	id object = self.currentSearch.searchResults[indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:[GHRepository class]]) {
 		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];

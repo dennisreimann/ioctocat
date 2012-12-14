@@ -30,19 +30,19 @@
 @property(nonatomic,assign)NSUInteger followersCount;
 @property(nonatomic,assign)NSUInteger followingCount;
 
-- (id)initWithLogin:(NSString *)theLogin;
-- (void)setLogin:(NSString *)theLogin;
-- (void)loadedGravatar:(UIImage *)theImage;
+- (id)initWithLogin:(NSString *)login;
+- (void)setLogin:(NSString *)login;
+- (void)loadedGravatar:(UIImage *)image;
 - (BOOL)isFollowing:(GHUser *)anUser;
 - (BOOL)isStarring:(GHRepository *)aRepository;
 - (BOOL)isWatching:(GHRepository *)aRepository;
-- (void)followUser:(GHUser *)theUser;
-- (void)unfollowUser:(GHUser *)theUser;
-- (void)starRepository:(GHRepository *)theRepository;
-- (void)unstarRepository:(GHRepository *)theRepository;
-- (void)watchRepository:(GHRepository *)theRepository;
-- (void)unwatchRepository:(GHRepository *)theRepository;
-- (BOOL)isStarringGist:(GHGist *)theGist;
-- (void)starGist:(GHGist *)theGist;
-- (void)unstarGist:(GHGist *)theGist;
+- (void)followUser:(GHUser *)user;
+- (void)unfollowUser:(GHUser *)user;
+- (void)starRepository:(GHRepository *)repo;
+- (void)unstarRepository:(GHRepository *)repo;
+- (void)watchRepository:(GHRepository *)repo;
+- (void)unwatchRepository:(GHRepository *)repo;
+- (BOOL)isStarringGist:(GHGist *)gist;
+- (void)starGist:(GHGist *)gist;
+- (void)unstarGist:(GHGist *)gist;
 @end

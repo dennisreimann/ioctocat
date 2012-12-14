@@ -18,10 +18,10 @@ typedef enum {
 @property(nonatomic,readonly)BOOL isSaved;
 @property(nonatomic,readonly)BOOL isSaving;
 
-- (id)initWithPath:(NSString *)thePath;
+- (id)initWithPath:(NSString *)path;
 - (void)loadData;
 - (void)needsReload;
-- (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id theResponse))useResult;
+- (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id response))useResult;
 - (void)setValues:(id)response;
 - (NSString *)resourceContentType;
 @end

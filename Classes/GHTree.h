@@ -12,5 +12,5 @@
 @property(nonatomic,strong)NSMutableArray *trees;
 @property(nonatomic,strong)NSMutableArray *blobs;
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
+- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha;
 @end

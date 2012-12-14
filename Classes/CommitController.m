@@ -150,7 +150,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return (self.commit.isLoaded) ? 3 : 1;
 }
 
@@ -158,7 +158,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return (section == 2) ? @"Comments" : @"";
 }
 
-- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.commit.isLoaded) return 1;
 	if (section == 0) return 2;
 	if (section == 1) return 3;
@@ -167,7 +167,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return self.commit.comments.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.commit.isLoaded) return self.loadingCell;
 	if (indexPath.section == 0 && indexPath.row == 0) return self.authorCell;
 	if (indexPath.section == 0 && indexPath.row == 1) return self.committerCell;
@@ -177,7 +177,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	if (!self.commit.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.commit.comments.isEmpty) return self.noCommentsCell;
 
-	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
@@ -195,14 +195,14 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return 44.0f;
 }
 
-- (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.commit.isLoaded) return;
 	if (indexPath.section == 0) {
 		GHUser *user = (indexPath.row == 0) ? self.commit.author : self.commit.committer;
 		UserController *userController = [[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {
-		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
+		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		if (cell.files.count > 0) {
 			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];

@@ -24,7 +24,7 @@
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isClosed;
 
-- (id)initWithRepository:(GHRepository *)theRepository;
+- (id)initWithRepository:(GHRepository *)repo;
 - (void)mergePullRequest;
 - (void)saveData;
 @end

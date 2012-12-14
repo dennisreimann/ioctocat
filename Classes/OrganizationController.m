@@ -44,10 +44,10 @@
 
 @implementation OrganizationController
 
-- (id)initWithOrganization:(GHOrganization *)theOrganization{
+- (id)initWithOrganization:(GHOrganization *)organization{
 	self = [super initWithNibName:@"Organization" bundle:nil];
 	if (self) {
-		self.organization = theOrganization;
+		self.organization = organization;
 	}
 	return self;
 }

@@ -5,5 +5,5 @@
 @class GHGist;
 
 @interface GHGistComments : GHCollection
-- (id)initWithGist:(GHGist *)theGist;
+- (id)initWithGist:(GHGist *)gist;
 @end

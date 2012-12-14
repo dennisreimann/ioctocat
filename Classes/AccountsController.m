@@ -16,8 +16,8 @@
 @property(nonatomic,strong)AuthenticationController *authController;
 @property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
-- (void)editAccountAtIndex:(NSUInteger)theIndex;
-- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
+- (void)editAccountAtIndex:(NSUInteger)idx;
+- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx;
 - (IBAction)addAccount:(id)sender;
 - (IBAction)toggleEditAccounts:(id)sender;
 @end
@@ -25,9 +25,9 @@
 
 @implementation AccountsController
 
-+ (void)saveAccounts:(NSMutableArray *)theAccounts {
++ (void)saveAccounts:(NSMutableArray *)accounts {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:theAccounts forKey:kAccountsDefaultsKey];
+	[defaults setValue:accounts forKey:kAccountsDefaultsKey];
 	[defaults synchronize];
 }
 
@@ -55,9 +55,9 @@
 
 #pragma mark Accounts
 
-- (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
+- (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)login {
 	return [^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([obj[kLoginDefaultsKey] isEqualToString:theLogin]) {
+		if ([obj[kLoginDefaultsKey] isEqualToString:login]) {
 			*stop = YES;
 			return YES;
 		}
@@ -67,8 +67,8 @@
 
 #pragma mark Actions
 
-- (void)editAccountAtIndex:(NSUInteger)theIndex {
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:self.accounts andIndex:theIndex];
+- (void)editAccountAtIndex:(NSUInteger)idx {
+	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:self.accounts andIndex:idx];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -80,9 +80,9 @@
 	[self editAccountAtIndex:NSNotFound];
 }
 
-- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
-	NSDictionary *accountDict = (self.accounts)[theIndex];
-	GHAccount *account = [[GHAccount alloc] initWithDict:accountDict];
+- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx {
+	NSDictionary *dict = self.accounts[idx];
+	GHAccount *account = [[GHAccount alloc] initWithDict:dict];
 	[iOctocat sharedInstance].currentAccount = account;
 	if (!account.user.isAuthenticated) {
 		[self.authController authenticateAccount:account];
@@ -155,12 +155,12 @@
 	return _authController;
 }
 
-- (void)authenticatedAccount:(GHAccount *)theAccount {
-	[iOctocat sharedInstance].currentAccount = theAccount;
-	if (!theAccount.user.isAuthenticated) {
+- (void)authenticatedAccount:(GHAccount *)account {
+	[iOctocat sharedInstance].currentAccount = account;
+	if (!account.user.isAuthenticated) {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.user.login]];
-		[self editAccountAtIndex:index];
+		NSUInteger idx = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:account.user.login]];
+		[self editAccountAtIndex:idx];
 	}
 }
 

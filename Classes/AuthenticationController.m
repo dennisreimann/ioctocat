@@ -9,15 +9,15 @@
 @property(nonatomic,strong)UIActionSheet *authSheet;
 @property(nonatomic,strong)GHAccount *account;
 
-- (void)setAccount:(GHAccount *)theAccount;
+- (void)setAccount:(GHAccount *)account;
 @end
 
 
 @implementation AuthenticationController
 
-- (id)initWithDelegate:(UIViewController *)theDelegate {
+- (id)initWithDelegate:(UIViewController *)delegate {
 	self = [super init];
-	self.delegate = theDelegate;
+	self.delegate = delegate;
 	return self;
 }
 
@@ -26,14 +26,14 @@
 	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
 }
 
-- (void)setAccount:(GHAccount *)theAccount {
+- (void)setAccount:(GHAccount *)account {
 	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
-	_account = theAccount;
+	_account = account;
 	[self.account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
 }
 
-- (void)authenticateAccount:(GHAccount *)theAccount {
-	self.account = theAccount;
+- (void)authenticateAccount:(GHAccount *)account {
+	self.account = account;
 	[self.account.user loadData];
 }
 

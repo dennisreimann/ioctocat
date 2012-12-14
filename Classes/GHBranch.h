@@ -10,5 +10,5 @@
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)NSString *name;
 
-- (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
+- (id)initWithRepository:(GHRepository *)repo andName:(NSString *)name;
 @end

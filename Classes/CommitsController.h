@@ -2,5 +2,5 @@
 
 
 @interface CommitsController : UITableViewController
-- (id)initWithCommits:(NSArray *)theCommits;
+- (id)initWithCommits:(NSArray *)commits;
 @end

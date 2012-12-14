@@ -1,3 +1,3 @@
 @interface AccountsController : UITableViewController
-+ (void)saveAccounts:(NSMutableArray *)theAccounts;
++ (void)saveAccounts:(NSMutableArray *)accounts;
 @end

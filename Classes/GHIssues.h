@@ -8,6 +8,6 @@
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSString *issueState;
 
-- (id)initWithResourcePath:(NSString *)thePath;
-- (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState;
+- (id)initWithResourcePath:(NSString *)path;
+- (id)initWithRepository:(GHRepository *)repo andState:(NSString *)state;
 @end

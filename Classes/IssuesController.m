@@ -33,10 +33,10 @@
 
 @implementation IssuesController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"Issues" bundle:nil];
 	self.title = @"My Issues";
-	self.user = theUser;
+	self.user = user;
 	NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 	NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 	GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
@@ -89,8 +89,8 @@
 }
 
 - (IBAction)createNewIssue:(id)sender {
-	GHIssue *theIssue = [[GHIssue alloc] initWithRepository:self.repository];
-	IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:theIssue];
+	GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
+	IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:issue];
 	[self.navigationController pushViewController:formController animated:YES];
 }
 

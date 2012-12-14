@@ -19,10 +19,10 @@
 
 @implementation GHOrganization
 
-- (id)initWithLogin:(NSString *)theLogin {
+- (id)initWithLogin:(NSString *)login {
 	self = [self init];
 	if (self) {
-		self.login = theLogin;
+		self.login = login;
 		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 	}
 	return self;
@@ -33,12 +33,12 @@
 	return [hashValue hash];
 }
 
-- (int)compareByName:(GHOrganization *)theOtherOrg {
-	return [self.login localizedCaseInsensitiveCompare:theOtherOrg.login];
+- (int)compareByName:(GHOrganization *)otherOrg {
+	return [self.login localizedCaseInsensitiveCompare:otherOrg.login];
 }
 
-- (void)setLogin:(NSString *)theLogin {
-	_login = theLogin;
+- (void)setLogin:(NSString *)login {
+	_login = login;
 
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, self.login];
 	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, self.login];
@@ -77,8 +77,8 @@
 
 #pragma mark Gravatar
 
-- (void)setGravatarURL:(NSURL *)theURL {
-	_gravatarURL = theURL;
+- (void)setGravatarURL:(NSURL *)url {
+	_gravatarURL = url;
 
 	if (self.gravatarURL && !self.gravatar) {
 		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
@@ -86,8 +86,8 @@
 	}
 }
 
-- (void)loadedGravatar:(UIImage *)theImage {
-	self.gravatar = theImage;
+- (void)loadedGravatar:(UIImage *)image {
+	self.gravatar = image;
 }
 
 @end

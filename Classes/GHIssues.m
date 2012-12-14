@@ -7,20 +7,20 @@
 
 @implementation GHIssues
 
-- (id)initWithResourcePath:(NSString *)thePath {
+- (id)initWithResourcePath:(NSString *)path {
 	self = [super init];
 	if (self) {
-		self.resourcePath = thePath;
+		self.resourcePath = path;
 	}
 	return self;
 }
 
-- (id)initWithRepository:(GHRepository *)theRepository andState:(NSString *)theState {
-	NSString *path = [NSString stringWithFormat:kIssuesFormat, theRepository.owner, theRepository.name, theState];
+- (id)initWithRepository:(GHRepository *)repo andState:(NSString *)state {
+	NSString *path = [NSString stringWithFormat:kIssuesFormat, repo.owner, repo.name, state];
 	self = [self initWithResourcePath:path];
 	if (self) {
-		self.repository = theRepository;
-		self.issueState = theState;
+		self.repository = repo;
+		self.issueState = state;
 	}
 	return self;
 }

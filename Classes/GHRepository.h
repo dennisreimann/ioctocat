@@ -29,8 +29,8 @@
 @property(nonatomic,readwrite)BOOL hasWiki;
 @property(nonatomic,readwrite)BOOL hasDownloads;
 
-- (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
-- (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
+- (id)initWithOwner:(NSString *)owner andName:(NSString *)name;
+- (void)setOwner:(NSString *)owner andName:(NSString *)name;
 - (int)compareByName:(GHRepository*)repo;
 - (int)compareByRepoId:(GHRepository*)repo;
 - (int)compareByRepoIdAndStatus:(GHRepository*)repo;

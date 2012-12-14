@@ -3,9 +3,9 @@
 
 @interface IOCAvatarCache : NSObject
 
-+ (UIImage *)cachedGravatarForIdentifier:(NSString *)theString;
-+ (void)cacheGravatar:(UIImage *)theImage forIdentifier:(NSString *)theString;
-+ (NSString *)gravatarPathForIdentifier:(NSString *)theString;
++ (UIImage *)cachedGravatarForIdentifier:(NSString *)string;
++ (void)cacheGravatar:(UIImage *)image forIdentifier:(NSString *)string;
++ (NSString *)gravatarPathForIdentifier:(NSString *)string;
 + (void)clearAvatarCache;
 
 @end

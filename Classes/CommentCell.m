@@ -33,9 +33,9 @@
 	return 1.0f;
 }
 
-- (void)setComment:(GHComment *)theComment {
+- (void)setComment:(GHComment *)comment {
 	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	_comment = theComment;
+	_comment = comment;
 	// Text
 	self.userLabel.text = self.comment.user.login;
 	self.dateLabel.text = [self.comment.updated prettyDate];

@@ -17,11 +17,11 @@
 
 @implementation CommentController
 
-- (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {
+- (id)initWithComment:(GHComment *)comment andComments:(id)comments {
 	self = [super initWithNibName:@"Comment" bundle:nil];
 	if (self) {
-		self.comment = theComment;
-		self.comments = theComments;
+		self.comment = comment;
+		self.comments = comments;
 		[self.comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;

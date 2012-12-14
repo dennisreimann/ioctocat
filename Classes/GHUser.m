@@ -21,10 +21,10 @@
 
 @implementation GHUser
 
-- (id)initWithLogin:(NSString *)theLogin {
+- (id)initWithLogin:(NSString *)login {
 	self = [self init];
 	if (self) {
-		self.login = theLogin;
+		self.login = login;
 		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 		self.isAuthenticated = NO;
 	}
@@ -36,12 +36,12 @@
 	return [hashValue hash];
 }
 
-- (int)compareByName:(GHUser *)theOtherUser {
-	return [self.login localizedCaseInsensitiveCompare:theOtherUser.login];
+- (int)compareByName:(GHUser *)otherUser {
+	return [self.login localizedCaseInsensitiveCompare:otherUser.login];
 }
 
-- (void)setLogin:(NSString *)theLogin {
-	_login = theLogin;
+- (void)setLogin:(NSString *)login {
+	_login = login;
 
 	NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, self.login];
 	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, self.login];
@@ -109,8 +109,8 @@
 	[self setFollowing:NO forUser:user];
 }
 
-- (void)setFollowing:(BOOL)follow forUser:(GHUser *)theUser {
-	NSString *path = [NSString stringWithFormat:kUserFollowFormat, theUser.login];
+- (void)setFollowing:(BOOL)follow forUser:(GHUser *)user {
+	NSString *path = [NSString stringWithFormat:kUserFollowFormat, user.login];
 	[self saveValues:nil withPath:path andMethod:(follow ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
@@ -176,15 +176,15 @@
 	[self setStarring:NO forGist:gist];
 }
 
-- (void)setStarring:(BOOL)starred forGist:(GHGist *)theGist {
-	NSString *path = [NSString stringWithFormat:kGistStarFormat, theGist.gistId];
+- (void)setStarring:(BOOL)starred forGist:(GHGist *)gist {
+	NSString *path = [NSString stringWithFormat:kGistStarFormat, gist.gistId];
 	[self saveValues:nil withPath:path andMethod:(starred ? kRequestMethodPut : kRequestMethodDelete) useResult:nil];
 }
 
 #pragma mark Gravatar
 
-- (void)setGravatarURL:(NSURL *)theURL {
-	_gravatarURL = theURL;
+- (void)setGravatarURL:(NSURL *)url {
+	_gravatarURL = url;
 
 	if (self.gravatarURL && !self.gravatar) {
 		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
@@ -192,8 +192,8 @@
 	}
 }
 
-- (void)loadedGravatar:(UIImage *)theImage {
-	self.gravatar = theImage;
+- (void)loadedGravatar:(UIImage *)image {
+	self.gravatar = image;
 }
 
 @end

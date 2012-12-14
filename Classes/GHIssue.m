@@ -10,10 +10,10 @@
 
 @implementation GHIssue
 
-- (id)initWithRepository:(GHRepository *)theRepository {
+- (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
-		self.repository = theRepository;
+		self.repository = repo;
 		self.comments = [[GHIssueComments alloc] initWithParent:self];
 	}
 	return self;
@@ -85,8 +85,8 @@
 		method = kRequestMethodPatch;
 	}
 	NSDictionary *values = @{@"title": self.title, @"body": self.body, @"state": self.state};
-	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
-		[self setValues:theResponse];
+	[self saveValues:values withPath:path andMethod:method useResult:^(id response) {
+		[self setValues:response];
 	}];
 }
 

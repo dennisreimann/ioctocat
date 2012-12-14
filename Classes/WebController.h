@@ -1,4 +1,4 @@
 @interface WebController : UIViewController
-- (id)initWithURL:(NSURL *)theURL;
-- (id)initWithHTML:(NSString *)theHTML;
+- (id)initWithURL:(NSURL *)url;
+- (id)initWithHTML:(NSString *)html;
 @end

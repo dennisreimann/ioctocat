@@ -1,5 +1,5 @@
 @class GHUsers;
 
 @interface UsersController : UITableViewController
-- (id)initWithUsers:(GHUsers *)theUsers;
+- (id)initWithUsers:(GHUsers *)users;
 @end

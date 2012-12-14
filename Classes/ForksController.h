@@ -6,5 +6,5 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingForksCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noForksCell;	
 
-- (id)initWithRepository:(GHRepository *)theRepository;
+- (id)initWithRepository:(GHRepository *)repo;
 @end

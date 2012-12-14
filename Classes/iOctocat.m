@@ -59,8 +59,8 @@
 	[defaults synchronize];
 }
 
-- (void)setCurrentAccount:(GHAccount *)theAccount {
-	_currentAccount = theAccount;
+- (void)setCurrentAccount:(GHAccount *)account {
+	_currentAccount = account;
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
 		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
@@ -112,24 +112,24 @@
 	return self.currentAccount.user;
 }
 
-- (GHUser *)userWithLogin:(NSString *)theLogin {
-	if (!theLogin || [theLogin isKindOfClass:[NSNull class]] || [theLogin isEmpty]) return nil;
-	GHUser *user = (self.users)[theLogin];
+- (GHUser *)userWithLogin:(NSString *)login {
+	if (!login || [login isEmpty]) return nil;
+	GHUser *user = (self.users)[login];
 	if (user == nil) {
-		user = [[GHUser alloc] initWithLogin:theLogin];
+		user = [[GHUser alloc] initWithLogin:login];
 		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		(self.users)[theLogin] = user;
+		self.users[login] = user;
 	}
 	return user;
 }
 
-- (GHOrganization *)organizationWithLogin:(NSString *)theLogin {
-	if (!theLogin || [theLogin isEmpty]) return nil;
-	GHOrganization *organization = (self.organizations)[theLogin];
+- (GHOrganization *)organizationWithLogin:(NSString *)login {
+	if (!login || [login isEmpty]) return nil;
+	GHOrganization *organization = self.organizations[login];
 	if (organization == nil) {
-		organization = [[GHOrganization alloc] initWithLogin:theLogin];
+		organization = [[GHOrganization alloc] initWithLogin:login];
 		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		(self.organizations)[theLogin] = organization;
+		self.organizations[login] = organization;
 	}
 	return organization;
 }
@@ -162,13 +162,13 @@
 	return date;
 }
 
-+ (void)reportError:(NSString *)theTitle with:(NSString *)theMessage {
++ (void)reportError:(NSString *)title with:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"warning.png"];
 	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
 	UIColor *textColor = [UIColor whiteColor];
 	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:theTitle
-								detail:theMessage
+								 title:title
+								detail:message
 								 image:image
 							 textColor:textColor
 					   backgroundColor:bgColor
@@ -176,16 +176,16 @@
 							 hideAfter:3.0];
 }
 
-+ (void)reportLoadingError:(NSString *)theMessage {
-	[self reportError:@"Loading error" with:theMessage];
++ (void)reportLoadingError:(NSString *)message {
+	[self reportError:@"Loading error" with:message];
 }
 
-+ (void)reportSuccess:(NSString *)theMessage {
++ (void)reportSuccess:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"check.png"];
 	UIColor *bgColor = [UIColor colorWithRed:0.150 green:0.320 blue:0.672 alpha:1.000];
 	UIColor *textColor = [UIColor whiteColor];
 	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:theMessage
+								 title:message
 								detail:nil
 								 image:image
 							 textColor:textColor

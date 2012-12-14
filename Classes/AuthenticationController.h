@@ -1,11 +1,11 @@
 @class GHAccount;
 
 @interface AuthenticationController : UIViewController
-- (id)initWithDelegate:(UIViewController *)theDelegate;
-- (void)authenticateAccount:(GHAccount *)theAccount;
+- (id)initWithDelegate:(UIViewController *)delegate;
+- (void)authenticateAccount:(GHAccount *)account;
 - (void)stopAuthenticating;
 @end
 
 @protocol AuthenticationControllerDelegate
-- (void)authenticatedAccount:(GHAccount *)theAccount;
+- (void)authenticatedAccount:(GHAccount *)account;
 @end

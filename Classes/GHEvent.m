@@ -17,11 +17,11 @@
 
 @implementation GHEvent
 
-- (id)initWithDict:(NSDictionary *)theDict {
+- (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {
 		self.read = NO;
-		[self setValues:theDict];
+		[self setValues:dict];
 	}
 	return self;
 }
@@ -44,10 +44,10 @@
 }
 
 - (void)setValues:(id)dict {
-	self.eventID = dict[@"id"];
-	self.eventType = dict[@"type"];
+	self.eventID = [dict safeStringForKey:@"id"];
+	self.eventType = [dict safeStringForKey:@"type"];
+	self.payload = [dict safeDictForKey:@"payload"];
 	self.date = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
-	self.payload = dict[@"payload"];
 
 	NSString *actorLogin = [dict safeStringForKeyPath:@"actor.login"];
 	NSString *orgLogin = [dict safeStringForKeyPath:@"org.login"];

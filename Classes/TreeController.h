@@ -7,5 +7,5 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingTreeCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
 
-- (id)initWithTree:(GHTree *)theTree;
+- (id)initWithTree:(GHTree *)tree;
 @end

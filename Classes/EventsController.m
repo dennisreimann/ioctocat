@@ -38,10 +38,10 @@
 
 @implementation EventsController
 
-- (id)initWithEvents:(GHEvents *)theEvents {
+- (id)initWithEvents:(GHEvents *)events {
 	self = [super initWithNibName:@"Events" bundle:nil];
 	if (self) {
-		self.events = theEvents;
+		self.events = events;
 		// take care: subclasses may override events (like MyEventsController does),
 		// so we must ensure, that observers in this parent class are only added on
 		// the actual instance variables, and not the getter for the instance var.
@@ -80,32 +80,32 @@
 	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 }
 
-- (void)openEventItem:(id)theEventItem {
+- (void)openEventItem:(id)eventItem {
 	UIViewController *viewController = nil;
-	if ([theEventItem isKindOfClass:GHUser.class]) {
-		viewController = [[UserController alloc] initWithUser:theEventItem];
-	} else if ([theEventItem isKindOfClass:GHOrganization.class]) {
-		viewController = [[OrganizationController alloc] initWithOrganization:theEventItem];
-	} else if ([theEventItem isKindOfClass:GHRepository.class]) {
-		viewController = [[RepositoryController alloc] initWithRepository:theEventItem];
-	} else if ([theEventItem isKindOfClass:GHIssue.class]) {
-		viewController = [[IssueController alloc] initWithIssue:theEventItem];
-	} else if ([theEventItem isKindOfClass:GHCommit.class]) {
-		viewController = [[CommitController alloc] initWithCommit:theEventItem];
-	} else if ([theEventItem isKindOfClass:GHGist.class]) {
-		viewController = [[GistController alloc] initWithGist:theEventItem];
-	} else if ([theEventItem isKindOfClass:GHPullRequest.class]) {
-		viewController = [[PullRequestController alloc] initWithPullRequest:theEventItem];
-	} else if ([theEventItem isKindOfClass:NSDictionary.class]) {
-		NSURL *url = [theEventItem safeURLForKey:@"html_url"];
+	if ([eventItem isKindOfClass:GHUser.class]) {
+		viewController = [[UserController alloc] initWithUser:eventItem];
+	} else if ([eventItem isKindOfClass:GHOrganization.class]) {
+		viewController = [[OrganizationController alloc] initWithOrganization:eventItem];
+	} else if ([eventItem isKindOfClass:GHRepository.class]) {
+		viewController = [[RepositoryController alloc] initWithRepository:eventItem];
+	} else if ([eventItem isKindOfClass:GHIssue.class]) {
+		viewController = [[IssueController alloc] initWithIssue:eventItem];
+	} else if ([eventItem isKindOfClass:GHCommit.class]) {
+		viewController = [[CommitController alloc] initWithCommit:eventItem];
+	} else if ([eventItem isKindOfClass:GHGist.class]) {
+		viewController = [[GistController alloc] initWithGist:eventItem];
+	} else if ([eventItem isKindOfClass:GHPullRequest.class]) {
+		viewController = [[PullRequestController alloc] initWithPullRequest:eventItem];
+	} else if ([eventItem isKindOfClass:NSDictionary.class]) {
+		NSURL *url = [eventItem safeURLForKey:@"html_url"];
 		if (url) {
 			viewController = [[WebController alloc] initWithURL:url];
-			viewController.title = [theEventItem safeStringForKey:@"page_name"];
+			viewController.title = [eventItem safeStringForKey:@"page_name"];
 		}
-	} else if ([theEventItem isKindOfClass:NSArray.class]) {
-		id firstEntry = theEventItem[0];
+	} else if ([eventItem isKindOfClass:NSArray.class]) {
+		id firstEntry = eventItem[0];
 		if ([firstEntry isKindOfClass:GHCommit.class]) {
-			viewController = [[CommitsController alloc] initWithCommits:theEventItem];
+			viewController = [[CommitsController alloc] initWithCommits:eventItem];
 		}
 	}
 	if (viewController) {

@@ -14,10 +14,10 @@
 
 @implementation TreeController
 
-- (id)initWithTree:(GHTree *)theTree {
+- (id)initWithTree:(GHTree *)tree {
 	self = [super initWithNibName:@"Tree" bundle:nil];
 	if (self) {
-		self.tree = theTree;
+		self.tree = tree;
 		[self.tree addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -40,10 +40,10 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
-		GHTree *theTree = (GHTree *)object;
-		if (theTree.isLoaded) {
+		GHTree *tree = (GHTree *)object;
+		if (tree.isLoaded) {
 			[self displayTree];
-		} else if (!theTree.isLoading && theTree.error) {
+		} else if (!tree.isLoading && tree.error) {
 			[iOctocat reportLoadingError:@"Could not load the tree"];
 		}
 	}

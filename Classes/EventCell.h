@@ -2,7 +2,7 @@
 
 
 @protocol EventCellDelegate
-- (void)openEventItem:(id)theEventItem;
+- (void)openEventItem:(id)eventItem;
 @end
 
 

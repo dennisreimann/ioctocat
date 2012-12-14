@@ -7,11 +7,11 @@
 
 @implementation GHTag
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha {
+- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha {
 	self = [super init];
 	if (self) {
-		self.repository = theRepo;
-		self.sha = theSha;
+		self.repository = repo;
+		self.sha = sha;
 		self.resourcePath = [NSString stringWithFormat:kTagFormat, self.repository.owner, self.repository.name, self.sha];
 	}
 	return self;
@@ -19,13 +19,13 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-	self.tag = [theDict valueForKey:@"tag"];
-	self.message = [theDict valueForKey:@"message"];
-	self.taggerName = [theDict valueForKeyPath:@"tagger.name"];
-	self.taggerEmail = [theDict valueForKeyPath:@"tagger.email"];
-	self.taggerDate = [iOctocat parseDate:[theDict valueForKey:@"tagger.date"]];
-	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:[theDict valueForKey:@"object.sha"]];
+- (void)setValues:(id)dict {
+	self.tag = [dict valueForKey:@"tag"];
+	self.message = [dict valueForKey:@"message"];
+	self.taggerName = [dict valueForKeyPath:@"tagger.name"];
+	self.taggerEmail = [dict valueForKeyPath:@"tagger.email"];
+	self.taggerDate = [iOctocat parseDate:[dict valueForKey:@"tagger.date"]];
+	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:[dict valueForKey:@"object.sha"]];
 }
 
 @end

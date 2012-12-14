@@ -19,10 +19,10 @@
 
 @implementation GistsController
 
-- (id)initWithGists:(GHGists *)theGists {
+- (id)initWithGists:(GHGists *)gists {
 	self = [super initWithNibName:@"Gists" bundle:nil];
 	if (self) {
-		self.gists = theGists;
+		self.gists = gists;
 		[self.gists addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -44,8 +44,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
-		GHGists *theGists = (GHGists *)object;
-		if (!theGists.isLoading && theGists.error) {
+		GHGists *gists = (GHGists *)object;
+		if (!gists.isLoading && gists.error) {
 			[iOctocat reportLoadingError:@"Could not load the gists"];
 		}
 	}
@@ -59,19 +59,19 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return (self.gists.isLoading || self.gists.isEmpty) ? 1 : self.gists.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.gists.isLoading) return self.loadingGistsCell;
 	if (self.gists.isEmpty) return self.noGistsCell;
 	static NSString *CellIdentifier = @"Cell";
-	UITableViewCell *cell = [theTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
@@ -85,7 +85,7 @@
 	return cell;
 }
 
-- (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gists.isLoaded || self.gists.isEmpty) return;
 	GHGist *gist = (self.gists)[indexPath.row];
 	GistController *gistController = [[GistController alloc] initWithGist:gist];

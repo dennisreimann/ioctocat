@@ -17,11 +17,11 @@
 
 @implementation CodeController
 
-- (id)initWithFiles:(NSArray *)theFiles currentIndex:(NSUInteger)theCurrentIndex {
+- (id)initWithFiles:(NSArray *)files currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {
-		self.files = theFiles;
-		self.index = theCurrentIndex;
+		self.files = files;
+		self.index = idx;
 	}
 	return self;
 }
@@ -46,9 +46,9 @@
 	[super viewWillDisappear:animated];
 }
 
-- (void)setFile:(NSDictionary *)theFile {
-	if (theFile == self.file) return;
-	_file = theFile;
+- (void)setFile:(NSDictionary *)file {
+	if (file == self.file) return;
+	_file = file;
 
 	NSString *fileName = [[self.file valueForKey:@"filename"] lastPathComponent];
 	NSString *fileContent = [self.file valueForKey:@"content"];

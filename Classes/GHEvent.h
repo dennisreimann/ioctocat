@@ -26,5 +26,5 @@
 @property(nonatomic,readonly)BOOL isCommentEvent;
 @property(nonatomic,readwrite)BOOL read;
 
-- (id)initWithDict:(NSDictionary *)theDict;
+- (id)initWithDict:(NSDictionary *)dict;
 @end

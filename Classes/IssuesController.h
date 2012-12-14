@@ -1,7 +1,7 @@
 @class GHRepository, GHUser;
 
 @interface IssuesController : UITableViewController
-- (id)initWithRepository:(GHRepository *)theRepository;
-- (id)initWithUser:(GHUser *)theUser;
+- (id)initWithRepository:(GHRepository *)repo;
+- (id)initWithUser:(GHUser *)user;
 - (void)reloadIssues;
 @end

@@ -2,13 +2,22 @@
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
+
+
+@interface GHSearch ()
+@property(nonatomic,strong)NSMutableArray *results;
+@property(nonatomic,strong)NSString *urlFormat;
+@end
 
 
 @implementation GHSearch
 
-- (id)initWithURLFormat:(NSString *)theFormat {
+- (id)initWithURLFormat:(NSString *)format {
 	self = [super init];
-	self.urlFormat = theFormat;
+	if (self) {
+		self.urlFormat = format;
+	}
 	return self;
 }
 
@@ -20,10 +29,20 @@
 	return path;
 }
 
-- (void)setValues:(NSDictionary *)theDict {
-	BOOL usersSearch = theDict[@"users"] ? YES : NO;
-	NSMutableArray *resources = [NSMutableArray array];
-	for (NSDictionary *dict in (usersSearch ? theDict[@"users"] : theDict[@"repositories"])) {
+- (NSArray *)searchResults {
+	return self.results;
+}
+
+- (BOOL)isEmpty {
+	return !self.results || self.results.count == 0;
+}
+
+- (void)setValues:(NSDictionary *)dict {
+	NSArray *objects = [dict safeArrayForKey:@"users"];
+	BOOL usersSearch = objects ? YES : NO;
+	if (!objects) objects = [dict safeArrayForKey:@"repositories"];
+	self.results = [NSMutableArray array];
+	for (NSDictionary *dict in objects) {
 		GHResource *resource = nil;
 		if (usersSearch) {
 			resource = [[GHUser alloc] initWithLogin:dict[@"login"]];
@@ -32,9 +51,8 @@
 			resource = [[GHRepository alloc] initWithOwner:dict[@"owner"] andName:dict[@"name"]];
 			[resource setValues:dict];
 		}
-		[resources addObject:resource];
+		[self.results addObject:resource];
 	}
-	self.results = resources;
 }
 
 @end

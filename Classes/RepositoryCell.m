@@ -22,8 +22,8 @@
 	return self;
 }
 
-- (void)setRepository:(GHRepository *)theRepository {
-	_repository = theRepository;
+- (void)setRepository:(GHRepository *)repo {
+	_repository = repo;
 	
 	self.imageView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"private.png" : @"public.png")];
     self.textLabel.text = [NSString stringWithFormat:@"%@/%@", self.repository.owner, self.repository.name];

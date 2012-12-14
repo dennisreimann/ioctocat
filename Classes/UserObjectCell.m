@@ -15,9 +15,9 @@
 	[self.userObject removeObserver:self forKeyPath:kGravatarKeyPath];
 }
 
-- (void)setUserObject:(id)theUserObject {
+- (void)setUserObject:(id)userObject {
 	[self.object removeObserver:self forKeyPath:kGravatarKeyPath];
-	_userObject = theUserObject;
+	_userObject = userObject;
 	self.loginLabel.text = self.object.login;
 	self.gravatarView.image = self.object.gravatar;
 	[self.object addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];

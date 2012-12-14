@@ -8,5 +8,5 @@
 @property(nonatomic,strong)NSString *bodyHTML;
 @property(nonatomic,strong)GHRepository *repository;
 
-- (id)initWithRepository:(GHRepository *)theRepository;
+- (id)initWithRepository:(GHRepository *)repo;
 @end

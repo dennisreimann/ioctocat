@@ -1,5 +1,5 @@
 @class GHUser;
 
 @interface SearchController : UITableViewController
-- (id)initWithUser:(GHUser *)theUser;
+- (id)initWithUser:(GHUser *)user;
 @end

@@ -5,10 +5,10 @@
 
 @implementation GHUsers
 
-- (id)initWithPath:(NSString *)thePath {
+- (id)initWithPath:(NSString *)path {
 	self = [super init];
 	if (self) {
-		self.resourcePath = thePath;
+		self.resourcePath = path;
 	}
 	return self;
 }

@@ -28,18 +28,18 @@
 @property(nonatomic,weak,readonly)GHEvents *events;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 
-- (NSDate *)lastReadingDateForPath:(NSString *)thePath;
-- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath;
+- (NSDate *)lastReadingDateForPath:(NSString *)path;
+- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)path;
 - (IBAction)switchChanged:(id)sender;
 @end
 
 
 @implementation MyEventsController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"MyEvents" bundle:nil];
 	if (self) {
-		self.user = theUser;
+		self.user = user;
 		self.loadCounter = 0;
 		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
 		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
@@ -133,16 +133,16 @@
 
 #pragma mark Persistent State
 
-- (NSDate *)lastReadingDateForPath:(NSString *)thePath {
+- (NSDate *)lastReadingDateForPath:(NSString *)path {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
 	NSDate *date = [userDefaults objectForKey:key];
 	return date;
 }
 
-- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)thePath {
+- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)path {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:thePath];
+	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
 	[defaults setValue:date forKey:key];
 	[defaults synchronize];
 }

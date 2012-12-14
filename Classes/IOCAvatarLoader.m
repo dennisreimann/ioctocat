@@ -9,21 +9,21 @@
 @property(nonatomic,strong)id target;
 @property(nonatomic,assign)SEL handle;
 
-- (void)requestWithURL:(NSURL *)theURL;
+- (void)requestWithURL:(NSURL *)url;
 @end
 
 
 @implementation IOCAvatarLoader
 
-+ (id)loaderWithTarget:(id)theTarget andHandle:(SEL)theHandle {
-	return [[self.class alloc] initWithTarget:theTarget andHandle:theHandle];
++ (id)loaderWithTarget:(id)target andHandle:(SEL)handle {
+	return [[self.class alloc] initWithTarget:target andHandle:handle];
 }
 
-- (id)initWithTarget:(id)theTarget andHandle:(SEL)theHandle {
+- (id)initWithTarget:(id)target andHandle:(SEL)handle {
 	self = [super init];
 	if (self) {
-		self.target = theTarget;
-		self.handle = theHandle;
+		self.target = target;
+		self.handle = handle;
 	}
 	return self;
 }
@@ -34,14 +34,14 @@
 	return kAvatarMaxLogicalSize * MAX(deviceScale, 1.0);
 }
 
-- (void)loadURL:(NSURL *)theURL {
-	NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", theURL, self.gravatarSize];
+- (void)loadURL:(NSURL *)url {
+	NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", url, self.gravatarSize];
 	[self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
 }
 
-- (void)requestWithURL:(NSURL *)theURL {
+- (void)requestWithURL:(NSURL *)url {
 	@autoreleasepool {
-		NSData *gravatarData = [NSData dataWithContentsOfURL:theURL];
+		NSData *gravatarData = [NSData dataWithContentsOfURL:url];
 		UIImage *gravatarImage = [UIImage imageWithData:gravatarData];
 		if (gravatarImage) [self.target performSelectorOnMainThread:self.handle withObject:gravatarImage waitUntilDone:NO];
 	}

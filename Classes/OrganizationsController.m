@@ -18,10 +18,10 @@
 
 @implementation OrganizationsController
 
-- (id)initWithOrganizations:(GHOrganizations *)theOrganizations {
+- (id)initWithOrganizations:(GHOrganizations *)organizations {
     self = [super initWithNibName:@"Organizations" bundle:nil];
 	if (self) {
-		self.organizations = theOrganizations;
+		self.organizations = organizations;
 		[self.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
     }
     return self;

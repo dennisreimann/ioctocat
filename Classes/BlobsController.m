@@ -13,20 +13,20 @@
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
 
-- (void)displayBlob:(GHBlob *)theBlob;
-- (void)displayCode:(NSString *)theCode withFilename:(NSString *)theFilename;
-- (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename;
+- (void)displayBlob:(GHBlob *)blob;
+- (void)displayCode:(NSString *)code;
+- (void)displayData:(NSData *)data withFilename:(NSString *)filename;
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 @end
 
 
 @implementation BlobsController
 
-- (id)initWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
+- (id)initWithBlobs:(NSArray *)blobs currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {
-		self.blobs = theBlobs;
-		self.index = theCurrentIndex;
+		self.blobs = blobs;
+		self.index = idx;
 	}
 	return self;
 }
@@ -52,12 +52,12 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHBlob *theBlob = (GHBlob *)object;
-		if (theBlob.isLoading) {
+		GHBlob *blob = (GHBlob *)object;
+		if (blob.isLoading) {
 			[self.activityView setHidden:NO];
 		} else {
-			[self displayBlob:theBlob];
-			if (!theBlob.error) return;
+			[self displayBlob:blob];
+			if (!blob.error) return;
 			[iOctocat reportLoadingError:@"Could not load the file"];
 		}
 	}
@@ -65,7 +65,7 @@
 
 #pragma mark Actions
 
-- (void)displayCode:(NSString *)theCode withFilename:(NSString *)theFilename {
+- (void)displayCode:(NSString *)code {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
@@ -76,42 +76,43 @@
 	NSString *codeCssPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"css"];
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *escapedCode = [theCode escapeHTML];
+	NSString *escapedCode = [code escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, escapedCode];
 	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
 }
 
-- (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename {
-	NSString *ext = [theFilename pathExtension];
+- (void)displayData:(NSData *)data withFilename:(NSString *)filename {
+	NSString *ext = [filename pathExtension];
 	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
 	NSString *mimeType;
 	if ([imageTypes containsObject:ext]) {
 		mimeType = [NSString stringWithFormat:@"image/%@", ext];
-		[self.contentView loadData:theData MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
+		[self.contentView loadData:data MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
 		[self.contentView setScalesPageToFit:YES];
 	} else {
-		[iOctocat reportError:@"Unknown content" with:[NSString stringWithFormat:@"Cannot display %@", theFilename]];
+		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
+		[iOctocat reportError:@"Unknown content" with:message];
 	}
 }
 
-- (void)displayBlob:(GHBlob *)theBlob {
+- (void)displayBlob:(GHBlob *)blob {
 	// check if it's the current blob, because we might get notified
 	// about a blob that has been loaded but is not the current one
-	if (theBlob != self.blob) return;
+	if (blob != self.blob) return;
 	[self.activityView setHidden:YES];
 	// check what type of content we have and display it accordingly
-	if (self.blob.content) return [self displayCode:theBlob.content withFilename:theBlob.path];
-	if (self.blob.contentData) return [self displayData:theBlob.contentData withFilename:theBlob.path];
+	if (self.blob.content) return [self displayCode:blob.content];
+	if (self.blob.contentData) return [self displayData:blob.contentData withFilename:blob.path];
 }
 
-- (void)setBlob:(GHBlob *)theBlob {
-	if (theBlob == self.blob) return;
-	[theBlob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+- (void)setBlob:(GHBlob *)blob {
+	if (blob == self.blob) return;
+	[blob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	_blob = theBlob;
+	_blob = blob;
 
 	self.title = self.blob.path;
-	self.blob.isLoaded ? [self displayBlob:theBlob] : [self.blob loadData];
+	self.blob.isLoaded ? [self displayBlob:blob] : [self.blob loadData];
 
 	// Update navigation control
 	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:0];

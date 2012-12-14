@@ -32,10 +32,10 @@
 
 @implementation OrganizationRepositoriesController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"OrganizationRepositories" bundle:nil];
 	if (self) {
-		self.user = theUser;
+		self.user = user;
 		self.organizationRepositories = [NSMutableArray array];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}

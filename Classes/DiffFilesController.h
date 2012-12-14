@@ -1,3 +1,3 @@
 @interface DiffFilesController : UITableViewController
-- (id)initWithFiles:(NSArray *)theFiles;
+- (id)initWithFiles:(NSArray *)files;
 @end

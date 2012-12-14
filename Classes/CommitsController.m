@@ -11,11 +11,11 @@
 
 @implementation CommitsController
 
-- (id)initWithCommits:(NSArray *)theCommits {
+- (id)initWithCommits:(NSArray *)commits {
 	self = [super initWithNibName:@"Commits" bundle:nil];
 	if (self) {
 		self.title = @"Commits";
-		self.commits = theCommits;
+		self.commits = commits;
 	}
 	return self;
 }

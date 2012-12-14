@@ -11,10 +11,10 @@
 
 @implementation GHGistComments
 
-- (id)initWithGist:(GHGist *)theGist {
+- (id)initWithGist:(GHGist *)gist {
 	self = [super init];
 	if (self) {
-		self.gist = theGist;
+		self.gist = gist;
 	}
 	return self;
 }

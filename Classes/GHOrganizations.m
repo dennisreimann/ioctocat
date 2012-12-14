@@ -6,11 +6,11 @@
 
 @implementation GHOrganizations
 
-- (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath {
+- (id)initWithUser:(GHUser *)user andPath:(NSString *)path {
 	self = [super init];
 	if (self) {
-		self.user = theUser;
-		self.resourcePath = thePath;
+		self.user = user;
+		self.resourcePath = path;
 	}
 	return self;
 }

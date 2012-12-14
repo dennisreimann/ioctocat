@@ -24,11 +24,11 @@
 
 @implementation AccountFormController
 
-- (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex {
+- (id)initWithAccounts:(NSMutableArray *)accounts andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
 	if (self) {
-		self.index = theIndex;
-		self.accounts = theAccounts;
+		self.index = idx;
+		self.accounts = accounts;
 		// find existing or initialize a new account
 		if (self.index == NSNotFound) {
 			self.account = [NSMutableDictionary dictionary];

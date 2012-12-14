@@ -25,10 +25,10 @@
 	return self;
 }
 
-- (id)initWithRepo:(GHRepository *)theRepo {
+- (id)initWithRepo:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
-		self.repository = theRepo;
+		self.repository = repo;
 	}
 	return self;
 }

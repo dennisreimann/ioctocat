@@ -5,8 +5,8 @@
 
 @implementation GHEvents
 
-- (id)initWithRepository:(GHRepository *)theRepo {
-	NSString *path = [NSString stringWithFormat:kRepoEventsFormat, theRepo.owner, theRepo.name];
+- (id)initWithRepository:(GHRepository *)repo {
+	NSString *path = [NSString stringWithFormat:kRepoEventsFormat, repo.owner, repo.name];
 	return [super initWithPath:path];
 }
 

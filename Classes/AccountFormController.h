@@ -1,3 +1,3 @@
 @interface AccountFormController : UIViewController
-- (id)initWithAccounts:(NSMutableArray *)theAccounts andIndex:(NSUInteger)theIndex;
+- (id)initWithAccounts:(NSMutableArray *)accounts andIndex:(NSUInteger)idx;
 @end

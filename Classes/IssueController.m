@@ -52,10 +52,10 @@ NSString *const IssueSavingKeyPath = @"savingStatus";
 NSString *const IssueLoadingKeyPath = @"loadingStatus";
 NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 
-- (id)initWithIssue:(GHIssue *)theIssue {
+- (id)initWithIssue:(GHIssue *)issue {
 	self = [super initWithNibName:@"Issue" bundle:nil];
 	if (self) {
-		self.issue = theIssue;
+		self.issue = issue;
 		[self.issue addObserver:self forKeyPath:IssueCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;

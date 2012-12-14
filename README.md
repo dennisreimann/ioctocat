@@ -9,15 +9,38 @@ Your [participation is welcome](https://github.com/dennisreimann/ioctocat/contri
 Feel free to fork, add missing features or
 [report issues](http://github.com/dennisreimann/ioctocat/issues) :)
 
-## Debugging
+## Building and Debugging
+
+In order to build iOctocat on your own, install the following prerequisites:
+
+  * [Xcode](https://developer.apple.com/xcode/)
+  * [Git](http://git-scm.com/)
+  * [CocoaPods](http://cocoapods.org/)
 
 Here are some tips for providing debugging information along with issues.
 iOctocat logs all API calls and in the console you will find the debugging output.
 
   * Clone the repo and open the terminal with the directory you cloned it into
-  * Run this command in the terminal: `git submodule update --init`
-  * [Install CocoaPods](http://cocoapods.org/) and run `pod install`
+
+        git clone git://github.com/dennisreimann/ioctocat.git
+        cd ioctocat
+
+  * Install the submodules:
+
+        git submodule update --init
+
+  * Install the dependencies
+
+        pod install
+
+  * Create the `HockeySDK.plist` file by copying the sample:
+
+        cp HockeySDK{.sample,}.plist
+
   * Open the project in Xcode
+
+        open iOctocat.xcworkspace
+
   * Select "iOctocat > iPhone Simulator" in the upper left corner
   * Build and run the app by pressing the play button
   * Activate the debug console by selecting "View > Debug Area > Activate Console"

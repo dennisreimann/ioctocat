@@ -6,7 +6,7 @@
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 #import "MenuController.h"
 #import "WebController.h"
 #import "YRDropdownView.h"
@@ -98,9 +98,11 @@
 - (void)setupHockeySDK {
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-	if (dict) {
-		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:dict[@"beta_identifier"]
-															 liveIdentifier:dict[@"live_identifier"]
+	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
+	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
+	if (betaId || liveId) {
+		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId
+															 liveIdentifier:liveId
 																   delegate:self];
 		[[BITHockeyManager sharedHockeyManager] startManager];
 	}

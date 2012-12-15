@@ -1,3 +1,4 @@
+#import "IOCTestHelper.h"
 #import "GHEventTests.h"
 #import "GHEvent.h"
 #import "GHUser.h"
@@ -30,15 +31,6 @@
 
 - (void)tearDown {
     [super tearDown];
-}
-
-// loads test fixture from json file
-// http://blog.roberthoglund.com/2010/12/ios-unit-testing-loading-bundle.html
-- (id)jsonFixture:(NSString *)fixture {
-	NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:fixture ofType:@"json"];
-	NSError *error = nil;
-    NSData *data = [NSData dataWithContentsOfFile:path];
-	return [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
 }
 
 - (void)testReadState {
@@ -80,13 +72,13 @@
 }
 
 - (void)testIssueCommentEventWithoutPullRequest {
-	NSDictionary *dict = [self jsonFixture:@"IssueCommentEventWithoutPullRequest"];
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEventWithoutPullRequest"];
 	[self.event setValues:dict];
 	STAssertNil(self.event.pullRequest, @"Pull Request was set on an IssueCommentEvent without a pull request");
 }
 
 - (void)testIssueCommentEventWithPullRequest {
-	NSDictionary *dict = [self jsonFixture:@"IssueCommentEventWithPullRequest"];
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEventWithPullRequest"];
 	[self.event setValues:dict];
 	STAssertNotNil(self.event.pullRequest, @"Pull Request was not set on an IssueCommentEvent with a pull request");
 }

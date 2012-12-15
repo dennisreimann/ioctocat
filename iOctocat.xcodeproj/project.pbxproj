@@ -108,6 +108,8 @@
 		6F4EB366167D22A4001C1DEA /* PushEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB360167D22A4001C1DEA /* PushEvent.json */; };
 		6F4EB367167D22A4001C1DEA /* WatchEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB361167D22A4001C1DEA /* WatchEvent.json */; };
 		6F4EB36A167D268B001C1DEA /* IOCTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4EB369167D268B001C1DEA /* IOCTestHelper.m */; };
+		6F4EB36C167D2B0E001C1DEA /* GHCommitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4EB36B167D2B0E001C1DEA /* GHCommitTests.m */; };
+		6F4EB36F167D2BB5001C1DEA /* LargeCommit.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB36E167D2BB5001C1DEA /* LargeCommit.json */; };
 		6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
 		6F536BBB1679175500B5FD53 /* PullRequest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBA1679175500B5FD53 /* PullRequest.xib */; };
 		6F536BC116791F5000B5FD53 /* pull_request_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBD16791F5000B5FD53 /* pull_request_closed.png */; };
@@ -992,6 +994,9 @@
 		6F4EB361167D22A4001C1DEA /* WatchEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WatchEvent.json; sourceTree = "<group>"; };
 		6F4EB368167D268B001C1DEA /* IOCTestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCTestHelper.h; sourceTree = "<group>"; };
 		6F4EB369167D268B001C1DEA /* IOCTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCTestHelper.m; sourceTree = "<group>"; };
+		6F4EB36B167D2B0E001C1DEA /* GHCommitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCommitTests.m; sourceTree = "<group>"; };
+		6F4EB36D167D2B37001C1DEA /* GHCommitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommitTests.h; sourceTree = "<group>"; };
+		6F4EB36E167D2BB5001C1DEA /* LargeCommit.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = LargeCommit.json; sourceTree = "<group>"; };
 		6F536BB616790B8A00B5FD53 /* PullRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRequestController.m; sourceTree = "<group>"; };
 		6F536BB916790B9300B5FD53 /* PullRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRequestController.h; sourceTree = "<group>"; };
 		6F536BBA1679175500B5FD53 /* PullRequest.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PullRequest.xib; path = IBFiles/PullRequest.xib; sourceTree = "<group>"; };
@@ -1678,6 +1683,8 @@
 				6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */,
 				6F612435167D00AF001A3E05 /* GHEventTests.h */,
 				6F612432167D00A3001A3E05 /* GHEventTests.m */,
+				6F4EB36D167D2B37001C1DEA /* GHCommitTests.h */,
+				6F4EB36B167D2B0E001C1DEA /* GHCommitTests.m */,
 			);
 			name = "Unit Tests";
 			path = iOctocatUnitTests;
@@ -1697,6 +1704,7 @@
 		6F4EB354167D1B76001C1DEA /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				6F4EB36E167D2BB5001C1DEA /* LargeCommit.json */,
 				6F4EB35A167D22A4001C1DEA /* FollowEvent.json */,
 				6F4EB35B167D22A4001C1DEA /* ForkEvent.json */,
 				6F4EB35C167D22A4001C1DEA /* IssueCommentEventWithoutPullRequest.json */,
@@ -2597,6 +2605,7 @@
 				6F4EB365167D22A4001C1DEA /* PullRequestEvent.json in Resources */,
 				6F4EB366167D22A4001C1DEA /* PushEvent.json in Resources */,
 				6F4EB367167D22A4001C1DEA /* WatchEvent.json in Resources */,
+				6F4EB36F167D2BB5001C1DEA /* LargeCommit.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3125,6 +3134,7 @@
 				6F612433167D00A3001A3E05 /* GHEventTests.m in Sources */,
 				6F612440167D026A001A3E05 /* GHEvent.m in Sources */,
 				6F4EB36A167D268B001C1DEA /* IOCTestHelper.m in Sources */,
+				6F4EB36C167D2B0E001C1DEA /* GHCommitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

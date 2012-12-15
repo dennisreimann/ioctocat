@@ -34,7 +34,8 @@
 	self.added = [NSMutableArray array];
 	self.modified = [NSMutableArray array];
 	self.removed = [NSMutableArray array];
-	for (NSDictionary *file in [dict safeDictForKey:@"files"]) {
+	NSArray *files = [dict safeArrayForKey:@"files"];
+	for (NSDictionary *file in files) {
 		NSString *status = [file safeStringForKey:@"status"];
 		if ([status isEqualToString:@"removed"]) {
 			[self.removed addObject:file];

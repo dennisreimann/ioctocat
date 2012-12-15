@@ -27,4 +27,5 @@
 @property(nonatomic,readwrite)BOOL read;
 
 - (id)initWithDict:(NSDictionary *)dict;
+- (void)setValues:(id)dict;
 @end

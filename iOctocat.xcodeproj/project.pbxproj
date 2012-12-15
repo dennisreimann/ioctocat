@@ -134,6 +134,96 @@
 		6F5E9B6E1119AD5B00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
 		6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */; };
 		6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */; };
+		6F612433167D00A3001A3E05 /* GHEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F612432167D00A3001A3E05 /* GHEventTests.m */; };
+		6F612437167D023C001A3E05 /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
+		6F612439167D023C001A3E05 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
+		6F61243B167D023C001A3E05 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
+		6F61243D167D023C001A3E05 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
+		6F61243F167D023C001A3E05 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
+		6F612440167D026A001A3E05 /* GHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF891649AE2500337EBE /* GHEvent.m */; };
+		6F612441167D02A1001A3E05 /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
+		6F612442167D02A1001A3E05 /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
+		6F612443167D02A1001A3E05 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
+		6F612444167D02A1001A3E05 /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
+		6F612445167D02A1001A3E05 /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
+		6F612446167D02A1001A3E05 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
+		6F612447167D02A1001A3E05 /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
+		6F612448167D02A1001A3E05 /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AC132EC90D00C9446E /* GHUser.m */; };
+		6F612449167D02A1001A3E05 /* GHOrganizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */; };
+		6F61244A167D02A1001A3E05 /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
+		6F61244B167D02A1001A3E05 /* GHEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF871649A6B100337EBE /* GHEvents.m */; };
+		6F61244C167D02A1001A3E05 /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
+		6F61244D167D02A1001A3E05 /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
+		6F61244E167D02A1001A3E05 /* GHPullRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329F16774158001C0804 /* GHPullRequests.m */; };
+		6F61244F167D02A1001A3E05 /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD214F165194FF0017E8BA /* GHPullRequest.m */; };
+		6F612450167D02A1001A3E05 /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
+		6F612451167D02A1001A3E05 /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
+		6F612452167D02A2001A3E05 /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
+		6F612453167D02A2001A3E05 /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
+		6F612454167D02A2001A3E05 /* GHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08261624A3C10074839B /* GHTree.m */; };
+		6F612455167D02A2001A3E05 /* GHBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08291624A6F60074839B /* GHBlob.m */; };
+		6F612456167D02A2001A3E05 /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082C1624A9D20074839B /* GHTag.m */; };
+		6F612457167D02A2001A3E05 /* GHRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082F1624AC990074839B /* GHRef.m */; };
+		6F612458167D02A2001A3E05 /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE30158FD14000D72A3D /* GHComment.m */; };
+		6F612459167D02A2001A3E05 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
+		6F61245A167D02A2001A3E05 /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
+		6F61245B167D02A2001A3E05 /* GHRepoComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */; };
+		6F61245C167D02A2001A3E05 /* GHRepoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */; };
+		6F61245D167D02A2001A3E05 /* GHGistComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AD1623772300CE95D0 /* GHGistComments.m */; };
+		6F61245E167D02A2001A3E05 /* GHGistComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AB1623772300CE95D0 /* GHGistComment.m */; };
+		6F61245F167D02C9001A3E05 /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
+		6F612460167D02C9001A3E05 /* GHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E4B231645D60F00E03FD9 /* GHApiClient.m */; };
+		6F612461167D02C9001A3E05 /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AA132EC90D00C9446E /* GHResource.m */; };
+		6F612462167D02C9001A3E05 /* GHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329A16772F3B001C0804 /* GHCollection.m */; };
+		6F612463167D02C9001A3E05 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
+		6F612464167D02FB001A3E05 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F177311E316FE008B319F /* MobileCoreServices.framework */; };
+		6F612465167D0302001A3E05 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F176F11E316F3008B319F /* SystemConfiguration.framework */; };
+		6F612466167D036A001A3E05 /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */; };
+		6F612467167D038C001A3E05 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
+		6F612468167D0410001A3E05 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
+		6F612469167D0410001A3E05 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
+		6F61246A167D0410001A3E05 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
+		6F61246B167D0410001A3E05 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* AuthenticationController.m */; };
+		6F61246C167D0410001A3E05 /* EventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF8D1649AEB200337EBE /* EventsController.m */; };
+		6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyEventsController.m */; };
+		6F61246E167D0410001A3E05 /* UsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* UsersController.m */; };
+		6F61246F167D0410001A3E05 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
+		6F612470167D0410001A3E05 /* OrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */; };
+		6F612471167D0410001A3E05 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
+		6F612472167D0410001A3E05 /* OrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* OrganizationRepositoriesController.m */; };
+		6F612473167D0410001A3E05 /* DiffFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* DiffFilesController.m */; };
+		6F612474167D0410001A3E05 /* TreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* TreeController.m */; };
+		6F612475167D0410001A3E05 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
+		6F612476167D0410001A3E05 /* GistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* GistsController.m */; };
+		6F612477167D0410001A3E05 /* GistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* GistController.m */; };
+		6F612478167D0410001A3E05 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
+		6F612479167D0410001A3E05 /* RepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* RepositoriesController.m */; };
+		6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
+		6F61247B167D0410001A3E05 /* ForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* ForksController.m */; };
+		6F61247C167D0410001A3E05 /* CommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* CommitsController.m */; };
+		6F61247D167D0410001A3E05 /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
+		6F61247E167D0410001A3E05 /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* PullRequestsController.m */; };
+		6F61247F167D0410001A3E05 /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
+		6F612480167D0410001A3E05 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BCD167A24AD00B5FD53 /* IssuesController.m */; };
+		6F612481167D0410001A3E05 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
+		6F612482167D0410001A3E05 /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
+		6F612483167D0410001A3E05 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
+		6F612484167D0410001A3E05 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6F612485167D0410001A3E05 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
+		6F612486167D0410001A3E05 /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* CommentController.m */; };
+		6F612487167D0410001A3E05 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
+		6F612488167D0410001A3E05 /* IOCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6399E316618E1E00BF2FF0 /* IOCTextField.m */; };
+		6F612489167D0410001A3E05 /* UserObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */; };
+		6F61248A167D0410001A3E05 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* EventCell.m */; };
+		6F61248B167D0410001A3E05 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
+		6F61248C167D0410001A3E05 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
+		6F61248D167D0410001A3E05 /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
+		6F61248E167D0410001A3E05 /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
+		6F61248F167D0410001A3E05 /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* CommitCell.m */; };
+		6F612490167D0410001A3E05 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
+		6F612491167D0410001A3E05 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
+		6F612492167D0410001A3E05 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
+		6F612493167D0429001A3E05 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 		6F61F534139E3EE8005DBE67 /* HeadBackground90.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F530139E3EE8005DBE67 /* HeadBackground90.png */; };
 		6F61F535139E3EE8005DBE67 /* HeadBackground90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */; };
 		6F61F53E139E43FD005DBE67 /* AvatarBackground32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F538139E43FB005DBE67 /* AvatarBackground32.png */; };
@@ -924,6 +1014,8 @@
 		6F5E9B621119AD2100752560 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarIssue.png; sourceTree = "<group>"; };
 		6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUser.png; sourceTree = "<group>"; };
+		6F612432167D00A3001A3E05 /* GHEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHEventTests.m; sourceTree = "<group>"; };
+		6F612435167D00AF001A3E05 /* GHEventTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHEventTests.h; sourceTree = "<group>"; };
 		6F61F530139E3EE8005DBE67 /* HeadBackground90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HeadBackground90.png; path = Images/HeadBackground90.png; sourceTree = "<group>"; };
 		6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HeadBackground90@2x.png"; path = "Images/HeadBackground90@2x.png"; sourceTree = "<group>"; };
 		6F61F538139E43FB005DBE67 /* AvatarBackground32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AvatarBackground32.png; path = Images/AvatarBackground32.png; sourceTree = "<group>"; };
@@ -1261,6 +1353,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F612493167D0429001A3E05 /* MessageUI.framework in Frameworks */,
+				6F612467167D038C001A3E05 /* Security.framework in Frameworks */,
+				6F612465167D0302001A3E05 /* SystemConfiguration.framework in Frameworks */,
+				6F612464167D02FB001A3E05 /* MobileCoreServices.framework in Frameworks */,
 				6F48DB72166C07B600F8FF16 /* SenTestingKit.framework in Frameworks */,
 				6F48DB60166C03F900F8FF16 /* Foundation.framework in Frameworks */,
 				6F48DB5F166C03F900F8FF16 /* UIKit.framework in Frameworks */,
@@ -1562,6 +1658,8 @@
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
 				6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */,
 				6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */,
+				6F612435167D00AF001A3E05 /* GHEventTests.h */,
+				6F612432167D00A3001A3E05 /* GHEventTests.m */,
 			);
 			name = "Unit Tests";
 			path = iOctocatUnitTests;
@@ -2897,8 +2995,94 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F612468167D0410001A3E05 /* GradientButton.m in Sources */,
+				6F612469167D0410001A3E05 /* AccountsController.m in Sources */,
+				6F61246A167D0410001A3E05 /* AccountFormController.m in Sources */,
+				6F61246B167D0410001A3E05 /* AuthenticationController.m in Sources */,
+				6F61246C167D0410001A3E05 /* EventsController.m in Sources */,
+				6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */,
+				6F61246E167D0410001A3E05 /* UsersController.m in Sources */,
+				6F61246F167D0410001A3E05 /* UserController.m in Sources */,
+				6F612470167D0410001A3E05 /* OrganizationsController.m in Sources */,
+				6F612471167D0410001A3E05 /* OrganizationController.m in Sources */,
+				6F612472167D0410001A3E05 /* OrganizationRepositoriesController.m in Sources */,
+				6F612473167D0410001A3E05 /* DiffFilesController.m in Sources */,
+				6F612474167D0410001A3E05 /* TreeController.m in Sources */,
+				6F612475167D0410001A3E05 /* BlobsController.m in Sources */,
+				6F612476167D0410001A3E05 /* GistsController.m in Sources */,
+				6F612477167D0410001A3E05 /* GistController.m in Sources */,
+				6F612478167D0410001A3E05 /* CodeController.m in Sources */,
+				6F612479167D0410001A3E05 /* RepositoriesController.m in Sources */,
+				6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */,
+				6F61247B167D0410001A3E05 /* ForksController.m in Sources */,
+				6F61247C167D0410001A3E05 /* CommitsController.m in Sources */,
+				6F61247D167D0410001A3E05 /* CommitController.m in Sources */,
+				6F61247E167D0410001A3E05 /* PullRequestsController.m in Sources */,
+				6F61247F167D0410001A3E05 /* PullRequestController.m in Sources */,
+				6F612480167D0410001A3E05 /* IssuesController.m in Sources */,
+				6F612481167D0410001A3E05 /* IssueController.m in Sources */,
+				6F612482167D0410001A3E05 /* IssueObjectFormController.m in Sources */,
+				6F612483167D0410001A3E05 /* MenuController.m in Sources */,
+				6F612484167D0410001A3E05 /* SearchController.m in Sources */,
+				6F612485167D0410001A3E05 /* WebController.m in Sources */,
+				6F612486167D0410001A3E05 /* CommentController.m in Sources */,
+				6F612487167D0410001A3E05 /* iOctocat.m in Sources */,
+				6F612488167D0410001A3E05 /* IOCTextField.m in Sources */,
+				6F612489167D0410001A3E05 /* UserObjectCell.m in Sources */,
+				6F61248A167D0410001A3E05 /* EventCell.m in Sources */,
+				6F61248B167D0410001A3E05 /* LabeledCell.m in Sources */,
+				6F61248C167D0410001A3E05 /* TextCell.m in Sources */,
+				6F61248D167D0410001A3E05 /* IssueObjectCell.m in Sources */,
+				6F61248E167D0410001A3E05 /* RepositoryCell.m in Sources */,
+				6F61248F167D0410001A3E05 /* CommitCell.m in Sources */,
+				6F612490167D0410001A3E05 /* FilesCell.m in Sources */,
+				6F612491167D0410001A3E05 /* CommentCell.m in Sources */,
+				6F612492167D0410001A3E05 /* MenuCell.m in Sources */,
+				6F612466167D036A001A3E05 /* AFOAuth2Client.m in Sources */,
+				6F61245F167D02C9001A3E05 /* IOCAvatarLoader.m in Sources */,
+				6F612460167D02C9001A3E05 /* GHApiClient.m in Sources */,
+				6F612461167D02C9001A3E05 /* GHResource.m in Sources */,
+				6F612462167D02C9001A3E05 /* GHCollection.m in Sources */,
+				6F612463167D02C9001A3E05 /* GHAccount.m in Sources */,
+				6F612441167D02A1001A3E05 /* GHGists.m in Sources */,
+				6F612442167D02A1001A3E05 /* GHGist.m in Sources */,
+				6F612443167D02A1001A3E05 /* GHRepositories.m in Sources */,
+				6F612444167D02A1001A3E05 /* GHRepository.m in Sources */,
+				6F612445167D02A1001A3E05 /* GHForks.m in Sources */,
+				6F612446167D02A1001A3E05 /* GHSearch.m in Sources */,
+				6F612447167D02A1001A3E05 /* GHUsers.m in Sources */,
+				6F612448167D02A1001A3E05 /* GHUser.m in Sources */,
+				6F612449167D02A1001A3E05 /* GHOrganizations.m in Sources */,
+				6F61244A167D02A1001A3E05 /* GHOrganization.m in Sources */,
+				6F61244B167D02A1001A3E05 /* GHEvents.m in Sources */,
+				6F61244C167D02A1001A3E05 /* GHIssues.m in Sources */,
+				6F61244D167D02A1001A3E05 /* GHIssue.m in Sources */,
+				6F61244E167D02A1001A3E05 /* GHPullRequests.m in Sources */,
+				6F61244F167D02A1001A3E05 /* GHPullRequest.m in Sources */,
+				6F612450167D02A1001A3E05 /* GHReadme.m in Sources */,
+				6F612451167D02A1001A3E05 /* GHBranches.m in Sources */,
+				6F612452167D02A2001A3E05 /* GHBranch.m in Sources */,
+				6F612453167D02A2001A3E05 /* GHCommit.m in Sources */,
+				6F612454167D02A2001A3E05 /* GHTree.m in Sources */,
+				6F612455167D02A2001A3E05 /* GHBlob.m in Sources */,
+				6F612456167D02A2001A3E05 /* GHTag.m in Sources */,
+				6F612457167D02A2001A3E05 /* GHRef.m in Sources */,
+				6F612458167D02A2001A3E05 /* GHComment.m in Sources */,
+				6F612459167D02A2001A3E05 /* GHIssueComments.m in Sources */,
+				6F61245A167D02A2001A3E05 /* GHIssueComment.m in Sources */,
+				6F61245B167D02A2001A3E05 /* GHRepoComments.m in Sources */,
+				6F61245C167D02A2001A3E05 /* GHRepoComment.m in Sources */,
+				6F61245D167D02A2001A3E05 /* GHGistComments.m in Sources */,
+				6F61245E167D02A2001A3E05 /* GHGistComment.m in Sources */,
+				6F612437167D023C001A3E05 /* NSURL+Extensions.m in Sources */,
+				6F612439167D023C001A3E05 /* NSString+Extensions.m in Sources */,
+				6F61243B167D023C001A3E05 /* NSMutableArray+Extensions.m in Sources */,
+				6F61243D167D023C001A3E05 /* NSDate+Nibware.m in Sources */,
+				6F61243F167D023C001A3E05 /* NSDictionary+Extensions.m in Sources */,
 				6F5C02941674A67D005AC6FA /* IOCAvatarCacheTests.m in Sources */,
 				6F5C03F41674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
+				6F612433167D00A3001A3E05 /* GHEventTests.m in Sources */,
+				6F612440167D026A001A3E05 /* GHEvent.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

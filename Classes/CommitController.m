@@ -23,6 +23,7 @@
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *committerCell;
 @property(nonatomic,strong)IBOutlet FilesCell *addedCell;
@@ -84,6 +85,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	self.titleLabel.text = self.commit.message;
 	self.dateLabel.text = [self.commit.committedDate prettyDate];
 	self.gravatarView.image = self.commit.author.gravatar;
+	[self.repoCell setContentText:self.commit.repository.repoId];
 	[self.authorCell setContentText:self.commit.author.login];
 	[self.committerCell setContentText:self.commit.committer.login];
 	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
@@ -102,9 +104,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 															 delegate:self
 													cancelButtonTitle:@"Cancel"
 											   destructiveButtonTitle:nil
-													otherButtonTitles:@"Add comment",
-								  [NSString stringWithFormat:@"Show %@", self.commit.author.login],
-								  [NSString stringWithFormat:@"Show %@", self.commit.repository.name], @"Show on GitHub", nil];
+													otherButtonTitles:@"Add comment", nil];
 	[actionSheet showInView:self.view];
 }
 
@@ -118,15 +118,6 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		[self addComment:nil];
-	} else if (buttonIndex == 1) {
-		UserController *userController = [[UserController alloc] initWithUser:self.commit.author];
-		[self.navigationController pushViewController:userController animated:YES];
-	} else if (buttonIndex == 2) {
-		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.commit.repository];
-		[self.navigationController pushViewController:repoController animated:YES];
-	} else if (buttonIndex == 3) {
-		WebController *webController = [[WebController alloc] initWithURL:self.commit.commitURL];
-		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
 
@@ -160,7 +151,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.commit.isLoaded) return 1;
-	if (section == 0) return 2;
+	if (section == 0) return 3;
 	if (section == 1) return 3;
 	if (!self.commit.comments.isLoaded) return 1;
 	if (self.commit.comments.isEmpty) return 1;
@@ -169,8 +160,9 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.commit.isLoaded) return self.loadingCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return self.authorCell;
-	if (indexPath.section == 0 && indexPath.row == 1) return self.committerCell;
+	if (indexPath.section == 0 && indexPath.row == 0) return self.repoCell;
+	if (indexPath.section == 0 && indexPath.row == 1) return self.authorCell;
+	if (indexPath.section == 0 && indexPath.row == 2) return self.committerCell;
 	if (indexPath.section == 1 && indexPath.row == 0) return self.addedCell;
 	if (indexPath.section == 1 && indexPath.row == 1) return self.removedCell;
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
@@ -197,8 +189,13 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.commit.isLoaded) return;
-	if (indexPath.section == 0) {
-		GHUser *user = (indexPath.row == 0) ? self.commit.author : self.commit.committer;
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	if (section == 0 && row == 0) {
+		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.commit.repository];
+		[self.navigationController pushViewController:repoController animated:YES];
+	} else if (indexPath.section == 0) {
+		GHUser *user = (row == 1) ? self.commit.author : self.commit.committer;
 		UserController *userController = [[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {

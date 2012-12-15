@@ -7,7 +7,6 @@
 @interface GHCommit : GHResource
 @property(nonatomic,strong)NSString *commitID;
 @property(nonatomic,strong)NSString *message;
-@property(nonatomic,strong)NSURL *commitURL;
 @property(nonatomic,strong)NSString *authorName;
 @property(nonatomic,strong)NSString *authorEmail;
 @property(nonatomic,strong)NSString *committerName;

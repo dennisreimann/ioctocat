@@ -1,0 +1,64 @@
+  {
+    "actor": {
+      "url": "https://api.github.com/users/jerodsanto",
+      "avatar_url": "https://secure.gravatar.com/avatar/37f5b02845d2bfa71641ec9736d58061?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "login": "jerodsanto",
+      "id": 8212,
+      "gravatar_id": "37f5b02845d2bfa71641ec9736d58061"
+    },
+    "type": "IssuesEvent",
+    "repo": {
+      "url": "https://api.github.com/repos/dennisreimann/ioctocat",
+      "name": "dennisreimann/ioctocat",
+      "id": 161859
+    },
+    "payload": {
+      "issue": {
+        "events_url": "https://api.github.com/repos/dennisreimann/ioctocat/issues/184/events",
+        "comments_url": "https://api.github.com/repos/dennisreimann/ioctocat/issues/184/comments",
+        "closed_at": null,
+        "updated_at": "2012-12-13T13:37:23Z",
+        "user": {
+          "events_url": "https://api.github.com/users/jerodsanto/events{/privacy}",
+          "starred_url": "https://api.github.com/users/jerodsanto/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/jerodsanto/subscriptions",
+          "organizations_url": "https://api.github.com/users/jerodsanto/orgs",
+          "avatar_url": "https://secure.gravatar.com/avatar/37f5b02845d2bfa71641ec9736d58061?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+          "following_url": "https://api.github.com/users/jerodsanto/following",
+          "received_events_url": "https://api.github.com/users/jerodsanto/received_events",
+          "gists_url": "https://api.github.com/users/jerodsanto/gists{/gist_id}",
+          "login": "jerodsanto",
+          "followers_url": "https://api.github.com/users/jerodsanto/followers",
+          "type": "User",
+          "id": 8212,
+          "url": "https://api.github.com/users/jerodsanto",
+          "gravatar_id": "37f5b02845d2bfa71641ec9736d58061",
+          "repos_url": "https://api.github.com/users/jerodsanto/repos"
+        },
+        "labels_url": "https://api.github.com/repos/dennisreimann/ioctocat/issues/184/labels{/name}",
+        "body": "I love how new events since my last refresh are highlighted by that blue background!\n\nHowever, this does not happen if I stay on the feed view and just refresh the feed. I have to go out of my account and come back in to trigger the highlighting.\n\nFeature or bug? Either way, I'd love to see this interaction adjusted.\n\nGreat app, thanks!",
+        "comments": 0,
+        "number": 184,
+        "title": "highlight new events without leaving account",
+        "html_url": "https://github.com/dennisreimann/ioctocat/issues/184",
+        "state": "open",
+        "milestone": null,
+        "id": 9251962,
+        "assignee": null,
+        "labels": [
+
+        ],
+        "pull_request": {
+          "html_url": null,
+          "patch_url": null,
+          "diff_url": null
+        },
+        "created_at": "2012-12-13T13:37:23Z",
+        "url": "https://api.github.com/repos/dennisreimann/ioctocat/issues/184"
+      },
+      "action": "opened"
+    },
+    "public": true,
+    "created_at": "2012-12-13T13:37:23Z",
+    "id": "1641608950"
+  }

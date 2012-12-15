@@ -32,6 +32,15 @@
     [super tearDown];
 }
 
+// loads test fixture from json file
+// http://blog.roberthoglund.com/2010/12/ios-unit-testing-loading-bundle.html
+- (id)jsonFixture:(NSString *)fixture {
+	NSString *path = [[NSBundle bundleForClass:self.class] pathForResource:fixture ofType:@"json"];
+	NSError *error = nil;
+    NSData *data = [NSData dataWithContentsOfFile:path];
+	return [NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+}
+
 - (void)testReadState {
 	STAssertFalse(self.event.read, @"Event was initialized as read");
 }
@@ -68,6 +77,18 @@
 	STAssertEqualObjects(@"PullRequestClosedEvent", self.event.extendedEventType, @"PullRequestEvent event type was not extended correctly");
 	[self.event setValues:@{@"type": @"PullRequestEvent", @"payload": @{ @"action": @"open" }}];
 	STAssertEqualObjects(@"PullRequestOpenedEvent", self.event.extendedEventType, @"PullRequestEvent event type was not extended correctly");
+}
+
+- (void)testIssueCommentEventWithoutPullRequest {
+	NSDictionary *dict = [self jsonFixture:@"IssueCommentEventWithoutPullRequest"];
+	[self.event setValues:dict];
+	STAssertNil(self.event.pullRequest, @"Pull Request was set on an IssueCommentEvent without a pull request");
+}
+
+- (void)testIssueCommentEventWithPullRequest {
+	NSDictionary *dict = [self jsonFixture:@"IssueCommentEventWithPullRequest"];
+	[self.event setValues:dict];
+	STAssertNotNil(self.event.pullRequest, @"Pull Request was not set on an IssueCommentEvent with a pull request");
 }
 
 @end

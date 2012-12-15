@@ -110,7 +110,7 @@
 
 	// Issue
 	NSInteger issueNumber = [self.payload safeIntegerForKeyPath:@"issue.number"];
-	if (issueNumber > 0) {
+	if (issueNumber) {
 		self.issue = [[GHIssue alloc] initWithRepository:self.repository];
 		self.issue.num = issueNumber;
 		[self.issue setValues:self.payload[@"issue"]];
@@ -120,8 +120,11 @@
 	NSDictionary *pullPayload = [self.payload safeDictForKey:@"pull_request"];
 	if (!pullPayload) pullPayload = [self.payload safeDictForKeyPath:@"issue.pull_request"];
 	// this check is somehow hacky, but the API provides empty pull_request
-	// urls in case there is no pull request associated with an issue
-	if (pullPayload && ![pullPayload safeURLForKey:@"html_url"]) {
+	// urls in case there is no pull request associated with an issue.
+	// an IssueCommentEvent with an associated pull request has the urls
+	// set, but it does not contain the pull request number in the payload
+	// for issue.pull_request, so we have to use the issue number then
+	if (pullPayload && [pullPayload safeURLForKey:@"html_url"]) {
 		NSInteger pullNumber = [pullPayload safeIntegerForKey:@"number"];
 		if (!pullNumber) pullNumber = self.issue.num;
 		self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];

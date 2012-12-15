@@ -101,6 +101,12 @@
 		6F4CBD3416431D7600D587FB /* OrganizationRepositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */; };
 		6F4CBD3A164328FD00D587FB /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD39164328FD00D587FB /* LoadingCell.xib */; };
 		6F4CBD3C16432A9E00D587FB /* EmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */; };
+		6F4EB362167D22A4001C1DEA /* FollowEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB35A167D22A4001C1DEA /* FollowEvent.json */; };
+		6F4EB363167D22A4001C1DEA /* ForkEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB35B167D22A4001C1DEA /* ForkEvent.json */; };
+		6F4EB364167D22A4001C1DEA /* IssuesEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB35E167D22A4001C1DEA /* IssuesEvent.json */; };
+		6F4EB365167D22A4001C1DEA /* PullRequestEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB35F167D22A4001C1DEA /* PullRequestEvent.json */; };
+		6F4EB366167D22A4001C1DEA /* PushEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB360167D22A4001C1DEA /* PushEvent.json */; };
+		6F4EB367167D22A4001C1DEA /* WatchEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB361167D22A4001C1DEA /* WatchEvent.json */; };
 		6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
 		6F536BBB1679175500B5FD53 /* PullRequest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBA1679175500B5FD53 /* PullRequest.xib */; };
 		6F536BC116791F5000B5FD53 /* pull_request_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBD16791F5000B5FD53 /* pull_request_closed.png */; };
@@ -975,6 +981,14 @@
 		6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OrganizationRepositories.xib; path = IBFiles/OrganizationRepositories.xib; sourceTree = "<group>"; };
 		6F4CBD39164328FD00D587FB /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoadingCell.xib; path = IBFiles/LoadingCell.xib; sourceTree = "<group>"; };
 		6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EmptyCell.xib; path = IBFiles/EmptyCell.xib; sourceTree = "<group>"; };
+		6F4EB35A167D22A4001C1DEA /* FollowEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = FollowEvent.json; sourceTree = "<group>"; };
+		6F4EB35B167D22A4001C1DEA /* ForkEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = ForkEvent.json; sourceTree = "<group>"; };
+		6F4EB35C167D22A4001C1DEA /* IssueCommentEventWithoutPullRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = IssueCommentEventWithoutPullRequest.json; sourceTree = "<group>"; };
+		6F4EB35D167D22A4001C1DEA /* IssueCommentEventWithPullRequest.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = IssueCommentEventWithPullRequest.json; sourceTree = "<group>"; };
+		6F4EB35E167D22A4001C1DEA /* IssuesEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = IssuesEvent.json; sourceTree = "<group>"; };
+		6F4EB35F167D22A4001C1DEA /* PullRequestEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PullRequestEvent.json; sourceTree = "<group>"; };
+		6F4EB360167D22A4001C1DEA /* PushEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = PushEvent.json; sourceTree = "<group>"; };
+		6F4EB361167D22A4001C1DEA /* WatchEvent.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WatchEvent.json; sourceTree = "<group>"; };
 		6F536BB616790B8A00B5FD53 /* PullRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRequestController.m; sourceTree = "<group>"; };
 		6F536BB916790B9300B5FD53 /* PullRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRequestController.h; sourceTree = "<group>"; };
 		6F536BBA1679175500B5FD53 /* PullRequest.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PullRequest.xib; path = IBFiles/PullRequest.xib; sourceTree = "<group>"; };
@@ -1655,6 +1669,7 @@
 		6F48DB61166C03F900F8FF16 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				6F4EB354167D1B76001C1DEA /* Fixtures */,
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
 				6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */,
 				6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */,
@@ -1672,6 +1687,21 @@
 				6F48DB6A166C03F900F8FF16 /* iOctocatUnitTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6F4EB354167D1B76001C1DEA /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				6F4EB35A167D22A4001C1DEA /* FollowEvent.json */,
+				6F4EB35B167D22A4001C1DEA /* ForkEvent.json */,
+				6F4EB35C167D22A4001C1DEA /* IssueCommentEventWithoutPullRequest.json */,
+				6F4EB35D167D22A4001C1DEA /* IssueCommentEventWithPullRequest.json */,
+				6F4EB35E167D22A4001C1DEA /* IssuesEvent.json */,
+				6F4EB35F167D22A4001C1DEA /* PullRequestEvent.json */,
+				6F4EB360167D22A4001C1DEA /* PushEvent.json */,
+				6F4EB361167D22A4001C1DEA /* WatchEvent.json */,
+			);
+			path = Fixtures;
 			sourceTree = "<group>";
 		};
 		6F5E9A971119A96000752560 /* Extensions */ = {
@@ -2556,6 +2586,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F4EB362167D22A4001C1DEA /* FollowEvent.json in Resources */,
+				6F4EB363167D22A4001C1DEA /* ForkEvent.json in Resources */,
+				6F4EB364167D22A4001C1DEA /* IssuesEvent.json in Resources */,
+				6F4EB365167D22A4001C1DEA /* PullRequestEvent.json in Resources */,
+				6F4EB366167D22A4001C1DEA /* PushEvent.json in Resources */,
+				6F4EB367167D22A4001C1DEA /* WatchEvent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

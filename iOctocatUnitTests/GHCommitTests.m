@@ -22,7 +22,7 @@
 }
 
 - (void)testFiles {
-	NSDictionary *dict = [IOCTestHelper jsonFixture:@"LargeCommit"];
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"Commit-Large"];
 	[self.commit setValues:dict];
 	STAssertTrue(16 == self.commit.added.count, @"Added files count is incorrect");
 	STAssertTrue(3 == self.commit.removed.count, @"Removed files count is incorrect");

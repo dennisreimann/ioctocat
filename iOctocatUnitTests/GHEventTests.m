@@ -72,13 +72,13 @@
 }
 
 - (void)testIssueCommentEventWithoutPullRequest {
-	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEventWithoutPullRequest"];
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithoutPullRequest"];
 	[self.event setValues:dict];
 	STAssertNil(self.event.pullRequest, @"Pull Request was set on an IssueCommentEvent without a pull request");
 }
 
 - (void)testIssueCommentEventWithPullRequest {
-	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEventWithPullRequest"];
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithPullRequest"];
 	[self.event setValues:dict];
 	STAssertNotNil(self.event.pullRequest, @"Pull Request was not set on an IssueCommentEvent with a pull request");
 }

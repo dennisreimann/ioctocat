@@ -34,53 +34,57 @@
 }
 
 - (void)testReadState {
-	STAssertFalse(self.event.read, @"Event was initialized as read");
+	expect(self.event.read).to.beFalsy();
 }
 
 - (void)testDate {
-	STAssertTrue([self.event.date isKindOfClass:NSDate.class], @"Date is not a NSDate instance");
+	expect(self.event.date).to.beKindOf(NSDate.class);
 }
 
 - (void)testUser {
-	STAssertEqualObjects(@"testuser", self.event.user.login, @"User login is not correct");
-	STAssertEqualObjects([NSURL URLWithString:@"https://gravatar.com/theuserurl"], self.event.user.gravatarURL, @"User gravatar URL is not correct");
+	expect(self.event.user.login).to.equal(@"testuser");
+	expect(self.event.user.gravatarURL).to.equal([NSURL URLWithString:@"https://gravatar.com/theuserurl"]);
 }
 
 - (void)testOrganization {
-	STAssertEqualObjects(@"testorg", self.event.organization.login, @"Organization login is not correct");
-	STAssertEqualObjects([NSURL URLWithString:@"https://gravatar.com/theorgurl"], self.event.organization.gravatarURL, @"Organization gravatar URL is not correct");
+	expect(self.event.organization.login).to.equal(@"testorg");
+	expect(self.event.organization.gravatarURL).to.equal([NSURL URLWithString:@"https://gravatar.com/theorgurl"]);
 }
 
 - (void)testIsCommentEvent {
 	[self.event setValues:@{@"type": @"IssuesCommentEvent"}];
-	STAssertTrue(self.event.isCommentEvent, @"IssuesCommentEvent is not flagged as comment event");
+	expect(self.event.isCommentEvent).to.beTruthy();
 	[self.event setValues:@{@"type": @"IssuesEvent"}];
-	STAssertFalse(self.event.isCommentEvent, @"IssuesEvent is flagged as comment event");
+	expect(self.event.isCommentEvent).to.beFalsy();
 }
 
 - (void)testExtendedEventType {
 	[self.event setValues:@{@"type": @"IssuesEvent", @"payload": @{ @"action": @"closed" }}];
-	STAssertEqualObjects(@"IssuesClosedEvent", self.event.extendedEventType, @"IssuesEvent event type was not extended correctly");
+	expect(self.event.extendedEventType).to.equal(@"IssuesClosedEvent");
+	
 	[self.event setValues:@{@"type": @"IssuesEvent", @"payload": @{ @"action": @"open" }}];
-	STAssertEqualObjects(@"IssuesOpenedEvent", self.event.extendedEventType, @"IssuesEvent event type was not extended correctly");
+	expect(self.event.extendedEventType).to.equal(@"IssuesOpenedEvent");
+	
 	[self.event setValues:@{@"type": @"PullRequestEvent", @"payload": @{ @"action": @"synchronize" }}];
-	STAssertEqualObjects(@"PullRequestSynchronizeEvent", self.event.extendedEventType, @"PullRequestEvent event type was not extended correctly");
+	expect(self.event.extendedEventType).to.equal(@"PullRequestSynchronizeEvent");
+	
 	[self.event setValues:@{@"type": @"PullRequestEvent", @"payload": @{ @"action": @"closed" }}];
-	STAssertEqualObjects(@"PullRequestClosedEvent", self.event.extendedEventType, @"PullRequestEvent event type was not extended correctly");
+	expect(self.event.extendedEventType).to.equal(@"PullRequestClosedEvent");
+	
 	[self.event setValues:@{@"type": @"PullRequestEvent", @"payload": @{ @"action": @"open" }}];
-	STAssertEqualObjects(@"PullRequestOpenedEvent", self.event.extendedEventType, @"PullRequestEvent event type was not extended correctly");
+	expect(self.event.extendedEventType).to.equal(@"PullRequestOpenedEvent");
 }
 
 - (void)testIssueCommentEventWithoutPullRequest {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithoutPullRequest"];
 	[self.event setValues:dict];
-	STAssertNil(self.event.pullRequest, @"Pull Request was set on an IssueCommentEvent without a pull request");
+	expect(self.event.pullRequest).to.beNil();
 }
 
 - (void)testIssueCommentEventWithPullRequest {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithPullRequest"];
 	[self.event setValues:dict];
-	STAssertNotNil(self.event.pullRequest, @"Pull Request was not set on an IssueCommentEvent with a pull request");
+	expect(self.event.pullRequest).notTo.beNil();
 }
 
 @end

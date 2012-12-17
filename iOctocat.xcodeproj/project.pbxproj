@@ -2903,7 +2903,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+			shellScript = "# Run the unit tests in this test bundle.\n#\n# Original command:\n# \"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n#\n# Now we use this to make it work fro the command line too:\n${SRCROOT}/TestScripts/run_tests_with_ios-sim.rb";
+			showEnvVarsInLog = 0;
 		};
 		6FCAA492167B52C800C816FA /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2932,6 +2933,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		D6C7426A837F4D259E51EF69 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

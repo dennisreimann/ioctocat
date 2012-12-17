@@ -48,6 +48,18 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
   * Move to where the error occurs
   * Copy the output in the console and attach it to your bug report
 
+## Running the tests
+
+To run the (sparse) test suite, you can build/test the iOctocat Unit Tests scheme.
+
+To make the tests run from the command line you have to install ios-sim:
+
+    brew install ios-sim
+
+Use this command to run the tests from the iOctocat directory:
+
+    TestScripts/run_tests_from_cli.rb
+
 ## Attribution
 
 iOctocat uses some third party components and libraries:

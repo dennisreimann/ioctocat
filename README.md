@@ -60,6 +60,15 @@ Use this command to run the tests from the iOctocat directory:
 
     TestScripts/run_tests_from_cli.rb
 
+To run the tests on every file change, you can install Guard and its accompanying
+ruby gems via Bundler:
+
+    bundle install
+
+After that you can start guard with this command:
+
+    bundle exec guard
+
 ## Attribution
 
 iOctocat uses some third party components and libraries:

@@ -2,7 +2,7 @@
 #import "IOCAvatarLoader.h"
 #import "NSURL+Extensions.h"
 
-#define kAvatarMaxLogicalSize 64
+#define kAvatarMaxLogicalSize 44
 
 
 @interface IOCAvatarLoader ()
@@ -29,9 +29,7 @@
 }
 
 - (NSInteger)gravatarSize {
-	UIScreen *mainScreen = [UIScreen mainScreen];
-	CGFloat deviceScale = ([mainScreen respondsToSelector:@selector(scale)]) ? [mainScreen scale] : 1.0;
-	return kAvatarMaxLogicalSize * MAX(deviceScale, 1.0);
+	return kAvatarMaxLogicalSize * MAX([UIScreen mainScreen].scale, 1.0);
 }
 
 - (void)loadURL:(NSURL *)url {

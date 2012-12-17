@@ -7,6 +7,7 @@
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+#import "SVProgressHUD.h"
 
 
 @interface AccountFormController () <UITextFieldDelegate>
@@ -75,6 +76,7 @@
 		NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:oauthParams];
 		void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
 			D3JLog(@"OAuth request finished: %@", json);
+			[SVProgressHUD showSuccessWithStatus:@"Authenticated"];
 			NSString *authId = [json valueForKey:@"id"];
 			NSString *token = [json valueForKey:@"token"];
 			[self.account setValue:login forKey:kLoginDefaultsKey];
@@ -93,6 +95,7 @@
 		};
 		void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 			D3JLog(@"OAuth request failed: %@", error);
+			[SVProgressHUD dismiss];
 			[iOctocat reportError:@"Authentication failed" with:@"Please verify your login and password"];
 			// remove existing authId if it could not be found.
 			// this occurs when the user revoked the apps access.
@@ -101,6 +104,7 @@
 			}
 		};
 		D3JLog(@"OAuth request: %@ %@", method, path);
+		[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
 		AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 																							success:onSuccess
 																							failure:onFailure];

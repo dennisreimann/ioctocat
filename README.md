@@ -78,5 +78,6 @@ iOctocat uses some third party components and libraries:
   * [YRDropdownView](https://github.com/onemightyroar/YRDropdownView) by One Mighty Roar
   * [ECSlidingViewController](https://github.com/edgecase/ECSlidingViewController) by EdgeCase
   * [SVPullToRefresh](https://github.com/samvermette/SVPullToRefresh) by Sam Vermette
+  * [SVProgressHUD](https://github.com/samvermette/SVProgressHUD) by Sam Vermette
   * [Glyphish Pro](http://glyphish.com/) icons
   * [highlight.js](http://highlightjs.org/) by Ivan Sagalaev

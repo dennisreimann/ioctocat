@@ -2,14 +2,15 @@
 #import "GHIssue.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface IssueObjectFormController () <UITextFieldDelegate>
 @property(nonatomic,readonly)GHIssue *object;
 @property(nonatomic,strong)id issueObject;
+@property(nonatomic,strong)NSString *issueObjectType;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
-@property(nonatomic,weak)IBOutlet UIActivityIndicatorView *activityView;
 @property(nonatomic,weak)IBOutlet UIButton *saveButton;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet UITableViewCell *titleCell;
@@ -22,9 +23,10 @@
 @implementation IssueObjectFormController
 
 - (id)initWithIssueObject:(id)object {
-	self = [super initWithNibName:@"IssueForm" bundle:nil];
+	self = [super initWithNibName:@"IssueObjectForm" bundle:nil];
 	if (self) {
 		self.issueObject = object;
+		self.issueObjectType = [self.issueObject isKindOfClass:GHIssue.class] ? @"issue" : @"pull request";
 		[self.object addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -32,7 +34,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"%@ Issue", self.object.isNew ? @"New" : @"Edit"];
+	self.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
 	self.tableView.tableFooterView = self.tableFooterView;
 	if (!self.object.isNew) {
 		self.titleField.text = self.object.title;
@@ -51,13 +53,13 @@
 - (IBAction)saveIssue:(id)sender {
 	self.object.title = self.titleField.text;
 	self.object.body = self.bodyField.text;
-
-	// Validate
+	// validate
 	if ([self.object.title isEmpty] || [self.object.body isEmpty] ) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a title and a text"];
 	} else {
 		self.saveButton.enabled = NO;
-		[self.activityView startAnimating];
+		NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
+		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 		[self.object saveData];
 	}
 }
@@ -66,14 +68,15 @@
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (self.object.isSaving) return;
 		if (self.object.isSaved) {
-			[iOctocat reportSuccess:@"Issue saved"];
+			NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
+			[SVProgressHUD showSuccessWithStatus:status];
 			[self.object needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (self.object.error) {
-			[iOctocat reportError:@"Request error" with:@"Could not save the issue"];
+			NSString *status = [NSString stringWithFormat:@"Could not save the %@…", self.issueObjectType];
+			[SVProgressHUD showErrorWithStatus:status];
 		}
 		self.saveButton.enabled = YES;
-		[self.activityView stopAnimating];
 	}
 }
 

@@ -22,7 +22,7 @@
 		6F0879AF1623772300CE95D0 /* GHGistComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AD1623772300CE95D0 /* GHGistComments.m */; };
 		6F0AEFB7100CAAE500FB323E /* Forks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFB6100CAAE500FB323E /* Forks.xib */; };
 		6F0AEFBE100CF5DB00FB323E /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
-		6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueForm.xib */; };
+		6F0AEFC1100CF61500FB323E /* IssueObjectForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */; };
 		6F0B11211670A2BD00375136 /* Menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F0B11201670A2BD00375136 /* Menu.plist */; };
 		6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
 		6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
@@ -440,7 +440,7 @@
 		6FCAA338167B52C800C816FA /* Events.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCDC66B0FC04F180024E498 /* Events.xib */; };
 		6FCAA339167B52C800C816FA /* Repositories.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F59BC930FC6C51800412597 /* Repositories.xib */; };
 		6FCAA33A167B52C800C816FA /* Forks.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFB6100CAAE500FB323E /* Forks.xib */; };
-		6FCAA33B167B52C800C816FA /* IssueForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueForm.xib */; };
+		6FCAA33B167B52C800C816FA /* IssueObjectForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */; };
 		6FCAA33C167B52C800C816FA /* Commit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F797C7D1110E842007E5A8D /* Commit.xib */; };
 		6FCAA33D167B52C800C816FA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6FCAA33E167B52C800C816FA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
@@ -888,7 +888,7 @@
 		6F0AEFB6100CAAE500FB323E /* Forks.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Forks.xib; path = IBFiles/Forks.xib; sourceTree = "<group>"; };
 		6F0AEFBB100CF5DB00FB323E /* IssueObjectFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueObjectFormController.h; sourceTree = "<group>"; };
 		6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueObjectFormController.m; sourceTree = "<group>"; };
-		6F0AEFC0100CF61500FB323E /* IssueForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueForm.xib; path = IBFiles/IssueForm.xib; sourceTree = "<group>"; };
+		6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueObjectForm.xib; path = IBFiles/IssueObjectForm.xib; sourceTree = "<group>"; };
 		6F0B11201670A2BD00375136 /* Menu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Menu.plist; sourceTree = "<group>"; };
 		6F0BEB3E11108C9E00E95E5A /* GHBranches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBranches.h; sourceTree = "<group>"; };
 		6F0BEB3F11108C9E00E95E5A /* GHBranches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHBranches.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1974,7 +1974,7 @@
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
 				6FED82990FACA2F000BE5C81 /* PullRequests.xib */,
 				6F536BBA1679175500B5FD53 /* PullRequest.xib */,
-				6F0AEFC0100CF61500FB323E /* IssueForm.xib */,
+				6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */,
 				6FC0D42B11581A5200511B7F /* Comment.xib */,
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
@@ -2358,7 +2358,7 @@
 				6FCDC66C0FC04F180024E498 /* Events.xib in Resources */,
 				6F59BC950FC6C51800412597 /* Repositories.xib in Resources */,
 				6F0AEFB7100CAAE500FB323E /* Forks.xib in Resources */,
-				6F0AEFC1100CF61500FB323E /* IssueForm.xib in Resources */,
+				6F0AEFC1100CF61500FB323E /* IssueObjectForm.xib in Resources */,
 				6F797C7E1110E842007E5A8D /* Commit.xib in Resources */,
 				6F2C76EC1114EDEF002665DA /* file_added.png in Resources */,
 				6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */,
@@ -2650,7 +2650,7 @@
 				6FCAA338167B52C800C816FA /* Events.xib in Resources */,
 				6FCAA339167B52C800C816FA /* Repositories.xib in Resources */,
 				6FCAA33A167B52C800C816FA /* Forks.xib in Resources */,
-				6FCAA33B167B52C800C816FA /* IssueForm.xib in Resources */,
+				6FCAA33B167B52C800C816FA /* IssueObjectForm.xib in Resources */,
 				6FCAA33C167B52C800C816FA /* Commit.xib in Resources */,
 				6FCAA33D167B52C800C816FA /* file_added.png in Resources */,
 				6FCAA33E167B52C800C816FA /* file_modified.png in Resources */,

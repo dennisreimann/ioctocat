@@ -37,10 +37,6 @@
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 
-- (void)displayPullRequest;
-- (void)displayComments;
-- (GHUser *)currentUser;
-- (BOOL)pullRequestBelongsToCurrentUser;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;
 @end
@@ -132,8 +128,10 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-- (BOOL)pullRequestBelongsToCurrentUser {
-	return self.currentUser && [self.pullRequest.user.login isEqualToString:self.currentUser.login];
+- (BOOL)pullRequestEditableByCurrentUser {
+	return self.currentUser && (
+		[self.pullRequest.user.login isEqualToString:self.currentUser.login] ||
+		[self.pullRequest.repository.owner isEqualToString:self.currentUser.login]);
 }
 
 #pragma mark Actions
@@ -158,7 +156,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet;
-	if (self.pullRequestBelongsToCurrentUser) {
+	if (self.pullRequestEditableByCurrentUser) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 												  delegate:self
 										 cancelButtonTitle:@"Cancel"
@@ -181,12 +179,12 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0 && self.pullRequestBelongsToCurrentUser) {
+	if (buttonIndex == 0 && self.pullRequestEditableByCurrentUser) {
 		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
 		[self.navigationController pushViewController:formController animated:YES];
-	} else if ((buttonIndex == 1 && self.pullRequestBelongsToCurrentUser) || (buttonIndex == 0 && !self.pullRequestBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 1 && self.pullRequestEditableByCurrentUser) || (buttonIndex == 0 && !self.pullRequestEditableByCurrentUser)) {
 		[self addComment:nil];
-	} else if ((buttonIndex == 2 && self.pullRequestBelongsToCurrentUser) || (buttonIndex == 1 && !self.pullRequestBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 2 && self.pullRequestEditableByCurrentUser) || (buttonIndex == 1 && !self.pullRequestEditableByCurrentUser)) {
 		WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}

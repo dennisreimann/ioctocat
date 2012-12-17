@@ -37,10 +37,6 @@
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 
-- (void)displayIssue;
-- (void)displayComments;
-- (GHUser *)currentUser;
-- (BOOL)issueBelongsToCurrentUser;
 - (IBAction)showActions:(id)sender;
 - (IBAction)addComment:(id)sender;
 @end
@@ -132,8 +128,10 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-- (BOOL)issueBelongsToCurrentUser {
-	return self.currentUser && [self.issue.user.login isEqualToString:self.currentUser.login];
+- (BOOL)issueEditableByCurrentUser {
+	return self.currentUser &&  (
+		[self.issue.user.login isEqualToString:self.currentUser.login] ||
+		[self.issue.repository.owner isEqualToString:self.currentUser.login]);
 }
 
 #pragma mark Actions
@@ -158,7 +156,7 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet;
-	if (self.issueBelongsToCurrentUser) {
+	if (self.issueEditableByCurrentUser) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 												  delegate:self
 										 cancelButtonTitle:@"Cancel"
@@ -181,14 +179,14 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0 && self.issueBelongsToCurrentUser) {
+	if (buttonIndex == 0 && self.issueEditableByCurrentUser) {
 		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
 		[self.navigationController pushViewController:formController animated:YES];
-	} else if ((buttonIndex == 1 && self.issueBelongsToCurrentUser) || (buttonIndex == 0 && !self.issueBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 1 && self.issueEditableByCurrentUser) || (buttonIndex == 0 && !self.issueEditableByCurrentUser)) {
 		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
-	} else if ((buttonIndex == 2 && self.issueBelongsToCurrentUser) || (buttonIndex == 1 && !self.issueBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 2 && self.issueEditableByCurrentUser) || (buttonIndex == 1 && !self.issueEditableByCurrentUser)) {
 		[self addComment:nil];
-	} else if ((buttonIndex == 3 && self.issueBelongsToCurrentUser) || (buttonIndex == 2 && !self.issueBelongsToCurrentUser)) {
+	} else if ((buttonIndex == 3 && self.issueEditableByCurrentUser) || (buttonIndex == 2 && !self.issueEditableByCurrentUser)) {
 		WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}

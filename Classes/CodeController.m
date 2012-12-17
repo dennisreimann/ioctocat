@@ -61,6 +61,7 @@
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
+	if (!theme) theme = @"github";
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];

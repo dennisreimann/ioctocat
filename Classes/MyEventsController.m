@@ -28,8 +28,6 @@
 @property(nonatomic,weak,readonly)GHEvents *events;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 
-- (NSDate *)lastReadingDateForPath:(NSString *)path;
-- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)path;
 - (IBAction)switchChanged:(id)sender;
 @end
 
@@ -48,7 +46,7 @@
 		self.feeds = @[receivedEvents, ownEvents];
 		for (GHEvents *feed in self.feeds) {
 			[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-			feed.lastReadingDate = [self lastReadingDateForPath:feed.resourcePath];
+			feed.lastUpdate = [self lastUpdateForPath:feed.resourcePath];
 		}
 	}
 	return self;
@@ -65,7 +63,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[self updateRefreshDate];
+	[self refreshLastUpdate];
 	[self refreshEventsIfRequired];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(applicationDidBecomeActive)
@@ -92,7 +90,7 @@
 
 - (void)refreshEventsIfRequired {
 	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if (!self.events.isLoaded || [self.events.lastReadingDate compare:lastActivatedDate] == NSOrderedAscending) {
+	if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
 		// the feed was loaded before this application became active again, refresh it
 		[self.tableView triggerPullToRefresh];
 	}
@@ -101,7 +99,7 @@
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-	[self updateRefreshDate];
+	[self refreshLastUpdate];
 	self.selectedIndexPath = nil;
 	[self.tableView reloadData];
 	[self refreshEventsIfRequired];
@@ -115,8 +113,8 @@
 		} else if (feed.isLoaded) {
 			[self.tableView reloadData];
 			self.loadCounter -= 1;
-			[self updateRefreshDate];
-			[self setLastReadingDate:feed.lastReadingDate forPath:feed.resourcePath];
+			[self refreshLastUpdate];
+			[self setLastUpate:feed.lastUpdate forPath:feed.resourcePath];
 			[self.tableView.pullToRefreshView stopAnimating];
 		} else if (feed.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
@@ -133,14 +131,14 @@
 
 #pragma mark Persistent State
 
-- (NSDate *)lastReadingDateForPath:(NSString *)path {
+- (NSDate *)lastUpdateForPath:(NSString *)path {
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
 	NSDate *date = [userDefaults objectForKey:key];
 	return date;
 }
 
-- (void)setLastReadingDate:(NSDate *)date forPath:(NSString *)path {
+- (void)setLastUpate:(NSDate *)date forPath:(NSString *)path {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
 	[defaults setValue:date forKey:key];

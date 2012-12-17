@@ -14,10 +14,12 @@
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
 		GHEvent *event = [[GHEvent alloc] initWithDict:dict];
-		if ([event.date compare:self.lastReadingDate] != NSOrderedDescending) event.read = YES;
+		if ([event.date compare:self.lastUpdate] != NSOrderedDescending) {
+			event.read = YES;
+		}
 		[self addObject:event];
 	}
-	self.lastReadingDate = [NSDate date];
+	self.lastUpdate = [NSDate date];
 }
 
 @end

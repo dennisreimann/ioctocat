@@ -64,8 +64,7 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (self.events.isLoaded) {
-			self.events.lastReadingDate = [NSDate date];
-			[self updateRefreshDate];
+			[self refreshLastUpdate];
 			[self.tableView.pullToRefreshView stopAnimating];
 			[self.tableView reloadData];
 		} else if (self.events.error) {
@@ -75,8 +74,8 @@
 	}
 }
 
-- (void)updateRefreshDate {
-	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastReadingDate prettyDate]];
+- (void)refreshLastUpdate {
+	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastUpdate prettyDate]];
 	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 }
 
@@ -185,6 +184,8 @@
 	[loadingView.layer addAnimation:scale forKey:nil];
 	
 	[self.tableView addPullToRefreshWithActionHandler:^{
+		self.selectedCell = nil;
+		self.selectedIndexPath = nil;
 		[self.events loadData];
 	}];
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];

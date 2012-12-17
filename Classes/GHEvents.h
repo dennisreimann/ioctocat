@@ -5,7 +5,7 @@
 @class GHRepository;
 
 @interface GHEvents : GHCollection
-@property(nonatomic,strong)NSDate *lastReadingDate;
+@property(nonatomic,strong)NSDate *lastUpdate;
 
 - (id)initWithRepository:(GHRepository *)repo;
 @end

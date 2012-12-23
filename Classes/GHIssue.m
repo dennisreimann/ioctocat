@@ -15,6 +15,7 @@
 	if (self) {
 		self.repository = repo;
 		self.comments = [[GHIssueComments alloc] initWithParent:self];
+		self.state = kIssueStateOpen;
 	}
 	return self;
 }

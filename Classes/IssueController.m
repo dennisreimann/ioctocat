@@ -7,6 +7,7 @@
 #import "IssuesController.h"
 #import "IssueObjectFormController.h"
 #import "UserController.h"
+#import "RepositoryController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
@@ -31,6 +32,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
@@ -142,6 +144,7 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.issue.title;
 	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
+	[self.repoCell setContentText:self.issue.repository.repoId];
 	[self.authorCell setContentText:self.issue.user.login];
 	[self.createdCell setContentText:[self.issue.created prettyDate]];
 	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
@@ -201,7 +204,7 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.issue.error) return 0;
 	if (!self.issue.isLoaded) return 1;
-	if (section == 0) return [self.issue.body isEmpty] ? 3 : 4;
+	if (section == 0) return [self.issue.body isEmpty] ? 4 : 5;
 	if (!self.issue.comments.isLoaded) return 1;
 	if (self.issue.comments.isEmpty) return 1;
 	return self.issue.comments.count;
@@ -212,11 +215,14 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && !self.issue.isLoaded) return self.loadingCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return self.authorCell;
-	if (indexPath.section == 0 && indexPath.row == 1) return self.createdCell;
-	if (indexPath.section == 0 && indexPath.row == 2) return self.updatedCell;
-	if (indexPath.section == 0 && indexPath.row == 3) return self.descriptionCell;
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	if (section == 0 && !self.issue.isLoaded) return self.loadingCell;
+	if (section == 0 && row == 0) return self.repoCell;
+	if (section == 0 && row == 1) return self.authorCell;
+	if (section == 0 && row == 2) return self.createdCell;
+	if (section == 0 && row == 3) return self.updatedCell;
+	if (section == 0 && row == 4) return self.descriptionCell;
 	if (!self.issue.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.issue.comments.isEmpty) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
@@ -224,13 +230,13 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHComment *comment = (self.issue.comments)[indexPath.row];
+	GHComment *comment = self.issue.comments[row];
 	cell.comment = comment;
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 3) return [self.descriptionCell heightForTableView:tableView];
+	if (indexPath.section == 0 && indexPath.row == 4) return [self.descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && self.issue.comments.isLoaded && !self.issue.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
@@ -239,9 +245,14 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 0 && self.issue.user) {
-		UserController *userController = [[UserController alloc] initWithUser:self.issue.user];
-		[self.navigationController pushViewController:userController animated:YES];
+	if (indexPath.section == 0) {
+		if (indexPath.row == 0 && self.issue.repository) {
+			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.issue.repository];
+			[self.navigationController pushViewController:repoController animated:YES];
+		} else if (indexPath.row == 1 && self.issue.user) {
+			UserController *userController = [[UserController alloc] initWithUser:self.issue.user];
+			[self.navigationController pushViewController:userController animated:YES];
+		}
 	}
 }
 

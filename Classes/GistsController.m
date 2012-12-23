@@ -22,6 +22,7 @@
 - (id)initWithGists:(GHGists *)gists {
 	self = [super initWithNibName:@"Gists" bundle:nil];
 	if (self) {
+		self.title = @"Gists";
 		self.gists = gists;
 		[self.gists addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}

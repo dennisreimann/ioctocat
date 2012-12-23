@@ -231,10 +231,8 @@
 		viewController = [[ForksController alloc] initWithRepository:self.repository];
 	} else if (section == 1 && row == 1) {
 		viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
-		viewController.title = @"Pull Requests";
 	} else if (section == 1 && row == 2) {
 		viewController = [[IssuesController alloc] initWithRepository:self.repository];
-		viewController.title = @"Issues";
 	} else if (section == 1 && row == 3) {
 		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 		viewController.title = self.repository.name;

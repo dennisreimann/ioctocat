@@ -35,15 +35,17 @@
 
 - (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"Issues" bundle:nil];
-	self.title = @"My Issues";
-	self.user = user;
-	NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
-	NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
-	GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
-	GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
-	self.objects = @[openIssues, closedIssues];
-	for (GHIssues *issues in self.objects) {
-		[issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (self) {
+		self.title = @"Issues";
+		self.user = user;
+		NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
+		NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
+		GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
+		GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
+		self.objects = @[openIssues, closedIssues];
+		for (GHIssues *issues in self.objects) {
+			[issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		}
 	}
 	return self;
 }

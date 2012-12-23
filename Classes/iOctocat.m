@@ -37,7 +37,7 @@
 
 #pragma mark Application Events
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[self setupHockeySDK];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	self.users = [NSMutableDictionary dictionary];
@@ -46,6 +46,7 @@
 	self.slidingViewController.underLeftViewController = self.menuNavController;
 	[self.window addGestureRecognizer:self.slidingViewController.panGesture];
 	[self.window makeKeyAndVisible];
+	return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -79,6 +80,18 @@
 		MenuController *menuController = [[MenuController alloc] initWithUser:self.currentAccount.user];
 		[self.menuNavController popToRootViewControllerAnimated:NO];
 		[self.menuNavController pushViewController:menuController animated:YES];
+	}
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+	BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
+	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
+	if (isMenuVisible && isGitHubLink) {
+		MenuController *menuController = (MenuController *)self.menuNavController.topViewController;
+		[menuController openViewControllerForGitHubURL:url];
+		return YES;
+	} else {
+		return NO;
 	}
 }
 

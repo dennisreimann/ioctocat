@@ -1,14 +1,22 @@
 #import "MenuController.h"
 #import "MyEventsController.h"
 #import "UserController.h"
+#import "RepositoryController.h"
 #import "RepositoriesController.h"
 #import "OrganizationsController.h"
 #import "OrganizationRepositoriesController.h"
+#import "IssueController.h"
 #import "IssuesController.h"
+#import "PullRequestController.h"
+#import "PullRequestsController.h"
+#import "GistController.h"
 #import "GistsController.h"
 #import "SearchController.h"
 #import "GHUser.h"
+#import "GHGist.h"
+#import "GHIssue.h"
 #import "GHIssues.h"
+#import "GHPullRequest.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHRepository.h"
@@ -49,6 +57,55 @@
 
 - (void)dealloc {
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+}
+
+- (void)openViewControllerForGitHubURL:(NSURL *)url {
+	UIViewController *viewController = nil;
+	DJLog(@"%@", url.pathComponents);
+	// the first pathComponent is always "/"
+	if ([url.host isEqualToString:@"gist.github.com"]) {
+		if (url.pathComponents.count == 1) {
+			// Gists
+			viewController = [[GistsController alloc] initWithGists:self.user.gists];
+		} else if (url.pathComponents.count == 2) {
+			// Gist
+			NSString *gistId = [url.pathComponents objectAtIndex:1];
+			GHGist *gist = [[GHGist alloc] initWithId:gistId];
+			viewController = [[GistController alloc] initWithGist:gist];
+		}
+	} else if (url.pathComponents.count == 2) {
+		// User (or Organization)
+		NSString *login = [url.pathComponents objectAtIndex:1];
+		GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
+		viewController = [[UserController alloc] initWithUser:user];
+	} else if (url.pathComponents.count >= 3) {
+		// Repository
+		NSString *owner = [url.pathComponents objectAtIndex:1];
+		NSString *name = [url.pathComponents objectAtIndex:2];
+		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
+		if (url.pathComponents.count == 3) {
+			viewController = [[RepositoryController alloc] initWithRepository:repo];
+		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
+			// Issues
+			viewController = [[IssuesController alloc] initWithRepository:repo];
+		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
+			// Pull Requests
+			viewController = [[PullRequestsController alloc] initWithRepository:repo];
+		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
+			// Issue
+			GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
+			issue.num = [[url.pathComponents objectAtIndex:4] intValue];
+			viewController = [[IssueController alloc] initWithIssue:issue];
+		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
+			// Pull Request
+			GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
+			pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
+			viewController = [[PullRequestController alloc] initWithPullRequest:pullRequest];
+		}
+	}
+	if (viewController) {
+		[self openViewController:viewController fromOffScreen:YES];
+	}
 }
 
 - (void)openViewController:(UIViewController *)viewController fromOffScreen:(BOOL)fromOff {
@@ -206,7 +263,6 @@
 		case 3:
 			if (row == 0) {
 				viewController = [[GistsController alloc] initWithGists:self.user.gists];
-				viewController.title = @"Gists";
 			} else if (row == 1) {
 				viewController = [[GistsController alloc] initWithGists:self.user.starredGists];
 				viewController.title = @"Starred Gists";

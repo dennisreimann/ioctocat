@@ -27,6 +27,7 @@
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithNibName:@"PullRequests" bundle:nil];
 	if (self) {
+		self.title = @"Pull Requests";
 		self.repository = repo;
 		self.objects = @[self.repository.openPullRequests, self.repository.closedPullRequests];
 		for (id object in self.objects) {

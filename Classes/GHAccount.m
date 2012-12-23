@@ -21,6 +21,8 @@
 
 @implementation GHAccount
 
+static int userOrgsObservanceContext;
+
 - (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {
@@ -46,17 +48,17 @@
 		[self.user.organizations addObserver:self
 								  forKeyPath:kResourceLoadingStatusKeyPath
 									 options:NSKeyValueObservingOptionNew
-									 context:nil];
+									 context:&userOrgsObservanceContext];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath context:&userOrgsObservanceContext];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath] && object == self.user.organizations && self.user.organizations.isLoaded) {
+	if (context == &userOrgsObservanceContext && self.user.organizations.isLoaded) {
 		for (GHOrganization *org in self.user.organizations.items) {
 			org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.login, org.login];
 		}

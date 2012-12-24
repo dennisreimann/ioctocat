@@ -3,6 +3,7 @@
 #import "GHRepository.h"
 #import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
+#import "iOctocat.h"
 
 
 @interface GHSearch ()
@@ -45,10 +46,13 @@
 	for (NSDictionary *dict in objects) {
 		GHResource *resource = nil;
 		if (usersSearch) {
-			resource = [[GHUser alloc] initWithLogin:dict[@"login"]];
+			NSString *login = [dict safeStringForKey:@"login"];
+			resource = [[iOctocat sharedInstance] userWithLogin:login];
 			[resource setValues:dict];
 		} else {
-			resource = [[GHRepository alloc] initWithOwner:dict[@"owner"] andName:dict[@"name"]];
+			NSString *owner = [dict safeStringForKey:@"owner"];
+			NSString *name = [dict safeStringForKey:@"name"];
+			resource = [[GHRepository alloc] initWithOwner:owner andName:name];
 			[resource setValues:dict];
 		}
 		[self.results addObject:resource];

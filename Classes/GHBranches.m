@@ -1,7 +1,7 @@
 #import "GHBranches.h"
 #import "GHBranch.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHBranches
@@ -18,7 +18,7 @@
 - (void)setValues:(id)values {
     self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-        NSString *name = [dict valueForKey:@"name"];
+        NSString *name = [dict safeStringForKey:@"name"];
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:self.repository andName:name];
 		[branch setValues:dict];
 		if ([branch.name isEqualToString:self.repository.mainBranch]) {

@@ -2,6 +2,7 @@
 #import "GHOrganization.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHOrganizations
@@ -18,7 +19,8 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		GHOrganization *org = [[iOctocat sharedInstance] organizationWithLogin:dict[@"login"]];
+		NSString *login = [dict safeStringForKey:@"login"];
+		GHOrganization *org = [[iOctocat sharedInstance] organizationWithLogin:login];
 		[org setValues:dict];
 		[self addObject:org];
 	}

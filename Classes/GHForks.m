@@ -1,7 +1,7 @@
 #import "GHForks.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHForks
@@ -18,8 +18,8 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		NSString *owner = [dict valueForKeyPath:@"owner.login"];
-		NSString *name = [dict valueForKey:@"name"];
+		NSString *owner = [dict safeStringForKeyPath:@"owner.login"];
+		NSString *name = [dict safeStringForKey:@"name"];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		[repo setValues:dict];
 		[self addObject:repo];

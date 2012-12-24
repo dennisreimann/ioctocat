@@ -3,6 +3,7 @@
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHTag
@@ -20,12 +21,13 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	self.tag = [dict valueForKey:@"tag"];
-	self.message = [dict valueForKey:@"message"];
-	self.taggerName = [dict valueForKeyPath:@"tagger.name"];
-	self.taggerEmail = [dict valueForKeyPath:@"tagger.email"];
-	self.taggerDate = [iOctocat parseDate:[dict valueForKey:@"tagger.date"]];
-	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:[dict valueForKey:@"object.sha"]];
+	NSString *sha = [dict safeStringForKeyPath:@"object.sha"];
+	self.tag = [dict safeStringForKey:@"tag"];
+	self.message = [dict safeStringForKey:@"message"];
+	self.taggerName = [dict safeStringForKeyPath:@"tagger.name"];
+	self.taggerEmail = [dict safeStringForKeyPath:@"tagger.email"];
+	self.taggerDate = [iOctocat parseDate:[dict safeStringForKeyPath:@"tagger.date"]];
+	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 }
 
 @end

@@ -31,13 +31,13 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	self.gistId = dict[@"id"];
-	self.files = dict[@"files"];
+	self.gistId = [dict safeStringForKey:@"id"];
+	self.files = [dict safeDictForKey:@"files"];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
 	self.descriptionText = [dict safeStringForKey:@"description"];
 	self.isPrivate = ![dict safeBoolForKey:@"public"];
-	self.forksCount = [dict[@"forks"] count];
+	self.forksCount = [dict safeArrayForKey:@"forks"].count;
 	self.commentsCount = [dict safeIntegerForKey:@"comments"];
 	self.createdAtDate = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
 }

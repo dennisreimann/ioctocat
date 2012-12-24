@@ -12,8 +12,10 @@
 #import "GistController.h"
 #import "GistsController.h"
 #import "SearchController.h"
+#import "CommitController.h"
 #import "GHUser.h"
 #import "GHGist.h"
+#import "GHCommit.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
 #import "GHPullRequest.h"
@@ -101,6 +103,11 @@
 			GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
 			pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
 			viewController = [[PullRequestController alloc] initWithPullRequest:pullRequest];
+		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"commit"]) {
+			// Commit
+			NSString *sha = [url.pathComponents objectAtIndex:4];
+			GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
+			viewController = [[CommitController alloc] initWithCommit:commit];
 		}
 	}
 	if (viewController) {

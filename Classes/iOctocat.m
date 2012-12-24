@@ -44,7 +44,6 @@
 	self.organizations = [NSMutableDictionary dictionary];
 	self.slidingViewController.anchorRightRevealAmount = 270;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
-	[self.window addGestureRecognizer:self.slidingViewController.panGesture];
 	[self.window makeKeyAndVisible];
 	return YES;
 }

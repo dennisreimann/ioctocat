@@ -52,6 +52,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.tableView.rowHeight = kCellHeight;
+	// disable scroll-to-top for the menu, so that the main controller receives the event
+	self.tableView.scrollsToTop = NO;
 	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
 	MyEventsController *myEventsController = [[MyEventsController alloc] initWithUser:self.user];
 	[self openViewController:myEventsController fromOffScreen:YES];

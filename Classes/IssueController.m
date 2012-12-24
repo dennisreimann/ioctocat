@@ -19,7 +19,7 @@
 #import "GHRepository.h"
 
 
-@interface IssueController () <UIActionSheetDelegate>
+@interface IssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IssuesController *listController;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
@@ -126,6 +126,11 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	}
 }
 
+- (void)savedIssueObject:(id)object	{
+	// displaying the new data gets done via viewWillAppear
+	[self.listController reloadIssues];
+}
+
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
 }
@@ -184,6 +189,7 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0 && self.issueEditableByCurrentUser) {
 		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
+		formController.delegate = self;
 		[self.navigationController pushViewController:formController animated:YES];
 	} else if ((buttonIndex == 1 && self.issueEditableByCurrentUser) || (buttonIndex == 0 && !self.issueEditableByCurrentUser)) {
 		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];

@@ -14,7 +14,7 @@
 #define kIssueSortComments @"comments"
 
 
-@interface IssuesController ()
+@interface IssuesController () <IssueObjectFormControllerDelegate>
 @property(nonatomic,readonly)GHIssues *currentIssues;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
@@ -93,6 +93,7 @@
 - (IBAction)createNewIssue:(id)sender {
 	GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
 	IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:issue];
+	formController.delegate = self;
 	[self.navigationController pushViewController:formController animated:YES];
 }
 
@@ -105,6 +106,12 @@
 	for (GHIssues *issues in self.objects) {
 		[issues loadData];
 	}
+	[self.tableView reloadData];
+}
+
+// delegation method for newly created issues
+- (void)savedIssueObject:(id)object {
+	[[self.objects objectAtIndex:0] insertObject:object atIndex:0];
 	[self.tableView reloadData];
 }
 

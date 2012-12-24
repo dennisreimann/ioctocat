@@ -6,6 +6,6 @@
 - (void)stopAuthenticating;
 @end
 
-@protocol AuthenticationControllerDelegate
+@protocol AuthenticationControllerDelegate <NSObject>
 - (void)authenticatedAccount:(GHAccount *)account;
 @end

@@ -1,6 +1,5 @@
 #import "PullRequestsController.h"
 #import "PullRequestController.h"
-#import "IssueObjectFormController.h"
 #import "GHPullRequest.h"
 #import "GHPullRequests.h"
 #import "GHRepository.h"

@@ -70,7 +70,7 @@
 		if (self.object.isSaved) {
 			NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
 			[SVProgressHUD showSuccessWithStatus:status];
-			[self.object needsReload];
+			[self.delegate performSelector:@selector(savedIssueObject:) withObject:self.object];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (self.object.error) {
 			NSString *status = [NSString stringWithFormat:@"Could not save the %@…", self.issueObjectType];

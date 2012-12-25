@@ -36,6 +36,7 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *closedCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 
@@ -148,6 +149,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[self.authorCell setContentText:self.pullRequest.user.login];
 	[self.createdCell setContentText:[self.pullRequest.created prettyDate]];
 	[self.updatedCell setContentText:[self.pullRequest.updated prettyDate]];
+	[self.closedCell setContentText:[self.pullRequest.closed prettyDate]];
 	[self.descriptionCell setContentText:self.pullRequest.body];
 	[self.tableView reloadData];
 }
@@ -203,7 +205,12 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.pullRequest.error) return 0;
 	if (!self.pullRequest.isLoaded) return 1;
-	if (section == 0) return [self.pullRequest.body isEmpty] ? 4 : 5;
+	if (section == 0) {
+		NSInteger count = 4;
+		if (self.closedCell.hasContent) count += 1;
+		if (self.descriptionCell.hasContent) count += 1;
+		return count;
+	}
 	if (!self.pullRequest.comments.isLoaded) return 1;
 	if (self.pullRequest.comments.isEmpty) return 1;
 	return self.pullRequest.comments.count;
@@ -221,7 +228,8 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 	if (section == 0 && row == 1) return self.authorCell;
 	if (section == 0 && row == 2) return self.createdCell;
 	if (section == 0 && row == 3) return self.updatedCell;
-	if (section == 0 && row == 4) return self.descriptionCell;
+	if (section == 0 && row == 4) return self.closedCell.hasContent ? self.closedCell : self.descriptionCell;
+	if (section == 0 && row == 5) return self.descriptionCell;
 	if (!self.pullRequest.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.pullRequest.comments.isEmpty) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
@@ -229,13 +237,13 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHComment *comment = (self.pullRequest.comments)[row];
+	GHComment *comment = self.pullRequest.comments[row];
 	cell.comment = comment;
 	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 4) return [self.descriptionCell heightForTableView:tableView];
+	if (indexPath.section == 0 && indexPath.row == (self.closedCell.hasContent ? 5 : 4)) return [self.descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && self.pullRequest.comments.isLoaded && !self.pullRequest.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];

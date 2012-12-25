@@ -22,6 +22,8 @@
 @property(nonatomic,assign)NSInteger num;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
+@property(nonatomic,readonly)BOOL isMerged;
+@property(nonatomic,readonly)BOOL isMergable;
 @property(nonatomic,readonly)BOOL isClosed;
 
 - (id)initWithRepository:(GHRepository *)repo;

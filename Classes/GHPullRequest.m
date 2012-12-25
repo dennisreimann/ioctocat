@@ -8,6 +8,12 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHPullRequest ()
+@property(nonatomic,assign)BOOL isMerged;
+@property(nonatomic,assign)BOOL isMergable;
+@end
+
+
 @implementation GHPullRequest
 
 - (id)initWithRepository:(GHRepository *)repo {
@@ -44,6 +50,7 @@
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
 	self.created = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
 	self.updated = [iOctocat parseDate:[dict safeStringForKey:@"updated_at"]];
+	self.merged = [iOctocat parseDate:[dict safeStringForKey:@"merged_at"]];
 	self.closed = [iOctocat parseDate:[dict safeStringForKey:@"closed_at"]];
 	self.title = [dict safeStringForKey:@"title"];
 	self.body = [dict safeStringForKey:@"body"];
@@ -51,6 +58,8 @@
 	self.labels = [dict safeArrayForKey:@"labels"];
 	self.num = [dict safeIntegerForKey:@"number"];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
+	self.isMerged = [dict safeBoolForKey:@"merged"];
+	self.isMergable = [dict safeBoolForKey:@"mergable"];
 	if (!self.repository) {
 		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
 		NSString *name = [dict safeStringForKeyPath:@"repository.name"];

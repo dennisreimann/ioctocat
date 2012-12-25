@@ -120,7 +120,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.events.isLoading) return 0;
+	if (self.events.isLoading) return self.events.count;
 	if (self.events.isLoaded && self.events.count == 0) return 1;
 	return self.events.count;
 }

@@ -1,17 +1,18 @@
 #import "CommitsController.h"
 #import "CommitController.h"
 #import "CommitCell.h"
+#import "GHCommits.h"
 #import "GHCommit.h"
 
 
 @interface CommitsController ()
-@property(nonatomic,strong)NSArray *commits;
+@property(nonatomic,strong)GHCommits *commits;
 @end
 
 
 @implementation CommitsController
 
-- (id)initWithCommits:(NSArray *)commits {
+- (id)initWithCommits:(GHCommits *)commits {
 	self = [super initWithNibName:@"Commits" bundle:nil];
 	if (self) {
 		self.title = @"Commits";
@@ -31,12 +32,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	CommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
 	if (cell == nil) cell = [CommitCell cell];
-	cell.commit = (self.commits)[indexPath.row];
+	cell.commit = self.commits[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	GHCommit *commit = (self.commits)[indexPath.row];
+	GHCommit *commit = self.commits[indexPath.row];
 	CommitController *viewController = [[CommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

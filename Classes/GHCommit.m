@@ -4,6 +4,7 @@
 #import "GHRepoComments.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
@@ -30,6 +31,7 @@
 	self.authoredDate = [iOctocat parseDate:authorDateString];
 	self.committedDate = [iOctocat parseDate:committerDateString];
 	self.message = [dict safeStringForKeyPath:@"commit.message"];
+	if (self.message.isEmpty) self.message = [dict safeStringForKey:@"message"];
 	// Files
 	self.added = [NSMutableArray array];
 	self.modified = [NSMutableArray array];

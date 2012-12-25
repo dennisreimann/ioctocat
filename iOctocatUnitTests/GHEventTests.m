@@ -2,6 +2,8 @@
 #import "GHEventTests.h"
 #import "GHEvent.h"
 #import "GHUser.h"
+#import "GHCommits.h"
+#import "GHCommit.h"
 #import "GHOrganization.h"
 
 
@@ -85,6 +87,23 @@
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithPullRequest"];
 	[self.event setValues:dict];
 	expect(self.event.pullRequest).notTo.beNil();
+}
+
+- (void)testCommitCommentEvent {
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"CommitCommentEvent"];
+	[self.event setValues:dict];
+	expect(self.event.commits.count).to.equal(1);
+	expect([(GHCommit *)self.event.commits[0] commitID]).to.equal(@"61b15830a1c7b8220bbe1fc8db67ce02a0df8bf0");
+}
+
+- (void)testPushEvent {
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"PushEvent"];
+	[self.event setValues:dict];
+	expect(self.event.commits.count).to.equal(2);
+	expect([(GHCommit *)self.event.commits[0] commitID]).to.equal(@"e365faf0207e64fbb373fc6690f54be2d8e4d2d9");
+	expect([(GHCommit *)self.event.commits[0] message]).to.equal(@"Facebook API redirects to Facebook Login guide");
+	expect([(GHCommit *)self.event.commits[1] commitID]).to.equal(@"f5cdeada37bf212593d8fda0da5f8d2e04b177e3");
+	expect([(GHCommit *)self.event.commits[1] message]).to.equal(@"Merge pull request #187 from randomecho/linkrot");
 }
 
 @end

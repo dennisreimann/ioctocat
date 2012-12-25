@@ -1,5 +1,6 @@
 #import "GHEvent.h"
 #import "GHRepository.h"
+#import "GHCommits.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
 #import "GHGist.h"
@@ -147,15 +148,13 @@
 	}
 
 	// Commits
-	NSArray *commits = self.payload[@"commits"];
+	NSArray *commits = [self.payload safeArrayForKey:@"commits"];
 	if (commits) {
-		self.commits = [NSMutableArray arrayWithCapacity:commits.count];
-		for (NSDictionary *dict in commits) {
-			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
-														andCommitID:[dict safeStringForKey:@"sha"]];
+		self.commits = [[GHCommits alloc] initWithRepository:self.repository];
+		[self.commits setValues:commits];
+		// set the author, because this isn't provided in the api json
+		for (GHCommit *commit in self.commits.items) {
 			commit.author = self.user;
-			commit.message = [dict safeStringForKey:@"message"];
-			[self.commits addObject:commit];
 		}
 	}
 
@@ -164,9 +163,9 @@
 		self.comment = [[GHRepoComment alloc] initWithRepo:self.repository];
 		[self.comment setValues:[self.payload safeDictForKey:@"comment"]];
 		if (!self.commits) {
-			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
-												 andCommitID:[self.payload safeStringForKeyPath:@"comment.commit_id"]];
-			self.commits = [@[commit] mutableCopy];
+			NSString *sha = [self.payload safeStringForKeyPath:@"comment.commit_id"];
+			self.commits = [[GHCommits alloc] initWithRepository:self.repository];
+			[self.commits setValues:@[@{@"sha": sha}]];
 		}
 	}
 
@@ -339,7 +338,7 @@
 
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {
 			NSMutableArray *messages = [NSMutableArray arrayWithCapacity:self.commits.count];
-			for (GHCommit *commit in self.commits) {
+			for (GHCommit *commit in self.commits.items) {
 				NSString *formatted = [NSString stringWithFormat:@"• %@", [self shortenMessage:commit.message]];
 				[messages addObject:formatted];
 			}

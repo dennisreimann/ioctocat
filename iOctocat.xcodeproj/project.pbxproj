@@ -402,6 +402,12 @@
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
 		6FC0D42A115819E400511B7F /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* CommentController.m */; };
 		6FC0D42C11581A5200511B7F /* Comment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* Comment.xib */; };
+		6FC40F68168A037E0035927E /* GHCommits.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC40F67168A037E0035927E /* GHCommits.m */; };
+		6FC40F69168A037E0035927E /* GHCommits.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC40F67168A037E0035927E /* GHCommits.m */; };
+		6FC40F6A168A037E0035927E /* GHCommits.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC40F67168A037E0035927E /* GHCommits.m */; };
+		6FC40F6E168A39DF0035927E /* CommitCommentEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */; };
+		6FC40F6F168A39DF0035927E /* MemberEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F6C168A39DF0035927E /* MemberEvent.json */; };
+		6FC40F70168A39DF0035927E /* PublicEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F6D168A39DF0035927E /* PublicEvent.json */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */; };
 		6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */; };
@@ -1167,6 +1173,7 @@
 		6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Extensions.m"; sourceTree = "<group>"; };
 		6F9DD8961334E1AB00D1E35E /* OrganizationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationsController.h; sourceTree = "<group>"; };
 		6F9DD8971334E1AF00D1E35E /* OrganizationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationsController.m; sourceTree = "<group>"; };
+		6FA05D6B168A032900C99DF1 /* GHCommits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommits.h; sourceTree = "<group>"; };
 		6FA1329916772F3B001C0804 /* GHCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCollection.h; sourceTree = "<group>"; };
 		6FA1329A16772F3B001C0804 /* GHCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCollection.m; sourceTree = "<group>"; };
 		6FA1329E16774147001C0804 /* GHPullRequests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHPullRequests.h; sourceTree = "<group>"; };
@@ -1239,6 +1246,10 @@
 		6FC0D428115819E400511B7F /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentController.h; sourceTree = "<group>"; };
 		6FC0D429115819E400511B7F /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
 		6FC0D42B11581A5200511B7F /* Comment.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Comment.xib; path = IBFiles/Comment.xib; sourceTree = "<group>"; };
+		6FC40F67168A037E0035927E /* GHCommits.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCommits.m; sourceTree = "<group>"; };
+		6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CommitCommentEvent.json; sourceTree = "<group>"; };
+		6FC40F6C168A39DF0035927E /* MemberEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MemberEvent.json; sourceTree = "<group>"; };
+		6FC40F6D168A39DF0035927E /* PublicEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PublicEvent.json; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
 		6FC465160F9D1445003A8E7B /* GHCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHCommit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarIssue@2x.png"; sourceTree = "<group>"; };
@@ -1706,6 +1717,9 @@
 		6F4EB354167D1B76001C1DEA /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */,
+				6FC40F6C168A39DF0035927E /* MemberEvent.json */,
+				6FC40F6D168A39DF0035927E /* PublicEvent.json */,
 				6F4EB35A167D22A4001C1DEA /* FollowEvent.json */,
 				6F4EB35B167D22A4001C1DEA /* ForkEvent.json */,
 				6F4EB35E167D22A4001C1DEA /* IssuesEvent.json */,
@@ -2081,6 +2095,8 @@
 				6F0BEB3F11108C9E00E95E5A /* GHBranches.m */,
 				6F0BEB56111090D300E95E5A /* GHBranch.h */,
 				6F0BEB57111090D300E95E5A /* GHBranch.m */,
+				6FA05D6B168A032900C99DF1 /* GHCommits.h */,
+				6FC40F67168A037E0035927E /* GHCommits.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
 				6FC465160F9D1445003A8E7B /* GHCommit.m */,
 				6F7F08251624A3C10074839B /* GHTree.h */,
@@ -2610,6 +2626,9 @@
 				6F54992C167DE8EF004D2D90 /* Commit-Large.json in Resources */,
 				6F54992D167DE8EF004D2D90 /* IssueCommentEvent-WithoutPullRequest.json in Resources */,
 				6F54992E167DE8EF004D2D90 /* IssueCommentEvent-WithPullRequest.json in Resources */,
+				6FC40F6E168A39DF0035927E /* CommitCommentEvent.json in Resources */,
+				6FC40F6F168A39DF0035927E /* MemberEvent.json in Resources */,
+				6FC40F70168A39DF0035927E /* PublicEvent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3044,6 +3063,7 @@
 				6FA132A01677415C001C0804 /* GHPullRequests.m in Sources */,
 				6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */,
 				6F536BCE167A24AE00B5FD53 /* IssuesController.m in Sources */,
+				6FC40F68168A037E0035927E /* GHCommits.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3141,6 +3161,7 @@
 				6F612440167D026A001A3E05 /* GHEvent.m in Sources */,
 				6F4EB36A167D268B001C1DEA /* IOCTestHelper.m in Sources */,
 				6F4EB36C167D2B0E001C1DEA /* GHCommitTests.m in Sources */,
+				6FC40F6A168A037E0035927E /* GHCommits.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3236,6 +3257,7 @@
 				6FCAA483167B52C800C816FA /* GHPullRequests.m in Sources */,
 				6FCAA484167B52C800C816FA /* PullRequestController.m in Sources */,
 				6FCAA485167B52C800C816FA /* IssuesController.m in Sources */,
+				6FC40F69168A037E0035927E /* GHCommits.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,7 @@
 #import "GHRepository.h"
 #import "GHIssue.h"
 #import "GHCommit.h"
+#import "GHCommits.h"
 #import "GHGist.h"
 #import "GHPullRequest.h"
 #import "iOctocat.h"
@@ -101,7 +102,7 @@
 			viewController = [[WebController alloc] initWithURL:url];
 			viewController.title = [eventItem safeStringForKey:@"page_name"];
 		}
-	} else if ([eventItem isKindOfClass:NSArray.class]) {
+	} else if ([eventItem isKindOfClass:GHCommits.class]) {
 		id firstEntry = eventItem[0];
 		if ([firstEntry isKindOfClass:GHCommit.class]) {
 			viewController = [[CommitsController alloc] initWithCommits:eventItem];

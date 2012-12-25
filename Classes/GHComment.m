@@ -10,10 +10,13 @@
 	return [[iOctocat sharedInstance] userWithLogin:self.userLogin];
 }
 
-- (void)setUserWithValues:(NSDictionary *)dict {
-	self.userLogin = [dict safeStringForKey:@"login"];
+- (void)setValues:(id)dict {
+	self.body = [dict safeStringForKey:@"body"];
+	self.created = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
+	self.updated = [iOctocat parseDate:[dict safeStringForKey:@"updated_at"]];
+	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
 	if (!self.user.gravatarURL) {
-		self.user.gravatarURL = [dict safeURLForKey:@"avatar_url"];
+		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
 	}
 }
 

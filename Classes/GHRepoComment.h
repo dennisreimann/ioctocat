@@ -11,6 +11,5 @@
 @property(nonatomic,assign)NSUInteger position;
 @property(nonatomic,assign)NSUInteger line;
 
-- (id)initWithRepo:(GHRepository *)repo andDictionary:(NSDictionary *)dict;
 - (id)initWithRepo:(GHRepository *)repo;
 @end

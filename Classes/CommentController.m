@@ -54,6 +54,7 @@
 		if (self.comment.isSaving) return;
 		if (self.comment.isSaved) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
+			[self.comments addObject:self.comment];
 			[self.comments needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (self.comment.error) {

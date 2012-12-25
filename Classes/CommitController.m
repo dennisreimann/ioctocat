@@ -79,6 +79,10 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[self.commit removeObserver:self forKeyPath:CommitLoadingKeyPath];
 }
 
+- (GHUser *)currentUser {
+	return [[iOctocat sharedInstance] currentUser];
+}
+
 #pragma mark Actions
 
 - (void)displayCommit {
@@ -108,17 +112,18 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[actionSheet showInView:self.view];
 }
 
-- (IBAction)addComment:(id)sender {
-	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
-	comment.commitID = self.commit.commitID;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		[self addComment:nil];
 	}
+}
+
+- (IBAction)addComment:(id)sender {
+	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
+	comment.userLogin = self.currentUser.login;
+	comment.commitID = self.commit.commitID;
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

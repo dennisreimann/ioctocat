@@ -30,7 +30,8 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository andDictionary:dict];
+		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository];
+		[comment setValues:dict];
 		[self addObject:comment];
 	}
 }

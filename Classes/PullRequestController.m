@@ -177,6 +177,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
+	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

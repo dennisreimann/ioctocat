@@ -76,6 +76,8 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return [[iOctocat sharedInstance] currentUser];
 }
 
+#pragma mark Actions
+
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 															 delegate:self
@@ -96,8 +98,6 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
-
-#pragma mark Actions
 
 - (void)displayGist {
 	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"private.png" : @"public.png")];
@@ -136,6 +136,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (IBAction)addComment:(id)sender {
 	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
+	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

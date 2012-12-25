@@ -3,9 +3,8 @@
 #import "GHComment.h"
 
 
-@class GHGist, GHUser;
+@class GHGist;
 
 @interface GHGistComment : GHComment
-- (id)initWithGist:(GHGist *)gist andDictionary:(NSDictionary *)dict;
 - (id)initWithGist:(GHGist *)gist;
 @end

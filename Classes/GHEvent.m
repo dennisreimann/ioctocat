@@ -135,8 +135,8 @@
 	// Issue Comment (which might also be a pull request comment)
 	if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
 		id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
-		self.comment = [[GHIssueComment alloc] initWithParent:issueCommentParent
-												andDictionary:[self.payload safeDictForKey:@"comment"]];
+		self.comment = [[GHIssueComment alloc] initWithParent:issueCommentParent];
+		[self.comment setValues:[self.payload safeDictForKey:@"comment"]];
 	}
 
 	// Gist
@@ -161,8 +161,8 @@
 
 	// Commit Comment
 	if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
-		self.comment = [[GHRepoComment alloc] initWithRepo:self.repository
-											 andDictionary:[self.payload safeDictForKey:@"comment"]];
+		self.comment = [[GHRepoComment alloc] initWithRepo:self.repository];
+		[self.comment setValues:[self.payload safeDictForKey:@"comment"]];
 		if (!self.commits) {
 			GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository
 												 andCommitID:[self.payload safeStringForKeyPath:@"comment.commit_id"]];

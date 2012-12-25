@@ -12,17 +12,6 @@
 
 @implementation GHIssueComment
 
-- (id)initWithParent:(id)parent andDictionary:(NSDictionary *)dict {
-	self = [self initWithParent:parent];
-	if (self) {
-		[self setUserWithValues:[dict safeDictForKey:@"user"]];
-		self.body = [dict safeStringForKey:@"body"];
-		self.created = [iOctocat parseDate:dict[@"created_at"]];
-		self.updated = [iOctocat parseDate:dict[@"updated_at"]];
-	}
-	return self;
-}
-
 - (id)initWithParent:(id)parent {
 	self = [super init];
 	if (self) {
@@ -38,7 +27,9 @@
 	GHRepository *repo = [(GHIssue *)self.parent repository];
 	NSUInteger num = [(GHIssue *)self.parent num];
 	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
-	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:nil];
+	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:^(id response) {
+		[self setValues:response];
+	}];
 }
 
 @end

@@ -180,12 +180,6 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[actionSheet showInView:self.view];
 }
 
-- (IBAction)addComment:(id)sender {
-	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0 && self.issueEditableByCurrentUser) {
 		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
@@ -199,6 +193,13 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 		WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
+}
+
+- (IBAction)addComment:(id)sender {
+	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
+	comment.userLogin = self.currentUser.login;
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark TableView

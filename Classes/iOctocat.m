@@ -16,7 +16,7 @@
 #define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 
 
-@interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate>
+@interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 @property(nonatomic,strong)NSMutableDictionary *users;
 @property(nonatomic,strong)NSMutableDictionary *organizations;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
@@ -118,6 +118,15 @@
 																   delegate:self];
 		[[BITHockeyManager sharedHockeyManager] startManager];
 	}
+}
+
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_Release
+	if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {
+		return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+	}
+#endif
+	return nil;
 }
 
 #pragma mark Users

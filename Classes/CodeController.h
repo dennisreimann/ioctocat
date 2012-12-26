@@ -1,3 +1,5 @@
+@class GHFiles;
+
 @interface CodeController : UIViewController
-- (id)initWithFiles:(NSArray *)files currentIndex:(NSUInteger)idx;
+- (id)initWithFiles:(GHFiles *)files currentIndex:(NSUInteger)idx;
 @end

@@ -152,6 +152,7 @@
 	if (commits) {
 		self.commits = [[GHCommits alloc] initWithRepository:self.repository];
 		[self.commits setValues:commits];
+		[self.commits markAsLoaded];
 		// set the author, because this isn't provided in the api json
 		for (GHCommit *commit in self.commits.items) {
 			commit.author = self.user;
@@ -166,6 +167,7 @@
 			NSString *sha = [self.payload safeStringForKeyPath:@"comment.commit_id"];
 			self.commits = [[GHCommits alloc] initWithRepository:self.repository];
 			[self.commits setValues:@[@{@"sha": sha}]];
+			[self.commits markAsLoaded];
 		}
 	}
 

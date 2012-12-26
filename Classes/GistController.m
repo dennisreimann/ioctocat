@@ -1,6 +1,7 @@
 #import "GHUser.h"
 #import "GHGist.h"
 #import "GHGists.h"
+#import "GHFiles.h"
 #import "GHGistComment.h"
 #import "GHGistComments.h"
 #import "WebController.h"
@@ -9,6 +10,7 @@
 #import "CommentController.h"
 #import "CommentCell.h"
 #import "iOctocat.h"
+#import "NSDictionary+Extensions.h"
 #import "NSURL+Extensions.h"
 #import "NSDate+Nibware.h"
 
@@ -171,9 +173,9 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		}
 	if (section == 0) {
-		NSDictionary *file = [self.gist.files allValues][row];
-		NSString *fileContent = [file valueForKey:@"content"];
-		cell.textLabel.text = [file valueForKey:@"filename"];
+		NSDictionary *file = self.gist.files[row];
+		NSString *fileContent = [file safeStringForKey:@"content"];
+		cell.textLabel.text = [file safeStringForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
@@ -201,11 +203,8 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gist.isLoaded) return;
-	NSInteger section = indexPath.section;
-	NSInteger row = indexPath.row;
-	if (section == 0) {
-		NSArray *files = [self.gist.files allValues];
-		CodeController *codeController = [[CodeController alloc] initWithFiles:files currentIndex:row];
+	if (indexPath.section == 0) {
+		CodeController *codeController = [[CodeController alloc] initWithFiles:self.gist.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

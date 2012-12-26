@@ -1,10 +1,11 @@
 #import "CodeController.h"
+#import "GHFiles.h"
 #import "NSString+Extensions.h"
 
 
 @interface CodeController () <UIWebViewDelegate>
+@property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)NSDictionary *file;
-@property(nonatomic,strong)NSArray *files;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)IBOutlet UIView *activityView;
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
@@ -17,7 +18,7 @@
 
 @implementation CodeController
 
-- (id)initWithFiles:(NSArray *)files currentIndex:(NSUInteger)idx {
+- (id)initWithFiles:(GHFiles *)files currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {
 		self.files = files;

@@ -2,6 +2,8 @@
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
 #import "GHRepository.h"
+#import "GHCommits.h"
+#import "GHFiles.h"
 #import "GHUser.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
@@ -21,6 +23,9 @@
 	if (self) {
 		self.repository = repo;
 		self.comments = [[GHIssueComments alloc] initWithParent:self];
+		self.commits = [[GHCommits alloc] initWithPullRequest:self];
+		self.files = [[GHFiles alloc] initWithPullRequest:self];
+		self.state = kIssueStateOpen;
 	}
 	return self;
 }
@@ -37,9 +42,9 @@
 	return [self.state isEqualToString:kIssueStateClosed];
 }
 
+// Dynamic resourcePath, because it depends on the
+// num which isn't always available in advance
 - (NSString *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// num which isn't always available in advance
 	return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.num];
 }
 
@@ -72,7 +77,9 @@
 #pragma mark State toggling
 
 - (void)mergePullRequest {
-	// TODO: Implement
+	if (self.isMergable) {
+		// TODO: Implement
+	}
 }
 
 #pragma mark Saving

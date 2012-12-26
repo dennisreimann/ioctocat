@@ -1,15 +1,14 @@
-#import <Foundation/Foundation.h>
 #import "GHResource.h"
 
 
-@class GHIssueComments, GHRepository, GHUser, GHBranch;
+@class GHIssueComments, GHRepository, GHUser, GHFiles, GHCommits;
 
 @interface GHPullRequest : GHResource
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)GHBranch *head;
-@property(nonatomic,strong)GHBranch *base;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHIssueComments *comments;
+@property(nonatomic,strong)GHCommits *commits;
+@property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *body;
 @property(nonatomic,strong)NSString *state;

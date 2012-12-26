@@ -1,5 +1,6 @@
 #import "CommitController.h"
 #import "GHUser.h"
+#import "GHFiles.h"
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "GHRepoComments.h"
@@ -205,7 +206,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-		if (cell.files.count > 0) {
+		if (!cell.files.isEmpty) {
 			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];

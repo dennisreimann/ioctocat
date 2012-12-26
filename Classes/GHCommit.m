@@ -1,5 +1,6 @@
 #import "GHCommit.h"
 #import "GHUser.h"
+#import "GHFiles.h"
 #import "GHRepository.h"
 #import "GHRepoComments.h"
 #import "iOctocat.h"
@@ -33,9 +34,9 @@
 	self.message = [dict safeStringForKeyPath:@"commit.message"];
 	if (self.message.isEmpty) self.message = [dict safeStringForKey:@"message"];
 	// Files
-	self.added = [NSMutableArray array];
-	self.modified = [NSMutableArray array];
-	self.removed = [NSMutableArray array];
+	self.added = [[GHFiles alloc] init];
+	self.removed = [[GHFiles alloc] init];
+	self.modified = [[GHFiles alloc] init];
 	NSArray *files = [dict safeArrayForKey:@"files"];
 	for (NSDictionary *file in files) {
 		NSString *status = [file safeStringForKey:@"status"];
@@ -47,6 +48,9 @@
 			[self.modified addObject:file];
 		}
 	}
+	[self.added markAsLoaded];
+	[self.removed markAsLoaded];
+	[self.modified markAsLoaded];
 }
 
 @end

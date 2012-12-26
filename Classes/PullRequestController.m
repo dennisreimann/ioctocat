@@ -8,6 +8,7 @@
 #import "IssueObjectFormController.h"
 #import "UserController.h"
 #import "RepositoryController.h"
+#import "CommitsController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
@@ -17,6 +18,7 @@
 #import "GHUser.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
+#import "DiffFilesController.h"
 
 
 @interface PullRequestController () <UIActionSheetDelegate>
@@ -29,6 +31,8 @@
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
+@property(nonatomic,strong)IBOutlet UITableViewCell *commitsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *filesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
@@ -199,7 +203,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (self.pullRequest.isLoaded) ? 2 : 1;
+	return (self.pullRequest.isLoaded) ? 3 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -211,13 +215,14 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 		if (self.descriptionCell.hasContent) count += 1;
 		return count;
 	}
+	if (section == 1) return 2;
 	if (!self.pullRequest.comments.isLoaded) return 1;
 	if (self.pullRequest.comments.isEmpty) return 1;
 	return self.pullRequest.comments.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 1) ? @"Comments" : @"";
+	return (section == 2) ? @"Comments" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -230,6 +235,8 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 	if (section == 0 && row == 3) return self.updatedCell;
 	if (section == 0 && row == 4) return self.closedCell.hasContent ? self.closedCell : self.descriptionCell;
 	if (section == 0 && row == 5) return self.descriptionCell;
+	if (section == 1 && row == 0) return self.commitsCell;
+	if (section == 1 && row == 1) return self.filesCell;
 	if (!self.pullRequest.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.pullRequest.comments.isEmpty) return self.noCommentsCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
@@ -244,7 +251,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == (self.closedCell.hasContent ? 5 : 4)) return [self.descriptionCell heightForTableView:tableView];
-	if (indexPath.section == 1 && self.pullRequest.comments.isLoaded && !self.pullRequest.comments.isEmpty) {
+	if (indexPath.section == 2 && self.pullRequest.comments.isLoaded && !self.pullRequest.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
@@ -252,13 +259,23 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0) {
-		if (indexPath.row == 0 && self.pullRequest.repository) {
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	if (section == 0) {
+		if (row == 0 && self.pullRequest.repository) {
 			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.pullRequest.repository];
 			[self.navigationController pushViewController:repoController animated:YES];
-		} else if (indexPath.row == 1 && self.pullRequest.user) {
+		} else if (row == 1 && self.pullRequest.user) {
 			UserController *userController = [[UserController alloc] initWithUser:self.pullRequest.user];
 			[self.navigationController pushViewController:userController animated:YES];
+		}
+	} else if (section == 1) {
+		if (row == 0) {
+			CommitsController *commitsController = [[CommitsController alloc] initWithCommits:self.pullRequest.commits];
+			[self.navigationController pushViewController:commitsController animated:YES];
+		} else if (row == 1) {
+			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:self.pullRequest.files];
+			[self.navigationController pushViewController:filesController animated:YES];
 		}
 	}
 }

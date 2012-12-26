@@ -408,6 +408,17 @@
 		6FC40F6E168A39DF0035927E /* CommitCommentEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */; };
 		6FC40F6F168A39DF0035927E /* MemberEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F6C168A39DF0035927E /* MemberEvent.json */; };
 		6FC40F70168A39DF0035927E /* PublicEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F6D168A39DF0035927E /* PublicEvent.json */; };
+		6FC40F75168BA5220035927E /* commits.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F71168BA5220035927E /* commits.png */; };
+		6FC40F76168BA5220035927E /* commits.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F71168BA5220035927E /* commits.png */; };
+		6FC40F77168BA5220035927E /* commits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F72168BA5220035927E /* commits@2x.png */; };
+		6FC40F78168BA5220035927E /* commits@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F72168BA5220035927E /* commits@2x.png */; };
+		6FC40F79168BA5220035927E /* files.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F73168BA5220035927E /* files.png */; };
+		6FC40F7A168BA5220035927E /* files.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F73168BA5220035927E /* files.png */; };
+		6FC40F7B168BA5220035927E /* files@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F74168BA5220035927E /* files@2x.png */; };
+		6FC40F7C168BA5220035927E /* files@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC40F74168BA5220035927E /* files@2x.png */; };
+		6FC40F7F168BA7FD0035927E /* GHFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC40F7E168BA7FC0035927E /* GHFiles.m */; };
+		6FC40F80168BA7FD0035927E /* GHFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC40F7E168BA7FC0035927E /* GHFiles.m */; };
+		6FC40F81168BA7FD0035927E /* GHFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC40F7E168BA7FC0035927E /* GHFiles.m */; };
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */; };
 		6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */; };
@@ -1250,6 +1261,12 @@
 		6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CommitCommentEvent.json; sourceTree = "<group>"; };
 		6FC40F6C168A39DF0035927E /* MemberEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MemberEvent.json; sourceTree = "<group>"; };
 		6FC40F6D168A39DF0035927E /* PublicEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PublicEvent.json; sourceTree = "<group>"; };
+		6FC40F71168BA5220035927E /* commits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commits.png; path = Images/Icons/commits.png; sourceTree = "<group>"; };
+		6FC40F72168BA5220035927E /* commits@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "commits@2x.png"; path = "Images/Icons/commits@2x.png"; sourceTree = "<group>"; };
+		6FC40F73168BA5220035927E /* files.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = files.png; path = Images/Icons/files.png; sourceTree = "<group>"; };
+		6FC40F74168BA5220035927E /* files@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "files@2x.png"; path = "Images/Icons/files@2x.png"; sourceTree = "<group>"; };
+		6FC40F7D168BA7EE0035927E /* GHFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHFiles.h; sourceTree = "<group>"; };
+		6FC40F7E168BA7FC0035927E /* GHFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHFiles.m; sourceTree = "<group>"; };
 		6FC465150F9D1445003A8E7B /* GHCommit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommit.h; sourceTree = "<group>"; };
 		6FC465160F9D1445003A8E7B /* GHCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHCommit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarIssue@2x.png"; sourceTree = "<group>"; };
@@ -1591,6 +1608,10 @@
 				6F38090B162A05D6001017E2 /* branch@2x.png */,
 				6F7F08311624B8970074839B /* code.png */,
 				6F7F08321624B8970074839B /* code@2x.png */,
+				6FC40F71168BA5220035927E /* commits.png */,
+				6FC40F72168BA5220035927E /* commits@2x.png */,
+				6FC40F73168BA5220035927E /* files.png */,
+				6FC40F74168BA5220035927E /* files@2x.png */,
 				6F7F08331624B8970074839B /* file.png */,
 				6F7F08341624B8970074839B /* file@2x.png */,
 				6F7F08351624B8970074839B /* folder.png */,
@@ -2099,6 +2120,8 @@
 				6FC40F67168A037E0035927E /* GHCommits.m */,
 				6FC465150F9D1445003A8E7B /* GHCommit.h */,
 				6FC465160F9D1445003A8E7B /* GHCommit.m */,
+				6FC40F7D168BA7EE0035927E /* GHFiles.h */,
+				6FC40F7E168BA7FC0035927E /* GHFiles.m */,
 				6F7F08251624A3C10074839B /* GHTree.h */,
 				6F7F08261624A3C10074839B /* GHTree.m */,
 				6F7F08281624A6F60074839B /* GHBlob.h */,
@@ -2610,6 +2633,10 @@
 				6F536BC516791F5000B5FD53 /* pull_request_open.png in Resources */,
 				6F536BC716791F5000B5FD53 /* pull_request_open@2x.png in Resources */,
 				6F536BCA167A22B900B5FD53 /* Issues.xib in Resources */,
+				6FC40F75168BA5220035927E /* commits.png in Resources */,
+				6FC40F77168BA5220035927E /* commits@2x.png in Resources */,
+				6FC40F79168BA5220035927E /* files.png in Resources */,
+				6FC40F7B168BA5220035927E /* files@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2905,6 +2932,10 @@
 				6F3C0BB9167B9F6A00CA6A25 /* Beta-Icon-iPad@2x.png in Resources */,
 				6F3C0BBA167B9F6A00CA6A25 /* Beta-Icon.png in Resources */,
 				6F3C0BBB167B9F6A00CA6A25 /* Beta-Icon@2x.png in Resources */,
+				6FC40F76168BA5220035927E /* commits.png in Resources */,
+				6FC40F78168BA5220035927E /* commits@2x.png in Resources */,
+				6FC40F7A168BA5220035927E /* files.png in Resources */,
+				6FC40F7C168BA5220035927E /* files@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3064,6 +3095,7 @@
 				6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */,
 				6F536BCE167A24AE00B5FD53 /* IssuesController.m in Sources */,
 				6FC40F68168A037E0035927E /* GHCommits.m in Sources */,
+				6FC40F7F168BA7FD0035927E /* GHFiles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3162,6 +3194,7 @@
 				6F4EB36A167D268B001C1DEA /* IOCTestHelper.m in Sources */,
 				6F4EB36C167D2B0E001C1DEA /* GHCommitTests.m in Sources */,
 				6FC40F6A168A037E0035927E /* GHCommits.m in Sources */,
+				6FC40F81168BA7FD0035927E /* GHFiles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3258,6 +3291,7 @@
 				6FCAA484167B52C800C816FA /* PullRequestController.m in Sources */,
 				6FCAA485167B52C800C816FA /* IssuesController.m in Sources */,
 				6FC40F69168A037E0035927E /* GHCommits.m in Sources */,
+				6FC40F80168BA7FD0035927E /* GHFiles.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

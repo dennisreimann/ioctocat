@@ -1,11 +1,9 @@
-#import <Foundation/Foundation.h>
 #import "GHCollection.h"
 
 
-@class GHRepository;
+@class GHRepository, GHPullRequest;
 
 @interface GHCommits : GHCollection
-@property(nonatomic,strong)GHRepository *repository;
-
 - (id)initWithRepository:(GHRepository *)repo;
+- (id)initWithPullRequest:(GHPullRequest *)pullRequest;
 @end

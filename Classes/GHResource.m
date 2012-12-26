@@ -30,6 +30,10 @@
 	self.loadingStatus = GHResourceStatusNotProcessed;
 }
 
+- (void)markAsLoaded {
+	self.loadingStatus = GHResourceStatusProcessed;
+}
+
 - (NSString *)resourceContentType {
 	return kResourceContentTypeDefault;
 }

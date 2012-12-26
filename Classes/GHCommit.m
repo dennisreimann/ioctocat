@@ -25,12 +25,10 @@
 - (void)setValues:(id)dict {
 	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
 	NSString *committerLogin = [dict safeStringForKeyPath:@"committer.login"];
-	NSString *authorDateString = [dict safeStringForKeyPath:@"commit.author.date"];
-	NSString *committerDateString = [dict safeStringForKeyPath:@"commit.committer.date"];
 	self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
 	self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-	self.authoredDate = [iOctocat parseDate:authorDateString];
-	self.committedDate = [iOctocat parseDate:committerDateString];
+	self.authoredDate = [dict safeDateForKeyPath:@"commit.author.date"];
+	self.committedDate = [dict safeDateForKeyPath:@"commit.committer.date"];
 	self.message = [dict safeStringForKeyPath:@"commit.message"];
 	if (self.message.isEmpty) self.message = [dict safeStringForKey:@"message"];
 	// Files

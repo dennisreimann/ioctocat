@@ -66,12 +66,12 @@
 
 - (NSDate *)safeDateForKey:(NSString *)key {
 	id value = [self valueForKey:key defaultsTo:nil];
-	return ([value isKindOfClass:NSDate.class]) ? value : nil;
+	return ([value isKindOfClass:NSDate.class]) ? value : [self.class _parseDate:value];
 }
 
 - (NSDate *)safeDateForKeyPath:(NSString *)keyPath {
 	id value = [self valueForKeyPath:keyPath defaultsTo:nil];
-	return ([value isKindOfClass:NSDate.class]) ? value : nil;
+	return ([value isKindOfClass:NSDate.class]) ? value : [self.class _parseDate:value];
 }
 
 - (NSURL *)safeURLForKey:(NSString *)key {
@@ -82,6 +82,21 @@
 - (NSURL *)safeURLForKeyPath:(NSString *)keyPath {
 	id value = [self valueForKeyPath:keyPath defaultsTo:@""];
 	return (!value || value == [NSNull null]) ? nil : [NSURL smartURLFromString:value];
+}
+
++ (NSDate *)_parseDate:(NSString *)string {
+	if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEqualToString:@""]) return nil;
+	static NSDateFormatter *dateFormatter;
+	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ssz";
+	// Fix for timezone format
+	if ([string hasSuffix:@"Z"]) {
+		string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
+	} else if ([string length] >= 24) {
+		string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
+	}
+	NSDate *date = [dateFormatter dateFromString:string];
+	return date;
 }
 
 @end

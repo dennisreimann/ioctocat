@@ -26,7 +26,7 @@
 	self.message = [dict safeStringForKey:@"message"];
 	self.taggerName = [dict safeStringForKeyPath:@"tagger.name"];
 	self.taggerEmail = [dict safeStringForKeyPath:@"tagger.email"];
-	self.taggerDate = [iOctocat parseDate:[dict safeStringForKeyPath:@"tagger.date"]];
+	self.taggerDate = [dict safeDateForKeyPath:@"tagger.date"];
 	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 }
 

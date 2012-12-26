@@ -53,10 +53,10 @@
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
-	self.updated = [iOctocat parseDate:[dict safeStringForKey:@"updated_at"]];
-	self.merged = [iOctocat parseDate:[dict safeStringForKey:@"merged_at"]];
-	self.closed = [iOctocat parseDate:[dict safeStringForKey:@"closed_at"]];
+	self.created = [dict safeDateForKey:@"created_at"];
+	self.updated = [dict safeDateForKey:@"updated_at"];
+	self.merged = [dict safeDateForKey:@"merged_at"];
+	self.closed = [dict safeDateForKey:@"closed_at"];
 	self.title = [dict safeStringForKey:@"title"];
 	self.body = [dict safeStringForKey:@"body"];
 	self.state = [dict safeStringForKey:@"state"];

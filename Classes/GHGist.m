@@ -41,7 +41,7 @@
 	self.isPrivate = ![dict safeBoolForKey:@"public"];
 	self.forksCount = [dict safeArrayForKey:@"forks"].count;
 	self.commentsCount = [dict safeIntegerForKey:@"comments"];
-	self.createdAtDate = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
+	self.createdAtDate = [dict safeDateForKey:@"created_at"];
 }
 
 @end

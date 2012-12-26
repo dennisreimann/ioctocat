@@ -48,7 +48,7 @@
 	self.eventID = [dict safeStringForKey:@"id"];
 	self.eventType = [dict safeStringForKey:@"type"];
 	self.payload = [dict safeDictForKey:@"payload"];
-	self.date = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
+	self.date = [dict safeDateForKey:@"created_at"];
 
 	NSString *actorLogin = [dict safeStringForKeyPath:@"actor.login"];
 	NSString *orgLogin = [dict safeStringForKeyPath:@"org.login"];

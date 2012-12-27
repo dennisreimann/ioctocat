@@ -112,7 +112,6 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
@@ -192,14 +191,29 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	if (section == 1) {
+		return self.tableFooterView;
+	} else {
+		return nil;
+	}
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1 && self.gist.comments.isLoaded && !self.gist.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
-	return 44.0f;
+	return 44;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	if (section == 1) {
+		return 56;
+	} else {
+		return 0;
+	}
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gist.isLoaded) return;

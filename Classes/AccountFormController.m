@@ -1,6 +1,5 @@
 #import "AccountFormController.h"
 #import "AccountsController.h"
-#import "GHAccount.h"
 #import "GradientButton.h"
 #import "iOctocat.h"
 #import "GHApiClient.h"
@@ -34,7 +33,7 @@
 		if (self.index == NSNotFound) {
 			self.account = [NSMutableDictionary dictionary];
 		} else {
-			self.account = (self.accounts)[self.index];
+			self.account = self.accounts[self.index];
 		}
 	}
 	return self;

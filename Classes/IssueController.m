@@ -174,23 +174,32 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 												  delegate:self
 										 cancelButtonTitle:@"Cancel"
 									destructiveButtonTitle:nil
-										 otherButtonTitles:(self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:@"Add comment", @"Show on GitHub", nil];
 	}
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0 && self.issueEditableByCurrentUser) {
-		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
-		formController.delegate = self;
-		[self.navigationController pushViewController:formController animated:YES];
-	} else if ((buttonIndex == 1 && self.issueEditableByCurrentUser) || (buttonIndex == 0 && !self.issueEditableByCurrentUser)) {
-		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
-	} else if ((buttonIndex == 2 && self.issueEditableByCurrentUser) || (buttonIndex == 1 && !self.issueEditableByCurrentUser)) {
-		[self addComment:nil];
-	} else if ((buttonIndex == 3 && self.issueEditableByCurrentUser) || (buttonIndex == 2 && !self.issueEditableByCurrentUser)) {
-		WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
-		[self.navigationController pushViewController:webController animated:YES];
+	if (self.issueEditableByCurrentUser) {
+		if (buttonIndex == 0) {
+			IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
+			formController.delegate = self;
+			[self.navigationController pushViewController:formController animated:YES];
+		} else if (buttonIndex == 1) {
+			self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
+		} else if (buttonIndex == 2) {
+			[self addComment:nil];
+		} else if (buttonIndex == 3) {
+			WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+			[self.navigationController pushViewController:webController animated:YES];
+		}
+	} else {
+		if (buttonIndex == 0) {
+			[self addComment:nil];
+		} else if (buttonIndex == 1) {
+			WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+			[self.navigationController pushViewController:webController animated:YES];
+		}
 	}
 }
 

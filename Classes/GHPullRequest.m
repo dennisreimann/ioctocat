@@ -3,6 +3,7 @@
 #import "GHIssueComments.h"
 #import "GHRepository.h"
 #import "GHCommits.h"
+#import "GHBranch.h"
 #import "GHFiles.h"
 #import "GHUser.h"
 #import "iOctocat.h"
@@ -12,7 +13,7 @@
 
 @interface GHPullRequest ()
 @property(nonatomic,assign)BOOL isMerged;
-@property(nonatomic,assign)BOOL isMergable;
+@property(nonatomic,assign)BOOL isMergeable;
 @end
 
 
@@ -64,7 +65,7 @@
 	self.num = [dict safeIntegerForKey:@"number"];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	self.isMerged = [dict safeBoolForKey:@"merged"];
-	self.isMergable = [dict safeBoolForKey:@"mergable"];
+	self.isMergeable = [dict safeBoolForKey:@"mergeable"];
 	if (!self.repository) {
 		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
 		NSString *name = [dict safeStringForKeyPath:@"repository.name"];
@@ -72,14 +73,43 @@
 			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}
 	}
+	NSString *headOwner = [dict safeStringForKeyPath:@"head.repo.owner.login"];
+	NSString *headName = [dict safeStringForKeyPath:@"head.repo.name"];
+	NSString *headRef = [dict safeStringForKeyPath:@"head.ref"];
+	GHRepository *headRepo = [[GHRepository alloc] initWithOwner:headOwner andName:headName];
+	self.head = [[GHBranch alloc] initWithRepository:headRepo andName:headRef];
+	[self.head setValues:[dict safeDictForKeyPath:@"head"]];
 }
 
 #pragma mark State toggling
 
-- (void)mergePullRequest {
-	if (self.isMergable) {
-		// TODO: Implement
+- (void)mergePullRequest:(NSString *)commitMessage {
+	if (self.isMergeable) {
+		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.num];
+		NSDictionary *values = @{@"commit_message": commitMessage};
+		[self saveValues:values withPath:path andMethod:kRequestMethodPut useResult:^(id response) {
+			self.isMerged = [response safeBoolForKey:@"merged"];
+			// set values manually that are not part of the response
+			if (self.isMerged) {
+				self.state = kIssueStateClosed;
+				self.merged = self.closed = self.updated = [NSDate date];
+				self.isMergeable = NO;
+			} else {
+				self.state = kIssueStateOpen;
+				self.merged = self.closed = nil;
+			}
+		}];
 	}
+}
+
+- (void)closePullRequest {
+	self.state = kIssueStateClosed;
+	[self saveData];
+}
+
+- (void)reopenPullRequest {
+	self.state = kIssueStateOpen;
+	[self saveData];
 }
 
 #pragma mark Saving

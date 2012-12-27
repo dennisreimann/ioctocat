@@ -104,7 +104,8 @@
 #define kPullRequestsFormat             @"repos/%@/%@/pulls?state=%@"
 #define kPullRequestFormat              @"repos/%@/%@/pulls/%d"
 #define kPullRequestCommitsFormat       @"repos/%@/%@/pulls/%d/commits"
-#define kPullRequestFilesFormat       @"repos/%@/%@/pulls/%d/files"
+#define kPullRequestFilesFormat         @"repos/%@/%@/pulls/%d/files"
+#define kPullRequestMergeFormat         @"repos/%@/%@/pulls/%d/merge"
 
 // Code
 #define kRefFormat                      @"repos/%@/%@/git/refs/%@"

@@ -12,7 +12,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "WebController.h"
-#import "DiffFilesController.h"
+#import "FilesController.h"
 #import "CommentController.h"
 #import "iOctocat.h"
 
@@ -181,7 +181,6 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
 	if (!self.commit.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.commit.comments.isEmpty) return self.noCommentsCell;
-
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
@@ -201,11 +200,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	if (section == 1) {
-		return 56;
-	} else {
-		return 0;
-	}
+	return (section == 2) ? 56 : 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -222,7 +217,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		if (!cell.files.isEmpty) {
-			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
+			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}

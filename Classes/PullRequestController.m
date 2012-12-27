@@ -19,7 +19,7 @@
 #import "GHBranch.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
-#import "DiffFilesController.h"
+#import "FilesController.h"
 #import "GradientButton.h"
 #import "SVProgressHUD.h"
 
@@ -343,7 +343,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 			CommitsController *commitsController = [[CommitsController alloc] initWithCommits:self.pullRequest.commits];
 			[self.navigationController pushViewController:commitsController animated:YES];
 		} else if (row == 1) {
-			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:self.pullRequest.files];
+			FilesController *filesController = [[FilesController alloc] initWithFiles:self.pullRequest.files];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}
 	}

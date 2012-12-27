@@ -1,5 +1,5 @@
 @class GHFiles;
 
-@interface DiffFilesController : UITableViewController
+@interface FilesController : UITableViewController
 - (id)initWithFiles:(GHFiles *)files;
 @end

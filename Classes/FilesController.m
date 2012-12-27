@@ -1,4 +1,4 @@
-#import "DiffFilesController.h"
+#import "FilesController.h"
 #import "CodeController.h"
 #import "GHFiles.h"
 #import "iOctocat.h"
@@ -6,14 +6,14 @@
 #import "NSDictionary+Extensions.h"
 
 
-@interface DiffFilesController ()
+@interface FilesController ()
 @property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingFilesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noFilesCell;
 @end
 
 
-@implementation DiffFilesController
+@implementation FilesController
 
 - (id)initWithFiles:(GHFiles *)files {
 	self = [super initWithNibName:@"Files" bundle:nil];
@@ -71,7 +71,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.files.isEmpty) return;
 	id fileInfo = self.files[indexPath.row];
-	if ([fileInfo isKindOfClass:[NSDictionary class]]) {
+	if ([fileInfo isKindOfClass:NSDictionary.class]) {
 		CodeController *codeController = [[CodeController alloc] initWithFiles:self.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}

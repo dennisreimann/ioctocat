@@ -3467,7 +3467,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = "$(inherited)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dennis Reimann";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
@@ -3475,7 +3475,7 @@
 				INFOPLIST_FILE = "$(SRCROOT)/Beta/Beta-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocatBeta;
-				PROVISIONING_PROFILE = "D18B71C2-3A40-412C-8725-B891D3520DA0";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

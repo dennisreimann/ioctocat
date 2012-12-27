@@ -106,7 +106,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([object isKindOfClass:[GHEvents class]] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	if ([object isKindOfClass:GHEvents.class] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHEvents *feed = (GHEvents *)object;
 		if (feed.isLoading) {
 			self.loadCounter += 1;

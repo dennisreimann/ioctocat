@@ -13,7 +13,7 @@
 }
 
 + (NSURL *)smartURLFromString:(NSString *)string {
-	if (!string || [string isKindOfClass:[NSNull class]] || [string isEmpty]) {
+	if (!string || [string isKindOfClass:NSNull.class] || [string isEmpty]) {
 		return nil;
 	} else {
 		NSURL *url = [NSURL URLWithString:string];
@@ -40,10 +40,10 @@
 
 	for (NSString *parameterName in parameterNames) {
 		id value = params[parameterName];
-		NSAssert3([parameterName isKindOfClass:[NSString class]], @"Got '%@' of type %@ as key for parameter with value '%@'. Expected an NSString.", parameterName, NSStringFromClass([parameterName class]), value);
+		NSAssert3([parameterName isKindOfClass:NSString.class], @"Got '%@' of type %@ as key for parameter with value '%@'. Expected an NSString.", parameterName, NSStringFromClass(parameterName.class), value);
 
 		// The value needs to be an NSString, or be able to give us an NSString
-		if (![value isKindOfClass:[NSString class]]) {
+		if (![value isKindOfClass:NSString.class]) {
 			if ([value respondsToSelector:@selector(stringValue)]) {
 				value = [value stringValue];
 			} else {

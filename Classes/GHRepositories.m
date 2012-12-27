@@ -19,7 +19,7 @@
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
 		id own = dict[@"owner"];
-		NSString *owner = [own isKindOfClass:[NSDictionary class]] ? [own safeStringForKey:@"login"] : own;
+		NSString *owner = [own isKindOfClass:NSDictionary.class] ? [own safeStringForKey:@"login"] : own;
 		NSString *name = [dict safeStringForKey:@"name"];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		[repo setValues:dict];

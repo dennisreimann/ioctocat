@@ -91,6 +91,8 @@
 
 - (void)updateEditButtonItem {
 	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
+    
+    if (self.accounts.count == 0) self.editing = NO;
 }
 
 #pragma mark TableView

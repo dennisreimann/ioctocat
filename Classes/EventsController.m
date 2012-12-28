@@ -183,11 +183,12 @@
 	scale.toValue = @0.85;
 	[loadingView.layer addAnimation:pulse forKey:nil];
 	[loadingView.layer addAnimation:scale forKey:nil];
-	
+
+	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		self.selectedCell = nil;
-		self.selectedIndexPath = nil;
-		[self.events loadData];
+		weakSelf.selectedCell = nil;
+		weakSelf.selectedIndexPath = nil;
+		[weakSelf.events loadData];
 	}];
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }

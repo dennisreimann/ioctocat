@@ -52,7 +52,7 @@ static NSMutableDictionary * AFKeychainQueryDictionaryWithIdentifier(NSString *i
 
 @implementation AFOAuth2Client
 
-+ (AFOAuth2Client *)clientWithBaseURL:(NSURL *)url clientID:(NSString *)clientID secret:(NSString *)secret {
++ (instancetype)clientWithBaseURL:(NSURL *)url clientID:(NSString *)clientID secret:(NSString *)secret {
     return [[self alloc] initWithBaseURL:url clientID:clientID secret:secret];
 }
 

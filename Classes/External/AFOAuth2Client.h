@@ -38,7 +38,7 @@ extern NSString * const kAFOAuthRefreshGrantType;
 @property (readonly, nonatomic) NSString *serviceProviderIdentifier;
 @property (readonly, nonatomic) NSString *clientID;
 
-+ (AFOAuth2Client *)clientWithBaseURL:(NSURL *)url clientID:(NSString *)clientID secret:(NSString *)secret;
++ (instancetype)clientWithBaseURL:(NSURL *)url clientID:(NSString *)clientID secret:(NSString *)secret;
 
 - (id)initWithBaseURL:(NSURL *)url
              clientID:(NSString *)clientID

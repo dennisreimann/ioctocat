@@ -89,7 +89,6 @@
 		6F3D9776166A5FB8009CB887 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9772166A5FB8009CB887 /* check@2x.png */; };
 		6F3D9777166A5FB8009CB887 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9773166A5FB8009CB887 /* warning.png */; };
 		6F3D9778166A5FB8009CB887 /* warning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9774166A5FB8009CB887 /* warning@2x.png */; };
-		6F3FD6931675E2B900E90A6E /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */; };
 		6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FD6961675E3E600E90A6E /* OAuth.plist */; };
 		6F3FD69A1675E80700E90A6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6F48DB5F166C03F900F8FF16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -189,7 +188,6 @@
 		6F612463167D02C9001A3E05 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F612464167D02FB001A3E05 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F177311E316FE008B319F /* MobileCoreServices.framework */; };
 		6F612465167D0302001A3E05 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F176F11E316F3008B319F /* SystemConfiguration.framework */; };
-		6F612466167D036A001A3E05 /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */; };
 		6F612467167D038C001A3E05 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6F612468167D0410001A3E05 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
 		6F612469167D0410001A3E05 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
@@ -772,7 +770,6 @@
 		6FCAA47E167B52C800C816FA /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
 		6FCAA47F167B52C800C816FA /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
 		6FCAA480167B52C800C816FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
-		6FCAA481167B52C800C816FA /* AFOAuth2Client.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */; };
 		6FCAA482167B52C800C816FA /* GHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329A16772F3B001C0804 /* GHCollection.m */; };
 		6FCAA483167B52C800C816FA /* GHPullRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329F16774158001C0804 /* GHPullRequests.m */; };
 		6FCAA484167B52C800C816FA /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
@@ -990,8 +987,6 @@
 		6F3D9772166A5FB8009CB887 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		6F3D9773166A5FB8009CB887 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
 		6F3D9774166A5FB8009CB887 /* warning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "warning@2x.png"; sourceTree = "<group>"; };
-		6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFOAuth2Client.m; sourceTree = "<group>"; };
-		6F3FD6921675E2B900E90A6E /* AFOAuth2Client.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFOAuth2Client.h; sourceTree = "<group>"; };
 		6F3FD6961675E3E600E90A6E /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		6F3FD6991675E80700E90A6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6F48DB5C166C03F900F8FF16 /* iOctocat Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOctocat Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1774,8 +1769,6 @@
 		6F5E9AA21119A96000752560 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				6F3FD6921675E2B900E90A6E /* AFOAuth2Client.h */,
-				6F3FD6911675E2B900E90A6E /* AFOAuth2Client.m */,
 				01554A3314FBF02E00AE08EC /* GradientButton.h */,
 				01554A3414FBF02E00AE08EC /* GradientButton.m */,
 			);
@@ -3089,7 +3082,6 @@
 				6F98765A166FEC380031E31B /* MenuController.m in Sources */,
 				6FE440271673D53C00226F42 /* MenuCell.m in Sources */,
 				6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
-				6F3FD6931675E2B900E90A6E /* AFOAuth2Client.m in Sources */,
 				6FA1329B16772F3B001C0804 /* GHCollection.m in Sources */,
 				6FA132A01677415C001C0804 /* GHPullRequests.m in Sources */,
 				6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */,
@@ -3146,7 +3138,6 @@
 				6F612490167D0410001A3E05 /* FilesCell.m in Sources */,
 				6F612491167D0410001A3E05 /* CommentCell.m in Sources */,
 				6F612492167D0410001A3E05 /* MenuCell.m in Sources */,
-				6F612466167D036A001A3E05 /* AFOAuth2Client.m in Sources */,
 				6F61245F167D02C9001A3E05 /* IOCAvatarLoader.m in Sources */,
 				6F612460167D02C9001A3E05 /* GHApiClient.m in Sources */,
 				6F612461167D02C9001A3E05 /* GHResource.m in Sources */,
@@ -3285,7 +3276,6 @@
 				6FCAA47E167B52C800C816FA /* MenuController.m in Sources */,
 				6FCAA47F167B52C800C816FA /* MenuCell.m in Sources */,
 				6FCAA480167B52C800C816FA /* IOCAvatarCache.m in Sources */,
-				6FCAA481167B52C800C816FA /* AFOAuth2Client.m in Sources */,
 				6FCAA482167B52C800C816FA /* GHCollection.m in Sources */,
 				6FCAA483167B52C800C816FA /* GHPullRequests.m in Sources */,
 				6FCAA484167B52C800C816FA /* PullRequestController.m in Sources */,

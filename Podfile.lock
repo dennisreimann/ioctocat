@@ -1,6 +1,8 @@
 
 PODS:
 - AFNetworking (1.1.0)
+- AFOAuth2Client (0.1.0):
+  - AFNetworking (~> 1.0)
 - Base64 (1.0.0)
 - ECSlidingViewController (0.9.2)
 - Expecta (0.2.0)
@@ -11,6 +13,7 @@ PODS:
 
 DEPENDENCIES:
 - AFNetworking (= 1.1)
+- AFOAuth2Client (= 0.1)
 - Base64
 - ECSlidingViewController (from `https://github.com/iOctocat/ECSlidingViewController.git')
 - Expecta (~> 0.2.0)
@@ -26,7 +29,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/iOctocat/YRDropdownView.git
 
 SPEC CHECKSUMS:
-  AFNetworking: e2d5724bbc7343aea10b22eb70773f6063409a0e
+  AFNetworking: 761a418233d280c1e0580bcb76ff9cb4c3073d17
+  AFOAuth2Client: 2d1a21039fcc086254b0564428677fbbee0a4972
   Base64: 285e4864ccacb72cb921c09fd7a19af3b47f450d
   ECSlidingViewController: f95954f73f256db09ac87d2837a7a286bd25dbf0
   Expecta: 1521da8c54c253277d5fae673f516c76ed838bc7

@@ -49,7 +49,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = @"Organization Repositories";
+	self.navigationItem.title = @"Organization Repos";
 	self.navigationItem.rightBarButtonItem = self.refreshButton;
 	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
 }

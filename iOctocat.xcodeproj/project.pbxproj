@@ -2271,6 +2271,7 @@
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "iOctocat" */;
 			buildPhases = (
 				1D60588D0D05DD3D006BFB54 /* Resources */,
+				6FE77C3816934329006C3F26 /* ShellScript */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				D6C7426A837F4D259E51EF69 /* Copy Pods Resources */,
@@ -2309,6 +2310,7 @@
 			buildConfigurationList = 6FCAA493167B52C800C816FA /* Build configuration list for PBXNativeTarget "iOctocat Beta" */;
 			buildPhases = (
 				6FCAA319167B52C800C816FA /* Resources */,
+				6FE77C36169342DD006C3F26 /* ShellScript */,
 				6FCAA42D167B52C800C816FA /* Sources */,
 				6FCAA486167B52C800C816FA /* Frameworks */,
 				6FCAA492167B52C800C816FA /* Copy Pods Resources */,
@@ -2962,6 +2964,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		6FE77C36169342DD006C3F26 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/ThirdPartyLicenses\"\n./licenses.pl";
+		};
+		6FE77C3816934329006C3F26 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/ThirdPartyLicenses\"\n./licenses.pl";
 		};
 		6FFB4228167BA90C0004442C /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;

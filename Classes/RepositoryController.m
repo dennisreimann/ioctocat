@@ -236,7 +236,7 @@
 	} else if (section == 1 && row == 3) {
 		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 		viewController.title = self.repository.name;
-	} else if (section == 2) {
+	} else if (section == 2 && row < self.repository.branches.count) {
 		GHBranch *branch = self.repository.branches[row];
 		GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
 		viewController = [[TreeController alloc] initWithTree:tree];

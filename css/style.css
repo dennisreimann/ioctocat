@@ -9,6 +9,7 @@ body {
 }
 
 h1 {
+  margin: 0 0 .25em 0;
 	font-size: 2.2em;
 	font-family: Lucida Grande;
 	letter-spacing: -0.05em;
@@ -107,15 +108,15 @@ ul#screenshots {
 
 #screenshots li {
 	position: absolute;
-	top: 134px;
-	left: 31px;
+	top: 116px;
+	left: 34px;
 	display: none;
 }
 
 #screenshots img {
 	display: block;
   width: 320px;
-  height: 480px;
+  height: 568px;
 }
 
 ul#reviews,

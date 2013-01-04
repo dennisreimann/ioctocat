@@ -74,6 +74,10 @@ iframe {
 	width: 389px;
 }
 
+iframe {
+  width: 389px;
+}
+
 #sidebar {
 	float: right;
 	width: 230px;
@@ -119,29 +123,22 @@ ul#screenshots {
   height: 568px;
 }
 
-ul#reviews,
-ul#twitter_update_list {
-	margin: 0;
+ul#reviews {
+	margin: 0 0 700px 0;
 	list-style: none;
 	font-size: .9em;
 }
 
-#reviews li,
-#twitter_update_list li {
+#reviews li {
 	border-bottom: 1px dotted #CCC;
 	padding: .5em 0;
 }
 
-#reviews li:last-child,
-#twitter_update_list li:last-child {
+#reviews li:last-child {
 	border-bottom: 0;
 }
 
-#reviews a,
-#twitter_update_list a {
+#reviews a {
 	color: #666;
 }
 
-#twitter {
-  margin-top: 690px;
-}

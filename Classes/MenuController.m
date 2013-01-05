@@ -57,7 +57,8 @@
 	self.tableView.scrollsToTop = NO;
 	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
 	MyEventsController *myEventsController = [[MyEventsController alloc] initWithUser:self.user];
-	[self openViewController:myEventsController fromOffScreen:YES];
+	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
+	[self openViewController:myEventsController];
 }
 
 - (void)dealloc {
@@ -114,11 +115,11 @@
 		}
 	}
 	if (viewController) {
-		[self openViewController:viewController fromOffScreen:YES];
+		[self openViewController:viewController];
 	}
 }
 
-- (void)openViewController:(UIViewController *)viewController fromOffScreen:(BOOL)fromOff {
+- (void)openViewController:(UIViewController *)viewController {
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
 	UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:[self.class menuButtonImage]
 																   style:UIBarButtonItemStylePlain
@@ -129,19 +130,12 @@
 	navController.view.layer.shadowColor = [UIColor blackColor].CGColor;
 	viewController.navigationItem.leftBarButtonItem = buttonItem;
 	[self.slidingViewController setTopViewController:navController];
-	// the following two line animate the top view to the left.
-	// otherwise the view controller is just set, which looks choppy.
-	if (fromOff) {
-		[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
-		self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
-		[self.slidingViewController resetTopViewAnimateChange:5 animations:NULL onComplete:NULL];
-	} else {
-		[self.slidingViewController anchorTopViewTo:ECRight];
-		[self.slidingViewController resetTopView];
-	}
+	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
+	[self.slidingViewController resetTopView];
 }
 
 - (void)toggleTopView {
+	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
 	if ([self.slidingViewController underLeftShowing]) {
 		[self.slidingViewController resetTopView];
 	} else {
@@ -299,7 +293,7 @@
 	}
 	// Maybe push a controller
 	if (viewController) {
-		[self openViewController:viewController fromOffScreen:NO];
+		[self openViewController:viewController];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

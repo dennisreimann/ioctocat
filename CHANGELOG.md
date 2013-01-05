@@ -8,6 +8,11 @@ Additions:
 * Added license acknowledgements for third party libs
 * Separate lists for watched and starred repositories
 
+Changes:
+
+* Increase revealed space for top view when menu is shown
+* Removed the animation for initial top view slide-in
+
 Bugfixes:
 
 * Show authentication message HUD on initial login. Thanks @zhen9ao

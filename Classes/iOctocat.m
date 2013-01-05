@@ -41,7 +41,7 @@
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	self.users = [NSMutableDictionary dictionary];
 	self.organizations = [NSMutableDictionary dictionary];
-	self.slidingViewController.anchorRightRevealAmount = 270;
+	self.slidingViewController.anchorRightRevealAmount = 230;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
 	[self.window makeKeyAndVisible];
 	return YES;

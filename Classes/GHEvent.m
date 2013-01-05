@@ -110,11 +110,12 @@
 	}
 
 	// Issue
-	NSInteger issueNumber = [self.payload safeIntegerForKeyPath:@"issue.number"];
-	if (issueNumber) {
+	NSDictionary *issueDict = [self.payload safeDictForKey:@"issue"];
+	NSInteger issueNumber = [issueDict safeIntegerForKey:@"number"];
+	if (issueDict && issueNumber) {
 		self.issue = [[GHIssue alloc] initWithRepository:self.repository];
 		self.issue.num = issueNumber;
-		[self.issue setValues:self.payload[@"issue"]];
+		[self.issue setValues:issueDict];
 	}
 
 	// Pull Request

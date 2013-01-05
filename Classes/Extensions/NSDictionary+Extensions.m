@@ -29,11 +29,6 @@
 	return (!value || value == NSNull.null) ? (int)nil : [value integerValue];
 }
 
-- (NSInteger)safeIntegerForKeyPath:(NSString *)keyPath {
-	id value = [self valueForKeyPath:keyPath defaultsTo:nil];
-	return (!value || value == NSNull.null) ? (int)nil : [value integerValue];
-}
-
 - (NSDictionary *)safeDictForKey:(NSString *)key {
 	id value = [self valueForKey:key defaultsTo:@""];
 	return ([value isKindOfClass:NSDictionary.class]) ? value : nil;

@@ -15,6 +15,7 @@
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)AuthenticationController *authController;
 @property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
+@property(nonatomic,assign, getter = isAwakeFromNib)BOOL awakeFromNib;
 
 - (void)editAccountAtIndex:(NSUInteger)idx;
 - (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx;
@@ -38,19 +39,26 @@
 	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
-	// Open account if there is only one
-	if (self.accounts.count == 1) {
-		[self openOrAuthenticateAccountAtIndex:0];
-	}
+    self.awakeFromNib = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if ([iOctocat sharedInstance].currentAccount) {
 		[iOctocat sharedInstance].currentAccount = nil;
+        self.awakeFromNib = NO;
 	}
 	[self.tableView reloadData];
 	[self updateEditButtonItem];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+	// Open account if there is only one
+    if (self.isAwakeFromNib && self.accounts.count == 1) {
+        [self openOrAuthenticateAccountAtIndex:0];
+    }
 }
 
 #pragma mark Accounts

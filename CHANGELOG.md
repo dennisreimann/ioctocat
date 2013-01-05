@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.7.1
+
+Bugfixes:
+
+* Show authentication message HUD on initial login. Thanks @zhen9ao
+
 ## v1.7.0
 
 Additions:

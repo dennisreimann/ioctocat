@@ -16,7 +16,7 @@ DEPENDENCIES:
 - AFOAuth2Client (= 0.1)
 - Base64
 - ECSlidingViewController (from `https://github.com/iOctocat/ECSlidingViewController.git')
-- Expecta (~> 0.2.0)
+- Expecta (from `https://github.com/github/expecta.git')
 - HockeySDK
 - SVProgressHUD
 - SVPullToRefresh
@@ -25,6 +25,8 @@ DEPENDENCIES:
 EXTERNAL SOURCES:
   ECSlidingViewController:
     :git: https://github.com/iOctocat/ECSlidingViewController.git
+  Expecta:
+    :git: https://github.com/github/expecta.git
   YRDropdownView:
     :git: https://github.com/iOctocat/YRDropdownView.git
 
@@ -33,7 +35,7 @@ SPEC CHECKSUMS:
   AFOAuth2Client: 2d1a21039fcc086254b0564428677fbbee0a4972
   Base64: 285e4864ccacb72cb921c09fd7a19af3b47f450d
   ECSlidingViewController: f95954f73f256db09ac87d2837a7a286bd25dbf0
-  Expecta: 1521da8c54c253277d5fae673f516c76ed838bc7
+  Expecta: 3ddfc757aeb1e351e12c6f1e21ab631f77178f13
   HockeySDK: d8d59e37d7c37aa4d6d4b73eb42c0c2a60931d43
   SVProgressHUD: 51042a14e3a716efdbdd73cbb2181fb23ee94389
   SVPullToRefresh: 479bcbbf42c83366f49aab231ed6e94dad928fef

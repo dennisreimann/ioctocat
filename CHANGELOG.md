@@ -2,9 +2,16 @@
 
 ## v1.7.1
 
+Additions:
+
+* Allow scaling in code view
+* Added license acknowledgements for third party libs
+
 Bugfixes:
 
 * Show authentication message HUD on initial login. Thanks @zhen9ao
+* Fixed icon graphic glitches (dark borders in upper edges)
+* Fixed crash in repo controller (during loading of the branches)
 
 ## v1.7.0
 

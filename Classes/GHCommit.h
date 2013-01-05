@@ -1,8 +1,7 @@
-#import <Foundation/Foundation.h>
 #import "GHResource.h"
 
 
-@class GHUser, GHRepository, GHRepoComments;
+@class GHUser, GHRepository, GHRepoComments, GHFiles;
 
 @interface GHCommit : GHResource
 @property(nonatomic,strong)NSString *commitID;
@@ -13,9 +12,9 @@
 @property(nonatomic,strong)NSString *committerEmail;
 @property(nonatomic,strong)NSDate *committedDate;
 @property(nonatomic,strong)NSDate *authoredDate;
-@property(nonatomic,strong)NSMutableArray *added;
-@property(nonatomic,strong)NSMutableArray *modified;
-@property(nonatomic,strong)NSMutableArray *removed;
+@property(nonatomic,strong)GHFiles *added;
+@property(nonatomic,strong)GHFiles *modified;
+@property(nonatomic,strong)GHFiles *removed;
 @property(nonatomic,strong)GHUser *author;
 @property(nonatomic,strong)GHUser *committer;
 @property(nonatomic,strong)GHRepository *repository;

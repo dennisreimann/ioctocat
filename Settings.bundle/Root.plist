@@ -96,6 +96,28 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Third Party Licenses</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>CocoaPods Acknowledgements</string>
+			<key>File</key>
+			<string>CocoaPodsLicenses</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Other Acknowledgements</string>
+			<key>File</key>
+			<string>OtherLicenses</string>
+		</dict>
 	</array>
 	<key>StringsTable</key>
 	<string>Root</string>

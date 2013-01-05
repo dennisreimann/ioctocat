@@ -30,6 +30,10 @@
 	self.loadingStatus = GHResourceStatusNotProcessed;
 }
 
+- (void)markAsLoaded {
+	self.loadingStatus = GHResourceStatusProcessed;
+}
+
 - (NSString *)resourceContentType {
 	return kResourceContentTypeDefault;
 }
@@ -45,16 +49,16 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	D3JLog(@"Loading %@", self.resourcePath);
+	D3JLog(@"%@: Loading %@", self.class, self.resourcePath);
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	[self.apiClient getPath:self.resourcePath parameters:nil
 		success:^(AFHTTPRequestOperation *operation, id response) {
-			D3JLog(@"Loading %@ finished: %@", self.resourcePath, response);
+			D3JLog(@"%@: Loading %@ finished: %@", self.class, self.resourcePath, response);
 			[self setValues:response];
 			self.loadingStatus = GHResourceStatusProcessed;
 		}
 		failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			 DJLog(@"Loading %@ failed: %@", self.resourcePath, error);
+			 DJLog(@"%@: Loading %@ failed: %@", self.class, self.resourcePath, error);
 			 self.error = error;
 			 self.loadingStatus = GHResourceStatusNotProcessed;
 		}
@@ -68,20 +72,20 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-	D3JLog(@"Saving %@ (%@)\n\n%@", path, method, values);
+	D3JLog(@"%@: Saving %@ (%@)\n\n%@", self.class, path, method, values);
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method
 																path:path
 														  parameters:values];
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 		success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-			D3JLog(@"Saving %@ finished: %@", path, json);
+			D3JLog(@"%@: Saving %@ finished: %@", self.class, path, json);
 			if (useResult) {
 				useResult(json);
 			}
 			self.savingStatus = GHResourceStatusProcessed;
 		}
 		failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-			DJLog(@"Saving %@ failed: %@", path, error);
+			DJLog(@"%@: Saving %@ failed: %@", self.class, path, error);
 			self.error = error;
 			self.savingStatus = GHResourceStatusNotProcessed;
 		}

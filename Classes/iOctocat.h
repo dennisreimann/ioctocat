@@ -5,7 +5,6 @@
 @property(nonatomic,strong)IBOutlet UIWindow *window;
 
 + (iOctocat *)sharedInstance;
-+ (NSDate *)parseDate:(NSString *)string;
 + (void)reportError:(NSString *)title with:(NSString *)message;
 + (void)reportLoadingError:(NSString *)message;
 + (void)reportSuccess:(NSString *)message;

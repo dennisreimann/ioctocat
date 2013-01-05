@@ -1,7 +1,7 @@
 #import "GHComment.h"
 #import "GHUser.h"
-#import "iOctocat.h"
 #import "NSDictionary+Extensions.h"
+#import "iOctocat.h"
 
 
 @implementation GHComment
@@ -12,8 +12,8 @@
 
 - (void)setValues:(id)dict {
 	self.body = [dict safeStringForKey:@"body"];
-	self.created = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
-	self.updated = [iOctocat parseDate:[dict safeStringForKey:@"updated_at"]];
+	self.created = [dict safeDateForKey:@"created_at"];
+	self.updated = [dict safeDateForKey:@"updated_at"];
 	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
 	if (!self.user.gravatarURL) {
 		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];

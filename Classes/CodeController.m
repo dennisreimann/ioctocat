@@ -1,10 +1,12 @@
 #import "CodeController.h"
+#import "GHFiles.h"
 #import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @interface CodeController () <UIWebViewDelegate>
+@property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)NSDictionary *file;
-@property(nonatomic,strong)NSArray *files;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)IBOutlet UIView *activityView;
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
@@ -17,7 +19,7 @@
 
 @implementation CodeController
 
-- (id)initWithFiles:(NSArray *)files currentIndex:(NSUInteger)idx {
+- (id)initWithFiles:(GHFiles *)files currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {
 		self.files = files;
@@ -49,14 +51,14 @@
 - (void)setFile:(NSDictionary *)file {
 	if (file == self.file) return;
 	_file = file;
-
-	NSString *fileName = [[self.file valueForKey:@"filename"] lastPathComponent];
-	NSString *fileContent = [self.file valueForKey:@"content"];
-	NSString *patch = [self.file valueForKey:@"patch"];
-
+	NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];
+	NSString *fileContent = [self.file safeStringForKey:@"content"];
+	NSString *lang = [self.file safeStringForKey:@"language"];
 	// if it's not a gist it must be a commit, so use the patch
-	if (!fileContent) fileContent = patch;
-
+	if (fileContent.isEmpty) {
+		fileContent = [self.file safeStringForKey:@"patch"];
+		lang = @"diff";
+	}
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
@@ -69,11 +71,9 @@
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *escapedCode = [fileContent escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, escapedCode];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
 	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
-
 	self.title = fileName;
-
 	// Update navigation control
 	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:0];
 	[self.navigationControl setEnabled:(self.index < self.files.count - 1) forSegmentAtIndex:1];

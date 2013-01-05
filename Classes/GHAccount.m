@@ -21,7 +21,7 @@
 
 @implementation GHAccount
 
-static int userOrgsObservanceContext;
+NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
 
 - (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
@@ -45,20 +45,17 @@ static int userOrgsObservanceContext;
 		self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
 		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
-		[self.user.organizations addObserver:self
-								  forKeyPath:kResourceLoadingStatusKeyPath
-									 options:NSKeyValueObservingOptionNew
-									 context:&userOrgsObservanceContext];
+		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath context:&userOrgsObservanceContext];
+	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (context == &userOrgsObservanceContext && self.user.organizations.isLoaded) {
+	if (self.user.organizations.isLoaded) {
 		for (GHOrganization *org in self.user.organizations.items) {
 			org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.login, org.login];
 		}

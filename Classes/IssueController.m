@@ -158,7 +158,6 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
@@ -175,23 +174,32 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 												  delegate:self
 										 cancelButtonTitle:@"Cancel"
 									destructiveButtonTitle:nil
-										 otherButtonTitles:(self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:@"Add comment", @"Show on GitHub", nil];
 	}
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0 && self.issueEditableByCurrentUser) {
-		IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
-		formController.delegate = self;
-		[self.navigationController pushViewController:formController animated:YES];
-	} else if ((buttonIndex == 1 && self.issueEditableByCurrentUser) || (buttonIndex == 0 && !self.issueEditableByCurrentUser)) {
-		self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
-	} else if ((buttonIndex == 2 && self.issueEditableByCurrentUser) || (buttonIndex == 1 && !self.issueEditableByCurrentUser)) {
-		[self addComment:nil];
-	} else if ((buttonIndex == 3 && self.issueEditableByCurrentUser) || (buttonIndex == 2 && !self.issueEditableByCurrentUser)) {
-		WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
-		[self.navigationController pushViewController:webController animated:YES];
+	if (self.issueEditableByCurrentUser) {
+		if (buttonIndex == 0) {
+			IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
+			formController.delegate = self;
+			[self.navigationController pushViewController:formController animated:YES];
+		} else if (buttonIndex == 1) {
+			self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
+		} else if (buttonIndex == 2) {
+			[self addComment:nil];
+		} else if (buttonIndex == 3) {
+			WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+			[self.navigationController pushViewController:webController animated:YES];
+		}
+	} else {
+		if (buttonIndex == 0) {
+			[self addComment:nil];
+		} else if (buttonIndex == 1) {
+			WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+			[self.navigationController pushViewController:webController animated:YES];
+		}
 	}
 }
 
@@ -242,13 +250,29 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	if (section == 1) {
+		return self.tableFooterView;
+	} else {
+		return nil;
+	}
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == 4) return [self.descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && self.issue.comments.isLoaded && !self.issue.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
-	return 44.0f;
+	return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	if (section == 1) {
+		return 56;
+	} else {
+		return 0;
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

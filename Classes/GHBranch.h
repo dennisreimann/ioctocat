@@ -5,7 +5,7 @@
 @class GHRepository, GHCommit, GHUser;
 
 @interface GHBranch : GHResource
-@property(nonatomic,readonly)GHUser *author;
+@property(nonatomic,strong)GHUser *author;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)NSString *name;

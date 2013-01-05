@@ -1,6 +1,8 @@
 #import <Foundation/Foundation.h>
 
 
+@class GHCommits;
+
 @interface CommitsController : UITableViewController
-- (id)initWithCommits:(NSArray *)commits;
+- (id)initWithCommits:(GHCommits *)commits;
 @end

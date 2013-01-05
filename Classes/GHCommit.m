@@ -1,9 +1,11 @@
 #import "GHCommit.h"
 #import "GHUser.h"
+#import "GHFiles.h"
 #import "GHRepository.h"
 #import "GHRepoComments.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
@@ -23,17 +25,16 @@
 - (void)setValues:(id)dict {
 	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
 	NSString *committerLogin = [dict safeStringForKeyPath:@"committer.login"];
-	NSString *authorDateString = [dict safeStringForKeyPath:@"commit.author.date"];
-	NSString *committerDateString = [dict safeStringForKeyPath:@"commit.committer.date"];
 	self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
 	self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
-	self.authoredDate = [iOctocat parseDate:authorDateString];
-	self.committedDate = [iOctocat parseDate:committerDateString];
+	self.authoredDate = [dict safeDateForKeyPath:@"commit.author.date"];
+	self.committedDate = [dict safeDateForKeyPath:@"commit.committer.date"];
 	self.message = [dict safeStringForKeyPath:@"commit.message"];
+	if (self.message.isEmpty) self.message = [dict safeStringForKey:@"message"];
 	// Files
-	self.added = [NSMutableArray array];
-	self.modified = [NSMutableArray array];
-	self.removed = [NSMutableArray array];
+	self.added = [[GHFiles alloc] init];
+	self.removed = [[GHFiles alloc] init];
+	self.modified = [[GHFiles alloc] init];
 	NSArray *files = [dict safeArrayForKey:@"files"];
 	for (NSDictionary *file in files) {
 		NSString *status = [file safeStringForKey:@"status"];
@@ -45,6 +46,9 @@
 			[self.modified addObject:file];
 		}
 	}
+	[self.added markAsLoaded];
+	[self.removed markAsLoaded];
+	[self.modified markAsLoaded];
 }
 
 @end

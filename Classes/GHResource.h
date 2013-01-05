@@ -21,6 +21,7 @@ typedef enum {
 - (id)initWithPath:(NSString *)path;
 - (void)loadData;
 - (void)needsReload;
+- (void)markAsLoaded;
 - (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id response))useResult;
 - (void)setValues:(id)response;
 - (NSString *)resourceContentType;

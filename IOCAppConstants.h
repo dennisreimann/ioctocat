@@ -71,7 +71,7 @@
 #define kGistFormat                     @"gists/%@"
 #define kGistStarFormat                 @"gists/%@/star"
 #define kUserGistsFormat                @"users/%@/gists"
-#define kStarredGistsFormat             @"" // not implemented
+#define kStarredGistsFormat             @"gists/starred" // not implemented, yet (currently endpoint for gists of authenticated user)
 #define kGistCommentsFormat             @"gists/%@/comments"
 
 // Users
@@ -103,6 +103,9 @@
 #define kIssueCommentsFormat            @"repos/%@/%@/issues/%d/comments?per_page=100"
 #define kPullRequestsFormat             @"repos/%@/%@/pulls?state=%@"
 #define kPullRequestFormat              @"repos/%@/%@/pulls/%d"
+#define kPullRequestCommitsFormat       @"repos/%@/%@/pulls/%d/commits"
+#define kPullRequestFilesFormat         @"repos/%@/%@/pulls/%d/files"
+#define kPullRequestMergeFormat         @"repos/%@/%@/pulls/%d/merge"
 
 // Code
 #define kRefFormat                      @"repos/%@/%@/git/refs/%@"

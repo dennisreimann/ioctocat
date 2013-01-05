@@ -21,7 +21,7 @@
             "email": "cog@randomecho.com",
             "name": "Soon Van"
           },
-          "message": "Facebook API redirects to Facebook Login guide\n\nURL needs to be updated along with title so as to not land the\nuser on a page they think is wrongly linked/called. Pointing\nto their technical guides might also be warmer than a straight\ndrop into the API specs.\n\nAlso spruces up some of those GitHub links in OAuth since all\nare on the SSL flavour.\n\nThat Net::Github CPAN link also moved house.",
+          "message": "Facebook API redirects to Facebook Login guide",
           "url": "https://api.github.com/repos/github/developer.github.com/commits/e365faf0207e64fbb373fc6690f54be2d8e4d2d9"
         },
         {
@@ -31,7 +31,7 @@
             "email": "wynn@github.com",
             "name": "Wynn Netherland"
           },
-          "message": "Merge pull request #187 from randomecho/linkrot\n\nFacebook API redirects to Facebook Login guide",
+          "message": "Merge pull request #187 from randomecho/linkrot",
           "url": "https://api.github.com/repos/github/developer.github.com/commits/f5cdeada37bf212593d8fda0da5f8d2e04b177e3"
         }
       ],

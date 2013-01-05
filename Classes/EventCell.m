@@ -1,5 +1,6 @@
 #import "EventCell.h"
 #import "GHEvent.h"
+#import "GHCommits.h"
 #import "GHUser.h"
 #import "IOCAvatarLoader.h"
 #import "GHRepository.h"
@@ -197,7 +198,7 @@
 
 - (IBAction)showCommit:(id)sender {
 	if (self.event.commits.count == 1) {
-		GHCommit *commit = (self.event.commits)[0];
+		GHCommit *commit = self.event.commits[0];
 		if (self.delegate) [self.delegate openEventItem:commit];
 	} else if (self.event.commits.count > 1) {
 		if (self.delegate) [self.delegate openEventItem:self.event.commits];

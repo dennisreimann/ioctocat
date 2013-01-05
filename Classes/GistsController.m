@@ -35,18 +35,15 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
 	self.navigationItem.title = [self.title isEmpty] ? @"Gists" : self.title;
 	self.navigationItem.rightBarButtonItem = self.refreshButton;
-	
 	if (!self.gists.isLoaded) [self.gists loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		[self.tableView reloadData];
-		GHGists *gists = (GHGists *)object;
-		if (!gists.isLoading && gists.error) {
+		if (!self.gists.isLoading && self.gists.error) {
 			[iOctocat reportLoadingError:@"Could not load the gists"];
 		}
 	}

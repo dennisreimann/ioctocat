@@ -1,5 +1,6 @@
 #import "CommitController.h"
 #import "GHUser.h"
+#import "GHFiles.h"
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "GHRepoComments.h"
@@ -11,7 +12,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "WebController.h"
-#import "DiffFilesController.h"
+#import "FilesController.h"
 #import "CommentController.h"
 #import "iOctocat.h"
 
@@ -99,7 +100,6 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
@@ -150,10 +150,6 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return (self.commit.isLoaded) ? 3 : 1;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 2) ? @"Comments" : @"";
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.commit.isLoaded) return 1;
 	if (section == 0) return 3;
@@ -161,6 +157,18 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	if (!self.commit.comments.isLoaded) return 1;
 	if (self.commit.comments.isEmpty) return 1;
 	return self.commit.comments.count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return (section == 2) ? @"Comments" : @"";
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	if (section == 2) {
+		return self.tableFooterView;
+	} else {
+		return nil;
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -173,7 +181,6 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
 	if (!self.commit.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.commit.comments.isEmpty) return self.noCommentsCell;
-
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
@@ -189,7 +196,11 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
-	return 44.0f;
+	return 44;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	return (section == 2) ? 56 : 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -205,8 +216,8 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
-		if (cell.files.count > 0) {
-			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
+		if (!cell.files.isEmpty) {
+			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}

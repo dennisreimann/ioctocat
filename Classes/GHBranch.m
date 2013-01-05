@@ -7,11 +7,6 @@
 #import "NSDictionary+Extensions.h"
 
 
-@interface GHBranch ()
-@property(nonatomic,strong)NSString *authorLogin;
-@end
-
-
 @implementation GHBranch
 
 - (id)initWithRepository:(GHRepository *)repo andName:(NSString *)name {
@@ -23,10 +18,6 @@
 	return self;
 }
 
-- (GHUser *)author {
-	return [[iOctocat sharedInstance] userWithLogin:self.authorLogin];
-}
-
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
@@ -35,7 +26,7 @@
 	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
 	if ([authorLogin isEmpty]) authorLogin = [dict safeStringForKeyPath:@"user.login"];
 	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
-	self.authorLogin = authorLogin;
+	self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
 }
 
 @end

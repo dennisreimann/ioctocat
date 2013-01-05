@@ -14,8 +14,11 @@
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
-    self.imageView.frame = CGRectMake(4, 4, 32, 32);
+	[super layoutSubviews];
+	CGRect textFrame = self.textLabel.frame;
+	textFrame.origin.x = 46;
+	self.textLabel.frame = textFrame;
+	self.imageView.frame = CGRectMake(4, 4, 32, 32);
 }
 
 @end

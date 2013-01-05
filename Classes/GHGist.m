@@ -1,6 +1,7 @@
 #import "GHResource.h"
 #import "GHUser.h"
 #import "GHGist.h"
+#import "GHFiles.h"
 #import "GHGistComments.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
@@ -21,7 +22,7 @@
 }
 
 - (NSString *)title {
-	return ([self.descriptionText isEmpty] && self.files.count > 0) ? [self.files allKeys][0] : self.descriptionText;
+	return (self.descriptionText.isEmpty && !self.files.isEmpty) ? self.files[0][@"filename"] : self.descriptionText;
 }
 
 - (GHUser *)user {
@@ -32,14 +33,15 @@
 
 - (void)setValues:(id)dict {
 	self.gistId = [dict safeStringForKey:@"id"];
-	self.files = [dict safeDictForKey:@"files"];
+	self.files = [[GHFiles alloc] init];
+	[self.files setValues:[[dict safeDictForKey:@"files"] allValues]];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
 	self.descriptionText = [dict safeStringForKey:@"description"];
 	self.isPrivate = ![dict safeBoolForKey:@"public"];
 	self.forksCount = [dict safeArrayForKey:@"forks"].count;
 	self.commentsCount = [dict safeIntegerForKey:@"comments"];
-	self.createdAtDate = [iOctocat parseDate:[dict safeStringForKey:@"created_at"]];
+	self.createdAtDate = [dict safeDateForKey:@"created_at"];
 }
 
 @end

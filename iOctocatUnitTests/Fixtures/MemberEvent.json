@@ -1,0 +1,38 @@
+  {
+    "type": "MemberEvent",
+    "repo": {
+      "url": "https://api.github.com/repos/sferik/rails",
+      "name": "sferik/rails",
+      "id": 6783491
+    },
+    "created_at": "2012-12-22T18:37:27Z",
+    "actor": {
+      "gravatar_id": "1f74b13f1e5c6c69cb5d7fbaabb1e2cb",
+      "login": "sferik",
+      "url": "https://api.github.com/users/sferik",
+      "avatar_url": "https://secure.gravatar.com/avatar/1f74b13f1e5c6c69cb5d7fbaabb1e2cb?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+      "id": 10308
+    },
+    "public": true,
+    "payload": {
+      "member": {
+        "gravatar_id": "428167a3ec72235ba971162924492609",
+        "gists_url": "https://api.github.com/users/wycats/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/wycats/starred{/owner}{/repo}",
+        "login": "wycats",
+        "organizations_url": "https://api.github.com/users/wycats/orgs",
+        "followers_url": "https://api.github.com/users/wycats/followers",
+        "received_events_url": "https://api.github.com/users/wycats/received_events",
+        "type": "User",
+        "subscriptions_url": "https://api.github.com/users/wycats/subscriptions",
+        "following_url": "https://api.github.com/users/wycats/following",
+        "repos_url": "https://api.github.com/users/wycats/repos",
+        "avatar_url": "https://secure.gravatar.com/avatar/428167a3ec72235ba971162924492609?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+        "url": "https://api.github.com/users/wycats",
+        "id": 4,
+        "events_url": "https://api.github.com/users/wycats/events{/privacy}"
+      },
+      "action": "added"
+    },
+    "id": "1646228834"
+  }

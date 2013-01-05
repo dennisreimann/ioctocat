@@ -105,12 +105,12 @@
 	if (!self.currentSearch.isLoaded) return self.loadingCell;
 	if (self.currentSearch.isEmpty) return self.noResultsCell;
 	id object = self.currentSearch.searchResults[indexPath.row];
-	if ([object isKindOfClass:[GHRepository class]]) {
+	if ([object isKindOfClass:GHRepository.class]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
 		cell.repository = (GHRepository *)object;
 		return cell;
-	} else if ([object isKindOfClass:[GHUser class]]) {
+	} else if ([object isKindOfClass:GHUser.class]) {
 		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
@@ -125,9 +125,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	id object = self.currentSearch.searchResults[indexPath.row];
 	UIViewController *viewController = nil;
-	if ([object isKindOfClass:[GHRepository class]]) {
+	if ([object isKindOfClass:GHRepository.class]) {
 		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];
-	} else if ([object isKindOfClass:[GHUser class]]) {
+	} else if ([object isKindOfClass:GHUser.class]) {
 		viewController = [[UserController alloc] initWithUser:(GHUser *)object];
 	}
 	if (viewController) {

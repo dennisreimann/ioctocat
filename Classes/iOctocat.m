@@ -13,10 +13,9 @@
 #import "ECSlidingViewController.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
-#define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 
 
-@interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate>
+@interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 @property(nonatomic,strong)NSMutableDictionary *users;
 @property(nonatomic,strong)NSMutableDictionary *organizations;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
@@ -120,6 +119,15 @@
 	}
 }
 
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_Release
+	if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {
+		return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+	}
+#endif
+	return nil;
+}
+
 #pragma mark Users
 
 - (GHUser *)currentUser {
@@ -160,21 +168,6 @@
 }
 
 #pragma mark Helpers
-
-+ (NSDate *)parseDate:(NSString *)string {
-	if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
-	static NSDateFormatter *dateFormatter;
-	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = kISO8601TimeFormat;
-	// Fix for timezone format
-	if ([string hasSuffix:@"Z"]) {
-		string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
-	} else if ([string length] >= 24) {
-		string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
-	}
-	NSDate *date = [dateFormatter dateFromString:string];
-	return date;
-}
 
 + (void)reportError:(NSString *)title with:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"warning.png"];

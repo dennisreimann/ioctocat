@@ -15,6 +15,7 @@
 #import "GHRepository.h"
 #import "GHIssue.h"
 #import "GHCommit.h"
+#import "GHCommits.h"
 #import "GHGist.h"
 #import "GHPullRequest.h"
 #import "iOctocat.h"
@@ -101,7 +102,7 @@
 			viewController = [[WebController alloc] initWithURL:url];
 			viewController.title = [eventItem safeStringForKey:@"page_name"];
 		}
-	} else if ([eventItem isKindOfClass:NSArray.class]) {
+	} else if ([eventItem isKindOfClass:GHCommits.class]) {
 		id firstEntry = eventItem[0];
 		if ([firstEntry isKindOfClass:GHCommit.class]) {
 			viewController = [[CommitsController alloc] initWithCommits:eventItem];
@@ -120,7 +121,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.events.isLoading) return 0;
+	if (self.events.isLoading) return self.events.count;
 	if (self.events.isLoaded && self.events.count == 0) return 1;
 	return self.events.count;
 }
@@ -182,11 +183,12 @@
 	scale.toValue = @0.85;
 	[loadingView.layer addAnimation:pulse forKey:nil];
 	[loadingView.layer addAnimation:scale forKey:nil];
-	
+
+	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		self.selectedCell = nil;
-		self.selectedIndexPath = nil;
-		[self.events loadData];
+		weakSelf.selectedCell = nil;
+		weakSelf.selectedIndexPath = nil;
+		[weakSelf.events loadData];
 	}];
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }

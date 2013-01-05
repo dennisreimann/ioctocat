@@ -6,7 +6,7 @@ Additions:
 
 * New navigation menu
 * Authentication via OAuth (please reauthenticate)
-* Support for Pull Requests (will be finalized in the next beta)
+* Support for Pull Requests
 * Reworked commenting and comment loading
 * Fixes and updates for gists
 * Preparations for announced API changes

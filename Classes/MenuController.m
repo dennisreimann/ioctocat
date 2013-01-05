@@ -3,6 +3,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "RepositoriesController.h"
+#import "MyRepositoriesController.h"
 #import "OrganizationsController.h"
 #import "OrganizationRepositoriesController.h"
 #import "IssueController.h"
@@ -260,10 +261,18 @@
 			
 		case 2:
 			if (row == 0) {
-				viewController = [[RepositoriesController alloc] initWithUser:self.user];
+				viewController = [[MyRepositoriesController alloc] initWithUser:self.user];
+				viewController.title = @"Personal Repos";
 			} else if (row == 1) {
 				viewController = [[OrganizationRepositoriesController alloc] initWithUser:self.user];
+				viewController.title = @"Organization Repos";
 			} else if (row == 2) {
+				viewController = [[RepositoriesController alloc] initWithRepositories:self.user.watchedRepositories];
+				viewController.title = @"Watched Repos";
+			} else if (row == 3) {
+				viewController = [[RepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
+				viewController.title = @"Starred Repos";
+			} else if (row == 4) {
 				viewController = [[IssuesController alloc] initWithUser:self.user];
 				viewController.title = @"My Issues";
 			}

@@ -23,8 +23,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
-- (void)loadOrganizationRepositories;
-- (void)displayRepositories:(GHRepositories *)repositories;
 - (GHRepositories *)repositoriesInSection:(NSInteger)section;
 - (IBAction)refresh:(id)sender;
 @end
@@ -35,6 +33,7 @@
 - (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"OrganizationRepositories" bundle:nil];
 	if (self) {
+		self.title = @"Organization Repos";
 		self.user = user;
 		self.organizationRepositories = [NSMutableArray array];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -49,7 +48,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = @"Organization Repos";
 	self.navigationItem.rightBarButtonItem = self.refreshButton;
 	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
 }

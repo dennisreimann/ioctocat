@@ -37,6 +37,18 @@
 		</dict>
 		<dict>
 			<key>title</key>
+			<string>Watched</string>
+			<key>image</key>
+			<string>WatchedRepos</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>Starred</string>
+			<key>image</key>
+			<string>StarredRepos</string>
+		</dict>
+		<dict>
+			<key>title</key>
 			<string>Issues</string>
 			<key>image</key>
 			<string>Issues</string>

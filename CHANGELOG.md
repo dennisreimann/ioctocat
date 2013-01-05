@@ -6,12 +6,14 @@ Additions:
 
 * Allow scaling in code view
 * Added license acknowledgements for third party libs
+* Separate lists for watched and starred repositories
 
 Bugfixes:
 
 * Show authentication message HUD on initial login. Thanks @zhen9ao
 * Fixed icon graphic glitches (dark borders in upper edges)
 * Fixed crash in repo controller (during loading of the branches)
+* Fixed crash for certain issue events
 
 ## v1.7.0
 

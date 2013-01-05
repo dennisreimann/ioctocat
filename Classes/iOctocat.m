@@ -11,6 +11,7 @@
 #import "WebController.h"
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
+#import "Orbiter.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 
@@ -89,6 +90,16 @@
 	} else {
 		return NO;
 	}
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSURL *serverURL = [NSURL URLWithString:@"http://ioctocat.com/"];
+    Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:serverURL credential:nil];
+    [orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
+        DJLog(@"Registration Success: %@", responseObject);
+    } failure:^(NSError *error) {
+        DJLog(@"Registration Error: %@", error);
+    }];
 }
 
 #pragma mark External resources

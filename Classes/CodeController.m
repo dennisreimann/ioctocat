@@ -2,13 +2,13 @@
 #import "GHFiles.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+#import "SVProgressHUD.h"
 
 
 @interface CodeController () <UIWebViewDelegate>
 @property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)NSDictionary *file;
 @property(nonatomic,assign)NSUInteger index;
-@property(nonatomic,weak)IBOutlet UIView *activityView;
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
@@ -31,9 +31,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.files.count > 1 ? self.controlItem : nil;
-	self.file = (self.files)[self.index];
-	self.activityView.layer.cornerRadius = 10;
-	self.activityView.layer.masksToBounds = YES;
+	self.file = self.files[self.index];
 	self.contentView.scrollView.bounces = NO;
 }
 
@@ -87,15 +85,15 @@
 #pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	[self.activityView setHidden:NO];
+	[SVProgressHUD show];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 }
 
 #pragma mark Autorotation

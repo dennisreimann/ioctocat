@@ -2,20 +2,17 @@
 #import "GHBlob.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface BlobsController () <UIWebViewDelegate>
 @property(nonatomic,strong)GHBlob *blob;
 @property(nonatomic,strong)NSArray *blobs;
 @property(nonatomic,assign)NSUInteger index;
-@property(nonatomic,weak)IBOutlet UIView *activityView;
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
 
-- (void)displayBlob:(GHBlob *)blob;
-- (void)displayCode:(NSString *)code;
-- (void)displayData:(NSData *)data withFilename:(NSString *)filename;
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 @end
 
@@ -39,8 +36,6 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
 	self.blob = (self.blobs)[self.index];
-	self.activityView.layer.cornerRadius = 10;
-	self.activityView.layer.masksToBounds = YES;
 	self.contentView.scrollView.bounces = NO;
 }
 
@@ -54,7 +49,7 @@
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHBlob *blob = (GHBlob *)object;
 		if (blob.isLoading) {
-			[self.activityView setHidden:NO];
+			[SVProgressHUD show];
 		} else {
 			[self displayBlob:blob];
 			if (!blob.error) return;
@@ -101,7 +96,7 @@
 	// check if it's the current blob, because we might get notified
 	// about a blob that has been loaded but is not the current one
 	if (blob != self.blob) return;
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 	// check what type of content we have and display it accordingly
 	if (self.blob.content) return [self displayCode:blob.content];
 	if (self.blob.contentData) return [self displayData:blob.contentData withFilename:blob.path];
@@ -129,15 +124,15 @@
 #pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	[self.activityView setHidden:NO];
+	[SVProgressHUD show];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 }
 
 #pragma mark Autorotation

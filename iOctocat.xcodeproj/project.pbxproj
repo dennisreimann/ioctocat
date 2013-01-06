@@ -53,7 +53,6 @@
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
-		6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
 		6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
@@ -323,7 +322,6 @@
 		6F95108216961C1D0056DFE9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F95106C16961C1D0056DFE9 /* Icon@2x.png */; };
 		6F987656166FEBE30031E31B /* Menu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F987655166FEBE30031E31B /* Menu.xib */; };
 		6F98765A166FEC380031E31B /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
-		6F9DD82E1334A0F200D1E35E /* DefaultGravatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */; };
 		6F9DD84B1334A5D000D1E35E /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8311334A5D000D1E35E /* comment@2x.png */; };
 		6F9DD84C1334A5D000D1E35E /* commit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8321334A5D000D1E35E /* commit@2x.png */; };
 		6F9DD84D1334A5D000D1E35E /* CreateEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8331334A5D000D1E35E /* CreateEvent@2x.png */; };
@@ -458,7 +456,6 @@
 		6FCAA32F167B52C800C816FA /* issue_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issue_closed.png */; };
 		6FCAA330167B52C800C816FA /* issue_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issue_open.png */; };
 		6FCAA331167B52C800C816FA /* MyEvents.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyEvents.xib */; };
-		6FCAA332167B52C800C816FA /* DefaultGravatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */; };
 		6FCAA333167B52C800C816FA /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
 		6FCAA334167B52C800C816FA /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1C0FB60CB500EBD9BD /* user.png */; };
 		6FCAA335167B52C800C816FA /* UserObjectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5A0FB611FD00EBD9BD /* UserObjectCell.xib */; };
@@ -483,7 +480,6 @@
 		6FCAA348167B52C800C816FA /* Comment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* Comment.xib */; };
 		6FCAA349167B52C800C816FA /* pull_request.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F8E7DF3123C0E8B007E93E6 /* pull_request.png */; };
 		6FCAA34A167B52C800C816FA /* DownloadEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F15FAA3123E3EE600E56F92 /* DownloadEvent.png */; };
-		6FCAA34B167B52C800C816FA /* DefaultGravatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */; };
 		6FCAA34C167B52C800C816FA /* comment@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8311334A5D000D1E35E /* comment@2x.png */; };
 		6FCAA34D167B52C800C816FA /* commit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8321334A5D000D1E35E /* commit@2x.png */; };
 		6FCAA34E167B52C800C816FA /* CreateEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8331334A5D000D1E35E /* CreateEvent@2x.png */; };
@@ -972,7 +968,6 @@
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
 		6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRepository.png; sourceTree = "<group>"; };
-		6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DefaultGravatar.png; path = Images/DefaultGravatar.png; sourceTree = "<group>"; };
 		6F358C060FB1EAE0004D2828 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Search.xib; path = IBFiles/Search.xib; sourceTree = "<group>"; };
 		6F358C5A0FB1EEC4004D2828 /* GHSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSearch.h; sourceTree = "<group>"; };
 		6F358C5B0FB1EEC4004D2828 /* GHSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHSearch.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -1175,7 +1170,6 @@
 		6F987655166FEBE30031E31B /* Menu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Menu.xib; path = IBFiles/Menu.xib; sourceTree = "<group>"; };
 		6F987658166FEC2E0031E31B /* MenuController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuController.h; sourceTree = "<group>"; };
 		6F987659166FEC380031E31B /* MenuController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuController.m; sourceTree = "<group>"; };
-		6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "DefaultGravatar@2x.png"; path = "Images/DefaultGravatar@2x.png"; sourceTree = "<group>"; };
 		6F9DD8311334A5D000D1E35E /* comment@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "comment@2x.png"; path = "Images/Icons/comment@2x.png"; sourceTree = "<group>"; };
 		6F9DD8321334A5D000D1E35E /* commit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "commit@2x.png"; path = "Images/Icons/commit@2x.png"; sourceTree = "<group>"; };
 		6F9DD8331334A5D000D1E35E /* CreateEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CreateEvent@2x.png"; path = "Images/Icons/CreateEvent@2x.png"; sourceTree = "<group>"; };
@@ -2008,8 +2002,6 @@
 				6F5E9C781119D43E00752560 /* Toolbar */,
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
-				6F358BF90FB1EA6F004D2828 /* DefaultGravatar.png */,
-				6F9DD82B1334A0F200D1E35E /* DefaultGravatar@2x.png */,
 				6F552DA016788A0400698524 /* Octocat.png */,
 				6F552DA116788A0400698524 /* Octocat@2x.png */,
 			);
@@ -2433,7 +2425,6 @@
 				6FA92B1C0FACD648001B1D1D /* issue_closed.png in Resources */,
 				6FA92B1D0FACD648001B1D1D /* issue_open.png in Resources */,
 				6FA92B320FACD6EA001B1D1D /* MyEvents.xib in Resources */,
-				6F358BFB0FB1EA6F004D2828 /* DefaultGravatar.png in Resources */,
 				6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */,
 				6F879A1E0FB60CB500EBD9BD /* user.png in Resources */,
 				6F879A5C0FB611FD00EBD9BD /* UserObjectCell.xib in Resources */,
@@ -2458,7 +2449,6 @@
 				6FC0D42C11581A5200511B7F /* Comment.xib in Resources */,
 				6F8E7DF4123C0E8B007E93E6 /* pull_request.png in Resources */,
 				6F15FAA4123E3EE600E56F92 /* DownloadEvent.png in Resources */,
-				6F9DD82E1334A0F200D1E35E /* DefaultGravatar@2x.png in Resources */,
 				6F9DD84B1334A5D000D1E35E /* comment@2x.png in Resources */,
 				6F9DD84C1334A5D000D1E35E /* commit@2x.png in Resources */,
 				6F9DD84D1334A5D000D1E35E /* CreateEvent@2x.png in Resources */,
@@ -2742,7 +2732,6 @@
 				6FCAA32F167B52C800C816FA /* issue_closed.png in Resources */,
 				6FCAA330167B52C800C816FA /* issue_open.png in Resources */,
 				6FCAA331167B52C800C816FA /* MyEvents.xib in Resources */,
-				6FCAA332167B52C800C816FA /* DefaultGravatar.png in Resources */,
 				6FCAA333167B52C800C816FA /* Search.xib in Resources */,
 				6FCAA334167B52C800C816FA /* user.png in Resources */,
 				6FCAA335167B52C800C816FA /* UserObjectCell.xib in Resources */,
@@ -2767,7 +2756,6 @@
 				6FCAA348167B52C800C816FA /* Comment.xib in Resources */,
 				6FCAA349167B52C800C816FA /* pull_request.png in Resources */,
 				6FCAA34A167B52C800C816FA /* DownloadEvent.png in Resources */,
-				6FCAA34B167B52C800C816FA /* DefaultGravatar@2x.png in Resources */,
 				6FCAA34C167B52C800C816FA /* comment@2x.png in Resources */,
 				6FCAA34D167B52C800C816FA /* commit@2x.png in Resources */,
 				6FCAA34E167B52C800C816FA /* CreateEvent@2x.png in Resources */,

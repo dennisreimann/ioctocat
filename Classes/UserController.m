@@ -76,6 +76,8 @@
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
@@ -108,7 +110,7 @@
 - (void)displayUser {
 	self.nameLabel.text = (!self.user.name || [self.user.name isEmpty]) ? self.user.login : self.user.name;
 	self.companyLabel.text = (!self.user.company || [self.user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", self.user.followersCount] : self.user.company;
-	self.gravatarView.image = self.user.gravatar;
+	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
 	[self.locationCell setContentText:self.user.location];
 	[self.blogCell setContentText:[self.user.blogURL host]];
 	[self.emailCell setContentText:self.user.email];

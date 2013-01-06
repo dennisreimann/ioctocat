@@ -2,7 +2,7 @@
 #import "IOCAvatarLoader.h"
 #import "NSURL+Extensions.h"
 
-#define kAvatarMaxLogicalSize 44
+#define kAvatarMaxLogicalSize 50
 
 
 @interface IOCAvatarLoader ()

@@ -214,9 +214,11 @@
 	if (section == 0) {
 		// object is either a user or an organization.
 		// both have gravatar, name and login properties.
-		GHUser *object = (row == 0) ? self.user : (self.user.organizations)[row - 1];
-		cell.imageView.highlightedImage = object.gravatar;
-		cell.imageView.image = object.gravatar;
+		GHUser *object = (row == 0) ? self.user : self.user.organizations[row - 1];
+		UIImage *image = object.gravatar;
+		if (!image) image = [UIImage imageNamed:@"AvatarBackground32.png"];
+		cell.imageView.highlightedImage = image;
+		cell.imageView.image = image;
 		cell.textLabel.text = object.login;
 	} else {
 		NSDictionary *dict = menu[row];

@@ -112,6 +112,7 @@
 				<string key="NSFrameSize">{40, 36}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -175,6 +176,7 @@
 				<string key="NSFrameSize">{40, 36}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -288,9 +290,11 @@
 				<reference key="IBUIFont" ref="77928328"/>
 			</object>
 			<object class="IBUIButton" id="574376205">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">300</int>
 				<string key="NSFrameSize">{40, 36}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<bool key="IBUIOpaque">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -345,22 +349,6 @@
 						<int key="NSvFlags">256</int>
 						<object class="NSMutableArray" key="NSSubviews">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIImageView" id="879242024">
-								<reference key="NSNextResponder" ref="110279202"/>
-								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{8, 30}, {32, 32}}</string>
-								<reference key="NSSuperview" ref="110279202"/>
-								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="21216944"/>
-								<reference key="IBUIBackgroundColor" ref="602477438"/>
-								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">AvatarBackground32.png</string>
-								</object>
-							</object>
 							<object class="IBUIImageView" id="455427023">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
@@ -376,7 +364,7 @@
 							<object class="IBUIImageView" id="21216944">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{10, 32}, {28, 28}}</string>
+								<string key="NSFrame">{{8, 30}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="249624157"/>
@@ -384,6 +372,10 @@
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">AvatarBackground32.png</string>
+								</object>
 							</object>
 							<object class="IBUILabel" id="813831787">
 								<reference key="NSNextResponder" ref="110279202"/>
@@ -391,7 +383,7 @@
 								<string key="NSFrame">{{50, 5}, {263, 21}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="879242024"/>
+								<reference key="NSNextKeyView" ref="21216944"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -788,7 +780,6 @@
 							<reference ref="21216944"/>
 							<reference ref="579488512"/>
 							<reference ref="813831787"/>
-							<reference ref="879242024"/>
 							<reference ref="31224032"/>
 							<reference ref="249624157"/>
 						</object>
@@ -812,11 +803,6 @@
 					<object class="IBObjectRecord">
 						<int key="objectID">13</int>
 						<reference key="object" ref="21216944"/>
-						<reference key="parent" ref="597012738"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">20</int>
-						<reference key="object" ref="879242024"/>
 						<reference key="parent" ref="597012738"/>
 					</object>
 					<object class="IBObjectRecord">
@@ -902,7 +888,6 @@
 					<string>-2.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
-					<string>20.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 					<string>30.IBPluginDependency</string>
@@ -945,7 +930,6 @@
 					<string>MyEventsController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1007,94 +991,6 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">EventCell</string>
 					<string key="superclassName">TextCell</string>
-					<object class="NSMutableDictionary" key="actions">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>showCommit:</string>
-							<string>showGist:</string>
-							<string>showIssue:</string>
-							<string>showOrganization:</string>
-							<string>showOtherRepository:</string>
-							<string>showOtherUser:</string>
-							<string>showPullRequest:</string>
-							<string>showRepository:</string>
-							<string>showUser:</string>
-							<string>showWiki:</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-							<string>id</string>
-						</object>
-					</object>
-					<object class="NSMutableDictionary" key="actionInfosByName">
-						<bool key="EncodedWithXMLCoder">YES</bool>
-						<object class="NSArray" key="dict.sortedKeys">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>showCommit:</string>
-							<string>showGist:</string>
-							<string>showIssue:</string>
-							<string>showOrganization:</string>
-							<string>showOtherRepository:</string>
-							<string>showOtherUser:</string>
-							<string>showPullRequest:</string>
-							<string>showRepository:</string>
-							<string>showUser:</string>
-							<string>showWiki:</string>
-						</object>
-						<object class="NSArray" key="dict.values">
-							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBActionInfo">
-								<string key="name">showCommit:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showGist:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showIssue:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showOrganization:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showOtherRepository:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showOtherUser:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showPullRequest:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showRepository:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showUser:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-							<object class="IBActionInfo">
-								<string key="name">showWiki:</string>
-								<string key="candidateClassName">id</string>
-							</object>
-						</object>
-					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

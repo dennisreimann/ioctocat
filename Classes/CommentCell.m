@@ -13,6 +13,11 @@
 
 @implementation CommentCell
 
+- (void)awakeFromNib {
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
+}
+
 - (void)dealloc {
 	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
 }
@@ -42,8 +47,11 @@
 	[self setContentText:self.comment.body];
 	// Gravatar
 	[self.comment.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.gravatarView.image = self.comment.user.gravatar;
-	if (!self.gravatarView.image && !self.comment.user.gravatarURL) [self.comment.user loadData];
+	if (self.comment.user.gravatar) {
+		self.gravatarView.image = self.comment.user.gravatar;
+	} else if (!self.comment.user.gravatarURL) {
+		[self.comment.user loadData];
+	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

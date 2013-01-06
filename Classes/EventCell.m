@@ -28,28 +28,15 @@
 @property(nonatomic,strong)IBOutlet UIButton *wikiButton;
 @property(nonatomic,strong)IBOutlet UIButton *commitButton;
 @property(nonatomic,strong)IBOutlet UIButton *gistButton;
-
-- (CGFloat)marginTop;
-- (CGFloat)marginRight;
-- (CGFloat)marginBottom;
-- (CGFloat)marginLeft;
-- (CGFloat)textInset;
-- (void)adjustTextViewHeight;
-- (void)positionActionView;
-- (IBAction)showRepository:(id)sender;
-- (IBAction)showOtherRepository:(id)sender;
-- (IBAction)showUser:(id)sender;
-- (IBAction)showOtherUser:(id)sender;
-- (IBAction)showOrganization:(id)sender;
-- (IBAction)showIssue:(id)sender;
-- (IBAction)showPullRequest:(id)sender;
-- (IBAction)showWiki:(id)sender;
-- (IBAction)showCommit:(id)sender;
-- (IBAction)showGist:(id)sender;
 @end
 
 
 @implementation EventCell
+
+- (void)awakeFromNib {
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
+}
 
 - (void)dealloc {
 	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
@@ -75,8 +62,11 @@
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
 	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.gravatarView.image = self.event.user.gravatar;
-	if (!self.gravatarView.image && !self.event.user.gravatarURL) [self.event.user loadData];
+	if (self.event.user.gravatar) {
+		self.gravatarView.image = self.event.user.gravatar;
+	} else if (!self.event.user.gravatarURL) {
+		[self.event.user loadData];
+	}
 	// actions
 	NSMutableArray *buttons = [NSMutableArray array];
 	if (self.event.user) [buttons addObject:self.userButton];

@@ -10,10 +10,10 @@
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Beta-Icon.png</string>
-		<string>Beta-Icon@2x.png</string>
-		<string>Beta-Icon-iPad.png</string>
-		<string>Beta-Icon-iPad@2x.png</string>
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon-iPad.png</string>
+		<string>Icon-iPad@2x.png</string>
 		<string>Default-Landscape@2x~ipad.png</string>
 		<string>Default-Portrait@2x~ipad.png</string>
 	</array>
@@ -23,10 +23,10 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>Beta-Icon.png</string>
-				<string>Beta-Icon@2x.png</string>
-				<string>Beta-Icon-iPad.png</string>
-				<string>Beta-Icon-iPad@2x.png</string>
+				<string>Icon.png</string>
+				<string>Icon@2x.png</string>
+				<string>Icon-iPad.png</string>
+				<string>Icon-iPad@2x.png</string>
 				<string>Default-Landscape@2x~ipad.png</string>
 				<string>Default-Portrait@2x~ipad.png</string>
 			</array>

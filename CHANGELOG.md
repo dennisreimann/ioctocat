@@ -10,6 +10,7 @@ Additions:
 
 Changes:
 
+* New icon. Thanks @benjaminrabe
 * Increase revealed space for top view when menu is shown
 * Removed the animation for initial top view slide-in
 

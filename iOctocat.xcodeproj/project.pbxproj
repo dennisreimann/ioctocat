@@ -76,10 +76,6 @@
 		6F380914162A110C001017E2 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
 		6F380916162A1553001017E2 /* Code.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F380915162A1553001017E2 /* Code.xib */; };
 		6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500A163343E4001DC916 /* highlight.pack.js */; };
-		6F3C0BB8167B9F6A00CA6A25 /* Beta-Icon-iPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3C0BB4167B9F6A00CA6A25 /* Beta-Icon-iPad.png */; };
-		6F3C0BB9167B9F6A00CA6A25 /* Beta-Icon-iPad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3C0BB5167B9F6A00CA6A25 /* Beta-Icon-iPad@2x.png */; };
-		6F3C0BBA167B9F6A00CA6A25 /* Beta-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3C0BB6167B9F6A00CA6A25 /* Beta-Icon.png */; };
-		6F3C0BBB167B9F6A00CA6A25 /* Beta-Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3C0BB7167B9F6A00CA6A25 /* Beta-Icon@2x.png */; };
 		6F3D9775166A5FB8009CB887 /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9771166A5FB8009CB887 /* check.png */; };
 		6F3D9776166A5FB8009CB887 /* check@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9772166A5FB8009CB887 /* check@2x.png */; };
 		6F3D9777166A5FB8009CB887 /* warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9773166A5FB8009CB887 /* warning.png */; };
@@ -277,6 +273,7 @@
 		6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
 		6F7C822615B3483300D37EE8 /* readme.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822415B3483300D37EE8 /* readme.png */; };
 		6F7C822715B3483300D37EE8 /* readme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822515B3483300D37EE8 /* readme@2x.png */; };
+		6F7DFBE4169A33BE00ED47B6 /* Info-Beta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DFBE3169A33BE00ED47B6 /* Info-Beta.plist */; };
 		6F7F08271624A3C10074839B /* GHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08261624A3C10074839B /* GHTree.m */; };
 		6F7F082A1624A6F60074839B /* GHBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08291624A6F60074839B /* GHBlob.m */; };
 		6F7F082D1624A9D20074839B /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082C1624A9D20074839B /* GHTag.m */; };
@@ -995,11 +992,6 @@
 		6F380913162A110C001017E2 /* BlobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlobsController.m; sourceTree = "<group>"; };
 		6F380915162A1553001017E2 /* Code.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Code.xib; path = IBFiles/Code.xib; sourceTree = "<group>"; };
 		6F3A500A163343E4001DC916 /* highlight.pack.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = highlight.pack.js; path = highlight/highlight.pack.js; sourceTree = "<group>"; };
-		6F3C0BB4167B9F6A00CA6A25 /* Beta-Icon-iPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-Icon-iPad.png"; path = "Beta/Beta-Icon-iPad.png"; sourceTree = "<group>"; };
-		6F3C0BB5167B9F6A00CA6A25 /* Beta-Icon-iPad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-Icon-iPad@2x.png"; path = "Beta/Beta-Icon-iPad@2x.png"; sourceTree = "<group>"; };
-		6F3C0BB6167B9F6A00CA6A25 /* Beta-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-Icon.png"; path = "Beta/Beta-Icon.png"; sourceTree = "<group>"; };
-		6F3C0BB7167B9F6A00CA6A25 /* Beta-Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Beta-Icon@2x.png"; path = "Beta/Beta-Icon@2x.png"; sourceTree = "<group>"; };
-		6F3C0BBD167B9F8D00CA6A25 /* Beta-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Beta-Info.plist"; path = "Beta/Beta-Info.plist"; sourceTree = "<group>"; };
 		6F3D9771166A5FB8009CB887 /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		6F3D9772166A5FB8009CB887 /* check@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "check@2x.png"; sourceTree = "<group>"; };
 		6F3D9773166A5FB8009CB887 /* warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = warning.png; sourceTree = "<group>"; };
@@ -1129,6 +1121,7 @@
 		6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHReadme.m; sourceTree = "<group>"; };
 		6F7C822415B3483300D37EE8 /* readme.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = readme.png; path = Images/Icons/readme.png; sourceTree = "<group>"; };
 		6F7C822515B3483300D37EE8 /* readme@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "readme@2x.png"; path = "Images/Icons/readme@2x.png"; sourceTree = "<group>"; };
+		6F7DFBE3169A33BE00ED47B6 /* Info-Beta.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Info-Beta.plist"; sourceTree = "<group>"; };
 		6F7F08251624A3C10074839B /* GHTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHTree.h; sourceTree = "<group>"; };
 		6F7F08261624A3C10074839B /* GHTree.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTree.m; sourceTree = "<group>"; };
 		6F7F08281624A6F60074839B /* GHBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBlob.h; sourceTree = "<group>"; };
@@ -1522,7 +1515,7 @@
 				6FB7FEA60F7E2C7500E8D702 /* IBFiles */,
 				6FB7FE9F0F7E2C3800E8D702 /* Images */,
 				8D1107310486CEB800E47090 /* Info.plist */,
-				6F3C0BBD167B9F8D00CA6A25 /* Beta-Info.plist */,
+				6F7DFBE3169A33BE00ED47B6 /* Info-Beta.plist */,
 				6F0B11201670A2BD00375136 /* Menu.plist */,
 				6F3FD6961675E3E600E90A6E /* OAuth.plist */,
 				6F552DAE1678915D00698524 /* HockeySDK.plist */,
@@ -1684,17 +1677,6 @@
 				6F9DD8481334A5D000D1E35E /* user@2x.png */,
 			);
 			name = Icons;
-			sourceTree = "<group>";
-		};
-		6F3C0BBC167B9F7100CA6A25 /* Beta */ = {
-			isa = PBXGroup;
-			children = (
-				6F3C0BB4167B9F6A00CA6A25 /* Beta-Icon-iPad.png */,
-				6F3C0BB5167B9F6A00CA6A25 /* Beta-Icon-iPad@2x.png */,
-				6F3C0BB6167B9F6A00CA6A25 /* Beta-Icon.png */,
-				6F3C0BB7167B9F6A00CA6A25 /* Beta-Icon@2x.png */,
-			);
-			name = Beta;
 			sourceTree = "<group>";
 		};
 		6F3D9770166A5FB8009CB887 /* Dropdown */ = {
@@ -1996,7 +1978,6 @@
 			children = (
 				6F95106016961C1D0056DFE9 /* Default */,
 				6F95106816961C1D0056DFE9 /* Icon */,
-				6F3C0BBC167B9F7100CA6A25 /* Beta */,
 				6FE4404A1673E5C400226F42 /* Menu */,
 				6F3D9770166A5FB8009CB887 /* Dropdown */,
 				6F5E9C781119D43E00752560 /* Toolbar */,
@@ -2964,10 +2945,6 @@
 				6FCAA42A167B52C800C816FA /* pull_request_open.png in Resources */,
 				6FCAA42B167B52C800C816FA /* pull_request_open@2x.png in Resources */,
 				6FCAA42C167B52C800C816FA /* Issues.xib in Resources */,
-				6F3C0BB8167B9F6A00CA6A25 /* Beta-Icon-iPad.png in Resources */,
-				6F3C0BB9167B9F6A00CA6A25 /* Beta-Icon-iPad@2x.png in Resources */,
-				6F3C0BBA167B9F6A00CA6A25 /* Beta-Icon.png in Resources */,
-				6F3C0BBB167B9F6A00CA6A25 /* Beta-Icon@2x.png in Resources */,
 				6FC40F76168BA5220035927E /* commits.png in Resources */,
 				6FC40F78168BA5220035927E /* commits@2x.png in Resources */,
 				6FC40F7A168BA5220035927E /* files.png in Resources */,
@@ -2992,6 +2969,7 @@
 				6FF4D97B1698E3AE00C235A0 /* MenuWatchedRepos@2x.png in Resources */,
 				6FF4D97D1698E3AE00C235A0 /* MenuWatchedReposOn.png in Resources */,
 				6FF4D97F1698E3AE00C235A0 /* MenuWatchedReposOn@2x.png in Resources */,
+				6F7DFBE4169A33BE00ED47B6 /* Info-Beta.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3535,7 +3513,7 @@
 					"BITHOCKEY_VERSION=\"@\\\"2.5.5\\\"\"",
 					"DEBUG=3",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/Beta/Beta-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info-Beta.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocatBeta;
 				PROVISIONING_PROFILE = "";
@@ -3554,7 +3532,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = "$(SRCROOT)/Beta/Beta-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Info-Beta.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = iOctocatBeta;
 				PROVISIONING_PROFILE = "";

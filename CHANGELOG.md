@@ -20,6 +20,7 @@ Bugfixes:
 * Show authentication message HUD on initial login. Thanks @zhen9ao
 * Fixed icon graphic glitches (dark borders in upper edges)
 * Fixed crash in repo controller (during loading of the branches)
+* Fixed crash in user controller (when tapping on cell in empty orgs and repo lists)
 * Fixed crash for certain issue events
 
 ## v1.7.0

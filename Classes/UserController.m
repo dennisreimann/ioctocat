@@ -230,11 +230,11 @@
 	} else if (section == 1) {
 		viewController = [[UsersController alloc] initWithUsers:(row == 1 ? self.user.following : self.user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
-	} else if (section == 2) {
-		GHRepository *repo = (self.user.repositories)[indexPath.row];
+	} else if (section == 2 && !self.user.repositories.isEmpty) {
+		GHRepository *repo = self.user.repositories[indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
-	} else if (section == 3) {
-		GHOrganization *org = (self.user.organizations)[indexPath.row];
+	} else if (section == 3 && !self.user.organizations.isEmpty) {
+		GHOrganization *org = self.user.organizations[indexPath.row];
 		viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller

@@ -59,6 +59,9 @@
 }
 
 - (void)setCurrentAccount:(GHAccount *)account {
+	self.users = [NSMutableDictionary dictionary];
+	self.organizations = [NSMutableDictionary dictionary];
+
 	_currentAccount = account;
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;

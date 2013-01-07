@@ -273,7 +273,6 @@
 		6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
 		6F7C822615B3483300D37EE8 /* readme.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822415B3483300D37EE8 /* readme.png */; };
 		6F7C822715B3483300D37EE8 /* readme@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822515B3483300D37EE8 /* readme@2x.png */; };
-		6F7DFBE4169A33BE00ED47B6 /* Info-Beta.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F7DFBE3169A33BE00ED47B6 /* Info-Beta.plist */; };
 		6F7F08271624A3C10074839B /* GHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08261624A3C10074839B /* GHTree.m */; };
 		6F7F082A1624A6F60074839B /* GHBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08291624A6F60074839B /* GHBlob.m */; };
 		6F7F082D1624A9D20074839B /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082C1624A9D20074839B /* GHTag.m */; };
@@ -2969,7 +2968,6 @@
 				6FF4D97B1698E3AE00C235A0 /* MenuWatchedRepos@2x.png in Resources */,
 				6FF4D97D1698E3AE00C235A0 /* MenuWatchedReposOn.png in Resources */,
 				6FF4D97F1698E3AE00C235A0 /* MenuWatchedReposOn@2x.png in Resources */,
-				6F7DFBE4169A33BE00ED47B6 /* Info-Beta.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

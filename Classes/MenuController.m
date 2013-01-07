@@ -28,7 +28,7 @@
 #import "MenuCell.h"
 
 
-#define kCellHeight 40.0f
+#define kCellHeight 44.0f
 #define kSectionHeaderHeight 24.0f
 
 @interface MenuController ()
@@ -187,16 +187,12 @@
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(10, 0, 300, kSectionHeaderHeight);
     label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor colorWithWhite:0.391 alpha:1.000];
+    label.textColor = [UIColor colorWithWhite:0.85 alpha:1.000];
     label.font = [UIFont boldSystemFontOfSize:13];
     label.text = title;
 	
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
-	CAGradientLayer *gradient = [CAGradientLayer layer];
-	gradient.frame = view.bounds;
-	gradient.colors = @[(id)[UIColor colorWithWhite:0.980 alpha:1.000].CGColor,
-					   (id)[UIColor colorWithWhite:0.902 alpha:1.000].CGColor];
-	[view.layer insertSublayer:gradient atIndex:0];
+	view.backgroundColor = [UIColor colorWithRed:0.178 green:0.262 blue:0.397 alpha:1.000];
     [view addSubview:label];
 	
     return view;
@@ -226,7 +222,6 @@
 		cell.textLabel.text = [dict valueForKey:@"title"];
 		if (imageName) {
 			cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu%@.png", imageName]];
-			cell.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Menu%@On.png", imageName]];
 		}
 	}
 	return cell;

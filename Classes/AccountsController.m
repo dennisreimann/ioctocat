@@ -139,6 +139,16 @@
 	return ((NSArray *)[self.accountsByEndpoint objectForKey:[self.endpoints objectAtIndex:section]]).count;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (self.endpoints.count > 1) {
+		NSString *endpoint = [self.endpoints objectAtIndex:section];
+		NSURL *url = [NSURL URLWithString:endpoint];
+		return url.host;
+	} else {
+		return nil;
+	}
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
@@ -185,10 +195,6 @@
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
 	[self editAccountAtIndex:idx];
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return [self.endpoints objectAtIndex:section];
 }
 
 #pragma mark Authentication

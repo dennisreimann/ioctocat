@@ -31,13 +31,15 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUITableView" id="912033007">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<string key="NSFrame">{{0, 64}, {320, 416}}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">3</int>
-					<bytes key="NSWhite">MQA</bytes>
+					<int key="NSColorSpace">1</int>
+					<bytes key="NSRGB">MC4xNDk5NTUyMzE2IDAuMjIwMDc4MjY5NSAwLjMzNDM2NTg0NDcAA</bytes>
 				</object>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -51,11 +53,11 @@
 				<int key="IBUISeparatorStyle">1</int>
 				<object class="NSColor" key="IBUISeparatorColor">
 					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MC45MTM3ODc4NDE4IDAuOTEzNzg3ODQxOCAwLjkxMzc4Nzg0MTgAA</bytes>
+					<bytes key="NSRGB">MC4xNjA0ODA2NTQyIDAuMjM4OTczNjkxNSAwLjM2MjczMTkzMzYAA</bytes>
 				</object>
 				<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 				<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>
-				<float key="IBUIRowHeight">38</float>
+				<float key="IBUIRowHeight">44</float>
 				<float key="IBUISectionHeaderHeight">22</float>
 				<float key="IBUISectionFooterHeight">22</float>
 			</object>

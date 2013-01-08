@@ -43,7 +43,29 @@
 	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	if ([iOctocat sharedInstance].currentAccount) {
+		[iOctocat sharedInstance].currentAccount = nil;
+	}
+	[self updateAccounts];
+	[self.tableView reloadData];
+	[self updateEditButtonItem];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	// Open account if there is only one
+	if (self.accounts.count == 1) {
+		[self openOrAuthenticateAccountAtIndex:0];
+	}
+}
+
+#pragma mark Accounts
+
+- (void)updateAccounts {
 	self.accountsByEndpoint = [NSMutableDictionary dictionary];
 	for (NSDictionary *dict in self.accounts) {
 		NSString *endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
@@ -58,25 +80,6 @@
 	self.endpoints = [NSMutableArray arrayWithArray:[self.accountsByEndpoint allKeys]];
 	[self.endpoints sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 }
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	if ([iOctocat sharedInstance].currentAccount) {
-		[iOctocat sharedInstance].currentAccount = nil;
-	}
-	[self.tableView reloadData];
-	[self updateEditButtonItem];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	// Open account if there is only one
-	if (self.accounts.count == 1) {
-		[self openOrAuthenticateAccountAtIndex:0];
-	}
-}
-
-#pragma mark Accounts
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
 	return [^(id obj, NSUInteger idx, BOOL *stop) {
@@ -114,9 +117,7 @@
 }
 
 - (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *accountDict = [(NSArray *)[self.accountsByEndpoint
-											 objectForKey:[self.endpoints objectAtIndex:indexPath.section]]
-								 objectAtIndex:indexPath.row];
+	NSDictionary *accountDict = [(NSArray *)[self.accountsByEndpoint objectForKey:[self.endpoints objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
 	if (accountDict) {
 		return [self.accounts indexOfObject:accountDict];
 	} else {
@@ -157,7 +158,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
-	NSDictionary *accountDict = (self.accounts)[idx];
+	NSDictionary *accountDict = self.accounts[idx];
 	NSString *login = accountDict[kLoginDefaultsKey];
 	cell.userObject = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
@@ -178,6 +179,7 @@
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[self.accounts removeObjectAtIndex:indexPath.row];
 		[self.class saveAccounts:self.accounts];
+		[self updateAccounts];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 		[self updateEditButtonItem];
 	}
@@ -186,6 +188,7 @@
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
 	[self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
 	[self.class saveAccounts:self.accounts];
+	[self updateAccounts];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

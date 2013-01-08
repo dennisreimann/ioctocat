@@ -38,8 +38,8 @@
 				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<object class="NSColor" key="IBUIBackgroundColor">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MC4xNDk5NTUyMzE2IDAuMjIwMDc4MjY5NSAwLjMzNDM2NTg0NDcAA</bytes>
+					<int key="NSColorSpace">2</int>
+					<bytes key="NSRGB">MC4xNjg2Mjc0NTU4IDAuMTg0MzEzNzI5NCAwLjIwMzkyMTU4NjMAA</bytes>
 				</object>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<object class="IBUISimulatedStatusBarMetrics" key="IBUISimulatedStatusBarMetrics"/>
@@ -53,7 +53,7 @@
 				<int key="IBUISeparatorStyle">1</int>
 				<object class="NSColor" key="IBUISeparatorColor">
 					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MC4xNjA0ODA2NTQyIDAuMjM4OTczNjkxNSAwLjM2MjczMTkzMzYAA</bytes>
+					<bytes key="NSRGB">MC4xNzU3ODk1Njk5IDAuMjYxMDQ4NjQ5NiAwLjQwMTQ3Mzk5OQA</bytes>
 				</object>
 				<int key="IBUISectionIndexMinimumDisplayRowCount">0</int>
 				<bool key="IBUIShowsSelectionImmediatelyOnTouchBegin">YES</bool>

@@ -53,6 +53,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.tableView.rowHeight = kCellHeight;
+	self.tableView.backgroundColor = self.darkBackgroundColor;
+	self.tableView.separatorColor = self.lightBackgroundColor;
 	// disable scroll-to-top for the menu, so that the main controller receives the event
 	self.tableView.scrollsToTop = NO;
 	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
@@ -192,7 +194,7 @@
     label.text = title;
 	
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
-	view.backgroundColor = [UIColor colorWithRed:0.178 green:0.262 blue:0.397 alpha:1.000];
+	view.backgroundColor = self.lightBackgroundColor;
     [view addSubview:label];
 	
     return view;
@@ -203,17 +205,18 @@
 	MenuCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [[MenuCell alloc] initWithReuseIdentifier:CellIdentifier];
+		cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+		cell.selectedBackgroundView.backgroundColor = self.highlightBackgroundColor;
 	}
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	NSArray *menu = (self.menu)[indexPath.section];
+	NSArray *menu = self.menu[indexPath.section];
 	if (section == 0) {
 		// object is either a user or an organization.
 		// both have gravatar, name and login properties.
 		GHUser *object = (row == 0) ? self.user : self.user.organizations[row - 1];
 		UIImage *image = object.gravatar;
 		if (!image) image = [UIImage imageNamed:@"AvatarBackground32.png"];
-		cell.imageView.highlightedImage = image;
 		cell.imageView.image = image;
 		cell.textLabel.text = object.login;
 	} else {
@@ -318,6 +321,26 @@
 		
 	});
     return menuButtonImage;
+}
+
+#pragma mark Menu Colors
+
+- (UIColor *)lightBackgroundColor {
+	return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ?
+		[UIColor colorWithRed:0.176 green:0.261 blue:0.401 alpha:1.000] :
+		[UIColor colorWithRed:0.240 green:0.268 blue:0.297 alpha:1.000];
+}
+
+- (UIColor *)darkBackgroundColor {
+	return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ?
+		[UIColor colorWithRed:0.150 green:0.220 blue:0.334 alpha:1.000] :
+		[UIColor colorWithRed:0.200 green:0.223 blue:0.248 alpha:1.000];
+}
+
+- (UIColor *)highlightBackgroundColor {
+	return [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ?
+		[UIColor colorWithRed:0.112 green:0.167 blue:0.254 alpha:1.000] :
+		[UIColor colorWithRed:0.124 green:0.139 blue:0.154 alpha:1.000];
 }
 
 #pragma mark Autorotation

@@ -11,7 +11,7 @@ Additions:
 Changes:
 
 * New icon. Thanks @benjaminrabe
-* Inverted menu with dark blue colors
+* Inverted menu with dark colors
 * Section the accounts by endpoint. Thanks @lmarlow
 * Increase revealed space for top view when menu is shown
 * Removed the animation for initial top view slide-in

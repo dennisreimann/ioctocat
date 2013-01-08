@@ -30,8 +30,7 @@
 }
 
 - (void)dealloc {
-	for (GHOrganization *org in self.organizations) [org removeObserver:self forKeyPath:kGravatarKeyPath];
-	for (GHUser *user in self.users) [user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self clearUserObjectCache];
 }
 
 #pragma mark Application Events
@@ -39,8 +38,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[self setupHockeySDK];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	self.users = [NSMutableDictionary dictionary];
-	self.organizations = [NSMutableDictionary dictionary];
 	self.slidingViewController.anchorRightRevealAmount = 230;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
 	[self.window makeKeyAndVisible];
@@ -59,9 +56,7 @@
 }
 
 - (void)setCurrentAccount:(GHAccount *)account {
-	self.users = [NSMutableDictionary dictionary];
-	self.organizations = [NSMutableDictionary dictionary];
-
+	[self clearUserObjectCache];
 	_currentAccount = account;
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
@@ -139,7 +134,8 @@
 
 - (GHUser *)userWithLogin:(NSString *)login {
 	if (!login || [login isEmpty]) return nil;
-	GHUser *user = (self.users)[login];
+	if (!self.users) self.users = [NSMutableDictionary dictionary];
+	GHUser *user = self.users[login];
 	if (user == nil) {
 		user = [[GHUser alloc] initWithLogin:login];
 		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -150,6 +146,7 @@
 
 - (GHOrganization *)organizationWithLogin:(NSString *)login {
 	if (!login || [login isEmpty]) return nil;
+	if (!self.organizations) self.organizations = [NSMutableDictionary dictionary];
 	GHOrganization *organization = self.organizations[login];
 	if (organization == nil) {
 		organization = [[GHOrganization alloc] initWithLogin:login];
@@ -157,6 +154,17 @@
 		self.organizations[login] = organization;
 	}
 	return organization;
+}
+
+- (void)clearUserObjectCache {
+	for (GHOrganization *org in self.organizations.allValues) {
+		[org removeObserver:self forKeyPath:kGravatarKeyPath];
+	}
+	self.organizations = nil;
+	for (GHUser *user in self.users.allValues) {
+		[user removeObserver:self forKeyPath:kGravatarKeyPath];
+	}
+	self.users = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

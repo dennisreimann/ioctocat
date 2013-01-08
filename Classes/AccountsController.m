@@ -13,7 +13,7 @@
 #import "AuthenticationController.h"
 
 
-@interface AccountsController () <AuthenticationControllerDelegate>
+@interface AccountsController () <AuthenticationControllerDelegate, AccountFormControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)NSMutableDictionary *accountsByEndpoint;
 @property(nonatomic,strong)NSMutableArray *endpoints;
@@ -30,12 +30,6 @@
 
 @implementation AccountsController
 
-+ (void)saveAccounts:(NSMutableArray *)accounts {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:accounts forKey:kAccountsDefaultsKey];
-	[defaults synchronize];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -50,9 +44,8 @@
 	if ([iOctocat sharedInstance].currentAccount) {
 		[iOctocat sharedInstance].currentAccount = nil;
 	}
-	[self updateAccounts];
+	[self handleAccountsChange];
 	[self.tableView reloadData];
-	[self updateEditButtonItem];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -63,9 +56,24 @@
 	}
 }
 
+- (void)updateAccount:(NSMutableDictionary *)account atIndex:(NSUInteger)idx {
+	// add new account to list of accounts
+	if (idx == NSNotFound) {
+		[self.accounts addObject:account];
+	} else {
+		self.accounts[idx] = account;
+	}
+	[self handleAccountsChange];
+}
+
 #pragma mark Accounts
 
-- (void)updateAccounts {
+- (void)handleAccountsChange {
+	// persist the accounts
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setValue:self.accounts forKey:kAccountsDefaultsKey];
+	[defaults synchronize];
+	// update cache for presenting the accounts
 	self.accountsByEndpoint = [NSMutableDictionary dictionary];
 	for (NSDictionary *dict in self.accounts) {
 		NSString *endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
@@ -79,6 +87,9 @@
 	}
 	self.endpoints = [NSMutableArray arrayWithArray:[self.accountsByEndpoint allKeys]];
 	[self.endpoints sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+	// update UI
+	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
+	if (self.accounts.count == 0) self.editing = NO;
 }
 
 - (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
@@ -95,7 +106,9 @@
 #pragma mark Actions
 
 - (void)editAccountAtIndex:(NSUInteger)idx {
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:self.accounts andIndex:idx];
+	NSMutableDictionary *account = (idx == NSNotFound) ? [NSMutableDictionary dictionary] : self.accounts[idx];
+	AccountFormController *viewController = [[AccountFormController alloc] initWithAccount:account andIndex:idx];
+	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -123,11 +136,6 @@
 	} else {
 		return NSNotFound;
 	}
-}
-
-- (void)updateEditButtonItem {
-	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
-	if (self.accounts.count == 0) self.editing = NO;
 }
 
 #pragma mark TableView
@@ -178,17 +186,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[self.accounts removeObjectAtIndex:indexPath.row];
-		[self.class saveAccounts:self.accounts];
-		[self updateAccounts];
+		[self handleAccountsChange];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-		[self updateEditButtonItem];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
 	[self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
-	[self.class saveAccounts:self.accounts];
-	[self updateAccounts];
+	[self handleAccountsChange];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

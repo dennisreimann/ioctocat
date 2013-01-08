@@ -1,3 +1,10 @@
+@protocol AccountFormControllerDelegate <NSObject>
+- (void)updateAccount:(NSMutableDictionary *)account atIndex:(NSUInteger)idx;
+@end
+
+
 @interface AccountFormController : UIViewController
-- (id)initWithAccounts:(NSMutableArray *)accounts andIndex:(NSUInteger)idx;
+@property(nonatomic,weak)id<AccountFormControllerDelegate> delegate;
+
+- (id)initWithAccount:(NSMutableDictionary *)accounts andIndex:(NSUInteger)idx;
 @end

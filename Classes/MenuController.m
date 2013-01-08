@@ -45,6 +45,7 @@
 		NSString *menuPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
+		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -64,6 +65,7 @@
 }
 
 - (void)dealloc {
+	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
@@ -152,6 +154,9 @@
 		} else if (!self.user.organizations.isLoading && self.user.organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations."];
 		}
+	} else if (object == self.user && [keyPath isEqualToString:kGravatarKeyPath]) {
+		NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		[self.tableView reloadRowsAtIndexPaths:@[userIndexPath] withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 

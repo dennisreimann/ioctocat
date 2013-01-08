@@ -11,30 +11,21 @@
 
 @interface AccountFormController () <UITextFieldDelegate>
 @property(nonatomic,strong)NSMutableDictionary *account;
-@property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
 @property(nonatomic,weak)IBOutlet GradientButton *saveButton;
-
-- (IBAction)saveAccount:(id)sender;
 @end
 
 
 @implementation AccountFormController
 
-- (id)initWithAccounts:(NSMutableArray *)accounts andIndex:(NSUInteger)idx {
+- (id)initWithAccount:(NSMutableDictionary *)account andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
 	if (self) {
 		self.index = idx;
-		self.accounts = accounts;
-		// find existing or initialize a new account
-		if (self.index == NSNotFound) {
-			self.account = [NSMutableDictionary dictionary];
-		} else {
-			self.account = self.accounts[self.index];
-		}
+		self.account = account;
 	}
 	return self;
 }
@@ -82,10 +73,8 @@
 			[self.account setValue:token forKey:kAuthTokenDefaultsKey];
 			[self.account setValue:authId forKey:kAuthIdDefaultsKey];
 			[self.account setValue:endpoint forKey:kEndpointDefaultsKey];
-			// add new account to list of accounts
-			if (self.index == NSNotFound) [self.accounts addObject:self.account];
 			// save
-			[AccountsController saveAccounts:self.accounts];
+			[self.delegate updateAccount:self.account atIndex:self.index];
 			// go back
 			[self.loginField resignFirstResponder];
 			[self.passwordField resignFirstResponder];

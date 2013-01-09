@@ -356,6 +356,10 @@
 			}
 			self.content = [messages componentsJoinedByString:@"\n"];
 		}
+
+		else {
+			self.content = @"";
+		}
 	}
 
 	@catch (NSException *e) {

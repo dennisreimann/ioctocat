@@ -119,23 +119,32 @@
 	}
 
 	// Pull Request
-	NSDictionary *pullPayload = [self.payload safeDictForKey:@"pull_request"];
-	if (!pullPayload) pullPayload = [self.payload safeDictForKeyPath:@"issue.pull_request"];
+	NSDictionary *pullDict = [self.payload safeDictForKey:@"pull_request"];
+	if (!pullDict) pullDict = [self.payload safeDictForKeyPath:@"issue.pull_request"];
 	// this check is somehow hacky, but the API provides empty pull_request
 	// urls in case there is no pull request associated with an issue.
 	// an IssueCommentEvent with an associated pull request has the urls
 	// set, but it does not contain the pull request number in the payload
 	// for issue.pull_request, so we have to use the issue number then
-	if (pullPayload && [pullPayload safeURLForKey:@"html_url"]) {
-		NSInteger pullNumber = [pullPayload safeIntegerForKey:@"number"];
+	if (pullDict && [pullDict safeURLForKey:@"html_url"]) {
+		NSInteger pullNumber = [pullDict safeIntegerForKey:@"number"];
 		if (!pullNumber) pullNumber = self.issue.num;
 		self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
 		self.pullRequest.num = pullNumber;
 		self.pullRequest.title = [self.payload safeStringForKeyPath:@"pull_request.title"];
+	} else if ([self.eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
+		// currently there is no separate number for a PullRequestReviewCommentEvent,
+		// so we have to hack around like this, by parsing it out of the URL.
+		NSURL *pullURL = [self.payload safeURLForKeyPath:@"comment._links.pull_request.href"];
+		NSInteger pullNumber = [[pullURL lastPathComponent] intValue];
+		if (!!pullNumber) {
+			self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
+			self.pullRequest.num = pullNumber;
+		}
 	}
 
 	// Issue Comment (which might also be a pull request comment)
-	if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
+	if ([self.eventType isEqualToString:@"IssueCommentEvent"] || [self.eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
 		id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
 		self.comment = [[GHIssueComment alloc] initWithParent:issueCommentParent];
 		[self.comment setValues:[self.payload safeDictForKey:@"comment"]];

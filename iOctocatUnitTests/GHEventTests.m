@@ -4,6 +4,7 @@
 #import "GHUser.h"
 #import "GHCommits.h"
 #import "GHCommit.h"
+#import "GHPullRequest.h"
 #import "GHOrganization.h"
 
 
@@ -54,6 +55,8 @@
 }
 
 - (void)testIsCommentEvent {
+	[self.event setValues:@{@"type": @"PullRequestReviewCommentEvent"}];
+	expect(self.event.isCommentEvent).to.beTruthy();
 	[self.event setValues:@{@"type": @"IssuesCommentEvent"}];
 	expect(self.event.isCommentEvent).to.beTruthy();
 	[self.event setValues:@{@"type": @"IssuesEvent"}];
@@ -75,6 +78,13 @@
 	
 	[self.event setValues:@{@"type": @"PullRequestEvent", @"payload": @{ @"action": @"open" }}];
 	expect(self.event.extendedEventType).to.equal(@"PullRequestOpenedEvent");
+}
+
+- (void)testPullRequestReviewCommentEvent {
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"PullRequestReviewCommentEvent"];
+	[self.event setValues:dict];
+	expect(self.event.pullRequest).notTo.beNil();
+	expect(self.event.pullRequest.num).to.equal(194);
 }
 
 - (void)testIssueCommentEventWithoutPullRequest {

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.7.2
+
+Bugfixes:
+
+* Fixed missing pul requests for pull request comment events
+
 ## v1.7.1
 
 Additions:

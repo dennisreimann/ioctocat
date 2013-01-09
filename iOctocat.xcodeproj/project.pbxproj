@@ -242,6 +242,11 @@
 		6F6399FB1662377100BF2FF0 /* ToolbarWiki@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F31662377100BF2FF0 /* ToolbarWiki@2x.png */; };
 		6F6399FC1662377100BF2FF0 /* ToolbarWikiOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F41662377100BF2FF0 /* ToolbarWikiOn.png */; };
 		6F6399FD1662377100BF2FF0 /* ToolbarWikiOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F6399F51662377100BF2FF0 /* ToolbarWikiOn@2x.png */; };
+		6F680B4D169E13F600C7BAB9 /* CreateEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F680B48169E13F600C7BAB9 /* CreateEvent.json */; };
+		6F680B4E169E13F600C7BAB9 /* DeleteEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F680B49169E13F600C7BAB9 /* DeleteEvent.json */; };
+		6F680B4F169E13F600C7BAB9 /* GollumEvent-EditPage.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F680B4A169E13F600C7BAB9 /* GollumEvent-EditPage.json */; };
+		6F680B50169E13F600C7BAB9 /* GollumEvent-NewPage.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F680B4B169E13F600C7BAB9 /* GollumEvent-NewPage.json */; };
+		6F680B51169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F680B4C169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json */; };
 		6F6E4ADF1645C1A900E03FD9 /* code.css in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E4ADE1645C1A900E03FD9 /* code.css */; };
 		6F6E4B241645D60F00E03FD9 /* GHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E4B231645D60F00E03FD9 /* GHApiClient.m */; };
 		6F6F177011E316F3008B319F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F176F11E316F3008B319F /* SystemConfiguration.framework */; };
@@ -1037,6 +1042,11 @@
 		6F6399F31662377100BF2FF0 /* ToolbarWiki@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWiki@2x.png"; sourceTree = "<group>"; };
 		6F6399F41662377100BF2FF0 /* ToolbarWikiOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarWikiOn.png; sourceTree = "<group>"; };
 		6F6399F51662377100BF2FF0 /* ToolbarWikiOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarWikiOn@2x.png"; sourceTree = "<group>"; };
+		6F680B48169E13F600C7BAB9 /* CreateEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = CreateEvent.json; sourceTree = "<group>"; };
+		6F680B49169E13F600C7BAB9 /* DeleteEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DeleteEvent.json; sourceTree = "<group>"; };
+		6F680B4A169E13F600C7BAB9 /* GollumEvent-EditPage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "GollumEvent-EditPage.json"; sourceTree = "<group>"; };
+		6F680B4B169E13F600C7BAB9 /* GollumEvent-NewPage.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "GollumEvent-NewPage.json"; sourceTree = "<group>"; };
+		6F680B4C169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PullRequestReviewCommentEvent.json; sourceTree = "<group>"; };
 		6F6E4ADE1645C1A900E03FD9 /* code.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = code.css; sourceTree = "<group>"; };
 		6F6E4B221645D60F00E03FD9 /* GHApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHApiClient.h; sourceTree = "<group>"; };
 		6F6E4B231645D60F00E03FD9 /* GHApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHApiClient.m; sourceTree = "<group>"; };
@@ -1666,6 +1676,11 @@
 				6F549929167DE8EF004D2D90 /* Commit-Large.json */,
 				6F54992A167DE8EF004D2D90 /* IssueCommentEvent-WithoutPullRequest.json */,
 				6F54992B167DE8EF004D2D90 /* IssueCommentEvent-WithPullRequest.json */,
+				6F680B48169E13F600C7BAB9 /* CreateEvent.json */,
+				6F680B49169E13F600C7BAB9 /* DeleteEvent.json */,
+				6F680B4A169E13F600C7BAB9 /* GollumEvent-EditPage.json */,
+				6F680B4B169E13F600C7BAB9 /* GollumEvent-NewPage.json */,
+				6F680B4C169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json */,
 			);
 			path = Fixtures;
 			sourceTree = "<group>";
@@ -2571,6 +2586,11 @@
 				6FC40F6F168A39DF0035927E /* MemberEvent.json in Resources */,
 				6FC40F70168A39DF0035927E /* PublicEvent.json in Resources */,
 				6FF4D95B1698D4F600C235A0 /* MyRepositories.xib in Resources */,
+				6F680B4D169E13F600C7BAB9 /* CreateEvent.json in Resources */,
+				6F680B4E169E13F600C7BAB9 /* DeleteEvent.json in Resources */,
+				6F680B4F169E13F600C7BAB9 /* GollumEvent-EditPage.json in Resources */,
+				6F680B50169E13F600C7BAB9 /* GollumEvent-NewPage.json in Resources */,
+				6F680B51169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

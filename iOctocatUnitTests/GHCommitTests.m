@@ -1,6 +1,7 @@
 #import "IOCTestHelper.h"
 #import "GHCommitTests.h"
 #import "GHCommit.h"
+#import "GHFiles.h"
 #import "GHRepository.h"
 
 

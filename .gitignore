@@ -6,7 +6,6 @@ build/
 *.perspectivev3
 HockeySDK.plist
 profile
-Pods/
 xcuserdata
 .bundle
 vendor

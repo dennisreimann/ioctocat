@@ -7,14 +7,6 @@
 
 @implementation GHRepositories
 
-- (id)initWithPath:(NSString *)path {
-	self = [super init];
-	if (self) {
-		self.resourcePath = path;
-	}
-	return self;
-}
-
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {

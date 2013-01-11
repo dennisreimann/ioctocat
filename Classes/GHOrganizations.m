@@ -8,10 +8,9 @@
 @implementation GHOrganizations
 
 - (id)initWithUser:(GHUser *)user andPath:(NSString *)path {
-	self = [super init];
+	self = [super initWithPath:path];
 	if (self) {
 		self.user = user;
-		self.resourcePath = path;
 	}
 	return self;
 }

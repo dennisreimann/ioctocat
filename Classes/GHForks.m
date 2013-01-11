@@ -7,10 +7,10 @@
 @implementation GHForks
 
 - (id)initWithRepository:(GHRepository *)repo {
-	self = [super init];
+	NSString *path = [NSString stringWithFormat:kRepoForksFormat, repo.owner, repo.name];
+	self = [super initWithPath:path];
 	if (self) {
 		self.repository = repo;
-		self.resourcePath = [NSString stringWithFormat:kRepoForksFormat, self.repository.owner, self.repository.name];
 	}
 	return self;
 }

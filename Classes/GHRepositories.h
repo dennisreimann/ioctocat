@@ -3,5 +3,4 @@
 
 
 @interface GHRepositories : GHCollection
-- (id)initWithPath:(NSString *)path;
 @end

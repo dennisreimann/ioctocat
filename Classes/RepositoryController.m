@@ -122,7 +122,7 @@
 
 - (void)displayRepository {
 	self.nameLabel.text = self.repository.name;
-	self.iconView.image = self.repository.isLoaded ? [UIImage imageNamed:(self.repository.isPrivate ? @"private.png" : @"public.png")] : nil;
+	self.iconView.image = self.repository.isLoaded ? [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")] : nil;
 	self.numbersLabel.text = self.repository.isLoaded ? [NSString stringWithFormat:@"%d %@, %d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
 	if (self.repository.isFork) self.forkLabel.text = @"forked";
 	[self.ownerCell setContentText:self.repository.owner];

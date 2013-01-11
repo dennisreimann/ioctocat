@@ -79,7 +79,8 @@
 	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %d %@", [gist.createdAtDate prettyDate], gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments"];
 	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	cell.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"private.png" : @"public.png")];
+	cell.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"Private.png" : @"Public.png")];
+	cell.imageView.highlightedImage = [UIImage imageNamed:(gist.isPrivate ? @"PrivateOn.png" : @"PublicOn.png")];
 	return cell;
 }
 

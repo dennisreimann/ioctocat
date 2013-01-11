@@ -124,15 +124,16 @@
 				<float key="IBUISectionFooterHeight">10</float>
 			</object>
 			<object class="IBUIView" id="1002873168">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<object class="IBUIImageView" id="705617526">
 						<reference key="NSNextResponder" ref="1002873168"/>
 						<int key="NSvFlags">289</int>
-						<string key="NSFrame">{{290, 15}, {16, 16}}</string>
+						<string key="NSFrame">{{282, 11}, {24, 24}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="412962912"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -143,8 +144,9 @@
 					<object class="IBUILabel" id="1013829266">
 						<reference key="NSNextResponder" ref="1002873168"/>
 						<int key="NSvFlags">294</int>
-						<string key="NSFrame">{{20, 8}, {262, 29}}</string>
+						<string key="NSFrame">{{20, 8}, {254, 29}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="705617526"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -176,6 +178,7 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{20, 39}, {218, 20}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="459960734"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -207,6 +210,8 @@
 						<int key="NSvFlags">291</int>
 						<string key="NSFrame">{{246, 39}, {60, 20}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -225,6 +230,8 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 80}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="1013829266"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>

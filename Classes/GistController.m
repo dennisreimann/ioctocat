@@ -101,7 +101,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)displayGist {
-	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"private.png" : @"public.png")];
+	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"Private.png" : @"Public.png")];
 	self.descriptionLabel.text = self.gist.title;
 	if (self.gist.createdAtDate) {
 		self.ownerLabel.text = [NSString stringWithFormat:@"%@, %@", self.gist.user ? self.gist.user.login : @"unknown user", [self.gist.createdAtDate prettyDate]];

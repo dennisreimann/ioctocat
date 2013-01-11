@@ -6,6 +6,10 @@ Additions:
 
 * Check GitHub system status on app activation
 
+Changes:
+
+* New icons for public and private state (repos and gists)
+
 Bugfixes:
 
 * Fixed missing pull requests for pull request comment events

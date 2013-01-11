@@ -62,9 +62,8 @@
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
 	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	if (self.event.user.gravatar) {
-		self.gravatarView.image = self.event.user.gravatar;
-	} else if (!self.event.user.gravatarURL) {
+	self.gravatarView.image = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+	if (!self.event.user.gravatarURL) {
 		[self.event.user loadData];
 	}
 	// actions

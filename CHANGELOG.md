@@ -2,9 +2,13 @@
 
 ## v1.7.2
 
+Additions:
+
+* Check GitHub system status on app activation
+
 Bugfixes:
 
-* Fixed missing pul requests for pull request comment events
+* Fixed missing pull requests for pull request comment events
 
 ## v1.7.1
 

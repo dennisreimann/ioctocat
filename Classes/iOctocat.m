@@ -1,6 +1,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "iOctocat.h"
 #import "IOCAvatarCache.h"
+#import "GHApiClient.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -12,6 +13,7 @@
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
 #import "Orbiter.h"
+#import "NSDate+Nibware.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 
@@ -46,14 +48,8 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
-	// Avatar cache
-	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		[IOCAvatarCache clearAvatarCache];
-		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
-	}
-	[defaults synchronize];
+	[self checkAvatarCache];
+	[self checkGitHubSystemStatus];
 }
 
 - (void)setCurrentAccount:(GHAccount *)account {
@@ -222,6 +218,44 @@
 							  animated:YES
 							 hideAfter:3.0];
 }
+
+- (void)checkGitHubSystemStatus {
+	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
+	NSString *path = @"/api/last-message.json";
+	NSString *method = kRequestMethodGet;
+	GHApiClient *apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
+	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:nil];
+	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+		D3JLog(@"System status request finished: %@", json);
+		NSString *status = [json safeStringForKey:@"status"];
+		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
+			NSString *title = [NSString stringWithFormat:@"GitHub System %@", [status isEqualToString:@"major"] ? @"Error" : @"Warning"];
+			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
+			NSString *body = [json safeStringForKey:@"body"];
+			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
+			[iOctocat reportError:title with:message];
+		}
+	};
+	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		D3JLog(@"System status request failed: %@", error);
+	};
+	D3JLog(@"System status request: %@ %@", method, path);
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+																						success:onSuccess
+																						failure:onFailure];
+	[operation start];
+}
+
+- (void)checkAvatarCache {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
+	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
+		[IOCAvatarCache clearAvatarCache];
+		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+	}
+	[defaults synchronize];
+}
+
 
 #pragma mark Autorotation
 

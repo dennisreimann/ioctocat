@@ -9,6 +9,7 @@
 #define kThemeDefaultsKey                    @"theme"
 
 // API
+#define kRequestMethodGet               @"GET"
 #define kRequestMethodPut               @"PUT"
 #define kRequestMethodPost              @"POST"
 #define kRequestMethodPatch             @"PATCH"

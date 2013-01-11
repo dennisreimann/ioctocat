@@ -8,5 +8,6 @@ HockeySDK.plist
 profile
 xcuserdata
 .bundle
+.ruby-version
 vendor
 test.log

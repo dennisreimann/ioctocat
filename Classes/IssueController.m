@@ -16,6 +16,7 @@
 #import "GHUser.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
+#import "SVProgressHUD.h"
 
 
 @interface IssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
@@ -105,13 +106,16 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 			[self.tableView reloadData];
 		}
 	} else if ([keyPath isEqualToString:IssueSavingKeyPath]) {
-		if (self.issue.isSaved) {
-			NSString *title = [NSString stringWithFormat:@"Issue %@", (self.issue.isOpen ? @"reopened" : @"closed")];
-			[iOctocat reportSuccess:title];
+		if (self.issue.isSaving) {
+			[SVProgressHUD showWithStatus:@"Saving issue…" maskType:SVProgressHUDMaskTypeGradient];
+		} else if (self.issue.isSaved) {
+			NSString *action = self.issue.isOpen ? @"reopened" : @"closed";
+			NSString *status = [NSString stringWithFormat:@"Issue %@", action];
+			[SVProgressHUD showSuccessWithStatus:status];
 			[self displayIssue];
 			[self.listController reloadIssues];
 		} else if (self.issue.error) {
-			[iOctocat reportError:@"Request error" with:@"Could not change the state"];
+			[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
 		}
 	} else if ([keyPath isEqualToString:IssueCommentsLoadingKeyPath]) {
 		if (self.issue.comments.isLoading && self.issue.isLoaded) {

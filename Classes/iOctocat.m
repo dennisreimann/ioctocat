@@ -198,25 +198,11 @@
 							 textColor:textColor
 					   backgroundColor:bgColor
 							  animated:YES
-							 hideAfter:3.0];
+							 hideAfter:5.0];
 }
 
 + (void)reportLoadingError:(NSString *)message {
 	[self reportError:@"Loading error" with:message];
-}
-
-+ (void)reportSuccess:(NSString *)message {
-	UIImage *image = [UIImage imageNamed:@"check.png"];
-	UIColor *bgColor = [UIColor colorWithRed:0.150 green:0.320 blue:0.672 alpha:1.000];
-	UIColor *textColor = [UIColor whiteColor];
-	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:message
-								detail:nil
-								 image:image
-							 textColor:textColor
-					   backgroundColor:bgColor
-							  animated:YES
-							 hideAfter:3.0];
 }
 
 - (void)checkGitHubSystemStatus {

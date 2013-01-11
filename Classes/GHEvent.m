@@ -11,7 +11,6 @@
 #import "GHRepoComment.h"
 #import "GHIssueComment.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -57,7 +56,7 @@
 	if (![actorLogin isEmpty]) {
 		self.user = [[iOctocat sharedInstance] userWithLogin:actorLogin];
 		if (!self.user.gravatarURL) {
-			self.user.gravatarURL = [dict safeURLForKeyPath:@"actor.avatar_url"];;
+			self.user.gravatarURL = [dict safeURLForKeyPath:@"actor.avatar_url"];
 		}
 	}
 
@@ -71,7 +70,6 @@
 
 	// Other user
 	NSString *otherUserLogin = nil;
-	NSString *otherUserAvatarURL = nil;
 	NSDictionary *otherUserDict = self.payload[@"target"];
 	if (!otherUserDict) otherUserDict = self.payload[@"member"];
 	if (!otherUserDict) otherUserDict = self.payload[@"user"];
@@ -80,12 +78,11 @@
 		otherUserLogin = [[dict safeStringForKeyPath:@"repo.name"] componentsSeparatedByString:@"/"][0];
 	} else if (otherUserDict) {
 		otherUserLogin = otherUserDict[@"login"];
-		otherUserAvatarURL = otherUserDict[@"avatar_url"];
 	}
 	if (![otherUserLogin isEmpty]) {
 		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];
-		if (!self.otherUser.gravatarURL && ![otherUserAvatarURL isEmpty]) {
-			self.otherUser.gravatarURL = [NSURL smartURLFromString:otherUserAvatarURL];
+		if (!self.otherUser.gravatarURL) {
+			self.otherUser.gravatarURL = [otherUserDict safeURLForKeyPath:@"avatar_url"];
 		}
 	}
 

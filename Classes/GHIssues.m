@@ -1,8 +1,6 @@
 #import "GHIssues.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
 
 
 @implementation GHIssues

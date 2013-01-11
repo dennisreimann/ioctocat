@@ -1,7 +1,6 @@
 #import "GHGistComments.h"
 #import "GHGistComment.h"
 #import "GHGist.h"
-#import "NSURL+Extensions.h"
 
 
 @interface GHGistComments ()

@@ -13,7 +13,6 @@
 #import "RepositoryCell.h"
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
 #import "iOctocat.h"
 
 

@@ -21,7 +21,6 @@
 #import "iOctocat.h"
 #import "EventCell.h"
 #import "NSDate+Nibware.h"
-#import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
 

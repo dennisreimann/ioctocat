@@ -1,7 +1,5 @@
 #import "GHGists.h"
 #import "GHGist.h"
-#import "GHUser.h"
-#import "iOctocat.h"
 #import "NSDictionary+Extensions.h"
 
 

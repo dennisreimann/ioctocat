@@ -14,7 +14,6 @@
 #import "GHIssue.h"
 #import "iOctocat.h"
 #import "NSDate+Nibware.h"
-#import "NSURL+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
 
 #define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"

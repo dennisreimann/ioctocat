@@ -1,7 +1,6 @@
 #import "GHSearch.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
 

@@ -7,7 +7,6 @@
 #import "GHRepositories.h"
 #import "IOCAvatarLoader.h"
 #import "IOCAvatarCache.h"
-#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 

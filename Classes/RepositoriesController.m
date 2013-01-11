@@ -4,7 +4,6 @@
 #import "GHRepositories.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
 
 
 @interface RepositoriesController ()

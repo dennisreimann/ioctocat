@@ -1,8 +1,6 @@
 #import "GHRepoComments.h"
 #import "GHRepoComment.h"
 #import "GHRepository.h"
-#import "GHRepository.h"
-#import "NSURL+Extensions.h"
 
 
 @interface GHRepoComments ()

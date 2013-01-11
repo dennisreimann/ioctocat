@@ -7,7 +7,6 @@
 #import "GHEvents.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
-#import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 

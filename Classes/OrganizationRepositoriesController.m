@@ -7,7 +7,6 @@
 #import "GHOrganization.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
 
 #define kLoadingCellIdentifier @"LoadingCell"
 #define kEmptyCellIdentifier @"EmptyCell"

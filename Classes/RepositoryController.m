@@ -20,7 +20,6 @@
 #import "PullRequestsController.h"
 #import "ForksController.h"
 #import "TreeController.h"
-#import "NSURL+Extensions.h"
 
 #define kCodeCellIdentifier @"CodeCell"
 

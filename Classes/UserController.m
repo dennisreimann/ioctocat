@@ -16,7 +16,6 @@
 #import "UsersController.h"
 #import "EventsController.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
 #import "GistsController.h"
 
 

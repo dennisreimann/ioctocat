@@ -4,7 +4,6 @@
 #import "GHFiles.h"
 #import "GHGistComments.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 

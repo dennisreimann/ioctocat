@@ -2,7 +2,6 @@
 #import "GHIssueComment.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
 
 
 @interface GHIssueComments ()

@@ -4,7 +4,6 @@
 #import "GHRepository.h"
 #import "GHRepoComments.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 

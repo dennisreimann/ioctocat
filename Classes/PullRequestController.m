@@ -13,7 +13,6 @@
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
 #import "iOctocat.h"
 #import "GHUser.h"
 #import "GHBranch.h"

@@ -1,8 +1,6 @@
 #import "GHPullRequests.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
 
 
 @implementation GHPullRequests

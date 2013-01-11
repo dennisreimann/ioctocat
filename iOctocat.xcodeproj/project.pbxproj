@@ -40,6 +40,12 @@
 		6F1DC6440F7E8BDA00FCD26D /* WatchEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6430F7E8BDA00FCD26D /* WatchEvent.png */; };
 		6F1DC65A0F7E8D6900FCD26D /* WebView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC6590F7E8D6900FCD26D /* WebView.xib */; };
 		6F1DC6740F7E8E1900FCD26D /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
+		6F1F399316A034D200C9E01B /* GHNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399216A034D200C9E01B /* GHNotifications.m */; };
+		6F1F399416A034D200C9E01B /* GHNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399216A034D200C9E01B /* GHNotifications.m */; };
+		6F1F399516A034D200C9E01B /* GHNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399216A034D200C9E01B /* GHNotifications.m */; };
+		6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399716A034ED00C9E01B /* GHNotification.m */; };
+		6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399716A034ED00C9E01B /* GHNotification.m */; };
+		6F1F399A16A034ED00C9E01B /* GHNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399716A034ED00C9E01B /* GHNotification.m */; };
 		6F27CD11159113D900E15B34 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
@@ -907,6 +913,10 @@
 		6F1DC6590F7E8D6900FCD26D /* WebView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WebView.xib; path = IBFiles/WebView.xib; sourceTree = "<group>"; };
 		6F1DC6720F7E8E1900FCD26D /* WebController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebController.h; sourceTree = "<group>"; };
 		6F1DC6730F7E8E1900FCD26D /* WebController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebController.m; sourceTree = "<group>"; };
+		6F1F399016A034C300C9E01B /* GHNotifications.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNotifications.h; sourceTree = "<group>"; };
+		6F1F399216A034D200C9E01B /* GHNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNotifications.m; sourceTree = "<group>"; };
+		6F1F399616A034E100C9E01B /* GHNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNotification.h; sourceTree = "<group>"; };
+		6F1F399716A034ED00C9E01B /* GHNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNotification.m; sourceTree = "<group>"; };
 		6F27CD0E159113D900E15B34 /* AccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsController.h; sourceTree = "<group>"; };
 		6F27CD0F159113D900E15B34 /* AccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsController.m; sourceTree = "<group>"; };
 		6F27CD151591188D00E15B34 /* GHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAccount.h; sourceTree = "<group>"; };
@@ -2081,6 +2091,10 @@
 				6F182C7D161C54A600E705CF /* GHGists.m */,
 				6F182C7A161C54A500E705CF /* GHGist.h */,
 				6F182C7B161C54A500E705CF /* GHGist.m */,
+				6F1F399016A034C300C9E01B /* GHNotifications.h */,
+				6F1F399216A034D200C9E01B /* GHNotifications.m */,
+				6F1F399616A034E100C9E01B /* GHNotification.h */,
+				6F1F399716A034ED00C9E01B /* GHNotification.m */,
 				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
 				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
@@ -3042,6 +3056,8 @@
 				6FC40F68168A037E0035927E /* GHCommits.m in Sources */,
 				6FC40F7F168BA7FD0035927E /* GHFiles.m in Sources */,
 				6FF4D9551698D4B900C235A0 /* RepositoriesController.m in Sources */,
+				6F1F399316A034D200C9E01B /* GHNotifications.m in Sources */,
+				6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3141,6 +3157,8 @@
 				6FC40F6A168A037E0035927E /* GHCommits.m in Sources */,
 				6FC40F81168BA7FD0035927E /* GHFiles.m in Sources */,
 				6FF4D9571698D4B900C235A0 /* RepositoriesController.m in Sources */,
+				6F1F399516A034D200C9E01B /* GHNotifications.m in Sources */,
+				6F1F399A16A034ED00C9E01B /* GHNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3238,6 +3256,8 @@
 				6FC40F69168A037E0035927E /* GHCommits.m in Sources */,
 				6FC40F80168BA7FD0035927E /* GHFiles.m in Sources */,
 				6FF4D9561698D4B900C235A0 /* RepositoriesController.m in Sources */,
+				6F1F399416A034D200C9E01B /* GHNotifications.m in Sources */,
+				6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

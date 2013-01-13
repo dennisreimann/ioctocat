@@ -115,7 +115,7 @@
 - (void)markAsRead {
 	UIColor *normalColor = [UIColor whiteColor];
 	[self setCustomBackgroundColor:normalColor];
-	self.event.read = YES;
+	[self.event markAsRead];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

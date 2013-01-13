@@ -5,6 +5,12 @@
 	<array>
 		<dict>
 			<key>title</key>
+			<string>Notifications</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>title</key>
 			<string>Profile</string>
 		</dict>
 	</array>

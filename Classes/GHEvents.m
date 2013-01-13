@@ -15,7 +15,7 @@
 	for (NSDictionary *dict in values) {
 		GHEvent *event = [[GHEvent alloc] initWithDict:dict];
 		if ([event.date compare:self.lastUpdate] != NSOrderedDescending) {
-			event.read = YES;
+			[event markAsRead];
 		}
 		[self addObject:event];
 	}

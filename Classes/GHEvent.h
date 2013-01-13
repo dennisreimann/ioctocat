@@ -24,8 +24,9 @@
 @property(nonatomic,strong)NSString *content;
 @property(nonatomic,readonly)NSString *extendedEventType;
 @property(nonatomic,readonly)BOOL isCommentEvent;
-@property(nonatomic,readwrite)BOOL read;
+@property(nonatomic,readonly)BOOL read;
 
 - (id)initWithDict:(NSDictionary *)dict;
 - (void)setValues:(id)dict;
+- (void)markAsRead;
 @end

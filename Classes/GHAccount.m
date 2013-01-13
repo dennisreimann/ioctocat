@@ -6,6 +6,7 @@
 #import "GHRepositories.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
+#import "GHNotifications.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -45,6 +46,7 @@ NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
 		self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
 		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
+		self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsPath];
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;

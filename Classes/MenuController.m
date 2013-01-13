@@ -14,6 +14,7 @@
 #import "GistsController.h"
 #import "SearchController.h"
 #import "CommitController.h"
+#import "NotificationsController.h"
 #import "GHUser.h"
 #import "GHGist.h"
 #import "GHCommit.h"
@@ -22,6 +23,7 @@
 #import "GHPullRequest.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
+#import "GHNotifications.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
@@ -46,6 +48,7 @@
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
 		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.notifications addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -58,6 +61,7 @@
 	self.tableView.separatorColor = self.lightBackgroundColor;
 	// disable scroll-to-top for the menu, so that the main controller receives the event
 	self.tableView.scrollsToTop = NO;
+	if (!self.user.notifications.isLoaded) [self.user.notifications loadData];
 	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
 	MyEventsController *myEventsController = [[MyEventsController alloc] initWithUser:self.user];
 	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
@@ -66,6 +70,7 @@
 
 - (void)dealloc {
 	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.user.notifications removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
@@ -152,11 +157,14 @@
 		if (self.user.organizations.isLoaded) {
 			[self.tableView reloadData];
 		} else if (!self.user.organizations.isLoading && self.user.organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations."];
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
+	} else if (object == self.user.notifications && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	} else if (object == self.user && [keyPath isEqualToString:kGravatarKeyPath]) {
-		NSIndexPath *userIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		[self.tableView reloadRowsAtIndexPaths:@[userIndexPath] withRowAnimation:UITableViewRowAnimationNone];
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 
@@ -168,23 +176,23 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	NSInteger rowCount = [(self.menu)[section] count];
-	if (section == 0) {
+	if (section == 1) {
 		rowCount += self.user.organizations.count;
 	}
 	return rowCount;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 0) return @"Feeds";
-	if (section == 1) return @"Profiles";
-	if (section == 2) return @"Repositories";
-	if (section == 3) return @"Gists";
-	if (section == 4) return @"Miscellaneous";
+	if (section == 1) return @"Feeds";
+	if (section == 2) return @"Profiles";
+	if (section == 3) return @"Repositories";
+	if (section == 4) return @"Gists";
+	if (section == 5) return @"Miscellaneous";
 	return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return ([self tableView:tableView titleForHeaderInSection:section]) ? kSectionHeaderHeight : 0.0f;
+    return ([self tableView:tableView titleForHeaderInSection:section]) ? kSectionHeaderHeight : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -216,7 +224,7 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	NSArray *menu = self.menu[indexPath.section];
-	if (section == 0) {
+	if (section == 1) {
 		// object is either a user or an organization.
 		// both have gravatar, name and login properties.
 		GHUser *object = (row == 0) ? self.user : self.user.organizations[row - 1];
@@ -232,6 +240,7 @@
 			cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu%@.png", imageName]];
 		}
 	}
+	cell.badgeCount = (section == 0) ? self.user.notifications.count : (int)nil;
 	return cell;
 }
 
@@ -242,6 +251,12 @@
 	switch (section) {
 		case 0:
 			if (row == 0) {
+				viewController = [[NotificationsController alloc] initWithNotifications:self.user.notifications];
+			}
+			break;
+
+		case 1:
+			if (row == 0) {
 				viewController = [[MyEventsController alloc] initWithUser:self.user];
 			} else {
 				GHOrganization *org = (self.user.organizations)[row - 1];
@@ -250,7 +265,7 @@
 			}
 			break;
 			
-		case 1:
+		case 2:
 			if (row == 0) {
 				viewController = [[UserController alloc] initWithUser:self.user];
 			} else if (row == 1) {
@@ -258,7 +273,7 @@
 			}
 			break;
 			
-		case 2:
+		case 3:
 			if (row == 0) {
 				viewController = [[MyRepositoriesController alloc] initWithUser:self.user];
 				viewController.title = @"Personal Repos";
@@ -277,7 +292,7 @@
 			}
 			break;
 			
-		case 3:
+		case 4:
 			if (row == 0) {
 				viewController = [[GistsController alloc] initWithGists:self.user.gists];
 			} else if (row == 1) {
@@ -286,7 +301,7 @@
 			}
 			break;
 			
-		case 4:
+		case 5:
 			if (row == 0) {
 				viewController = [[SearchController alloc] initWithUser:self.user];
 			} else if (row == 1) {

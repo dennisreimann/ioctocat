@@ -44,25 +44,6 @@
 				<int key="NSvFlags">294</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<object class="IBUIImageView" id="187409150">
-						<reference key="NSNextResponder" ref="50713568"/>
-						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{10, 36}, {32, 32}}</string>
-						<reference key="NSSuperview" ref="50713568"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="232108168"/>
-						<object class="NSColor" key="IBUIBackgroundColor" id="559892232">
-							<int key="NSColorSpace">3</int>
-							<bytes key="NSWhite">MQA</bytes>
-						</object>
-						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-						<bool key="IBUIUserInteractionEnabled">NO</bool>
-						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<object class="NSCustomResource" key="IBUIImage">
-							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">AvatarBackground32.png</string>
-						</object>
-					</object>
 					<object class="IBUIImageView" id="578675854">
 						<reference key="NSNextResponder" ref="50713568"/>
 						<int key="NSvFlags">292</int>
@@ -70,7 +51,10 @@
 						<reference key="NSSuperview" ref="50713568"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="253699610"/>
-						<reference key="IBUIBackgroundColor" ref="559892232"/>
+						<object class="NSColor" key="IBUIBackgroundColor" id="559892232">
+							<int key="NSColorSpace">3</int>
+							<bytes key="NSWhite">MQA</bytes>
+						</object>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -82,7 +66,7 @@
 					<object class="IBUIImageView" id="232108168">
 						<reference key="NSNextResponder" ref="50713568"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{12, 38}, {28, 28}}</string>
+						<string key="NSFrame">{{9, 36}, {32, 32}}</string>
 						<reference key="NSSuperview" ref="50713568"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="961344443"/>
@@ -90,6 +74,10 @@
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">AvatarBackground32.png</string>
+						</object>
 					</object>
 					<object class="IBUILabel" id="253699610">
 						<reference key="NSNextResponder" ref="50713568"/>
@@ -97,7 +85,7 @@
 						<string key="NSFrame">{{50, 8}, {250, 21}}</string>
 						<reference key="NSSuperview" ref="50713568"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="187409150"/>
+						<reference key="NSNextKeyView" ref="232108168"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -1087,7 +1075,6 @@
 							<reference ref="232108168"/>
 							<reference ref="253699610"/>
 							<reference ref="961344443"/>
-							<reference ref="187409150"/>
 							<reference ref="578675854"/>
 						</object>
 						<reference key="parent" ref="0"/>
@@ -1121,11 +1108,6 @@
 						<int key="objectID">88</int>
 						<reference key="object" ref="656126476"/>
 						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">92</int>
-						<reference key="object" ref="187409150"/>
-						<reference key="parent" ref="50713568"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">93</int>
@@ -1239,7 +1221,6 @@
 					<string>87.IBPluginDependency</string>
 					<string>88.CustomClassName</string>
 					<string>88.IBPluginDependency</string>
-					<string>92.IBPluginDependency</string>
 					<string>93.IBPluginDependency</string>
 					<string>94.IBPluginDependency</string>
 					<string>95.IBPluginDependency</string>
@@ -1281,7 +1262,6 @@
 					<string>FilesCell</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>FilesCell</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

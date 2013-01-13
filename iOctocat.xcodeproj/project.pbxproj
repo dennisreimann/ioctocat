@@ -23,6 +23,30 @@
 		6F0B11211670A2BD00375136 /* Menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F0B11201670A2BD00375136 /* Menu.plist */; };
 		6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
 		6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
+		6F11AE3316A35CAE002D9741 /* TypeIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2B16A35CAE002D9741 /* TypeIssue.png */; };
+		6F11AE3416A35CAE002D9741 /* TypeIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2B16A35CAE002D9741 /* TypeIssue.png */; };
+		6F11AE3516A35CAE002D9741 /* TypeIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2C16A35CAE002D9741 /* TypeIssue@2x.png */; };
+		6F11AE3616A35CAE002D9741 /* TypeIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2C16A35CAE002D9741 /* TypeIssue@2x.png */; };
+		6F11AE3716A35CAE002D9741 /* TypeIssueOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2D16A35CAE002D9741 /* TypeIssueOn.png */; };
+		6F11AE3816A35CAE002D9741 /* TypeIssueOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2D16A35CAE002D9741 /* TypeIssueOn.png */; };
+		6F11AE3916A35CAE002D9741 /* TypeIssueOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2E16A35CAE002D9741 /* TypeIssueOn@2x.png */; };
+		6F11AE3A16A35CAE002D9741 /* TypeIssueOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2E16A35CAE002D9741 /* TypeIssueOn@2x.png */; };
+		6F11AE3B16A35CAE002D9741 /* TypePullRequest.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2F16A35CAE002D9741 /* TypePullRequest.png */; };
+		6F11AE3C16A35CAE002D9741 /* TypePullRequest.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE2F16A35CAE002D9741 /* TypePullRequest.png */; };
+		6F11AE3D16A35CAE002D9741 /* TypePullRequest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE3016A35CAE002D9741 /* TypePullRequest@2x.png */; };
+		6F11AE3E16A35CAE002D9741 /* TypePullRequest@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE3016A35CAE002D9741 /* TypePullRequest@2x.png */; };
+		6F11AE3F16A35CAE002D9741 /* TypePullRequestOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE3116A35CAE002D9741 /* TypePullRequestOn.png */; };
+		6F11AE4016A35CAE002D9741 /* TypePullRequestOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE3116A35CAE002D9741 /* TypePullRequestOn.png */; };
+		6F11AE4116A35CAE002D9741 /* TypePullRequestOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE3216A35CAE002D9741 /* TypePullRequestOn@2x.png */; };
+		6F11AE4216A35CAE002D9741 /* TypePullRequestOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE3216A35CAE002D9741 /* TypePullRequestOn@2x.png */; };
+		6F11AE4816A36048002D9741 /* TypeCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4416A36048002D9741 /* TypeCommit.png */; };
+		6F11AE4916A36048002D9741 /* TypeCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4416A36048002D9741 /* TypeCommit.png */; };
+		6F11AE4A16A36048002D9741 /* TypeCommit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4516A36048002D9741 /* TypeCommit@2x.png */; };
+		6F11AE4B16A36048002D9741 /* TypeCommit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4516A36048002D9741 /* TypeCommit@2x.png */; };
+		6F11AE4C16A36048002D9741 /* TypeCommitOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4616A36048002D9741 /* TypeCommitOn.png */; };
+		6F11AE4D16A36048002D9741 /* TypeCommitOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4616A36048002D9741 /* TypeCommitOn.png */; };
+		6F11AE4E16A36048002D9741 /* TypeCommitOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4716A36048002D9741 /* TypeCommitOn@2x.png */; };
+		6F11AE4F16A36048002D9741 /* TypeCommitOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F11AE4716A36048002D9741 /* TypeCommitOn@2x.png */; };
 		6F15FAA4123E3EE600E56F92 /* DownloadEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F15FAA3123E3EE600E56F92 /* DownloadEvent.png */; };
 		6F182C7E161C54A600E705CF /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
 		6F182C7F161C54A600E705CF /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
@@ -102,6 +126,11 @@
 		6F3E21D116A0C5DC00BAAB60 /* PublicOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21C216A0C5DC00BAAB60 /* PublicOn.png */; };
 		6F3E21D216A0C5DC00BAAB60 /* PublicOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21C316A0C5DC00BAAB60 /* PublicOn@2x.png */; };
 		6F3E21D316A0C5DC00BAAB60 /* PublicOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21C316A0C5DC00BAAB60 /* PublicOn@2x.png */; };
+		6F3E21D516A0C8A300BAAB60 /* Notifications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21D416A0C8A300BAAB60 /* Notifications.xib */; };
+		6F3E21D616A0C8A300BAAB60 /* Notifications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21D416A0C8A300BAAB60 /* Notifications.xib */; };
+		6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* NotificationsController.m */; };
+		6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* NotificationsController.m */; };
+		6F3E21DB16A0C90200BAAB60 /* NotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* NotificationsController.m */; };
 		6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FD6961675E3E600E90A6E /* OAuth.plist */; };
 		6F3FD69A1675E80700E90A6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6F48DB5F166C03F900F8FF16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -898,6 +927,18 @@
 		6F0BEB3F11108C9E00E95E5A /* GHBranches.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHBranches.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F0BEB56111090D300E95E5A /* GHBranch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBranch.h; sourceTree = "<group>"; };
 		6F0BEB57111090D300E95E5A /* GHBranch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBranch.m; sourceTree = "<group>"; };
+		6F11AE2B16A35CAE002D9741 /* TypeIssue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeIssue.png; sourceTree = "<group>"; };
+		6F11AE2C16A35CAE002D9741 /* TypeIssue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeIssue@2x.png"; sourceTree = "<group>"; };
+		6F11AE2D16A35CAE002D9741 /* TypeIssueOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeIssueOn.png; sourceTree = "<group>"; };
+		6F11AE2E16A35CAE002D9741 /* TypeIssueOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeIssueOn@2x.png"; sourceTree = "<group>"; };
+		6F11AE2F16A35CAE002D9741 /* TypePullRequest.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypePullRequest.png; sourceTree = "<group>"; };
+		6F11AE3016A35CAE002D9741 /* TypePullRequest@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypePullRequest@2x.png"; sourceTree = "<group>"; };
+		6F11AE3116A35CAE002D9741 /* TypePullRequestOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypePullRequestOn.png; sourceTree = "<group>"; };
+		6F11AE3216A35CAE002D9741 /* TypePullRequestOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypePullRequestOn@2x.png"; sourceTree = "<group>"; };
+		6F11AE4416A36048002D9741 /* TypeCommit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeCommit.png; sourceTree = "<group>"; };
+		6F11AE4516A36048002D9741 /* TypeCommit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeCommit@2x.png"; sourceTree = "<group>"; };
+		6F11AE4616A36048002D9741 /* TypeCommitOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeCommitOn.png; sourceTree = "<group>"; };
+		6F11AE4716A36048002D9741 /* TypeCommitOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeCommitOn@2x.png"; sourceTree = "<group>"; };
 		6F15FAA3123E3EE600E56F92 /* DownloadEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DownloadEvent.png; path = Images/Icons/DownloadEvent.png; sourceTree = "<group>"; };
 		6F182C7A161C54A500E705CF /* GHGist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGist.h; sourceTree = "<group>"; };
 		6F182C7B161C54A500E705CF /* GHGist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGist.m; sourceTree = "<group>"; };
@@ -982,6 +1023,9 @@
 		6F3E21C116A0C5DC00BAAB60 /* Public@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Public@2x.png"; sourceTree = "<group>"; };
 		6F3E21C216A0C5DC00BAAB60 /* PublicOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PublicOn.png; sourceTree = "<group>"; };
 		6F3E21C316A0C5DC00BAAB60 /* PublicOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PublicOn@2x.png"; sourceTree = "<group>"; };
+		6F3E21D416A0C8A300BAAB60 /* Notifications.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Notifications.xib; path = IBFiles/Notifications.xib; sourceTree = "<group>"; };
+		6F3E21D716A0C8F000BAAB60 /* NotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsController.h; sourceTree = "<group>"; };
+		6F3E21D816A0C90200BAAB60 /* NotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsController.m; sourceTree = "<group>"; };
 		6F3FD6961675E3E600E90A6E /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		6F3FD6991675E80700E90A6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6F48DB5C166C03F900F8FF16 /* iOctocat Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOctocat Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1508,6 +1552,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6F11AE2A16A35CAE002D9741 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				6F11AE4416A36048002D9741 /* TypeCommit.png */,
+				6F11AE4516A36048002D9741 /* TypeCommit@2x.png */,
+				6F11AE4616A36048002D9741 /* TypeCommitOn.png */,
+				6F11AE4716A36048002D9741 /* TypeCommitOn@2x.png */,
+				6F11AE2B16A35CAE002D9741 /* TypeIssue.png */,
+				6F11AE2C16A35CAE002D9741 /* TypeIssue@2x.png */,
+				6F11AE2D16A35CAE002D9741 /* TypeIssueOn.png */,
+				6F11AE2E16A35CAE002D9741 /* TypeIssueOn@2x.png */,
+				6F11AE2F16A35CAE002D9741 /* TypePullRequest.png */,
+				6F11AE3016A35CAE002D9741 /* TypePullRequest@2x.png */,
+				6F11AE3116A35CAE002D9741 /* TypePullRequestOn.png */,
+				6F11AE3216A35CAE002D9741 /* TypePullRequestOn@2x.png */,
+			);
+			name = Types;
+			path = Images/Types;
+			sourceTree = "<group>";
+		};
 		6F182C84161C5E2500E705CF /* Gists */ = {
 			isa = PBXGroup;
 			children = (
@@ -1526,6 +1590,7 @@
 			children = (
 				6FECA89B15906D2D00878A74 /* GitHub */,
 				6FECA89A15906D0700878A74 /* Git */,
+				6F2C7D7616A3625200F824EF /* Events */,
 				6FECA89915906CD000878A74 /* Comments */,
 				6F6E4B221645D60F00E03FD9 /* GHApiClient.h */,
 				6F6E4B231645D60F00E03FD9 /* GHApiClient.m */,
@@ -1638,6 +1703,21 @@
 				6F9DD8481334A5D000D1E35E /* user@2x.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		6F2C7D7616A3625200F824EF /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				6F1F399016A034C300C9E01B /* GHNotifications.h */,
+				6F1F399216A034D200C9E01B /* GHNotifications.m */,
+				6F1F399616A034E100C9E01B /* GHNotification.h */,
+				6F1F399716A034ED00C9E01B /* GHNotification.m */,
+				6FB1CF851649A6A700337EBE /* GHEvents.h */,
+				6FB1CF871649A6B100337EBE /* GHEvents.m */,
+				6FB1CF8B1649AE2E00337EBE /* GHEvent.h */,
+				6FB1CF891649AE2500337EBE /* GHEvent.m */,
+			);
+			name = Events;
 			sourceTree = "<group>";
 		};
 		6F3D9770166A5FB8009CB887 /* Dropdown */ = {
@@ -1966,6 +2046,7 @@
 				6F1DC5BB0F7E7F3400FCD26D /* Icons */,
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
 				6F3E21BB16A0C5DC00BAAB60 /* Access */,
+				6F11AE2A16A35CAE002D9741 /* Types */,
 				6F552DA016788A0400698524 /* Octocat.png */,
 				6F552DA116788A0400698524 /* Octocat@2x.png */,
 			);
@@ -1987,12 +2068,14 @@
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F182C8D161CC47300E705CF /* Gists.xib */,
 				6F182C8B161CB7A100E705CF /* Gist.xib */,
+				6F3E21D416A0C8A300BAAB60 /* Notifications.xib */,
 				6F59BC930FC6C51800412597 /* Repositories.xib */,
 				6FF4D9581698D4F600C235A0 /* MyRepositories.xib */,
 				6F4CBD3316431D7600D587FB /* OrganizationRepositories.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				6F0AEFB6100CAAE500FB323E /* Forks.xib */,
 				6F76CDC516629BC800A2353E /* Commits.xib */,
+				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
 				6F536BC9167A22B900B5FD53 /* Issues.xib */,
 				6FA92AFD0FACD51A001B1D1D /* Issue.xib */,
@@ -2000,7 +2083,6 @@
 				6F536BBA1679175500B5FD53 /* PullRequest.xib */,
 				6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */,
 				6FC0D42B11581A5200511B7F /* Comment.xib */,
-				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F2C77431114F6DE002665DA /* Files.xib */,
 				6FB9CBE413354AC200C8DE29 /* Organization.xib */,
 				6FB9CBF613355FB200C8DE29 /* Organizations.xib */,
@@ -2116,10 +2198,6 @@
 				6F182C7D161C54A600E705CF /* GHGists.m */,
 				6F182C7A161C54A500E705CF /* GHGist.h */,
 				6F182C7B161C54A500E705CF /* GHGist.m */,
-				6F1F399016A034C300C9E01B /* GHNotifications.h */,
-				6F1F399216A034D200C9E01B /* GHNotifications.m */,
-				6F1F399616A034E100C9E01B /* GHNotification.h */,
-				6F1F399716A034ED00C9E01B /* GHNotification.m */,
 				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
 				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
 				6F35BD520F88B06200E978CD /* GHRepository.h */,
@@ -2136,10 +2214,6 @@
 				6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */,
 				6F35BD370F88B01900E978CD /* GHOrganization.h */,
 				6F35BD380F88B01900E978CD /* GHOrganization.m */,
-				6FB1CF851649A6A700337EBE /* GHEvents.h */,
-				6FB1CF871649A6B100337EBE /* GHEvents.m */,
-				6FB1CF8B1649AE2E00337EBE /* GHEvent.h */,
-				6FB1CF891649AE2500337EBE /* GHEvent.m */,
 				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
 				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
 				8C6A99E60FABD01500A99483 /* GHIssue.h */,
@@ -2170,6 +2244,8 @@
 		6FECA89E1590711F00878A74 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				6F3E21D716A0C8F000BAAB60 /* NotificationsController.h */,
+				6F3E21D816A0C90200BAAB60 /* NotificationsController.m */,
 				6FB1CF8C1649AEA200337EBE /* EventsController.h */,
 				6FB1CF8D1649AEB200337EBE /* EventsController.m */,
 				6FCE4D860F7FE16A00451D6E /* MyEventsController.h */,
@@ -2609,6 +2685,19 @@
 				6F3E21CE16A0C5DC00BAAB60 /* Public@2x.png in Resources */,
 				6F3E21D016A0C5DC00BAAB60 /* PublicOn.png in Resources */,
 				6F3E21D216A0C5DC00BAAB60 /* PublicOn@2x.png in Resources */,
+				6F3E21D516A0C8A300BAAB60 /* Notifications.xib in Resources */,
+				6F11AE3316A35CAE002D9741 /* TypeIssue.png in Resources */,
+				6F11AE3516A35CAE002D9741 /* TypeIssue@2x.png in Resources */,
+				6F11AE3716A35CAE002D9741 /* TypeIssueOn.png in Resources */,
+				6F11AE3916A35CAE002D9741 /* TypeIssueOn@2x.png in Resources */,
+				6F11AE3B16A35CAE002D9741 /* TypePullRequest.png in Resources */,
+				6F11AE3D16A35CAE002D9741 /* TypePullRequest@2x.png in Resources */,
+				6F11AE3F16A35CAE002D9741 /* TypePullRequestOn.png in Resources */,
+				6F11AE4116A35CAE002D9741 /* TypePullRequestOn@2x.png in Resources */,
+				6F11AE4816A36048002D9741 /* TypeCommit.png in Resources */,
+				6F11AE4A16A36048002D9741 /* TypeCommit@2x.png in Resources */,
+				6F11AE4C16A36048002D9741 /* TypeCommitOn.png in Resources */,
+				6F11AE4E16A36048002D9741 /* TypeCommitOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2903,6 +2992,19 @@
 				6F3E21CF16A0C5DC00BAAB60 /* Public@2x.png in Resources */,
 				6F3E21D116A0C5DC00BAAB60 /* PublicOn.png in Resources */,
 				6F3E21D316A0C5DC00BAAB60 /* PublicOn@2x.png in Resources */,
+				6F3E21D616A0C8A300BAAB60 /* Notifications.xib in Resources */,
+				6F11AE3416A35CAE002D9741 /* TypeIssue.png in Resources */,
+				6F11AE3616A35CAE002D9741 /* TypeIssue@2x.png in Resources */,
+				6F11AE3816A35CAE002D9741 /* TypeIssueOn.png in Resources */,
+				6F11AE3A16A35CAE002D9741 /* TypeIssueOn@2x.png in Resources */,
+				6F11AE3C16A35CAE002D9741 /* TypePullRequest.png in Resources */,
+				6F11AE3E16A35CAE002D9741 /* TypePullRequest@2x.png in Resources */,
+				6F11AE4016A35CAE002D9741 /* TypePullRequestOn.png in Resources */,
+				6F11AE4216A35CAE002D9741 /* TypePullRequestOn@2x.png in Resources */,
+				6F11AE4916A36048002D9741 /* TypeCommit.png in Resources */,
+				6F11AE4B16A36048002D9741 /* TypeCommit@2x.png in Resources */,
+				6F11AE4D16A36048002D9741 /* TypeCommitOn.png in Resources */,
+				6F11AE4F16A36048002D9741 /* TypeCommitOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3091,6 +3193,7 @@
 				6FF4D9551698D4B900C235A0 /* RepositoriesController.m in Sources */,
 				6F1F399316A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */,
+				6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3192,6 +3295,7 @@
 				6FF4D9571698D4B900C235A0 /* RepositoriesController.m in Sources */,
 				6F1F399516A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399A16A034ED00C9E01B /* GHNotification.m in Sources */,
+				6F3E21DB16A0C90200BAAB60 /* NotificationsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3291,6 +3395,7 @@
 				6FF4D9561698D4B900C235A0 /* RepositoriesController.m in Sources */,
 				6F1F399416A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */,
+				6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -5,10 +5,12 @@
 Additions:
 
 * Check GitHub system status on app activation
+* Notifications support (push notifications will be added soon)
 
 Changes:
 
 * New icons for public and private state (repos and gists)
+* Finetuned the icon. Thanks @benjaminrabe
 
 Bugfixes:
 

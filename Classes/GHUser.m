@@ -7,6 +7,7 @@
 #import "GHGist.h"
 #import "GHGists.h"
 #import "GHResource.h"
+#import "GHNotifications.h"
 #import "IOCAvatarLoader.h"
 #import "IOCAvatarCache.h"
 #import "NSString+Extensions.h"

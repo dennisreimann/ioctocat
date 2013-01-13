@@ -7,6 +7,7 @@
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
 #define kLineNumbersDefaultsKey              @"lineNumbers"
 #define kThemeDefaultsKey                    @"theme"
+#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 
 // API
 #define kRequestMethodGet               @"GET"
@@ -48,10 +49,11 @@
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"
 #define kUserAuthenticatedEventsFormat          @"users/%@/events"
 #define kUserAuthenticatedOrgEventsFormat       @"users/%@/events/orgs/%@"
-#define kUserEventsFormat                       @"/users/%@/events/public"
+#define kUserEventsFormat                       @"users/%@/events/public"
 #define kRepoEventsFormat                       @"repos/%@/%@/events"
 #define kIssueEventsFormat                      @"repos/%@/%@/issues/events"
-#define kOrganizationEventsFormat               @"/orgs/%@/events"
+#define kOrganizationEventsFormat               @"orgs/%@/events"
+#define kNotificationsPath                      @"notifications"
 
 // Authenticated user
 #define kAuthorizationsFormat                   @"authorizations"

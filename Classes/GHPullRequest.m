@@ -19,6 +19,8 @@
 
 @implementation GHPullRequest
 
+@synthesize resourcePath = _resourcePath;
+
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
@@ -46,7 +48,11 @@
 // Dynamic resourcePath, because it depends on the
 // num which isn't always available in advance
 - (NSString *)resourcePath {
-	return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.num];
+	if (_resourcePath) {
+		return _resourcePath;
+	} else {
+		return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.num];
+	}
 }
 
 #pragma mark Loading

@@ -69,7 +69,7 @@
 			[self.tableView reloadData];
 		} else if (self.events.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the feed."];
+			[iOctocat reportLoadingError:@"Could not load the feed"];
 		}
 	}
 }

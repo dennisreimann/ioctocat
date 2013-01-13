@@ -23,9 +23,6 @@
 	return self;
 }
 
-- (void)setValues:(id)response {
-}
-
 - (void)needsReload {
 	self.loadingStatus = GHResourceStatusNotProcessed;
 }
@@ -42,6 +39,12 @@
 	return [iOctocat sharedInstance].currentAccount.apiClient;
 }
 
+- (void)setHeaderValues:(NSDictionary *)values {
+}
+
+- (void)setValues:(id)response {
+}
+
 #pragma mark Loading
 
 - (void)loadData {
@@ -49,18 +52,21 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	D3JLog(@"%@: Loading %@", self.class, self.resourcePath);
+	D3JLog(@"\n%@: Loading %@", self.class, self.resourcePath);
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	[self.apiClient getPath:self.resourcePath parameters:nil
 		success:^(AFHTTPRequestOperation *operation, id response) {
-			D3JLog(@"%@: Loading %@ finished: %@", self.class, self.resourcePath, response);
+			NSDictionary *headers = operation.response.allHeaderFields;
+			D3JLog(@"\n%@: Loading %@ finished:\n%@\n\nHeaders:\n%@", self.class, self.resourcePath, response, headers);
+			[self setHeaderValues:headers];
 			[self setValues:response];
 			self.loadingStatus = GHResourceStatusProcessed;
 		}
 		failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			 DJLog(@"%@: Loading %@ failed: %@", self.class, self.resourcePath, error);
-			 self.error = error;
-			 self.loadingStatus = GHResourceStatusNotProcessed;
+			NSDictionary *headers = operation.response.allHeaderFields;
+			DJLog(@"\n%@: Loading %@ failed:\n%@\n\nHeaders:\n%@", self.class, self.resourcePath, error, headers);
+			self.error = error;
+			self.loadingStatus = GHResourceStatusNotProcessed;
 		}
 	];
 }
@@ -72,20 +78,20 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-	D3JLog(@"%@: Saving %@ (%@)\n\n%@", self.class, path, method, values);
+	D3JLog(@"\n%@: Saving %@ (%@)\n\n%@", self.class, path, method, values);
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method
 																path:path
 														  parameters:values];
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 		success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-			D3JLog(@"%@: Saving %@ finished: %@", self.class, path, json);
+			D3JLog(@"\n%@: Saving %@ finished:\n%@", self.class, path, json);
 			if (useResult) {
 				useResult(json);
 			}
 			self.savingStatus = GHResourceStatusProcessed;
 		}
 		failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-			DJLog(@"%@: Saving %@ failed: %@", self.class, path, error);
+			DJLog(@"\n%@: Saving %@ failed:\n%@", self.class, path, error);
 			self.error = error;
 			self.savingStatus = GHResourceStatusNotProcessed;
 		}

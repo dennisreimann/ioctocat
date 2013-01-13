@@ -1,7 +1,7 @@
 #import "GHResource.h"
 
 
-@class GHUsers, GHOrganizations, GHRepositories, GHRepository, GHEvents, GHGists, GHGist;
+@class GHUsers, GHOrganizations, GHNotifications, GHRepositories, GHRepository, GHEvents, GHGists, GHGist;
 
 @interface GHUser : GHResource
 @property(nonatomic,strong)NSString *name;
@@ -13,6 +13,7 @@
 @property(nonatomic,strong)NSURL *blogURL;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)UIImage *gravatar;
+@property(nonatomic,strong)GHNotifications *notifications;
 @property(nonatomic,strong)GHOrganizations *organizations;
 @property(nonatomic,strong)GHRepositories *repositories;
 @property(nonatomic,strong)GHRepositories *starredRepositories;

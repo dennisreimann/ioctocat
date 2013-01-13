@@ -10,7 +10,10 @@
 @property(nonatomic,strong)NSDate *updatedAtDate;
 @property(nonatomic,strong)NSDate *lastReadAtDate;
 @property(nonatomic,strong)NSString *title;
-@property(nonatomic,readwrite)BOOL isUnread;
+@property(nonatomic,strong)NSString *subjectType;
+@property(nonatomic,strong)GHResource *subject;
+@property(nonatomic,readonly)BOOL read;
 
-- (id)initWithId:(NSString *)gistId;
+- (id)initWithDict:(NSDictionary *)dict;
+- (void)markAsRead;
 @end

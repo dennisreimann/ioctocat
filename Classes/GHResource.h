@@ -23,6 +23,7 @@ typedef enum {
 - (void)needsReload;
 - (void)markAsLoaded;
 - (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id response))useResult;
+- (void)setHeaderValues:(NSDictionary *)values;
 - (void)setValues:(id)response;
 - (NSString *)resourceContentType;
 @end

@@ -16,8 +16,6 @@
 #import "NSDate+Nibware.h"
 #import "UIScrollView+SVPullToRefresh.h"
 
-#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
-
 
 @interface MyEventsController ()
 @property(nonatomic,strong)GHUser *user;
@@ -26,8 +24,6 @@
 @property(nonatomic,readwrite)NSUInteger loadCounter;
 @property(nonatomic,weak,readonly)GHEvents *events;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
-
-- (IBAction)switchChanged:(id)sender;
 @end
 
 
@@ -63,7 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self refreshLastUpdate];
-	[self refreshEventsIfRequired];
+	[self refreshIfRequired];
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(applicationDidBecomeActive)
 												 name:UIApplicationDidBecomeActiveNotification
@@ -87,21 +83,13 @@
 	}
 }
 
-- (void)refreshEventsIfRequired {
-	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
-		// the feed was loaded before this application became active again, refresh it
-		[self.tableView triggerPullToRefresh];
-	}
-}
-
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
 	[self refreshLastUpdate];
 	self.selectedIndexPath = nil;
 	[self.tableView reloadData];
-	[self refreshEventsIfRequired];
+	[self refreshIfRequired];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -117,7 +105,7 @@
 			[self.tableView.pullToRefreshView stopAnimating];
 		} else if (feed.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the feed."];
+			[iOctocat reportLoadingError:@"Could not load the feed"];
 		}
 	}
 }
@@ -125,7 +113,15 @@
 #pragma mark Events
 
 - (void)applicationDidBecomeActive {
-	[self refreshEventsIfRequired];
+	[self refreshIfRequired];
+}
+
+- (void)refreshIfRequired {
+	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
+	if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
+		// the feed was loaded before this application became active again, refresh it
+		[self.tableView triggerPullToRefresh];
+	}
 }
 
 #pragma mark Persistent State

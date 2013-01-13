@@ -48,6 +48,7 @@
 
 NSString *const CommitLoadingKeyPath = @"loadingStatus";
 NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
+NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 
 - (id)initWithCommit:(GHCommit *)commit {
 	self = [super initWithNibName:@"Commit" bundle:nil];
@@ -61,12 +62,15 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[super viewDidLoad];
 	[self.commit addObserver:self forKeyPath:CommitLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.commit addObserver:self forKeyPath:CommitCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.commit addObserver:self forKeyPath:CommitAuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [self.commit.commitID substringToIndex:8];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -76,6 +80,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)dealloc {
+	[self.commit removeObserver:self forKeyPath:CommitAuthorGravatarKeyPath];
 	[self.commit removeObserver:self forKeyPath:CommitCommentsLoadingKeyPath];
 	[self.commit removeObserver:self forKeyPath:CommitLoadingKeyPath];
 }
@@ -89,7 +94,7 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)displayCommit {
 	self.titleLabel.text = self.commit.message;
 	self.dateLabel.text = [self.commit.committedDate prettyDate];
-	self.gravatarView.image = self.commit.author.gravatar;
+	if (self.commit.author.gravatar) self.gravatarView.image = self.commit.author.gravatar;
 	[self.repoCell setContentText:self.commit.repository.repoId];
 	[self.authorCell setContentText:self.commit.author.login];
 	[self.committerCell setContentText:self.commit.committer.login];
@@ -127,7 +132,9 @@ NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:CommitLoadingKeyPath]) {
+	if ([keyPath isEqualToString:CommitAuthorGravatarKeyPath]) {
+		self.gravatarView.image = self.commit.author.gravatar;
+	} else if ([keyPath isEqualToString:CommitLoadingKeyPath]) {
 		if (self.commit.isLoaded) {
 			[self displayCommit];
 		} else if (self.commit.error) {

@@ -15,6 +15,11 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHEvent ()
+@property(nonatomic,readwrite)BOOL read;
+@end
+
+
 @implementation GHEvent
 
 - (id)initWithDict:(NSDictionary *)dict {
@@ -37,6 +42,10 @@
 		return [action isEqualToString:@"closed"] ? @"PullRequestClosedEvent" : @"PullRequestOpenedEvent";
 	}
 	return self.eventType;
+}
+
+- (void)markAsRead {
+	self.read = YES;
 }
 
 - (BOOL)isCommentEvent {

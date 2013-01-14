@@ -90,7 +90,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		// TODO: Mark all as read
+		[self.notifications markAllAsRead];
 	}
 }
 

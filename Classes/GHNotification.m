@@ -24,7 +24,11 @@
 }
 
 - (void)markAsRead {
-	self.read = YES;
+	NSDictionary *values = @{@"read": @YES};
+	[self saveValues:values withPath:self.resourcePath andMethod:kRequestMethodPut useResult:^(id response) {
+		[self setHeaderValues:values];
+		self.read = YES;
+	}];
 }
 
 #pragma mark Loading
@@ -34,7 +38,8 @@
 	NSString *owner = [repoDict safeStringForKeyPath:@"owner.login"];
 	NSString *name = [repoDict safeStringForKey:@"name"];
 	NSURL *subjectURL = [dict safeURLForKeyPath:@"subject.url"];
-	self.notificationId = [dict safeStringForKey:@"id"];
+	self.notificationId = [dict safeIntegerForKey:@"id"];
+	self.resourcePath = [NSString stringWithFormat:kNotificationThreadFormat, self.notificationId];
 	self.updatedAtDate = [dict safeDateForKey:@"updated_at"];
 	self.lastReadAtDate = [dict safeDateForKey:@"last_read_at"];
 	self.read = [dict safeBoolForKey:@"unread"] ? ![dict safeBoolForKey:@"unread"] : NO;

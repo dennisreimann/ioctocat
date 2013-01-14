@@ -48,6 +48,7 @@
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
 		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.notifications addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user.notifications addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
@@ -70,6 +71,7 @@
 
 - (void)dealloc {
 	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.user.notifications removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
 	[self.user.notifications removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }

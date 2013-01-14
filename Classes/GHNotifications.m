@@ -20,9 +20,6 @@
 	self.byRepository = [NSMutableDictionary dictionary];
 	for (id dict in values) {
 		GHNotification *notification = [[GHNotification alloc] initWithDict:dict];
-		if ([notification.lastReadAtDate compare:self.lastUpdate] != NSOrderedDescending) {
-			[notification markAsRead];
-		}
 		[self addObject:notification];
 		if (!self.byRepository[notification.repository.repoId]) {
 			self.byRepository[notification.repository.repoId] = [NSMutableArray array];
@@ -35,7 +32,22 @@
 
 - (void)setHeaderValues:(NSDictionary *)values {
 	[super setHeaderValues:values];
-	self.pollInterval = [values safeIntegerForKey:@"X-Poll-Interval"];
+	NSInteger interval = [values safeIntegerForKey:@"X-Poll-Interval"];
+	if (interval) self.pollInterval = interval;
+}
+
+- (void)markAllAsRead {
+	static NSDateFormatter *dateFormatter;
+	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+	NSString *lastReadAt = [[dateFormatter stringFromDate:self.lastUpdate] stringByAppendingString:@"Z"];
+	NSDictionary *values = @{@"read": @YES, @"last_read_at": lastReadAt};
+	[self saveValues:values withPath:self.resourcePath andMethod:kRequestMethodPut useResult:^(id response) {
+		[self setHeaderValues:values];
+		// empty out the current notifications and refresh
+		[self setValues:@[]];
+		[self loadData];
+	}];
 }
 
 @end

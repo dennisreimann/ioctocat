@@ -8,11 +8,6 @@
 
 @implementation MenuCell
 
-- (void)awakeFromNib {
-	self.badgeLabel.layer.masksToBounds = YES;
-	self.badgeLabel.layer.cornerRadius = 9.0;
-}
-
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
     if (self) {
@@ -26,7 +21,7 @@
 		self.badgeLabel.textAlignment = UITextAlignmentCenter;
 		self.badgeLabel.textColor = [UIColor whiteColor];
 		self.badgeLabel.font = [UIFont systemFontOfSize:15];
-		self.badgeLabel.layer.cornerRadius = 13;
+		self.badgeLabel.layer.cornerRadius = 15;
 		self.badgeCount = (int)nil;
 		[self addSubview:self.badgeLabel];
     }
@@ -42,7 +37,7 @@
 	if (self.badgeCount) {
 		[self.imageView setHidden:YES];
 		self.badgeLabel.text = [NSString stringWithFormat:@"%d", self.badgeCount];
-		self.badgeLabel.frame = CGRectMake(10, 8, 26, 26);
+		self.badgeLabel.frame = CGRectMake(7, 6, 30, 30);
 		self.badgeLabel.backgroundColor = self.badgeCount == 0 ?
 			self.badgeEmptyBackgroundColor :
 			self.badgeHighlightBackgroundColor;
@@ -61,7 +56,7 @@
 }
 
 - (UIColor *)badgeHighlightBackgroundColor {
-	return [UIColor colorWithRed:0.818 green:0.120 blue:0.118 alpha:1.000];
+	return [UIColor colorWithRed:0.000 green:0.509 blue:0.747 alpha:1.000];
 }
 
 

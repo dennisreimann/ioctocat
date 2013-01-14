@@ -65,6 +65,7 @@
 		failure:^(AFHTTPRequestOperation *operation, NSError *error) {
 			NSDictionary *headers = operation.response.allHeaderFields;
 			DJLog(@"\n%@: Loading %@ failed:\n%@\n\nHeaders:\n%@", self.class, self.resourcePath, error, headers);
+			[self setHeaderValues:headers];
 			self.error = error;
 			self.loadingStatus = GHResourceStatusNotProcessed;
 		}

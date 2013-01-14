@@ -46,7 +46,7 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self setupPullToRefresh];
-	if (!self.notifications.isLoaded) [self.tableView triggerPullToRefresh];
+	if (!self.resourceHasData) [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -94,27 +94,18 @@
 	}
 }
 
-- (NSArray *)notificationsForSection:(NSInteger)section {
-	NSArray *keys = self.notifications.byRepository.allKeys;
-	NSString *key = keys[section];
-	NSArray *values = self.notifications.byRepository[key];
-	return values;
-}
-
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (self.notifications.isLoading || self.notifications.isEmpty) ? 1 : self.notifications.byRepository.allKeys.count;
+	return self.resourceHasData ? self.notifications.byRepository.allKeys.count : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.notifications.isLoading || self.notifications.isEmpty) return 1;
-	return [self notificationsForSection:section].count;
+	return self.resourceHasData ? [self notificationsForSection:section].count : 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (self.notifications.isLoading || self.notifications.isEmpty) return nil;
-	return self.notifications.byRepository.allKeys[section];
+	return self.resourceHasData ? self.notifications.byRepository.allKeys[section] : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -164,7 +155,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.notifications.isLoading || self.notifications.isEmpty) return;
+	if (!self.resourceHasData) return;
 	GHNotification *notification = [self notificationsForSection:indexPath.section][indexPath.row];
 	UIViewController *viewController = nil;
 	if ([notification.subject isKindOfClass:GHPullRequest.class]) {
@@ -178,6 +169,19 @@
 		[notification markAsRead];
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
+}
+
+#pragma mark Helpers
+
+- (NSArray *)notificationsForSection:(NSInteger)section {
+	NSArray *keys = self.notifications.byRepository.allKeys;
+	NSString *key = keys[section];
+	NSArray *values = self.notifications.byRepository[key];
+	return values;
+}
+
+- (BOOL)resourceHasData {
+	return self.notifications.isLoaded && !self.notifications.isEmpty;
 }
 
 - (void)setupPullToRefresh {

@@ -15,6 +15,7 @@ Changes:
 Bugfixes:
 
 * Fixed missing pull requests for pull request comment events
+* Fixed crash in events controller (when tapping loading cell)
 
 ## v1.7.1
 

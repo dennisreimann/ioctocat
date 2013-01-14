@@ -142,6 +142,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.events.count == 0) return;
 	[self.tableView beginUpdates];
 	if ([self.selectedIndexPath isEqual:indexPath]) {
 		self.selectedCell = nil;

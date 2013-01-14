@@ -1,5 +1,5 @@
-@class GHUser;
+@class GHRepositories;
 
 @interface RepositoriesController : UITableViewController
-- (id)initWithUser:(GHUser *)theUser;
+- (id)initWithRepositories:(GHRepositories *)repos;
 @end

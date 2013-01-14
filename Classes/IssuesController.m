@@ -1,34 +1,30 @@
 #import "IssuesController.h"
 #import "IssueController.h"
-#import "IssueFormController.h"
+#import "IssueObjectFormController.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
-#import "IssueCell.h"
+#import "IssueObjectCell.h"
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
 
-#define kIssueCellIdentifier @"IssueCell"
+#define kIssueObjectCellIdentifier @"IssueObjectCell"
 #define kIssueSortCreated @"created"
 #define kIssueSortUpdated @"updated"
 #define kIssueSortComments @"comments"
 
 
-@interface IssuesController ()
-@property(nonatomic,assign)NSUInteger loadCounter;
-@property(nonatomic,strong)NSArray *issueList;
+@interface IssuesController () <IssueObjectFormControllerDelegate>
+@property(nonatomic,readonly)GHIssues *currentIssues;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,readonly)GHIssues *currentIssues;
+@property(nonatomic,strong)NSArray *objects;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *addButton;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
-@property(nonatomic,strong)IBOutlet IssueCell *issueCell;
 
-- (void)issueLoadingStarted;
-- (void)issueLoadingFinished;
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)createNewIssue:(id)sender;
 - (IBAction)refresh:(id)sender;
@@ -37,25 +33,32 @@
 
 @implementation IssuesController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"Issues" bundle:nil];
-	self.title = @"My Issues";
-	self.user = theUser;
-	NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
-	NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
-	GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
-	GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
-	self.issueList = @[openIssues, closedIssues];
-	for (GHIssues *issues in self.issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (self) {
+		self.title = @"Issues";
+		self.user = user;
+		NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
+		NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
+		GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
+		GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
+		self.objects = @[openIssues, closedIssues];
+		for (GHIssues *issues in self.objects) {
+			[issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		}
+	}
 	return self;
 }
 
-- (id)initWithRepository:(GHRepository *)theRepository {
+- (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithNibName:@"Issues" bundle:nil];
-	self.title = @"Issues";
-	self.repository = theRepository;
-	self.issueList = @[self.repository.openIssues, self.repository.closedIssues];
-	for (GHIssues *issues in self.issueList) [issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (self) {
+		self.repository = repo;
+		self.objects = @[self.repository.openIssues, self.repository.closedIssues];
+		for (id object in self.objects) {
+			[object addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		}
+	}
 	return self;
 }
 
@@ -68,11 +71,14 @@
 }
 
 - (void)dealloc {
-	for (GHIssues *issues in self.issueList) [issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	for (GHIssues *issues in self.objects) {
+		[issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	}
 }
 
 - (GHIssues *)currentIssues {
-	return self.issuesControl.selectedSegmentIndex == UISegmentedControlNoSegment ? nil : (self.issueList)[self.issuesControl.selectedSegmentIndex];
+	NSInteger idx = self.issuesControl.selectedSegmentIndex;
+	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
 }
 
 #pragma mark Actions
@@ -85,8 +91,9 @@
 }
 
 - (IBAction)createNewIssue:(id)sender {
-	GHIssue *theIssue = [[GHIssue alloc] initWithRepository:self.repository];
-	IssueFormController *formController = [[IssueFormController alloc] initWithIssue:theIssue andIssuesController:self];
+	GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
+	IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:issue];
+	formController.delegate = self;
 	[self.navigationController pushViewController:formController animated:YES];
 }
 
@@ -96,31 +103,27 @@
 }
 
 - (void)reloadIssues {
-	for (GHIssues *issues in self.issueList) [issues loadData];
+	for (GHIssues *issues in self.objects) {
+		[issues loadData];
+	}
+	[self.tableView reloadData];
+}
+
+// delegation method for newly created issues
+- (void)savedIssueObject:(id)object {
+	[[self.objects objectAtIndex:0] insertObject:object atIndex:0];
 	[self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHIssues *theIssues = (GHIssues *)object;
-		if (theIssues.isLoading) {
-			[self issueLoadingStarted];
-		} else {
-			[self issueLoadingFinished];
-			if (!theIssues.error) return;
+		GHIssues *issues = (GHIssues *)object;
+		if (issues.isLoaded) {
+			[self.tableView reloadData];
+		} else if (issues.error) {
 			[iOctocat reportLoadingError:@"Could not load the issues"];
 		}
 	}
-}
-
-- (void)issueLoadingStarted {
-	self.loadCounter += 1;
-}
-
-- (void)issueLoadingFinished {
-	[self.tableView reloadData];
-	self.loadCounter -= 1;
-	if (self.loadCounter > 0) return;
 }
 
 #pragma mark TableView
@@ -130,26 +133,25 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.currentIssues.isLoading ) || (self.currentIssues.count == 0) ? 1 : self.currentIssues.count;
+	return (self.currentIssues.isLoading ) || (self.currentIssues.isEmpty) ? 1 : self.currentIssues.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentIssues.isLoading) return self.loadingIssuesCell;
-	if (self.currentIssues.count == 0) return self.noIssuesCell;
-	IssueCell *cell = (IssueCell *)[tableView dequeueReusableCellWithIdentifier:kIssueCellIdentifier];
+	if (self.currentIssues.isEmpty) return self.noIssuesCell;
+	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"IssueCell" owner:self options:nil];
-		cell = self.issueCell;
+		cell = [IssueObjectCell cell];
+		if (self.repository) [cell hideRepo];
 	}
-	cell.issue = (self.currentIssues)[indexPath.row];
-	if (self.repository) [cell hideRepo];
+	cell.issueObject = (self.currentIssues)[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentIssues.isLoaded || self.currentIssues.count == 0) return;
+	if (!self.currentIssues.isLoaded || self.currentIssues.isEmpty) return;
 	GHIssue *issue = (self.currentIssues)[indexPath.row];
-	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andIssuesController:self];
+	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andListController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 }
 

@@ -2,7 +2,7 @@
 #import "GHResource.h"
 
 
-@class GHIssues, GHForks, GHBranches, GHUser, GHReadme, GHEvents;
+@class GHIssues, GHPullRequests, GHForks, GHBranches, GHUser, GHReadme, GHEvents;
 
 @interface GHRepository : GHResource
 @property(nonatomic,strong)NSString *name;
@@ -14,6 +14,8 @@
 @property(nonatomic,strong)NSDate *pushedAtDate;
 @property(nonatomic,strong)GHIssues *openIssues;
 @property(nonatomic,strong)GHIssues *closedIssues;
+@property(nonatomic,strong)GHPullRequests *openPullRequests;
+@property(nonatomic,strong)GHPullRequests *closedPullRequests;
 @property(nonatomic,strong)GHForks *forks;
 @property(nonatomic,strong)GHBranches *branches;
 @property(nonatomic,strong)GHReadme *readme;
@@ -27,8 +29,8 @@
 @property(nonatomic,readwrite)BOOL hasWiki;
 @property(nonatomic,readwrite)BOOL hasDownloads;
 
-- (id)initWithOwner:(NSString *)theOwner andName:(NSString *)theName;
-- (void)setOwner:(NSString *)theOwner andName:(NSString *)theName;
+- (id)initWithOwner:(NSString *)owner andName:(NSString *)name;
+- (void)setOwner:(NSString *)owner andName:(NSString *)name;
 - (int)compareByName:(GHRepository*)repo;
 - (int)compareByRepoId:(GHRepository*)repo;
 - (int)compareByRepoIdAndStatus:(GHRepository*)repo;

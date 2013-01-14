@@ -5,10 +5,10 @@
 @class GHRepository, GHCommit, GHUser;
 
 @interface GHBranch : GHResource
-@property(nonatomic,readonly)GHUser *author;
+@property(nonatomic,strong)GHUser *author;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)NSString *name;
 
-- (id)initWithRepository:(GHRepository *)theRepository andName:(NSString *)theName;
+- (id)initWithRepository:(GHRepository *)repo andName:(NSString *)name;
 @end

@@ -22,10 +22,10 @@
 	return self;
 }
 
-- (void)setRepository:(GHRepository *)theRepository {
-	_repository = theRepository;
-	
-	self.imageView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"private.png" : @"public.png")];
+- (void)setRepository:(GHRepository *)repo {
+	_repository = repo;
+	self.imageView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")];
+    self.imageView.highlightedImage = [UIImage imageNamed:(self.repository.isPrivate ? @"PrivateOn.png" : @"PublicOn.png")];
     self.textLabel.text = [NSString stringWithFormat:@"%@/%@", self.repository.owner, self.repository.name];
     self.detailTextLabel.text = [NSString stringWithFormat:@"%d stars, %d forks", self.repository.watcherCount, self.repository.forkCount];
 }

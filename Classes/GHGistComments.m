@@ -1,15 +1,19 @@
 #import "GHGistComments.h"
 #import "GHGistComment.h"
 #import "GHGist.h"
-#import "NSURL+Extensions.h"
+
+
+@interface GHGistComments ()
+@property(nonatomic,weak)GHGist *gist;
+@end
 
 
 @implementation GHGistComments
 
-- (id)initWithGist:(GHGist *)theGist {
+- (id)initWithGist:(GHGist *)gist {
 	self = [super init];
 	if (self) {
-		self.gist = theGist;
+		self.gist = gist;
 	}
 	return self;
 }
@@ -23,7 +27,8 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist andDictionary:dict];
+		GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
+		[comment setValues:dict];
 		[self addObject:comment];
 	}
 }

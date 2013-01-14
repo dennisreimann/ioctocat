@@ -11,16 +11,21 @@
 
 @implementation UserObjectCell
 
+- (void)awakeFromNib {
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
+}
+
 - (void)dealloc {
 	[self.userObject removeObserver:self forKeyPath:kGravatarKeyPath];
 }
 
-- (void)setUserObject:(id)theUserObject {
-	[self.userObject removeObserver:self forKeyPath:kGravatarKeyPath];
-	_userObject = theUserObject;
+- (void)setUserObject:(id)userObject {
+	[self.object removeObserver:self forKeyPath:kGravatarKeyPath];
+	_userObject = userObject;
 	self.loginLabel.text = self.object.login;
-	self.gravatarView.image = self.object.gravatar;
-	[self.userObject addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.object addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (self.object.gravatar) self.gravatarView.image = self.object.gravatar;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

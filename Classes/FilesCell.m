@@ -1,4 +1,5 @@
 #import "FilesCell.h"
+#import "GHFiles.h"
 
 
 @implementation FilesCell
@@ -11,13 +12,13 @@
 	return self;
 }
 
-- (void)setFiles:(NSArray *)theFiles andDescription:(NSString *)theDescription {
-	self.files = theFiles;
-	self.description = theDescription;
+- (void)setFiles:(GHFiles *)files andDescription:(NSString *)description {
+	self.files = files;
+	self.description = description;
 	NSString *imageName = [NSString stringWithFormat:@"file_%@.png", self.description];
 	self.imageView.image = [UIImage imageNamed:imageName];
 	self.textLabel.text = [NSString stringWithFormat:@"%d %@", self.files.count, self.description];
-	if (self.files.count == 0) {
+	if (self.files.isEmpty) {
 		self.accessoryType = UITableViewCellAccessoryNone;
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
 	} else {

@@ -1,6 +1,7 @@
 #import "GHUser.h"
 #import "GHGist.h"
 #import "GHGists.h"
+#import "GHFiles.h"
 #import "GHGistComment.h"
 #import "GHGistComments.h"
 #import "WebController.h"
@@ -9,7 +10,7 @@
 #import "CommentController.h"
 #import "CommentCell.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 #import "NSDate+Nibware.h"
 
 
@@ -37,40 +38,46 @@
 
 @implementation GistController
 
-- (id)initWithGist:(GHGist *)theGist {
+NSString *const GistLoadingKeyPath = @"loadingStatus";
+NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
+
+- (id)initWithGist:(GHGist *)gist {
 	self = [super initWithNibName:@"Gist" bundle:nil];
 	if (self) {
-		self.gist = theGist;
-		[self.gist addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.gist.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		self.gist = gist;
+		[self.gist addObserver:self forKeyPath:GistLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.gist addObserver:self forKeyPath:GistCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	self.title = @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	[self displayGist];
-	if (!self.gist.isLoaded) [self.gist loadData];
-	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
 	if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
-
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	(self.gist.isLoaded) ? [self displayGist] : [self.gist loadData];
+	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
+}
+
 - (void)dealloc {
-	[self.gist.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.gist removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.gist removeObserver:self forKeyPath:GistCommentsLoadingKeyPath];
+	[self.gist removeObserver:self forKeyPath:GistLoadingKeyPath];
 }
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
 }
+
+#pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
@@ -93,10 +100,8 @@
 	}
 }
 
-#pragma mark Actions
-
 - (void)displayGist {
-	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"private.png" : @"public.png")];
+	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"Private.png" : @"Public.png")];
 	self.descriptionLabel.text = self.gist.title;
 	if (self.gist.createdAtDate) {
 		self.ownerLabel.text = [NSString stringWithFormat:@"%@, %@", self.gist.user ? self.gist.user.login : @"unknown user", [self.gist.createdAtDate prettyDate]];
@@ -106,21 +111,21 @@
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (![keyPath isEqualToString:kResourceLoadingStatusKeyPath]) return;
-	if (object == self.gist) {
+	if ([keyPath isEqualToString:GistLoadingKeyPath]) {
 		if (self.gist.isLoaded) {
 			[self displayGist];
 		} else if (self.gist.error) {
 			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
 			[self.tableView reloadData];
 		}
-	} else if (object == self.gist.comments) {
-		if (self.gist.comments.isLoaded) {
+	} else if ([keyPath isEqualToString:GistCommentsLoadingKeyPath]) {
+		if (self.gist.comments.isLoading && self.gist.isLoaded) {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+		} else if (self.gist.comments.isLoaded) {
 			[self displayComments];
 		} else if (self.gist.comments.error && !self.gist.error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
@@ -131,6 +136,7 @@
 
 - (IBAction)addComment:(id)sender {
 	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
+	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -165,9 +171,9 @@
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 		}
 	if (section == 0) {
-		NSDictionary *file = [self.gist.files allValues][row];
-		NSString *fileContent = [file valueForKey:@"content"];
-		cell.textLabel.text = [file valueForKey:@"filename"];
+		NSDictionary *file = self.gist.files[row];
+		NSString *fileContent = [file safeStringForKey:@"content"];
+		cell.textLabel.text = [file safeStringForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
@@ -184,22 +190,34 @@
 	return cell;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	if (section == 1) {
+		return self.tableFooterView;
+	} else {
+		return nil;
+	}
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1 && self.gist.comments.isLoaded && !self.gist.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
-	return 44.0f;
+	return 44;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	if (section == 1) {
+		return 56;
+	} else {
+		return 0;
+	}
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gist.isLoaded) return;
-	NSInteger section = indexPath.section;
-	NSInteger row = indexPath.row;
-	if (section == 0) {
-		NSArray *files = [self.gist.files allValues];
-		CodeController *codeController = [[CodeController alloc] initWithFiles:files currentIndex:row];
+	if (indexPath.section == 0) {
+		CodeController *codeController = [[CodeController alloc] initWithFiles:self.gist.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

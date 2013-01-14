@@ -3,5 +3,4 @@
 
 
 @interface GHGists : GHCollection
-- (id)initWithPath:(NSString *)thePath;
 @end

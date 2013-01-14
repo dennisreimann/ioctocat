@@ -7,5 +7,5 @@
 @property(nonatomic,strong)GHApiClient *apiClient;
 @property(nonatomic,strong)GHUser *user;
 
-- (id)initWithDict:(NSDictionary *)theDict;
+- (id)initWithDict:(NSDictionary *)dict;
 @end

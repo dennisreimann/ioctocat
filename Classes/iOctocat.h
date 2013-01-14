@@ -5,12 +5,10 @@
 @property(nonatomic,strong)IBOutlet UIWindow *window;
 
 + (iOctocat *)sharedInstance;
-+ (NSDate *)parseDate:(NSString *)theString;
-+ (void)reportError:(NSString *)theTitle with:(NSString *)theMessage;
-+ (void)reportLoadingError:(NSString *)theMessage;
-+ (void)reportSuccess:(NSString *)theMessage;
++ (void)reportError:(NSString *)title with:(NSString *)message;
++ (void)reportLoadingError:(NSString *)message;
 - (BOOL)openURL:(NSURL *)url;
 - (GHUser *)currentUser;
-- (GHUser *)userWithLogin:(NSString *)theLogin;
-- (GHOrganization *)organizationWithLogin:(NSString *)theLogin;
+- (GHUser *)userWithLogin:(NSString *)login;
+- (GHOrganization *)organizationWithLogin:(NSString *)login;
 @end

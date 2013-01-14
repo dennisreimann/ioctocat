@@ -4,5 +4,5 @@
 @class GHUser;
 
 @interface MyEventsController : EventsController
-- (id)initWithUser:(GHUser *)theUser;
+- (id)initWithUser:(GHUser *)user;
 @end

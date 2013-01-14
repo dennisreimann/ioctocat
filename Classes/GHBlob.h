@@ -14,5 +14,5 @@
 @property(nonatomic,strong)NSData *contentData;
 @property(nonatomic,assign)NSUInteger size;
 
-- (id)initWithRepo:(GHRepository *)theRepo andSha:(NSString *)theSha;
+- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha;
 @end

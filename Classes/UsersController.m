@@ -15,10 +15,10 @@
 
 @implementation UsersController
 
-- (id)initWithUsers:(GHUsers *)theUsers {
+- (id)initWithUsers:(GHUsers *)users {
     self = [super initWithNibName:@"Users" bundle:nil];
 	if (self) {
-		self.users = theUsers;
+		self.users = users;
 		[self.users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
     return self;

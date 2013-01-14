@@ -13,7 +13,6 @@
 #import "RepositoryCell.h"
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
 #import "iOctocat.h"
 
 
@@ -44,10 +43,10 @@
 
 @implementation OrganizationController
 
-- (id)initWithOrganization:(GHOrganization *)theOrganization{
+- (id)initWithOrganization:(GHOrganization *)organization{
 	self = [super initWithNibName:@"Organization" bundle:nil];
 	if (self) {
-		self.organization = theOrganization;
+		self.organization = organization;
 	}
 	return self;
 }
@@ -67,6 +66,8 @@
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
@@ -93,7 +94,7 @@
 - (void)displayOrganization {
 	self.nameLabel.text = (!self.organization.name || [self.organization.name isEmpty]) ? self.organization.login : self.organization.name;
 	self.companyLabel.text = (!self.organization.company || [self.organization.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", self.organization.followersCount] : self.organization.company;
-	self.gravatarView.image = self.organization.gravatar;
+	if (self.organization.gravatar) self.gravatarView.image = self.organization.gravatar;
 	[self.locationCell setContentText:self.organization.location];
 	[self.blogCell setContentText:[self.organization.blogURL host]];
 	[self.emailCell setContentText:self.organization.email];

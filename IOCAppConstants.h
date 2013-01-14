@@ -7,8 +7,10 @@
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
 #define kLineNumbersDefaultsKey              @"lineNumbers"
 #define kThemeDefaultsKey                    @"theme"
+#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 
 // API
+#define kRequestMethodGet               @"GET"
 #define kRequestMethodPut               @"PUT"
 #define kRequestMethodPost              @"POST"
 #define kRequestMethodPatch             @"PATCH"
@@ -24,6 +26,9 @@
 #define kResourceLoadingStatusKeyPath   @"loadingStatus"
 #define kResourceSavingStatusKeyPath    @"savingStatus"
 #define kGravatarKeyPath                @"gravatar"
+#define kIssueSortCreated               @"created"
+#define kIssueSortUpdated               @"updated"
+#define kIssueSortComments              @"comments"
 
 // Content Types
 #define kResourceContentTypeDefault     @"application/vnd.github+json"
@@ -38,15 +43,17 @@
 #define kRepositoryCellIdentifier       @"RepositoryCell"
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
+#define kIssueObjectCellIdentifier      @"IssueObjectCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"
 #define kUserAuthenticatedEventsFormat          @"users/%@/events"
 #define kUserAuthenticatedOrgEventsFormat       @"users/%@/events/orgs/%@"
-#define kUserEventsFormat                       @"/users/%@/events/public"
+#define kUserEventsFormat                       @"users/%@/events/public"
 #define kRepoEventsFormat                       @"repos/%@/%@/events"
 #define kIssueEventsFormat                      @"repos/%@/%@/issues/events"
-#define kOrganizationEventsFormat               @"/orgs/%@/events"
+#define kOrganizationEventsFormat               @"orgs/%@/events"
+#define kNotificationsPath                      @"notifications"
 
 // Authenticated user
 #define kAuthorizationsFormat                   @"authorizations"
@@ -67,7 +74,7 @@
 #define kGistFormat                     @"gists/%@"
 #define kGistStarFormat                 @"gists/%@/star"
 #define kUserGistsFormat                @"users/%@/gists"
-#define kStarredGistsFormat             @"" // not implemented
+#define kStarredGistsFormat             @"gists/starred" // not implemented, yet (currently endpoint for gists of authenticated user)
 #define kGistCommentsFormat             @"gists/%@/comments"
 
 // Users
@@ -99,6 +106,9 @@
 #define kIssueCommentsFormat            @"repos/%@/%@/issues/%d/comments?per_page=100"
 #define kPullRequestsFormat             @"repos/%@/%@/pulls?state=%@"
 #define kPullRequestFormat              @"repos/%@/%@/pulls/%d"
+#define kPullRequestCommitsFormat       @"repos/%@/%@/pulls/%d/commits"
+#define kPullRequestFilesFormat         @"repos/%@/%@/pulls/%d/files"
+#define kPullRequestMergeFormat         @"repos/%@/%@/pulls/%d/merge"
 
 // Code
 #define kRefFormat                      @"repos/%@/%@/git/refs/%@"

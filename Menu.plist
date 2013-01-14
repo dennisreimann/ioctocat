@@ -5,6 +5,12 @@
 	<array>
 		<dict>
 			<key>title</key>
+			<string>Notifications</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>title</key>
 			<string>Profile</string>
 		</dict>
 	</array>
@@ -34,6 +40,18 @@
 			<string>Organizations</string>
 			<key>image</key>
 			<string>OrgRepos</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>Watched</string>
+			<key>image</key>
+			<string>WatchedRepos</string>
+		</dict>
+		<dict>
+			<key>title</key>
+			<string>Starred</string>
+			<key>image</key>
+			<string>StarredRepos</string>
 		</dict>
 		<dict>
 			<key>title</key>

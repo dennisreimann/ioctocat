@@ -6,6 +6,7 @@
 #import "GHRepositories.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
+#import "GHNotifications.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -21,12 +22,14 @@
 
 @implementation GHAccount
 
-- (id)initWithDict:(NSDictionary *)theDict {
+NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
+
+- (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {
-		self.login = [theDict valueForKey:kLoginDefaultsKey defaultsTo:@""];
-		self.endpoint = [theDict valueForKey:kEndpointDefaultsKey defaultsTo:@""];
-		self.authToken = [theDict valueForKey:kAuthTokenDefaultsKey defaultsTo:@""];
+		self.login = [dict safeStringForKey:kLoginDefaultsKey];
+		self.endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
+		self.authToken = [dict safeStringForKey:kAuthTokenDefaultsKey];
 		// construct endpoint URL and set up API client
 		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
 		if (![self.endpoint isEmpty]) {
@@ -43,20 +46,18 @@
 		self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
 		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
-		[self.user.organizations addObserver:self
-								  forKeyPath:kResourceLoadingStatusKeyPath
-									 options:NSKeyValueObservingOptionNew
-									 context:nil];
+		self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsPath];
+		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)dealloc {
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath] && object == self.user.organizations && self.user.organizations.isLoaded) {
+	if (self.user.organizations.isLoaded) {
 		for (GHOrganization *org in self.user.organizations.items) {
 			org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.login, org.login];
 		}

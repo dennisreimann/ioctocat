@@ -2,19 +2,33 @@
 #import "GHIssueComment.h"
 #import "GHIssueComments.h"
 #import "GHRepository.h"
+#import "GHCommits.h"
+#import "GHBranch.h"
+#import "GHFiles.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+
+
+@interface GHPullRequest ()
+@property(nonatomic,assign)BOOL isMerged;
+@property(nonatomic,assign)BOOL isMergeable;
+@end
 
 
 @implementation GHPullRequest
 
-- (id)initWithRepository:(GHRepository *)theRepository {
+@synthesize resourcePath = _resourcePath;
+
+- (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
-		self.repository = theRepository;
+		self.repository = repo;
 		self.comments = [[GHIssueComments alloc] initWithParent:self];
+		self.commits = [[GHCommits alloc] initWithPullRequest:self];
+		self.files = [[GHFiles alloc] initWithPullRequest:self];
+		self.state = kIssueStateOpen;
 	}
 	return self;
 }
@@ -31,40 +45,77 @@
 	return [self.state isEqualToString:kIssueStateClosed];
 }
 
+// Dynamic resourcePath, because it depends on the
+// num which isn't always available in advance
 - (NSString *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// num which isn't always available in advance
-	return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.num];
+	if (_resourcePath) {
+		return _resourcePath;
+	} else {
+		return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.num];
+	}
 }
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-	NSString *login = [theDict valueForKeyPath:@"user.login"];
+- (void)setValues:(id)dict {
+	NSString *login = [dict safeStringForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:theDict[@"created_at"]];
-	self.updated = [iOctocat parseDate:theDict[@"updated_at"]];
-	self.closed = [iOctocat parseDate:theDict[@"closed_at"]];
-	self.title = theDict[@"title"];
-	self.body = theDict[@"body"];
-	self.state = theDict[@"state"];
-	self.labels = theDict[@"labels"];
-	self.votes = [theDict[@"votes"] integerValue];
-	self.num = [theDict[@"number"] integerValue];
-	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
+	self.created = [dict safeDateForKey:@"created_at"];
+	self.updated = [dict safeDateForKey:@"updated_at"];
+	self.merged = [dict safeDateForKey:@"merged_at"];
+	self.closed = [dict safeDateForKey:@"closed_at"];
+	self.title = [dict safeStringForKey:@"title"];
+	self.body = [dict safeStringForKey:@"body"];
+	self.state = [dict safeStringForKey:@"state"];
+	self.labels = [dict safeArrayForKey:@"labels"];
+	self.num = [dict safeIntegerForKey:@"number"];
+	self.htmlURL = [dict safeURLForKey:@"html_url"];
+	self.isMerged = [dict safeBoolForKey:@"merged"];
+	self.isMergeable = [dict safeBoolForKey:@"mergeable"];
 	if (!self.repository) {
-		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
-		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
-		if (owner && name) {
+		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
+		NSString *name = [dict safeStringForKeyPath:@"repository.name"];
+		if (![owner isEmpty] && ![name isEmpty]) {
 			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}
 	}
+	NSString *headOwner = [dict safeStringForKeyPath:@"head.repo.owner.login"];
+	NSString *headName = [dict safeStringForKeyPath:@"head.repo.name"];
+	NSString *headRef = [dict safeStringForKeyPath:@"head.ref"];
+	GHRepository *headRepo = [[GHRepository alloc] initWithOwner:headOwner andName:headName];
+	self.head = [[GHBranch alloc] initWithRepository:headRepo andName:headRef];
+	[self.head setValues:[dict safeDictForKeyPath:@"head"]];
 }
 
 #pragma mark State toggling
 
-- (void)mergePullRequest {
-	// TODO: Implement
+- (void)mergePullRequest:(NSString *)commitMessage {
+	if (self.isMergeable) {
+		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.num];
+		NSDictionary *values = @{@"commit_message": commitMessage};
+		[self saveValues:values withPath:path andMethod:kRequestMethodPut useResult:^(id response) {
+			self.isMerged = [response safeBoolForKey:@"merged"];
+			// set values manually that are not part of the response
+			if (self.isMerged) {
+				self.state = kIssueStateClosed;
+				self.merged = self.closed = self.updated = [NSDate date];
+				self.isMergeable = NO;
+			} else {
+				self.state = kIssueStateOpen;
+				self.merged = self.closed = nil;
+			}
+		}];
+	}
+}
+
+- (void)closePullRequest {
+	self.state = kIssueStateClosed;
+	[self saveData];
+}
+
+- (void)reopenPullRequest {
+	self.state = kIssueStateOpen;
+	[self saveData];
 }
 
 #pragma mark Saving
@@ -80,8 +131,8 @@
 		method = kRequestMethodPatch;
 	}
 	NSDictionary *values = @{@"title": self.title, @"body": self.body, @"state": self.state};
-	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
-		[self setValues:theResponse];
+	[self saveValues:values withPath:path andMethod:method useResult:^(id response) {
+		[self setValues:response];
 	}];
 }
 

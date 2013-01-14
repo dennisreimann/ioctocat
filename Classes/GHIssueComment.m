@@ -3,28 +3,19 @@
 #import "GHPullRequest.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
+#import "NSDictionary+Extensions.h"
 
+
+@interface GHIssueComment ()
+@property(nonatomic,weak)id parent; // a GHIssue or GHPullRequest instance
+@end
 
 @implementation GHIssueComment
 
-- (id)initWithParent:(id)theParent andDictionary:(NSDictionary *)theDict {
-	self = [self initWithParent:theParent];
-	if (self) {
-		NSString *createdAt = [theDict valueForKey:@"created_at"];
-		NSString *updatedAt = [theDict valueForKey:@"updated_at"];
-		NSDictionary *userDict = [theDict valueForKey:@"user"];
-		[self setUserWithValues:userDict];
-		self.body = [theDict valueForKey:@"body"];
-		self.created = [iOctocat parseDate:createdAt];
-		self.updated = [iOctocat parseDate:updatedAt];
-	}
-	return self;
-}
-
-- (id)initWithParent:(id)theParent {
+- (id)initWithParent:(id)parent {
 	self = [super init];
 	if (self) {
-		self.parent = theParent;
+		self.parent = parent;
 	}
 	return self;
 }
@@ -36,7 +27,9 @@
 	GHRepository *repo = [(GHIssue *)self.parent repository];
 	NSUInteger num = [(GHIssue *)self.parent num];
 	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
-	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:nil];
+	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:^(id response) {
+		[self setValues:response];
+	}];
 }
 
 @end

@@ -14,7 +14,7 @@
 		[AFJSONRequestOperation addAcceptableContentTypes:jsonTypes];
 		[self setDefaultHeader:@"Accept" value:kResourceContentTypeDefault];
 		[self setParameterEncoding:AFJSONParameterEncoding];
-		[self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+		[self registerHTTPOperationClass:AFJSONRequestOperation.class];
 	}
 	return self;
 }

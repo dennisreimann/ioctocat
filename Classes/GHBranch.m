@@ -3,12 +3,8 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-
-
-@interface GHBranch ()
-@property(nonatomic,strong)NSString *authorLogin;
-@end
+#import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation GHBranch
@@ -22,18 +18,15 @@
 	return self;
 }
 
-- (GHUser *)author {
-	return [[iOctocat sharedInstance] userWithLogin:self.authorLogin];
-}
-
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
 	// handle different formats in repo and pull request api
-	NSString *sha = dict[@"sha"];
-	NSString *authorLogin = dict[@"author.login"] ? dict[@"author.login"] : dict[@"user.login"];
-	if (sha) self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
-	if (authorLogin) self.authorLogin = authorLogin;
+	NSString *sha = [dict safeStringForKey:@"sha"];
+	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
+	if ([authorLogin isEmpty]) authorLogin = [dict safeStringForKeyPath:@"user.login"];
+	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
+	self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
 }
 
 @end

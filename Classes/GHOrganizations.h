@@ -7,5 +7,5 @@
 @interface GHOrganizations : GHCollection
 @property(nonatomic,strong)GHUser *user;
 
-- (id)initWithUser:(GHUser *)theUser andPath:(NSString *)thePath;
+- (id)initWithUser:(GHUser *)user andPath:(NSString *)path;
 @end

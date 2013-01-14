@@ -1,0 +1,1 @@
+../../ECSlidingViewController/ECSlidingViewController/Vendor/ECSlidingViewController/UIImage+ImageWithUIView.h

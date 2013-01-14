@@ -2,31 +2,28 @@
 #import "GHBlob.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface BlobsController () <UIWebViewDelegate>
 @property(nonatomic,strong)GHBlob *blob;
 @property(nonatomic,strong)NSArray *blobs;
 @property(nonatomic,assign)NSUInteger index;
-@property(nonatomic,weak)IBOutlet UIView *activityView;
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
 
-- (void)displayBlob:(GHBlob *)theBlob;
-- (void)displayCode:(NSString *)theCode withFilename:(NSString *)theFilename;
-- (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename;
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 @end
 
 
 @implementation BlobsController
 
-- (id)initWithBlobs:(NSArray *)theBlobs currentIndex:(NSUInteger)theCurrentIndex {
+- (id)initWithBlobs:(NSArray *)blobs currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];
 	if (self) {
-		self.blobs = theBlobs;
-		self.index = theCurrentIndex;
+		self.blobs = blobs;
+		self.index = idx;
 	}
 	return self;
 }
@@ -39,8 +36,6 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
 	self.blob = (self.blobs)[self.index];
-	self.activityView.layer.cornerRadius = 10;
-	self.activityView.layer.masksToBounds = YES;
 	self.contentView.scrollView.bounces = NO;
 }
 
@@ -52,12 +47,12 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHBlob *theBlob = (GHBlob *)object;
-		if (theBlob.isLoading) {
-			[self.activityView setHidden:NO];
+		GHBlob *blob = (GHBlob *)object;
+		if (blob.isLoading) {
+			[SVProgressHUD show];
 		} else {
-			[self displayBlob:theBlob];
-			if (!theBlob.error) return;
+			[self displayBlob:blob];
+			if (!blob.error) return;
 			[iOctocat reportLoadingError:@"Could not load the file"];
 		}
 	}
@@ -65,53 +60,56 @@
 
 #pragma mark Actions
 
-- (void)displayCode:(NSString *)theCode withFilename:(NSString *)theFilename {
+- (void)displayCode:(NSString *)code {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
+	if (!theme) theme = @"github";
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
 	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
 	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
 	NSString *codeCssPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"css"];
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *escapedCode = [theCode escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, escapedCode];
+	NSString *lang = @"";
+	NSString *escapedCode = [code escapeHTML];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
 	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
 }
 
-- (void)displayData:(NSData *)theData withFilename:(NSString *)theFilename {
-	NSString *ext = [theFilename pathExtension];
+- (void)displayData:(NSData *)data withFilename:(NSString *)filename {
+	NSString *ext = [filename pathExtension];
 	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
 	NSString *mimeType;
 	if ([imageTypes containsObject:ext]) {
 		mimeType = [NSString stringWithFormat:@"image/%@", ext];
-		[self.contentView loadData:theData MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
+		[self.contentView loadData:data MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
 		[self.contentView setScalesPageToFit:YES];
 	} else {
-		[iOctocat reportError:@"Unknown content" with:[NSString stringWithFormat:@"Cannot display %@", theFilename]];
+		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
+		[iOctocat reportError:@"Unknown content" with:message];
 	}
 }
 
-- (void)displayBlob:(GHBlob *)theBlob {
+- (void)displayBlob:(GHBlob *)blob {
 	// check if it's the current blob, because we might get notified
 	// about a blob that has been loaded but is not the current one
-	if (theBlob != self.blob) return;
-	[self.activityView setHidden:YES];
+	if (blob != self.blob) return;
+	[SVProgressHUD dismiss];
 	// check what type of content we have and display it accordingly
-	if (self.blob.content) return [self displayCode:theBlob.content withFilename:theBlob.path];
-	if (self.blob.contentData) return [self displayData:theBlob.contentData withFilename:theBlob.path];
+	if (self.blob.content) return [self displayCode:blob.content];
+	if (self.blob.contentData) return [self displayData:blob.contentData withFilename:blob.path];
 }
 
-- (void)setBlob:(GHBlob *)theBlob {
-	if (theBlob == self.blob) return;
-	[theBlob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+- (void)setBlob:(GHBlob *)blob {
+	if (blob == self.blob) return;
+	[blob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	_blob = theBlob;
+	_blob = blob;
 
 	self.title = self.blob.path;
-	self.blob.isLoaded ? [self displayBlob:theBlob] : [self.blob loadData];
+	self.blob.isLoaded ? [self displayBlob:blob] : [self.blob loadData];
 
 	// Update navigation control
 	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:0];
@@ -126,15 +124,15 @@
 #pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-	[self.activityView setHidden:NO];
+	[SVProgressHUD show];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-	[self.activityView setHidden:YES];
+	[SVProgressHUD dismiss];
 }
 
 #pragma mark Autorotation

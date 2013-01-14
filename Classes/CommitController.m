@@ -1,5 +1,6 @@
 #import "CommitController.h"
 #import "GHUser.h"
+#import "GHFiles.h"
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "GHRepoComments.h"
@@ -11,7 +12,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "WebController.h"
-#import "DiffFilesController.h"
+#import "FilesController.h"
 #import "CommentController.h"
 #import "iOctocat.h"
 
@@ -23,6 +24,7 @@
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *committerCell;
 @property(nonatomic,strong)IBOutlet FilesCell *addedCell;
@@ -44,31 +46,47 @@
 
 @implementation CommitController
 
-- (id)initWithCommit:(GHCommit *)theCommit {
+NSString *const CommitLoadingKeyPath = @"loadingStatus";
+NSString *const CommitCommentsLoadingKeyPath = @"comments.loadingStatus";
+NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
+
+- (id)initWithCommit:(GHCommit *)commit {
 	self = [super initWithNibName:@"Commit" bundle:nil];
 	if (self) {
-		self.commit = theCommit;
+		self.commit = commit;
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self.commit addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.commit.comments addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.commit addObserver:self forKeyPath:CommitLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.commit addObserver:self forKeyPath:CommitCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.commit addObserver:self forKeyPath:CommitAuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.title = [self.commit.commitID substringToIndex:8];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	(self.commit.isLoaded) ? [self displayCommit] : [self.commit loadData];
-	(self.commit.comments.isLoaded) ? [self displayComments] : [self.commit.comments loadData];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	(self.commit.isLoaded) ? [self displayCommit] : [self.commit loadData];
+	(self.commit.comments.isLoaded) ? [self displayComments] : [self.commit.comments loadData];
 }
 
 - (void)dealloc {
-	[self.commit removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.commit.comments removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.commit removeObserver:self forKeyPath:CommitAuthorGravatarKeyPath];
+	[self.commit removeObserver:self forKeyPath:CommitCommentsLoadingKeyPath];
+	[self.commit removeObserver:self forKeyPath:CommitLoadingKeyPath];
+}
+
+- (GHUser *)currentUser {
+	return [[iOctocat sharedInstance] currentUser];
 }
 
 #pragma mark Actions
@@ -76,7 +94,8 @@
 - (void)displayCommit {
 	self.titleLabel.text = self.commit.message;
 	self.dateLabel.text = [self.commit.committedDate prettyDate];
-	self.gravatarView.image = self.commit.author.gravatar;
+	if (self.commit.author.gravatar) self.gravatarView.image = self.commit.author.gravatar;
+	[self.repoCell setContentText:self.commit.repository.repoId];
 	[self.authorCell setContentText:self.commit.author.login];
 	[self.committerCell setContentText:self.commit.committer.login];
 	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
@@ -86,7 +105,6 @@
 }
 
 - (void)displayComments {
-	self.tableView.tableFooterView = self.tableFooterView;
 	[self.tableView reloadData];
 }
 
@@ -95,82 +113,82 @@
 															 delegate:self
 													cancelButtonTitle:@"Cancel"
 											   destructiveButtonTitle:nil
-													otherButtonTitles:@"Add comment",
-								  [NSString stringWithFormat:@"Show %@", self.commit.author.login],
-								  [NSString stringWithFormat:@"Show %@", self.commit.repository.name], @"Show on GitHub", nil];
+													otherButtonTitles:@"Add comment", nil];
 	[actionSheet showInView:self.view];
-}
-
-- (IBAction)addComment:(id)sender {
-	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
-	comment.commitID = self.commit.commitID;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
 		[self addComment:nil];
-	} else if (buttonIndex == 1) {
-		UserController *userController = [[UserController alloc] initWithUser:self.commit.author];
-		[self.navigationController pushViewController:userController animated:YES];
-	} else if (buttonIndex == 2) {
-		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.commit.repository];
-		[self.navigationController pushViewController:repoController animated:YES];
-	} else if (buttonIndex == 3) {
-		WebController *webController = [[WebController alloc] initWithURL:self.commit.commitURL];
-		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
 
+- (IBAction)addComment:(id)sender {
+	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
+	comment.userLogin = self.currentUser.login;
+	comment.commitID = self.commit.commitID;
+	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
+	[self.navigationController pushViewController:viewController animated:YES];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (object == self.commit) {
-			if (self.commit.isLoaded) {
-				[self displayCommit];
-			} else if (self.commit.error) {
-				[iOctocat reportLoadingError:@"Could not load the commit"];
-			}
-		} else if (object == self.commit.comments) {
-			if (self.commit.comments.isLoaded) {
-				[self displayComments];
-			} else if (self.commit.comments.error) {
-				[iOctocat reportLoadingError:@"Could not load the commit comments"];
-			}
+	if ([keyPath isEqualToString:CommitAuthorGravatarKeyPath]) {
+		self.gravatarView.image = self.commit.author.gravatar;
+	} else if ([keyPath isEqualToString:CommitLoadingKeyPath]) {
+		if (self.commit.isLoaded) {
+			[self displayCommit];
+		} else if (self.commit.error) {
+			[iOctocat reportLoadingError:@"Could not load the commit"];
+		}
+	} else if ([keyPath isEqualToString:CommitCommentsLoadingKeyPath]) {
+		if (self.commit.comments.isLoading && self.commit.isLoaded) {
+			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:2] withRowAnimation:UITableViewRowAnimationNone];
+		} if (self.commit.comments.isLoaded) {
+			[self displayComments];
+		} else if (self.commit.comments.error) {
+			[iOctocat reportLoadingError:@"Could not load the commit comments"];
 		}
 	}
 }
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)theTableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return (self.commit.isLoaded) ? 3 : 1;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 2) ? @"Comments" : @"";
-}
-
-- (NSInteger)tableView:(UITableView *)theTableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.commit.isLoaded) return 1;
-	if (section == 0) return 2;
+	if (section == 0) return 3;
 	if (section == 1) return 3;
 	if (!self.commit.comments.isLoaded) return 1;
 	if (self.commit.comments.isEmpty) return 1;
 	return self.commit.comments.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)theTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	return (section == 2) ? @"Comments" : @"";
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	if (section == 2) {
+		return self.tableFooterView;
+	} else {
+		return nil;
+	}
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.commit.isLoaded) return self.loadingCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return self.authorCell;
-	if (indexPath.section == 0 && indexPath.row == 1) return self.committerCell;
+	if (indexPath.section == 0 && indexPath.row == 0) return self.repoCell;
+	if (indexPath.section == 0 && indexPath.row == 1) return self.authorCell;
+	if (indexPath.section == 0 && indexPath.row == 2) return self.committerCell;
 	if (indexPath.section == 1 && indexPath.row == 0) return self.addedCell;
 	if (indexPath.section == 1 && indexPath.row == 1) return self.removedCell;
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
 	if (!self.commit.comments.isLoaded) return self.loadingCommentsCell;
 	if (self.commit.comments.isEmpty) return self.noCommentsCell;
-
-	CommentCell *cell = (CommentCell *)[theTableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
@@ -185,19 +203,28 @@
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
-	return 44.0f;
+	return 44;
 }
 
-- (void)tableView:(UITableView *)theTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	return (section == 2) ? 56 : 0;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.commit.isLoaded) return;
-	if (indexPath.section == 0) {
-		GHUser *user = (indexPath.row == 0) ? self.commit.author : self.commit.committer;
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	if (section == 0 && row == 0) {
+		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.commit.repository];
+		[self.navigationController pushViewController:repoController animated:YES];
+	} else if (indexPath.section == 0) {
+		GHUser *user = (row == 1) ? self.commit.author : self.commit.committer;
 		UserController *userController = [[UserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {
-		FilesCell *cell = (FilesCell *)[self tableView:theTableView cellForRowAtIndexPath:indexPath];
-		if (cell.files.count > 0) {
-			DiffFilesController *filesController = [[DiffFilesController alloc] initWithFiles:cell.files];
+		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		if (!cell.files.isEmpty) {
+			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}

@@ -7,6 +7,14 @@
 
 @implementation GHCollection
 
+- (id)init {
+	self = [super init];
+	if (self) {
+		self.items = [NSMutableArray array];
+	}
+	return self;
+}
+
 - (NSUInteger)count {
 	return self.items.count;
 }

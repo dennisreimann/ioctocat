@@ -7,7 +7,6 @@
 #import "GHRepositories.h"
 #import "IOCAvatarLoader.h"
 #import "IOCAvatarCache.h"
-#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -19,10 +18,10 @@
 
 @implementation GHOrganization
 
-- (id)initWithLogin:(NSString *)theLogin {
+- (id)initWithLogin:(NSString *)login {
 	self = [self init];
 	if (self) {
-		self.login = theLogin;
+		self.login = login;
 		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 	}
 	return self;
@@ -33,12 +32,12 @@
 	return [hashValue hash];
 }
 
-- (int)compareByName:(GHOrganization *)theOtherOrg {
-	return [self.login localizedCaseInsensitiveCompare:theOtherOrg.login];
+- (int)compareByName:(GHOrganization *)otherOrg {
+	return [self.login localizedCaseInsensitiveCompare:otherOrg.login];
 }
 
-- (void)setLogin:(NSString *)theLogin {
-	_login = theLogin;
+- (void)setLogin:(NSString *)login {
+	_login = login;
 
 	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, self.login];
 	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, self.login];
@@ -50,34 +49,35 @@
 	self.events = [[GHEvents alloc] initWithPath:eventsPath];
 }
 
-- (void)setValues:(id)theDict {
-	NSDictionary *resource = theDict[@"organization"] ? theDict[@"organization"] : theDict;
-	NSString *login = [resource valueForKey:@"login" defaultsTo:@""];
+- (void)setValues:(id)dict {
+	NSDictionary *resource = [dict safeDictForKey:@"organization"] ? [dict safeDictForKey:@"organization"] : dict;
+	NSString *login = [resource safeStringForKey:@"login"];
 	// TODO: Remove email check once the API change is done.
-	id email = [resource valueForKeyPath:@"email" defaultsTo:@""];
-	if ([email isKindOfClass:[NSDictionary class]])	{
-		email = [[email valueForKey:@"state"] isEqualToString:@"verified"] ? [resource valueForKey:@"email"] : @"";
+	id email = [dict valueForKeyPath:@"email" defaultsTo:nil];
+	if ([email isKindOfClass:NSDictionary.class]) {
+		NSString *state = [email safeStringForKey:@"state"];
+		email = [state isEqualToString:@"verified"] ? [dict safeStringForKey:@"email"] : nil;
 	}
 	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = login;
-	self.name = [resource valueForKey:@"name" defaultsTo:@""];
+	self.name = [resource safeStringForKey:@"name"];
 	self.email = email;
-	self.company = [resource valueForKey:@"company" defaultsTo:@""];
-	self.location = [resource valueForKey:@"location" defaultsTo:@""];
-	self.blogURL = [NSURL smartURLFromString:[resource valueForKey:@"blog" defaultsTo:@""]];
-	self.followersCount = [resource[@"followers"] integerValue];
-	self.followingCount = [resource[@"following"] integerValue];
-	self.publicGistCount = [resource[@"public_gists"] integerValue];
-	self.privateGistCount = [resource[@"private_gists"] integerValue];
-	self.publicRepoCount = [resource[@"public_repos"] integerValue];
-	self.privateRepoCount = [resource[@"total_private_repos"] integerValue];
-	self.gravatarURL = [NSURL URLWithString:theDict[@"avatar_url"]];
-	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
+	self.company = [resource safeStringForKey:@"company"];
+	self.location = [resource safeStringForKey:@"location"];
+	self.blogURL = [resource safeURLForKey:@"blog"];
+	self.htmlURL = [resource safeURLForKey:@"html_url"];
+	self.gravatarURL = [resource safeURLForKey:@"avatar_url"];
+	self.followersCount = [resource safeIntegerForKey:@"followers"];
+	self.followingCount = [resource safeIntegerForKey:@"following"];
+	self.publicGistCount = [resource safeIntegerForKey:@"public_gists"];
+	self.privateGistCount = [resource safeIntegerForKey:@"private_gists"];
+	self.publicRepoCount = [resource safeIntegerForKey:@"public_repos"];
+	self.privateRepoCount = [resource safeIntegerForKey:@"total_private_repos"];
 }
 
 #pragma mark Gravatar
 
-- (void)setGravatarURL:(NSURL *)theURL {
-	_gravatarURL = theURL;
+- (void)setGravatarURL:(NSURL *)url {
+	_gravatarURL = url;
 
 	if (self.gravatarURL && !self.gravatar) {
 		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
@@ -85,8 +85,8 @@
 	}
 }
 
-- (void)loadedGravatar:(UIImage *)theImage {
-	self.gravatar = theImage;
+- (void)loadedGravatar:(UIImage *)image {
+	self.gravatar = image;
 }
 
 @end

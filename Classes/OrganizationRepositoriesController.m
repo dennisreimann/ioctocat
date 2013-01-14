@@ -7,7 +7,6 @@
 #import "GHOrganization.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
 
 #define kLoadingCellIdentifier @"LoadingCell"
 #define kEmptyCellIdentifier @"EmptyCell"
@@ -23,8 +22,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
-- (void)loadOrganizationRepositories;
-- (void)displayRepositories:(GHRepositories *)repositories;
 - (GHRepositories *)repositoriesInSection:(NSInteger)section;
 - (IBAction)refresh:(id)sender;
 @end
@@ -32,10 +29,11 @@
 
 @implementation OrganizationRepositoriesController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"OrganizationRepositories" bundle:nil];
 	if (self) {
-		self.user = theUser;
+		self.title = @"Organization Repos";
+		self.user = user;
 		self.organizationRepositories = [NSMutableArray array];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
@@ -49,7 +47,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = @"Organization Repositories";
 	self.navigationItem.rightBarButtonItem = self.refreshButton;
 	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
 }
@@ -96,12 +93,8 @@
 - (void)displayRepositories:(GHRepositories *)repositories {
 	NSComparisonResult (^compareRepositories)(GHRepository *, GHRepository *);
 	compareRepositories = ^(GHRepository *repo1, GHRepository *repo2) {
-		if ((id) repo1.pushedAtDate == [NSNull null]) {
-			return NSOrderedDescending;
-		}
-		if ((id) repo2.pushedAtDate == [NSNull null]) {
-			return NSOrderedAscending;
-		}
+		if (!repo1.pushedAtDate) return NSOrderedDescending;
+		if (!repo2.pushedAtDate) return NSOrderedAscending;
 		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
 	[repositories.items sortUsingComparator:compareRepositories];

@@ -2,14 +2,14 @@
 #import "NSString+Extensions.h"
 #import "GHComment.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface CommentController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHComment *comment;
-@property(nonatomic,strong)id comments;
+@property(nonatomic,weak)id comments;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *postButton;
-@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
 
 - (IBAction)postComment:(id)sender;
 @end
@@ -17,11 +17,11 @@
 
 @implementation CommentController
 
-- (id)initWithComment:(GHComment *)theComment andComments:(id)theComments {
+- (id)initWithComment:(GHComment *)comment andComments:(id)comments {
 	self = [super initWithNibName:@"Comment" bundle:nil];
 	if (self) {
-		self.comment = theComment;
-		self.comments = theComments;
+		self.comment = comment;
+		self.comments = comments;
 		[self.comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -40,11 +40,11 @@
 
 - (IBAction)postComment:(id)sender {
 	self.comment.body = self.bodyView.text;
-	// Validate
+	// validate
 	if ([self.comment.body isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
 	} else {
-		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
+		[SVProgressHUD showWithStatus:@"Posting comment…" maskType:SVProgressHUDMaskTypeGradient];
 		[self.comment saveData];
 	}
 }
@@ -53,13 +53,13 @@
 	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
 		if (self.comment.isSaving) return;
 		if (self.comment.isSaved) {
-			[iOctocat reportSuccess:@"Comment saved"];
-			[self.comments loadData];
+			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
+			[self.comments addObject:self.comment];
+			[self.comments needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
 		} else if (self.comment.error) {
-			[iOctocat reportError:@"Request error" with:@"Could not proceed the request"];
+			[SVProgressHUD showErrorWithStatus:@"Commenting failed"];
 		}
-		self.navigationItem.rightBarButtonItem = self.postButton;
 	}
 }
 

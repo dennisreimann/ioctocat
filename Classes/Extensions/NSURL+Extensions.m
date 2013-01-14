@@ -12,22 +12,22 @@
 	return [NSURL URLWithString:urlString];
 }
 
-+ (NSURL *)smartURLFromString:(NSString *)theString {
-	if (!theString || [theString isKindOfClass:[NSNull class]] || [theString isEmpty]) {
++ (NSURL *)smartURLFromString:(NSString *)string {
+	if (!string || [string isKindOfClass:NSNull.class] || [string isEmpty]) {
 		return nil;
 	} else {
-		NSURL *url = [NSURL URLWithString:theString];
+		NSURL *url = [NSURL URLWithString:string];
 		if ([url scheme]) {
 			return url;
 		} else {
-			theString = [@"http://" stringByAppendingString:theString];
-			return [NSURL URLWithString:theString];
+			string = [@"http://" stringByAppendingString:string];
+			return [NSURL URLWithString:string];
 		}
 	}
 }
 
 // Taken from https://gist.github.com/1256354
-- (NSURL *)URLByAppendingParams:(NSDictionary *)theParams {
+- (NSURL *)URLByAppendingParams:(NSDictionary *)params {
 	NSMutableString *query = [[self query] mutableCopy];
 
 	if (!query) {
@@ -35,15 +35,15 @@
 	}
 
 	// Sort parameters to be appended so that our solution is stable (and testable)
-	NSArray *parameterNames = [theParams allKeys];
+	NSArray *parameterNames = [params allKeys];
 	parameterNames = [parameterNames sortedArrayUsingSelector:@selector(compare:)];
 
 	for (NSString *parameterName in parameterNames) {
-		id value = theParams[parameterName];
-		NSAssert3([parameterName isKindOfClass:[NSString class]], @"Got '%@' of type %@ as key for parameter with value '%@'. Expected an NSString.", parameterName, NSStringFromClass([parameterName class]), value);
+		id value = params[parameterName];
+		NSAssert3([parameterName isKindOfClass:NSString.class], @"Got '%@' of type %@ as key for parameter with value '%@'. Expected an NSString.", parameterName, NSStringFromClass(parameterName.class), value);
 
 		// The value needs to be an NSString, or be able to give us an NSString
-		if (![value isKindOfClass:[NSString class]]) {
+		if (![value isKindOfClass:NSString.class]) {
 			if ([value respondsToSelector:@selector(stringValue)]) {
 				value = [value stringValue];
 			} else {

@@ -1,17 +1,22 @@
 #import "GHComment.h"
 #import "GHUser.h"
+#import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
 
 
 @implementation GHComment
 
-- (void)setUserWithValues:(NSDictionary *)userDict {
-	self.user = [[iOctocat sharedInstance] userWithLogin:[userDict valueForKey:@"login"]];
-	NSString *avatarURL = [userDict valueForKey:@"avatar_url"];
-	if (!self.user.gravatarURL && ![avatarURL isEmpty]) {
-		self.user.gravatarURL = [NSURL smartURLFromString:avatarURL];
+- (GHUser *)user {
+	return [[iOctocat sharedInstance] userWithLogin:self.userLogin];
+}
+
+- (void)setValues:(id)dict {
+	self.body = [dict safeStringForKey:@"body"];
+	self.created = [dict safeDateForKey:@"created_at"];
+	self.updated = [dict safeDateForKey:@"updated_at"];
+	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
+	if (!self.user.gravatarURL) {
+		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
 	}
 }
 

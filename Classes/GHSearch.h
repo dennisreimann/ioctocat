@@ -3,9 +3,9 @@
 
 
 @interface GHSearch : GHResource
-@property(nonatomic,strong)NSArray *results;
 @property(nonatomic,strong)NSString *searchTerm;
-@property(nonatomic,strong)NSString *urlFormat;
+@property(nonatomic,strong)NSArray *searchResults;
+@property(nonatomic,readonly)BOOL isEmpty;
 
-- (id)initWithURLFormat:(NSString *)theFormat;
+- (id)initWithURLFormat:(NSString *)format;
 @end

@@ -1,8 +1,8 @@
 #import "TextCell.h"
 
 
-@protocol EventCellDelegate
-- (void)openEventItem:(id)theEventItem;
+@protocol EventCellDelegate <NSObject>
+- (void)openEventItem:(id)eventItem;
 @end
 
 

@@ -1,6 +1,6 @@
 @class GHIssue, IssuesController;
 
 @interface IssueController : UITableViewController
-- (id)initWithIssue:(GHIssue *)theIssue;
-- (id)initWithIssue:(GHIssue *)theIssue andIssuesController:(IssuesController *)theController;
+- (id)initWithIssue:(GHIssue *)issue;
+- (id)initWithIssue:(GHIssue *)issue andListController:(IssuesController *)controller;
 @end

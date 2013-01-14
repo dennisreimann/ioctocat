@@ -4,17 +4,18 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
 @implementation GHIssue
 
-- (id)initWithRepository:(GHRepository *)theRepository {
+- (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
-		self.repository = theRepository;
+		self.repository = repo;
 		self.comments = [[GHIssueComments alloc] initWithParent:self];
+		self.state = kIssueStateOpen;
 	}
 	return self;
 }
@@ -39,23 +40,22 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)theDict {
-	NSString *login = [theDict valueForKeyPath:@"user.login"];
+- (void)setValues:(id)dict {
+	NSString *login = [dict safeStringForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [iOctocat parseDate:theDict[@"created_at"]];
-	self.updated = [iOctocat parseDate:theDict[@"updated_at"]];
-	self.closed = [iOctocat parseDate:theDict[@"closed_at"]];
-	self.title = theDict[@"title"];
-	self.body = theDict[@"body"];
-	self.state = theDict[@"state"];
-	self.labels = theDict[@"labels"];
-	self.votes = [theDict[@"votes"] integerValue];
-	self.num = [theDict[@"number"] integerValue];
-	self.htmlURL = [NSURL URLWithString:theDict[@"html_url"]];
+	self.created = [dict safeDateForKey:@"created_at"];
+	self.updated = [dict safeDateForKey:@"updated_at"];
+	self.closed = [dict safeDateForKey:@"closed_at"];
+	self.title = [dict safeStringForKey:@"title"];
+	self.body = [dict safeStringForKey:@"body"];
+	self.state = [dict safeStringForKey:@"state"];
+	self.labels = [dict safeArrayForKey:@"labels"];
+	self.num = [dict safeIntegerForKey:@"number"];
+	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	if (!self.repository) {
-		NSString *owner = [theDict valueForKeyPath:@"repository.owner.login" defaultsTo:nil];
-		NSString *name = [theDict valueForKeyPath:@"repository.name" defaultsTo:nil];
-		if (owner && name) {
+		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
+		NSString *name = [dict safeStringForKeyPath:@"repository.name"];
+		if (![owner isEmpty] && ![name isEmpty]) {
 			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}
 	}
@@ -86,8 +86,8 @@
 		method = kRequestMethodPatch;
 	}
 	NSDictionary *values = @{@"title": self.title, @"body": self.body, @"state": self.state};
-	[self saveValues:values withPath:path andMethod:method useResult:^(id theResponse) {
-		[self setValues:theResponse];
+	[self saveValues:values withPath:path andMethod:method useResult:^(id response) {
+		[self setValues:response];
 	}];
 }
 

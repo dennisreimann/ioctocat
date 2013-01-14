@@ -3,5 +3,4 @@
 
 
 @interface GHUsers : GHCollection
-- (id)initWithPath:(NSString *)thePath;
 @end

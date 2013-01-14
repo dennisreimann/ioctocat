@@ -1,17 +1,20 @@
 #import "GHRepoComments.h"
 #import "GHRepoComment.h"
 #import "GHRepository.h"
-#import "GHRepository.h"
-#import "NSURL+Extensions.h"
 
+
+@interface GHRepoComments ()
+@property(nonatomic,weak)GHRepository *repository;
+@property(nonatomic,strong)NSString *commitID;
+@end
 
 @implementation GHRepoComments
 
-- (id)initWithRepo:(GHRepository *)theRepo andCommitID:(NSString *)theCommitID {
+- (id)initWithRepo:(GHRepository *)repo andCommitID:(NSString *)commitID {
 	self = [super init];
 	if (self) {
-		self.repository = theRepo;
-		self.commitID = theCommitID;
+		self.repository = repo;
+		self.commitID = commitID;
 	}
 	return self;
 }
@@ -25,7 +28,8 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository andDictionary:dict];
+		GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.repository];
+		[comment setValues:dict];
 		[self addObject:comment];
 	}
 }

@@ -16,7 +16,6 @@
 #import "UsersController.h"
 #import "EventsController.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
 #import "GistsController.h"
 
 
@@ -51,10 +50,10 @@
 
 @implementation UserController
 
-- (id)initWithUser:(GHUser *)theUser {
+- (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"User" bundle:nil];
 	if (self) {
-		self.user = theUser;
+		self.user = user;
 		[self.user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -76,6 +75,8 @@
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
@@ -108,7 +109,7 @@
 - (void)displayUser {
 	self.nameLabel.text = (!self.user.name || [self.user.name isEmpty]) ? self.user.login : self.user.name;
 	self.companyLabel.text = (!self.user.company || [self.user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", self.user.followersCount] : self.user.company;
-	self.gravatarView.image = self.user.gravatar;
+	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
 	[self.locationCell setContentText:self.user.location];
 	[self.blogCell setContentText:[self.user.blogURL host]];
 	[self.emailCell setContentText:self.user.email];
@@ -228,11 +229,11 @@
 	} else if (section == 1) {
 		viewController = [[UsersController alloc] initWithUsers:(row == 1 ? self.user.following : self.user.followers)];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
-	} else if (section == 2) {
-		GHRepository *repo = (self.user.repositories)[indexPath.row];
+	} else if (section == 2 && !self.user.repositories.isEmpty) {
+		GHRepository *repo = self.user.repositories[indexPath.row];
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
-	} else if (section == 3) {
-		GHOrganization *org = (self.user.organizations)[indexPath.row];
+	} else if (section == 3 && !self.user.organizations.isEmpty) {
+		GHOrganization *org = self.user.organizations[indexPath.row];
 		viewController = [[OrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller

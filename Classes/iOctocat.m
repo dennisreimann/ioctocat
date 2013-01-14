@@ -1,21 +1,24 @@
+#import <HockeySDK/HockeySDK.h>
 #import "iOctocat.h"
 #import "IOCAvatarCache.h"
+#import "GHApiClient.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 #import "MenuController.h"
 #import "WebController.h"
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
+#import "Orbiter.h"
+#import "NSDate+Nibware.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
-#define kISO8601TimeFormat @"yyyy-MM-dd'T'HH:mm:ssz"
 
 
-@interface iOctocat () <UIApplicationDelegate>
+@interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 @property(nonatomic,strong)NSMutableDictionary *users;
 @property(nonatomic,strong)NSMutableDictionary *organizations;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
@@ -30,35 +33,28 @@
 }
 
 - (void)dealloc {
-	for (GHOrganization *org in self.organizations) [org removeObserver:self forKeyPath:kGravatarKeyPath];
-	for (GHUser *user in self.users) [user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self clearUserObjectCache];
 }
 
 #pragma mark Application Events
 
-- (void)applicationDidFinishLaunching:(UIApplication *)application {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	[self setupHockeySDK];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	self.users = [NSMutableDictionary dictionary];
-	self.organizations = [NSMutableDictionary dictionary];
-	self.slidingViewController.anchorRightRevealAmount = 270;
+	self.slidingViewController.anchorRightRevealAmount = 230;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
-	[self.window addGestureRecognizer:self.slidingViewController.panGesture];
 	[self.window makeKeyAndVisible];
+	return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
-	// Avatar cache
-	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		[IOCAvatarCache clearAvatarCache];
-		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
-	}
-	[defaults synchronize];
+	[self checkAvatarCache];
+	[self checkGitHubSystemStatus];
 }
 
-- (void)setCurrentAccount:(GHAccount *)theAccount {
-	_currentAccount = theAccount;
+- (void)setCurrentAccount:(GHAccount *)account {
+	[self clearUserObjectCache];
+	_currentAccount = account;
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
 		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
@@ -80,6 +76,28 @@
 	}
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+	BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
+	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
+	if (isMenuVisible && isGitHubLink) {
+		MenuController *menuController = (MenuController *)self.menuNavController.topViewController;
+		[menuController openViewControllerForGitHubURL:url];
+		return YES;
+	} else {
+		return NO;
+	}
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSURL *serverURL = [NSURL URLWithString:@"http://ioctocat.com/"];
+    Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:serverURL credential:nil];
+    [orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
+        DJLog(@"Registration Success: %@", responseObject);
+    } failure:^(NSError *error) {
+        DJLog(@"Registration Error: %@", error);
+    }];
+}
+
 #pragma mark External resources
 
 - (BOOL)openURL:(NSURL *)url {
@@ -93,32 +111,67 @@
 	}
 }
 
+- (void)setupHockeySDK {
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
+	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
+	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
+	if (betaId || liveId) {
+		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId
+															 liveIdentifier:liveId
+																   delegate:self];
+		[[BITHockeyManager sharedHockeyManager] startManager];
+	}
+}
+
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_Release
+	if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {
+		return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+	}
+#endif
+	return nil;
+}
+
 #pragma mark Users
 
 - (GHUser *)currentUser {
 	return self.currentAccount.user;
 }
 
-- (GHUser *)userWithLogin:(NSString *)theLogin {
-	if (!theLogin || [theLogin isKindOfClass:[NSNull class]] || [theLogin isEmpty]) return nil;
-	GHUser *user = (self.users)[theLogin];
+- (GHUser *)userWithLogin:(NSString *)login {
+	if (!login || [login isEmpty]) return nil;
+	if (!self.users) self.users = [NSMutableDictionary dictionary];
+	GHUser *user = self.users[login];
 	if (user == nil) {
-		user = [[GHUser alloc] initWithLogin:theLogin];
+		user = [[GHUser alloc] initWithLogin:login];
 		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		(self.users)[theLogin] = user;
+		self.users[login] = user;
 	}
 	return user;
 }
 
-- (GHOrganization *)organizationWithLogin:(NSString *)theLogin {
-	if (!theLogin || [theLogin isEmpty]) return nil;
-	GHOrganization *organization = (self.organizations)[theLogin];
+- (GHOrganization *)organizationWithLogin:(NSString *)login {
+	if (!login || [login isEmpty]) return nil;
+	if (!self.organizations) self.organizations = [NSMutableDictionary dictionary];
+	GHOrganization *organization = self.organizations[login];
 	if (organization == nil) {
-		organization = [[GHOrganization alloc] initWithLogin:theLogin];
+		organization = [[GHOrganization alloc] initWithLogin:login];
 		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		(self.organizations)[theLogin] = organization;
+		self.organizations[login] = organization;
 	}
 	return organization;
+}
+
+- (void)clearUserObjectCache {
+	for (GHOrganization *org in self.organizations.allValues) {
+		[org removeObserver:self forKeyPath:kGravatarKeyPath];
+	}
+	self.organizations = nil;
+	for (GHUser *user in self.users.allValues) {
+		[user removeObserver:self forKeyPath:kGravatarKeyPath];
+	}
+	self.users = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -134,52 +187,61 @@
 
 #pragma mark Helpers
 
-+ (NSDate *)parseDate:(NSString *)string {
-	if ([string isKindOfClass:[NSNull class]] || string == nil || [string isEmpty]) return nil;
-	static NSDateFormatter *dateFormatter;
-	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = kISO8601TimeFormat;
-	// Fix for timezone format
-	if ([string hasSuffix:@"Z"]) {
-		string = [[string substringToIndex:[string length]-1] stringByAppendingString:@"+0000"];
-	} else if ([string length] >= 24) {
-		string = [string stringByReplacingOccurrencesOfString:@":" withString:@"" options:0 range:NSMakeRange(21,4)];
-	}
-	NSDate *date = [dateFormatter dateFromString:string];
-	return date;
-}
-
-+ (void)reportError:(NSString *)theTitle with:(NSString *)theMessage {
++ (void)reportError:(NSString *)title with:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"warning.png"];
 	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
 	UIColor *textColor = [UIColor whiteColor];
 	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:theTitle
-								detail:theMessage
+								 title:title
+								detail:message
 								 image:image
 							 textColor:textColor
 					   backgroundColor:bgColor
 							  animated:YES
-							 hideAfter:3.0];
+							 hideAfter:5.0];
 }
 
-+ (void)reportLoadingError:(NSString *)theMessage {
-	[self reportError:@"Loading error" with:theMessage];
++ (void)reportLoadingError:(NSString *)message {
+	[self reportError:@"Loading error" with:message];
 }
 
-+ (void)reportSuccess:(NSString *)theMessage {
-	UIImage *image = [UIImage imageNamed:@"check.png"];
-	UIColor *bgColor = [UIColor colorWithRed:0.150 green:0.320 blue:0.672 alpha:1.000];
-	UIColor *textColor = [UIColor whiteColor];
-	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:theMessage
-								detail:nil
-								 image:image
-							 textColor:textColor
-					   backgroundColor:bgColor
-							  animated:YES
-							 hideAfter:3.0];
+- (void)checkGitHubSystemStatus {
+	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
+	NSString *path = @"/api/last-message.json";
+	NSString *method = kRequestMethodGet;
+	GHApiClient *apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
+	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:nil];
+	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+		D3JLog(@"System status request finished: %@", json);
+		NSString *status = [json safeStringForKey:@"status"];
+		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
+			NSString *title = [NSString stringWithFormat:@"GitHub System %@", [status isEqualToString:@"major"] ? @"Error" : @"Warning"];
+			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
+			NSString *body = [json safeStringForKey:@"body"];
+			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
+			[iOctocat reportError:title with:message];
+		}
+	};
+	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		D3JLog(@"System status request failed: %@", error);
+	};
+	D3JLog(@"System status request: %@ %@", method, path);
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
+																						success:onSuccess
+																						failure:onFailure];
+	[operation start];
 }
+
+- (void)checkAvatarCache {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
+	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
+		[IOCAvatarCache clearAvatarCache];
+		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+	}
+	[defaults synchronize];
+}
+
 
 #pragma mark Autorotation
 

@@ -4,32 +4,31 @@
 #import "AccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
+#import "GHApiClient.h"
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
 #import "AuthenticationController.h"
 
 
-@interface AccountsController () <AuthenticationControllerDelegate>
+@interface AccountsController () <AuthenticationControllerDelegate, AccountFormControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
+@property(nonatomic,strong)NSMutableDictionary *accountsByEndpoint;
+@property(nonatomic,strong)NSMutableArray *endpoints;
 @property(nonatomic,strong)AuthenticationController *authController;
 @property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
 
-- (void)editAccountAtIndex:(NSUInteger)theIndex;
-- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex;
+- (void)editAccountAtIndex:(NSUInteger)idx;
+- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx;
 - (IBAction)addAccount:(id)sender;
 - (IBAction)toggleEditAccounts:(id)sender;
+- (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath;
 @end
 
 
 @implementation AccountsController
-
-+ (void)saveAccounts:(NSMutableArray *)theAccounts {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setValue:theAccounts forKey:kAccountsDefaultsKey];
-	[defaults synchronize];
-}
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -38,10 +37,6 @@
 	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
-	// Open account if there is only one
-	if (self.accounts.count == 1) {
-		[self openOrAuthenticateAccountAtIndex:0];
-	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,15 +44,58 @@
 	if ([iOctocat sharedInstance].currentAccount) {
 		[iOctocat sharedInstance].currentAccount = nil;
 	}
+	[self handleAccountsChange];
 	[self.tableView reloadData];
-	[self updateEditButtonItem];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	// Open account if there is only one
+	if (self.accounts.count == 1) {
+		[self openOrAuthenticateAccountAtIndex:0];
+	}
+}
+
+- (void)updateAccount:(NSMutableDictionary *)account atIndex:(NSUInteger)idx {
+	// add new account to list of accounts
+	if (idx == NSNotFound) {
+		[self.accounts addObject:account];
+	} else {
+		self.accounts[idx] = account;
+	}
+	[self handleAccountsChange];
 }
 
 #pragma mark Accounts
 
-- (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForLogin:(NSString*)theLogin {
+- (void)handleAccountsChange {
+	// persist the accounts
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setValue:self.accounts forKey:kAccountsDefaultsKey];
+	[defaults synchronize];
+	// update cache for presenting the accounts
+	self.accountsByEndpoint = [NSMutableDictionary dictionary];
+	for (NSDictionary *dict in self.accounts) {
+		NSString *endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
+		if ([endpoint isEmpty]) endpoint = @"https://github.com";
+		NSMutableArray *endpointArray = [self.accountsByEndpoint objectForKey:endpoint];
+		if (endpointArray == nil) {
+			endpointArray = [NSMutableArray array];
+			[self.accountsByEndpoint setObject:endpointArray forKey:endpoint];
+		}
+		[endpointArray addObject:dict];
+	}
+	self.endpoints = [NSMutableArray arrayWithArray:[self.accountsByEndpoint allKeys]];
+	[self.endpoints sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+	// update UI
+	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
+	if (self.accounts.count == 0) self.editing = NO;
+}
+
+- (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
 	return [^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([obj[kLoginDefaultsKey] isEqualToString:theLogin]) {
+		if ([obj[kLoginDefaultsKey] isEqualToString:account.user.login] &&
+			[obj[kEndpointDefaultsKey] isEqualToString:[account.apiClient.baseURL description]]) {
 			*stop = YES;
 			return YES;
 		}
@@ -67,8 +105,10 @@
 
 #pragma mark Actions
 
-- (void)editAccountAtIndex:(NSUInteger)theIndex {
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccounts:self.accounts andIndex:theIndex];
+- (void)editAccountAtIndex:(NSUInteger)idx {
+	NSMutableDictionary *account = (idx == NSNotFound) ? [NSMutableDictionary dictionary] : self.accounts[idx];
+	AccountFormController *viewController = [[AccountFormController alloc] initWithAccount:account andIndex:idx];
+	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -80,27 +120,42 @@
 	[self editAccountAtIndex:NSNotFound];
 }
 
-- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)theIndex {
-	NSDictionary *accountDict = (self.accounts)[theIndex];
-	GHAccount *account = [[GHAccount alloc] initWithDict:accountDict];
+- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx {
+	NSDictionary *dict = self.accounts[idx];
+	GHAccount *account = [[GHAccount alloc] initWithDict:dict];
 	[iOctocat sharedInstance].currentAccount = account;
 	if (!account.user.isAuthenticated) {
 		[self.authController authenticateAccount:account];
 	}
 }
 
-- (void)updateEditButtonItem {
-	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
+- (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath {
+	NSDictionary *accountDict = [(NSArray *)[self.accountsByEndpoint objectForKey:[self.endpoints objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+	if (accountDict) {
+		return [self.accounts indexOfObject:accountDict];
+	} else {
+		return NSNotFound;
+	}
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
+	return self.endpoints.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.accounts.count;
+	return ((NSArray *)[self.accountsByEndpoint objectForKey:[self.endpoints objectAtIndex:section]]).count;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (self.endpoints.count > 1) {
+		NSString *endpoint = [self.endpoints objectAtIndex:section];
+		NSURL *url = [NSURL URLWithString:endpoint];
+		return url.host;
+	} else {
+		return nil;
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -110,14 +165,16 @@
 		cell = self.userObjectCell;
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
-	NSDictionary *accountDict = (self.accounts)[indexPath.row];
+	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
+	NSDictionary *accountDict = self.accounts[idx];
 	NSString *login = accountDict[kLoginDefaultsKey];
 	cell.userObject = [[iOctocat sharedInstance] userWithLogin:login];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	[self openOrAuthenticateAccountAtIndex:indexPath.row];
+	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
+	[self openOrAuthenticateAccountAtIndex:idx];
 }
 
 #pragma mark Editing
@@ -129,15 +186,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		[self.accounts removeObjectAtIndex:indexPath.row];
-		[self.class saveAccounts:self.accounts];
+		[self handleAccountsChange];
 		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-		[self updateEditButtonItem];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
 	[self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
-	[self.class saveAccounts:self.accounts];
+	[self handleAccountsChange];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -145,7 +201,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	[self editAccountAtIndex:indexPath.row];
+	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
+	[self editAccountAtIndex:idx];
 }
 
 #pragma mark Authentication
@@ -155,12 +212,12 @@
 	return _authController;
 }
 
-- (void)authenticatedAccount:(GHAccount *)theAccount {
-	[iOctocat sharedInstance].currentAccount = theAccount;
-	if (!theAccount.user.isAuthenticated) {
+- (void)authenticatedAccount:(GHAccount *)account {
+	[iOctocat sharedInstance].currentAccount = account;
+	if (!account.user.isAuthenticated) {
 		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger index = [self.accounts indexOfObjectPassingTest:[self blockTestingForLogin:theAccount.user.login]];
-		[self editAccountAtIndex:index];
+		NSUInteger idx = [self.accounts indexOfObjectPassingTest:[self blockTestingForAccount:account]];
+		[self editAccountAtIndex:idx];
 	}
 }
 

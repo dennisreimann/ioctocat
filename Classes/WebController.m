@@ -11,18 +11,18 @@
 
 @implementation WebController
 
-- (id)initWithURL:(NSURL *)theURL {
+- (id)initWithURL:(NSURL *)url {
 	self = [super initWithNibName:@"WebView" bundle:nil];
 	if (self) {
-		self.url = theURL;
+		self.url = url;
 	}
 	return self;
 }
 
-- (id)initWithHTML:(NSString *)theHTML {
+- (id)initWithHTML:(NSString *)html {
 	self = [super initWithNibName:@"WebView" bundle:nil];
 	if (self) {
-		self.html = theHTML;
+		self.html = html;
 	}
 	return self;
 }

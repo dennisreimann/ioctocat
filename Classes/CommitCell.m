@@ -5,6 +5,8 @@
 
 @implementation CommitCell
 
+NSString *const AuthorGravatarKeyPath = @"author.gravatar";
+
 + (id)cell {
 	return [self cellWithIdentifier:kCommitCellIdentifier];
 }
@@ -21,25 +23,35 @@
 		self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 		self.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		self.opaque = YES;
 	}
 	return self;
 }
 
-- (void)dealloc {
-	[self.commit.author removeObserver:self forKeyPath:kGravatarKeyPath];
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.imageView.frame = CGRectMake(4, 4, 36, 36);
 }
 
-- (void)setCommit:(GHCommit *)theCommit {
-	[self.commit.author removeObserver:self forKeyPath:kGravatarKeyPath];
-	_commit = theCommit;
-	
-	[self.commit.author addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+- (void)dealloc {
+	[self.commit removeObserver:self forKeyPath:AuthorGravatarKeyPath];
+}
+
+- (void)setCommit:(GHCommit *)commit {
+	[self.commit removeObserver:self forKeyPath:AuthorGravatarKeyPath];
+	_commit = commit;
+	[self.commit addObserver:self forKeyPath:AuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.imageView.image = self.commit.author.gravatar;
 	if (!self.imageView.image && !self.commit.author.gravatarURL) [self.commit.author loadData];
-	
     self.textLabel.text = [self shortenMessage:self.commit.message];
     self.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", self.commit.author.login, [self shortenSha:self.commit.commitID]];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:AuthorGravatarKeyPath] && self.commit.author.gravatar) {
+		self.imageView.image = self.commit.author.gravatar;
+	}
 }
 
 - (NSString *)shortenMessage:(NSString *)longMessage {

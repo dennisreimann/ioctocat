@@ -17,12 +17,11 @@
 @property(nonatomic,strong)NSDate *closed;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,assign)NSInteger num;
-@property(nonatomic,assign)NSInteger votes;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isClosed;
 
-- (id)initWithRepository:(GHRepository *)theRepository;
+- (id)initWithRepository:(GHRepository *)repo;
 - (void)closeIssue;
 - (void)reopenIssue;
 - (void)saveData;

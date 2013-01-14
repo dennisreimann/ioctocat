@@ -4,6 +4,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "IssueController.h"
+#import "PullRequestController.h"
 #import "CommitController.h"
 #import "GistController.h"
 #import "WebController.h"
@@ -14,12 +15,12 @@
 #import "GHRepository.h"
 #import "GHIssue.h"
 #import "GHCommit.h"
+#import "GHCommits.h"
 #import "GHGist.h"
 #import "GHPullRequest.h"
 #import "iOctocat.h"
 #import "EventCell.h"
 #import "NSDate+Nibware.h"
-#import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
 
@@ -37,10 +38,10 @@
 
 @implementation EventsController
 
-- (id)initWithEvents:(GHEvents *)theEvents {
+- (id)initWithEvents:(GHEvents *)events {
 	self = [super initWithNibName:@"Events" bundle:nil];
 	if (self) {
-		self.events = theEvents;
+		self.events = events;
 		// take care: subclasses may override events (like MyEventsController does),
 		// so we must ensure, that observers in this parent class are only added on
 		// the actual instance variables, and not the getter for the instance var.
@@ -52,9 +53,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
-	[self.tableView addPullToRefreshWithActionHandler:^{
-		[self.events loadData];
-	}];
+	[self setupPullToRefresh];
 	[self.tableView triggerPullToRefresh];
 }
 
@@ -65,49 +64,47 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (self.events.isLoaded) {
-			self.events.lastReadingDate = [NSDate date];
-			[self updateRefreshDate];
+			[self refreshLastUpdate];
 			[self.tableView.pullToRefreshView stopAnimating];
 			[self.tableView reloadData];
 		} else if (self.events.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the feed."];
+			[iOctocat reportLoadingError:@"Could not load the feed"];
 		}
 	}
 }
 
-- (void)updateRefreshDate {
-	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastReadingDate prettyDate]];
+- (void)refreshLastUpdate {
+	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastUpdate prettyDate]];
 	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 }
 
-- (void)openEventItem:(id)theEventItem {
+- (void)openEventItem:(id)eventItem {
 	UIViewController *viewController = nil;
-	if ([theEventItem isKindOfClass:[GHUser class]]) {
-		viewController = [[UserController alloc] initWithUser:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHOrganization class]]) {
-		viewController = [[OrganizationController alloc] initWithOrganization:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHRepository class]]) {
-		viewController = [[RepositoryController alloc] initWithRepository:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHIssue class]]) {
-		viewController = [[IssueController alloc] initWithIssue:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHCommit class]]) {
-		viewController = [[CommitController alloc] initWithCommit:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHGist class]]) {
-		viewController = [[GistController alloc] initWithGist:theEventItem];
-	} else if ([theEventItem isKindOfClass:[GHPullRequest class]]) {
-		viewController = [[IssueController alloc] initWithIssue:theEventItem];
-	} else if ([theEventItem isKindOfClass:[NSDictionary class]]) {
-		NSString *htmlURL = [theEventItem valueForKey:@"html_url" defaultsTo:@""];
-		NSURL *url = [NSURL smartURLFromString:htmlURL];
+	if ([eventItem isKindOfClass:GHUser.class]) {
+		viewController = [[UserController alloc] initWithUser:eventItem];
+	} else if ([eventItem isKindOfClass:GHOrganization.class]) {
+		viewController = [[OrganizationController alloc] initWithOrganization:eventItem];
+	} else if ([eventItem isKindOfClass:GHRepository.class]) {
+		viewController = [[RepositoryController alloc] initWithRepository:eventItem];
+	} else if ([eventItem isKindOfClass:GHIssue.class]) {
+		viewController = [[IssueController alloc] initWithIssue:eventItem];
+	} else if ([eventItem isKindOfClass:GHCommit.class]) {
+		viewController = [[CommitController alloc] initWithCommit:eventItem];
+	} else if ([eventItem isKindOfClass:GHGist.class]) {
+		viewController = [[GistController alloc] initWithGist:eventItem];
+	} else if ([eventItem isKindOfClass:GHPullRequest.class]) {
+		viewController = [[PullRequestController alloc] initWithPullRequest:eventItem];
+	} else if ([eventItem isKindOfClass:NSDictionary.class]) {
+		NSURL *url = [eventItem safeURLForKey:@"html_url"];
 		if (url) {
 			viewController = [[WebController alloc] initWithURL:url];
-			viewController.title = [theEventItem valueForKey:@"page_name" defaultsTo:@""];
+			viewController.title = [eventItem safeStringForKey:@"page_name"];
 		}
-	} else if ([theEventItem isKindOfClass:[NSArray class]]) {
-		id firstEntry = theEventItem[0];
-		if ([firstEntry isKindOfClass:[GHCommit class]]) {
-			viewController = [[CommitsController alloc] initWithCommits:theEventItem];
+	} else if ([eventItem isKindOfClass:GHCommits.class]) {
+		id firstEntry = eventItem[0];
+		if ([firstEntry isKindOfClass:GHCommit.class]) {
+			viewController = [[CommitsController alloc] initWithCommits:eventItem];
 		}
 	}
 	if (viewController) {
@@ -123,7 +120,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.events.isLoading) return 0;
+	if (self.events.isLoading) return self.events.count;
 	if (self.events.isLoaded && self.events.count == 0) return 1;
 	return self.events.count;
 }
@@ -164,6 +161,35 @@
 	} else {
 		return 70.0f;
 	}
+}
+
+- (void)setupPullToRefresh {
+	UIImage *loadingImage = [UIImage imageNamed:@"Octocat.png"];
+	UIImageView *loadingView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, loadingImage.size.width, loadingImage.size.height)];
+	loadingView.image = loadingImage;
+	
+	CABasicAnimation *pulse = [CABasicAnimation animationWithKeyPath:@"opacity"];
+	CABasicAnimation *scale = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+	pulse.duration = 0.75;
+	scale.duration = 0.75;
+	pulse.repeatCount = HUGE_VALF;
+	scale.repeatCount = HUGE_VALF;
+	pulse.autoreverses = YES;
+	scale.autoreverses = YES;
+	pulse.fromValue = @0.85;
+	scale.fromValue = @1;
+	pulse.toValue = @0.25;
+	scale.toValue = @0.85;
+	[loadingView.layer addAnimation:pulse forKey:nil];
+	[loadingView.layer addAnimation:scale forKey:nil];
+
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addPullToRefreshWithActionHandler:^{
+		weakSelf.selectedCell = nil;
+		weakSelf.selectedIndexPath = nil;
+		[weakSelf.events loadData];
+	}];
+	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }
 
 #pragma mark Autorotation

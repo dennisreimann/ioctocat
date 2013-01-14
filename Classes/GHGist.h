@@ -2,20 +2,21 @@
 #import "GHResource.h"
 
 
-@class GHUser, GHGistComments;
+@class GHUser, GHGistComments, GHFiles;
 
 @interface GHGist : GHResource
 @property(nonatomic,strong)NSString *gistId;
-@property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)NSString *userLogin;
 @property(nonatomic,strong)GHGistComments *comments;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)NSDate *createdAtDate;
 @property(nonatomic,strong)NSString *descriptionText;
-@property(nonatomic,strong)NSDictionary *files;
+@property(nonatomic,strong)GHFiles *files;
+@property(nonatomic,readonly)GHUser *user;
 @property(nonatomic,readonly)NSString *title;
 @property(nonatomic,readwrite)NSUInteger commentsCount;
 @property(nonatomic,readwrite)NSUInteger forksCount;
 @property(nonatomic,readwrite)BOOL isPrivate;
 
-- (id)initWithId:(NSString *)theId;
+- (id)initWithId:(NSString *)gistId;
 @end

@@ -4,6 +4,10 @@ build/
 *.mode1v3
 *.mode2v3
 *.perspectivev3
+HockeySDK.plist
 profile
-Pods/
 xcuserdata
+.bundle
+.ruby-version
+vendor
+test.log

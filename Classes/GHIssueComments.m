@@ -2,15 +2,18 @@
 #import "GHIssueComment.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
 
+
+@interface GHIssueComments ()
+@property(nonatomic,weak)id parent; // a GHIssue or GHPullRequest instance
+@end
 
 @implementation GHIssueComments
 
-- (id)initWithParent:(id)theParent {
+- (id)initWithParent:(id)parent {
 	self = [super init];
 	if (self) {
-		self.parent = theParent;
+		self.parent = parent;
 	}
 	return self;
 }
@@ -26,7 +29,8 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.parent andDictionary:dict];
+		GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.parent];
+		[comment setValues:dict];
 		[self addObject:comment];
 	}
 }

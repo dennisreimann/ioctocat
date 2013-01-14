@@ -9,5 +9,5 @@
 @property(nonatomic,strong)NSString *ref;
 @property(nonatomic,strong)id object;
 
-- (id)initWithRepo:(GHRepository *)theRepo andRef:(NSString *)theRef;
+- (id)initWithRepo:(GHRepository *)repo andRef:(NSString *)ref;
 @end

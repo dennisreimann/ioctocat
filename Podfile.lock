@@ -9,7 +9,7 @@ PODS:
 - HockeySDK (2.5.5)
 - Orbiter (0.0.1):
   - AFNetworking (>= 0.9)
-- SVProgressHUD (0.8)
+- SVProgressHUD (HEAD based on 0.8.1)
 - SVPullToRefresh (0.4)
 - YRDropdownView (0.1.0)
 
@@ -21,7 +21,7 @@ DEPENDENCIES:
 - Expecta (from `https://github.com/github/expecta.git')
 - HockeySDK
 - Orbiter
-- SVProgressHUD
+- SVProgressHUD (HEAD)
 - SVPullToRefresh
 - YRDropdownView (from `https://github.com/iOctocat/YRDropdownView.git')
 
@@ -41,7 +41,7 @@ SPEC CHECKSUMS:
   Expecta: 3ddfc757aeb1e351e12c6f1e21ab631f77178f13
   HockeySDK: d8d59e37d7c37aa4d6d4b73eb42c0c2a60931d43
   Orbiter: b083e5567d9b90e1da1ccda4b3c410df26d5da8d
-  SVProgressHUD: 51042a14e3a716efdbdd73cbb2181fb23ee94389
+  SVProgressHUD: 592da548680cd3613923b5f98113add52ad30cc2
   SVPullToRefresh: 479bcbbf42c83366f49aab231ed6e94dad928fef
   YRDropdownView: 66f0f2d5e69d2024e45626efe1b3dae79e97fbb9
 

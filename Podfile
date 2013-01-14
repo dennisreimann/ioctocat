@@ -6,7 +6,7 @@ pod 'AFOAuth2Client', '0.1'
 pod 'Orbiter'
 pod 'Base64'
 pod 'SVPullToRefresh'
-pod 'SVProgressHUD'
+pod 'SVProgressHUD', :head
 pod 'HockeySDK'
 pod 'YRDropdownView', :git => 'https://github.com/iOctocat/YRDropdownView.git'
 pod 'ECSlidingViewController', :git => 'https://github.com/iOctocat/ECSlidingViewController.git'

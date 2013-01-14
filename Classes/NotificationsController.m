@@ -12,6 +12,7 @@
 #import "IssueController.h"
 #import "PullRequestController.h"
 #import "UIScrollView+SVPullToRefresh.h"
+#import "IOCDefaultsPersistence.h"
 
 
 #define kSectionHeaderHeight 24.0f
@@ -31,6 +32,7 @@
 	if (self) {
 		self.title = @"Notifications";
 		self.notifications = notifications;
+		self.notifications.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.notifications.resourcePath];
 		[self.notifications addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -66,7 +68,9 @@
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		if (self.notifications.isLoaded) {
 			[self.tableView.pullToRefreshView stopAnimating];
+			[self refreshLastUpdate];
 			[self.tableView reloadData];
+			[IOCDefaultsPersistence setLastUpate:self.notifications.lastUpdate forPath:self.notifications.resourcePath];
 		} else if (self.notifications.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
 			[iOctocat reportLoadingError:@"Could not load the notifications"];
@@ -220,22 +224,6 @@
 - (void)refreshLastUpdate {
 	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.notifications.lastUpdate prettyDate]];
 	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
-}
-
-#pragma mark Persistent State
-
-- (NSDate *)lastUpdateForPath:(NSString *)path {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
-	NSDate *date = [userDefaults objectForKey:key];
-	return date;
-}
-
-- (void)setLastUpate:(NSDate *)date forPath:(NSString *)path {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
-	[defaults setValue:date forKey:key];
-	[defaults synchronize];
 }
 
 #pragma mark Autorotation

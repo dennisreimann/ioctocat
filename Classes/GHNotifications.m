@@ -3,9 +3,17 @@
 #import "GHNotification.h"
 #import "GHRepository.h"
 #import "NSDictionary+Extensions.h"
+#import "IOCDefaultsPersistence.h"
 
 
 @implementation GHNotifications
+
+- (id)initWithPath:(NSString *)path {
+	if (self = [super initWithPath:path]) {
+		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
+	}
+	return self;
+}
 
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
@@ -22,6 +30,7 @@
 		[self.byRepository[notification.repository.repoId] addObject:notification];
 	}
 	self.lastUpdate = [NSDate date];
+	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath];
 }
 
 - (void)setHeaderValues:(NSDictionary *)values {

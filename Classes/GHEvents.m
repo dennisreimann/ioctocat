@@ -1,13 +1,17 @@
 #import "GHEvents.h"
 #import "GHEvent.h"
 #import "GHRepository.h"
+#import "IOCDefaultsPersistence.h"
 
 
 @implementation GHEvents
 
 - (id)initWithRepository:(GHRepository *)repo {
 	NSString *path = [NSString stringWithFormat:kRepoEventsFormat, repo.owner, repo.name];
-	return [super initWithPath:path];
+	if (self = [super initWithPath:path]) {
+		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
+	}
+	return self;
 }
 
 - (void)setValues:(id)values {
@@ -20,6 +24,7 @@
 		[self addObject:event];
 	}
 	self.lastUpdate = [NSDate date];
+	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath];
 }
 
 @end

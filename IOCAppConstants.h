@@ -7,7 +7,6 @@
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
 #define kLineNumbersDefaultsKey              @"lineNumbers"
 #define kThemeDefaultsKey                    @"theme"
-#define kLastReadingDateURLDefaultsKeyPrefix @"lastReadingDate:"
 
 // API
 #define kRequestMethodGet               @"GET"

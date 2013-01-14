@@ -41,7 +41,6 @@
 		self.feeds = @[receivedEvents, ownEvents];
 		for (GHEvents *feed in self.feeds) {
 			[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-			feed.lastUpdate = [self lastUpdateForPath:feed.resourcePath];
 		}
 	}
 	return self;
@@ -101,7 +100,6 @@
 			[self.tableView reloadData];
 			self.loadCounter -= 1;
 			[self refreshLastUpdate];
-			[self setLastUpate:feed.lastUpdate forPath:feed.resourcePath];
 			[self.tableView.pullToRefreshView stopAnimating];
 		} else if (feed.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
@@ -122,22 +120,6 @@
 		// the feed was loaded before this application became active again, refresh it
 		[self.tableView triggerPullToRefresh];
 	}
-}
-
-#pragma mark Persistent State
-
-- (NSDate *)lastUpdateForPath:(NSString *)path {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
-	NSDate *date = [userDefaults objectForKey:key];
-	return date;
-}
-
-- (void)setLastUpate:(NSDate *)date forPath:(NSString *)path {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSString *key = [kLastReadingDateURLDefaultsKeyPrefix stringByAppendingString:path];
-	[defaults setValue:date forKey:key];
-	[defaults synchronize];
 }
 
 @end

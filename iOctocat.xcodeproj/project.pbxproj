@@ -455,6 +455,9 @@
 		6FB9CBF713355FB300C8DE29 /* Organizations.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF613355FB200C8DE29 /* Organizations.xib */; };
 		6FB9CBFA133565D200C8DE29 /* TeamAddEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF8133565D200C8DE29 /* TeamAddEvent.png */; };
 		6FB9CBFB133565D200C8DE29 /* TeamAddEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF9133565D200C8DE29 /* TeamAddEvent@2x.png */; };
+		6FBA2A0216A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */; };
+		6FBA2A0316A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */; };
+		6FBA2A0416A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */; };
 		6FC0D3EA11580DAF00511B7F /* ToolbarCommit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */; };
 		6FC0D42A115819E400511B7F /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* CommentController.m */; };
 		6FC0D42C11581A5200511B7F /* Comment.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FC0D42B11581A5200511B7F /* Comment.xib */; };
@@ -820,6 +823,7 @@
 		6FCE4D2B0F7FD48700451D6E /* gist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D270F7FD48700451D6E /* gist.png */; };
 		6FCE4D880F7FE16A00451D6E /* MyEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyEventsController.m */; };
 		6FCE4DB70F7FE5C600451D6E /* member.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4DB60F7FE5C600451D6E /* member.png */; };
+		6FD07B9316A49D05000BF998 /* IOCDefaultsPersistenceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD07B9216A49D05000BF998 /* IOCDefaultsPersistenceTests.m */; };
 		6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */; };
 		6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */; };
 		6FD1DE31158FD14000D72A3D /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE30158FD14000D72A3D /* GHComment.m */; };
@@ -1293,6 +1297,8 @@
 		6FB9CBF613355FB200C8DE29 /* Organizations.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Organizations.xib; path = IBFiles/Organizations.xib; sourceTree = "<group>"; };
 		6FB9CBF8133565D200C8DE29 /* TeamAddEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TeamAddEvent.png; path = Images/Icons/TeamAddEvent.png; sourceTree = "<group>"; };
 		6FB9CBF9133565D200C8DE29 /* TeamAddEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TeamAddEvent@2x.png"; path = "Images/Icons/TeamAddEvent@2x.png"; sourceTree = "<group>"; };
+		6FBA29FF16A4978C003F02A4 /* IOCDefaultsPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCDefaultsPersistence.h; sourceTree = "<group>"; };
+		6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCDefaultsPersistence.m; sourceTree = "<group>"; };
 		6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarCommit.png; sourceTree = "<group>"; };
 		6FC0D428115819E400511B7F /* CommentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentController.h; sourceTree = "<group>"; };
 		6FC0D429115819E400511B7F /* CommentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentController.m; sourceTree = "<group>"; };
@@ -1326,6 +1332,8 @@
 		6FCE4D860F7FE16A00451D6E /* MyEventsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyEventsController.h; sourceTree = "<group>"; };
 		6FCE4D870F7FE16A00451D6E /* MyEventsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyEventsController.m; sourceTree = "<group>"; };
 		6FCE4DB60F7FE5C600451D6E /* member.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = member.png; path = Images/Icons/member.png; sourceTree = "<group>"; };
+		6FD07B9116A49CE7000BF998 /* IOCDefaultsPersistenceTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCDefaultsPersistenceTests.h; sourceTree = "<group>"; };
+		6FD07B9216A49D05000BF998 /* IOCDefaultsPersistenceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCDefaultsPersistenceTests.m; sourceTree = "<group>"; };
 		6FD1DE29158FCCA900D72A3D /* GHRepoComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepoComment.h; sourceTree = "<group>"; };
 		6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHRepoComment.m; sourceTree = "<group>"; };
 		6FD1DE2C158FCCDA00D72A3D /* GHRepoComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepoComments.h; sourceTree = "<group>"; };
@@ -1755,6 +1763,8 @@
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
 				6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */,
 				6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */,
+				6FD07B9116A49CE7000BF998 /* IOCDefaultsPersistenceTests.h */,
+				6FD07B9216A49D05000BF998 /* IOCDefaultsPersistenceTests.m */,
 				6F612435167D00AF001A3E05 /* GHEventTests.h */,
 				6F612432167D00A3001A3E05 /* GHEventTests.m */,
 				6F4EB36D167D2B37001C1DEA /* GHCommitTests.h */,
@@ -2141,6 +2151,8 @@
 				6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */,
 				6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */,
 				6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */,
+				6FBA29FF16A4978C003F02A4 /* IOCDefaultsPersistence.h */,
+				6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -3194,6 +3206,7 @@
 				6F1F399316A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */,
 				6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */,
+				6FBA2A0216A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3296,6 +3309,8 @@
 				6F1F399516A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399A16A034ED00C9E01B /* GHNotification.m in Sources */,
 				6F3E21DB16A0C90200BAAB60 /* NotificationsController.m in Sources */,
+				6FBA2A0416A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
+				6FD07B9316A49D05000BF998 /* IOCDefaultsPersistenceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3396,6 +3411,7 @@
 				6F1F399416A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */,
 				6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */,
+				6FBA2A0316A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

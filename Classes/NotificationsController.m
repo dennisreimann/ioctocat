@@ -32,7 +32,6 @@
 	if (self) {
 		self.title = @"Notifications";
 		self.notifications = notifications;
-		self.notifications.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.notifications.resourcePath];
 		[self.notifications addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -70,7 +69,6 @@
 			[self.tableView.pullToRefreshView stopAnimating];
 			[self refreshLastUpdate];
 			[self.tableView reloadData];
-			[IOCDefaultsPersistence setLastUpate:self.notifications.lastUpdate forPath:self.notifications.resourcePath];
 		} else if (self.notifications.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
 			[iOctocat reportLoadingError:@"Could not load the notifications"];

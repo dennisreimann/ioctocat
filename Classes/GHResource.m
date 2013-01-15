@@ -52,24 +52,25 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	// Send the request
-	D3JLog(@"\n%@: Loading %@", self.class, self.resourcePath);
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
-	[self.apiClient getPath:self.resourcePath parameters:nil
-		success:^(AFHTTPRequestOperation *operation, id response) {
-			NSDictionary *headers = operation.response.allHeaderFields;
-			D3JLog(@"\n%@: Loading %@ finished:\n%@\n\nHeaders:\n%@", self.class, self.resourcePath, response, headers);
-			[self setHeaderValues:headers];
-			[self setValues:response];
-			self.loadingStatus = GHResourceStatusProcessed;
-		}
-		failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-			NSDictionary *headers = operation.response.allHeaderFields;
-			DJLog(@"\n%@: Loading %@ failed:\n%@\n\nHeaders:\n%@", self.class, self.resourcePath, error, headers);
-			[self setHeaderValues:headers];
-			self.error = error;
-			self.loadingStatus = GHResourceStatusNotProcessed;
-		}
-	];
+	NSMutableURLRequest *request = [self.apiClient requestWithMethod:kRequestMethodGet path:self.resourcePath parameters:nil];
+	D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@", self.class, self.resourcePath, request.allHTTPHeaderFields);
+	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+		NSDictionary *headers = response.allHeaderFields;
+		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, self.resourcePath, headers, json);
+		[self setHeaderValues:headers];
+		[self setValues:json];
+		self.loadingStatus = GHResourceStatusProcessed;
+	};
+	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		NSDictionary *headers = response.allHeaderFields;
+		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, self.resourcePath, headers, error);
+		[self setHeaderValues:headers];
+		self.error = error;
+		self.loadingStatus = GHResourceStatusNotProcessed;
+	};
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
+	[operation start];
 }
 
 #pragma mark Saving
@@ -79,24 +80,23 @@
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	// Send the request
-	D3JLog(@"\n%@: Saving %@ (%@)\n\n%@", self.class, path, method, values);
-	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method
-																path:path
-														  parameters:values];
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-		success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-			D3JLog(@"\n%@: Saving %@ finished:\n%@", self.class, path, json);
-			if (useResult) {
-				useResult(json);
-			}
-			self.savingStatus = GHResourceStatusProcessed;
+	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
+	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
+	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+		NSDictionary *headers = response.allHeaderFields;
+		D3JLog(@"\n%@: Saving %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, json);
+		if (useResult) {
+			useResult(json);
 		}
-		failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-			DJLog(@"\n%@: Saving %@ failed:\n%@", self.class, path, error);
-			self.error = error;
-			self.savingStatus = GHResourceStatusNotProcessed;
-		}
-	];
+		self.savingStatus = GHResourceStatusProcessed;
+	};
+	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		NSDictionary *headers = response.allHeaderFields;
+		DJLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
+		self.error = error;
+		self.savingStatus = GHResourceStatusNotProcessed;
+	};
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
 	[operation start];
 }
 

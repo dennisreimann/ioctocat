@@ -81,7 +81,7 @@
 			[self.endpointField resignFirstResponder];
 			[self.navigationController popViewControllerAnimated:YES];
 		};
-		void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 			D3JLog(@"OAuth request failed: %@", error);
 			[SVProgressHUD dismiss];
 			[iOctocat reportError:@"Authentication failed" with:@"Please verify your login and password"];

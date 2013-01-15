@@ -1,11 +1,6 @@
 #import "MenuCell.h"
 
 
-@interface MenuCell ()
-@property(nonatomic,strong)UILabel *badgeLabel;
-@end
-
-
 @implementation MenuCell
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
@@ -22,7 +17,7 @@
 		self.badgeLabel.textColor = [UIColor whiteColor];
 		self.badgeLabel.font = [UIFont systemFontOfSize:15];
 		self.badgeLabel.layer.cornerRadius = 15;
-		self.badgeCount = (int)nil;
+		self.badgeLabel.text = nil;
 		[self addSubview:self.badgeLabel];
     }
     return self;
@@ -33,12 +28,10 @@
 	CGRect textFrame = self.textLabel.frame;
 	textFrame.origin.x = 50;
 	self.textLabel.frame = textFrame;
-	// Badge
-	if (self.badgeCount) {
+	if (self.badgeLabel.text) {
 		[self.imageView setHidden:YES];
-		self.badgeLabel.text = [NSString stringWithFormat:@"%d", self.badgeCount];
 		self.badgeLabel.frame = CGRectMake(7, 6, 30, 30);
-		self.badgeLabel.backgroundColor = self.badgeCount == 0 ?
+		self.badgeLabel.backgroundColor = [self.badgeLabel.text intValue] == 0 ?
 			self.badgeEmptyBackgroundColor :
 			self.badgeHighlightBackgroundColor;
 		[self.badgeLabel setHidden:NO];

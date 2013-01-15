@@ -242,7 +242,7 @@
 			cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu%@.png", imageName]];
 		}
 	}
-	cell.badgeCount = (section == 0) ? self.user.notifications.count : (int)nil;
+	cell.badgeLabel.text = (section == 0) ? [NSString stringWithFormat:@"%d", self.user.notifications.count]: nil;
 	return cell;
 }
 

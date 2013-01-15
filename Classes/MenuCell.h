@@ -1,5 +1,5 @@
 @interface MenuCell : UITableViewCell
-@property(nonatomic,readwrite)NSInteger badgeCount;
+@property(nonatomic,strong)UILabel *badgeLabel;
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier;
 @end

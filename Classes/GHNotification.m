@@ -25,7 +25,7 @@
 
 - (void)markAsRead {
 	NSDictionary *values = @{@"read": @YES};
-	[self saveValues:values withPath:self.resourcePath andMethod:kRequestMethodPut useResult:^(id response) {
+	[self saveValues:values withPath:self.resourcePath andMethod:kRequestMethodPatch useResult:^(id response) {
 		[self setHeaderValues:values];
 		self.read = YES;
 	}];

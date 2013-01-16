@@ -44,6 +44,7 @@
 #define kCommitCellIdentifier           @"CommitCell"
 #define kIssueObjectCellIdentifier      @"IssueObjectCell"
 #define kGistCellIdentifier             @"GistCell"
+#define kNotificationCellIdentifier     @"NotificationCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"

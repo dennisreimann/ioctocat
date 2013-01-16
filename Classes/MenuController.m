@@ -48,8 +48,7 @@
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
 		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.notifications addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.notifications addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.notifications addObserver:self forKeyPath:@"notificationsCount" options:NSKeyValueObservingOptionNew context:nil];
 		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -71,8 +70,7 @@
 
 - (void)dealloc {
 	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[self.user.notifications removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-	[self.user.notifications removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.notifications removeObserver:self forKeyPath:@"notificationsCount"];
 	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
@@ -161,7 +159,7 @@
 		} else if (!self.user.organizations.isLoading && self.user.organizations.error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}
-	} else if (object == self.user.notifications && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
+	} else if (object == self.user.notifications) {
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	} else if (object == self.user && [keyPath isEqualToString:kGravatarKeyPath]) {
@@ -242,7 +240,7 @@
 			cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu%@.png", imageName]];
 		}
 	}
-	cell.badgeLabel.text = (section == 0) ? [NSString stringWithFormat:@"%d", self.user.notifications.count]: nil;
+	cell.badgeLabel.text = (section == 0) ? [NSString stringWithFormat:@"%d", self.user.notifications.notificationsCount]: nil;
 	return cell;
 }
 

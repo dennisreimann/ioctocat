@@ -1,9 +1,8 @@
 #import "GHNotifications.h"
 #import "GHNotification.h"
-#import "GHRepository.h"
+#import "NSDate+Nibware.h"
 #import "NotificationsController.h"
 #import "NSString+Extensions.h"
-#import "NSDate+Nibware.h"
 #import "iOctocat.h"
 #import "GHPullRequest.h"
 #import "GHIssue.h"
@@ -13,6 +12,7 @@
 #import "PullRequestController.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "IOCDefaultsPersistence.h"
+#import "NotificationCell.h"
 
 
 #define kSectionHeaderHeight 24.0f
@@ -20,7 +20,6 @@
 
 @interface NotificationsController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHNotifications *notifications;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingNotificationsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noNotificationsCell;
 @end
 
@@ -32,13 +31,8 @@
 	if (self) {
 		self.title = @"Notifications";
 		self.notifications = notifications;
-		[self.notifications addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[self.notifications removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
@@ -52,10 +46,7 @@
 	[super viewWillAppear:animated];
 	[self refreshLastUpdate];
 	[self refreshIfRequired];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(applicationDidBecomeActive)
-												 name:UIApplicationDidBecomeActiveNotification
-											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -63,18 +54,6 @@
 	[super viewWillDisappear:animated];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.notifications.isLoaded) {
-			[self.tableView.pullToRefreshView stopAnimating];
-			[self refreshLastUpdate];
-			[self.tableView reloadData];
-		} else if (self.notifications.error) {
-			[self.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the notifications"];
-		}
-	}
-}
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
@@ -87,9 +66,34 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-		[self.notifications markAllAsRead];
-	}
+	if (buttonIndex == 0) [self markAllAsRead];
+}
+
+- (void)markAsRead:(NSIndexPath *)indexPath {
+	NSInteger section = indexPath.section;
+	NSArray *sectionKeys = self.notifications.byRepository.allKeys;
+	NSString *sectionKey = sectionKeys[section];
+	GHNotification *notification = [self notificationsForSection:section][indexPath.row];
+	[self.notifications markAsRead:notification success:^(GHResource *instance, id data) {
+		if (self.notifications.byRepository.allKeys.count == 0) {
+			// reload the table if this was the last notification
+			[self.tableView reloadData];
+		} else if (!self.notifications.byRepository[sectionKey]) {
+			// remove the section if this was the last notification in this section
+			NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
+			[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+		} else {
+			// remove the cell
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		}
+	} failure:nil];
+}
+
+- (void)markAllAsRead {
+	[self.notifications markAllAsReadSuccess:^(GHResource *notifications, id data) {
+		[self.tableView reloadData];
+		[self.tableView triggerPullToRefresh];
+	} failure:nil];
 }
 
 #pragma mark TableView
@@ -134,21 +138,12 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.notifications.isLoading) return self.loadingNotificationsCell;
 	if (self.notifications.isEmpty) return self.noNotificationsCell;
-	static NSString *CellIdentifier = @"Cell";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		cell = [NotificationCell cell];
 	}
-	GHNotification *notification = [self notificationsForSection:indexPath.section][indexPath.row];
-	cell.textLabel.text = notification.title;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", notification.repository.repoId, [notification.updatedAtDate prettyDate]];
-	cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Type%@.png", notification.subjectType]];
-	cell.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Type%@On.png", notification.subjectType]];
+	cell.notification = [self notificationsForSection:indexPath.section][indexPath.row];
 	return cell;
 }
 
@@ -164,9 +159,13 @@
 		viewController = [[CommitController alloc] initWithCommit:(GHCommit *)notification.subject];
 	}
 	if (viewController) {
-		[notification markAsRead];
 		[self.navigationController pushViewController:viewController animated:YES];
+		[self markAsRead:indexPath];
 	}
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+	[self markAsRead:indexPath];
 }
 
 #pragma mark Helpers
@@ -179,7 +178,7 @@
 }
 
 - (BOOL)resourceHasData {
-	return self.notifications.isLoaded && !self.notifications.isEmpty;
+	return self.notifications.isLoaded && self.notifications.byRepository.allKeys.count > 0;
 }
 
 - (void)setupPullToRefresh {
@@ -204,7 +203,14 @@
 
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		[weakSelf.notifications loadData];
+		[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
+			[weakSelf.tableView.pullToRefreshView stopAnimating];
+			[weakSelf refreshLastUpdate];
+			[weakSelf.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[weakSelf.tableView.pullToRefreshView stopAnimating];
+			[iOctocat reportLoadingError:@"Could not load the notifications"];
+		}];
 	}];
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }

@@ -57,17 +57,18 @@
 	if (self.isLoading) return;
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
-	void (^onSuccess)() = ^(GHResource *instance, id data) {
+	resourceSuccess onSuccess = ^(GHResource *instance, id data) {
 		self.loadingStatus = GHResourceStatusProcessed;
 	};
-	void (^onFailure)() = ^(GHResource *instance, NSError *error) {
+	resourceFailure onFailure = ^(GHResource *instance, NSError *error) {
 		self.error = error;
 		self.loadingStatus = GHResourceStatusNotProcessed;
 	};
 	[self loadWithParams:nil success:onSuccess failure:onFailure];
 }
 
-- (void)loadWithParams:(NSDictionary *)params success:(void (^)(GHResource *instance, id data))success failure:(void (^)(GHResource *instance, NSError *error))failure {
+// TODO: Use new interface throughout the app
+- (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:kRequestMethodGet path:self.resourcePath parameters:nil];
 	request.cachePolicy = self.cachePolicy;
@@ -97,17 +98,18 @@
 	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
-	void (^onSuccess)() = ^(GHResource *instance, id data) {
+	resourceSuccess onSuccess = ^(GHResource *instance, id data) {
 		self.savingStatus = GHResourceStatusProcessed;
 	};
-	void (^onFailure)() = ^(GHResource *instance, NSError *error) {
+	resourceFailure onFailure = ^(GHResource *instance, NSError *error) {
 		self.error = error;
 		self.savingStatus = GHResourceStatusNotProcessed;
 	};
 	[self saveWithParams:values path:path method:method success:onSuccess failure:onFailure];
 }
 
-- (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(void (^)(GHResource *instance, id data))success failure:(void (^)(GHResource *instance, NSError *error))failure {
+// TODO: Use new interface throughout the app
+- (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
 	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
 	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id data) {

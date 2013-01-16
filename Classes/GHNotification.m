@@ -23,11 +23,13 @@
 	return self;
 }
 
-- (void)markAsRead {
-	NSDictionary *values = @{@"read": @YES};
-	[self saveValues:values withPath:self.resourcePath andMethod:kRequestMethodPatch useResult:^(id response) {
-		[self setHeaderValues:values];
+- (void)markAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure {
+	NSDictionary *params = @{@"read": @YES};
+	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPatch success:^(GHResource *notification, id data) {
 		self.read = YES;
+		if (success) success(notification, data);
+	} failure:^(GHResource *notification, NSError *error) {
+		if (failure) failure(notification, error);
 	}];
 }
 

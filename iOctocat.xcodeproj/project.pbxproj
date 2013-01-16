@@ -70,6 +70,11 @@
 		6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399716A034ED00C9E01B /* GHNotification.m */; };
 		6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399716A034ED00C9E01B /* GHNotification.m */; };
 		6F1F399A16A034ED00C9E01B /* GHNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1F399716A034ED00C9E01B /* GHNotification.m */; };
+		6F26DB5016A6E1E700939D85 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F26DB4F16A6E1E700939D85 /* NotificationCell.m */; };
+		6F26DB5116A6E1E700939D85 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F26DB4F16A6E1E700939D85 /* NotificationCell.m */; };
+		6F26DB5216A6E1E700939D85 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F26DB4F16A6E1E700939D85 /* NotificationCell.m */; };
+		6F26DB5A16A6F3C600939D85 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F26DB5516A6F3C600939D85 /* Remove.png */; };
+		6F26DB5B16A6F3C600939D85 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F26DB5516A6F3C600939D85 /* Remove.png */; };
 		6F27CD11159113D900E15B34 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
@@ -972,6 +977,9 @@
 		6F1F399616A034E100C9E01B /* GHNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNotification.h; sourceTree = "<group>"; };
 		6F1F399716A034ED00C9E01B /* GHNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNotification.m; sourceTree = "<group>"; };
 		6F26DB4C16A6BB9200939D85 /* GistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCell.h; sourceTree = "<group>"; };
+		6F26DB4E16A6E1D900939D85 /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
+		6F26DB4F16A6E1E700939D85 /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
+		6F26DB5516A6F3C600939D85 /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
 		6F27CD0E159113D900E15B34 /* AccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsController.h; sourceTree = "<group>"; };
 		6F27CD0F159113D900E15B34 /* AccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsController.m; sourceTree = "<group>"; };
 		6F27CD151591188D00E15B34 /* GHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAccount.h; sourceTree = "<group>"; };
@@ -1639,6 +1647,8 @@
 				8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */,
 				6F26DB4C16A6BB9200939D85 /* GistCell.h */,
 				6FF001B616A6BB3B00FD4803 /* GistCell.m */,
+				6F26DB4E16A6E1D900939D85 /* NotificationCell.h */,
+				6F26DB4F16A6E1E700939D85 /* NotificationCell.m */,
 				6F1DC52E0F7E727C00FCD26D /* EventCell.h */,
 				6F72FB2E0F9B53810069F092 /* EventCell.m */,
 				6FC9610A0F8935DC00FC0968 /* LabeledCell.h */,
@@ -1715,6 +1725,15 @@
 				6F9DD8481334A5D000D1E35E /* user@2x.png */,
 			);
 			name = Icons;
+			sourceTree = "<group>";
+		};
+		6F26DB5316A6F3C600939D85 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				6F26DB5516A6F3C600939D85 /* Remove.png */,
+			);
+			name = Options;
+			path = Images/Options;
 			sourceTree = "<group>";
 		};
 		6F2C7D7616A3625200F824EF /* Events */ = {
@@ -2052,6 +2071,7 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6F26DB5316A6F3C600939D85 /* Options */,
 				6F95106016961C1D0056DFE9 /* Default */,
 				6F95106816961C1D0056DFE9 /* Icon */,
 				6FE4404A1673E5C400226F42 /* Menu */,
@@ -2712,6 +2732,7 @@
 				6F11AE4A16A36048002D9741 /* TypeCommit@2x.png in Resources */,
 				6F11AE4C16A36048002D9741 /* TypeCommitOn.png in Resources */,
 				6F11AE4E16A36048002D9741 /* TypeCommitOn@2x.png in Resources */,
+				6F26DB5A16A6F3C600939D85 /* Remove.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3018,6 +3039,7 @@
 				6F11AE4B16A36048002D9741 /* TypeCommit@2x.png in Resources */,
 				6F11AE4D16A36048002D9741 /* TypeCommitOn.png in Resources */,
 				6F11AE4F16A36048002D9741 /* TypeCommitOn@2x.png in Resources */,
+				6F26DB5B16A6F3C600939D85 /* Remove.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3209,6 +3231,7 @@
 				6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */,
 				6FBA2A0216A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FF001B716A6BB3B00FD4803 /* GistCell.m in Sources */,
+				6F26DB5016A6E1E700939D85 /* NotificationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3314,6 +3337,7 @@
 				6FBA2A0416A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FD07B9316A49D05000BF998 /* IOCDefaultsPersistenceTests.m in Sources */,
 				6FF001B916A6BB3B00FD4803 /* GistCell.m in Sources */,
+				6F26DB5216A6E1E700939D85 /* NotificationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3416,6 +3440,7 @@
 				6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */,
 				6FBA2A0316A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FF001B816A6BB3B00FD4803 /* GistCell.m in Sources */,
+				6F26DB5116A6E1E700939D85 /* NotificationCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -64,8 +64,7 @@
 	if (self.organizations.count == 0) return self.noOrganizationsCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
-		cell = self.userObjectCell;
+		cell = [UserObjectCell cell];
 	}
     cell.userObject = (self.organizations)[indexPath.row];
 	return cell;

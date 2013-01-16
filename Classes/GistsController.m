@@ -2,8 +2,8 @@
 #import "GHGist.h"
 #import "GistsController.h"
 #import "GistController.h"
+#import "GistCell.h"
 #import "NSString+Extensions.h"
-#import "NSDate+Nibware.h"
 #import "iOctocat.h"
 
 
@@ -68,25 +68,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.gists.isLoading) return self.loadingGistsCell;
 	if (self.gists.isEmpty) return self.noGistsCell;
-	static NSString *CellIdentifier = @"Cell";
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	GistCell *cell = (GistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+		cell = [GistCell cell];
 	}
-	GHGist *gist = (self.gists)[indexPath.row];
-	cell.textLabel.text = gist.title;
-	cell.detailTextLabel.text = [NSString stringWithFormat:@"%@, %d %@", [gist.createdAtDate prettyDate], gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments"];
-	cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	cell.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"Private.png" : @"Public.png")];
-	cell.imageView.highlightedImage = [UIImage imageNamed:(gist.isPrivate ? @"PrivateOn.png" : @"PublicOn.png")];
+	cell.gist = self.gists[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.gists.isLoaded || self.gists.isEmpty) return;
-	GHGist *gist = (self.gists)[indexPath.row];
+	GHGist *gist = self.gists[indexPath.row];
 	GistController *gistController = [[GistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
 }

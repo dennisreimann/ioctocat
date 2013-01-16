@@ -55,10 +55,9 @@
 	if (self.users.isEmpty) return self.noUsersCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) {
-		[[NSBundle mainBundle] loadNibNamed:@"UserObjectCell" owner:self options:nil];
-		cell = self.userObjectCell;
+		cell = [UserObjectCell cell];
 	}
-    cell.userObject = (self.users)[indexPath.row];
+    cell.userObject = self.users[indexPath.row];
 	return cell;
 }
 

@@ -4,19 +4,15 @@
 @implementation RepositoryCell
 
 + (id)cell {
-	return [self cellWithIdentifier:kRepositoryCellIdentifier];
-}
-
-+ (id)cellWithIdentifier:(id)reuseIdentifier {
-	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-	self.textLabel.font = [UIFont systemFontOfSize:16.0f];
+	self.textLabel.font = [UIFont systemFontOfSize:15];
 	self.textLabel.highlightedTextColor = [UIColor whiteColor];
 	self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
-	self.detailTextLabel.font = [UIFont systemFontOfSize:13.0f];
+	self.detailTextLabel.font = [UIFont systemFontOfSize:13];
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	self.opaque = YES;
 	return self;

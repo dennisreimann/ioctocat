@@ -43,6 +43,7 @@
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
 #define kIssueObjectCellIdentifier      @"IssueObjectCell"
+#define kGistCellIdentifier             @"GistCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"

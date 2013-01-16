@@ -21,7 +21,13 @@
 }
 
 - (NSString *)title {
-	return (self.descriptionText.isEmpty && !self.files.isEmpty) ? self.files[0][@"filename"] : self.descriptionText;
+	if (!self.descriptionText.isEmpty) {
+		return self.descriptionText;
+	} else if (!self.files.isEmpty) {
+		return self.files[0][@"filename"];
+	} else {
+		return [NSString stringWithFormat:@"Gist %@", self.gistId];
+	}
 }
 
 - (GHUser *)user {

@@ -149,7 +149,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.gist.isLoaded) return 1;
-	if (section == 0) return self.gist.files.count;
+	if (section == 0) return self.gist.files.isEmpty ? 1 : self.gist.files.count;
 	if (section == 1 && !self.gist.comments.isLoaded) return 1;
 	if (self.gist.comments.isEmpty) return 1;
 	return self.gist.comments.count;
@@ -163,7 +163,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (self.gist.isLoading) return self.loadingCell;
-	if (!self.gist.isLoading && self.gist.files.count == 0) return self.noFilesCell;
+	if (section == 0 && self.gist.files.isEmpty) return self.noFilesCell;
 	static NSString *CellIdentifier = @"Cell";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {

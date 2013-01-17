@@ -54,21 +54,14 @@
 // FIXME: This is the old interface used all over the app.
 // Please use the new one underneath in the future!
 - (void)loadData {
-	if (self.isLoading) return;
-	self.error = nil;
-	self.loadingStatus = GHResourceStatusProcessing;
-	resourceSuccess onSuccess = ^(GHResource *instance, id data) {
-		self.loadingStatus = GHResourceStatusProcessed;
-	};
-	resourceFailure onFailure = ^(GHResource *instance, NSError *error) {
-		self.error = error;
-		self.loadingStatus = GHResourceStatusNotProcessed;
-	};
-	[self loadWithParams:nil success:onSuccess failure:onFailure];
+	[self loadWithParams:nil success:nil failure:nil];
 }
 
 // TODO: Use new interface throughout the app
 - (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
+	if (self.isLoading) return;
+	self.error = nil;
+	self.loadingStatus = GHResourceStatusProcessing;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:kRequestMethodGet path:self.resourcePath parameters:nil];
 	request.cachePolicy = self.cachePolicy;
@@ -78,12 +71,15 @@
 		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, self.resourcePath, headers, data);
 		[self setHeaderValues:headers];
 		[self setValues:data];
+		self.loadingStatus = GHResourceStatusProcessed;
 		if (success) success(self, data);
 	};
 	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		NSDictionary *headers = response.allHeaderFields;
 		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, self.resourcePath, headers, error);
 		[self setHeaderValues:headers];
+		self.error = error;
+		self.loadingStatus = GHResourceStatusNotProcessed;
 		if (failure) failure(self, error);
 	};
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
@@ -95,31 +91,29 @@
 // FIXME: This is the old interface used all over the app.
 // Please use the new one underneath in the future!
 - (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id response))useResult {
-	if (self.isSaving) return;
-	self.error = nil;
-	self.savingStatus = GHResourceStatusProcessing;
-	resourceSuccess onSuccess = ^(GHResource *instance, id data) {
-		self.savingStatus = GHResourceStatusProcessed;
-	};
-	resourceFailure onFailure = ^(GHResource *instance, NSError *error) {
-		self.error = error;
-		self.savingStatus = GHResourceStatusNotProcessed;
-	};
-	[self saveWithParams:values path:path method:method success:onSuccess failure:onFailure];
+	[self saveWithParams:values path:path method:method success:^(GHResource *instance, id data) {
+		if (useResult) useResult(data);
+	} failure:nil];
 }
 
 // TODO: Use new interface throughout the app
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
+	if (self.isSaving) return;
+	self.error = nil;
+	self.savingStatus = GHResourceStatusProcessing;
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
 	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
 	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id data) {
 		NSDictionary *headers = response.allHeaderFields;
 		D3JLog(@"\n%@: Saving %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
+		self.savingStatus = GHResourceStatusProcessed;
 		if (success) success(self, data);
 	};
 	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		NSDictionary *headers = response.allHeaderFields;
 		DJLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
+		self.error = error;
+		self.savingStatus = GHResourceStatusNotProcessed;
 		if (failure) failure(self, error);
 	};
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];

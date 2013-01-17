@@ -6,9 +6,8 @@
 
 @interface GHNotifications : GHCollection
 @property(nonatomic,strong)NSDate *lastUpdate;
-@property(nonatomic,strong)NSMutableDictionary *byRepository;
 @property(nonatomic,readwrite)NSInteger pollInterval;
-@property(nonatomic,readwrite)NSInteger notificationsCount;
+@property(nonatomic,readonly)NSInteger notificationsCount;
 
 - (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure;

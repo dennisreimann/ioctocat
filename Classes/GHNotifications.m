@@ -6,6 +6,11 @@
 #import "IOCDefaultsPersistence.h"
 
 
+@interface GHNotifications ()
+@property(nonatomic,readwrite)NSInteger notificationsCount;
+@end
+
+
 @implementation GHNotifications
 
 - (id)initWithPath:(NSString *)path {
@@ -39,42 +44,28 @@
 		GHNotification *notification = [[GHNotification alloc] initWithDict:dict];
 		[self addObject:notification];
 	}
-	[self rebuildCache];
+	self.notificationsCount = self.count;
 	self.lastUpdate = [NSDate date];
 	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath];
 }
 
 - (void)setHeaderValues:(NSDictionary *)values {
 	[super setHeaderValues:values];
-	NSInteger interval = [values safeIntegerForKey:@"X-Poll-Interval"];
-	if (interval) self.pollInterval = interval;
-}
-
-- (void)rebuildCache {
-	self.notificationsCount = self.count;
-	self.byRepository = [NSMutableDictionary dictionary];
-	for (GHNotification *notification in self.items) {
-		if (!self.byRepository[notification.repository.repoId]) {
-			self.byRepository[notification.repository.repoId] = [NSMutableArray array];
-		}
-		[self.byRepository[notification.repository.repoId] addObject:notification];
-	}
+	self.pollInterval = [values safeIntegerForKey:@"X-Poll-Interval"];
 }
 
 - (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure {
 	[notification markAsReadSuccess:^(GHResource *notification, id response) {
 		[self removeObject:notification];
-		[self rebuildCache];
+		self.notificationsCount = self.count;
 		if (success) success(notification, response);
 	} failure:^(GHResource *notification, NSError *error) {
 		if (failure) failure(notification, error);
 	}];
-
 }
 
 - (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure {
-	static NSDateFormatter *dateFormatter;
-	if (dateFormatter == nil) dateFormatter = [[NSDateFormatter alloc] init];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
 	NSString *lastReadAt = [[dateFormatter stringFromDate:self.lastUpdate] stringByAppendingString:@"Z"];
 	NSDictionary *params = @{@"read": @YES, @"last_read_at": lastReadAt};

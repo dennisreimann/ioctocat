@@ -3,6 +3,7 @@
 #import "NSDate+Nibware.h"
 #import "NotificationsController.h"
 #import "NSString+Extensions.h"
+#import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
 #import "GHPullRequest.h"
 #import "GHIssue.h"
@@ -13,6 +14,7 @@
 #import "UIScrollView+SVPullToRefresh.h"
 #import "IOCDefaultsPersistence.h"
 #import "NotificationCell.h"
+#import "GHRepository.h"
 
 
 #define kSectionHeaderHeight 24.0f
@@ -20,6 +22,7 @@
 
 @interface NotificationsController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHNotifications *notifications;
+@property(nonatomic,strong)NSMutableDictionary *notificationsByRepository;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noNotificationsCell;
 @end
 
@@ -50,18 +53,14 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super viewWillDisappear:animated];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
-															 delegate:self
-													cancelButtonTitle:@"Cancel"
-											   destructiveButtonTitle:@"Mark all as read"
-													otherButtonTitles:nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Mark all as read" otherButtonTitles:nil];
 	[actionSheet showInView:self.view];
 }
 
@@ -71,43 +70,62 @@
 
 - (void)markAsRead:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
-	NSArray *sectionKeys = self.notifications.byRepository.allKeys;
+	NSArray *sectionKeys = self.notificationsByRepository.allKeys;
 	NSString *sectionKey = sectionKeys[section];
+	NSMutableArray *notificationsInSection = self.notificationsByRepository[sectionKey];
 	GHNotification *notification = [self notificationsForSection:section][indexPath.row];
-	[self.notifications markAsRead:notification success:^(GHResource *instance, id data) {
-		if (self.notifications.byRepository.allKeys.count == 0) {
-			// reload the table if this was the last notification
-			[self.tableView reloadData];
-		} else if (!self.notifications.byRepository[sectionKey]) {
-			// remove the section if this was the last notification in this section
-			NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
-			[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
-		} else {
-			// remove the cell
-			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-		}
-	} failure:nil];
+	// mark as read
+	[self.notifications markAsRead:notification success:nil failure:nil];
+	[notificationsInSection removeObject:notification];
+	if (notificationsInSection.count == 0) {
+		[self.notificationsByRepository removeObjectForKey:sectionKey];
+	}
+	// update table:
+	// reload if this was the last notification
+	if (self.notificationsByRepository.allKeys.count == 0) {
+		[self.tableView reloadData];
+	}
+	// remove the section if it was the last notification in this section
+	else if (!self.notificationsByRepository[sectionKey]) {
+		NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
+		[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+	}
+	// remove the cell
+	else {
+		[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+	}
 }
 
 - (void)markAllAsRead {
 	[self.notifications markAllAsReadSuccess:^(GHResource *notifications, id data) {
-		[self.tableView reloadData];
 		[self.tableView triggerPullToRefresh];
 	} failure:nil];
+	[self.notificationsByRepository removeAllObjects];
+	[self.tableView reloadData];
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.resourceHasData ? self.notifications.byRepository.allKeys.count : 1;
+	return self.resourceHasData ? self.notificationsByRepository.allKeys.count : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? [self notificationsForSection:section].count : 1;
+	if (self.notifications.isLoading) {
+		return 0;
+	} else if (self.resourceHasData) {
+		return [[self notificationsForSection:section] count];
+	} else {
+		return 1;
+	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return self.resourceHasData ? self.notifications.byRepository.allKeys[section] : nil;
+	if (self.resourceHasData) {
+		return self.notificationsByRepository.allKeys[section];
+	} else {
+		return nil;
+	}
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -138,11 +156,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.notifications.isEmpty) return self.noNotificationsCell;
+	if (!self.resourceHasData) return self.noNotificationsCell;
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
-	if (cell == nil) {
-		cell = [NotificationCell cell];
-	}
+	if (cell == nil) cell = [NotificationCell cell];
 	cell.notification = [self notificationsForSection:indexPath.section][indexPath.row];
 	return cell;
 }
@@ -170,15 +186,16 @@
 
 #pragma mark Helpers
 
-- (NSArray *)notificationsForSection:(NSInteger)section {
-	NSArray *keys = self.notifications.byRepository.allKeys;
-	NSString *key = keys[section];
-	NSArray *values = self.notifications.byRepository[key];
-	return values;
+- (BOOL)resourceHasData {
+	return self.notifications.isLoaded && self.notificationsByRepository.allKeys.count > 0;
 }
 
-- (BOOL)resourceHasData {
-	return self.notifications.isLoaded && self.notifications.byRepository.allKeys.count > 0;
+- (NSArray *)notificationsForSection:(NSInteger)section {
+	if (!self.resourceHasData) return nil;
+	NSArray *keys = self.notificationsByRepository.allKeys;
+	NSString *key = keys[section];
+	NSArray *values = self.notificationsByRepository[key];
+	return values;
 }
 
 - (void)setupPullToRefresh {
@@ -204,6 +221,13 @@
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
+			self.notificationsByRepository = [NSMutableDictionary dictionary];
+			for (GHNotification *notification in self.notifications.items) {
+				if (!self.notificationsByRepository[notification.repository.repoId]) {
+					self.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
+				}
+				[self.notificationsByRepository[notification.repository.repoId] addObject:notification];
+			}
 			[weakSelf.tableView.pullToRefreshView stopAnimating];
 			[weakSelf refreshLastUpdate];
 			[weakSelf.tableView reloadData];
@@ -221,10 +245,10 @@
 	[self refreshIfRequired];
 }
 
+// refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {
 	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if (!self.notifications.isLoaded || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
-		// the feed was loaded before this application became active again, refresh it
+	if (!self.resourceHasData || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
 		[self.tableView triggerPullToRefresh];
 	}
 }

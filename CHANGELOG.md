@@ -11,6 +11,7 @@ Changes:
 
 * New icons for public and private state (repos and gists)
 * Finetuned the icon. Thanks @benjaminrabe
+* Improved code highlighting
 
 Bugfixes:
 

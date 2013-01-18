@@ -181,7 +181,7 @@
 }
 
 - (IBAction)showWiki:(id)sender {
-	NSDictionary *wiki = (self.event.pages)[0];
+	NSDictionary *wiki = self.event.pages[0];
 	if (self.delegate && wiki) [self.delegate openEventItem:wiki];
 }
 

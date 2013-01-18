@@ -144,13 +144,13 @@
 		cell = [IssueObjectCell cell];
 		if (self.repository) [cell hideRepo];
 	}
-	cell.issueObject = (self.currentIssues)[indexPath.row];
+	cell.issueObject = self.currentIssues[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentIssues.isLoaded || self.currentIssues.isEmpty) return;
-	GHIssue *issue = (self.currentIssues)[indexPath.row];
+	GHIssue *issue = self.currentIssues[indexPath.row];
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andListController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 }

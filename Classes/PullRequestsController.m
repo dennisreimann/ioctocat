@@ -109,7 +109,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentPullRequests.isLoaded || self.currentPullRequests.isEmpty) return;
-	GHPullRequest *pullRequest = (self.currentPullRequests)[indexPath.row];
+	GHPullRequest *pullRequest = self.currentPullRequests[indexPath.row];
 	PullRequestController *viewController = [[PullRequestController alloc] initWithPullRequest:pullRequest andListController:self];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

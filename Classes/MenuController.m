@@ -175,7 +175,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	NSInteger rowCount = [(self.menu)[section] count];
+	NSInteger rowCount = [self.menu[section] count];
 	if (section == 1) {
 		rowCount += self.user.organizations.count;
 	}
@@ -259,7 +259,7 @@
 			if (row == 0) {
 				viewController = [[MyEventsController alloc] initWithUser:self.user];
 			} else {
-				GHOrganization *org = (self.user.organizations)[row - 1];
+				GHOrganization *org = self.user.organizations[row - 1];
 				viewController = [[EventsController alloc] initWithEvents:org.events];
 				viewController.title = org.login;
 			}

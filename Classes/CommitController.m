@@ -193,7 +193,7 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
-	GHRepoComment *comment = (self.commit.comments)[indexPath.row];
+	GHRepoComment *comment = self.commit.comments[indexPath.row];
 	[cell setComment:comment];
 	return cell;
 }

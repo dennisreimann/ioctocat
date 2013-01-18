@@ -78,7 +78,7 @@
 	if (self.feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
 		return nil;
 	} else {
-		return (self.feeds)[self.feedControl.selectedSegmentIndex];
+		return self.feeds[self.feedControl.selectedSegmentIndex];
 	}
 }
 

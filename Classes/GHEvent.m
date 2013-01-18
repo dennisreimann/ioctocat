@@ -250,7 +250,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"GollumEvent"]) {
-			NSDictionary *firstPage = (self.pages)[0];
+			NSDictionary *firstPage = self.pages[0];
 			NSString *action = firstPage[@"action"];
 			NSString *pageName = firstPage[@"page_name"];
 			self.title = [NSString stringWithFormat:@"%@ %@ \"%@\" in the %@ wiki", self.user.login, action, pageName, self.repository.repoId];
@@ -334,7 +334,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"GollumEvent"]) {
-			NSDictionary *firstPage = (self.pages)[0];
+			NSDictionary *firstPage = self.pages[0];
 			self.content = [firstPage safeStringForKey:@"summary"];
 		}
 

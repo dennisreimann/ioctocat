@@ -79,7 +79,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	self.index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	self.file = (self.files)[self.index];
+	self.file = self.files[self.index];
 }
 
 #pragma mark WebView

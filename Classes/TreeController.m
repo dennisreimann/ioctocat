@@ -72,11 +72,11 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 	if (section == 0) {
-		GHTree *obj = (GHTree *)(self.tree.trees)[row];
+		GHTree *obj = (GHTree *)self.tree.trees[row];
 		cell.textLabel.text = obj.path;
 		cell.imageView.image = [UIImage imageNamed:@"folder.png"];
 	} else {
-		GHBlob *obj = (GHBlob *)(self.tree.blobs)[row];
+		GHBlob *obj = (GHBlob *)self.tree.blobs[row];
 		cell.textLabel.text = obj.path;
 		cell.imageView.image = [UIImage imageNamed:@"file.png"];
 	}
@@ -88,7 +88,7 @@
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	if (section == 0) {
-		GHTree *obj = (GHTree *)(self.tree.trees)[row];
+		GHTree *obj = (GHTree *)self.tree.trees[row];
 		TreeController *treeController = [[TreeController alloc] initWithTree:obj];
 		[self.navigationController pushViewController:treeController animated:YES];
 	} else {

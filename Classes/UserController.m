@@ -190,7 +190,7 @@
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = (self.user.repositories)[indexPath.row];
+		cell.repository = self.user.repositories[indexPath.row];
 		[cell hideOwner];
 		return cell;
 	}
@@ -201,7 +201,7 @@
 		if (cell == nil) {
 			cell = [UserObjectCell cell];
 		}
-		cell.userObject = (self.user.organizations)[indexPath.row];
+		cell.userObject = self.user.organizations[indexPath.row];
 		return cell;
 	}
 	return nil;

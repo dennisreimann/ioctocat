@@ -35,7 +35,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
-	self.blob = (self.blobs)[self.index];
+	self.blob = self.blobs[self.index];
 	self.contentView.scrollView.bounces = NO;
 }
 
@@ -118,7 +118,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
 	self.index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	self.blob = (self.blobs)[self.index];
+	self.blob = self.blobs[self.index];
 }
 
 #pragma mark WebView

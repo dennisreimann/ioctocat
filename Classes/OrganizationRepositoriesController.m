@@ -106,7 +106,7 @@
 }
 
 - (GHRepositories *)repositoriesInSection:(NSInteger)section {
-	GHOrganization *organization = (self.user.organizations)[section];
+	GHOrganization *organization = self.user.organizations[section];
 	return organization.repositories;
 }
 
@@ -127,14 +127,14 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.user.organizations.isLoaded) return 1;
-	GHOrganization *organization = (self.user.organizations)[section];
+	GHOrganization *organization = self.user.organizations[section];
 	GHRepositories *repos = organization.repositories;
 	return (!repos.isLoaded || repos.isEmpty) ? 1 : repos.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (!self.user.organizations.isLoaded) return @"";
-	GHOrganization *organization = (self.user.organizations)[section];
+	GHOrganization *organization = self.user.organizations[section];
 	return organization.login;
 }
 
@@ -157,7 +157,7 @@
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		[(RepositoryCell *)cell setRepository:(repos)[indexPath.row]];
+		[(RepositoryCell *)cell setRepository:repos[indexPath.row]];
 		[(RepositoryCell *)cell hideOwner];
 	}
 	return cell;
@@ -166,7 +166,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.isEmpty) return;
-	GHRepository *repo = (repos)[indexPath.row];
+	GHRepository *repo = repos[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }

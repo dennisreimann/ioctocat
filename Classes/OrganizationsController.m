@@ -66,13 +66,13 @@
 	if (cell == nil) {
 		cell = [UserObjectCell cell];
 	}
-    cell.userObject = (self.organizations)[indexPath.row];
+    cell.userObject = self.organizations[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (!self.organizations.isLoaded || self.organizations.isEmpty) return;
-    GHOrganization *org = (self.organizations)[indexPath.row];
+    GHOrganization *org = self.organizations[indexPath.row];
     OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
 }

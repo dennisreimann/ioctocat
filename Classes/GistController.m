@@ -184,7 +184,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 			cell = self.commentCell;
 		}
-		GHComment *comment = (self.gist.comments)[indexPath.row];
+		GHComment *comment = self.gist.comments[indexPath.row];
 		[(CommentCell *)cell setComment:comment];
 	}
 	return cell;

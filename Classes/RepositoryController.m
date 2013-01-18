@@ -199,7 +199,7 @@
 			case 3: cell = self.eventsCell; break;
 		}
 	} else {
-		GHBranch *branch = (self.repository.branches)[row];
+		GHBranch *branch = self.repository.branches[row];
 		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier];

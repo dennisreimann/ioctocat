@@ -135,7 +135,7 @@
 		cell.delegate = self;
 		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:bgImage];
 	}
-	GHEvent *event = (self.events)[indexPath.row];
+	GHEvent *event = self.events[indexPath.row];
 	cell.event = event;
 	(event.read) ? [cell markAsRead] : [cell markAsNew];
 	return cell;

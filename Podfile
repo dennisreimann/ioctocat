@@ -5,7 +5,7 @@ pod 'AFNetworking', '1.1'
 pod 'AFOAuth2Client', '0.1'
 pod 'Orbiter'
 pod 'Base64'
-pod 'SVPullToRefresh'
+pod 'SVPullToRefresh', :head
 pod 'SVProgressHUD', :head
 pod 'HockeySDK'
 pod 'YRDropdownView', :git => 'https://github.com/iOctocat/YRDropdownView.git'

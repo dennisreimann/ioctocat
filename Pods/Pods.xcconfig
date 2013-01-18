@@ -6,4 +6,4 @@ PODS_BUILD_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/BuildHeaders" "${PODS_ROOT}/Buil
 PODS_PUBLIC_HEADERS_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/AFNetworking" "${PODS_ROOT}/Headers/AFOAuth2Client" "${PODS_ROOT}/Headers/Base64" "${PODS_ROOT}/Headers/ECSlidingViewController" "${PODS_ROOT}/Headers/Expecta" "${PODS_ROOT}/Headers/HockeySDK" "${PODS_ROOT}/Headers/Orbiter" "${PODS_ROOT}/Headers/SVProgressHUD" "${PODS_ROOT}/Headers/SVPullToRefresh" "${PODS_ROOT}/Headers/YRDropdownView"
 PODS_HEADERS_SEARCH_PATHS = ${PODS_PUBLIC_HEADERS_SEARCH_PATHS}
 FRAMEWORK_SEARCH_PATHS = "$(PODS_ROOT)/HockeySDK/Vendor"
-GCC_PREPROCESSOR_DEFINITIONS = BITHOCKEY_VERSION="@\"2.5.5\""
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) BITHOCKEY_VERSION="@\"2.5.5\""

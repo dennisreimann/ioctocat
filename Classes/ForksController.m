@@ -70,14 +70,4 @@
 	return self.repository.forks;
 }
 
-#pragma mark Autorotation
-
-- (BOOL)shouldAutorotate {
-	return YES;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return [self shouldAutorotate];
-}
-
 @end

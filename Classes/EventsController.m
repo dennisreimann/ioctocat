@@ -193,14 +193,4 @@
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }
 
-#pragma mark Autorotation
-
-- (BOOL)shouldAutorotate {
-	return YES;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return [self shouldAutorotate];
-}
-
 @end

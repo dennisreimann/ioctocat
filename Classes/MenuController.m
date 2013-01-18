@@ -363,14 +363,4 @@
 		[UIColor colorWithRed:0.124 green:0.139 blue:0.154 alpha:1.000];
 }
 
-#pragma mark Autorotation
-
-- (BOOL)shouldAutorotate {
-	return YES;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return [self shouldAutorotate];
-}
-
 @end

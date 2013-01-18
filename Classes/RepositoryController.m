@@ -252,14 +252,4 @@
 	return 44.0f;
 }
 
-#pragma mark Autorotation
-
-- (BOOL)shouldAutorotate {
-	return YES;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-	return [self shouldAutorotate];
-}
-
 @end

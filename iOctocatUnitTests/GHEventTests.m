@@ -4,6 +4,7 @@
 #import "GHUser.h"
 #import "GHCommits.h"
 #import "GHCommit.h"
+#import "GHRepository.h"
 #import "GHPullRequest.h"
 #import "GHOrganization.h"
 
@@ -104,6 +105,11 @@
 	[self.event setValues:dict];
 	expect(self.event.title).to.equal(@"jhilden forked joliss/jquery-ui-rails to jhilden/jquery-ui-rails");
 	expect(self.event.content).to.equal(@"jQuery UI for the Rails 3.1+ asset pipeline");
+	expect(self.event.user.login).to.equal(@"jhilden");
+	expect(self.event.repository.owner).to.equal(@"joliss");
+	expect(self.event.repository.name).to.equal(@"jquery-ui-rails");
+	expect(self.event.otherRepository.owner).to.equal(@"jhilden");
+	expect(self.event.repository.name).to.equal(@"jquery-ui-rails");
 }
 
 - (void)testMemberEvent {
@@ -111,6 +117,10 @@
 	[self.event setValues:dict];
 	expect(self.event.title).to.equal(@"sferik added wycats to sferik/rails");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"sferik");
+	expect(self.event.otherUser.login).to.equal(@"wycats");
+	expect(self.event.repository.owner).to.equal(@"sferik");
+	expect(self.event.repository.name).to.equal(@"rails");
 }
 
 - (void)testPublicEvent {
@@ -118,6 +128,8 @@
 	[self.event setValues:dict];
 	expect(self.event.title).to.equal(@"wycats open sourced wycats/stalkr");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.repository.owner).to.equal(@"wycats");
+	expect(self.event.repository.name).to.equal(@"stalkr");
 }
 
 - (void)testFollowEvent {
@@ -125,6 +137,8 @@
 	[self.event setValues:dict];
 	expect(self.event.title).to.equal(@"rockitbaby started following benthebear");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"rockitbaby");
+	expect(self.event.otherUser.login).to.equal(@"benthebear");
 }
 
 - (void)testWatchEvent {
@@ -132,6 +146,9 @@
 	[self.event setValues:dict];
 	expect(self.event.title).to.equal(@"naltatis starred trailblazr/barfbag");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"naltatis");
+	expect(self.event.repository.owner).to.equal(@"trailblazr");
+	expect(self.event.repository.name).to.equal(@"barfbag");
 }
 
 - (void)testCommitCommentEvent {
@@ -155,33 +172,41 @@
 - (void)testCreateEventWithBranch {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"CreateEvent-Branch"];
 	[self.event setValues:dict];
-	expect(self.event.repository).notTo.beNil();
 	expect(self.event.title).to.equal(@"technoweenie created branch scopes-blog-post at github/developer.github.com");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"technoweenie");
+	expect(self.event.repository.owner).to.equal(@"github");
+	expect(self.event.repository.name).to.equal(@"developer.github.com");
 }
 
 - (void)testDeleteEvent {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"DeleteEvent"];
 	[self.event setValues:dict];
-	expect(self.event.repository).notTo.beNil();
 	expect(self.event.title).to.equal(@"technoweenie deleted branch scopes-blog-post at github/developer.github.com");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"technoweenie");
+	expect(self.event.repository.owner).to.equal(@"github");
+	expect(self.event.repository.name).to.equal(@"developer.github.com");
 }
 
 - (void)testGollumEventWithNewPage {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"GollumEvent-NewPage"];
 	[self.event setValues:dict];
-	expect(self.event.repository).notTo.beNil();
 	expect(self.event.title).to.equal(@"dennisreimann created \"Yet another test page\" in the dennisreimann/ioctocat wiki");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"dennisreimann");
+	expect(self.event.repository.owner).to.equal(@"dennisreimann");
+	expect(self.event.repository.name).to.equal(@"ioctocat");
 }
 
 - (void)testGollumEventWithNEditedPage {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"GollumEvent-EditPage"];
 	[self.event setValues:dict];
-	expect(self.event.repository).notTo.beNil();
 	expect(self.event.title).to.equal(@"dennisreimann edited \"Home\" in the dennisreimann/ioctocat wiki");
 	expect(self.event.content).to.equal(@"");
+	expect(self.event.user.login).to.equal(@"dennisreimann");
+	expect(self.event.repository.owner).to.equal(@"dennisreimann");
+	expect(self.event.repository.name).to.equal(@"ioctocat");
 }
 
 @end

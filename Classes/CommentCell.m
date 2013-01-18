@@ -47,11 +47,8 @@
 	[self setContentText:self.comment.body];
 	// Gravatar
 	[self.comment.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	if (self.comment.user.gravatar) {
-		self.gravatarView.image = self.comment.user.gravatar;
-	} else if (!self.comment.user.gravatarURL) {
-		[self.comment.user loadData];
-	}
+	self.gravatarView.image = self.comment.user.gravatar ? self.comment.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+	if (!self.comment.user.gravatarURL) [self.comment.user loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

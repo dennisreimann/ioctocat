@@ -44,6 +44,7 @@
 	[self.object addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.textLabel.text = self.object.login;
 	self.imageView.image = self.object.gravatar ? self.object.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+	if (!self.object.gravatarURL) [self.object loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -159,7 +159,7 @@
 }
 
 - (IBAction)showUser:(id)sender {
-	if (self.delegate && self.event.repository) [self.delegate openEventItem:self.event.user];
+	if (self.delegate && self.event.user) [self.delegate openEventItem:self.event.user];
 }
 
 - (IBAction)showOtherUser:(id)sender {

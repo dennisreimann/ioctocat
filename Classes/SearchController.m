@@ -71,6 +71,7 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
+	[self.tableView setContentOffset:CGPointZero animated:NO];
 	self.searchBar.text = self.currentSearch.searchTerm;
 }
 

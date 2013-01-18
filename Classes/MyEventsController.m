@@ -87,6 +87,7 @@
 - (IBAction)switchChanged:(id)sender {
 	[self refreshLastUpdate];
 	self.selectedIndexPath = nil;
+	[self.tableView setContentOffset:CGPointZero animated:NO];
 	[self.tableView reloadData];
 	[self refreshIfRequired];
 }

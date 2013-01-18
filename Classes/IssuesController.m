@@ -85,6 +85,7 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
+	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentIssues.isLoaded) return;
 	[self.currentIssues loadData];
 	[self.tableView reloadData];

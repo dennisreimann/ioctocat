@@ -59,6 +59,7 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self.tableView reloadData];
+	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentPullRequests.isLoaded) return;
 	[self.currentPullRequests loadData];
 	[self.tableView reloadData];

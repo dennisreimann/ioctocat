@@ -6,6 +6,7 @@ Additions:
 
 * Check GitHub system status on app activation
 * Notifications support (push notifications will be added soon)
+* Added reload button for organizations
 
 Changes:
 

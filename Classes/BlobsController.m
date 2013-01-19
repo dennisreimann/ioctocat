@@ -48,6 +48,9 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHBlob *blob = (GHBlob *)object;
+		// check if it's the current blob, because we might get notified
+		// about a blob that has been loaded but is not the current one
+		if (blob != self.blob) return;
 		if (blob.isLoading) {
 			[SVProgressHUD show];
 		} else {
@@ -93,10 +96,6 @@
 }
 
 - (void)displayBlob:(GHBlob *)blob {
-	// check if it's the current blob, because we might get notified
-	// about a blob that has been loaded but is not the current one
-	if (blob != self.blob) return;
-	[SVProgressHUD dismiss];
 	// check what type of content we have and display it accordingly
 	if (self.blob.content) return [self displayCode:blob.content];
 	if (self.blob.contentData) return [self displayData:blob.contentData withFilename:blob.path];
@@ -107,10 +106,8 @@
 	[blob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	_blob = blob;
-
 	self.title = self.blob.path;
 	self.blob.isLoaded ? [self displayBlob:blob] : [self.blob loadData];
-
 	// Update navigation control
 	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:0];
 	[self.navigationControl setEnabled:(self.index < self.blobs.count-1) forSegmentAtIndex:1];
@@ -122,10 +119,6 @@
 }
 
 #pragma mark WebView
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-	[SVProgressHUD show];
-}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	[SVProgressHUD dismiss];

@@ -9,7 +9,6 @@
 
 @interface GistsController ()
 @property(nonatomic,strong)GHGists *gists;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingGistsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noGistsCell;
 
@@ -36,7 +35,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = [self.title isEmpty] ? @"Gists" : self.title;
-	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	if (!self.gists.isLoaded) [self.gists loadData];
 }
 

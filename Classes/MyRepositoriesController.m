@@ -11,12 +11,9 @@
 @property(nonatomic,strong)NSMutableArray *publicRepositories;
 @property(nonatomic,strong)NSMutableArray *privateRepositories;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noPrivateReposCell;
-
-- (IBAction)refresh:(id)sender;
 @end
 
 
@@ -38,8 +35,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = self.refreshButton;
-	(self.user.repositories.isLoaded) ? [self displayRepositories] : [self.user.repositories loadData];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.user.repositories.isLoaded ? [self displayRepositories] : [self.user.repositories loadData];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

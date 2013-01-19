@@ -20,7 +20,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
 - (GHRepositories *)repositoriesInSection:(NSInteger)section;
 - (IBAction)refresh:(id)sender;
@@ -47,7 +46,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
 }
 

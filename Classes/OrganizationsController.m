@@ -30,8 +30,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.title = @"Organizations";
-	self.navigationItem.rightBarButtonItem = nil;
-    if (!self.organizations.isLoaded) [self.organizations loadData];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	if (!self.organizations.isLoaded) [self.organizations loadData];
 }
 
 - (void)dealloc {
@@ -51,12 +51,20 @@
 	}
 }
 
+#pragma mark Actions
+
+- (IBAction)refresh:(id)sender {
+	[self.organizations loadData];
+}
+
+#pragma mark TableView
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (!self.organizations.isLoaded) || (self.organizations.isEmpty) ? 1 : self.organizations.count;
+    return !self.organizations.isLoaded || self.organizations.isEmpty ? 1 : self.organizations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

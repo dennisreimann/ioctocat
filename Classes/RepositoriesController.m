@@ -8,7 +8,6 @@
 
 @interface RepositoriesController ()
 @property(nonatomic,strong)GHRepositories *repositories;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noReposCell;
 
@@ -34,7 +33,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	if (!self.repositories.isLoaded) [self.repositories loadData];
 }
 

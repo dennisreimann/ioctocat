@@ -22,8 +22,6 @@
 @property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *addButton;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)createNewIssue:(id)sender;
@@ -66,7 +64,9 @@
 	[super viewDidLoad];
 	self.issuesControl.selectedSegmentIndex = 0;
 	self.navigationItem.titleView = self.issuesControl;
-	self.navigationItem.rightBarButtonItem = self.repository ? self.addButton : self.refreshButton;
+	self.navigationItem.rightBarButtonItem = self.repository ?
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewIssue:)] :
+		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
 }
 

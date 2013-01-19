@@ -14,7 +14,6 @@
 @property(nonatomic,strong)IBOutlet UISegmentedControl *pullRequestsControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingPullRequestsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noPullRequestsCell;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *refreshButton;
 
 - (IBAction)switchChanged:(id)sender;
 - (IBAction)refresh:(id)sender;
@@ -40,7 +39,7 @@
 	[super viewDidLoad];
 	self.pullRequestsControl.selectedSegmentIndex = 0;
 	self.navigationItem.titleView = self.pullRequestsControl;
-	self.navigationItem.rightBarButtonItem = self.refreshButton;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	if (!self.currentPullRequests.isLoaded) [self.currentPullRequests loadData];
 }
 

@@ -9,7 +9,6 @@
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,weak)id comments;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *postButton;
 
 - (IBAction)postComment:(id)sender;
 @end
@@ -30,7 +29,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = @"Post comment";
-	self.navigationItem.rightBarButtonItem = self.postButton;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
 	[self.bodyView becomeFirstResponder];
 }
 

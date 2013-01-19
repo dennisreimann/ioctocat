@@ -19,6 +19,7 @@ Bugfixes:
 * Fixed missing pull requests for pull request comment events
 * Fixed crash in events controller (when tapping loading cell)
 * Fixed follower button in following event cell
+* Fixed display error for writing comments in landscape mode
 
 ## v1.7.1
 

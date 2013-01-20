@@ -5,6 +5,7 @@
 #import "IssueController.h"
 #import "GistController.h"
 #import "CommitController.h"
+#import "EventCell.h"
 #import "GHEvent.h"
 #import "GHUser.h"
 #import "GHEvents.h"
@@ -23,6 +24,7 @@
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @property(nonatomic,readwrite)NSUInteger loadCounter;
 @property(nonatomic,weak,readonly)GHEvents *events;
+@property(nonatomic,strong)IBOutlet EventCell *selectedCell;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 @end
 
@@ -86,6 +88,7 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self refreshLastUpdate];
+	self.selectedCell = nil;
 	self.selectedIndexPath = nil;
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	[self.tableView reloadData];

@@ -121,7 +121,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.events.isLoading) return self.events.count;
-	if (self.events.isLoaded && self.events.count == 0) return 1;
+	if (self.events.isLoaded && self.events.isEmpty) return 1;
 	return self.events.count;
 }
 
@@ -142,7 +142,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.events.count == 0) return;
+	if (self.events.isEmpty) return;
 	[self.tableView beginUpdates];
 	if ([self.selectedIndexPath isEqual:indexPath]) {
 		self.selectedCell = nil;

@@ -19,12 +19,6 @@
 @property(nonatomic,strong)NSMutableArray *endpoints;
 @property(nonatomic,strong)AuthenticationController *authController;
 @property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
-
-- (void)editAccountAtIndex:(NSUInteger)idx;
-- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx;
-- (IBAction)addAccount:(id)sender;
-- (IBAction)toggleEditAccounts:(id)sender;
-- (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath;
 @end
 
 
@@ -78,12 +72,10 @@
 	for (NSDictionary *dict in self.accounts) {
 		NSString *endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
 		if ([endpoint isEmpty]) endpoint = @"https://github.com";
-		NSMutableArray *endpointArray = [self.accountsByEndpoint objectForKey:endpoint];
-		if (endpointArray == nil) {
-			endpointArray = [NSMutableArray array];
-			[self.accountsByEndpoint setObject:endpointArray forKey:endpoint];
+		if (!self.accountsByEndpoint[endpoint]) {
+			self.accountsByEndpoint[endpoint] = [NSMutableArray array];
 		}
-		[endpointArray addObject:dict];
+		[self.accountsByEndpoint[endpoint] addObject:dict];
 	}
 	self.endpoints = [NSMutableArray arrayWithArray:[self.accountsByEndpoint allKeys]];
 	[self.endpoints sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
@@ -130,12 +122,17 @@
 }
 
 - (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *accountDict = [(NSArray *)[self.accountsByEndpoint objectForKey:[self.endpoints objectAtIndex:indexPath.section]] objectAtIndex:indexPath.row];
+	NSDictionary *accountDict = [[self accountsInSection:indexPath.section] objectAtIndex:indexPath.row];
 	if (accountDict) {
 		return [self.accounts indexOfObject:accountDict];
 	} else {
 		return NSNotFound;
 	}
+}
+
+- (NSArray *)accountsInSection:(NSInteger)section {
+	NSString *endpoint = [self.endpoints objectAtIndex:section];
+	return [self.accountsByEndpoint objectForKey:endpoint];
 }
 
 #pragma mark TableView
@@ -145,7 +142,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return ((NSArray *)[self.accountsByEndpoint objectForKey:[self.endpoints objectAtIndex:section]]).count;
+	return [[self accountsInSection:section] count];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -184,9 +181,20 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
+		NSInteger section = indexPath.section;
+		NSString *endpoint = [self.endpoints objectAtIndex:section];
 		[self.accounts removeObjectAtIndex:indexPath.row];
 		[self handleAccountsChange];
-		[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		// update table:
+		// remove the section if it was the last account in this section
+		if (!self.accountsByEndpoint[endpoint]) {
+			NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
+			[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+		}
+		// remove the cell
+		else {
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+		}
 	}
 }
 

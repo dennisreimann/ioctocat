@@ -19,8 +19,10 @@ Bugfixes:
 
 * Fixed missing pull requests for pull request comment events
 * Fixed crash in events controller (when tapping loading cell)
+* Fixed crash in accounts controller (when deleting the last account)
 * Fixed follower button in following event cell
 * Fixed display error for writing comments in landscape mode
+* Fixed indefinitely loading case for repository view
 
 ## v1.7.1
 

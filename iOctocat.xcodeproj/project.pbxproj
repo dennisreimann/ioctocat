@@ -819,6 +819,14 @@
 		6FCAA490167B52C800C816FA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 		6FCAA491167B52C800C816FA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67ECF03BCF254C88A027B814 /* libPods.a */; };
 		6FCAF1660F895756005E1173 /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
+		6FCD1B5716AC26AA00D843EA /* Forks.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5316AC26AA00D843EA /* Forks.png */; };
+		6FCD1B5816AC26AA00D843EA /* Forks.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5316AC26AA00D843EA /* Forks.png */; };
+		6FCD1B5916AC26AA00D843EA /* Forks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5416AC26AA00D843EA /* Forks@2x.png */; };
+		6FCD1B5A16AC26AA00D843EA /* Forks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5416AC26AA00D843EA /* Forks@2x.png */; };
+		6FCD1B5B16AC26AA00D843EA /* Stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5516AC26AA00D843EA /* Stars.png */; };
+		6FCD1B5C16AC26AA00D843EA /* Stars.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5516AC26AA00D843EA /* Stars.png */; };
+		6FCD1B5D16AC26AA00D843EA /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5616AC26AA00D843EA /* Stars@2x.png */; };
+		6FCD1B5E16AC26AA00D843EA /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5616AC26AA00D843EA /* Stars@2x.png */; };
 		6FCDC6400FC04D330024E498 /* feed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCDC63F0FC04D330024E498 /* feed.png */; };
 		6FCDC66C0FC04F180024E498 /* Events.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCDC66B0FC04F180024E498 /* Events.xib */; };
 		6FCE4D280F7FD48700451D6E /* commit.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCE4D240F7FD48700451D6E /* commit.png */; };
@@ -1333,6 +1341,10 @@
 		6FCAA496167B52C800C816FA /* iOctocatBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOctocatBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FCAF1640F895756005E1173 /* IOCAvatarLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAvatarLoader.h; sourceTree = "<group>"; };
 		6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAvatarLoader.m; sourceTree = "<group>"; };
+		6FCD1B5316AC26AA00D843EA /* Forks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forks.png; sourceTree = "<group>"; };
+		6FCD1B5416AC26AA00D843EA /* Forks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Forks@2x.png"; sourceTree = "<group>"; };
+		6FCD1B5516AC26AA00D843EA /* Stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stars.png; sourceTree = "<group>"; };
+		6FCD1B5616AC26AA00D843EA /* Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Stars@2x.png"; sourceTree = "<group>"; };
 		6FCDC63F0FC04D330024E498 /* feed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = feed.png; path = Images/Icons/feed.png; sourceTree = "<group>"; };
 		6FCDC66B0FC04F180024E498 /* Events.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Events.xib; path = IBFiles/Events.xib; sourceTree = "<group>"; };
 		6FCE4D240F7FD48700451D6E /* commit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = commit.png; path = Images/Icons/commit.png; sourceTree = "<group>"; };
@@ -2071,6 +2083,7 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				6FCD1B5216AC26AA00D843EA /* Details */,
 				6F26DB5316A6F3C600939D85 /* Options */,
 				6F95106016961C1D0056DFE9 /* Default */,
 				6F95106816961C1D0056DFE9 /* Icon */,
@@ -2124,6 +2137,18 @@
 				6F7F08401624BEDD0074839B /* Tree.xib */,
 			);
 			name = IBFiles;
+			sourceTree = "<group>";
+		};
+		6FCD1B5216AC26AA00D843EA /* Details */ = {
+			isa = PBXGroup;
+			children = (
+				6FCD1B5316AC26AA00D843EA /* Forks.png */,
+				6FCD1B5416AC26AA00D843EA /* Forks@2x.png */,
+				6FCD1B5516AC26AA00D843EA /* Stars.png */,
+				6FCD1B5616AC26AA00D843EA /* Stars@2x.png */,
+			);
+			name = Details;
+			path = Images/Details;
 			sourceTree = "<group>";
 		};
 		6FDB4DE41621ABAF00AB11C3 /* Assets */ = {
@@ -2733,6 +2758,10 @@
 				6F11AE4C16A36048002D9741 /* TypeCommitOn.png in Resources */,
 				6F11AE4E16A36048002D9741 /* TypeCommitOn@2x.png in Resources */,
 				6F26DB5A16A6F3C600939D85 /* Remove.png in Resources */,
+				6FCD1B5716AC26AA00D843EA /* Forks.png in Resources */,
+				6FCD1B5916AC26AA00D843EA /* Forks@2x.png in Resources */,
+				6FCD1B5B16AC26AA00D843EA /* Stars.png in Resources */,
+				6FCD1B5D16AC26AA00D843EA /* Stars@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3040,6 +3069,10 @@
 				6F11AE4D16A36048002D9741 /* TypeCommitOn.png in Resources */,
 				6F11AE4F16A36048002D9741 /* TypeCommitOn@2x.png in Resources */,
 				6F26DB5B16A6F3C600939D85 /* Remove.png in Resources */,
+				6FCD1B5816AC26AA00D843EA /* Forks.png in Resources */,
+				6FCD1B5A16AC26AA00D843EA /* Forks@2x.png in Resources */,
+				6FCD1B5C16AC26AA00D843EA /* Stars.png in Resources */,
+				6FCD1B5E16AC26AA00D843EA /* Stars@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,11 +28,13 @@
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,readonly)GHUser *currentUser;
 @property(nonatomic,weak)IBOutlet UILabel *nameLabel;
-@property(nonatomic,weak)IBOutlet UILabel *numbersLabel;
+@property(nonatomic,weak)IBOutlet UILabel *starsCountLabel;
+@property(nonatomic,weak)IBOutlet UILabel *forksCountLabel;
 @property(nonatomic,weak)IBOutlet UILabel *ownerLabel;
 @property(nonatomic,weak)IBOutlet UILabel *websiteLabel;
-@property(nonatomic,weak)IBOutlet UILabel *forkLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@property(nonatomic,weak)IBOutlet UIImageView *starsIconView;
+@property(nonatomic,weak)IBOutlet UIImageView *forksIconView;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *readmeCell;
@@ -43,9 +45,6 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
-
-- (void)displayRepository;
-- (IBAction)showActions:(id)sender;
 @end
 
 
@@ -134,12 +133,19 @@
 
 - (void)displayRepository {
 	self.nameLabel.text = self.repository.name;
-	self.iconView.image = self.repository.isLoaded ? [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")] : nil;
-	self.numbersLabel.text = self.repository.isLoaded ? [NSString stringWithFormat:@"%d %@, %d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"] : @"";
-	if (self.repository.isFork) self.forkLabel.text = @"forked";
+	self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
 	[self.ownerCell setContentText:self.repository.owner];
 	[self.websiteCell setContentText:[self.repository.homepageURL host]];
 	[self.descriptionCell setContentText:self.repository.descriptionText];
+	if (self.repository.isLoaded) {
+		self.iconView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")];
+		self.starsCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars"];
+		self.forksCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"];
+	} else {
+		self.iconView.image = nil;
+		self.starsCountLabel.text = nil;
+		self.forksCountLabel.text = nil;
+	}
 }
 
 #pragma mark TableView

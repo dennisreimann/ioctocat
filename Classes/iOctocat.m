@@ -39,6 +39,8 @@
 #pragma mark Application Events
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	[[NSURLCache sharedURLCache] setMemoryCapacity: 0];
+	[[NSURLCache sharedURLCache] setDiskCapacity:0];
 	[self setupHockeySDK];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
 	self.slidingViewController.anchorRightRevealAmount = 230;

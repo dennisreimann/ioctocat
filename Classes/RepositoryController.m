@@ -55,35 +55,47 @@
 	self = [super initWithNibName:@"Repository" bundle:nil];
 	if (self) {
 		self.repository = repo;
-		[self.repository addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.repository.readme addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.repository.branches addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
 	self.title = self.repository.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayRepository];
-	if (!self.repository.isLoaded) [self.repository loadData];
-	if (!self.repository.readme.isLoaded) [self.repository.readme loadData];
-	if (!self.repository.branches.isLoaded) [self.repository.branches loadData];
 	if (!self.currentUser.starredRepositories.isLoaded) [self.currentUser.starredRepositories loadData];
 	if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadData];
+	if (!self.repository.isLoaded) {
+		[self.repository loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayRepository];
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the repository"];
+			[self.tableView reloadData];
+		}];
+	}
+	if (!self.repository.branches.isLoaded) {
+		[self.repository.branches loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.repository.isLoaded) return;
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the branches"];
+		}];
 
+	}
+	if (!self.repository.readme.isLoaded) {
+		[self.repository.readme loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.repository.isLoaded) return;
+			NSIndexPath *readmePath = [NSIndexPath indexPathForRow:3 inSection:0];
+			[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
+		} failure:nil];
+	}
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
-}
-
-- (void)dealloc {
-	[self.repository.branches removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.repository.readme removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.repository removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (GHUser *)currentUser {
@@ -128,27 +140,6 @@
 	[self.ownerCell setContentText:self.repository.owner];
 	[self.websiteCell setContentText:[self.repository.homepageURL host]];
 	[self.descriptionCell setContentText:self.repository.descriptionText];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (object == self.repository && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.repository.isLoaded) {
-			[self displayRepository];
-		} else if (self.repository.error) {
-			[iOctocat reportLoadingError:@"Could not load the repository"];
-			[self.tableView reloadData];
-		}
-	} else if (object == self.repository.branches && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.repository.branches.isLoaded) {
-			[self.tableView reloadData];
-		} else if (self.repository.branches.error && !self.repository.error) {
-			[iOctocat reportLoadingError:@"Could not load the branches"];
-		}
-	} else if (object == self.repository.readme && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.repository.readme.isLoaded) {
-			[self.tableView reloadData];
-		}
-	}
 }
 
 #pragma mark TableView

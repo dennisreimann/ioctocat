@@ -63,7 +63,7 @@
 	self.iconView.image = [UIImage imageNamed:icon];
 	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.gravatarView.image = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
-	if (!self.event.user.gravatarURL) [self.event.user loadData];
+	if (!self.event.user.gravatar && !self.event.user.gravatarURL) [self.event.user loadData];
 	// actions
 	NSMutableArray *buttons = [NSMutableArray array];
 	if (self.event.user) [buttons addObject:self.userButton];

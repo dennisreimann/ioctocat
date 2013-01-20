@@ -126,7 +126,7 @@
 
 	// Pull Request
 	NSDictionary *pullDict = [self.payload safeDictForKey:@"pull_request"];
-	if (!pullDict) pullDict = [self.payload safeDictForKeyPath:@"issue.pull_request"];
+	if (!pullDict) pullDict = [issueDict safeDictForKey:@"pull_request"];
 	// this check is somehow hacky, but the API provides empty pull_request
 	// urls in case there is no pull request associated with an issue.
 	// an IssueCommentEvent with an associated pull request has the urls

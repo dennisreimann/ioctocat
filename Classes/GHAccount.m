@@ -32,7 +32,7 @@ NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
 		self.authToken = [dict safeStringForKey:kAuthTokenDefaultsKey];
 		// construct endpoint URL and set up API client
 		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
-		if (![self.endpoint isEmpty]) {
+		if (!self.endpoint.isEmpty) {
 			apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
 		}
 		self.apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];

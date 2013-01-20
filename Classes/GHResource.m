@@ -59,7 +59,6 @@
 
 // TODO: Use new interface throughout the app
 - (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
-	if (self.isLoading) return;
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
@@ -97,7 +96,6 @@
 
 // TODO: Use new interface throughout the app
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
-	if (self.isSaving) return;
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];

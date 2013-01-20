@@ -22,27 +22,18 @@
 
 - (void)dealloc {
 	[self stopAuthenticating];
-	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
-}
-
-- (void)setAccount:(GHAccount *)account {
-	[self.account removeObserver:self forKeyPath:@"user.loadingStatus"];
-	_account = account;
-	[self.account addObserver:self forKeyPath:@"user.loadingStatus" options:NSKeyValueObservingOptionNew context:nil];
 }
 
 - (void)authenticateAccount:(GHAccount *)account {
 	self.account = account;
-	[self.account.user loadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (self.account.user.isLoading) {
-		[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
-	} else {
+	[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
+	[self.account.user loadWithParams:nil success:^(GHResource *instance, id data) {
 		[self stopAuthenticating];
 		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];
-	}
+	} failure:^(GHResource *instance, NSError *error) {
+		[self stopAuthenticating];
+		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];
+	}];
 }
 
 - (void)stopAuthenticating {

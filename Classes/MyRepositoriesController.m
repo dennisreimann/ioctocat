@@ -5,6 +5,7 @@
 #import "GHRepositories.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface MyRepositoriesController ()
@@ -24,30 +25,21 @@
 	if (self) {
 		self.title = @"Repositories";
 		self.user = user;
-		[self.user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[self.user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	self.user.repositories.isLoaded ? [self displayRepositories] : [self.user.repositories loadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.user.repositories.isLoaded) {
+	if (self.user.repositories.isLoaded) {
+		[self displayRepositories];
+	} else {
+		[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepositories];
-		}
-		if (self.user.repositories.error) {
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the repositories"];
-		}
-		[self.tableView reloadData];
+		}];
 	}
 }
 
@@ -75,7 +67,13 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	[self.user.repositories loadData];
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self displayRepositories];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 #pragma mark TableView

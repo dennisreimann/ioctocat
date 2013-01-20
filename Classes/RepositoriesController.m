@@ -4,14 +4,13 @@
 #import "GHRepositories.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface RepositoriesController ()
 @property(nonatomic,strong)GHRepositories *repositories;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noReposCell;
-
-- (IBAction)refresh:(id)sender;
 @end
 
 
@@ -22,44 +21,38 @@
 	if (self) {
 		self.title = @"Repositories";
 		self.repositories = repos;
-		[self.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[self.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	if (!self.repositories.isLoaded) [self.repositories loadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		if (self.repositories.error) {
+	if (!self.repositories.isLoaded) {
+		[self.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the repositories"];
-		}
+		}];
 	}
 }
 
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	[self.repositories loadData];
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.repositories.isLoading || self.repositories.isEmpty) ? 1 : self.repositories.count;
+	return self.resourceHasData ? self.repositories.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -72,10 +65,16 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.repositories.isEmpty) return;
+	if (!self.resourceHasData) return;
 	GHRepository *repo = self.repositories[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.repositories.isLoaded && !self.repositories.isEmpty;
 }
 
 @end

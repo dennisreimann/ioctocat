@@ -87,7 +87,8 @@
 	if (!self.repository.readme.isLoaded) {
 		[self.repository.readme loadWithParams:nil success:^(GHResource *instance, id data) {
 			if (!self.repository.isLoaded) return;
-			NSIndexPath *readmePath = [NSIndexPath indexPathForRow:3 inSection:0];
+			NSInteger readmeRow = self.descriptionCell.hasContent ? 3 : 2;
+			NSIndexPath *readmePath = [NSIndexPath indexPathForRow:readmeRow inSection:0];
 			[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
 		} failure:nil];
 	}
@@ -133,16 +134,15 @@
 
 - (void)displayRepository {
 	self.nameLabel.text = self.repository.name;
+	self.iconView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")];
 	self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
 	[self.ownerCell setContentText:self.repository.owner];
 	[self.websiteCell setContentText:[self.repository.homepageURL host]];
 	[self.descriptionCell setContentText:self.repository.descriptionText];
 	if (self.repository.isLoaded) {
-		self.iconView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")];
 		self.starsCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars"];
 		self.forksCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"];
 	} else {
-		self.iconView.image = nil;
 		self.starsCountLabel.text = nil;
 		self.forksCountLabel.text = nil;
 	}

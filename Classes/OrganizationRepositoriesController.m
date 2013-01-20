@@ -15,14 +15,10 @@
 @interface OrganizationRepositoriesController ()
 @property(nonatomic,weak,readonly)GHUser *currentUser;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)NSMutableArray *observedOrgRepoLists;
 @property(nonatomic,strong)NSMutableArray *organizationRepositories;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *emptyCell;
-
-- (GHRepositories *)repositoriesInSection:(NSInteger)section;
-- (IBAction)refresh:(id)sender;
 @end
 
 
@@ -34,57 +30,37 @@
 		self.title = @"Organization Repos";
 		self.user = user;
 		self.organizationRepositories = [NSMutableArray array];
-		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	for (GHRepositories *repoList in self.observedOrgRepoLists) [repoList removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	(self.user.organizations.isLoaded) ? [self loadOrganizationRepositories] : [self.user.organizations loadData];
+	if (self.user.organizations.isLoaded) {
+		[self loadOrganizationRepositories];
+	} else {
+		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self loadOrganizationRepositories];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
+		}];
+	}
 }
 
+// GitHub API v3 changed the way this has to be looked up. There is not a
+// single call for these no more, we have to fetch each organizations repos
 - (void)loadOrganizationRepositories {
-	// GitHub API v3 changed the way this has to be looked up. There
-	// is not a single call for these no more - we have to fetch each
-	// organizations repos
 	for (GHOrganization *org in self.user.organizations.items) {
 		GHRepositories *repos = org.repositories;
 		if (repos.isLoaded) {
 			[self displayRepositories:repos];
 		} else if (!repos.isLoading && !repos.error) {
-			if (![self.observedOrgRepoLists containsObject:repos]) {
-				[repos addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-				[self.observedOrgRepoLists addObject:repos];
-			}
-			[repos loadData];
-		}
-	}
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	// organizations
-	if ([object isEqual:self.user.organizations]) {
-		GHOrganizations *organizations = (GHOrganizations *)object;
-		if (organizations.isLoaded) {
-			[self loadOrganizationRepositories];
-		} else if (organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}
-	}
-	// repositories
-	else if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHRepositories *repositories = object;
-		if (repositories.isLoaded) {
-			[self displayRepositories:repositories];
-		} else if (repositories.error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
+			[repos loadWithParams:nil success:^(GHResource *instance, id data) {
+				[self displayRepositories:(GHRepositories *)instance];
+			} failure:^(GHResource *instance, NSError *error) {
+				[iOctocat reportLoadingError:@"Could not load the repositories"];
+			}];
 		}
 	}
 }
@@ -113,7 +89,11 @@
 
 - (IBAction)refresh:(id)sender {
 	for (GHOrganization *org in self.user.organizations.items) {
-		[org.repositories loadData];
+		[org.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayRepositories:(GHRepositories *)instance];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the repositories"];
+		}];
 	}
 	[self.tableView reloadData];
 }

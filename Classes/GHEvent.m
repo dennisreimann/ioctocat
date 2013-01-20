@@ -79,14 +79,14 @@
 
 	// Other user
 	NSString *otherUserLogin = nil;
-	NSDictionary *otherUserDict = self.payload[@"target"];
-	if (!otherUserDict) otherUserDict = self.payload[@"member"];
-	if (!otherUserDict) otherUserDict = self.payload[@"user"];
+	NSDictionary *otherUserDict = [self.payload safeDictForKey:@"target"];
+	if (!otherUserDict) otherUserDict = [self.payload safeDictForKey:@"member"];
+	if (!otherUserDict) otherUserDict = [self.payload safeDictForKey:@"user"];
 	if (!otherUserDict && !self.organization && [self.eventType isEqualToString:@"WatchEvent"]) {
 		// use repo owner as fallback
 		otherUserLogin = [[dict safeStringForKeyPath:@"repo.name"] componentsSeparatedByString:@"/"][0];
 	} else if (otherUserDict) {
-		otherUserLogin = otherUserDict[@"login"];
+		otherUserLogin = [otherUserDict safeStringForKey:@"login"];
 	}
 	if (![otherUserLogin isEmpty]) {
 		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];

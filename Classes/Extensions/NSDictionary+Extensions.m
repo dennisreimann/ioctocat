@@ -30,12 +30,12 @@
 }
 
 - (NSDictionary *)safeDictForKey:(NSString *)key {
-	id value = [self valueForKey:key defaultsTo:@""];
+	id value = [self valueForKey:key defaultsTo:nil];
 	return ([value isKindOfClass:NSDictionary.class]) ? value : nil;
 }
 
 - (NSDictionary *)safeDictForKeyPath:(NSString *)keyPath {
-	id value = [self valueForKeyPath:keyPath defaultsTo:@""];
+	id value = [self valueForKeyPath:keyPath defaultsTo:nil];
 	return ([value isKindOfClass:NSDictionary.class]) ? value : nil;
 }
 

@@ -31,6 +31,10 @@
 	self.accounts = currentAccounts != nil ?
 		[NSMutableArray arrayWithArray:currentAccounts] :
 		[NSMutableArray array];
+	// Open account if there is only one
+	if (self.accounts.count == 1) {
+		[self openOrAuthenticateAccountAtIndex:0];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -40,14 +44,6 @@
 	}
 	[self handleAccountsChange];
 	[self.tableView reloadData];
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	// Open account if there is only one
-	if (self.accounts.count == 1) {
-		[self openOrAuthenticateAccountAtIndex:0];
-	}
 }
 
 - (void)updateAccount:(NSMutableDictionary *)account atIndex:(NSUInteger)idx {

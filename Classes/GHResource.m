@@ -66,24 +66,23 @@
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:kRequestMethodGet path:self.resourcePath parameters:nil];
 	request.cachePolicy = self.cachePolicy;
 	D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@", self.class, self.resourcePath, request.allHTTPHeaderFields);
-	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id data) {
-		NSDictionary *headers = response.allHeaderFields;
+	void (^onSuccess)() = ^(AFHTTPRequestOperation *operation, id data) {
+		NSDictionary *headers = operation.response.allHeaderFields;
 		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, self.resourcePath, headers, data);
 		[self setHeaderValues:headers];
 		[self setValues:data];
 		self.loadingStatus = GHResourceStatusProcessed;
 		if (success) success(self, data);
 	};
-	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-		NSDictionary *headers = response.allHeaderFields;
+	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
+		NSDictionary *headers = operation.response.allHeaderFields;
 		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, self.resourcePath, headers, error);
 		[self setHeaderValues:headers];
 		self.error = error;
 		self.loadingStatus = GHResourceStatusNotProcessed;
 		if (failure) failure(self, error);
 	};
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
-	[operation start];
+	[self.apiClient getPath:self.resourcePath parameters:params success:onSuccess failure:onFailure];
 }
 
 #pragma mark Saving

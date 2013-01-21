@@ -5,14 +5,13 @@
 #import "GistCell.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface GistsController ()
 @property(nonatomic,strong)GHGists *gists;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingGistsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noGistsCell;
-
-- (IBAction)refresh:(id)sender;
 @end
 
 
@@ -23,35 +22,33 @@
 	if (self) {
 		self.title = @"Gists";
 		self.gists = gists;
-		[self.gists addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
-}
-
-- (void)dealloc {
-	[self.gists removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = [self.title isEmpty] ? @"Gists" : self.title;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	if (!self.gists.isLoaded) [self.gists loadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		if (!self.gists.isLoading && self.gists.error) {
+	if (!self.gists.isLoaded) {
+		[self.gists loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the gists"];
-		}
+		}];
 	}
 }
+
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	[self.gists loadData];
-	[self.tableView reloadData];
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.gists loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 #pragma mark TableView

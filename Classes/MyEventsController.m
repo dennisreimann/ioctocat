@@ -54,7 +54,6 @@
 	self.navigationItem.titleView = self.feedControl;
 	// Start loading the first feed
 	self.feedControl.selectedSegmentIndex = 0;
-	[self switchChanged:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

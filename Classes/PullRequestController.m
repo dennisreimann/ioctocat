@@ -49,23 +49,15 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *closedCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
-
-- (IBAction)showActions:(id)sender;
-- (IBAction)mergePullRequest:(id)sender;
-- (IBAction)addComment:(id)sender;
 @end
 
 
 @implementation PullRequestController
 
-NSString *const PullRequestLoadingKeyPath = @"loadingStatus";
-NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
-
 - (id)initWithPullRequest:(GHPullRequest *)pullRequest {
 	self = [super initWithNibName:@"PullRequest" bundle:nil];
 	if (self) {
 		self.pullRequest = pullRequest;
-		[self.pullRequest addObserver:self forKeyPath:PullRequestCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -78,52 +70,38 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return self;
 }
 
-- (void)dealloc {
-	[self.pullRequest removeObserver:self forKeyPath:PullRequestCommentsLoadingKeyPath];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"#%d", self.pullRequest.num];
 	[self.mergeButton useGreenConfirmStyle];
-	// Background
+	[self displayPullRequest];
+	// load pull request
+	if (!self.pullRequest.isLoaded) {
+		[self.pullRequest loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayPullRequest];
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the pull request"];
+		}];
+	}
+	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
-// Add and remove observer in the view appearing methods
-// because otherwise they will still trigger when the
-// pull request gets edited by the form
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	[self.pullRequest addObserver:self forKeyPath:PullRequestLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(self.pullRequest.isLoaded) ? [self displayPullRequest] : [self.pullRequest loadData];
-	(self.pullRequest.comments.isLoaded) ? [self displayComments] : [self.pullRequest.comments loadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[self.pullRequest removeObserver:self forKeyPath:PullRequestLoadingKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:PullRequestLoadingKeyPath]) {
-		if (self.pullRequest.isLoaded) {
-			[self displayPullRequest];
-		} else if (self.pullRequest.error) {
-			[iOctocat reportLoadingError:@"Could not load the pull request"];
-			[self.tableView reloadData];
-		}
-	} else if ([keyPath isEqualToString:PullRequestCommentsLoadingKeyPath]) {
-		if (self.pullRequest.comments.isLoading && self.pullRequest.isLoaded) {
-			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-		} else if (self.pullRequest.comments.isLoaded) {
-			[self displayComments];
-		} else if (self.pullRequest.comments.error && !self.pullRequest.error) {
+// load comments in viewDidAppear, so that comments
+// get reloaded after a new comment has been posted
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	if (!self.pullRequest.comments.isLoaded) {
+		[self.pullRequest.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.pullRequest.isLoaded) return;
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
-			[self.tableView reloadData];
-		}
+		}];
 	}
 }
 
@@ -142,23 +120,6 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[self.pullRequest.repository.owner isEqualToString:self.currentUser.login]);
 }
 
-- (IBAction)mergePullRequest:(id)sender {
-	if (self.pullRequestMergeableByCurrentUser) {
-		[SVProgressHUD showWithStatus:@"Merging pull request…" maskType:SVProgressHUDMaskTypeGradient];
-		[self.pullRequest mergePullRequest:self.commitTextView.text success:^(GHResource *instance, id data) {
-			NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
-			NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
-			[SVProgressHUD showSuccessWithStatus:status];
-			[self displayPullRequest];
-			[self.listController reloadPullRequests];
-		} failure:^(GHResource *instance, NSError *error) {
-			[SVProgressHUD showErrorWithStatus:@"Could not merge the pull request"];
-		}];
-	}
-}
-
-#pragma mark Actions
-
 - (void)displayPullRequest {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	NSString *icon = [NSString stringWithFormat:@"pull_request_%@.png", self.pullRequest.state];
@@ -176,8 +137,21 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[self.tableView reloadData];
 }
 
-- (void)displayComments {
-	[self.tableView reloadData];
+#pragma mark Actions
+
+- (IBAction)mergePullRequest:(id)sender {
+	if (self.pullRequestMergeableByCurrentUser) {
+		[SVProgressHUD showWithStatus:@"Merging pull request…" maskType:SVProgressHUDMaskTypeGradient];
+		[self.pullRequest mergePullRequest:self.commitTextView.text success:^(GHResource *instance, id data) {
+			NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
+			NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
+			[SVProgressHUD showSuccessWithStatus:status];
+			[self displayPullRequest];
+			[self.listController reloadPullRequests];
+		} failure:^(GHResource *instance, NSError *error) {
+			[SVProgressHUD showErrorWithStatus:@"Could not merge the pull request"];
+		}];
+	}
 }
 
 - (IBAction)showActions:(id)sender {
@@ -265,7 +239,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (self.pullRequest.isLoaded) ? 3 : 1;
+	return self.pullRequest.isLoaded ? 3 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -286,7 +260,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 2) ? @"Comments" : @"";
+	return section == 2 ? @"Comments" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -315,7 +289,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	return (section == 2) ? self.tableFooterView : nil;
+	return section == 2 ? self.tableFooterView : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -331,7 +305,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	return (section == 2) ? 56 : 0;
+	return section == 2 ? 56 : 0;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

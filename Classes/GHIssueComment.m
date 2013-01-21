@@ -20,16 +20,10 @@
 	return self;
 }
 
-#pragma mark Saving
-
-- (void)saveData {
-	NSDictionary *values = @{@"body": self.body};
+- (NSString *)savePath {
 	GHRepository *repo = [(GHIssue *)self.parent repository];
 	NSUInteger num = [(GHIssue *)self.parent num];
-	NSString *path = [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
-	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:^(id response) {
-		[self setValues:response];
-	}];
+	return [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
 }
 
 @end

@@ -11,6 +11,7 @@
 @property(nonatomic,strong)NSString *body;
 @property(nonatomic,strong)NSDate *created;
 @property(nonatomic,strong)NSDate *updated;
+@property(nonatomic,readonly)NSString *savePath;
 
-- (void)saveData;
+- (void)saveWithParams:(NSDictionary *)values success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

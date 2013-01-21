@@ -19,14 +19,8 @@
 	return self;
 }
 
-#pragma mark Saving
-
-- (void)saveData {
-	NSDictionary *values = @{@"body": self.body};
-	NSString *path = [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
-	[self saveValues:values withPath:path andMethod:kRequestMethodPost useResult:^(id response) {
-		[self setValues:response];
-	}];
+- (NSString *)savePath {
+	return [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
 }
 
 @end

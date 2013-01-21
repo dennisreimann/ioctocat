@@ -21,7 +21,6 @@
 	if (self) {
 		self.comment = comment;
 		self.comments = comments;
-		[self.comment addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -49,30 +48,20 @@
 	[self.bodyView resignFirstResponder];
 }
 
-- (void)dealloc {
-	[self.comment removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-}
-
 - (IBAction)postComment:(id)sender {
-	self.comment.body = self.bodyView.text;
-	if ([self.comment.body isEmpty]) {
+	if ([self.bodyView.text isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
 	} else {
 		[SVProgressHUD showWithStatus:@"Posting comment…" maskType:SVProgressHUDMaskTypeGradient];
-		[self.comment saveData];
-	}
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
-		if (self.comment.isSaved) {
+		NSDictionary *params = @{@"body": self.bodyView.text};
+		[self.comment saveWithParams:params success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
-			[self.comments addObject:self.comment];
+			[self.comments addObject:(GHComment *)instance];
 			[self.comments needsReload];
 			[self.navigationController popViewControllerAnimated:YES];
-		} else if (self.comment.error) {
+		} failure:^(GHResource *instance, NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Commenting failed"];
-		}
+		}];
 	}
 }
 

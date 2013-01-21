@@ -26,14 +26,8 @@
 	self.position = [dict safeIntegerForKey:@"position"];
 }
 
-#pragma mark Saving
-
-- (void)saveData {
-	NSDictionary *values = @{@"body": self.body};
-	NSString *savePath = [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
-	[self saveValues:values withPath:savePath andMethod:kRequestMethodPost useResult:^(id response) {
-		[self setValues:response];
-	}];
+- (NSString *)savePath {
+	return [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
 }
 
 @end

@@ -23,7 +23,17 @@
 #pragma mark Saving
 
 // Implement this in the subclass
-- (void)saveData {
+- (NSString *)savePath {
+	return nil;
+}
+
+- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
+	[self saveWithParams:params path:self.savePath method:kRequestMethodPost success:^(GHResource *instance, id data) {
+		[self setValues:data];
+		if (success) success(self, data);
+	} failure:^(GHResource *instance, NSError *error) {
+		if (failure) failure(self, error);
+	}];
 }
 
 @end

@@ -5,6 +5,7 @@
 #import "GHRepository.h"
 #import "IssueObjectCell.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface PullRequestsController ()
@@ -14,9 +15,6 @@
 @property(nonatomic,strong)IBOutlet UISegmentedControl *pullRequestsControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingPullRequestsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noPullRequestsCell;
-
-- (IBAction)switchChanged:(id)sender;
-- (IBAction)refresh:(id)sender;
 @end
 
 
@@ -65,8 +63,13 @@
 }
 
 - (IBAction)refresh:(id)sender {
-	[self.currentPullRequests loadData];
-	[self.tableView reloadData];
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.currentPullRequests loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 - (void)reloadPullRequests {

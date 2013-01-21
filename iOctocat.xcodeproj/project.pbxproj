@@ -140,6 +140,7 @@
 		6F40850E16AD49F300C77089 /* DropdownWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F40850B16AD49F300C77089 /* DropdownWarning.png */; };
 		6F40850F16AD49F300C77089 /* DropdownWarning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F40850C16AD49F300C77089 /* DropdownWarning@2x.png */; };
 		6F40851016AD49F300C77089 /* DropdownWarning@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F40850C16AD49F300C77089 /* DropdownWarning@2x.png */; };
+		6F40851216AD585100C77089 /* TeamAddEvent-User.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F40851116AD585100C77089 /* TeamAddEvent-User.json */; };
 		6F48DB5F166C03F900F8FF16 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		6F48DB60166C03F900F8FF16 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		6F48DB72166C07B600F8FF16 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F48DB71166C07B600F8FF16 /* SenTestingKit.framework */; };
@@ -1050,6 +1051,7 @@
 		6F3FD6991675E80700E90A6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6F40850B16AD49F300C77089 /* DropdownWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropdownWarning.png; sourceTree = "<group>"; };
 		6F40850C16AD49F300C77089 /* DropdownWarning@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropdownWarning@2x.png"; sourceTree = "<group>"; };
+		6F40851116AD585100C77089 /* TeamAddEvent-User.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "TeamAddEvent-User.json"; sourceTree = "<group>"; };
 		6F48DB5C166C03F900F8FF16 /* iOctocat Unit Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "iOctocat Unit Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F48DB63166C03F900F8FF16 /* iOctocatUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOctocatUnitTests-Info.plist"; sourceTree = "<group>"; };
 		6F48DB6A166C03F900F8FF16 /* iOctocatUnitTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iOctocatUnitTests-Prefix.pch"; sourceTree = "<group>"; };
@@ -1825,6 +1827,7 @@
 			children = (
 				6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */,
 				6FC40F6C168A39DF0035927E /* MemberEvent.json */,
+				6F40851116AD585100C77089 /* TeamAddEvent-User.json */,
 				6FC40F6D168A39DF0035927E /* PublicEvent.json */,
 				6F4EB35A167D22A4001C1DEA /* FollowEvent.json */,
 				6F4EB35B167D22A4001C1DEA /* ForkEvent.json */,
@@ -2787,6 +2790,7 @@
 				6F680B4F169E13F600C7BAB9 /* GollumEvent-EditPage.json in Resources */,
 				6F680B50169E13F600C7BAB9 /* GollumEvent-NewPage.json in Resources */,
 				6F680B51169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json in Resources */,
+				6F40851216AD585100C77089 /* TeamAddEvent-User.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

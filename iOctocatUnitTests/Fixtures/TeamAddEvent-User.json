@@ -1,0 +1,52 @@
+{
+    "repo": {
+		"name": "/",
+		"url": "https://api.github.com/repos//"
+    },
+    "type": "TeamAddEvent",
+    "org": {
+		"avatar_url": "https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-org-420.png",
+		"gravatar_id": "d41d8cd98f00b204e9800998ecf8427e",
+		"id": 456,
+		"login": "Organization",
+		"url": "https://api.github.com/orgs/Organization"
+    },
+    "payload": {
+		"team": {
+			"members_url": "https://api.github.com/teams/123/members{/member}",
+			"slug": "organization-team",
+			"id": 123,
+			"repositories_url": "https://api.github.com/teams/123/repos",
+			"permission": "push",
+			"url": "https://api.github.com/teams/123",
+			"name": "organization-team"
+		},
+		"user": {
+			"gravatar_id": "39ddce6b70cf21ae0773bced9baae152",
+			"events_url": "https://api.github.com/users/dennisreimann/events{/privacy}",
+			"id": 886,
+			"avatar_url": "https://secure.gravatar.com/avatar/39ddce6b70cf21ae0773bced9baae152?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+			"repos_url": "https://api.github.com/users/dennisreimann/repos",
+			"organizations_url": "https://api.github.com/users/dennisreimann/orgs",
+			"type": "User",
+			"followers_url": "https://api.github.com/users/dennisreimann/followers",
+			"login": "dennisreimann",
+			"gists_url": "https://api.github.com/users/dennisreimann/gists{/gist_id}",
+			"following_url": "https://api.github.com/users/dennisreimann/following",
+			"starred_url": "https://api.github.com/users/dennisreimann/starred{/owner}{/repo}",
+			"received_events_url": "https://api.github.com/users/dennisreimann/received_events",
+			"url": "https://api.github.com/users/dennisreimann",
+			"subscriptions_url": "https://api.github.com/users/dennisreimann/subscriptions"
+		},
+		"membership_id": 2257065
+    },
+    "created_at": "2013-01-18T22:09:19Z",
+    "public": false,
+    "actor": {
+		"avatar_url": "https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=https://a248.e.akamai.net/assets.github.com%2Fimages%2Fgravatars%2Fgravatar-user-420.png",
+		"gravatar_id": "d41d8cd98f00b204e9800998ecf8427e",
+		"login": "Organization",
+		"url": "https://api.github.com/users/Organization"
+    },
+    "id": "1658032126"
+}

@@ -199,7 +199,7 @@
 	expect(self.event.repository.name).to.equal(@"ioctocat");
 }
 
-- (void)testGollumEventWithNEditedPage {
+- (void)testGollumEventWithEditedPage {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"GollumEvent-EditPage"];
 	[self.event setValues:dict];
 	expect(self.event.title).to.equal(@"dennisreimann edited \"Home\" in the dennisreimann/ioctocat wiki");
@@ -207,6 +207,16 @@
 	expect(self.event.user.login).to.equal(@"dennisreimann");
 	expect(self.event.repository.owner).to.equal(@"dennisreimann");
 	expect(self.event.repository.name).to.equal(@"ioctocat");
+}
+
+- (void)testTeamAddEventWithUser {
+	NSDictionary *dict = [IOCTestHelper jsonFixture:@"TeamAddEvent-User"];
+	[self.event setValues:dict];
+	expect(self.event.title).to.equal(@"Organization added dennisreimann to organization-team");
+	expect(self.event.content).to.equal(@"");
+	expect(self.event.organization.login).to.equal(@"Organization");
+	expect(self.event.user.login).to.equal(@"Organization");
+	expect(self.event.repository).to.beNil();
 }
 
 @end

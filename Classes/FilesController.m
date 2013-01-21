@@ -16,28 +16,21 @@
 @implementation FilesController
 
 - (id)initWithFiles:(GHFiles *)files {
-	self = [super initWithNibName:@"Files" bundle:nil];
-	self.title = @"Files";
-	self.files = files;
-	[self.files addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	if (self = [super initWithNibName:@"Files" bundle:nil]) {
+		self.title = @"Files";
+		self.files = files;
+	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (!self.files.isLoaded) [self.files loadData];
-}
-
-- (void)dealloc {
-	[self.files removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		if (!self.files.isLoading && self.files.error) {
+	if (!self.files.isLoaded) {
+		[self.files loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the files"];
-		}
+		}];
 	}
 }
 

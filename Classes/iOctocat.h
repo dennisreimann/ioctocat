@@ -5,6 +5,7 @@
 @property(nonatomic,strong)IBOutlet UIWindow *window;
 
 + (iOctocat *)sharedInstance;
++ (void)reportWarning:(NSString *)title with:(NSString *)message;
 + (void)reportError:(NSString *)title with:(NSString *)message;
 + (void)reportLoadingError:(NSString *)message;
 - (BOOL)openURL:(NSURL *)url;

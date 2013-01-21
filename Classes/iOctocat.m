@@ -190,9 +190,23 @@
 #pragma mark Helpers
 
 + (void)reportError:(NSString *)title with:(NSString *)message {
-	UIImage *image = [UIImage imageNamed:@"warning.png"];
+	UIImage *image = [UIImage imageNamed:@"DropdownError.png"];
 	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
 	UIColor *textColor = [UIColor whiteColor];
+	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
+								 title:title
+								detail:message
+								 image:image
+							 textColor:textColor
+					   backgroundColor:bgColor
+							  animated:YES
+							 hideAfter:5.0];
+}
+
++ (void)reportWarning:(NSString *)title with:(NSString *)message {
+	UIImage *image = [UIImage imageNamed:@"DropdownWarning.png"];
+	UIColor *bgColor = [UIColor yellowColor];
+	UIColor *textColor = [UIColor darkGrayColor];
 	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
 								 title:title
 								detail:message

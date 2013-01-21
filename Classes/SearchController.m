@@ -6,6 +6,7 @@
 #import "RepositoryCell.h"
 #import "UserObjectCell.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface SearchController ()
@@ -16,9 +17,6 @@
 @property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noResultsCell;
-
-- (IBAction)quitSearching:(id)sender;
-- (IBAction)switchChanged:(id)sender;
 @end
 
 
@@ -30,9 +28,6 @@
 		GHSearch *userSearch = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
 		GHSearch *repoSearch = [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
 		self.searches = @[userSearch, repoSearch];
-		for (GHSearch *search in self.searches) {
-			[search addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		}
 	}
 	return self;
 }
@@ -46,25 +41,9 @@
 	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
-- (void)dealloc {
-	for (GHSearch *search in self.searches) {
-		[search removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	}
-}
-
 - (GHSearch *)currentSearch {
 	return self.searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
-		nil : (self.searches)[self.searchControl.selectedSegmentIndex];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		GHSearch *search = (GHSearch *)object;
-		if (!search.isLoading && search.error) {
-			[iOctocat reportLoadingError:@"Could not load the search results"];
-		}
-	}
+		nil : self.searches[self.searchControl.selectedSegmentIndex];
 }
 
 #pragma mark Actions
@@ -82,7 +61,14 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	self.currentSearch.searchTerm = self.searchBar.text;
-	[self.currentSearch loadData];
+	[self.tableView reloadData];
+	[SVProgressHUD showWithStatus:@"Searching…" ];
+	[self.currentSearch loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Searching failed"];
+	}];
 	[self quitSearching:nil];
 }
 

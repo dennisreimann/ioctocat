@@ -18,7 +18,6 @@
 	self = [super initWithNibName:@"Tree" bundle:nil];
 	if (self) {
 		self.tree = tree;
-		[self.tree addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -26,28 +25,20 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	[self displayTree];
-	if (![self.tree isLoaded]) [self.tree loadData];
-}
-
-- (void)dealloc {
-	[self.tree removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	if (![self.tree isLoaded]) {
+		[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the tree"];
+		}];
+	}
 }
 
 - (void)displayTree {
 	self.title = self.tree.path ? self.tree.path : self.tree.sha;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		GHTree *tree = (GHTree *)object;
-		if (tree.isLoaded) {
-			[self displayTree];
-		} else if (!tree.isLoading && tree.error) {
-			[iOctocat reportLoadingError:@"Could not load the tree"];
-		}
-	}
-}
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return self.tree.isLoading ? 1 : 2;

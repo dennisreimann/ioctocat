@@ -41,9 +41,6 @@
 		GHEvents *receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath];
 		GHEvents *ownEvents = [[GHEvents alloc] initWithPath:eventsPath];
 		self.feeds = @[receivedEvents, ownEvents];
-		for (GHEvents *feed in self.feeds) {
-			[feed addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		}
 	}
 	return self;
 }
@@ -60,19 +57,12 @@
 	[super viewWillAppear:animated];
 	[self refreshLastUpdate];
 	[self refreshIfRequired];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(applicationDidBecomeActive)
-												 name:UIApplicationDidBecomeActiveNotification
-											   object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[super viewWillDisappear:animated];
-}
-
-- (void)dealloc {
-	for (GHEvents *feed in self.feeds) [feed removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (GHEvents *)events {

@@ -42,10 +42,6 @@
 	self = [super initWithNibName:@"Events" bundle:nil];
 	if (self) {
 		self.events = events;
-		// take care: subclasses may override events (like MyEventsController does),
-		// so we must ensure, that observers in this parent class are only added on
-		// the actual instance variables, and not the getter for the instance var.
-		[_events addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -55,23 +51,6 @@
 	self.clearsSelectionOnViewWillAppear = NO;
 	[self setupPullToRefresh];
 	[self.tableView triggerPullToRefresh];
-}
-
-- (void)dealloc {
-	[_events removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.events.isLoaded) {
-			[self refreshLastUpdate];
-			[self.tableView.pullToRefreshView stopAnimating];
-			[self.tableView reloadData];
-		} else if (self.events.error) {
-			[self.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the feed"];
-		}
-	}
 }
 
 - (void)refreshLastUpdate {
@@ -188,7 +167,14 @@
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		weakSelf.selectedCell = nil;
 		weakSelf.selectedIndexPath = nil;
-		[weakSelf.events loadData];
+		[weakSelf.events loadWithParams:nil success:^(GHResource *instance, id data) {
+			[weakSelf refreshLastUpdate];
+			[weakSelf.tableView.pullToRefreshView stopAnimating];
+			[weakSelf.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[weakSelf.tableView.pullToRefreshView stopAnimating];
+			[iOctocat reportLoadingError:@"Could not load the feed"];
+		}];
 	}];
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }

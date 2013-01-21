@@ -7,6 +7,7 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 #define kIssueObjectCellIdentifier @"IssueObjectCell"
 #define kIssueSortCreated @"created"
@@ -22,10 +23,6 @@
 @property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
-
-- (IBAction)switchChanged:(id)sender;
-- (IBAction)createNewIssue:(id)sender;
-- (IBAction)refresh:(id)sender;
 @end
 
 
@@ -41,9 +38,6 @@
 		GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
 		GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
 		self.objects = @[openIssues, closedIssues];
-		for (GHIssues *issues in self.objects) {
-			[issues addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		}
 	}
 	return self;
 }
@@ -53,27 +47,18 @@
 	if (self) {
 		self.repository = repo;
 		self.objects = @[self.repository.openIssues, self.repository.closedIssues];
-		for (id object in self.objects) {
-			[object addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		}
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.issuesControl.selectedSegmentIndex = 0;
 	self.navigationItem.titleView = self.issuesControl;
 	self.navigationItem.rightBarButtonItem = self.repository ?
 		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewIssue:)] :
 		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	if (!self.currentIssues.isLoaded) [self.currentIssues loadData];
-}
-
-- (void)dealloc {
-	for (GHIssues *issues in self.objects) {
-		[issues removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	}
+	self.issuesControl.selectedSegmentIndex = 0;
+	[self switchChanged:nil];
 }
 
 - (GHIssues *)currentIssues {
@@ -87,7 +72,11 @@
 	[self.tableView reloadData];
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentIssues.isLoaded) return;
-	[self.currentIssues loadData];
+	[self.currentIssues loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[iOctocat reportLoadingError:@"Could not load the issues"];
+	}];
 	[self.tableView reloadData];
 }
 
@@ -99,14 +88,17 @@
 }
 
 - (IBAction)refresh:(id)sender {
-	[self.currentIssues loadData];
-	[self.tableView reloadData];
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.currentIssues loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 - (void)reloadIssues {
-	for (GHIssues *issues in self.objects) {
-		[issues loadData];
-	}
+	for (GHIssues *issues in self.objects) [issues loadData];
 	[self.tableView reloadData];
 }
 
@@ -114,17 +106,6 @@
 - (void)savedIssueObject:(id)object {
 	[[self.objects objectAtIndex:0] insertObject:object atIndex:0];
 	[self.tableView reloadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHIssues *issues = (GHIssues *)object;
-		if (issues.isLoaded) {
-			[self.tableView reloadData];
-		} else if (issues.error) {
-			[iOctocat reportLoadingError:@"Could not load the issues"];
-		}
-	}
 }
 
 #pragma mark TableView

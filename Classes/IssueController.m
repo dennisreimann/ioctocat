@@ -43,14 +43,10 @@
 
 @implementation IssueController
 
-NSString *const IssueLoadingKeyPath = @"loadingStatus";
-NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
-
 - (id)initWithIssue:(GHIssue *)issue {
 	self = [super initWithNibName:@"Issue" bundle:nil];
 	if (self) {
 		self.issue = issue;
-		[self.issue addObserver:self forKeyPath:IssueCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -63,56 +59,42 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	return self;
 }
 
-- (void)dealloc {
-	[self.issue removeObserver:self forKeyPath:IssueCommentsLoadingKeyPath];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"#%d", self.issue.num];
-	// Background
+	[self displayIssue];
+	// load issue
+	if (!self.issue.isLoaded) {
+		[self.issue loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayIssue];
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the issue"];
+		}];
+	}
+	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
-// Add and remove observer in the view appearing methods
-// because otherwise they will still trigger when the
-// issue gets edited by the form
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	[self.issue addObserver:self forKeyPath:IssueLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	(self.issue.isLoaded) ? [self displayIssue] : [self.issue loadData];
-	(self.issue.comments.isLoaded) ? [self displayComments] : [self.issue.comments loadData];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[self.issue removeObserver:self forKeyPath:IssueLoadingKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:IssueLoadingKeyPath]) {
-		if (self.issue.isLoaded) {
-			[self displayIssue];
-		} else if (self.issue.error) {
-			[iOctocat reportLoadingError:@"Could not load the issue"];
-			[self.tableView reloadData];
-		}
-	} else if ([keyPath isEqualToString:IssueCommentsLoadingKeyPath]) {
-		if (self.issue.comments.isLoading && self.issue.isLoaded) {
-			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-		} else if (self.issue.comments.isLoaded) {
-			[self displayComments];
-		} else if (self.issue.comments.error && !self.issue.error) {
+// load comments in viewDidAppear, so that comments
+// get reloaded after a new comment has been posted
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	if (!self.issue.comments.isLoaded) {
+		[self.issue.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.issue.isLoaded) return;
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
-			[self.tableView reloadData];
-		}
+		}];
 	}
 }
 
+// displaying the new data gets done via viewWillAppear
 - (void)savedIssueObject:(id)object	{
-	// displaying the new data gets done via viewWillAppear
 	[self.listController reloadIssues];
 }
 
@@ -126,8 +108,6 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 		[self.issue.repository.owner isEqualToString:self.currentUser.login]);
 }
 
-#pragma mark Actions
-
 - (void)displayIssue {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	NSString *icon = [NSString stringWithFormat:@"issue_%@.png", self.issue.state];
@@ -139,12 +119,9 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[self.createdCell setContentText:[self.issue.created prettyDate]];
 	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
 	[self.descriptionCell setContentText:self.issue.body];
-	[self.tableView reloadData];
 }
 
-- (void)displayComments {
-	[self.tableView reloadData];
-}
+#pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet;

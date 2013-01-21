@@ -44,9 +44,6 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
 @property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
-
-- (void)displayUser;
-- (IBAction)showActions:(id)sender;
 @end
 
 
@@ -56,10 +53,7 @@
 	self = [super initWithNibName:@"User" bundle:nil];
 	if (self) {
 		self.user = user;
-		[self.user addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.repositories addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -69,16 +63,41 @@
 	BOOL isProfile = [self.user.login isEqualToString:self.currentUser.login];
 	self.navigationItem.title = isProfile ? @"Profile" : self.user.login;
 	self.navigationItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.user.isLoaded ? [self displayUser] : [self.user loadData];
-	if (!self.user.repositories.isLoaded) [self.user.repositories loadData];
-	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
+	[self displayUser];
+	// load resources
+	if (!self.user.isLoaded) {
+		[self.user loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayUser];
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the user"];
+		}];
+	}
+	if (!self.user.repositories.isLoaded) {
+		[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.user.isLoaded) return;
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the repositories"];
+		}];
+	}
+	if (!self.user.organizations.isLoaded) {
+		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.user.isLoaded) return;
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
+		}];
+	}
 	// check following state
 	[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
 		self.isFollowing = YES;
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isFollowing = NO;
 	}];
-	// Background
+	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
@@ -87,14 +106,20 @@
 }
 
 - (void)dealloc {
-	[self.user removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[self.user.repositories removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 }
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
+}
+
+- (void)displayUser {
+	self.nameLabel.text = (!self.user.name || self.user.name.isEmpty) ? self.user.login : self.user.name;
+	self.companyLabel.text = (!self.user.company || self.user.company.isEmpty) ? [NSString stringWithFormat:@"%d followers", self.user.followersCount] : self.user.company;
+	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
+	[self.locationCell setContentText:self.user.location];
+	[self.blogCell setContentText:self.user.blogURL.host];
+	[self.emailCell setContentText:self.user.email];
 }
 
 #pragma mark Actions
@@ -130,45 +155,16 @@
 	}];
 }
 
-- (void)displayUser {
-	self.nameLabel.text = (!self.user.name || [self.user.name isEmpty]) ? self.user.login : self.user.name;
-	self.companyLabel.text = (!self.user.company || [self.user.company isEmpty]) ? [NSString stringWithFormat:@"%d followers", self.user.followersCount] : self.user.company;
-	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
-	[self.locationCell setContentText:self.user.location];
-	[self.blogCell setContentText:[self.user.blogURL host]];
-	[self.emailCell setContentText:self.user.email];
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:kGravatarKeyPath]) {
 		self.gravatarView.image = self.user.gravatar;
-	} else if (object == self.user && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.user.isLoaded) {
-			[self displayUser];
-			[self.tableView reloadData];
-		} else if (self.user.error) {
-			[iOctocat reportLoadingError:@"Could not load the user"];
-		}
-	} else if (object == self.user.repositories && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.user.repositories.isLoaded) {
-			[self.tableView reloadData];
-		} else if (self.user.repositories.error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
-		}
-	} else if (object == self.user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.user.organizations.isLoaded) {
-			[self.tableView reloadData];
-		} else if (self.user.organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}
 	}
 }
 
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (!self.user.isLoaded) return 1;
-	return 4;
+	return self.user.isLoaded ? 4 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

@@ -17,11 +17,13 @@
 #import "EventsController.h"
 #import "NSString+Extensions.h"
 #import "GistsController.h"
+#import "SVProgressHUD.h"
 
 
 @interface UserController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,readwrite)BOOL isFollowing;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 @property(nonatomic,weak)IBOutlet UILabel *nameLabel;
 @property(nonatomic,weak)IBOutlet UILabel *companyLabel;
@@ -67,10 +69,15 @@
 	BOOL isProfile = [self.user.login isEqualToString:self.currentUser.login];
 	self.navigationItem.title = isProfile ? @"Profile" : self.user.login;
 	self.navigationItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	if (!self.currentUser.following.isLoaded) [self.currentUser.following loadData];
-	(self.user.isLoaded) ? [self displayUser] : [self.user loadData];
+	self.user.isLoaded ? [self displayUser] : [self.user loadData];
 	if (!self.user.repositories.isLoaded) [self.user.repositories loadData];
 	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
+	// check following state
+	[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
+		self.isFollowing = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isFollowing = NO;
+	}];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -93,17 +100,34 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:([self.currentUser isFollowing:self.user] ? @"Stop Following" : @"Follow"), @"Open in GitHub",  nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isFollowing ? @"Unfollow" : @"Follow"), @"Open in GitHub",  nil];
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self.currentUser isFollowing:self.user] ? [self.currentUser unfollowUser:self.user] : [self.currentUser followUser:self.user];
+		[self toggleUserFollowing];
 	} else if (buttonIndex == 1) {
 		WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
+}
+
+- (void)toggleUserFollowing {
+	BOOL state = !self.isFollowing;
+	NSString *action = state ? @"Following" : @"Unfollowing";
+	NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.user.login];
+	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
+	[self.currentUser setFollowing:state forUser:self.user success:^(GHResource *instance, id data) {
+		NSString *action = state ? @"Followed" : @"Unfollowed";
+		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.user.login];
+		self.isFollowing = state;
+		[SVProgressHUD showSuccessWithStatus:status];
+	} failure:^(GHResource *instance, NSError *error) {
+		NSString *action = state ? @"Following" : @"Unfollowing";
+		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.user.login];
+		[SVProgressHUD showErrorWithStatus:status];
+	}];
 }
 
 - (void)displayUser {

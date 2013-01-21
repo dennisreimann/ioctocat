@@ -20,6 +20,7 @@
 #import "PullRequestsController.h"
 #import "ForksController.h"
 #import "TreeController.h"
+#import "SVProgressHUD.h"
 
 #define kCodeCellIdentifier @"CodeCell"
 
@@ -27,6 +28,8 @@
 @interface RepositoryController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,readwrite)BOOL isStarring;
+@property(nonatomic,readwrite)BOOL isWatching;
 @property(nonatomic,weak)IBOutlet UILabel *nameLabel;
 @property(nonatomic,weak)IBOutlet UILabel *starsCountLabel;
 @property(nonatomic,weak)IBOutlet UILabel *forksCountLabel;
@@ -63,8 +66,6 @@
 	self.title = self.repository.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayRepository];
-	if (!self.currentUser.starredRepositories.isLoaded) [self.currentUser.starredRepositories loadData];
-	if (!self.currentUser.watchedRepositories.isLoaded) [self.currentUser.watchedRepositories loadData];
 	if (!self.repository.isLoaded) {
 		[self.repository loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepository];
@@ -92,6 +93,18 @@
 			[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
 		} failure:nil];
 	}
+	// check starring state
+	[self.currentUser checkRepositoryStarring:self.repository success:^(GHResource *instance, id data) {
+		self.isStarring = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isStarring = NO;
+	}];
+	// check watching state
+	[self.currentUser checkRepositoryWatching:self.repository success:^(GHResource *instance, id data) {
+		self.isWatching = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isWatching = NO;
+	}];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -103,31 +116,53 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
-	delegate:self
-	cancelButtonTitle:@"Cancel"
-	destructiveButtonTitle:nil
-	otherButtonTitles:
-	([self.currentUser isStarring:self.repository] ? @"Unstar" : @"Star"),
-	([self.currentUser isWatching:self.repository] ? @"Unwatch" : @"Watch"),
-	@"Show on GitHub",
-	nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), (self.isWatching ? @"Unwatch" : @"Watch"), @"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self.currentUser isStarring:self.repository] ?
-			[self.currentUser unstarRepository:self.repository] :
-			[self.currentUser starRepository:self.repository];
+		[self toggleRepositoryStarring];
 	} else if (buttonIndex == 1) {
-		[self.currentUser isWatching:self.repository] ?
-			[self.currentUser unwatchRepository:self.repository] :
-			[self.currentUser watchRepository:self.repository];
+		[self toggleRepositoryWatching];
 	} else if (buttonIndex == 2) {
 		WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
+}
+
+- (void)toggleRepositoryStarring {
+	BOOL state = !self.isStarring;
+	NSString *action = state ? @"Starring" : @"Unstarring";
+	NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
+	[self.currentUser setStarring:state forRepository:self.repository success:^(GHResource *instance, id data) {
+		NSString *action = state ? @"Starred" : @"Unstarred";
+		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+		self.isStarring = state;
+		[SVProgressHUD showSuccessWithStatus:status];
+	} failure:^(GHResource *instance, NSError *error) {
+		NSString *action = state ? @"Starring" : @"Unstarring";
+		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.repository.repoId];
+		[SVProgressHUD showErrorWithStatus:status];
+	}];
+}
+
+- (void)toggleRepositoryWatching {
+	BOOL state = !self.isWatching;
+	NSString *action = state ? @"Watching" : @"Unwatching";
+	NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
+	[self.currentUser setWatching:state forRepository:self.repository success:^(GHResource *instance, id data) {
+		NSString *action = state ? @"Watched" : @"Unwatched";
+		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+		self.isWatching = state;
+		[SVProgressHUD showSuccessWithStatus:status];
+	} failure:^(GHResource *instance, NSError *error) {
+		NSString *action = state ? @"Watching" : @"Unwatching";
+		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.repository.repoId];
+		[SVProgressHUD showErrorWithStatus:status];
+	}];
 }
 
 #pragma mark Actions

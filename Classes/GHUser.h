@@ -34,16 +34,12 @@
 - (id)initWithLogin:(NSString *)login;
 - (void)setLogin:(NSString *)login;
 - (void)loadedGravatar:(UIImage *)image;
-- (BOOL)isFollowing:(GHUser *)anUser;
-- (BOOL)isStarring:(GHRepository *)aRepository;
-- (BOOL)isWatching:(GHRepository *)aRepository;
-- (void)followUser:(GHUser *)user;
-- (void)unfollowUser:(GHUser *)user;
-- (void)starRepository:(GHRepository *)repo;
-- (void)unstarRepository:(GHRepository *)repo;
-- (void)watchRepository:(GHRepository *)repo;
-- (void)unwatchRepository:(GHRepository *)repo;
-- (BOOL)isStarringGist:(GHGist *)gist;
-- (void)starGist:(GHGist *)gist;
-- (void)unstarGist:(GHGist *)gist;
+- (void)setFollowing:(BOOL)follow forUser:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)setWatching:(BOOL)watch forRepository:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)setStarring:(BOOL)starred forRepository:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)setStarring:(BOOL)starred forGist:(GHGist *)gist success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)checkUserFollowing:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)checkRepositoryStarring:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)checkRepositoryWatching:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)checkGistStarring:(GHGist *)gist success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

@@ -12,11 +12,13 @@
 #import "iOctocat.h"
 #import "NSDictionary+Extensions.h"
 #import "NSDate+Nibware.h"
+#import "SVProgressHUD.h"
 
 
 @interface GistController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHGist *gist;
-@property(weak, nonatomic,readonly)GHUser *currentUser;
+@property(nonatomic,weak,readonly)GHUser *currentUser;
+@property(nonatomic,readwrite)BOOL isStarring;
 @property(nonatomic,weak)IBOutlet UILabel *descriptionLabel;
 @property(nonatomic,weak)IBOutlet UILabel *numbersLabel;
 @property(nonatomic,weak)IBOutlet UILabel *ownerLabel;
@@ -28,11 +30,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
-
-- (void)displayGist;
-- (void)displayComments;
-- (IBAction)showActions:(id)sender;
-- (IBAction)addComment:(id)sender;
 @end
 
 
@@ -55,7 +52,12 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[super viewDidLoad];
 	self.title = @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	if (!self.currentUser.starredGists.isLoaded) [self.currentUser.starredGists loadData];
+	// check starring state
+	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
+		self.isStarring = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isStarring = NO;
+	}];
 	// Background
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -80,21 +82,16 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
-															 delegate:self
-													cancelButtonTitle:@"Cancel"
-												 destructiveButtonTitle:nil
-													otherButtonTitles:
-									([self.currentUser isStarringGist:self.gist] ? @"Unstar" : @"Star"),
-									@"Show on GitHub",
-									nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), @"Add comment", @"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		[self.currentUser isStarringGist:self.gist] ? [self.currentUser unstarGist:self.gist] : [self.currentUser starGist:self.gist];
+		[self toggleGistStarring];
 	} else if (buttonIndex == 1) {
+		[self addComment:nil];
+	} else if (buttonIndex == 2) {
 		WebController *webController = [[WebController alloc] initWithURL:self.gist.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
@@ -139,6 +136,23 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)toggleGistStarring {
+	BOOL state = !self.isStarring;
+	NSString *action = state ? @"Starring" : @"Unstarring";
+	NSString *status = [NSString stringWithFormat:@"%@ gist", action];
+	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
+	[self.currentUser setStarring:state forGist:self.gist success:^(GHResource *instance, id data) {
+		NSString *action = state ? @"Starred" : @"Unstarred";
+		NSString *status = [NSString stringWithFormat:@"%@ gist", action];
+		self.isStarring = state;
+		[SVProgressHUD showSuccessWithStatus:status];
+	} failure:^(GHResource *instance, NSError *error) {
+		NSString *action = state ? @"Starring" : @"Unstarring";
+		NSString *status = [NSString stringWithFormat:@"%@ gist failed", action];
+		[SVProgressHUD showErrorWithStatus:status];
+	}];
 }
 
 #pragma mark TableView

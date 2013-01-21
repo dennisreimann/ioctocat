@@ -55,13 +55,18 @@
 
 // TODO: Use new interface throughout the app
 - (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
+	[self loadWithParams:params path:self.resourcePath method:kRequestMethodGet success:success failure:failure];
+}
+
+- (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
-	D3JLog(@"\n%@: Loading %@ started.", self.class, self.resourcePath);
+	NSURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:params];
+    D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@\n", self.class, path, request.allHTTPHeaderFields);
 	void (^onSuccess)() = ^(AFHTTPRequestOperation *operation, id data) {
 		NSDictionary *headers = operation.response.allHeaderFields;
-		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, self.resourcePath, headers, data);
+		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
 		[self setHeaderValues:headers];
 		[self setValues:data];
 		self.loadingStatus = GHResourceStatusProcessed;
@@ -69,26 +74,18 @@
 	};
 	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSDictionary *headers = operation.response.allHeaderFields;
-		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, self.resourcePath, headers, error);
+		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
 		[self setHeaderValues:headers];
 		self.error = error;
 		self.loadingStatus = GHResourceStatusNotProcessed;
 		if (failure) failure(self, error);
 	};
-	[self.apiClient getPath:self.resourcePath parameters:params success:onSuccess failure:onFailure];
+	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
+    [self.apiClient enqueueHTTPRequestOperation:operation];
 }
 
 #pragma mark Saving
 
-// FIXME: This is the old interface used all over the app.
-// Please use the new one underneath in the future!
-- (void)saveValues:(NSDictionary *)values withPath:(NSString *)path andMethod:(NSString *)method useResult:(void (^)(id response))useResult {
-	[self saveWithParams:values path:path method:method success:^(GHResource *instance, id data) {
-		if (useResult) useResult(data);
-	} failure:nil];
-}
-
-// TODO: Use new interface throughout the app
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
 	self.error = nil;
 	self.savingStatus = GHResourceStatusProcessing;

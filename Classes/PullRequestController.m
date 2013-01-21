@@ -58,7 +58,6 @@
 
 @implementation PullRequestController
 
-NSString *const PullRequestSavingKeyPath = @"savingStatus";
 NSString *const PullRequestLoadingKeyPath = @"loadingStatus";
 NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 
@@ -99,7 +98,6 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.pullRequest addObserver:self forKeyPath:PullRequestLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.pullRequest addObserver:self forKeyPath:PullRequestSavingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(self.pullRequest.isLoaded) ? [self displayPullRequest] : [self.pullRequest loadData];
 	(self.pullRequest.comments.isLoaded) ? [self displayComments] : [self.pullRequest.comments loadData];
 }
@@ -107,7 +105,6 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[self.pullRequest removeObserver:self forKeyPath:PullRequestLoadingKeyPath];
-	[self.pullRequest removeObserver:self forKeyPath:PullRequestSavingKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -117,18 +114,6 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 		} else if (self.pullRequest.error) {
 			[iOctocat reportLoadingError:@"Could not load the pull request"];
 			[self.tableView reloadData];
-		}
-	} else if ([keyPath isEqualToString:PullRequestSavingKeyPath]) {
-		if (self.pullRequest.isSaving) {
-			[SVProgressHUD showWithStatus:@"Updating pull request…" maskType:SVProgressHUDMaskTypeGradient];
-		} else if (self.pullRequest.isSaved) {
-			NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
-			NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
-			[SVProgressHUD showSuccessWithStatus:status];
-			[self displayPullRequest];
-			[self.listController reloadPullRequests];
-		} else if (self.pullRequest.error) {
-			[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
 		}
 	} else if ([keyPath isEqualToString:PullRequestCommentsLoadingKeyPath]) {
 		if (self.pullRequest.comments.isLoading && self.pullRequest.isLoaded) {
@@ -159,7 +144,16 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 
 - (IBAction)mergePullRequest:(id)sender {
 	if (self.pullRequestMergeableByCurrentUser) {
-		[self.pullRequest mergePullRequest:self.commitTextView.text];
+		[SVProgressHUD showWithStatus:@"Merging pull request…" maskType:SVProgressHUDMaskTypeGradient];
+		[self.pullRequest mergePullRequest:self.commitTextView.text success:^(GHResource *instance, id data) {
+			NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
+			NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
+			[SVProgressHUD showSuccessWithStatus:status];
+			[self displayPullRequest];
+			[self.listController reloadPullRequests];
+		} failure:^(GHResource *instance, NSError *error) {
+			[SVProgressHUD showErrorWithStatus:@"Could not merge the pull request"];
+		}];
 	}
 }
 
@@ -225,7 +219,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 		} else if (buttonIndex == 1) {
 			[self mergePullRequest:nil];
 		} else if (buttonIndex == 2) {
-			self.pullRequest.isOpen ? [self.pullRequest closePullRequest] : [self.pullRequest reopenPullRequest];
+			[self togglePullRequestState];
 		} else if (buttonIndex == 3) {
 			[self addComment:nil];
 		} else if (buttonIndex == 4) {
@@ -237,7 +231,7 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 			IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
 			[self.navigationController pushViewController:formController animated:YES];
 		} else if (buttonIndex == 1) {
-			self.pullRequest.isOpen ? [self.pullRequest closePullRequest] : [self.pullRequest reopenPullRequest];
+			[self togglePullRequestState];
 		} else if (buttonIndex == 2) {
 			[self addComment:nil];
 		} else if (buttonIndex == 3) {
@@ -252,6 +246,20 @@ NSString *const PullRequestCommentsLoadingKeyPath = @"comments.loadingStatus";
 			[self.navigationController pushViewController:webController animated:YES];
 		}
 	}
+}
+
+- (void)togglePullRequestState {
+	NSDictionary *params = @{@"state": self.pullRequest.isOpen ? kIssueStateClosed : kIssueStateOpen};
+	[SVProgressHUD showWithStatus:@"Saving pull request…" maskType:SVProgressHUDMaskTypeGradient];
+	[self.pullRequest saveWithParams:params success:^(GHResource *instance, id data) {
+		NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
+		NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
+		[SVProgressHUD showSuccessWithStatus:status];
+		[self displayPullRequest];
+		[self.listController reloadPullRequests];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
+	}];
 }
 
 #pragma mark TableView

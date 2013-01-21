@@ -22,7 +22,5 @@
 @property(nonatomic,readonly)BOOL isClosed;
 
 - (id)initWithRepository:(GHRepository *)repo;
-- (void)closeIssue;
-- (void)reopenIssue;
-- (void)saveData;
+- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

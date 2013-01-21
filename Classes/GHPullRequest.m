@@ -89,12 +89,12 @@
 
 #pragma mark State toggling
 
-- (void)mergePullRequest:(NSString *)commitMessage {
+- (void)mergePullRequest:(NSString *)commitMessage success:(resourceSuccess)success failure:(resourceFailure)failure {
 	if (self.isMergeable) {
 		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.num];
-		NSDictionary *values = @{@"commit_message": commitMessage};
-		[self saveValues:values withPath:path andMethod:kRequestMethodPut useResult:^(id response) {
-			self.isMerged = [response safeBoolForKey:@"merged"];
+		NSDictionary *params = @{@"commit_message": commitMessage};
+		[self saveWithParams:params path:path method:kRequestMethodPut success:^(GHResource *instance, id data) {
+			self.isMerged = [data safeBoolForKey:@"merged"];
 			// set values manually that are not part of the response
 			if (self.isMerged) {
 				self.state = kIssueStateClosed;
@@ -104,25 +104,18 @@
 				self.state = kIssueStateOpen;
 				self.merged = self.closed = nil;
 			}
+			if (success) success(self, data);
+		} failure:^(GHResource *instance, NSError *error) {
+			if (failure) failure(self, error);
 		}];
 	}
 }
 
-- (void)closePullRequest {
-	self.state = kIssueStateClosed;
-	[self saveData];
-}
-
-- (void)reopenPullRequest {
-	self.state = kIssueStateOpen;
-	[self saveData];
-}
-
 #pragma mark Saving
 
-- (void)saveData {
-	NSString *path;
-	NSString *method;
+- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
+	NSString *path = nil;
+	NSString *method = nil;
 	if (self.isNew) {
 		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
 		method = kRequestMethodPost;
@@ -130,9 +123,11 @@
 		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
 		method = kRequestMethodPatch;
 	}
-	NSDictionary *values = @{@"title": self.title, @"body": self.body, @"state": self.state};
-	[self saveValues:values withPath:path andMethod:method useResult:^(id response) {
-		[self setValues:response];
+	[self saveWithParams:params path:path method:method success:^(GHResource *instance, id data) {
+		[self setValues:data];
+		if (success) success(self, data);
+	} failure:^(GHResource *instance, NSError *error) {
+		if (failure) failure(self, error);
 	}];
 }
 

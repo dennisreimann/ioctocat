@@ -38,15 +38,11 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
-
-- (IBAction)showActions:(id)sender;
-- (IBAction)addComment:(id)sender;
 @end
 
 
 @implementation IssueController
 
-NSString *const IssueSavingKeyPath = @"savingStatus";
 NSString *const IssueLoadingKeyPath = @"loadingStatus";
 NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 
@@ -86,7 +82,6 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.issue addObserver:self forKeyPath:IssueLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.issue addObserver:self forKeyPath:IssueSavingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	(self.issue.isLoaded) ? [self displayIssue] : [self.issue loadData];
 	(self.issue.comments.isLoaded) ? [self displayComments] : [self.issue.comments loadData];
 }
@@ -94,7 +89,6 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	[self.issue removeObserver:self forKeyPath:IssueLoadingKeyPath];
-	[self.issue removeObserver:self forKeyPath:IssueSavingKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -104,18 +98,6 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 		} else if (self.issue.error) {
 			[iOctocat reportLoadingError:@"Could not load the issue"];
 			[self.tableView reloadData];
-		}
-	} else if ([keyPath isEqualToString:IssueSavingKeyPath]) {
-		if (self.issue.isSaving) {
-			[SVProgressHUD showWithStatus:@"Saving issue…" maskType:SVProgressHUDMaskTypeGradient];
-		} else if (self.issue.isSaved) {
-			NSString *action = self.issue.isOpen ? @"reopened" : @"closed";
-			NSString *status = [NSString stringWithFormat:@"Issue %@", action];
-			[SVProgressHUD showSuccessWithStatus:status];
-			[self displayIssue];
-			[self.listController reloadIssues];
-		} else if (self.issue.error) {
-			[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
 		}
 	} else if ([keyPath isEqualToString:IssueCommentsLoadingKeyPath]) {
 		if (self.issue.comments.isLoading && self.issue.isLoaded) {
@@ -189,7 +171,7 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 			formController.delegate = self;
 			[self.navigationController pushViewController:formController animated:YES];
 		} else if (buttonIndex == 1) {
-			self.issue.isOpen ? [self.issue closeIssue] : [self.issue reopenIssue];
+			[self toggleIssueState];
 		} else if (buttonIndex == 2) {
 			[self addComment:nil];
 		} else if (buttonIndex == 3) {
@@ -211,6 +193,20 @@ NSString *const IssueCommentsLoadingKeyPath = @"comments.loadingStatus";
 	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)toggleIssueState {
+	NSDictionary *params = @{@"state": self.issue.isOpen ? kIssueStateClosed : kIssueStateOpen};
+	[SVProgressHUD showWithStatus:@"Saving issue…" maskType:SVProgressHUDMaskTypeGradient];
+	[self.issue saveWithParams:params success:^(GHResource *instance, id data) {
+		NSString *action = self.issue.isOpen ? @"reopened" : @"closed";
+		NSString *status = [NSString stringWithFormat:@"Issue %@", action];
+		[SVProgressHUD showSuccessWithStatus:status];
+		[self displayIssue];
+		[self.listController reloadIssues];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
+	}];
 }
 
 #pragma mark TableView

@@ -27,7 +27,6 @@
 	if (self) {
 		self.issueObject = object;
 		self.issueObjectType = [self.issueObject isKindOfClass:GHIssue.class] ? @"issue" : @"pull request";
-		[self.object addObserver:self forKeyPath:kResourceSavingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -46,37 +45,26 @@
 	return self.issueObject;
 }
 
-- (void)dealloc {
-	[self.object removeObserver:self forKeyPath:kResourceSavingStatusKeyPath];
-}
-
 - (IBAction)saveIssue:(id)sender {
-	self.object.title = self.titleField.text;
-	self.object.body = self.bodyField.text;
 	// validate
-	if ([self.object.title isEmpty] || [self.object.body isEmpty] ) {
+	if (self.titleField.text.isEmpty || self.bodyField.text.isEmpty) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a title and a text"];
 	} else {
 		self.saveButton.enabled = NO;
+		NSDictionary *params = @{@"title": self.titleField.text, @"body": self.bodyField.text};
 		NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
 		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
-		[self.object saveData];
-	}
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceSavingStatusKeyPath]) {
-		if (self.object.isSaving) return;
-		if (self.object.isSaved) {
+		[self.object saveWithParams:params success:^(GHResource *instance, id data) {
 			NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
 			[SVProgressHUD showSuccessWithStatus:status];
 			[self.delegate performSelector:@selector(savedIssueObject:) withObject:self.object];
 			[self.navigationController popViewControllerAnimated:YES];
-		} else if (self.object.error) {
+			self.saveButton.enabled = YES;
+		} failure:^(GHResource *instance, NSError *error) {
 			NSString *status = [NSString stringWithFormat:@"Could not save the %@…", self.issueObjectType];
 			[SVProgressHUD showErrorWithStatus:status];
-		}
-		self.saveButton.enabled = YES;
+			self.saveButton.enabled = YES;
+		}];
 	}
 }
 

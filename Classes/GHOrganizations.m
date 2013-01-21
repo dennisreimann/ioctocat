@@ -15,10 +15,6 @@
 	return self;
 }
 
-- (NSURLRequestCachePolicy)cachePolicy {
-	return NSURLRequestReloadIgnoringLocalCacheData;
-}
-
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {

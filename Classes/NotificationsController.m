@@ -42,14 +42,14 @@
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self setupPullToRefresh];
-	if (!self.resourceHasData) [self.tableView triggerPullToRefresh];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 	[self refreshLastUpdate];
 	[self refreshIfRequired];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -220,21 +220,27 @@
 
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
-			self.notificationsByRepository = [NSMutableDictionary dictionary];
-			for (GHNotification *notification in self.notifications.items) {
-				if (!self.notificationsByRepository[notification.repository.repoId]) {
-					self.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
+		if (weakSelf.notifications.canReload) {
+			[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
+				self.notificationsByRepository = [NSMutableDictionary dictionary];
+				for (GHNotification *notification in self.notifications.items) {
+					if (!self.notificationsByRepository[notification.repository.repoId]) {
+						self.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
+					}
+					[self.notificationsByRepository[notification.repository.repoId] addObject:notification];
 				}
-				[self.notificationsByRepository[notification.repository.repoId] addObject:notification];
-			}
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
+				[weakSelf refreshLastUpdate];
+				[weakSelf.tableView reloadData];
+			} failure:^(GHResource *instance, NSError *error) {
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
+				[iOctocat reportLoadingError:@"Could not load the notifications"];
+			}];
+		} else {
 			[weakSelf.tableView.pullToRefreshView stopAnimating];
-			[weakSelf refreshLastUpdate];
-			[weakSelf.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[weakSelf.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the notifications"];
-		}];
+			NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
+			[iOctocat reportWarning:@"Please wait…" with:message];
+		}
 	}];
 	[self.tableView.pullToRefreshView setCustomView:loadingView forState:SVPullToRefreshStateLoading];
 }
@@ -247,6 +253,7 @@
 
 // refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {
+	if (!self.notifications.canReload) return;
 	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
 	if (!self.resourceHasData || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
 		[self.tableView triggerPullToRefresh];

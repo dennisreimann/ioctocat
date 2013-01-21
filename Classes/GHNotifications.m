@@ -21,20 +21,15 @@
 	return self;
 }
 
-- (NSURLRequestCachePolicy)cachePolicy {
+// If there is a polling interval given by GitHub respect it:
+// Only reload in case the last update has passed the interval
+- (BOOL)canReload {
 	if (self.pollInterval) {
-		// If there is a polling interval give by GitHub respect it:
-		// Only reload in case the last update has passed the interval,
-		// otherwise use the cached data (default cache policy)
 		NSDate *threshold = [self.lastUpdate dateByAddingTimeInterval:self.pollInterval];
 		NSDate *now = [NSDate date];
-		if ([[threshold earlierDate:now] isEqualToDate:now]) {
-			return [super cachePolicy];
-		} else {
-			return NSURLRequestReloadIgnoringLocalCacheData;
-		}
+		return [[threshold earlierDate:now] isEqualToDate:threshold];
 	} else {
-		return NSURLRequestReloadIgnoringLocalCacheData;
+		return YES;
 	}
 }
 

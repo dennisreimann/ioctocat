@@ -31,10 +31,6 @@
 	self.loadingStatus = GHResourceStatusProcessed;
 }
 
-- (NSURLRequestCachePolicy)cachePolicy {
-	return NSURLRequestUseProtocolCachePolicy;
-}
-
 - (NSString *)resourceContentType {
 	return kResourceContentTypeDefault;
 }
@@ -63,7 +59,6 @@
 	self.loadingStatus = GHResourceStatusProcessing;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:kRequestMethodGet path:self.resourcePath parameters:nil];
-	request.cachePolicy = self.cachePolicy;
 	D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@", self.class, self.resourcePath, request.allHTTPHeaderFields);
 	void (^onSuccess)() = ^(AFHTTPRequestOperation *operation, id data) {
 		NSDictionary *headers = operation.response.allHeaderFields;

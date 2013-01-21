@@ -8,6 +8,7 @@
 @property(nonatomic,strong)NSDate *lastUpdate;
 @property(nonatomic,readwrite)NSInteger pollInterval;
 @property(nonatomic,readonly)NSInteger notificationsCount;
+@property(nonatomic,readonly)BOOL canReload;
 
 - (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure;

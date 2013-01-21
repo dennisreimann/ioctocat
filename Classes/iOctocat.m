@@ -39,10 +39,9 @@
 #pragma mark Application Events
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	[[NSURLCache sharedURLCache] setMemoryCapacity: 0];
-	[[NSURLCache sharedURLCache] setDiskCapacity:0];
-	[self setupHockeySDK];
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+	[self deactivateURLCache];
+	[self setupHockeySDK];
 	self.slidingViewController.anchorRightRevealAmount = 230;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
 	[self.window makeKeyAndVisible];
@@ -119,9 +118,7 @@
 	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
 	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
 	if (betaId || liveId) {
-		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId
-															 liveIdentifier:liveId
-																   delegate:self];
+		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
 		[[BITHockeyManager sharedHockeyManager] startManager];
 	}
 }
@@ -242,9 +239,7 @@
 		D3JLog(@"System status request failed: %@", error);
 	};
 	D3JLog(@"System status request: %@ %@", method, path);
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-																						success:onSuccess
-																						failure:onFailure];
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
 	[operation start];
 }
 
@@ -258,6 +253,14 @@
 	[defaults synchronize];
 }
 
+// NSURLCache seems to have a problem with Cache-Control="private" headers.
+// Most resources of GitHubs API use this header and the response gets cached
+// longer than the interval given by GitHub (in most cases 60 seconds).
+// This way we lose caching, but its still better than unexpected results. 
+- (void)deactivateURLCache {
+	[[NSURLCache sharedURLCache] setMemoryCapacity:0];
+	[[NSURLCache sharedURLCache] setDiskCapacity:0];
+}
 
 #pragma mark Autorotation
 

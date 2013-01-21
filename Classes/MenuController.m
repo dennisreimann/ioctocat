@@ -32,6 +32,7 @@
 
 #define kCellHeight 44.0f
 #define kSectionHeaderHeight 24.0f
+#define kNotificationsCountKeyPath @"notificationsCount"
 
 @interface MenuController ()
 @property(nonatomic,strong)GHUser *user;
@@ -48,8 +49,7 @@
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
 		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.notifications addObserver:self forKeyPath:@"notificationsCount" options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user.notifications addObserver:self forKeyPath:kNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -61,17 +61,31 @@
 	self.tableView.separatorColor = self.lightBackgroundColor;
 	// disable scroll-to-top for the menu, so that the main controller receives the event
 	self.tableView.scrollsToTop = NO;
-	if (!self.user.notifications.isLoaded) [self.user.notifications loadData];
-	if (!self.user.organizations.isLoaded) [self.user.organizations loadData];
+	// open first view controller
 	MyEventsController *myEventsController = [[MyEventsController alloc] initWithUser:self.user];
 	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
 	[self openViewController:myEventsController];
+	// load resources
+	if (!self.user.notifications.isLoaded) {
+		[self.user.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
+			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+			[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+		} failure:nil];
+	}
+	if (!self.user.organizations.isLoaded) {
+		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
+		}];
+	}
+
 }
 
 - (void)dealloc {
 	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[self.user.notifications removeObserver:self forKeyPath:@"notificationsCount"];
-	[self.user.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	[self.user.notifications removeObserver:self forKeyPath:kNotificationsCountKeyPath];
 }
 
 - (void)openViewControllerForGitHubURL:(NSURL *)url {
@@ -130,10 +144,7 @@
 
 - (void)openViewController:(UIViewController *)viewController {
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:[self.class menuButtonImage]
-																   style:UIBarButtonItemStylePlain
-																  target:self
-																  action:@selector(toggleTopView)];
+	UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:[self.class menuButtonImage] style:UIBarButtonItemStylePlain target:self action:@selector(toggleTopView)];
 	navController.view.layer.shadowOpacity = 0.8f;
 	navController.view.layer.shadowRadius = 5;
 	navController.view.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -153,13 +164,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (object == self.user.organizations && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		if (self.user.organizations.isLoaded) {
-			[self.tableView reloadData];
-		} else if (!self.user.organizations.isLoading && self.user.organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}
-	} else if (object == self.user.notifications) {
+	if (object == self.user.notifications && [keyPath isEqualToString:kNotificationsCountKeyPath]) {
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	} else if (object == self.user && [keyPath isEqualToString:kGravatarKeyPath]) {

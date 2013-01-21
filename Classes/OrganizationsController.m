@@ -5,6 +5,7 @@
 #import "GHOrganization.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface OrganizationsController ()
@@ -22,8 +23,7 @@
     self = [super initWithNibName:@"Organizations" bundle:nil];
 	if (self) {
 		self.organizations = organizations;
-		[self.organizations addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-    }
+	}
     return self;
 }
 
@@ -31,30 +31,29 @@
     [super viewDidLoad];
     self.navigationItem.title = @"Organizations";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	if (!self.organizations.isLoaded) [self.organizations loadData];
-}
-
-- (void)dealloc {
-	[self.organizations removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
+	if (!self.organizations.isLoaded) {
+		[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
+		}];
+	}
 }
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		if (!self.organizations.isLoading && self.organizations.error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}
-	}
-}
-
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	[self.organizations loadData];
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 #pragma mark TableView

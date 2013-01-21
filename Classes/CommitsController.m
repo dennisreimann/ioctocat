@@ -20,26 +20,18 @@
 	if (self) {
 		self.title = @"Commits";
 		self.commits = commits;
-		[self.commits addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (!self.commits.isLoaded) [self.commits loadData];
-}
-
-- (void)dealloc {
-	[self.commits removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		if (!self.commits.isLoading && self.commits.error) {
+	if (!self.commits.isLoaded) {
+		[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the commits"];
-		}
+		}];
 	}
 }
 

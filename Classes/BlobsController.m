@@ -12,8 +12,6 @@
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 @property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
-
-- (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl;
 @end
 
 
@@ -28,10 +26,6 @@
 	return self;
 }
 
-- (void)dealloc {
-	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
@@ -43,22 +37,6 @@
 	[self.contentView stopLoading];
 	self.contentView.delegate = nil;
 	[super viewWillDisappear:animated];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHBlob *blob = (GHBlob *)object;
-		// check if it's the current blob, because we might get notified
-		// about a blob that has been loaded but is not the current one
-		if (blob != self.blob) return;
-		if (blob.isLoading) {
-			[SVProgressHUD show];
-		} else {
-			[self displayBlob:blob];
-			if (!blob.error) return;
-			[iOctocat reportLoadingError:@"Could not load the file"];
-		}
-	}
 }
 
 #pragma mark Actions
@@ -103,11 +81,20 @@
 
 - (void)setBlob:(GHBlob *)blob {
 	if (blob == self.blob) return;
-	[blob addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self.blob removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
 	_blob = blob;
 	self.title = self.blob.path;
-	self.blob.isLoaded ? [self displayBlob:blob] : [self.blob loadData];
+	if (self.blob.isLoaded) {
+		[self displayBlob:blob];
+	} else {
+		[SVProgressHUD show];
+		// when done, check if it's the current blob, because we might get notified
+		// about a blob that has been loaded but is not the current one
+		[self.blob loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (blob == self.blob) [self displayBlob:blob];
+		} failure:^(GHResource *instance, NSError *error) {
+			if (blob == self.blob) [iOctocat reportLoadingError:@"Could not load the file"];
+		}];
+	}
 	// Update navigation control
 	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:0];
 	[self.navigationControl setEnabled:(self.index < self.blobs.count-1) forSegmentAtIndex:1];

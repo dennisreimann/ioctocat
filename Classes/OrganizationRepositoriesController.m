@@ -7,6 +7,8 @@
 #import "GHOrganization.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
+
 
 #define kLoadingCellIdentifier @"LoadingCell"
 #define kEmptyCellIdentifier @"EmptyCell"
@@ -88,14 +90,15 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
+	[SVProgressHUD showWithStatus:@"Reloading…"];
 	for (GHOrganization *org in self.user.organizations.items) {
 		[org.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayRepositories:(GHRepositories *)instance];
+			[SVProgressHUD dismiss];
+			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
+			[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 		}];
 	}
-	[self.tableView reloadData];
 }
 
 #pragma mark TableView

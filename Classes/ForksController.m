@@ -18,29 +18,22 @@
 	if (self) {
 		self.title = @"Forks";
 		self.repository = repo;
-		[self.repository.forks addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (![self.currentForks isLoaded]) [self.currentForks loadData];
-}
-
-- (void)dealloc {
-	[self.repository.forks removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		GHForks *theForks = (GHForks *)object;
-		if (theForks.error) {
+	if (!self.currentForks.isLoaded) {
+		[self.currentForks loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the forks"];
-		}
+		}];
 	}
 }
+
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;

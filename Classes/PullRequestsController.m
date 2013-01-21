@@ -26,25 +26,19 @@
 		self.title = @"Pull Requests";
 		self.repository = repo;
 		self.objects = @[self.repository.openPullRequests, self.repository.closedPullRequests];
-		for (id object in self.objects) {
-			[object addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		}
 	}
 	return self;
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.pullRequestsControl.selectedSegmentIndex = 0;
 	self.navigationItem.titleView = self.pullRequestsControl;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	if (!self.currentPullRequests.isLoaded) [self.currentPullRequests loadData];
+	self.pullRequestsControl.selectedSegmentIndex = 0;
 }
 
-- (void)dealloc {
-	for (id object in self.objects) {
-		[object removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-	}
+- (void)viewWillAppear:(BOOL)animated {
+	[self switchChanged:nil];
 }
 
 - (GHIssues *)currentPullRequests {
@@ -58,7 +52,11 @@
 	[self.tableView reloadData];
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentPullRequests.isLoaded) return;
-	[self.currentPullRequests loadData];
+	[self.currentPullRequests loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[iOctocat reportLoadingError:@"Could not load the pull requests"];
+	}];
 	[self.tableView reloadData];
 }
 
@@ -73,21 +71,7 @@
 }
 
 - (void)reloadPullRequests {
-	for (id object in self.objects) {
-		[object loadData];
-	}
-	[self.tableView reloadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHPullRequests *pullRequests = (GHPullRequests *)object;
-		if (pullRequests.isLoaded) {
-			[self.tableView reloadData];
-		} else if (pullRequests.error) {
-			[iOctocat reportLoadingError:@"Could not load the pull requests"];
-		}
-	}
+	for (GHPullRequests *pullRequests in self.objects) [pullRequests needsReload];
 }
 
 #pragma mark TableView

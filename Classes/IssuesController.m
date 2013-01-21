@@ -58,6 +58,9 @@
 		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewIssue:)] :
 		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	self.issuesControl.selectedSegmentIndex = 0;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
 	[self switchChanged:nil];
 }
 
@@ -98,8 +101,7 @@
 }
 
 - (void)reloadIssues {
-	for (GHIssues *issues in self.objects) [issues loadData];
-	[self.tableView reloadData];
+	for (GHIssues *issues in self.objects) [issues needsReload];
 }
 
 // delegation method for newly created issues

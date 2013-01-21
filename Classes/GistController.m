@@ -35,15 +35,10 @@
 
 @implementation GistController
 
-NSString *const GistLoadingKeyPath = @"loadingStatus";
-NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
-
 - (id)initWithGist:(GHGist *)gist {
 	self = [super initWithNibName:@"Gist" bundle:nil];
 	if (self) {
 		self.gist = gist;
-		[self.gist addObserver:self forKeyPath:GistLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.gist addObserver:self forKeyPath:GistCommentsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -52,27 +47,39 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 	[super viewDidLoad];
 	self.title = @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	[self displayGist];
+	// load gist
+	if (!self.gist.isLoaded) {
+		[self.gist loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayGist];
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"The gist could not be loaded"];
+		}];
+	}
 	// check starring state
 	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
 		self.isStarring = YES;
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isStarring = NO;
 	}];
-	// Background
+	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	(self.gist.isLoaded) ? [self displayGist] : [self.gist loadData];
-	(self.gist.comments.isLoaded) ? [self displayComments] : [self.gist.comments loadData];
-}
-
-- (void)dealloc {
-	[self.gist removeObserver:self forKeyPath:GistCommentsLoadingKeyPath];
-	[self.gist removeObserver:self forKeyPath:GistLoadingKeyPath];
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	if (!self.gist.comments.isLoaded) {
+		[self.gist.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+			if (!self.gist.isLoaded) return;
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the comments"];
+		}];
+	}
 }
 
 - (GHUser *)currentUser {
@@ -104,31 +111,6 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 		self.ownerLabel.text = [NSString stringWithFormat:@"%@, %@", self.gist.user ? self.gist.user.login : @"unknown user", [self.gist.createdAtDate prettyDate]];
 		self.numbersLabel.text = self.gist.isLoaded ? [NSString stringWithFormat:@"%d %@", self.gist.forksCount, self.gist.forksCount == 1 ? @"fork" : @"forks"] : @"";
 	}
-	[self.tableView reloadData];
-}
-
-- (void)displayComments {
-	[self.tableView reloadData];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:GistLoadingKeyPath]) {
-		if (self.gist.isLoaded) {
-			[self displayGist];
-		} else if (self.gist.error) {
-			[iOctocat reportLoadingError:@"The gist could not be loaded completely"];
-			[self.tableView reloadData];
-		}
-	} else if ([keyPath isEqualToString:GistCommentsLoadingKeyPath]) {
-		if (self.gist.comments.isLoading && self.gist.isLoaded) {
-			[self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-		} else if (self.gist.comments.isLoaded) {
-			[self displayComments];
-		} else if (self.gist.comments.error && !self.gist.error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-			[self.tableView reloadData];
-		}
-	}
 }
 
 - (IBAction)addComment:(id)sender {
@@ -158,7 +140,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (!self.gist.isLoaded) ? 1 : 2;
+	return self.gist.isLoaded ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -205,11 +187,7 @@ NSString *const GistCommentsLoadingKeyPath = @"comments.loadingStatus";
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	if (section == 1) {
-		return self.tableFooterView;
-	} else {
-		return nil;
-	}
+	return section == 1 ? self.tableFooterView : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

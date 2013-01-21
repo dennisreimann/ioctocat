@@ -19,28 +19,22 @@
     self = [super initWithNibName:@"Users" bundle:nil];
 	if (self) {
 		self.users = users;
-		[self.users addObserver:self forKeyPath:kResourceLoadingStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (!self.users.isLoaded) [self.users loadData];
-}
-
-- (void)dealloc {
-	[self.users removeObserver:self forKeyPath:kResourceLoadingStatusKeyPath];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-    if ([keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		[self.tableView reloadData];
-		if (!self.users.isLoading && self.users.error) {
+    if (!self.users.isLoaded) {
+		[self.users loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self.tableView reloadData];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the users"];
-		}
+		}];
 	}
 }
+
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;

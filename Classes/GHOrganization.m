@@ -22,14 +22,12 @@
 	self = [self init];
 	if (self) {
 		self.login = login;
-		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 	}
 	return self;
 }
 
 - (NSUInteger)hash {
-	NSString *hashValue = [self.login lowercaseString];
-	return [hashValue hash];
+	return [[self.login lowercaseString] hash];
 }
 
 - (int)compareByName:(GHOrganization *)otherOrg {
@@ -38,15 +36,16 @@
 
 - (void)setLogin:(NSString *)login {
 	_login = login;
-
-	NSString *repositoriesPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, self.login];
-	NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, self.login];
-	NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, self.login];
-
+	self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 	self.resourcePath = [NSString stringWithFormat:kOrganizationFormat, self.login];
-	self.repositories = [[GHRepositories alloc] initWithPath:repositoriesPath];
-	self.publicMembers = [[GHUsers alloc] initWithPath:membersPath];
-	self.events = [[GHEvents alloc] initWithPath:eventsPath];
+}
+
+- (void)setGravatarURL:(NSURL *)url {
+	_gravatarURL = url;
+	if (self.gravatarURL && !self.gravatar) {
+		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(setGravatar:)];
+		[self.gravatarLoader loadURL:self.gravatarURL];
+	}
 }
 
 - (void)setValues:(id)dict {
@@ -58,7 +57,7 @@
 		NSString *state = [email safeStringForKey:@"state"];
 		email = [state isEqualToString:@"verified"] ? [dict safeStringForKey:@"email"] : nil;
 	}
-	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = login;
+	if (!login.isEmpty && ![self.login isEqualToString:login]) self.login = login;
 	self.name = [resource safeStringForKey:@"name"];
 	self.email = email;
 	self.company = [resource safeStringForKey:@"company"];
@@ -74,19 +73,30 @@
 	self.privateRepoCount = [resource safeIntegerForKey:@"total_private_repos"];
 }
 
-#pragma mark Gravatar
+#pragma mark Associations
 
-- (void)setGravatarURL:(NSURL *)url {
-	_gravatarURL = url;
-
-	if (self.gravatarURL && !self.gravatar) {
-		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
-		[self.gravatarLoader loadURL:self.gravatarURL];
+- (GHRepositories *)repositories {
+	if (!_repositories) {
+		NSString *reposPath = [NSString stringWithFormat:kOrganizationRepositoriesFormat, self.login];
+		_repositories = [[GHRepositories alloc] initWithPath:reposPath];
 	}
+	return _repositories;
 }
 
-- (void)loadedGravatar:(UIImage *)image {
-	self.gravatar = image;
+- (GHUsers *)publicMembers {
+	if (!_publicMembers) {
+		NSString *membersPath = [NSString stringWithFormat:kOrganizationMembersFormat, self.login];
+		_publicMembers = [[GHUsers alloc] initWithPath:membersPath];
+	}
+	return _publicMembers;
+}
+
+- (GHEvents *)events {
+	if (!_events) {
+		NSString *eventsPath = [NSString stringWithFormat:kOrganizationEventsFormat, self.login];
+		_events = [[GHEvents alloc] initWithPath:eventsPath];
+	}
+	return _events;
 }
 
 @end

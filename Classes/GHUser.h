@@ -32,8 +32,6 @@
 @property(nonatomic,assign)NSUInteger followingCount;
 
 - (id)initWithLogin:(NSString *)login;
-- (void)setLogin:(NSString *)login;
-- (void)loadedGravatar:(UIImage *)image;
 - (void)setFollowing:(BOOL)follow forUser:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)setStarring:(BOOL)starred forRepository:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;

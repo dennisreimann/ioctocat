@@ -25,15 +25,13 @@
 	self = [self init];
 	if (self) {
 		self.login = login;
-		self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 		self.isAuthenticated = NO;
 	}
 	return self;
 }
 
 - (NSUInteger)hash {
-	NSString *hashValue = [self.login lowercaseString];
-	return [hashValue hash];
+	return [[self.login lowercaseString] hash];
 }
 
 - (int)compareByName:(GHUser *)otherUser {
@@ -42,34 +40,21 @@
 
 - (void)setLogin:(NSString *)login {
 	_login = login;
-
-	NSString *repositoriesPath  = [NSString stringWithFormat:kUserReposFormat, self.login];
-	NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, self.login];
-	NSString *watchedReposPath  = [NSString stringWithFormat:kUserWatchedReposFormat, self.login];
-	NSString *starredReposPath  = [NSString stringWithFormat:kUserStarredReposFormat, self.login];
-	NSString *followingPath     = [NSString stringWithFormat:kUserFollowingFormat, self.login];
-	NSString *followersPath     = [NSString stringWithFormat:kUserFollowersFormat, self.login];
-	NSString *eventsPath        = [NSString stringWithFormat:kUserEventsFormat, self.login];
-	NSString *gistsPath         = [NSString stringWithFormat:kUserGistsFormat, self.login];
-	NSString *starredGistsPath  = [NSString stringWithFormat:kStarredGistsFormat];
-
+	self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];
 	self.resourcePath = [NSString stringWithFormat:kUserFormat, self.login];
-	self.organizations = [[GHOrganizations alloc] initWithUser:self andPath:organizationsPath];
-	self.repositories = [[GHRepositories alloc] initWithPath:repositoriesPath];
-	self.starredRepositories = [[GHRepositories alloc] initWithPath:starredReposPath];
-	self.watchedRepositories = [[GHRepositories alloc] initWithPath:watchedReposPath];
-	self.starredGists = [[GHGists alloc] initWithPath:starredGistsPath];
-	self.following = [[GHUsers alloc] initWithPath:followingPath];
-	self.followers = [[GHUsers alloc] initWithPath:followersPath];
-	self.events = [[GHEvents alloc] initWithPath:eventsPath];
-	self.gists = [[GHGists alloc] initWithPath:gistsPath];
 }
 
-#pragma mark Loading
+- (void)setGravatarURL:(NSURL *)url {
+	_gravatarURL = url;
+	if (self.gravatarURL && !self.gravatar) {
+		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(setGravatar:)];
+		[self.gravatarLoader loadURL:self.gravatarURL];
+	}
+}
 
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKey:@"login"];
-	if (![login isEmpty] && ![self.login isEqualToString:login]) self.login = [dict safeStringForKey:@"login"];
+	if (!login.isEmpty && ![self.login isEqualToString:login]) self.login = [dict safeStringForKey:@"login"];
 	// TODO: Remove email check once the API change is done.
 	id email = [dict valueForKeyPath:@"email" defaultsTo:nil];
 	if ([email isKindOfClass:NSDictionary.class]) {
@@ -90,6 +75,80 @@
 	self.followersCount = [dict safeIntegerForKey:@"followers"];
 	self.followingCount = [dict safeIntegerForKey:@"following"];
 	self.isAuthenticated = [dict safeDictForKey:@"plan"] ? YES : NO;
+}
+
+#pragma mark Associations
+
+- (GHOrganizations *)organizations {
+	if (!_organizations) {
+		NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, self.login];
+		_organizations = [[GHOrganizations alloc] initWithUser:self andPath:organizationsPath];
+	}
+	return _organizations;
+}
+
+- (GHRepositories *)repositories {
+	if (!_repositories) {
+		NSString *reposPath = [NSString stringWithFormat:kUserReposFormat, self.login];
+		_repositories = [[GHRepositories alloc] initWithPath:reposPath];
+	}
+	return _repositories;
+}
+
+- (GHRepositories *)starredRepositories {
+	if (!_starredRepositories) {
+		NSString *starredReposPath = [NSString stringWithFormat:kUserStarredReposFormat, self.login];
+		_starredRepositories = [[GHRepositories alloc] initWithPath:starredReposPath];
+	}
+	return _starredRepositories;
+}
+
+- (GHRepositories *)watchedRepositories {
+	if (!_watchedRepositories) {
+		NSString *watchedReposPath = [NSString stringWithFormat:kUserWatchedReposFormat, self.login];
+		_watchedRepositories = [[GHRepositories alloc] initWithPath:watchedReposPath];
+	}
+	return _watchedRepositories;
+}
+
+- (GHGists *)gists {
+	if (!_gists) {
+		NSString *gistsPath = [NSString stringWithFormat:kUserGistsFormat, self.login];
+		_gists = [[GHGists alloc] initWithPath:gistsPath];
+	}
+	return _gists;
+}
+
+- (GHGists *)starredGists {
+	if (!_starredGists) {
+		NSString *starredGistsPath = [NSString stringWithFormat:kStarredGistsFormat];
+		_starredGists = [[GHGists alloc] initWithPath:starredGistsPath];
+	}
+	return _starredGists;
+}
+
+- (GHUsers *)following {
+	if (!_following) {
+		NSString *followingPath = [NSString stringWithFormat:kUserFollowingFormat, self.login];
+		_following = [[GHUsers alloc] initWithPath:followingPath];
+	}
+	return _following;
+}
+
+- (GHUsers *)followers {
+	if (!_followers) {
+		NSString *followersPath = [NSString stringWithFormat:kUserFollowersFormat, self.login];
+		_followers = [[GHUsers alloc] initWithPath:followersPath];
+	}
+	return _followers;
+}
+
+- (GHEvents *)events {
+	if (!_events) {
+		NSString *eventsPath = [NSString stringWithFormat:kUserEventsFormat, self.login];
+		_events = [[GHEvents alloc] initWithPath:eventsPath];
+	}
+	return _events;
 }
 
 #pragma mark Following
@@ -204,20 +263,6 @@
 		if (failure) failure(self, error);
 	}];
 
-}
-
-#pragma mark Gravatar
-
-- (void)setGravatarURL:(NSURL *)url {
-	_gravatarURL = url;
-	if (self.gravatarURL && !self.gravatar) {
-		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(loadedGravatar:)];
-		[self.gravatarLoader loadURL:self.gravatarURL];
-	}
-}
-
-- (void)loadedGravatar:(UIImage *)image {
-	self.gravatar = image;
 }
 
 @end

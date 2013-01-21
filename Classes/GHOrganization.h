@@ -24,6 +24,4 @@
 @property(nonatomic,assign)NSUInteger privateRepoCount;
 
 - (id)initWithLogin:(NSString *)login;
-- (void)setLogin:(NSString *)login;
-- (void)loadedGravatar:(UIImage *)image;
 @end

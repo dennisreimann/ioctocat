@@ -25,14 +25,8 @@ typedef void (^resourceFailure)(GHResource *instance, NSError *error);
 - (void)markAsLoaded;
 - (void)setHeaderValues:(NSDictionary *)values;
 - (void)setValues:(id)response;
-- (NSString *)resourceContentType;
-
-// FIXME: This is the old interface used all over the app.
-// Please use the new one underneath in the future!
-- (void)loadData;
-
-// TODO: Use new interface throughout the app
 - (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method  success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (NSString *)resourceContentType;
 @end

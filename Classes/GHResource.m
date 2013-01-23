@@ -47,13 +47,6 @@
 
 #pragma mark Loading
 
-// FIXME: This is the old interface used all over the app.
-// Please use the new one underneath in the future!
-- (void)loadData {
-	[self loadWithParams:nil success:nil failure:nil];
-}
-
-// TODO: Use new interface throughout the app
 - (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
 	[self loadWithParams:params path:self.resourcePath method:kRequestMethodGet success:success failure:failure];
 }

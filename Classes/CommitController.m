@@ -104,8 +104,6 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 	self.dateLabel.text = [self.commit.committedDate prettyDate];
     if (self.commit.author.gravatar) {
 		self.gravatarView.image = self.commit.author.gravatar;
-	} else if (!self.commit.author.gravatarURL) {
-		[self.commit.author loadData];
 	}
 	[self.repoCell setContentText:self.commit.repository.repoId];
 	[self.authorCell setContentText:self.commit.author.login];

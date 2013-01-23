@@ -1,12 +1,13 @@
 # CHANGELOG
 
-## v1.7.2
+## v1.7.5
 
 Additions:
 
 * Check GitHub system status on app activation
 * Notifications support (push notifications will be added soon)
 * Added reload button for organizations
+* Added full commit message text to commit view
 
 Changes:
 

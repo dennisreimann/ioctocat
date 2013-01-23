@@ -27,6 +27,7 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *committerCell;
+@property(nonatomic,strong)IBOutlet TextCell *messageCell;
 @property(nonatomic,strong)IBOutlet FilesCell *addedCell;
 @property(nonatomic,strong)IBOutlet FilesCell *modifiedCell;
 @property(nonatomic,strong)IBOutlet FilesCell *removedCell;
@@ -108,6 +109,7 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 	[self.repoCell setContentText:self.commit.repository.repoId];
 	[self.authorCell setContentText:self.commit.author.login];
 	[self.committerCell setContentText:self.commit.committer.login];
+	[self.messageCell setContentText:self.commit.message];
 	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
 	[self.removedCell setFiles:self.commit.removed andDescription:@"removed"];
 	[self.modifiedCell setFiles:self.commit.modified andDescription:@"modified"];
@@ -146,7 +148,7 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (!self.commit.isLoaded) return 1;
-	if (section == 0) return 3;
+	if (section == 0) return 4;
 	if (section == 1) return 3;
 	if (!self.commit.comments.isLoaded) return 1;
 	if (self.commit.comments.isEmpty) return 1;
@@ -170,6 +172,7 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 	if (indexPath.section == 0 && indexPath.row == 0) return self.repoCell;
 	if (indexPath.section == 0 && indexPath.row == 1) return self.authorCell;
 	if (indexPath.section == 0 && indexPath.row == 2) return self.committerCell;
+	if (indexPath.section == 0 && indexPath.row == 3) return self.messageCell;
 	if (indexPath.section == 1 && indexPath.row == 0) return self.addedCell;
 	if (indexPath.section == 1 && indexPath.row == 1) return self.removedCell;
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
@@ -186,7 +189,11 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 2 && self.commit.comments.isLoaded && !self.commit.comments.isEmpty) {
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	if (section == 0 && row == 3) {
+		return [self.messageCell heightForTableView:tableView];
+	} else if (section == 2 && self.commit.comments.isLoaded && !self.commit.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}

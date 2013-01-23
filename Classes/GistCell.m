@@ -15,6 +15,7 @@
 	self.detailTextLabel.font = [UIFont systemFontOfSize:13];
 	self.selectionStyle = UITableViewCellSelectionStyleBlue;
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	self.opaque = YES;
 	return self;
 }
 

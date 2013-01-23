@@ -23,6 +23,7 @@
 	self.imageView.contentMode = UIViewContentModeScaleAspectFit;
 	self.imageView.layer.cornerRadius = 3;
 	self.imageView.layer.masksToBounds = YES;
+	self.opaque = YES;
 	return self;
 }
 

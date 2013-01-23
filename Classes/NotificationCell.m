@@ -20,6 +20,7 @@
 	[accessoryButton setBackgroundImage:[UIImage imageNamed:@"Remove@2x.png"] forState:UIControlStateNormal];
 	[accessoryButton addTarget:self action:@selector(accessoryButtonTapped:withEvent:) forControlEvents:UIControlEventTouchUpInside];
 	self.accessoryView = accessoryButton;
+	self.opaque = YES;
 	return self;
 }
 

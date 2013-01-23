@@ -30,4 +30,18 @@
 	expect(self.commit.modified.count).to.equal(26);
 }
 
+- (void)testShortenedSHA {
+	expect(self.commit.shortenedSha).to.equal(@"thelon");
+}
+
+- (void)testShortenedMessage {
+	self.commit.message = @"Refactoring: PullRequestController\n\nUse blocks instead of KVO";
+	expect(self.commit.shortenedMessage).to.equal(@"Refactoring: PullRequestController");
+}
+
+- (void)testExtendedMessage {
+	self.commit.message = @"Refactoring: PullRequestController\n\nUse blocks instead of KVO\nTest 1\n\nTest 2\n";
+	expect(self.commit.extendedMessage).to.equal(@"Use blocks instead of KVO\nTest 1\n\nTest 2");
+}
+
 @end

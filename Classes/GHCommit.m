@@ -50,4 +50,19 @@
 	[self.modified markAsLoaded];
 }
 
+- (NSString *)shortenedSha {
+	return [self.commitID substringToIndex:6];
+}
+
+- (NSString *)shortenedMessage {
+	return [self.message componentsSeparatedByString:@"\n"][0];
+}
+
+- (NSString *)extendedMessage {
+	int loc = [self.message rangeOfString:@"\n"].location;
+	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	NSString *ext = [self.message substringFromIndex:loc];
+	return [ext stringByTrimmingCharactersInSet:trimSet];
+}
+
 @end

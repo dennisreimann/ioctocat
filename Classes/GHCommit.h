@@ -19,6 +19,9 @@
 @property(nonatomic,strong)GHUser *committer;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHRepoComments *comments;
+@property(nonatomic,readonly)NSString *shortenedSha;
+@property(nonatomic,readonly)NSString *shortenedMessage;
+@property(nonatomic,readonly)NSString *extendedMessage;
 
 - (id)initWithRepository:(GHRepository *)repo andCommitID:(NSString *)commitID;
 @end

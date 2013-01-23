@@ -47,27 +47,14 @@ NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	_commit = commit;
 	[self.commit addObserver:self forKeyPath:AuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.imageView.image = self.commit.author.gravatar ? self.commit.author.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
-	self.textLabel.text = [self shortenMessage:self.commit.message];
-	self.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", self.commit.author.login, [self.commit.committedDate prettyDate]];
+	self.textLabel.text = self.commit.shortenedMessage;
+	self.detailTextLabel.text = [NSString stringWithFormat:@"%@ - %@", self.commit.author.login, self.commit.committedDate ? [self.commit.committedDate prettyDate] : self.commit.shortenedSha];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:AuthorGravatarKeyPath] && self.commit.author.gravatar) {
 		self.imageView.image = self.commit.author.gravatar;
 	}
-}
-
-- (NSString *)shortenMessage:(NSString *)longMessage {
-	NSArray *comps = [longMessage componentsSeparatedByString:@"\n"];
-	return comps[0];
-}
-
-- (NSString *)shortenSha:(NSString *)longSha {
-	return [longSha substringToIndex:6];
-}
-
-- (NSString *)shortenRef:(NSString *)longRef {
-	return [longRef lastPathComponent];
 }
 
 @end

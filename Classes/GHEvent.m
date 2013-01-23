@@ -202,7 +202,8 @@
 
 	@try {
 		if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
-			NSString *commitId = [self shortenSha:[self.payload valueForKeyPath:@"comment.commit_id"]];
+			GHCommit *commit = self.commits[0];
+			NSString *commitId = commit.shortenedSha;
 			self.title = [NSString stringWithFormat:@"%@ commented on %@ at %@", self.user.login, commitId, self.repoName];
 		}
 
@@ -357,7 +358,7 @@
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {
 			NSMutableArray *messages = [NSMutableArray arrayWithCapacity:self.commits.count];
 			for (GHCommit *commit in self.commits.items) {
-				NSString *formatted = [NSString stringWithFormat:@"• %@", [self shortenMessage:commit.message]];
+				NSString *formatted = [NSString stringWithFormat:@"• %@", commit.shortenedMessage];
 				[messages addObject:formatted];
 			}
 			self.content = [messages componentsJoinedByString:@"\n"];
@@ -373,15 +374,6 @@
 	}
 
 	return _content;
-}
-
-- (NSString *)shortenMessage:(NSString *)longMessage {
-	NSArray *comps = [longMessage componentsSeparatedByString:@"\n"];
-	return comps[0];
-}
-
-- (NSString *)shortenSha:(NSString *)longSha {
-	return [longSha substringToIndex:6];
 }
 
 - (NSString *)shortenRef:(NSString *)longRef {

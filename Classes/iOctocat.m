@@ -13,6 +13,7 @@
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
 #import "Orbiter.h"
+#import "NSUserDefaults+GroundControl.h"
 #import "NSDate+Nibware.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
@@ -51,6 +52,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 	[self checkAvatarCache];
 	[self checkGitHubSystemStatus];
+	[self contactGroundControl];
 }
 
 - (void)setCurrentAccount:(GHAccount *)account {
@@ -90,7 +92,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSURL *serverURL = [NSURL URLWithString:@"http://ioctocat.com/"];
+    NSURL *serverURL = [NSURL URLWithString:@"https://ioctocat.com/push/"];
     Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:serverURL credential:nil];
     [orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
         DJLog(@"Registration Success: %@", responseObject);
@@ -110,6 +112,19 @@
 	} else {
 		return NO;
 	}
+}
+
+- (void)contactGroundControl {
+    #ifdef CONFIGURATION_Release
+    NSURL *url = [NSURL URLWithString:@"https://ioctocat.com/app/defaults.plist"];
+    #else
+    NSURL *url = [NSURL URLWithString:@"https://ioctocat.com/app/defaults-beta.plist"];
+    #endif
+    [[NSUserDefaults standardUserDefaults] registerDefaultsWithURL:url success:^(NSDictionary *defaults) {
+        DJLog(@"Defaults from GroundControl:\n\n%@", defaults);
+    } failure:^(NSError *error) {
+        NSLog(@"Error fetching defaults from GroundControl:\n\n%@\n\nUser info: %@", error, error.userInfo);
+    }];
 }
 
 - (void)setupHockeySDK {

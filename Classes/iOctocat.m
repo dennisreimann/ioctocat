@@ -228,11 +228,14 @@
 		D3JLog(@"System status request finished: %@", json);
 		NSString *status = [json safeStringForKey:@"status"];
 		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
-			NSString *title = [NSString stringWithFormat:@"GitHub System %@", [status isEqualToString:@"major"] ? @"Error" : @"Warning"];
 			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
 			NSString *body = [json safeStringForKey:@"body"];
 			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
-			[iOctocat reportError:title with:message];
+			if ([status isEqualToString:@"major"]) {
+				[iOctocat reportError:@"GitHub System Error" with:message];
+			} else {
+				[iOctocat reportWarning:@"GitHub System Warning" with:message];
+			}
 		}
 	};
 	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {

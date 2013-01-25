@@ -16,6 +16,7 @@ Changes:
 * Finetuned the icon. Thanks @benjaminrabe
 * Improved code highlighting
 * Improved repository view header
+* Improved gist view
 
 Bugfixes:
 

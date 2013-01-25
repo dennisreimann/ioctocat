@@ -47,6 +47,7 @@
 	self.forksCount = [dict safeArrayForKey:@"forks"].count;
 	self.commentsCount = [dict safeIntegerForKey:@"comments"];
 	self.createdAtDate = [dict safeDateForKey:@"created_at"];
+	self.updatedAtDate = [dict safeDateForKey:@"updated_at"];
 }
 
 @end

@@ -12,7 +12,7 @@ PODS:
 - Orbiter (0.0.1):
   - AFNetworking (>= 0.9)
 - SVProgressHUD (HEAD based on 0.8.1)
-- SVPullToRefresh (HEAD based on 0.4)
+- SVPullToRefresh (0.4.1)
 - YRDropdownView (0.1.0)
 
 DEPENDENCIES:
@@ -25,7 +25,7 @@ DEPENDENCIES:
 - HockeySDK
 - Orbiter
 - SVProgressHUD (HEAD)
-- SVPullToRefresh (HEAD)
+- SVPullToRefresh (= 0.4.1)
 - YRDropdownView (from `https://github.com/iOctocat/YRDropdownView.git')
 
 EXTERNAL SOURCES:
@@ -46,7 +46,7 @@ SPEC CHECKSUMS:
   HockeySDK: e59ba4e0060d13a9acfb5da8f9381298fbc53e0b
   Orbiter: b083e5567d9b90e1da1ccda4b3c410df26d5da8d
   SVProgressHUD: 592da548680cd3613923b5f98113add52ad30cc2
-  SVPullToRefresh: 479bcbbf42c83366f49aab231ed6e94dad928fef
+  SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   YRDropdownView: 66f0f2d5e69d2024e45626efe1b3dae79e97fbb9
 
-COCOAPODS: 0.16.0
+COCOAPODS: 0.16.1

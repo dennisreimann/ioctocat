@@ -1,12 +1,12 @@
 platform :ios, '5.0'
 
-gem 'cocoapods', '0.16.0'
+gem 'cocoapods', '0.16.1'
 pod 'AFNetworking', '1.1'
 pod 'AFOAuth2Client', '0.1'
 pod 'GroundControl'
 pod 'Orbiter'
 pod 'Base64'
-pod 'SVPullToRefresh', :head
+pod 'SVPullToRefresh', '0.4.1'
 pod 'SVProgressHUD', :head
 pod 'HockeySDK'
 pod 'YRDropdownView', :git => 'https://github.com/iOctocat/YRDropdownView.git'

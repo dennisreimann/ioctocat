@@ -45,14 +45,6 @@
 - (void)setOwner:(NSString *)owner andName:(NSString *)name {
 	self.owner = owner;
 	self.name = name;
-    self.forks = [[GHForks alloc] initWithRepository:self];
-    self.readme = [[GHReadme alloc] initWithRepository:self];
-    self.events = [[GHEvents alloc] initWithRepository:self];
-    self.branches = [[GHBranches alloc] initWithRepository:self];
-	self.openIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen];
-	self.closedIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed];
-	self.openPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateOpen];
-	self.closedPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateClosed];
 }
 
 - (GHUser *)user {
@@ -69,6 +61,64 @@
 
 - (int)compareByName:(GHRepository *)otherRepo {
     return [self.name localizedCaseInsensitiveCompare:otherRepo.name];
+}
+
+#pragma mark Associations
+
+- (GHForks *)forks {
+	if (!_forks) {
+		_forks = [[GHForks alloc] initWithRepository:self];
+	}
+	return _forks;
+}
+
+- (GHReadme *)readme {
+	if (!_readme) {
+		_readme = [[GHReadme alloc] initWithRepository:self];
+	}
+	return _readme;
+}
+
+- (GHEvents *)events {
+	if (!_events) {
+		_events = [[GHEvents alloc] initWithRepository:self];
+	}
+	return _events;
+}
+
+- (GHBranches *)branches {
+	if (!_branches) {
+		_branches = [[GHBranches alloc] initWithRepository:self];
+	}
+	return _branches;
+}
+
+- (GHIssues *)openIssues {
+	if (!_openIssues) {
+		_openIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateOpen];
+	}
+	return _openIssues;
+}
+
+- (GHIssues *)closedIssues {
+	if (!_closedIssues) {
+		_closedIssues = [[GHIssues alloc] initWithRepository:self andState:kIssueStateClosed];
+	}
+	return _closedIssues;
+}
+
+- (GHPullRequests *)openPullRequests {
+	if (!_openPullRequests) {
+		_openPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateOpen];
+	}
+	return _openPullRequests;
+}
+
+- (GHPullRequests *)closedPullRequests {
+	if (!_closedPullRequests) {
+		_closedPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateClosed];
+	}
+	return _closedPullRequests;
 }
 
 #pragma mark Loading

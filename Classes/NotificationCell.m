@@ -14,10 +14,11 @@
 	self.textLabel.font = [UIFont systemFontOfSize:15];
 	self.detailTextLabel.font = [UIFont systemFontOfSize:13];
 	self.selectionStyle = UITableViewCellSelectionStyleBlue;
+	UIImage *accessoryImage = [UIImage imageNamed:@"Remove.png"];
 	UIButton *accessoryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	accessoryButton.frame = CGRectMake(12, 12, 20, 20);
+	accessoryButton.frame = CGRectMake(0, 0, accessoryImage.size.width, accessoryImage.size.height);
 	accessoryButton.adjustsImageWhenHighlighted = NO;
-	[accessoryButton setBackgroundImage:[UIImage imageNamed:@"Remove@2x.png"] forState:UIControlStateNormal];
+	[accessoryButton setBackgroundImage:accessoryImage forState:UIControlStateNormal];
 	[accessoryButton addTarget:self action:@selector(accessoryButtonTapped:withEvent:) forControlEvents:UIControlEventTouchUpInside];
 	self.accessoryView = accessoryButton;
 	self.opaque = YES;

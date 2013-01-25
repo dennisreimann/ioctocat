@@ -13,6 +13,8 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
+		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
 		6F08799D1623635E00CE95D0 /* ToolbarGist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799B1623635E00CE95D0 /* ToolbarGist@2x.png */; };
 		6F0879AE1623772300CE95D0 /* GHGistComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AB1623772300CE95D0 /* GHGistComment.m */; };
@@ -931,6 +933,7 @@
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
 		6F08799B1623635E00CE95D0 /* ToolbarGist@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarGist@2x.png"; sourceTree = "<group>"; };
 		6F0879AA1623772300CE95D0 /* GHGistComment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGistComment.h; sourceTree = "<group>"; };
@@ -1745,6 +1748,7 @@
 			isa = PBXGroup;
 			children = (
 				6F26DB5516A6F3C600939D85 /* Remove.png */,
+				6F00F4A216B2864A0057F0FE /* Remove@2x.png */,
 			);
 			name = Options;
 			path = Images/Options;
@@ -2765,6 +2769,7 @@
 				6FCD1B5D16AC26AA00D843EA /* Stars@2x.png in Resources */,
 				6F40850D16AD49F300C77089 /* DropdownWarning.png in Resources */,
 				6F40850F16AD49F300C77089 /* DropdownWarning@2x.png in Resources */,
+				6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3077,6 +3082,7 @@
 				6FCD1B5E16AC26AA00D843EA /* Stars@2x.png in Resources */,
 				6F40850E16AD49F300C77089 /* DropdownWarning.png in Resources */,
 				6F40851016AD49F300C77089 /* DropdownWarning@2x.png in Resources */,
+				6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

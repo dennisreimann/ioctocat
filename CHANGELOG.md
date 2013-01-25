@@ -8,6 +8,7 @@ Additions:
 * Notifications support (push notifications will be added soon)
 * Added reload button for organizations
 * Added full commit message text to commit view
+* Reload button for forks
 
 Changes:
 

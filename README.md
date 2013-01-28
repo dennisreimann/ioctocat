@@ -48,6 +48,22 @@ iOctocat logs all API calls and in the console you will find the debugging outpu
   * Move to where the error occurs
   * Copy the output in the console and attach it to your bug report
 
+### Debugging API responses
+
+In the Debug directory is a ruby script to check the returned JSON of the
+GitHub.com API. Authentication is optional and is done via HTTP Basic Auth
+in case a username and password are provided. Usage:
+
+    Debug/api.rb PATH [USERNAME] [PASSWORD]
+
+Example:
+
+    Debug/api.rb user/repos your_github_username your_password
+
+This scripts writes the output and additional debugging information to a
+log file in the Debug directory. Please attach the output of this script
+to your issues.
+
 ## Running the tests
 
 To run the (sparse) test suite, you can build/test the iOctocat Unit Tests scheme.

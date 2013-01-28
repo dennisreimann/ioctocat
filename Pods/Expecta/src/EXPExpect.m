@@ -4,6 +4,7 @@
 #import "EXPUnsupportedObject.h"
 #import "EXPMatcher.h"
 #import "EXPBlockDefinedMatcher.h"
+#import <libkern/OSAtomic.h>
 
 @implementation EXPExpect
 
@@ -100,6 +101,7 @@
             break;
           }
           [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+          OSMemoryBarrier();
           *actual = self.actual;
         }
       } else {

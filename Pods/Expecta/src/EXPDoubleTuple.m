@@ -36,7 +36,7 @@
     } else if (self.size == 4) {
         return [NSString stringWithFormat:@"Double tuple: {%f, %f, %f, %f}", self.values[0], self.values[1], self.values[2], self.values[3]];
     }
-    return [NSString stringWithFormat:@"Double tuple of unexpected size %d, sadly", self.size];
+    return [NSString stringWithFormat:@"Double tuple of unexpected size %zd, sadly", self.size];
 }
 
 @end

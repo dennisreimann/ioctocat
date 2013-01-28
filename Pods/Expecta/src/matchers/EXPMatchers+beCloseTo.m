@@ -27,17 +27,23 @@ EXPMatcherImplementationBegin(_beCloseToWithin, (id expected, id within)) {
   });
 
   failureMessageForTo(^NSString *{
-    return [NSString stringWithFormat:
-            (within ? @"expected %@ to be close to %@ within %@"
-                    : @"expected %@ to be close to %@"),
-            EXPDescribeObject(actual), EXPDescribeObject(expected), EXPDescribeObject(within)];
+    if (within) {
+      return [NSString stringWithFormat:@"expected %@ to be close to %@ within %@",
+              EXPDescribeObject(actual), EXPDescribeObject(expected), EXPDescribeObject(within)];
+    } else {
+      return [NSString stringWithFormat:@"expected %@ to be close to %@",
+              EXPDescribeObject(actual), EXPDescribeObject(expected)];
+    }
   });
 
   failureMessageForNotTo(^NSString *{
-    return [NSString stringWithFormat:
-            (within ? @"expected %@ not to be close to %@ within %@"
-                    : @"expected %@ not to be close to %@"),
-            EXPDescribeObject(actual), EXPDescribeObject(expected), EXPDescribeObject(within)];
+    if (within) {
+      return [NSString stringWithFormat:@"expected %@ not to be close to %@ within %@",
+              EXPDescribeObject(actual), EXPDescribeObject(expected), EXPDescribeObject(within)];
+    } else {
+      return [NSString stringWithFormat:@"expected %@ not to be close to %@",
+              EXPDescribeObject(actual), EXPDescribeObject(expected)];
+    }
   });
 }
 EXPMatcherImplementationEnd

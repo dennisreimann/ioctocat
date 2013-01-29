@@ -9,6 +9,7 @@
 # This scripts writes the output and additional debugging
 # information to a log file in the Debug directory.
 
+require "rubygems"
 require "net/https"
 require "uri"
 require "json"

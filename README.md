@@ -64,6 +64,11 @@ This scripts writes the output and additional debugging information to a
 log file in the Debug directory. Please attach the output of this script
 to your issues.
 
+In case you are using a Ruby version prior to 1.9 (find out with `ruby -v`)
+you will need to install the json gem with this command:
+
+    gem install json
+
 ## Running the tests
 
 To run the (sparse) test suite, you can build/test the iOctocat Unit Tests scheme.

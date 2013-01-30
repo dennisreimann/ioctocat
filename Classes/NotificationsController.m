@@ -222,12 +222,12 @@
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (weakSelf.notifications.canReload) {
 			[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
-				self.notificationsByRepository = [NSMutableDictionary dictionary];
-				for (GHNotification *notification in self.notifications.items) {
-					if (!self.notificationsByRepository[notification.repository.repoId]) {
-						self.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
+				weakSelf.notificationsByRepository = [NSMutableDictionary dictionary];
+				for (GHNotification *notification in weakSelf.notifications.items) {
+					if (!weakSelf.notificationsByRepository[notification.repository.repoId]) {
+						weakSelf.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
 					}
-					[self.notificationsByRepository[notification.repository.repoId] addObject:notification];
+					[weakSelf.notificationsByRepository[notification.repository.repoId] addObject:notification];
 				}
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf refreshLastUpdate];

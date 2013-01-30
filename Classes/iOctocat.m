@@ -276,6 +276,7 @@
 // longer than the interval given by GitHub (in most cases 60 seconds).
 // This way we lose caching, but its still better than unexpected results. 
 - (void)deactivateURLCache {
+	[[NSURLCache sharedURLCache] removeAllCachedResponses];
 	[[NSURLCache sharedURLCache] setMemoryCapacity:0];
 	[[NSURLCache sharedURLCache] setDiskCapacity:0];
 }

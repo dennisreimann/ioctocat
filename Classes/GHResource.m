@@ -55,7 +55,8 @@
 	self.error = nil;
 	self.loadingStatus = GHResourceStatusProcessing;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
-	NSURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:params];
+	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:params];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@\n", self.class, path, request.allHTTPHeaderFields);
 	void (^onSuccess)() = ^(AFHTTPRequestOperation *operation, id data) {
 		NSDictionary *headers = operation.response.allHeaderFields;

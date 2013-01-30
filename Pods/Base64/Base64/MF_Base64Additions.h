@@ -21,7 +21,7 @@
 -(NSString *)base64String;
 @end
 
-@interface MF_Base64Codec
+@interface MF_Base64Codec : NSObject
 +(NSData *)dataFromBase64String:(NSString *)base64String;
 +(NSString *)base64StringFromData:(NSData *)data;
 @end

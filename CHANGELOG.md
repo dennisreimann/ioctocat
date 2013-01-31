@@ -2,6 +2,10 @@
 
 ## v1.7.6
 
+Additions:
+
+* Set app badge to number of unread notifications
+
 Bugfixes:
 
 * Select correct account for editing after failed authentication

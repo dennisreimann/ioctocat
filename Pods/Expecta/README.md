@@ -1,4 +1,4 @@
-# Expecta 0.2.0
+# Expecta
 
 A Matcher Framework for Objective-C/Cocoa
 
@@ -35,8 +35,8 @@ expect(baz).to.equal(3.14159);
 Use [CocoaPods](https://github.com/CocoaPods/CocoaPods)
 
 ```ruby
-dependency 'Expecta', '~> 0.2.0'
-# dependency 'Specta', '~> 0.1.5' # specta bdd framework
+dependency 'Expecta', '~> 0.2.1'
+# dependency 'Specta', '~> 0.1.7' # specta bdd framework
 ```
 
 or

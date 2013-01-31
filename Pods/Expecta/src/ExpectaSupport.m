@@ -53,14 +53,17 @@ id _EXPObjectify(char *type, ...) {
   } else if(strcmp(type, @encode(unsigned short)) == 0) {
     unsigned short actual = (unsigned short)va_arg(v, unsigned int);
     obj = [NSNumber numberWithUnsignedShort:actual];
+  } else if(strstr(type, @encode(EXPBasicBlock)) != NULL) {
+      // @encode(EXPBasicBlock) returns @? as of clang 4.1.
+      // This condition must occur before the test for id/class type,
+      // otherwise blocks will be treated as vanilla objects.
+      id actual = va_arg(v, EXPBasicBlock);
+      obj = [[actual copy] autorelease];
   } else if((strstr(type, @encode(id)) != NULL) || (strstr(type, @encode(Class)) != 0)) {
     id actual = va_arg(v, id);
     obj = actual;
   } else if(strcmp(type, @encode(__typeof__(nil))) == 0) {
     obj = nil;
-  } else if(strstr(type, @encode(EXPBasicBlock)) != NULL) {
-    id actual = va_arg(v, EXPBasicBlock);
-    obj = [[actual copy] autorelease];
   } else if(strstr(type, "ff}{") != NULL) { //TODO: of course this only works for a 2x2 e.g. CGRect
     obj = [[[EXPFloatTuple alloc] initWithFloatValues:(float *)va_arg(v, float[4]) size:4] autorelease];
   } else if(strstr(type, "=ff}") != NULL) {

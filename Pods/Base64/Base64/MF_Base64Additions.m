@@ -36,6 +36,7 @@
             __,__,__,__, __,__,__,__, __,__,__,__, __,__,__,__,  // 0xE0 - 0xEF
             __,__,__,__, __,__,__,__, __,__,__,__, __,__,__,__,  // 0xF0 - 0xFF
         };
+        encoding = [encoding stringByReplacingOccurrencesOfString:@"=" withString:@""];
         NSData *encodedData = [encoding dataUsingEncoding:NSASCIIStringEncoding];
         unsigned char *encodedBytes = (unsigned char *)[encodedData bytes];
         

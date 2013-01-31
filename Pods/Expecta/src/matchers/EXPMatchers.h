@@ -15,3 +15,4 @@
 #import "EXPMatchers+beInTheRangeOf.h"
 #import "EXPMatchers+beCloseTo.h"
 #import "EXPMatchers+raise.h"
+#import "EXPMatchers+raiseWithReason.h"

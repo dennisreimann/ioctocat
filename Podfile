@@ -7,11 +7,11 @@ pod 'GroundControl'
 pod 'Orbiter'
 pod 'Base64'
 pod 'SVPullToRefresh', '0.4.1'
-pod 'SVProgressHUD', :head
+pod 'SVProgressHUD', '0.9.0'
 pod 'HockeySDK'
 pod 'YRDropdownView', :git => 'https://github.com/iOctocat/YRDropdownView.git'
 pod 'ECSlidingViewController', :git => 'https://github.com/iOctocat/ECSlidingViewController.git'
-pod 'Expecta', :git => 'https://github.com/github/expecta.git'
+pod 'Expecta', '~> 0.2.1'
 
 post_install do |installer|
   require 'fileutils'

@@ -12,8 +12,8 @@ Example use:
     #import "MF_Base64Additions.h"
     
     NSString *helloWorld = @"Hello World";
-    NSString *helloInBase64 = [helloWorld stringByEncodingBase64];
-    NSString *helloDecoded = [helloInBase64 stringByDecodingBase64];
+    NSString *helloInBase64 = [helloWorld base64String];
+    NSString *helloDecoded = [NSString stringFromBase64String:helloInBase64];
 
 
 

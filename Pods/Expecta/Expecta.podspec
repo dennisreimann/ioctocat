@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name     = 'Expecta'
-  s.version  = '0.2.0'
+  s.version  = '0.2.1'
   s.license  = 'MIT'
-  s.summary  = 'A matcher framework for Objective-C & Cocoa'
+  s.summary  = 'A matcher framework for Objective-C & Cocoa.'
   s.homepage = 'http://github.com/petejkim/expecta'
   s.author   = { 'Peter Jihoon Kim' => 'raingrove@gmail.com' }
 
-  s.source   = { :git => 'http://github.com/petejkim/expecta.git', :tag => 'v0.2.0' }
+  s.source   = { :git => 'https://github.com/petejkim/expecta.git', :tag => 'v0.2.1' }
 
   s.description = %{
     Expecta is a matcher framework for Objective-C and Cocoa. The main
@@ -18,10 +18,6 @@ Pod::Spec.new do |s|
 
   s.source_files = 'src/**/*.{h,m}'
 
-  s.clean_paths = "Rakefile", "RDD.md", "products", "test", "*.xcodeproj"
-
   s.frameworks = 'Foundation'
-
-  s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
 end
 

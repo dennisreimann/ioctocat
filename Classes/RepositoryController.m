@@ -259,7 +259,7 @@
 		viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
 		viewController.title = @"README";
 	} else if (section == 1 && row == 0) {
-		viewController = [[ForksController alloc] initWithRepository:self.repository];
+		viewController = [[ForksController alloc] initWithForks:self.repository.forks];
 	} else if (section == 1 && row == 1) {
 		viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
 	} else if (section == 1 && row == 2) {

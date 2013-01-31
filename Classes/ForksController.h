@@ -1,7 +1,5 @@
-#import <Foundation/Foundation.h>
-#import "GHRepository.h"
-
+@class GHForks;
 
 @interface ForksController : UITableViewController
-- (id)initWithRepository:(GHRepository *)repo;
+- (id)initWithForks:(GHForks *)forks;
 @end

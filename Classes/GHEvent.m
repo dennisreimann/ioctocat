@@ -157,7 +157,7 @@
 	}
 
 	// Gist
-	NSString *gistId = [self.payload valueForKeyPath:@"gist.id"];
+	NSString *gistId = [self.payload safeStringForKeyPath:@"gist.id"];
 	if (gistId) {
 		self.gist = [[GHGist alloc] initWithId:gistId];
 		[self.gist setValues:self.payload[@"gist"]];
@@ -224,7 +224,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"DownloadEvent"]) {
-			NSString *name = [self.payload valueForKeyPath:@"download.name"];
+			NSString *name = [self.payload safeStringForKeyPath:@"download.name"];
 			self.title = [NSString stringWithFormat:@"%@ created download %@ at %@", self.user.login, name, self.repository.name];
 		}
 
@@ -252,8 +252,8 @@
 
 		else if ([self.eventType isEqualToString:@"GollumEvent"]) {
 			NSDictionary *firstPage = self.pages[0];
-			NSString *action = firstPage[@"action"];
-			NSString *pageName = firstPage[@"page_name"];
+			NSString *action = [firstPage safeStringForKey:@"action"];
+			NSString *pageName = [firstPage safeStringForKey:@"page_name"];
 			self.title = [NSString stringWithFormat:@"%@ %@ \"%@\" in the %@ wiki", self.user.login, action, pageName, self.repository.repoId];
 		}
 
@@ -293,7 +293,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"TeamAddEvent"]) {
-			NSString *teamName = [self.payload valueForKeyPath:@"team.name"];
+			NSString *teamName = [self.payload safeStringForKeyPath:@"team.name"];
 			// for older events the team may not be set, so leave out to which team the user was added
 			NSString *teamInfo = teamName ? [NSString stringWithFormat:@" to %@", teamName] : @"";
 			self.title = [NSString stringWithFormat:@"%@ added %@%@", self.user.login, self.otherUser.login, teamInfo];
@@ -340,7 +340,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
-			self.content = [self.payload valueForKeyPath:@"comment.body"];
+			self.content = [self.payload safeStringForKeyPath:@"comment.body"];
 		}
 
 		else if ([self.eventType isEqualToString:@"IssuesEvent"]) {

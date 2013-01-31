@@ -6,12 +6,16 @@
 
 @implementation GHEvents
 
-- (id)initWithRepository:(GHRepository *)repo {
-	NSString *path = [NSString stringWithFormat:kRepoEventsFormat, repo.owner, repo.name];
+- (id)initWithPath:(NSString *)path {
 	if (self = [super initWithPath:path]) {
 		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
 	}
 	return self;
+}
+
+- (id)initWithRepository:(GHRepository *)repo {
+	NSString *path = [NSString stringWithFormat:kRepoEventsFormat, repo.owner, repo.name];
+	return [self initWithPath:path];
 }
 
 - (void)setValues:(id)values {

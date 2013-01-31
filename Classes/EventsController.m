@@ -53,11 +53,6 @@
 	[self.tableView triggerPullToRefresh];
 }
 
-- (void)refreshLastUpdate {
-	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastUpdate prettyDate]];
-	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
-}
-
 - (void)openEventItem:(id)eventItem {
 	UIViewController *viewController = nil;
 	if ([eventItem isKindOfClass:GHUser.class]) {
@@ -157,6 +152,14 @@
 			[iOctocat reportLoadingError:@"Could not load the feed"];
 		}];
 	}];
+	[self refreshLastUpdate];
+}
+
+- (void)refreshLastUpdate {
+	if (self.events.lastUpdate) {
+		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastUpdate prettyDate]];
+		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
+	}
 }
 
 @end

@@ -223,6 +223,7 @@
 			[iOctocat reportWarning:@"Please wait…" with:message];
 		}
 	}];
+	[self refreshLastUpdate];
 }
 
 #pragma mark Events
@@ -241,8 +242,10 @@
 }
 
 - (void)refreshLastUpdate {
-	NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.notifications.lastUpdate prettyDate]];
-	[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
+	if (self.notifications.lastUpdate) {
+		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.notifications.lastUpdate prettyDate]];
+		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
+	}
 }
 
 @end

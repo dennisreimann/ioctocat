@@ -5,6 +5,7 @@
 Bugfixes:
 
 * Select correct account for editing after failed authentication
+* Added missing date for last feed refresh before first load
 
 ## v1.7.5
 

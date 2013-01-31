@@ -26,6 +26,7 @@
 @interface PullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)PullRequestsController *listController;
+@property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
@@ -84,6 +85,12 @@
 			[iOctocat reportLoadingError:@"Could not load the pull request"];
 		}];
 	}
+	// check assignment state
+	[self.currentUser checkRepositoryAssignment:self.pullRequest.repository success:^(GHResource *instance, id data) {
+		self.isAssignee = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isAssignee = NO;
+	}];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -110,14 +117,11 @@
 }
 
 - (BOOL)pullRequestEditableByCurrentUser {
-	return (
-		[self.pullRequest.user.login isEqualToString:self.currentUser.login] ||
-		[self.pullRequest.repository.owner isEqualToString:self.currentUser.login]);
+	return self.isAssignee || [self.pullRequest.user.login isEqualToString:self.currentUser.login];
 }
 
 - (BOOL)pullRequestMergeableByCurrentUser {
-	return self.pullRequest.isMergeable && (
-		[self.pullRequest.repository.owner isEqualToString:self.currentUser.login]);
+	return self.pullRequest.isMergeable && self.isAssignee;
 }
 
 - (void)displayPullRequest {

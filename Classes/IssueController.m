@@ -22,6 +22,7 @@
 @interface IssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IssuesController *listController;
+@property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
@@ -72,6 +73,12 @@
 			[iOctocat reportLoadingError:@"Could not load the issue"];
 		}];
 	}
+	// check assignment state
+	[self.currentUser checkRepositoryAssignment:self.issue.repository success:^(GHResource *instance, id data) {
+		self.isAssignee = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isAssignee = NO;
+	}];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -103,9 +110,7 @@
 }
 
 - (BOOL)issueEditableByCurrentUser {
-	return self.currentUser &&  (
-		[self.issue.user.login isEqualToString:self.currentUser.login] ||
-		[self.issue.repository.owner isEqualToString:self.currentUser.login]);
+	return self.isAssignee || [self.issue.user.login isEqualToString:self.currentUser.login];
 }
 
 - (void)displayIssue {

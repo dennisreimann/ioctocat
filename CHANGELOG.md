@@ -6,6 +6,10 @@ Additions:
 
 * Set app badge to number of unread notifications
 
+Changes:
+
+* Check the users assignment status for editing issues and pulls
+
 Bugfixes:
 
 * Select correct account for editing after failed authentication

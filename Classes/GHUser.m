@@ -265,4 +265,16 @@
 
 }
 
+#pragma mark Assignment
+
+- (void)checkRepositoryAssignment:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
+	NSString *path = [NSString stringWithFormat:kRepoAssigneeFormat, repo.owner, repo.name, self.login];
+	GHResource *resource = [[GHResource alloc] initWithPath:path];
+	[resource loadWithParams:nil path:path method:kRequestMethodGet success:^(GHResource *instance, id data) {
+		if (success) success(self, data);
+	} failure:^(GHResource *instance, NSError *error) {
+		if (failure) failure(self, error);
+	}];
+}
+
 @end

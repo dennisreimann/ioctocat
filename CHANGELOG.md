@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.7.6
+
+Bugfixes:
+
+* Select correct account for editing after failed authentication
+
 ## v1.7.5
 
 Additions:

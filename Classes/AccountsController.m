@@ -80,17 +80,6 @@
 	if (self.accounts.count == 0) self.editing = NO;
 }
 
-- (BOOL (^)(id obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
-	return [^(id obj, NSUInteger idx, BOOL *stop) {
-		if ([obj[kLoginDefaultsKey] isEqualToString:account.user.login] &&
-			[obj[kEndpointDefaultsKey] isEqualToString:[account.apiClient.baseURL description]]) {
-			*stop = YES;
-			return YES;
-		}
-		return NO;
-	} copy];
-}
-
 #pragma mark Actions
 
 - (void)editAccountAtIndex:(NSUInteger)idx {
@@ -222,6 +211,18 @@
 		NSUInteger idx = [self.accounts indexOfObjectPassingTest:[self blockTestingForAccount:account]];
 		[self editAccountAtIndex:idx];
 	}
+}
+
+- (BOOL (^)(NSDictionary *obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
+	return [^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+		NSString *login = [obj safeStringForKey:kLoginDefaultsKey];
+		NSString *endpoint = [obj safeStringForKey:kEndpointDefaultsKey];
+		if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
+			*stop = YES;
+			return YES;
+		}
+		return NO;
+	} copy];
 }
 
 @end

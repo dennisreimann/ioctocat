@@ -92,11 +92,13 @@
 		}];
 	}
 	// check following state
-	[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
-		self.isFollowing = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isFollowing = NO;
-	}];
+	if (!isProfile) {
+		[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
+			self.isFollowing = YES;
+		} failure:^(GHResource *instance, NSError *error) {
+			self.isFollowing = NO;
+		}];
+	}
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;

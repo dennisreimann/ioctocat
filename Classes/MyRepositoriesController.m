@@ -9,12 +9,13 @@
 
 
 @interface MyRepositoriesController ()
-@property(nonatomic,strong)NSMutableArray *publicRepositories;
 @property(nonatomic,strong)NSMutableArray *privateRepositories;
+@property(nonatomic,strong)NSMutableArray *publicRepositories;
+@property(nonatomic,strong)NSMutableArray *forkedRepositories;
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noPrivateReposCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
 @end
 
 
@@ -52,16 +53,30 @@
 	};
 	self.privateRepositories = [NSMutableArray array];
 	self.publicRepositories = [NSMutableArray array];
+	self.forkedRepositories = [NSMutableArray array];
 	for (GHRepository *repo in self.user.repositories.items) {
-		(repo.isPrivate) ? [self.privateRepositories addObject:repo] : [self.publicRepositories addObject:repo];
+		if (repo.isPrivate) {
+			[self.privateRepositories addObject:repo];
+		} else if (repo.isFork) {
+			[self.forkedRepositories addObject:repo];
+		} else {
+			[self.publicRepositories addObject:repo];
+		}
 	}
-	[self.publicRepositories sortUsingComparator:compareRepositories];
 	[self.privateRepositories sortUsingComparator:compareRepositories];
+	[self.publicRepositories sortUsingComparator:compareRepositories];
+	[self.forkedRepositories sortUsingComparator:compareRepositories];
 	[self.tableView reloadData];
 }
 
 - (NSMutableArray *)repositoriesInSection:(NSInteger)section {
-	return section == 0 ? self.privateRepositories : self.publicRepositories;
+	if (section == 0) {
+		return self.privateRepositories;
+	} else if (section == 1) {
+		return self.publicRepositories;
+	} else {
+		return self.forkedRepositories;
+	}
 }
 
 #pragma mark Actions
@@ -79,7 +94,11 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.user.repositories.isLoaded ? 2 : 1;
+	if (self.user.repositories.isLoaded) {
+		return self.forkedRepositories.count > 0 ? 3 : 2;
+	} else {
+		return 1;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -89,8 +108,17 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (self.user.repositories.isLoading) return @"";
-	return (section == 0) ? @"Private" : @"Public";
+	if (self.user.repositories.isLoading) {
+		return @"";
+	} else if (section == 0) {
+		return @"Private";
+	} else if (section == 1) {
+		return @"Public";
+	}  else if (section == 2) {
+		return @"Forked";
+	}  else {
+		return nil;
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

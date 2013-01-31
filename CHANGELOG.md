@@ -10,6 +10,7 @@ Additions:
 Changes:
 
 * Check the users assignment status for editing issues and pulls
+* Separate section for forks in personal repositories list
 
 Bugfixes:
 

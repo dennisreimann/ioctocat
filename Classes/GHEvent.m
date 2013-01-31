@@ -189,7 +189,7 @@
 	}
 
 	// Wiki
-	NSArray *pages = self.payload[@"pages"];
+	NSArray *pages = [self.payload safeArrayForKey:@"pages"];
 	if (pages) {
 		self.pages = [NSMutableArray arrayWithCapacity:pages.count];
 		for (NSDictionary *pageDict in pages) {
@@ -209,8 +209,8 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"CreateEvent"]) {
-			NSString *ref = self.payload[@"ref"];
-			NSString *refType = self.payload[@"ref_type"];
+			NSString *ref = [self.payload safeStringForKey:@"ref"];
+			NSString *refType = [self.payload safeStringForKey:@"ref_type"];
 			if ([refType isEqualToString:@"repository"]) { // created repository
 				self.title = [NSString stringWithFormat:@"%@ created %@ %@", self.user.login, refType, self.repository.name];
 			} else { // created branch or tag
@@ -219,8 +219,8 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"DeleteEvent"]) {
-			NSString *ref = self.payload[@"ref"];
-			NSString *refType = self.payload[@"ref_type"];
+			NSString *ref = [self.payload safeStringForKey:@"ref"];
+			NSString *refType = [self.payload safeStringForKey:@"ref_type"];
 			self.title = [NSString stringWithFormat:@"%@ deleted %@ %@ at %@", self.user.login, refType, ref, self.repoName];
 		}
 
@@ -242,7 +242,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"GistEvent"]) {
-			NSString *action = self.payload[@"action"];
+			NSString *action = [self.payload safeStringForKey:@"action"];
 			if ([action isEqualToString:@"create"]) {
 				action = @"created";
 			} else if ([action isEqualToString:@"update"]) {
@@ -266,7 +266,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"IssuesEvent"]) {
-			NSString *action = self.payload[@"action"];
+			NSString *action = [self.payload safeStringForKey:@"action"];
 			self.title = [NSString stringWithFormat:@"%@ %@ issue %@#%d", self.user.login, action, self.repoName, self.issue.num];
 		}
 
@@ -279,7 +279,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"PullRequestEvent"]) {
-			NSString *action = self.payload[@"action"];
+			NSString *action = [self.payload safeStringForKey:@"action"];
 			if ([action isEqualToString:@"closed"]) action = @"merged";
 			self.title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", self.user.login, action, self.repoName, self.pullRequest.num];
 		}
@@ -289,7 +289,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {
-			NSString *ref = [self shortenRef:self.payload[@"ref"]];
+			NSString *ref = [self shortenRef:[self.payload safeStringForKey:@"ref"]];
 			self.title = [NSString stringWithFormat:@"%@ pushed to %@ at %@", self.user.login, ref, self.repoName];
 		}
 

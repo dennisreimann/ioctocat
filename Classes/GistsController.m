@@ -58,25 +58,29 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.gists.isLoading || self.gists.isEmpty) ? 1 : self.gists.count;
+	return self.resourceHasData ? self.gists.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.gists.isLoading) return self.loadingGistsCell;
 	if (self.gists.isEmpty) return self.noGistsCell;
 	GistCell *cell = (GistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
-	if (cell == nil) {
-		cell = [GistCell cell];
-	}
+	if (cell == nil) cell = [GistCell cell];
 	cell.gist = self.gists[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.gists.isLoaded || self.gists.isEmpty) return;
+	if (!self.resourceHasData) return;
 	GHGist *gist = self.gists[indexPath.row];
 	GistController *gistController = [[GistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.gists.isLoaded && !self.gists.isEmpty;
 }
 
 @end

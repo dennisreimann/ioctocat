@@ -157,10 +157,11 @@
 	}
 
 	// Gist
-	NSString *gistId = [self.payload safeStringForKeyPath:@"gist.id"];
-	if (gistId) {
+	NSDictionary *gistDict = [self.payload safeDictForKey:@"gist"];
+	if (gistDict) {
+		NSString *gistId = [gistDict safeStringForKey:@"id"];
 		self.gist = [[GHGist alloc] initWithId:gistId];
-		[self.gist setValues:self.payload[@"gist"]];
+		[self.gist setValues:gistDict];
 	}
 
 	// Commits

@@ -92,12 +92,16 @@
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithoutPullRequest"];
 	[self.event setValues:dict];
 	expect(self.event.pullRequest).to.beNil();
+	// this check looks out of place, but was added to fix an error
+	expect(self.event.gist).to.beNil();
 }
 
 - (void)testIssueCommentEventWithPullRequest {
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"IssueCommentEvent-WithPullRequest"];
 	[self.event setValues:dict];
 	expect(self.event.pullRequest).notTo.beNil();
+	// this check looks out of place, but was added to fix an error
+	expect(self.event.gist).to.beNil();
 }
 
 - (void)testForkEvent {

@@ -5,6 +5,7 @@
 Additions:
 
 * Set app badge to number of unread notifications
+* Separate icon for forked repositories
 
 Changes:
 

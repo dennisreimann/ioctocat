@@ -353,6 +353,14 @@
 		6F843155136D53350016E367 /* CommitCommentEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843151136D53350016E367 /* CommitCommentEvent@2x.png */; };
 		6F843156136D53350016E367 /* IssueCommentEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843152136D53350016E367 /* IssueCommentEvent.png */; };
 		6F843157136D53350016E367 /* IssueCommentEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843153136D53350016E367 /* IssueCommentEvent@2x.png */; };
+		6F8689A016BB10E300377BC8 /* PublicFork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899C16BB10E200377BC8 /* PublicFork.png */; };
+		6F8689A116BB10E300377BC8 /* PublicFork.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899C16BB10E200377BC8 /* PublicFork.png */; };
+		6F8689A216BB10E300377BC8 /* PublicFork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899D16BB10E200377BC8 /* PublicFork@2x.png */; };
+		6F8689A316BB10E300377BC8 /* PublicFork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899D16BB10E200377BC8 /* PublicFork@2x.png */; };
+		6F8689A416BB10E300377BC8 /* PublicForkOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899E16BB10E300377BC8 /* PublicForkOn.png */; };
+		6F8689A516BB10E300377BC8 /* PublicForkOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899E16BB10E300377BC8 /* PublicForkOn.png */; };
+		6F8689A616BB10E300377BC8 /* PublicForkOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899F16BB10E300377BC8 /* PublicForkOn@2x.png */; };
+		6F8689A716BB10E300377BC8 /* PublicForkOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F86899F16BB10E300377BC8 /* PublicForkOn@2x.png */; };
 		6F879A1E0FB60CB500EBD9BD /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1C0FB60CB500EBD9BD /* user.png */; };
 		6F879A5D0FB611FD00EBD9BD /* Users.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A5B0FB611FD00EBD9BD /* Users.xib */; };
 		6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
@@ -1203,6 +1211,10 @@
 		6F843151136D53350016E367 /* CommitCommentEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "CommitCommentEvent@2x.png"; path = "Images/Icons/CommitCommentEvent@2x.png"; sourceTree = "<group>"; };
 		6F843152136D53350016E367 /* IssueCommentEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = IssueCommentEvent.png; path = Images/Icons/IssueCommentEvent.png; sourceTree = "<group>"; };
 		6F843153136D53350016E367 /* IssueCommentEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "IssueCommentEvent@2x.png"; path = "Images/Icons/IssueCommentEvent@2x.png"; sourceTree = "<group>"; };
+		6F86899C16BB10E200377BC8 /* PublicFork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PublicFork.png; sourceTree = "<group>"; };
+		6F86899D16BB10E200377BC8 /* PublicFork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PublicFork@2x.png"; sourceTree = "<group>"; };
+		6F86899E16BB10E300377BC8 /* PublicForkOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PublicForkOn.png; sourceTree = "<group>"; };
+		6F86899F16BB10E300377BC8 /* PublicForkOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PublicForkOn@2x.png"; sourceTree = "<group>"; };
 		6F879A1C0FB60CB500EBD9BD /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = user.png; path = Images/Icons/user.png; sourceTree = "<group>"; };
 		6F879A5B0FB611FD00EBD9BD /* Users.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Users.xib; path = IBFiles/Users.xib; sourceTree = "<group>"; };
 		6F879AE60FB61C7A00EBD9BD /* GHUsers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUsers.h; sourceTree = "<group>"; };
@@ -1792,6 +1804,10 @@
 				6F3E21C116A0C5DC00BAAB60 /* Public@2x.png */,
 				6F3E21C216A0C5DC00BAAB60 /* PublicOn.png */,
 				6F3E21C316A0C5DC00BAAB60 /* PublicOn@2x.png */,
+				6F86899C16BB10E200377BC8 /* PublicFork.png */,
+				6F86899D16BB10E200377BC8 /* PublicFork@2x.png */,
+				6F86899E16BB10E300377BC8 /* PublicForkOn.png */,
+				6F86899F16BB10E300377BC8 /* PublicForkOn@2x.png */,
 			);
 			name = Access;
 			path = Images/Access;
@@ -2770,6 +2786,10 @@
 				6F40850D16AD49F300C77089 /* DropdownWarning.png in Resources */,
 				6F40850F16AD49F300C77089 /* DropdownWarning@2x.png in Resources */,
 				6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */,
+				6F8689A016BB10E300377BC8 /* PublicFork.png in Resources */,
+				6F8689A216BB10E300377BC8 /* PublicFork@2x.png in Resources */,
+				6F8689A416BB10E300377BC8 /* PublicForkOn.png in Resources */,
+				6F8689A616BB10E300377BC8 /* PublicForkOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3083,6 +3103,10 @@
 				6F40850E16AD49F300C77089 /* DropdownWarning.png in Resources */,
 				6F40851016AD49F300C77089 /* DropdownWarning@2x.png in Resources */,
 				6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */,
+				6F8689A116BB10E300377BC8 /* PublicFork.png in Resources */,
+				6F8689A316BB10E300377BC8 /* PublicFork@2x.png in Resources */,
+				6F8689A516BB10E300377BC8 /* PublicForkOn.png in Resources */,
+				6F8689A716BB10E300377BC8 /* PublicForkOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

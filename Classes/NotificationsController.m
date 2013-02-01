@@ -47,9 +47,8 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-	[self refreshLastUpdate];
+	if (!self.notificationsByRepository) [self rebuildByRepository];
 	[self refreshIfRequired];
-	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -198,20 +197,24 @@
 	return values;
 }
 
+- (void)rebuildByRepository {
+	self.notificationsByRepository = [NSMutableDictionary dictionary];
+	for (GHNotification *notification in self.notifications.items) {
+		if (!self.notificationsByRepository[notification.repository.repoId]) {
+			self.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
+		}
+		[self.notificationsByRepository[notification.repository.repoId] addObject:notification];
+	}
+}
+
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (weakSelf.notifications.canReload) {
 			[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
-				weakSelf.notificationsByRepository = [NSMutableDictionary dictionary];
-				for (GHNotification *notification in weakSelf.notifications.items) {
-					if (!weakSelf.notificationsByRepository[notification.repository.repoId]) {
-						weakSelf.notificationsByRepository[notification.repository.repoId] = [NSMutableArray array];
-					}
-					[weakSelf.notificationsByRepository[notification.repository.repoId] addObject:notification];
-				}
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
+				[weakSelf rebuildByRepository];
 				[weakSelf refreshLastUpdate];
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf.tableView reloadData];
 			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];

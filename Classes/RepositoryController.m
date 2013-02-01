@@ -168,9 +168,11 @@
 #pragma mark Actions
 
 - (void)displayRepository {
+	NSString *img = @"Private";
+	if (!self.repository.isPrivate) img = self.repository.isFork ? @"PublicFork" : @"Public";
+	self.iconView.image = [UIImage imageNamed:img];
 	self.nameLabel.text = self.repository.name;
-	self.iconView.image = [UIImage imageNamed:(self.repository.isPrivate ? @"Private.png" : @"Public.png")];
-	self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
+	self.iconView.hidden = self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
 	[self.ownerCell setContentText:self.repository.owner];
 	[self.websiteCell setContentText:[self.repository.homepageURL host]];
 	[self.descriptionCell setContentText:self.repository.descriptionText];

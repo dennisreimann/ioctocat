@@ -51,6 +51,7 @@
 #define kUserAuthenticatedEventsFormat          @"users/%@/events"
 #define kUserAuthenticatedOrgEventsFormat       @"users/%@/events/orgs/%@"
 #define kUserEventsFormat                       @"users/%@/events/public"
+#define kUserReceivedEventsFormat               @"users/%@/received_events/public"
 #define kRepoEventsFormat                       @"repos/%@/%@/events"
 #define kIssueEventsFormat                      @"repos/%@/%@/issues/events"
 #define kOrganizationEventsFormat               @"orgs/%@/events"

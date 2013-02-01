@@ -18,6 +18,7 @@
 @property(nonatomic,strong)GHRepositories *repositories;
 @property(nonatomic,strong)GHRepositories *starredRepositories;
 @property(nonatomic,strong)GHRepositories *watchedRepositories;
+@property(nonatomic,strong)GHEvents *receivedEvents;
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)GHUsers *following;
 @property(nonatomic,strong)GHUsers *followers;

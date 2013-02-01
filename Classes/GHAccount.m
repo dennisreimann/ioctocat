@@ -47,6 +47,8 @@ NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
 		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
 		self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsFormat];
+		self.user.receivedEvents = [[GHEvents alloc] initWithPath:[NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login]];
+		self.user.events = [[GHEvents alloc] initWithPath:[NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login]];
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;

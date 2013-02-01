@@ -151,6 +151,14 @@
 	return _events;
 }
 
+- (GHEvents *)receivedEvents {
+	if (!_receivedEvents) {
+		NSString *receivedEventsPath = [NSString stringWithFormat:kUserReceivedEventsFormat, self.login];
+		_receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath];
+	}
+	return _receivedEvents;
+}
+
 #pragma mark Following
 
 - (void)checkUserFollowing:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure {

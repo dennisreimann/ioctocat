@@ -94,9 +94,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.events.isLoading) return self.events.count;
-	if (self.events.isLoaded && self.events.isEmpty) return 1;
-	return self.events.count;
+	if (self.events.isLoaded) {
+		return self.events.isEmpty ? 1 : self.events.count;
+	} else {
+		return 0;
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -137,6 +139,8 @@
 		return 70.0f;
 	}
 }
+
+#pragma mark Helpers
 
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;

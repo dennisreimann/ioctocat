@@ -46,8 +46,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIfRequired) name:UIApplicationDidBecomeActiveNotification object:nil];
 	if (!self.notificationsByRepository) [self rebuildByRepository];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self refreshLastUpdate];
 	[self refreshIfRequired];
 }
 
@@ -230,10 +235,6 @@
 }
 
 #pragma mark Events
-
-- (void)applicationDidBecomeActive {
-	[self refreshIfRequired];
-}
 
 // refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {

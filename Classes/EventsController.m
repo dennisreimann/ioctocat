@@ -50,7 +50,23 @@
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
 	[self setupPullToRefresh];
-	[self.tableView triggerPullToRefresh];
+	[self refreshLastUpdate];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIfRequired) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	[self refreshLastUpdate];
+	[self refreshIfRequired];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)openEventItem:(id)eventItem {
@@ -163,6 +179,14 @@
 	if (self.events.lastUpdate) {
 		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastUpdate prettyDate]];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
+	}
+}
+
+- (void)refreshIfRequired {
+	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
+	if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
+		// the feed was loaded before this application became active again, refresh it
+		[self.tableView triggerPullToRefresh];
 	}
 }
 

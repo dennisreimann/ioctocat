@@ -34,11 +34,7 @@
 	self = [super initWithNibName:@"MyEvents" bundle:nil];
 	if (self) {
 		self.user = user;
-		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
-		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
-		GHEvents *receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath];
-		GHEvents *ownEvents = [[GHEvents alloc] initWithPath:eventsPath];
-		self.feeds = @[receivedEvents, ownEvents];
+		self.feeds = @[self.user.receivedEvents, self.user.events];
 	}
 	return self;
 }
@@ -49,18 +45,6 @@
 	self.navigationItem.titleView = self.feedControl;
 	// Start loading the first feed
 	self.feedControl.selectedSegmentIndex = 0;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	[self refreshLastUpdate];
-	[self refreshIfRequired];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	[super viewWillDisappear:animated];
 }
 
 - (GHEvents *)events {
@@ -87,26 +71,12 @@
 		GHEvents *feed = (GHEvents *)object;
 		if (feed.isLoaded) {
 			[self.tableView reloadData];
-			[self refreshLastUpdate];
 			[self.tableView.pullToRefreshView stopAnimating];
 		} else if (feed.error) {
 			[self.tableView.pullToRefreshView stopAnimating];
 			[iOctocat reportLoadingError:@"Could not load the feed"];
 		}
-	}
-}
-
-#pragma mark Events
-
-- (void)applicationDidBecomeActive {
-	[self refreshIfRequired];
-}
-
-- (void)refreshIfRequired {
-	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
-		// the feed was loaded before this application became active again, refresh it
-		[self.tableView triggerPullToRefresh];
+		[self refreshLastUpdate];
 	}
 }
 

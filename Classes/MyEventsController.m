@@ -22,7 +22,6 @@
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *feeds;
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
-@property(nonatomic,readwrite)NSUInteger loadCounter;
 @property(nonatomic,weak,readonly)GHEvents *events;
 @property(nonatomic,strong)IBOutlet EventCell *selectedCell;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
@@ -35,7 +34,6 @@
 	self = [super initWithNibName:@"MyEvents" bundle:nil];
 	if (self) {
 		self.user = user;
-		self.loadCounter = 0;
 		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
 		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
 		GHEvents *receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath];
@@ -87,11 +85,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([object isKindOfClass:GHEvents.class] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
 		GHEvents *feed = (GHEvents *)object;
-		if (feed.isLoading) {
-			self.loadCounter += 1;
-		} else if (feed.isLoaded) {
+		if (feed.isLoaded) {
 			[self.tableView reloadData];
-			self.loadCounter -= 1;
 			[self refreshLastUpdate];
 			[self.tableView.pullToRefreshView stopAnimating];
 		} else if (feed.error) {

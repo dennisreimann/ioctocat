@@ -26,7 +26,6 @@
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
-@property(nonatomic,weak)IBOutlet UILabel *issueNumber;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
@@ -117,7 +116,6 @@
 	NSString *icon = [NSString stringWithFormat:@"issue_%@.png", self.issue.state];
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.issue.title;
-	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.issue.num];
 	[self.repoCell setContentText:self.issue.repository.repoId];
 	[self.authorCell setContentText:self.issue.user.login];
 	[self.createdCell setContentText:[self.issue.created prettyDate]];

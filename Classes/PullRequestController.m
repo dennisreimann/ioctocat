@@ -30,7 +30,6 @@
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
-@property(nonatomic,weak)IBOutlet UILabel *issueNumber;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet UILabel *commitTitleLabel;
 @property(nonatomic,weak)IBOutlet UITextView *commitTextView;
@@ -133,7 +132,6 @@
 	NSString *icon = [NSString stringWithFormat:@"pull_request_%@.png", self.pullRequest.state];
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.pullRequest.title;
-	self.issueNumber.text = [NSString stringWithFormat:@"#%d", self.pullRequest.num];
 	self.commitTextView.text = self.pullRequest.title;
 	self.commitTitleLabel.text = [NSString stringWithFormat:@"Merge pull request #%d from %@/%@", self.pullRequest.num, self.pullRequest.head.repository.owner, self.pullRequest.head.name];
 	[self.repoCell setContentText:self.pullRequest.repository.repoId];

@@ -12,6 +12,7 @@ Changes:
 * Check the users assignment status for editing issues and pulls
 * Separate section for forks in personal repositories list
 * Better handling of events reloading
+* Improved issue and pull request headers
 
 Bugfixes:
 

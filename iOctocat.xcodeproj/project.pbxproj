@@ -1660,6 +1660,7 @@
 				6FECA89C159070FE00878A74 /* Git */,
 				6F182C84161C5E2500E705CF /* Gists */,
 				6FECA89F1590A20200878A74 /* Repos */,
+				6FF1B77916BDB10C00045229 /* Issues */,
 				6FECA8A01590A23C00878A74 /* Misc */,
 				1D3623240D0F684500981E51 /* iOctocat.h */,
 				1D3623250D0F684500981E51 /* iOctocat.m */,
@@ -2353,16 +2354,6 @@
 				6F76CDC016628FF500A2353E /* CommitsController.m */,
 				6F797C5B1110E2BE007E5A8D /* CommitController.h */,
 				6F797C5C1110E2BE007E5A8D /* CommitController.m */,
-				6FED82950FACA1E700BE5C81 /* PullRequestsController.h */,
-				6FED82960FACA1E700BE5C81 /* PullRequestsController.m */,
-				6F536BB916790B9300B5FD53 /* PullRequestController.h */,
-				6F536BB616790B8A00B5FD53 /* PullRequestController.m */,
-				6F536BCC167A248200B5FD53 /* IssuesController.h */,
-				6F536BCD167A24AD00B5FD53 /* IssuesController.m */,
-				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
-				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
-				6F0AEFBB100CF5DB00FB323E /* IssueObjectFormController.h */,
-				6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */,
 			);
 			name = Repos;
 			sourceTree = "<group>";
@@ -2408,6 +2399,23 @@
 				6F4CBD3B16432A9E00D587FB /* EmptyCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		6FF1B77916BDB10C00045229 /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				6FED82950FACA1E700BE5C81 /* PullRequestsController.h */,
+				6FED82960FACA1E700BE5C81 /* PullRequestsController.m */,
+				6F536BB916790B9300B5FD53 /* PullRequestController.h */,
+				6F536BB616790B8A00B5FD53 /* PullRequestController.m */,
+				6F536BCC167A248200B5FD53 /* IssuesController.h */,
+				6F536BCD167A24AD00B5FD53 /* IssuesController.m */,
+				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
+				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
+				6F0AEFBB100CF5DB00FB323E /* IssueObjectFormController.h */,
+				6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */,
+			);
+			name = Issues;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

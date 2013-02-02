@@ -263,12 +263,14 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 		case 0:
 			if (row == 0) {
 				viewController = [[NotificationsController alloc] initWithNotifications:self.user.notifications];
+				viewController.title = @"Notifications";
 			}
 			break;
 
 		case 1:
 			if (row == 0) {
 				viewController = [[MyEventsController alloc] initWithUser:self.user];
+				viewController.title = @"My Events";
 			} else {
 				GHOrganization *org = self.user.organizations[row - 1];
 				viewController = [[EventsController alloc] initWithEvents:org.events];
@@ -279,8 +281,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 		case 2:
 			if (row == 0) {
 				viewController = [[UserController alloc] initWithUser:self.user];
+				viewController.title = @"My Profile";
 			} else if (row == 1) {
 				viewController = [[OrganizationsController alloc] initWithOrganizations:self.user.organizations];
+				viewController.title = @"My Organizations";
 			}
 			break;
 			
@@ -306,6 +310,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 		case 4:
 			if (row == 0) {
 				viewController = [[GistsController alloc] initWithGists:self.user.gists];
+				viewController.title = @"Personal Gists";
 			} else if (row == 1) {
 				viewController = [[GistsController alloc] initWithGists:self.user.starredGists];
 				viewController.title = @"Starred Gists";
@@ -315,6 +320,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 		case 5:
 			if (row == 0) {
 				viewController = [[SearchController alloc] initWithUser:self.user];
+				viewController.title = @"Search";
 			} else if (row == 1) {
 				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
 				viewController = [[IssuesController alloc] initWithRepository:repo];

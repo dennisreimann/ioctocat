@@ -38,6 +38,8 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
@@ -233,8 +235,6 @@
 	}];
 	[self refreshLastUpdate];
 }
-
-#pragma mark Events
 
 // refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {

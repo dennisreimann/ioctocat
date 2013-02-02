@@ -3,12 +3,11 @@
 #import "GHTree.h"
 #import "GHBlob.h"
 #import "iOctocat.h"
+#import "SVProgressHUD.h"
 
 
 @interface TreeController ()
 @property(nonatomic,strong)GHTree *tree;
-
-- (void)displayTree;
 @end
 
 
@@ -22,20 +21,38 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self displayTree];
-	if (![self.tree isLoaded]) {
+	self.navigationItem.title = self.tree.path ? self.tree.path : self.tree.sha;
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// tree
+	if (!self.tree.isLoaded) {
 		[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the tree"];
 		}];
+	} else if (self.tree.isChanged) {
+		[self.tableView reloadData];
 	}
 }
 
-- (void)displayTree {
-	self.title = self.tree.path ? self.tree.path : self.tree.sha;
+#pragma mark Actions
+
+- (IBAction)refresh:(id)sender {
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 #pragma mark TableView

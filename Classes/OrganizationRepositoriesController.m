@@ -36,9 +36,13 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title ? self.title : @"Organization Repos";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	// organizations
 	if (self.user.organizations.isLoaded) {
 		[self loadOrganizationRepositories];
 	} else {
@@ -49,6 +53,8 @@
 		}];
 	}
 }
+
+#pragma mark Helpers
 
 // GitHub API v3 changed the way this has to be looked up. There is not a
 // single call for these no more, we have to fetch each organizations repos

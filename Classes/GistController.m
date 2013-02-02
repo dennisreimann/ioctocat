@@ -48,19 +48,40 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = @"Gist";
+	self.title = self.title ? self.title : @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayGist];
-	// load gist
+	// header
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// gist
 	if (!self.gist.isLoaded) {
 		[self.gist loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayGist];
-			[self.tableView reloadData];
+			[self displayGistChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"The gist could not be loaded"];
 		}];
+	} else if (self.gist.isChanged) {
+		[self displayGistChange];
+	}
+	// comments
+	if (!self.gist.comments.isLoaded) {
+		[self.gist.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayCommentsChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the comments"];
+		}];
+	} else if (self.gist.comments.isChanged) {
+		[self displayCommentsChange];
 	}
 	// check starring state
 	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
@@ -68,27 +89,33 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isStarring = NO;
 	}];
-	// header
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	if (!self.gist.comments.isLoaded) {
-		[self.gist.comments loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.gist.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
-	}
-}
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
+}
+
+- (void)displayGist {
+	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"Private.png" : @"Public.png")];
+	self.descriptionLabel.text = self.gist.title;
+	self.forksIconView.hidden = !self.gist.isLoaded;
+	self.ownerCell.contentText = self.gist.user.login;
+	self.createdCell.contentText = [self.gist.createdAtDate prettyDate];
+	self.updatedCell.contentText = [self.gist.updatedAtDate prettyDate];
+	self.forksCountLabel.text = self.gist.isLoaded ? [NSString stringWithFormat:@"%d %@", self.gist.forksCount, self.gist.forksCount == 1 ? @"fork" : @"forks"] : nil;
+}
+
+- (void)displayGistChange {
+	[self displayGist];
+	[self.tableView reloadData];
+}
+
+- (void)displayCommentsChange {
+	if (!self.gist.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark Actions
@@ -107,16 +134,6 @@
 		WebController *webController = [[WebController alloc] initWithURL:self.gist.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
-}
-
-- (void)displayGist {
-	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"Private.png" : @"Public.png")];
-	self.descriptionLabel.text = self.gist.title;
-	self.forksIconView.hidden = !self.gist.isLoaded;
-	self.ownerCell.contentText = self.gist.user.login;
-	self.createdCell.contentText = [self.gist.createdAtDate prettyDate];
-	self.updatedCell.contentText = [self.gist.updatedAtDate prettyDate];
-	self.forksCountLabel.text = self.gist.isLoaded ? [NSString stringWithFormat:@"%d %@", self.gist.forksCount, self.gist.forksCount == 1 ? @"fork" : @"forks"] : nil;
 }
 
 - (IBAction)addComment:(id)sender {

@@ -53,20 +53,23 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	return self;
 }
 
+- (void)dealloc {
+	[self.commit removeObserver:self forKeyPath:AuthorGravatarKeyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:AuthorGravatarKeyPath]) {
+		self.gravatarView.image = self.commit.author.gravatar;
+	}
+}
+
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = [self.commit.commitID substringToIndex:8];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayCommit];
-	// load resources
-	if (!self.commit.isLoaded) {
-		[self.commit loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayCommit];
-			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the commit"];
-		}];
-	}
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -75,30 +78,35 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.gravatarView.layer.masksToBounds = YES;
 }
 
-// load comments in viewDidAppear, so that comments
-// get reloaded after a new comment has been posted
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// commits
+	if (!self.commit.isLoaded) {
+		[self.commit loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayCommitChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the commit"];
+		}];
+	} else if (self.commit.isChanged) {
+		[self displayCommitChange];
+	}
+	// comments
 	if (!self.commit.comments.isLoaded) {
 		[self.commit.comments loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.commit.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+			[self displayCommentsChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the comments"];
 		}];
+	} else if (self.commit.isChanged) {
+		[self displayCommentsChange];
 	}
 }
 
-- (void)dealloc {
-	[self.commit removeObserver:self forKeyPath:AuthorGravatarKeyPath];
-}
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
 }
-
-#pragma mark Actions
 
 - (void)displayCommit {
 	self.titleLabel.text = self.commit.message;
@@ -115,15 +123,26 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[self.modifiedCell setFiles:self.commit.modified andDescription:@"modified"];
 }
 
+- (void)displayCommitChange {
+	[self displayCommit];
+	[self.tableView reloadData];
+}
+
+- (void)displayCommentsChange {
+	if (!self.commit.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark Actions
+
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", nil];
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-		[self addComment:nil];
-	}
+	if (buttonIndex == 0) [self addComment:nil];
 }
 
 - (IBAction)addComment:(id)sender {
@@ -132,12 +151,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	comment.commitID = self.commit.commitID;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:AuthorGravatarKeyPath]) {
-		self.gravatarView.image = self.commit.author.gravatar;
-	}
 }
 
 #pragma mark TableView

@@ -27,18 +27,29 @@
     return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"Organizations";
+    self.navigationItem.title = self.title ? self.title : @"Organizations";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// organizations
 	if (!self.organizations.isLoaded) {
 		[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}];
+	} else if (self.organizations.isChanged) {
+		[self.tableView reloadData];
 	}
 }
+
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];

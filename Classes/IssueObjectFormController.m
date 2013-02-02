@@ -15,8 +15,6 @@
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet UITableViewCell *titleCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *bodyCell;
-
-- (IBAction)saveIssue:(id)sender;
 @end
 
 
@@ -33,7 +31,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
+	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
 	self.tableView.tableFooterView = self.tableFooterView;
 	if (!self.object.isNew) {
 		self.titleField.text = self.object.title;
@@ -44,6 +42,8 @@
 - (GHIssue *)object {
 	return self.issueObject;
 }
+
+#pragma mark Actions
 
 - (IBAction)saveIssue:(id)sender {
 	// validate

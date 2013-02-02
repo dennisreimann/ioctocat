@@ -25,9 +25,11 @@
     return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title.isEmpty ? @"Users" : self.title;
+	self.navigationItem.title = self.title ? self.title : @"Users";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 }
 
@@ -42,6 +44,12 @@
 	} else if (self.users.isChanged) {
 		[self.tableView reloadData];
 	}
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.users.isLoaded && !self.users.isEmpty;
 }
 
 #pragma mark Actions
@@ -80,12 +88,6 @@
     GHUser *user = self.users[indexPath.row];
     UserController *userController = [[UserController alloc] initWithUser:user];
     [self.navigationController pushViewController:userController animated:YES];
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return self.users.isLoaded && !self.users.isEmpty;
 }
 
 @end

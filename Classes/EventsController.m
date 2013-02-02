@@ -46,6 +46,8 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
@@ -68,6 +70,8 @@
 	[super viewWillDisappear:animated];
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+#pragma mark Actions
 
 - (void)openEventItem:(id)eventItem {
 	UIViewController *viewController = nil;

@@ -25,9 +25,11 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title.isEmpty ? @"Gists" : self.title;
+	self.navigationItem.title = self.title ? self.title : @"Gists";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 }
 
@@ -42,6 +44,12 @@
 	} else if (self.gists.isChanged) {
 		[self.tableView reloadData];
 	}
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.gists.isLoaded && !self.gists.isEmpty;
 }
 
 #pragma mark Actions
@@ -80,12 +88,6 @@
 	GHGist *gist = self.gists[indexPath.row];
 	GistController *gistController = [[GistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return self.gists.isLoaded && !self.gists.isEmpty;
 }
 
 @end

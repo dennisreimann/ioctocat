@@ -18,22 +18,36 @@
 - (id)initWithForks:(GHForks *)forks {
 	self = [super initWithNibName:@"Forks" bundle:nil];
 	if (self) {
-		self.title = @"Forks";
 		self.forks = forks;
 	}
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title ? self.title : @"Forks";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	if (!self.forks.isLoaded) {
 		[self.forks loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the forks"];
 		}];
+	} else if (self.forks.isChanged) {
+		[self.tableView reloadData];
 	}
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.forks.isLoaded && !self.forks.isEmpty;
 }
 
 #pragma mark Actions
@@ -72,12 +86,6 @@
 	GHRepository *repo = self.forks[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return self.forks.isLoaded && !self.forks.isEmpty;
 }
 
 @end

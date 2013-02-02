@@ -31,7 +31,6 @@
 - (id)initWithUser:(GHUser *)user {
 	self = [super initWithNibName:@"Issues" bundle:nil];
 	if (self) {
-		self.title = @"Issues";
 		self.user = user;
 		NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 		NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
@@ -51,8 +50,11 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title ? self.title : @"Issues";
 	self.navigationItem.titleView = self.issuesControl;
 	self.navigationItem.rightBarButtonItem = self.repository ?
 		[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewIssue:)] :
@@ -64,9 +66,15 @@
 	[self switchChanged:nil];
 }
 
+#pragma mark Helpers
+
 - (GHIssues *)currentIssues {
 	NSInteger idx = self.issuesControl.selectedSegmentIndex;
 	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
+}
+
+- (BOOL)resourceHasData {
+	return self.currentIssues.isLoaded && !self.currentIssues.isEmpty;
 }
 
 #pragma mark Actions
@@ -117,7 +125,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.currentIssues.isLoading ) || (self.currentIssues.isEmpty) ? 1 : self.currentIssues.count;
+	return self.resourceHasData ? self.currentIssues.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -133,7 +141,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentIssues.isLoaded || self.currentIssues.isEmpty) return;
+	if (!self.resourceHasData) return;
 	GHIssue *issue = self.currentIssues[indexPath.row];
 	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andListController:self];
 	[self.navigationController pushViewController:issueController animated:YES];

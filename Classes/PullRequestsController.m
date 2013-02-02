@@ -23,15 +23,17 @@
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithNibName:@"PullRequests" bundle:nil];
 	if (self) {
-		self.title = @"Pull Requests";
 		self.repository = repo;
 		self.objects = @[self.repository.openPullRequests, self.repository.closedPullRequests];
 	}
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title ? self.title : @"Pull Requests";
 	self.navigationItem.titleView = self.pullRequestsControl;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	self.pullRequestsControl.selectedSegmentIndex = 0;
@@ -41,9 +43,15 @@
 	[self switchChanged:nil];
 }
 
+#pragma mark Helpers
+
 - (GHIssues *)currentPullRequests {
 	NSInteger idx = self.pullRequestsControl.selectedSegmentIndex;
 	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
+}
+
+- (BOOL)resourceHasData {
+	return self.currentPullRequests.isLoaded && !self.currentPullRequests.isEmpty;
 }
 
 #pragma mark Actions
@@ -81,7 +89,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.currentPullRequests.isLoading) || (self.currentPullRequests.isEmpty) ? 1 : self.currentPullRequests.count;
+	return self.resourceHasData ? self.currentPullRequests.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -95,7 +103,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentPullRequests.isLoaded || self.currentPullRequests.isEmpty) return;
+	if (!self.resourceHasData) return;
 	GHPullRequest *pullRequest = self.currentPullRequests[indexPath.row];
 	PullRequestController *viewController = [[PullRequestController alloc] initWithPullRequest:pullRequest andListController:self];
 	[self.navigationController pushViewController:viewController animated:YES];

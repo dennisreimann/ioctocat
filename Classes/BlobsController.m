@@ -26,6 +26,8 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
@@ -39,7 +41,7 @@
 	[super viewWillDisappear:animated];
 }
 
-#pragma mark Actions
+#pragma mark Helpers
 
 - (void)displayCode:(NSString *)code {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

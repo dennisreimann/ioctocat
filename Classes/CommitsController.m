@@ -18,29 +18,45 @@
 - (id)initWithCommits:(GHCommits *)commits {
 	self = [super initWithNibName:@"Commits" bundle:nil];
 	if (self) {
-		self.title = @"Commits";
 		self.commits = commits;
 	}
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title ? self.title : @"Commits";
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	if (!self.commits.isLoaded) {
 		[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the commits"];
 		}];
+	} else if (self.commits.isChanged) {
+		[self.tableView reloadData];
 	}
 }
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.commits.isLoaded && !self.commits.isEmpty;
+}
+
+#pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.commits.isLoading || self.commits.isEmpty) ? 1 : self.commits.count;
+	return self.resourceHasData ? self.commits.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -53,7 +69,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.commits.isLoaded || self.commits.isEmpty) return;
+	if (!self.resourceHasData) return;
 	GHCommit *commit = self.commits[indexPath.row];
 	CommitController *viewController = [[CommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];

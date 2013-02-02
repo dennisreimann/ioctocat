@@ -25,9 +25,11 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title.isEmpty ? @"Repositories" : self.title;
+	self.navigationItem.title = self.title ? self.title : @"Repositories";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 }
 
@@ -42,6 +44,12 @@
 	} else if (self.repositories.isChanged) {
 		[self.tableView reloadData];
 	}
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return self.repositories.isLoaded && !self.repositories.isEmpty;
 }
 
 #pragma mark Actions
@@ -76,12 +84,6 @@
 	GHRepository *repo = self.repositories[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return self.repositories.isLoaded && !self.repositories.isEmpty;
 }
 
 @end

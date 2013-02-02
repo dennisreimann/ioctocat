@@ -60,18 +60,39 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.num];
 	[self displayIssue];
-	// load issue
+	// header
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// issue
 	if (!self.issue.isLoaded) {
 		[self.issue loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayIssue];
-			[self.tableView reloadData];
+			[self displayIssueChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the issue"];
 		}];
+	} else if (self.issue.isChanged) {
+		[self displayIssueChange];
+	}
+	// comments
+	if (!self.issue.comments.isLoaded) {
+		[self.issue.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayCommentsChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the comments"];
+		}];
+	} else if (self.issue.comments.isChanged) {
+		[self displayCommentsChange];
 	}
 	// check assignment state
 	[self.currentUser checkRepositoryAssignment:self.issue.repository success:^(GHResource *instance, id data) {
@@ -79,31 +100,9 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isAssignee = NO;
 	}];
-	// header
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
-// load comments in viewDidAppear, so that comments
-// get reloaded after a new comment has been posted
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	if (!self.issue.comments.isLoaded) {
-		[self.issue.comments loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.issue.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
-	}
-}
-
-// displaying the new data gets done via viewWillAppear
-- (void)savedIssueObject:(id)object	{
-	[self.listController reloadIssues];
-}
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
@@ -124,6 +123,17 @@
 	[self.createdCell setContentText:[self.issue.created prettyDate]];
 	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
 	[self.descriptionCell setContentText:self.issue.body];
+}
+
+- (void)displayIssueChange {
+	[self displayIssue];
+	[self.tableView reloadData];
+}
+
+- (void)displayCommentsChange {
+	if (!self.issue.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark Actions
@@ -189,6 +199,11 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
 	}];
+}
+
+// displaying the new data gets done via viewWillAppear
+- (void)savedIssueObject:(id)object	{
+	[self.listController reloadIssues];
 }
 
 #pragma mark TableView

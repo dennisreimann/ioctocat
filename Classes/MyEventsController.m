@@ -39,20 +39,22 @@
 	return self;
 }
 
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	self.navigationItem.title = @"My Events";
-	self.navigationItem.titleView = self.feedControl;
-	// Start loading the first feed
-	self.feedControl.selectedSegmentIndex = 0;
-}
-
 - (GHEvents *)events {
 	if (self.feedControl.selectedSegmentIndex == UISegmentedControlNoSegment) {
 		return nil;
 	} else {
 		return self.feeds[self.feedControl.selectedSegmentIndex];
 	}
+}
+
+#pragma mark View Events
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	self.navigationItem.title = @"My Events";
+	self.navigationItem.titleView = self.feedControl;
+	// Start loading the first feed
+	self.feedControl.selectedSegmentIndex = 0;
 }
 
 #pragma mark Actions

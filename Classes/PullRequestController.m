@@ -71,19 +71,40 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"#%d", self.pullRequest.num];
+	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
 	[self.mergeButton useGreenConfirmStyle];
 	[self displayPullRequest];
-	// load pull request
+	// header
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// pull request
 	if (!self.pullRequest.isLoaded) {
 		[self.pullRequest loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayPullRequest];
-			[self.tableView reloadData];
+			[self displayPullRequestChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the pull request"];
 		}];
+	} else if (self.pullRequest.isChanged) {
+		[self displayPullRequestChange];
+	}
+	// comments
+	if (!self.pullRequest.comments.isLoaded) {
+		[self.pullRequest.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayCommentsChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the comments"];
+		}];
+	} else if (self.pullRequest.comments.isChanged) {
+		[self displayCommentsChange];
 	}
 	// check assignment state
 	[self.currentUser checkRepositoryAssignment:self.pullRequest.repository success:^(GHResource *instance, id data) {
@@ -91,26 +112,9 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isAssignee = NO;
 	}];
-	// header
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
-// load comments in viewDidAppear, so that comments
-// get reloaded after a new comment has been posted
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	if (!self.pullRequest.comments.isLoaded) {
-		[self.pullRequest.comments loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.pullRequest.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
-	}
-}
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
@@ -139,6 +143,17 @@
 	[self.closedCell setContentText:[self.pullRequest.closed prettyDate]];
 	[self.descriptionCell setContentText:self.pullRequest.body];
 	[self.tableView reloadData];
+}
+
+- (void)displayPullRequestChange {
+	[self displayPullRequest];
+	[self.tableView reloadData];
+}
+
+- (void)displayCommentsChange {
+	if (!self.pullRequest.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark Actions

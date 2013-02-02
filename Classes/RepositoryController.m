@@ -63,35 +63,45 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = self.repository.name;
+	self.navigationItem.title = self.title ? self.title : self.repository.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayRepository];
+	// header
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// repository
 	if (!self.repository.isLoaded) {
 		[self.repository loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayRepository];
-			[self.tableView reloadData];
+			[self displayRepositoryChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
 			[self.tableView reloadData];
 		}];
+	} else if (self.repository.isChanged) {
+		[self displayRepositoryChange];
 	}
+	// branches
 	if (!self.repository.branches.isLoaded) {
 		[self.repository.branches loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.repository.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+			[self displayBranchesChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the branches"];
 		}];
-
+	} else if (self.repository.branches.isChanged) {
+		[self displayBranchesChange];
 	}
+	// readme
 	if (!self.repository.readme.isLoaded) {
 		[self.repository.readme loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.repository.isLoaded) return;
-			NSInteger readmeRow = self.descriptionCell.hasContent ? 3 : 2;
-			NSIndexPath *readmePath = [NSIndexPath indexPathForRow:readmeRow inSection:0];
-			[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
+			[self displayReadmeChange];
 		} failure:nil];
+	} else if (self.repository.readme.isChanged) {
+		[self displayReadmeChange];
 	}
 	// check starring state
 	[self.currentUser checkRepositoryStarring:self.repository success:^(GHResource *instance, id data) {
@@ -105,15 +115,51 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isWatching = NO;
 	}];
-	// Background
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
 }
+
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
 }
+
+- (void)displayRepository {
+	NSString *img = @"Private";
+	if (!self.repository.isPrivate) img = self.repository.isFork ? @"PublicFork" : @"Public";
+	self.iconView.image = [UIImage imageNamed:img];
+	self.nameLabel.text = self.repository.name;
+	self.iconView.hidden = self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
+	[self.ownerCell setContentText:self.repository.owner];
+	[self.websiteCell setContentText:[self.repository.homepageURL host]];
+	[self.descriptionCell setContentText:self.repository.descriptionText];
+	if (self.repository.isLoaded) {
+		self.starsCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars"];
+		self.forksCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"];
+	} else {
+		self.starsCountLabel.text = nil;
+		self.forksCountLabel.text = nil;
+	}
+}
+
+- (void)displayRepositoryChange {
+	[self displayRepository];
+	[self.tableView reloadData];
+}
+
+- (void)displayBranchesChange {
+	if (!self.repository.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)displayReadmeChange {
+	if (!self.repository.isLoaded) return;
+	NSInteger readmeRow = self.descriptionCell.hasContent ? 3 : 2;
+	NSIndexPath *readmePath = [NSIndexPath indexPathForRow:readmeRow inSection:0];
+	[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
+}
+
+#pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), (self.isWatching ? @"Unwatch" : @"Watch"), @"Show on GitHub", nil];
@@ -163,26 +209,6 @@
 		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.repository.repoId];
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
-}
-
-#pragma mark Actions
-
-- (void)displayRepository {
-	NSString *img = @"Private";
-	if (!self.repository.isPrivate) img = self.repository.isFork ? @"PublicFork" : @"Public";
-	self.iconView.image = [UIImage imageNamed:img];
-	self.nameLabel.text = self.repository.name;
-	self.iconView.hidden = self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
-	[self.ownerCell setContentText:self.repository.owner];
-	[self.websiteCell setContentText:[self.repository.homepageURL host]];
-	[self.descriptionCell setContentText:self.repository.descriptionText];
-	if (self.repository.isLoaded) {
-		self.starsCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars"];
-		self.forksCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"];
-	} else {
-		self.starsCountLabel.text = nil;
-		self.forksCountLabel.text = nil;
-	}
 }
 
 #pragma mark TableView

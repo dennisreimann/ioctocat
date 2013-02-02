@@ -3,6 +3,7 @@
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "RepositoryCell.h"
+#import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 
@@ -19,7 +20,6 @@
 - (id)initWithRepositories:(GHRepositories *)repos {
 	self = [super initWithNibName:@"Repositories" bundle:nil];
 	if (self) {
-		self.title = @"Repositories";
 		self.repositories = repos;
 	}
 	return self;
@@ -27,13 +27,20 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title.isEmpty ? @"Repositories" : self.title;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	if (!self.repositories.isLoaded) {
 		[self.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the repositories"];
 		}];
+	} else if (self.repositories.isChanged) {
+		[self.tableView reloadData];
 	}
 }
 

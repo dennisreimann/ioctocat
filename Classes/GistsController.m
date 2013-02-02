@@ -20,7 +20,6 @@
 - (id)initWithGists:(GHGists *)gists {
 	self = [super initWithNibName:@"Gists" bundle:nil];
 	if (self) {
-		self.title = @"Gists";
 		self.gists = gists;
 	}
 	return self;
@@ -28,14 +27,20 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = [self.title isEmpty] ? @"Gists" : self.title;
+	self.navigationItem.title = self.title.isEmpty ? @"Gists" : self.title;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
 	if (!self.gists.isLoaded) {
 		[self.gists loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the gists"];
 		}];
+	} else if (self.gists.isChanged) {
+		[self.tableView reloadData];
 	}
 }
 

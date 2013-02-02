@@ -18,6 +18,7 @@ Bugfixes:
 * Select correct account for editing after failed authentication
 * Added missing date for last feed refresh before first load
 * Fix for gists that wrongly appeared in some events
+* Handle list changes in parent controllers
 
 ## v1.7.5
 

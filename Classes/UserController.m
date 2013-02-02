@@ -248,7 +248,7 @@
 		viewController = [[GistsController alloc] initWithGists:self.user.gists];
 		viewController.title = @"Gists";
 	} else if (section == 1) {
-		viewController = [[UsersController alloc] initWithUsers:(row == 1 ? self.user.following : self.user.followers)];
+		viewController = [[UsersController alloc] initWithUsers:(row == 1) ? self.user.following : self.user.followers];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2 && !self.user.repositories.isEmpty) {
 		GHRepository *repo = self.user.repositories[indexPath.row];

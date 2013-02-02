@@ -58,47 +58,23 @@
 	return self;
 }
 
+- (void)dealloc {
+	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kGravatarKeyPath]) {
+		self.gravatarView.image = self.user.gravatar;
+	}
+}
+
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	BOOL isProfile = [self.user.login isEqualToString:self.currentUser.login];
-	self.navigationItem.title = isProfile ? @"Profile" : self.user.login;
-	self.navigationItem.rightBarButtonItem = isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.navigationItem.title = self.title ? self.title : self.user.login;
+	self.navigationItem.rightBarButtonItem = self.isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayUser];
-	// load resources
-	if (!self.user.isLoaded) {
-		[self.user loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayUser];
-			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the user"];
-		}];
-	}
-	if (!self.user.repositories.isLoaded) {
-		[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.user.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
-		}];
-	}
-	if (!self.user.organizations.isLoaded) {
-		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.user.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}];
-	}
-	// check following state
-	if (!isProfile) {
-		[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
-			self.isFollowing = YES;
-		} failure:^(GHResource *instance, NSError *error) {
-			self.isFollowing = NO;
-		}];
-	}
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -107,12 +83,56 @@
 	self.gravatarView.layer.masksToBounds = YES;
 }
 
-- (void)dealloc {
-	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// user
+	if (!self.user.isLoaded) {
+		[self.user loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayUserChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the user"];
+		}];
+	} else if (self.user.isChanged) {
+		[self displayUserChange];
+	}
+	// repositories
+	if (!self.user.repositories.isLoaded) {
+		[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayRepositoriesChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the repositories"];
+		}];
+	} else if (self.user.repositories.isChanged) {
+		[self displayRepositoriesChange];
+	}
+	// organizations
+	if (!self.user.organizations.isLoaded) {
+		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayOrganizationsChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the organizations"];
+		}];
+	} else if (self.user.organizations.isChanged) {
+		[self displayOrganizationsChange];
+	}
+	// check following state
+	if (!self.isProfile) {
+		[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
+			self.isFollowing = YES;
+		} failure:^(GHResource *instance, NSError *error) {
+			self.isFollowing = NO;
+		}];
+	}
 }
+
+#pragma mark Helpers
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
+}
+
+- (BOOL)isProfile {
+	return [self.user.login isEqualToString:self.currentUser.login];
 }
 
 - (void)displayUser {
@@ -122,6 +142,23 @@
 	[self.locationCell setContentText:self.user.location];
 	[self.blogCell setContentText:self.user.blogURL.host];
 	[self.emailCell setContentText:self.user.email];
+}
+
+- (void)displayUserChange {
+	[self displayUser];
+	[self.tableView reloadData];
+}
+
+- (void)displayRepositoriesChange {
+	if (!self.user.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)displayOrganizationsChange {
+	if (!self.user.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark Actions
@@ -155,12 +192,6 @@
 		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.user.login];
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath]) {
-		self.gravatarView.image = self.user.gravatar;
-	}
 }
 
 #pragma mark TableView

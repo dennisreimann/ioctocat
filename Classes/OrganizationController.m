@@ -35,9 +35,6 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
 @property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
-
-- (void)displayOrganization;
-- (IBAction)showActions:(id)sender;
 @end
 
 
@@ -52,38 +49,23 @@
 	return self;
 }
 
+- (void)dealloc {
+	[self.organization removeObserver:self forKeyPath:kGravatarKeyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:kGravatarKeyPath]) {
+		self.gravatarView.image = self.organization.gravatar;
+	}
+}
+
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.organization.login;
+	self.navigationItem.title = self.title ? self.title : self.organization.login;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	[self displayOrganization];
-	// load resources
-	if (!self.organization.isLoaded) {
-		[self.organization loadWithParams:nil success:^(GHResource *instance, id data) {
-			[self displayOrganization];
-			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the organization"];
-		}];
-	}
-	if (!self.organization.repositories.isLoaded) {
-		[self.organization.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.organization.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
-		}];
-	}
-	if (!self.organization.publicMembers.isLoaded) {
-		[self.organization.publicMembers loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (!self.organization.isLoaded) return;
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the members"];
-		}];
-	}
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
@@ -92,8 +74,66 @@
 	self.gravatarView.layer.masksToBounds = YES;
 }
 
-- (void)dealloc {
-	[self.organization removeObserver:self forKeyPath:kGravatarKeyPath];
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// organization
+	if (!self.organization.isLoaded) {
+		[self.organization loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayOrganizationChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the organization"];
+		}];
+	} else if (self.organization.isChanged) {
+		[self displayOrganizationChange];
+	}
+	// repositories
+	if (!self.organization.repositories.isLoaded) {
+		[self.organization.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayRepositoriesChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the repositories"];
+		}];
+	} else if (self.organization.repositories.isChanged) {
+		[self displayRepositoriesChange];
+	}
+	// members
+	if (!self.organization.publicMembers.isLoaded) {
+		[self.organization.publicMembers loadWithParams:nil success:^(GHResource *instance, id data) {
+			[self displayMembersChange];
+		} failure:^(GHResource *instance, NSError *error) {
+			[iOctocat reportLoadingError:@"Could not load the members"];
+		}];
+	} else if (self.organization.publicMembers.isChanged) {
+		[self displayMembersChange];
+	}
+}
+
+#pragma mark Helpers
+
+- (void)displayOrganization {
+	self.nameLabel.text = (!self.organization.name || self.organization.name.isEmpty) ? self.organization.login : self.organization.name;
+	self.companyLabel.text = (!self.organization.company || self.organization.company.isEmpty) ? [NSString stringWithFormat:@"%d followers", self.organization.followersCount] : self.organization.company;
+	if (self.organization.gravatar) self.gravatarView.image = self.organization.gravatar;
+	[self.locationCell setContentText:self.organization.location];
+	[self.blogCell setContentText:[self.organization.blogURL host]];
+	[self.emailCell setContentText:self.organization.email];
+}
+
+- (void)displayOrganizationChange {
+	[self displayOrganization];
+	[self.tableView reloadData];
+}
+
+- (void)displayRepositoriesChange {
+	if (!self.organization.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)displayMembersChange {
+	if (!self.organization.isLoaded) return;
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:3];
+	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 #pragma mark Actions
@@ -107,21 +147,6 @@
 	if (buttonIndex == 0) {
 		WebController *webController = [[WebController alloc] initWithURL:self.organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
-	}
-}
-
-- (void)displayOrganization {
-	self.nameLabel.text = (!self.organization.name || self.organization.name.isEmpty) ? self.organization.login : self.organization.name;
-	self.companyLabel.text = (!self.organization.company || self.organization.company.isEmpty) ? [NSString stringWithFormat:@"%d followers", self.organization.followersCount] : self.organization.company;
-	if (self.organization.gravatar) self.gravatarView.image = self.organization.gravatar;
-	[self.locationCell setContentText:self.organization.location];
-	[self.blogCell setContentText:[self.organization.blogURL host]];
-	[self.emailCell setContentText:self.organization.email];
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath]) {
-		self.gravatarView.image = self.organization.gravatar;
 	}
 }
 

@@ -57,7 +57,7 @@
 		[self.comment saveWithParams:params success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
 			[self.comments addObject:(GHComment *)instance];
-			[self.comments needsReload];
+			[self.comments markAsUnloaded];
 			[self.navigationController popViewControllerAnimated:YES];
 		} failure:^(GHResource *instance, NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Commenting failed"];

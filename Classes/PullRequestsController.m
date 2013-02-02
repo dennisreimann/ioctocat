@@ -71,7 +71,7 @@
 }
 
 - (void)reloadPullRequests {
-	for (GHPullRequests *pullRequests in self.objects) [pullRequests needsReload];
+	for (GHPullRequests *pullRequests in self.objects) [pullRequests markAsUnloaded];
 }
 
 #pragma mark TableView

@@ -101,7 +101,7 @@
 }
 
 - (void)reloadIssues {
-	for (GHIssues *issues in self.objects) [issues needsReload];
+	for (GHIssues *issues in self.objects) [issues markAsUnloaded];
 }
 
 // delegation method for newly created issues

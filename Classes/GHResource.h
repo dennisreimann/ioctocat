@@ -17,8 +17,6 @@ typedef void (^resourceFailure)(GHResource *instance, NSError *error);
 @property(nonatomic,strong)NSError *error;
 @property(nonatomic,readonly)BOOL isLoaded;
 @property(nonatomic,readonly)BOOL isLoading;
-@property(nonatomic,readonly)BOOL isSaved;
-@property(nonatomic,readonly)BOOL isSaving;
 
 - (id)initWithPath:(NSString *)path;
 - (void)needsReload;

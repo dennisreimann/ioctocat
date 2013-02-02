@@ -7,7 +7,6 @@
 @interface GHResource ()
 @property(nonatomic,strong)NSDictionary *data;
 @property(nonatomic,assign)GHResourceStatus loadingStatus;
-@property(nonatomic,assign)GHResourceStatus savingStatus;
 @end
 
 
@@ -18,7 +17,6 @@
 	if (self) {
 		self.resourcePath = path;
 		self.loadingStatus = GHResourceStatusNotProcessed;
-		self.savingStatus = GHResourceStatusNotProcessed;
 	}
 	return self;
 }
@@ -82,20 +80,17 @@
 
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
 	self.error = nil;
-	self.savingStatus = GHResourceStatusProcessing;
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
 	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
 	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id data) {
 		NSDictionary *headers = response.allHeaderFields;
 		D3JLog(@"\n%@: Saving %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
-		self.savingStatus = GHResourceStatusProcessed;
 		if (success) success(self, data);
 	};
 	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		NSDictionary *headers = response.allHeaderFields;
 		DJLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
 		self.error = error;
-		self.savingStatus = GHResourceStatusNotProcessed;
 		if (failure) failure(self, error);
 	};
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
@@ -110,14 +105,6 @@
 
 - (BOOL)isLoaded {
 	return self.loadingStatus == GHResourceStatusProcessed;
-}
-
-- (BOOL)isSaving {
-	return self.savingStatus == GHResourceStatusProcessing;
-}
-
-- (BOOL)isSaved {
-	return self.savingStatus == GHResourceStatusProcessed;
 }
 
 @end

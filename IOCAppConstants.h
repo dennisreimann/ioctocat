@@ -23,7 +23,6 @@
 #define kIssueFilterMentioned           @"mentioned"
 #define kIssueFilterSubscribed          @"subscribed"
 #define kResourceLoadingStatusKeyPath   @"loadingStatus"
-#define kResourceSavingStatusKeyPath    @"savingStatus"
 #define kGravatarKeyPath                @"gravatar"
 #define kIssueSortCreated               @"created"
 #define kIssueSortUpdated               @"updated"

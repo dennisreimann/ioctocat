@@ -66,18 +66,4 @@
 	[self refreshIfRequired];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([object isKindOfClass:GHEvents.class] && [keyPath isEqualToString:kResourceLoadingStatusKeyPath]) {
-		GHEvents *feed = (GHEvents *)object;
-		if (feed.isLoaded) {
-			[self.tableView reloadData];
-			[self.tableView.pullToRefreshView stopAnimating];
-		} else if (feed.error) {
-			[self.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the feed"];
-		}
-		[self refreshLastUpdate];
-	}
-}
-
 @end

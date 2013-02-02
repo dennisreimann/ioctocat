@@ -32,7 +32,6 @@
 
 #define kCellHeight 44.0f
 #define kSectionHeaderHeight 24.0f
-#define kNotificationsCountKeyPath @"notificationsCount"
 
 @interface MenuController ()
 @property(nonatomic,strong)GHUser *user;
@@ -42,14 +41,19 @@
 
 @implementation MenuController
 
+static NSString *const GravatarKeyPath = kGravatarKeyPath;
+static NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
+static NSString *const NotificationsCountKeyPath = @"notifications.notificationsCount";
+
 - (id)initWithUser:(GHUser *)user {
 	self = [self initWithNibName:@"Menu" bundle:nil];
 	if (self) {
 		NSString *menuPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
-		[self.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user.notifications addObserver:self forKeyPath:kNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.user addObserver:self forKeyPath:NotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -73,10 +77,8 @@
 		} failure:nil];
 	}
 	if (!self.user.organizations.isLoaded) {
-		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
+		// success is handled by the KVO hook
+		[self.user.organizations loadWithParams:nil success:nil failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}];
 	}
@@ -84,8 +86,22 @@
 }
 
 - (void)dealloc {
-	[self.user removeObserver:self forKeyPath:kGravatarKeyPath];
-	[self.user.notifications removeObserver:self forKeyPath:kNotificationsCountKeyPath];
+	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
+	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
+	[self.user removeObserver:self forKeyPath:NotificationsCountKeyPath];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:GravatarKeyPath]) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+	} else if ([keyPath isEqualToString:OrgsLoadingKeyPath]) {
+		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	} else if ([keyPath isEqualToString:NotificationsCountKeyPath]) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+	}
 }
 
 - (void)openViewControllerForGitHubURL:(NSURL *)url {
@@ -160,16 +176,6 @@
 		[self.slidingViewController resetTopView];
 	} else {
 		[self.slidingViewController anchorTopViewTo:ECRight];
-	}
-}
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (object == self.user.notifications && [keyPath isEqualToString:kNotificationsCountKeyPath]) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-	} else if (object == self.user && [keyPath isEqualToString:kGravatarKeyPath]) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 

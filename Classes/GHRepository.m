@@ -4,6 +4,7 @@
 #import "GHIssues.h"
 #import "GHPullRequests.h"
 #import "GHForks.h"
+#import "GHUsers.h"
 #import "GHEvents.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
@@ -119,6 +120,14 @@
 		_closedPullRequests = [[GHPullRequests alloc] initWithRepository:self andState:kIssueStateClosed];
 	}
 	return _closedPullRequests;
+}
+
+- (GHUsers *)contributors {
+	if (!_contributors) {
+		NSString *path = [NSString stringWithFormat:kRepoContributorsFormat, self.owner, self.name];
+		_contributors = [[GHUsers alloc] initWithPath:path];
+	}
+	return _contributors;
 }
 
 #pragma mark Loading

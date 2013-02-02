@@ -97,6 +97,7 @@
 #define kRepoReadmeFormat               @"repos/%@/%@/readme"
 #define kRepoBranchesFormat             @"repos/%@/%@/branches"
 #define kRepoForksFormat                @"repos/%@/%@/forks"
+#define kRepoContributorsFormat         @"repos/%@/%@/contributors"
 #define kRepoCommitsFormat              @"repos/%@/%@/commits"
 #define kRepoCommitFormat               @"repos/%@/%@/commits/%@"
 #define kRepoCommentsFormat             @"repos/%@/%@/commits/%@/comments?per_page=100"

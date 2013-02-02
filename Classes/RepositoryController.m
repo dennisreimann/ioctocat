@@ -11,6 +11,7 @@
 #import "TextCell.h"
 #import "RepositoryController.h"
 #import "UserController.h"
+#import "UsersController.h"
 #import "WebController.h"
 #import "iOctocat.h"
 #import "IssueController.h"
@@ -44,6 +45,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *issuesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *pullRequestsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *forkCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *contributorsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
@@ -227,7 +229,7 @@
 		if (self.repository.readme.isLoaded) rows += 1;
 		return rows;
 	}
-	if (section == 1) return self.repository.hasIssues ? 4 : 3;
+	if (section == 1) return self.repository.hasIssues ? 5 : 4;
 	return self.repository.branches.count;
 }
 
@@ -254,9 +256,10 @@
 	} else if (section == 1) {
 		switch (row) {
 			case 0: cell = self.forkCell; break;
-			case 1: cell = self.pullRequestsCell; break;
-			case 2: cell = self.issuesCell; break;
-			case 3: cell = self.eventsCell; break;
+			case 1: cell = self.eventsCell; break;
+			case 2: cell = self.contributorsCell; break;
+			case 3: cell = self.pullRequestsCell; break;
+			case 4: cell = self.issuesCell; break;
 		}
 	} else {
 		GHBranch *branch = self.repository.branches[row];
@@ -278,28 +281,37 @@
 	UIViewController *viewController = nil;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (section == 0 && row == 0 && self.repository.user) {
-		viewController = [[UserController alloc] initWithUser:self.repository.user];
-	} else if (section == 0 && row == 1 && self.repository.homepageURL) {
-		viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
-	} else if (section == 0 && row >= 2) {
-		if (!self.repository.readme.isLoaded) return;
-		viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
-		viewController.title = @"README";
-	} else if (section == 1 && row == 0) {
-		viewController = [[ForksController alloc] initWithForks:self.repository.forks];
-	} else if (section == 1 && row == 1) {
-		viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
-	} else if (section == 1 && row == 2) {
-		viewController = [[IssuesController alloc] initWithRepository:self.repository];
-	} else if (section == 1 && row == 3) {
-		viewController = [[EventsController alloc] initWithEvents:self.repository.events];
-		viewController.title = self.repository.name;
-	} else if (section == 2 && row < self.repository.branches.count) {
-		GHBranch *branch = self.repository.branches[row];
-		GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
-		viewController = [[TreeController alloc] initWithTree:tree];
-	}
+	if (section == 0) {
+		if(row == 0 && self.repository.user) {
+			viewController = [[UserController alloc] initWithUser:self.repository.user];
+		} else if (row == 1 && self.repository.homepageURL) {
+			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
+		} else if (row >= 2) {
+			if (!self.repository.readme.isLoaded) return;
+			viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
+			viewController.title = @"README";
+		}
+	} else if (section == 1) {
+		if (row == 0) {
+			viewController = [[ForksController alloc] initWithForks:self.repository.forks];
+		} else if (row == 1) {
+			viewController = [[EventsController alloc] initWithEvents:self.repository.events];
+			viewController.title = self.repository.name;
+		} else if (row == 2) {
+			viewController = [[UsersController alloc] initWithUsers:self.repository.contributors];
+			viewController.title = @"Contributors";
+		} else if (row == 3) {
+			viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
+		} else if (row == 4) {
+			viewController = [[IssuesController alloc] initWithRepository:self.repository];
+		}
+	} else if (section == 2) {
+		if (row < self.repository.branches.count) {
+			GHBranch *branch = self.repository.branches[row];
+			GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
+			viewController = [[TreeController alloc] initWithTree:tree];
+		}
+	} 
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
 	}

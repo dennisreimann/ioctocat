@@ -13,13 +13,15 @@
 
 @implementation CommentCell
 
+NSString *const UserGravatarKeyPath = @"user.gravatar";
+
 - (void)awakeFromNib {
 	self.gravatarView.layer.cornerRadius = 3;
 	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
-	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.comment removeObserver:self forKeyPath:UserGravatarKeyPath];
 }
 
 - (CGFloat)marginTop {
@@ -39,19 +41,19 @@
 }
 
 - (void)setComment:(GHComment *)comment {
-	[self.comment.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.comment removeObserver:self forKeyPath:UserGravatarKeyPath];
 	_comment = comment;
 	// Text
 	self.userLabel.text = self.comment.user.login;
 	self.dateLabel.text = [self.comment.updated prettyDate];
 	[self setContentText:self.comment.body];
 	// Gravatar
-	[self.comment.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.gravatarView.image = self.comment.user.gravatar ? self.comment.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath] && self.comment.user.gravatar) {
+	if ([keyPath isEqualToString:UserGravatarKeyPath] && self.comment.user.gravatar) {
 		self.gravatarView.image = self.comment.user.gravatar;
 	}
 }

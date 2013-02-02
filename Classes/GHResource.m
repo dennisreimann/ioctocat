@@ -6,7 +6,7 @@
 
 @interface GHResource ()
 @property(nonatomic,strong)NSDictionary *data;
-@property(nonatomic,assign)GHResourceStatus loadingStatus;
+@property(nonatomic,assign)GHResourceStatus resourceStatus;
 @end
 
 
@@ -16,17 +16,17 @@
 	self = [super init];
 	if (self) {
 		self.resourcePath = path;
-		self.loadingStatus = GHResourceStatusNotProcessed;
+		self.resourceStatus = GHResourceStatusNotProcessed;
 	}
 	return self;
 }
 
 - (void)needsReload {
-	self.loadingStatus = GHResourceStatusNotProcessed;
+	self.resourceStatus = GHResourceStatusNotProcessed;
 }
 
 - (void)markAsLoaded {
-	self.loadingStatus = GHResourceStatusProcessed;
+	self.resourceStatus = GHResourceStatusProcessed;
 }
 
 - (NSString *)resourceContentType {
@@ -51,7 +51,7 @@
 
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
 	self.error = nil;
-	self.loadingStatus = GHResourceStatusProcessing;
+	self.resourceStatus = GHResourceStatusProcessing;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:params];
 	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
@@ -61,7 +61,7 @@
 		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
 		[self setHeaderValues:headers];
 		[self setValues:data];
-		self.loadingStatus = GHResourceStatusProcessed;
+		self.resourceStatus = GHResourceStatusProcessed;
 		if (success) success(self, data);
 	};
 	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -69,7 +69,7 @@
 		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
 		[self setHeaderValues:headers];
 		self.error = error;
-		self.loadingStatus = GHResourceStatusNotProcessed;
+		self.resourceStatus = GHResourceStatusNotProcessed;
 		if (failure) failure(self, error);
 	};
 	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
@@ -100,11 +100,11 @@
 #pragma mark Convenience Accessors
 
 - (BOOL)isLoading {
-	return self.loadingStatus == GHResourceStatusProcessing;
+	return self.resourceStatus == GHResourceStatusProcessing;
 }
 
 - (BOOL)isLoaded {
-	return self.loadingStatus == GHResourceStatusProcessed;
+	return self.resourceStatus == GHResourceStatusProcessed;
 }
 
 @end

@@ -42,7 +42,7 @@
 @implementation MenuController
 
 static NSString *const GravatarKeyPath = kGravatarKeyPath;
-static NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
+static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 static NSString *const NotificationsCountKeyPath = @"notifications.notificationsCount";
 
 - (id)initWithUser:(GHUser *)user {

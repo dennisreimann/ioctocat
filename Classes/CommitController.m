@@ -42,13 +42,13 @@
 
 @implementation CommitController
 
-NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
+static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (id)initWithCommit:(GHCommit *)commit {
 	self = [super initWithNibName:@"Commit" bundle:nil];
 	if (self) {
 		self.commit = commit;
-		[self.commit addObserver:self forKeyPath:CommitAuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self.commit addObserver:self forKeyPath:AuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -91,7 +91,7 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)dealloc {
-	[self.commit removeObserver:self forKeyPath:CommitAuthorGravatarKeyPath];
+	[self.commit removeObserver:self forKeyPath:AuthorGravatarKeyPath];
 }
 
 - (GHUser *)currentUser {
@@ -135,7 +135,7 @@ NSString *const CommitAuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:CommitAuthorGravatarKeyPath]) {
+	if ([keyPath isEqualToString:AuthorGravatarKeyPath]) {
 		self.gravatarView.image = self.commit.author.gravatar;
 	}
 }

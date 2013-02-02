@@ -5,7 +5,7 @@
 
 @implementation CommitCell
 
-NSString *const AuthorGravatarKeyPath = @"author.gravatar";
+static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 + (id)cell {
 	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCommitCellIdentifier];

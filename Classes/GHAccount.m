@@ -22,7 +22,7 @@
 
 @implementation GHAccount
 
-NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
+static NSString *const OrgsLoadingKeyPath = @"organizations.loadingStatus";
 
 - (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];

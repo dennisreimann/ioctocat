@@ -33,17 +33,19 @@
 
 @implementation EventCell
 
+static NSString *const UserGravatarKeyPath = @"user.gravatar";
+
 - (void)awakeFromNib {
 	self.gravatarView.layer.cornerRadius = 3;
 	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
-	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.event removeObserver:self forKeyPath:UserGravatarKeyPath];
 }
 
 - (void)setEvent:(GHEvent *)event {
-	[self.event.user removeObserver:self forKeyPath:kGravatarKeyPath];
+	[self.event removeObserver:self forKeyPath:UserGravatarKeyPath];
 	_event = event;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
@@ -61,7 +63,7 @@
 	}
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
-	[self.event.user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self.event addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.gravatarView.image = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 	// actions
 	NSMutableArray *buttons = [NSMutableArray array];
@@ -126,7 +128,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath] && self.event.user.gravatar) {
+	if ([keyPath isEqualToString:UserGravatarKeyPath] && self.event.user.gravatar) {
 		self.gravatarView.image = self.event.user.gravatar;
 	}
 }

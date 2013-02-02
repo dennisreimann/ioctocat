@@ -13,7 +13,7 @@
 
 @implementation CommentCell
 
-NSString *const UserGravatarKeyPath = @"user.gravatar";
+static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)awakeFromNib {
 	self.gravatarView.layer.cornerRadius = 3;

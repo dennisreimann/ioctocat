@@ -7,6 +7,7 @@
 #import "GHBranch.h"
 #import "GHTree.h"
 #import "GHCommit.h"
+#import "GHCommits.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
 #import "RepositoryController.h"
@@ -14,6 +15,7 @@
 #import "UsersController.h"
 #import "WebController.h"
 #import "iOctocat.h"
+#import "CommitsController.h"
 #import "IssueController.h"
 #import "IssueObjectCell.h"
 #import "EventsController.h"
@@ -23,7 +25,7 @@
 #import "TreeController.h"
 #import "SVProgressHUD.h"
 
-#define kCodeCellIdentifier @"CodeCell"
+#define kBranchCellIdentifier @"BranchCell"
 
 
 @interface RepositoryController () <UIActionSheetDelegate>
@@ -150,7 +152,7 @@
 
 - (void)displayBranchesChange {
 	if (!self.repository.isLoaded) return;
-	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
+	NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
@@ -216,7 +218,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.repository.isLoaded) return 3;
+	if (self.repository.isLoaded) return 4;
 	if (self.repository.isLoading) return 1;
 	return 0;
 }
@@ -228,13 +230,17 @@
 		if (self.descriptionCell.hasContent) rows += 1;
 		if (self.repository.readme.isLoaded) rows += 1;
 		return rows;
+	} else if (section == 1) {
+		return self.repository.hasIssues ? 5 : 4;
+	} else {
+		return self.repository.branches.count;
 	}
-	if (section == 1) return self.repository.hasIssues ? 5 : 4;
-	return self.repository.branches.count;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section < 2) ? @"" : @"Code";
+	if (section == 2) return @"Code";
+	if (section == 3) return @"Commits";
+	return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -263,10 +269,11 @@
 		}
 	} else {
 		GHBranch *branch = self.repository.branches[row];
-		cell = [tableView dequeueReusableCellWithIdentifier:kCodeCellIdentifier];
+		cell = [tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
 		if (cell == nil) {
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCodeCellIdentifier];
-			cell.imageView.image = [UIImage imageNamed:@"code.png"];
+			NSString *img = section == 2 ? @"code.png" : @"commits.png";
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBranchCellIdentifier];
+			cell.imageView.image = [UIImage imageNamed:img];
 			cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.opaque = YES;
@@ -282,7 +289,7 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0) {
-		if(row == 0 && self.repository.user) {
+		if (row == 0 && self.repository.user) {
 			viewController = [[UserController alloc] initWithUser:self.repository.user];
 		} else if (row == 1 && self.repository.homepageURL) {
 			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
@@ -311,7 +318,13 @@
 			GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
 			viewController = [[TreeController alloc] initWithTree:tree];
 		}
-	} 
+	} else if (section == 3) {
+		if (row < self.repository.branches.count) {
+			GHBranch *branch = self.repository.branches[row];
+			GHCommits *commits = [[GHCommits alloc] initWithRepository:self.repository sha:branch.name];
+			viewController = [[CommitsController alloc] initWithCommits:commits];
+		}
+	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
 	}

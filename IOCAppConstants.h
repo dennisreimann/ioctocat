@@ -99,6 +99,7 @@
 #define kRepoForksFormat                @"repos/%@/%@/forks"
 #define kRepoContributorsFormat         @"repos/%@/%@/contributors"
 #define kRepoCommitsFormat              @"repos/%@/%@/commits"
+#define kRepoShaCommitsFormat           @"repos/%@/%@/commits?sha=%@"
 #define kRepoCommitFormat               @"repos/%@/%@/commits/%@"
 #define kRepoCommentsFormat             @"repos/%@/%@/commits/%@/comments?per_page=100"
 #define kRepoAssigneesFormat            @"repos/%@/%@/assignees"

@@ -8,6 +8,7 @@
 @interface GHCommits ()
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHPullRequest *pullRequest;
+@property(nonatomic,strong)NSString *sha;
 @end
 
 
@@ -18,6 +19,15 @@
 	if (self) {
 		self.repository = repo;
 		self.resourcePath = [NSString stringWithFormat:kRepoCommitsFormat, self.repository.owner, self.repository.name];
+	}
+	return self;
+}
+
+- (id)initWithRepository:(GHRepository *)repo sha:(NSString *)sha {
+	self = [super init];
+	if (self) {
+		self.repository = repo;
+		self.sha = sha;
 	}
 	return self;
 }
@@ -37,6 +47,8 @@
 	if (self.pullRequest) {
 		GHRepository *repo = self.pullRequest.repository;
 		return [NSString stringWithFormat:kPullRequestCommitsFormat, repo.owner, repo.name, self.pullRequest.num];
+	} else if (self.sha) {
+		return [NSString stringWithFormat:kRepoShaCommitsFormat, self.repository.owner, self.repository.name, self.sha];
 	} else {
 		return [super resourcePath];
 	}

@@ -193,7 +193,7 @@
 #pragma mark Helpers
 
 - (BOOL)resourceHasData {
-	return self.notifications.isLoaded && self.notificationsByRepository.allKeys.count > 0;
+	return self.notificationsByRepository.allKeys.count > 0;
 }
 
 - (NSArray *)notificationsForSection:(NSInteger)section {

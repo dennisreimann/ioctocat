@@ -61,7 +61,7 @@
 		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
 		[self setHeaderValues:headers];
 		self.error = error;
-		self.resourceStatus = GHResourceStatusUnloaded;
+		self.resourceStatus = GHResourceStatusFailed;
 		if (failure) failure(self, error);
 	};
 	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
@@ -103,6 +103,14 @@
 	self.resourceStatus = self.isLoaded ? GHResourceStatusChanged : GHResourceStatusUnloaded;
 }
 
+- (BOOL)isFailed {
+	return self.resourceStatus == GHResourceStatusFailed;
+}
+
+- (BOOL)isUnloaded {
+	return self.resourceStatus <= GHResourceStatusUnloaded;
+}
+
 - (BOOL)isLoading {
 	return self.resourceStatus == GHResourceStatusLoading;
 }
@@ -115,6 +123,10 @@
 
 - (BOOL)isChanged {
 	return self.resourceStatus == GHResourceStatusChanged;
+}
+
+- (BOOL)isEmpty {
+	return self.isUnloaded;
 }
 
 @end

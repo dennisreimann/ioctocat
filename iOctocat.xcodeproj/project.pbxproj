@@ -55,7 +55,6 @@
 		6F182C87161C5E3600E705CF /* GistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* GistsController.m */; };
 		6F182C8A161CB77600E705CF /* GistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* GistController.m */; };
 		6F182C8C161CB7A100E705CF /* Gist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F182C8B161CB7A100E705CF /* Gist.xib */; };
-		6F182C8E161CC47300E705CF /* Gists.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F182C8D161CC47300E705CF /* Gists.xib */; };
 		6F1DC39B0F7E52F000FCD26D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC39A0F7E52F000FCD26D /* Settings.bundle */; };
 		6F1DC5C50F7E7F4600FCD26D /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5BE0F7E7F4600FCD26D /* comment.png */; };
 		6F1DC5C60F7E7F4600FCD26D /* CreateEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5BF0F7E7F4600FCD26D /* CreateEvent.png */; };
@@ -611,7 +610,6 @@
 		6FCAA394167B52C800C816FA /* ToolbarStar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB73AFB15FA50F10055A937 /* ToolbarStar.png */; };
 		6FCAA395167B52C800C816FA /* ToolbarStar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB73AFC15FA50F10055A937 /* ToolbarStar@2x.png */; };
 		6FCAA397167B52C800C816FA /* Gist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F182C8B161CB7A100E705CF /* Gist.xib */; };
-		6FCAA398167B52C800C816FA /* Gists.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F182C8D161CC47300E705CF /* Gists.xib */; };
 		6FCAA399167B52C800C816FA /* code.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE51621ABAF00AB11C3 /* code.html */; };
 		6FCAA39A167B52C800C816FA /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE61621ABAF00AB11C3 /* format.html */; };
 		6FCAA39B167B52C800C816FA /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -988,7 +986,6 @@
 		6F182C88161CB77600E705CF /* GistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistController.h; sourceTree = "<group>"; };
 		6F182C89161CB77600E705CF /* GistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistController.m; sourceTree = "<group>"; };
 		6F182C8B161CB7A100E705CF /* Gist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Gist.xib; path = IBFiles/Gist.xib; sourceTree = "<group>"; };
-		6F182C8D161CC47300E705CF /* Gists.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Gists.xib; path = IBFiles/Gists.xib; sourceTree = "<group>"; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6F1DC52E0F7E727C00FCD26D /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
 		6F1DC5BE0F7E7F4600FCD26D /* comment.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = comment.png; path = Images/Icons/comment.png; sourceTree = "<group>"; };
@@ -2156,7 +2153,6 @@
 				6F879A5B0FB611FD00EBD9BD /* Users.xib */,
 				6F380915162A1553001017E2 /* Code.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
-				6F182C8D161CC47300E705CF /* Gists.xib */,
 				6F182C8B161CB7A100E705CF /* Gist.xib */,
 				6F3E21D416A0C8A300BAAB60 /* Notifications.xib */,
 				6F59BC930FC6C51800412597 /* Repositories.xib */,
@@ -2635,7 +2631,6 @@
 				6FB73AFD15FA50F10055A937 /* ToolbarStar.png in Resources */,
 				6FB73AFE15FA50F10055A937 /* ToolbarStar@2x.png in Resources */,
 				6F182C8C161CB7A100E705CF /* Gist.xib in Resources */,
-				6F182C8E161CC47300E705CF /* Gists.xib in Resources */,
 				6FDB4E351621ABAF00AB11C3 /* code.html in Resources */,
 				6FDB4E361621ABAF00AB11C3 /* format.html in Resources */,
 				6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */,
@@ -2955,7 +2950,6 @@
 				6FCAA394167B52C800C816FA /* ToolbarStar.png in Resources */,
 				6FCAA395167B52C800C816FA /* ToolbarStar@2x.png in Resources */,
 				6FCAA397167B52C800C816FA /* Gist.xib in Resources */,
-				6FCAA398167B52C800C816FA /* Gists.xib in Resources */,
 				6FCAA399167B52C800C816FA /* code.html in Resources */,
 				6FCAA39A167B52C800C816FA /* format.html in Resources */,
 				6FCAA39B167B52C800C816FA /* ToolbarGist.png in Resources */,

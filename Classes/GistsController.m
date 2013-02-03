@@ -6,19 +6,19 @@
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
 @interface GistsController ()
 @property(nonatomic,strong)GHGists *gists;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingGistsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noGistsCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
 @implementation GistsController
 
 - (id)initWithGists:(GHGists *)gists {
-	self = [super initWithNibName:@"Gists" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.gists = gists;
 	}
@@ -31,6 +31,7 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : @"Gists";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gists name:@"gists"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,7 +40,7 @@
 		[self.gists loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the gists"];
+			[self.tableView reloadData];
 		}];
 	} else if (self.gists.isChanged) {
 		[self.tableView reloadData];
@@ -49,7 +50,7 @@
 #pragma mark Helpers
 
 - (BOOL)resourceHasData {
-	return self.gists.isLoaded && !self.gists.isEmpty;
+	return !self.gists.isEmpty;
 }
 
 #pragma mark Actions
@@ -75,8 +76,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.gists.isLoading) return self.loadingGistsCell;
-	if (self.gists.isEmpty) return self.noGistsCell;
+	if (!self.resourceHasData) return self.statusCell;
 	GistCell *cell = (GistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
 	if (cell == nil) cell = [GistCell cell];
 	cell.gist = self.gists[indexPath.row];

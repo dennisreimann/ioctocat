@@ -1,3 +1,8 @@
+// redirect to official page from GitHub pages
+if (window.location.host == "dennisreimann.github.com") {
+  window.location = 'http://ioctocat.com';
+}
+
 $(document).ready(function(){
 	// Show the first screenshot
 	$("#screenshots li:first").toggle();

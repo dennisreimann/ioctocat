@@ -96,7 +96,6 @@
 			[self displayRepositoryChange];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the repository"];
-			[self.tableView reloadData];
 		}];
 	} else if (self.repository.isChanged) {
 		[self displayRepositoryChange];
@@ -218,9 +217,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.repository.isLoaded) return 4;
-	if (self.repository.isLoading) return 1;
-	return 0;
+	return self.repository.isLoaded ? 4 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

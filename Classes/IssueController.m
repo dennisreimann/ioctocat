@@ -69,6 +69,12 @@
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	// check assignment state
+	[self.currentUser checkRepositoryAssignment:self.issue.repository success:^(GHResource *instance, id data) {
+		self.isAssignee = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isAssignee = NO;
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -93,12 +99,6 @@
 	} else if (self.issue.comments.isChanged) {
 		[self displayCommentsChange];
 	}
-	// check assignment state
-	[self.currentUser checkRepositoryAssignment:self.issue.repository success:^(GHResource *instance, id data) {
-		self.isAssignee = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isAssignee = NO;
-	}];
 }
 
 #pragma mark Helpers

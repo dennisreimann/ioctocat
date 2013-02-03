@@ -59,6 +59,12 @@
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	// check starring state
+	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
+		self.isStarring = YES;
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isStarring = NO;
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -83,12 +89,6 @@
 	} else if (self.gist.comments.isChanged) {
 		[self displayCommentsChange];
 	}
-	// check starring state
-	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
-		self.isStarring = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isStarring = NO;
-	}];
 }
 
 #pragma mark Helpers

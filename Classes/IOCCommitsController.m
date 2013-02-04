@@ -1,22 +1,24 @@
-#import "CommitsController.h"
+#import "IOCCommitsController.h"
 #import "CommitController.h"
 #import "CommitCell.h"
 #import "GHCommits.h"
 #import "GHCommit.h"
 #import "iOctocat.h"
+#import "NSString+Extensions.h"
+#import "IOCResourceStatusCell.h"
+#import "SVProgressHUD.h"
 
 
-@interface CommitsController ()
+@interface IOCCommitsController ()
 @property(nonatomic,strong)GHCommits *commits;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommitsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noCommitsCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation CommitsController
+@implementation IOCCommitsController
 
 - (id)initWithCommits:(GHCommits *)commits {
-	self = [super initWithNibName:@"Commits" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.commits = commits;
 	}
@@ -28,6 +30,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : @"Commits";
+	if (!self.commits.resourcePath.isEmpty) {
+		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	}
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commits name:@"users"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -36,7 +42,7 @@
 		[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the commits"];
+			[self.tableView reloadData];
 		}];
 	} else if (self.commits.isChanged) {
 		[self.tableView reloadData];
@@ -46,7 +52,19 @@
 #pragma mark Helpers
 
 - (BOOL)resourceHasData {
-	return self.commits.isLoaded && !self.commits.isEmpty;
+	return !self.commits.isEmpty;
+}
+
+#pragma mark Actions
+
+- (IBAction)refresh:(id)sender {
+	[SVProgressHUD showWithStatus:@"Reloading…"];
+	[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
+		[SVProgressHUD dismiss];
+		[self.tableView reloadData];
+	} failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+	}];
 }
 
 #pragma mark TableView
@@ -60,8 +78,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.commits.isLoading) return self.loadingCommitsCell;
-	if (self.commits.isEmpty) return self.noCommitsCell;
+	if (!self.resourceHasData) return self.statusCell;
 	CommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
 	if (cell == nil) cell = [CommitCell cell];
 	cell.commit = self.commits[indexPath.row];

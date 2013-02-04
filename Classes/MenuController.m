@@ -2,16 +2,16 @@
 #import "MyEventsController.h"
 #import "UserController.h"
 #import "RepositoryController.h"
-#import "RepositoriesController.h"
-#import "MyRepositoriesController.h"
-#import "OrganizationsController.h"
-#import "OrganizationRepositoriesController.h"
+#import "IOCRepositoriesController.h"
+#import "IOCMyRepositoriesController.h"
+#import "IOCOrganizationsController.h"
+#import "IOCOrganizationRepositoriesController.h"
 #import "IssueController.h"
 #import "IssuesController.h"
 #import "PullRequestController.h"
 #import "PullRequestsController.h"
 #import "GistController.h"
-#import "GistsController.h"
+#import "IOCGistsController.h"
 #import "SearchController.h"
 #import "CommitController.h"
 #import "NotificationsController.h"
@@ -111,7 +111,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 	if ([url.host isEqualToString:@"gist.github.com"]) {
 		if (url.pathComponents.count == 1) {
 			// Gists
-			viewController = [[GistsController alloc] initWithGists:self.user.gists];
+			viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
 		} else if (url.pathComponents.count == 2) {
 			// Gist
 			NSString *gistId = [url.pathComponents objectAtIndex:1];
@@ -283,23 +283,23 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 				viewController = [[UserController alloc] initWithUser:self.user];
 				viewController.title = @"My Profile";
 			} else if (row == 1) {
-				viewController = [[OrganizationsController alloc] initWithOrganizations:self.user.organizations];
+				viewController = [[IOCOrganizationsController alloc] initWithOrganizations:self.user.organizations];
 				viewController.title = @"My Organizations";
 			}
 			break;
 			
 		case 3:
 			if (row == 0) {
-				viewController = [[MyRepositoriesController alloc] initWithUser:self.user];
+				viewController = [[IOCMyRepositoriesController alloc] initWithUser:self.user];
 				viewController.title = @"Personal Repos";
 			} else if (row == 1) {
-				viewController = [[OrganizationRepositoriesController alloc] initWithUser:self.user];
+				viewController = [[IOCOrganizationRepositoriesController alloc] initWithUser:self.user];
 				viewController.title = @"Organization Repos";
 			} else if (row == 2) {
-				viewController = [[RepositoriesController alloc] initWithRepositories:self.user.watchedRepositories];
+				viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.user.watchedRepositories];
 				viewController.title = @"Watched Repos";
 			} else if (row == 3) {
-				viewController = [[RepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
+				viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
 				viewController.title = @"Starred Repos";
 			} else if (row == 4) {
 				viewController = [[IssuesController alloc] initWithUser:self.user];
@@ -309,10 +309,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			
 		case 4:
 			if (row == 0) {
-				viewController = [[GistsController alloc] initWithGists:self.user.gists];
+				viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
 				viewController.title = @"Personal Gists";
 			} else if (row == 1) {
-				viewController = [[GistsController alloc] initWithGists:self.user.starredGists];
+				viewController = [[IOCGistsController alloc] initWithGists:self.user.starredGists];
 				viewController.title = @"Starred Gists";
 			}
 			break;

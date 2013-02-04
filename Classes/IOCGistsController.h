@@ -1,5 +1,5 @@
 @class GHGists;
 
-@interface GistsController : UITableViewController
+@interface IOCGistsController : UITableViewController
 - (id)initWithGists:(GHGists *)gists;
 @end

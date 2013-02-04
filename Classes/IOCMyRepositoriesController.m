@@ -1,4 +1,4 @@
-#import "MyRepositoriesController.h"
+#import "IOCMyRepositoriesController.h"
 #import "RepositoryController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
@@ -6,25 +6,23 @@
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
+#import "IOCTableViewSectionHeader.h"
 
 
-@interface MyRepositoriesController ()
+@interface IOCMyRepositoriesController ()
 @property(nonatomic,strong)NSMutableArray *privateRepositories;
 @property(nonatomic,strong)NSMutableArray *publicRepositories;
 @property(nonatomic,strong)NSMutableArray *forkedRepositories;
 @property(nonatomic,strong)GHUser *user;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPrivateReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
 @end
 
 
-@implementation MyRepositoriesController
+@implementation IOCMyRepositoriesController
 
 - (id)initWithUser:(GHUser *)user {
-	self = [super initWithNibName:@"MyRepositories" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
-		self.title = @"Repositories";
 		self.user = user;
 	}
 	return self;
@@ -32,6 +30,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.navigationItem.title = self.title ? self.title : @"Personal Repos";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	if (self.user.repositories.isLoaded) {
 		[self displayRepositories];
@@ -39,9 +38,15 @@
 		[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepositories];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
+			[self.tableView reloadData];
 		}];
 	}
+}
+
+#pragma mark Helpers
+
+- (BOOL)resourceHasData {
+	return !self.user.repositories.isEmpty;
 }
 
 - (void)displayRepositories {
@@ -94,7 +99,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.user.repositories.isLoaded) {
+	if (self.resourceHasData) {
 		return self.forkedRepositories.count > 0 ? 3 : 2;
 	} else {
 		return 1;
@@ -102,35 +107,48 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.user.repositories.isLoading) return 1;
+	if (!self.resourceHasData) return 1;
 	NSInteger count = [[self repositoriesInSection:section] count];
 	return count == 0 ? 1 : count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return ([self tableView:tableView titleForHeaderInSection:section]) ? 24 : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *title = [self tableView:tableView titleForHeaderInSection:section];
+    return (title == nil) ? nil : [IOCTableViewSectionHeader headerForTableView:tableView title:title];
+}
+
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (self.user.repositories.isLoading) {
-		return @"";
-	} else if (section == 0) {
-		return @"Private";
-	} else if (section == 1) {
-		return @"Public";
-	}  else if (section == 2) {
-		return @"Forked";
-	}  else {
-		return nil;
+	if (self.resourceHasData) {
+		if (section == 0) {
+			return @"Private";
+		} else if (section == 1) {
+			return @"Public";
+		}  else if (section == 2) {
+			return @"Forked";
+		}
 	}
+	return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.user.repositories.isLoaded) return self.loadingReposCell;
-	if (indexPath.section == 0 && self.privateRepositories.count == 0) return self.noPrivateReposCell;
-	if (indexPath.section == 1 && self.publicRepositories.count == 0) return self.noPublicReposCell;
-	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [RepositoryCell cell];
-	NSArray *repos = [self repositoriesInSection:indexPath.section];
-	cell.repository = repos[indexPath.row];
-	[cell hideOwner];
-	return cell;
+	if (!self.resourceHasData) return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
+	NSInteger section = indexPath.section;
+	if (section == 0 && self.privateRepositories.count == 0) {
+		return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"private repositories"];
+	} else if (section == 1 && self.publicRepositories.count == 0) {
+		return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"public repositories"];
+	} else {
+		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (cell == nil) cell = [RepositoryCell cell];
+		NSArray *repos = [self repositoriesInSection:indexPath.section];
+		cell.repository = repos[indexPath.row];
+		[cell hideOwner];
+		return cell;
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -15,9 +15,7 @@
 #import "IOCDefaultsPersistence.h"
 #import "NotificationCell.h"
 #import "GHRepository.h"
-
-
-#define kSectionHeaderHeight 24.0f
+#import "IOCTableViewSectionHeader.h"
 
 
 @interface NotificationsController () <UIActionSheetDelegate>
@@ -135,30 +133,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return ([self tableView:tableView titleForHeaderInSection:section]) ? kSectionHeaderHeight : 0;
+    return ([self tableView:tableView titleForHeaderInSection:section]) ? 24 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
-    if (title == nil) return nil;
-
-    UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(10, 0, 300, kSectionHeaderHeight);
-    label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor colorWithWhite:0.391 alpha:1.000];
-    label.font = [UIFont boldSystemFontOfSize:13];
-    label.text = title;
-
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, kSectionHeaderHeight)];
-	CAGradientLayer *gradient = [CAGradientLayer layer];
-	gradient.frame = view.bounds;
-	gradient.colors = @[
-		(id)[UIColor colorWithWhite:0.980 alpha:1.000].CGColor,
-		(id)[UIColor colorWithWhite:0.902 alpha:1.000].CGColor];
-	[view.layer insertSublayer:gradient atIndex:0];
-	[view addSubview:label];
-	
-    return view;
+    return (title == nil) ? nil : [IOCTableViewSectionHeader headerForTableView:tableView title:title];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

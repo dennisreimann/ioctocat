@@ -14,6 +14,8 @@
 
 @implementation GHCommits
 
+@synthesize resourcePath = _resourcePath;
+
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
@@ -44,7 +46,9 @@
 // Dynamic resourcePath, because it depends on the
 // num which isn't always available in advance
 - (NSString *)resourcePath {
-	if (self.pullRequest) {
+	if (_resourcePath) {
+		return _resourcePath;
+	} else if (self.pullRequest) {
 		GHRepository *repo = self.pullRequest.repository;
 		return [NSString stringWithFormat:kPullRequestCommitsFormat, repo.owner, repo.name, self.pullRequest.num];
 	} else if (self.sha) {

@@ -1,22 +1,22 @@
-#import "ForksController.h"
+#import "IOCForksController.h"
 #import "GHForks.h"
 #import "RepositoryController.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface ForksController ()
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingForksCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noForksCell;
+@interface IOCForksController ()
 @property(nonatomic,strong)GHForks *forks;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation ForksController
+@implementation IOCForksController
 
 - (id)initWithForks:(GHForks *)forks {
-	self = [super initWithNibName:@"Forks" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.forks = forks;
 	}
@@ -29,6 +29,7 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : @"Forks";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.forks name:@"forks"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -37,7 +38,7 @@
 		[self.forks loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the forks"];
+			[self.tableView reloadData];
 		}];
 	} else if (self.forks.isChanged) {
 		[self.tableView reloadData];
@@ -73,8 +74,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.forks.isLoading) return self.loadingForksCell;
-	if (self.forks.isEmpty) return self.noForksCell;
+	if (!self.resourceHasData) return self.statusCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	cell.repository = self.forks[indexPath.row];

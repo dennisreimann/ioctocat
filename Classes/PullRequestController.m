@@ -8,7 +8,7 @@
 #import "IssueObjectFormController.h"
 #import "UserController.h"
 #import "RepositoryController.h"
-#import "CommitsController.h"
+#import "IOCCommitsController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
@@ -338,7 +338,7 @@
 		}
 	} else if (section == 1) {
 		if (row == 0) {
-			CommitsController *commitsController = [[CommitsController alloc] initWithCommits:self.pullRequest.commits];
+			IOCCommitsController *commitsController = [[IOCCommitsController alloc] initWithCommits:self.pullRequest.commits];
 			[self.navigationController pushViewController:commitsController animated:YES];
 		} else if (row == 1) {
 			FilesController *filesController = [[FilesController alloc] initWithFiles:self.pullRequest.files];

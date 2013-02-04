@@ -3,6 +3,6 @@
 
 @class GHCommits;
 
-@interface CommitsController : UITableViewController
+@interface IOCCommitsController : UITableViewController
 - (id)initWithCommits:(GHCommits *)commits;
 @end

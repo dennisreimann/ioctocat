@@ -15,6 +15,7 @@ Changes:
 * Separate section for forks in personal repositories list
 * Better handling of events reloading
 * Improved issue and pull request headers
+* Use plain style for all list views
 
 Bugfixes:
 

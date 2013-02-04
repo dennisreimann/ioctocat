@@ -8,7 +8,7 @@
 #import "CommitController.h"
 #import "GistController.h"
 #import "WebController.h"
-#import "CommitsController.h"
+#import "IOCCommitsController.h"
 #import "OrganizationController.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -98,7 +98,7 @@
 	} else if ([eventItem isKindOfClass:GHCommits.class]) {
 		id firstEntry = eventItem[0];
 		if ([firstEntry isKindOfClass:GHCommit.class]) {
-			viewController = [[CommitsController alloc] initWithCommits:eventItem];
+			viewController = [[IOCCommitsController alloc] initWithCommits:eventItem];
 		}
 	}
 	if (viewController) {

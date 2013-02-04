@@ -1,6 +1,6 @@
 #import "GHGists.h"
 #import "GHGist.h"
-#import "GistsController.h"
+#import "IOCGistsController.h"
 #import "GistController.h"
 #import "GistCell.h"
 #import "NSString+Extensions.h"
@@ -9,13 +9,13 @@
 #import "IOCResourceStatusCell.h"
 
 
-@interface GistsController ()
+@interface IOCGistsController ()
 @property(nonatomic,strong)GHGists *gists;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation GistsController
+@implementation IOCGistsController
 
 - (id)initWithGists:(GHGists *)gists {
 	self = [super initWithStyle:UITableViewStylePlain];

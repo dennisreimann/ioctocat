@@ -1,4 +1,4 @@
-#import "RepositoriesController.h"
+#import "IOCRepositoriesController.h"
 #import "RepositoryController.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
@@ -6,19 +6,19 @@
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface RepositoriesController ()
+@interface IOCRepositoriesController ()
 @property(nonatomic,strong)GHRepositories *repositories;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noReposCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation RepositoriesController
+@implementation IOCRepositoriesController
 
 - (id)initWithRepositories:(GHRepositories *)repos {
-	self = [super initWithNibName:@"Repositories" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.repositories = repos;
 	}
@@ -31,6 +31,7 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : @"Repositories";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repositories name:@"repositories"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,7 +40,7 @@
 		[self.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
+			[self.tableView reloadData];
 		}];
 	} else if (self.repositories.isChanged) {
 		[self.tableView reloadData];
@@ -49,7 +50,7 @@
 #pragma mark Helpers
 
 - (BOOL)resourceHasData {
-	return self.repositories.isLoaded && !self.repositories.isEmpty;
+	return !self.repositories.isEmpty;
 }
 
 #pragma mark Actions
@@ -71,8 +72,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.repositories.isLoading) return self.loadingReposCell;
-	if (self.repositories.isEmpty) return self.noReposCell;
+	if (!self.resourceHasData) return self.statusCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	cell.repository = self.repositories[indexPath.row];

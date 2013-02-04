@@ -12,20 +12,18 @@
 #import "TextCell.h"
 #import "RepositoryController.h"
 #import "UserController.h"
-#import "UsersController.h"
+#import "IOCUsersController.h"
 #import "WebController.h"
 #import "iOctocat.h"
-#import "CommitsController.h"
+#import "IOCCommitsController.h"
 #import "IssueController.h"
 #import "IssueObjectCell.h"
 #import "EventsController.h"
 #import "IssuesController.h"
 #import "PullRequestsController.h"
-#import "ForksController.h"
+#import "IOCForksController.h"
 #import "TreeController.h"
 #import "SVProgressHUD.h"
-
-#define kBranchCellIdentifier @"BranchCell"
 
 
 @interface RepositoryController () <UIActionSheetDelegate>
@@ -56,6 +54,8 @@
 
 
 @implementation RepositoryController
+
+static NSString *const BranchCellIdentifier = @"BranchCell";
 
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithNibName:@"Repository" bundle:nil];
@@ -265,16 +265,15 @@
 			case 4: cell = self.issuesCell; break;
 		}
 	} else {
-		GHBranch *branch = self.repository.branches[row];
-		cell = [tableView dequeueReusableCellWithIdentifier:kBranchCellIdentifier];
+		cell = [tableView dequeueReusableCellWithIdentifier:BranchCellIdentifier];
 		if (cell == nil) {
-			NSString *img = section == 2 ? @"code.png" : @"commits.png";
-			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kBranchCellIdentifier];
-			cell.imageView.image = [UIImage imageNamed:img];
+			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BranchCellIdentifier];
 			cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.opaque = YES;
 		}
+		GHBranch *branch = self.repository.branches[row];
+		cell.imageView.image = [UIImage imageNamed:section == 2 ? @"code.png" : @"commits.png"];
 		cell.textLabel.text = branch.name;
 	}
 	return cell;
@@ -297,12 +296,12 @@
 		}
 	} else if (section == 1) {
 		if (row == 0) {
-			viewController = [[ForksController alloc] initWithForks:self.repository.forks];
+			viewController = [[IOCForksController alloc] initWithForks:self.repository.forks];
 		} else if (row == 1) {
 			viewController = [[EventsController alloc] initWithEvents:self.repository.events];
 			viewController.title = self.repository.name;
 		} else if (row == 2) {
-			viewController = [[UsersController alloc] initWithUsers:self.repository.contributors];
+			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];
 			viewController.title = @"Contributors";
 		} else if (row == 3) {
 			viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
@@ -319,7 +318,7 @@
 		if (row < self.repository.branches.count) {
 			GHBranch *branch = self.repository.branches[row];
 			GHCommits *commits = [[GHCommits alloc] initWithRepository:self.repository sha:branch.name];
-			viewController = [[CommitsController alloc] initWithCommits:commits];
+			viewController = [[IOCCommitsController alloc] initWithCommits:commits];
 		}
 	}
 	if (viewController) {

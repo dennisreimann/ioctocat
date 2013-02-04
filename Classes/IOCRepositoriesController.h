@@ -1,5 +1,5 @@
 @class GHRepositories;
 
-@interface RepositoriesController : UITableViewController
+@interface IOCRepositoriesController : UITableViewController
 - (id)initWithRepositories:(GHRepositories *)repos;
 @end

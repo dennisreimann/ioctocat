@@ -168,6 +168,7 @@
 	NSArray *commits = [self.payload safeArrayForKey:@"commits"];
 	if (commits) {
 		self.commits = [[GHCommits alloc] initWithRepository:self.repository];
+		self.commits.resourcePath = @""; // empty out resourcePath, because it's a custom list of commits
 		[self.commits setValues:commits];
 		[self.commits markAsLoaded];
 		// set the author, because this isn't provided in the api json
@@ -183,6 +184,7 @@
 		if (!self.commits) {
 			NSString *sha = [self.payload safeStringForKeyPath:@"comment.commit_id"];
 			self.commits = [[GHCommits alloc] initWithRepository:self.repository];
+			self.commits.resourcePath = @""; // empty out resourcePath, because it's a custom list of commits
 			[self.commits setValues:@[@{@"sha": sha}]];
 			[self.commits markAsLoaded];
 		}

@@ -13,10 +13,10 @@
 #import "UserObjectCell.h"
 #import "IOCAvatarLoader.h"
 #import "iOctocat.h"
-#import "UsersController.h"
+#import "IOCUsersController.h"
 #import "EventsController.h"
 #import "NSString+Extensions.h"
-#import "GistsController.h"
+#import "IOCGistsController.h"
 #import "SVProgressHUD.h"
 
 
@@ -276,10 +276,10 @@
 		viewController = [[EventsController alloc] initWithEvents:self.user.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 1 && row == 3) {
-		viewController = [[GistsController alloc] initWithGists:self.user.gists];
+		viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
 		viewController.title = @"Gists";
 	} else if (section == 1) {
-		viewController = [[UsersController alloc] initWithUsers:(row == 1) ? self.user.following : self.user.followers];
+		viewController = [[IOCUsersController alloc] initWithUsers:(row == 1) ? self.user.following : self.user.followers];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2 && !self.user.repositories.isEmpty) {
 		GHRepository *repo = self.user.repositories[indexPath.row];

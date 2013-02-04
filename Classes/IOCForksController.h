@@ -1,5 +1,5 @@
 @class GHForks;
 
-@interface ForksController : UITableViewController
+@interface IOCForksController : UITableViewController
 - (id)initWithForks:(GHForks *)forks;
 @end

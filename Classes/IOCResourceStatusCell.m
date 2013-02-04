@@ -23,6 +23,7 @@ static NSString *const ResourceStatusKeyPath = @"resourceStatus";
 		self.name = name;
 		self.resource = resource;
 		[self.resource addObserver:self forKeyPath:ResourceStatusKeyPath options:NSKeyValueObservingOptionNew context:nil];
+		[self handleResourceStatusChange];
 	}
 	return self;
 }

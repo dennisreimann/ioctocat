@@ -1,24 +1,23 @@
-#import "UsersController.h"
+#import "IOCUsersController.h"
 #import "UserController.h"
 #import "GHUsers.h"
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface UsersController ()
+@interface IOCUsersController ()
 @property(nonatomic,strong)GHUsers *users;
-@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noUsersCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation UsersController
+@implementation IOCUsersController
 
 - (id)initWithUsers:(GHUsers *)users {
-    self = [super initWithNibName:@"Users" bundle:nil];
+    self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.users = users;
 	}
@@ -31,6 +30,7 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : @"Users";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.users name:@"users"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,7 +39,7 @@
 		[self.users loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the users"];
+			[self.tableView reloadData];
 		}];
 	} else if (self.users.isChanged) {
 		[self.tableView reloadData];
@@ -49,7 +49,7 @@
 #pragma mark Helpers
 
 - (BOOL)resourceHasData {
-	return self.users.isLoaded && !self.users.isEmpty;
+	return !self.users.isEmpty;
 }
 
 #pragma mark Actions
@@ -75,8 +75,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.users.isLoaded) return self.loadingCell;
-	if (self.users.isEmpty) return self.noUsersCell;
+	if (!self.resourceHasData) return self.statusCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) cell = [UserObjectCell cell];
     cell.userObject = self.users[indexPath.row];

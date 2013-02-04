@@ -1,7 +1,7 @@
-#import "AccountsController.h"
+#import "IOCAccountsController.h"
 #import "MyEventsController.h"
 #import "MenuController.h"
-#import "AccountFormController.h"
+#import "IOCAccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHApiClient.h"
@@ -10,20 +10,19 @@
 #import "NSDictionary+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
-#import "AuthenticationController.h"
+#import "IOCAuthenticationController.h"
 #import "IOCTableViewSectionHeader.h"
 
 
-@interface AccountsController () <AuthenticationControllerDelegate, AccountFormControllerDelegate>
+@interface IOCAccountsController () <IOCAuthenticationControllerDelegate, IOCAccountFormControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)NSMutableDictionary *accountsByEndpoint;
 @property(nonatomic,strong)NSMutableArray *endpoints;
-@property(nonatomic,strong)AuthenticationController *authController;
-@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IOCAuthenticationController *authController;
 @end
 
 
-@implementation AccountsController
+@implementation IOCAccountsController
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
@@ -85,7 +84,7 @@
 
 - (void)editAccountAtIndex:(NSUInteger)idx {
 	NSMutableDictionary *account = (idx == NSNotFound) ? [NSMutableDictionary dictionary] : self.accounts[idx];
-	AccountFormController *viewController = [[AccountFormController alloc] initWithAccount:account andIndex:idx];
+	IOCAccountFormController *viewController = [[IOCAccountFormController alloc] initWithAccount:account andIndex:idx];
 	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
 }
@@ -209,8 +208,8 @@
 
 #pragma mark Authentication
 
-- (AuthenticationController *)authController {
-	if (!_authController) _authController = [[AuthenticationController alloc] initWithDelegate:self];
+- (IOCAuthenticationController *)authController {
+	if (!_authController) _authController = [[IOCAuthenticationController alloc] initWithDelegate:self];
 	return _authController;
 }
 

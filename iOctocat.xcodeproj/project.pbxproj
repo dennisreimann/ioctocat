@@ -75,9 +75,9 @@
 		6F26DB5216A6E1E700939D85 /* NotificationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F26DB4F16A6E1E700939D85 /* NotificationCell.m */; };
 		6F26DB5A16A6F3C600939D85 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F26DB5516A6F3C600939D85 /* Remove.png */; };
 		6F26DB5B16A6F3C600939D85 /* Remove.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F26DB5516A6F3C600939D85 /* Remove.png */; };
-		6F27CD11159113D900E15B34 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
+		6F27CD11159113D900E15B34 /* IOCAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* IOCAccountsController.m */; };
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
-		6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
+		6F27CD2015911E4700E15B34 /* IOCAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */; };
 		6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
@@ -231,9 +231,9 @@
 		6F612465167D0302001A3E05 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F176F11E316F3008B319F /* SystemConfiguration.framework */; };
 		6F612467167D038C001A3E05 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6F612468167D0410001A3E05 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
-		6F612469167D0410001A3E05 /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
-		6F61246A167D0410001A3E05 /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
-		6F61246B167D0410001A3E05 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* AuthenticationController.m */; };
+		6F612469167D0410001A3E05 /* IOCAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* IOCAccountsController.m */; };
+		6F61246A167D0410001A3E05 /* IOCAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */; };
+		6F61246B167D0410001A3E05 /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
 		6F61246C167D0410001A3E05 /* EventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF8D1649AEB200337EBE /* EventsController.m */; };
 		6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyEventsController.m */; };
 		6F61246E167D0410001A3E05 /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
@@ -744,7 +744,7 @@
 		6FCAA43E167B52C800C816FA /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
 		6FCAA43F167B52C800C816FA /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
 		6FCAA440167B52C800C816FA /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* PullRequestsController.m */; };
-		6FCAA441167B52C800C816FA /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* AuthenticationController.m */; };
+		6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
 		6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
 		6FCAA443167B52C800C816FA /* UserObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */; };
 		6FCAA444167B52C800C816FA /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
@@ -776,9 +776,9 @@
 		6FCAA45E167B52C800C816FA /* GHRepoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */; };
 		6FCAA45F167B52C800C816FA /* GHRepoComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */; };
 		6FCAA460167B52C800C816FA /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE30158FD14000D72A3D /* GHComment.m */; };
-		6FCAA461167B52C800C816FA /* AccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* AccountsController.m */; };
+		6FCAA461167B52C800C816FA /* IOCAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* IOCAccountsController.m */; };
 		6FCAA462167B52C800C816FA /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
-		6FCAA463167B52C800C816FA /* AccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* AccountFormController.m */; };
+		6FCAA463167B52C800C816FA /* IOCAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */; };
 		6FCAA464167B52C800C816FA /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
 		6FCAA465167B52C800C816FA /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
 		6FCAA466167B52C800C816FA /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
@@ -872,7 +872,7 @@
 		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
 		6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
 		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
-		6FE91E4C0FAD13D500749370 /* AuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* AuthenticationController.m */; };
+		6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
 		6FED82970FACA1E700BE5C81 /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* PullRequestsController.m */; };
 		6FED829A0FACA2F000BE5C81 /* PullRequests.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FED82990FACA2F000BE5C81 /* PullRequests.xib */; };
 		6FF001B716A6BB3B00FD4803 /* GistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* GistCell.m */; };
@@ -989,12 +989,12 @@
 		6F26DB4E16A6E1D900939D85 /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		6F26DB4F16A6E1E700939D85 /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		6F26DB5516A6F3C600939D85 /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
-		6F27CD0E159113D900E15B34 /* AccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountsController.h; sourceTree = "<group>"; };
-		6F27CD0F159113D900E15B34 /* AccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountsController.m; sourceTree = "<group>"; };
+		6F27CD0E159113D900E15B34 /* IOCAccountsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAccountsController.h; sourceTree = "<group>"; };
+		6F27CD0F159113D900E15B34 /* IOCAccountsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAccountsController.m; sourceTree = "<group>"; };
 		6F27CD151591188D00E15B34 /* GHAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHAccount.h; sourceTree = "<group>"; };
 		6F27CD161591188D00E15B34 /* GHAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHAccount.m; sourceTree = "<group>"; };
-		6F27CD1D15911E4700E15B34 /* AccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountFormController.h; sourceTree = "<group>"; };
-		6F27CD1E15911E4700E15B34 /* AccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountFormController.m; sourceTree = "<group>"; };
+		6F27CD1D15911E4700E15B34 /* IOCAccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAccountFormController.h; sourceTree = "<group>"; };
+		6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAccountFormController.m; sourceTree = "<group>"; };
 		6F27CD2215911E7E00E15B34 /* AccountForm.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountForm.xib; path = IBFiles/AccountForm.xib; sourceTree = "<group>"; };
 		6F2C76E81114EDEF002665DA /* file_added.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_added.png; path = Images/Icons/file_added.png; sourceTree = "<group>"; };
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
@@ -1404,8 +1404,8 @@
 		6FE7D2B411568951004B4D68 /* GHIssueComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComments.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
 		6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
-		6FE91E4A0FAD13D500749370 /* AuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AuthenticationController.h; sourceTree = "<group>"; };
-		6FE91E4B0FAD13D500749370 /* AuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthenticationController.m; sourceTree = "<group>"; };
+		6FE91E4A0FAD13D500749370 /* IOCAuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAuthenticationController.h; sourceTree = "<group>"; };
+		6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAuthenticationController.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* PullRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRequestsController.h; sourceTree = "<group>"; };
 		6FED82960FACA1E700BE5C81 /* PullRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRequestsController.m; sourceTree = "<group>"; };
 		6FED82990FACA2F000BE5C81 /* PullRequests.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PullRequests.xib; path = IBFiles/PullRequests.xib; sourceTree = "<group>"; };
@@ -2069,12 +2069,12 @@
 		6FAF9D2C15927A7A00997A28 /* Account */ = {
 			isa = PBXGroup;
 			children = (
-				6F27CD0E159113D900E15B34 /* AccountsController.h */,
-				6F27CD0F159113D900E15B34 /* AccountsController.m */,
-				6F27CD1D15911E4700E15B34 /* AccountFormController.h */,
-				6F27CD1E15911E4700E15B34 /* AccountFormController.m */,
-				6FE91E4A0FAD13D500749370 /* AuthenticationController.h */,
-				6FE91E4B0FAD13D500749370 /* AuthenticationController.m */,
+				6F27CD0E159113D900E15B34 /* IOCAccountsController.h */,
+				6F27CD0F159113D900E15B34 /* IOCAccountsController.m */,
+				6F27CD1D15911E4700E15B34 /* IOCAccountFormController.h */,
+				6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */,
+				6FE91E4A0FAD13D500749370 /* IOCAuthenticationController.h */,
+				6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -3200,7 +3200,7 @@
 				8C6A9EA30FABF1D900A99483 /* IssueObjectCell.m in Sources */,
 				8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */,
 				6FED82970FACA1E700BE5C81 /* PullRequestsController.m in Sources */,
-				6FE91E4C0FAD13D500749370 /* AuthenticationController.m in Sources */,
+				6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */,
 				8C53B4D00FB0F20B00C3A8E0 /* IOCUsersController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* UserObjectCell.m in Sources */,
 				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,
@@ -3232,9 +3232,9 @@
 				6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */,
 				6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */,
 				6FD1DE31158FD14000D72A3D /* GHComment.m in Sources */,
-				6F27CD11159113D900E15B34 /* AccountsController.m in Sources */,
+				6F27CD11159113D900E15B34 /* IOCAccountsController.m in Sources */,
 				6F27CD171591188D00E15B34 /* GHAccount.m in Sources */,
-				6F27CD2015911E4700E15B34 /* AccountFormController.m in Sources */,
+				6F27CD2015911E4700E15B34 /* IOCAccountFormController.m in Sources */,
 				6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */,
 				E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */,
 				6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */,
@@ -3287,9 +3287,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				6F612468167D0410001A3E05 /* GradientButton.m in Sources */,
-				6F612469167D0410001A3E05 /* AccountsController.m in Sources */,
-				6F61246A167D0410001A3E05 /* AccountFormController.m in Sources */,
-				6F61246B167D0410001A3E05 /* AuthenticationController.m in Sources */,
+				6F612469167D0410001A3E05 /* IOCAccountsController.m in Sources */,
+				6F61246A167D0410001A3E05 /* IOCAccountFormController.m in Sources */,
+				6F61246B167D0410001A3E05 /* IOCAuthenticationController.m in Sources */,
 				6F61246C167D0410001A3E05 /* EventsController.m in Sources */,
 				6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */,
 				6F61246E167D0410001A3E05 /* IOCUsersController.m in Sources */,
@@ -3413,7 +3413,7 @@
 				6FCAA43E167B52C800C816FA /* IssueObjectCell.m in Sources */,
 				6FCAA43F167B52C800C816FA /* IssueController.m in Sources */,
 				6FCAA440167B52C800C816FA /* PullRequestsController.m in Sources */,
-				6FCAA441167B52C800C816FA /* AuthenticationController.m in Sources */,
+				6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */,
 				6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */,
 				6FCAA443167B52C800C816FA /* UserObjectCell.m in Sources */,
 				6FCAA444167B52C800C816FA /* SearchController.m in Sources */,
@@ -3445,9 +3445,9 @@
 				6FCAA45E167B52C800C816FA /* GHRepoComment.m in Sources */,
 				6FCAA45F167B52C800C816FA /* GHRepoComments.m in Sources */,
 				6FCAA460167B52C800C816FA /* GHComment.m in Sources */,
-				6FCAA461167B52C800C816FA /* AccountsController.m in Sources */,
+				6FCAA461167B52C800C816FA /* IOCAccountsController.m in Sources */,
 				6FCAA462167B52C800C816FA /* GHAccount.m in Sources */,
-				6FCAA463167B52C800C816FA /* AccountFormController.m in Sources */,
+				6FCAA463167B52C800C816FA /* IOCAccountFormController.m in Sources */,
 				6FCAA464167B52C800C816FA /* NSMutableArray+Extensions.m in Sources */,
 				6FCAA465167B52C800C816FA /* NSDictionary+Extensions.m in Sources */,
 				6FCAA466167B52C800C816FA /* GHReadme.m in Sources */,

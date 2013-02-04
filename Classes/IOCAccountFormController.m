@@ -1,5 +1,5 @@
-#import "AccountFormController.h"
-#import "AccountsController.h"
+#import "IOCAccountFormController.h"
+#import "IOCAccountsController.h"
 #import "GradientButton.h"
 #import "iOctocat.h"
 #import "GHApiClient.h"
@@ -9,7 +9,7 @@
 #import "SVProgressHUD.h"
 
 
-@interface AccountFormController () <UITextFieldDelegate>
+@interface IOCAccountFormController () <UITextFieldDelegate>
 @property(nonatomic,strong)NSMutableDictionary *account;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
@@ -19,7 +19,7 @@
 @end
 
 
-@implementation AccountFormController
+@implementation IOCAccountFormController
 
 - (id)initWithAccount:(NSMutableDictionary *)account andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];

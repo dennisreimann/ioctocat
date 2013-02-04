@@ -1,10 +1,10 @@
-#import "AuthenticationController.h"
+#import "IOCAuthenticationController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "SVProgressHUD.h"
 
 
-@interface AuthenticationController ()
+@interface IOCAuthenticationController ()
 @property(nonatomic,weak)UIViewController *delegate;
 @property(nonatomic,strong)GHAccount *account;
 
@@ -12,7 +12,7 @@
 @end
 
 
-@implementation AuthenticationController
+@implementation IOCAuthenticationController
 
 - (id)initWithDelegate:(UIViewController *)delegate {
 	self = [super init];

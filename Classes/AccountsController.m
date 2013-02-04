@@ -11,6 +11,7 @@
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
 #import "AuthenticationController.h"
+#import "IOCTableViewSectionHeader.h"
 
 
 @interface AccountsController () <AuthenticationControllerDelegate, AccountFormControllerDelegate>
@@ -128,6 +129,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return [[self accountsInSection:section] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return ([self tableView:tableView titleForHeaderInSection:section]) ? 24 : 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    NSString *title = [self tableView:tableView titleForHeaderInSection:section];
+    return (title == nil) ? nil : [IOCTableViewSectionHeader headerForTableView:tableView title:title];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {

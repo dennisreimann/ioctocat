@@ -6,8 +6,6 @@ PODS:
 - Base64 (1.0.1)
 - ECSlidingViewController (0.9.2)
 - Expecta (0.2.1)
-- GroundControl (0.0.1):
-  - AFNetworking (>= 0.9)
 - HockeySDK (2.5.5)
 - Orbiter (0.0.1):
   - AFNetworking (>= 0.9)
@@ -21,7 +19,6 @@ DEPENDENCIES:
 - Base64
 - ECSlidingViewController (from `https://github.com/iOctocat/ECSlidingViewController.git')
 - Expecta (~> 0.2.1)
-- GroundControl
 - HockeySDK
 - Orbiter
 - SVProgressHUD (= 0.9.0)
@@ -40,7 +37,6 @@ SPEC CHECKSUMS:
   Base64: 85ba828a3e52c2855d0cd26ee6354bb8002b8c16
   ECSlidingViewController: f95954f73f256db09ac87d2837a7a286bd25dbf0
   Expecta: d46fb1bd78c90a83da0158b9b1e108de106e369f
-  GroundControl: 26e550c2f39f7705aab4dee690435bffa2267a82
   HockeySDK: e59ba4e0060d13a9acfb5da8f9381298fbc53e0b
   Orbiter: b083e5567d9b90e1da1ccda4b3c410df26d5da8d
   SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967

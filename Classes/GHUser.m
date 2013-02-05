@@ -54,7 +54,9 @@
 
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKey:@"login"];
-	if (!login.isEmpty && ![self.login isEqualToString:login]) self.login = [dict safeStringForKey:@"login"];
+	if (!login.isEmpty && ![self.login isEqualToString:login]) {
+		self.login = login;
+	}
 	// TODO: Remove email check once the API change is done.
 	id email = [dict valueForKeyPath:@"email" defaultsTo:nil];
 	if ([email isKindOfClass:NSDictionary.class]) {

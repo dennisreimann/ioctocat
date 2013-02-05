@@ -22,6 +22,7 @@
 
 @implementation GHAccount
 
+static NSString *const LoginKeyPath = @"login";
 static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 
 - (id)initWithDict:(NSDictionary *)dict {
@@ -49,6 +50,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 		self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsFormat];
 		self.user.receivedEvents = [[GHEvents alloc] initWithPath:[NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login]];
 		self.user.events = [[GHEvents alloc] initWithPath:[NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login]];
+		[self.user addObserver:self forKeyPath:LoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
@@ -56,13 +58,20 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 
 - (void)dealloc {
 	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
+	[self.user removeObserver:self forKeyPath:LoginKeyPath];
+}
+
+- (void)updateUserResourcePaths {
+	self.user.receivedEvents.resourcePath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.user.login];
+	self.user.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.user.login];
+	for (GHOrganization *org in self.user.organizations.items) {
+		org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.user.login, org.login];
+	}
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if (self.user.organizations.isLoaded) {
-		for (GHOrganization *org in self.user.organizations.items) {
-			org.events.resourcePath = [NSString stringWithFormat:kUserAuthenticatedOrgEventsFormat, self.login, org.login];
-		}
+	if ([keyPath isEqualToString:LoginKeyPath] || ([keyPath isEqualToString:OrgsLoadingKeyPath] && self.user.organizations.isLoaded)) {
+		[self updateUserResourcePaths];
 	}
 }
 

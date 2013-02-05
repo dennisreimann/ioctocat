@@ -80,6 +80,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	[encoder encodeObject:self.endpoint forKey:kEndpointDefaultsKey];
 	[encoder encodeObject:self.authId forKey:kAuthIdDefaultsKey];
 	[encoder encodeObject:self.authToken forKey:kAuthTokenDefaultsKey];
+	[encoder encodeObject:[NSNumber numberWithBool:self.pushEnabled] forKey:kPushNotificationsDefaultsKey];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -87,11 +88,13 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	NSString *endpoint = [decoder decodeObjectForKey:kEndpointDefaultsKey];
 	NSString *authId = [decoder decodeObjectForKey:kAuthIdDefaultsKey];
 	NSString *authToken = [decoder decodeObjectForKey:kAuthTokenDefaultsKey];
+	NSNumber *pushEnabled = [decoder decodeObjectForKey:kPushNotificationsDefaultsKey];
 	self = [self initWithDict:@{
 			kLoginDefaultsKey: login ? login : @"",
 		 kEndpointDefaultsKey: endpoint ? endpoint : @"",
 		   kAuthIdDefaultsKey: authId ? authId : @"",
-		kAuthTokenDefaultsKey: authToken ? authToken : @""}];
+		kAuthTokenDefaultsKey: authToken ? authToken : @"",
+kPushNotificationsDefaultsKey: pushEnabled ? pushEnabled : [NSNumber numberWithBool:NO] }];
 	return self;
 }
 

@@ -3,6 +3,7 @@
 #define kAuthIdDefaultsKey                   @"authId"
 #define kAuthTokenDefaultsKey                @"authToken"
 #define kEndpointDefaultsKey                 @"endpoint"
+#define kPushNotificationsDefaultsKey        @"pushNotifications"
 #define kAccountsDefaultsKey                 @"accounts"
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
 #define kLineNumbersDefaultsKey              @"lineNumbers"

@@ -6,23 +6,23 @@
 
 @implementation GHEvents
 
-- (id)initWithPath:(NSString *)path {
-	if (self = [super initWithPath:path]) {
-		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
-	}
-	return self;
-}
+@synthesize resourcePath = _resourcePath;
 
 - (id)initWithRepository:(GHRepository *)repo {
 	NSString *path = [NSString stringWithFormat:kRepoEventsFormat, repo.owner, repo.name];
 	return [self initWithPath:path];
 }
 
+- (void)setResourcePath:(NSString *)path {
+	_resourcePath = path;
+	self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
+}
+
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
 		GHEvent *event = [[GHEvent alloc] initWithDict:dict];
-		if ([event.date compare:self.lastUpdate] != NSOrderedDescending) {
+		if (self.lastUpdate && [event.date compare:self.lastUpdate] != NSOrderedDescending) {
 			[event markAsRead];
 		}
 		[self addObject:event];

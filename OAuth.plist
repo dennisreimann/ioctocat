@@ -5,7 +5,7 @@
 	<key>note</key>
 	<string>iOctocat - GitHub client for iOS</string>
 	<key>note_url</key>
-	<string>http://dennisreimann.github.com/ioctocat/</string>
+	<string>http://ioctocat.com/</string>
 	<key>scopes</key>
 	<array>
 		<string>user</string>

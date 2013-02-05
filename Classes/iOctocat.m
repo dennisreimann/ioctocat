@@ -1,7 +1,7 @@
 #import <HockeySDK/HockeySDK.h>
 #import "iOctocat.h"
 #import "IOCAvatarCache.h"
-#import "GHApiClient.h"
+#import "GHOAuthClient.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -42,6 +42,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert)];
 	[self deactivateURLCache];
 	[self setupHockeySDK];
 	self.slidingViewController.anchorRightRevealAmount = 230;
@@ -95,10 +96,12 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSURL *serverURL = [NSURL URLWithString:@"https://ioctocat.com/push/"];
-    Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:serverURL credential:nil];
+	NSURL *baseURL = [NSURL URLWithString:kPushBackendBaseURL];
+    Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:baseURL credential:nil];
     [orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
         DJLog(@"Registration Success: %@", responseObject);
+		// save device token for later registration of accounts for that device
+		self.deviceToken = [responseObject safeStringForKey:@"token"];
     } failure:^(NSError *error) {
         DJLog(@"Registration Error: %@", error);
     }];
@@ -239,7 +242,7 @@
 	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
 	NSString *path = @"/api/last-message.json";
 	NSString *method = kRequestMethodGet;
-	GHApiClient *apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
+	GHOAuthClient *apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
 	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:nil];
 	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
 		D3JLog(@"System status request finished: %@", json);

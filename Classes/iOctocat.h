@@ -2,6 +2,7 @@
 
 @interface iOctocat : NSObject
 @property(nonatomic,strong)GHAccount *currentAccount;
+@property(nonatomic,strong)NSString *deviceToken;
 @property(nonatomic,strong)IBOutlet UIWindow *window;
 
 + (iOctocat *)sharedInstance;

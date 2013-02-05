@@ -1,6 +1,6 @@
 #import "GHResource.h"
 #import "GHAccount.h"
-#import "GHApiClient.h"
+#import "GHOAuthClient.h"
 #import "iOctocat.h"
 
 
@@ -33,8 +33,8 @@
 	return [[iOctocat sharedInstance] currentAccount];
 }
 
-- (GHApiClient *)apiClient {
-	return self.account.apiClient;
+- (GHOAuthClient *)apiClient {
+	return [iOctocat sharedInstance].currentAccount.apiClient;
 }
 
 - (NSString *)resourceContentType {

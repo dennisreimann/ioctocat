@@ -1,8 +1,9 @@
 #import "IOCAccountFormController.h"
 #import "IOCAccountsController.h"
+#import "IOCApiClient.h"
+#import "GHBasicClient.h"
 #import "GradientButton.h"
 #import "iOctocat.h"
-#import "GHApiClient.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -13,10 +14,12 @@
 @interface IOCAccountFormController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHAccount *account;
 @property(nonatomic,assign)NSUInteger index;
+@property(nonatomic,weak)NSString *deviceToken;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
 @property(nonatomic,weak)IBOutlet UISwitch *pushSwitch;
+@property(nonatomic,weak)IBOutlet UILabel *pushLabel;
 @property(nonatomic,weak)IBOutlet GradientButton *saveButton;
 @end
 
@@ -28,6 +31,7 @@
 	if (self) {
 		self.index = idx;
 		self.account = account;
+		self.deviceToken = [iOctocat sharedInstance].deviceToken;
 	}
 	return self;
 }
@@ -38,6 +42,8 @@
 	self.loginField.text = self.account.login;
 	self.endpointField.text = self.account.endpoint;
 	self.pushSwitch.on = self.account.pushEnabled;
+	self.pushSwitch.enabled = self.deviceToken ? YES : NO;
+	self.pushLabel.textColor = self.deviceToken ? [UIColor blackColor] : [UIColor lightGrayColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -45,77 +51,59 @@
     [self.view endEditing:NO];
 }
 
+#pragma mark Helpers
+
+- (NSString *)loginValue {
+	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	return [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
+}
+
+- (NSString *)passwordValue {
+	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	return [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
+}
+
+- (NSString *)endpointValue {
+	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+	return [self.endpointField.text stringByTrimmingCharactersInSet:trimSet];
+}
+
+- (GHBasicClient *)apiClient {
+	return [[GHBasicClient alloc] initWithEndpoint:self.endpointValue username:self.loginValue password:self.passwordValue];
+}
+
 #pragma mark Actions
 
 - (IBAction)saveAccount:(id)sender {
-	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	NSString *login = [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
-	NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
-	NSString *endpoint = [self.endpointField.text stringByTrimmingCharactersInSet:trimSet];
-	if (login.isEmpty || password.isEmpty) {
+	if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter your login and password"];
 		return;
 	}
-	NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
-	NSString *oauthPath = [[NSBundle mainBundle] pathForResource:@"OAuth" ofType:@"plist"];
-	NSDictionary *oauthParams = [NSDictionary dictionaryWithContentsOfFile:oauthPath];
-	if (endpoint && !endpoint.isEmpty) {
-		apiURL = [[NSURL smartURLFromString:endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
-	}
-	GHApiClient *apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
-	[apiClient setAuthorizationHeaderWithUsername:login password:password];
-	// remove existing authId if the login changed,
-	// because we are authenticating another user.
-	NSString *oldLogin = self.account.login;
-	if (![login isEqualToString:oldLogin]) {
-		self.account.authId = nil;
-	}
-	// oauth request setup
-	NSString *authId = self.account.authId;
-	NSString *path = authId ? [NSString stringWithFormat:kAuthorizationFormat, authId] : kAuthorizationsFormat;
-	NSString *method = authId ? kRequestMethodPatch : kRequestMethodPost;
-	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:oauthParams];
-	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-		D3JLog(@"OAuth request finished: %@", json);
+	NSString *login = self.loginValue;
+	NSString *endpoint = self.endpointValue;
+	NSString *note = @"iOctocat: Application";
+	NSArray	*scopes = @[@"user", @"repo", @"gist", @"notifications"];
+	[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
+	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Authenticated"];
-		NSString *authId = [json valueForKey:@"id"];
 		NSString *token = [json valueForKey:@"token"];
+		// update
 		[self.account setValue:login forKey:kLoginDefaultsKey];
 		[self.account setValue:token forKey:kAuthTokenDefaultsKey];
-		[self.account setValue:authId forKey:kAuthIdDefaultsKey];
 		[self.account setValue:endpoint forKey:kEndpointDefaultsKey];
-		// save
 		[self.delegate updateAccount:self.account atIndex:self.index];
-		// go back
+		// cleanup
 		[self.loginField resignFirstResponder];
 		[self.passwordField resignFirstResponder];
 		[self.endpointField resignFirstResponder];
-		[self.navigationController popViewControllerAnimated:YES];
-	};
-	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-		D3JLog(@"OAuth request failed: %@", error);
-		[SVProgressHUD dismiss];
-		[iOctocat reportError:@"Authentication failed" with:@"Please verify your login and password"];
-		// remove existing authId if it could not be found.
-		// this occurs when the user revoked the apps access.
-		if (response.statusCode == 404) {
-			self.account.authId = nil;
-		}
-	};
-	D3JLog(@"OAuth request: %@ %@", method, path);
-	[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
-																						success:onSuccess
-																						failure:onFailure];
-	[operation start];
+	} failure:^(NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Authentication failed"];
+	}];
 }
 
 - (IBAction)changePushNotifications:(id)sender {
 	if (self.pushSwitch.on) {
-		NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-		NSString *login = [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
-		NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
-		if (login.isEmpty || password.isEmpty) {
+		if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
 			[iOctocat reportError:@"Credentials required" with:@"Please enter your login and password"];
 			[self.pushSwitch setOn:NO animated:YES];
 		} else {
@@ -126,14 +114,40 @@
 	}
 }
 
+// first request a separate oauth access token for the notifications scope from github,
+// then call the ioctocat backend to submit the access token for this account.
 - (void)enablePush {
-	[self.account setValue:[NSNumber numberWithBool:YES] forKey:kPushNotificationsDefaultsKey];
-	[self.delegate updateAccount:self.account atIndex:self.index];
+	NSString *note = @"iOctocat: Push Notifications";
+	NSArray *scopes = @[@"notifications"];
+	[SVProgressHUD showWithStatus:@"Enabling push notifications…" maskType:SVProgressHUDMaskTypeGradient];
+	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
+		NSString *token = [json valueForKey:@"token"];
+		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
+			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];
+			[self.account setValue:token forKey:kPushTokenDefaultsKey];
+			[self.delegate updateAccount:self.account atIndex:self.index];
+		} failure:^(NSError *error) {
+			[SVProgressHUD showErrorWithStatus:@"Enabling push notifications failed"];
+			[self.pushSwitch setOn:NO animated:YES];
+		}];
+	} failure:^(NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Enabling push notifications failed"];
+		[self.pushSwitch setOn:NO animated:YES];
+	}];
 }
 
+// call the ioctocat backend to remove the access token for this account.
 - (void)disablePush {
-	[self.account setValue:[NSNumber numberWithBool:NO] forKey:kPushNotificationsDefaultsKey];
-	[self.delegate updateAccount:self.account atIndex:self.index];
+	NSString *token = self.account.pushToken;
+	[SVProgressHUD showWithStatus:@"Disabling push notifications…" maskType:SVProgressHUDMaskTypeGradient];
+	[[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
+		[SVProgressHUD showSuccessWithStatus:@"Disabled push notifications"];
+		self.account.pushToken = nil;
+		[self.delegate updateAccount:self.account atIndex:self.index];
+	} failure:^(NSError *error) {
+		[SVProgressHUD showErrorWithStatus:@"Disabling push notifications failed"];
+		[self.pushSwitch setOn:YES animated:YES];
+	}];
 }
 
 #pragma mark Keyboard

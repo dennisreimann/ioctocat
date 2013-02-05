@@ -1,5 +1,5 @@
 #import "GHAccount.h"
-#import "GHApiClient.h"
+#import "GHOAuthClient.h"
 #import "GHUser.h"
 #import "GHGists.h"
 #import "GHEvents.h"
@@ -29,7 +29,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 		if (!self.endpoint.isEmpty) {
 			apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
 		}
-		self.apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
+		self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
 		[self.apiClient setAuthorizationHeaderWithToken:self.authToken];
 		// user with authenticated URLs
 		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login];

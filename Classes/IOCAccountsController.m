@@ -4,7 +4,7 @@
 #import "IOCAccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
-#import "GHApiClient.h"
+#import "GHOAuthClient.h"
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"

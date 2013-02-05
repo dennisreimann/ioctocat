@@ -2,16 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>client_id</key>
+	<string></string>
+	<key>client_secret</key>
+	<string></string>
 	<key>note</key>
-	<string>iOctocat - GitHub client for iOS</string>
+	<string>iOctocat - GitHub App for iOS</string>
 	<key>note_url</key>
 	<string>http://ioctocat.com/</string>
-	<key>scopes</key>
-	<array>
-		<string>user</string>
-		<string>repo</string>
-		<string>gist</string>
-		<string>notifications</string>
-	</array>
 </dict>
 </plist>

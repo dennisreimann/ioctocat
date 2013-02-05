@@ -1,14 +1,22 @@
 // Settings
-#define kLoginDefaultsKey                    @"username"
-#define kAuthIdDefaultsKey                   @"authId"
-#define kAuthTokenDefaultsKey                @"authToken"
-#define kEndpointDefaultsKey                 @"endpoint"
-#define kPushNotificationsDefaultsKey        @"pushNotifications"
-#define kAccountsDefaultsKey                 @"accounts"
-#define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
-#define kLineNumbersDefaultsKey              @"lineNumbers"
-#define kThemeDefaultsKey                    @"theme"
-#define kUnreadBadgeDefaultsKey              @"unreadBadge"
+#define kLoginDefaultsKey               @"username"
+#define kAuthTokenDefaultsKey           @"authToken"
+#define kEndpointDefaultsKey            @"endpoint"
+#define kPushTokenDefaultsKey           @"pushToken"
+#define kAccountsDefaultsKey            @"accounts"
+#define kLastActivatedDateDefaulsKey    @"lastActivatedDate"
+#define kLineNumbersDefaultsKey         @"lineNumbers"
+#define kThemeDefaultsKey               @"theme"
+#define kUnreadBadgeDefaultsKey         @"unreadBadge"
+
+// iOctocat API
+#ifdef CONFIGURATION_Release
+#define kPushBackendBaseURL             @"https://ioctocat.com/push-live/"
+#else
+#define kPushBackendBaseURL             @"https://ioctocat.com/push-beta/"
+#endif
+
+#define kPushBackendAccessTokensFormat  @"devices/%@/access_tokens/%@"
 
 // API
 #define kRequestMethodGet               @"GET"
@@ -61,7 +69,7 @@
 
 // Authenticated user
 #define kAuthorizationsFormat                   @"authorizations"
-#define kAuthorizationFormat                    @"authorizations/%@"
+#define kAuthorizationFormat                    @"authorizations/%d"
 #define kUserAuthenticatedFormat                @"user"
 #define kUserAuthenticatedOrgsFormat            @"user/orgs?per_page=100"
 #define kUserAuthenticatedReposFormat           @"user/repos?per_page=100"

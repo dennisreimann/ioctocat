@@ -888,6 +888,15 @@
 		6FEDE48516E2A29300459B5C /* IOCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE47216E2A29300459B5C /* IOCSearchController.m */; };
 		6FEDE48616E2A29300459B5C /* IOCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE47216E2A29300459B5C /* IOCSearchController.m */; };
 		6FEDE48716E2A29300459B5C /* IOCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE47216E2A29300459B5C /* IOCSearchController.m */; };
+		6FEDE48E16E2A49400459B5C /* GHBasicClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48916E2A49400459B5C /* GHBasicClient.m */; };
+		6FEDE48F16E2A49400459B5C /* GHBasicClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48916E2A49400459B5C /* GHBasicClient.m */; };
+		6FEDE49016E2A49400459B5C /* GHBasicClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48916E2A49400459B5C /* GHBasicClient.m */; };
+		6FEDE49116E2A49400459B5C /* GHOAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48B16E2A49400459B5C /* GHOAuthClient.m */; };
+		6FEDE49216E2A49400459B5C /* GHOAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48B16E2A49400459B5C /* GHOAuthClient.m */; };
+		6FEDE49316E2A49400459B5C /* GHOAuthClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48B16E2A49400459B5C /* GHOAuthClient.m */; };
+		6FEDE49416E2A49400459B5C /* IOCApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48D16E2A49400459B5C /* IOCApiClient.m */; };
+		6FEDE49516E2A49400459B5C /* IOCApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48D16E2A49400459B5C /* IOCApiClient.m */; };
+		6FEDE49616E2A49400459B5C /* IOCApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE48D16E2A49400459B5C /* IOCApiClient.m */; };
 		6FF09E65111589D600925109 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6FF4D9551698D4B900C235A0 /* IOCRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4D9541698D4B900C235A0 /* IOCRepositoriesController.m */; };
 		6FF4D9561698D4B900C235A0 /* IOCRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4D9541698D4B900C235A0 /* IOCRepositoriesController.m */; };
@@ -1423,6 +1432,12 @@
 		6FEDE47016E2A29300459B5C /* IOCNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCNotificationsController.m; sourceTree = "<group>"; };
 		6FEDE47116E2A29300459B5C /* IOCSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCSearchController.h; sourceTree = "<group>"; };
 		6FEDE47216E2A29300459B5C /* IOCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCSearchController.m; sourceTree = "<group>"; };
+		6FEDE48816E2A49400459B5C /* GHBasicClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBasicClient.h; sourceTree = "<group>"; };
+		6FEDE48916E2A49400459B5C /* GHBasicClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHBasicClient.m; sourceTree = "<group>"; };
+		6FEDE48A16E2A49400459B5C /* GHOAuthClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOAuthClient.h; sourceTree = "<group>"; };
+		6FEDE48B16E2A49400459B5C /* GHOAuthClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHOAuthClient.m; sourceTree = "<group>"; };
+		6FEDE48C16E2A49400459B5C /* IOCApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCApiClient.h; sourceTree = "<group>"; };
+		6FEDE48D16E2A49400459B5C /* IOCApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCApiClient.m; sourceTree = "<group>"; };
 		6FF09E63111589D600925109 /* FilesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesCell.h; sourceTree = "<group>"; };
 		6FF09E64111589D600925109 /* FilesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesCell.m; sourceTree = "<group>"; };
 		6FF4D9531698D47E00C235A0 /* IOCRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCRepositoriesController.h; sourceTree = "<group>"; };
@@ -2135,6 +2150,12 @@
 		6FC7C22716C94EFD00FC78C8 /* API Clients */ = {
 			isa = PBXGroup;
 			children = (
+				6FEDE48816E2A49400459B5C /* GHBasicClient.h */,
+				6FEDE48916E2A49400459B5C /* GHBasicClient.m */,
+				6FEDE48A16E2A49400459B5C /* GHOAuthClient.h */,
+				6FEDE48B16E2A49400459B5C /* GHOAuthClient.m */,
+				6FEDE48C16E2A49400459B5C /* IOCApiClient.h */,
+				6FEDE48D16E2A49400459B5C /* IOCApiClient.m */,
 			);
 			name = "API Clients";
 			sourceTree = "<group>";
@@ -3314,6 +3335,9 @@
 				6FEDE47F16E2A29300459B5C /* IOCGistCell.m in Sources */,
 				6FEDE48216E2A29300459B5C /* IOCNotificationsController.m in Sources */,
 				6FEDE48516E2A29300459B5C /* IOCSearchController.m in Sources */,
+				6FEDE48E16E2A49400459B5C /* GHBasicClient.m in Sources */,
+				6FEDE49116E2A49400459B5C /* GHOAuthClient.m in Sources */,
+				6FEDE49416E2A49400459B5C /* IOCApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3422,6 +3446,9 @@
 				6FEDE48116E2A29300459B5C /* IOCGistCell.m in Sources */,
 				6FEDE48416E2A29300459B5C /* IOCNotificationsController.m in Sources */,
 				6FEDE48716E2A29300459B5C /* IOCSearchController.m in Sources */,
+				6FEDE49016E2A49400459B5C /* GHBasicClient.m in Sources */,
+				6FEDE49316E2A49400459B5C /* GHOAuthClient.m in Sources */,
+				6FEDE49616E2A49400459B5C /* IOCApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3527,6 +3554,9 @@
 				6FEDE48016E2A29300459B5C /* IOCGistCell.m in Sources */,
 				6FEDE48316E2A29300459B5C /* IOCNotificationsController.m in Sources */,
 				6FEDE48616E2A29300459B5C /* IOCSearchController.m in Sources */,
+				6FEDE48F16E2A49400459B5C /* GHBasicClient.m in Sources */,
+				6FEDE49216E2A49400459B5C /* GHOAuthClient.m in Sources */,
+				6FEDE49516E2A49400459B5C /* IOCApiClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,5 +2,5 @@
 #import "AFOAuth2Client.h"
 
 
-@interface GHApiClient : AFOAuth2Client
+@interface GHOAuthClient : AFOAuth2Client
 @end

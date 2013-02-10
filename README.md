@@ -95,7 +95,6 @@ After that you can start guard with this command:
 iOctocat uses some third party components and libraries:
 
   * [AFNetworking](https://github.com/AFNetworking/AFNetworking) by Gowalla
-  * [GroundControl](https://github.com/mattt/GroundControl) by Mattt Thompson
   * [Base64](https://github.com/ekscrypto/Base64) by ekscrypto
   * [YRDropdownView](https://github.com/onemightyroar/YRDropdownView) by One Mighty Roar
   * [ECSlidingViewController](https://github.com/edgecase/ECSlidingViewController) by EdgeCase

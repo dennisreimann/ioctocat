@@ -48,6 +48,20 @@ static NSString * IOCNormalizedDeviceToken(id deviceToken) {
 	}];
 }
 
+- (void)checkPushNotificationsForDevice:(id)deviceToken accessToken:(NSString *)accessToken success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
+	NSString *path = [NSString stringWithFormat:kPushBackendAccessTokenFormat, IOCNormalizedDeviceToken(deviceToken), accessToken];
+	NSMutableURLRequest *request = [self requestWithMethod:@"HEAD" path:path parameters:nil];
+	D3JLog(@"Checking push notifications state: %@", path);
+	AFHTTPRequestOperation *operation = [self HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+		D3JLog(@"Checked push notifications state: %@", responseObject);
+		if (success) success(responseObject);
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		D3JLog(@"Checking push notifications failed: %@", error);
+		if (failure) failure(error);
+	}];
+	[self enqueueHTTPRequestOperation:operation];
+}
+
 - (void)enablePushNotificationsForDevice:(id)deviceToken accessToken:(NSString *)accessToken success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
 	NSString *path = [NSString stringWithFormat:kPushBackendAccessTokenFormat, IOCNormalizedDeviceToken(deviceToken), accessToken];
 	D3JLog(@"Enabling push notifications: %@", path);

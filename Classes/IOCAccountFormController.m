@@ -44,6 +44,23 @@
 	self.pushSwitch.on = self.account.pushEnabled;
 	self.pushSwitch.enabled = self.deviceToken ? YES : NO;
 	self.pushLabel.textColor = self.deviceToken ? [UIColor blackColor] : [UIColor lightGrayColor];
+	// check push state
+	NSString *token = self.account.pushToken;
+	if (self.deviceToken && token) {
+		self.pushSwitch.enabled = NO;
+		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
+			[self.pushSwitch setOn:YES animated:YES];
+			self.pushSwitch.enabled = YES;
+		} failure:^(NSError *error) {
+			[self.pushSwitch setOn:NO animated:YES];
+			self.account.pushToken = nil;
+			[self saveAccount];
+			self.pushSwitch.enabled = YES;
+		}];
+	} else {
+		self.pushSwitch.on = NO;
+		self.pushSwitch.enabled = self.deviceToken ? YES : NO;
+	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

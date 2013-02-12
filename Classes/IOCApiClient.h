@@ -4,6 +4,7 @@
 
 @interface IOCApiClient : AFHTTPClient
 - (void)registerPushNotificationsForDevice:(id)deviceToken alias:(NSString *)alias success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+- (void)checkPushNotificationsForDevice:(id)deviceToken accessToken:(NSString *)accessToken success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 - (void)enablePushNotificationsForDevice:(NSString *)deviceToken accessToken:(NSString *)accessToken success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 - (void)disablePushNotificationsForDevice:(NSString *)deviceToken accessToken:(NSString *)accessToken success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 @end

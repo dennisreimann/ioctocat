@@ -56,10 +56,14 @@
 	[self.tableView reloadData];
 }
 
-- (void)updateAccount:(GHAccount *)account atIndex:(NSUInteger)idx {
+- (void)updateAccount:(GHAccount *)account atIndex:(NSUInteger)idx callback:(void (^)(NSUInteger idx))callback {
 	// add new account to list of accounts
 	if (idx == NSNotFound) {
 		[self.accounts addObject:account];
+		if (callback) {
+			idx = [self.accounts indexOfObject:account];
+			callback(idx);
+		}
 	} else {
 		self.accounts[idx] = account;
 	}

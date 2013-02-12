@@ -72,6 +72,12 @@
 	return [[GHBasicClient alloc] initWithEndpoint:self.endpointValue username:self.loginValue password:self.passwordValue];
 }
 
+- (void)saveAccount {
+	[self.delegate updateAccount:self.account atIndex:self.index callback:^(NSUInteger idx) {
+		self.index = idx;
+	}];
+}
+
 #pragma mark Actions
 
 - (IBAction)saveAccount:(id)sender {
@@ -91,7 +97,7 @@
 		[self.account setValue:login forKey:kLoginDefaultsKey];
 		[self.account setValue:token forKey:kAuthTokenDefaultsKey];
 		[self.account setValue:endpoint forKey:kEndpointDefaultsKey];
-		[self.delegate updateAccount:self.account atIndex:self.index];
+		[self saveAccount];
 		// cleanup
 		[self.loginField resignFirstResponder];
 		[self.passwordField resignFirstResponder];
@@ -121,11 +127,11 @@
 	NSArray *scopes = @[@"notifications"];
 	[SVProgressHUD showWithStatus:@"Enabling push notifications…" maskType:SVProgressHUDMaskTypeGradient];
 	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
-		NSString *token = [json valueForKey:@"token"];
+		NSString *token = [json safeStringForKey:@"token"];
 		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
 			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];
 			[self.account setValue:token forKey:kPushTokenDefaultsKey];
-			[self.delegate updateAccount:self.account atIndex:self.index];
+			[self saveAccount];
 		} failure:^(NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Enabling push notifications failed"];
 			[self.pushSwitch setOn:NO animated:YES];
@@ -143,7 +149,7 @@
 	[[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Disabled push notifications"];
 		self.account.pushToken = nil;
-		[self.delegate updateAccount:self.account atIndex:self.index];
+		[self saveAccount];
 	} failure:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Disabling push notifications failed"];
 		[self.pushSwitch setOn:YES animated:YES];

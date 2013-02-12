@@ -2,7 +2,7 @@
 
 
 @protocol IOCAccountFormControllerDelegate <NSObject>
-- (void)updateAccount:(GHAccount *)account atIndex:(NSUInteger)idx;
+- (void)updateAccount:(GHAccount *)account atIndex:(NSUInteger)idx  callback:(void (^)(NSUInteger idx))callback;
 @end
 
 

@@ -1,5 +1,6 @@
 #import <HockeySDK/HockeySDK.h>
 #import "iOctocat.h"
+#import "IOCApiClient.h"
 #import "IOCAvatarCache.h"
 #import "GHOAuthClient.h"
 #import "GHAccount.h"
@@ -13,7 +14,6 @@
 #import "WebController.h"
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
-#import "Orbiter.h"
 #import "NSDate+Nibware.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
@@ -96,9 +96,7 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	NSURL *baseURL = [NSURL URLWithString:kPushBackendBaseURL];
-    Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:baseURL credential:nil];
-    [orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
+	[[[IOCApiClient alloc] init] registerPushNotificationsForDevice:deviceToken alias:nil success:^(id responseObject) {
         DJLog(@"Registration Success: %@", responseObject);
 		// save device token for later registration of accounts for that device
 		self.deviceToken = [responseObject safeStringForKey:@"token"];

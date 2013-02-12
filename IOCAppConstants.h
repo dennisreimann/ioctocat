@@ -9,15 +9,6 @@
 #define kThemeDefaultsKey               @"theme"
 #define kUnreadBadgeDefaultsKey         @"unreadBadge"
 
-// iOctocat API
-#ifdef CONFIGURATION_Release
-#define kPushBackendBaseURL             @"https://ioctocat.com/push-live/"
-#else
-#define kPushBackendBaseURL             @"https://ioctocat.com/push-beta/"
-#endif
-
-#define kPushBackendAccessTokensFormat  @"devices/%@/access_tokens/%@"
-
 // API
 #define kRequestMethodGet               @"GET"
 #define kRequestMethodPut               @"PUT"

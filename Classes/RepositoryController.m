@@ -91,7 +91,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// repository
-	if (!self.repository.isLoaded) {
+	if (self.repository.isUnloaded) {
 		[self.repository loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepositoryChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -101,7 +101,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		[self displayRepositoryChange];
 	}
 	// branches
-	if (!self.repository.branches.isLoaded) {
+	if (self.repository.branches.isUnloaded) {
 		[self.repository.branches loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayBranchesChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -111,7 +111,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		[self displayBranchesChange];
 	}
 	// readme
-	if (!self.repository.readme.isLoaded) {
+	if (self.repository.readme.isUnloaded) {
 		[self.repository.readme loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayReadmeChange];
 		} failure:nil];

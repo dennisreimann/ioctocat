@@ -81,7 +81,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// commits
-	if (!self.commit.isLoaded) {
+	if (self.commit.isUnloaded) {
 		[self.commit loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommitChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -91,7 +91,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		[self displayCommitChange];
 	}
 	// comments
-	if (!self.commit.comments.isLoaded) {
+	if (self.commit.comments.isUnloaded) {
 		[self.commit.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:^(GHResource *instance, NSError *error) {

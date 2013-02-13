@@ -38,7 +38,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// organizations
-	if (!self.organizations.isLoaded) {
+	if (self.organizations.isUnloaded) {
 		[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {

@@ -86,7 +86,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// pull request
-	if (!self.pullRequest.isLoaded) {
+	if (self.pullRequest.isUnloaded) {
 		[self.pullRequest loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayPullRequestChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -96,7 +96,7 @@
 		[self displayPullRequestChange];
 	}
 	// comments
-	if (!self.pullRequest.comments.isLoaded) {
+	if (self.pullRequest.comments.isUnloaded) {
 		[self.pullRequest.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:^(GHResource *instance, NSError *error) {

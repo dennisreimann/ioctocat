@@ -80,7 +80,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// issue
-	if (!self.issue.isLoaded) {
+	if (self.issue.isUnloaded) {
 		[self.issue loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayIssueChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -90,7 +90,7 @@
 		[self displayIssueChange];
 	}
 	// comments
-	if (!self.issue.comments.isLoaded) {
+	if (self.issue.comments.isUnloaded) {
 		[self.issue.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:^(GHResource *instance, NSError *error) {

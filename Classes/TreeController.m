@@ -32,7 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// tree
-	if (!self.tree.isLoaded) {
+	if (self.tree.isUnloaded) {
 		[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {

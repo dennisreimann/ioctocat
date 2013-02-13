@@ -35,7 +35,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    if (!self.users.isLoaded) {
+    if (self.users.isUnloaded) {
 		[self.users loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {

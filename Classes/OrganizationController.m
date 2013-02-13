@@ -77,7 +77,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// organization
-	if (!self.organization.isLoaded) {
+	if (self.organization.isUnloaded) {
 		[self.organization loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayOrganizationChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -87,7 +87,7 @@
 		[self displayOrganizationChange];
 	}
 	// repositories
-	if (!self.organization.repositories.isLoaded) {
+	if (self.organization.repositories.isUnloaded) {
 		[self.organization.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepositoriesChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -97,7 +97,7 @@
 		[self displayRepositoriesChange];
 	}
 	// members
-	if (!self.organization.publicMembers.isLoaded) {
+	if (self.organization.publicMembers.isUnloaded) {
 		[self.organization.publicMembers loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayMembersChange];
 		} failure:^(GHResource *instance, NSError *error) {

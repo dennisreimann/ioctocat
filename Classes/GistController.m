@@ -70,7 +70,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	// gist
-	if (!self.gist.isLoaded) {
+	if (self.gist.isUnloaded) {
 		[self.gist loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayGistChange];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -80,7 +80,7 @@
 		[self displayGistChange];
 	}
 	// comments
-	if (!self.gist.comments.isLoaded) {
+	if (self.gist.comments.isUnloaded) {
 		[self.gist.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:^(GHResource *instance, NSError *error) {

@@ -33,6 +33,7 @@
 
 	self.webView.scrollView.bounces = NO;
 	if (self.url) {
+		self.navigationItem.title = self.url.host;
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.url];
 		[self.webView loadRequest:request];
 	} else if (self.html) {
@@ -63,6 +64,7 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview {
+	self.navigationItem.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }

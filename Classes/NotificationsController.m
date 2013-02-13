@@ -115,12 +115,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.notifications.isLoading) {
-		return 0;
-	} else if (self.resourceHasData) {
-		return [[self notificationsForSection:section] count];
-	} else {
+	if (self.notifications.isLoaded && !self.resourceHasData) {
 		return 1;
+	} else {
+		return [[self notificationsForSection:section] count];
 	}
 }
 

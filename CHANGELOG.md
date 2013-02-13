@@ -5,6 +5,7 @@
 Bugfixes:
 
 * Fixed crash when selecting an event cell after failed reload
+* Fixed crash when selecting a notification cell after failed reload
 
 ## v1.7.6
 

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.7.7
+
+Bugfixes:
+
+* Fixed crash when selecting an event cell after failed reload
+
 ## v1.7.6
 
 Additions:

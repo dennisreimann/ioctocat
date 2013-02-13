@@ -114,11 +114,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.events.isLoaded) {
-		return self.events.isEmpty ? 1 : self.events.count;
-	} else {
-		return 0;
-	}
+	return self.events.isLoaded && self.events.isEmpty ? 1 : self.events.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

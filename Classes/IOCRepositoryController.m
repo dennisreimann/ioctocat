@@ -10,7 +10,7 @@
 #import "GHCommits.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCUserController.h"
 #import "IOCUsersController.h"
 #import "WebController.h"
@@ -24,10 +24,12 @@
 #import "IOCForksController.h"
 #import "IOCTreeController.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface RepositoryController () <UIActionSheetDelegate>
+@interface IOCRepositoryController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,readonly)GHUser *currentUser;
 @property(nonatomic,readwrite)BOOL isStarring;
 @property(nonatomic,readwrite)BOOL isWatching;
@@ -40,7 +42,6 @@
 @property(nonatomic,weak)IBOutlet UIImageView *starsIconView;
 @property(nonatomic,weak)IBOutlet UIImageView *forksIconView;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *readmeCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *issuesCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *pullRequestsCell;
@@ -53,7 +54,7 @@
 @end
 
 
-@implementation RepositoryController
+@implementation IOCRepositoryController
 
 static NSString *const BranchCellIdentifier = @"BranchCell";
 
@@ -69,6 +70,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.repository.name;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:@"repository"];
 	[self displayRepository];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -94,9 +96,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	if (self.repository.isUnloaded) {
 		[self.repository loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepositoryChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repository"];
-		}];
+		} failure:nil];
 	} else if (self.repository.isChanged) {
 		[self displayRepositoryChange];
 	}
@@ -104,9 +104,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	if (self.repository.branches.isUnloaded) {
 		[self.repository.branches loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayBranchesChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the branches"];
-		}];
+		} failure:nil];
 	} else if (self.repository.branches.isChanged) {
 		[self displayBranchesChange];
 	}
@@ -217,11 +215,11 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.repository.isLoaded ? 4 : 1;
+	return self.repository.isEmpty ? 1 : 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.repository.isLoaded) return 1;
+	if (self.repository.isEmpty) return 1;
 	if (section == 0) {
 		NSInteger rows = 2;
 		if (self.descriptionCell.hasContent) rows += 1;
@@ -241,10 +239,10 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.repository.isEmpty) return self.statusCell;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	UITableViewCell *cell = nil;
-	if (!self.repository.isLoaded) return self.loadingCell;
 	if (section == 0) {
 		switch (row) {
 			case 0: cell = self.ownerCell; break;
@@ -280,7 +278,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.repository.isLoaded) return;
+	if (self.repository.isEmpty) return;
 	UIViewController *viewController = nil;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;

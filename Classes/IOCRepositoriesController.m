@@ -1,5 +1,5 @@
 #import "IOCRepositoriesController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "RepositoryCell.h"
@@ -74,7 +74,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.repositories.isEmpty) return;
 	GHRepository *repo = self.repositories[indexPath.row];
-	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
+	IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

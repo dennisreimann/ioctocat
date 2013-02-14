@@ -1,5 +1,5 @@
 #import "SearchController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCUserController.h"
 #import "GHUser.h"
 #import "GHSearch.h"
@@ -107,7 +107,7 @@
 	id object = self.currentSearch[indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:GHRepository.class]) {
-		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];
+		viewController = [[IOCRepositoryController alloc] initWithRepository:(GHRepository *)object];
 	} else if ([object isKindOfClass:GHUser.class]) {
 		viewController = [[IOCUserController alloc] initWithUser:(GHUser *)object];
 	}

@@ -1,6 +1,6 @@
 #import <MessageUI/MessageUI.h>
 #import "IOCOrganizationController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCUserController.h"
 #import "WebController.h"
 #import "EventsController.h"
@@ -222,7 +222,7 @@
 		viewController.title = @"Recent Activity";
 	} else if (section == 2) {
 		GHRepository *repo = self.organization.repositories[indexPath.row];
-		viewController = [[RepositoryController alloc] initWithRepository:repo];
+		viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3) {
 		GHUser *selectedUser = self.organization.publicMembers[indexPath.row];
 		viewController = [[IOCUserController alloc] initWithUser:(GHUser *)selectedUser];

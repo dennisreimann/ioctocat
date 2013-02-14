@@ -1,7 +1,7 @@
 #import "MyEventsController.h"
 #import "WebController.h"
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCIssueController.h"
 #import "IOCGistController.h"
 #import "IOCCommitController.h"

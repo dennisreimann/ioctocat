@@ -1,6 +1,6 @@
 #import <MessageUI/MessageUI.h>
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCOrganizationController.h"
 #import "WebController.h"
 #import "GHUsers.h"
@@ -287,7 +287,7 @@
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2 && !self.user.repositories.isEmpty) {
 		GHRepository *repo = self.user.repositories[indexPath.row];
-		viewController = [[RepositoryController alloc] initWithRepository:repo];
+		viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3 && !self.user.organizations.isEmpty) {
 		GHOrganization *org = self.user.organizations[indexPath.row];
 		viewController = [[IOCOrganizationController alloc] initWithOrganization:org];

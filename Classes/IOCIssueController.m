@@ -7,7 +7,7 @@
 #import "IOCIssuesController.h"
 #import "IssueObjectFormController.h"
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
@@ -270,7 +270,7 @@
 	if (self.issue.isEmpty) return;
 	if (indexPath.section == 0) {
 		if (indexPath.row == 0 && self.issue.repository) {
-			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.issue.repository];
+			IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:self.issue.repository];
 			[self.navigationController pushViewController:repoController animated:YES];
 		} else if (indexPath.row == 1 && self.issue.user) {
 			IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.issue.user];

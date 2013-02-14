@@ -10,7 +10,7 @@
 #import "CommentCell.h"
 #import "NSDate+Nibware.h"
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "WebController.h"
 #import "IOCFilesController.h"
 #import "CommentController.h"
@@ -221,7 +221,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) {
-		RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.commit.repository];
+		IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:self.commit.repository];
 		[self.navigationController pushViewController:repoController animated:YES];
 	} else if (indexPath.section == 0) {
 		GHUser *user = (row == 1) ? self.commit.author : self.commit.committer;

@@ -7,7 +7,7 @@
 #import "IOCPullRequestsController.h"
 #import "IssueObjectFormController.h"
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCCommitsController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
@@ -324,7 +324,7 @@
 	NSInteger row = indexPath.row;
 	if (section == 0) {
 		if (row == 0 && self.pullRequest.repository) {
-			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.pullRequest.repository];
+			IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:self.pullRequest.repository];
 			[self.navigationController pushViewController:repoController animated:YES];
 		} else if (row == 1 && self.pullRequest.user) {
 			IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.pullRequest.user];

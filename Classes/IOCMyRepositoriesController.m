@@ -1,5 +1,5 @@
 #import "IOCMyRepositoriesController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
@@ -148,7 +148,7 @@
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.isEmpty) return;
 	GHRepository *repo = repos[indexPath.row];
-	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
+	IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

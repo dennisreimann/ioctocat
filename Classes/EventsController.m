@@ -2,7 +2,7 @@
 #import "GHEvent.h"
 #import "GHEvents.h"
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCIssueController.h"
 #import "IOCPullRequestController.h"
 #import "IOCCommitController.h"
@@ -80,7 +80,7 @@
 	} else if ([eventItem isKindOfClass:GHOrganization.class]) {
 		viewController = [[IOCOrganizationController alloc] initWithOrganization:eventItem];
 	} else if ([eventItem isKindOfClass:GHRepository.class]) {
-		viewController = [[RepositoryController alloc] initWithRepository:eventItem];
+		viewController = [[IOCRepositoryController alloc] initWithRepository:eventItem];
 	} else if ([eventItem isKindOfClass:GHIssue.class]) {
 		viewController = [[IOCIssueController alloc] initWithIssue:eventItem];
 	} else if ([eventItem isKindOfClass:GHCommit.class]) {

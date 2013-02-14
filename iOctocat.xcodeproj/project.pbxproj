@@ -170,7 +170,7 @@
 		6F5652E10F99C85C001B6703 /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
 		6F5A40890F90B25F00427ED7 /* User.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A40860F90B25F00427ED7 /* User.xib */; };
-		6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
+		6F5A41750F90C38300427ED7 /* IOCRepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */; };
 		6F5A41790F90C42800427ED7 /* Repository.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F5A41780F90C42800427ED7 /* Repository.xib */; };
 		6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6F5B58FD164FC252009ADE17 /* CellBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5B58FB164FC252009ADE17 /* CellBackground.png */; };
@@ -246,7 +246,7 @@
 		6F612477167D0410001A3E05 /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
 		6F612478167D0410001A3E05 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
-		6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
+		6F61247A167D0410001A3E05 /* IOCRepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */; };
 		6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* IOCCommitsController.m */; };
 		6F61247D167D0410001A3E05 /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
@@ -727,7 +727,7 @@
 		6FCAA434167B52C800C816FA /* IOCUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* IOCUserController.m */; };
 		6FCAA435167B52C800C816FA /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCAA436167B52C800C816FA /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
-		6FCAA437167B52C800C816FA /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
+		6FCAA437167B52C800C816FA /* IOCRepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */; };
 		6FCAA438167B52C800C816FA /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6FCAA439167B52C800C816FA /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
 		6FCAA43A167B52C800C816FA /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* EventCell.m */; };
@@ -1078,8 +1078,8 @@
 		6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCMyRepositoriesController.m; sourceTree = "<group>"; };
 		6F5653020F99CB52001B6703 /* issue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue.png; path = Images/Icons/issue.png; sourceTree = "<group>"; };
 		6F5A40860F90B25F00427ED7 /* User.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = User.xib; path = IBFiles/User.xib; sourceTree = "<group>"; };
-		6F5A41730F90C38300427ED7 /* RepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryController.h; sourceTree = "<group>"; };
-		6F5A41740F90C38300427ED7 /* RepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryController.m; sourceTree = "<group>"; };
+		6F5A41730F90C38300427ED7 /* IOCRepositoryController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCRepositoryController.h; sourceTree = "<group>"; };
+		6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCRepositoryController.m; sourceTree = "<group>"; };
 		6F5A41780F90C42800427ED7 /* Repository.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Repository.xib; path = IBFiles/Repository.xib; sourceTree = "<group>"; };
 		6F5A420C0F90CE0500427ED7 /* TextCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextCell.h; sourceTree = "<group>"; };
 		6F5A420D0F90CE0500427ED7 /* TextCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextCell.m; sourceTree = "<group>"; };
@@ -2319,8 +2319,8 @@
 				6FF4D9541698D4B900C235A0 /* IOCRepositoriesController.m */,
 				6F4CBD3016431D6300D587FB /* IOCOrganizationRepositoriesController.h */,
 				6F4CBD3116431D6300D587FB /* IOCOrganizationRepositoriesController.m */,
-				6F5A41730F90C38300427ED7 /* RepositoryController.h */,
-				6F5A41740F90C38300427ED7 /* RepositoryController.m */,
+				6F5A41730F90C38300427ED7 /* IOCRepositoryController.h */,
+				6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */,
 				8CE6867C0FB8C58400A3D625 /* IOCForksController.h */,
 				8CE6867B0FB8C58400A3D625 /* IOCForksController.m */,
 				6F76CDBF16628FF500A2353E /* IOCCommitsController.h */,
@@ -3166,7 +3166,7 @@
 				6FC95F1F0F8905F500FC0968 /* IOCUserController.m in Sources */,
 				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
 				6FCAF1660F895756005E1173 /* IOCAvatarLoader.m in Sources */,
-				6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */,
+				6F5A41750F90C38300427ED7 /* IOCRepositoryController.m in Sources */,
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
 				6F5652E10F99C85C001B6703 /* IOCMyRepositoriesController.m in Sources */,
 				6F72FB2F0F9B53810069F092 /* EventCell.m in Sources */,
@@ -3280,7 +3280,7 @@
 				6F612477167D0410001A3E05 /* IOCGistController.m in Sources */,
 				6F612478167D0410001A3E05 /* CodeController.m in Sources */,
 				6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */,
-				6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */,
+				6F61247A167D0410001A3E05 /* IOCRepositoryController.m in Sources */,
 				6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */,
 				6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */,
 				6F61247D167D0410001A3E05 /* IOCCommitController.m in Sources */,
@@ -3379,7 +3379,7 @@
 				6FCAA434167B52C800C816FA /* IOCUserController.m in Sources */,
 				6FCAA435167B52C800C816FA /* LabeledCell.m in Sources */,
 				6FCAA436167B52C800C816FA /* IOCAvatarLoader.m in Sources */,
-				6FCAA437167B52C800C816FA /* RepositoryController.m in Sources */,
+				6FCAA437167B52C800C816FA /* IOCRepositoryController.m in Sources */,
 				6FCAA438167B52C800C816FA /* TextCell.m in Sources */,
 				6FCAA439167B52C800C816FA /* IOCMyRepositoriesController.m in Sources */,
 				6FCAA43A167B52C800C816FA /* EventCell.m in Sources */,

@@ -1,6 +1,6 @@
 #import "IOCForksController.h"
 #import "GHForks.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "RepositoryCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
@@ -72,7 +72,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.forks.isEmpty) return;
 	GHRepository *repo = self.forks[indexPath.row];
-	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
+	IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];
 }
 

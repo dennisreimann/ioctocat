@@ -1,7 +1,7 @@
 #import "MenuController.h"
 #import "MyEventsController.h"
 #import "IOCUserController.h"
-#import "RepositoryController.h"
+#import "IOCRepositoryController.h"
 #import "IOCRepositoriesController.h"
 #import "IOCMyRepositoriesController.h"
 #import "IOCOrganizationsController.h"
@@ -129,7 +129,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 		NSString *name = [url.pathComponents objectAtIndex:2];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		if (url.pathComponents.count == 3) {
-			viewController = [[RepositoryController alloc] initWithRepository:repo];
+			viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
 		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
 			// Issues
 			viewController = [[IOCIssuesController alloc] initWithRepository:repo];

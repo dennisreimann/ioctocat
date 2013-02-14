@@ -11,4 +11,5 @@
 - (void)addObject:(id)object;
 - (void)removeObject:(id)object;
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
+- (void)sortUsingComparator:(NSComparator)cmptr;
 @end

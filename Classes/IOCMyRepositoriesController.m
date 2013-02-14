@@ -11,9 +11,9 @@
 
 
 @interface IOCMyRepositoriesController ()
-@property(nonatomic,strong)NSMutableArray *privateRepositories;
-@property(nonatomic,strong)NSMutableArray *publicRepositories;
-@property(nonatomic,strong)NSMutableArray *forkedRepositories;
+@property(nonatomic,strong)GHRepositories *privateRepositories;
+@property(nonatomic,strong)GHRepositories *publicRepositories;
+@property(nonatomic,strong)GHRepositories *forkedRepositories;
 @property(nonatomic,strong)GHUser *user;
 @end
 
@@ -56,9 +56,9 @@
 		if (!repo2.pushedAtDate) return NSOrderedAscending;
 		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
-	self.privateRepositories = [NSMutableArray array];
-	self.publicRepositories = [NSMutableArray array];
-	self.forkedRepositories = [NSMutableArray array];
+	self.privateRepositories = [[GHRepositories alloc] init];
+	self.publicRepositories = [[GHRepositories alloc] init];
+	self.forkedRepositories = [[GHRepositories alloc] init];
 	for (GHRepository *repo in self.user.repositories.items) {
 		if (repo.isPrivate) {
 			[self.privateRepositories addObject:repo];
@@ -71,10 +71,13 @@
 	[self.privateRepositories sortUsingComparator:compareRepositories];
 	[self.publicRepositories sortUsingComparator:compareRepositories];
 	[self.forkedRepositories sortUsingComparator:compareRepositories];
+	[self.privateRepositories markAsLoaded];
+	[self.publicRepositories markAsLoaded];
+	[self.forkedRepositories markAsLoaded];
 	[self.tableView reloadData];
 }
 
-- (NSMutableArray *)repositoriesInSection:(NSInteger)section {
+- (GHRepositories *)repositoriesInSection:(NSInteger)section {
 	if (section == 0) {
 		return self.privateRepositories;
 	} else if (section == 1) {
@@ -138,13 +141,13 @@
 	if (!self.resourceHasData) return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
 	NSInteger section = indexPath.section;
 	if (section == 0 && self.privateRepositories.count == 0) {
-		return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"private repositories"];
+		return [[IOCResourceStatusCell alloc] initWithResource:self.privateRepositories name:@"private repositories"];
 	} else if (section == 1 && self.publicRepositories.count == 0) {
-		return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"public repositories"];
+		return [[IOCResourceStatusCell alloc] initWithResource:self.publicRepositories name:@"public repositories"];
 	} else {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		NSArray *repos = [self repositoriesInSection:indexPath.section];
+		GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 		cell.repository = repos[indexPath.row];
 		[cell hideOwner];
 		return cell;
@@ -152,7 +155,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSArray *repos = [self repositoriesInSection:indexPath.section];
+	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	if (repos.count == 0) return;
 	GHRepository *repo = repos[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];

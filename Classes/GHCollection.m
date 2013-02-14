@@ -43,4 +43,8 @@
 	[self.items insertObject:object atIndex:idx];
 }
 
+- (void)sortUsingComparator:(NSComparator)cmptr {
+	[self.items sortUsingComparator:cmptr];
+}
+
 @end

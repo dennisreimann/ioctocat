@@ -5,6 +5,7 @@
 Additions:
 
 * Webview shows page title. Thanks @drodriguez
+* "Show on GitHub" on user profile
 
 Changes:
 

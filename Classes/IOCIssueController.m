@@ -135,7 +135,7 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet;
+	UIActionSheet *actionSheet = nil;
 	if (self.issueEditableByCurrentUser) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 												  delegate:self

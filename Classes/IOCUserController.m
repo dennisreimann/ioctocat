@@ -72,7 +72,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.user.login;
-	self.navigationItem.rightBarButtonItem = self.isProfile ? nil : [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.userStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user name:@"user"];
 	self.reposStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
 	self.organizationsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:@"organizations"];
@@ -160,16 +160,28 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isFollowing ? @"Unfollow" : @"Follow"), @"Show on GitHub",  nil];
+	UIActionSheet *actionSheet = nil;
+	if (self.isProfile) {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Show on GitHub",  nil];
+	} else {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isFollowing ? @"Unfollow" : @"Follow"), @"Show on GitHub",  nil];
+	}
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) {
-		[self toggleUserFollowing];
-	} else if (buttonIndex == 1) {
-		WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
-		[self.navigationController pushViewController:webController animated:YES];
+	if (self.isProfile) {
+		if (buttonIndex == 0) {
+			WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
+			[self.navigationController pushViewController:webController animated:YES];
+		}
+	} else {
+		if (buttonIndex == 0) {
+			[self toggleUserFollowing];
+		} else if (buttonIndex == 1) {
+			WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
+			[self.navigationController pushViewController:webController animated:YES];
+		}
 	}
 }
 

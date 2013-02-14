@@ -170,7 +170,7 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet;
+	UIActionSheet *actionSheet = nil;
 	if (self.pullRequestMergeableByCurrentUser) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
 												  delegate:self

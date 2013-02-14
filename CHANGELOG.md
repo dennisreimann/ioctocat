@@ -6,6 +6,10 @@ Additions:
 
 * Webview shows page title. Thanks @drodriguez
 
+Changes:
+
+* Use box icon for repository throughout the app
+
 Bugfixes:
 
 * Fixed crash when selecting an event cell after failed reload

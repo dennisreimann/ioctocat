@@ -1,11 +1,9 @@
 #import <Foundation/Foundation.h>
-#import "GHResource.h"
+#import "GHCollection.h"
 
 
-@interface GHSearch : GHResource
+@interface GHSearch : GHCollection
 @property(nonatomic,strong)NSString *searchTerm;
-@property(nonatomic,strong)NSArray *searchResults;
-@property(nonatomic,readonly)BOOL isEmpty;
 
 - (id)initWithURLFormat:(NSString *)format;
 @end

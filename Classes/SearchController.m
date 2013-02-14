@@ -85,13 +85,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.currentSearch.isLoading) return 1;
 	if (self.currentSearch.isLoaded && self.currentSearch.isEmpty) return 1;
-	return self.currentSearch.searchResults.count;
+	return self.currentSearch.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.currentSearch.isLoaded) return self.loadingCell;
 	if (self.currentSearch.isEmpty) return self.noResultsCell;
-	id object = self.currentSearch.searchResults[indexPath.row];
+	id object = self.currentSearch[indexPath.row];
 	if ([object isKindOfClass:GHRepository.class]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
@@ -109,7 +109,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	id object = self.currentSearch.searchResults[indexPath.row];
+	id object = self.currentSearch[indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:GHRepository.class]) {
 		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];

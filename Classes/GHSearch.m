@@ -29,19 +29,10 @@
 	return path;
 }
 
-- (NSArray *)searchResults {
-	return self.results;
-}
-
-- (BOOL)isEmpty {
-	return !self.results || self.results.count == 0;
-}
-
 - (void)setValues:(NSDictionary *)dict {
 	NSArray *objects = [dict safeArrayForKey:@"users"];
 	BOOL usersSearch = objects ? YES : NO;
 	if (!objects) objects = [dict safeArrayForKey:@"repositories"];
-	self.results = [NSMutableArray array];
 	for (NSDictionary *dict in objects) {
 		GHResource *resource = nil;
 		if (usersSearch) {
@@ -54,7 +45,7 @@
 			resource = [[GHRepository alloc] initWithOwner:owner andName:name];
 			[resource setValues:dict];
 		}
-		[self.results addObject:resource];
+		[self addObject:resource];
 	}
 }
 

@@ -35,14 +35,10 @@
 	self.contentView.scrollView.bounces = NO;
 }
 
-- (void)dealloc {
-	[self.contentView stopLoading];
-	self.contentView.delegate = nil;
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
 	[self.contentView stopLoading];
 	self.contentView.delegate = nil;
+	[SVProgressHUD dismiss];
 	[super viewWillDisappear:animated];
 }
 

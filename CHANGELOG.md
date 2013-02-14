@@ -9,6 +9,7 @@ Additions:
 Changes:
 
 * Use box icon for repository throughout the app
+* Dismiss existing progress indicator when leaving code views
 
 Bugfixes:
 

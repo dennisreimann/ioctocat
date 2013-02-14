@@ -1,4 +1,4 @@
-#import "IssuesController.h"
+#import "IOCIssuesController.h"
 #import "IOCIssueController.h"
 #import "IssueObjectFormController.h"
 #import "GHIssue.h"
@@ -8,6 +8,7 @@
 #import "GHUser.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 #define kIssueObjectCellIdentifier @"IssueObjectCell"
 #define kIssueSortCreated @"created"
@@ -15,21 +16,19 @@
 #define kIssueSortComments @"comments"
 
 
-@interface IssuesController () <IssueObjectFormControllerDelegate>
+@interface IOCIssuesController () <IssueObjectFormControllerDelegate>
 @property(nonatomic,readonly)GHIssues *currentIssues;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *objects;
-@property(nonatomic,strong)IBOutlet UISegmentedControl *issuesControl;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingIssuesCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noIssuesCell;
+@property(nonatomic,strong)UISegmentedControl *issuesControl;
 @end
 
 
-@implementation IssuesController
+@implementation IOCIssuesController
 
 - (id)initWithUser:(GHUser *)user {
-	self = [super initWithNibName:@"Issues" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.user = user;
 		NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
@@ -42,7 +41,7 @@
 }
 
 - (id)initWithRepository:(GHRepository *)repo {
-	self = [super initWithNibName:@"Issues" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.repository = repo;
 		self.objects = @[self.repository.openIssues, self.repository.closedIssues];
@@ -54,6 +53,13 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.issuesControl = [[UISegmentedControl alloc] initWithItems:@[@"Open", @"Closed"]];
+	self.issuesControl.selectedSegmentIndex = 0;
+	self.issuesControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	[self.issuesControl addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+	CGRect controlFrame = self.issuesControl.frame;
+	controlFrame.size.width = 200;
+	self.issuesControl.frame = controlFrame;
 	self.navigationItem.title = self.title ? self.title : @"Issues";
 	self.navigationItem.titleView = self.issuesControl;
 	self.navigationItem.rightBarButtonItem = self.repository ?
@@ -73,10 +79,6 @@
 	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
 }
 
-- (BOOL)resourceHasData {
-	return self.currentIssues.isLoaded && !self.currentIssues.isEmpty;
-}
-
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
@@ -85,9 +87,7 @@
 	if (self.currentIssues.isLoaded) return;
 	[self.currentIssues loadWithParams:nil success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
-	} failure:^(GHResource *instance, NSError *error) {
-		[iOctocat reportLoadingError:@"Could not load the issues"];
-	}];
+	} failure:nil];
 	[self.tableView reloadData];
 }
 
@@ -120,17 +120,12 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? self.currentIssues.count : 1;
+	return self.currentIssues.isEmpty ? 1 : self.currentIssues.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentIssues.isLoading) return self.loadingIssuesCell;
-	if (self.currentIssues.isEmpty) return self.noIssuesCell;
+	if (self.currentIssues.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentIssues name:@"issues"];
 	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (cell == nil) {
 		cell = [IssueObjectCell cell];
@@ -141,7 +136,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return;
+	if (self.currentIssues.isEmpty) return;
 	GHIssue *issue = self.currentIssues[indexPath.row];
 	IOCIssueController *issueController = [[IOCIssueController alloc] initWithIssue:issue andListController:self];
 	[self.navigationController pushViewController:issueController animated:YES];

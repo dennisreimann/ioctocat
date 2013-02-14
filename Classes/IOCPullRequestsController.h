@@ -1,6 +1,6 @@
 @class GHRepository;
 
-@interface PullRequestsController : UITableViewController
+@interface IOCPullRequestsController : UITableViewController
 - (id)initWithRepository:(GHRepository *)repo;
 - (void)reloadPullRequests;
 @end

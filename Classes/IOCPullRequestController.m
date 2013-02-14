@@ -4,7 +4,7 @@
 #import "TextCell.h"
 #import "LabeledCell.h"
 #import "CommentCell.h"
-#import "PullRequestsController.h"
+#import "IOCPullRequestsController.h"
 #import "IssueObjectFormController.h"
 #import "UserController.h"
 #import "RepositoryController.h"
@@ -26,7 +26,7 @@
 
 @interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
-@property(nonatomic,strong)PullRequestsController *listController;
+@property(nonatomic,strong)IOCPullRequestsController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
@@ -62,7 +62,7 @@
 	return self;
 }
 
-- (id)initWithPullRequest:(GHPullRequest *)pullRequest andListController:(PullRequestsController *)controller {
+- (id)initWithPullRequest:(GHPullRequest *)pullRequest andListController:(IOCPullRequestsController *)controller {
 	self = [self initWithPullRequest:pullRequest];
 	if (self) {
 		self.listController = controller;
@@ -91,9 +91,7 @@
 	if (self.pullRequest.isUnloaded) {
 		[self.pullRequest loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayPullRequestChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the pull request"];
-		}];
+		} failure:nil];
 	} else if (self.pullRequest.isChanged) {
 		[self displayPullRequestChange];
 	}
@@ -101,9 +99,7 @@
 	if (self.pullRequest.comments.isUnloaded) {
 		[self.pullRequest.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
+		} failure:nil];
 	} else if (self.pullRequest.comments.isChanged) {
 		[self displayCommentsChange];
 	}

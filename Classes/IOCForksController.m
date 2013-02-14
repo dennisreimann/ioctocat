@@ -45,12 +45,6 @@
 	}
 }
 
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return self.forks.isLoaded && !self.forks.isEmpty;
-}
-
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
@@ -65,16 +59,12 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? self.forks.count : 1;
+	return self.forks.isEmpty ? 1 : self.forks.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.statusCell;
+	if (self.forks.isEmpty) return self.statusCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	cell.repository = self.forks[indexPath.row];
@@ -82,7 +72,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return;
+	if (self.forks.isEmpty) return;
 	GHRepository *repo = self.forks[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];

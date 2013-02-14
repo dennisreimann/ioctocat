@@ -19,10 +19,10 @@
 #import "IOCIssueController.h"
 #import "IssueObjectCell.h"
 #import "EventsController.h"
-#import "IssuesController.h"
-#import "PullRequestsController.h"
+#import "IOCIssuesController.h"
+#import "IOCPullRequestsController.h"
 #import "IOCForksController.h"
-#import "TreeController.h"
+#import "IOCTreeController.h"
 #import "SVProgressHUD.h"
 
 
@@ -304,15 +304,15 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];
 			viewController.title = @"Contributors";
 		} else if (row == 3) {
-			viewController = [[PullRequestsController alloc] initWithRepository:self.repository];
+			viewController = [[IOCPullRequestsController alloc] initWithRepository:self.repository];
 		} else if (row == 4) {
-			viewController = [[IssuesController alloc] initWithRepository:self.repository];
+			viewController = [[IOCIssuesController alloc] initWithRepository:self.repository];
 		}
 	} else if (section == 2) {
 		if (row < self.repository.branches.count) {
 			GHBranch *branch = self.repository.branches[row];
 			GHTree *tree = [[GHTree alloc] initWithRepo:self.repository andSha:branch.name];
-			viewController = [[TreeController alloc] initWithTree:tree];
+			viewController = [[IOCTreeController alloc] initWithTree:tree];
 		}
 	} else if (section == 3) {
 		if (row < self.repository.branches.count) {

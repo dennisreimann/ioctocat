@@ -1,20 +1,22 @@
-#import "TreeController.h"
+#import "IOCTreeController.h"
 #import "BlobsController.h"
 #import "GHTree.h"
 #import "GHBlob.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface TreeController ()
+@interface IOCTreeController ()
 @property(nonatomic,strong)GHTree *tree;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation TreeController
+@implementation IOCTreeController
 
 - (id)initWithTree:(GHTree *)tree {
-	self = [super initWithNibName:@"Tree" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.tree = tree;
 	}
@@ -27,6 +29,7 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.tree.path ? self.tree.path : self.tree.sha;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.tree name:@"entries"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -35,9 +38,7 @@
 	if (self.tree.isUnloaded) {
 		[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the tree"];
-		}];
+		} failure:nil];
 	} else if (self.tree.isChanged) {
 		[self.tableView reloadData];
 	}
@@ -58,17 +59,16 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.tree.isLoading ? 1 : 2;
-
+	return self.tree.isEmpty ? 1 : 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.tree.isLoading) return 1;
+	if (self.tree.isEmpty) return 1;
 	return section == 0 ? self.tree.trees.count : self.tree.blobs.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.tree.isLoading) return self.loadingTreeCell;
+	if (self.tree.isEmpty) return self.statusCell;
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	static NSString *CellIdentifier = @"Cell";
@@ -92,12 +92,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.tree.isLoaded) return;
+	if (self.tree.isEmpty) return;
 	NSUInteger section = indexPath.section;
 	NSUInteger row = indexPath.row;
 	if (section == 0) {
 		GHTree *obj = (GHTree *)self.tree.trees[row];
-		TreeController *treeController = [[TreeController alloc] initWithTree:obj];
+		IOCTreeController *treeController = [[IOCTreeController alloc] initWithTree:obj];
 		[self.navigationController pushViewController:treeController animated:YES];
 	} else {
 		BlobsController *blobsController = [[BlobsController alloc] initWithBlobs:self.tree.blobs currentIndex:row];

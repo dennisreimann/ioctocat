@@ -7,9 +7,9 @@
 #import "IOCOrganizationsController.h"
 #import "IOCOrganizationRepositoriesController.h"
 #import "IOCIssueController.h"
-#import "IssuesController.h"
+#import "IOCIssuesController.h"
 #import "IOCPullRequestController.h"
-#import "PullRequestsController.h"
+#import "IOCPullRequestsController.h"
 #import "IOCGistController.h"
 #import "IOCGistsController.h"
 #import "SearchController.h"
@@ -132,10 +132,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			viewController = [[RepositoryController alloc] initWithRepository:repo];
 		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
 			// Issues
-			viewController = [[IssuesController alloc] initWithRepository:repo];
+			viewController = [[IOCIssuesController alloc] initWithRepository:repo];
 		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
 			// Pull Requests
-			viewController = [[PullRequestsController alloc] initWithRepository:repo];
+			viewController = [[IOCPullRequestsController alloc] initWithRepository:repo];
 		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
 			// Issue
 			GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
@@ -302,7 +302,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 				viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
 				viewController.title = @"Starred Repos";
 			} else if (row == 4) {
-				viewController = [[IssuesController alloc] initWithUser:self.user];
+				viewController = [[IOCIssuesController alloc] initWithUser:self.user];
 				viewController.title = @"My Issues";
 			}
 			break;
@@ -323,7 +323,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 				viewController.title = @"Search";
 			} else if (row == 1) {
 				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
-				viewController = [[IssuesController alloc] initWithRepository:repo];
+				viewController = [[IOCIssuesController alloc] initWithRepository:repo];
 				viewController.title = @"Issues";
 			}
 			break;

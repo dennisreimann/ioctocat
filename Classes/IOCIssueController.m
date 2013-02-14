@@ -4,7 +4,7 @@
 #import "TextCell.h"
 #import "LabeledCell.h"
 #import "CommentCell.h"
-#import "IssuesController.h"
+#import "IOCIssuesController.h"
 #import "IssueObjectFormController.h"
 #import "UserController.h"
 #import "RepositoryController.h"
@@ -22,7 +22,7 @@
 
 @interface IOCIssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
-@property(nonatomic,strong)IssuesController *listController;
+@property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
@@ -51,7 +51,7 @@
 	return self;
 }
 
-- (id)initWithIssue:(GHIssue *)issue andListController:(IssuesController *)controller {
+- (id)initWithIssue:(GHIssue *)issue andListController:(IOCIssuesController *)controller {
 	self = [self initWithIssue:issue];
 	if (self) {
 		self.listController = controller;
@@ -85,9 +85,7 @@
 	if (self.issue.isUnloaded) {
 		[self.issue loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayIssueChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the issue"];
-		}];
+		} failure:nil];
 	} else if (self.issue.isChanged) {
 		[self displayIssueChange];
 	}
@@ -95,9 +93,7 @@
 	if (self.issue.comments.isUnloaded) {
 		[self.issue.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
+		} failure:nil];
 	} else if (self.issue.comments.isChanged) {
 		[self displayCommentsChange];
 	}

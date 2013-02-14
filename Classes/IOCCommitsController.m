@@ -33,7 +33,7 @@
 	if (!self.commits.resourcePath.isEmpty) {
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	}
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commits name:@"users"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commits name:@"commits"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -47,12 +47,6 @@
 	} else if (self.commits.isChanged) {
 		[self.tableView reloadData];
 	}
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return !self.commits.isEmpty;
 }
 
 #pragma mark Actions
@@ -74,11 +68,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? self.commits.count : 1;
+	return self.commits.isEmpty ? 1 : self.commits.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.statusCell;
+	if (self.commits.isEmpty) return self.statusCell;
 	CommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
 	if (cell == nil) cell = [CommitCell cell];
 	cell.commit = self.commits[indexPath.row];
@@ -86,7 +80,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return;
+	if (self.commits.isEmpty) return;
 	GHCommit *commit = self.commits[indexPath.row];
 	IOCCommitController *viewController = [[IOCCommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];

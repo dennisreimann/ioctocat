@@ -209,7 +209,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 3) {
 		return [self.messageCell heightForTableView:tableView];
-	} else if (section == 2 && self.commit.comments.isLoaded && !self.commit.comments.isEmpty) {
+	} else if (section == 2 && !self.commit.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}

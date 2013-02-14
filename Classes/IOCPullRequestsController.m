@@ -1,4 +1,4 @@
-#import "PullRequestsController.h"
+#import "IOCPullRequestsController.h"
 #import "IOCPullRequestController.h"
 #import "GHPullRequest.h"
 #import "GHPullRequests.h"
@@ -6,22 +6,21 @@
 #import "IssueObjectCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface PullRequestsController ()
+@interface IOCPullRequestsController ()
 @property(nonatomic,readonly)GHPullRequests *currentPullRequests;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSArray *objects;
-@property(nonatomic,strong)IBOutlet UISegmentedControl *pullRequestsControl;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingPullRequestsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPullRequestsCell;
+@property(nonatomic,strong)UISegmentedControl *pullRequestsControl;
 @end
 
 
-@implementation PullRequestsController
+@implementation IOCPullRequestsController
 
 - (id)initWithRepository:(GHRepository *)repo {
-	self = [super initWithNibName:@"PullRequests" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.repository = repo;
 		self.objects = @[self.repository.openPullRequests, self.repository.closedPullRequests];
@@ -33,10 +32,16 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	self.pullRequestsControl = [[UISegmentedControl alloc] initWithItems:@[@"Open", @"Closed"]];
+	self.pullRequestsControl.selectedSegmentIndex = 0;
+	self.pullRequestsControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	[self.pullRequestsControl addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+	CGRect controlFrame = self.pullRequestsControl.frame;
+	controlFrame.size.width = 200;
+	self.pullRequestsControl.frame = controlFrame;
 	self.navigationItem.title = self.title ? self.title : @"Pull Requests";
 	self.navigationItem.titleView = self.pullRequestsControl;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	self.pullRequestsControl.selectedSegmentIndex = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -50,10 +55,6 @@
 	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
 }
 
-- (BOOL)resourceHasData {
-	return self.currentPullRequests.isLoaded && !self.currentPullRequests.isEmpty;
-}
-
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
@@ -62,9 +63,7 @@
 	if (self.currentPullRequests.isLoaded) return;
 	[self.currentPullRequests loadWithParams:nil success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
-	} failure:^(GHResource *instance, NSError *error) {
-		[iOctocat reportLoadingError:@"Could not load the pull requests"];
-	}];
+	} failure:nil];
 	[self.tableView reloadData];
 }
 
@@ -84,17 +83,12 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? self.currentPullRequests.count : 1;
+	return self.currentPullRequests.isEmpty ? 1 : self.currentPullRequests.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentPullRequests.isLoading) return self.loadingPullRequestsCell;
-	if (self.currentPullRequests.isEmpty) return self.noPullRequestsCell;
+	if (self.currentPullRequests.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentPullRequests name:@"pull requests"];
 	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (cell == nil) cell = [IssueObjectCell cell];
 	cell.issueObject = self.currentPullRequests[indexPath.row];
@@ -103,7 +97,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return;
+	if (self.currentPullRequests.isEmpty) return;
 	GHPullRequest *pullRequest = self.currentPullRequests[indexPath.row];
 	IOCPullRequestController *viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest andListController:self];
 	[self.navigationController pushViewController:viewController animated:YES];

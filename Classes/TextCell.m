@@ -22,7 +22,12 @@
 }
 
 - (BOOL)hasContent {
-	return !(self.contentTextView.text == nil || [self.contentTextView.text isEmpty]);
+	return !(self.contentTextView.text == nil || self.contentTextView.text.isEmpty);
+}
+
+- (void)layoutSubviews {
+	[super layoutSubviews];
+	[self adjustTextViewHeight];
 }
 
 - (void)adjustTextViewHeight {

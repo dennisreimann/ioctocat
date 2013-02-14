@@ -17,6 +17,7 @@ Bugfixes:
 * Fixed crash when selecting an event cell after failed reload
 * Fixed crash when selecting a notification cell after failed reload
 * Fixed crash caused by triggering item loading while its already loading
+* Fixed eventually cut text in comment cells
 * No more empty cell when there are no private or public repos
 * Automatically reload changed issues
 

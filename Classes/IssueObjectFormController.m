@@ -57,6 +57,7 @@
 		[self.object saveWithParams:params success:^(GHResource *instance, id data) {
 			NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
 			[SVProgressHUD showSuccessWithStatus:status];
+			[self.object markAsChanged];
 			[self.delegate performSelector:@selector(savedIssueObject:) withObject:self.object];
 			[self.navigationController popViewControllerAnimated:YES];
 			self.saveButton.enabled = YES;

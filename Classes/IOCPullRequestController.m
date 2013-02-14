@@ -254,7 +254,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.pullRequest.isLoaded ? 3 : 1;
+	return self.pullRequest.isEmpty ? 1 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

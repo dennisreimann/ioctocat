@@ -1,22 +1,22 @@
-#import "FilesController.h"
+#import "IOCFilesController.h"
 #import "CodeController.h"
 #import "GHFiles.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface FilesController ()
+@interface IOCFilesController ()
 @property(nonatomic,strong)GHFiles *files;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingFilesCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noFilesCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation FilesController
+@implementation IOCFilesController
 
 - (id)initWithFiles:(GHFiles *)files {
-	if (self = [super initWithNibName:@"Files" bundle:nil]) {
+	if (self = [super initWithStyle:UITableViewStylePlain]) {
 		self.title = @"Files";
 		self.files = files;
 	}
@@ -25,7 +25,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	if (!self.files.isLoaded) {
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.files name:@"files"];
+	if (self.files.isUnloaded) {
 		[self.files loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
@@ -41,12 +42,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return (self.files.isLoading || self.files.isEmpty) ? 1 : self.files.count;
+	return self.files.isEmpty ? 1 : self.files.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.files.isLoading) return self.loadingFilesCell;
-	if (self.files.isEmpty) return self.noFilesCell;
+	if (self.files.isEmpty) return self.statusCell;
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {

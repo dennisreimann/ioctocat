@@ -12,7 +12,7 @@
 #import "UserController.h"
 #import "RepositoryController.h"
 #import "WebController.h"
-#import "FilesController.h"
+#import "IOCFilesController.h"
 #import "CommentController.h"
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
@@ -234,7 +234,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		if (!cell.files.isEmpty) {
-			FilesController *filesController = [[FilesController alloc] initWithFiles:cell.files];
+			IOCFilesController *filesController = [[IOCFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}

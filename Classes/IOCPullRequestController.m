@@ -18,7 +18,7 @@
 #import "GHBranch.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
-#import "FilesController.h"
+#import "IOCFilesController.h"
 #import "GradientButton.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -339,7 +339,7 @@
 			IOCCommitsController *commitsController = [[IOCCommitsController alloc] initWithCommits:self.pullRequest.commits];
 			[self.navigationController pushViewController:commitsController animated:YES];
 		} else if (row == 1) {
-			FilesController *filesController = [[FilesController alloc] initWithFiles:self.pullRequest.files];
+			IOCFilesController *filesController = [[IOCFilesController alloc] initWithFiles:self.pullRequest.files];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}
 	}

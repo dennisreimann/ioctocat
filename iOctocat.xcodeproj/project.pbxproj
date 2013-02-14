@@ -83,8 +83,7 @@
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
 		6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EB1114EDEF002665DA /* file_renamed.png */; };
-		6F2C77291114F430002665DA /* FilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* FilesController.m */; };
-		6F2C77441114F6DE002665DA /* Files.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C77431114F6DE002665DA /* Files.xib */; };
+		6F2C77291114F430002665DA /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
@@ -241,7 +240,7 @@
 		6F612470167D0410001A3E05 /* IOCOrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */; };
 		6F612471167D0410001A3E05 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
 		6F612472167D0410001A3E05 /* IOCOrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* IOCOrganizationRepositoriesController.m */; };
-		6F612473167D0410001A3E05 /* FilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* FilesController.m */; };
+		6F612473167D0410001A3E05 /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6F612474167D0410001A3E05 /* TreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* TreeController.m */; };
 		6F612475167D0410001A3E05 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
 		6F612476167D0410001A3E05 /* IOCGistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* IOCGistsController.m */; };
@@ -535,7 +534,6 @@
 		6FCAA33E167B52C800C816FA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6FCAA33F167B52C800C816FA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
 		6FCAA340167B52C800C816FA /* file_renamed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EB1114EDEF002665DA /* file_renamed.png */; };
-		6FCAA341167B52C800C816FA /* Files.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C77431114F6DE002665DA /* Files.xib */; };
 		6FCAA342167B52C800C816FA /* ToolbarIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */; };
 		6FCAA343167B52C800C816FA /* ToolbarUser.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */; };
 		6FCAA344167B52C800C816FA /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
@@ -758,7 +756,7 @@
 		6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
 		6FCAA44D167B52C800C816FA /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
 		6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
-		6FCAA44F167B52C800C816FA /* FilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* FilesController.m */; };
+		6FCAA44F167B52C800C816FA /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6FCAA450167B52C800C816FA /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6FCAA451167B52C800C816FA /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
 		6FCAA452167B52C800C816FA /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
@@ -1000,9 +998,8 @@
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
 		6F2C76EA1114EDEF002665DA /* file_removed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_removed.png; path = Images/Icons/file_removed.png; sourceTree = "<group>"; };
 		6F2C76EB1114EDEF002665DA /* file_renamed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_renamed.png; path = Images/Icons/file_renamed.png; sourceTree = "<group>"; };
-		6F2C77271114F430002665DA /* FilesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesController.h; sourceTree = "<group>"; };
-		6F2C77281114F430002665DA /* FilesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesController.m; sourceTree = "<group>"; };
-		6F2C77431114F6DE002665DA /* Files.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Files.xib; path = IBFiles/Files.xib; sourceTree = "<group>"; };
+		6F2C77271114F430002665DA /* IOCFilesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCFilesController.h; sourceTree = "<group>"; };
+		6F2C77281114F430002665DA /* IOCFilesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCFilesController.m; sourceTree = "<group>"; };
 		6F2D9A870FB1887300FFABE9 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
@@ -2142,7 +2139,6 @@
 				6F536BBA1679175500B5FD53 /* PullRequest.xib */,
 				6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */,
 				6FC0D42B11581A5200511B7F /* Comment.xib */,
-				6F2C77431114F6DE002665DA /* Files.xib */,
 				6FB9CBE413354AC200C8DE29 /* Organization.xib */,
 				6F358C060FB1EAE0004D2828 /* Search.xib */,
 				6F7F08401624BEDD0074839B /* Tree.xib */,
@@ -2303,8 +2299,8 @@
 		6FECA89C159070FE00878A74 /* Git */ = {
 			isa = PBXGroup;
 			children = (
-				6F2C77271114F430002665DA /* FilesController.h */,
-				6F2C77281114F430002665DA /* FilesController.m */,
+				6F2C77271114F430002665DA /* IOCFilesController.h */,
+				6F2C77281114F430002665DA /* IOCFilesController.m */,
 				6F7F083D1624B9DE0074839B /* TreeController.h */,
 				6F7F083E1624B9DE0074839B /* TreeController.m */,
 				6F380912162A110B001017E2 /* BlobsController.h */,
@@ -2531,7 +2527,6 @@
 				6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */,
 				6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */,
 				6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */,
-				6F2C77441114F6DE002665DA /* Files.xib in Resources */,
 				6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */,
 				6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */,
 				6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */,
@@ -2840,7 +2835,6 @@
 				6FCAA33E167B52C800C816FA /* file_modified.png in Resources */,
 				6FCAA33F167B52C800C816FA /* file_removed.png in Resources */,
 				6FCAA340167B52C800C816FA /* file_renamed.png in Resources */,
-				6FCAA341167B52C800C816FA /* Files.xib in Resources */,
 				6FCAA342167B52C800C816FA /* ToolbarIssue.png in Resources */,
 				6FCAA343167B52C800C816FA /* ToolbarUser.png in Resources */,
 				6FCAA344167B52C800C816FA /* ToolbarUsers.png in Resources */,
@@ -3214,7 +3208,7 @@
 				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
 				6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */,
 				6F797C5D1110E2BE007E5A8D /* IOCCommitController.m in Sources */,
-				6F2C77291114F430002665DA /* FilesController.m in Sources */,
+				6F2C77291114F430002665DA /* IOCFilesController.m in Sources */,
 				6FF09E65111589D600925109 /* FilesCell.m in Sources */,
 				6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */,
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
@@ -3297,7 +3291,7 @@
 				6F612470167D0410001A3E05 /* IOCOrganizationsController.m in Sources */,
 				6F612471167D0410001A3E05 /* OrganizationController.m in Sources */,
 				6F612472167D0410001A3E05 /* IOCOrganizationRepositoriesController.m in Sources */,
-				6F612473167D0410001A3E05 /* FilesController.m in Sources */,
+				6F612473167D0410001A3E05 /* IOCFilesController.m in Sources */,
 				6F612474167D0410001A3E05 /* TreeController.m in Sources */,
 				6F612475167D0410001A3E05 /* BlobsController.m in Sources */,
 				6F612476167D0410001A3E05 /* IOCGistsController.m in Sources */,
@@ -3427,7 +3421,7 @@
 				6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */,
 				6FCAA44D167B52C800C816FA /* GHBranch.m in Sources */,
 				6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */,
-				6FCAA44F167B52C800C816FA /* FilesController.m in Sources */,
+				6FCAA44F167B52C800C816FA /* IOCFilesController.m in Sources */,
 				6FCAA450167B52C800C816FA /* FilesCell.m in Sources */,
 				6FCAA451167B52C800C816FA /* NSDate+Nibware.m in Sources */,
 				6FCAA452167B52C800C816FA /* GHIssueComment.m in Sources */,

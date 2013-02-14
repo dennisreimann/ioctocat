@@ -1,5 +1,5 @@
 #import "IssuesController.h"
-#import "IssueController.h"
+#import "IOCIssueController.h"
 #import "IssueObjectFormController.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
@@ -143,7 +143,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.resourceHasData) return;
 	GHIssue *issue = self.currentIssues[indexPath.row];
-	IssueController *issueController = [[IssueController alloc] initWithIssue:issue andListController:self];
+	IOCIssueController *issueController = [[IOCIssueController alloc] initWithIssue:issue andListController:self];
 	[self.navigationController pushViewController:issueController animated:YES];
 }
 

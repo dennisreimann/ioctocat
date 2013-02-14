@@ -1,4 +1,4 @@
-#import "IssueController.h"
+#import "IOCIssueController.h"
 #import "CommentController.h"
 #import "WebController.h"
 #import "TextCell.h"
@@ -17,11 +17,14 @@
 #import "GHIssue.h"
 #import "GHRepository.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface IssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IssuesController *listController;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
@@ -29,9 +32,6 @@
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
@@ -41,7 +41,7 @@
 @end
 
 
-@implementation IssueController
+@implementation IOCIssueController
 
 - (id)initWithIssue:(GHIssue *)issue {
 	self = [super initWithNibName:@"Issue" bundle:nil];
@@ -64,6 +64,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
 	[self displayIssue];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -129,7 +131,7 @@
 }
 
 - (void)displayCommentsChange {
-	if (!self.issue.isLoaded) return;
+	if (self.issue.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -207,33 +209,32 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return (self.issue.isLoaded) ? 2 : 1;
+	return self.issue.isLoaded ? 2 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.issue.error) return 0;
-	if (!self.issue.isLoaded) return 1;
-	if (section == 0) return [self.issue.body isEmpty] ? 4 : 5;
-	if (!self.issue.comments.isLoaded) return 1;
-	if (self.issue.comments.isEmpty) return 1;
-	return self.issue.comments.count;
+	if (self.issue.isEmpty) return 1;
+	if (section == 0) {
+		return self.issue.body.isEmpty ? 4 : 5;
+	} else {
+		return self.issue.comments.isEmpty ? 1 : self.issue.comments.count;
+	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 1) ? @"Comments" : @"";
+	return section == 1 ? @"Comments" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.issue.isEmpty) return self.statusCell;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (section == 0 && !self.issue.isLoaded) return self.loadingCell;
 	if (section == 0 && row == 0) return self.repoCell;
 	if (section == 0 && row == 1) return self.authorCell;
 	if (section == 0 && row == 2) return self.createdCell;
 	if (section == 0 && row == 3) return self.updatedCell;
 	if (section == 0 && row == 4) return self.descriptionCell;
-	if (!self.issue.comments.isLoaded) return self.loadingCommentsCell;
-	if (self.issue.comments.isEmpty) return self.noCommentsCell;
+	if (self.issue.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
@@ -270,6 +271,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.issue.isEmpty) return;
 	if (indexPath.section == 0) {
 		if (indexPath.row == 0 && self.issue.repository) {
 			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.issue.repository];

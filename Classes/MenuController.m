@@ -6,9 +6,9 @@
 #import "IOCMyRepositoriesController.h"
 #import "IOCOrganizationsController.h"
 #import "IOCOrganizationRepositoriesController.h"
-#import "IssueController.h"
+#import "IOCIssueController.h"
 #import "IssuesController.h"
-#import "PullRequestController.h"
+#import "IOCPullRequestController.h"
 #import "PullRequestsController.h"
 #import "GistController.h"
 #import "IOCGistsController.h"
@@ -140,12 +140,12 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			// Issue
 			GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
 			issue.num = [[url.pathComponents objectAtIndex:4] intValue];
-			viewController = [[IssueController alloc] initWithIssue:issue];
+			viewController = [[IOCIssueController alloc] initWithIssue:issue];
 		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
 			// Pull Request
 			GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
 			pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
-			viewController = [[PullRequestController alloc] initWithPullRequest:pullRequest];
+			viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest];
 		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"commit"]) {
 			// Commit
 			NSString *sha = [url.pathComponents objectAtIndex:4];

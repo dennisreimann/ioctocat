@@ -3,8 +3,8 @@
 #import "GHEvents.h"
 #import "UserController.h"
 #import "RepositoryController.h"
-#import "IssueController.h"
-#import "PullRequestController.h"
+#import "IOCIssueController.h"
+#import "IOCPullRequestController.h"
 #import "CommitController.h"
 #import "GistController.h"
 #import "WebController.h"
@@ -82,13 +82,13 @@
 	} else if ([eventItem isKindOfClass:GHRepository.class]) {
 		viewController = [[RepositoryController alloc] initWithRepository:eventItem];
 	} else if ([eventItem isKindOfClass:GHIssue.class]) {
-		viewController = [[IssueController alloc] initWithIssue:eventItem];
+		viewController = [[IOCIssueController alloc] initWithIssue:eventItem];
 	} else if ([eventItem isKindOfClass:GHCommit.class]) {
 		viewController = [[CommitController alloc] initWithCommit:eventItem];
 	} else if ([eventItem isKindOfClass:GHGist.class]) {
 		viewController = [[GistController alloc] initWithGist:eventItem];
 	} else if ([eventItem isKindOfClass:GHPullRequest.class]) {
-		viewController = [[PullRequestController alloc] initWithPullRequest:eventItem];
+		viewController = [[IOCPullRequestController alloc] initWithPullRequest:eventItem];
 	} else if ([eventItem isKindOfClass:NSDictionary.class]) {
 		NSURL *url = [eventItem safeURLForKey:@"html_url"];
 		if (url) {

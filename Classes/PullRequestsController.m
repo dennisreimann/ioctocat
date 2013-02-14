@@ -1,5 +1,5 @@
 #import "PullRequestsController.h"
-#import "PullRequestController.h"
+#import "IOCPullRequestController.h"
 #import "GHPullRequest.h"
 #import "GHPullRequests.h"
 #import "GHRepository.h"
@@ -105,7 +105,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.resourceHasData) return;
 	GHPullRequest *pullRequest = self.currentPullRequests[indexPath.row];
-	PullRequestController *viewController = [[PullRequestController alloc] initWithPullRequest:pullRequest andListController:self];
+	IOCPullRequestController *viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest andListController:self];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

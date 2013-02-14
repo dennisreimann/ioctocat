@@ -16,7 +16,7 @@
 #import "WebController.h"
 #import "iOctocat.h"
 #import "IOCCommitsController.h"
-#import "IssueController.h"
+#import "IOCIssueController.h"
 #import "IssueObjectCell.h"
 #import "EventsController.h"
 #import "IssuesController.h"

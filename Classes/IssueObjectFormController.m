@@ -55,14 +55,14 @@
 		NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
 		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 		[self.object saveWithParams:params success:^(GHResource *instance, id data) {
-			NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
+			NSString *status = [NSString stringWithFormat:@"Saved %@…", self.issueObjectType];
 			[SVProgressHUD showSuccessWithStatus:status];
 			[self.object markAsChanged];
 			[self.delegate performSelector:@selector(savedIssueObject:) withObject:self.object];
 			[self.navigationController popViewControllerAnimated:YES];
 			self.saveButton.enabled = YES;
 		} failure:^(GHResource *instance, NSError *error) {
-			NSString *status = [NSString stringWithFormat:@"Could not save the %@…", self.issueObjectType];
+			NSString *status = [NSString stringWithFormat:@"Saving %@ failed", self.issueObjectType];
 			[SVProgressHUD showErrorWithStatus:status];
 			self.saveButton.enabled = YES;
 		}];

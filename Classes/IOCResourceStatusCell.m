@@ -42,8 +42,7 @@ static NSString *const ResourceStatusKeyPath = @"resourceStatus";
 	if (!_spinner) {
 		_spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
 		_spinner.hidesWhenStopped = YES;
-		_spinner.frame = CGRectMake(12, 12, 20, 20);
-		[self addSubview:_spinner];
+		[self.imageView addSubview:_spinner];
 	}
 	return _spinner;
 }

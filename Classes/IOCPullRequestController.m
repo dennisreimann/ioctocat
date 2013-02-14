@@ -1,4 +1,4 @@
-#import "PullRequestController.h"
+#import "IOCPullRequestController.h"
 #import "CommentController.h"
 #import "WebController.h"
 #import "TextCell.h"
@@ -21,11 +21,14 @@
 #import "FilesController.h"
 #import "GradientButton.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface PullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
+@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)PullRequestsController *listController;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
@@ -39,9 +42,6 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *mergeCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *commitsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *filesCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
@@ -52,7 +52,7 @@
 @end
 
 
-@implementation PullRequestController
+@implementation IOCPullRequestController
 
 - (id)initWithPullRequest:(GHPullRequest *)pullRequest {
 	self = [super initWithNibName:@"PullRequest" bundle:nil];
@@ -75,6 +75,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
 	[self.mergeButton useGreenConfirmStyle];
 	[self displayPullRequest];
 	// header
@@ -149,7 +151,7 @@
 }
 
 - (void)displayCommentsChange {
-	if (!self.pullRequest.isLoaded) return;
+	if (self.pullRequest.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -260,30 +262,26 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.pullRequest.error) return 0;
-	if (!self.pullRequest.isLoaded) return 1;
+	if (self.pullRequest.isEmpty) return 1;
 	if (section == 0) {
 		NSInteger count = 4;
 		if (self.closedCell.hasContent) count += 1;
 		if (self.descriptionCell.hasContent) count += 1;
 		return count;
-	}
-	if (section == 1) {
+	} else if (section == 1) {
 		return self.pullRequestMergeableByCurrentUser ? 3 : 2;
-	}
-	if (!self.pullRequest.comments.isLoaded) return 1;
-	if (self.pullRequest.comments.isEmpty) return 1;
-	return self.pullRequest.comments.count;
-}
+	} else {
+		return self.pullRequest.comments.isEmpty ? 1 : self.pullRequest.comments.count;
+	}}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	return section == 2 ? @"Comments" : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.pullRequest.isEmpty) return self.statusCell;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (section == 0 && !self.pullRequest.isLoaded) return self.loadingCell;
 	if (section == 0 && row == 0) return self.repoCell;
 	if (section == 0 && row == 1) return self.authorCell;
 	if (section == 0 && row == 2) return self.createdCell;
@@ -293,8 +291,7 @@
 	if (section == 1 && row == 0) return self.commitsCell;
 	if (section == 1 && row == 1) return self.filesCell;
 	if (section == 1 && row == 2) return self.mergeCell;
-	if (!self.pullRequest.comments.isLoaded) return self.loadingCommentsCell;
-	if (self.pullRequest.comments.isEmpty) return self.noCommentsCell;
+	if (self.pullRequest.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
@@ -326,6 +323,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.pullRequest.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0) {

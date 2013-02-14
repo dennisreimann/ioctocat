@@ -155,7 +155,7 @@
 		6F4EB367167D22A4001C1DEA /* WatchEvent.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F4EB361167D22A4001C1DEA /* WatchEvent.json */; };
 		6F4EB36A167D268B001C1DEA /* IOCTestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4EB369167D268B001C1DEA /* IOCTestHelper.m */; };
 		6F4EB36C167D2B0E001C1DEA /* GHCommitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4EB36B167D2B0E001C1DEA /* GHCommitTests.m */; };
-		6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
+		6F536BB716790B8A00B5FD53 /* IOCPullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */; };
 		6F536BBB1679175500B5FD53 /* PullRequest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBA1679175500B5FD53 /* PullRequest.xib */; };
 		6F536BC116791F5000B5FD53 /* pull_request_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBD16791F5000B5FD53 /* pull_request_closed.png */; };
 		6F536BC316791F5000B5FD53 /* pull_request_closed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBE16791F5000B5FD53 /* pull_request_closed@2x.png */; };
@@ -253,9 +253,9 @@
 		6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* IOCCommitsController.m */; };
 		6F61247D167D0410001A3E05 /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
 		6F61247E167D0410001A3E05 /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* PullRequestsController.m */; };
-		6F61247F167D0410001A3E05 /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
+		6F61247F167D0410001A3E05 /* IOCPullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */; };
 		6F612480167D0410001A3E05 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BCD167A24AD00B5FD53 /* IssuesController.m */; };
-		6F612481167D0410001A3E05 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
+		6F612481167D0410001A3E05 /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
 		6F612482167D0410001A3E05 /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
 		6F612483167D0410001A3E05 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
 		6F612484167D0410001A3E05 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
@@ -742,7 +742,7 @@
 		6FCAA43C167B52C800C816FA /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
 		6FCAA43D167B52C800C816FA /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
 		6FCAA43E167B52C800C816FA /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
-		6FCAA43F167B52C800C816FA /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
+		6FCAA43F167B52C800C816FA /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
 		6FCAA440167B52C800C816FA /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* PullRequestsController.m */; };
 		6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
 		6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
@@ -810,7 +810,7 @@
 		6FCAA480167B52C800C816FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
 		6FCAA482167B52C800C816FA /* GHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329A16772F3B001C0804 /* GHCollection.m */; };
 		6FCAA483167B52C800C816FA /* GHPullRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329F16774158001C0804 /* GHPullRequests.m */; };
-		6FCAA484167B52C800C816FA /* PullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* PullRequestController.m */; };
+		6FCAA484167B52C800C816FA /* IOCPullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */; };
 		6FCAA485167B52C800C816FA /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BCD167A24AD00B5FD53 /* IssuesController.m */; };
 		6FCAA487167B52C800C816FA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6FCAA488167B52C800C816FA /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F177311E316FE008B319F /* MobileCoreServices.framework */; };
@@ -895,7 +895,7 @@
 		8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A99E70FABD01500A99483 /* GHIssue.m */; };
 		8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9AE50FABDB0100A99483 /* GHIssues.m */; };
 		8C6A9EA30FABF1D900A99483 /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
-		8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IssueController.m */; };
+		8C6AA15F0FAC22B000A99483 /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
 		8CE686760FB8C56700A3D625 /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
 		8CE6867D0FB8C58400A3D625 /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		8CFBCFB30FAB8A6300A2C37A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
@@ -1068,8 +1068,8 @@
 		6F4EB369167D268B001C1DEA /* IOCTestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCTestHelper.m; sourceTree = "<group>"; };
 		6F4EB36B167D2B0E001C1DEA /* GHCommitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHCommitTests.m; sourceTree = "<group>"; };
 		6F4EB36D167D2B37001C1DEA /* GHCommitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHCommitTests.h; sourceTree = "<group>"; };
-		6F536BB616790B8A00B5FD53 /* PullRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PullRequestController.m; sourceTree = "<group>"; };
-		6F536BB916790B9300B5FD53 /* PullRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PullRequestController.h; sourceTree = "<group>"; };
+		6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCPullRequestController.m; sourceTree = "<group>"; };
+		6F536BB916790B9300B5FD53 /* IOCPullRequestController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCPullRequestController.h; sourceTree = "<group>"; };
 		6F536BBA1679175500B5FD53 /* PullRequest.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PullRequest.xib; path = IBFiles/PullRequest.xib; sourceTree = "<group>"; };
 		6F536BBD16791F5000B5FD53 /* pull_request_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pull_request_closed.png; path = Images/Icons/pull_request_closed.png; sourceTree = "<group>"; };
 		6F536BBE16791F5000B5FD53 /* pull_request_closed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "pull_request_closed@2x.png"; path = "Images/Icons/pull_request_closed@2x.png"; sourceTree = "<group>"; };
@@ -1428,8 +1428,8 @@
 		8C6A9AE50FABDB0100A99483 /* GHIssues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssues.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8C6A9EA10FABF1D900A99483 /* IssueObjectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueObjectCell.h; sourceTree = "<group>"; };
 		8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueObjectCell.m; sourceTree = "<group>"; };
-		8C6AA15D0FAC22B000A99483 /* IssueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueController.h; sourceTree = "<group>"; };
-		8C6AA15E0FAC22B000A99483 /* IssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueController.m; sourceTree = "<group>"; };
+		8C6AA15D0FAC22B000A99483 /* IOCIssueController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCIssueController.h; sourceTree = "<group>"; };
+		8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCIssueController.m; sourceTree = "<group>"; };
 		8CE686720FB8C56700A3D625 /* GHForks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHForks.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8CE686730FB8C56700A3D625 /* GHForks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHForks.h; sourceTree = "<group>"; };
 		8CE6867B0FB8C58400A3D625 /* IOCForksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCForksController.m; sourceTree = "<group>"; };
@@ -2391,12 +2391,12 @@
 			children = (
 				6FED82950FACA1E700BE5C81 /* PullRequestsController.h */,
 				6FED82960FACA1E700BE5C81 /* PullRequestsController.m */,
-				6F536BB916790B9300B5FD53 /* PullRequestController.h */,
-				6F536BB616790B8A00B5FD53 /* PullRequestController.m */,
+				6F536BB916790B9300B5FD53 /* IOCPullRequestController.h */,
+				6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */,
 				6F536BCC167A248200B5FD53 /* IssuesController.h */,
 				6F536BCD167A24AD00B5FD53 /* IssuesController.m */,
-				8C6AA15D0FAC22B000A99483 /* IssueController.h */,
-				8C6AA15E0FAC22B000A99483 /* IssueController.m */,
+				8C6AA15D0FAC22B000A99483 /* IOCIssueController.h */,
+				8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */,
 				6F0AEFBB100CF5DB00FB323E /* IssueObjectFormController.h */,
 				6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */,
 			);
@@ -3198,7 +3198,7 @@
 				8C6A99E80FABD01500A99483 /* GHIssue.m in Sources */,
 				8C6A9AE60FABDB0100A99483 /* GHIssues.m in Sources */,
 				8C6A9EA30FABF1D900A99483 /* IssueObjectCell.m in Sources */,
-				8C6AA15F0FAC22B000A99483 /* IssueController.m in Sources */,
+				8C6AA15F0FAC22B000A99483 /* IOCIssueController.m in Sources */,
 				6FED82970FACA1E700BE5C81 /* PullRequestsController.m in Sources */,
 				6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */,
 				8C53B4D00FB0F20B00C3A8E0 /* IOCUsersController.m in Sources */,
@@ -3266,7 +3266,7 @@
 				6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
 				6FA1329B16772F3B001C0804 /* GHCollection.m in Sources */,
 				6FA132A01677415C001C0804 /* GHPullRequests.m in Sources */,
-				6F536BB716790B8A00B5FD53 /* PullRequestController.m in Sources */,
+				6F536BB716790B8A00B5FD53 /* IOCPullRequestController.m in Sources */,
 				6F536BCE167A24AE00B5FD53 /* IssuesController.m in Sources */,
 				6FC40F68168A037E0035927E /* GHCommits.m in Sources */,
 				6FC40F7F168BA7FD0035927E /* GHFiles.m in Sources */,
@@ -3309,9 +3309,9 @@
 				6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */,
 				6F61247D167D0410001A3E05 /* CommitController.m in Sources */,
 				6F61247E167D0410001A3E05 /* PullRequestsController.m in Sources */,
-				6F61247F167D0410001A3E05 /* PullRequestController.m in Sources */,
+				6F61247F167D0410001A3E05 /* IOCPullRequestController.m in Sources */,
 				6F612480167D0410001A3E05 /* IssuesController.m in Sources */,
-				6F612481167D0410001A3E05 /* IssueController.m in Sources */,
+				6F612481167D0410001A3E05 /* IOCIssueController.m in Sources */,
 				6F612482167D0410001A3E05 /* IssueObjectFormController.m in Sources */,
 				6F612483167D0410001A3E05 /* MenuController.m in Sources */,
 				6F612484167D0410001A3E05 /* SearchController.m in Sources */,
@@ -3411,7 +3411,7 @@
 				6FCAA43C167B52C800C816FA /* GHIssue.m in Sources */,
 				6FCAA43D167B52C800C816FA /* GHIssues.m in Sources */,
 				6FCAA43E167B52C800C816FA /* IssueObjectCell.m in Sources */,
-				6FCAA43F167B52C800C816FA /* IssueController.m in Sources */,
+				6FCAA43F167B52C800C816FA /* IOCIssueController.m in Sources */,
 				6FCAA440167B52C800C816FA /* PullRequestsController.m in Sources */,
 				6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */,
 				6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */,
@@ -3479,7 +3479,7 @@
 				6FCAA480167B52C800C816FA /* IOCAvatarCache.m in Sources */,
 				6FCAA482167B52C800C816FA /* GHCollection.m in Sources */,
 				6FCAA483167B52C800C816FA /* GHPullRequests.m in Sources */,
-				6FCAA484167B52C800C816FA /* PullRequestController.m in Sources */,
+				6FCAA484167B52C800C816FA /* IOCPullRequestController.m in Sources */,
 				6FCAA485167B52C800C816FA /* IssuesController.m in Sources */,
 				6FC40F69168A037E0035927E /* GHCommits.m in Sources */,
 				6FC40F80168BA7FD0035927E /* GHFiles.m in Sources */,

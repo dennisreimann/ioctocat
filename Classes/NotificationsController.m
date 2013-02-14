@@ -9,8 +9,8 @@
 #import "GHIssue.h"
 #import "GHCommit.h"
 #import "CommitController.h"
-#import "IssueController.h"
-#import "PullRequestController.h"
+#import "IOCIssueController.h"
+#import "IOCPullRequestController.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "IOCDefaultsPersistence.h"
 #import "NotificationCell.h"
@@ -152,9 +152,9 @@
 	GHNotification *notification = [self notificationsForSection:indexPath.section][indexPath.row];
 	UIViewController *viewController = nil;
 	if ([notification.subject isKindOfClass:GHPullRequest.class]) {
-		viewController = [[PullRequestController alloc] initWithPullRequest:(GHPullRequest *)notification.subject];
+		viewController = [[IOCPullRequestController alloc] initWithPullRequest:(GHPullRequest *)notification.subject];
 	} else if ([notification.subject isKindOfClass:GHIssue.class]) {
-		viewController = [[IssueController alloc] initWithIssue:(GHIssue *)notification.subject];
+		viewController = [[IOCIssueController alloc] initWithIssue:(GHIssue *)notification.subject];
 	} else if ([notification.subject isKindOfClass:GHCommit.class]) {
 		viewController = [[CommitController alloc] initWithCommit:(GHCommit *)notification.subject];
 	}

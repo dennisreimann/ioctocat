@@ -2,7 +2,7 @@
 #import "WebController.h"
 #import "UserController.h"
 #import "RepositoryController.h"
-#import "IssueController.h"
+#import "IOCIssueController.h"
 #import "GistController.h"
 #import "CommitController.h"
 #import "EventCell.h"

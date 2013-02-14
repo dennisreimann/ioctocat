@@ -126,7 +126,7 @@
 }
 
 - (BOOL)isEmpty {
-	return self.isUnloaded;
+	return self.resourceStatus <= GHResourceStatusLoading;
 }
 
 @end

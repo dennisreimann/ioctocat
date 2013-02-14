@@ -7,6 +7,7 @@
 #import "UserObjectCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "IOCResourceStatusCell.h"
 
 
 @interface SearchController ()
@@ -15,8 +16,6 @@
 @property(nonatomic,strong)UserObjectCell *userObjectCell;
 @property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noResultsCell;
 @end
 
 
@@ -78,19 +77,14 @@
 	self.navigationItem.rightBarButtonItem = nil;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
+#pragma mark TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.currentSearch.isLoading) return 1;
-	if (self.currentSearch.isLoaded && self.currentSearch.isEmpty) return 1;
-	return self.currentSearch.count;
+	return self.currentSearch.isLoaded && self.currentSearch.isEmpty ? 1 : self.currentSearch.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.currentSearch.isLoaded) return self.loadingCell;
-	if (self.currentSearch.isEmpty) return self.noResultsCell;
+	if (self.currentSearch.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentSearch name:@"search results"];
 	id object = self.currentSearch[indexPath.row];
 	if ([object isKindOfClass:GHRepository.class]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
@@ -109,6 +103,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (self.currentSearch.isEmpty) return;
 	id object = self.currentSearch[indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:GHRepository.class]) {

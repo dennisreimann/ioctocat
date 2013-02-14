@@ -41,9 +41,7 @@
 	if (self.organizations.isUnloaded) {
 		[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[self.tableView reloadData];
-		}];
+		} failure:nil];
 	} else if (self.organizations.isChanged) {
 		[self.tableView reloadData];
 	}
@@ -53,10 +51,6 @@
 
 - (GHUser *)currentUser {
 	return [[iOctocat sharedInstance] currentUser];
-}
-
-- (BOOL)resourceHasData {
-	return !self.organizations.isEmpty;
 }
 
 #pragma mark Actions
@@ -78,11 +72,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.resourceHasData ? self.organizations.count : 1;
+    return self.organizations.isEmpty ? 1 : self.organizations.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.statusCell;
+	if (self.organizations.isEmpty) return self.statusCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) cell = [UserObjectCell cell];
     cell.userObject = self.organizations[indexPath.row];
@@ -90,7 +84,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.resourceHasData) return;
+    if (self.organizations.isEmpty) return;
     GHOrganization *org = self.organizations[indexPath.row];
     OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];

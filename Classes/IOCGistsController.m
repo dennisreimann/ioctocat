@@ -39,18 +39,10 @@
 	if (self.gists.isUnloaded) {
 		[self.gists loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[self.tableView reloadData];
-		}];
+		} failure:nil];
 	} else if (self.gists.isChanged) {
 		[self.tableView reloadData];
 	}
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return !self.gists.isEmpty;
 }
 
 #pragma mark Actions
@@ -67,16 +59,12 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? self.gists.count : 1;
+	return self.gists.isEmpty ? 1 : self.gists.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.statusCell;
+	if (self.gists.isEmpty) return self.statusCell;
 	GistCell *cell = (GistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
 	if (cell == nil) cell = [GistCell cell];
 	cell.gist = self.gists[indexPath.row];
@@ -84,7 +72,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return;
+	if (self.gists.isEmpty) return;
 	GHGist *gist = self.gists[indexPath.row];
 	IOCGistController *gistController = [[IOCGistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];

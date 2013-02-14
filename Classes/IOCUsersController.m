@@ -38,18 +38,10 @@
     if (self.users.isUnloaded) {
 		[self.users loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[self.tableView reloadData];
-		}];
+		} failure:nil];
 	} else if (self.users.isChanged) {
 		[self.tableView reloadData];
 	}
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return !self.users.isEmpty;
 }
 
 #pragma mark Actions
@@ -71,11 +63,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.resourceHasData ? self.users.count : 1;
+    return self.users.isEmpty ? 1 : self.users.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.statusCell;
+	if (self.users.isEmpty) return self.statusCell;
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (cell == nil) cell = [UserObjectCell cell];
     cell.userObject = self.users[indexPath.row];
@@ -83,7 +75,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (!self.resourceHasData) return;
+    if (self.users.isEmpty) return;
     GHUser *user = self.users[indexPath.row];
     UserController *userController = [[UserController alloc] initWithUser:user];
     [self.navigationController pushViewController:userController animated:YES];

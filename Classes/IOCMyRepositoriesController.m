@@ -45,10 +45,6 @@
 
 #pragma mark Helpers
 
-- (BOOL)resourceHasData {
-	return !self.user.repositories.isEmpty;
-}
-
 - (void)displayRepositories {
 	self.privateRepositories = [[GHRepositories alloc] init];
 	self.publicRepositories = [[GHRepositories alloc] init];
@@ -96,15 +92,15 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.resourceHasData) {
-		return self.forkedRepositories.isEmpty ? 2 : 3;
+	if (self.user.repositories.isEmpty) {
+		return 1; 
 	} else {
-		return 1;
+		return self.forkedRepositories.isEmpty ? 2 : 3;
 	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.resourceHasData) return 1;
+	if (self.user.repositories.isEmpty) return 1;
 	NSInteger count = [[self repositoriesInSection:section] count];
 	return count == 0 ? 1 : count;
 }
@@ -119,7 +115,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (self.resourceHasData) {
+	if (!self.user.repositories.isEmpty) {
 		if (section == 0) {
 			return @"Private";
 		} else if (section == 1) {
@@ -132,7 +128,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
+	if (self.user.repositories.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
 	NSInteger section = indexPath.section;
 	if (section == 0 && self.privateRepositories.count == 0) {
 		return [[IOCResourceStatusCell alloc] initWithResource:self.privateRepositories name:@"private repositories"];

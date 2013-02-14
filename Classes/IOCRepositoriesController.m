@@ -39,18 +39,10 @@
 	if (self.repositories.isUnloaded) {
 		[self.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[self.tableView reloadData];
-		}];
+		} failure:nil];
 	} else if (self.repositories.isChanged) {
 		[self.tableView reloadData];
 	}
-}
-
-#pragma mark Helpers
-
-- (BOOL)resourceHasData {
-	return !self.repositories.isEmpty;
 }
 
 #pragma mark Actions
@@ -68,11 +60,11 @@
 #pragma mark TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.resourceHasData ? self.repositories.count : 1;
+	return self.repositories.isEmpty ? 1 : self.repositories.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.statusCell;
+	if (self.repositories.isEmpty) return self.statusCell;
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	cell.repository = self.repositories[indexPath.row];
@@ -80,7 +72,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return;
+	if (self.repositories.isEmpty) return;
 	GHRepository *repo = self.repositories[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];

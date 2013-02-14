@@ -1,5 +1,5 @@
 #import "IOCOrganizationsController.h"
-#import "OrganizationController.h"
+#import "IOCOrganizationController.h"
 #import "UserObjectCell.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
@@ -86,7 +86,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.organizations.isEmpty) return;
     GHOrganization *org = self.organizations[indexPath.row];
-    OrganizationController *viewController = [[OrganizationController alloc] initWithOrganization:org];
+    IOCOrganizationController *viewController = [[IOCOrganizationController alloc] initWithOrganization:org];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 

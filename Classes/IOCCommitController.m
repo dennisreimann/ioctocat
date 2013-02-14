@@ -9,7 +9,7 @@
 #import "FilesCell.h"
 #import "CommentCell.h"
 #import "NSDate+Nibware.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "RepositoryController.h"
 #import "WebController.h"
 #import "IOCFilesController.h"
@@ -229,7 +229,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		[self.navigationController pushViewController:repoController animated:YES];
 	} else if (indexPath.section == 0) {
 		GHUser *user = (row == 1) ? self.commit.author : self.commit.committer;
-		UserController *userController = [[UserController alloc] initWithUser:user];
+		IOCUserController *userController = [[IOCUserController alloc] initWithUser:user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} else if (indexPath.section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];

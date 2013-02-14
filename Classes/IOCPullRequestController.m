@@ -6,7 +6,7 @@
 #import "CommentCell.h"
 #import "IOCPullRequestsController.h"
 #import "IssueObjectFormController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "RepositoryController.h"
 #import "IOCCommitsController.h"
 #import "GHIssueComments.h"
@@ -327,7 +327,7 @@
 			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.pullRequest.repository];
 			[self.navigationController pushViewController:repoController animated:YES];
 		} else if (row == 1 && self.pullRequest.user) {
-			UserController *userController = [[UserController alloc] initWithUser:self.pullRequest.user];
+			IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.pullRequest.user];
 			[self.navigationController pushViewController:userController animated:YES];
 		}
 	} else if (section == 1) {

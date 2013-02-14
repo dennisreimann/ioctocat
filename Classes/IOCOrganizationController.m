@@ -1,7 +1,7 @@
 #import <MessageUI/MessageUI.h>
-#import "OrganizationController.h"
+#import "IOCOrganizationController.h"
 #import "RepositoryController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "WebController.h"
 #import "EventsController.h"
 #import "GHOrganization.h"
@@ -14,10 +14,14 @@
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface OrganizationController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
+@interface IOCOrganizationController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
 @property(nonatomic,strong) GHOrganization *organization;
+@property(nonatomic,strong)IOCResourceStatusCell *organizationStatusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *reposStatusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *membersStatusCell;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 @property(nonatomic,weak)IBOutlet UILabel *nameLabel;
 @property(nonatomic,weak)IBOutlet UILabel *companyLabel;
@@ -26,11 +30,6 @@
 @property(nonatomic,weak)IBOutlet UILabel *emailLabel;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingOrganizationCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingMembersCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicReposCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noPublicMembersCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
@@ -38,7 +37,7 @@
 @end
 
 
-@implementation OrganizationController
+@implementation IOCOrganizationController
 
 - (id)initWithOrganization:(GHOrganization *)organization{
 	self = [super initWithNibName:@"Organization" bundle:nil];
@@ -65,6 +64,9 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.organization.login;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.organizationStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization name:@"organization"];
+	self.reposStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization.repositories name:@"repositories"];
+	self.membersStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization.publicMembers name:@"members"];
 	[self displayOrganization];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -80,9 +82,7 @@
 	if (self.organization.isUnloaded) {
 		[self.organization loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayOrganizationChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the organization"];
-		}];
+		} failure:nil];
 	} else if (self.organization.isChanged) {
 		[self displayOrganizationChange];
 	}
@@ -90,9 +90,7 @@
 	if (self.organization.repositories.isUnloaded) {
 		[self.organization.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayRepositoriesChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the repositories"];
-		}];
+		} failure:nil];
 	} else if (self.organization.repositories.isChanged) {
 		[self displayRepositoriesChange];
 	}
@@ -100,9 +98,7 @@
 	if (self.organization.publicMembers.isUnloaded) {
 		[self.organization.publicMembers loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayMembersChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the members"];
-		}];
+		} failure:nil];
 	} else if (self.organization.publicMembers.isChanged) {
 		[self displayMembersChange];
 	}
@@ -139,7 +135,7 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
 }
 
@@ -153,17 +149,15 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.organization.isLoaded ? 4 : 1;
+	return self.organization.isEmpty ? 1 : 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.organization.isLoaded) return 1;
+	if (self.organization.isEmpty) return 1;
 	if (section == 0) return 3;
 	if (section == 1) return 1;
-	if (section == 2 && (!self.organization.repositories.isLoaded || self.organization.repositories.isEmpty)) return 1;
-	if (section == 2) return self.organization.repositories.count;
-	if (section == 3 && (!self.organization.publicMembers.isLoaded || self.organization.publicMembers.isEmpty)) return 1;
-	if (section == 3) return self.organization.publicMembers.count;
+	if (section == 2) return self.organization.repositories.isEmpty ? 1 : self.organization.repositories.count;
+	if (section == 3) return self.organization.publicMembers.isEmpty ? 1 : self.organization.publicMembers.count;
 	return 1;
 }
 
@@ -176,7 +170,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (!self.organization.isLoaded) return self.loadingOrganizationCell;
+	if (self.organization.isEmpty) return self.organizationStatusCell;
 	if (section == 0) {
 		LabeledCell *cell;
 		switch (row) {
@@ -191,8 +185,7 @@
 		return cell;
 	}
 	if (section == 1) return self.recentActivityCell;
-	if (section == 2 && !self.organization.repositories.isLoaded) return self.loadingReposCell;
-	if (section == 2 && self.organization.repositories.isEmpty) return self.noPublicReposCell;
+	if (section == 2 && self.organization.repositories.isEmpty) return self.reposStatusCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
@@ -200,8 +193,7 @@
 		[cell hideOwner];
 		return cell;
 	}
-	if (section == 3 && !self.organization.publicMembers.isLoaded) return self.loadingMembersCell;
-	if (section == 3 && self.organization.publicMembers.isEmpty) return self.noPublicMembersCell;
+	if (section == 3 && self.organization.publicMembers.isEmpty) return self.membersStatusCell;
 	if (section == 3) {
 		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 		if (cell == nil) {
@@ -214,7 +206,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.organization.isLoaded) return;
+	if (self.organization.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
@@ -233,7 +225,7 @@
 		viewController = [[RepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3) {
 		GHUser *selectedUser = self.organization.publicMembers[indexPath.row];
-		viewController = [[UserController alloc] initWithUser:(GHUser *)selectedUser];
+		viewController = [[IOCUserController alloc] initWithUser:(GHUser *)selectedUser];
 	}
 	// Maybe push a controller
 	if (viewController) {

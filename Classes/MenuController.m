@@ -1,6 +1,6 @@
 #import "MenuController.h"
 #import "MyEventsController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "RepositoryController.h"
 #import "IOCRepositoriesController.h"
 #import "IOCMyRepositoriesController.h"
@@ -122,7 +122,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 		// User (or Organization)
 		NSString *login = [url.pathComponents objectAtIndex:1];
 		GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
-		viewController = [[UserController alloc] initWithUser:user];
+		viewController = [[IOCUserController alloc] initWithUser:user];
 	} else if (url.pathComponents.count >= 3) {
 		// Repository
 		NSString *owner = [url.pathComponents objectAtIndex:1];
@@ -280,7 +280,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			
 		case 2:
 			if (row == 0) {
-				viewController = [[UserController alloc] initWithUser:self.user];
+				viewController = [[IOCUserController alloc] initWithUser:self.user];
 				viewController.title = @"My Profile";
 			} else if (row == 1) {
 				viewController = [[IOCOrganizationsController alloc] initWithOrganizations:self.user.organizations];

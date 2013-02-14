@@ -6,7 +6,7 @@
 #import "CommentCell.h"
 #import "IOCIssuesController.h"
 #import "IssueObjectFormController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "RepositoryController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
@@ -273,7 +273,7 @@
 			RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:self.issue.repository];
 			[self.navigationController pushViewController:repoController animated:YES];
 		} else if (indexPath.row == 1 && self.issue.user) {
-			UserController *userController = [[UserController alloc] initWithUser:self.issue.user];
+			IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.issue.user];
 			[self.navigationController pushViewController:userController animated:YES];
 		}
 	}

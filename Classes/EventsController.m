@@ -1,7 +1,7 @@
 #import "EventsController.h"
 #import "GHEvent.h"
 #import "GHEvents.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "RepositoryController.h"
 #import "IOCIssueController.h"
 #import "IOCPullRequestController.h"
@@ -9,7 +9,7 @@
 #import "IOCGistController.h"
 #import "WebController.h"
 #import "IOCCommitsController.h"
-#import "OrganizationController.h"
+#import "IOCOrganizationController.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHRepository.h"
@@ -76,9 +76,9 @@
 - (void)openEventItem:(id)eventItem {
 	UIViewController *viewController = nil;
 	if ([eventItem isKindOfClass:GHUser.class]) {
-		viewController = [[UserController alloc] initWithUser:eventItem];
+		viewController = [[IOCUserController alloc] initWithUser:eventItem];
 	} else if ([eventItem isKindOfClass:GHOrganization.class]) {
-		viewController = [[OrganizationController alloc] initWithOrganization:eventItem];
+		viewController = [[IOCOrganizationController alloc] initWithOrganization:eventItem];
 	} else if ([eventItem isKindOfClass:GHRepository.class]) {
 		viewController = [[RepositoryController alloc] initWithRepository:eventItem];
 	} else if ([eventItem isKindOfClass:GHIssue.class]) {

@@ -1,6 +1,6 @@
 #import "SearchController.h"
 #import "RepositoryController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "GHUser.h"
 #import "GHSearch.h"
 #import "RepositoryCell.h"
@@ -109,7 +109,7 @@
 	if ([object isKindOfClass:GHRepository.class]) {
 		viewController = [[RepositoryController alloc] initWithRepository:(GHRepository *)object];
 	} else if ([object isKindOfClass:GHUser.class]) {
-		viewController = [[UserController alloc] initWithUser:(GHUser *)object];
+		viewController = [[IOCUserController alloc] initWithUser:(GHUser *)object];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

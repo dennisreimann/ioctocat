@@ -11,7 +11,7 @@
 #import "LabeledCell.h"
 #import "TextCell.h"
 #import "RepositoryController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "IOCUsersController.h"
 #import "WebController.h"
 #import "iOctocat.h"
@@ -286,7 +286,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	NSInteger row = indexPath.row;
 	if (section == 0) {
 		if (row == 0 && self.repository.user) {
-			viewController = [[UserController alloc] initWithUser:self.repository.user];
+			viewController = [[IOCUserController alloc] initWithUser:self.repository.user];
 		} else if (row == 1 && self.repository.homepageURL) {
 			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
 		} else if (row >= 2) {

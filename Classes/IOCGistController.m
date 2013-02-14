@@ -7,7 +7,7 @@
 #import "WebController.h"
 #import "IOCGistController.h"
 #import "CodeController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "CommentController.h"
 #import "CommentCell.h"
 #import "iOctocat.h"
@@ -256,7 +256,7 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0 && self.gist.user) {
-		UserController *userController = [[UserController alloc] initWithUser:self.gist.user];
+		IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.gist.user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} if (section == 1) {
 		CodeController *codeController = [[CodeController alloc] initWithFiles:self.gist.files currentIndex:row];

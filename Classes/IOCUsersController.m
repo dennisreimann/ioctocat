@@ -1,5 +1,5 @@
 #import "IOCUsersController.h"
-#import "UserController.h"
+#import "IOCUserController.h"
 #import "GHUsers.h"
 #import "UserObjectCell.h"
 #import "NSString+Extensions.h"
@@ -77,7 +77,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.users.isEmpty) return;
     GHUser *user = self.users[indexPath.row];
-    UserController *userController = [[UserController alloc] initWithUser:user];
+    IOCUserController *userController = [[IOCUserController alloc] initWithUser:user];
     [self.navigationController pushViewController:userController animated:YES];
 }
 

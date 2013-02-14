@@ -235,9 +235,9 @@
 		6F61246C167D0410001A3E05 /* EventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF8D1649AEB200337EBE /* EventsController.m */; };
 		6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyEventsController.m */; };
 		6F61246E167D0410001A3E05 /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
-		6F61246F167D0410001A3E05 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
+		6F61246F167D0410001A3E05 /* IOCUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* IOCUserController.m */; };
 		6F612470167D0410001A3E05 /* IOCOrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */; };
-		6F612471167D0410001A3E05 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
+		6F612471167D0410001A3E05 /* IOCOrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* IOCOrganizationController.m */; };
 		6F612472167D0410001A3E05 /* IOCOrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* IOCOrganizationRepositoriesController.m */; };
 		6F612473167D0410001A3E05 /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6F612474167D0410001A3E05 /* IOCTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* IOCTreeController.m */; };
@@ -468,7 +468,7 @@
 		6FB85B23164DA10E00F6C90E /* PullRequestSynchronizeEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB85B21164DA10E00F6C90E /* PullRequestSynchronizeEvent.png */; };
 		6FB85B24164DA10E00F6C90E /* PullRequestSynchronizeEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB85B22164DA10E00F6C90E /* PullRequestSynchronizeEvent@2x.png */; };
 		6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
-		6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
+		6FB9CBE3133543FD00C8DE29 /* IOCOrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* IOCOrganizationController.m */; };
 		6FB9CBE513354AC200C8DE29 /* Organization.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE413354AC200C8DE29 /* Organization.xib */; };
 		6FB9CBFA133565D200C8DE29 /* TeamAddEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF8133565D200C8DE29 /* TeamAddEvent.png */; };
 		6FB9CBFB133565D200C8DE29 /* TeamAddEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FB9CBF9133565D200C8DE29 /* TeamAddEvent@2x.png */; };
@@ -498,7 +498,7 @@
 		6FC465170F9D1445003A8E7B /* GHCommit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC465160F9D1445003A8E7B /* GHCommit.m */; };
 		6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */; };
 		6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */; };
-		6FC95F1F0F8905F500FC0968 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
+		6FC95F1F0F8905F500FC0968 /* IOCUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* IOCUserController.m */; };
 		6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCAA31A167B52C800C816FA /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC39A0F7E52F000FCD26D /* Settings.bundle */; };
 		6FCAA31B167B52C800C816FA /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5BE0F7E7F4600FCD26D /* comment.png */; };
@@ -724,7 +724,7 @@
 		6FCAA431167B52C800C816FA /* MyEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyEventsController.m */; };
 		6FCAA432167B52C800C816FA /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
 		6FCAA433167B52C800C816FA /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
-		6FCAA434167B52C800C816FA /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* UserController.m */; };
+		6FCAA434167B52C800C816FA /* IOCUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* IOCUserController.m */; };
 		6FCAA435167B52C800C816FA /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
 		6FCAA436167B52C800C816FA /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
 		6FCAA437167B52C800C816FA /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
@@ -764,7 +764,7 @@
 		6FCAA459167B52C800C816FA /* GHOrganizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */; };
 		6FCAA45A167B52C800C816FA /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
 		6FCAA45B167B52C800C816FA /* IOCOrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */; };
-		6FCAA45C167B52C800C816FA /* OrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */; };
+		6FCAA45C167B52C800C816FA /* IOCOrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* IOCOrganizationController.m */; };
 		6FCAA45D167B52C800C816FA /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
 		6FCAA45E167B52C800C816FA /* GHRepoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */; };
 		6FCAA45F167B52C800C816FA /* GHRepoComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2D158FCCDA00D72A3D /* GHRepoComments.m */; };
@@ -1304,8 +1304,8 @@
 		6FB85B22164DA10E00F6C90E /* PullRequestSynchronizeEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "PullRequestSynchronizeEvent@2x.png"; path = "Images/Icons/PullRequestSynchronizeEvent@2x.png"; sourceTree = "<group>"; };
 		6FB93A940FB2231E002B43AD /* RepositoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RepositoryCell.h; sourceTree = "<group>"; };
 		6FB93A950FB2231E002B43AD /* RepositoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RepositoryCell.m; sourceTree = "<group>"; };
-		6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrganizationController.h; sourceTree = "<group>"; };
-		6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganizationController.m; sourceTree = "<group>"; };
+		6FB9CBE1133543FD00C8DE29 /* IOCOrganizationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCOrganizationController.h; sourceTree = "<group>"; };
+		6FB9CBE2133543FD00C8DE29 /* IOCOrganizationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCOrganizationController.m; sourceTree = "<group>"; };
 		6FB9CBE413354AC200C8DE29 /* Organization.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Organization.xib; path = IBFiles/Organization.xib; sourceTree = "<group>"; };
 		6FB9CBF8133565D200C8DE29 /* TeamAddEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TeamAddEvent.png; path = Images/Icons/TeamAddEvent.png; sourceTree = "<group>"; };
 		6FB9CBF9133565D200C8DE29 /* TeamAddEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "TeamAddEvent@2x.png"; path = "Images/Icons/TeamAddEvent@2x.png"; sourceTree = "<group>"; };
@@ -1329,8 +1329,8 @@
 		6FC465160F9D1445003A8E7B /* GHCommit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHCommit.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarIssue@2x.png"; sourceTree = "<group>"; };
 		6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarRepository@2x.png"; sourceTree = "<group>"; };
-		6FC95F1D0F8905F500FC0968 /* UserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
-		6FC95F1E0F8905F500FC0968 /* UserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
+		6FC95F1D0F8905F500FC0968 /* IOCUserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCUserController.h; sourceTree = "<group>"; };
+		6FC95F1E0F8905F500FC0968 /* IOCUserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUserController.m; sourceTree = "<group>"; };
 		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
 		6FC9610B0F8935DC00FC0968 /* LabeledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabeledCell.m; sourceTree = "<group>"; };
 		6FCAA496167B52C800C816FA /* iOctocatBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOctocatBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2353,10 +2353,10 @@
 				6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */,
 				8C53B4CE0FB0F20B00C3A8E0 /* IOCUsersController.h */,
 				8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */,
-				6FC95F1D0F8905F500FC0968 /* UserController.h */,
-				6FC95F1E0F8905F500FC0968 /* UserController.m */,
-				6FB9CBE1133543FD00C8DE29 /* OrganizationController.h */,
-				6FB9CBE2133543FD00C8DE29 /* OrganizationController.m */,
+				6FC95F1D0F8905F500FC0968 /* IOCUserController.h */,
+				6FC95F1E0F8905F500FC0968 /* IOCUserController.m */,
+				6FB9CBE1133543FD00C8DE29 /* IOCOrganizationController.h */,
+				6FB9CBE2133543FD00C8DE29 /* IOCOrganizationController.m */,
 			);
 			name = "Users and Orgs";
 			sourceTree = "<group>";
@@ -3163,7 +3163,7 @@
 				6FCE4D880F7FE16A00451D6E /* MyEventsController.m in Sources */,
 				6F35BD390F88B01900E978CD /* GHOrganization.m in Sources */,
 				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
-				6FC95F1F0F8905F500FC0968 /* UserController.m in Sources */,
+				6FC95F1F0F8905F500FC0968 /* IOCUserController.m in Sources */,
 				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
 				6FCAF1660F895756005E1173 /* IOCAvatarLoader.m in Sources */,
 				6F5A41750F90C38300427ED7 /* RepositoryController.m in Sources */,
@@ -3203,7 +3203,7 @@
 				6F9DD87B1334B99C00D1E35E /* GHOrganizations.m in Sources */,
 				6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */,
 				6F9DD8981334E1BA00D1E35E /* IOCOrganizationsController.m in Sources */,
-				6FB9CBE3133543FD00C8DE29 /* OrganizationController.m in Sources */,
+				6FB9CBE3133543FD00C8DE29 /* IOCOrganizationController.m in Sources */,
 				01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */,
 				6FD1DE2B158FCCA900D72A3D /* GHRepoComment.m in Sources */,
 				6FD1DE2E158FCCDA00D72A3D /* GHRepoComments.m in Sources */,
@@ -3269,9 +3269,9 @@
 				6F61246C167D0410001A3E05 /* EventsController.m in Sources */,
 				6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */,
 				6F61246E167D0410001A3E05 /* IOCUsersController.m in Sources */,
-				6F61246F167D0410001A3E05 /* UserController.m in Sources */,
+				6F61246F167D0410001A3E05 /* IOCUserController.m in Sources */,
 				6F612470167D0410001A3E05 /* IOCOrganizationsController.m in Sources */,
-				6F612471167D0410001A3E05 /* OrganizationController.m in Sources */,
+				6F612471167D0410001A3E05 /* IOCOrganizationController.m in Sources */,
 				6F612472167D0410001A3E05 /* IOCOrganizationRepositoriesController.m in Sources */,
 				6F612473167D0410001A3E05 /* IOCFilesController.m in Sources */,
 				6F612474167D0410001A3E05 /* IOCTreeController.m in Sources */,
@@ -3376,7 +3376,7 @@
 				6FCAA431167B52C800C816FA /* MyEventsController.m in Sources */,
 				6FCAA432167B52C800C816FA /* GHOrganization.m in Sources */,
 				6FCAA433167B52C800C816FA /* GHRepository.m in Sources */,
-				6FCAA434167B52C800C816FA /* UserController.m in Sources */,
+				6FCAA434167B52C800C816FA /* IOCUserController.m in Sources */,
 				6FCAA435167B52C800C816FA /* LabeledCell.m in Sources */,
 				6FCAA436167B52C800C816FA /* IOCAvatarLoader.m in Sources */,
 				6FCAA437167B52C800C816FA /* RepositoryController.m in Sources */,
@@ -3416,7 +3416,7 @@
 				6FCAA459167B52C800C816FA /* GHOrganizations.m in Sources */,
 				6FCAA45A167B52C800C816FA /* NSURL+Extensions.m in Sources */,
 				6FCAA45B167B52C800C816FA /* IOCOrganizationsController.m in Sources */,
-				6FCAA45C167B52C800C816FA /* OrganizationController.m in Sources */,
+				6FCAA45C167B52C800C816FA /* IOCOrganizationController.m in Sources */,
 				6FCAA45D167B52C800C816FA /* GradientButton.m in Sources */,
 				6FCAA45E167B52C800C816FA /* GHRepoComment.m in Sources */,
 				6FCAA45F167B52C800C816FA /* GHRepoComments.m in Sources */,

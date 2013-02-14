@@ -1,5 +1,5 @@
 @class GHOrganization;
 
-@interface OrganizationController : UITableViewController
+@interface IOCOrganizationController : UITableViewController
 - (id)initWithOrganization:(GHOrganization *)organization;
 @end

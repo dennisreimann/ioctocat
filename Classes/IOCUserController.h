@@ -1,5 +1,5 @@
 @class GHUser;
 
-@interface UserController : UITableViewController
+@interface IOCUserController : UITableViewController
 - (id)initWithUser:(GHUser *)user;
 @end

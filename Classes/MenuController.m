@@ -10,7 +10,7 @@
 #import "IssuesController.h"
 #import "IOCPullRequestController.h"
 #import "PullRequestsController.h"
-#import "GistController.h"
+#import "IOCGistController.h"
 #import "IOCGistsController.h"
 #import "SearchController.h"
 #import "IOCCommitController.h"
@@ -116,7 +116,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			// Gist
 			NSString *gistId = [url.pathComponents objectAtIndex:1];
 			GHGist *gist = [[GHGist alloc] initWithId:gistId];
-			viewController = [[GistController alloc] initWithGist:gist];
+			viewController = [[IOCGistController alloc] initWithGist:gist];
 		}
 	} else if (url.pathComponents.count == 2) {
 		// User (or Organization)

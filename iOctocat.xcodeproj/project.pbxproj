@@ -52,7 +52,7 @@
 		6F182C7E161C54A600E705CF /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
 		6F182C7F161C54A600E705CF /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
 		6F182C87161C5E3600E705CF /* IOCGistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* IOCGistsController.m */; };
-		6F182C8A161CB77600E705CF /* GistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* GistController.m */; };
+		6F182C8A161CB77600E705CF /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
 		6F182C8C161CB7A100E705CF /* Gist.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F182C8B161CB7A100E705CF /* Gist.xib */; };
 		6F1DC39B0F7E52F000FCD26D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC39A0F7E52F000FCD26D /* Settings.bundle */; };
 		6F1DC5C50F7E7F4600FCD26D /* comment.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F1DC5BE0F7E7F4600FCD26D /* comment.png */; };
@@ -244,7 +244,7 @@
 		6F612474167D0410001A3E05 /* TreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* TreeController.m */; };
 		6F612475167D0410001A3E05 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
 		6F612476167D0410001A3E05 /* IOCGistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* IOCGistsController.m */; };
-		6F612477167D0410001A3E05 /* GistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* GistController.m */; };
+		6F612477167D0410001A3E05 /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
 		6F612478167D0410001A3E05 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
 		6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
@@ -783,7 +783,7 @@
 		6FCAA467167B52C800C816FA /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
 		6FCAA468167B52C800C816FA /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
 		6FCAA469167B52C800C816FA /* IOCGistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* IOCGistsController.m */; };
-		6FCAA46A167B52C800C816FA /* GistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* GistController.m */; };
+		6FCAA46A167B52C800C816FA /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
 		6FCAA46B167B52C800C816FA /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
 		6FCAA46C167B52C800C816FA /* GHGistComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AB1623772300CE95D0 /* GHGistComment.m */; };
 		6FCAA46D167B52C800C816FA /* GHGistComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AD1623772300CE95D0 /* GHGistComments.m */; };
@@ -964,8 +964,8 @@
 		6F182C7D161C54A600E705CF /* GHGists.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGists.m; sourceTree = "<group>"; };
 		6F182C85161C5E3600E705CF /* IOCGistsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCGistsController.h; sourceTree = "<group>"; };
 		6F182C86161C5E3600E705CF /* IOCGistsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCGistsController.m; sourceTree = "<group>"; };
-		6F182C88161CB77600E705CF /* GistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistController.h; sourceTree = "<group>"; };
-		6F182C89161CB77600E705CF /* GistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistController.m; sourceTree = "<group>"; };
+		6F182C88161CB77600E705CF /* IOCGistController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCGistController.h; sourceTree = "<group>"; };
+		6F182C89161CB77600E705CF /* IOCGistController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCGistController.m; sourceTree = "<group>"; };
 		6F182C8B161CB7A100E705CF /* Gist.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Gist.xib; path = IBFiles/Gist.xib; sourceTree = "<group>"; };
 		6F1DC39A0F7E52F000FCD26D /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		6F1DC52E0F7E727C00FCD26D /* EventCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventCell.h; sourceTree = "<group>"; };
@@ -1609,8 +1609,8 @@
 			children = (
 				6F182C85161C5E3600E705CF /* IOCGistsController.h */,
 				6F182C86161C5E3600E705CF /* IOCGistsController.m */,
-				6F182C88161CB77600E705CF /* GistController.h */,
-				6F182C89161CB77600E705CF /* GistController.m */,
+				6F182C88161CB77600E705CF /* IOCGistController.h */,
+				6F182C89161CB77600E705CF /* IOCGistController.m */,
 				6FDB4E85162221DF00AB11C3 /* CodeController.h */,
 				6FDB4E86162221DF00AB11C3 /* CodeController.m */,
 			);
@@ -3235,7 +3235,7 @@
 				6F182C7E161C54A600E705CF /* GHGist.m in Sources */,
 				6F182C7F161C54A600E705CF /* GHGists.m in Sources */,
 				6F182C87161C5E3600E705CF /* IOCGistsController.m in Sources */,
-				6F182C8A161CB77600E705CF /* GistController.m in Sources */,
+				6F182C8A161CB77600E705CF /* IOCGistController.m in Sources */,
 				6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */,
 				6F0879AE1623772300CE95D0 /* GHGistComment.m in Sources */,
 				6F0879AF1623772300CE95D0 /* GHGistComments.m in Sources */,
@@ -3295,7 +3295,7 @@
 				6F612474167D0410001A3E05 /* TreeController.m in Sources */,
 				6F612475167D0410001A3E05 /* BlobsController.m in Sources */,
 				6F612476167D0410001A3E05 /* IOCGistsController.m in Sources */,
-				6F612477167D0410001A3E05 /* GistController.m in Sources */,
+				6F612477167D0410001A3E05 /* IOCGistController.m in Sources */,
 				6F612478167D0410001A3E05 /* CodeController.m in Sources */,
 				6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */,
 				6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */,
@@ -3448,7 +3448,7 @@
 				6FCAA467167B52C800C816FA /* GHGist.m in Sources */,
 				6FCAA468167B52C800C816FA /* GHGists.m in Sources */,
 				6FCAA469167B52C800C816FA /* IOCGistsController.m in Sources */,
-				6FCAA46A167B52C800C816FA /* GistController.m in Sources */,
+				6FCAA46A167B52C800C816FA /* IOCGistController.m in Sources */,
 				6FCAA46B167B52C800C816FA /* CodeController.m in Sources */,
 				6FCAA46C167B52C800C816FA /* GHGistComment.m in Sources */,
 				6FCAA46D167B52C800C816FA /* GHGistComments.m in Sources */,

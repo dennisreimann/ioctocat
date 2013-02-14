@@ -1,7 +1,7 @@
 #import "GHGists.h"
 #import "GHGist.h"
 #import "IOCGistsController.h"
-#import "GistController.h"
+#import "IOCGistController.h"
 #import "GistCell.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
@@ -86,7 +86,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.resourceHasData) return;
 	GHGist *gist = self.gists[indexPath.row];
-	GistController *gistController = [[GistController alloc] initWithGist:gist];
+	IOCGistController *gistController = [[IOCGistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
 }
 

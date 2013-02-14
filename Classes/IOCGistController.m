@@ -5,7 +5,7 @@
 #import "GHGistComment.h"
 #import "GHGistComments.h"
 #import "WebController.h"
-#import "GistController.h"
+#import "IOCGistController.h"
 #import "CodeController.h"
 #import "UserController.h"
 #import "CommentController.h"
@@ -15,10 +15,14 @@
 #import "NSDate+Nibware.h"
 #import "SVProgressHUD.h"
 #import "LabeledCell.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface GistController () <UIActionSheetDelegate>
+@interface IOCGistController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHGist *gist;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *filesStatusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,weak,readonly)GHUser *currentUser;
 @property(nonatomic,readwrite)BOOL isStarring;
 @property(nonatomic,weak)IBOutlet UILabel *descriptionLabel;
@@ -27,10 +31,6 @@
 @property(nonatomic,weak)IBOutlet UIImageView *forksIconView;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noFilesCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
@@ -38,7 +38,7 @@
 @end
 
 
-@implementation GistController
+@implementation IOCGistController
 
 - (id)initWithGist:(GHGist *)gist {
 	self = [super initWithNibName:@"Gist" bundle:nil];
@@ -54,6 +54,9 @@
 	[super viewDidLoad];
 	self.title = self.title ? self.title : @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist name:@"gist"];
+	self.filesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.files name:@"files"];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.comments name:@"comments"];
 	[self displayGist];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -113,7 +116,7 @@
 }
 
 - (void)displayCommentsChange {
-	if (!self.gist.isLoaded) return;
+	if (self.gist.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -167,12 +170,14 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.gist.isLoaded) return 1;
-	if (section == 0) return 3;
-	if (section == 1) return self.gist.files.isEmpty ? 1 : self.gist.files.count;
-	if (section == 2 && !self.gist.comments.isLoaded) return 1;
-	if (self.gist.comments.isEmpty) return 1;
-	return self.gist.comments.count;
+	if (self.gist.isEmpty) return 1;
+	if (section == 0) {
+		return 3;
+	} else if (section == 1) {
+		return self.gist.files.isEmpty ? 1 : self.gist.files.count;
+	} else {
+		return self.gist.comments.isEmpty ? 1 : self.gist.comments.count;
+	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -189,7 +194,7 @@
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	UITableViewCell *cell = nil;
-	if (self.gist.isLoading) return self.loadingCell;
+	if (self.gist.isEmpty) return self.statusCell;
 	if (section == 0) {
 		switch (row) {
 			case 0: cell = self.ownerCell; break;
@@ -201,7 +206,7 @@
 		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
-		if (self.gist.files.isEmpty) return self.noFilesCell;
+		if (self.gist.files.isEmpty) return self.filesStatusCell;
 		static NSString *CellIdentifier = @"FileCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
@@ -214,8 +219,7 @@
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 2) {
-		if (!self.gist.comments.isLoaded) return self.loadingCommentsCell;
-		if (self.gist.comments.isEmpty) return self.noCommentsCell;
+		if (self.gist.comments.isEmpty) return self.commentsStatusCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
@@ -232,7 +236,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 2 && self.gist.comments.isLoaded && !self.gist.comments.isEmpty) {
+	if (indexPath.section == 2 && !self.gist.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
@@ -248,7 +252,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.gist.isLoaded) return;
+	if (self.gist.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0 && self.gist.user) {

@@ -1,11 +1,11 @@
-#import "IssueObjectFormController.h"
+#import "IOCIssueObjectFormController.h"
 #import "GHIssue.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 
 
-@interface IssueObjectFormController () <UITextFieldDelegate>
+@interface IOCIssueObjectFormController () <UITextFieldDelegate>
 @property(nonatomic,readonly)GHIssue *object;
 @property(nonatomic,strong)id issueObject;
 @property(nonatomic,strong)NSString *issueObjectType;
@@ -18,7 +18,7 @@
 @end
 
 
-@implementation IssueObjectFormController
+@implementation IOCIssueObjectFormController
 
 - (id)initWithIssueObject:(id)object {
 	self = [super initWithNibName:@"IssueObjectForm" bundle:nil];
@@ -71,20 +71,16 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return (indexPath.row == 0) ? self.titleCell : self.bodyCell;
+	return indexPath.row == 0 ? self.titleCell : self.bodyCell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return (indexPath.row == 1) ? 100.0f : 44.0f;
+	return indexPath.row == 1 ? self.bodyCell.frame.size.height : self.titleCell.frame.size.height;
 }
 
 #pragma mark Keyboard

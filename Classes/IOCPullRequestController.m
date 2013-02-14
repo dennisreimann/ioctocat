@@ -5,7 +5,7 @@
 #import "LabeledCell.h"
 #import "CommentCell.h"
 #import "IOCPullRequestsController.h"
-#import "IssueObjectFormController.h"
+#import "IOCIssueObjectFormController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCCommitsController.h"
@@ -203,7 +203,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (self.pullRequestMergeableByCurrentUser) {
 		if (buttonIndex == 0) {
-			IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
+			IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
 			[self.navigationController pushViewController:formController animated:YES];
 		} else if (buttonIndex == 1) {
 			[self mergePullRequest:nil];
@@ -217,7 +217,7 @@
 		}
 	} else if (self.pullRequestEditableByCurrentUser) {
 		if (buttonIndex == 0) {
-			IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
+			IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
 			[self.navigationController pushViewController:formController animated:YES];
 		} else if (buttonIndex == 1) {
 			[self togglePullRequestState];

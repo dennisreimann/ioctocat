@@ -5,7 +5,7 @@
 #import "LabeledCell.h"
 #import "CommentCell.h"
 #import "IOCIssuesController.h"
-#import "IssueObjectFormController.h"
+#import "IOCIssueObjectFormController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "GHIssueComments.h"
@@ -20,7 +20,7 @@
 #import "IOCResourceStatusCell.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IssueObjectFormControllerDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -155,7 +155,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (self.issueEditableByCurrentUser) {
 		if (buttonIndex == 0) {
-			IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:self.issue];
+			IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.issue];
 			formController.delegate = self;
 			[self.navigationController pushViewController:formController animated:YES];
 		} else if (buttonIndex == 1) {

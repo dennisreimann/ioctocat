@@ -19,7 +19,7 @@
 		6F08799D1623635E00CE95D0 /* ToolbarGist@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799B1623635E00CE95D0 /* ToolbarGist@2x.png */; };
 		6F0879AE1623772300CE95D0 /* GHGistComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AB1623772300CE95D0 /* GHGistComment.m */; };
 		6F0879AF1623772300CE95D0 /* GHGistComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AD1623772300CE95D0 /* GHGistComments.m */; };
-		6F0AEFBE100CF5DB00FB323E /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
+		6F0AEFBE100CF5DB00FB323E /* IOCIssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */; };
 		6F0AEFC1100CF61500FB323E /* IssueObjectForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */; };
 		6F0B11211670A2BD00375136 /* Menu.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F0B11201670A2BD00375136 /* Menu.plist */; };
 		6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
@@ -85,6 +85,9 @@
 		6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EB1114EDEF002665DA /* file_renamed.png */; };
 		6F2C77291114F430002665DA /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6F308A1416CD958200BA00A1 /* IOCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F308A1316CD958200BA00A1 /* IOCTextView.m */; };
+		6F308A1516CD958200BA00A1 /* IOCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F308A1316CD958200BA00A1 /* IOCTextView.m */; };
+		6F308A1616CD958200BA00A1 /* IOCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F308A1316CD958200BA00A1 /* IOCTextView.m */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
 		6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
@@ -254,7 +257,7 @@
 		6F61247F167D0410001A3E05 /* IOCPullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */; };
 		6F612480167D0410001A3E05 /* IOCIssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BCD167A24AD00B5FD53 /* IOCIssuesController.m */; };
 		6F612481167D0410001A3E05 /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
-		6F612482167D0410001A3E05 /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
+		6F612482167D0410001A3E05 /* IOCIssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */; };
 		6F612483167D0410001A3E05 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
 		6F612484167D0410001A3E05 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
 		6F612485167D0410001A3E05 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
@@ -747,7 +750,7 @@
 		6FCAA448167B52C800C816FA /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
 		6FCAA449167B52C800C816FA /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		6FCAA44A167B52C800C816FA /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
-		6FCAA44B167B52C800C816FA /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
+		6FCAA44B167B52C800C816FA /* IOCIssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */; };
 		6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
 		6FCAA44D167B52C800C816FA /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
 		6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
@@ -931,8 +934,8 @@
 		6F0879AB1623772300CE95D0 /* GHGistComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGistComment.m; sourceTree = "<group>"; };
 		6F0879AC1623772300CE95D0 /* GHGistComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHGistComments.h; sourceTree = "<group>"; };
 		6F0879AD1623772300CE95D0 /* GHGistComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHGistComments.m; sourceTree = "<group>"; };
-		6F0AEFBB100CF5DB00FB323E /* IssueObjectFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IssueObjectFormController.h; sourceTree = "<group>"; };
-		6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IssueObjectFormController.m; sourceTree = "<group>"; };
+		6F0AEFBB100CF5DB00FB323E /* IOCIssueObjectFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCIssueObjectFormController.h; sourceTree = "<group>"; };
+		6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCIssueObjectFormController.m; sourceTree = "<group>"; };
 		6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = IssueObjectForm.xib; path = IBFiles/IssueObjectForm.xib; sourceTree = "<group>"; };
 		6F0B11201670A2BD00375136 /* Menu.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Menu.plist; sourceTree = "<group>"; };
 		6F0BEB3E11108C9E00E95E5A /* GHBranches.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHBranches.h; sourceTree = "<group>"; };
@@ -996,6 +999,8 @@
 		6F2C77281114F430002665DA /* IOCFilesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCFilesController.m; sourceTree = "<group>"; };
 		6F2D9A870FB1887300FFABE9 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
+		6F308A1216CD956A00BA00A1 /* IOCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCTextView.h; sourceTree = "<group>"; };
+		6F308A1316CD958200BA00A1 /* IOCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCTextView.m; sourceTree = "<group>"; };
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
 		6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRepository.png; sourceTree = "<group>"; };
 		6F358C060FB1EAE0004D2828 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Search.xib; path = IBFiles/Search.xib; sourceTree = "<group>"; };
@@ -1649,6 +1654,8 @@
 			children = (
 				6F6399E216618E1E00BF2FF0 /* IOCTextField.h */,
 				6F6399E316618E1E00BF2FF0 /* IOCTextField.m */,
+				6F308A1216CD956A00BA00A1 /* IOCTextView.h */,
+				6F308A1316CD958200BA00A1 /* IOCTextView.m */,
 				6FA0AE1416C01494007308A6 /* IOCTableViewSectionHeader.h */,
 				6FA0AE1516C014AD007308A6 /* IOCTableViewSectionHeader.m */,
 				6F814CD216BEF755006B6D0E /* IOCResourceStatusCell.h */,
@@ -2381,8 +2388,8 @@
 				6F536BCD167A24AD00B5FD53 /* IOCIssuesController.m */,
 				8C6AA15D0FAC22B000A99483 /* IOCIssueController.h */,
 				8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */,
-				6F0AEFBB100CF5DB00FB323E /* IssueObjectFormController.h */,
-				6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */,
+				6F0AEFBB100CF5DB00FB323E /* IOCIssueObjectFormController.h */,
+				6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */,
 			);
 			name = Issues;
 			sourceTree = "<group>";
@@ -3186,7 +3193,7 @@
 				8CE686760FB8C56700A3D625 /* GHForks.m in Sources */,
 				8CE6867D0FB8C58400A3D625 /* IOCForksController.m in Sources */,
 				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
-				6F0AEFBE100CF5DB00FB323E /* IssueObjectFormController.m in Sources */,
+				6F0AEFBE100CF5DB00FB323E /* IOCIssueObjectFormController.m in Sources */,
 				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
 				6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */,
 				6F797C5D1110E2BE007E5A8D /* IOCCommitController.m in Sources */,
@@ -3255,6 +3262,7 @@
 				6F26DB5016A6E1E700939D85 /* NotificationCell.m in Sources */,
 				6F814CD416BEF767006B6D0E /* IOCResourceStatusCell.m in Sources */,
 				6FA0AE1616C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,
+				6F308A1416CD958200BA00A1 /* IOCTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3288,7 +3296,7 @@
 				6F61247F167D0410001A3E05 /* IOCPullRequestController.m in Sources */,
 				6F612480167D0410001A3E05 /* IOCIssuesController.m in Sources */,
 				6F612481167D0410001A3E05 /* IOCIssueController.m in Sources */,
-				6F612482167D0410001A3E05 /* IssueObjectFormController.m in Sources */,
+				6F612482167D0410001A3E05 /* IOCIssueObjectFormController.m in Sources */,
 				6F612483167D0410001A3E05 /* MenuController.m in Sources */,
 				6F612484167D0410001A3E05 /* SearchController.m in Sources */,
 				6F612485167D0410001A3E05 /* WebController.m in Sources */,
@@ -3363,6 +3371,7 @@
 				6F26DB5216A6E1E700939D85 /* NotificationCell.m in Sources */,
 				6F814CD616BEF767006B6D0E /* IOCResourceStatusCell.m in Sources */,
 				6FA0AE1816C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,
+				6F308A1616CD958200BA00A1 /* IOCTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3399,7 +3408,7 @@
 				6FCAA448167B52C800C816FA /* GHForks.m in Sources */,
 				6FCAA449167B52C800C816FA /* IOCForksController.m in Sources */,
 				6FCAA44A167B52C800C816FA /* GHRepositories.m in Sources */,
-				6FCAA44B167B52C800C816FA /* IssueObjectFormController.m in Sources */,
+				6FCAA44B167B52C800C816FA /* IOCIssueObjectFormController.m in Sources */,
 				6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */,
 				6FCAA44D167B52C800C816FA /* GHBranch.m in Sources */,
 				6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */,
@@ -3468,6 +3477,7 @@
 				6F26DB5116A6E1E700939D85 /* NotificationCell.m in Sources */,
 				6F814CD516BEF767006B6D0E /* IOCResourceStatusCell.m in Sources */,
 				6FA0AE1716C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,
+				6F308A1516CD958200BA00A1 /* IOCTextView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

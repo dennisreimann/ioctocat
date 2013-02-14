@@ -1,6 +1,6 @@
 #import "IOCIssuesController.h"
 #import "IOCIssueController.h"
-#import "IssueObjectFormController.h"
+#import "IOCIssueObjectFormController.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
 #import "IssueObjectCell.h"
@@ -16,7 +16,7 @@
 #define kIssueSortComments @"comments"
 
 
-@interface IOCIssuesController () <IssueObjectFormControllerDelegate>
+@interface IOCIssuesController () <IOCIssueObjectFormControllerDelegate>
 @property(nonatomic,readonly)GHIssues *currentIssues;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
@@ -93,7 +93,7 @@
 
 - (IBAction)createNewIssue:(id)sender {
 	GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
-	IssueObjectFormController *formController = [[IssueObjectFormController alloc] initWithIssueObject:issue];
+	IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:issue];
 	formController.delegate = self;
 	[self.navigationController pushViewController:formController animated:YES];
 }

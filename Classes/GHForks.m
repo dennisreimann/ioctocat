@@ -24,7 +24,7 @@
 		[repo setValues:dict];
 		[self addObject:repo];
 	}
-	[self.items sortUsingSelector:@selector(compareByName:)];
+	[self sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

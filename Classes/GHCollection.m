@@ -47,4 +47,8 @@
 	[self.items sortUsingComparator:cmptr];
 }
 
+- (void)sortUsingSelector:(SEL)cmptr {
+	[self.items sortUsingSelector:cmptr];
+}
+
 @end

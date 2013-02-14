@@ -3,4 +3,5 @@
 
 
 @interface GHRepositories : GHCollection
+- (void)sortByPushedAt;
 @end

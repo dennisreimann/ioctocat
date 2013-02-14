@@ -50,12 +50,6 @@
 }
 
 - (void)displayRepositories {
-	NSComparisonResult (^compareRepositories)(GHRepository *, GHRepository *);
-	compareRepositories = ^(GHRepository *repo1, GHRepository *repo2) {
-		if (!repo1.pushedAtDate) return NSOrderedDescending;
-		if (!repo2.pushedAtDate) return NSOrderedAscending;
-		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
-	};
 	self.privateRepositories = [[GHRepositories alloc] init];
 	self.publicRepositories = [[GHRepositories alloc] init];
 	self.forkedRepositories = [[GHRepositories alloc] init];
@@ -68,9 +62,9 @@
 			[self.publicRepositories addObject:repo];
 		}
 	}
-	[self.privateRepositories sortUsingComparator:compareRepositories];
-	[self.publicRepositories sortUsingComparator:compareRepositories];
-	[self.forkedRepositories sortUsingComparator:compareRepositories];
+	[self.privateRepositories sortByPushedAt];
+	[self.publicRepositories sortByPushedAt];
+	[self.forkedRepositories sortByPushedAt];
 	[self.privateRepositories markAsLoaded];
 	[self.publicRepositories markAsLoaded];
 	[self.forkedRepositories markAsLoaded];
@@ -103,7 +97,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	if (self.resourceHasData) {
-		return self.forkedRepositories.count > 0 ? 3 : 2;
+		return self.forkedRepositories.isEmpty ? 2 : 3;
 	} else {
 		return 1;
 	}
@@ -156,7 +150,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
-	if (repos.count == 0) return;
+	if (repos.isEmpty) return;
 	GHRepository *repo = repos[indexPath.row];
 	RepositoryController *repoController = [[RepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];

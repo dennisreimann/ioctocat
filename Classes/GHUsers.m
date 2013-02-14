@@ -14,7 +14,7 @@
 		[user setValues:dict];
 		[self addObject:user];
 	}
-	[self.items sortUsingSelector:@selector(compareByName:)];
+	[self sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

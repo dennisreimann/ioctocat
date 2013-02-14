@@ -23,7 +23,7 @@
 		[org setValues:dict];
 		[self addObject:org];
 	}
-	[self.items sortUsingSelector:@selector(compareByName:)];
+	[self sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

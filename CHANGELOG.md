@@ -11,6 +11,7 @@ Bugfixes:
 * Fixed crash when selecting an event cell after failed reload
 * Fixed crash when selecting a notification cell after failed reload
 * Fixed crash caused by triggering item loading while its already loading
+* No more empty cell when there are no private or public repos.
 
 ## v1.7.6
 

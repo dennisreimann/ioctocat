@@ -2,6 +2,10 @@
 
 ## v1.7.7
 
+Additions:
+
+* Webview shows page title. Thanks @drodriguez
+
 Bugfixes:
 
 * Fixed crash when selecting an event cell after failed reload

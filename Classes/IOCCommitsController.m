@@ -41,9 +41,7 @@
 	if (self.commits.isUnloaded) {
 		[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[self.tableView reloadData];
-		}];
+		} failure:nil];
 	} else if (self.commits.isChanged) {
 		[self.tableView reloadData];
 	}

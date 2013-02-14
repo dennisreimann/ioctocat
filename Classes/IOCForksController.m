@@ -37,9 +37,7 @@
 	if (self.forks.isUnloaded) {
 		[self.forks loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[self.tableView reloadData];
-		}];
+		} failure:nil];
 	} else if (self.forks.isChanged) {
 		[self.tableView reloadData];
 	}

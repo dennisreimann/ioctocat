@@ -76,9 +76,7 @@
 	if (self.gist.isUnloaded) {
 		[self.gist loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayGistChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"The gist could not be loaded"];
-		}];
+		} failure:nil];
 	} else if (self.gist.isChanged) {
 		[self displayGistChange];
 	}
@@ -86,9 +84,7 @@
 	if (self.gist.comments.isUnloaded) {
 		[self.gist.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
+		} failure:nil];
 	} else if (self.gist.comments.isChanged) {
 		[self displayCommentsChange];
 	}

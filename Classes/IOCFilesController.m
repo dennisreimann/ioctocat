@@ -29,9 +29,7 @@
 	if (self.files.isUnloaded) {
 		[self.files loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the files"];
-		}];
+		} failure:nil];
 	}
 }
 

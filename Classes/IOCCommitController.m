@@ -86,9 +86,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (self.commit.isUnloaded) {
 		[self.commit loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommitChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the commit"];
-		}];
+		} failure:nil];
 	} else if (self.commit.isChanged) {
 		[self displayCommitChange];
 	}
@@ -96,9 +94,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (self.commit.comments.isUnloaded) {
 		[self.commit.comments loadWithParams:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the comments"];
-		}];
+		} failure:nil];
 	} else if (self.commit.isChanged) {
 		[self displayCommentsChange];
 	}

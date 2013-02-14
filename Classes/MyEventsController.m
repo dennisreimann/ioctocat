@@ -4,7 +4,7 @@
 #import "RepositoryController.h"
 #import "IOCIssueController.h"
 #import "GistController.h"
-#import "CommitController.h"
+#import "IOCCommitController.h"
 #import "EventCell.h"
 #import "GHEvent.h"
 #import "GHUser.h"

@@ -251,7 +251,7 @@
 		6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* RepositoryController.m */; };
 		6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* IOCCommitsController.m */; };
-		6F61247D167D0410001A3E05 /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
+		6F61247D167D0410001A3E05 /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
 		6F61247E167D0410001A3E05 /* PullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* PullRequestsController.m */; };
 		6F61247F167D0410001A3E05 /* IOCPullRequestController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BB616790B8A00B5FD53 /* IOCPullRequestController.m */; };
 		6F612480167D0410001A3E05 /* IssuesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F536BCD167A24AD00B5FD53 /* IssuesController.m */; };
@@ -325,7 +325,7 @@
 		6F7769E4164B10250009CB06 /* PullRequestReviewCommentEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769E2164B10240009CB06 /* PullRequestReviewCommentEvent@2x.png */; };
 		6F7961AE132EC90D00C9446E /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AA132EC90D00C9446E /* GHResource.m */; };
 		6F7961AF132EC90D00C9446E /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AC132EC90D00C9446E /* GHUser.m */; };
-		6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
+		6F797C5D1110E2BE007E5A8D /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
 		6F797C7E1110E842007E5A8D /* Commit.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F797C7D1110E842007E5A8D /* Commit.xib */; };
 		6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
 		6F7C822615B3483300D37EE8 /* readme.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7C822415B3483300D37EE8 /* readme.png */; };
@@ -757,7 +757,7 @@
 		6FCAA44B167B52C800C816FA /* IssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IssueObjectFormController.m */; };
 		6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
 		6FCAA44D167B52C800C816FA /* GHBranch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB57111090D300E95E5A /* GHBranch.m */; };
-		6FCAA44E167B52C800C816FA /* CommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* CommitController.m */; };
+		6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
 		6FCAA44F167B52C800C816FA /* FilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* FilesController.m */; };
 		6FCAA450167B52C800C816FA /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6FCAA451167B52C800C816FA /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
@@ -1165,8 +1165,8 @@
 		6F7961AA132EC90D00C9446E /* GHResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHResource.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F7961AB132EC90D00C9446E /* GHUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUser.h; sourceTree = "<group>"; };
 		6F7961AC132EC90D00C9446E /* GHUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHUser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		6F797C5B1110E2BE007E5A8D /* CommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitController.h; sourceTree = "<group>"; };
-		6F797C5C1110E2BE007E5A8D /* CommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitController.m; sourceTree = "<group>"; };
+		6F797C5B1110E2BE007E5A8D /* IOCCommitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCCommitController.h; sourceTree = "<group>"; };
+		6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCommitController.m; sourceTree = "<group>"; };
 		6F797C7D1110E842007E5A8D /* Commit.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Commit.xib; path = IBFiles/Commit.xib; sourceTree = "<group>"; };
 		6F7BC07C15C12E660012320A /* JLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLog.h; sourceTree = "<group>"; };
 		6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHReadme.h; sourceTree = "<group>"; };
@@ -2341,8 +2341,8 @@
 				8CE6867B0FB8C58400A3D625 /* IOCForksController.m */,
 				6F76CDBF16628FF500A2353E /* IOCCommitsController.h */,
 				6F76CDC016628FF500A2353E /* IOCCommitsController.m */,
-				6F797C5B1110E2BE007E5A8D /* CommitController.h */,
-				6F797C5C1110E2BE007E5A8D /* CommitController.m */,
+				6F797C5B1110E2BE007E5A8D /* IOCCommitController.h */,
+				6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */,
 			);
 			name = Repos;
 			sourceTree = "<group>";
@@ -3213,7 +3213,7 @@
 				6F0AEFBE100CF5DB00FB323E /* IssueObjectFormController.m in Sources */,
 				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
 				6F0BEB58111090D300E95E5A /* GHBranch.m in Sources */,
-				6F797C5D1110E2BE007E5A8D /* CommitController.m in Sources */,
+				6F797C5D1110E2BE007E5A8D /* IOCCommitController.m in Sources */,
 				6F2C77291114F430002665DA /* FilesController.m in Sources */,
 				6FF09E65111589D600925109 /* FilesCell.m in Sources */,
 				6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */,
@@ -3307,7 +3307,7 @@
 				6F61247A167D0410001A3E05 /* RepositoryController.m in Sources */,
 				6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */,
 				6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */,
-				6F61247D167D0410001A3E05 /* CommitController.m in Sources */,
+				6F61247D167D0410001A3E05 /* IOCCommitController.m in Sources */,
 				6F61247E167D0410001A3E05 /* PullRequestsController.m in Sources */,
 				6F61247F167D0410001A3E05 /* IOCPullRequestController.m in Sources */,
 				6F612480167D0410001A3E05 /* IssuesController.m in Sources */,
@@ -3426,7 +3426,7 @@
 				6FCAA44B167B52C800C816FA /* IssueObjectFormController.m in Sources */,
 				6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */,
 				6FCAA44D167B52C800C816FA /* GHBranch.m in Sources */,
-				6FCAA44E167B52C800C816FA /* CommitController.m in Sources */,
+				6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */,
 				6FCAA44F167B52C800C816FA /* FilesController.m in Sources */,
 				6FCAA450167B52C800C816FA /* FilesCell.m in Sources */,
 				6FCAA451167B52C800C816FA /* NSDate+Nibware.m in Sources */,

@@ -5,7 +5,7 @@
 #import "RepositoryController.h"
 #import "IOCIssueController.h"
 #import "IOCPullRequestController.h"
-#import "CommitController.h"
+#import "IOCCommitController.h"
 #import "GistController.h"
 #import "WebController.h"
 #import "IOCCommitsController.h"
@@ -84,7 +84,7 @@
 	} else if ([eventItem isKindOfClass:GHIssue.class]) {
 		viewController = [[IOCIssueController alloc] initWithIssue:eventItem];
 	} else if ([eventItem isKindOfClass:GHCommit.class]) {
-		viewController = [[CommitController alloc] initWithCommit:eventItem];
+		viewController = [[IOCCommitController alloc] initWithCommit:eventItem];
 	} else if ([eventItem isKindOfClass:GHGist.class]) {
 		viewController = [[GistController alloc] initWithGist:eventItem];
 	} else if ([eventItem isKindOfClass:GHPullRequest.class]) {

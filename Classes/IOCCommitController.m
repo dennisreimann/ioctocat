@@ -1,4 +1,4 @@
-#import "CommitController.h"
+#import "IOCCommitController.h"
 #import "GHUser.h"
 #import "GHFiles.h"
 #import "GHCommit.h"
@@ -15,10 +15,13 @@
 #import "FilesController.h"
 #import "CommentController.h"
 #import "iOctocat.h"
+#import "IOCResourceStatusCell.h"
 
 
-@interface CommitController () <UIActionSheetDelegate>
+@interface IOCCommitController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHCommit *commit;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,weak)IBOutlet UILabel *authorLabel;
 @property(nonatomic,weak)IBOutlet UILabel *committerLabel;
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
@@ -34,13 +37,10 @@
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *loadingCommentsCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noCommentsCell;
 @end
 
 
-@implementation CommitController
+@implementation IOCCommitController
 
 static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
@@ -69,6 +69,8 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[super viewDidLoad];
 	self.title = [self.commit.commitID substringToIndex:8];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:@"commit"];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:@"comments"];
 	[self displayCommit];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
@@ -129,7 +131,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)displayCommentsChange {
-	if (!self.commit.isLoaded) return;
+	if (self.commit.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -160,12 +162,14 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.commit.isLoaded) return 1;
-	if (section == 0) return 4;
-	if (section == 1) return 3;
-	if (!self.commit.comments.isLoaded) return 1;
-	if (self.commit.comments.isEmpty) return 1;
-	return self.commit.comments.count;
+	if (self.commit.isEmpty) return 1;
+	if (section == 0) {
+		return 4;
+	} else if (section == 1) {
+		return 3;
+	} else {
+		return self.commit.comments.isEmpty ? 1 : self.commit.comments.count;
+	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -181,7 +185,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.commit.isLoaded) return self.loadingCell;
+	if (self.commit.isEmpty) return self.statusCell;
 	if (indexPath.section == 0 && indexPath.row == 0) return self.repoCell;
 	if (indexPath.section == 0 && indexPath.row == 1) return self.authorCell;
 	if (indexPath.section == 0 && indexPath.row == 2) return self.committerCell;
@@ -189,8 +193,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (indexPath.section == 1 && indexPath.row == 0) return self.addedCell;
 	if (indexPath.section == 1 && indexPath.row == 1) return self.removedCell;
 	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
-	if (!self.commit.comments.isLoaded) return self.loadingCommentsCell;
-	if (self.commit.comments.isEmpty) return self.noCommentsCell;
+	if (self.commit.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
@@ -218,7 +221,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.commit.isLoaded) return;
+	if (self.commit.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) {

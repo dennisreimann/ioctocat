@@ -1,5 +1,5 @@
 #import "IOCCommitsController.h"
-#import "CommitController.h"
+#import "IOCCommitController.h"
 #import "CommitCell.h"
 #import "GHCommits.h"
 #import "GHCommit.h"
@@ -88,7 +88,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.resourceHasData) return;
 	GHCommit *commit = self.commits[indexPath.row];
-	CommitController *viewController = [[CommitController alloc] initWithCommit:commit];
+	IOCCommitController *viewController = [[IOCCommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

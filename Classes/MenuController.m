@@ -13,7 +13,7 @@
 #import "GistController.h"
 #import "IOCGistsController.h"
 #import "SearchController.h"
-#import "CommitController.h"
+#import "IOCCommitController.h"
 #import "NotificationsController.h"
 #import "GHUser.h"
 #import "GHGist.h"
@@ -150,7 +150,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			// Commit
 			NSString *sha = [url.pathComponents objectAtIndex:4];
 			GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
-			viewController = [[CommitController alloc] initWithCommit:commit];
+			viewController = [[IOCCommitController alloc] initWithCommit:commit];
 		}
 	}
 	if (viewController) {

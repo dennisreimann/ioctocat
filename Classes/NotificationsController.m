@@ -8,7 +8,7 @@
 #import "GHPullRequest.h"
 #import "GHIssue.h"
 #import "GHCommit.h"
-#import "CommitController.h"
+#import "IOCCommitController.h"
 #import "IOCIssueController.h"
 #import "IOCPullRequestController.h"
 #import "UIScrollView+SVPullToRefresh.h"
@@ -156,7 +156,7 @@
 	} else if ([notification.subject isKindOfClass:GHIssue.class]) {
 		viewController = [[IOCIssueController alloc] initWithIssue:(GHIssue *)notification.subject];
 	} else if ([notification.subject isKindOfClass:GHCommit.class]) {
-		viewController = [[CommitController alloc] initWithCommit:(GHCommit *)notification.subject];
+		viewController = [[IOCCommitController alloc] initWithCommit:(GHCommit *)notification.subject];
 	}
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

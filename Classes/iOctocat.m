@@ -85,8 +85,7 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 	BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
-	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
-	if (isMenuVisible && isGitHubLink) {
+	if (isMenuVisible && [self isGitHubURL:url]) {
 		MenuController *menuController = (MenuController *)self.menuNavController.topViewController;
 		[menuController openViewControllerForGitHubURL:url];
 		return YES;
@@ -108,8 +107,7 @@
 #pragma mark External resources
 
 - (BOOL)openURL:(NSURL *)url {
-	BOOL isGitHubLink = [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
-	if (isGitHubLink) {
+	if ([self isGitHubURL:url]) {
 		WebController *webController = [[WebController alloc] initWithURL:url];
 		[(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
 		return YES;
@@ -136,6 +134,10 @@
 	}
 #endif
 	return nil;
+}
+
+- (BOOL)isGitHubURL:(NSURL *)url {
+	return [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
 }
 
 #pragma mark Users

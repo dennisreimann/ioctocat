@@ -11,6 +11,8 @@ Changes:
 
 * Use box icon for repository throughout the app
 * Dismiss existing progress indicator when leaving code views
+* Improved form for editing issues and pull requests
+* Keep search term when selecting a different segment
 
 Bugfixes:
 

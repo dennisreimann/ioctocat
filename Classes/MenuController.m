@@ -158,13 +158,16 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 	}
 }
 
+// clean up the old state and push the given controller wrapped in a navigation controller 
 - (void)openViewController:(UIViewController *)viewController {
+	UINavigationController *currentController = (UINavigationController *)self.slidingViewController.topViewController;
 	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
 	UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:[self.class menuButtonImage] style:UIBarButtonItemStylePlain target:self action:@selector(toggleTopView)];
 	navController.view.layer.shadowOpacity = 0.8f;
 	navController.view.layer.shadowRadius = 5;
 	navController.view.layer.shadowColor = [UIColor blackColor].CGColor;
 	viewController.navigationItem.leftBarButtonItem = buttonItem;
+	[currentController popToRootViewControllerAnimated:NO];
 	[self.slidingViewController setTopViewController:navController];
 	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
 	[self.slidingViewController resetTopView];

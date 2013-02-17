@@ -43,7 +43,7 @@
 
 static NSString *const GravatarKeyPath = kGravatarKeyPath;
 static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
-static NSString *const NotificationsCountKeyPath = @"notifications.notificationsCount";
+static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (id)initWithUser:(GHUser *)user {
 	self = [self initWithNibName:@"Menu" bundle:nil];
@@ -254,7 +254,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.notifications
 			cell.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Menu%@.png", imageName]];
 		}
 	}
-	cell.badgeLabel.text = (section == 0) ? [NSString stringWithFormat:@"%d", self.user.notifications.notificationsCount]: nil;
+	cell.badgeLabel.text = (section == 0) ? [NSString stringWithFormat:@"%d", self.user.notifications.unreadCount]: nil;
 	return cell;
 }
 

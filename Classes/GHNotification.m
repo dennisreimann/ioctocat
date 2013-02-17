@@ -24,11 +24,13 @@
 }
 
 - (void)markAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure {
+	if (self.read) return;
+	self.read = YES;
 	NSDictionary *params = @{@"read": @YES};
 	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPatch success:^(GHResource *notification, id data) {
-		self.read = YES;
 		if (success) success(notification, data);
 	} failure:^(GHResource *notification, NSError *error) {
+		self.read = NO;
 		if (failure) failure(notification, error);
 	}];
 }

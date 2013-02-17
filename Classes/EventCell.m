@@ -107,7 +107,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 }
 
 - (void)markAsNew {
-	UIColor *highlightColor = [UIColor colorWithHue:0.586 saturation:0.087 brightness:1.0 alpha:1.0];
+	UIColor *highlightColor = [UIColor colorWithHue:0.6 saturation:0.09 brightness:1.0 alpha:1.0];
 	[self setCustomBackgroundColor:highlightColor];
 }
 

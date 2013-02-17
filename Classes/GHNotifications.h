@@ -7,7 +7,7 @@
 @interface GHNotifications : GHCollection
 @property(nonatomic,strong)NSDate *lastUpdate;
 @property(nonatomic,readwrite)NSInteger pollInterval;
-@property(nonatomic,readonly)NSInteger notificationsCount;
+@property(nonatomic,readonly)NSInteger unreadCount;
 @property(nonatomic,readonly)BOOL canReload;
 
 - (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure;

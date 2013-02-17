@@ -16,6 +16,7 @@
 #import "NotificationCell.h"
 #import "GHRepository.h"
 #import "IOCTableViewSectionHeader.h"
+#import "IOCResourceStatusCell.h"
 
 
 @interface NotificationsController () <UIActionSheetDelegate>
@@ -72,14 +73,23 @@
 	if (buttonIndex == 0) [self markAllAsRead];
 }
 
+// marks the notification as read, but keeps the cell
 - (void)markAsRead:(NSIndexPath *)indexPath {
+	NSInteger section = indexPath.section;
+	GHNotification *notification = [self notificationsForSection:section][indexPath.row];
+	[self.notifications markAsRead:notification success:nil failure:nil];
+}
+
+// marks the notification as read and removes the cell
+- (void)removeNotification:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSArray *sectionKeys = self.notificationsByRepository.allKeys;
 	NSString *sectionKey = sectionKeys[section];
 	NSMutableArray *notificationsInSection = self.notificationsByRepository[sectionKey];
 	GHNotification *notification = [self notificationsForSection:section][indexPath.row];
-	// mark as read
+	// mark as read, remove notification, and eventually the associated repo key
 	[self.notifications markAsRead:notification success:nil failure:nil];
+	[self.notifications removeObject:notification];
 	[notificationsInSection removeObject:notification];
 	if (notificationsInSection.count == 0) {
 		[self.notificationsByRepository removeObjectForKey:sectionKey];
@@ -115,19 +125,15 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (self.notifications.isLoaded && !self.resourceHasData) {
-		return 1;
+	if (!self.resourceHasData) {
+		return (self.notifications.isFailed || self.notifications.isLoaded) ? 1 : 0;
 	} else {
 		return [[self notificationsForSection:section] count];
 	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (self.resourceHasData) {
-		return self.notificationsByRepository.allKeys[section];
-	} else {
-		return nil;
-	}
+	return self.resourceHasData ? self.notificationsByRepository.allKeys[section] : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -140,10 +146,14 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return self.noNotificationsCell;
+	if (!self.resourceHasData) {
+		return self.notifications.isLoaded ? self.noNotificationsCell : [[IOCResourceStatusCell alloc] initWithResource:self.notifications name:@"notifications"];
+	}
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
 	if (cell == nil) cell = [NotificationCell cell];
-	cell.notification = [self notificationsForSection:indexPath.section][indexPath.row];
+	GHNotification *notification = [self notificationsForSection:indexPath.section][indexPath.row];
+	cell.notification = notification;
+	notification.read ? [cell markAsRead] : [cell markAsNew];
 	return cell;
 }
 
@@ -159,13 +169,14 @@
 		viewController = [[IOCCommitController alloc] initWithCommit:(GHCommit *)notification.subject];
 	}
 	if (viewController) {
-		[self.navigationController pushViewController:viewController animated:YES];
 		[self markAsRead:indexPath];
+		[self.navigationController pushViewController:viewController animated:YES];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-	[self markAsRead:indexPath];
+	[self removeNotification:indexPath];
 }
 
 #pragma mark Helpers
@@ -203,7 +214,7 @@
 				[weakSelf.tableView reloadData];
 			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
-				[iOctocat reportLoadingError:@"Could not load the notifications"];
+				[weakSelf.tableView reloadData];
 			}];
 		} else {
 			[weakSelf.tableView.pullToRefreshView stopAnimating];

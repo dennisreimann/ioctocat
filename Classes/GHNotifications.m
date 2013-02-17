@@ -7,7 +7,7 @@
 
 
 @interface GHNotifications ()
-@property(nonatomic,readwrite)NSInteger notificationsCount;
+@property(nonatomic,readwrite)NSInteger unreadCount;
 @end
 
 
@@ -15,7 +15,7 @@
 
 - (id)initWithPath:(NSString *)path {
 	if (self = [super initWithPath:path]) {
-		self.notificationsCount = 0;
+		self.unreadCount = 0;
 		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
 	}
 	return self;
@@ -39,7 +39,7 @@
 		GHNotification *notification = [[GHNotification alloc] initWithDict:dict];
 		[self addObject:notification];
 	}
-	self.notificationsCount = self.count;
+	[self updateUnreadCount];
 	self.lastUpdate = [NSDate date];
 	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath];
 }
@@ -51,8 +51,7 @@
 
 - (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure {
 	[notification markAsReadSuccess:^(GHResource *notification, id response) {
-		[self removeObject:notification];
-		self.notificationsCount = self.count;
+		[self updateUnreadCount];
 		if (success) success(notification, response);
 	} failure:^(GHResource *notification, NSError *error) {
 		if (failure) failure(notification, error);
@@ -70,6 +69,13 @@
 	} failure:^(GHResource *notifications, NSError *error) {
 		if (failure) failure(notifications, error);
 	}];
+}
+
+- (void)updateUnreadCount {
+	NSIndexSet *unreadIndexes = [self.items indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+		return ![(GHNotification *)obj read];
+	}];
+	self.unreadCount = unreadIndexes.count;
 }
 
 @end

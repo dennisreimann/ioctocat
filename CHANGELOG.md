@@ -13,6 +13,7 @@ Changes:
 * Dismiss existing progress indicator when leaving code views
 * Improved form for editing issues and pull requests
 * Keep search term when selecting a different segment
+* Marking notifications as read does not remove them from the list
 
 Bugfixes:
 

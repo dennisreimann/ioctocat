@@ -4,4 +4,6 @@
 @property(nonatomic,strong)GHNotification *notification;
 
 + (id)cell;
+- (void)markAsNew;
+- (void)markAsRead;
 @end

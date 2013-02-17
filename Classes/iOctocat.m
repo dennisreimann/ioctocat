@@ -17,7 +17,7 @@
 #import "NSDate+Nibware.h"
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
-#define kUserNotificationsCountKeyPath @"user.notifications.notificationsCount"
+#define kUserNotificationsCountKeyPath @"user.notifications.unreadCount"
 
 
 @interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
@@ -60,7 +60,7 @@
 	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
 	_currentAccount = account;
 	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	NSInteger badgeNumber = self.currentAccount.user.notifications.notificationsCount;
+	NSInteger badgeNumber = self.currentAccount.user.notifications.unreadCount;
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;

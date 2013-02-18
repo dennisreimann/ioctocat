@@ -48,6 +48,7 @@ static NSString *const ResourceStatusKeyPath = @"resourceStatus";
 }
 
 - (void)handleResourceStatusChange {
+	NSTextAlignment align = NSTextAlignmentLeft;
 	NSString *text = nil;
 	UIImage *image = nil;
 	if (self.resource.isLoading) {
@@ -59,10 +60,12 @@ static NSString *const ResourceStatusKeyPath = @"resourceStatus";
 		image = [UIImage imageNamed:@"LoadingError.png"];
 	} else if (self.resource.isEmpty) {
 		text = [NSString stringWithFormat:@"No %@", self.name];
+		align = NSTextAlignmentCenter;
 	}
 	if (self.spinner && !self.resource.isLoading) {
 		[self.spinner stopAnimating];
 	}
+	self.textLabel.textAlignment = align;
 	self.textLabel.text = text;
 	self.imageView.image = image;
 }

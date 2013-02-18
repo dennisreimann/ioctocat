@@ -22,21 +22,18 @@
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
-@property(nonatomic,weak)IBOutlet UILabel *authorLabel;
-@property(nonatomic,weak)IBOutlet UILabel *committerLabel;
-@property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
+@property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *committerCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *authoredCell;
 @property(nonatomic,strong)IBOutlet TextCell *messageCell;
 @property(nonatomic,strong)IBOutlet FilesCell *addedCell;
 @property(nonatomic,strong)IBOutlet FilesCell *modifiedCell;
 @property(nonatomic,strong)IBOutlet FilesCell *removedCell;
 @property(nonatomic,strong)IBOutlet CommentCell *commentCell;
-@property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
-@property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @end
 
 
@@ -58,7 +55,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:AuthorGravatarKeyPath]) {
+	if ([keyPath isEqualToString:AuthorGravatarKeyPath] && self.commit.author.gravatar) {
 		self.gravatarView.image = self.commit.author.gravatar;
 	}
 }
@@ -73,7 +70,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:@"comments"];
 	[self displayCommit];
 	// header
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground90.png"]];
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 	self.gravatarView.layer.cornerRadius = 3;
@@ -107,14 +104,13 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)displayCommit {
-	self.titleLabel.text = self.commit.message;
-	self.dateLabel.text = [self.commit.committedDate prettyDate];
+	self.titleLabel.text = self.commit.shortenedMessage;
     if (self.commit.author.gravatar) {
 		self.gravatarView.image = self.commit.author.gravatar;
 	}
 	[self.repoCell setContentText:self.commit.repository.repoId];
 	[self.authorCell setContentText:self.commit.author.login];
-	[self.committerCell setContentText:self.commit.committer.login];
+	[self.authoredCell setContentText:[self.commit.authoredDate prettyDate]];
 	[self.messageCell setContentText:self.commit.message];
 	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
 	[self.removedCell setFiles:self.commit.removed andDescription:@"removed"];
@@ -127,7 +123,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (void)displayCommentsChange {
-	if (self.commit.isEmpty) return;
+	if (self.commit.isEmpty || self.commit.comments.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -160,7 +156,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.commit.isEmpty) return 1;
 	if (section == 0) {
-		return 4;
+		return self.commit.hasExtendedMessage ? 4 : 3;
 	} else if (section == 1) {
 		return 3;
 	} else {
@@ -182,13 +178,20 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.commit.isEmpty) return self.statusCell;
-	if (indexPath.section == 0 && indexPath.row == 0) return self.repoCell;
-	if (indexPath.section == 0 && indexPath.row == 1) return self.authorCell;
-	if (indexPath.section == 0 && indexPath.row == 2) return self.committerCell;
-	if (indexPath.section == 0 && indexPath.row == 3) return self.messageCell;
-	if (indexPath.section == 1 && indexPath.row == 0) return self.addedCell;
-	if (indexPath.section == 1 && indexPath.row == 1) return self.removedCell;
-	if (indexPath.section == 1 && indexPath.row == 2) return self.modifiedCell;
+	NSInteger section = indexPath.section;
+	NSInteger row = indexPath.row;
+	// info
+	if (section == 0) {
+		if (row == 0) return self.repoCell;
+		if (row == 1) return self.authorCell;
+		if (row == 2) return self.authoredCell;
+		if (row == 3) return self.messageCell;
+	} else if (section == 1) {
+		if (row == 0) return self.addedCell;
+		if (row == 1) return self.removedCell;
+		if (row == 2) return self.modifiedCell;
+	}
+	// comments
 	if (self.commit.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
@@ -220,20 +223,23 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (self.commit.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (section == 0 && row == 0) {
-		IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:self.commit.repository];
-		[self.navigationController pushViewController:repoController animated:YES];
-	} else if (indexPath.section == 0) {
-		GHUser *user = (row == 1) ? self.commit.author : self.commit.committer;
-		IOCUserController *userController = [[IOCUserController alloc] initWithUser:user];
-		[self.navigationController pushViewController:userController animated:YES];
-	} else if (indexPath.section == 1) {
+	UIViewController *viewController = nil;
+	if (section == 0) {
+		if (row == 0) {
+			viewController = [[IOCRepositoryController alloc] initWithRepository:self.commit.repository];
+		} else if (row == 1) {
+			viewController = [[IOCUserController alloc] initWithUser:self.commit.author];
+		}
+	} else if (section == 1) {
 		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		if (!cell.files.isEmpty) {
 			IOCFilesController *filesController = [[IOCFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}
+	}
+	if (viewController) {
+		[self.navigationController pushViewController:viewController animated:YES];
 	}
 }
 

@@ -275,8 +275,6 @@
 		6F612491167D0410001A3E05 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
 		6F612492167D0410001A3E05 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
 		6F612493167D0429001A3E05 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
-		6F61F534139E3EE8005DBE67 /* HeadBackground90.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F530139E3EE8005DBE67 /* HeadBackground90.png */; };
-		6F61F535139E3EE8005DBE67 /* HeadBackground90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */; };
 		6F61F53E139E43FD005DBE67 /* AvatarBackground32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F538139E43FB005DBE67 /* AvatarBackground32.png */; };
 		6F61F53F139E43FD005DBE67 /* AvatarBackground32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F539139E43FB005DBE67 /* AvatarBackground32@2x.png */; };
 		6F61F540139E43FD005DBE67 /* AvatarBackground50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53A139E43FC005DBE67 /* AvatarBackground50.png */; };
@@ -575,8 +573,6 @@
 		6FCAA36E167B52C800C816FA /* IssueCommentEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F843153136D53350016E367 /* IssueCommentEvent@2x.png */; };
 		6FCAA36F167B52C800C816FA /* MainWindow-ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE613977DBE00CB0EAE /* MainWindow-ipad.xib */; };
 		6FCAA370167B52C800C816FA /* MainWindow-iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FB3CBE913977E4000CB0EAE /* MainWindow-iphone.xib */; };
-		6FCAA374167B52C800C816FA /* HeadBackground90.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F530139E3EE8005DBE67 /* HeadBackground90.png */; };
-		6FCAA375167B52C800C816FA /* HeadBackground90@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */; };
 		6FCAA376167B52C800C816FA /* AvatarBackground32.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F538139E43FB005DBE67 /* AvatarBackground32.png */; };
 		6FCAA377167B52C800C816FA /* AvatarBackground32@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F539139E43FB005DBE67 /* AvatarBackground32@2x.png */; };
 		6FCAA378167B52C800C816FA /* AvatarBackground50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53A139E43FC005DBE67 /* AvatarBackground50.png */; };
@@ -1103,8 +1099,6 @@
 		6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUser.png; sourceTree = "<group>"; };
 		6F612432167D00A3001A3E05 /* GHEventTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHEventTests.m; sourceTree = "<group>"; };
 		6F612435167D00AF001A3E05 /* GHEventTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHEventTests.h; sourceTree = "<group>"; };
-		6F61F530139E3EE8005DBE67 /* HeadBackground90.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = HeadBackground90.png; path = Images/HeadBackground90.png; sourceTree = "<group>"; };
-		6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "HeadBackground90@2x.png"; path = "Images/HeadBackground90@2x.png"; sourceTree = "<group>"; };
 		6F61F538139E43FB005DBE67 /* AvatarBackground32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AvatarBackground32.png; path = Images/AvatarBackground32.png; sourceTree = "<group>"; };
 		6F61F539139E43FB005DBE67 /* AvatarBackground32@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "AvatarBackground32@2x.png"; path = "Images/AvatarBackground32@2x.png"; sourceTree = "<group>"; };
 		6F61F53A139E43FC005DBE67 /* AvatarBackground50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = AvatarBackground50.png; path = Images/AvatarBackground50.png; sourceTree = "<group>"; };
@@ -1936,8 +1930,6 @@
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				6F61F530139E3EE8005DBE67 /* HeadBackground90.png */,
-				6F61F531139E3EE8005DBE67 /* HeadBackground90@2x.png */,
 				6F61F538139E43FB005DBE67 /* AvatarBackground32.png */,
 				6F61F539139E43FB005DBE67 /* AvatarBackground32@2x.png */,
 				6F61F53A139E43FC005DBE67 /* AvatarBackground50.png */,
@@ -2562,8 +2554,6 @@
 				6F843157136D53350016E367 /* IssueCommentEvent@2x.png in Resources */,
 				6FB3CBE713977DBE00CB0EAE /* MainWindow-ipad.xib in Resources */,
 				6FB3CBEA13977E4000CB0EAE /* MainWindow-iphone.xib in Resources */,
-				6F61F534139E3EE8005DBE67 /* HeadBackground90.png in Resources */,
-				6F61F535139E3EE8005DBE67 /* HeadBackground90@2x.png in Resources */,
 				6F61F53E139E43FD005DBE67 /* AvatarBackground32.png in Resources */,
 				6F61F53F139E43FD005DBE67 /* AvatarBackground32@2x.png in Resources */,
 				6F61F540139E43FD005DBE67 /* AvatarBackground50.png in Resources */,
@@ -2867,8 +2857,6 @@
 				6FCAA36E167B52C800C816FA /* IssueCommentEvent@2x.png in Resources */,
 				6FCAA36F167B52C800C816FA /* MainWindow-ipad.xib in Resources */,
 				6FCAA370167B52C800C816FA /* MainWindow-iphone.xib in Resources */,
-				6FCAA374167B52C800C816FA /* HeadBackground90.png in Resources */,
-				6FCAA375167B52C800C816FA /* HeadBackground90@2x.png in Resources */,
 				6FCAA376167B52C800C816FA /* AvatarBackground32.png in Resources */,
 				6FCAA377167B52C800C816FA /* AvatarBackground32@2x.png in Resources */,
 				6FCAA378167B52C800C816FA /* AvatarBackground50.png in Resources */,

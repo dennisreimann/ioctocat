@@ -4,6 +4,7 @@
 
 Additions:
 
+* Option to disable the unread notifications badge
 * Webview shows page title. Thanks @drodriguez
 * "Show on GitHub" on user profile
 
@@ -20,6 +21,7 @@ Bugfixes:
 * Fixed crash when selecting an event cell after failed reload
 * Fixed crash when selecting a notification cell after failed reload
 * Fixed crash caused by triggering item loading while its already loading
+* Fixed eventually crash when deleting an GitHub Enterprise account
 * Fixed eventually cut text in comment cells
 * No more empty cell when there are no private or public repos
 * Automatically reload changed issues

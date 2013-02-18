@@ -60,8 +60,8 @@
 	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
 	_currentAccount = account;
 	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	NSInteger badgeNumber = self.currentAccount.user.notifications.unreadCount;
-	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
+	NSInteger unread = self.currentAccount.user.notifications.unreadCount;
+	[self setBadge:unread];
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
 		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
@@ -190,8 +190,8 @@
 			[IOCAvatarCache cacheGravatar:user.gravatar forIdentifier:user.login];
 		}
 	} else if ([keyPath isEqualToString:kUserNotificationsCountKeyPath]) {
-		NSInteger badgeNumber = [change safeIntegerForKey:@"new"];
-		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:badgeNumber];
+		NSInteger unread = [change safeIntegerForKey:@"new"];
+		[self setBadge:unread];
 	}
 }
 
@@ -227,6 +227,12 @@
 
 + (void)reportLoadingError:(NSString *)message {
 	[self reportError:@"Loading error" with:message];
+}
+
+- (void)setBadge:(NSInteger)number {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if (![[defaults valueForKey:kUnreadBadgeDefaultsKey] boolValue]) number = 0;
+	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
 }
 
 - (void)checkGitHubSystemStatus {

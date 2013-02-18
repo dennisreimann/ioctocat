@@ -7,6 +7,7 @@
 #define kLastActivatedDateDefaulsKey         @"lastActivatedDate"
 #define kLineNumbersDefaultsKey              @"lineNumbers"
 #define kThemeDefaultsKey                    @"theme"
+#define kUnreadBadgeDefaultsKey              @"unreadBadge"
 
 // API
 #define kRequestMethodGet               @"GET"

@@ -108,11 +108,14 @@
 	}
 
 	// Other Repository
-	NSString *otherRepoName = [self.payload safeStringForKeyPath:@"forkee.name"];
-	NSString *otherRepoOwner = [self.payload safeStringForKeyPath:@"forkee.owner.login"];
-	if (![otherRepoOwner isEmpty] && ![otherRepoName isEmpty]) {
-		self.otherRepository = [[GHRepository alloc] initWithOwner:otherRepoOwner andName:otherRepoName];
-		self.otherRepository.descriptionText = [self.payload safeStringForKeyPath:@"forkee.description"];
+	NSDictionary *otherRepoDict = [self.payload safeDictForKey:@"forkee"];
+	if (otherRepoDict) {
+		NSString *otherRepoName = [otherRepoDict safeStringForKey:@"name"];
+		NSString *otherRepoOwner = [otherRepoDict safeStringForKeyPath:@"owner.login"];
+		if (![otherRepoOwner isEmpty] && ![otherRepoName isEmpty]) {
+			self.otherRepository = [[GHRepository alloc] initWithOwner:otherRepoOwner andName:otherRepoName];
+			self.otherRepository.descriptionText = [otherRepoDict safeStringForKey:@"description"];
+		}
 	}
 
 	// Issue

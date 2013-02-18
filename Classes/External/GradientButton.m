@@ -584,13 +584,18 @@
 #pragma mark -
 - (void)dealloc 
 {
-    
     if (normalGradient != NULL)
         CGGradientRelease(normalGradient);
     if (highlightGradient != NULL)
         CGGradientRelease(highlightGradient);
-    
-    
+}
+
+// overriding setHighlighted fixes staying highlight after quick
+// touches, see: http://stackoverflow.com/a/10762475/183537
+-(void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    [self setNeedsDisplay];
 }
 
 @end

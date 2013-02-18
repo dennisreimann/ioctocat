@@ -47,8 +47,8 @@
 
 - (IBAction)saveIssue:(id)sender {
 	// validate
-	if (self.titleField.text.isEmpty || self.bodyField.text.isEmpty) {
-		[iOctocat reportError:@"Validation failed" with:@"Please enter a title and a text"];
+	if (self.titleField.text.isEmpty) {
+		[iOctocat reportError:@"Validation failed" with:@"Please enter a title"];
 	} else {
 		self.saveButton.enabled = NO;
 		NSDictionary *params = @{@"title": self.titleField.text, @"body": self.bodyField.text};

@@ -17,7 +17,6 @@
 @interface IOCAccountsController () <IOCAuthenticationControllerDelegate, IOCAccountFormControllerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)NSMutableDictionary *accountsByEndpoint;
-@property(nonatomic,strong)NSMutableArray *endpoints;
 @property(nonatomic,strong)IOCAuthenticationController *authController;
 @end
 
@@ -56,7 +55,7 @@
 	[self handleAccountsChange];
 }
 
-#pragma mark Accounts
+#pragma mark Helpers
 
 - (void)handleAccountsChange {
 	// persist the accounts
@@ -67,17 +66,42 @@
 	self.accountsByEndpoint = [NSMutableDictionary dictionary];
 	for (NSDictionary *dict in self.accounts) {
 		NSString *endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
-		if ([endpoint isEmpty]) endpoint = @"https://github.com";
+		if (endpoint.isEmpty) endpoint = @"https://github.com";
 		if (!self.accountsByEndpoint[endpoint]) {
 			self.accountsByEndpoint[endpoint] = [NSMutableArray array];
 		}
 		[self.accountsByEndpoint[endpoint] addObject:dict];
 	}
-	self.endpoints = [NSMutableArray arrayWithArray:[self.accountsByEndpoint allKeys]];
-	[self.endpoints sortUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 	// update UI
 	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
 	if (self.accounts.count == 0) self.editing = NO;
+}
+
+- (BOOL (^)(NSDictionary *obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
+	return [^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+		NSString *login = [obj safeStringForKey:kLoginDefaultsKey];
+		NSString *endpoint = [obj safeStringForKey:kEndpointDefaultsKey];
+		if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
+			*stop = YES;
+			return YES;
+		}
+		return NO;
+	} copy];
+}
+
+- (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath {
+	NSDictionary *accountDict = [[self accountsInSection:indexPath.section] objectAtIndex:indexPath.row];
+	if (accountDict) {
+		return [self.accounts indexOfObject:accountDict];
+	} else {
+		return NSNotFound;
+	}
+}
+
+- (NSArray *)accountsInSection:(NSInteger)section {
+	NSArray *keys = self.accountsByEndpoint.allKeys;
+	NSString *key = keys[section];
+	return self.accountsByEndpoint[key];
 }
 
 #pragma mark Actions
@@ -106,24 +130,10 @@
 	}
 }
 
-- (NSUInteger)accountIndexFromIndexPath:(NSIndexPath *)indexPath {
-	NSDictionary *accountDict = [[self accountsInSection:indexPath.section] objectAtIndex:indexPath.row];
-	if (accountDict) {
-		return [self.accounts indexOfObject:accountDict];
-	} else {
-		return NSNotFound;
-	}
-}
-
-- (NSArray *)accountsInSection:(NSInteger)section {
-	NSString *endpoint = [self.endpoints objectAtIndex:section];
-	return [self.accountsByEndpoint objectForKey:endpoint];
-}
-
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.endpoints.count;
+	return self.accountsByEndpoint.allKeys.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -140,13 +150,10 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (self.endpoints.count > 1) {
-		NSString *endpoint = [self.endpoints objectAtIndex:section];
-		NSURL *url = [NSURL URLWithString:endpoint];
-		return url.host;
-	} else {
-		return nil;
-	}
+	NSArray *keys = self.accountsByEndpoint.allKeys;
+	NSString *endpoint = keys[section];
+	NSURL *url = [NSURL URLWithString:endpoint];
+	return url.host;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -176,8 +183,10 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		NSInteger section = indexPath.section;
-		NSString *endpoint = [self.endpoints objectAtIndex:section];
-		[self.accounts removeObjectAtIndex:indexPath.row];
+		NSArray *keys = self.accountsByEndpoint.allKeys;
+		NSString *endpoint = keys[section];
+		NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
+		[self.accounts removeObjectAtIndex:idx];
 		[self handleAccountsChange];
 		// update table:
 		// remove the section if it was the last account in this section
@@ -198,7 +207,7 @@
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+	return NO;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -220,18 +229,6 @@
 		NSUInteger idx = [self.accounts indexOfObjectPassingTest:[self blockTestingForAccount:account]];
 		[self editAccountAtIndex:idx];
 	}
-}
-
-- (BOOL (^)(NSDictionary *obj, NSUInteger idx, BOOL *stop))blockTestingForAccount:(GHAccount*)account {
-	return [^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
-		NSString *login = [obj safeStringForKey:kLoginDefaultsKey];
-		NSString *endpoint = [obj safeStringForKey:kEndpointDefaultsKey];
-		if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
-			*stop = YES;
-			return YES;
-		}
-		return NO;
-	} copy];
 }
 
 @end

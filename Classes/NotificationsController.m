@@ -76,7 +76,7 @@
 // marks the notification as read, but keeps the cell
 - (void)markAsRead:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
-	GHNotification *notification = [self notificationsForSection:section][indexPath.row];
+	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
 	[self.notifications markAsRead:notification success:nil failure:nil];
 }
 
@@ -86,7 +86,7 @@
 	NSArray *sectionKeys = self.notificationsByRepository.allKeys;
 	NSString *sectionKey = sectionKeys[section];
 	NSMutableArray *notificationsInSection = self.notificationsByRepository[sectionKey];
-	GHNotification *notification = [self notificationsForSection:section][indexPath.row];
+	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
 	// mark as read, remove notification, and eventually the associated repo key
 	[self.notifications markAsRead:notification success:nil failure:nil];
 	[self.notifications removeObject:notification];
@@ -128,7 +128,7 @@
 	if (!self.resourceHasData) {
 		return (self.notifications.isFailed || self.notifications.isLoaded) ? 1 : 0;
 	} else {
-		return [[self notificationsForSection:section] count];
+		return [[self notificationsInSection:section] count];
 	}
 }
 
@@ -151,7 +151,7 @@
 	}
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
 	if (cell == nil) cell = [NotificationCell cell];
-	GHNotification *notification = [self notificationsForSection:indexPath.section][indexPath.row];
+	GHNotification *notification = [self notificationsInSection:indexPath.section][indexPath.row];
 	cell.notification = notification;
 	notification.read ? [cell markAsRead] : [cell markAsNew];
 	return cell;
@@ -159,7 +159,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.resourceHasData) return;
-	GHNotification *notification = [self notificationsForSection:indexPath.section][indexPath.row];
+	GHNotification *notification = [self notificationsInSection:indexPath.section][indexPath.row];
 	UIViewController *viewController = nil;
 	if ([notification.subject isKindOfClass:GHPullRequest.class]) {
 		viewController = [[IOCPullRequestController alloc] initWithPullRequest:(GHPullRequest *)notification.subject];
@@ -185,12 +185,11 @@
 	return self.notificationsByRepository.allKeys.count > 0;
 }
 
-- (NSArray *)notificationsForSection:(NSInteger)section {
+- (NSArray *)notificationsInSection:(NSInteger)section {
 	if (!self.resourceHasData) return nil;
 	NSArray *keys = self.notificationsByRepository.allKeys;
 	NSString *key = keys[section];
-	NSArray *values = self.notificationsByRepository[key];
-	return values;
+	return self.notificationsByRepository[key];
 }
 
 - (void)rebuildByRepository {

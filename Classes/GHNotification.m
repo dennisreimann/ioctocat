@@ -52,16 +52,20 @@
 	self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 	[self.repository setValues:repoDict];
 	if ([self.subjectType isEqualToString:@"PullRequest"]) {
-		self.subject = [[GHPullRequest alloc] initWithRepository:self.repository];
-		NSInteger num = [[subjectURL lastPathComponent] intValue];
-		[(GHPullRequest *)self.subject setNum:num];
+		GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
+		pullRequest.num = [[subjectURL lastPathComponent] intValue];
+		pullRequest.title = self.title;
+		self.subject = pullRequest;
 	} else if ([self.subjectType isEqualToString:@"Issue"]) {
-		self.subject = [[GHIssue alloc] initWithRepository:self.repository];
-		NSInteger num = [[subjectURL lastPathComponent] intValue];
-		[(GHIssue *)self.subject setNum:num];
+		GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
+		issue.num = [[subjectURL lastPathComponent] intValue];
+		issue.title = self.title;
+		self.subject = issue;
 	} else if ([self.subjectType isEqualToString:@"Commit"]) {
 		NSString *sha = [subjectURL lastPathComponent];
-		self.subject = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
+		GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
+		commit.message = self.title;
+		self.subject = commit;
 	}
 	if (self.subject) self.subject.resourcePath	= subjectURL.path;
 }

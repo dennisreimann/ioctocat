@@ -47,6 +47,7 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
+	if (self.tree.isLoading) return;
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

@@ -56,6 +56,7 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
+	if (self.organizations.isLoading) return;
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

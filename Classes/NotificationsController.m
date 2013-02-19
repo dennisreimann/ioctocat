@@ -205,7 +205,7 @@
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		if (weakSelf.notifications.canReload) {
+		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
 			[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
 				[weakSelf rebuildByRepository];
 				[weakSelf refreshLastUpdate];

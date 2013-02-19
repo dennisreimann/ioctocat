@@ -68,6 +68,7 @@
 }
 
 - (IBAction)refresh:(id)sender {
+	if (self.currentPullRequests.isLoading) return;
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	[self.currentPullRequests loadWithParams:nil success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

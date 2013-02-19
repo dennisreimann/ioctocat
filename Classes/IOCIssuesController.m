@@ -99,6 +99,7 @@
 }
 
 - (IBAction)refresh:(id)sender {
+	if (self.currentIssues.isLoading) return;
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	[self.currentIssues loadWithParams:nil success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

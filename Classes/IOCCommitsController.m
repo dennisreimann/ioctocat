@@ -50,6 +50,7 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
+	if (self.commits.isLoading) return;
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

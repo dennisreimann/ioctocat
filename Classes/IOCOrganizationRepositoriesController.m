@@ -89,6 +89,7 @@
 - (IBAction)refresh:(id)sender {
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	for (GHOrganization *org in self.user.organizations.items) {
+		if (org.repositories.isLoading) continue;
 		[org.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 			[SVProgressHUD dismiss];
 			[self.tableView reloadData];

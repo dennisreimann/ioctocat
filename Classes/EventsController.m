@@ -161,16 +161,18 @@
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		weakSelf.selectedCell = nil;
-		weakSelf.selectedIndexPath = nil;
-		[weakSelf.events loadWithParams:nil success:^(GHResource *instance, id data) {
-			[weakSelf refreshLastUpdate];
-			[weakSelf.tableView.pullToRefreshView stopAnimating];
-			[weakSelf.tableView reloadData];
-		} failure:^(GHResource *instance, NSError *error) {
-			[weakSelf.tableView.pullToRefreshView stopAnimating];
-			[iOctocat reportLoadingError:@"Could not load the feed"];
-		}];
+		if (weakSelf.events.isLoading) {
+			weakSelf.selectedCell = nil;
+			weakSelf.selectedIndexPath = nil;
+			[weakSelf.events loadWithParams:nil success:^(GHResource *instance, id data) {
+				[weakSelf refreshLastUpdate];
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
+				[weakSelf.tableView reloadData];
+			} failure:^(GHResource *instance, NSError *error) {
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
+				[iOctocat reportLoadingError:@"Could not load the feed"];
+			}];
+		}
 	}];
 	[self refreshLastUpdate];
 }

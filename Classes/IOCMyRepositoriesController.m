@@ -80,6 +80,7 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
+	if (self.user.repositories.isLoading) return;
 	[SVProgressHUD showWithStatus:@"Reloading…"];
 	[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

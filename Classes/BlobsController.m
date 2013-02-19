@@ -85,6 +85,7 @@
 - (void)setBlob:(GHBlob *)blob {
 	if (blob == self.blob) return;
 	_blob = blob;
+	[self.contentView stopLoading];
 	self.title = self.blob.path;
 	if (self.blob.isLoaded) {
 		[self displayBlob:blob];
@@ -109,6 +110,10 @@
 }
 
 #pragma mark WebView
+
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+	[SVProgressHUD show];
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 	[SVProgressHUD dismiss];

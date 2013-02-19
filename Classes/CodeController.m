@@ -45,6 +45,7 @@
 - (void)setFile:(NSDictionary *)file {
 	if (file == self.file) return;
 	_file = file;
+	[self.contentView stopLoading];
 	NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];
 	NSString *fileContent = [self.file safeStringForKey:@"content"];
 	NSString *lang = [self.file safeStringForKey:@"language"];

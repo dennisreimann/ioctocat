@@ -59,12 +59,25 @@
 }
 
 - (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure {
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
-	NSString *lastReadAt = [[dateFormatter stringFromDate:self.lastUpdate] stringByAppendingString:@"Z"];
-	NSDictionary *params = @{@"read": @YES, @"last_read_at": lastReadAt};
+	NSDictionary *params = @{@"read": @YES, @"last_read_at": self.formattedLastReadAt};
 	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPut success:^(GHResource *notifications, id response) {
 		[self setValues:@[]];
+		if (success) success(notifications, response);
+	} failure:^(GHResource *notifications, NSError *error) {
+		if (failure) failure(notifications, error);
+	}];
+}
+
+- (void)markAllAsReadForRepoId:(NSString *)repoId success:(resourceSuccess)success failure:(resourceFailure)failure {
+	NSString *path = [NSString stringWithFormat:kRepoNotificationsFormat, repoId];
+	NSDictionary *params = @{@"read": @YES, @"last_read_at": self.formattedLastReadAt};
+	[self saveWithParams:params path:path method:kRequestMethodPut success:^(GHResource *notifications, id response) {
+		NSIndexSet *indexSet = [self.items indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
+			GHRepository *repo = [(GHNotification *)obj repository];
+			return [repo.repoId isEqualToString:repoId];
+		}];
+		[self.items removeObjectsAtIndexes:indexSet];
+		[self updateUnreadCount];
 		if (success) success(notifications, response);
 	} failure:^(GHResource *notifications, NSError *error) {
 		if (failure) failure(notifications, error);
@@ -76,6 +89,13 @@
 		return ![(GHNotification *)obj read];
 	}];
 	self.unreadCount = unreadIndexes.count;
+}
+
+- (NSString *)formattedLastReadAt {
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	dateFormatter.dateFormat = @"yyyy-MM-dd'T'HH:mm:ss";
+	NSString *lastReadAt = [[dateFormatter stringFromDate:self.lastUpdate] stringByAppendingString:@"Z"];
+	return lastReadAt;
 }
 
 @end

@@ -38,6 +38,7 @@
 - (void)useAlertStyle;
 - (void)useRedDeleteStyle;
 - (void)useGithubStyle;
+- (void)useDarkGithubStyle;
 - (void)useWhiteStyle;
 - (void)useBlackStyle;
 - (void)useWhiteActionSheetStyle;

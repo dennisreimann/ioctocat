@@ -151,15 +151,12 @@
 - (void)useGithubStyle
 {
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
-	UIColor *color = [UIColor colorWithWhite:0.897 alpha:1.000];
+	UIColor *color = [UIColor colorWithWhite:0.9 alpha:1.000];
 	[colors addObject:(id)[color CGColor]];
-	color = [UIColor colorWithWhite:0.970 alpha:1.000];
+	color = [UIColor colorWithWhite:0.97 alpha:1.000];
 	[colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
-    self.normalGradientLocations = [NSMutableArray arrayWithObjects:
-                                    @0.0f,
-                                    @1.0f,
-                                    nil];
+    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
 	color = [UIColor colorWithRed:0.147 green:0.362 blue:0.670 alpha:1.000];
@@ -167,16 +164,39 @@
 	color = [UIColor colorWithRed:0.278 green:0.521 blue:0.852 alpha:1.000];
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
-    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:
-                                       @0.0f,
-                                       @1.0f,
-									   @0.601f,
-                                       nil];
+    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
     
     self.cornerRadius = 5.f;
     [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 }
+
+- (void)useDarkGithubStyle
+{
+    NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
+	UIColor *color = [UIColor colorWithWhite:0.8 alpha:1.000];
+	[colors addObject:(id)[color CGColor]];
+	color = [UIColor colorWithWhite:0.87 alpha:1.000];
+	[colors addObject:(id)[color CGColor]];
+    self.normalGradientColors = colors;
+    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, nil];
+
+    NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
+	color = [UIColor colorWithRed:0.147 green:0.362 blue:0.670 alpha:1.000];
+	[colors2 addObject:(id)[color CGColor]];
+	color = [UIColor colorWithRed:0.278 green:0.521 blue:0.852 alpha:1.000];
+	[colors2 addObject:(id)[color CGColor]];
+    self.highlightGradientColors = colors2;
+    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
+
+    self.cornerRadius = 3.f;
+	self.layer.cornerRadius = 3;
+	self.layer.borderWidth = 1;
+	self.layer.borderColor = [UIColor colorWithWhite:0.78 alpha:1.000].CGColor;
+    [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+}
+
 - (void)useWhiteStyle
 {
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:3];
@@ -590,8 +610,7 @@
         CGGradientRelease(highlightGradient);
 }
 
-// overriding setHighlighted fixes staying highlight after quick
-// touches, see: http://stackoverflow.com/a/10762475/183537
+// overriding setHighlighted +, see: http://stackoverflow.com/a/10762475/183537
 -(void)setHighlighted:(BOOL)highlighted
 {
     [super setHighlighted:highlighted];

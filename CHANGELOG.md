@@ -4,6 +4,7 @@
 
 Additions:
 
+* Mark all notifications for a repo as read
 * Option to disable the unread notifications badge
 * Webview shows page title. Thanks @drodriguez
 * "Show on GitHub" on user profile
@@ -15,6 +16,7 @@ Changes:
 * Improved form for editing issues and pull requests
 * Keep search term when selecting a different segment
 * Marking notifications as read does not remove them from the list
+* Do not allow refresh when resource is already loading
 
 Bugfixes:
 

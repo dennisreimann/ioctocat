@@ -12,4 +12,5 @@
 
 - (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)markAllAsReadForRepoId:(NSString *)repoId success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

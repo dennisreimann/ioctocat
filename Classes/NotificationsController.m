@@ -17,6 +17,7 @@
 #import "GHRepository.h"
 #import "IOCTableViewSectionHeader.h"
 #import "IOCResourceStatusCell.h"
+#import "GradientButton.h"
 
 
 @interface NotificationsController () <UIActionSheetDelegate>
@@ -83,24 +84,23 @@
 // marks the notification as read and removes the cell
 - (void)removeNotification:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
-	NSArray *sectionKeys = self.notificationsByRepository.allKeys;
-	NSString *sectionKey = sectionKeys[section];
-	NSMutableArray *notificationsInSection = self.notificationsByRepository[sectionKey];
+	NSString *repoId = [self repoIdForSection:section];
+	NSMutableArray *notificationsInSection = self.notificationsByRepository[repoId];
 	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
 	// mark as read, remove notification, and eventually the associated repo key
 	[self.notifications markAsRead:notification success:nil failure:nil];
 	[self.notifications removeObject:notification];
 	[notificationsInSection removeObject:notification];
 	if (notificationsInSection.count == 0) {
-		[self.notificationsByRepository removeObjectForKey:sectionKey];
+		[self.notificationsByRepository removeObjectForKey:repoId];
 	}
 	// update table:
 	// reload if this was the last notification
-	if (self.notificationsByRepository.allKeys.count == 0) {
+	if (!self.resourceHasData) {
 		[self.tableView reloadData];
 	}
 	// remove the section if it was the last notification in this section
-	else if (!self.notificationsByRepository[sectionKey]) {
+	else if (!self.notificationsByRepository[repoId]) {
 		NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
 		[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
 	}
@@ -118,6 +118,23 @@
 	[self.tableView reloadData];
 }
 
+- (void)markAllAsReadInSection:(UIButton *)sender {
+	NSInteger section = sender.tag;
+	NSString *repoId = [self repoIdForSection:section];
+	[self.notifications markAllAsReadForRepoId:repoId success:nil failure:nil];
+	[self.notificationsByRepository removeObjectForKey:repoId];
+	// update table:
+	// reload if this was the last notification
+	if (!self.resourceHasData) {
+		[self.tableView reloadData];
+	}
+	// remove the section if it was the last notification in this section
+	else if (!self.notificationsByRepository[repoId]) {
+		NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
+		[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
+	}
+}
+
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -133,16 +150,39 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return self.resourceHasData ? self.notificationsByRepository.allKeys[section] : nil;
+	return [self repoIdForSection:section];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return ([self tableView:tableView titleForHeaderInSection:section]) ? 24 : 0;
+    return ([self tableView:tableView titleForHeaderInSection:section]) ? 40 : 0;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
-    return (title == nil) ? nil : [IOCTableViewSectionHeader headerForTableView:tableView title:title];
+    if (title == nil) {
+		return nil;
+	} else {
+		IOCTableViewSectionHeader *header = [IOCTableViewSectionHeader headerForTableView:tableView title:title];
+		UIFont *btnFont = [UIFont systemFontOfSize:13];
+		NSString *repo = [title lastPathComponent];
+		NSString *btnTitle = [NSString stringWithFormat:@"Mark %@ as read", repo];
+		CGSize btnSize = [btnTitle sizeWithFont:btnFont];
+		CGFloat btnWidth = btnSize.width + 16;
+		CGFloat btnHeight = btnSize.height + 8;
+		CGFloat btnMargin = 5;
+		CGFloat maxWidth = 150;
+		if (btnWidth > maxWidth) btnWidth = maxWidth;
+		GradientButton *button = [[GradientButton alloc] initWithFrame:CGRectMake(header.frame.size.width - btnWidth - btnMargin, btnMargin, btnWidth, btnHeight)];
+		button.contentEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4);
+		button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+		button.titleLabel.font = btnFont;
+		button.tag = section;
+		[button addTarget:self action:@selector(markAllAsReadInSection:) forControlEvents:UIControlEventTouchUpInside];
+		[button setTitle:btnTitle forState:UIControlStateNormal];
+		[button useDarkGithubStyle];
+		[header addSubview:button];
+		return header;
+	} 
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -185,6 +225,10 @@
 	return self.notificationsByRepository.allKeys.count > 0;
 }
 
+- (NSString *)repoIdForSection:(NSInteger)section {
+	return self.resourceHasData ? self.notificationsByRepository.allKeys[section] : nil;
+}
+
 - (NSArray *)notificationsInSection:(NSInteger)section {
 	if (!self.resourceHasData) return nil;
 	NSArray *keys = self.notificationsByRepository.allKeys;
@@ -206,7 +250,8 @@
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
-			[weakSelf.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
+			NSDictionary *params = @{@"per_page": @100};
+			[weakSelf.notifications loadWithParams:params success:^(GHResource *instance, id data) {
 				[weakSelf rebuildByRepository];
 				[weakSelf refreshLastUpdate];
 				[weakSelf.tableView.pullToRefreshView stopAnimating];

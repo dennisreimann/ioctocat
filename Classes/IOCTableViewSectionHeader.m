@@ -11,7 +11,7 @@
 	
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(10, 0, view.frame.size.width - 20, view.frame.size.height);
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	label.backgroundColor = [UIColor clearColor];
     label.textColor = [UIColor colorWithWhite:0.391 alpha:1.000];
     label.font = [UIFont boldSystemFontOfSize:13];

@@ -56,6 +56,7 @@
 #define kOrganizationEventsFormat               @"orgs/%@/events"
 #define kNotificationsFormat                    @"notifications"
 #define kNotificationThreadFormat               @"notifications/threads/%d"
+#define kRepoNotificationsFormat                @"repos/%@/notifications"
 
 // Authenticated user
 #define kAuthorizationsFormat                   @"authorizations"

@@ -13,6 +13,10 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		363E955516D4184A00F252C0 /* ToolbarAction.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955316D4184A00F252C0 /* ToolbarAction.png */; };
+		363E955616D4184A00F252C0 /* ToolbarAction.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955316D4184A00F252C0 /* ToolbarAction.png */; };
+		363E955716D4184A00F252C0 /* ToolbarAction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955416D4184A00F252C0 /* ToolbarAction@2x.png */; };
+		363E955816D4184A00F252C0 /* ToolbarAction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955416D4184A00F252C0 /* ToolbarAction@2x.png */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -922,6 +926,8 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		363E955316D4184A00F252C0 /* ToolbarAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarAction.png; sourceTree = "<group>"; };
+		363E955416D4184A00F252C0 /* ToolbarAction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarAction@2x.png"; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
@@ -1878,6 +1884,8 @@
 		6F5E9C781119D43E00752560 /* Toolbar */ = {
 			isa = PBXGroup;
 			children = (
+				363E955316D4184A00F252C0 /* ToolbarAction.png */,
+				363E955416D4184A00F252C0 /* ToolbarAction@2x.png */,
 				6F08799A1623635E00CE95D0 /* ToolbarGist.png */,
 				6F08799B1623635E00CE95D0 /* ToolbarGist@2x.png */,
 				6FB73AFB15FA50F10055A937 /* ToolbarStar.png */,
@@ -2753,6 +2761,8 @@
 				6F814CD816BF06B9006B6D0E /* UIActivityIndicatorPlaceholder.png in Resources */,
 				6F814CDC16BF095D006B6D0E /* LoadingError.png in Resources */,
 				6F814CDE16BF095D006B6D0E /* LoadingError@2x.png in Resources */,
+				363E955516D4184A00F252C0 /* ToolbarAction.png in Resources */,
+				363E955716D4184A00F252C0 /* ToolbarAction@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3056,6 +3066,8 @@
 				6F814CD916BF06B9006B6D0E /* UIActivityIndicatorPlaceholder.png in Resources */,
 				6F814CDD16BF095D006B6D0E /* LoadingError.png in Resources */,
 				6F814CDF16BF095D006B6D0E /* LoadingError@2x.png in Resources */,
+				363E955616D4184A00F252C0 /* ToolbarAction.png in Resources */,
+				363E955816D4184A00F252C0 /* ToolbarAction@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

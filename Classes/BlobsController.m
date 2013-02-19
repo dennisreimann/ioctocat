@@ -5,13 +5,14 @@
 #import "SVProgressHUD.h"
 
 
-@interface BlobsController () <UIWebViewDelegate>
+@interface BlobsController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate>
 @property(nonatomic,strong)GHBlob *blob;
 @property(nonatomic,strong)NSArray *blobs;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
-@property(nonatomic,strong)IBOutlet UIBarButtonItem *controlItem;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *controlItem;
+@property(nonatomic,strong)UIDocumentInteractionController *docInteractionController;
 @end
 
 
@@ -30,8 +31,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
-	self.blob = self.blobs[self.index];
+	//self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
+    self.blob = self.blobs[self.index];
 	self.contentView.scrollView.bounces = NO;
 }
 
@@ -84,29 +85,48 @@
 
 - (void)setBlob:(GHBlob *)blob {
 	if (blob == self.blob) return;
+    if (self.docInteractionController) [self.docInteractionController dismissMenuAnimated:YES];
 	_blob = blob;
 	[self.contentView stopLoading];
 	self.title = self.blob.path;
 	if (self.blob.isLoaded) {
 		[self displayBlob:blob];
+        [self.navigationControl setEnabled:YES forSegmentAtIndex:0];
 	} else {
 		[SVProgressHUD show];
 		// when done, check if it's the current blob, because we might get notified
 		// about a blob that has been loaded but is not the current one
 		[self.blob loadWithParams:nil success:^(GHResource *instance, id data) {
-			if (blob == self.blob) [self displayBlob:blob];
+			if (blob == self.blob) {
+                [self displayBlob:blob];
+                [self.navigationControl setEnabled:YES forSegmentAtIndex:0];
+            }
 		} failure:^(GHResource *instance, NSError *error) {
-			if (blob == self.blob) [iOctocat reportLoadingError:@"Could not load the file"];
+			if (blob == self.blob) {
+                [iOctocat reportLoadingError:@"Could not load the file"];
+                [self.navigationControl setEnabled:NO forSegmentAtIndex:0];
+            }
 		}];
 	}
 	// Update navigation control
-	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:0];
-	[self.navigationControl setEnabled:(self.index < self.blobs.count-1) forSegmentAtIndex:1];
+	[self.navigationControl setEnabled:(self.index > 0) forSegmentAtIndex:1];
+	[self.navigationControl setEnabled:(self.index < self.blobs.count-1) forSegmentAtIndex:2];
 }
 
 - (IBAction)segmentChanged:(UISegmentedControl *)segmentedControl {
-	self.index += (segmentedControl.selectedSegmentIndex == 0) ? -1 : 1;
-	self.blob = self.blobs[self.index];
+    if (segmentedControl.selectedSegmentIndex == 0) {
+        NSURL *url = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:self.blob.path]];
+        if (!self.docInteractionController) {
+            self.docInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
+            self.docInteractionController.delegate = self;
+        } else {
+            [self.docInteractionController setURL:url];
+        }
+        [self.docInteractionController presentOpenInMenuFromBarButtonItem:self.controlItem animated:YES];
+    } else {
+        self.index += (segmentedControl.selectedSegmentIndex == 1) ? -1 : 1;
+        self.blob = self.blobs[self.index];
+    }
 }
 
 #pragma mark WebView
@@ -121,6 +141,22 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
 	[SVProgressHUD dismiss];
+}
+
+#pragma mark DocumentInteractionController
+
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication: (NSString *)application {
+    NSData *data = nil;
+    if (self.blob.content) {
+        data = [self.blob.content dataUsingEncoding:NSUTF8StringEncoding];
+    } else if (self.blob.contentData) {
+        data = self.blob.contentData;
+    }
+    [data writeToURL:[controller URL] atomically:YES];
+}
+
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication: (NSString *)application {
+    [[NSFileManager defaultManager] removeItemAtURL:[controller URL] error:nil];
 }
 
 @end

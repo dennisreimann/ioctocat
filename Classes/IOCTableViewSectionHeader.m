@@ -1,6 +1,10 @@
 #import "IOCTableViewSectionHeader.h"
 
 
+@interface IOCTableViewSectionHeader ()
+@property(nonatomic,strong)UILabel *titleLabel;
+@end
+
 @implementation IOCTableViewSectionHeader
 
 + (IOCTableViewSectionHeader *)headerForTableView:(UITableView *)tableView title:(NSString *)title {
@@ -8,14 +12,15 @@
 	CGFloat height = 24;
 	IOCTableViewSectionHeader *view = [[super alloc] initWithFrame:CGRectMake(0, 0, width, height)];
 	view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-	
-    UILabel *label = [[UILabel alloc] init];
-    label.frame = CGRectMake(10, 0, view.frame.size.width - 20, view.frame.size.height);
-    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-	label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor colorWithWhite:0.391 alpha:1.000];
-    label.font = [UIFont boldSystemFontOfSize:13];
-	label.text = title;
+
+    view.titleLabel = [[UILabel alloc] init];
+    view.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	view.titleLabel.backgroundColor = [UIColor clearColor];
+    view.titleLabel.textColor = [UIColor colorWithWhite:0.391 alpha:1.000];
+    view.titleLabel.font = [UIFont boldSystemFontOfSize:13];
+	view.titleLabel.text = title;
+	CGSize titleSize = [view.titleLabel.text sizeWithFont:view.titleLabel.font];
+	view.titleLabel.frame = CGRectMake(10, 0, titleSize.width, view.frame.size.height);
 
     CAGradientLayer *gradient = [CAGradientLayer layer];
 	gradient.frame = view.frame;
@@ -23,7 +28,7 @@
 		(id)[UIColor colorWithWhite:0.980 alpha:1.000].CGColor,
 		(id)[UIColor colorWithWhite:0.902 alpha:1.000].CGColor];
 	[view.layer insertSublayer:gradient atIndex:0];
-	[view addSubview:label];
+	[view addSubview:view.titleLabel];
 
     return view;
 }

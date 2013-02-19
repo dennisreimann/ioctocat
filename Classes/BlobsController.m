@@ -145,7 +145,7 @@
 
 #pragma mark DocumentInteractionController
 
-- (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication: (NSString *)application {
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application {
     NSData *data = nil;
     if (self.blob.content) {
         data = [self.blob.content dataUsingEncoding:NSUTF8StringEncoding];
@@ -155,7 +155,7 @@
     [data writeToURL:[controller URL] atomically:YES];
 }
 
-- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication: (NSString *)application {
+- (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application {
     [[NSFileManager defaultManager] removeItemAtURL:[controller URL] error:nil];
 }
 

@@ -93,6 +93,7 @@
 		[self displayBlob:blob];
         [self.navigationControl setEnabled:YES forSegmentAtIndex:0];
 	} else {
+        [self.navigationControl setEnabled:NO forSegmentAtIndex:0];
 		[SVProgressHUD show];
 		// when done, check if it's the current blob, because we might get notified
 		// about a blob that has been loaded but is not the current one

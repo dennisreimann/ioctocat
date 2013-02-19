@@ -70,15 +70,24 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
 	[self openViewController:myEventsController];
 	// load resources
-	if (!self.user.notifications.isLoaded) {
+	if (self.user.notifications.isUnloaded) {
 		[self.user.notifications loadWithParams:nil success:^(GHResource *instance, id data) {
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 			[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 		} failure:nil];
 	}
-	if (!self.user.organizations.isLoaded) {
+	if (self.user.organizations.isUnloaded) {
+		for (GHOrganization *org in self.user.organizations.items) {
+			[org removeObserver:self forKeyPath:GravatarKeyPath];
+		}
 		// success is handled by the KVO hook
-		[self.user.organizations loadWithParams:nil success:nil failure:^(GHResource *instance, NSError *error) {
+		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+			for (GHOrganization *org in self.user.organizations.items) {
+				[org addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+			}
+			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}];
 	}
@@ -86,6 +95,9 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (void)dealloc {
+	for (GHOrganization *org in self.user.organizations.items) {
+		[org removeObserver:self forKeyPath:GravatarKeyPath];
+	}
 	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
 	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 	[self.user removeObserver:self forKeyPath:NotificationsCountKeyPath];
@@ -93,11 +105,12 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:GravatarKeyPath]) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+		NSInteger row = 0;
+		if ([object isKindOfClass:GHOrganization.class]) {
+			row = [self.user.organizations.items indexOfObject:object] + 1;
+		}
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
 		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-	} else if ([keyPath isEqualToString:OrgsLoadingKeyPath]) {
-		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
-		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 	} else if ([keyPath isEqualToString:NotificationsCountKeyPath]) {
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];

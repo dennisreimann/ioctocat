@@ -73,7 +73,7 @@
 		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
 		method = kRequestMethodPatch;
 	}
-	[self saveWithParams:params path:path method:method start:nil success:^(GHResource *instance, id data) {
+	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {
 		[self setValues:data];
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {

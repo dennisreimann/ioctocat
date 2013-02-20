@@ -113,10 +113,7 @@
                 [self.navigationControl setEnabled:YES forSegmentAtIndex:0];
             }
 		} failure:^(GHResource *instance, NSError *error) {
-			if (blob == self.blob) {
-                [iOctocat reportLoadingError:@"Could not load the file"];
-                [self.navigationControl setEnabled:NO forSegmentAtIndex:0];
-            }
+			if (blob == self.blob) [iOctocat reportLoadingError:@"Could not load the file"];
 		}];
 	}
 	// Update navigation control

@@ -13,6 +13,14 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		364E009716D55021005F5490 /* ToolbarLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009316D55021005F5490 /* ToolbarLeft.png */; };
+		364E009816D55021005F5490 /* ToolbarLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009316D55021005F5490 /* ToolbarLeft.png */; };
+		364E009916D55021005F5490 /* ToolbarLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009416D55021005F5490 /* ToolbarLeft@2x.png */; };
+		364E009A16D55021005F5490 /* ToolbarLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009416D55021005F5490 /* ToolbarLeft@2x.png */; };
+		364E009B16D55021005F5490 /* ToolbarRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009516D55021005F5490 /* ToolbarRight.png */; };
+		364E009C16D55021005F5490 /* ToolbarRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009516D55021005F5490 /* ToolbarRight.png */; };
+		364E009D16D55021005F5490 /* ToolbarRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009616D55021005F5490 /* ToolbarRight@2x.png */; };
+		364E009E16D55021005F5490 /* ToolbarRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 364E009616D55021005F5490 /* ToolbarRight@2x.png */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -579,10 +587,6 @@
 		6FCAA379167B52C800C816FA /* AvatarBackground50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53B139E43FC005DBE67 /* AvatarBackground50@2x.png */; };
 		6FCAA37A167B52C800C816FA /* HeadBackground80.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53C139E43FC005DBE67 /* HeadBackground80.png */; };
 		6FCAA37B167B52C800C816FA /* HeadBackground80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */; };
-		6FCAA37D167B52C800C816FA /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */; };
-		6FCAA37E167B52C800C816FA /* ToolbarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */; };
-		6FCAA37F167B52C800C816FA /* ToolbarUp.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */; };
-		6FCAA380167B52C800C816FA /* ToolbarUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */; };
 		6FCAA384167B52C800C816FA /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
 		6FCAA38C167B52C800C816FA /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
 		6FCAA38D167B52C800C816FA /* ToolbarIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */; };
@@ -894,10 +898,6 @@
 		E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
 		E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
 		EF7248196E634C6AB69D25C9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67ECF03BCF254C88A027B814 /* libPods.a */; };
-		FCC2C8D113944DF400C8E10D /* ToolbarDown.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */; };
-		FCC2C8D213944DF400C8E10D /* ToolbarDown@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */; };
-		FCC2C8D313944DF400C8E10D /* ToolbarUp.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */; };
-		FCC2C8D413944DF400C8E10D /* ToolbarUp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -922,6 +922,10 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		364E009316D55021005F5490 /* ToolbarLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarLeft.png; sourceTree = "<group>"; };
+		364E009416D55021005F5490 /* ToolbarLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarLeft@2x.png"; sourceTree = "<group>"; };
+		364E009516D55021005F5490 /* ToolbarRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRight.png; sourceTree = "<group>"; };
+		364E009616D55021005F5490 /* ToolbarRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarRight@2x.png"; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
@@ -1426,10 +1430,6 @@
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
 		E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
-		FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarDown.png; sourceTree = "<group>"; };
-		FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarDown@2x.png"; sourceTree = "<group>"; };
-		FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUp.png; sourceTree = "<group>"; };
-		FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUp@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1882,10 +1882,10 @@
 				6F08799B1623635E00CE95D0 /* ToolbarGist@2x.png */,
 				6FB73AFB15FA50F10055A937 /* ToolbarStar.png */,
 				6FB73AFC15FA50F10055A937 /* ToolbarStar@2x.png */,
-				FCC2C8CD13944DF400C8E10D /* ToolbarDown.png */,
-				FCC2C8CE13944DF400C8E10D /* ToolbarDown@2x.png */,
-				FCC2C8CF13944DF400C8E10D /* ToolbarUp.png */,
-				FCC2C8D013944DF400C8E10D /* ToolbarUp@2x.png */,
+				364E009316D55021005F5490 /* ToolbarLeft.png */,
+				364E009416D55021005F5490 /* ToolbarLeft@2x.png */,
+				364E009516D55021005F5490 /* ToolbarRight.png */,
+				364E009616D55021005F5490 /* ToolbarRight@2x.png */,
 				6FC0D3E911580DAF00511B7F /* ToolbarCommit.png */,
 				6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */,
 				6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */,
@@ -2560,10 +2560,6 @@
 				6F61F541139E43FD005DBE67 /* AvatarBackground50@2x.png in Resources */,
 				6F61F542139E43FD005DBE67 /* HeadBackground80.png in Resources */,
 				6F61F543139E43FD005DBE67 /* HeadBackground80@2x.png in Resources */,
-				FCC2C8D113944DF400C8E10D /* ToolbarDown.png in Resources */,
-				FCC2C8D213944DF400C8E10D /* ToolbarDown@2x.png in Resources */,
-				FCC2C8D313944DF400C8E10D /* ToolbarUp.png in Resources */,
-				FCC2C8D413944DF400C8E10D /* ToolbarUp@2x.png in Resources */,
 				6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */,
 				E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */,
 				6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */,
@@ -2753,6 +2749,10 @@
 				6F814CD816BF06B9006B6D0E /* UIActivityIndicatorPlaceholder.png in Resources */,
 				6F814CDC16BF095D006B6D0E /* LoadingError.png in Resources */,
 				6F814CDE16BF095D006B6D0E /* LoadingError@2x.png in Resources */,
+				364E009716D55021005F5490 /* ToolbarLeft.png in Resources */,
+				364E009916D55021005F5490 /* ToolbarLeft@2x.png in Resources */,
+				364E009B16D55021005F5490 /* ToolbarRight.png in Resources */,
+				364E009D16D55021005F5490 /* ToolbarRight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2863,10 +2863,6 @@
 				6FCAA379167B52C800C816FA /* AvatarBackground50@2x.png in Resources */,
 				6FCAA37A167B52C800C816FA /* HeadBackground80.png in Resources */,
 				6FCAA37B167B52C800C816FA /* HeadBackground80@2x.png in Resources */,
-				6FCAA37D167B52C800C816FA /* ToolbarDown.png in Resources */,
-				6FCAA37E167B52C800C816FA /* ToolbarDown@2x.png in Resources */,
-				6FCAA37F167B52C800C816FA /* ToolbarUp.png in Resources */,
-				6FCAA380167B52C800C816FA /* ToolbarUp@2x.png in Resources */,
 				6FCAA384167B52C800C816FA /* AccountForm.xib in Resources */,
 				6FCAA38C167B52C800C816FA /* NSDictionary+Extensions.h in Resources */,
 				6FCAA38D167B52C800C816FA /* ToolbarIssue@2x.png in Resources */,
@@ -3056,6 +3052,10 @@
 				6F814CD916BF06B9006B6D0E /* UIActivityIndicatorPlaceholder.png in Resources */,
 				6F814CDD16BF095D006B6D0E /* LoadingError.png in Resources */,
 				6F814CDF16BF095D006B6D0E /* LoadingError@2x.png in Resources */,
+				364E009816D55021005F5490 /* ToolbarLeft.png in Resources */,
+				364E009A16D55021005F5490 /* ToolbarLeft@2x.png in Resources */,
+				364E009C16D55021005F5490 /* ToolbarRight.png in Resources */,
+				364E009E16D55021005F5490 /* ToolbarRight@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

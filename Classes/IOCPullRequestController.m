@@ -27,8 +27,6 @@
 @interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)IOCPullRequestsController *listController;
-@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
-@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
@@ -37,6 +35,7 @@
 @property(nonatomic,weak)IBOutlet UILabel *commitTitleLabel;
 @property(nonatomic,weak)IBOutlet UITextView *commitTextView;
 @property(nonatomic,weak)IBOutlet GradientButton *mergeButton;
+@property(nonatomic,weak)IBOutlet GradientButton *commentButton;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet UITableViewCell *mergeCell;
@@ -74,15 +73,21 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[self layoutCommentButton];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
-	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
 	[self.mergeButton useGreenConfirmStyle];
 	[self displayPullRequest];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
+	// check assignment state
+	[self.currentUser checkRepositoryAssignment:self.pullRequest.repository success:^(GHResource *instance, id data) {
+		self.isAssignee = YES;
+		[self displayAssignmentChange];
+	} failure:^(GHResource *instance, NSError *error) {
+		self.isAssignee = NO;
+	}];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,12 +108,6 @@
 	} else if (self.pullRequest.comments.isChanged) {
 		[self displayCommentsChange];
 	}
-	// check assignment state
-	[self.currentUser checkRepositoryAssignment:self.pullRequest.repository success:^(GHResource *instance, id data) {
-		self.isAssignee = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isAssignee = NO;
-	}];
 }
 
 #pragma mark Helpers
@@ -122,7 +121,7 @@
 }
 
 - (BOOL)pullRequestMergeableByCurrentUser {
-	return self.pullRequest.isMergeable && self.isAssignee;
+	return self.pullRequest.isMergeable && self.pullRequest.isOpen && self.isAssignee;
 }
 
 - (void)displayPullRequest {
@@ -138,7 +137,6 @@
 	[self.updatedCell setContentText:[self.pullRequest.updated prettyDate]];
 	[self.closedCell setContentText:[self.pullRequest.closed prettyDate]];
 	[self.descriptionCell setContentText:self.pullRequest.body];
-	[self.tableView reloadData];
 }
 
 - (void)displayPullRequestChange {
@@ -146,10 +144,28 @@
 	[self.tableView reloadData];
 }
 
+- (void)displayAssignmentChange {
+	if (self.pullRequest.isEmpty || !self.pullRequestMergeableByCurrentUser) return;
+	NSIndexPath *mergePath = [NSIndexPath indexPathForRow:2 inSection:1];
+	[self.tableView insertRowsAtIndexPaths:@[mergePath] withRowAnimation:UITableViewRowAnimationTop];
+}
+
 - (void)displayCommentsChange {
-	if (self.pullRequest.isEmpty || self.pullRequest.comments.isEmpty) return;
+	if (self.pullRequest.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self layoutCommentButton];
+}
+
+// ugly fix for the problem described here:
+// https://github.com/dennisreimann/ioctocat/issues/264
+- (void)layoutCommentButton {
+	CGRect btnFrame = self.commentButton.frame;
+	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
+	CGFloat width = self.view.frame.size.width - margin * 2;
+	btnFrame.origin.x = margin;
+	btnFrame.size.width = width;
+	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Actions
@@ -275,7 +291,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.pullRequest.isEmpty) return self.statusCell;
+	if (self.pullRequest.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) return self.repoCell;
@@ -287,7 +303,7 @@
 	if (section == 1 && row == 0) return self.commitsCell;
 	if (section == 1 && row == 1) return self.filesCell;
 	if (section == 1 && row == 2) return self.mergeCell;
-	if (self.pullRequest.comments.isEmpty) return self.commentsStatusCell;
+	if (self.pullRequest.comments.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

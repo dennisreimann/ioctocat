@@ -18,18 +18,18 @@
 #import "GHRepository.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "GradientButton.h"
 
 
 @interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
-@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
-@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
+@property(nonatomic,weak)IBOutlet GradientButton *commentButton;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
@@ -63,9 +63,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[self layoutCommentButton];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.num];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
-	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
 	[self displayIssue];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -127,9 +126,21 @@
 }
 
 - (void)displayCommentsChange {
-	if (self.issue.isEmpty || self.issue.comments.isEmpty) return;
+	if (self.issue.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self layoutCommentButton];
+}
+
+// ugly fix for the problem described here:
+// https://github.com/dennisreimann/ioctocat/issues/264
+- (void)layoutCommentButton {
+	CGRect btnFrame = self.commentButton.frame;
+	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
+	CGFloat width = self.view.frame.size.width - margin * 2;
+	btnFrame.origin.x = margin;
+	btnFrame.size.width = width;
+	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Actions
@@ -222,7 +233,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.issue.isEmpty) return self.statusCell;
+	if (self.issue.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) return self.repoCell;
@@ -230,7 +241,7 @@
 	if (section == 0 && row == 2) return self.createdCell;
 	if (section == 0 && row == 3) return self.updatedCell;
 	if (section == 0 && row == 4) return self.descriptionCell;
-	if (self.issue.comments.isEmpty) return self.commentsStatusCell;
+	if (self.issue.comments.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

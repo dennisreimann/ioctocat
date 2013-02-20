@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	//self.navigationItem.rightBarButtonItem = self.blobs.count > 1 ? self.controlItem : nil;
-    self.blob = self.blobs[self.index];
+	self.blob = self.blobs[self.index];
 	self.contentView.scrollView.bounces = NO;
 }
 

@@ -12,6 +12,7 @@
 @property(nonatomic,weak)IBOutlet UIWebView *contentView;
 @property(nonatomic,weak)IBOutlet UISegmentedControl *navigationControl;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *controlItem;
+@property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
 @property(nonatomic,strong)UIDocumentInteractionController *docInteractionController;
 @end
 
@@ -19,7 +20,7 @@
 @implementation BlobsController
 
 - (id)initWithBlobs:(NSArray *)blobs currentIndex:(NSUInteger)idx {
-	self = [super initWithNibName:@"Code" bundle:nil];
+	self = [super initWithNibName:@"Blobs" bundle:nil];
 	if (self) {
 		self.blobs = blobs;
 		self.index = idx;
@@ -36,11 +37,20 @@
 	self.contentView.scrollView.bounces = NO;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self layoutForInterfaceOrientation:self.interfaceOrientation];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
 	[self.contentView stopLoading];
 	self.contentView.delegate = nil;
 	[SVProgressHUD dismiss];
 	[super viewWillDisappear:animated];
+}
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
+    [self layoutForInterfaceOrientation:interfaceOrientation];
 }
 
 #pragma mark Helpers
@@ -128,6 +138,14 @@
         self.index += (segmentedControl.selectedSegmentIndex == 1) ? -1 : 1;
         self.blob = self.blobs[self.index];
     }
+}
+
+// Adjust the toolbar height depending on the screen orientation,
+// see: http://stackoverflow.com/a/12111810/1104404
+- (void)layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    CGSize toolbarSize = [self.toolbar sizeThatFits:self.view.bounds.size];
+    self.toolbar.frame = CGRectMake(0.0f, self.view.bounds.size.height - toolbarSize.height, toolbarSize.width, toolbarSize.height);
+    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, CGRectGetMinY(self.toolbar.frame));
 }
 
 #pragma mark WebView

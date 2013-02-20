@@ -17,6 +17,8 @@
 		363E955616D4184A00F252C0 /* ToolbarAction.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955316D4184A00F252C0 /* ToolbarAction.png */; };
 		363E955716D4184A00F252C0 /* ToolbarAction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955416D4184A00F252C0 /* ToolbarAction@2x.png */; };
 		363E955816D4184A00F252C0 /* ToolbarAction@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 363E955416D4184A00F252C0 /* ToolbarAction@2x.png */; };
+		36E3BE5916D441C8008E8783 /* Blobs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E3BE5816D441C8008E8783 /* Blobs.xib */; };
+		36E3BE5A16D441C8008E8783 /* Blobs.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E3BE5816D441C8008E8783 /* Blobs.xib */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -928,6 +930,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		363E955316D4184A00F252C0 /* ToolbarAction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarAction.png; sourceTree = "<group>"; };
 		363E955416D4184A00F252C0 /* ToolbarAction@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarAction@2x.png"; sourceTree = "<group>"; };
+		36E3BE5816D441C8008E8783 /* Blobs.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Blobs.xib; path = IBFiles/Blobs.xib; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
@@ -2121,6 +2124,7 @@
 				6FB3CBE513977DBC00CB0EAE /* iPad */,
 				6FED82980FACA2AE00BE5C81 /* Cells */,
 				6F27CD2215911E7E00E15B34 /* AccountForm.xib */,
+				36E3BE5816D441C8008E8783 /* Blobs.xib */,
 				6F987655166FEBE30031E31B /* Menu.xib */,
 				6FA92B300FACD6EA001B1D1D /* MyEvents.xib */,
 				6FCDC66B0FC04F180024E498 /* Events.xib */,
@@ -2763,6 +2767,7 @@
 				6F814CDE16BF095D006B6D0E /* LoadingError@2x.png in Resources */,
 				363E955516D4184A00F252C0 /* ToolbarAction.png in Resources */,
 				363E955716D4184A00F252C0 /* ToolbarAction@2x.png in Resources */,
+				36E3BE5916D441C8008E8783 /* Blobs.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3068,6 +3073,7 @@
 				6F814CDF16BF095D006B6D0E /* LoadingError@2x.png in Resources */,
 				363E955616D4184A00F252C0 /* ToolbarAction.png in Resources */,
 				363E955816D4184A00F252C0 /* ToolbarAction@2x.png in Resources */,
+				36E3BE5A16D441C8008E8783 /* Blobs.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -89,11 +89,11 @@
 
 #pragma mark State toggling
 
-- (void)mergePullRequest:(NSString *)commitMessage success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	if (self.isMergeable) {
 		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.num];
 		NSDictionary *params = @{@"commit_message": commitMessage};
-		[self saveWithParams:params path:path method:kRequestMethodPut success:^(GHResource *instance, id data) {
+		[self saveWithParams:params path:path method:kRequestMethodPut start:start success:^(GHResource *instance, id data) {
 			self.isMerged = [data safeBoolForKey:@"merged"];
 			// set values manually that are not part of the response
 			if (self.isMerged) {
@@ -113,7 +113,7 @@
 
 #pragma mark Saving
 
-- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = nil;
 	NSString *method = nil;
 	if (self.isNew) {
@@ -123,7 +123,7 @@
 		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
 		method = kRequestMethodPatch;
 	}
-	[self saveWithParams:params path:path method:method success:^(GHResource *instance, id data) {
+	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {
 		[self setValues:data];
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {

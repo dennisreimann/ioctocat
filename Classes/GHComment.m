@@ -27,8 +27,8 @@
 	return nil;
 }
 
-- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[self saveWithParams:params path:self.savePath method:kRequestMethodPost success:^(GHResource *instance, id data) {
+- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+	[self saveWithParams:params path:self.savePath method:kRequestMethodPost start:start success:^(GHResource *instance, id data) {
 		[self setValues:data];
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {

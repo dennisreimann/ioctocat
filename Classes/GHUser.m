@@ -166,7 +166,7 @@
 - (void)checkUserFollowing:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = [NSString stringWithFormat:kUserFollowFormat, user.login];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil success:^(GHResource *instance, id data) {
+	[resource loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);
@@ -177,7 +177,7 @@
 	NSString *path = [NSString stringWithFormat:kUserFollowFormat, user.login];
 	NSString *method = follow ? kRequestMethodPut : kRequestMethodDelete;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:nil path:path method:method success:^(GHResource *instance, id data) {
+	[resource saveWithParams:nil path:path method:method start:nil success:^(GHResource *instance, id data) {
 		if (follow) {
 			[self.following addObject:user];
 		} else {
@@ -195,7 +195,7 @@
 - (void)checkGistStarring:(GHGist *)gist success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = [NSString stringWithFormat:kGistStarFormat, gist.gistId];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil path:path method:kRequestMethodGet success:^(GHResource *instance, id data) {
+	[resource loadWithParams:nil path:path method:kRequestMethodGet start:nil success:^(GHResource *instance, id data) {
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);
@@ -206,7 +206,7 @@
 	NSString *path = [NSString stringWithFormat:kGistStarFormat, gist.gistId];
 	NSString *method = starred ? kRequestMethodPut : kRequestMethodDelete;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:nil path:path method:method success:^(GHResource *instance, id data) {
+	[resource saveWithParams:nil path:path method:method start:nil success:^(GHResource *instance, id data) {
 		if (starred) {
 			[self.starredGists addObject:gist];
 		} else {
@@ -224,7 +224,7 @@
 - (void)checkRepositoryStarring:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = [NSString stringWithFormat:kRepoStarFormat, repo.owner, repo.name];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil success:^(GHResource *instance, id data) {
+	[resource loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);
@@ -235,7 +235,7 @@
 	NSString *path = [NSString stringWithFormat:kRepoStarFormat, repo.owner, repo.name];
 	NSString *method = starred ? kRequestMethodPut : kRequestMethodDelete;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:nil path:path method:method success:^(GHResource *instance, id data) {
+	[resource saveWithParams:nil path:path method:method start:nil success:^(GHResource *instance, id data) {
 		if (starred) {
 			[self.starredRepositories addObject:repo];
 		} else {
@@ -253,7 +253,7 @@
 - (void)checkRepositoryWatching:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, repo.owner, repo.name];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil path:path method:kRequestMethodGet success:^(GHResource *instance, id data) {
+	[resource loadWithParams:nil path:path method:kRequestMethodGet start:nil success:^(GHResource *instance, id data) {
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);
@@ -265,7 +265,7 @@
 	NSString *method = watched ? kRequestMethodPut : kRequestMethodDelete;
 	NSDictionary *params = watched ? @{@"subscribed": @"true"} : nil;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:params path:path method:method success:^(GHResource *instance, id data) {
+	[resource saveWithParams:params path:path method:method start:nil success:^(GHResource *instance, id data) {
 		if (watched) {
 			[self.watchedRepositories addObject:repo];
 		} else {
@@ -283,7 +283,7 @@
 - (void)checkRepositoryAssignment:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = [NSString stringWithFormat:kRepoAssigneeFormat, repo.owner, repo.name, self.login];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil path:path method:kRequestMethodGet success:^(GHResource *instance, id data) {
+	[resource loadWithParams:nil path:path method:kRequestMethodGet start:nil success:^(GHResource *instance, id data) {
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);

@@ -27,6 +27,6 @@
 @property(nonatomic,readonly)BOOL isClosed;
 
 - (id)initWithRepository:(GHRepository *)repo;
-- (void)mergePullRequest:(NSString *)commitMessage success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

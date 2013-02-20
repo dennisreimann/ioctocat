@@ -48,6 +48,11 @@
 	[self switchChanged:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
+}
+
 #pragma mark Helpers
 
 - (GHIssues *)currentPullRequests {
@@ -61,7 +66,7 @@
 	[self.tableView reloadData];
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentPullRequests.isLoaded) return;
-	[self.currentPullRequests loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.currentPullRequests loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
 	} failure:nil];
 	[self.tableView reloadData];
@@ -69,12 +74,13 @@
 
 - (IBAction)refresh:(id)sender {
 	if (self.currentPullRequests.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.currentPullRequests loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 
@@ -92,8 +98,8 @@
 	if (self.currentPullRequests.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentPullRequests name:@"pull requests"];
 	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (cell == nil) cell = [IssueObjectCell cell];
-	cell.issueObject = self.currentPullRequests[indexPath.row];
 	if (self.repository) [cell hideRepo];
+	cell.issueObject = self.currentPullRequests[indexPath.row];
 	return cell;
 }
 

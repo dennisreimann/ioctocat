@@ -26,8 +26,9 @@
 
 - (void)authenticateAccount:(GHAccount *)account {
 	self.account = account;
-	[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
-	[self.account.user loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.account.user loadWithParams:nil start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
+	} success:^(GHResource *instance, id data) {
 		[self stopAuthenticating];
 		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];
 	} failure:^(GHResource *instance, NSError *error) {

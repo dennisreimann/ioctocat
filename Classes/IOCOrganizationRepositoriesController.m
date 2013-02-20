@@ -15,6 +15,7 @@
 @interface IOCOrganizationRepositoriesController ()
 @property(nonatomic,weak,readonly)GHUser *currentUser;
 @property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)NSMutableArray *organizationRepositories;
 @end
 
@@ -37,16 +38,20 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : @"Organization Repos";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:@"organizations"];
 	// organizations
 	if (self.user.organizations.isLoaded) {
 		[self loadOrganizationRepositories];
 	} else {
-		[self.user.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.user.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self loadOrganizationRepositories];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}];
+		} failure:nil];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
 }
 
 #pragma mark Helpers
@@ -63,7 +68,7 @@
 		if (!repos.isEmpty) {
 			[self displayRepositories:repos];
 		} else if (!repos.isLoading && !repos.error) {
-			[repos loadWithParams:nil success:^(GHResource *instance, id data) {
+			[repos loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 				[self displayRepositories:(GHRepositories *)instance];
 			} failure:nil];
 		}
@@ -87,14 +92,15 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	[SVProgressHUD showWithStatus:@"Reloading…"];
 	for (GHOrganization *org in self.user.organizations.items) {
 		if (org.repositories.isLoading) continue;
-		[org.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+		[org.repositories loadWithParams:nil start:^(GHResource *instance) {
+			instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD dismiss];
 			[self.tableView reloadData];
 		} failure:^(GHResource *instance, NSError *error) {
-			[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+			instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 		}];
 	}
 	[self.tableView reloadData];
@@ -128,7 +134,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) return [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:@"organizations"];
+	if (!self.resourceHasData) return self.statusCell;
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	UITableViewCell *cell;
 	if (repos.isEmpty) {

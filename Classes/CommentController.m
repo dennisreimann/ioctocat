@@ -52,9 +52,10 @@
 	if ([self.bodyView.text isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
 	} else {
-		[SVProgressHUD showWithStatus:@"Posting comment…" maskType:SVProgressHUDMaskTypeGradient];
 		NSDictionary *params = @{@"body": self.bodyView.text};
-		[self.comment saveWithParams:params success:^(GHResource *instance, id data) {
+		[self.comment saveWithParams:params start:^(GHResource *instance) {
+			[SVProgressHUD showWithStatus:@"Posting comment…" maskType:SVProgressHUDMaskTypeGradient];
+		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
 			[self.comments addObject:(GHComment *)instance];
 			[self.comments markAsUnloaded];

@@ -35,7 +35,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.forks.isUnloaded) {
-		[self.forks loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.forks loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:nil];
 	} else if (self.forks.isChanged) {
@@ -43,16 +43,22 @@
 	}
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
+}
+
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
 	if (self.forks.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.forks loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.forks loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

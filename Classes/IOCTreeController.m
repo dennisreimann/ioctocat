@@ -36,7 +36,7 @@
 	[super viewWillAppear:animated];
 	// tree
 	if (self.tree.isUnloaded) {
-		[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.tree loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:nil];
 	} else if (self.tree.isChanged) {
@@ -44,16 +44,22 @@
 	}
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
+}
+
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
 	if (self.tree.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.tree loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.tree loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

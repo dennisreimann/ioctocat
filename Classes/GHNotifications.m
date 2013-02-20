@@ -49,8 +49,8 @@
 	self.pollInterval = [values safeIntegerForKey:@"X-Poll-Interval"];
 }
 
-- (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[notification markAsReadSuccess:^(GHResource *notification, id response) {
+- (void)markAsRead:(GHNotification *)notification start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+	[notification markAsReadStart:start success:^(GHResource *notification, id response) {
 		[self updateUnreadCount];
 		if (success) success(notification, response);
 	} failure:^(GHResource *notification, NSError *error) {
@@ -58,9 +58,9 @@
 	}];
 }
 
-- (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)markAllAsReadStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSDictionary *params = @{@"read": @YES, @"last_read_at": self.formattedLastReadAt};
-	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPut success:^(GHResource *notifications, id response) {
+	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPut start:start success:^(GHResource *notifications, id response) {
 		[self setValues:@[]];
 		if (success) success(notifications, response);
 	} failure:^(GHResource *notifications, NSError *error) {
@@ -68,10 +68,10 @@
 	}];
 }
 
-- (void)markAllAsReadForRepoId:(NSString *)repoId success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)markAllAsReadForRepoId:(NSString *)repoId start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = [NSString stringWithFormat:kRepoNotificationsFormat, repoId];
 	NSDictionary *params = @{@"read": @YES, @"last_read_at": self.formattedLastReadAt};
-	[self saveWithParams:params path:path method:kRequestMethodPut success:^(GHResource *notifications, id response) {
+	[self saveWithParams:params path:path method:kRequestMethodPut start:start success:^(GHResource *notifications, id response) {
 		NSIndexSet *indexSet = [self.items indexesOfObjectsPassingTest:^BOOL(id obj, NSUInteger idx, BOOL *stop) {
 			GHRepository *repo = [(GHNotification *)obj repository];
 			return [repo.repoId isEqualToString:repoId];

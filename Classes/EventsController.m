@@ -161,10 +161,10 @@
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		if (weakSelf.events.isLoading) {
+		if (!weakSelf.events.isLoading) {
 			weakSelf.selectedCell = nil;
 			weakSelf.selectedIndexPath = nil;
-			[weakSelf.events loadWithParams:nil success:^(GHResource *instance, id data) {
+			[weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 				[weakSelf refreshLastUpdate];
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf.tableView reloadData];

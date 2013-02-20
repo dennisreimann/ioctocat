@@ -24,6 +24,8 @@
 @interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
@@ -65,6 +67,8 @@
 	[super viewDidLoad];
 	[self layoutCommentButton];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
 	[self displayIssue];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -82,7 +86,7 @@
 	[super viewWillAppear:animated];
 	// issue
 	if (self.issue.isUnloaded) {
-		[self.issue loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.issue loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayIssueChange];
 		} failure:nil];
 	} else if (self.issue.isChanged) {
@@ -90,7 +94,7 @@
 	}
 	// comments
 	if (self.issue.comments.isUnloaded) {
-		[self.issue.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.issue.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:nil];
 	} else if (self.issue.comments.isChanged) {
@@ -127,6 +131,7 @@
 
 - (void)displayCommentsChange {
 	if (self.issue.isEmpty) return;
+	if (self.issue.comments.isEmpty) return [self.tableView reloadData];
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self layoutCommentButton];
@@ -196,8 +201,9 @@
 
 - (void)toggleIssueState {
 	NSDictionary *params = @{@"state": self.issue.isOpen ? kIssueStateClosed : kIssueStateOpen};
-	[SVProgressHUD showWithStatus:@"Saving issue…" maskType:SVProgressHUDMaskTypeGradient];
-	[self.issue saveWithParams:params success:^(GHResource *instance, id data) {
+	[self.issue saveWithParams:params start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:@"Saving issue…" maskType:SVProgressHUDMaskTypeGradient];
+	} success:^(GHResource *instance, id data) {
 		NSString *action = self.issue.isOpen ? @"reopened" : @"closed";
 		NSString *status = [NSString stringWithFormat:@"Issue %@", action];
 		[SVProgressHUD showSuccessWithStatus:status];
@@ -233,7 +239,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.issue.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
+	if (self.issue.isEmpty) return self.statusCell;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) return self.repoCell;
@@ -241,7 +247,7 @@
 	if (section == 0 && row == 2) return self.createdCell;
 	if (section == 0 && row == 3) return self.updatedCell;
 	if (section == 0 && row == 4) return self.descriptionCell;
-	if (self.issue.comments.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
+	if (self.issue.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

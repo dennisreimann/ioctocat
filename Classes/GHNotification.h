@@ -15,5 +15,5 @@
 @property(nonatomic,readonly)BOOL read;
 
 - (id)initWithDict:(NSDictionary *)dict;
-- (void)markAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)markAsReadStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

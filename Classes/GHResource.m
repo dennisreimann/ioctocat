@@ -38,10 +38,14 @@
 }
 
 - (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[self loadWithParams:params path:self.resourcePath method:kRequestMethodGet success:success failure:failure];
+	[self loadWithParams:params path:self.resourcePath method:kRequestMethodGet start:nil success:success failure:failure];
 }
 
-- (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)loadWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+	[self loadWithParams:params path:self.resourcePath method:kRequestMethodGet start:start success:success failure:failure];
+}
+
+- (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	self.error = nil;
 	self.resourceStatus = GHResourceStatusLoading;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
@@ -66,9 +70,10 @@
 	};
 	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
     [self.apiClient enqueueHTTPRequestOperation:operation];
+	if (start) start(self);
 }
 
-- (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	self.error = nil;
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
 	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
@@ -85,6 +90,7 @@
 	};
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
 	[operation start];
+	if (start) start(self);
 }
 
 #pragma mark Status

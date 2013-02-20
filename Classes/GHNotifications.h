@@ -10,7 +10,7 @@
 @property(nonatomic,readonly)NSInteger unreadCount;
 @property(nonatomic,readonly)BOOL canReload;
 
-- (void)markAsRead:(GHNotification *)notification success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)markAllAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)markAllAsReadForRepoId:(NSString *)repoId success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)markAsRead:(GHNotification *)notification start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)markAllAsReadStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)markAllAsReadForRepoId:(NSString *)repoId start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

@@ -35,12 +35,17 @@
 	if (self.user.repositories.isLoaded) {
 		[self displayRepositories];
 	} else {
-		[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.user.repositories loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayRepositories];
 		} failure:^(GHResource *instance, NSError *error) {
 			[self.tableView reloadData];
 		}];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
 }
 
 #pragma mark Helpers
@@ -81,12 +86,13 @@
 
 - (IBAction)refresh:(id)sender {
 	if (self.user.repositories.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.user.repositories loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.user.repositories loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self displayRepositories];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

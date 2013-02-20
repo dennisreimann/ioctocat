@@ -13,5 +13,5 @@
 @property(nonatomic,strong)NSDate *updated;
 @property(nonatomic,readonly)NSString *savePath;
 
-- (void)saveWithParams:(NSDictionary *)values success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)saveWithParams:(NSDictionary *)values start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

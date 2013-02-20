@@ -39,7 +39,7 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.commits.isUnloaded) {
-		[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.commits loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:nil];
 	} else if (self.commits.isChanged) {
@@ -47,16 +47,22 @@
 	}
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
+}
+
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
 	if (self.commits.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.commits loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.commits loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

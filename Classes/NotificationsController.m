@@ -78,7 +78,7 @@
 - (void)markAsRead:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
-	[self.notifications markAsRead:notification success:nil failure:nil];
+	[self.notifications markAsRead:notification start:nil success:nil failure:nil];
 }
 
 // marks the notification as read and removes the cell
@@ -88,7 +88,7 @@
 	NSMutableArray *notificationsInSection = self.notificationsByRepository[repoId];
 	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
 	// mark as read, remove notification, and eventually the associated repo key
-	[self.notifications markAsRead:notification success:nil failure:nil];
+	[self.notifications markAsRead:notification start:nil success:nil failure:nil];
 	[self.notifications removeObject:notification];
 	[notificationsInSection removeObject:notification];
 	if (notificationsInSection.count == 0) {
@@ -111,17 +111,20 @@
 }
 
 - (void)markAllAsRead {
-	[self.notifications markAllAsReadSuccess:^(GHResource *notifications, id data) {
+	[self.notifications markAllAsReadStart:^(GHResource *notifications) {
+		[self.notificationsByRepository removeAllObjects];
+		[self.tableView reloadData];
+	} success:^(GHResource *notifications, id data) {
 		[self.tableView triggerPullToRefresh];
-	} failure:nil];
-	[self.notificationsByRepository removeAllObjects];
-	[self.tableView reloadData];
+	} failure:^(GHResource *notifications, id data) {
+		[self.tableView triggerPullToRefresh];
+	}];
 }
 
 - (void)markAllAsReadInSection:(UIButton *)sender {
 	NSInteger section = sender.tag;
 	NSString *repoId = [self repoIdForSection:section];
-	[self.notifications markAllAsReadForRepoId:repoId success:nil failure:nil];
+	[self.notifications markAllAsReadForRepoId:repoId start:nil success:nil failure:nil];
 	[self.notificationsByRepository removeObjectForKey:repoId];
 	// update table:
 	// reload if this was the last notification
@@ -251,7 +254,7 @@
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
 			NSDictionary *params = @{@"per_page": @100};
-			[weakSelf.notifications loadWithParams:params success:^(GHResource *instance, id data) {
+			[weakSelf.notifications loadWithParams:params start:nil success:^(GHResource *instance, id data) {
 				[weakSelf rebuildByRepository];
 				[weakSelf refreshLastUpdate];
 				[weakSelf.tableView.pullToRefreshView stopAnimating];

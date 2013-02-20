@@ -30,6 +30,7 @@
 @interface IOCRepositoryController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *branchesStatusCell;
 @property(nonatomic,readonly)GHUser *currentUser;
 @property(nonatomic,readwrite)BOOL isStarring;
 @property(nonatomic,readwrite)BOOL isWatching;
@@ -72,6 +73,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
     self.navigationItem.titleView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:@"repository"];
+	self.branchesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository.branches name:@"branches"];
 	[self displayRepository];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -95,7 +97,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	[super viewWillAppear:animated];
 	// repository
 	if (self.repository.isUnloaded) {
-		[self.repository loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.repository loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayRepositoryChange];
 		} failure:nil];
 	} else if (self.repository.isChanged) {
@@ -103,7 +105,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	}
 	// branches
 	if (self.repository.branches.isUnloaded) {
-		[self.repository.branches loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.repository.branches loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayBranchesChange];
 		} failure:nil];
 	} else if (self.repository.branches.isChanged) {
@@ -111,7 +113,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	}
 	// readme
 	if (self.repository.readme.isUnloaded) {
-		[self.repository.readme loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.repository.readme loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayReadmeChange];
 		} failure:nil];
 	} else if (self.repository.readme.isChanged) {
@@ -149,13 +151,13 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (void)displayBranchesChange {
-	if (!self.repository.isLoaded) return;
+	if (self.repository.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)displayReadmeChange {
-	if (!self.repository.isLoaded) return;
+	if (self.repository.isEmpty) return;
 	NSInteger readmeRow = self.descriptionCell.hasContent ? 3 : 2;
 	NSIndexPath *readmePath = [NSIndexPath indexPathForRow:readmeRow inSection:0];
 	[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
@@ -229,13 +231,13 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	} else if (section == 1) {
 		return self.repository.hasIssues ? 5 : 4;
 	} else {
-		return self.repository.branches.count;
+		return self.repository.branches.isEmpty ? 1 : self.repository.branches.count;
 	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 2) return @"Code";
-	if (section == 3) return @"Commits";
+	if (section == 2 && !self.repository.branches.isEmpty) return @"Code";
+	if (section == 3 && !self.repository.branches.isEmpty) return @"Commits";
 	return nil;
 }
 
@@ -264,6 +266,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			case 4: cell = self.issuesCell; break;
 		}
 	} else {
+		if (self.repository.branches.isEmpty) return self.branchesStatusCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:BranchCellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BranchCellIdentifier];

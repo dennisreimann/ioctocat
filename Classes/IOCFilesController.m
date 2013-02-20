@@ -27,7 +27,7 @@
 	[super viewDidLoad];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.files name:@"files"];
 	if (self.files.isUnloaded) {
-		[self.files loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.files loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:nil];
 	}

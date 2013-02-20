@@ -16,6 +16,7 @@
 #import "SVProgressHUD.h"
 #import "LabeledCell.h"
 #import "IOCResourceStatusCell.h"
+#import "GradientButton.h"
 
 
 @interface IOCGistController () <UIActionSheetDelegate>
@@ -29,6 +30,7 @@
 @property(nonatomic,weak)IBOutlet UILabel *forksCountLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet UIImageView *forksIconView;
+@property(nonatomic,weak)IBOutlet GradientButton *commentButton;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
@@ -52,6 +54,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[self layoutCommentButton];
 	self.title = self.title ? self.title : @"Gist";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist name:@"gist"];
@@ -74,7 +77,7 @@
 	[super viewWillAppear:animated];
 	// gist
 	if (self.gist.isUnloaded) {
-		[self.gist loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.gist loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayGistChange];
 		} failure:nil];
 	} else if (self.gist.isChanged) {
@@ -82,7 +85,7 @@
 	}
 	// comments
 	if (self.gist.comments.isUnloaded) {
-		[self.gist.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.gist.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:nil];
 	} else if (self.gist.comments.isChanged) {
@@ -115,6 +118,18 @@
 	if (self.gist.isEmpty || self.gist.comments.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self layoutCommentButton];
+}
+
+// ugly fix for the problem described here:
+// https://github.com/dennisreimann/ioctocat/issues/264
+- (void)layoutCommentButton {
+	CGRect btnFrame = self.commentButton.frame;
+	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
+	CGFloat width = self.view.frame.size.width - margin * 2;
+	btnFrame.origin.x = margin;
+	btnFrame.size.width = width;
+	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Actions

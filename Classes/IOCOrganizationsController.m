@@ -39,12 +39,17 @@
 	[super viewWillAppear:animated];
 	// organizations
 	if (self.organizations.isUnloaded) {
-		[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
 		} failure:nil];
 	} else if (self.organizations.isChanged) {
 		[self.tableView reloadData];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
 }
 
 #pragma mark Helpers
@@ -57,12 +62,13 @@
 
 - (IBAction)refresh:(id)sender {
 	if (self.organizations.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.organizations loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.organizations loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

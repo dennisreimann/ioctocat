@@ -23,11 +23,11 @@
 	return self;
 }
 
-- (void)markAsReadSuccess:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)markAsReadStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	if (self.read) return;
 	self.read = YES;
 	NSDictionary *params = @{@"read": @YES};
-	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPatch success:^(GHResource *notification, id data) {
+	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPatch start:start success:^(GHResource *notification, id data) {
 		if (success) success(notification, data);
 	} failure:^(GHResource *notification, NSError *error) {
 		self.read = NO;

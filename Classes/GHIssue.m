@@ -63,7 +63,7 @@
 
 #pragma mark Saving
 
-- (void)saveWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSString *path = nil;
 	NSString *method = nil;
 	if (self.isNew) {
@@ -73,7 +73,7 @@
 		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
 		method = kRequestMethodPatch;
 	}
-	[self saveWithParams:params path:path method:method success:^(GHResource *instance, id data) {
+	[self saveWithParams:params path:path method:method start:nil success:^(GHResource *instance, id data) {
 		[self setValues:data];
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {

@@ -27,6 +27,8 @@
 @interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)IOCPullRequestsController *listController;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *createdLabel;
 @property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
@@ -75,6 +77,8 @@
 	[super viewDidLoad];
 	[self layoutCommentButton];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"issue"];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
 	[self.mergeButton useGreenConfirmStyle];
 	[self displayPullRequest];
 	// header
@@ -94,7 +98,7 @@
 	[super viewWillAppear:animated];
 	// pull request
 	if (self.pullRequest.isUnloaded) {
-		[self.pullRequest loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.pullRequest loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayPullRequestChange];
 		} failure:nil];
 	} else if (self.pullRequest.isChanged) {
@@ -102,7 +106,7 @@
 	}
 	// comments
 	if (self.pullRequest.comments.isUnloaded) {
-		[self.pullRequest.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.pullRequest.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:nil];
 	} else if (self.pullRequest.comments.isChanged) {
@@ -152,6 +156,7 @@
 
 - (void)displayCommentsChange {
 	if (self.pullRequest.isEmpty) return;
+	if (self.pullRequest.comments.isEmpty) return [self.tableView reloadData];
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 	[self layoutCommentButton];
@@ -172,8 +177,9 @@
 
 - (IBAction)mergePullRequest:(id)sender {
 	if (self.pullRequestMergeableByCurrentUser) {
-		[SVProgressHUD showWithStatus:@"Merging pull request…" maskType:SVProgressHUDMaskTypeGradient];
-		[self.pullRequest mergePullRequest:self.commitTextView.text success:^(GHResource *instance, id data) {
+		[self.pullRequest mergePullRequest:self.commitTextView.text start:^(GHResource *instance) {
+			[SVProgressHUD showWithStatus:@"Merging pull request…" maskType:SVProgressHUDMaskTypeGradient];
+		} success:^(GHResource *instance, id data) {
 			NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
 			NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
 			[SVProgressHUD showSuccessWithStatus:status];
@@ -255,8 +261,9 @@
 
 - (void)togglePullRequestState {
 	NSDictionary *params = @{@"state": self.pullRequest.isOpen ? kIssueStateClosed : kIssueStateOpen};
-	[SVProgressHUD showWithStatus:@"Saving pull request…" maskType:SVProgressHUDMaskTypeGradient];
-	[self.pullRequest saveWithParams:params success:^(GHResource *instance, id data) {
+	[self.pullRequest saveWithParams:params start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:@"Saving pull request…" maskType:SVProgressHUDMaskTypeGradient];
+	} success:^(GHResource *instance, id data) {
 		NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
 		NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
 		[SVProgressHUD showSuccessWithStatus:status];
@@ -291,7 +298,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.pullRequest.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
+	if (self.pullRequest.isEmpty) return self.statusCell;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) return self.repoCell;
@@ -303,7 +310,7 @@
 	if (section == 1 && row == 0) return self.commitsCell;
 	if (section == 1 && row == 1) return self.filesCell;
 	if (section == 1 && row == 2) return self.mergeCell;
-	if (self.pullRequest.comments.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
+	if (self.pullRequest.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];

@@ -72,6 +72,11 @@
 	[self switchChanged:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	[SVProgressHUD dismiss];
+}
+
 #pragma mark Helpers
 
 - (GHIssues *)currentIssues {
@@ -85,7 +90,7 @@
 	[self.tableView reloadData];
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentIssues.isLoaded) return;
-	[self.currentIssues loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.currentIssues loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
 	} failure:nil];
 	[self.tableView reloadData];
@@ -100,12 +105,13 @@
 
 - (IBAction)refresh:(id)sender {
 	if (self.currentIssues.isLoading) return;
-	[SVProgressHUD showWithStatus:@"Reloading…"];
-	[self.currentIssues loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.currentIssues loadWithParams:nil start:^(GHResource *instance) {
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

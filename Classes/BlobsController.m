@@ -107,10 +107,11 @@
         self.actionButton.enabled = YES;
 	} else {
         self.actionButton.enabled = NO;
-		[SVProgressHUD show];
 		// when done, check if it's the current blob, because we might get notified
 		// about a blob that has been loaded but is not the current one
-		[self.blob loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.blob loadWithParams:nil start:^(GHResource *instance) {
+			[SVProgressHUD show];
+		} success:^(GHResource *instance, id data) {
 			if (blob == self.blob) {
                 [self displayBlob:blob];
                 self.actionButton.enabled = YES;

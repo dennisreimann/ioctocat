@@ -16,6 +16,7 @@
 #import "CommentController.h"
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
+#import "GradientButton.h"
 
 
 @interface IOCCommitController () <UIActionSheetDelegate>
@@ -24,6 +25,7 @@
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet GradientButton *commentButton;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
@@ -64,6 +66,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	[self layoutCommentButton];
 	self.title = [self.commit.commitID substringToIndex:8];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:@"commit"];
@@ -81,7 +84,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[super viewWillAppear:animated];
 	// commits
 	if (self.commit.isUnloaded) {
-		[self.commit loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.commit loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayCommitChange];
 		} failure:nil];
 	} else if (self.commit.isChanged) {
@@ -89,7 +92,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	}
 	// comments
 	if (self.commit.comments.isUnloaded) {
-		[self.commit.comments loadWithParams:nil success:^(GHResource *instance, id data) {
+		[self.commit.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		} failure:nil];
 	} else if (self.commit.isChanged) {
@@ -126,6 +129,18 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (self.commit.isEmpty || self.commit.comments.isEmpty) return;
 	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self layoutCommentButton];
+}
+
+// ugly fix for the problem described here:
+// https://github.com/dennisreimann/ioctocat/issues/264
+- (void)layoutCommentButton {
+	CGRect btnFrame = self.commentButton.frame;
+	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
+	CGFloat width = self.view.frame.size.width - margin * 2;
+	btnFrame.origin.x = margin;
+	btnFrame.size.width = width;
+	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Actions

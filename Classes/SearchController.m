@@ -59,15 +59,17 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
 	self.currentSearch.searchTerm = self.searchBar.text;
-	[self.tableView reloadData];
-	[SVProgressHUD showWithStatus:@"Searching…" ];
-	[self.currentSearch loadWithParams:nil success:^(GHResource *instance, id data) {
+	[self.currentSearch loadWithParams:nil start:^(GHResource *instance) {
+		[self.tableView reloadData];
+		[SVProgressHUD showWithStatus:@"Searching…"];
+		[self quitSearching:nil];
+	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
 	} failure:^(GHResource *instance, NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Searching failed"];
 	}];
-	[self quitSearching:nil];
+	
 }
 
 - (void)quitSearching:(id)sender {

@@ -1,10 +1,24 @@
 # CHANGELOG
 
-## v1.7.7
+## v1.7.8
 
 Additions:
 
 * Mark all notifications for a repo as read
+* Open Repo and Gist files in other apps. Thanks @iosdeveloper
+
+Changes:
+
+* Various minor UI and UX improvements
+
+Bugfixes:
+
+* Re-added missing ability to merge pull requests
+
+## v1.7.7
+
+Additions:
+
 * Option to disable the unread notifications badge
 * Webview shows page title. Thanks @drodriguez
 * "Show on GitHub" on user profile

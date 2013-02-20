@@ -69,6 +69,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.repository.name;
+    self.navigationItem.titleView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:@"repository"];
 	[self displayRepository];

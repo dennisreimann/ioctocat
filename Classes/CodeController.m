@@ -104,6 +104,7 @@
         self.docInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
         self.docInteractionController.delegate = self;
     } else {
+        [self.docInteractionController dismissMenuAnimated:NO];
         [self.docInteractionController setURL:url];
     }
     [self.docInteractionController presentOpenInMenuFromBarButtonItem:sender animated:YES];

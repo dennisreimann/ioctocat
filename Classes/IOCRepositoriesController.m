@@ -37,9 +37,9 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.repositories.isUnloaded) {
-		[self.repositories loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.repositories loadWithSuccess:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:nil];
+		}];
 	} else if (self.repositories.isChanged) {
 		[self.tableView reloadData];
 	}

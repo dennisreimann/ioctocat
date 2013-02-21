@@ -43,9 +43,9 @@
 	if (self.user.organizations.isLoaded) {
 		[self loadOrganizationRepositories];
 	} else {
-		[self.user.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.user.organizations loadWithSuccess:^(GHResource *instance, id data) {
 			[self loadOrganizationRepositories];
-		} failure:nil];
+		}];
 	}
 }
 
@@ -68,9 +68,9 @@
 		if (!repos.isEmpty) {
 			[self displayRepositories:repos];
 		} else if (!repos.isLoading && !repos.error) {
-			[repos loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+			[repos loadWithSuccess:^(GHResource *instance, id data) {
 				[self displayRepositories:(GHRepositories *)instance];
-			} failure:nil];
+			}];
 		}
 	}
 }

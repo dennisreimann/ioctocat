@@ -39,9 +39,9 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.commits.isUnloaded) {
-		[self.commits loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.commits loadWithSuccess:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:nil];
+		}];
 	} else if (self.commits.isChanged) {
 		[self.tableView reloadData];
 	}

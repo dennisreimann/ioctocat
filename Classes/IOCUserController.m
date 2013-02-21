@@ -97,25 +97,25 @@
 	[super viewWillAppear:animated];
 	// user
 	if (self.user.isUnloaded) {
-		[self.user loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.user loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayUserChange];
-		} failure:nil];
+		}];
 	} else if (self.user.isChanged) {
 		[self displayUserChange];
 	}
 	// repositories
 	if (self.user.repositories.isUnloaded) {
-		[self.user.repositories loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.user.repositories loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayRepositoriesChange];
-		} failure:nil];
+		}];
 	} else if (self.user.repositories.isChanged) {
 		[self displayRepositoriesChange];
 	}
 	// organizations
 	if (self.user.organizations.isUnloaded) {
-		[self.user.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.user.organizations loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayOrganizationsChange];
-		} failure:nil];
+		}];
 	} else if (self.user.organizations.isChanged) {
 		[self displayOrganizationsChange];
 	}

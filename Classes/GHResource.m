@@ -37,8 +37,8 @@
 	return kResourceContentTypeDefault;
 }
 
-- (void)loadWithParams:(NSDictionary *)params success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[self loadWithParams:params path:self.resourcePath method:kRequestMethodGet start:nil success:success failure:failure];
+- (void)loadWithSuccess:(resourceSuccess)success {
+	[self loadWithParams:nil path:self.resourcePath method:kRequestMethodGet start:nil success:success failure:nil];
 }
 
 - (void)loadWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {

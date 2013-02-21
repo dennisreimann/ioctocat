@@ -98,17 +98,17 @@
 	[super viewWillAppear:animated];
 	// pull request
 	if (self.pullRequest.isUnloaded) {
-		[self.pullRequest loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.pullRequest loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayPullRequestChange];
-		} failure:nil];
+		}];
 	} else if (self.pullRequest.isChanged) {
 		[self displayPullRequestChange];
 	}
 	// comments
 	if (self.pullRequest.comments.isUnloaded) {
-		[self.pullRequest.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.pullRequest.comments loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:nil];
+		}];
 	} else if (self.pullRequest.comments.isChanged) {
 		[self displayCommentsChange];
 	}

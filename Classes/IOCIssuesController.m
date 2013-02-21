@@ -90,10 +90,11 @@
 	[self.tableView reloadData];
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	if (self.currentIssues.isLoaded) return;
-	[self.currentIssues loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+	[self.currentIssues loadWithParams:nil start:^(GHResource *instance) {
+		[self.tableView reloadData];
+	} success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
 	} failure:nil];
-	[self.tableView reloadData];
 }
 
 - (IBAction)createNewIssue:(id)sender {

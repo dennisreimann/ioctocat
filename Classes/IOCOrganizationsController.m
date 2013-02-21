@@ -39,9 +39,9 @@
 	[super viewWillAppear:animated];
 	// organizations
 	if (self.organizations.isUnloaded) {
-		[self.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.organizations loadWithSuccess:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:nil];
+		}];
 	} else if (self.organizations.isChanged) {
 		[self.tableView reloadData];
 	}

@@ -80,25 +80,25 @@
 	[super viewWillAppear:animated];
 	// organization
 	if (self.organization.isUnloaded) {
-		[self.organization loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.organization loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayOrganizationChange];
-		} failure:nil];
+		}];
 	} else if (self.organization.isChanged) {
 		[self displayOrganizationChange];
 	}
 	// repositories
 	if (self.organization.repositories.isUnloaded) {
-		[self.organization.repositories loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.organization.repositories loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayRepositoriesChange];
-		} failure:nil];
+		}];
 	} else if (self.organization.repositories.isChanged) {
 		[self displayRepositoriesChange];
 	}
 	// members
 	if (self.organization.publicMembers.isUnloaded) {
-		[self.organization.publicMembers loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.organization.publicMembers loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayMembersChange];
-		} failure:nil];
+		}];
 	} else if (self.organization.publicMembers.isChanged) {
 		[self displayMembersChange];
 	}

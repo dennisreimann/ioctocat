@@ -36,7 +36,7 @@
 }
 
 - (void)accessoryButtonTapped:(UIControl *)button withEvent:(UIEvent *)event {
-    UITableView *tableView = (UITableView*)self.superview;
+    UITableView *tableView = (UITableView *)self.superview;
     NSIndexPath *indexPath = [tableView indexPathForCell:self];
     [tableView.delegate tableView:tableView accessoryButtonTappedForRowWithIndexPath:indexPath];
 }

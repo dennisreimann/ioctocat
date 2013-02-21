@@ -77,17 +77,17 @@
 	[super viewWillAppear:animated];
 	// gist
 	if (self.gist.isUnloaded) {
-		[self.gist loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.gist loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayGistChange];
-		} failure:nil];
+		}];
 	} else if (self.gist.isChanged) {
 		[self displayGistChange];
 	}
 	// comments
 	if (self.gist.comments.isUnloaded) {
-		[self.gist.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.gist.comments loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:nil];
+		}];
 	} else if (self.gist.comments.isChanged) {
 		[self displayCommentsChange];
 	}

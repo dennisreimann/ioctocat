@@ -37,9 +37,9 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.gists.isUnloaded) {
-		[self.gists loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.gists loadWithSuccess:^(GHResource *instance, id data) {
 			[self.tableView reloadData];
-		} failure:nil];
+		}];
 	} else if (self.gists.isChanged) {
 		[self.tableView reloadData];
 	}

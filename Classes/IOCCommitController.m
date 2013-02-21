@@ -84,17 +84,17 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[super viewWillAppear:animated];
 	// commits
 	if (self.commit.isUnloaded) {
-		[self.commit loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.commit loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayCommitChange];
-		} failure:nil];
+		}];
 	} else if (self.commit.isChanged) {
 		[self displayCommitChange];
 	}
 	// comments
 	if (self.commit.comments.isUnloaded) {
-		[self.commit.comments loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.commit.comments loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
-		} failure:nil];
+		}];
 	} else if (self.commit.isChanged) {
 		[self displayCommentsChange];
 	}

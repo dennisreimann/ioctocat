@@ -97,25 +97,25 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	[super viewWillAppear:animated];
 	// repository
 	if (self.repository.isUnloaded) {
-		[self.repository loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.repository loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayRepositoryChange];
-		} failure:nil];
+		}];
 	} else if (self.repository.isChanged) {
 		[self displayRepositoryChange];
 	}
 	// branches
 	if (self.repository.branches.isUnloaded) {
-		[self.repository.branches loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.repository.branches loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayBranchesChange];
-		} failure:nil];
+		}];
 	} else if (self.repository.branches.isChanged) {
 		[self displayBranchesChange];
 	}
 	// readme
 	if (self.repository.readme.isUnloaded) {
-		[self.repository.readme loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.repository.readme loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayReadmeChange];
-		} failure:nil];
+		}];
 	} else if (self.repository.readme.isChanged) {
 		[self displayReadmeChange];
 	}

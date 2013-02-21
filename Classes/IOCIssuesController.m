@@ -20,6 +20,7 @@
 @property(nonatomic,readonly)GHIssues *currentIssues;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)NSArray *objects;
 @property(nonatomic,strong)UISegmentedControl *issuesControl;
 @end
@@ -107,7 +108,7 @@
 - (IBAction)refresh:(id)sender {
 	if (self.currentIssues.isLoading) return;
 	[self.currentIssues loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
@@ -133,7 +134,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentIssues.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentIssues name:@"issues"];
+	if (self.currentIssues.isEmpty) {
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentIssues name:@"issues"];
+		return self.statusCell;
+	}
 	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (cell == nil) {
 		cell = [IssueObjectCell cell];

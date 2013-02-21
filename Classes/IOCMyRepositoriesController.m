@@ -15,6 +15,9 @@
 @property(nonatomic,strong)GHRepositories *publicRepositories;
 @property(nonatomic,strong)GHRepositories *forkedRepositories;
 @property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *privateStatusCell;
+@property(nonatomic,strong)IOCResourceStatusCell *publicStatusCell;
 @end
 
 
@@ -87,7 +90,7 @@
 - (IBAction)refresh:(id)sender {
 	if (self.user.repositories.isLoading) return;
 	[self.user.repositories loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self displayRepositories];
@@ -135,12 +138,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.user.repositories.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
+	if (self.user.repositories.isEmpty) {
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
+		return self.statusCell;
+	}
 	NSInteger section = indexPath.section;
-	if (section == 0 && self.privateRepositories.count == 0) {
-		return [[IOCResourceStatusCell alloc] initWithResource:self.privateRepositories name:@"private repositories"];
-	} else if (section == 1 && self.publicRepositories.count == 0) {
-		return [[IOCResourceStatusCell alloc] initWithResource:self.publicRepositories name:@"public repositories"];
+	if (section == 0 && self.privateRepositories.isEmpty) {
+		self.privateStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.privateRepositories name:@"private repositories"];
+		return self.privateStatusCell;
+	} else if (section == 1 && self.publicRepositories.isEmpty) {
+		self.publicStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.publicRepositories name:@"public repositories"];
+		return self.publicStatusCell;
 	} else {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];

@@ -12,6 +12,7 @@
 @interface IOCPullRequestsController ()
 @property(nonatomic,readonly)GHPullRequests *currentPullRequests;
 @property(nonatomic,strong)GHRepository *repository;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)NSArray *objects;
 @property(nonatomic,strong)UISegmentedControl *pullRequestsControl;
 @end
@@ -76,7 +77,7 @@
 - (IBAction)refresh:(id)sender {
 	if (self.currentPullRequests.isLoading) return;
 	[self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading…"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self.tableView reloadData];
@@ -96,7 +97,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentPullRequests.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentPullRequests name:@"pull requests"];
+	if (self.currentPullRequests.isEmpty) {
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentPullRequests name:@"pull requests"];
+		return self.statusCell;
+	}
 	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (cell == nil) cell = [IssueObjectCell cell];
 	if (self.repository) [cell hideRepo];

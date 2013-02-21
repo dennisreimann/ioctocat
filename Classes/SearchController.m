@@ -62,7 +62,7 @@
 	self.currentSearch.searchTerm = self.searchBar.text;
 	[self.currentSearch loadWithParams:nil start:^(GHResource *instance) {
 		[self.tableView reloadData];
-		[SVProgressHUD showWithStatus:@"Searching…"];
+		[SVProgressHUD showWithStatus:@"Searching"];
 		[self quitSearching:nil];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];

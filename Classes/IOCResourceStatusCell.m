@@ -53,7 +53,7 @@ static NSString *const ResourceStatusKeyPath = @"resourceStatus";
 	UIImage *image = nil;
 	if (self.resource.isLoading) {
 		[self.spinner startAnimating];
-		text = [NSString stringWithFormat:@"Loading %@…", self.name];
+		text = [NSString stringWithFormat:@"Loading %@", self.name];
 		image = [UIImage imageNamed:@"UIActivityIndicatorPlaceholder.png"];
 	} else if (self.resource.isFailed) {
 		text = [NSString stringWithFormat:@"Loading %@ failed", self.name];

@@ -54,7 +54,7 @@
 	} else {
 		NSDictionary *params = @{@"body": self.bodyView.text};
 		[self.comment saveWithParams:params start:^(GHResource *instance) {
-			[SVProgressHUD showWithStatus:@"Posting comment…" maskType:SVProgressHUDMaskTypeGradient];
+			[SVProgressHUD showWithStatus:@"Posting comment" maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
 			[self.comments addObject:(GHComment *)instance];

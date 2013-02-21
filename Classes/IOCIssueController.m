@@ -201,16 +201,19 @@
 
 - (void)toggleIssueState {
 	NSDictionary *params = @{@"state": self.issue.isOpen ? kIssueStateClosed : kIssueStateOpen};
+	NSString *action = self.issue.isOpen ? @"Closing" : @"Reopening";
 	[self.issue saveWithParams:params start:^(GHResource *instance) {
-		[SVProgressHUD showWithStatus:@"Saving issue…" maskType:SVProgressHUDMaskTypeGradient];
+		NSString *status = [NSString stringWithFormat:@"%@ issue", action];
+		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	} success:^(GHResource *instance, id data) {
-		NSString *action = self.issue.isOpen ? @"reopened" : @"closed";
-		NSString *status = [NSString stringWithFormat:@"Issue %@", action];
+		NSString *action = self.issue.isOpen ? @"Reopened" : @"Closed";
+		NSString *status = [NSString stringWithFormat:@"%@ issue", action];
 		[SVProgressHUD showSuccessWithStatus:status];
 		[self displayIssue];
 		[self.listController reloadIssues];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
+		NSString *status = [NSString stringWithFormat:@"%@ issue failed", action];
+		[SVProgressHUD showErrorWithStatus:status];
 	}];
 }
 

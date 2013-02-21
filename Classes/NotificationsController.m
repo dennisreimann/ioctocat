@@ -266,7 +266,7 @@
 		} else {
 			[weakSelf.tableView.pullToRefreshView stopAnimating];
 			NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
-			[iOctocat reportWarning:@"Please wait…" with:message];
+			[iOctocat reportWarning:@"Please wait" with:message];
 		}
 	}];
 	[self refreshLastUpdate];

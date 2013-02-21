@@ -92,7 +92,7 @@
 			}
 		};
 		D3JLog(@"OAuth request: %@ %@", method, path);
-		[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
+		[SVProgressHUD showWithStatus:@"Authenticating" maskType:SVProgressHUDMaskTypeGradient];
 		AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request
 																							success:onSuccess
 																							failure:onFailure];

@@ -53,10 +53,10 @@
 		self.saveButton.enabled = NO;
 		NSDictionary *params = @{@"title": self.titleField.text, @"body": self.bodyField.text};
 		[self.object saveWithParams:params start:^(GHResource *instance) {
-			NSString *status = [NSString stringWithFormat:@"Saving %@…", self.issueObjectType];
+			NSString *status = [NSString stringWithFormat:@"Saving %@", self.issueObjectType];
 			[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
-			NSString *status = [NSString stringWithFormat:@"Saved %@…", self.issueObjectType];
+			NSString *status = [NSString stringWithFormat:@"Saved %@", self.issueObjectType];
 			[SVProgressHUD showSuccessWithStatus:status];
 			[self.object markAsChanged];
 			[self.delegate performSelector:@selector(savedIssueObject:) withObject:self.object];

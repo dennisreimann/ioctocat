@@ -178,15 +178,13 @@
 - (IBAction)mergePullRequest:(id)sender {
 	if (self.pullRequestMergeableByCurrentUser) {
 		[self.pullRequest mergePullRequest:self.commitTextView.text start:^(GHResource *instance) {
-			[SVProgressHUD showWithStatus:@"Merging pull request…" maskType:SVProgressHUDMaskTypeGradient];
+			[SVProgressHUD showWithStatus:@"Merging pull request" maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
-			NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
-			NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
-			[SVProgressHUD showSuccessWithStatus:status];
+			[SVProgressHUD showSuccessWithStatus:@"Merged pull request"];
 			[self displayPullRequest];
 			[self.listController reloadPullRequests];
 		} failure:^(GHResource *instance, NSError *error) {
-			[SVProgressHUD showErrorWithStatus:@"Could not merge the pull request"];
+			[SVProgressHUD showErrorWithStatus:@"Merging pull request failed"];
 		}];
 	}
 }
@@ -261,16 +259,19 @@
 
 - (void)togglePullRequestState {
 	NSDictionary *params = @{@"state": self.pullRequest.isOpen ? kIssueStateClosed : kIssueStateOpen};
+	NSString *action = self.pullRequest.isOpen ? @"Closing" : @"Reopening";
 	[self.pullRequest saveWithParams:params start:^(GHResource *instance) {
-		[SVProgressHUD showWithStatus:@"Saving pull request…" maskType:SVProgressHUDMaskTypeGradient];
+		NSString *status = [NSString stringWithFormat:@"%@ pull request", action];
+		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	} success:^(GHResource *instance, id data) {
-		NSString *action = self.pullRequest.isOpen ? @"reopened" : @"closed";
-		NSString *status = [NSString stringWithFormat:@"Pull Request %@", action];
+		NSString *action = self.pullRequest.isOpen ? @"Reopened" : @"Closed";
+		NSString *status = [NSString stringWithFormat:@"%@ pull request", action];
 		[SVProgressHUD showSuccessWithStatus:status];
 		[self displayPullRequest];
 		[self.listController reloadPullRequests];
 	} failure:^(GHResource *instance, NSError *error) {
-		[SVProgressHUD showErrorWithStatus:@"Could not change the state"];
+		NSString *status = [NSString stringWithFormat:@"%@ pull request failed", action];
+		[SVProgressHUD showErrorWithStatus:status];
 	}];
 }
 

@@ -121,17 +121,17 @@
 	}];
 }
 
-- (void)markAllAsReadInSection:(UIButton *)sender {
-	NSInteger section = sender.tag;
-	NSString *repoId = [self repoIdForSection:section];
+- (void)markAllAsReadInSection:(GradientButton *)sender {
+	NSString *repoId = sender.identifierTag;
+	NSInteger section = [self.notificationsByRepository.allKeys indexOfObject:repoId];
 	[self.notifications markAllAsReadForRepoId:repoId start:nil success:nil failure:nil];
 	[self.notificationsByRepository removeObjectForKey:repoId];
 	// update table:
-	// reload if this was the last notification
+	// reload if this was the last section
 	if (!self.resourceHasData) {
 		[self.tableView reloadData];
 	}
-	// remove the section if it was the last notification in this section
+	// remove the section
 	else if (!self.notificationsByRepository[repoId]) {
 		NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
 		[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
@@ -176,13 +176,13 @@
 		CGFloat maxWidth = tableView.frame.size.width - header.titleLabel.frame.size.width - 25;
 		if (btnWidth > maxWidth) btnWidth = maxWidth;
 		GradientButton *button = [[GradientButton alloc] initWithFrame:CGRectMake(header.frame.size.width - btnWidth - btnMargin, btnMargin, btnWidth, btnHeight)];
+		button.identifierTag = [self repoIdForSection:section];
 		button.contentEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4);
 		button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		button.titleLabel.font = btnFont;
-		button.tag = section;
+		[button useDarkGithubStyle];
 		[button addTarget:self action:@selector(markAllAsReadInSection:) forControlEvents:UIControlEventTouchUpInside];
 		[button setTitle:btnTitle forState:UIControlStateNormal];
-		[button useDarkGithubStyle];
 		[header addSubview:button];
 		return header;
 	} 

@@ -13,8 +13,9 @@
 - (IBAction)postComment:(id)sender;
 @end
 
-
 @implementation CommentController
+
+@synthesize issueNumber, issueRepository;
 
 - (id)initWithComment:(GHComment *)comment andComments:(id)comments {
 	self = [super initWithNibName:@"Comment" bundle:nil];
@@ -40,11 +41,42 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([issueNumber isEqualToString:[userDefaults objectForKey:@"lastCommentIssue"]]  && [issueRepository isEqualToString:[userDefaults objectForKey:@"lastCommentRepository"]]) {
+        self.bodyView.text = [userDefaults objectForKey:@"lastComment"];
+        [SVProgressHUD showSuccessWithStatus:@"Comment draft loaded"];
+    }
 	[self.bodyView becomeFirstResponder];
+}
+
+- (void)saveDraft:(id)sender shouldSave:(BOOL)shouldSave {
+    if (shouldSave && ![self.bodyView.text isEmpty]) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.bodyView.text forKey:@"lastComment"];
+        [userDefaults setObject:issueNumber forKey:@"lastCommentIssue"];
+        [userDefaults setObject:issueRepository forKey:@"lastCommentRepository"];
+        [userDefaults setObject:@"0" forKey:@"savedComment"];
+        [SVProgressHUD showSuccessWithStatus:@"Comment draft saved"];
+    }
+    else if (!shouldSave) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults removeObjectForKey:@"lastComment"];
+        [userDefaults removeObjectForKey:@"lastCommentIssue"];
+        [userDefaults removeObjectForKey:@"lastCommentRepository"];
+        [userDefaults setObject:@"1" forKey:@"savedComment"];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"savedComment"] integerValue] == 0 || ![[NSUserDefaults standardUserDefaults] objectForKey:@"savedComment"]) {
+        [self saveDraft:nil shouldSave:YES];
+    }
+    else {
+        [self saveDraft:nil shouldSave:NO];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults removeObjectForKey:@"savedComment"];
+    }
 	[self.bodyView resignFirstResponder];
 }
 
@@ -59,6 +91,7 @@
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
 			[self.comments addObject:(GHComment *)instance];
 			[self.comments markAsUnloaded];
+            [self saveDraft:nil shouldSave:NO];
 			[self.navigationController popViewControllerAnimated:YES];
 		} failure:^(GHResource *instance, NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Commenting failed"];

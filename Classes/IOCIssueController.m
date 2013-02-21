@@ -196,6 +196,8 @@
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
 	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
+    viewController.issueNumber = [NSString stringWithFormat:@"#%d", self.issue.num];
+    viewController.issueRepository = [NSString stringWithFormat:@"%@", self.issue.repository];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

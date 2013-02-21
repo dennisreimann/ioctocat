@@ -13,13 +13,6 @@
 #import "AFOAuth2Client.h"
 
 
-@interface GHAccount ()
-@property(nonatomic,strong)NSString *login;
-@property(nonatomic,strong)NSString *endpoint;
-@property(nonatomic,strong)NSString *authToken;
-@end
-
-
 @implementation GHAccount
 
 static NSString *const LoginKeyPath = @"login";
@@ -73,6 +66,28 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	if ([keyPath isEqualToString:LoginKeyPath] || ([keyPath isEqualToString:OrgsLoadingKeyPath] && self.user.organizations.isLoaded)) {
 		[self updateUserResourcePaths];
 	}
+}
+
+#pragma mark Coding
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+	[encoder encodeObject:self.login forKey:kLoginDefaultsKey];
+	[encoder encodeObject:self.endpoint forKey:kEndpointDefaultsKey];
+	[encoder encodeObject:self.authId forKey:kAuthIdDefaultsKey];
+	[encoder encodeObject:self.authToken forKey:kAuthTokenDefaultsKey];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+	NSString *login = [decoder decodeObjectForKey:kLoginDefaultsKey];
+	NSString *endpoint = [decoder decodeObjectForKey:kEndpointDefaultsKey];
+	NSString *authId = [decoder decodeObjectForKey:kAuthIdDefaultsKey];
+	NSString *authToken = [decoder decodeObjectForKey:kAuthTokenDefaultsKey];
+	self = [self initWithDict:@{
+			kLoginDefaultsKey: login ? login : @"",
+		 kEndpointDefaultsKey: endpoint ? endpoint : @"",
+		   kAuthIdDefaultsKey: authId ? authId : @"",
+		kAuthTokenDefaultsKey: authToken ? authToken : @""}];
+	return self;
 }
 
 @end

@@ -7,10 +7,11 @@
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "SVProgressHUD.h"
+#import "GHAccount.h"
 
 
 @interface IOCAccountFormController () <UITextFieldDelegate>
-@property(nonatomic,strong)NSMutableDictionary *account;
+@property(nonatomic,strong)GHAccount *account;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
@@ -21,7 +22,7 @@
 
 @implementation IOCAccountFormController
 
-- (id)initWithAccount:(NSMutableDictionary *)account andIndex:(NSUInteger)idx {
+- (id)initWithAccount:(GHAccount *)account andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
 	if (self) {
 		self.index = idx;
@@ -33,8 +34,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
-	self.loginField.text = [self.account valueForKey:kLoginDefaultsKey];
-	self.endpointField.text = [self.account valueForKey:kEndpointDefaultsKey];
+	self.loginField.text = self.account.login;
+	self.endpointField.text = self.account.endpoint;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -47,25 +48,25 @@
 	NSString *login = [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *password = [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
 	NSString *endpoint = [self.endpointField.text stringByTrimmingCharactersInSet:trimSet];
-	if ([login isEmpty] || [password isEmpty]) {
+	if (login.isEmpty || password.isEmpty) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a login and a password"];
 	} else {
 		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
 		NSString *oauthPath = [[NSBundle mainBundle] pathForResource:@"OAuth" ofType:@"plist"];
 		NSDictionary *oauthParams = [NSDictionary dictionaryWithContentsOfFile:oauthPath];
-		if (endpoint && ![endpoint isEmpty]) {
+		if (endpoint && !endpoint.isEmpty) {
 			apiURL = [[NSURL smartURLFromString:endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
 		}
 		GHApiClient *apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
 		[apiClient setAuthorizationHeaderWithUsername:login password:password];
 		// remove existing authId if the login changed,
 		// because we are authenticating another user.
-		NSString *oldLogin = self.account[kLoginDefaultsKey];
+		NSString *oldLogin = self.account.login;
 		if (![login isEqualToString:oldLogin]) {
-			[self.account removeObjectForKey:kAuthIdDefaultsKey];
+			self.account.authId = nil;
 		}
 		// oauth request setup
-		NSString *authId = [self.account valueForKey:kAuthIdDefaultsKey defaultsTo:nil];
+		NSString *authId = self.account.authId;
 		NSString *path = authId ? [NSString stringWithFormat:kAuthorizationFormat, authId] : kAuthorizationsFormat;
 		NSString *method = authId ? kRequestMethodPatch : kRequestMethodPost;
 		NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:oauthParams];
@@ -74,10 +75,10 @@
 			[SVProgressHUD showSuccessWithStatus:@"Authenticated"];
 			NSString *authId = [json valueForKey:@"id"];
 			NSString *token = [json valueForKey:@"token"];
-			[self.account setValue:login forKey:kLoginDefaultsKey];
-			[self.account setValue:token forKey:kAuthTokenDefaultsKey];
-			[self.account setValue:authId forKey:kAuthIdDefaultsKey];
-			[self.account setValue:endpoint forKey:kEndpointDefaultsKey];
+			self.account.login = login;
+			self.account.authToken = token;
+			self.account.authId = authId;
+			self.account.endpoint = endpoint;
 			// save
 			[self.delegate updateAccount:self.account atIndex:self.index];
 			// go back
@@ -90,7 +91,7 @@
 			// remove existing authId if it could not be found.
 			// this occurs when the user revoked the apps access.
 			if (response.statusCode == 404) {
-				[self.account removeObjectForKey:kAuthIdDefaultsKey];
+				self.account.authId = nil;
 			}
 		};
 		D3JLog(@"OAuth request: %@ %@", method, path);

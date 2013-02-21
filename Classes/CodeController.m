@@ -5,7 +5,9 @@
 #import "SVProgressHUD.h"
 
 
-@interface CodeController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate>
+@interface CodeController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
+    CGRect _popupFrame;
+}
 @property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)NSDictionary *file;
 @property(nonatomic,assign)NSUInteger index;
@@ -15,6 +17,7 @@
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *rightButton;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *actionButton;
 @property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
+@property(nonatomic,strong)IBOutlet UIView *popupView;
 - (IBAction)leftButtonTapped:(id)sender;
 - (IBAction)rightButtonTapped:(id)sender;
 - (IBAction)actionButtonTapped:(id)sender;
@@ -36,6 +39,7 @@
 	[super viewDidLoad];
 	self.file = self.files[self.index];
 	self.contentView.scrollView.bounces = NO;
+    _popupFrame = self.popupView.frame;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -107,7 +111,22 @@
         [self.docInteractionController dismissMenuAnimated:NO];
         [self.docInteractionController setURL:url];
     }
-    [self.docInteractionController presentOpenInMenuFromBarButtonItem:sender animated:YES];
+    if (![self.docInteractionController presentOpenInMenuFromBarButtonItem:sender animated:YES]) {
+        if (![self.popupView isDescendantOfView:self.view]) {
+            _popupFrame.origin.y = self.toolbar.frame.origin.y;
+            _popupFrame.size.width = self.view.bounds.size.width;
+            self.popupView.frame = _popupFrame;
+            [self.view insertSubview:self.popupView belowSubview:self.toolbar];
+            [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+                _popupFrame.origin.y = self.toolbar.frame.origin.y - _popupFrame.size.height;
+                self.popupView.frame = _popupFrame;
+            } completion:^(BOOL finished) {
+                if (finished) {
+                    [self performSelector:@selector(hidePopupView) withObject:nil afterDelay:5.0];
+                }
+            }];
+        }
+    }
 }
 
 // Adjust the toolbar height depending on the screen orientation,
@@ -115,7 +134,23 @@
 - (void)layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     CGSize toolbarSize = [self.toolbar sizeThatFits:self.view.bounds.size];
     self.toolbar.frame = CGRectMake(0.0f, self.view.bounds.size.height - toolbarSize.height, toolbarSize.width, toolbarSize.height);
-    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, CGRectGetMinY(self.toolbar.frame));
+    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, self.toolbar.frame.origin.y);
+    if ([self.popupView isDescendantOfView:self.view]) {
+        _popupFrame.origin.y = self.toolbar.frame.origin.y - _popupFrame.size.height;
+        _popupFrame.size.width = self.view.bounds.size.width;
+        self.popupView.frame = _popupFrame;
+    }
+}
+
+- (void)hidePopupView {
+    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+        _popupFrame.origin.y = self.toolbar.frame.origin.y;
+        self.popupView.frame = _popupFrame;
+    } completion:^(BOOL finished) {
+        if (finished) {
+            [self.popupView removeFromSuperview];
+        }
+    }];
 }
 
 #pragma mark WebView

@@ -16,7 +16,7 @@
 - (id)initWithPath:(NSString *)path {
 	if (self = [super initWithPath:path]) {
 		self.unreadCount = 0;
-		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
+		self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath account:self.account];
 	}
 	return self;
 }
@@ -41,7 +41,7 @@
 	}
 	[self updateUnreadCount];
 	self.lastUpdate = [NSDate date];
-	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath];
+	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath account:self.account];
 }
 
 - (void)setHeaderValues:(NSDictionary *)values {

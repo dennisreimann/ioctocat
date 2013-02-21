@@ -29,8 +29,12 @@
 
 #pragma mark API
 
+- (GHAccount *)account {
+	return [[iOctocat sharedInstance] currentAccount];
+}
+
 - (GHApiClient *)apiClient {
-	return [iOctocat sharedInstance].currentAccount.apiClient;
+	return self.account.apiClient;
 }
 
 - (NSString *)resourceContentType {

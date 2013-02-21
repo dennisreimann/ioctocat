@@ -14,8 +14,7 @@
 }
 
 - (void)setResourcePath:(NSString *)path {
-	_resourcePath = path;
-	self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath];
+	_resourcePath = path;	self.lastUpdate = [IOCDefaultsPersistence lastUpdateForPath:self.resourcePath account:self.account];
 }
 
 - (void)setValues:(id)values {
@@ -28,7 +27,7 @@
 		[self addObject:event];
 	}
 	self.lastUpdate = [NSDate date];
-	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath];
+	[IOCDefaultsPersistence setLastUpate:self.lastUpdate forPath:self.resourcePath account:self.account];
 }
 
 @end

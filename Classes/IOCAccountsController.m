@@ -202,17 +202,26 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
-	[self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
-	[self handleAccountsChange];
+    if (toPath.row != fromPath.row) {
+        [self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
+        [self handleAccountsChange];
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
 	[self editAccountAtIndex:idx];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath {
+    if (proposedDestinationIndexPath.section == sourceIndexPath.section) {
+        return proposedDestinationIndexPath;
+    }
+    return sourceIndexPath;
 }
 
 #pragma mark Authentication

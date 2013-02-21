@@ -14,6 +14,7 @@
 @property(nonatomic,readonly)GHSearch *currentSearch;
 @property(nonatomic,strong)NSArray *searches;
 @property(nonatomic,strong)UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
 @end
@@ -85,7 +86,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentSearch.isEmpty) return [[IOCResourceStatusCell alloc] initWithResource:self.currentSearch name:@"search results"];
+	if (self.currentSearch.isLoaded && self.currentSearch.isEmpty) {
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentSearch name:@"search results"];
+		return self.statusCell;
+	}
 	id object = self.currentSearch[indexPath.row];
 	if ([object isKindOfClass:GHRepository.class]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];

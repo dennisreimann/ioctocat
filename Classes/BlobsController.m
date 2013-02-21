@@ -39,9 +39,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    _popupFrame = self.popupView.frame;
 	self.blob = self.blobs[self.index];
 	self.contentView.scrollView.bounces = NO;
-    _popupFrame = self.popupView.frame;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

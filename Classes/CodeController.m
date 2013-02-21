@@ -37,9 +37,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    _popupFrame = self.popupView.frame;
 	self.file = self.files[self.index];
 	self.contentView.scrollView.bounces = NO;
-    _popupFrame = self.popupView.frame;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,6 +60,7 @@
 
 - (void)setFile:(NSDictionary *)file {
 	if (file == self.file) return;
+    if (self.docInteractionController) [self.docInteractionController dismissMenuAnimated:YES];
 	_file = file;
 	[self.contentView stopLoading];
 	NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];

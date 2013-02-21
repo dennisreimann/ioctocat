@@ -131,9 +131,12 @@
 
 - (void)displayCommentsChange {
 	if (self.issue.isEmpty) return;
-	if (self.issue.comments.isEmpty) return [self.tableView reloadData];
-	NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
-	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	if (self.issue.comments.isEmpty) {
+		[self.tableView reloadData];
+	} else {
+		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	}
 	[self layoutCommentButton];
 }
 

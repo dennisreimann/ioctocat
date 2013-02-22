@@ -46,7 +46,13 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	[self switchChanged:nil];
+    [super viewWillAppear:animated];
+    if (self.currentPullRequests.isLoaded) return;
+    [self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
+        [self.tableView reloadData];
+    } success:^(GHResource *instance, id data) {
+        [self.tableView reloadData];
+    } failure:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

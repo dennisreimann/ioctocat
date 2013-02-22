@@ -12,7 +12,7 @@
 #import "IOCPullRequestsController.h"
 #import "IOCGistController.h"
 #import "IOCGistsController.h"
-#import "SearchController.h"
+#import "IOCSearchController.h"
 #import "IOCCommitController.h"
 #import "NotificationsController.h"
 #import "GHUser.h"
@@ -348,7 +348,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 			
 		case 5:
 			if (row == 0) {
-				viewController = [[SearchController alloc] initWithUser:self.user];
+				viewController = [[IOCSearchController alloc] initWithUser:self.user];
 				viewController.title = @"Search";
 			} else if (row == 1) {
 				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];

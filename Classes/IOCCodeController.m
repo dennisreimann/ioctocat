@@ -1,11 +1,11 @@
-#import "CodeController.h"
+#import "IOCCodeController.h"
 #import "GHFiles.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "SVProgressHUD.h"
 
 
-@interface CodeController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
+@interface IOCCodeController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
     CGRect _popupFrame;
 }
 @property(nonatomic,strong)GHFiles *files;
@@ -24,7 +24,7 @@
 @end
 
 
-@implementation CodeController
+@implementation IOCCodeController
 
 - (id)initWithFiles:(GHFiles *)files currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];

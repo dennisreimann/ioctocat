@@ -1,5 +1,5 @@
 #import "IOCTreeController.h"
-#import "BlobsController.h"
+#import "IOCBlobsController.h"
 #import "GHTree.h"
 #import "GHBlob.h"
 #import "iOctocat.h"
@@ -107,7 +107,7 @@
 		IOCTreeController *treeController = [[IOCTreeController alloc] initWithTree:obj];
 		[self.navigationController pushViewController:treeController animated:YES];
 	} else {
-		BlobsController *blobsController = [[BlobsController alloc] initWithBlobs:self.tree.blobs currentIndex:row];
+		IOCBlobsController *blobsController = [[IOCBlobsController alloc] initWithBlobs:self.tree.blobs currentIndex:row];
 		[self.navigationController pushViewController:blobsController animated:YES];
 	}
 }

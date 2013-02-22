@@ -6,7 +6,7 @@
 #import "GHGistComments.h"
 #import "WebController.h"
 #import "IOCGistController.h"
-#import "CodeController.h"
+#import "IOCCodeController.h"
 #import "IOCUserController.h"
 #import "CommentController.h"
 #import "CommentCell.h"
@@ -274,7 +274,7 @@
 		IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.gist.user];
 		[self.navigationController pushViewController:userController animated:YES];
 	} if (section == 1) {
-		CodeController *codeController = [[CodeController alloc] initWithFiles:self.gist.files currentIndex:row];
+		IOCCodeController *codeController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

@@ -1,4 +1,4 @@
-#import "SearchController.h"
+#import "IOCSearchController.h"
 #import "IOCRepositoryController.h"
 #import "IOCUserController.h"
 #import "GHUser.h"
@@ -10,22 +10,21 @@
 #import "IOCResourceStatusCell.h"
 
 
-@interface SearchController ()
-@property(nonatomic,strong)GHSearch *currentSearch;
+@interface IOCSearchController () <UISearchBarDelegate>
+@property(nonatomic,strong)GHSearch *search;
 @property(nonatomic,strong)UserObjectCell *userObjectCell;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
-@property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
-@property(nonatomic,strong)IBOutlet UISegmentedControl *searchControl;
+@property(nonatomic,strong)UISearchBar *searchBar;
+@property(nonatomic,strong)UISegmentedControl *searchControl;
 @end
 
 
-@implementation SearchController
+@implementation IOCSearchController
 
 - (id)initWithUser:(GHUser *)user {
-	self = [super initWithNibName:@"Search" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
-		GHSearch *userSearch = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
-        _currentSearch = userSearch;
+		_search = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
 	}
 	return self;
 }
@@ -33,10 +32,19 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = @"Search";
+	self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44)];
+	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+	self.searchBar.delegate = self;
+	self.tableView.tableHeaderView = self.searchBar;
+	self.searchControl = [[UISegmentedControl alloc] initWithItems:@[@"User", @"Repository"]];
+	self.searchControl.selectedSegmentIndex = 0;
+	self.searchControl.segmentedControlStyle = UISegmentedControlStyleBar;
+	CGRect controlFrame = self.searchControl.frame;
+	controlFrame.size.width = 190;
+	self.searchControl.frame = controlFrame;
+	self.navigationItem.title = self.title ? self.title : @"Issues";
 	self.navigationItem.titleView = self.searchControl;
 	self.navigationItem.rightBarButtonItem = nil;
-	self.tableView.tableHeaderView = self.searchBar;
-	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
 #pragma mark Actions
@@ -47,9 +55,9 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
-    self.currentSearch = (self.searchControl.selectedSegmentIndex == 0) ? [[GHSearch alloc] initWithURLFormat:kUserSearchFormat] : [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
-	self.currentSearch.searchTerm = self.searchBar.text;
-	[self.currentSearch loadWithParams:nil start:^(GHResource *instance) {
+    self.search = (self.searchControl.selectedSegmentIndex == 0) ? [[GHSearch alloc] initWithURLFormat:kUserSearchFormat] : [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
+	self.search.searchTerm = self.searchBar.text;
+	[self.search loadWithParams:nil start:^(GHResource *instance) {
 		[self.tableView reloadData];
 		[SVProgressHUD showWithStatus:@"Searching"];
 		[self quitSearching:nil];
@@ -59,7 +67,6 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Searching failed"];
 	}];
-	
 }
 
 - (void)quitSearching:(id)sender {
@@ -70,15 +77,15 @@
 #pragma mark TableView
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.currentSearch.isLoaded && self.currentSearch.isEmpty ? 1 : self.currentSearch.count;
+	return self.search.isLoaded && self.search.isEmpty ? 1 : self.search.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentSearch.isLoaded && self.currentSearch.isEmpty) {
-		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentSearch name:@"search results"];
+	if (self.search.isLoaded && self.search.isEmpty) {
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.search name:@"search results"];
 		return self.statusCell;
 	}
-	id object = self.currentSearch[indexPath.row];
+	id object = self.search[indexPath.row];
 	if ([object isKindOfClass:GHRepository.class]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
@@ -96,8 +103,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentSearch.isEmpty) return;
-	id object = self.currentSearch[indexPath.row];
+	if (self.search.isEmpty) return;
+	id object = self.search[indexPath.row];
 	UIViewController *viewController = nil;
 	if ([object isKindOfClass:GHRepository.class]) {
 		viewController = [[IOCRepositoryController alloc] initWithRepository:(GHRepository *)object];

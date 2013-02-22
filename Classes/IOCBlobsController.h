@@ -1,3 +1,3 @@
-@interface BlobsController : UIViewController
+@interface IOCBlobsController : UIViewController
 - (id)initWithBlobs:(NSArray *)blobs currentIndex:(NSUInteger)idx;
 @end

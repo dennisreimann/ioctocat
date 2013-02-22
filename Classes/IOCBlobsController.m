@@ -1,11 +1,11 @@
-#import "BlobsController.h"
+#import "IOCBlobsController.h"
 #import "GHBlob.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 
 
-@interface BlobsController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
+@interface IOCBlobsController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
     CGRect _popupFrame;
 }
 @property(nonatomic,strong)GHBlob *blob;
@@ -24,7 +24,7 @@
 @end
 
 
-@implementation BlobsController
+@implementation IOCBlobsController
 
 - (id)initWithBlobs:(NSArray *)blobs currentIndex:(NSUInteger)idx {
 	self = [super initWithNibName:@"Code" bundle:nil];

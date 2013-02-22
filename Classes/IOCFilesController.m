@@ -1,5 +1,5 @@
 #import "IOCFilesController.h"
-#import "CodeController.h"
+#import "IOCCodeController.h"
 #import "GHFiles.h"
 #import "iOctocat.h"
 #import "NSString+Extensions.h"
@@ -63,7 +63,7 @@
 	if (self.files.isEmpty) return;
 	id fileInfo = self.files[indexPath.row];
 	if ([fileInfo isKindOfClass:NSDictionary.class]) {
-		CodeController *codeController = [[CodeController alloc] initWithFiles:self.files currentIndex:indexPath.row];
+		IOCCodeController *codeController = [[IOCCodeController alloc] initWithFiles:self.files currentIndex:indexPath.row];
 		[self.navigationController pushViewController:codeController animated:YES];
 	}
 }

@@ -94,13 +94,12 @@
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
 		6F2C76EF1114EDEF002665DA /* file_renamed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EB1114EDEF002665DA /* file_renamed.png */; };
 		6F2C77291114F430002665DA /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
-		6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6F2D9A890FB1887300FFABE9 /* IOCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* IOCSearchController.m */; };
 		6F308A1416CD958200BA00A1 /* IOCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F308A1316CD958200BA00A1 /* IOCTextView.m */; };
 		6F308A1516CD958200BA00A1 /* IOCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F308A1316CD958200BA00A1 /* IOCTextView.m */; };
 		6F308A1616CD958200BA00A1 /* IOCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F308A1316CD958200BA00A1 /* IOCTextView.m */; };
 		6F316D94111AD7D700FC4FE9 /* ToolbarUsers.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */; };
 		6F316D9E111ADBA300FC4FE9 /* ToolbarRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */; };
-		6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
 		6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6F35BD390F88B01900E978CD /* GHOrganization.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD380F88B01900E978CD /* GHOrganization.m */; };
 		6F35BD540F88B06200E978CD /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
@@ -120,7 +119,7 @@
 		6F3616C6166184200098AE4A /* ToolbarUsersOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3616B8166184200098AE4A /* ToolbarUsersOn@2x.png */; };
 		6F38090C162A05E0001017E2 /* branch.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F38090A162A05CE001017E2 /* branch.png */; };
 		6F38090D162A05E0001017E2 /* branch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F38090B162A05D6001017E2 /* branch@2x.png */; };
-		6F380914162A110C001017E2 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
+		6F380914162A110C001017E2 /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* IOCBlobsController.m */; };
 		6F380916162A1553001017E2 /* Code.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F380915162A1553001017E2 /* Code.xib */; };
 		6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500A163343E4001DC916 /* highlight.pack.js */; };
 		6F3D9777166A5FB8009CB887 /* DropdownError.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9773166A5FB8009CB887 /* DropdownError.png */; };
@@ -254,10 +253,10 @@
 		6F612472167D0410001A3E05 /* IOCOrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* IOCOrganizationRepositoriesController.m */; };
 		6F612473167D0410001A3E05 /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6F612474167D0410001A3E05 /* IOCTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* IOCTreeController.m */; };
-		6F612475167D0410001A3E05 /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
+		6F612475167D0410001A3E05 /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* IOCBlobsController.m */; };
 		6F612476167D0410001A3E05 /* IOCGistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* IOCGistsController.m */; };
 		6F612477167D0410001A3E05 /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
-		6F612478167D0410001A3E05 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
+		6F612478167D0410001A3E05 /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* IOCCodeController.m */; };
 		6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
 		6F61247A167D0410001A3E05 /* IOCRepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */; };
 		6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
@@ -269,7 +268,7 @@
 		6F612481167D0410001A3E05 /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
 		6F612482167D0410001A3E05 /* IOCIssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */; };
 		6F612483167D0410001A3E05 /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
-		6F612484167D0410001A3E05 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6F612484167D0410001A3E05 /* IOCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* IOCSearchController.m */; };
 		6F612485167D0410001A3E05 /* WebController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F1DC6730F7E8E1900FCD26D /* WebController.m */; };
 		6F612486167D0410001A3E05 /* CommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* CommentController.m */; };
 		6F612487167D0410001A3E05 /* iOctocat.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* iOctocat.m */; };
@@ -532,7 +531,6 @@
 		6FCAA32F167B52C800C816FA /* issue_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1A0FACD648001B1D1D /* issue_closed.png */; };
 		6FCAA330167B52C800C816FA /* issue_open.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B1B0FACD648001B1D1D /* issue_open.png */; };
 		6FCAA331167B52C800C816FA /* MyEvents.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA92B300FACD6EA001B1D1D /* MyEvents.xib */; };
-		6FCAA333167B52C800C816FA /* Search.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F358C060FB1EAE0004D2828 /* Search.xib */; };
 		6FCAA334167B52C800C816FA /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F879A1C0FB60CB500EBD9BD /* user.png */; };
 		6FCAA337167B52C800C816FA /* feed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCDC63F0FC04D330024E498 /* feed.png */; };
 		6FCAA338167B52C800C816FA /* Events.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FCDC66B0FC04F180024E498 /* Events.xib */; };
@@ -745,7 +743,7 @@
 		6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
 		6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
 		6FCAA443167B52C800C816FA /* UserObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */; };
-		6FCAA444167B52C800C816FA /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* SearchController.m */; };
+		6FCAA444167B52C800C816FA /* IOCSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2D9A880FB1887300FFABE9 /* IOCSearchController.m */; };
 		6FCAA445167B52C800C816FA /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
 		6FCAA446167B52C800C816FA /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FCAA447167B52C800C816FA /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
@@ -784,7 +782,7 @@
 		6FCAA468167B52C800C816FA /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
 		6FCAA469167B52C800C816FA /* IOCGistsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C86161C5E3600E705CF /* IOCGistsController.m */; };
 		6FCAA46A167B52C800C816FA /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
-		6FCAA46B167B52C800C816FA /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
+		6FCAA46B167B52C800C816FA /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* IOCCodeController.m */; };
 		6FCAA46C167B52C800C816FA /* GHGistComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AB1623772300CE95D0 /* GHGistComment.m */; };
 		6FCAA46D167B52C800C816FA /* GHGistComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AD1623772300CE95D0 /* GHGistComments.m */; };
 		6FCAA46E167B52C800C816FA /* GHTree.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F08261624A3C10074839B /* GHTree.m */; };
@@ -792,7 +790,7 @@
 		6FCAA470167B52C800C816FA /* GHTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082C1624A9D20074839B /* GHTag.m */; };
 		6FCAA471167B52C800C816FA /* GHRef.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F082F1624AC990074839B /* GHRef.m */; };
 		6FCAA472167B52C800C816FA /* IOCTreeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7F083E1624B9DE0074839B /* IOCTreeController.m */; };
-		6FCAA473167B52C800C816FA /* BlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* BlobsController.m */; };
+		6FCAA473167B52C800C816FA /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F380913162A110C001017E2 /* IOCBlobsController.m */; };
 		6FCAA474167B52C800C816FA /* IOCOrganizationRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F4CBD3116431D6300D587FB /* IOCOrganizationRepositoriesController.m */; };
 		6FCAA475167B52C800C816FA /* GHApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E4B231645D60F00E03FD9 /* GHApiClient.m */; };
 		6FCAA476167B52C800C816FA /* GHEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF871649A6B100337EBE /* GHEvents.m */; };
@@ -843,7 +841,7 @@
 		6FD1DE31158FD14000D72A3D /* GHComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE30158FD14000D72A3D /* GHComment.m */; };
 		6FDB4E351621ABAF00AB11C3 /* code.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE51621ABAF00AB11C3 /* code.html */; };
 		6FDB4E361621ABAF00AB11C3 /* format.html in Resources */ = {isa = PBXBuildFile; fileRef = 6FDB4DE61621ABAF00AB11C3 /* format.html */; };
-		6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* CodeController.m */; };
+		6FDB4E87162221DF00AB11C3 /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDB4E86162221DF00AB11C3 /* IOCCodeController.m */; };
 		6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FDD2150165194FF0017E8BA /* GHPullRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDD214F165194FF0017E8BA /* GHPullRequest.m */; };
 		6FE440271673D53C00226F42 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
@@ -1001,13 +999,12 @@
 		6F2C76EB1114EDEF002665DA /* file_renamed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_renamed.png; path = Images/Icons/file_renamed.png; sourceTree = "<group>"; };
 		6F2C77271114F430002665DA /* IOCFilesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCFilesController.h; sourceTree = "<group>"; };
 		6F2C77281114F430002665DA /* IOCFilesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCFilesController.m; sourceTree = "<group>"; };
-		6F2D9A870FB1887300FFABE9 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
-		6F2D9A880FB1887300FFABE9 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
+		6F2D9A870FB1887300FFABE9 /* IOCSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCSearchController.h; sourceTree = "<group>"; };
+		6F2D9A880FB1887300FFABE9 /* IOCSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCSearchController.m; sourceTree = "<group>"; };
 		6F308A1216CD956A00BA00A1 /* IOCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCTextView.h; sourceTree = "<group>"; };
 		6F308A1316CD958200BA00A1 /* IOCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCTextView.m; sourceTree = "<group>"; };
 		6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarUsers.png; sourceTree = "<group>"; };
 		6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRepository.png; sourceTree = "<group>"; };
-		6F358C060FB1EAE0004D2828 /* Search.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Search.xib; path = IBFiles/Search.xib; sourceTree = "<group>"; };
 		6F358C5A0FB1EEC4004D2828 /* GHSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSearch.h; sourceTree = "<group>"; };
 		6F358C5B0FB1EEC4004D2828 /* GHSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHSearch.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6F35BD370F88B01900E978CD /* GHOrganization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOrganization.h; sourceTree = "<group>"; };
@@ -1030,8 +1027,8 @@
 		6F3616B8166184200098AE4A /* ToolbarUsersOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarUsersOn@2x.png"; sourceTree = "<group>"; };
 		6F38090A162A05CE001017E2 /* branch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = branch.png; path = Images/Icons/branch.png; sourceTree = "<group>"; };
 		6F38090B162A05D6001017E2 /* branch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "branch@2x.png"; path = "Images/Icons/branch@2x.png"; sourceTree = "<group>"; };
-		6F380912162A110B001017E2 /* BlobsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlobsController.h; sourceTree = "<group>"; };
-		6F380913162A110C001017E2 /* BlobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlobsController.m; sourceTree = "<group>"; };
+		6F380912162A110B001017E2 /* IOCBlobsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCBlobsController.h; sourceTree = "<group>"; };
+		6F380913162A110C001017E2 /* IOCBlobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCBlobsController.m; sourceTree = "<group>"; };
 		6F380915162A1553001017E2 /* Code.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Code.xib; path = IBFiles/Code.xib; sourceTree = "<group>"; };
 		6F3A500A163343E4001DC916 /* highlight.pack.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = highlight.pack.js; path = highlight/highlight.pack.js; sourceTree = "<group>"; };
 		6F3D9773166A5FB8009CB887 /* DropdownError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropdownError.png; sourceTree = "<group>"; };
@@ -1365,8 +1362,8 @@
 		6FD1DE30158FD14000D72A3D /* GHComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHComment.m; sourceTree = "<group>"; };
 		6FDB4DE51621ABAF00AB11C3 /* code.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = code.html; sourceTree = "<group>"; };
 		6FDB4DE61621ABAF00AB11C3 /* format.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = format.html; sourceTree = "<group>"; };
-		6FDB4E85162221DF00AB11C3 /* CodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CodeController.h; sourceTree = "<group>"; };
-		6FDB4E86162221DF00AB11C3 /* CodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CodeController.m; sourceTree = "<group>"; };
+		6FDB4E85162221DF00AB11C3 /* IOCCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCCodeController.h; sourceTree = "<group>"; };
+		6FDB4E86162221DF00AB11C3 /* IOCCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCodeController.m; sourceTree = "<group>"; };
 		6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHRepositories.h; sourceTree = "<group>"; };
 		6FDC15200FC6BCA700089FB5 /* GHRepositories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHRepositories.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FDD214E165194FF0017E8BA /* GHPullRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHPullRequest.h; sourceTree = "<group>"; };
@@ -1605,8 +1602,8 @@
 				6F182C86161C5E3600E705CF /* IOCGistsController.m */,
 				6F182C88161CB77600E705CF /* IOCGistController.h */,
 				6F182C89161CB77600E705CF /* IOCGistController.m */,
-				6FDB4E85162221DF00AB11C3 /* CodeController.h */,
-				6FDB4E86162221DF00AB11C3 /* CodeController.m */,
+				6FDB4E85162221DF00AB11C3 /* IOCCodeController.h */,
+				6FDB4E86162221DF00AB11C3 /* IOCCodeController.m */,
 			);
 			name = Gists;
 			sourceTree = "<group>";
@@ -2134,7 +2131,6 @@
 				6F0AEFC0100CF61500FB323E /* IssueObjectForm.xib */,
 				6FC0D42B11581A5200511B7F /* Comment.xib */,
 				6FB9CBE413354AC200C8DE29 /* Organization.xib */,
-				6F358C060FB1EAE0004D2828 /* Search.xib */,
 			);
 			name = IBFiles;
 			sourceTree = "<group>";
@@ -2296,8 +2292,8 @@
 				6F2C77281114F430002665DA /* IOCFilesController.m */,
 				6F7F083D1624B9DE0074839B /* IOCTreeController.h */,
 				6F7F083E1624B9DE0074839B /* IOCTreeController.m */,
-				6F380912162A110B001017E2 /* BlobsController.h */,
-				6F380913162A110C001017E2 /* BlobsController.m */,
+				6F380912162A110B001017E2 /* IOCBlobsController.h */,
+				6F380913162A110C001017E2 /* IOCBlobsController.m */,
 			);
 			name = Git;
 			sourceTree = "<group>";
@@ -2341,8 +2337,8 @@
 			children = (
 				6F987658166FEC2E0031E31B /* MenuController.h */,
 				6F987659166FEC380031E31B /* MenuController.m */,
-				6F2D9A870FB1887300FFABE9 /* SearchController.h */,
-				6F2D9A880FB1887300FFABE9 /* SearchController.m */,
+				6F2D9A870FB1887300FFABE9 /* IOCSearchController.h */,
+				6F2D9A880FB1887300FFABE9 /* IOCSearchController.m */,
 				6F1DC6720F7E8E1900FCD26D /* WebController.h */,
 				6F1DC6730F7E8E1900FCD26D /* WebController.m */,
 				6FC0D428115819E400511B7F /* CommentController.h */,
@@ -2509,7 +2505,6 @@
 				6FA92B1C0FACD648001B1D1D /* issue_closed.png in Resources */,
 				6FA92B1D0FACD648001B1D1D /* issue_open.png in Resources */,
 				6FA92B320FACD6EA001B1D1D /* MyEvents.xib in Resources */,
-				6F358C0A0FB1EAE0004D2828 /* Search.xib in Resources */,
 				6F879A1E0FB60CB500EBD9BD /* user.png in Resources */,
 				6FCDC6400FC04D330024E498 /* feed.png in Resources */,
 				6FCDC66C0FC04F180024E498 /* Events.xib in Resources */,
@@ -2812,7 +2807,6 @@
 				6FCAA32F167B52C800C816FA /* issue_closed.png in Resources */,
 				6FCAA330167B52C800C816FA /* issue_open.png in Resources */,
 				6FCAA331167B52C800C816FA /* MyEvents.xib in Resources */,
-				6FCAA333167B52C800C816FA /* Search.xib in Resources */,
 				6FCAA334167B52C800C816FA /* user.png in Resources */,
 				6FCAA337167B52C800C816FA /* feed.png in Resources */,
 				6FCAA338167B52C800C816FA /* Events.xib in Resources */,
@@ -3180,7 +3174,7 @@
 				6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */,
 				8C53B4D00FB0F20B00C3A8E0 /* IOCUsersController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* UserObjectCell.m in Sources */,
-				6F2D9A890FB1887300FFABE9 /* SearchController.m in Sources */,
+				6F2D9A890FB1887300FFABE9 /* IOCSearchController.m in Sources */,
 				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
 				6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */,
 				6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */,
@@ -3219,7 +3213,7 @@
 				6F182C7F161C54A600E705CF /* GHGists.m in Sources */,
 				6F182C87161C5E3600E705CF /* IOCGistsController.m in Sources */,
 				6F182C8A161CB77600E705CF /* IOCGistController.m in Sources */,
-				6FDB4E87162221DF00AB11C3 /* CodeController.m in Sources */,
+				6FDB4E87162221DF00AB11C3 /* IOCCodeController.m in Sources */,
 				6F0879AE1623772300CE95D0 /* GHGistComment.m in Sources */,
 				6F0879AF1623772300CE95D0 /* GHGistComments.m in Sources */,
 				6F7F08271624A3C10074839B /* GHTree.m in Sources */,
@@ -3227,7 +3221,7 @@
 				6F7F082D1624A9D20074839B /* GHTag.m in Sources */,
 				6F7F08301624AC990074839B /* GHRef.m in Sources */,
 				6F7F083F1624B9DE0074839B /* IOCTreeController.m in Sources */,
-				6F380914162A110C001017E2 /* BlobsController.m in Sources */,
+				6F380914162A110C001017E2 /* IOCBlobsController.m in Sources */,
 				6F4CBD3216431D6300D587FB /* IOCOrganizationRepositoriesController.m in Sources */,
 				6F6E4B241645D60F00E03FD9 /* GHApiClient.m in Sources */,
 				6FB1CF881649A6B100337EBE /* GHEvents.m in Sources */,
@@ -3278,10 +3272,10 @@
 				6F612472167D0410001A3E05 /* IOCOrganizationRepositoriesController.m in Sources */,
 				6F612473167D0410001A3E05 /* IOCFilesController.m in Sources */,
 				6F612474167D0410001A3E05 /* IOCTreeController.m in Sources */,
-				6F612475167D0410001A3E05 /* BlobsController.m in Sources */,
+				6F612475167D0410001A3E05 /* IOCBlobsController.m in Sources */,
 				6F612476167D0410001A3E05 /* IOCGistsController.m in Sources */,
 				6F612477167D0410001A3E05 /* IOCGistController.m in Sources */,
-				6F612478167D0410001A3E05 /* CodeController.m in Sources */,
+				6F612478167D0410001A3E05 /* IOCCodeController.m in Sources */,
 				6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */,
 				6F61247A167D0410001A3E05 /* IOCRepositoryController.m in Sources */,
 				6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */,
@@ -3293,7 +3287,7 @@
 				6F612481167D0410001A3E05 /* IOCIssueController.m in Sources */,
 				6F612482167D0410001A3E05 /* IOCIssueObjectFormController.m in Sources */,
 				6F612483167D0410001A3E05 /* MenuController.m in Sources */,
-				6F612484167D0410001A3E05 /* SearchController.m in Sources */,
+				6F612484167D0410001A3E05 /* IOCSearchController.m in Sources */,
 				6F612485167D0410001A3E05 /* WebController.m in Sources */,
 				6F612486167D0410001A3E05 /* CommentController.m in Sources */,
 				6F612487167D0410001A3E05 /* iOctocat.m in Sources */,
@@ -3396,7 +3390,7 @@
 				6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */,
 				6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */,
 				6FCAA443167B52C800C816FA /* UserObjectCell.m in Sources */,
-				6FCAA444167B52C800C816FA /* SearchController.m in Sources */,
+				6FCAA444167B52C800C816FA /* IOCSearchController.m in Sources */,
 				6FCAA445167B52C800C816FA /* GHSearch.m in Sources */,
 				6FCAA446167B52C800C816FA /* RepositoryCell.m in Sources */,
 				6FCAA447167B52C800C816FA /* GHUsers.m in Sources */,
@@ -3435,7 +3429,7 @@
 				6FCAA468167B52C800C816FA /* GHGists.m in Sources */,
 				6FCAA469167B52C800C816FA /* IOCGistsController.m in Sources */,
 				6FCAA46A167B52C800C816FA /* IOCGistController.m in Sources */,
-				6FCAA46B167B52C800C816FA /* CodeController.m in Sources */,
+				6FCAA46B167B52C800C816FA /* IOCCodeController.m in Sources */,
 				6FCAA46C167B52C800C816FA /* GHGistComment.m in Sources */,
 				6FCAA46D167B52C800C816FA /* GHGistComments.m in Sources */,
 				6FCAA46E167B52C800C816FA /* GHTree.m in Sources */,
@@ -3443,7 +3437,7 @@
 				6FCAA470167B52C800C816FA /* GHTag.m in Sources */,
 				6FCAA471167B52C800C816FA /* GHRef.m in Sources */,
 				6FCAA472167B52C800C816FA /* IOCTreeController.m in Sources */,
-				6FCAA473167B52C800C816FA /* BlobsController.m in Sources */,
+				6FCAA473167B52C800C816FA /* IOCBlobsController.m in Sources */,
 				6FCAA474167B52C800C816FA /* IOCOrganizationRepositoriesController.m in Sources */,
 				6FCAA475167B52C800C816FA /* GHApiClient.m in Sources */,
 				6FCAA476167B52C800C816FA /* GHEvents.m in Sources */,

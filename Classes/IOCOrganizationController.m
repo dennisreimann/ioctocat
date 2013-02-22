@@ -179,7 +179,7 @@
 			case 2: cell = self.emailCell; break;
 			default: cell = nil;
 		}
-		BOOL isSelectable = row != 0 && cell.hasContent;
+        BOOL isSelectable = (row == 1 && cell.hasContent) || (row == 2 && cell.hasContent && [MFMailComposeViewController canSendMail]);
 		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;

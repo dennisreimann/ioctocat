@@ -156,7 +156,7 @@
 
 - (IBAction)addComment:(id)sender {
 	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
-	comment.userLogin = self.currentUser.login;
+	comment.user = self.currentUser;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

@@ -218,7 +218,7 @@
 
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
-	comment.userLogin = self.currentUser.login;
+	comment.user = self.currentUser;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

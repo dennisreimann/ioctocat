@@ -6,15 +6,11 @@
 
 @implementation GHComment
 
-- (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:self.userLogin];
-}
-
 - (void)setValues:(id)dict {
 	self.body = [dict safeStringForKey:@"body"];
 	self.created = [dict safeDateForKey:@"created_at"];
 	self.updated = [dict safeDateForKey:@"updated_at"];
-	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
+	self.user = [[iOctocat sharedInstance] userWithLogin:[dict safeStringForKeyPath:@"user.login"]];
 	if (!self.user.gravatarURL) {
 		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
 	}

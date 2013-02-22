@@ -162,7 +162,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (IBAction)addComment:(id)sender {
 	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
-	comment.userLogin = self.currentUser.login;
+	comment.user = self.currentUser;
 	comment.commitID = self.commit.commitID;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
 	[self.navigationController pushViewController:viewController animated:YES];

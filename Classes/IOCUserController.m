@@ -288,10 +288,10 @@
 		viewController = [[IOCUsersController alloc] initWithUsers:(row == 1) ? self.user.following : self.user.followers];
 		viewController.title = (row == 1) ? @"Following" : @"Followers";
 	} else if (section == 2 && !self.user.repositories.isEmpty) {
-		GHRepository *repo = self.user.repositories[indexPath.row];
+		GHRepository *repo = self.user.repositories[row];
 		viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3 && !self.user.organizations.isEmpty) {
-		GHOrganization *org = self.user.organizations[indexPath.row];
+		GHOrganization *org = self.user.organizations[row];
 		viewController = [[IOCOrganizationController alloc] initWithOrganization:org];
 	}
 	// Maybe push a controller

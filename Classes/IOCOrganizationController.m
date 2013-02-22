@@ -222,11 +222,11 @@
 	} else if (section == 1) {
 		viewController = [[EventsController alloc] initWithEvents:self.organization.events];
 		viewController.title = @"Recent Activity";
-	} else if (section == 2) {
-		GHRepository *repo = self.organization.repositories[indexPath.row];
+	} else if (section == 2 && !self.organization.repositories.isEmpty) {
+		GHRepository *repo = self.organization.repositories[row];
 		viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
-	} else if (section == 3) {
-		GHUser *selectedUser = self.organization.publicMembers[indexPath.row];
+	} else if (section == 3 && !self.organization.publicMembers.isEmpty) {
+		GHUser *selectedUser = self.organization.publicMembers[row];
 		viewController = [[IOCUserController alloc] initWithUser:(GHUser *)selectedUser];
 	}
 	// Maybe push a controller

@@ -271,11 +271,13 @@
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.user.blogURL) {
 		viewController = [[WebController alloc] initWithURL:self.user.blogURL];
-    } else if (section == 0 && row == 2 && [MFMailComposeViewController canSendMail] && ![self.user.email isEmpty]) {
-		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
-		mailComposer.mailComposeDelegate = self;
-		[mailComposer setToRecipients:@[self.user.email]];
-		[self presentModalViewController:mailComposer animated:YES];
+    } else if (section == 0 && row == 2 && ![self.user.email isEmpty]) {
+        if ([MFMailComposeViewController canSendMail]) {
+            MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
+            mailComposer.mailComposeDelegate = self;
+            [mailComposer setToRecipients:@[self.user.email]];
+            [self presentModalViewController:mailComposer animated:YES];
+        }
 	} else if (section == 1 && row == 0) {
 		viewController = [[EventsController alloc] initWithEvents:self.user.events];
 		viewController.title = @"Recent Activity";

@@ -3,7 +3,9 @@
 @implementation MenuTableView
 
 - (void)setContentSize:(CGSize)contentSize {
-    contentSize.height -= self.tableFooterView.frame.size.height;
+    if (self.tableFooterView) {
+        contentSize.height -= self.tableFooterView.frame.size.height;
+    }
     [super setContentSize:contentSize];
 }
 

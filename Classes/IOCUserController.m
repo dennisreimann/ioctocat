@@ -271,7 +271,7 @@
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.user.blogURL) {
 		viewController = [[WebController alloc] initWithURL:self.user.blogURL];
-	} else if (section == 0 && row == 2 && self.user.email) {
+    } else if (section == 0 && row == 2 && ![self.user.email isEmpty]) {
 		MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
 		mailComposer.mailComposeDelegate = self;
 		[mailComposer setToRecipients:@[self.user.email]];

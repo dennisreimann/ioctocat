@@ -23,8 +23,8 @@
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
-		_repository = repo;
-		_objects = [[NSArray alloc] initWithObjects:_repository.openPullRequests, _repository.closedPullRequests, nil];
+		self.repository = repo;
+		self.objects = @[self.repository.openPullRequests, self.repository.closedPullRequests];
 	}
 	return self;
 }

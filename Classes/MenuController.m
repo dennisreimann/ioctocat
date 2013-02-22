@@ -36,6 +36,8 @@
 @interface MenuController ()
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *menu;
+@property(nonatomic,strong)IBOutlet UIView *footerView;
+@property(nonatomic,weak)IBOutlet UILabel *versionLabel;
 @end
 
 
@@ -60,9 +62,11 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.versionLabel.text = [NSString stringWithFormat:@"v%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
 	self.tableView.rowHeight = kCellHeight;
 	self.tableView.backgroundColor = self.darkBackgroundColor;
 	self.tableView.separatorColor = self.lightBackgroundColor;
+    self.tableView.tableFooterView = self.footerView;
 	// disable scroll-to-top for the menu, so that the main controller receives the event
 	self.tableView.scrollsToTop = NO;
 	// open first view controller

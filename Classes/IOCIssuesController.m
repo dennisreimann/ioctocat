@@ -31,12 +31,12 @@
 - (id)initWithUser:(GHUser *)user {
 	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
-		self.user = user;
+		_user = user;
 		NSString *openPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateOpen, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 		NSString *closedPath = [NSString stringWithFormat:kUserAuthenticatedIssuesFormat, kIssueStateClosed, kIssueFilterSubscribed, kIssueSortUpdated, 30];
 		GHIssues *openIssues = [[GHIssues alloc] initWithResourcePath:openPath];
 		GHIssues *closedIssues = [[GHIssues alloc] initWithResourcePath:closedPath];
-		self.objects = @[openIssues, closedIssues];
+		_objects = [[NSArray alloc] initWithObjects:openIssues, closedIssues, nil];
 	}
 	return self;
 }
@@ -44,8 +44,8 @@
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
-		self.repository = repo;
-		self.objects = @[self.repository.openIssues, self.repository.closedIssues];
+		_repository = repo;
+		_objects = [[NSArray alloc] initWithObjects:_repository.openIssues, _repository.closedIssues, nil];
 	}
 	return self;
 }

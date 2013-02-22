@@ -83,14 +83,15 @@
 - (void)displayData:(NSData *)data withFilename:(NSString *)filename {
 	NSString *ext = [filename pathExtension];
 	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
-	NSString *mimeType;
 	if ([imageTypes containsObject:ext]) {
-		mimeType = [NSString stringWithFormat:@"image/%@", ext];
+		NSString *mimeType = [NSString stringWithFormat:@"image/%@", ext];
 		[self.contentView loadData:data MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
 		[self.contentView setScalesPageToFit:YES];
 	} else {
+		NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
 		[iOctocat reportError:@"Unknown content" with:message];
+		[self.contentView loadHTMLString:@"" baseURL:baseUrl];
 	}
 }
 

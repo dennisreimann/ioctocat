@@ -40,13 +40,13 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     _popupFrame = self.popupView.frame;
-	self.blob = self.blobs[self.index];
 	self.contentView.scrollView.bounces = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self layoutForInterfaceOrientation:self.interfaceOrientation];
+	self.blob = self.blobs[self.index];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -95,6 +95,7 @@
 }
 
 - (void)displayBlob:(GHBlob *)blob {
+	self.actionButton.enabled = YES;
 	// check what type of content we have and display it accordingly
 	if (self.blob.content) return [self displayCode:blob.content];
 	if (self.blob.contentData) return [self displayData:blob.contentData withFilename:blob.path];
@@ -108,7 +109,6 @@
 	self.title = self.blob.path;
 	if (self.blob.isLoaded) {
 		[self displayBlob:blob];
-        self.actionButton.enabled = YES;
 	} else {
         self.actionButton.enabled = NO;
 		// when done, check if it's the current blob, because we might get notified
@@ -118,10 +118,11 @@
 		} success:^(GHResource *instance, id data) {
 			if (blob == self.blob) {
                 [self displayBlob:blob];
-                self.actionButton.enabled = YES;
             }
 		} failure:^(GHResource *instance, NSError *error) {
-			if (blob == self.blob) [iOctocat reportLoadingError:@"Could not load the file"];
+			if (blob == self.blob) {
+				[iOctocat reportLoadingError:@"Could not load the file"];
+			}
 		}];
 	}
 	// Update navigation control

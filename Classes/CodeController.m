@@ -38,13 +38,13 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     _popupFrame = self.popupView.frame;
-	self.file = self.files[self.index];
 	self.contentView.scrollView.bounces = NO;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self layoutForInterfaceOrientation:self.interfaceOrientation];
+	self.file = self.files[self.index];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

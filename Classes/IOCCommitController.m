@@ -111,10 +111,12 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     if (self.commit.author.gravatar) {
 		self.gravatarView.image = self.commit.author.gravatar;
 	}
-	[self.repoCell setContentText:self.commit.repository.repoId];
-	[self.authorCell setContentText:self.commit.author.login];
-	[self.authoredCell setContentText:[self.commit.authoredDate prettyDate]];
-	[self.messageCell setContentText:self.commit.message];
+	self.repoCell.contentText = self.commit.repository.repoId;
+	self.authorCell.contentText = self.commit.author.login;
+	self.authorCell.selectionStyle = self.commit.author ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.authorCell.accessoryType = self.commit.author ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	self.authoredCell.contentText = [self.commit.authoredDate prettyDate];
+	self.messageCell.contentText = self.commit.message;
 	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
 	[self.removedCell setFiles:self.commit.removed andDescription:@"removed"];
 	[self.modifiedCell setFiles:self.commit.modified andDescription:@"modified"];
@@ -244,9 +246,9 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0) {
-		if (row == 0) {
+		if (row == 0 && self.commit.repository) {
 			viewController = [[IOCRepositoryController alloc] initWithRepository:self.commit.repository];
-		} else if (row == 1) {
+		} else if (row == 1 && self.commit.author) {
 			viewController = [[IOCUserController alloc] initWithUser:self.commit.author];
 		}
 	} else if (section == 1) {

@@ -25,12 +25,18 @@
 	// users
 	NSDictionary *authorDict = [dict safeDictForKey:@"author"];
 	NSDictionary *committerDict = [dict safeDictForKey:@"committer"];
-	if (!authorDict) authorDict = [dict safeDictForKey:@"commit.author"];
-	if (!committerDict) committerDict = [dict safeDictForKey:@"commit.committer"];
-	self.author = [[iOctocat sharedInstance] userWithLogin:[authorDict safeStringForKey:@"login"]];
-	self.committer = [[iOctocat sharedInstance] userWithLogin:[committerDict safeStringForKey:@"login"]];
-	if (self.author.isUnloaded) [self.author setValues:authorDict];
-	if (self.committer.isUnloaded) [self.committer setValues:committerDict];
+	if (!authorDict) authorDict = [dict safeDictForKeyPath:@"commit.author"];
+	if (!committerDict) committerDict = [dict safeDictForKeyPath:@"commit.committer"];
+	NSString *authorLogin = [authorDict safeStringForKey:@"login"];
+	NSString *committerLogin = [committerDict safeStringForKey:@"login"];
+	if (!authorLogin.isEmpty) {
+		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+		if (self.author.isUnloaded) [self.author setValues:authorDict];
+	}
+	if (!committerLogin.isEmpty) {
+		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
+		if (self.committer.isUnloaded) [self.committer setValues:committerDict];
+	}
 	// info
 	self.authorEmail = [authorDict safeStringForKey:@"email"];
 	self.authorName = [authorDict safeStringForKey:@"name"];

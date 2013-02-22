@@ -47,12 +47,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.currentPullRequests.isLoaded) return;
-    [self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
-        [self.tableView reloadData];
-    } success:^(GHResource *instance, id data) {
-        [self.tableView reloadData];
-    } failure:nil];
+    [self loadCurrentPullRequests];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -67,17 +62,21 @@
 	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
 }
 
-#pragma mark Actions
-
-- (IBAction)switchChanged:(id)sender {
-	[self.tableView reloadData];
-	[self.tableView setContentOffset:CGPointZero animated:NO];
+- (void)loadCurrentPullRequests {
 	if (self.currentPullRequests.isLoaded) return;
 	[self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
 		[self.tableView reloadData];
 	} success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
 	} failure:nil];
+}
+
+#pragma mark Actions
+
+- (IBAction)switchChanged:(id)sender {
+	[self.tableView reloadData];
+	[self.tableView setContentOffset:CGPointZero animated:NO];
+	[self loadCurrentPullRequests];
 }
 
 - (IBAction)refresh:(id)sender {

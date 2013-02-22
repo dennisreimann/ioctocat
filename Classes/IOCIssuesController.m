@@ -71,12 +71,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if (self.currentIssues.isLoaded) return;
-    [self.currentIssues loadWithParams:nil start:^(GHResource *instance) {
-        [self.tableView reloadData];
-    } success:^(GHResource *instance, id data) {
-        [self.tableView reloadData];
-    } failure:nil];
+    [self loadCurrentIssues];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -91,17 +86,21 @@
 	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
 }
 
-#pragma mark Actions
-
-- (IBAction)switchChanged:(id)sender {
-	[self.tableView reloadData];
-	[self.tableView setContentOffset:CGPointZero animated:NO];
+- (void)loadCurrentIssues {
 	if (self.currentIssues.isLoaded) return;
 	[self.currentIssues loadWithParams:nil start:^(GHResource *instance) {
 		[self.tableView reloadData];
 	} success:^(GHResource *instance, id data) {
 		[self.tableView reloadData];
 	} failure:nil];
+}
+
+#pragma mark Actions
+
+- (IBAction)switchChanged:(id)sender {
+	[self.tableView reloadData];
+	[self.tableView setContentOffset:CGPointZero animated:NO];
+	[self loadCurrentIssues];
 }
 
 - (IBAction)createNewIssue:(id)sender {

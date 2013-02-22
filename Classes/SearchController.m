@@ -11,8 +11,7 @@
 
 
 @interface SearchController ()
-@property(nonatomic,readonly)GHSearch *currentSearch;
-@property(nonatomic,strong)NSArray *searches;
+@property(nonatomic,strong)GHSearch *currentSearch;
 @property(nonatomic,strong)UserObjectCell *userObjectCell;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IBOutlet UISearchBar *searchBar;
@@ -26,8 +25,7 @@
 	self = [super initWithNibName:@"Search" bundle:nil];
 	if (self) {
 		GHSearch *userSearch = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];
-		GHSearch *repoSearch = [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
-		self.searches = @[userSearch, repoSearch];
+        _currentSearch = userSearch;
 	}
 	return self;
 }
@@ -41,17 +39,7 @@
 	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 }
 
-- (GHSearch *)currentSearch {
-	return self.searchControl.selectedSegmentIndex == UISegmentedControlNoSegment ?
-		nil : self.searches[self.searchControl.selectedSegmentIndex];
-}
-
 #pragma mark Actions
-
-- (IBAction)switchChanged:(id)sender {
-	[self.tableView reloadData];
-	[self.tableView setContentOffset:CGPointZero animated:NO];
-}
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar {
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(quitSearching:)];
@@ -59,6 +47,7 @@
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.currentSearch = (self.searchControl.selectedSegmentIndex == 0) ? [[GHSearch alloc] initWithURLFormat:kUserSearchFormat] : [[GHSearch alloc] initWithURLFormat:kRepoSearchFormat];
 	self.currentSearch.searchTerm = self.searchBar.text;
 	[self.currentSearch loadWithParams:nil start:^(GHResource *instance) {
 		[self.tableView reloadData];
@@ -74,7 +63,6 @@
 }
 
 - (void)quitSearching:(id)sender {
-	self.searchBar.text = self.currentSearch.searchTerm;
 	[self.searchBar resignFirstResponder];
 	self.navigationItem.rightBarButtonItem = nil;
 }

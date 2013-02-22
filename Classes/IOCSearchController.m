@@ -31,7 +31,6 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = @"Search";
 	self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44)];
 	self.searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
 	self.searchBar.delegate = self;
@@ -42,7 +41,7 @@
 	CGRect controlFrame = self.searchControl.frame;
 	controlFrame.size.width = 190;
 	self.searchControl.frame = controlFrame;
-	self.navigationItem.title = self.title ? self.title : @"Issues";
+    self.navigationItem.title = @"Search";
 	self.navigationItem.titleView = self.searchControl;
 	self.navigationItem.rightBarButtonItem = nil;
 }

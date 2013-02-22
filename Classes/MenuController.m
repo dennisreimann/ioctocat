@@ -62,7 +62,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.versionLabel.text = [NSString stringWithFormat:@"v%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey]];
+    self.versionLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
 	self.tableView.rowHeight = kCellHeight;
 	self.tableView.backgroundColor = self.darkBackgroundColor;
 	self.tableView.separatorColor = self.lightBackgroundColor;

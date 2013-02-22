@@ -89,6 +89,10 @@
 		6F27CD171591188D00E15B34 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6F27CD2015911E4700E15B34 /* IOCAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */; };
 		6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
+		6F2B387916D80F0200D39058 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2B387716D80F0200D39058 /* MenuOctocat.png */; };
+		6F2B387A16D80F0200D39058 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2B387716D80F0200D39058 /* MenuOctocat.png */; };
+		6F2B387B16D80F0200D39058 /* MenuOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2B387816D80F0200D39058 /* MenuOctocat@2x.png */; };
+		6F2B387C16D80F0200D39058 /* MenuOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2B387816D80F0200D39058 /* MenuOctocat@2x.png */; };
 		6F2C76EC1114EDEF002665DA /* file_added.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E81114EDEF002665DA /* file_added.png */; };
 		6F2C76ED1114EDEF002665DA /* file_modified.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76E91114EDEF002665DA /* file_modified.png */; };
 		6F2C76EE1114EDEF002665DA /* file_removed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F2C76EA1114EDEF002665DA /* file_removed.png */; };
@@ -176,8 +180,6 @@
 		6F54992C167DE8EF004D2D90 /* Commit-Large.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F549929167DE8EF004D2D90 /* Commit-Large.json */; };
 		6F54992D167DE8EF004D2D90 /* IssueCommentEvent-WithoutPullRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F54992A167DE8EF004D2D90 /* IssueCommentEvent-WithoutPullRequest.json */; };
 		6F54992E167DE8EF004D2D90 /* IssueCommentEvent-WithPullRequest.json in Resources */ = {isa = PBXBuildFile; fileRef = 6F54992B167DE8EF004D2D90 /* IssueCommentEvent-WithPullRequest.json */; };
-		6F552DA216788A0400698524 /* Octocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DA016788A0400698524 /* Octocat.png */; };
-		6F552DA316788A0400698524 /* Octocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DA116788A0400698524 /* Octocat@2x.png */; };
 		6F552DAF1678915D00698524 /* HockeySDK.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DAE1678915D00698524 /* HockeySDK.plist */; };
 		6F5652E10F99C85C001B6703 /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
 		6F5653030F99CB52001B6703 /* issue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5653020F99CB52001B6703 /* issue.png */; };
@@ -713,8 +715,6 @@
 		6FCAA41F167B52C800C816FA /* MenuRepositories.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE4408B1673E67100226F42 /* MenuRepositories.png */; };
 		6FCAA420167B52C800C816FA /* MenuRepositories@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FE4408C1673E67100226F42 /* MenuRepositories@2x.png */; };
 		6FCAA423167B52C800C816FA /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FD6961675E3E600E90A6E /* OAuth.plist */; };
-		6FCAA424167B52C800C816FA /* Octocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DA016788A0400698524 /* Octocat.png */; };
-		6FCAA425167B52C800C816FA /* Octocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DA116788A0400698524 /* Octocat@2x.png */; };
 		6FCAA426167B52C800C816FA /* HockeySDK.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F552DAE1678915D00698524 /* HockeySDK.plist */; };
 		6FCAA427167B52C800C816FA /* PullRequest.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBA1679175500B5FD53 /* PullRequest.xib */; };
 		6FCAA428167B52C800C816FA /* pull_request_closed.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F536BBD16791F5000B5FD53 /* pull_request_closed.png */; };
@@ -993,6 +993,8 @@
 		6F27CD1D15911E4700E15B34 /* IOCAccountFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAccountFormController.h; sourceTree = "<group>"; };
 		6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAccountFormController.m; sourceTree = "<group>"; };
 		6F27CD2215911E7E00E15B34 /* AccountForm.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AccountForm.xib; path = IBFiles/AccountForm.xib; sourceTree = "<group>"; };
+		6F2B387716D80F0200D39058 /* MenuOctocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuOctocat.png; sourceTree = "<group>"; };
+		6F2B387816D80F0200D39058 /* MenuOctocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOctocat@2x.png"; sourceTree = "<group>"; };
 		6F2C76E81114EDEF002665DA /* file_added.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_added.png; path = Images/Icons/file_added.png; sourceTree = "<group>"; };
 		6F2C76E91114EDEF002665DA /* file_modified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_modified.png; path = Images/Icons/file_modified.png; sourceTree = "<group>"; };
 		6F2C76EA1114EDEF002665DA /* file_removed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = file_removed.png; path = Images/Icons/file_removed.png; sourceTree = "<group>"; };
@@ -1077,8 +1079,6 @@
 		6F549929167DE8EF004D2D90 /* Commit-Large.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Commit-Large.json"; sourceTree = "<group>"; };
 		6F54992A167DE8EF004D2D90 /* IssueCommentEvent-WithoutPullRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "IssueCommentEvent-WithoutPullRequest.json"; sourceTree = "<group>"; };
 		6F54992B167DE8EF004D2D90 /* IssueCommentEvent-WithPullRequest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "IssueCommentEvent-WithPullRequest.json"; sourceTree = "<group>"; };
-		6F552DA016788A0400698524 /* Octocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Octocat.png; path = Images/Octocat.png; sourceTree = "<group>"; };
-		6F552DA116788A0400698524 /* Octocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Octocat@2x.png"; path = "Images/Octocat@2x.png"; sourceTree = "<group>"; };
 		6F552DAE1678915D00698524 /* HockeySDK.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HockeySDK.plist; sourceTree = "<group>"; };
 		6F5652DF0F99C85C001B6703 /* IOCMyRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCMyRepositoriesController.h; sourceTree = "<group>"; };
 		6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCMyRepositoriesController.m; sourceTree = "<group>"; };
@@ -2100,8 +2100,6 @@
 				6F74DD750FA76C4200FD90AB /* Backgrounds */,
 				6F3E21BB16A0C5DC00BAAB60 /* Access */,
 				6F11AE2A16A35CAE002D9741 /* Types */,
-				6F552DA016788A0400698524 /* Octocat.png */,
-				6F552DA116788A0400698524 /* Octocat@2x.png */,
 				6F814CD716BF06B9006B6D0E /* UIActivityIndicatorPlaceholder.png */,
 				6F814CDA16BF095D006B6D0E /* LoadingError.png */,
 				6F814CDB16BF095D006B6D0E /* LoadingError@2x.png */,
@@ -2162,6 +2160,8 @@
 		6FE4404A1673E5C400226F42 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				6F2B387716D80F0200D39058 /* MenuOctocat.png */,
+				6F2B387816D80F0200D39058 /* MenuOctocat@2x.png */,
 				6FF4D9741698E3AE00C235A0 /* MenuWatchedRepos.png */,
 				6FF4D9751698E3AE00C235A0 /* MenuWatchedRepos@2x.png */,
 				6FF4D9671698E32400C235A0 /* MenuStarredRepos.png */,
@@ -2687,8 +2687,6 @@
 				6FE4408F1673E67100226F42 /* MenuRepositories.png in Resources */,
 				6FE440901673E67100226F42 /* MenuRepositories@2x.png in Resources */,
 				6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */,
-				6F552DA216788A0400698524 /* Octocat.png in Resources */,
-				6F552DA316788A0400698524 /* Octocat@2x.png in Resources */,
 				6F552DAF1678915D00698524 /* HockeySDK.plist in Resources */,
 				6F536BBB1679175500B5FD53 /* PullRequest.xib in Resources */,
 				6F536BC116791F5000B5FD53 /* pull_request_closed.png in Resources */,
@@ -2754,6 +2752,8 @@
 				364E009916D55021005F5490 /* ToolbarLeft@2x.png in Resources */,
 				364E009B16D55021005F5490 /* ToolbarRight.png in Resources */,
 				364E009D16D55021005F5490 /* ToolbarRight@2x.png in Resources */,
+				6F2B387916D80F0200D39058 /* MenuOctocat.png in Resources */,
+				6F2B387B16D80F0200D39058 /* MenuOctocat@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2989,8 +2989,6 @@
 				6FCAA41F167B52C800C816FA /* MenuRepositories.png in Resources */,
 				6FCAA420167B52C800C816FA /* MenuRepositories@2x.png in Resources */,
 				6FCAA423167B52C800C816FA /* OAuth.plist in Resources */,
-				6FCAA424167B52C800C816FA /* Octocat.png in Resources */,
-				6FCAA425167B52C800C816FA /* Octocat@2x.png in Resources */,
 				6FCAA426167B52C800C816FA /* HockeySDK.plist in Resources */,
 				6FCAA427167B52C800C816FA /* PullRequest.xib in Resources */,
 				6FCAA428167B52C800C816FA /* pull_request_closed.png in Resources */,
@@ -3056,6 +3054,8 @@
 				364E009A16D55021005F5490 /* ToolbarLeft@2x.png in Resources */,
 				364E009C16D55021005F5490 /* ToolbarRight.png in Resources */,
 				364E009E16D55021005F5490 /* ToolbarRight@2x.png in Resources */,
+				6F2B387A16D80F0200D39058 /* MenuOctocat.png in Resources */,
+				6F2B387C16D80F0200D39058 /* MenuOctocat@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -75,32 +75,41 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[self openViewController:myEventsController];
 	// load resources
 	if (self.user.notifications.isUnloaded) {
-		[self.user.notifications loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+		[self.user.notifications loadWithSuccess:^(GHResource *instance, id data) {
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
 			[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-		} failure:nil];
+		}];
 	}
 	if (self.user.organizations.isUnloaded) {
-		for (GHOrganization *org in self.user.organizations.items) {
-			[org removeObserver:self forKeyPath:GravatarKeyPath];
-		}
+		[self removeOrganizationObservers];
 		// success is handled by the KVO hook
 		[self.user.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
-			for (GHOrganization *org in self.user.organizations.items) {
-				[org addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-			}
+			[self addOrganizationObservers];
 			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
 			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 		} failure:^(GHResource *instance, NSError *error) {
 			[iOctocat reportLoadingError:@"Could not load the organizations"];
 		}];
+	} else {
+		[self addOrganizationObservers];
 	}
+}
 
+- (void)addOrganizationObservers {
+	for (GHOrganization *org in self.user.organizations.items) {
+		[org addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	}
+}
+
+- (void)removeOrganizationObservers {
+	for (GHOrganization *org in self.user.organizations.items) {
+		[org removeObserver:self forKeyPath:GravatarKeyPath];
+	}
 }
 
 - (void)dealloc {
-	for (GHOrganization *org in self.user.organizations.items) {
-		[org removeObserver:self forKeyPath:GravatarKeyPath];
+	if (self.user.organizations.isLoaded) {
+		[self removeOrganizationObservers];
 	}
 	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
 	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];

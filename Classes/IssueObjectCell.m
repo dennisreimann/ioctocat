@@ -24,6 +24,7 @@
 	self.textLabel.highlightedTextColor = [UIColor whiteColor];
 	self.detailTextLabel.highlightedTextColor = [UIColor whiteColor];
 	self.detailTextLabel.font = [UIFont systemFontOfSize:13];
+    self.detailTextLabel.numberOfLines = 2;
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	self.opaque = YES;
 	self.displayRepo = YES;
@@ -41,7 +42,7 @@
 
 - (void)hideRepo {
 	self.displayRepo = NO;
-    self.detailTextLabel.numberOfLines = 2;
+    self.detailTextLabel.numberOfLines = 1;
 }
 
 - (GHIssue *)object {

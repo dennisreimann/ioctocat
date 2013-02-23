@@ -154,6 +154,9 @@
 	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
 	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
+    viewController.gistTitle = [NSString stringWithFormat:@"%@", self.gist.title];
+    viewController.gistOwner = [NSString stringWithFormat:@"%@", self.gist.user.login];
+    viewController.commentType = @"2";
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

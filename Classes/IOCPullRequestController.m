@@ -219,6 +219,9 @@
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
 	comment.userLogin = self.currentUser.login;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
+    viewController.pullRequestRepo = [NSString stringWithFormat:@"%@", self.pullRequest.repository.repoId];
+    viewController.pullRequestNum = [NSString stringWithFormat:@"#%d", self.pullRequest.num];
+    viewController.commentType = @"1";
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

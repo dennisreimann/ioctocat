@@ -198,6 +198,7 @@
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
     viewController.issueNumber = [NSString stringWithFormat:@"#%d", self.issue.num];
     viewController.issueRepository = [NSString stringWithFormat:@"%@", self.issue.repository];
+    viewController.commentType = @"0";
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 

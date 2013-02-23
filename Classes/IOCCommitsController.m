@@ -1,6 +1,6 @@
 #import "IOCCommitsController.h"
 #import "IOCCommitController.h"
-#import "CommitCell.h"
+#import "IOCCommitCell.h"
 #import "GHCommits.h"
 #import "GHCommit.h"
 #import "iOctocat.h"
@@ -78,8 +78,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.commits.isEmpty) return self.statusCell;
-	CommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
-	if (cell == nil) cell = [CommitCell cell];
+	IOCCommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
+	if (cell == nil) cell = [IOCCommitCell cell];
 	cell.commit = self.commits[indexPath.row];
 	return cell;
 }

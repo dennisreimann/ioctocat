@@ -281,7 +281,7 @@
 		6F61248C167D0410001A3E05 /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6F61248D167D0410001A3E05 /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
 		6F61248E167D0410001A3E05 /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
-		6F61248F167D0410001A3E05 /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* CommitCell.m */; };
+		6F61248F167D0410001A3E05 /* IOCCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* IOCCommitCell.m */; };
 		6F612490167D0410001A3E05 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6F612491167D0410001A3E05 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* CommentCell.m */; };
 		6F612492167D0410001A3E05 /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
@@ -317,7 +317,7 @@
 		6F72FB2F0F9B53810069F092 /* EventCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F72FB2E0F9B53810069F092 /* EventCell.m */; };
 		6F74DD890FA76CCA00FD90AB /* EventCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F74DD880FA76CCA00FD90AB /* EventCell.xib */; };
 		6F76CDC116628FF500A2353E /* IOCCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* IOCCommitsController.m */; };
-		6F76CDC41662964C00A2353E /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* CommitCell.m */; };
+		6F76CDC41662964C00A2353E /* IOCCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* IOCCommitCell.m */; };
 		6F7769CD164B0DDF0009CB06 /* FollowEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769C6164B0DDB0009CB06 /* FollowEvent.png */; };
 		6F7769CE164B0DDF0009CB06 /* ForkEvent.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769C7164B0DDB0009CB06 /* ForkEvent.png */; };
 		6F7769CF164B0DDF0009CB06 /* ForkEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F7769C8164B0DDC0009CB06 /* ForkEvent@2x.png */; };
@@ -800,7 +800,7 @@
 		6FCAA47A167B52C800C816FA /* IOCApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAE3438165B6FD300C3502A /* IOCApplication.m */; };
 		6FCAA47B167B52C800C816FA /* IOCTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F6399E316618E1E00BF2FF0 /* IOCTextField.m */; };
 		6FCAA47C167B52C800C816FA /* IOCCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* IOCCommitsController.m */; };
-		6FCAA47D167B52C800C816FA /* CommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* CommitCell.m */; };
+		6FCAA47D167B52C800C816FA /* IOCCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC31662964C00A2353E /* IOCCommitCell.m */; };
 		6FCAA47E167B52C800C816FA /* MenuController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F987659166FEC380031E31B /* MenuController.m */; };
 		6FCAA47F167B52C800C816FA /* MenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE440261673D53C00226F42 /* MenuCell.m */; };
 		6FCAA480167B52C800C816FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
@@ -1138,8 +1138,8 @@
 		6F74DD880FA76CCA00FD90AB /* EventCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EventCell.xib; path = IBFiles/EventCell.xib; sourceTree = "<group>"; };
 		6F76CDBF16628FF500A2353E /* IOCCommitsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCCommitsController.h; sourceTree = "<group>"; };
 		6F76CDC016628FF500A2353E /* IOCCommitsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCommitsController.m; sourceTree = "<group>"; };
-		6F76CDC21662964B00A2353E /* CommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommitCell.h; sourceTree = "<group>"; };
-		6F76CDC31662964C00A2353E /* CommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommitCell.m; sourceTree = "<group>"; };
+		6F76CDC21662964B00A2353E /* IOCCommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCCommitCell.h; sourceTree = "<group>"; };
+		6F76CDC31662964C00A2353E /* IOCCommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCommitCell.m; sourceTree = "<group>"; };
 		6F7769C6164B0DDB0009CB06 /* FollowEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = FollowEvent.png; path = Images/Icons/FollowEvent.png; sourceTree = "<group>"; };
 		6F7769C7164B0DDB0009CB06 /* ForkEvent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ForkEvent.png; path = Images/Icons/ForkEvent.png; sourceTree = "<group>"; };
 		6F7769C8164B0DDC0009CB06 /* ForkEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ForkEvent@2x.png"; path = "Images/Icons/ForkEvent@2x.png"; sourceTree = "<group>"; };
@@ -1655,10 +1655,12 @@
 				6FA0AE1516C014AD007308A6 /* IOCTableViewSectionHeader.m */,
 				6F814CD216BEF755006B6D0E /* IOCResourceStatusCell.h */,
 				6F814CD316BEF767006B6D0E /* IOCResourceStatusCell.m */,
-				8C53B4D50FB0F32600C3A8E0 /* UserObjectCell.h */,
-				8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */,
 				6F26DB4C16A6BB9200939D85 /* IOCGistCell.h */,
 				6FF001B616A6BB3B00FD4803 /* IOCGistCell.m */,
+				6F76CDC21662964B00A2353E /* IOCCommitCell.h */,
+				6F76CDC31662964C00A2353E /* IOCCommitCell.m */,
+				8C53B4D50FB0F32600C3A8E0 /* UserObjectCell.h */,
+				8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */,
 				6F26DB4E16A6E1D900939D85 /* NotificationCell.h */,
 				6F26DB4F16A6E1E700939D85 /* NotificationCell.m */,
 				6F1DC52E0F7E727C00FCD26D /* EventCell.h */,
@@ -1671,8 +1673,6 @@
 				8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */,
 				6FB93A940FB2231E002B43AD /* RepositoryCell.h */,
 				6FB93A950FB2231E002B43AD /* RepositoryCell.m */,
-				6F76CDC21662964B00A2353E /* CommitCell.h */,
-				6F76CDC31662964C00A2353E /* CommitCell.m */,
 				6FF09E63111589D600925109 /* FilesCell.h */,
 				6FF09E64111589D600925109 /* FilesCell.m */,
 				6FE7D1BC115622D1004B4D68 /* CommentCell.h */,
@@ -3231,7 +3231,7 @@
 				6FAE3439165B6FD300C3502A /* IOCApplication.m in Sources */,
 				6F6399E416618E1E00BF2FF0 /* IOCTextField.m in Sources */,
 				6F76CDC116628FF500A2353E /* IOCCommitsController.m in Sources */,
-				6F76CDC41662964C00A2353E /* CommitCell.m in Sources */,
+				6F76CDC41662964C00A2353E /* IOCCommitCell.m in Sources */,
 				6F98765A166FEC380031E31B /* MenuController.m in Sources */,
 				6FE440271673D53C00226F42 /* MenuCell.m in Sources */,
 				6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
@@ -3298,7 +3298,7 @@
 				6F61248C167D0410001A3E05 /* TextCell.m in Sources */,
 				6F61248D167D0410001A3E05 /* IssueObjectCell.m in Sources */,
 				6F61248E167D0410001A3E05 /* RepositoryCell.m in Sources */,
-				6F61248F167D0410001A3E05 /* CommitCell.m in Sources */,
+				6F61248F167D0410001A3E05 /* IOCCommitCell.m in Sources */,
 				6F612490167D0410001A3E05 /* FilesCell.m in Sources */,
 				6F612491167D0410001A3E05 /* CommentCell.m in Sources */,
 				6F612492167D0410001A3E05 /* MenuCell.m in Sources */,
@@ -3447,7 +3447,7 @@
 				6FCAA47A167B52C800C816FA /* IOCApplication.m in Sources */,
 				6FCAA47B167B52C800C816FA /* IOCTextField.m in Sources */,
 				6FCAA47C167B52C800C816FA /* IOCCommitsController.m in Sources */,
-				6FCAA47D167B52C800C816FA /* CommitCell.m in Sources */,
+				6FCAA47D167B52C800C816FA /* IOCCommitCell.m in Sources */,
 				6FCAA47E167B52C800C816FA /* MenuController.m in Sources */,
 				6FCAA47F167B52C800C816FA /* MenuCell.m in Sources */,
 				6FCAA480167B52C800C816FA /* IOCAvatarCache.m in Sources */,

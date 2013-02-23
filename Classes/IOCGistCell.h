@@ -1,7 +1,8 @@
 @class GHGist;
 
-@interface GistCell : UITableViewCell
+@interface IOCGistCell : UITableViewCell
 @property(nonatomic,strong)GHGist *gist;
 
 + (id)cell;
+- (void)hideUser;
 @end

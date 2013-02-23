@@ -340,6 +340,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 			if (row == 0) {
 				viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
 				viewController.title = @"Personal Gists";
+				[(IOCGistsController *)viewController setHideUser:YES];
 			} else if (row == 1) {
 				viewController = [[IOCGistsController alloc] initWithGists:self.user.starredGists];
 				viewController.title = @"Starred Gists";

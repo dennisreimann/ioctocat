@@ -30,18 +30,16 @@
 	}
 }
 
-- (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:self.userLogin];
-}
-
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
+	NSDictionary *userDict = [dict safeDictForKey:@"user"];
+	NSString *userLogin = [userDict safeStringForKey:@"login"];
+	self.user = [[iOctocat sharedInstance] userWithLogin:userLogin];
 	self.gistId = [dict safeStringForKey:@"id"];
 	self.files = [[GHFiles alloc] init];
 	[self.files setValues:[[dict safeDictForKey:@"files"] allValues]];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
-	self.userLogin = [dict safeStringForKeyPath:@"user.login"];
 	self.descriptionText = [dict safeStringForKey:@"description"];
 	self.isPrivate = ![dict safeBoolForKey:@"public"];
 	self.forksCount = [dict safeArrayForKey:@"forks"].count;

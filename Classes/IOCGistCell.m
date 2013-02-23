@@ -1,9 +1,15 @@
-#import "GistCell.h"
+#import "IOCGistCell.h"
 #import "GHGist.h"
+#import "GHUser.h"
 #import "NSDate+Nibware.h"
 
 
-@implementation GistCell
+@interface IOCGistCell ()
+@property(nonatomic,assign)BOOL displayUser;
+@end
+
+
+@implementation IOCGistCell
 
 + (id)cell {
 	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kGistCellIdentifier];
@@ -16,15 +22,21 @@
 	self.selectionStyle = UITableViewCellSelectionStyleBlue;
 	self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	self.opaque = YES;
+	self.displayUser = YES;
 	return self;
 }
 
 - (void)setGist:(GHGist *)gist {
 	_gist = gist;
+	NSString *userInfo = self.displayUser && self.gist.user ? [NSString stringWithFormat:@"by %@ - ", self.gist.user.login] : @"";
 	self.textLabel.text = gist.title;
-	self.detailTextLabel.text = [NSString stringWithFormat:@"%@, %d %@", [gist.createdAtDate prettyDate], gist.commentsCount, gist.commentsCount == 1 ? @"comment" : @"comments"];
+	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [gist.createdAtDate prettyDate]];
 	self.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"Private.png" : @"Public.png")];
 	self.imageView.highlightedImage = [UIImage imageNamed:(gist.isPrivate ? @"PrivateOn.png" : @"PublicOn.png")];
+}
+
+- (void)hideUser {
+	self.displayUser = NO;
 }
 
 @end

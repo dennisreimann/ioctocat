@@ -2,7 +2,7 @@
 #import "GHGist.h"
 #import "IOCGistsController.h"
 #import "IOCGistController.h"
-#import "GistCell.h"
+#import "IOCGistCell.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
@@ -21,6 +21,7 @@
 	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.gists = gists;
+		self.hideUser = NO;
 	}
 	return self;
 }
@@ -72,8 +73,9 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.gists.isEmpty) return self.statusCell;
-	GistCell *cell = (GistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
-	if (cell == nil) cell = [GistCell cell];
+	IOCGistCell *cell = (IOCGistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
+	if (cell == nil) cell = [IOCGistCell cell];
+	if (self.hideUser) [cell hideUser];
 	cell.gist = self.gists[indexPath.row];
 	return cell;
 }

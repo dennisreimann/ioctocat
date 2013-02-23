@@ -870,9 +870,9 @@
 		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
 		6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
 		6FED82970FACA1E700BE5C81 /* IOCPullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */; };
-		6FF001B716A6BB3B00FD4803 /* GistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* GistCell.m */; };
-		6FF001B816A6BB3B00FD4803 /* GistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* GistCell.m */; };
-		6FF001B916A6BB3B00FD4803 /* GistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* GistCell.m */; };
+		6FF001B716A6BB3B00FD4803 /* IOCGistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* IOCGistCell.m */; };
+		6FF001B816A6BB3B00FD4803 /* IOCGistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* IOCGistCell.m */; };
+		6FF001B916A6BB3B00FD4803 /* IOCGistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF001B616A6BB3B00FD4803 /* IOCGistCell.m */; };
 		6FF09E65111589D600925109 /* FilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* FilesCell.m */; };
 		6FF4D9551698D4B900C235A0 /* IOCRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4D9541698D4B900C235A0 /* IOCRepositoriesController.m */; };
 		6FF4D9561698D4B900C235A0 /* IOCRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF4D9541698D4B900C235A0 /* IOCRepositoriesController.m */; };
@@ -982,7 +982,7 @@
 		6F1F399216A034D200C9E01B /* GHNotifications.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNotifications.m; sourceTree = "<group>"; };
 		6F1F399616A034E100C9E01B /* GHNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHNotification.h; sourceTree = "<group>"; };
 		6F1F399716A034ED00C9E01B /* GHNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHNotification.m; sourceTree = "<group>"; };
-		6F26DB4C16A6BB9200939D85 /* GistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GistCell.h; sourceTree = "<group>"; };
+		6F26DB4C16A6BB9200939D85 /* IOCGistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCGistCell.h; sourceTree = "<group>"; };
 		6F26DB4E16A6E1D900939D85 /* NotificationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationCell.h; sourceTree = "<group>"; };
 		6F26DB4F16A6E1E700939D85 /* NotificationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationCell.m; sourceTree = "<group>"; };
 		6F26DB5516A6F3C600939D85 /* Remove.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Remove.png; sourceTree = "<group>"; };
@@ -1401,7 +1401,7 @@
 		6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAuthenticationController.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IOCPullRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCPullRequestsController.h; sourceTree = "<group>"; };
 		6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCPullRequestsController.m; sourceTree = "<group>"; };
-		6FF001B616A6BB3B00FD4803 /* GistCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GistCell.m; sourceTree = "<group>"; };
+		6FF001B616A6BB3B00FD4803 /* IOCGistCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCGistCell.m; sourceTree = "<group>"; };
 		6FF09E63111589D600925109 /* FilesCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilesCell.h; sourceTree = "<group>"; };
 		6FF09E64111589D600925109 /* FilesCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilesCell.m; sourceTree = "<group>"; };
 		6FF4D9531698D47E00C235A0 /* IOCRepositoriesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCRepositoriesController.h; sourceTree = "<group>"; };
@@ -1657,8 +1657,8 @@
 				6F814CD316BEF767006B6D0E /* IOCResourceStatusCell.m */,
 				8C53B4D50FB0F32600C3A8E0 /* UserObjectCell.h */,
 				8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */,
-				6F26DB4C16A6BB9200939D85 /* GistCell.h */,
-				6FF001B616A6BB3B00FD4803 /* GistCell.m */,
+				6F26DB4C16A6BB9200939D85 /* IOCGistCell.h */,
+				6FF001B616A6BB3B00FD4803 /* IOCGistCell.m */,
 				6F26DB4E16A6E1D900939D85 /* NotificationCell.h */,
 				6F26DB4F16A6E1E700939D85 /* NotificationCell.m */,
 				6F1DC52E0F7E727C00FCD26D /* EventCell.h */,
@@ -3246,7 +3246,7 @@
 				6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */,
 				6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */,
 				6FBA2A0216A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
-				6FF001B716A6BB3B00FD4803 /* GistCell.m in Sources */,
+				6FF001B716A6BB3B00FD4803 /* IOCGistCell.m in Sources */,
 				6F26DB5016A6E1E700939D85 /* NotificationCell.m in Sources */,
 				6F814CD416BEF767006B6D0E /* IOCResourceStatusCell.m in Sources */,
 				6FA0AE1616C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,
@@ -3356,7 +3356,7 @@
 				6F3E21DB16A0C90200BAAB60 /* NotificationsController.m in Sources */,
 				6FBA2A0416A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FD07B9316A49D05000BF998 /* IOCDefaultsPersistenceTests.m in Sources */,
-				6FF001B916A6BB3B00FD4803 /* GistCell.m in Sources */,
+				6FF001B916A6BB3B00FD4803 /* IOCGistCell.m in Sources */,
 				6F26DB5216A6E1E700939D85 /* NotificationCell.m in Sources */,
 				6F814CD616BEF767006B6D0E /* IOCResourceStatusCell.m in Sources */,
 				6FA0AE1816C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,
@@ -3462,7 +3462,7 @@
 				6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */,
 				6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */,
 				6FBA2A0316A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
-				6FF001B816A6BB3B00FD4803 /* GistCell.m in Sources */,
+				6FF001B816A6BB3B00FD4803 /* IOCGistCell.m in Sources */,
 				6F26DB5116A6E1E700939D85 /* NotificationCell.m in Sources */,
 				6F814CD516BEF767006B6D0E /* IOCResourceStatusCell.m in Sources */,
 				6FA0AE1716C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,

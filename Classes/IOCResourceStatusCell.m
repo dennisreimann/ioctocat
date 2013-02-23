@@ -3,7 +3,7 @@
 
 
 @interface IOCResourceStatusCell ()
-@property(nonatomic,weak)GHResource *resource;
+@property(nonatomic,strong)GHResource *resource;
 @property(nonatomic,copy)NSString *name;
 @property(nonatomic,strong)UIActivityIndicatorView *spinner;
 @end

@@ -35,9 +35,10 @@
 	_issueObject = issueObject;
 	NSString *objectType = [_issueObject isKindOfClass:GHPullRequest.class] ? @"pull_request" : @"issue";
 	NSString *imageName = [NSString stringWithFormat:@"%@_%@.png", objectType, self.object.state];
+    NSString *userInfo = self.object.user ? [NSString stringWithFormat:@"by %@ - ", self.object.user.login] : @"";
 	self.imageView.image = [UIImage imageNamed:imageName];
     self.textLabel.text = self.object.title;
-    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d by %@ - %@", self.object.num, self.object.user.login, _displayRepo ? [NSString stringWithFormat:@"%@\n%@", [self.object.updated prettyDate], self.object.repository.repoId] : [self.object.created prettyDate]];
+    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@%@", self.object.num, userInfo, _displayRepo ? [NSString stringWithFormat:@"%@\n%@", [self.object.updated prettyDate], self.object.repository.repoId] : [self.object.created prettyDate]];
 }
 
 - (void)hideRepo {

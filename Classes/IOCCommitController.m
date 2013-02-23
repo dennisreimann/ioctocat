@@ -31,6 +31,7 @@
 @property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *authoredCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *committedCell;
 @property(nonatomic,strong)IBOutlet TextCell *messageCell;
 @property(nonatomic,strong)IBOutlet FilesCell *addedCell;
 @property(nonatomic,strong)IBOutlet FilesCell *modifiedCell;
@@ -116,6 +117,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.authorCell.selectionStyle = self.commit.author ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.commit.author ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authoredCell.contentText = [self.commit.authoredDate prettyDate];
+	self.committedCell.contentText = [self.commit.committedDate prettyDate];
 	self.messageCell.contentText = self.commit.message;
 	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
 	[self.removedCell setFiles:self.commit.removed andDescription:@"removed"];
@@ -177,7 +179,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.commit.isEmpty) return 1;
 	if (section == 0) {
-		return self.commit.hasExtendedMessage ? 4 : 3;
+		return self.commit.hasExtendedMessage ? 5 : 4;
 	} else if (section == 1) {
 		return 3;
 	} else {
@@ -206,7 +208,8 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		if (row == 0) return self.repoCell;
 		if (row == 1) return self.authorCell;
 		if (row == 2) return self.authoredCell;
-		if (row == 3) return self.messageCell;
+		if (row == 3) return self.committedCell;
+		if (row == 4) return self.messageCell;
 	} else if (section == 1) {
 		if (row == 0) return self.addedCell;
 		if (row == 1) return self.removedCell;
@@ -227,7 +230,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	if (section == 0 && row == 3) {
+	if (section == 0 && row == 4) {
 		return [self.messageCell heightForTableView:tableView];
 	} else if (section == 2 && !self.commit.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];

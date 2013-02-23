@@ -137,7 +137,7 @@
 }
 
 - (BOOL)isGitHubURL:(NSURL *)url {
-	return [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
+    return [[url host] rangeOfString:@"github.com" options:NSCaseInsensitiveSearch | NSBackwardsSearch | NSAnchoredSearch].location != NSNotFound;
 }
 
 #pragma mark Users

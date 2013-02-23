@@ -48,7 +48,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[self.commit addObserver:self forKeyPath:AuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.imageView.image = self.commit.author.gravatar ? self.commit.author.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 	self.textLabel.text = self.commit.shortenedMessage;
-	NSString *userInfo = self.commit.author ? [NSString stringWithFormat:@"by %@ - ", self.commit.author.login] : @"";
+	NSString *userInfo = self.commit.author ? [NSString stringWithFormat:@"%@ - ", self.commit.author.login] : @"";
 	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [self.commit.authoredDate prettyDate]];
 }
 

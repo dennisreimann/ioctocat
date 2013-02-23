@@ -28,7 +28,7 @@
 
 - (void)setGist:(GHGist *)gist {
 	_gist = gist;
-	NSString *userInfo = self.displayUser && self.gist.user ? [NSString stringWithFormat:@"by %@ - ", self.gist.user.login] : @"";
+	NSString *userInfo = self.displayUser && self.gist.user ? [NSString stringWithFormat:@"%@ - ", self.gist.user.login] : @"";
 	self.textLabel.text = gist.title;
 	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [gist.createdAtDate prettyDate]];
 	self.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"Private.png" : @"Public.png")];

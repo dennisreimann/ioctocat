@@ -152,6 +152,10 @@
 	return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return self.repository ? 44.0f : 60.0f;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.currentIssues.isEmpty) return;
 	GHIssue *issue = self.currentIssues[indexPath.row];

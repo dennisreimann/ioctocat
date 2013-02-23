@@ -36,11 +36,12 @@
 	NSString *imageName = [NSString stringWithFormat:@"%@_%@.png", objectType, self.object.state];
 	self.imageView.image = [UIImage imageNamed:imageName];
     self.textLabel.text = self.object.title;
-    self.detailTextLabel.text = [NSString stringWithFormat:@"%@#%d - %@", (_displayRepo ? self.object.repository.repoId : @""), self.object.num, [self.object.updated prettyDate]];
+    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d by %@ - %@", self.object.num, self.object.user.login, _displayRepo ? [NSString stringWithFormat:@"%@\n%@", [self.object.updated prettyDate], self.object.repository.repoId] : [self.object.created prettyDate]];
 }
 
 - (void)hideRepo {
 	self.displayRepo = NO;
+    self.detailTextLabel.numberOfLines = 2;
 }
 
 - (GHIssue *)object {

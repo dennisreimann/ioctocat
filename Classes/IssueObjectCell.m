@@ -41,10 +41,10 @@
 	_issueObject = issueObject;
 	NSString *objectType = [_issueObject isKindOfClass:GHPullRequest.class] ? @"pull_request" : @"issue";
 	NSString *imageName = [NSString stringWithFormat:@"%@_%@.png", objectType, self.object.state];
-    NSString *userInfo = self.object.user ? [NSString stringWithFormat:@"by %@ - ", self.object.user.login] : @"";
+    NSString *userInfo = self.object.user ? [NSString stringWithFormat:@"by %@ ", self.object.user.login] : @"";
 	self.imageView.image = [UIImage imageNamed:imageName];
     self.textLabel.text = self.object.title;
-    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@%@", self.object.num, userInfo, [_displayRepo ? self.object.updated : self.object.created prettyDate]];
+    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@- %@", self.object.num, userInfo, [_displayRepo ? self.object.updated : self.object.created prettyDate]];
     self.repoLabel.text = _displayRepo ? self.object.repository.repoId : @"";
 }
 

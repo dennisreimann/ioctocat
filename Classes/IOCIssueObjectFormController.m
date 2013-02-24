@@ -38,7 +38,16 @@
 		self.bodyField.text = self.object.body;
         self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     self.object.isNew ? [self.titleField becomeFirstResponder] : [self.bodyField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:NO];
 }
 
 - (GHIssue *)object {

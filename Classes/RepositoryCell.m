@@ -20,8 +20,8 @@
 
 - (void)setRepository:(GHRepository *)repo {
 	_repository = repo;
-	NSString *img = @"Private";
-	if (!self.repository.isPrivate) img = self.repository.isFork ? @"PublicFork" : @"Public";
+	NSString *img = @"RepoPrivate";
+	if (!self.repository.isPrivate) img = self.repository.isFork ? @"RepoPublicFork" : @"RepoPublic";
 	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", img]];
 	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@On.png", img]];
 	self.textLabel.text = self.repository.repoId;

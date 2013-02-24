@@ -29,10 +29,14 @@
 - (void)setGist:(GHGist *)gist {
 	_gist = gist;
 	NSString *userInfo = self.displayUser && self.gist.user ? [NSString stringWithFormat:@"%@ - ", self.gist.user.login] : @"";
+    // unfortunately atm the gist api does not state the fork
+	// status of a gist, but in the future this might work
+	NSString *img = @"GistPrivate";
+	if (!self.gist.isPrivate) img = self.gist.isFork ? @"GistPublicFork" : @"GistPublic";
+	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", img]];
+	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@On.png", img]];
 	self.textLabel.text = gist.title;
 	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [gist.createdAtDate prettyDate]];
-	self.imageView.image = [UIImage imageNamed:(gist.isPrivate ? @"Private.png" : @"Public.png")];
-	self.imageView.highlightedImage = [UIImage imageNamed:(gist.isPrivate ? @"PrivateOn.png" : @"PublicOn.png")];
 }
 
 - (void)hideUser {

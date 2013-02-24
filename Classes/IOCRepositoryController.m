@@ -128,8 +128,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (void)displayRepository {
-	NSString *img = @"Private";
-	if (!self.repository.isPrivate) img = self.repository.isFork ? @"PublicFork" : @"Public";
+	NSString *img = @"RepoPrivate";
+	if (!self.repository.isPrivate) img = self.repository.isFork ? @"RepoPublicFork" : @"RepoPublic";
 	self.iconView.image = [UIImage imageNamed:img];
 	self.nameLabel.text = self.repository.name;
 	self.iconView.hidden = self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;

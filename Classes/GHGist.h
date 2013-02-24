@@ -17,6 +17,7 @@
 @property(nonatomic,readwrite)NSUInteger commentsCount;
 @property(nonatomic,readwrite)NSUInteger forksCount;
 @property(nonatomic,readwrite)BOOL isPrivate;
+@property(nonatomic,readwrite)BOOL isFork;
 
 - (id)initWithId:(NSString *)gistId;
 @end

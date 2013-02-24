@@ -100,7 +100,7 @@
 }
 
 - (void)displayGist {
-	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"Private.png" : @"Public.png")];
+	self.iconView.image = [UIImage imageNamed:(self.gist.isPrivate ? @"GistPrivate.png" : @"GistPublic.png")];
 	self.descriptionLabel.text = self.gist.title;
 	self.forksIconView.hidden = !self.gist.isLoaded;
 	self.ownerCell.contentText = self.gist.user.login;

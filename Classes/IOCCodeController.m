@@ -145,8 +145,8 @@
 }
 
 - (void)hidePopupView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePopupView) object:nil];
     if ([self.popupView isDescendantOfView:self.view]) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePopupView) object:nil];
         [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
             _popupFrame.origin.y = self.toolbar.frame.origin.y;
             self.popupView.frame = _popupFrame;

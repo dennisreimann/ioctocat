@@ -77,7 +77,7 @@
 	[super viewDidLoad];
 	[self layoutCommentButton];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"issue"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
 	[self.mergeButton useGreenConfirmStyle];
 	[self displayPullRequest];

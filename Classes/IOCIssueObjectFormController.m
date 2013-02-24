@@ -36,7 +36,11 @@
 	if (!self.object.isNew) {
 		self.titleField.text = self.object.title;
 		self.bodyField.text = self.object.body;
-	}
+        self.bodyField.selectedRange = NSMakeRange(0, 0);
+        [self.bodyField becomeFirstResponder];
+    } else {
+        [self.titleField becomeFirstResponder];
+    }
 }
 
 - (GHIssue *)object {

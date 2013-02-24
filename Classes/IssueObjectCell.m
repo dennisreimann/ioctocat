@@ -60,16 +60,18 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     if (self.displayRepo) {
-        CGRect frame;
-        frame = self.textLabel.frame;
-        frame.origin.y = 4.0f;
-        self.textLabel.frame = frame;
-        frame = self.detailTextLabel.frame;
-        frame.origin.y = 23.0f;
-        self.detailTextLabel.frame = frame;
-        frame.origin.y = 39.0f;
-        frame.size.width = self.contentView.bounds.size.width - frame.origin.x;
-        self.repoLabel.frame = frame;
+        CGRect textFrame = self.textLabel.frame;
+        CGRect detailFrame = self.detailTextLabel.frame;
+        CGRect repoFrame;
+        textFrame.origin.y = 4.0f;
+        detailFrame.origin.y = 23.0f;
+        repoFrame.origin.x = 36.0f;
+        repoFrame.origin.y = 39.0f;
+        repoFrame.size.width = self.contentView.bounds.size.width - repoFrame.origin.x;
+        repoFrame.size.height = 16.0f;
+        self.textLabel.frame = textFrame;
+        self.detailTextLabel.frame = detailFrame;
+        self.repoLabel.frame = repoFrame;
     }
 }
 

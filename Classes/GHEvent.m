@@ -64,17 +64,13 @@
 	// User
 	if (![actorLogin isEmpty]) {
 		self.user = [[iOctocat sharedInstance] userWithLogin:actorLogin];
-		if (!self.user.gravatarURL) {
-			self.user.gravatarURL = [dict safeURLForKeyPath:@"actor.avatar_url"];
-		}
+		if (self.user.isEmpty) [self.user setValues:[dict safeDictForKey:@"actor"]];
 	}
 
 	// Organization
 	if (![orgLogin isEmpty]) {
 		self.organization = [[iOctocat sharedInstance] organizationWithLogin:orgLogin];
-		if (!self.organization.gravatarURL) {
-			self.organization.gravatarURL = [dict safeURLForKeyPath:@"org.avatar_url"];
-		}
+		if (self.organization.isEmpty) [self.organization setValues:[dict safeDictForKey:@"org"]];
 	}
 
 	// Other user
@@ -88,11 +84,9 @@
 	} else if (otherUserDict) {
 		otherUserLogin = [otherUserDict safeStringForKey:@"login"];
 	}
-	if (![otherUserLogin isEmpty]) {
+	if (!otherUserLogin.isEmpty) {
 		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];
-		if (!self.otherUser.gravatarURL) {
-			self.otherUser.gravatarURL = [otherUserDict safeURLForKeyPath:@"avatar_url"];
-		}
+		if (self.otherUser.isEmpty) [self.otherUser setValues:otherUserDict];
 	}
 
 	// Repository
@@ -136,11 +130,15 @@
 	// set, but it does not contain the pull request number in the payload
 	// for issue.pull_request, so we have to use the issue number then
 	if (pullDict && [pullDict safeURLForKey:@"html_url"]) {
-		NSInteger pullNumber = [pullDict safeIntegerForKey:@"number"];
-		if (!pullNumber) pullNumber = self.issue.num;
 		self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
-		self.pullRequest.num = pullNumber;
-		self.pullRequest.title = [self.payload safeStringForKeyPath:@"pull_request.title"];
+		NSDictionary *pullPayload = [self.payload safeDictForKey:@"pull_request"];
+		if (pullPayload) {
+			[self.pullRequest setValues:pullPayload];
+			[self.pullRequest markAsLoaded];
+		}
+		if (!self.pullRequest.num) {
+			self.pullRequest.num = self.issue.num;
+		}
 	} else if ([self.eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
 		// currently there is no separate number for a PullRequestReviewCommentEvent,
 		// so we have to hack around like this, by parsing it out of the URL.
@@ -285,7 +283,7 @@
 
 		else if ([self.eventType isEqualToString:@"PullRequestEvent"]) {
 			NSString *action = [self.payload safeStringForKey:@"action"];
-			if ([action isEqualToString:@"closed"]) action = @"merged";
+			if ([action isEqualToString:@"closed"] && self.pullRequest.isMerged) action = @"merged";
 			self.title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", self.user.login, action, self.repoName, self.pullRequest.num];
 		}
 

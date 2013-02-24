@@ -2,18 +2,30 @@
 
 ## v1.7.8
 
+THE Bugfix Release™ - powered by @iosdeveloper :)
+
 Additions:
 
 * Mark all notifications for a repo as read
 * Open Repo and Gist files in other apps. Thanks @iosdeveloper
+* Added version info to menu footer
 
 Changes:
 
-* Various minor UI and UX improvements
+* Various UI and UX improvements
+* Allow issues to be saved without a text
+* Do not allow refresh when resource is already loading
+* Improved handling of the search feature
+* Issues: Keep last scroll position of the list when going back from an issue
+* Issues: Add author to second line of text
+* Use notepad icon for gists throughout the app
 
 Bugfixes:
 
 * Re-added missing ability to merge pull requests
+* Fixes for blob display in case of an error
+* Fixed crash caused by comments observer
+* Prevent opening unloaded/non-existing repos
 
 ## v1.7.7
 

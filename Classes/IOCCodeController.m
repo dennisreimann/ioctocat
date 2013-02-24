@@ -61,6 +61,7 @@
 - (void)setFile:(NSDictionary *)file {
 	if (file == self.file) return;
     if (self.docInteractionController) [self.docInteractionController dismissMenuAnimated:YES];
+    [self hidePopupView];
 	_file = file;
 	[self.contentView stopLoading];
 	NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];
@@ -144,14 +145,17 @@
 }
 
 - (void)hidePopupView {
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        _popupFrame.origin.y = self.toolbar.frame.origin.y;
-        self.popupView.frame = _popupFrame;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [self.popupView removeFromSuperview];
-        }
-    }];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePopupView) object:nil];
+    if ([self.popupView isDescendantOfView:self.view]) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            _popupFrame.origin.y = self.toolbar.frame.origin.y;
+            self.popupView.frame = _popupFrame;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [self.popupView removeFromSuperview];
+            }
+        }];
+    }
 }
 
 #pragma mark WebView

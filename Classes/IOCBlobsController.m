@@ -105,6 +105,7 @@
 - (void)setBlob:(GHBlob *)blob {
 	if (blob == self.blob) return;
     if (self.docInteractionController) [self.docInteractionController dismissMenuAnimated:YES];
+    [self hidePopupView];
 	_blob = blob;
 	[self.contentView stopLoading];
 	self.title = self.blob.path;
@@ -182,14 +183,17 @@
 }
 
 - (void)hidePopupView {
-    [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        _popupFrame.origin.y = self.toolbar.frame.origin.y;
-        self.popupView.frame = _popupFrame;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [self.popupView removeFromSuperview];
-        }
-    }];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePopupView) object:nil];
+    if ([self.popupView isDescendantOfView:self.view]) {
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            _popupFrame.origin.y = self.toolbar.frame.origin.y;
+            self.popupView.frame = _popupFrame;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [self.popupView removeFromSuperview];
+            }
+        }];
+    }
 }
 
 #pragma mark WebView

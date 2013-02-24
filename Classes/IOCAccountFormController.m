@@ -81,9 +81,7 @@
 			// save
 			[self.delegate updateAccount:self.account atIndex:self.index];
 			// go back
-			[self.loginField resignFirstResponder];
-			[self.passwordField resignFirstResponder];
-			[self.endpointField resignFirstResponder];
+            [self.view endEditing:NO];
 			[self.navigationController popViewControllerAnimated:YES];
 		};
 		void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
@@ -106,9 +104,7 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self.loginField resignFirstResponder];
-	[self.passwordField resignFirstResponder];
-	[self.endpointField resignFirstResponder];
+    [self.view endEditing:NO];
 }
 
 #pragma mark Keyboard

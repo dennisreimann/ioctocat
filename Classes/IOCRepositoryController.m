@@ -152,8 +152,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 
 - (void)displayBranchesChange {
 	if (self.repository.isEmpty) return;
-	NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(2, 2)];
-	[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self.tableView reloadData];
 }
 
 - (void)displayReadmeChange {
@@ -218,7 +217,13 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.repository.isEmpty ? 1 : 4;
+	if (self.repository.isEmpty) {
+		return 1;
+	} else if (self.repository.branches.isEmpty) {
+		return 3;
+	} else {
+		return 4;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -236,6 +241,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == 2 &&  self.repository.branches.isEmpty) return @"Branches";
 	if (section == 2 && !self.repository.branches.isEmpty) return @"Code";
 	if (section == 3 && !self.repository.branches.isEmpty) return @"Commits";
 	return nil;
@@ -310,6 +316,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		} else if (row == 4) {
 			viewController = [[IOCIssuesController alloc] initWithRepository:self.repository];
 		}
+	} else if (section == 2 && self.repository.branches.isEmpty) {
+		viewController = nil;
 	} else if (section == 2) {
 		if (row < self.repository.branches.count) {
 			GHBranch *branch = self.repository.branches[row];

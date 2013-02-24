@@ -161,7 +161,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
-	if (repos.isEmpty) return;
+	if (!repos || repos.isEmpty) return;
 	GHRepository *repo = repos[indexPath.row];
 	IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	[self.navigationController pushViewController:repoController animated:YES];

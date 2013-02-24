@@ -1,6 +1,7 @@
 #import "IOCCommitCell.h"
 #import "GHUser.h"
 #import "NSDate+Nibware.h"
+#import "NSString+Extensions.h"
 
 
 @implementation IOCCommitCell
@@ -48,8 +49,11 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[self.commit addObserver:self forKeyPath:AuthorGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.imageView.image = self.commit.author.gravatar ? self.commit.author.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 	self.textLabel.text = self.commit.shortenedMessage;
-	NSString *userInfo = self.commit.author ? [NSString stringWithFormat:@"%@ - ", self.commit.author.login] : @"";
-	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [self.commit.authoredDate prettyDate]];
+	NSString *userName = self.commit.author ? self.commit.author.login : self.commit.authorName;
+	NSString *dateInfo = self.commit.authoredDate ? [self.commit.authoredDate prettyDate] : @"";
+	NSString *userInfo = !userName.isEmpty ? [NSString stringWithFormat:@"%@ ", userName] : @"";
+	NSString *format = userInfo.isEmpty || dateInfo.isEmpty ? @"%@%@" : @"%@ - %@";
+	self.detailTextLabel.text = [NSString stringWithFormat:format, userInfo, dateInfo];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

@@ -12,7 +12,9 @@
 
 @interface IOCMyRepositoriesController ()
 @property(nonatomic,strong)GHRepositories *privateRepositories;
+@property(nonatomic,strong)GHRepositories *privateMemberRepositories;
 @property(nonatomic,strong)GHRepositories *publicRepositories;
+@property(nonatomic,strong)GHRepositories *publicMemberRepositories;
 @property(nonatomic,strong)GHRepositories *forkedRepositories;
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -53,10 +55,15 @@
 
 - (void)displayRepositories {
 	self.privateRepositories = [[GHRepositories alloc] init];
+	self.privateMemberRepositories = [[GHRepositories alloc] init];
 	self.publicRepositories = [[GHRepositories alloc] init];
+	self.publicMemberRepositories = [[GHRepositories alloc] init];
 	self.forkedRepositories = [[GHRepositories alloc] init];
 	for (GHRepository *repo in self.user.repositories.items) {
-		if (repo.isPrivate) {
+		if (![self.user.login isEqualToString:repo.owner]) {
+			GHRepositories *repos = repo.isPrivate ? self.privateMemberRepositories : self.publicMemberRepositories;
+			[repos addObject:repo];
+		} else if (repo.isPrivate) {
 			[self.privateRepositories addObject:repo];
 		} else if (repo.isFork) {
 			[self.forkedRepositories addObject:repo];
@@ -65,10 +72,14 @@
 		}
 	}
 	[self.privateRepositories sortByPushedAt];
+	[self.privateMemberRepositories sortByPushedAt];
 	[self.publicRepositories sortByPushedAt];
+	[self.publicMemberRepositories sortByPushedAt];
 	[self.forkedRepositories sortByPushedAt];
 	[self.privateRepositories markAsLoaded];
+	[self.privateMemberRepositories markAsLoaded];
 	[self.publicRepositories markAsLoaded];
+	[self.publicMemberRepositories markAsLoaded];
 	[self.forkedRepositories markAsLoaded];
 	[self.tableView reloadData];
 }
@@ -77,7 +88,11 @@
 	if (section == 0) {
 		return self.privateRepositories;
 	} else if (section == 1) {
+		return self.privateMemberRepositories;
+	} else if (section == 2) {
 		return self.publicRepositories;
+	} else if (section == 3) {
+		return self.publicMemberRepositories;
 	} else {
 		return self.forkedRepositories;
 	}
@@ -100,11 +115,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	if (self.user.repositories.isEmpty) {
-		return 1; 
-	} else {
-		return 3;
-	}
+	return (self.user.repositories.isEmpty) ? 1 : 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -126,8 +137,12 @@
 	if (section == 0) {
 		return @"Private";
 	} else if (section == 1) {
+		return @"Private Member";
+	} else if (section == 2) {
 		return @"Public";
-	}  else if (section == 2) {
+	} else if (section == 3) {
+		return @"Public Member";
+	} else if (section == 4) {
 		return @"Forked";
 	}
 	return nil;

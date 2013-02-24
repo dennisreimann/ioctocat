@@ -13,6 +13,7 @@ Additions:
 Changes:
 
 * Various UI and UX improvements
+* My Repositories: Distinguish between personal and member repos
 * Allow issues to be saved without a text
 * Do not allow refresh when resource is already loading
 * Improved handling of the search feature

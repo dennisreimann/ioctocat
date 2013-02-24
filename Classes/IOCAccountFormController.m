@@ -37,6 +37,11 @@
 	self.endpointField.text = [self.account valueForKey:kEndpointDefaultsKey];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.view endEditing:NO];
+}
+
 - (IBAction)saveAccount:(id)sender {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
 	NSString *login = [self.loginField.text stringByTrimmingCharactersInSet:trimSet];

@@ -81,7 +81,6 @@
 			// save
 			[self.delegate updateAccount:self.account atIndex:self.index];
 			// go back
-            [self.view endEditing:NO];
 			[self.navigationController popViewControllerAnimated:YES];
 		};
 		void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {

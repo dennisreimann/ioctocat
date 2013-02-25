@@ -98,7 +98,7 @@
 			instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
 		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD dismiss];
-			[self.tableView reloadData];
+            [self displayRepositories:(GHRepositories *)instance];
 		} failure:^(GHResource *instance, NSError *error) {
 			instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 		}];

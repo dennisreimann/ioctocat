@@ -51,7 +51,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.textLabel.text = self.commit.shortenedMessage;
 	NSString *userName = self.commit.author ? self.commit.author.login : self.commit.authorName;
 	NSString *dateInfo = self.commit.authoredDate ? [self.commit.authoredDate prettyDate] : @"";
-	NSString *userInfo = !userName.isEmpty ? [NSString stringWithFormat:@"%@ ", userName] : @"";
+    NSString *userInfo = !userName.isEmpty ? userName : @"";
 	NSString *format = userInfo.isEmpty || dateInfo.isEmpty ? @"%@%@" : @"%@ - %@";
 	self.detailTextLabel.text = [NSString stringWithFormat:format, userInfo, dateInfo];
 }

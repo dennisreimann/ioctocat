@@ -117,11 +117,15 @@
 	NSString *icon = [NSString stringWithFormat:@"issue_%@.png", self.issue.state];
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.issue.title;
-	[self.repoCell setContentText:self.issue.repository.repoId];
-	[self.authorCell setContentText:self.issue.user.login];
-	[self.createdCell setContentText:[self.issue.created prettyDate]];
-	[self.updatedCell setContentText:[self.issue.updated prettyDate]];
-	[self.descriptionCell setContentText:self.issue.body];
+	self.repoCell.contentText = self.issue.repository.repoId;
+	self.authorCell.contentText = self.issue.user.login;
+	self.createdCell.contentText = [self.issue.created prettyDate];
+	self.updatedCell.contentText = [self.issue.updated prettyDate];
+	self.descriptionCell.contentText = self.issue.body;
+	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 }
 
 - (void)displayIssueChange {

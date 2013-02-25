@@ -135,12 +135,16 @@
 	self.titleLabel.text = self.pullRequest.title;
 	self.commitTextView.text = self.pullRequest.title;
 	self.commitTitleLabel.text = [NSString stringWithFormat:@"Merge pull request #%d from %@/%@", self.pullRequest.num, self.pullRequest.head.repository.owner, self.pullRequest.head.name];
-	[self.repoCell setContentText:self.pullRequest.repository.repoId];
-	[self.authorCell setContentText:self.pullRequest.user.login];
-	[self.createdCell setContentText:[self.pullRequest.created prettyDate]];
-	[self.updatedCell setContentText:[self.pullRequest.updated prettyDate]];
-	[self.closedCell setContentText:[self.pullRequest.closed prettyDate]];
-	[self.descriptionCell setContentText:self.pullRequest.body];
+	self.repoCell.contentText = self.pullRequest.repository.repoId;
+	self.authorCell.contentText = self.pullRequest.user.login;
+	self.createdCell.contentText = [self.pullRequest.created prettyDate];
+	self.updatedCell.contentText = [self.pullRequest.updated prettyDate];
+	self.closedCell.contentText = [self.pullRequest.closed prettyDate];
+	self.descriptionCell.contentText = self.pullRequest.body;
+	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 }
 
 - (void)displayPullRequestChange {

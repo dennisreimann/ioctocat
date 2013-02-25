@@ -170,19 +170,13 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (self.isProfile) {
-		if (buttonIndex == 0) {
-			WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	} else {
-		if (buttonIndex == 0) {
-			[self toggleUserFollowing];
-		} else if (buttonIndex == 1) {
-			WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	}
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
+        WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
+        [self.navigationController pushViewController:webController animated:YES];
+    } else if ([buttonTitle isEqualToString:@"Unfollow"] || [buttonTitle isEqualToString:@"Follow"]) {
+        [self toggleUserFollowing];
+    }
 }
 
 - (void)toggleUserFollowing {

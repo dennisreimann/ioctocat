@@ -224,40 +224,20 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (self.pullRequestMergeableByCurrentUser) {
-		if (buttonIndex == 0) {
-			IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
-			[self.navigationController pushViewController:formController animated:YES];
-		} else if (buttonIndex == 1) {
-			[self mergePullRequest:nil];
-		} else if (buttonIndex == 2) {
-			[self togglePullRequestState];
-		} else if (buttonIndex == 3) {
-			[self addComment:nil];
-		} else if (buttonIndex == 4) {
-			WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	} else if (self.pullRequestEditableByCurrentUser) {
-		if (buttonIndex == 0) {
-			IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
-			[self.navigationController pushViewController:formController animated:YES];
-		} else if (buttonIndex == 1) {
-			[self togglePullRequestState];
-		} else if (buttonIndex == 2) {
-			[self addComment:nil];
-		} else if (buttonIndex == 3) {
-			WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	} else {
-		if (buttonIndex == 0) {
-			[self addComment:nil];
-		} else if (buttonIndex == 1) {
-			WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	}
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Edit"]) {
+        IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
+        [self.navigationController pushViewController:formController animated:YES];
+    } else if ([buttonTitle isEqualToString:@"Merge"]) {
+        [self mergePullRequest:nil];
+    } else if ([buttonTitle isEqualToString:@"Close"] || [buttonTitle isEqualToString:@"Reopen"]) {
+        [self togglePullRequestState];
+    } else if ([buttonTitle isEqualToString:@"Add comment"]) {
+        [self addComment:nil];
+    } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
+        WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
+        [self.navigationController pushViewController:webController animated:YES];
+    }
 }
 
 - (void)togglePullRequestState {

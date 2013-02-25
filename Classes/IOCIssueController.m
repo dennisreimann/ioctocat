@@ -172,27 +172,19 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (self.issueEditableByCurrentUser) {
-		if (buttonIndex == 0) {
-			IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.issue];
-			formController.delegate = self;
-			[self.navigationController pushViewController:formController animated:YES];
-		} else if (buttonIndex == 1) {
-			[self toggleIssueState];
-		} else if (buttonIndex == 2) {
-			[self addComment:nil];
-		} else if (buttonIndex == 3) {
-			WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	} else {
-		if (buttonIndex == 0) {
-			[self addComment:nil];
-		} else if (buttonIndex == 1) {
-			WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
-			[self.navigationController pushViewController:webController animated:YES];
-		}
-	}
+    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
+    if ([buttonTitle isEqualToString:@"Edit"]) {
+        IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.issue];
+        formController.delegate = self;
+        [self.navigationController pushViewController:formController animated:YES];
+    } else if ([buttonTitle isEqualToString:@"Close"] || [buttonTitle isEqualToString:@"Reopen"]) {
+        [self toggleIssueState];
+    } else if ([buttonTitle isEqualToString:@"Add comment"]) {
+        [self addComment:nil];
+    } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
+        WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+        [self.navigationController pushViewController:webController animated:YES];
+    }
 }
 
 - (IBAction)addComment:(id)sender {

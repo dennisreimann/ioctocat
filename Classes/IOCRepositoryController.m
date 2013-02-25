@@ -307,7 +307,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			viewController = [[IOCForksController alloc] initWithForks:self.repository.forks];
 		} else if (row == 1) {
 			viewController = [[EventsController alloc] initWithEvents:self.repository.events];
-			viewController.title = self.repository.name;
+            viewController.title = @"Recent Activity";
 		} else if (row == 2) {
 			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];
 			viewController.title = @"Contributors";

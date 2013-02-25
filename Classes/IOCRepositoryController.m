@@ -170,15 +170,14 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Unstar"] || [buttonTitle isEqualToString:@"Star"]) {
-        [self toggleRepositoryStarring];
-    } else  if ([buttonTitle isEqualToString:@"Unwatch"] || [buttonTitle isEqualToString:@"Watch"]) {
-        [self toggleRepositoryWatching];
-    } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
-        WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
-        [self.navigationController pushViewController:webController animated:YES];
-    }
+	if (buttonIndex == 0) {
+		[self toggleRepositoryStarring];
+	} else if (buttonIndex == 1) {
+		[self toggleRepositoryWatching];
+	} else if (buttonIndex == 2) {
+		WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
+		[self.navigationController pushViewController:webController animated:YES];
+	}
 }
 
 - (void)toggleRepositoryStarring {

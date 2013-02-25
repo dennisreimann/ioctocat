@@ -62,15 +62,19 @@
 	NSString *orgLogin = [dict safeStringForKeyPath:@"org.login"];
 
 	// User
-	if (![actorLogin isEmpty]) {
+	if (!actorLogin.isEmpty) {
 		self.user = [[iOctocat sharedInstance] userWithLogin:actorLogin];
-		if (self.user.isEmpty) [self.user setValues:[dict safeDictForKey:@"actor"]];
+		if (!self.user.gravatarURL) {
+			self.user.gravatarURL = [dict safeURLForKeyPath:@"actor.avatar_url"];
+		}
 	}
 
 	// Organization
-	if (![orgLogin isEmpty]) {
+	if (!orgLogin.isEmpty) {
 		self.organization = [[iOctocat sharedInstance] organizationWithLogin:orgLogin];
-		if (self.organization.isEmpty) [self.organization setValues:[dict safeDictForKey:@"org"]];
+		if (!self.organization.gravatarURL) {
+			self.organization.gravatarURL = [dict safeURLForKeyPath:@"org.avatar_url"];
+		}
 	}
 
 	// Other user
@@ -86,7 +90,9 @@
 	}
 	if (!otherUserLogin.isEmpty) {
 		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];
-		if (self.otherUser.isEmpty) [self.otherUser setValues:otherUserDict];
+		if (!self.otherUser.gravatarURL) {
+			self.otherUser.gravatarURL = [otherUserDict safeURLForKeyPath:@"avatar_url"];
+		}
 	}
 
 	// Repository

@@ -51,6 +51,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 	self.object.isNew ? [self.titleField becomeFirstResponder] : [self.bodyField becomeFirstResponder];
 }
 

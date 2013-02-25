@@ -177,7 +177,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
         [self toggleRepositoryWatching];
     } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
         WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
-		[self.navigationController pushViewController:webController animated:YES];
+        [self.navigationController pushViewController:webController animated:YES];
     }
 }
 

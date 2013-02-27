@@ -130,6 +130,14 @@
 	return _contributors;
 }
 
+- (GHUsers *)stargazers {
+	if (!_stargazers) {
+		NSString *path = [NSString stringWithFormat:kRepoStargazersFormat, self.owner, self.name];
+		_stargazers = [[GHUsers alloc] initWithPath:path];
+	}
+	return _stargazers;
+}
+
 #pragma mark Loading
 
 - (void)setValues:(id)dict {

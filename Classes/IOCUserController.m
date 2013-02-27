@@ -207,7 +207,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.user.isEmpty) return 1;
 	if (section == 0) return 3;
-	if (section == 1) return 5;
+	if (section == 1) return self.isProfile ? 4 : 5;
 	if (section == 2) return self.user.repositories.isEmpty ? 1 : self.user.repositories.count;
 	if (section == 3) return self.user.organizations.isEmpty ? 1 : self.user.organizations.count;
 	return 1;

@@ -48,7 +48,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshIfRequired) name:UIApplicationDidBecomeActiveNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 	if (!self.notificationsByRepository) [self rebuildByRepository];
 }
 
@@ -253,8 +253,7 @@
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
-			NSDictionary *params = @{@"per_page": @100};
-			[weakSelf.notifications loadWithParams:params start:nil success:^(GHResource *instance, id data) {
+			[weakSelf.notifications loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 				[weakSelf rebuildByRepository];
 				[weakSelf refreshLastUpdate];
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
@@ -262,8 +261,9 @@
 			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf.tableView reloadData];
+				[iOctocat reportLoadingError:@"Could not load the notifications"];
 			}];
-		} else {
+		} else if (!weakSelf.notifications.canReload) {
 			[weakSelf.tableView.pullToRefreshView stopAnimating];
 			NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
 			[iOctocat reportWarning:@"Please wait" with:message];
@@ -286,6 +286,12 @@
 		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.notifications.lastUpdate prettyDate]];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
+}
+
+- (void)handleBecomeActive {
+	[self refreshLastUpdate];
+	[self.tableView setContentOffset:CGPointZero animated:YES];
+	[self performSelector:@selector(refreshIfRequired) withObject:nil afterDelay:1.25];
 }
 
 @end

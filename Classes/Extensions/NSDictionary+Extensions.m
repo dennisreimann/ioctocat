@@ -49,6 +49,16 @@
 	return ([value isKindOfClass:NSString.class]) ? value : @"";
 }
 
+- (NSString *)safeStringOrNilForKey:(NSString *)key {
+	id value = [self valueForKey:key defaultsTo:nil];
+	return ([value isKindOfClass:NSString.class]) ? value : nil;
+}
+
+- (NSString *)safeStringOrNilForKeyPath:(NSString *)keyPath {
+	id value = [self valueForKeyPath:keyPath defaultsTo:nil];
+	return ([value isKindOfClass:NSString.class]) ? value : nil;
+}
+
 - (NSArray *)safeArrayForKey:(NSString *)key {
 	id value = [self valueForKey:key defaultsTo:nil];
 	return ([value isKindOfClass:NSArray.class]) ? value : nil;

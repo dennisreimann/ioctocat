@@ -7,7 +7,6 @@
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *login;
 @property(nonatomic,strong)NSString *email;
-@property(nonatomic,strong)NSString *company;
 @property(nonatomic,strong)NSString *location;
 @property(nonatomic,strong)NSURL *gravatarURL;
 @property(nonatomic,strong)NSURL *blogURL;
@@ -16,10 +15,6 @@
 @property(nonatomic,strong)GHUsers *publicMembers;
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)GHRepositories *repositories;
-@property(nonatomic,assign)NSUInteger followersCount;
-@property(nonatomic,assign)NSUInteger followingCount;
-@property(nonatomic,assign)NSUInteger publicGistCount;
-@property(nonatomic,assign)NSUInteger privateGistCount;
 @property(nonatomic,assign)NSUInteger publicRepoCount;
 @property(nonatomic,assign)NSUInteger privateRepoCount;
 

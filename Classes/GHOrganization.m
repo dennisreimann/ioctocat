@@ -57,20 +57,25 @@
 		NSString *state = [email safeStringForKey:@"state"];
 		email = [state isEqualToString:@"verified"] ? [dict safeStringForKey:@"email"] : nil;
 	}
+	// Check the values before setting them, because the organizations list does
+	// not include all fields. This unsets some fields when reloading the orgs,
+	// after an org has already been fully loaded (because the orgs are cached).
+	NSString *name = [resource safeStringOrNilForKey:@"name"];
+	NSString *location = [resource safeStringOrNilForKey:@"location"];
+	NSURL *blogURL = [resource safeURLForKey:@"blog"];
+	NSURL *htmlURL = [resource safeURLForKey:@"html_url"];
+	NSURL *gravatarURL = [resource safeURLForKey:@"avatar_url"];
+	NSInteger publicRepoCount = [resource safeIntegerForKey:@"public_repos"];
+	NSInteger privateRepoCount = [resource safeIntegerForKey:@"total_private_repos"];
 	if (!login.isEmpty && ![self.login isEqualToString:login]) self.login = login;
-	self.name = [resource safeStringForKey:@"name"];
-	self.email = email;
-	self.company = [resource safeStringForKey:@"company"];
-	self.location = [resource safeStringForKey:@"location"];
-	self.blogURL = [resource safeURLForKey:@"blog"];
-	self.htmlURL = [resource safeURLForKey:@"html_url"];
-	self.gravatarURL = [resource safeURLForKey:@"avatar_url"];
-	self.followersCount = [resource safeIntegerForKey:@"followers"];
-	self.followingCount = [resource safeIntegerForKey:@"following"];
-	self.publicGistCount = [resource safeIntegerForKey:@"public_gists"];
-	self.privateGistCount = [resource safeIntegerForKey:@"private_gists"];
-	self.publicRepoCount = [resource safeIntegerForKey:@"public_repos"];
-	self.privateRepoCount = [resource safeIntegerForKey:@"total_private_repos"];
+	if (name) self.name = name;
+	if (email) self.email = email;
+	if (blogURL) self.location = location;
+	if (location) self.blogURL = blogURL;
+	if (htmlURL) self.htmlURL = htmlURL;
+	if (gravatarURL) self.gravatarURL = gravatarURL;
+	if (publicRepoCount) self.publicRepoCount = publicRepoCount;
+	if (privateRepoCount) self.privateRepoCount = privateRepoCount;
 }
 
 #pragma mark Associations

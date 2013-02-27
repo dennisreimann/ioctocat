@@ -24,7 +24,7 @@
 @property(nonatomic,strong)IOCResourceStatusCell *membersStatusCell;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 @property(nonatomic,weak)IBOutlet UILabel *nameLabel;
-@property(nonatomic,weak)IBOutlet UILabel *companyLabel;
+@property(nonatomic,weak)IBOutlet UILabel *reposCountLabel;
 @property(nonatomic,weak)IBOutlet UILabel *locationLabel;
 @property(nonatomic,weak)IBOutlet UILabel *blogLabel;
 @property(nonatomic,weak)IBOutlet UILabel *emailLabel;
@@ -108,7 +108,7 @@
 
 - (void)displayOrganization {
 	self.nameLabel.text = (!self.organization.name || self.organization.name.isEmpty) ? self.organization.login : self.organization.name;
-	self.companyLabel.text = (!self.organization.company || self.organization.company.isEmpty) ? [NSString stringWithFormat:@"%d followers", self.organization.followersCount] : self.organization.company;
+	self.reposCountLabel.text = [NSString stringWithFormat:@"%d repositories", self.organization.publicRepoCount];
 	if (self.organization.gravatar) self.gravatarView.image = self.organization.gravatar;
 	[self.locationCell setContentText:self.organization.location];
 	[self.blogCell setContentText:[self.organization.blogURL host]];

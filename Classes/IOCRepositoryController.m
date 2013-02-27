@@ -269,8 +269,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			case 0: cell = self.forkCell; break;
 			case 1: cell = self.eventsCell; break;
 			case 2: cell = self.contributorsCell; break;
-			case 3: cell = self.pullRequestsCell; break;
-			case 4: cell = self.stargazersCell; break;
+			case 3: cell = self.stargazersCell; break;
+			case 4: cell = self.pullRequestsCell; break;
 			case 5: cell = self.issuesCell; break;
 		}
 	} else {
@@ -314,10 +314,10 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];
 			viewController.title = @"Contributors";
 		} else if (row == 3) {
-			viewController = [[IOCPullRequestsController alloc] initWithRepository:self.repository];
-		} else if (row == 4) {
             viewController = [[IOCUsersController alloc] initWithUsers:self.repository.stargazers];
 			viewController.title = @"Stargazers";
+		} else if (row == 4) {
+			viewController = [[IOCPullRequestsController alloc] initWithRepository:self.repository];
         } else if (row == 5) {
 			viewController = [[IOCIssuesController alloc] initWithRepository:self.repository];
 		}

@@ -19,6 +19,7 @@
 #import "IOCGistsController.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCRepositoriesController.h"
 
 
 @interface IOCUserController () <UIActionSheetDelegate, MFMailComposeViewControllerDelegate>
@@ -39,6 +40,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *followingCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *gistsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *starredReposCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
@@ -205,7 +207,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.user.isEmpty) return 1;
 	if (section == 0) return 3;
-	if (section == 1) return 4;
+	if (section == 1) return self.isProfile ? 4 : 5;
 	if (section == 2) return self.user.repositories.isEmpty ? 1 : self.user.repositories.count;
 	if (section == 3) return self.user.organizations.isEmpty ? 1 : self.user.organizations.count;
 	return 1;
@@ -234,10 +236,18 @@
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 		return cell;
 	}
-	if (section == 1 && row == 0) return self.recentActivityCell;
-	if (section == 1 && row == 1) return self.followingCell;
-	if (section == 1 && row == 2) return self.followersCell;
-	if (section == 1 && row == 3) return self.gistsCell;
+    if (section == 1) {
+        UITableViewCell *cell;
+        switch (row) {
+            case 0: cell = self.recentActivityCell; break;
+            case 1: cell = self.followingCell; break;
+            case 2: cell = self.followersCell; break;
+            case 3: cell = self.gistsCell; break;
+            case 4: cell = self.starredReposCell; break;
+            default: cell = nil;
+        }
+        return cell;
+    }
 	if (section == 2 && self.user.repositories.isEmpty) return self.reposStatusCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
@@ -272,16 +282,24 @@
             [mailComposer setToRecipients:@[self.user.email]];
             [self presentModalViewController:mailComposer animated:YES];
         }
-	} else if (section == 1 && row == 0) {
-		viewController = [[EventsController alloc] initWithEvents:self.user.events];
-		viewController.title = @"Recent Activity";
-	} else if (section == 1 && row == 3) {
-		viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
-		viewController.title = @"Gists";
 	} else if (section == 1) {
-		viewController = [[IOCUsersController alloc] initWithUsers:(row == 1) ? self.user.following : self.user.followers];
-		viewController.title = (row == 1) ? @"Following" : @"Followers";
-	} else if (section == 2 && !self.user.repositories.isEmpty) {
+        if (row == 0) {
+            viewController = [[EventsController alloc] initWithEvents:self.user.events];
+            viewController.title = @"Recent Activity";
+        } else if (row == 1) {
+            viewController = [[IOCUsersController alloc] initWithUsers:self.user.following];
+            viewController.title = @"Following";
+        }  else if (row == 2) {
+            viewController = [[IOCUsersController alloc] initWithUsers:self.user.followers];
+            viewController.title = @"Followers";
+        } else if (row == 3) {
+            viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
+            viewController.title = @"Gists";
+        } else if (row == 4) {
+            viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
+            viewController.title = @"Starred Repos";
+        }
+    } else if (section == 2 && !self.user.repositories.isEmpty) {
 		GHRepository *repo = self.user.repositories[row];
 		viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
 	} else if (section == 3 && !self.user.organizations.isEmpty) {

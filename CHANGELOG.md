@@ -9,6 +9,7 @@ Additions:
 * Mark all notifications for a repo as read
 * Open Repo and Gist files in other apps. Thanks @iosdeveloper
 * Added Stargazers to Repository. Thanks @mazanma3
+* Added Starred Repos to User Profile. Thanks @mazanma3
 * Added version info to menu footer
 
 Changes:

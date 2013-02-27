@@ -9,6 +9,7 @@
 @property(nonatomic,strong)NSString *owner;
 @property(nonatomic,strong)NSString *descriptionText;
 @property(nonatomic,strong)NSString *mainBranch;
+@property(nonatomic,strong)NSString *language;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)NSURL *homepageURL;
 @property(nonatomic,strong)NSDate *pushedAtDate;

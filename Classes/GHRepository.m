@@ -146,6 +146,7 @@
     self.htmlURL = [resource safeURLForKey:@"html_url"];
     self.homepageURL = [resource safeURLForKey:@"homepage"];
     self.descriptionText = [resource safeStringForKey:@"description"];
+    self.language = [resource safeStringForKey:@"language"];
 	self.isFork = [resource safeBoolForKey:@"fork"];
     self.isPrivate = [resource safeBoolForKey:@"private"];
     self.hasIssues = [resource safeBoolForKey:@"has_issues"];

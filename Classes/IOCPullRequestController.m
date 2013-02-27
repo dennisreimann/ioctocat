@@ -188,7 +188,7 @@
 			[SVProgressHUD showWithStatus:@"Merging pull request" maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Merged pull request"];
-			[self displayPullRequest];
+			[self displayPullRequestChange];
 			[self.listController reloadPullRequests];
 		} failure:^(GHResource *instance, NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Merging pull request failed"];

@@ -21,6 +21,7 @@
 @property(nonatomic,strong)GHReadme *readme;
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)GHUsers *contributors;
+@property(nonatomic,strong)GHUsers *stargazers;
 @property(nonatomic,readonly)GHUser *user;
 @property(nonatomic,readwrite)NSInteger forkCount;
 @property(nonatomic,readwrite)NSInteger watcherCount;

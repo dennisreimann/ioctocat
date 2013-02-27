@@ -49,6 +49,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *forkCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *contributorsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *stargazersCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
@@ -234,7 +235,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		if (self.repository.readme.isLoaded) rows += 1;
 		return rows;
 	} else if (section == 1) {
-		return self.repository.hasIssues ? 5 : 4;
+		return self.repository.hasIssues ? 6 : 5;
 	} else {
 		return self.repository.branches.isEmpty ? 1 : self.repository.branches.count;
 	}
@@ -269,7 +270,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			case 1: cell = self.eventsCell; break;
 			case 2: cell = self.contributorsCell; break;
 			case 3: cell = self.pullRequestsCell; break;
-			case 4: cell = self.issuesCell; break;
+			case 4: cell = self.stargazersCell; break;
+			case 5: cell = self.issuesCell; break;
 		}
 	} else {
 		if (self.repository.branches.isEmpty) return self.branchesStatusCell;
@@ -314,6 +316,9 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		} else if (row == 3) {
 			viewController = [[IOCPullRequestsController alloc] initWithRepository:self.repository];
 		} else if (row == 4) {
+            viewController = [[IOCUsersController alloc] initWithUsers:self.repository.stargazers];
+			viewController.title = @"Stargazers";
+        } else if (row == 5) {
 			viewController = [[IOCIssuesController alloc] initWithRepository:self.repository];
 		}
 	} else if (section == 2 && self.repository.branches.isEmpty) {

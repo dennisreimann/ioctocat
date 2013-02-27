@@ -106,6 +106,7 @@
 #define kRepoCommentsFormat             @"repos/%@/%@/commits/%@/comments?per_page=100"
 #define kRepoAssigneesFormat            @"repos/%@/%@/assignees"
 #define kRepoAssigneeFormat             @"repos/%@/%@/assignees/%@"
+#define kRepoStargazersFormat           @"repos/%@/%@/stargazers"
 #define kIssuesFormat                   @"repos/%@/%@/issues?per_page=100&state=%@"
 #define kIssueFormat                    @"repos/%@/%@/issues/%d"
 #define kIssueOpenFormat                @"repos/%@/%@/issues"

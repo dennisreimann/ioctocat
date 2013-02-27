@@ -2,7 +2,7 @@
 - (void)savedIssueObject:(id)object;
 @end
 
-@interface IOCIssueObjectFormController : UITableViewController
+@interface IOCIssueObjectFormController : UIViewController
 @property(nonatomic,weak)id<IOCIssueObjectFormControllerDelegate> delegate;
 
 - (id)initWithIssueObject:(id)object;

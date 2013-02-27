@@ -7,15 +7,11 @@
 
 @interface IOCIssueObjectFormController () <UITextFieldDelegate>
 @property(nonatomic,readonly)GHIssue *object;
-@property(nonatomic,readwrite)CGFloat fieldMarginBottom;
-@property(nonatomic,readwrite)CGFloat bodyFieldMinHeight;
 @property(nonatomic,readwrite)CGFloat keyboardHeight;
 @property(nonatomic,strong)id issueObject;
 @property(nonatomic,strong)NSString *issueObjectType;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
-@property(nonatomic,strong)IBOutlet UITableViewCell *titleCell;
-@property(nonatomic,strong)IBOutlet UITableViewCell *bodyCell;
 @end
 
 
@@ -35,8 +31,6 @@
 	[super viewDidLoad];
 	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveIssue:)];
-	self.fieldMarginBottom = self.titleField.frame.origin.y;
-	self.bodyFieldMinHeight = self.bodyCell.frame.size.height - self.fieldMarginBottom;
 	if (!self.object.isNew) {
 		self.titleField.text = self.object.title;
 		self.bodyField.text = self.object.body;
@@ -93,22 +87,8 @@
 	}
 }
 
-#pragma mark TableView
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return 2;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return indexPath.row == 0 ? self.titleCell : self.bodyCell;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.row == 0) {
-		return self.titleCell.frame.size.height;
-	} else {
-		return self.tableView.frame.size.height - self.titleCell.frame.size.height - self.keyboardHeight;
-	}
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [self.view endEditing:NO];
 }
 
 #pragma mark Keyboard
@@ -134,23 +114,23 @@
 }
 
 - (void)adjustBodyFieldHeightWithNotification:(NSNotification *)notification {
-	CGFloat height = self.view.frame.size.height - self.titleCell.frame.size.height - self.fieldMarginBottom - self.keyboardHeight;
-	if (height < self.bodyFieldMinHeight) height = self.bodyFieldMinHeight;
+	CGFloat marginBottom = 10;
+	CGFloat originY = 56;
 	NSDictionary *userInfo = [notification userInfo];
 	CGRect newTextViewFrame = self.bodyField.frame;
-	newTextViewFrame.size.height = height;
-	newTextViewFrame.origin.y = 0;
+	newTextViewFrame.size.height = self.view.frame.size.height - originY - marginBottom - self.keyboardHeight;
+	newTextViewFrame.origin.y = originY;
 	NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
 	NSTimeInterval animationDuration;
 	[animationDurationValue getValue:&animationDuration];
 	[UIView animateWithDuration:animationDuration animations:^{
 		self.bodyField.frame = newTextViewFrame;
-		[self.tableView setContentOffset:CGPointZero animated:NO];
+		[(UIScrollView *)self.view setContentOffset:CGPointZero animated:NO];
 	}];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-	[self.tableView setContentOffset:CGPointZero animated:NO];
+	[(UIScrollView *)self.view setContentOffset:CGPointZero animated:NO];
 }
 
 @end

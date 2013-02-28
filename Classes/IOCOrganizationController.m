@@ -189,8 +189,9 @@
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = (self.organization.repositories)[indexPath.row];
-		[cell hideOwner];
+        GHRepository *repo = self.organization.repositories[indexPath.row];
+        cell.repository = repo;
+        if ([self.organization.login isEqualToString:repo.owner]) [cell hideOwner];
 		return cell;
 	}
 	if (section == 3 && self.organization.publicMembers.isEmpty) return self.membersStatusCell;

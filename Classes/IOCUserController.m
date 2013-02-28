@@ -252,8 +252,9 @@
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		cell.repository = self.user.repositories[indexPath.row];
-		[cell hideOwner];
+        GHRepository *repo = self.user.repositories[indexPath.row];
+        cell.repository = repo;
+        if ([self.user.login isEqualToString:repo.owner]) [cell hideOwner];
 		return cell;
 	}
 	if (section == 3 && self.user.organizations.isEmpty) return self.organizationsStatusCell;

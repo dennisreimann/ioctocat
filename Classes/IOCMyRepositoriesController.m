@@ -157,7 +157,7 @@
 	if (cell == nil) cell = [RepositoryCell cell];
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
     GHRepository *repo = repos[indexPath.row];
-	cell.repository = repo;
+    cell.repository = repo;
     if ([self.user.login isEqualToString:repo.owner]) [cell hideOwner];
 	return cell;
 }

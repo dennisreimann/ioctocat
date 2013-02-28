@@ -40,9 +40,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-    [self.bodyView resignFirstResponder];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+	[self.bodyView resignFirstResponder];
 }
 
 - (IBAction)postComment:(id)sender {

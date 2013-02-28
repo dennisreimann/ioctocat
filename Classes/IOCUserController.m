@@ -296,6 +296,7 @@
         } else if (row == 3) {
             viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
             viewController.title = @"Gists";
+            [(IOCGistsController *)viewController setHideUser:YES];
         } else if (row == 4) {
             viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
             viewController.title = @"Starred Repos";

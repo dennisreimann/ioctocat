@@ -87,10 +87,6 @@
 	}
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [self.view endEditing:NO];
-}
-
 #pragma mark Keyboard
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {

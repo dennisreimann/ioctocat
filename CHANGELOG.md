@@ -31,6 +31,7 @@ Bugfixes:
 * Re-added missing ability to merge pull requests
 * Fixes for blob display in case of an error
 * Fixed crash caused by comments observer
+* Fixed crash when automatically reloading notifications
 * Prevent opening unloaded/non-existing repos
 
 ## v1.7.7

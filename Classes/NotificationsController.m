@@ -194,7 +194,8 @@
 	}
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
 	if (cell == nil) cell = [NotificationCell cell];
-	GHNotification *notification = [self notificationsInSection:indexPath.section][indexPath.row];
+	NSArray *notifications = [self notificationsInSection:indexPath.section];
+	GHNotification *notification = notifications[indexPath.row];
 	cell.notification = notification;
 	notification.read ? [cell markAsRead] : [cell markAsNew];
 	return cell;
@@ -254,9 +255,9 @@
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
 			[weakSelf.notifications loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
-				[weakSelf rebuildByRepository];
-				[weakSelf refreshLastUpdate];
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
+				[weakSelf refreshLastUpdate];
+				[weakSelf rebuildByRepository];
 				[weakSelf.tableView reloadData];
 			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];

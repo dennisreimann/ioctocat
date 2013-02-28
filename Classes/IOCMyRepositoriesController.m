@@ -156,8 +156,9 @@
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 	if (cell == nil) cell = [RepositoryCell cell];
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
-	cell.repository = repos[indexPath.row];
-    if (indexPath.section != 1 && indexPath.section != 3) [cell hideOwner];
+    GHRepository *repo = repos[indexPath.row];
+	cell.repository = repo;
+    if ([self.user.login isEqualToString:repo.owner]) [cell hideOwner];
 	return cell;
 }
 

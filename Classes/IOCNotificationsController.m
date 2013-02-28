@@ -252,6 +252,16 @@
 	}
 }
 
+// Right now the GitHub API does not fully support pagination for notifications.
+// This is a temporary workaround that disables the "Mark all as read" button if
+// the maximum number of 50 notifications was loaded, because in this case we do
+// not know whether or not there are more notifications (which the user did not
+// see) - so don't make it possible to mark all as read in this case.
+- (void)setupActions {
+	BOOL markAllReadEnabled = self.notifications.unreadCount > 0 && self.notifications.unreadCount < 50;
+	self.navigationItem.rightBarButtonItem.enabled = markAllReadEnabled;
+}
+
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
@@ -262,6 +272,7 @@
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf refreshLastUpdate];
 				[weakSelf rebuildByRepository];
+				[weakSelf setupActions];
 				[weakSelf.tableView reloadData];
 			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];

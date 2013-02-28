@@ -132,11 +132,9 @@
 		6F3A502D163343E4001DC916 /* highlight.pack.js in Resources */ = {isa = PBXBuildFile; fileRef = 6F3A500A163343E4001DC916 /* highlight.pack.js */; };
 		6F3D9777166A5FB8009CB887 /* DropdownError.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9773166A5FB8009CB887 /* DropdownError.png */; };
 		6F3D9778166A5FB8009CB887 /* DropdownError@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3D9774166A5FB8009CB887 /* DropdownError@2x.png */; };
-		6F3E21D516A0C8A300BAAB60 /* Notifications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21D416A0C8A300BAAB60 /* Notifications.xib */; };
-		6F3E21D616A0C8A300BAAB60 /* Notifications.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F3E21D416A0C8A300BAAB60 /* Notifications.xib */; };
-		6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* NotificationsController.m */; };
-		6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* NotificationsController.m */; };
-		6F3E21DB16A0C90200BAAB60 /* NotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* NotificationsController.m */; };
+		6F3E21D916A0C90200BAAB60 /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* IOCNotificationsController.m */; };
+		6F3E21DA16A0C90200BAAB60 /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* IOCNotificationsController.m */; };
+		6F3E21DB16A0C90200BAAB60 /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3E21D816A0C90200BAAB60 /* IOCNotificationsController.m */; };
 		6F3FD6971675E3E600E90A6E /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6F3FD6961675E3E600E90A6E /* OAuth.plist */; };
 		6F3FD69A1675E80700E90A6E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F3FD6991675E80700E90A6E /* Security.framework */; };
 		6F40850D16AD49F300C77089 /* DropdownWarning.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F40850B16AD49F300C77089 /* DropdownWarning.png */; };
@@ -1065,9 +1063,8 @@
 		6F3A500A163343E4001DC916 /* highlight.pack.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = highlight.pack.js; path = highlight/highlight.pack.js; sourceTree = "<group>"; };
 		6F3D9773166A5FB8009CB887 /* DropdownError.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropdownError.png; sourceTree = "<group>"; };
 		6F3D9774166A5FB8009CB887 /* DropdownError@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DropdownError@2x.png"; sourceTree = "<group>"; };
-		6F3E21D416A0C8A300BAAB60 /* Notifications.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Notifications.xib; path = IBFiles/Notifications.xib; sourceTree = "<group>"; };
-		6F3E21D716A0C8F000BAAB60 /* NotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationsController.h; sourceTree = "<group>"; };
-		6F3E21D816A0C90200BAAB60 /* NotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationsController.m; sourceTree = "<group>"; };
+		6F3E21D716A0C8F000BAAB60 /* IOCNotificationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCNotificationsController.h; sourceTree = "<group>"; };
+		6F3E21D816A0C90200BAAB60 /* IOCNotificationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCNotificationsController.m; sourceTree = "<group>"; };
 		6F3FD6961675E3E600E90A6E /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		6F3FD6991675E80700E90A6E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		6F40850B16AD49F300C77089 /* DropdownWarning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DropdownWarning.png; sourceTree = "<group>"; };
@@ -2185,7 +2182,6 @@
 				6F380915162A1553001017E2 /* Code.xib */,
 				6F5A40860F90B25F00427ED7 /* User.xib */,
 				6F182C8B161CB7A100E705CF /* Gist.xib */,
-				6F3E21D416A0C8A300BAAB60 /* Notifications.xib */,
 				6F5A41780F90C42800427ED7 /* Repository.xib */,
 				6F797C7D1110E842007E5A8D /* Commit.xib */,
 				6F1DC6590F7E8D6900FCD26D /* WebView.xib */,
@@ -2366,8 +2362,8 @@
 		6FECA89E1590711F00878A74 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				6F3E21D716A0C8F000BAAB60 /* NotificationsController.h */,
-				6F3E21D816A0C90200BAAB60 /* NotificationsController.m */,
+				6F3E21D716A0C8F000BAAB60 /* IOCNotificationsController.h */,
+				6F3E21D816A0C90200BAAB60 /* IOCNotificationsController.m */,
 				6FB1CF8C1649AEA200337EBE /* EventsController.h */,
 				6FB1CF8D1649AEB200337EBE /* EventsController.m */,
 				6FCE4D860F7FE16A00451D6E /* MyEventsController.h */,
@@ -2777,7 +2773,6 @@
 				6FF4D96D1698E32400C235A0 /* MenuStarredRepos@2x.png in Resources */,
 				6FF4D9781698E3AE00C235A0 /* MenuWatchedRepos.png in Resources */,
 				6FF4D97A1698E3AE00C235A0 /* MenuWatchedRepos@2x.png in Resources */,
-				6F3E21D516A0C8A300BAAB60 /* Notifications.xib in Resources */,
 				6F11AE3316A35CAE002D9741 /* TypeIssue.png in Resources */,
 				6F11AE3516A35CAE002D9741 /* TypeIssue@2x.png in Resources */,
 				6F11AE3716A35CAE002D9741 /* TypeIssueOn.png in Resources */,
@@ -3093,7 +3088,6 @@
 				6FF4D96E1698E32400C235A0 /* MenuStarredRepos@2x.png in Resources */,
 				6FF4D9791698E3AE00C235A0 /* MenuWatchedRepos.png in Resources */,
 				6FF4D97B1698E3AE00C235A0 /* MenuWatchedRepos@2x.png in Resources */,
-				6F3E21D616A0C8A300BAAB60 /* Notifications.xib in Resources */,
 				6F11AE3416A35CAE002D9741 /* TypeIssue.png in Resources */,
 				6F11AE3616A35CAE002D9741 /* TypeIssue@2x.png in Resources */,
 				6F11AE3816A35CAE002D9741 /* TypeIssueOn.png in Resources */,
@@ -3337,7 +3331,7 @@
 				6FF4D9551698D4B900C235A0 /* IOCRepositoriesController.m in Sources */,
 				6F1F399316A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399816A034ED00C9E01B /* GHNotification.m in Sources */,
-				6F3E21D916A0C90200BAAB60 /* NotificationsController.m in Sources */,
+				6F3E21D916A0C90200BAAB60 /* IOCNotificationsController.m in Sources */,
 				6FBA2A0216A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FF001B716A6BB3B00FD4803 /* IOCGistCell.m in Sources */,
 				6F26DB5016A6E1E700939D85 /* NotificationCell.m in Sources */,
@@ -3446,7 +3440,7 @@
 				6FF4D9571698D4B900C235A0 /* IOCRepositoriesController.m in Sources */,
 				6F1F399516A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399A16A034ED00C9E01B /* GHNotification.m in Sources */,
-				6F3E21DB16A0C90200BAAB60 /* NotificationsController.m in Sources */,
+				6F3E21DB16A0C90200BAAB60 /* IOCNotificationsController.m in Sources */,
 				6FBA2A0416A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FD07B9316A49D05000BF998 /* IOCDefaultsPersistenceTests.m in Sources */,
 				6FF001B916A6BB3B00FD4803 /* IOCGistCell.m in Sources */,
@@ -3553,7 +3547,7 @@
 				6FF4D9561698D4B900C235A0 /* IOCRepositoriesController.m in Sources */,
 				6F1F399416A034D200C9E01B /* GHNotifications.m in Sources */,
 				6F1F399916A034ED00C9E01B /* GHNotification.m in Sources */,
-				6F3E21DA16A0C90200BAAB60 /* NotificationsController.m in Sources */,
+				6F3E21DA16A0C90200BAAB60 /* IOCNotificationsController.m in Sources */,
 				6FBA2A0316A4979A003F02A4 /* IOCDefaultsPersistence.m in Sources */,
 				6FF001B816A6BB3B00FD4803 /* IOCGistCell.m in Sources */,
 				6F26DB5116A6E1E700939D85 /* NotificationCell.m in Sources */,

@@ -14,7 +14,7 @@
 #import "IOCGistsController.h"
 #import "IOCSearchController.h"
 #import "IOCCommitController.h"
-#import "NotificationsController.h"
+#import "IOCNotificationsController.h"
 #import "GHUser.h"
 #import "GHGist.h"
 #import "GHCommit.h"
@@ -291,7 +291,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	switch (section) {
 		case 0:
 			if (row == 0) {
-				viewController = [[NotificationsController alloc] initWithNotifications:self.user.notifications];
+				viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
 				viewController.title = @"Notifications";
 			}
 			break;

@@ -1,5 +1,5 @@
 @class GHNotifications;
 
-@interface NotificationsController : UITableViewController
+@interface IOCNotificationsController : UITableViewController
 - (id)initWithNotifications:(GHNotifications *)Notifications;
 @end

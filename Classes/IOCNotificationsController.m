@@ -1,7 +1,7 @@
 #import "GHNotifications.h"
 #import "GHNotification.h"
 #import "NSDate+Nibware.h"
-#import "NotificationsController.h"
+#import "IOCNotificationsController.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
@@ -20,17 +20,17 @@
 #import "GradientButton.h"
 
 
-@interface NotificationsController () <UIActionSheetDelegate>
+@interface IOCNotificationsController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHNotifications *notifications;
 @property(nonatomic,strong)NSMutableDictionary *notificationsByRepository;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noNotificationsCell;
+@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
-@implementation NotificationsController
+@implementation IOCNotificationsController
 
 - (id)initWithNotifications:(GHNotifications *)notifications {
-	self = [super initWithNibName:@"Notifications" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.title = @"Notifications";
 		self.notifications = notifications;
@@ -189,8 +189,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData) {
-		return self.notifications.isLoaded ? self.noNotificationsCell : [[IOCResourceStatusCell alloc] initWithResource:self.notifications name:@"notifications"];
+	if (!self.resourceHasData && (self.notifications.isFailed || self.notifications.isLoaded)) {
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.notifications name:@"notifications"];
+		self.statusCell.emptyText = @"Inbox Zero, good job!";
+		return self.statusCell;
 	}
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
 	if (cell == nil) cell = [NotificationCell cell];
@@ -254,7 +256,9 @@
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
-			[weakSelf.notifications loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+			[weakSelf.notifications loadWithParams:nil start:^(GHResource *instance) {
+				if (!weakSelf.resourceHasData) [weakSelf.tableView reloadData];
+			} success:^(GHResource *instance, id data) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf refreshLastUpdate];
 				[weakSelf rebuildByRepository];

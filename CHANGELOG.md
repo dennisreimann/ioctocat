@@ -8,6 +8,7 @@ Additions:
 
 * Mark all notifications for a repo as read
 * Open Repo and Gist files in other apps. Thanks @iosdeveloper
+* Added language to repository cell. Thanks @iosdeveloper
 * Added Stargazers to Repository. Thanks @mazanma3
 * Added Starred Repos to User Profile. Thanks @mazanma3
 * Added version info to menu footer
@@ -22,6 +23,8 @@ Changes:
 * Issues: Keep last scroll position of the list when going back from an issue
 * Issues: Add author to second line of text
 * Use notepad icon for gists throughout the app
+* Reload pull request after merging it
+* Properly handle notifications reloading
 
 Bugfixes:
 

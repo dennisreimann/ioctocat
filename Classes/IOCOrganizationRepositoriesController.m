@@ -142,8 +142,10 @@
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (cell == nil) cell = [RepositoryCell cell];
-		[(RepositoryCell *)cell setRepository:repos[indexPath.row]];
-		[(RepositoryCell *)cell hideOwner];
+        GHRepository *repo = repos[indexPath.row];
+        GHOrganization *org = self.user.organizations[indexPath.section];
+        [(RepositoryCell *)cell setRepository:repo];
+        if ([org.login isEqualToString:repo.owner]) [(RepositoryCell *)cell hideOwner];
 	}
 	return cell;
 }

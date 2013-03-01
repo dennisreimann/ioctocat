@@ -74,12 +74,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
 	[self openViewController:myEventsController];
 	// load resources
-	if (self.user.notifications.isUnloaded) {
-		[self.user.notifications loadWithSuccess:^(GHResource *instance, id data) {
-			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-			[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-		}];
-	}
+	[self.user.notifications loadWithSuccess:^(GHResource *instance, id data) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+	}];
 	if (self.user.organizations.isUnloaded) {
 		[self removeOrganizationObservers];
 		// success is handled by the KVO hook

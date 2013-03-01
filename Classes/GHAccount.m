@@ -32,6 +32,8 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 		self.apiClient = [[GHApiClient alloc] initWithBaseURL:apiURL];
 		[self.apiClient setAuthorizationHeaderWithToken:self.authToken];
 		// user with authenticated URLs
+		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login];
+		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login];
 		self.user = [[iOctocat sharedInstance] userWithLogin:self.login];
 		self.user.resourcePath = kUserAuthenticatedFormat;
 		self.user.repositories.resourcePath = kUserAuthenticatedReposFormat;
@@ -41,8 +43,8 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
 		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
 		self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsFormat];
-		self.user.receivedEvents = [[GHEvents alloc] initWithPath:[NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login]];
-		self.user.events = [[GHEvents alloc] initWithPath:[NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login]];
+		self.user.receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath account:self];
+		self.user.events = [[GHEvents alloc] initWithPath:eventsPath account:self];
 		[self.user addObserver:self forKeyPath:LoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}

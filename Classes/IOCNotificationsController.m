@@ -201,6 +201,7 @@
 		UITableViewCell *allReadCell = [tableView dequeueReusableCellWithIdentifier:@"AllReadCell"];
 		if (allReadCell == nil) {
 			allReadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AllReadCell"];
+			allReadCell.selectionStyle = UITableViewCellSelectionStyleNone;
 			allReadCell.textLabel.font = [UIFont systemFontOfSize:15];
 			allReadCell.textLabel.text = @"Inbox Zero, good job!";
 			allReadCell.textLabel.textColor = [UIColor grayColor];

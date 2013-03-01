@@ -67,6 +67,9 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	self.tableView.backgroundColor = self.darkBackgroundColor;
 	self.tableView.separatorColor = self.lightBackgroundColor;
     self.tableView.tableFooterView = self.footerView;
+    UIEdgeInsets inset = UIEdgeInsetsZero;
+    inset.bottom -= self.tableView.tableFooterView.frame.size.height;
+    self.tableView.contentInset = inset;
 	// disable scroll-to-top for the menu, so that the main controller receives the event
 	self.tableView.scrollsToTop = NO;
 	// open first view controller

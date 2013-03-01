@@ -1,2 +1,0 @@
-@interface MenuTableView : UITableView
-@end

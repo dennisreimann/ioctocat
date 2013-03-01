@@ -68,6 +68,9 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	if ([keyPath isEqualToString:LoginKeyPath] || ([keyPath isEqualToString:OrgsLoadingKeyPath] && self.user.organizations.isLoaded)) {
 		[self updateUserResourcePaths];
 	}
+	if ([keyPath isEqualToString:LoginKeyPath]) {
+		self.login = self.user.login;
+	}
 }
 
 #pragma mark Coding

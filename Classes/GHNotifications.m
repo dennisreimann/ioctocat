@@ -50,11 +50,13 @@
 }
 
 - (void)markAsRead:(GHNotification *)notification start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[notification markAsReadStart:start success:^(GHResource *notification, id response) {
+	[notification markAsReadStart:^(GHResource *notification) {
+		if (start) start(self);
+	} success:^(GHResource *notification, id response) {
 		[self updateUnreadCount];
-		if (success) success(notification, response);
+		if (success) success(self, response);
 	} failure:^(GHResource *notification, NSError *error) {
-		if (failure) failure(notification, error);
+		if (failure) failure(self, error);
 	}];
 }
 
@@ -62,9 +64,9 @@
 	NSDictionary *params = @{@"read": @YES, @"last_read_at": self.formattedLastReadAt};
 	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPut start:start success:^(GHResource *notifications, id response) {
 		[self setValues:@[]];
-		if (success) success(notifications, response);
+		if (success) success(self, response);
 	} failure:^(GHResource *notifications, NSError *error) {
-		if (failure) failure(notifications, error);
+		if (failure) failure(self, error);
 	}];
 }
 
@@ -78,9 +80,9 @@
 		}];
 		[self.items removeObjectsAtIndexes:indexSet];
 		[self updateUnreadCount];
-		if (success) success(notifications, response);
+		if (success) success(self, response);
 	} failure:^(GHResource *notifications, NSError *error) {
-		if (failure) failure(notifications, error);
+		if (failure) failure(self, error);
 	}];
 }
 

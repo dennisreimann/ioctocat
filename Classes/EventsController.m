@@ -166,8 +166,8 @@
 			weakSelf.selectedIndexPath = nil;
 			[weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
 				[weakSelf refreshLastUpdate];
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf.tableView reloadData];
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
 			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[iOctocat reportLoadingError:@"Could not load the feed"];

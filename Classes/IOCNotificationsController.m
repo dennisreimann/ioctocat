@@ -16,14 +16,12 @@
 #import "NotificationCell.h"
 #import "GHRepository.h"
 #import "IOCTableViewSectionHeader.h"
-#import "IOCResourceStatusCell.h"
 #import "GradientButton.h"
 
 
 @interface IOCNotificationsController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHNotifications *notifications;
 @property(nonatomic,strong)NSMutableDictionary *notificationsByRepository;
-@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @end
 
 
@@ -50,6 +48,7 @@
 	[super viewWillAppear:animated];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 	if (!self.notificationsByRepository) [self rebuildByRepository];
+	[self setupActions];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,7 +87,11 @@
 	NSMutableArray *notificationsInSection = self.notificationsByRepository[repoId];
 	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
 	// mark as read, remove notification, and eventually the associated repo key
-	[self.notifications markAsRead:notification start:nil success:nil failure:nil];
+	[self.notifications markAsRead:notification start:nil success:^(GHResource *instance, id data) {
+		if ([(GHNotifications *)instance unreadCount] == 0) {
+			[self.tableView triggerPullToRefresh];
+		}
+	} failure:nil];
 	[self.notifications removeObject:notification];
 	[notificationsInSection removeObject:notification];
 	if (notificationsInSection.count == 0) {
@@ -97,7 +100,7 @@
 	// update table:
 	// reload if this was the last notification
 	if (!self.resourceHasData) {
-		[self.tableView reloadData];
+		[self markedAllAsRead];
 	}
 	// remove the section if it was the last notification in this section
 	else if (!self.notificationsByRepository[repoId]) {
@@ -113,7 +116,7 @@
 - (void)markAllAsRead {
 	[self.notifications markAllAsReadStart:^(GHResource *notifications) {
 		[self.notificationsByRepository removeAllObjects];
-		[self.tableView reloadData];
+		[self markedAllAsRead];
 	} success:^(GHResource *notifications, id data) {
 		[self.tableView triggerPullToRefresh];
 	} failure:^(GHResource *notifications, id data) {
@@ -124,18 +127,27 @@
 - (void)markAllAsReadInSection:(GradientButton *)sender {
 	NSString *repoId = sender.identifierTag;
 	NSInteger section = [self.notificationsByRepository.allKeys indexOfObject:repoId];
-	[self.notifications markAllAsReadForRepoId:repoId start:nil success:nil failure:nil];
+	[self.notifications markAllAsReadForRepoId:repoId start:nil success:^(GHResource *instance, id data) {
+		if ([(GHNotifications *)instance unreadCount] == 0) {
+			[self.tableView triggerPullToRefresh];
+		}
+	} failure:nil];
 	[self.notificationsByRepository removeObjectForKey:repoId];
 	// update table:
 	// reload if this was the last section
 	if (!self.resourceHasData) {
-		[self.tableView reloadData];
+		[self markedAllAsRead];
 	}
 	// remove the section
 	else if (!self.notificationsByRepository[repoId]) {
 		NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
 		[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
 	}
+}
+
+- (void)markedAllAsRead {
+	[self setupActions];
+	[self.tableView reloadData];
 }
 
 #pragma mark TableView
@@ -145,11 +157,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (!self.resourceHasData) {
-		return (self.notifications.isFailed || self.notifications.isLoaded) ? 1 : 0;
-	} else {
-		return [[self notificationsInSection:section] count];
-	}
+	return self.resourceHasData ? [[self notificationsInSection:section] count] : 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
@@ -162,7 +170,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     NSString *title = [self tableView:tableView titleForHeaderInSection:section];
-    if (title == nil) {
+    if (!title) {
 		return nil;
 	} else {
 		IOCTableViewSectionHeader *header = [IOCTableViewSectionHeader headerForTableView:tableView title:title];
@@ -189,10 +197,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (!self.resourceHasData && (self.notifications.isFailed || self.notifications.isLoaded)) {
-		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.notifications name:@"notifications"];
-		self.statusCell.emptyText = @"Inbox Zero, good job!";
-		return self.statusCell;
+	if (!self.resourceHasData) {
+		UITableViewCell *allReadCell = [tableView dequeueReusableCellWithIdentifier:@"AllReadCell"];
+		if (allReadCell == nil) {
+			allReadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AllReadCell"];
+			allReadCell.textLabel.font = [UIFont systemFontOfSize:15];
+			allReadCell.textLabel.text = @"Inbox Zero, good job!";
+			allReadCell.textLabel.textColor = [UIColor grayColor];
+			allReadCell.textLabel.textAlignment = NSTextAlignmentCenter;
+		}
+		return allReadCell;
 	}
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
 	if (cell == nil) cell = [NotificationCell cell];
@@ -258,7 +272,7 @@
 // not know whether or not there are more notifications (which the user did not
 // see) - so don't make it possible to mark all as read in this case.
 - (void)setupActions {
-	BOOL markAllReadEnabled = self.notifications.unreadCount > 0 && self.notifications.unreadCount < 50;
+	BOOL markAllReadEnabled = self.resourceHasData && self.notifications.unreadCount < 50;
 	self.navigationItem.rightBarButtonItem.enabled = markAllReadEnabled;
 }
 
@@ -267,16 +281,16 @@
 	[self.tableView addPullToRefreshWithActionHandler:^{
 		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
 			[weakSelf.notifications loadWithParams:nil start:^(GHResource *instance) {
-				if (!weakSelf.resourceHasData) [weakSelf.tableView reloadData];
+				[weakSelf setupActions];
 			} success:^(GHResource *instance, id data) {
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[weakSelf refreshLastUpdate];
 				[weakSelf rebuildByRepository];
 				[weakSelf setupActions];
 				[weakSelf.tableView reloadData];
-			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView.pullToRefreshView stopAnimating];
+			} failure:^(GHResource *instance, NSError *error) {
 				[weakSelf.tableView reloadData];
+				[weakSelf.tableView.pullToRefreshView stopAnimating];
 				[iOctocat reportLoadingError:@"Could not load the notifications"];
 			}];
 		} else if (!weakSelf.notifications.canReload) {

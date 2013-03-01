@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v1.8.0
+
+Additions:
+
+* Hopefully push notifications ;)
+
+Changes:
+
+* Better handling of accounts
+
+Bugfixes:
+
+* Last refresh dates were shared across accounts
+
 ## v1.7.8
 
 THE Bugfix Release™ - powered by @iosdeveloper :)

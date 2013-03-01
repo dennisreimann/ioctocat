@@ -40,7 +40,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    actionButton.enabled = NO;
+    self.navigationItem.rightBarButtonItem = actionButton;
 	[self setupPullToRefresh];
 }
 
@@ -48,7 +50,6 @@
 	[super viewWillAppear:animated];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 	if (!self.notificationsByRepository) [self rebuildByRepository];
-	[self setupActions];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

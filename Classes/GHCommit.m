@@ -65,7 +65,7 @@
 }
 
 - (NSString *)shortenedSha {
-	return [self.commitID substringToIndex:6];
+    return [self.commitID substringToIndex:7];
 }
 
 - (NSString *)shortenedMessage {

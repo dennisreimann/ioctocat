@@ -5,6 +5,7 @@
 Additions:
 
 * Hopefully push notifications ;)
+* Copy SHA of a commit. Thanks @iosdeveloper
 
 Changes:
 

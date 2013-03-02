@@ -11,7 +11,6 @@
 @property(nonatomic,strong)NSString *authId;
 @property(nonatomic,strong)NSString *authToken;
 @property(nonatomic,strong)NSString *pushToken;
-@property(nonatomic,assign)BOOL pushEnabled;
 
 - (id)initWithDict:(NSDictionary *)dict;
 @end

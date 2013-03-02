@@ -24,6 +24,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 		self.login = [dict safeStringForKey:kLoginDefaultsKey];
 		self.endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
 		self.authToken = [dict safeStringForKey:kAuthTokenDefaultsKey];
+		self.pushToken = [dict safeStringForKey:kPushTokenDefaultsKey];
 		// construct endpoint URL and set up API client
 		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
 		if (!self.endpoint.isEmpty) {
@@ -78,23 +79,20 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 - (void)encodeWithCoder:(NSCoder *)encoder {
 	[encoder encodeObject:self.login forKey:kLoginDefaultsKey];
 	[encoder encodeObject:self.endpoint forKey:kEndpointDefaultsKey];
-	[encoder encodeObject:self.authId forKey:kAuthIdDefaultsKey];
 	[encoder encodeObject:self.authToken forKey:kAuthTokenDefaultsKey];
-	[encoder encodeObject:[NSNumber numberWithBool:self.pushEnabled] forKey:kPushNotificationsDefaultsKey];
+	[encoder encodeObject:self.pushToken forKey:kPushTokenDefaultsKey];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
 	NSString *login = [decoder decodeObjectForKey:kLoginDefaultsKey];
 	NSString *endpoint = [decoder decodeObjectForKey:kEndpointDefaultsKey];
-	NSString *authId = [decoder decodeObjectForKey:kAuthIdDefaultsKey];
 	NSString *authToken = [decoder decodeObjectForKey:kAuthTokenDefaultsKey];
-	NSNumber *pushEnabled = [decoder decodeObjectForKey:kPushNotificationsDefaultsKey];
+	NSString *pushToken = [decoder decodeObjectForKey:kPushTokenDefaultsKey];
 	self = [self initWithDict:@{
 			kLoginDefaultsKey: login ? login : @"",
 		 kEndpointDefaultsKey: endpoint ? endpoint : @"",
-		   kAuthIdDefaultsKey: authId ? authId : @"",
 		kAuthTokenDefaultsKey: authToken ? authToken : @"",
-kPushNotificationsDefaultsKey: pushEnabled ? pushEnabled : [NSNumber numberWithBool:NO] }];
+		kPushTokenDefaultsKey: pushToken ? pushToken : @"" }];
 	return self;
 }
 

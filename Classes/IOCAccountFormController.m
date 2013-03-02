@@ -41,20 +41,18 @@
 	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
 	self.loginField.text = self.account.login;
 	self.endpointField.text = self.account.endpoint;
-	self.pushSwitch.on = self.account.pushEnabled;
 	self.pushSwitch.enabled = self.deviceToken ? YES : NO;
 	self.pushLabel.textColor = self.deviceToken ? [UIColor blackColor] : [UIColor lightGrayColor];
 	// check push state
-	NSString *token = self.account.pushToken;
-	if (self.deviceToken && token) {
+	if (self.deviceToken && self.account.pushToken) {
 		self.pushSwitch.enabled = NO;
-		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
+		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
 			[self.pushSwitch setOn:YES animated:YES];
 			self.pushSwitch.enabled = YES;
 		} failure:^(NSError *error) {
-			[self.pushSwitch setOn:NO animated:YES];
 			self.account.pushToken = nil;
 			[self saveAccount];
+			[self.pushSwitch setOn:NO animated:YES];
 			self.pushSwitch.enabled = YES;
 		}];
 	} else {
@@ -102,6 +100,7 @@
 		[iOctocat reportError:@"Validation failed" with:@"Please enter your login and password"];
 		return;
 	}
+	[self.view endEditing:NO];
 	NSString *login = self.loginValue;
 	NSString *endpoint = self.endpointValue;
 	NSString *note = @"iOctocat: Application";
@@ -109,22 +108,18 @@
 	[SVProgressHUD showWithStatus:@"Authenticating…" maskType:SVProgressHUDMaskTypeGradient];
 	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Authenticated"];
-		NSString *token = [json valueForKey:@"token"];
 		// update
-		[self.account setValue:login forKey:kLoginDefaultsKey];
-		[self.account setValue:token forKey:kAuthTokenDefaultsKey];
-		[self.account setValue:endpoint forKey:kEndpointDefaultsKey];
+		self.account.login = login;
+		self.account.endpoint = endpoint;
+		self.account.authToken = [json safeStringForKey:@"token"];
 		[self saveAccount];
-		// cleanup
-		[self.loginField resignFirstResponder];
-		[self.passwordField resignFirstResponder];
-		[self.endpointField resignFirstResponder];
 	} failure:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Authentication failed"];
 	}];
 }
 
 - (IBAction)changePushNotifications:(id)sender {
+	[self.view endEditing:NO];
 	if (self.pushSwitch.on) {
 		if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
 			[iOctocat reportError:@"Credentials required" with:@"Please enter your login and password"];
@@ -147,7 +142,7 @@
 		NSString *token = [json safeStringForKey:@"token"];
 		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
 			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];
-			[self.account setValue:token forKey:kPushTokenDefaultsKey];
+			self.account.pushToken = token;
 			[self saveAccount];
 		} failure:^(NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Enabling push notifications failed"];

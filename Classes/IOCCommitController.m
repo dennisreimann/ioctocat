@@ -21,6 +21,7 @@
 
 @interface IOCCommitController () <UIActionSheetDelegate>
 @property(nonatomic,strong)GHCommit *commit;
+@property(nonatomic,strong)UILongPressGestureRecognizer *longPressGesture;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
@@ -68,8 +69,9 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	[self layoutCommentButton];
-	self.title = [self.commit.commitID substringToIndex:8];
+    self.title = self.commit.shortenedSha;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
+    self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:@"commit"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:@"comments"];
 	[self displayCommit];
@@ -83,6 +85,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
+    [self.navigationController.navigationBar addGestureRecognizer:self.longPressGesture];
 	// commits
 	if (self.commit.isUnloaded) {
 		[self.commit loadWithSuccess:^(GHResource *instance, id data) {
@@ -99,6 +102,35 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	} else if (self.commit.isChanged) {
 		[self displayCommentsChange];
 	}
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar removeGestureRecognizer:self.longPressGesture];
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
+        [[UIMenuController sharedMenuController] setTargetRect:self.navigationController.navigationBar.frame inView:self.navigationController.view];
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    }
+}
+
+#pragma mark Responder
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(copy:)) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)copy:(id)sender {
+    [UIPasteboard generalPasteboard].string = self.commit.shortenedSha;
 }
 
 #pragma mark Helpers
@@ -154,12 +186,13 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add comment", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy SHA", @"Add comment", nil];
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) [self addComment:nil];
+    if (buttonIndex == 0) [UIPasteboard generalPasteboard].string = self.commit.commitID;
+    else if (buttonIndex == 1) [self addComment:nil];
 }
 
 - (IBAction)addComment:(id)sender {

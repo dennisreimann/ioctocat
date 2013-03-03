@@ -6,6 +6,7 @@ Additions:
 
 * Hopefully push notifications ;)
 * Copy SHA of a commit. Thanks @iosdeveloper
+* Basic web view navigation. Thanks @iosdeveloper
 
 Changes:
 

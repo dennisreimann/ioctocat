@@ -5,7 +5,12 @@
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,strong)NSString *html;
 @property(nonatomic,weak)IBOutlet UIWebView *webView;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *leftButton;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *rightButton;
+@property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
 @property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
+- (IBAction)leftButtonTapped:(id)sender;
+- (IBAction)rightButtonTapped:(id)sender;
 @end
 
 
@@ -27,6 +32,14 @@
 	return self;
 }
 
+- (void)dealloc {
+    self.webView.delegate = nil;
+    [self.webView stopLoading];
+    [self webViewDidFinishLoad:self.webView];
+}
+
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
@@ -44,10 +57,9 @@
 	}
 }
 
-- (void)dealloc {
-	[self webViewDidFinishLoad:self.webView];
-	[self.webView stopLoading];
-	self.webView.delegate = nil;
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self layoutForInterfaceOrientation:self.interfaceOrientation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -56,20 +68,50 @@
 	[super viewWillDisappear:animated];
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
+    [self layoutForInterfaceOrientation:interfaceOrientation];
+}
+
+#pragma mark Helpers
+
+// Adjust the toolbar height depending on the screen orientation,
+// see: http://stackoverflow.com/a/12111810/1104404
+- (void)layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    CGSize toolbarSize = [self.toolbar sizeThatFits:self.view.bounds.size];
+    self.toolbar.frame = CGRectMake(0.0f, self.view.bounds.size.height - toolbarSize.height, toolbarSize.width, toolbarSize.height);
+    self.webView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, self.toolbar.frame.origin.y);
+}
+
+#pragma mark Actions
+
+- (IBAction)leftButtonTapped:(id)sender {
+    [self.webView goBack];
+}
+
+- (IBAction)rightButtonTapped:(id)sender {
+    [self.webView goForward];
+}
+
 #pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webview {
+    self.leftButton.enabled = [webview canGoBack];
+    self.rightButton.enabled = [webview canGoForward];
 	[self.activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview {
 	self.navigationItem.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.leftButton.enabled = [webview canGoBack];
+    self.rightButton.enabled = [webview canGoForward];
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
 - (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
+    self.leftButton.enabled = [webview canGoBack];
+    self.rightButton.enabled = [webview canGoForward];
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }

@@ -50,8 +50,10 @@
 
 	self.webView.scrollView.bounces = NO;
 	if (self.url) {
-		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.url];
-		[self.webView loadRequest:request];
+        self.title = [self.url host];
+        self.request = [NSURLRequest requestWithURL:self.url];
+        [self.webView loadRequest:self.request];
+        self.actionButton.enabled = YES;
 	} else if (self.html) {
 		NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
 		NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];

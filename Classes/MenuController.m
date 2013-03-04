@@ -131,7 +131,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	}
 }
 
-- (void)openViewControllerForGitHubURL:(NSURL *)url {
+- (BOOL)openViewControllerForGitHubURL:(NSURL *)url {
 	UIViewController *viewController = nil;
 	DJLog(@"%@", url.pathComponents);
 	// the first pathComponent is always "/"
@@ -181,8 +181,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		}
 	}
 	if (viewController) {
-		[self openViewController:viewController];
+        [(UINavigationController *)self.slidingViewController.topViewController pushViewController:viewController animated:YES];
+        return YES;
 	}
+    return NO;
 }
 
 // clean up the old state and push the given controller wrapped in a navigation controller 

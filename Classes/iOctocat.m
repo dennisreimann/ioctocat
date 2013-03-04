@@ -108,13 +108,13 @@
 #pragma mark External resources
 
 - (BOOL)openURL:(NSURL *)url {
-	if ([self isGitHubURL:url]) {
-		WebController *webController = [[WebController alloc] initWithURL:url];
-		[(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
-		return YES;
-	} else {
-		return NO;
-	}
+    UIViewController *menuController = self.menuNavController.topViewController;
+    BOOL isMenuVisible = [menuController isKindOfClass:[MenuController class]];
+    if (!(isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url])) {
+        WebController *webController = [[WebController alloc] initWithURL:url];
+        [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
+    }
+    return YES;
 }
 
 - (void)setupHockeySDK {

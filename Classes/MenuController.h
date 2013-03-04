@@ -2,5 +2,5 @@
 
 @interface MenuController : UITableViewController
 - (id)initWithUser:(GHUser *)user;
-- (void)openViewControllerForGitHubURL:(NSURL *)url;
+- (BOOL)openViewControllerForGitHubURL:(NSURL *)url;
 @end

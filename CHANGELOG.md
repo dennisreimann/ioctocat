@@ -6,7 +6,8 @@ Additions:
 
 * Hopefully push notifications ;)
 * Copy SHA of a commit. Thanks @iosdeveloper
-* Basic web view navigation. Thanks @iosdeveloper
+* Internal web browser: Basic navigation, Open in Safari, Copy URL. Thanks @iosdeveloper
+* Open all URLs highlighted in issues/comments internally (experimental). Thanks @iosdeveloper
 
 Changes:
 

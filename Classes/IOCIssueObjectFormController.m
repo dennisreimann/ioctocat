@@ -10,6 +10,7 @@
 @property(nonatomic,readwrite)CGFloat keyboardHeight;
 @property(nonatomic,strong)id issueObject;
 @property(nonatomic,strong)NSString *issueObjectType;
+@property(nonatomic,strong)UITapGestureRecognizer *tapGesture;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
 @end
@@ -31,11 +32,17 @@
 	[super viewDidLoad];
 	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveIssue:)];
+    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+    [self.view addGestureRecognizer:self.tapGesture];
 	if (!self.object.isNew) {
 		self.titleField.text = self.object.title;
 		self.bodyField.text = self.object.body;
         self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
+}
+
+- (void)viewDidUnload {
+    [self.view removeGestureRecognizer:self.tapGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -85,6 +92,12 @@
 			self.navigationItem.rightBarButtonItem.enabled = YES;
 		}];
 	}
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state == UIGestureRecognizerStateEnded) {
+        [self.view endEditing:NO];
+    }
 }
 
 #pragma mark Keyboard

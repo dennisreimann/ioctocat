@@ -35,6 +35,8 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
     _popupFrame = self.popupView.frame;
@@ -57,6 +59,8 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
     [self layoutForInterfaceOrientation:interfaceOrientation];
 }
+
+#pragma mark Helpers
 
 - (void)setFile:(NSDictionary *)file {
 	if (file == self.file) return;
@@ -93,6 +97,35 @@
     self.actionButton.enabled = YES;
 }
 
+// Adjust the toolbar height depending on the screen orientation,
+// see: http://stackoverflow.com/a/12111810/1104404
+- (void)layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    CGSize toolbarSize = [self.toolbar sizeThatFits:self.view.bounds.size];
+    self.toolbar.frame = CGRectMake(0.0f, self.view.bounds.size.height - toolbarSize.height, toolbarSize.width, toolbarSize.height);
+    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, self.toolbar.frame.origin.y);
+    if ([self.popupView isDescendantOfView:self.view]) {
+        _popupFrame.origin.y = self.toolbar.frame.origin.y - _popupFrame.size.height;
+        _popupFrame.size.width = self.view.bounds.size.width;
+        self.popupView.frame = _popupFrame;
+    }
+}
+
+- (void)hidePopupView {
+    if ([self.popupView isDescendantOfView:self.view]) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePopupView) object:nil];
+        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
+            _popupFrame.origin.y = self.toolbar.frame.origin.y;
+            self.popupView.frame = _popupFrame;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [self.popupView removeFromSuperview];
+            }
+        }];
+    }
+}
+
+#pragma mark Actions
+
 - (IBAction)leftButtonTapped:(id)sender {
     self.index--;
     self.file = self.files[self.index];
@@ -128,33 +161,6 @@
                 }
             }];
         }
-    }
-}
-
-// Adjust the toolbar height depending on the screen orientation,
-// see: http://stackoverflow.com/a/12111810/1104404
-- (void)layoutForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    CGSize toolbarSize = [self.toolbar sizeThatFits:self.view.bounds.size];
-    self.toolbar.frame = CGRectMake(0.0f, self.view.bounds.size.height - toolbarSize.height, toolbarSize.width, toolbarSize.height);
-    self.contentView.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, self.toolbar.frame.origin.y);
-    if ([self.popupView isDescendantOfView:self.view]) {
-        _popupFrame.origin.y = self.toolbar.frame.origin.y - _popupFrame.size.height;
-        _popupFrame.size.width = self.view.bounds.size.width;
-        self.popupView.frame = _popupFrame;
-    }
-}
-
-- (void)hidePopupView {
-    if ([self.popupView isDescendantOfView:self.view]) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(hidePopupView) object:nil];
-        [UIView animateWithDuration:0.3 delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-            _popupFrame.origin.y = self.toolbar.frame.origin.y;
-            self.popupView.frame = _popupFrame;
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [self.popupView removeFromSuperview];
-            }
-        }];
     }
 }
 

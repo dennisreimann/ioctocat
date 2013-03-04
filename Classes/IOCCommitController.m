@@ -109,30 +109,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     [self.navigationController.navigationBar removeGestureRecognizer:self.longPressGesture];
 }
 
-- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture {
-    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
-        [[UIMenuController sharedMenuController] setTargetRect:self.navigationController.navigationBar.frame inView:self.navigationController.view];
-        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
-    }
-}
-
-#pragma mark Responder
-
-- (BOOL)canBecomeFirstResponder {
-    return YES;
-}
-
-- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if (action == @selector(copy:)) {
-        return YES;
-    }
-    return NO;
-}
-
-- (void)copy:(id)sender {
-    [UIPasteboard generalPasteboard].string = self.commit.shortenedSha;
-}
-
 #pragma mark Helpers
 
 - (GHUser *)currentUser {
@@ -201,6 +177,13 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	comment.commitID = self.commit.commitID;
 	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
+        [[UIMenuController sharedMenuController] setTargetRect:self.navigationController.navigationBar.frame inView:self.navigationController.view];
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    }
 }
 
 #pragma mark TableView
@@ -298,6 +281,23 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
+}
+
+#pragma mark Responder
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(copy:)) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)copy:(id)sender {
+    [UIPasteboard generalPasteboard].string = self.commit.shortenedSha;
 }
 
 @end

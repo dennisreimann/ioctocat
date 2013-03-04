@@ -892,7 +892,6 @@
 		6FEDE46416E2A21C00459B5C /* RepoPublicOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FEDE43516E2A21C00459B5C /* RepoPublicOn@2x.png */; };
 		6FEDE46516E2A21C00459B5C /* RepoPublicOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FEDE43516E2A21C00459B5C /* RepoPublicOn@2x.png */; };
 		6FEDE47816E2A29300459B5C /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE46816E2A29300459B5C /* IOCBlobsController.m */; };
-		6FEDE47B16E2A29300459B5C /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE46A16E2A29300459B5C /* IOCCodeController.m */; };
 		6FEDE47E16E2A29300459B5C /* IOCCommitCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE46C16E2A29300459B5C /* IOCCommitCell.m */; };
 		6FEDE48116E2A29300459B5C /* IOCGistCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE46E16E2A29300459B5C /* IOCGistCell.m */; };
 		6FEDE48416E2A29300459B5C /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FEDE47016E2A29300459B5C /* IOCNotificationsController.m */; };
@@ -1449,8 +1448,6 @@
 		6FEDE43416E2A21C00459B5C /* RepoPublicOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RepoPublicOn.png; sourceTree = "<group>"; };
 		6FEDE43516E2A21C00459B5C /* RepoPublicOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RepoPublicOn@2x.png"; sourceTree = "<group>"; };
 		6FEDE46816E2A29300459B5C /* IOCBlobsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCBlobsController.m; sourceTree = "<group>"; };
-		6FEDE46916E2A29300459B5C /* IOCCodeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCCodeController.h; sourceTree = "<group>"; };
-		6FEDE46A16E2A29300459B5C /* IOCCodeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCodeController.m; sourceTree = "<group>"; };
 		6FEDE46B16E2A29300459B5C /* IOCCommitCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCCommitCell.h; sourceTree = "<group>"; };
 		6FEDE46C16E2A29300459B5C /* IOCCommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCommitCell.m; sourceTree = "<group>"; };
 		6FEDE46D16E2A29300459B5C /* IOCGistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCGistCell.h; sourceTree = "<group>"; };
@@ -1656,8 +1653,6 @@
 				6F182C86161C5E3600E705CF /* IOCGistsController.m */,
 				6F182C88161CB77600E705CF /* IOCGistController.h */,
 				6F182C89161CB77600E705CF /* IOCGistController.m */,
-				6FEDE46916E2A29300459B5C /* IOCCodeController.h */,
-				6FEDE46A16E2A29300459B5C /* IOCCodeController.m */,
 				6FA3816A16E28A0E003293BD /* IOCCodeController.h */,
 				6FA3816B16E28A0E003293BD /* IOCCodeController.m */,
 			);
@@ -3476,7 +3471,6 @@
 				6FA0AE1816C014AD007308A6 /* IOCTableViewSectionHeader.m in Sources */,
 				6F308A1616CD958200BA00A1 /* IOCTextView.m in Sources */,
 				6FEDE47816E2A29300459B5C /* IOCBlobsController.m in Sources */,
-				6FEDE47B16E2A29300459B5C /* IOCCodeController.m in Sources */,
 				6FEDE47E16E2A29300459B5C /* IOCCommitCell.m in Sources */,
 				6FEDE48116E2A29300459B5C /* IOCGistCell.m in Sources */,
 				6FEDE48416E2A29300459B5C /* IOCNotificationsController.m in Sources */,

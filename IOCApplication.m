@@ -8,4 +8,8 @@
 	return [(iOctocat *)self.delegate openURL:url] ? YES : [super openURL:url];
 }
 
+- (void)forceOpenURL:(NSURL *)url {
+    [super openURL:url];
+}
+
 @end

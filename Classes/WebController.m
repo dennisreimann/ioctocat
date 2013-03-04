@@ -1,16 +1,19 @@
 #import "WebController.h"
+#import "IOCApplication.h"
 
 
-@interface WebController () <UIWebViewDelegate>
+@interface WebController () <UIWebViewDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,strong)NSString *html;
 @property(nonatomic,weak)IBOutlet UIWebView *webView;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *leftButton;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *rightButton;
+@property(nonatomic,weak)IBOutlet UIBarButtonItem *actionButton;
 @property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
 @property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
 - (IBAction)leftButtonTapped:(id)sender;
 - (IBAction)rightButtonTapped:(id)sender;
+- (IBAction)actionButtonTapped:(id)sender;
 @end
 
 
@@ -92,11 +95,22 @@
     [self.webView goForward];
 }
 
+- (IBAction)actionButtonTapped:(id)sender {
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[[self.webView.request URL] absoluteString] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy URL", nil];
+    [actionSheet showFromToolbar:self.toolbar];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) [(IOCApplication *)[UIApplication sharedApplication] forceOpenURL:[self.webView.request URL]];
+    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].URL = [self.webView.request URL];
+}
+
 #pragma mark WebView
 
 - (void)webViewDidStartLoad:(UIWebView *)webview {
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
+    self.actionButton.enabled = [[self.webView.request URL] host] != nil;
 	[self.activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
@@ -105,6 +119,7 @@
 	self.navigationItem.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
+    self.actionButton.enabled = [[self.webView.request URL] host] != nil;
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -112,6 +127,7 @@
 - (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
+    self.actionButton.enabled = [[self.webView.request URL] host] != nil;
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }

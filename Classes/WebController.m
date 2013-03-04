@@ -5,6 +5,7 @@
 @interface WebController () <UIWebViewDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,strong)NSString *html;
+@property(nonatomic,strong)NSURLRequest *request;
 @property(nonatomic,weak)IBOutlet UIWebView *webView;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *leftButton;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *rightButton;
@@ -49,7 +50,6 @@
 
 	self.webView.scrollView.bounces = NO;
 	if (self.url) {
-		self.navigationItem.title = self.url.host;
 		NSURLRequest *request = [[NSURLRequest alloc] initWithURL:self.url];
 		[self.webView loadRequest:request];
 	} else if (self.html) {
@@ -96,30 +96,47 @@
 }
 
 - (IBAction)actionButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[[self.webView.request URL] absoluteString] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy URL", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[[self.request URL] absoluteString] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy URL", nil];
     [actionSheet showFromToolbar:self.toolbar];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) [(IOCApplication *)[UIApplication sharedApplication] forceOpenURL:[self.webView.request URL]];
-    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].URL = [self.webView.request URL];
+    if (buttonIndex == 0) [(IOCApplication *)[UIApplication sharedApplication] forceOpenURL:[self.request URL]];
+    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].URL = [self.request URL];
 }
 
 #pragma mark WebView
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    NSString *host = [[request URL] host];
+    self.request = request;
+    if (host) {
+        self.title = host;
+        self.actionButton.enabled = YES;
+    } else {
+        self.actionButton.enabled = NO;
+    }
+    return YES;
+}
+
 - (void)webViewDidStartLoad:(UIWebView *)webview {
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
-    self.actionButton.enabled = [[self.webView.request URL] host] != nil;
 	[self.activityView startAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview {
-	self.navigationItem.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
+    NSString *host = [[webview.request URL] host];
+    self.request = webview.request;
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
-    self.actionButton.enabled = [[self.webView.request URL] host] != nil;
+    if (host) {
+        self.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
+        self.actionButton.enabled = YES;
+    } else {
+        self.actionButton.enabled = NO;
+    }
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
@@ -127,7 +144,6 @@
 - (void)webView:(UIWebView *)webview didFailLoadWithError:(NSError *)error {
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
-    self.actionButton.enabled = [[self.webView.request URL] host] != nil;
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }

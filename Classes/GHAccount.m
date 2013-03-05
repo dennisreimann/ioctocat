@@ -25,29 +25,6 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 		self.endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
 		self.authToken = [dict safeStringForKey:kAuthTokenDefaultsKey];
 		self.pushToken = [dict safeStringForKey:kPushTokenDefaultsKey];
-		// construct endpoint URL and set up API client
-		NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
-		if (!self.endpoint.isEmpty) {
-			apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
-		}
-		self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
-		[self.apiClient setAuthorizationHeaderWithToken:self.authToken];
-		// user with authenticated URLs
-		NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login];
-		NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login];
-		self.user = [[iOctocat sharedInstance] userWithLogin:self.login];
-		self.user.resourcePath = kUserAuthenticatedFormat;
-		self.user.repositories.resourcePath = kUserAuthenticatedReposFormat;
-		self.user.organizations.resourcePath = kUserAuthenticatedOrgsFormat;
-		self.user.gists.resourcePath = kUserAuthenticatedGistsFormat;
-		self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
-		self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
-		self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
-		self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsFormat];
-		self.user.receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath account:self];
-		self.user.events = [[GHEvents alloc] initWithPath:eventsPath account:self];
-		[self.user addObserver:self forKeyPath:LoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 	return self;
 }
@@ -55,6 +32,42 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 - (void)dealloc {
 	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 	[self.user removeObserver:self forKeyPath:LoginKeyPath];
+}
+
+- (void)setLogin:(NSString *)login {
+    if ([login isEqualToString:_login]) return;
+    _login = login;
+    [self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
+	[self.user removeObserver:self forKeyPath:LoginKeyPath];
+    // user with authenticated URLs
+    NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login];
+    NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login];
+    self.user = [[iOctocat sharedInstance] userWithLogin:self.login];
+    self.user.resourcePath = kUserAuthenticatedFormat;
+    self.user.repositories.resourcePath = kUserAuthenticatedReposFormat;
+    self.user.organizations.resourcePath = kUserAuthenticatedOrgsFormat;
+    self.user.gists.resourcePath = kUserAuthenticatedGistsFormat;
+    self.user.starredGists.resourcePath = kUserAuthenticatedGistsStarredFormat;
+    self.user.starredRepositories.resourcePath = kUserAuthenticatedStarredReposFormat;
+    self.user.watchedRepositories.resourcePath = kUserAuthenticatedWatchedReposFormat;
+    self.user.notifications = [[GHNotifications alloc] initWithPath:kNotificationsFormat];
+    self.user.receivedEvents = [[GHEvents alloc] initWithPath:receivedEventsPath account:self];
+    self.user.events = [[GHEvents alloc] initWithPath:eventsPath account:self];
+    [self.user addObserver:self forKeyPath:LoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
+    [self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+}
+
+// constructs endpoint URL and sets up API client
+- (GHOAuthClient *)apiClient {
+    if (!_apiClient) {
+        NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
+        if (!self.endpoint.isEmpty) {
+            apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
+        }
+        self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
+        [_apiClient setAuthorizationHeaderWithToken:self.authToken];
+    }
+    return _apiClient;
 }
 
 - (void)updateUserResourcePaths {

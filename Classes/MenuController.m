@@ -136,19 +136,23 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	DJLog(@"%@", url.pathComponents);
 	// the first pathComponent is always "/"
 	if ([url.host isEqualToString:@"gist.github.com"]) {
-		if (url.pathComponents.count == 1) {
+        if (url.pathComponents.count == 2) {
 			// Gists
-			viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
-		} else if (url.pathComponents.count == 2) {
+            NSString *login = [url.pathComponents objectAtIndex:1];
+            GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
+            viewController = [[IOCGistsController alloc] initWithGists:user.gists];
+        } else if (url.pathComponents.count == 3) {
 			// Gist
-			NSString *gistId = [url.pathComponents objectAtIndex:1];
+            NSString *gistId = [url.pathComponents objectAtIndex:2];
 			GHGist *gist = [[GHGist alloc] initWithId:gistId];
+            gist.htmlURL = url;
 			viewController = [[IOCGistController alloc] initWithGist:gist];
 		}
 	} else if (url.pathComponents.count == 2) {
 		// User (or Organization)
 		NSString *login = [url.pathComponents objectAtIndex:1];
 		GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
+        user.htmlURL = url;
 		viewController = [[IOCUserController alloc] initWithUser:user];
 	} else if (url.pathComponents.count >= 3) {
 		// Repository
@@ -156,6 +160,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		NSString *name = [url.pathComponents objectAtIndex:2];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		if (url.pathComponents.count == 3) {
+            repo.htmlURL = url;
 			viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
 		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
 			// Issues

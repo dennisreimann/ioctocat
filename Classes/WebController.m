@@ -110,13 +110,11 @@
 #pragma mark WebView
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    NSString *host = [[request URL] host];
-    self.request = request;
-    if (host) {
-        self.title = host;
-        self.actionButton.enabled = YES;
-    } else {
-        self.actionButton.enabled = NO;
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSString *host = [[request URL] host];
+        if (host) {
+            self.title = host;
+        }
     }
     return YES;
 }

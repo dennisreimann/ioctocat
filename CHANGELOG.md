@@ -8,6 +8,7 @@ Additions:
 * Copy SHA of a commit. Thanks @iosdeveloper
 * Internal web browser: Basic navigation, Open in Safari, Copy URL. Thanks @iosdeveloper
 * Open all URLs highlighted in issues/comments internally (experimental). Thanks @iosdeveloper
+* Forks link to the original repository
 
 Changes:
 

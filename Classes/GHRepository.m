@@ -11,6 +11,12 @@
 #import "NSDictionary+Extensions.h"
 
 
+
+@interface GHRepository ()
+@property(nonatomic,strong)GHRepository *parent;
+@end
+
+
 @implementation GHRepository
 
 - (id)initWithOwner:(NSString *)owner andName:(NSString *)name {
@@ -159,6 +165,14 @@
     self.mainBranch = [resource valueForKeyPath:@"master_branch" defaultsTo:nil] ?
         [resource valueForKeyPath:@"master_branch" defaultsTo:@"master"] :
         [resource valueForKeyPath:@"default_branch" defaultsTo:@"master"];
+    // if this is a fork, parent or source should be present
+    NSDictionary *parentDict = [dict safeDictForKey:@"parent"];
+    if (!parentDict) parentDict = [dict safeDictForKey:@"source"];
+    if (parentDict) {
+        NSString *owner = [parentDict safeStringForKeyPath:@"owner.login"];
+        NSString *name = [parentDict safeStringForKey:@"name"];
+        self.parent = [[GHRepository alloc] initWithOwner:owner andName:name];
+    }
 }
 
 @end

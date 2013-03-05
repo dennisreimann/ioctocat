@@ -51,6 +51,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *stargazersCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
+@property(nonatomic,strong)IBOutlet LabeledCell *forkedCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
 @property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
 @end
@@ -135,6 +136,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	self.nameLabel.text = self.repository.name;
 	self.iconView.hidden = self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
 	[self.ownerCell setContentText:self.repository.owner];
+    [self.forkedCell setContentText:self.repository.parent.repoId];
 	[self.websiteCell setContentText:[self.repository.homepageURL host]];
 	[self.descriptionCell setContentText:self.repository.descriptionText];
 	if (self.repository.isLoaded) {
@@ -158,7 +160,9 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 
 - (void)displayReadmeChange {
 	if (self.repository.isEmpty) return;
-	NSInteger readmeRow = self.descriptionCell.hasContent ? 3 : 2;
+	NSInteger readmeRow = 2;
+    if (self.forkedCell.hasContent) readmeRow += 1;
+    if (self.descriptionCell.hasContent) readmeRow += 1;
 	NSIndexPath *readmePath = [NSIndexPath indexPathForRow:readmeRow inSection:0];
 	[self.tableView insertRowsAtIndexPaths:@[readmePath] withRowAnimation:UITableViewRowAnimationTop];
 }
@@ -231,6 +235,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	if (self.repository.isEmpty) return 1;
 	if (section == 0) {
 		NSInteger rows = 2;
+		if (self.forkedCell.hasContent) rows += 1;
 		if (self.descriptionCell.hasContent) rows += 1;
 		if (self.repository.readme.isLoaded) rows += 1;
 		return rows;
@@ -254,16 +259,26 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	NSInteger row = indexPath.row;
 	UITableViewCell *cell = nil;
 	if (section == 0) {
-		switch (row) {
-			case 0: cell = self.ownerCell; break;
-			case 1: cell = self.websiteCell; break;
-			case 2: cell = self.descriptionCell.hasContent ? self.descriptionCell : self.readmeCell; break;
-			case 3: cell = self.readmeCell; break;
-		}
-		if (row < 2) {
-			cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-			cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-		}
+        if (self.forkedCell.hasContent) {
+            switch (row) {
+                case 0: cell = self.ownerCell; break;
+                case 1: cell = self.forkedCell; break;
+                case 2: cell = self.websiteCell; break;
+                case 3: cell = self.descriptionCell.hasContent ? self.descriptionCell : self.readmeCell; break;
+                case 4: cell = self.readmeCell; break;
+            }
+        } else {
+            switch (row) {
+                case 0: cell = self.ownerCell; break;
+                case 1: cell = self.websiteCell; break;
+                case 2: cell = self.descriptionCell.hasContent ? self.descriptionCell : self.readmeCell; break;
+                case 3: cell = self.readmeCell; break;
+            }
+        }
+        if ([cell isKindOfClass:LabeledCell.class]) {
+            cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+            cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+        }
 	} else if (section == 1) {
 		switch (row) {
 			case 0: cell = self.forkCell; break;
@@ -297,9 +312,11 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	if (section == 0) {
 		if (row == 0 && self.repository.user) {
 			viewController = [[IOCUserController alloc] initWithUser:self.repository.user];
-		} else if (row == 1 && self.repository.homepageURL) {
+		} else if (row == 1 && self.forkedCell.hasContent) {
+			viewController = [[IOCRepositoryController alloc] initWithRepository:self.repository.parent];
+		} else if (row == self.forkedCell.hasContent ? 2 : 1 && self.repository.homepageURL) {
 			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
-		} else if (row >= 2) {
+		} else if (row >= self.forkedCell.hasContent ? 3 : 2) {
 			if (!self.repository.readme.isLoaded) return;
 			viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
 			viewController.title = @"README";
@@ -342,8 +359,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && self.descriptionCell.hasContent && indexPath.row == 2) {
-		return [self.descriptionCell heightForTableView:tableView];
+	if (indexPath.section == 0 && self.descriptionCell.hasContent && [[self tableView:tableView cellForRowAtIndexPath:indexPath] isEqual:self.descriptionCell]) {
+        return [self.descriptionCell heightForTableView:tableView];
 	}
 	return 44.0f;
 }

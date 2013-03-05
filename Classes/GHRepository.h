@@ -24,6 +24,7 @@
 @property(nonatomic,strong)GHUsers *contributors;
 @property(nonatomic,strong)GHUsers *stargazers;
 @property(nonatomic,readonly)GHUser *user;
+@property(nonatomic,readonly)GHRepository *parent;
 @property(nonatomic,readwrite)NSInteger forkCount;
 @property(nonatomic,readwrite)NSInteger watcherCount;
 @property(nonatomic,readwrite)BOOL isPrivate;

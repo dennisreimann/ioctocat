@@ -16,6 +16,7 @@ Changes:
 Bugfixes:
 
 * Last refresh dates were shared across accounts
+* Gists were not handled properly via the URL scheme. Thanks @iosdeveloper
 
 ## v1.7.8
 

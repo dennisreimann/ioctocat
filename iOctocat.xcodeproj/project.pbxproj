@@ -13,6 +13,14 @@
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2E2BB56216E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */; };
+		2E2BB56316E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */; };
+		2E2BB56416E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */; };
+		2E2BB56516E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */; };
+		2E2BB56616E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */; };
+		2E2BB56716E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */; };
+		2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
+		2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -945,6 +953,10 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepository.png; sourceTree = "<group>"; };
+		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
+		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
+		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
@@ -1929,6 +1941,8 @@
 				6FA97E4B15B0C257000004F1 /* ToolbarCommit@2x.png */,
 				6F316D9C111ADBA300FC4FE9 /* ToolbarRepository.png */,
 				6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */,
+				2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */,
+				2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */,
 				6F316D93111AD7D700FC4FE9 /* ToolbarUsers.png */,
 				6FA97E4F15B0C397000004F1 /* ToolbarUsers@2x.png */,
 				6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */,
@@ -1955,6 +1969,8 @@
 				6F3616B0166184200098AE4A /* ToolbarIssueOn@2x.png */,
 				6F3616B1166184200098AE4A /* ToolbarRepositoryOn.png */,
 				6F3616B2166184200098AE4A /* ToolbarRepositoryOn@2x.png */,
+				2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */,
+				2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */,
 				6F3616B3166184200098AE4A /* ToolbarStarOn.png */,
 				6F3616B4166184200098AE4A /* ToolbarStarOn@2x.png */,
 				6F3616B5166184200098AE4A /* ToolbarUserOn.png */,
@@ -2859,6 +2875,10 @@
 				6FEDE46016E2A21C00459B5C /* RepoPublicForkOn@2x.png in Resources */,
 				6FEDE46216E2A21C00459B5C /* RepoPublicOn.png in Resources */,
 				6FEDE46416E2A21C00459B5C /* RepoPublicOn@2x.png in Resources */,
+				2E2BB56216E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */,
+				2E2BB56416E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png in Resources */,
+				2E2BB56616E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png in Resources */,
+				2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3171,6 +3191,10 @@
 				6FEDE46116E2A21C00459B5C /* RepoPublicForkOn@2x.png in Resources */,
 				6FEDE46316E2A21C00459B5C /* RepoPublicOn.png in Resources */,
 				6FEDE46516E2A21C00459B5C /* RepoPublicOn@2x.png in Resources */,
+				2E2BB56316E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */,
+				2E2BB56516E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png in Resources */,
+				2E2BB56716E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png in Resources */,
+				2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

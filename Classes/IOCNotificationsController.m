@@ -50,6 +50,7 @@
 	[super viewWillAppear:animated];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
 	if (!self.notificationsByRepository) [self rebuildByRepository];
+	[self setupActions];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

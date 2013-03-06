@@ -314,9 +314,9 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			viewController = [[IOCUserController alloc] initWithUser:self.repository.user];
 		} else if (row == 1 && self.forkedCell.hasContent) {
 			viewController = [[IOCRepositoryController alloc] initWithRepository:self.repository.parent];
-		} else if (row == self.forkedCell.hasContent ? 2 : 1 && self.repository.homepageURL) {
+        } else if (row == (self.forkedCell.hasContent ? 2 : 1) && self.repository.homepageURL) {
 			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
-		} else if (row >= self.forkedCell.hasContent ? 3 : 2) {
+        } else if (row >= (self.forkedCell.hasContent ? 3 : 2)) {
 			if (!self.repository.readme.isLoaded) return;
 			viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
 			viewController.title = @"README";

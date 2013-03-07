@@ -32,13 +32,15 @@ static NSString * IOCNormalizedDeviceToken(id deviceToken) {
 }
 
 - (void)registerPushNotificationsForDevice:(id)deviceToken alias:(NSString *)alias success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
+    NSString *badge = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
 	NSMutableDictionary *params = [NSMutableDictionary dictionary];
 	[params setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
     [params setValue:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
     [params setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
+    [params setValue:badge forKey:@"badge"];
     if (alias) [params setValue:alias forKey:@"alias"];
     NSString *path = [NSString stringWithFormat:kPushBackendDeviceFormat, IOCNormalizedDeviceToken(deviceToken)];
-	D3JLog(@"Registering device for push notifications: %@", path);
+	D3JLog(@"Registering device for push notifications: %@\n\nParams:\n%@\n", path, params);
 	[self putPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		D3JLog(@"Registered device for push notifications: %@", responseObject);
 		if (success) success(responseObject);
@@ -62,10 +64,11 @@ static NSString * IOCNormalizedDeviceToken(id deviceToken) {
 	[self enqueueHTTPRequestOperation:operation];
 }
 
-- (void)enablePushNotificationsForDevice:(id)deviceToken accessToken:(NSString *)accessToken success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
+- (void)enablePushNotificationsForDevice:(id)deviceToken accessToken:(NSString *)accessToken endpoint:(NSString *)endpoint login:(NSString *)login success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
 	NSString *path = [NSString stringWithFormat:kPushBackendAccessTokenFormat, IOCNormalizedDeviceToken(deviceToken), accessToken];
-	D3JLog(@"Enabling push notifications: %@", path);
-	[self putPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSDictionary *params = @{@"endpoint": endpoint, @"login": login};
+    D3JLog(@"Enabling push notifications: %@\n\nParams:\n%@\n", path, params);
+	[self putPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		D3JLog(@"Enabled push notifications: %@", responseObject);
 		if (success) success(responseObject);
 	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {

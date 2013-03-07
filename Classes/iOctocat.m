@@ -98,7 +98,8 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-	[[[IOCApiClient alloc] init] registerPushNotificationsForDevice:deviceToken alias:nil success:^(id responseObject) {
+    NSString *alias = self.accounts.count > 0 ? [(GHAccount *)self.accounts[0] accountId] : nil;
+	[[[IOCApiClient alloc] init] registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
         DJLog(@"Registration Success: %@", responseObject);
 		// save device token for later registration of accounts for that device
 		self.deviceToken = [responseObject safeStringForKey:@"token"];

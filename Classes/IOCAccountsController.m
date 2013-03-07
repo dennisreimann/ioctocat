@@ -68,7 +68,7 @@
 	self.accountsByEndpoint = [NSMutableDictionary dictionary];
 	for (GHAccount *account in self.accounts) {
 		NSString *endpoint = account.endpoint;
-		if (!endpoint || endpoint.isEmpty) endpoint = @"https://github.com";
+		if (!endpoint || endpoint.isEmpty) endpoint = kGitHubEndpointURL;
 		if (!self.accountsByEndpoint[endpoint]) {
 			self.accountsByEndpoint[endpoint] = [NSMutableArray array];
 		}

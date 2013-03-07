@@ -8,6 +8,7 @@
 #import "GHOrganizations.h"
 #import "GHNotifications.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "AFOAuth2Client.h"
@@ -55,6 +56,12 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
     self.user.events = [[GHEvents alloc] initWithPath:eventsPath account:self];
     [self.user addObserver:self forKeyPath:LoginKeyPath options:NSKeyValueObservingOptionNew context:nil];
     [self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (NSString *)accountId {
+    NSURL *url = [NSURL smartURLFromString:self.endpoint];
+	if (!url) url = [NSURL URLWithString:kGitHubEndpointURL];
+    return [NSString stringWithFormat:@"%@/%@", url.host, self.login];
 }
 
 // constructs endpoint URL and sets up API client

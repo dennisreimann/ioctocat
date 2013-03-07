@@ -11,6 +11,7 @@
 @property(nonatomic,strong)NSString *authId;
 @property(nonatomic,strong)NSString *authToken;
 @property(nonatomic,strong)NSString *pushToken;
+@property(nonatomic,readonly)NSString *accountId;
 
 - (id)initWithDict:(NSDictionary *)dict;
 @end

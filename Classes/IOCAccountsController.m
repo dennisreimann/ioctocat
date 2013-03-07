@@ -15,37 +15,12 @@
 
 
 @interface IOCAccountsController () <IOCAuthenticationControllerDelegate, IOCAccountFormControllerDelegate>
-@property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)NSMutableDictionary *accountsByEndpoint;
 @property(nonatomic,strong)IOCAuthenticationController *authController;
 @end
 
 
 @implementation IOCAccountsController
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	id currentData = [defaults objectForKey:kAccountsDefaultsKey];
-	if ([currentData isKindOfClass:NSData.class]) {
-		NSArray *currentAccounts = [NSKeyedUnarchiver unarchiveObjectWithData:currentData];
-		self.accounts = [NSMutableArray arrayWithArray:currentAccounts];
-	} else {
-		self.accounts = currentData ? [NSMutableArray arrayWithArray:currentData] : [NSMutableArray array];
-		// convert old accounts
-		for (NSInteger i = 0; i < self.accounts.count; i++) {
-			id currentAccount = self.accounts[i];
-			if ([currentAccount isKindOfClass:NSDictionary.class]) {
-				GHAccount *account = [[GHAccount alloc] initWithDict:currentAccount];
-				[self.accounts replaceObjectAtIndex:i withObject:account];
-			}
-		}
-	}
-	// open account if there is only one
-	if (self.accounts.count == 1) {
-		[self openOrAuthenticateAccountAtIndex:0];
-	}
-}
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
@@ -54,6 +29,17 @@
 	}
 	[self handleAccountsChange];
 	[self.tableView reloadData];
+    // open account if there is only one
+    static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+        if (self.accounts.count == 1) {
+            [self openOrAuthenticateAccountAtIndex:0];
+        }
+	});
+}
+
+- (NSMutableArray *)accounts {
+    return [iOctocat sharedInstance].accounts;
 }
 
 - (void)updateAccount:(GHAccount *)account atIndex:(NSUInteger)idx callback:(void (^)(NSUInteger idx))callback {

@@ -23,6 +23,7 @@
 @interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 @property(nonatomic,strong)NSMutableDictionary *users;
 @property(nonatomic,strong)NSMutableDictionary *organizations;
+@property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
 @property(nonatomic,strong)IBOutlet ECSlidingViewController *slidingViewController;
 @end
@@ -45,6 +46,7 @@
 	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert)];
 	[self deactivateURLCache];
 	[self setupHockeySDK];
+    [self setupAccounts];
 	self.slidingViewController.anchorRightRevealAmount = 230;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
 	[self.window makeKeyAndVisible];
@@ -282,6 +284,25 @@
 	[[NSURLCache sharedURLCache] removeAllCachedResponses];
 	[[NSURLCache sharedURLCache] setMemoryCapacity:0];
 	[[NSURLCache sharedURLCache] setDiskCapacity:0];
+}
+
+- (void)setupAccounts {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	id currentData = [defaults objectForKey:kAccountsDefaultsKey];
+	if ([currentData isKindOfClass:NSData.class]) {
+		NSArray *currentAccounts = [NSKeyedUnarchiver unarchiveObjectWithData:currentData];
+		self.accounts = [NSMutableArray arrayWithArray:currentAccounts];
+	} else {
+		self.accounts = currentData ? [NSMutableArray arrayWithArray:currentData] : [NSMutableArray array];
+		// convert old accounts
+		for (NSInteger i = 0; i < self.accounts.count; i++) {
+			id currentAccount = self.accounts[i];
+			if ([currentAccount isKindOfClass:NSDictionary.class]) {
+				GHAccount *account = [[GHAccount alloc] initWithDict:currentAccount];
+				[self.accounts replaceObjectAtIndex:i withObject:account];
+			}
+		}
+	}
 }
 
 #pragma mark Autorotation

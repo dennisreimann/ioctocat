@@ -4,6 +4,7 @@
 @property(nonatomic,strong)GHAccount *currentAccount;
 @property(nonatomic,strong)NSString *deviceToken;
 @property(nonatomic,strong)IBOutlet UIWindow *window;
+@property(nonatomic,readonly)NSMutableArray *accounts;
 
 + (iOctocat *)sharedInstance;
 + (void)reportWarning:(NSString *)title with:(NSString *)message;

@@ -25,7 +25,9 @@
 }
 
 - (CGRect)editingRectForBounds:(CGRect)bounds {
-	return [self textRectForBounds:bounds];
+    CGRect editRect = [self textRectForBounds:bounds];
+    editRect.size.width -= 20;
+    return editRect;
 }
 
 @end

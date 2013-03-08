@@ -61,8 +61,8 @@
 	}
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     [self.view endEditing:NO];
 }
 
@@ -100,7 +100,6 @@
 		[iOctocat reportError:@"Validation failed" with:@"Please enter your login and password"];
 		return;
 	}
-	[self.view endEditing:NO];
 	NSString *login = self.loginValue;
 	NSString *endpoint = self.endpointValue;
 	NSString *note = @"iOctocat: Application";
@@ -108,6 +107,7 @@
 	[SVProgressHUD showWithStatus:@"Authenticating" maskType:SVProgressHUDMaskTypeGradient];
 	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Authenticated"];
+        [self.view endEditing:NO];
 		// update
 		self.account.login = login;
 		self.account.endpoint = endpoint;
@@ -179,6 +179,7 @@
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    [super touchesEnded:touches withEvent:event];
 	[self.view endEditing:NO];
 }
 

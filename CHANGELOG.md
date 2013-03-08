@@ -14,6 +14,7 @@ Additions:
 Changes:
 
 * Better handling of accounts
+* Better icon for forked repo in event cell
 
 Bugfixes:
 

@@ -279,15 +279,20 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.issue.isEmpty) return;
+    UIViewController *viewController = nil;
 	if (indexPath.section == 0) {
 		if (indexPath.row == 0 && self.issue.repository) {
-			IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:self.issue.repository];
-			[self.navigationController pushViewController:repoController animated:YES];
+            viewController = [[IOCRepositoryController alloc] initWithRepository:self.issue.repository];
 		} else if (indexPath.row == 1 && self.issue.user) {
-			IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.issue.user];
-			[self.navigationController pushViewController:userController animated:YES];
+            viewController = [[IOCUserController alloc] initWithUser:self.issue.user];
 		}
-	}
+    } else if (indexPath.section == 1) {
+        GHComment *comment = self.issue.comments[indexPath.row];
+        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+    }
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 @end

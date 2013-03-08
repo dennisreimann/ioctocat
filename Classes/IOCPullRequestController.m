@@ -333,23 +333,26 @@
 	if (self.pullRequest.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
+    UIViewController *viewController = nil;
 	if (section == 0) {
 		if (row == 0 && self.pullRequest.repository) {
-			IOCRepositoryController *repoController = [[IOCRepositoryController alloc] initWithRepository:self.pullRequest.repository];
-			[self.navigationController pushViewController:repoController animated:YES];
+            viewController = [[IOCRepositoryController alloc] initWithRepository:self.pullRequest.repository];
 		} else if (row == 1 && self.pullRequest.user) {
-			IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.pullRequest.user];
-			[self.navigationController pushViewController:userController animated:YES];
+            viewController = [[IOCUserController alloc] initWithUser:self.pullRequest.user];
 		}
 	} else if (section == 1) {
 		if (row == 0) {
-			IOCCommitsController *commitsController = [[IOCCommitsController alloc] initWithCommits:self.pullRequest.commits];
-			[self.navigationController pushViewController:commitsController animated:YES];
+            viewController = [[IOCCommitsController alloc] initWithCommits:self.pullRequest.commits];
 		} else if (row == 1) {
-			IOCFilesController *filesController = [[IOCFilesController alloc] initWithFiles:self.pullRequest.files];
-			[self.navigationController pushViewController:filesController animated:YES];
+            viewController = [[IOCFilesController alloc] initWithFiles:self.pullRequest.files];
 		}
-	}
+    } else if (section == 2) {
+        GHComment *comment = self.pullRequest.comments[row];
+        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+    }
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 @end

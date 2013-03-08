@@ -271,13 +271,18 @@
 	if (self.gist.isEmpty) return;
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
+    UIViewController *viewController = nil;
 	if (section == 0 && row == 0 && self.gist.user) {
-		IOCUserController *userController = [[IOCUserController alloc] initWithUser:self.gist.user];
-		[self.navigationController pushViewController:userController animated:YES];
-	} if (section == 1) {
-		IOCCodeController *codeController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
-		[self.navigationController pushViewController:codeController animated:YES];
-	}
+        viewController = [[IOCUserController alloc] initWithUser:self.gist.user];
+    } else if (section == 1) {
+        viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
+    } else if (section == 2) {
+        GHComment *comment = self.gist.comments[row];
+        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+    }
+    if (viewController) {
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 @end

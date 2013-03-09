@@ -287,8 +287,10 @@
             viewController = [[IOCUserController alloc] initWithUser:self.issue.user];
 		}
     } else if (indexPath.section == 1) {
-        GHComment *comment = self.issue.comments[indexPath.row];
-        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        if (!self.issue.comments.isEmpty) {
+            GHComment *comment = self.issue.comments[indexPath.row];
+            viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        }
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

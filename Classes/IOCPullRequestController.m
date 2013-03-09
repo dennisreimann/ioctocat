@@ -347,8 +347,10 @@
             viewController = [[IOCFilesController alloc] initWithFiles:self.pullRequest.files];
 		}
     } else if (section == 2) {
-        GHComment *comment = self.pullRequest.comments[row];
-        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        if (!self.pullRequest.comments.isEmpty) {
+            GHComment *comment = self.pullRequest.comments[row];
+            viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        }
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

@@ -278,8 +278,10 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 			[self.navigationController pushViewController:filesController animated:YES];
 		}
     } else if (section == 2) {
-        GHRepoComment *comment = self.commit.comments[row];
-        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        if (!self.commit.comments.isEmpty) {
+            GHRepoComment *comment = self.commit.comments[row];
+            viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        }
     }
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];

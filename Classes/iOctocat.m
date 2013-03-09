@@ -112,7 +112,7 @@
 
 - (BOOL)openURL:(NSURL *)url {
     UIViewController *menuController = self.menuNavController.topViewController;
-    BOOL isMenuVisible = [menuController isKindOfClass:[MenuController class]];
+    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
     if (!(isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url])) {
         WebController *webController = [[WebController alloc] initWithURL:url];
         [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];

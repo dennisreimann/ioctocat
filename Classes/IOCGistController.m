@@ -277,8 +277,10 @@
     } else if (section == 1) {
         viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
     } else if (section == 2) {
-        GHComment *comment = self.gist.comments[row];
-        viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        if (!self.gist.comments.isEmpty) {
+            GHComment *comment = self.gist.comments[row];
+            viewController = [[IOCUserController alloc] initWithUser:comment.user];
+        }
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

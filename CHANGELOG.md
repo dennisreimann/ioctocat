@@ -10,6 +10,7 @@ Additions:
 * Open all URLs highlighted in issues/comments internally (experimental). Thanks @iosdeveloper
 * Forks link to the original repository
 * Comments link to the user profile. Thanks @iosdeveloper
+* Browse gist forks
 
 Changes:
 

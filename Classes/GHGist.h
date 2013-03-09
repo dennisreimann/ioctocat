@@ -2,10 +2,11 @@
 #import "GHResource.h"
 
 
-@class GHUser, GHGistComments, GHFiles;
+@class GHUser, GHGists, GHGistComments, GHFiles;
 
 @interface GHGist : GHResource
 @property(nonatomic,strong)NSString *gistId;
+@property(nonatomic,strong)GHGists *forks;
 @property(nonatomic,strong)GHGistComments *comments;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)NSDate *createdAtDate;

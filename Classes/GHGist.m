@@ -1,5 +1,6 @@
 #import "GHResource.h"
 #import "GHUser.h"
+#import "GHGists.h"
 #import "GHGist.h"
 #import "GHFiles.h"
 #import "GHGistComments.h"
@@ -28,6 +29,14 @@
 	} else {
 		return [NSString stringWithFormat:@"Gist %@", self.gistId];
 	}
+}
+
+- (GHGists *)forks {
+	if (!_forks) {
+		NSString *path = [NSString stringWithFormat:kGistForksFormat, self.gistId];
+		_forks = [[GHGists alloc] initWithPath:path];
+	}
+	return _forks;
 }
 
 #pragma mark Loading

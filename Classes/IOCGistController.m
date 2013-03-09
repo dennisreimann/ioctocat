@@ -6,6 +6,7 @@
 #import "GHGistComments.h"
 #import "WebController.h"
 #import "IOCGistController.h"
+#import "IOCGistsController.h"
 #import "IOCCodeController.h"
 #import "IOCUserController.h"
 #import "CommentController.h"
@@ -31,6 +32,7 @@
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet UIImageView *forksIconView;
 @property(nonatomic,weak)IBOutlet GradientButton *commentButton;
+@property(nonatomic,strong)IBOutlet UITableViewCell *forkCell;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
@@ -182,7 +184,7 @@
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return self.gist.isLoaded ? 3 : 1;
+	return self.gist.isLoaded ? 4 : 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -191,6 +193,8 @@
 		return 3;
 	} else if (section == 1) {
 		return self.gist.files.isEmpty ? 1 : self.gist.files.count;
+	} else if (section == 2) {
+		return 1;
 	} else {
 		return self.gist.comments.isEmpty ? 1 : self.gist.comments.count;
 	}
@@ -199,7 +203,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 1) {
 		return @"Files";
-	} else if (section == 2) {
+	} else if (section == 3) {
 		return @"Comments";
 	} else {
 		return nil;
@@ -222,7 +226,7 @@
 		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
-		if (self.gist.files.isEmpty) return self.filesStatusCell;
+        if (self.gist.files.isEmpty) return self.filesStatusCell;
 		static NSString *CellIdentifier = @"FileCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
@@ -235,6 +239,8 @@
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 2) {
+		return self.forkCell;
+	} else if (section == 3) {
 		if (self.gist.comments.isEmpty) return self.commentsStatusCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (cell == nil) {
@@ -248,11 +254,11 @@
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	return section == 2 ? self.tableFooterView : nil;
+	return section == 3 ? self.tableFooterView : nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 2 && !self.gist.comments.isEmpty) {
+	if (indexPath.section == 3 && !self.gist.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
@@ -260,7 +266,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	if (section == 2) {
+	if (section == 3) {
 		return 56;
 	} else {
 		return 0;
@@ -277,6 +283,9 @@
     } else if (section == 1) {
         viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
     } else if (section == 2) {
+        viewController = [[IOCGistsController alloc] initWithGists:self.gist.forks];
+        viewController.title = @"Forks";
+    } else if (section == 3) {
         if (!self.gist.comments.isEmpty) {
             GHComment *comment = self.gist.comments[row];
             viewController = [[IOCUserController alloc] initWithUser:comment.user];

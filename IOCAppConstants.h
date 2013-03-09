@@ -80,6 +80,7 @@
 #define kGistStarFormat                 @"gists/%@/star"
 #define kUserGistsFormat                @"users/%@/gists"
 #define kStarredGistsFormat             @"gists/starred" // not implemented, yet (currently endpoint for gists of authenticated user)
+#define kGistForksFormat                @"gists/%@/forks"
 #define kGistCommentsFormat             @"gists/%@/comments"
 
 // Users

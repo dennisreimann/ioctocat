@@ -68,7 +68,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 - (GHOAuthClient *)apiClient {
     if (!_apiClient) {
         NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
-        if (!self.endpoint.isEmpty) {
+        if (self.endpoint && !self.endpoint.isEmpty) {
             apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
         }
         self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];

@@ -79,7 +79,6 @@
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
-	[self.mergeButton useGreenConfirmStyle];
 	[self displayPullRequest];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -125,7 +124,7 @@
 }
 
 - (BOOL)pullRequestMergeableByCurrentUser {
-	return self.pullRequest.isMergeable && self.pullRequest.isOpen && self.isAssignee;
+	return self.pullRequest.isOpen && self.isAssignee;
 }
 
 - (void)displayPullRequest {
@@ -145,6 +144,20 @@
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+    // merge button
+    if (self.pullRequest.isMergeable) {
+        [self.mergeButton setTitle:@"Merge pull request" forState:UIControlStateNormal];
+        [self.mergeButton useGreenConfirmStyle];
+        self.mergeButton.enabled = YES;
+    } else if (!self.pullRequest.mergeableState) {
+        [self.mergeButton setTitle:@"Mergeable state unknown" forState:UIControlStateNormal];
+        [self.mergeButton useGithubStyle];
+        self.mergeButton.enabled = YES;
+    } else {
+        [self.mergeButton setTitle:@"Cannot be automatically merged" forState:UIControlStateNormal];
+        [self.mergeButton useDarkGithubStyle];
+        self.mergeButton.enabled = NO;
+    }
 }
 
 - (void)displayPullRequestChange {

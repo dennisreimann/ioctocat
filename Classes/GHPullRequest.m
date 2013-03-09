@@ -90,6 +90,7 @@
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	self.isMerged = [dict safeBoolForKey:@"merged"];
 	self.isMergeable = [dict safeBoolForKey:@"mergeable"];
+    self.mergeableState = [dict safeStringOrNilForKey:@"mergeable_state"];
 	if (!self.repository) {
 		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
 		NSString *name = [dict safeStringForKeyPath:@"repository.name"];

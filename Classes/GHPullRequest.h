@@ -13,6 +13,7 @@
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *body;
 @property(nonatomic,strong)NSString *state;
+@property(nonatomic,strong)NSString *mergeableState;
 @property(nonatomic,strong)NSArray *labels;
 @property(nonatomic,strong)NSDate *created;
 @property(nonatomic,strong)NSDate *updated;

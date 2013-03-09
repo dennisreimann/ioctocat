@@ -192,16 +192,16 @@
 	if (section == 0) {
 		return 3;
 	} else if (section == 1) {
-		return self.gist.files.isEmpty ? 1 : self.gist.files.count;
-	} else if (section == 2) {
 		return 1;
+	} else if (section == 2) {
+		return self.gist.files.isEmpty ? 1 : self.gist.files.count;
 	} else {
 		return self.gist.comments.isEmpty ? 1 : self.gist.comments.count;
 	}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 1) {
+	if (section == 2) {
 		return @"Files";
 	} else if (section == 3) {
 		return @"Comments";
@@ -226,6 +226,8 @@
 		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	} else if (section == 1) {
+		return self.forkCell;
+	} else if (section == 2) {
         if (self.gist.files.isEmpty) return self.filesStatusCell;
 		static NSString *CellIdentifier = @"FileCell";
 		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -238,8 +240,6 @@
 		cell.textLabel.text = [file safeStringForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-	} else if (section == 2) {
-		return self.forkCell;
 	} else if (section == 3) {
 		if (self.gist.comments.isEmpty) return self.commentsStatusCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
@@ -281,10 +281,10 @@
 	if (section == 0 && row == 0 && self.gist.user) {
         viewController = [[IOCUserController alloc] initWithUser:self.gist.user];
     } else if (section == 1) {
-        viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
-    } else if (section == 2) {
         viewController = [[IOCGistsController alloc] initWithGists:self.gist.forks];
         viewController.title = @"Forks";
+    } else if (section == 2) {
+        viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
     } else if (section == 3) {
         if (!self.gist.comments.isEmpty) {
             GHComment *comment = self.gist.comments[row];

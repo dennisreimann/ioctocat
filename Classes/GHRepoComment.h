@@ -6,7 +6,6 @@
 @class GHRepository, GHUser;
 
 @interface GHRepoComment : GHComment
-@property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSString *commitID;
 @property(nonatomic,strong)NSString *path;
 @property(nonatomic,assign)NSUInteger position;

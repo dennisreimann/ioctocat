@@ -25,10 +25,6 @@
 	self.path = [dict safeStringForKey:@"path"];
 	self.line = [dict safeIntegerForKey:@"line"];
 	self.position = [dict safeIntegerForKey:@"position"];
-    self.user = [[iOctocat sharedInstance] userWithLogin:[dict safeStringForKeyPath:@"user.login"]];
-    if (!self.user.gravatarURL) {
-        self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
-    }
 }
 
 - (NSString *)savePath {

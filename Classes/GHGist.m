@@ -33,6 +33,7 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
+    if (![dict isKindOfClass:NSDictionary.class]) return;
 	NSDictionary *userDict = [dict safeDictForKey:@"user"];
 	NSString *userLogin = [userDict safeStringForKey:@"login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:userLogin];

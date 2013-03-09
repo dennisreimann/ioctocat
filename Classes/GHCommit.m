@@ -16,7 +16,6 @@
 		self.repository = repo;
 		self.commitID = commitID;
 		self.resourcePath = [NSString stringWithFormat:kRepoCommitFormat, self.repository.owner, self.repository.name, self.commitID];
-		self.comments = [[GHRepoComments alloc] initWithRepo:self.repository andCommitID:self.commitID];
 	}
 	return self;
 }
@@ -62,6 +61,13 @@
 	[self.added markAsLoaded];
 	[self.removed markAsLoaded];
 	[self.modified markAsLoaded];
+}
+
+- (GHRepoComments *)comments {
+    if (!_comments) {
+        _comments = [[GHRepoComments alloc] initWithRepo:self.repository andCommitID:self.commitID];
+    }
+    return _comments;
 }
 
 - (NSString *)shortenedSha {

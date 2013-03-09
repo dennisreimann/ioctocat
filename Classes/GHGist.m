@@ -16,7 +16,6 @@
 	if (self) {
 		self.gistId = gistId;
 		self.resourcePath = [NSString stringWithFormat:kGistFormat, gistId];
-		self.comments = [[GHGistComments alloc] initWithGist:self];
 	}
 	return self;
 }
@@ -37,6 +36,13 @@
 		_forks = [[GHGists alloc] initWithPath:path];
 	}
 	return _forks;
+}
+
+- (GHGistComments *)comments {
+    if (!_comments) {
+        _comments = [[GHGistComments alloc] initWithGist:self];
+    }
+    return _comments;
 }
 
 #pragma mark Loading

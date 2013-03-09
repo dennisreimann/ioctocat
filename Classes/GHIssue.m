@@ -14,7 +14,6 @@
 	self = [super init];
 	if (self) {
 		self.repository = repo;
-		self.comments = [[GHIssueComments alloc] initWithParent:self];
 		self.state = kIssueStateOpen;
 	}
 	return self;
@@ -36,6 +35,13 @@
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
 	return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.num];
+}
+
+- (GHIssueComments *)comments {
+    if (!_comments) {
+        _comments = [[GHIssueComments alloc] initWithParent:self];
+    }
+    return _comments;
 }
 
 #pragma mark Loading

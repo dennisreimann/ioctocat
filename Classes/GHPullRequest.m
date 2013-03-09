@@ -25,9 +25,6 @@
 	self = [super init];
 	if (self) {
 		self.repository = repo;
-		self.comments = [[GHIssueComments alloc] initWithParent:self];
-		self.commits = [[GHCommits alloc] initWithPullRequest:self];
-		self.files = [[GHFiles alloc] initWithPullRequest:self];
 		self.state = kIssueStateOpen;
 	}
 	return self;
@@ -43,6 +40,27 @@
 
 - (BOOL)isClosed {
 	return [self.state isEqualToString:kIssueStateClosed];
+}
+
+- (GHIssueComments *)comments {
+    if (!_comments) {
+        _comments = [[GHIssueComments alloc] initWithParent:self];
+    }
+    return _comments;
+}
+
+- (GHCommits *)commits {
+    if (!_commits) {
+        _commits = [[GHCommits alloc] initWithPullRequest:self];
+    }
+    return _commits;
+}
+
+- (GHFiles *)files {
+    if (!_files) {
+        _files = [[GHFiles alloc] initWithPullRequest:self];
+    }
+    return _files;
 }
 
 // Dynamic resourcePath, because it depends on the

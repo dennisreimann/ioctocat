@@ -104,7 +104,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) [(IOCApplication *)[UIApplication sharedApplication] forceOpenURL:[self.request URL]];
-    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].URL = [self.request URL];
+    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].string = [[self.request URL] absoluteString];
 }
 
 #pragma mark WebView

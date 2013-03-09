@@ -88,6 +88,14 @@
     }
 }
 
+- (void)copyMenuButtonPressed:(UIMenuController *)menuController {
+    CopyMenuItem *menuItem = menuController.menuItems[0];
+    if (menuItem.indexPath) {
+        GHCommit *commit = self.commits[menuItem.indexPath.row];
+        [UIPasteboard generalPasteboard].string = commit.shortenedSha;
+    }
+}
+
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -121,14 +129,6 @@
 
 - (BOOL)canBecomeFirstResponder {
     return YES;
-}
-
-- (void)copyMenuButtonPressed:(UIMenuController *)menuController {
-    CopyMenuItem *menuItem = menuController.menuItems[0];
-    if (menuItem.indexPath) {
-        GHCommit *commit = self.commits[menuItem.indexPath.row];
-        [UIPasteboard generalPasteboard].string = commit.shortenedSha;
-    }
 }
 
 @end

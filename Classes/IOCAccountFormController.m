@@ -70,17 +70,20 @@
 
 - (NSString *)loginValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	return [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
+    NSString *value = [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
+    return value ? value : @"";
 }
 
 - (NSString *)passwordValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	return [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
+    NSString *value = [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
+    return value ? value : @"";
 }
 
 - (NSString *)endpointValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-	return [self.endpointField.text stringByTrimmingCharactersInSet:trimSet];
+    NSString *value = [self.endpointField.text stringByTrimmingCharactersInSet:trimSet];
+    return value ? value : @"";
 }
 
 - (GHBasicClient *)apiClient {
@@ -135,13 +138,17 @@
 // first request a separate oauth access token for the notifications scope from github,
 // then call the ioctocat backend to submit the access token for this account.
 - (void)enablePush {
+    NSString *login = self.loginValue;
+    NSString *endpoint = self.endpointValue;
 	NSString *note = @"iOctocat: Push Notifications";
 	NSArray *scopes = @[@"notifications"];
 	[SVProgressHUD showWithStatus:@"Enabling push notifications" maskType:SVProgressHUDMaskTypeGradient];
 	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
 		NSString *token = [json safeStringForKey:@"token"];
-		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token endpoint:self.account.endpoint login:self.account.login success:^(id json) {
+		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token endpoint:endpoint login:login success:^(id json) {
 			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];
+            self.account.login = login;
+            self.account.endpoint = endpoint;
 			self.account.pushToken = token;
 			[self saveAccount];
 		} failure:^(NSError *error) {

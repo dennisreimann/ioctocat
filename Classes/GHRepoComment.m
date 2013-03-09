@@ -1,6 +1,5 @@
 #import "GHRepoComment.h"
 #import "GHRepository.h"
-#import "GHUser.h"
 #import "iOctocat.h"
 #import "NSDictionary+Extensions.h"
 

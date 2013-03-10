@@ -185,9 +185,4 @@
 	return YES;
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    [super touchesEnded:touches withEvent:event];
-	[self.view endEditing:NO];
-}
-
 @end

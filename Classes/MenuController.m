@@ -119,15 +119,11 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:GravatarKeyPath]) {
-		NSInteger row = 0;
-		if ([object isKindOfClass:GHOrganization.class]) {
-			row = [self.user.organizations.items indexOfObject:object] + 1;
-		}
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:1];
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationNone];
 	} else if ([keyPath isEqualToString:NotificationsCountKeyPath]) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        NSIndexSet *sections = [NSIndexSet indexSetWithIndex:0];
+        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationNone];
 	}
 }
 

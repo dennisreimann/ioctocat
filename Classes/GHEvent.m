@@ -140,7 +140,6 @@
 		NSDictionary *pullPayload = [self.payload safeDictForKey:@"pull_request"];
 		if (pullPayload) {
 			[self.pullRequest setValues:pullPayload];
-			[self.pullRequest markAsLoaded];
 		}
 		if (!self.pullRequest.num) {
 			self.pullRequest.num = self.issue.num;

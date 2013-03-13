@@ -5,7 +5,7 @@ It is open source and [available on the App Store](http://itunes.com/apps/ioctoc
 
 For further information visit the [project website](http://dennisreimann.github.com/ioctocat).
 
-Your [participation is welcome](CONTRIBUTE.md). Feel free to fork,
+Your [participation is welcome](CONTRIBUTING.md). Feel free to fork,
 [add missing features](DEVELOPMENT.md) or
 [report issues](http://github.com/dennisreimann/ioctocat/issues) :)
 

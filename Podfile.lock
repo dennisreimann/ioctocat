@@ -6,7 +6,7 @@ PODS:
 - Base64 (1.0.1)
 - ECSlidingViewController (0.9.2)
 - Expecta (0.2.1)
-- HockeySDK (2.5.5)
+- HockeySDK (3.0.0)
 - SVProgressHUD (0.9)
 - SVPullToRefresh (0.4.1)
 - TPKeyboardAvoiding (0.0.1)
@@ -36,10 +36,10 @@ SPEC CHECKSUMS:
   Base64: eaac9f2088ba659c5db1db960576eb0f2969ebaf
   ECSlidingViewController: f95954f73f256db09ac87d2837a7a286bd25dbf0
   Expecta: d46fb1bd78c90a83da0158b9b1e108de106e369f
-  HockeySDK: e59ba4e0060d13a9acfb5da8f9381298fbc53e0b
+  HockeySDK: 35b80d5cc522b0f53beb5583c635e42ecce69743
   SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   TPKeyboardAvoiding: 7289409b17dc2193a3f324672283c542f17c1bb1
   YRDropdownView: 66f0f2d5e69d2024e45626efe1b3dae79e97fbb9
 
-COCOAPODS: 0.16.1
+COCOAPODS: 0.16.4

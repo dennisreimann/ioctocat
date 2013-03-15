@@ -71,6 +71,7 @@
 }
 #pragma mark -
 #pragma mark Appearances
+
 - (void)useAlertStyle
 {
     // Oddly enough, if I create the color array using arrayWithObjects:, it
@@ -108,43 +109,23 @@
 }
 - (void)useRedDeleteStyle
 {
-    NSMutableArray *colors = [NSMutableArray arrayWithCapacity:5];
-    UIColor *color = [UIColor colorWithRed:0.667 green:0.15 blue:0.152 alpha:1.0];
-    [colors addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.841 green:0.566 blue:0.566 alpha:1.0];
-    [colors addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.75 green:0.341 blue:0.345 alpha:1.0];
-    [colors addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
+    NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
+    UIColor *color = [UIColor colorWithRed:0.841 green:0.566 blue:0.566 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     color = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
-    self.normalGradientLocations = @[@0.0f,
-                                    @1.0f,
-                                    @0.582f,
-                                    @0.418f,
-                                    @0.346f];
+    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.0f, nil];
     
-    NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:5];
-    color = [UIColor colorWithRed:0.467 green:0.009 blue:0.005 alpha:1.0];
-    [colors2 addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.754 green:0.562 blue:0.562 alpha:1.0];
-    [colors2 addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.543 green:0.212 blue:0.212 alpha:1.0];
-    [colors2 addObject:(id)[color CGColor]];
+    NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
     color = [UIColor colorWithRed:0.5 green:0.153 blue:0.152 alpha:1.0];
     [colors2 addObject:(id)[color CGColor]];
     color = [UIColor colorWithRed:0.388 green:0.004 blue:0.0 alpha:1.0];
     [colors addObject:(id)[color CGColor]];
     
-    self.highlightGradientColors = colors;
-    self.highlightGradientLocations = @[@0.0f,
-                                       @1.0f,
-                                       @0.715f,
-                                       @0.513f,
-                                       @0.445f];
-    self.cornerRadius = 9.f;
+    self.highlightGradientColors = colors2;
+    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
+    self.cornerRadius = 5.f;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
 }

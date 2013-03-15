@@ -18,6 +18,7 @@ Changes:
 * Better icon for forked repo in event cell
 * Scrollable account form
 * Display merge button with status, even if the pull request is not mergeable
+* Moved account removal to account form view
 
 Bugfixes:
 

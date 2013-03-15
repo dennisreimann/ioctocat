@@ -46,14 +46,23 @@
 	// add new account to list of accounts
 	if (idx == NSNotFound) {
 		[self.accounts addObject:account];
+        [self handleAccountsChange];
 		if (callback) {
 			idx = [self.accounts indexOfObject:account];
 			callback(idx);
 		}
 	} else {
 		self.accounts[idx] = account;
+        [self handleAccountsChange];
+        if (callback) callback(idx);
 	}
+}
+
+- (void)removeAccountAtIndex:(NSUInteger)idx callback:(void (^)(NSUInteger idx))callback {
+    if (idx == NSNotFound) return;
+    [self.accounts removeObjectAtIndex:idx];
 	[self handleAccountsChange];
+    if (callback) callback(idx);
 }
 
 #pragma mark Helpers
@@ -164,29 +173,16 @@
 
 #pragma mark Editing
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		NSInteger section = indexPath.section;
-		NSArray *keys = self.accountsByEndpoint.allKeys;
-		NSString *endpoint = keys[section];
-		NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
-		[self.accounts removeObjectAtIndex:idx];
-		[self handleAccountsChange];
-		// update table:
-		// remove the section if it was the last account in this section
-		if (!self.accountsByEndpoint[endpoint]) {
-			NSMutableIndexSet *sections = [NSMutableIndexSet indexSetWithIndex:section];
-			[self.tableView deleteSections:sections withRowAnimation:UITableViewRowAnimationFade];
-		}
-		// remove the cell
-		else {
-			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-		}
-	}
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath {
+    return NO;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleNone;
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
@@ -194,10 +190,6 @@
         [self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
         [self handleAccountsChange];
     }
-}
-
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {

@@ -11,7 +11,7 @@
 #import "GHAccount.h"
 
 
-@interface IOCAccountFormController () <UITextFieldDelegate>
+@interface IOCAccountFormController () <UITextFieldDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)GHAccount *account;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,weak)NSString *deviceToken;
@@ -21,6 +21,7 @@
 @property(nonatomic,weak)IBOutlet UISwitch *pushSwitch;
 @property(nonatomic,weak)IBOutlet UILabel *pushLabel;
 @property(nonatomic,weak)IBOutlet GradientButton *saveButton;
+@property(nonatomic,weak)IBOutlet GradientButton *removeButton;
 @end
 
 
@@ -43,6 +44,8 @@
 	self.endpointField.text = self.account.endpoint;
 	self.pushSwitch.enabled = self.deviceToken ? YES : NO;
 	self.pushLabel.textColor = self.deviceToken ? [UIColor blackColor] : [UIColor lightGrayColor];
+    [self.removeButton useRedDeleteStyle];
+    self.removeButton.hidden = self.index == NSNotFound;
 	// check push state
 	if (self.deviceToken && self.account.pushToken) {
 		self.pushSwitch.enabled = NO;
@@ -50,7 +53,7 @@
 			[self.pushSwitch setOn:YES animated:YES];
 			self.pushSwitch.enabled = YES;
 		} failure:^(NSError *error) {
-			self.account.pushToken = nil;
+			self.account.pushToken = @"";
 			[self saveAccount];
 			[self.pushSwitch setOn:NO animated:YES];
 			self.pushSwitch.enabled = YES;
@@ -93,6 +96,7 @@
 - (void)saveAccount {
 	[self.delegate updateAccount:self.account atIndex:self.index callback:^(NSUInteger idx) {
 		self.index = idx;
+        self.removeButton.hidden = self.index == NSNotFound;
 	}];
 }
 
@@ -135,6 +139,29 @@
 	}
 }
 
+- (IBAction)removeAccount:(id)sender {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Remove account" otherButtonTitles:nil];
+	[actionSheet showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
+	if (buttonIndex == 0) {
+        if (!self.account.pushToken.isEmpty) {
+            [[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
+                [self.delegate removeAccountAtIndex:self.index callback:^(NSUInteger idx) {
+                    [self.navigationController popViewControllerAnimated:YES];
+                }];
+            } failure:^(NSError *error) {
+                [iOctocat reportError:@"Removing account failed" with:@"Could not unregister push notifications, therefore cannot remove the account. Please try again later."];
+			}];
+        } else {
+            [self.delegate removeAccountAtIndex:self.index callback:^(NSUInteger idx) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        }
+    }
+}
+
 // first request a separate oauth access token for the notifications scope from github,
 // then call the ioctocat backend to submit the access token for this account.
 - (void)enablePush {
@@ -163,11 +190,10 @@
 
 // call the ioctocat backend to remove the access token for this account.
 - (void)disablePush {
-	NSString *token = self.account.pushToken;
 	[SVProgressHUD showWithStatus:@"Disabling push notifications" maskType:SVProgressHUDMaskTypeGradient];
-	[[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:token success:^(id json) {
+	[[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Disabled push notifications"];
-		self.account.pushToken = nil;
+		self.account.pushToken = @"";
 		[self saveAccount];
 	} failure:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Disabling push notifications failed"];

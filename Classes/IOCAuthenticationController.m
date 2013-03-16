@@ -30,10 +30,10 @@
 		[SVProgressHUD showWithStatus:@"Authenticating" maskType:SVProgressHUDMaskTypeGradient];
 	} success:^(GHResource *instance, id data) {
 		[self stopAuthenticating];
-		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];
+		[self.delegate performSelector:@selector(authenticatedAccount:successfully:) withObject:self.account withObject:@YES];
 	} failure:^(GHResource *instance, NSError *error) {
 		[self stopAuthenticating];
-		[self.delegate performSelector:@selector(authenticatedAccount:) withObject:self.account];
+		[self.delegate performSelector:@selector(authenticatedAccount:successfully:) withObject:self.account withObject:@NO];
 	}];
 }
 

@@ -79,10 +79,6 @@
 			[self.slidingViewController setTopViewController:nil];
 			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
 		}];
-	} else if (self.currentAccount.user.isAuthenticated) {
-		MenuController *menuController = [[MenuController alloc] initWithUser:self.currentAccount.user];
-		[self.menuNavController popToRootViewControllerAnimated:NO];
-		[self.menuNavController pushViewController:menuController animated:YES];
 	}
 }
 

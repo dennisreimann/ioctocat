@@ -33,7 +33,7 @@
     static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
         if (self.accounts.count == 1) {
-            [self openOrAuthenticateAccountAtIndex:0];
+            [self authenticateAccountAtIndex:0];
         }
 	});
 }
@@ -120,12 +120,10 @@
 	[self editAccountAtIndex:NSNotFound];
 }
 
-- (void)openOrAuthenticateAccountAtIndex:(NSUInteger)idx {
+- (void)authenticateAccountAtIndex:(NSUInteger)idx {
 	GHAccount *account = self.accounts[idx];
 	[iOctocat sharedInstance].currentAccount = account;
-	if (!account.user.isAuthenticated) {
-		[self.authController authenticateAccount:account];
-	}
+	[self.authController authenticateAccount:account];
 }
 
 #pragma mark TableView
@@ -168,7 +166,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
-	[self openOrAuthenticateAccountAtIndex:idx];
+	[self authenticateAccountAtIndex:idx];
 }
 
 #pragma mark Editing
@@ -211,10 +209,14 @@
 	return _authController;
 }
 
-- (void)authenticatedAccount:(GHAccount *)account {
+- (void)authenticatedAccount:(GHAccount *)account successfully:(NSNumber *)succesfully {
 	[iOctocat sharedInstance].currentAccount = account;
-	if (!account.user.isAuthenticated) {
-		[iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
+    BOOL authenticated = [succesfully isEqualToNumber:@YES];
+	if (authenticated) {
+		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
+        [self.navigationController pushViewController:menuController animated:YES];
+	} else {
+        [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
 		NSUInteger idx = [self.accounts indexOfObjectPassingTest:^(GHAccount *otherAccount, NSUInteger idx, BOOL *stop) {
 			if ([otherAccount.login isEqualToString:account.login] && [otherAccount.endpoint isEqualToString:account.endpoint]) {
 				*stop = YES;
@@ -223,7 +225,7 @@
 			return NO;
 		}];
 		[self editAccountAtIndex:idx];
-	}
+    }
 }
 
 @end

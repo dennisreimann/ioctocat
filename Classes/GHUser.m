@@ -25,7 +25,6 @@
 	self = [self init];
 	if (self) {
 		self.login = login;
-		self.isAuthenticated = NO;
 	}
 	return self;
 }
@@ -76,7 +75,6 @@
 	self.privateRepoCount = [dict safeIntegerForKey:@"total_private_repos"];
 	self.followersCount = [dict safeIntegerForKey:@"followers"];
 	self.followingCount = [dict safeIntegerForKey:@"following"];
-	self.isAuthenticated = [dict safeDictForKey:@"plan"] ? YES : NO;
 }
 
 #pragma mark Associations

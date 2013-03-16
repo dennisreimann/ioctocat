@@ -24,7 +24,6 @@
 @property(nonatomic,strong)GHUsers *followers;
 @property(nonatomic,strong)GHGists *gists;
 @property(nonatomic,strong)GHGists *starredGists;
-@property(nonatomic,assign)BOOL isAuthenticated;
 @property(nonatomic,assign)NSUInteger publicGistCount;
 @property(nonatomic,assign)NSUInteger privateGistCount;
 @property(nonatomic,assign)NSUInteger publicRepoCount;

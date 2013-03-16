@@ -289,15 +289,21 @@
 				[weakSelf refreshLastUpdate];
 				[weakSelf rebuildByRepository];
 				[weakSelf setupActions];
-				[weakSelf.tableView reloadData];
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                });
 			} failure:^(GHResource *instance, NSError *error) {
-				[weakSelf.tableView reloadData];
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                });
 				[iOctocat reportLoadingError:@"Could not load the notifications"];
 			}];
 		} else if (!weakSelf.notifications.canReload) {
-			[weakSelf.tableView.pullToRefreshView stopAnimating];
+            dispatch_async(dispatch_get_main_queue(),^ {
+                [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+            });
 			NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
 			[iOctocat reportWarning:@"Please wait" with:message];
 		}

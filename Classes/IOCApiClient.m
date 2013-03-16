@@ -9,7 +9,7 @@
 #define kPushBackendBaseURL             @"https://ioctocat.com/push-beta/"
 #endif
 #define kPushBackendDeviceFormat        @"devices/%@"
-#define kPushBackendAccessTokenFormat   @"devices/%@/access_tokens/%@"
+#define kPushBackendAccessTokenFormat   @"devices/%@/accounts/%@"
 
 @implementation IOCApiClient
 

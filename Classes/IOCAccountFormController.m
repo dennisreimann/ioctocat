@@ -103,12 +103,17 @@
 #pragma mark Actions
 
 - (IBAction)saveAccount:(id)sender {
-	if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
-		[iOctocat reportError:@"Validation failed" with:@"Please enter your login and password"];
-		return;
-	}
 	NSString *login = self.loginValue;
 	NSString *endpoint = self.endpointValue;
+	NSString *password = self.passwordValue;
+    NSUInteger accountIdx = self.delegate ? [self.delegate indexOfAccountWithLogin:login endpoint:endpoint] : NSNotFound;
+	if (login.isEmpty || password.isEmpty) {
+		[iOctocat reportError:@"Validation failed" with:@"Please enter your login and password"];
+		return;
+	} else if (accountIdx != self.index) {
+        [iOctocat reportError:@"Duplicate account" with:@"This account already exists"];
+		return;
+    }
 	NSString *note = @"iOctocat: Application";
 	NSArray	*scopes = @[@"user", @"repo", @"gist", @"notifications"];
 	[SVProgressHUD showWithStatus:@"Authenticating" maskType:SVProgressHUDMaskTypeGradient];

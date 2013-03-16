@@ -42,6 +42,8 @@
     return [iOctocat sharedInstance].accounts;
 }
 
+#pragma mark IOCAccountFormControllerDelegate
+
 - (void)updateAccount:(GHAccount *)account atIndex:(NSUInteger)idx callback:(void (^)(NSUInteger idx))callback {
 	// add new account to list of accounts
 	if (idx == NSNotFound) {
@@ -63,6 +65,16 @@
     [self.accounts removeObjectAtIndex:idx];
 	[self handleAccountsChange];
     if (callback) callback(idx);
+}
+
+- (NSUInteger)indexOfAccountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
+    return [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
+        if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
 }
 
 #pragma mark Helpers
@@ -106,7 +118,7 @@
 #pragma mark Actions
 
 - (void)editAccountAtIndex:(NSUInteger)idx {
-	GHAccount *account = (idx == NSNotFound) ? [[GHAccount alloc] init] : self.accounts[idx];
+	GHAccount *account = (idx == NSNotFound) ? [[GHAccount alloc] initWithDict:@{}] : self.accounts[idx];
 	IOCAccountFormController *viewController = [[IOCAccountFormController alloc] initWithAccount:account andIndex:idx];
 	viewController.delegate = self;
 	[self.navigationController pushViewController:viewController animated:YES];
@@ -217,13 +229,7 @@
         [self.navigationController pushViewController:menuController animated:YES];
 	} else {
         [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger idx = [self.accounts indexOfObjectPassingTest:^(GHAccount *otherAccount, NSUInteger idx, BOOL *stop) {
-			if ([otherAccount.login isEqualToString:account.login] && [otherAccount.endpoint isEqualToString:account.endpoint]) {
-				*stop = YES;
-				return YES;
-			}
-			return NO;
-		}];
+		NSUInteger idx = [self.accounts indexOfObject:account];
 		[self editAccountAtIndex:idx];
     }
 }

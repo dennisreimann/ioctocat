@@ -35,12 +35,38 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	[self.user removeObserver:self forKeyPath:LoginKeyPath];
 }
 
+// constructs endpoint URL and sets up API client
+- (GHOAuthClient *)apiClient {
+    if (!_apiClient) {
+        NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
+        if (self.endpoint && !self.endpoint.isEmpty) {
+            apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
+        }
+        self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
+        [_apiClient setAuthorizationHeaderWithToken:self.authToken];
+    }
+    return _apiClient;
+}
+
+// invalidates the apiClient when the endpoint changes
+- (void)setEndpoint:(NSString *)endpoint {
+    _endpoint = endpoint;
+    self.apiClient = nil;
+}
+
+// invalidates the apiClient when the authToken changes
+- (void)setAuthToken:(NSString *)authToken {
+    _authToken = authToken;
+    self.apiClient = nil;
+}
+
 - (void)setLogin:(NSString *)login {
     if ([login isEqualToString:_login]) return;
     _login = login;
+    // clean up old user
     [self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 	[self.user removeObserver:self forKeyPath:LoginKeyPath];
-    // user with authenticated URLs
+    // construct user with authenticated URLs
     NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login];
     NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login];
     self.user = [[iOctocat sharedInstance] userWithLogin:self.login];
@@ -62,19 +88,6 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
     NSURL *url = [NSURL smartURLFromString:self.endpoint];
 	if (!url) url = [NSURL URLWithString:kGitHubComURL];
     return [NSString stringWithFormat:@"%@/%@", url.host, self.login];
-}
-
-// constructs endpoint URL and sets up API client
-- (GHOAuthClient *)apiClient {
-    if (!_apiClient) {
-        NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
-        if (self.endpoint && !self.endpoint.isEmpty) {
-            apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
-        }
-        self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
-        [_apiClient setAuthorizationHeaderWithToken:self.authToken];
-    }
-    return _apiClient;
 }
 
 - (void)updateUserResourcePaths {

@@ -165,12 +165,16 @@
 			weakSelf.selectedCell = nil;
 			weakSelf.selectedIndexPath = nil;
 			[weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
-				[weakSelf refreshLastUpdate];
-				[weakSelf.tableView reloadData];
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf refreshLastUpdate];
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                });
 			} failure:^(GHResource *instance, NSError *error) {
-				[weakSelf.tableView.pullToRefreshView stopAnimating];
-				[iOctocat reportLoadingError:@"Could not load the feed"];
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                    [iOctocat reportLoadingError:@"Could not load the feed"];
+                });
 			}];
 		}
 	}];

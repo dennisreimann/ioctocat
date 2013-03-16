@@ -11,6 +11,7 @@ Additions:
 * Forks link to the original repository
 * Comments link to the user profile. Thanks @iosdeveloper
 * Browse gist forks
+* Handle static pages and notifications when opening a GitHub.com URL
 
 Changes:
 

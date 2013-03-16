@@ -16,7 +16,7 @@
 #define kRequestMethodPost              @"POST"
 #define kRequestMethodPatch             @"PATCH"
 #define kRequestMethodDelete            @"DELETE"
-#define kGitHubEndpointURL              @"https://github.com/"
+#define kGitHubComURL                   @"https://github.com/"
 #define kGitHubApiURL                   @"https://api.github.com/"
 #define kEnterpriseApiPath              @"api/v3/"
 #define kIssueStateOpen                 @"open"

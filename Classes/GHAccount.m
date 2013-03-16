@@ -60,7 +60,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 
 - (NSString *)accountId {
     NSURL *url = [NSURL smartURLFromString:self.endpoint];
-	if (!url) url = [NSURL URLWithString:kGitHubEndpointURL];
+	if (!url) url = [NSURL URLWithString:kGitHubComURL];
     return [NSString stringWithFormat:@"%@/%@", url.host, self.login];
 }
 

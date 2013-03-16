@@ -28,6 +28,8 @@
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
 #import "MenuCell.h"
+#import "WebController.h"
+#import "NSURL+Extensions.h"
 
 
 #define kCellHeight 44.0f
@@ -145,11 +147,19 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 			viewController = [[IOCGistController alloc] initWithGist:gist];
 		}
 	} else if (url.pathComponents.count == 2) {
-		// User (or Organization)
-		NSString *login = [url.pathComponents objectAtIndex:1];
-		GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
-        user.htmlURL = url;
-		viewController = [[IOCUserController alloc] initWithUser:user];
+        NSArray *staticPages = @[@"about", @"blog", @"contact", @"edu", @"plans"];
+		NSString *component = [url.pathComponents objectAtIndex:1];
+        if ([staticPages containsObject:component]) {
+            NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, component];
+            viewController = [[WebController alloc] initWithURL:pageURL];
+        } else if ([component isEqualToString:@"notifications"]) {
+            viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
+        } else {
+            // User (or Organization)
+            GHUser *user = [[iOctocat sharedInstance] userWithLogin:component];
+            user.htmlURL = url;
+            viewController = [[IOCUserController alloc] initWithUser:user];
+        }
 	} else if (url.pathComponents.count >= 3) {
 		// Repository
 		NSString *owner = [url.pathComponents objectAtIndex:1];
@@ -182,7 +192,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		}
 	}
 	if (viewController) {
-        [(UINavigationController *)self.slidingViewController.topViewController pushViewController:viewController animated:YES];
+        [self openViewController:viewController];
         return YES;
 	}
     return NO;

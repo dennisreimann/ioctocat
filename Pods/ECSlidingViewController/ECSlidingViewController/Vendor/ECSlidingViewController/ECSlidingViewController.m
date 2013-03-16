@@ -320,7 +320,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
 - (void)anchorTopViewTo:(ECSide)side
 {
-    [self anchorTopViewTo:side animateChange:YES animations:nil onComplete:nil];
+    [self anchorTopViewTo:side animateChange:2.5 animations:nil onComplete:nil];
 }
 
 - (void)anchorTopViewTo:(ECSide)side animateChange:(BOOL)an animations:(void(^)())animations onComplete:(void(^)())complete
@@ -337,7 +337,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
     [[self topViewSnapshot] addGestureRecognizer:[self panGesture]];
 
-    [UIView animateWithDuration:0.25f*an animations:^{
+    [UIView animateWithDuration:0.1f*an animations:^{
         if (animations) {
             animations();
         }
@@ -362,7 +362,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
 - (void)anchorTopViewOffScreenTo:(ECSide)side
 {
-	[self anchorTopViewOffScreenTo:side animateChange:YES animations:nil onComplete:nil];
+	[self anchorTopViewOffScreenTo:side animateChange:2.5 animations:nil onComplete:nil];
 }
 
 - (void)anchorTopViewOffScreenTo:(ECSide)side animateChange:(BOOL)an animations:(void(^)())animations onComplete:(void(^)())complete
@@ -379,7 +379,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
     [[self topViewSnapshot] addGestureRecognizer:[self panGesture]];
 
-    [UIView animateWithDuration:0.25f*an animations:^{
+    [UIView animateWithDuration:0.1f*an animations:^{
         if (animations) {
             animations();
         }
@@ -401,7 +401,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[[NSNotificationCenter defaultCenter] postNotificationName:ECSlidingViewTopWillReset object:self userInfo:nil];
 	});
-	[self resetTopViewAnimateChange:YES animations:nil onComplete:nil];
+	[self resetTopViewAnimateChange:2.5 animations:nil onComplete:nil];
 }
 
 - (void)resetTopViewAnimateChange:(BOOL)an animations:(void(^)())animations onComplete:(void(^)())complete
@@ -410,7 +410,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 
 	[[self topView] addGestureRecognizer:[self panGesture]];
 
-	[UIView animateWithDuration:0.25f*an animations:^{
+	[UIView animateWithDuration:0.1f*an animations:^{
 		if (animations) {
 			animations();
 		}

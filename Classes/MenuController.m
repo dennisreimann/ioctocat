@@ -152,8 +152,12 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
         if ([staticPages containsObject:component]) {
             NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, component];
             viewController = [[WebController alloc] initWithURL:pageURL];
+            [self openViewController:viewController];
+            return YES;
         } else if ([component isEqualToString:@"notifications"]) {
             viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
+            [self openViewController:viewController];
+            return YES;
         } else {
             // User (or Organization)
             GHUser *user = [[iOctocat sharedInstance] userWithLogin:component];
@@ -192,7 +196,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		}
 	}
 	if (viewController) {
-        [self openViewController:viewController];
+        [(UINavigationController *)self.slidingViewController.topViewController pushViewController:viewController animated:YES];
         return YES;
 	}
     return NO;

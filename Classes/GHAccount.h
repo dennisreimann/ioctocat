@@ -8,7 +8,6 @@
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSString *login;
 @property(nonatomic,strong)NSString *endpoint;
-@property(nonatomic,strong)NSString *authId;
 @property(nonatomic,strong)NSString *authToken;
 @property(nonatomic,strong)NSString *pushToken;
 @property(nonatomic,readonly)NSString *accountId;

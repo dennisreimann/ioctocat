@@ -110,22 +110,23 @@
 - (void)useRedDeleteStyle
 {
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
-    UIColor *color = [UIColor colorWithRed:0.841 green:0.566 blue:0.566 alpha:1.0];
+    UIColor *color = [UIColor colorWithRed:0.745 green:0.359 blue:0.326 alpha:1.000];
     [colors addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
+    color = [UIColor colorWithRed:0.802 green:0.415 blue:0.382 alpha:1.000];
     [colors addObject:(id)[color CGColor]];
     self.normalGradientColors = colors;
-    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.0f, nil];
+    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.101f, nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
-    color = [UIColor colorWithRed:0.5 green:0.153 blue:0.152 alpha:1.0];
+    color = [UIColor colorWithRed:0.574 green:0.237 blue:0.209 alpha:1.000];
     [colors2 addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.388 green:0.004 blue:0.0 alpha:1.0];
+    color = [UIColor colorWithRed:0.647 green:0.265 blue:0.231 alpha:1.000];
     [colors addObject:(id)[color CGColor]];
     
     self.highlightGradientColors = colors2;
-    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
+    self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.1f, nil];
     self.cornerRadius = 5.f;
+    self.strokeColor = [UIColor colorWithRed:0.745 green:0.359 blue:0.326 alpha:1.000];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
 }

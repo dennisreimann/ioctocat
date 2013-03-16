@@ -14,7 +14,7 @@
 @interface IOCAccountFormController () <UITextFieldDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)GHAccount *account;
 @property(nonatomic,assign)NSUInteger index;
-@property(nonatomic,weak)NSString *deviceToken;
+@property(nonatomic,readonly)NSString *deviceToken;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
@@ -32,7 +32,6 @@
 	if (self) {
 		self.index = idx;
 		self.account = account;
-		self.deviceToken = [iOctocat sharedInstance].deviceToken;
 	}
 	return self;
 }
@@ -42,26 +41,9 @@
 	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
 	self.loginField.text = self.account.login;
 	self.endpointField.text = self.account.endpoint;
-	self.pushSwitch.enabled = self.deviceToken ? YES : NO;
-	self.pushLabel.textColor = self.deviceToken ? [UIColor blackColor] : [UIColor lightGrayColor];
+    [self checkPushState];
     [self.removeButton useRedDeleteStyle];
     self.removeButton.hidden = self.index == NSNotFound;
-	// check push state
-	if (self.deviceToken && self.account.pushToken) {
-		self.pushSwitch.enabled = NO;
-		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
-			[self.pushSwitch setOn:YES animated:YES];
-			self.pushSwitch.enabled = YES;
-		} failure:^(NSError *error) {
-			self.account.pushToken = @"";
-			[self saveAccount];
-			[self.pushSwitch setOn:NO animated:YES];
-			self.pushSwitch.enabled = YES;
-		}];
-	} else {
-		self.pushSwitch.on = NO;
-		self.pushSwitch.enabled = self.deviceToken ? YES : NO;
-	}
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -70,6 +52,10 @@
 }
 
 #pragma mark Helpers
+
+- (NSString *)deviceToken {
+    return [iOctocat sharedInstance].deviceToken;
+}
 
 - (NSString *)loginValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
@@ -89,6 +75,18 @@
     return value ? value : @"";
 }
 
+- (BOOL)hasDeviceToken {
+    return self.deviceToken && !self.deviceToken.isEmpty;
+}
+
+- (BOOL)hasAuthToken {
+    return self.account.authToken && !self.account.authToken.isEmpty;
+}
+
+- (BOOL)hasPushToken {
+    return self.account.pushToken && !self.account.pushToken.isEmpty;
+}
+
 - (GHBasicClient *)apiClient {
 	return [[GHBasicClient alloc] initWithEndpoint:self.endpointValue username:self.loginValue password:self.passwordValue];
 }
@@ -98,6 +96,25 @@
 		self.index = idx;
         self.removeButton.hidden = self.index == NSNotFound;
 	}];
+}
+
+- (void)checkPushState {
+	if (self.hasDeviceToken && self.hasPushToken) {
+		self.pushSwitch.enabled = NO;
+		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
+			[self.pushSwitch setOn:YES animated:YES];
+			self.pushSwitch.enabled = YES;
+		} failure:^(NSError *error) {
+			self.account.pushToken = @"";
+			[self saveAccount];
+			[self.pushSwitch setOn:NO animated:YES];
+			self.pushSwitch.enabled = YES;
+		}];
+	} else {
+		self.pushSwitch.on = NO;
+		self.pushSwitch.enabled = self.hasDeviceToken && self.hasAuthToken ? YES : NO;
+	}
+	self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 }
 
 #pragma mark Actions
@@ -125,6 +142,7 @@
 		self.account.endpoint = endpoint;
 		self.account.authToken = [json safeStringForKey:@"token"];
 		[self saveAccount];
+        [self checkPushState];
 	} failure:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Authentication failed"];
 	}];
@@ -151,7 +169,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-        if (!self.account.pushToken.isEmpty) {
+        if (self.hasDeviceToken && self.hasPushToken) {
             [[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
                 [self.delegate removeAccountAtIndex:self.index callback:^(NSUInteger idx) {
                     [self.navigationController popViewControllerAnimated:YES];

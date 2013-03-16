@@ -210,13 +210,13 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[currentController popToRootViewControllerAnimated:NO];
 	[self.slidingViewController setTopViewController:navController];
 	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
-	[self.slidingViewController resetTopView];
+	[self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
 }
 
 - (void)toggleTopView {
 	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
 	if ([self.slidingViewController underLeftShowing]) {
-		[self.slidingViewController resetTopView];
+		[self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
 	} else {
 		[self.slidingViewController anchorTopViewTo:ECRight];
 	}

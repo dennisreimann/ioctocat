@@ -21,6 +21,7 @@ Changes:
 * Display merge button with status, even if the pull request is not mergeable
 * Moved account removal to account form view
 * Prevent creation of duplicate accounts
+* Start with adding a new account if there is none
 
 Bugfixes:
 

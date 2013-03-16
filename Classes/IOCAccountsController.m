@@ -29,10 +29,12 @@
 	}
 	[self handleAccountsChange];
 	[self.tableView reloadData];
-    // open account if there is only one
+    // create account if there is none, open account if there is only one
     static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-        if (self.accounts.count == 1) {
+        if (self.accounts.count == 0) {
+            [self addAccount:nil];
+        } else if (self.accounts.count == 1) {
             [self authenticateAccountAtIndex:0];
         }
 	});

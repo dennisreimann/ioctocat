@@ -3,13 +3,15 @@
 #import "GHComment.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "GradientButton.h"
 
 
 @interface CommentController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,weak)id comments;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
-
+@property(nonatomic,strong)IBOutlet UIView *accessoryView;
+@property(nonatomic,weak)IBOutlet UIScrollView *scrollView;
 - (IBAction)postComment:(id)sender;
 @end
 
@@ -25,10 +27,13 @@
 	return self;
 }
 
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.title = @"Post comment";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
+    self.bodyView.selectedRange = NSMakeRange(0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -49,6 +54,8 @@
     [self.bodyView resignFirstResponder];
 }
 
+#pragma mark Actions
+
 - (IBAction)postComment:(id)sender {
 	if ([self.bodyView.text isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
@@ -65,6 +72,22 @@
 			[SVProgressHUD showErrorWithStatus:@"Commenting failed"];
 		}];
 	}
+}
+
+- (void)buttonTapped:(UIButton *)sender {
+    NSUInteger location = self.bodyView.selectedRange.location;
+    NSString *substring = [self.bodyView.text substringToIndex:location];
+    NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *lastComponent = [components lastObject];
+    NSRange r = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
+    NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, [self.bodyView.text length] - r.location)];
+    NSRange r3 = NSMakeRange(r.location, (r2.location == NSNotFound) ? r.length : r2.location - r.location);
+    NSString *title = [sender titleForState:UIControlStateNormal];
+    NSString *string = [NSString stringWithFormat:@"@%@ ", title];
+    self.bodyView.text = [self.bodyView.text stringByReplacingCharactersInRange:r3 withString:string];
+    self.bodyView.selectedRange = NSMakeRange(r3.location + [string length], 0);
+    self.bodyView.inputAccessoryView = nil;
+    [self.bodyView reloadInputViews];
 }
 
 #pragma mark Keyboard
@@ -94,6 +117,54 @@
 	[UIView animateWithDuration:animationDuration animations:^{
 		self.bodyView.frame = self.view.bounds;
 	}];
+}
+
+#pragma mark TextView
+
+- (void)textViewDidChange:(UITextView *)textView {
+    NSUInteger location = textView.selectedRange.location;
+    NSString *substring = [textView.text substringToIndex:location];
+    NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *lastComponent = [components lastObject];
+    if ([lastComponent hasPrefix:@"@"] && [lastComponent length] > 1) {
+        NSString *login = [lastComponent substringFromIndex:1];
+        NSArray *filteredLoginArray = [[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] %@", login]];
+        if ([filteredLoginArray count] > 0) {
+            for (UIView *subview in [self.scrollView subviews]) {
+                [subview removeFromSuperview];
+            }
+            CGFloat h = 34.0f;
+            CGFloat m = 5.0f;
+            CGFloat x = 5.0f;
+            CGFloat y = 5.0f;
+            for (NSString *login in filteredLoginArray) {
+                GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
+                [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+                button.contentEdgeInsets = UIEdgeInsetsMake(2.0f, 4.0f, 2.0f, 4.0f);
+                button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                [button setTitle:login forState:UIControlStateNormal];
+                [self.scrollView addSubview:button];
+                [button sizeToFit];
+                button.frame = CGRectMake(x, y, button.frame.size.width, h);
+                [button useDarkGithubStyle];
+                x += button.frame.size.width + m;
+            }
+            self.scrollView.contentSize = CGSizeMake(x + m, 0.0f);
+            if (!textView.inputAccessoryView) {
+                textView.inputAccessoryView = self.accessoryView;
+                [textView reloadInputViews];
+            }
+            return;
+        }
+    }
+    if (textView.inputAccessoryView) {
+        textView.inputAccessoryView = nil;
+        [textView reloadInputViews];
+    }
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [self textViewDidChange:textView];
 }
 
 @end

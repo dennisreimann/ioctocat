@@ -149,7 +149,7 @@
                 [button useDarkGithubStyle];
                 x += button.frame.size.width + m;
             }
-            self.scrollView.contentSize = CGSizeMake(x + m, 0.0f);
+            self.scrollView.contentSize = CGSizeMake(x, 0.0f);
             if (!textView.inputAccessoryView) {
                 textView.inputAccessoryView = self.accessoryView;
                 [textView reloadInputViews];

@@ -116,11 +116,11 @@
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Download avatars</string>
+			<string>Disable avatar loading</string>
 			<key>Key</key>
-			<string>downloadAvatars</string>
+			<string>disableAvatarLoading</string>
 			<key>DefaultValue</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>Type</key>

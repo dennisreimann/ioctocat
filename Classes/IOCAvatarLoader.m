@@ -34,9 +34,9 @@
 
 - (void)loadURL:(NSURL *)url {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL downloadAvatars = [defaults boolForKey:kDownloadAvatarsKey];
+    BOOL disableAvatars = [defaults boolForKey:kDisableAvatarLoadingKey];
     
-    if (downloadAvatars) {
+    if (!disableAvatars) {
         NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", url, self.gravatarSize];
         [self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
     }

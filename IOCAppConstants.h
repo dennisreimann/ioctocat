@@ -8,7 +8,7 @@
 #define kLineNumbersDefaultsKey         @"lineNumbers"
 #define kThemeDefaultsKey               @"theme"
 #define kUnreadBadgeDefaultsKey         @"unreadBadge"
-#define kDownloadAvatarsKey             @"downloadAvatars"
+#define kDisableAvatarLoadingKey        @"disableAvatarLoading"
 
 
 // API

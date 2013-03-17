@@ -39,9 +39,9 @@
 
 - (NSMutableCharacterSet *)charSet {
     if (!_charSet) {
-        _charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
-        [_charSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
-        [_charSet removeCharactersInString:@"@"];
+        _charSet = [NSMutableCharacterSet alphanumericCharacterSet];
+        [_charSet invert];
+        [_charSet removeCharactersInString:@"-@"];
     }
     return _charSet;
 }
@@ -185,31 +185,29 @@
         NSRange r2 = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(r.location, length - r.location)];
         NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
         NSString *login = [self.bodyField.text substringWithRange:r3];
-        NSArray *filteredLoginArray = [[[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+        NSArray *filteredLoginArray = [[[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
         if ([filteredLoginArray count] > 0) {
             for (UIView *subview in [self.scrollView subviews]) {
                 [subview removeFromSuperview];
             }
             CGFloat m = 5.0f;
             CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
-            CGFloat x = 5.0f;
-            CGFloat y = 5.0f;
+            CGFloat x = m;
             for (NSString *login in filteredLoginArray) {
                 GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
-                [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-                [button setTitle:login forState:UIControlStateNormal];
-                button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                 GHUser *user = [[iOctocat sharedInstance].users objectForKey:login];
                 UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];
                 imageView.layer.masksToBounds = YES;
                 imageView.layer.cornerRadius = 3.0f;
                 imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
-                imageView.contentMode = UIViewContentModeScaleAspectFit;
                 [button addSubview:imageView];
+                [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+                button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                [button setTitle:login forState:UIControlStateNormal];
+                button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                 [self.scrollView addSubview:button];
                 [button sizeToFit];
-                button.frame = CGRectMake(x, y, button.frame.size.width, h);
+                button.frame = CGRectMake(x, m, button.frame.size.width, h);
                 [button useDarkGithubStyle];
                 x += button.frame.size.width + m;
             }

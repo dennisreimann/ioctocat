@@ -4,6 +4,7 @@
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "GradientButton.h"
+#import "GHUser.h"
 
 
 @interface IOCIssueObjectFormController () <UITextFieldDelegate>
@@ -189,16 +190,23 @@
             for (UIView *subview in [self.scrollView subviews]) {
                 [subview removeFromSuperview];
             }
-            CGFloat h = 34.0f;
             CGFloat m = 5.0f;
+            CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
             CGFloat x = 5.0f;
             CGFloat y = 5.0f;
             for (NSString *login in filteredLoginArray) {
                 GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
                 [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                button.contentEdgeInsets = UIEdgeInsetsMake(2.0f, 4.0f, 2.0f, 4.0f);
                 button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
                 [button setTitle:login forState:UIControlStateNormal];
+                button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
+                GHUser *user = [[iOctocat sharedInstance].users objectForKey:login];
+                UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];
+                imageView.layer.masksToBounds = YES;
+                imageView.layer.cornerRadius = 3.0f;
+                imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
+                imageView.contentMode = UIViewContentModeScaleAspectFit;
+                [button addSubview:imageView];
                 [self.scrollView addSubview:button];
                 [button sizeToFit];
                 button.frame = CGRectMake(x, y, button.frame.size.width, h);

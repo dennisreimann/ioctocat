@@ -13,7 +13,7 @@
 @property(nonatomic,strong)id issueObject;
 @property(nonatomic,strong)NSString *issueObjectType;
 @property(nonatomic,strong)UITapGestureRecognizer *tapGesture;
-@property(nonatomic,strong)NSMutableCharacterSet *charSet;
+@property(nonatomic,strong)NSCharacterSet *charSet;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
 @property(nonatomic,strong)IBOutlet UIView *accessoryView;
@@ -37,11 +37,9 @@
 	return self.issueObject;
 }
 
-- (NSMutableCharacterSet *)charSet {
+- (NSCharacterSet *)charSet {
     if (!_charSet) {
-        _charSet = [NSMutableCharacterSet alphanumericCharacterSet];
-        [_charSet invert];
-        [_charSet removeCharactersInString:@"-@"];
+        _charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     }
     return _charSet;
 }

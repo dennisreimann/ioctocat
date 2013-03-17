@@ -10,7 +10,7 @@
 @interface CommentController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,weak)id comments;
-@property(nonatomic,strong)NSMutableCharacterSet *charSet;
+@property(nonatomic,strong)NSCharacterSet *charSet;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 @property(nonatomic,strong)IBOutlet UIView *accessoryView;
 @property(nonatomic,weak)IBOutlet UIScrollView *scrollView;
@@ -29,11 +29,9 @@
 	return self;
 }
 
-- (NSMutableCharacterSet *)charSet {
+- (NSCharacterSet *)charSet {
     if (!_charSet) {
-        _charSet = [NSMutableCharacterSet alphanumericCharacterSet];
-        [_charSet invert];
-        [_charSet removeCharactersInString:@"-@"];
+        _charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     }
     return _charSet;
 }

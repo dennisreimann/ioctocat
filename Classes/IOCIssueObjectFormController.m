@@ -116,14 +116,13 @@
     NSString *substring = [self.bodyField.text substringToIndex:location];
     NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
     NSString *lastComponent = [components lastObject];
-    NSRange r = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
+    NSRange range = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
     NSUInteger length = [self.bodyField.text length];
-    NSRange r2 = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(r.location, length - r.location)];
-    NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
-    NSString *title = [sender titleForState:UIControlStateNormal];
-    NSString *string = [NSString stringWithFormat:@"@%@ ", title];
-    self.bodyField.text = [self.bodyField.text stringByReplacingCharactersInRange:r3 withString:string];
-    self.bodyField.selectedRange = NSMakeRange(r3.location + [string length], 0);
+    NSRange whitespaceRange = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, length - (range.location + range.length))];
+    range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? length - range.location : whitespaceRange.location - range.location);
+    NSString *string = [NSString stringWithFormat:@"@%@ ", [sender titleForState:UIControlStateNormal]];
+    self.bodyField.text = [self.bodyField.text stringByReplacingCharactersInRange:range withString:string];
+    self.bodyField.selectedRange = NSMakeRange(range.location + [string length], 0);
     self.bodyField.inputAccessoryView = nil;
     [self.bodyField reloadInputViews];
 }
@@ -178,11 +177,11 @@
     NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
     NSString *lastComponent = [components lastObject];
     if ([lastComponent hasPrefix:@"@"] && [lastComponent length] > 1) {
-        NSRange r = [substring rangeOfString:[lastComponent substringFromIndex:1] options:NSBackwardsSearch | NSAnchoredSearch];
+        NSRange range = [substring rangeOfString:[lastComponent substringFromIndex:1] options:NSBackwardsSearch | NSAnchoredSearch];
         NSUInteger length = [self.bodyField.text length];
-        NSRange r2 = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(r.location, length - r.location)];
-        NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
-        NSString *login = [self.bodyField.text substringWithRange:r3];
+        NSRange whitespaceRange = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, length - (range.location + range.length))];
+        range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? length - range.location : whitespaceRange.location - range.location);
+        NSString *login = [self.bodyField.text substringWithRange:range];
         NSArray *filteredLoginArray = [[[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
         if ([filteredLoginArray count] > 0) {
             for (UIView *subview in [self.scrollView subviews]) {

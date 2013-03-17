@@ -33,8 +33,13 @@
 }
 
 - (void)loadURL:(NSURL *)url {
-	NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", url, self.gravatarSize];
-	[self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL downloadAvatars = [defaults boolForKey:kDownloadAvatarsKey];
+    
+    if (downloadAvatars) {
+        NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", url, self.gravatarSize];
+        [self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
+    }
 }
 
 - (void)requestWithURL:(NSURL *)url {

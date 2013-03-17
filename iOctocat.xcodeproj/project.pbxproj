@@ -33,6 +33,10 @@
 		2ECFBABB16EA8AEB0092EE67 /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3816B16E28A0E003293BD /* IOCCodeController.m */; };
 		2ECFBABC16EA8AF50092EE67 /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3816916E28A0E003293BD /* IOCBlobsController.m */; };
 		2ECFBABD16EA8B050092EE67 /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3815F16E28986003293BD /* IOCNotificationsController.m */; };
+		367F8AD316F64DBF008F8054 /* MessageEntryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD116F64DBF008F8054 /* MessageEntryBG.png */; };
+		367F8AD416F64DBF008F8054 /* MessageEntryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD116F64DBF008F8054 /* MessageEntryBG.png */; };
+		367F8AD516F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */; };
+		367F8AD616F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -969,6 +973,8 @@
 		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
 		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
 		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
+		367F8AD116F64DBF008F8054 /* MessageEntryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageEntryBG.png; path = Images/MessageEntryBG.png; sourceTree = "<group>"; };
+		367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MessageEntryBG@2x.png"; path = "Images/MessageEntryBG@2x.png"; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
@@ -2001,6 +2007,8 @@
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
+				367F8AD116F64DBF008F8054 /* MessageEntryBG.png */,
+				367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */,
 				6F61F538139E43FB005DBE67 /* AvatarBackground32.png */,
 				6F61F539139E43FB005DBE67 /* AvatarBackground32@2x.png */,
 				6F61F53A139E43FC005DBE67 /* AvatarBackground50.png */,
@@ -2895,6 +2903,8 @@
 				2ECFBAB316EA8A020092EE67 /* MenuOctocat@2x.png in Resources */,
 				2ECFBAB616EA8A170092EE67 /* MenuPullRequests.png in Resources */,
 				2ECFBAB716EA8A170092EE67 /* MenuPullRequests@2x.png in Resources */,
+				367F8AD316F64DBF008F8054 /* MessageEntryBG.png in Resources */,
+				367F8AD516F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3215,6 +3225,8 @@
 				2ECFBAB516EA8A020092EE67 /* MenuOctocat@2x.png in Resources */,
 				2ECFBAB816EA8A180092EE67 /* MenuPullRequests.png in Resources */,
 				2ECFBAB916EA8A180092EE67 /* MenuPullRequests@2x.png in Resources */,
+				367F8AD416F64DBF008F8054 /* MessageEntryBG.png in Resources */,
+				367F8AD616F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

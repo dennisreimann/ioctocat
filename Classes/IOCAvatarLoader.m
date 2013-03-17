@@ -33,8 +33,13 @@
 }
 
 - (void)loadURL:(NSURL *)url {
-	NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", url, self.gravatarSize];
-	[self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL disableAvatars = [defaults boolForKey:kDisableAvatarLoadingKey];
+    
+    if (!disableAvatars) {
+        NSURL *gravatarURL = [NSURL URLWithFormat:@"%@&s=%d", url, self.gravatarSize];
+        [self performSelectorInBackground:@selector(requestWithURL:) withObject:gravatarURL];
+    }
 }
 
 - (void)requestWithURL:(NSURL *)url {

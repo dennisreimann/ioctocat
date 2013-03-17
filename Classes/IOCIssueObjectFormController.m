@@ -3,6 +3,7 @@
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
+#import "GradientButton.h"
 
 
 @interface IOCIssueObjectFormController () <UITextFieldDelegate>
@@ -13,6 +14,8 @@
 @property(nonatomic,strong)UITapGestureRecognizer *tapGesture;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
+@property(nonatomic,strong)IBOutlet UIView *accessoryView;
+@property(nonatomic,weak)IBOutlet UIScrollView *scrollView;
 @end
 
 
@@ -28,6 +31,12 @@
 	return self;
 }
 
+- (GHIssue *)object {
+	return self.issueObject;
+}
+
+#pragma mark View Events
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
@@ -36,8 +45,8 @@
 	if (!self.object.isNew) {
 		self.titleField.text = self.object.title;
 		self.bodyField.text = self.object.body;
-        self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
+    self.bodyField.selectedRange = NSMakeRange(0, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -58,10 +67,6 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.view endEditing:NO];
-}
-
-- (GHIssue *)object {
-	return self.issueObject;
 }
 
 #pragma mark Actions
@@ -95,6 +100,22 @@
     if (tapGesture.state == UIGestureRecognizerStateEnded) {
         [self.view endEditing:NO];
     }
+}
+
+- (void)buttonTapped:(UIButton *)sender {
+    NSUInteger location = self.bodyField.selectedRange.location;
+    NSString *substring = [self.bodyField.text substringToIndex:location];
+    NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *lastComponent = [components lastObject];
+    NSRange r = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
+    NSRange r2 = [self.bodyField.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, [self.bodyField.text length] - r.location)];
+    NSRange r3 = NSMakeRange(r.location, (r2.location == NSNotFound) ? r.length : r2.location - r.location);
+    NSString *title = [sender titleForState:UIControlStateNormal];
+    NSString *string = [NSString stringWithFormat:@"@%@ ", title];
+    self.bodyField.text = [self.bodyField.text stringByReplacingCharactersInRange:r3 withString:string];
+    self.bodyField.selectedRange = NSMakeRange(r3.location + [string length], 0);
+    self.bodyField.inputAccessoryView = nil;
+    [self.bodyField reloadInputViews];
 }
 
 #pragma mark Keyboard
@@ -137,6 +158,54 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
 	[(UIScrollView *)self.view setContentOffset:CGPointZero animated:NO];
+}
+
+#pragma mark TextView
+
+- (void)textViewDidChange:(UITextView *)textView {
+    NSUInteger location = textView.selectedRange.location;
+    NSString *substring = [textView.text substringToIndex:location];
+    NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *lastComponent = [components lastObject];
+    if ([lastComponent hasPrefix:@"@"] && [lastComponent length] > 1) {
+        NSString *login = [lastComponent substringFromIndex:1];
+        NSArray *filteredLoginArray = [[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] %@", login]];
+        if ([filteredLoginArray count] > 0) {
+            for (UIView *subview in [self.scrollView subviews]) {
+                [subview removeFromSuperview];
+            }
+            CGFloat h = 34.0f;
+            CGFloat m = 5.0f;
+            CGFloat x = 5.0f;
+            CGFloat y = 5.0f;
+            for (NSString *login in filteredLoginArray) {
+                GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
+                [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+                button.contentEdgeInsets = UIEdgeInsetsMake(2.0f, 4.0f, 2.0f, 4.0f);
+                button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                [button setTitle:login forState:UIControlStateNormal];
+                [self.scrollView addSubview:button];
+                [button sizeToFit];
+                button.frame = CGRectMake(x, y, button.frame.size.width, h);
+                [button useDarkGithubStyle];
+                x += button.frame.size.width + m;
+            }
+            self.scrollView.contentSize = CGSizeMake(x + m, 0.0f);
+            if (!textView.inputAccessoryView) {
+                textView.inputAccessoryView = self.accessoryView;
+                [textView reloadInputViews];
+            }
+            return;
+        }
+    }
+    if (textView.inputAccessoryView) {
+        textView.inputAccessoryView = nil;
+        [textView reloadInputViews];
+    }
+}
+
+- (void)textViewDidChangeSelection:(UITextView *)textView {
+    [self textViewDidChange:textView];
 }
 
 @end

@@ -80,8 +80,9 @@
     NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *lastComponent = [components lastObject];
     NSRange r = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
-    NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, [self.bodyView.text length] - r.location)];
-    NSRange r3 = NSMakeRange(r.location, (r2.location == NSNotFound) ? r.length : r2.location - r.location);
+    NSUInteger length = [self.bodyView.text length];
+    NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, length - r.location)];
+    NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
     NSString *title = [sender titleForState:UIControlStateNormal];
     NSString *string = [NSString stringWithFormat:@"@%@ ", title];
     self.bodyView.text = [self.bodyView.text stringByReplacingCharactersInRange:r3 withString:string];
@@ -127,8 +128,12 @@
     NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *lastComponent = [components lastObject];
     if ([lastComponent hasPrefix:@"@"] && [lastComponent length] > 1) {
-        NSString *login = [lastComponent substringFromIndex:1];
-        NSArray *filteredLoginArray = [[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF BEGINSWITH[cd] %@", login]];
+        NSRange r = [substring rangeOfString:[lastComponent substringFromIndex:1] options:NSBackwardsSearch | NSAnchoredSearch];
+        NSUInteger length = [self.bodyView.text length];
+        NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, length - r.location)];
+        NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
+        NSString *login = [self.bodyView.text substringWithRange:r3];
+        NSArray *filteredLoginArray = [[[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
         if ([filteredLoginArray count] > 0) {
             for (UIView *subview in [self.scrollView subviews]) {
                 [subview removeFromSuperview];

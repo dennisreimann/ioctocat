@@ -77,11 +77,14 @@
 - (void)buttonTapped:(UIButton *)sender {
     NSUInteger location = self.bodyView.selectedRange.location;
     NSString *substring = [self.bodyView.text substringToIndex:location];
-    NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+    [charSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    [charSet removeCharactersInString:@"@"];
+    NSArray *components = [substring componentsSeparatedByCharactersInSet:charSet];
     NSString *lastComponent = [components lastObject];
     NSRange r = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
     NSUInteger length = [self.bodyView.text length];
-    NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, length - r.location)];
+    NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:charSet options:0 range:NSMakeRange(r.location, length - r.location)];
     NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
     NSString *title = [sender titleForState:UIControlStateNormal];
     NSString *string = [NSString stringWithFormat:@"@%@ ", title];
@@ -125,12 +128,15 @@
 - (void)textViewDidChange:(UITextView *)textView {
     NSUInteger location = textView.selectedRange.location;
     NSString *substring = [textView.text substringToIndex:location];
-    NSArray *components = [substring componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSMutableCharacterSet *charSet = [NSMutableCharacterSet whitespaceAndNewlineCharacterSet];
+    [charSet formUnionWithCharacterSet:[NSCharacterSet punctuationCharacterSet]];
+    [charSet removeCharactersInString:@"@"];
+    NSArray *components = [substring componentsSeparatedByCharactersInSet:charSet];
     NSString *lastComponent = [components lastObject];
     if ([lastComponent hasPrefix:@"@"] && [lastComponent length] > 1) {
         NSRange r = [substring rangeOfString:[lastComponent substringFromIndex:1] options:NSBackwardsSearch | NSAnchoredSearch];
         NSUInteger length = [self.bodyView.text length];
-        NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet] options:0 range:NSMakeRange(r.location, length - r.location)];
+        NSRange r2 = [self.bodyView.text rangeOfCharacterFromSet:charSet options:0 range:NSMakeRange(r.location, length - r.location)];
         NSRange r3 = NSMakeRange(r.location, r2.location == NSNotFound ? length - r.location : r2.location - r.location);
         NSString *login = [self.bodyView.text substringWithRange:r3];
         NSArray *filteredLoginArray = [[[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];

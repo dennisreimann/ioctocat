@@ -11,6 +11,7 @@
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,weak)id comments;
 @property(nonatomic,strong)NSCharacterSet *charSet;
+@property(nonatomic,strong)NSArray *loginArray;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 @property(nonatomic,strong)IBOutlet UIView *accessoryView;
 @property(nonatomic,weak)IBOutlet UIScrollView *scrollView;
@@ -34,6 +35,17 @@
         _charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     }
     return _charSet;
+}
+
+- (NSArray *)loginArray {
+    if (!_loginArray) {
+        NSArray *allKeys = [[iOctocat sharedInstance].users allKeys];
+        if ([allKeys count] > 1) {
+            allKeys = [allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+        }
+        _loginArray = allKeys;
+    }
+    return _loginArray;
 }
 
 #pragma mark View Events
@@ -84,7 +96,7 @@
 }
 
 - (void)buttonTapped:(UIButton *)sender {
-    NSMutableString *text = [self.bodyView.text mutableCopy];
+    NSString *text = self.bodyView.text;
     NSRange selectedRange = self.bodyView.selectedRange;
     NSUInteger location = selectedRange.location;
     NSUInteger length = selectedRange.length;
@@ -103,8 +115,7 @@
     range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
     NSString *title = [sender titleForState:UIControlStateNormal];
     NSString *string = [NSString stringWithFormat:@"@%@ ", title];
-    [text replaceCharactersInRange:range withString:string];
-    self.bodyView.text = text;
+    self.bodyView.text = [text stringByReplacingCharactersInRange:range withString:string];
     self.bodyView.selectedRange = NSMakeRange(range.location + [string length], 0);
     self.bodyView.inputAccessoryView = nil;
     [self.bodyView reloadInputViews];
@@ -167,15 +178,10 @@
         NSRange whitespaceRange = [text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, textLength - (range.location + range.length))];
         range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
         if (range.length > 1) {
-            NSArray *allKeys = [[iOctocat sharedInstance].users allKeys];
-            NSMutableArray *loginArray = [allKeys mutableCopy];
             NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
-            [loginArray filterUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
-            NSUInteger count = [loginArray count];
+            NSArray *filteredLoginArray = [self.loginArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
+            NSUInteger count = [filteredLoginArray count];
             if (count > 0) {
-                if (count > 1) {
-                    [loginArray sortUsingSelector:@selector(caseInsensitiveCompare:)];
-                }
                 for (UIView *subview in [self.scrollView subviews]) {
                     [subview removeFromSuperview];
                 }
@@ -184,7 +190,7 @@
                 CGFloat m = 5.0f;
                 CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
                 CGFloat x = self.scrollView.bounds.origin.x + m;
-                for (NSString *login in loginArray) {
+                for (NSString *login in filteredLoginArray) {
                     GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
                     GHUser *user = [iOctocat sharedInstance].users[login];
                     UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];

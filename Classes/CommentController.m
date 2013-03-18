@@ -142,19 +142,22 @@
 
 - (void)textViewDidChange:(UITextView *)textView {
     NSString *text = textView.text;
-    NSUInteger location = textView.selectedRange.location;
-    NSUInteger length = textView.selectedRange.length;
-    NSString *substring = [text substringToIndex:location + length];
+    NSRange selectedRange = textView.selectedRange;
+    NSUInteger location = selectedRange.location;
+    NSUInteger length = selectedRange.length;
+    NSString *substring = nil;
     NSString *component = nil;
     if (length == 0) {
+        substring = [text substringToIndex:location + length];
         NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
         component = [components lastObject];
     } else {
-        NSRange range = [text rangeOfCharacterFromSet:self.charSet options:NSBackwardsSearch range:NSMakeRange(0, location)];
-        NSString *substring = [text substringWithRange:range.location == NSNotFound ? NSMakeRange(0, location + length) : NSMakeRange(range.location + range.length, location - (range.location + range.length) + length)];
+        substring = [text substringWithRange:selectedRange];
         NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
         if ([components count] == 1) {
-            component = components[0];
+            substring = [text substringToIndex:location + length];
+            NSRange range = [text rangeOfCharacterFromSet:self.charSet options:NSBackwardsSearch range:NSMakeRange(0, location)];
+            component = [text substringWithRange:range.location == NSNotFound ? NSMakeRange(0, location + length) : NSMakeRange(range.location + range.length, location - (range.location + range.length) + length)];
         }
     }
     if ([component hasPrefix:@"@"]) {

@@ -112,16 +112,26 @@
 }
 
 - (void)buttonTapped:(UIButton *)sender {
+    NSString *text = self.bodyField.text;
     NSUInteger location = self.bodyField.selectedRange.location;
-    NSString *substring = [self.bodyField.text substringToIndex:location];
-    NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
-    NSString *lastComponent = [components lastObject];
-    NSRange range = [substring rangeOfString:lastComponent options:NSBackwardsSearch | NSAnchoredSearch];
-    NSUInteger length = [self.bodyField.text length];
-    NSRange whitespaceRange = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, length - (range.location + range.length))];
-    range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? length - range.location : whitespaceRange.location - range.location);
-    NSString *string = [NSString stringWithFormat:@"@%@ ", [sender titleForState:UIControlStateNormal]];
-    self.bodyField.text = [self.bodyField.text stringByReplacingCharactersInRange:range withString:string];
+    NSUInteger length = self.bodyField.selectedRange.length;
+    NSString *substring = [text substringToIndex:location + length];
+    NSString *component = nil;
+    if (length == 0) {
+        NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
+        component = [components lastObject];
+    } else {
+        NSRange range = [text rangeOfCharacterFromSet:self.charSet options:NSBackwardsSearch range:NSMakeRange(0, location)];
+        component = [text substringWithRange:range.location == NSNotFound ? NSMakeRange(0, location + length) : NSMakeRange(range.location + range.length, location - (range.location + range.length) + length)];
+    }
+    NSRange range = [substring rangeOfString:component options:NSBackwardsSearch | NSAnchoredSearch];
+    NSUInteger textLength = [text length];
+    NSRange whitespaceRange = [text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, textLength - (range.location + range.length))];
+    range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
+    NSString *title = [sender titleForState:UIControlStateNormal];
+    NSString *string = [NSString stringWithFormat:@"@%@ ", title];
+    text = [text stringByReplacingCharactersInRange:range withString:string];
+    self.bodyField.text = text;
     self.bodyField.selectedRange = NSMakeRange(range.location + [string length], 0);
     self.bodyField.inputAccessoryView = nil;
     [self.bodyField reloadInputViews];
@@ -172,48 +182,63 @@
 #pragma mark TextView
 
 - (void)textViewDidChange:(UITextView *)textView {
+    NSString *text = textView.text;
     NSUInteger location = textView.selectedRange.location;
-    NSString *substring = [textView.text substringToIndex:location];
-    NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
-    NSString *lastComponent = [components lastObject];
-    if ([lastComponent hasPrefix:@"@"] && [lastComponent length] > 1) {
-        NSRange range = [substring rangeOfString:[lastComponent substringFromIndex:1] options:NSBackwardsSearch | NSAnchoredSearch];
-        NSUInteger length = [self.bodyField.text length];
-        NSRange whitespaceRange = [self.bodyField.text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, length - (range.location + range.length))];
-        range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? length - range.location : whitespaceRange.location - range.location);
-        NSString *login = [self.bodyField.text substringWithRange:range];
-        NSArray *filteredLoginArray = [[[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]] sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-        if ([filteredLoginArray count] > 0) {
-            for (UIView *subview in [self.scrollView subviews]) {
-                [subview removeFromSuperview];
+    NSUInteger length = textView.selectedRange.length;
+    NSString *substring = [text substringToIndex:location + length];
+    NSString *component = nil;
+    if (length == 0) {
+        NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
+        component = [components lastObject];
+    } else {
+        NSRange range = [text rangeOfCharacterFromSet:self.charSet options:NSBackwardsSearch range:NSMakeRange(0, location)];
+        NSString *substring = [text substringWithRange:range.location == NSNotFound ? NSMakeRange(0, location + length) : NSMakeRange(range.location + range.length, location - (range.location + range.length) + length)];
+        NSArray *components = [substring componentsSeparatedByCharactersInSet:self.charSet];
+        if ([components count] == 1) {
+            component = components[0];
+        }
+    }
+    if ([component hasPrefix:@"@"]) {
+        NSRange range = [substring rangeOfString:component options:NSBackwardsSearch | NSAnchoredSearch];
+        NSUInteger textLength = [text length];
+        NSRange whitespaceRange = [text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, textLength - (range.location + range.length))];
+        range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
+        if (range.length > 1) {
+            NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
+            NSArray *filteredLoginArray = [[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
+            if ([filteredLoginArray count] > 0) {
+                NSArray *sortedLoginArray = [filteredLoginArray sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+                for (UIView *subview in [self.scrollView subviews]) {
+                    [subview removeFromSuperview];
+                }
+                CGFloat m = 5.0f;
+                CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
+                CGFloat x = self.scrollView.bounds.origin.x + m;
+                for (NSString *login in sortedLoginArray) {
+                    GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
+                    GHUser *user = [iOctocat sharedInstance].users[login];
+                    UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];
+                    imageView.layer.masksToBounds = YES;
+                    imageView.layer.cornerRadius = 3.0f;
+                    imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
+                    [button addSubview:imageView];
+                    [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+                    button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                    [button setTitle:login forState:UIControlStateNormal];
+                    button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
+                    [self.scrollView addSubview:button];
+                    [button sizeToFit];
+                    button.frame = CGRectMake(x, m, button.frame.size.width, h);
+                    [button useDarkGithubStyle];
+                    x += button.frame.size.width + m;
+                }
+                self.scrollView.contentSize = CGSizeMake(x, 0.0f);
+                if (!textView.inputAccessoryView) {
+                    textView.inputAccessoryView = self.accessoryView;
+                    [textView reloadInputViews];
+                }
+                return;
             }
-            CGFloat m = 5.0f;
-            CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
-            CGFloat x = m;
-            for (NSString *login in filteredLoginArray) {
-                GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
-                GHUser *user = [[iOctocat sharedInstance].users objectForKey:login];
-                UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];
-                imageView.layer.masksToBounds = YES;
-                imageView.layer.cornerRadius = 3.0f;
-                imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
-                [button addSubview:imageView];
-                [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-                [button setTitle:login forState:UIControlStateNormal];
-                button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
-                [self.scrollView addSubview:button];
-                [button sizeToFit];
-                button.frame = CGRectMake(x, m, button.frame.size.width, h);
-                [button useDarkGithubStyle];
-                x += button.frame.size.width + m;
-            }
-            self.scrollView.contentSize = CGSizeMake(x, 0.0f);
-            if (!textView.inputAccessoryView) {
-                textView.inputAccessoryView = self.accessoryView;
-                [textView reloadInputViews];
-            }
-            return;
         }
     }
     if (textView.inputAccessoryView) {

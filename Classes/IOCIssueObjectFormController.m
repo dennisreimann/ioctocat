@@ -112,7 +112,7 @@
 }
 
 - (void)buttonTapped:(UIButton *)sender {
-    NSString *text = self.bodyField.text;
+    NSMutableString *text = [self.bodyField.text mutableCopy];
     NSRange selectedRange = self.bodyField.selectedRange;
     NSUInteger location = selectedRange.location;
     NSUInteger length = selectedRange.length;
@@ -131,7 +131,7 @@
     range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
     NSString *title = [sender titleForState:UIControlStateNormal];
     NSString *string = [NSString stringWithFormat:@"@%@ ", title];
-    text = [text stringByReplacingCharactersInRange:range withString:string];
+    [text replaceCharactersInRange:range withString:string];
     self.bodyField.text = text;
     self.bodyField.selectedRange = NSMakeRange(range.location + [string length], 0);
     self.bodyField.inputAccessoryView = nil;
@@ -208,9 +208,9 @@
         NSRange whitespaceRange = [text rangeOfCharacterFromSet:self.charSet options:0 range:NSMakeRange(range.location + range.length, textLength - (range.location + range.length))];
         range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
         if (range.length > 1) {
-            NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
             NSArray *allKeys = [[iOctocat sharedInstance].users allKeys];
             NSMutableArray *loginArray = [allKeys mutableCopy];
+            NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
             [loginArray filterUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
             NSUInteger count = [loginArray count];
             if (count > 0) {
@@ -235,10 +235,10 @@
                     button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
                     [button setTitle:login forState:UIControlStateNormal];
                     button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
-                    [self.scrollView addSubview:button];
                     [button sizeToFit];
                     button.frame = CGRectMake(x, m, button.frame.size.width, h);
                     [button useDarkGithubStyle];
+                    [self.scrollView addSubview:button];
                     x += button.frame.size.width + m;
                 }
                 self.scrollView.contentSize = CGSizeMake(x, 0.0f);

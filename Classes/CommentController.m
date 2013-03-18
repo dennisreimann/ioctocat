@@ -179,6 +179,8 @@
                 for (UIView *subview in [self.scrollView subviews]) {
                     [subview removeFromSuperview];
                 }
+                self.scrollView.contentOffset = CGPointZero;
+                self.scrollView.contentSize = CGSizeZero;
                 CGFloat m = 5.0f;
                 CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
                 CGFloat x = self.scrollView.bounds.origin.x + m;

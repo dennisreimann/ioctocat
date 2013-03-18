@@ -113,8 +113,9 @@
 
 - (void)buttonTapped:(UIButton *)sender {
     NSString *text = self.bodyField.text;
-    NSUInteger location = self.bodyField.selectedRange.location;
-    NSUInteger length = self.bodyField.selectedRange.length;
+    NSRange selectedRange = self.bodyField.selectedRange;
+    NSUInteger location = selectedRange.location;
+    NSUInteger length = selectedRange.length;
     NSString *substring = [text substringToIndex:location + length];
     NSString *component = nil;
     if (length == 0) {
@@ -208,16 +209,21 @@
         range = NSMakeRange(range.location, whitespaceRange.location == NSNotFound ? textLength - range.location : whitespaceRange.location - range.location);
         if (range.length > 1) {
             NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
-            NSArray *filteredLoginArray = [[[iOctocat sharedInstance].users allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
-            if ([filteredLoginArray count] > 0) {
-                NSArray *sortedLoginArray = [filteredLoginArray sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+            NSArray *allKeys = [[iOctocat sharedInstance].users allKeys];
+            NSMutableArray *loginArray = [allKeys mutableCopy];
+            [loginArray filterUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
+            NSUInteger count = [loginArray count];
+            if (count > 0) {
+                if (count > 1) {
+                    [loginArray sortUsingSelector:@selector(caseInsensitiveCompare:)];
+                }
                 for (UIView *subview in [self.scrollView subviews]) {
                     [subview removeFromSuperview];
                 }
                 CGFloat m = 5.0f;
                 CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
                 CGFloat x = self.scrollView.bounds.origin.x + m;
-                for (NSString *login in sortedLoginArray) {
+                for (NSString *login in loginArray) {
                     GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
                     GHUser *user = [iOctocat sharedInstance].users[login];
                     UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];

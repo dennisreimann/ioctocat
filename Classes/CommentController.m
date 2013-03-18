@@ -180,8 +180,7 @@
         if (range.length > 1) {
             NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
             NSArray *filteredLoginArray = [self.loginArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
-            NSUInteger count = [filteredLoginArray count];
-            if (count > 0) {
+            if ([filteredLoginArray count] > 0) {
                 for (UIView *subview in [self.scrollView subviews]) {
                     [subview removeFromSuperview];
                 }

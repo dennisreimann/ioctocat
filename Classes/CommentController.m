@@ -189,7 +189,6 @@
                 CGFloat x = self.scrollView.bounds.origin.x + m;
                 for (NSString *login in filteredLoginArray) {
                     GradientButton *button = nil;
-                    GHUser *user = [iOctocat sharedInstance].users[login];
                     while (!button && index < [subviews count]) {
                         UIView *subview = subviews[index];
                         if ([subview isKindOfClass:[GradientButton class]]) {
@@ -197,26 +196,27 @@
                         }
                         index++;
                     }
-                    UIImage *image = user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+                    UIImageView *imageView = nil;
                     if (!button) {
                         button = [GradientButton buttonWithType:UIButtonTypeCustom];
-                        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+                        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f)];
                         imageView.layer.masksToBounds = YES;
                         imageView.layer.cornerRadius = 3.0f;
-                        imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
                         [button insertSubview:imageView atIndex:0];
                         [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
                         button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
                         button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                         [button useDarkGithubStyle];
                         [self.scrollView addSubview:button];
-                    } else {
-                        UIImageView *imageView = [button subviews][0];
-                        imageView.image = image;
+                    }
+                    if (!imageView) {
+                        imageView = [button subviews][0];
                     }
                     [button setTitle:login forState:UIControlStateNormal];
                     [button sizeToFit];
                     button.frame = CGRectMake(x, m, button.frame.size.width, h);
+                    GHUser *user = [iOctocat sharedInstance].users[login];
+                    imageView.image = user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
                     x += button.frame.size.width + m;
                 }
                 while (index < [subviews count]) {

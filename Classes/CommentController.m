@@ -181,31 +181,50 @@
             NSString *login = [text substringWithRange:NSMakeRange(range.location + 1, range.length - 1)];
             NSArray *filteredLoginArray = [self.loginArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", login]];
             if ([filteredLoginArray count] > 0) {
-                for (UIView *subview in [self.scrollView subviews]) {
-                    [subview removeFromSuperview];
-                }
                 self.scrollView.contentOffset = CGPointZero;
-                self.scrollView.contentSize = CGSizeZero;
+                NSUInteger index = 0;
+                NSArray *subviews = [self.scrollView subviews];
                 CGFloat m = 5.0f;
                 CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
                 CGFloat x = self.scrollView.bounds.origin.x + m;
                 for (NSString *login in filteredLoginArray) {
-                    GradientButton *button = [GradientButton buttonWithType:UIButtonTypeCustom];
+                    GradientButton *button = nil;
                     GHUser *user = [iOctocat sharedInstance].users[login];
-                    UIImageView *imageView = [[UIImageView alloc] initWithImage:user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"]];
-                    imageView.layer.masksToBounds = YES;
-                    imageView.layer.cornerRadius = 3.0f;
-                    imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
-                    [button addSubview:imageView];
-                    [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
-                    button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                    while (!button && index < [subviews count]) {
+                        UIView *subview = subviews[index];
+                        if ([subview isKindOfClass:[GradientButton class]]) {
+                            button = (GradientButton *)subview;
+                        }
+                        index++;
+                    }
+                    UIImage *image = user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+                    if (!button) {
+                        button = [GradientButton buttonWithType:UIButtonTypeCustom];
+                        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+                        imageView.layer.masksToBounds = YES;
+                        imageView.layer.cornerRadius = 3.0f;
+                        imageView.frame = CGRectMake(m, m, h - m * 2.0f, h - m * 2.0f);
+                        [button insertSubview:imageView atIndex:0];
+                        [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+                        button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+                        button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
+                        [button useDarkGithubStyle];
+                        [self.scrollView addSubview:button];
+                    } else {
+                        UIImageView *imageView = [button subviews][0];
+                        imageView.image = image;
+                    }
                     [button setTitle:login forState:UIControlStateNormal];
-                    button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                     [button sizeToFit];
                     button.frame = CGRectMake(x, m, button.frame.size.width, h);
-                    [button useDarkGithubStyle];
-                    [self.scrollView addSubview:button];
                     x += button.frame.size.width + m;
+                }
+                while (index < [subviews count]) {
+                    UIView *subview = subviews[index];
+                    if ([subview isKindOfClass:[GradientButton class]]) {
+                        [subview removeFromSuperview];
+                    }
+                    index++;
                 }
                 self.scrollView.contentSize = CGSizeMake(x, 0.0f);
                 if (!textView.inputAccessoryView) {

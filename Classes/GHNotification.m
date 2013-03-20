@@ -14,6 +14,15 @@
 
 @implementation GHNotification
 
+- (id)initWithNotificationId:(NSInteger)notificationId {
+	self = [super init];
+	if (self) {
+		self.notificationId = notificationId;
+        self.resourcePath = [NSString stringWithFormat:kNotificationThreadFormat, self.notificationId];
+	}
+	return self;
+}
+
 - (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {

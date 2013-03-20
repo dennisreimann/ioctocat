@@ -2,6 +2,7 @@
 #import "iOctocat.h"
 #import "IOCApiClient.h"
 #import "IOCAvatarCache.h"
+#import "IOCAuthenticationController.h"
 #import "GHOAuthClient.h"
 #import "GHAccount.h"
 #import "GHUser.h"
@@ -15,6 +16,8 @@
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
 #import "NSDate+Nibware.h"
+#import "NSURL+Extensions.h"
+
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
 #define kUserNotificationsCountKeyPath @"user.notifications.unreadCount"
@@ -51,7 +54,64 @@
 	self.slidingViewController.anchorRightRevealAmount = 230;
 	self.slidingViewController.underLeftViewController = self.menuNavController;
 	[self.window makeKeyAndVisible];
+    NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (remoteNotification) [self application:application didReceiveRemoteNotification:remoteNotification];
 	return YES;
+}
+
+- (GHAccount *)accountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
+    NSUInteger idx = [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
+        if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    return (idx == NSNotFound) ? nil : self.accounts[idx];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
+    // if (application.applicationState == UIApplicationStateActive) return;
+    NSDictionary *info = [remoteNotification safeDictForKey:@"ioc"];
+    NSString *login = [info safeStringForKey:@"a"];
+    NSString *endpoint = [info safeStringForKey:@"b"];
+    GHAccount *account = [self accountWithLogin:login endpoint:endpoint];
+    if (!account) {
+        NSString *actualEndpoint = endpoint.isEmpty ? kGitHubComURL : endpoint;
+        NSString *host = [[NSURL smartURLFromString:actualEndpoint] host];
+        NSString *msg = [NSString stringWithFormat:@"Could not find account %@ for %@", login, host];
+        [iOctocat reportError:@"Missing account" with:msg];
+        return;
+    }
+    NSURL *url = [NSURL smartURLFromString:[info safeStringForKey:@"c"]];
+    NSInteger notificationId = [info safeIntegerForKey:@"d"];
+    // open the account respecting the current state of the app
+    BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
+    if (self.currentAccount == account && isMenuVisible) {
+        // the account is already open
+        MenuController *menuController = (MenuController *)self.menuNavController.topViewController;
+		if (notificationId) {
+            [menuController openNotificationControllerWithId:notificationId url:url];
+        } else {
+            [menuController openNotificationsController];
+        }
+    } else {
+        // eventually close the old account
+        if (isMenuVisible) [self.menuNavController popToRootViewControllerAnimated:NO];
+        // we need to open the account
+        self.currentAccount = account;
+        [IOCAuthenticationController authenticateAccount:account success:^(GHAccount *account) {
+            MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
+            [self.menuNavController pushViewController:menuController animated:YES];
+            if (notificationId) {
+                [menuController openNotificationControllerWithId:notificationId url:url];
+            } else {
+                [menuController openNotificationsController];
+            }
+        } failure:^(GHAccount *account) {
+            [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
+        }];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

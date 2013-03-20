@@ -14,9 +14,8 @@
 #import "IOCTableViewSectionHeader.h"
 
 
-@interface IOCAccountsController () <IOCAuthenticationControllerDelegate, IOCAccountFormControllerDelegate>
+@interface IOCAccountsController () <IOCAccountFormControllerDelegate>
 @property(nonatomic,strong)NSMutableDictionary *accountsByEndpoint;
-@property(nonatomic,strong)IOCAuthenticationController *authController;
 @end
 
 
@@ -137,7 +136,14 @@
 - (void)authenticateAccountAtIndex:(NSUInteger)idx {
 	GHAccount *account = self.accounts[idx];
 	[iOctocat sharedInstance].currentAccount = account;
-	[self.authController authenticateAccount:account];
+	[IOCAuthenticationController authenticateAccount:account success:^(GHAccount *account) {
+		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
+        [self.navigationController pushViewController:menuController animated:YES];
+    } failure:^(GHAccount *account) {
+        [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
+		NSUInteger idx = [self.accounts indexOfObject:account];
+		[self editAccountAtIndex:idx];
+    }];
 }
 
 #pragma mark TableView
@@ -214,26 +220,6 @@
         return proposedDestinationIndexPath;
     }
     return sourceIndexPath;
-}
-
-#pragma mark Authentication
-
-- (IOCAuthenticationController *)authController {
-	if (!_authController) _authController = [[IOCAuthenticationController alloc] initWithDelegate:self];
-	return _authController;
-}
-
-- (void)authenticatedAccount:(GHAccount *)account successfully:(NSNumber *)succesfully {
-	[iOctocat sharedInstance].currentAccount = account;
-    BOOL authenticated = [succesfully isEqualToNumber:@YES];
-	if (authenticated) {
-		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
-        [self.navigationController pushViewController:menuController animated:YES];
-	} else {
-        [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
-		NSUInteger idx = [self.accounts indexOfObject:account];
-		[self editAccountAtIndex:idx];
-    }
 }
 
 @end

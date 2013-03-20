@@ -24,6 +24,7 @@
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHNotifications.h"
+#import "GHNotification.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
@@ -58,6 +59,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		[self.user addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:NotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
+        self.initialViewController = [[MyEventsController alloc] initWithUser:self.user];
 	}
 	return self;
 }
@@ -75,9 +77,8 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	// disable scroll-to-top for the menu, so that the main controller receives the event
 	self.tableView.scrollsToTop = NO;
 	// open first view controller
-	MyEventsController *myEventsController = [[MyEventsController alloc] initWithUser:self.user];
 	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
-	[self openViewController:myEventsController];
+	[self openViewController:self.initialViewController];
 	// load resources
 	[self.user.notifications loadWithSuccess:^(GHResource *instance, id data) {
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -155,7 +156,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
             [self openViewController:viewController];
             return YES;
         } else if ([component isEqualToString:@"notifications"]) {
-            viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
+            IOCNotificationsController *viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
             [self openViewController:viewController];
             return YES;
         } else {
@@ -215,6 +216,25 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[self.slidingViewController setTopViewController:navController];
 	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
 	[self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
+}
+
+- (void)openNotificationsController {
+    IOCNotificationsController *viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
+    if (self.isViewLoaded) {
+        [self openViewController:viewController];
+    } else {
+        self.initialViewController = viewController;
+    }
+}
+
+// opens the notification with the given id and url in the context of the
+// notifications controller, so that the user can pop back to that context.
+// also marks the notificaton as read.
+- (void)openNotificationControllerWithId:(NSInteger)notificationId url:(NSURL *)itemURL {
+    [self openNotificationsController];
+    [self openViewControllerForGitHubURL:itemURL];
+    GHNotification *notification = [[GHNotification alloc] initWithNotificationId:notificationId];
+    [notification markAsReadStart:nil success:nil failure:nil];
 }
 
 - (void)toggleTopView {

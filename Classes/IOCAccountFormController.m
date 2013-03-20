@@ -27,6 +27,9 @@
 
 @implementation IOCAccountFormController
 
+static NSString *const AuthNote = @"iOctocat: Application";
+static NSString *const PushNote = @"iOctocat: Push Notifications";
+
 - (id)initWithAccount:(GHAccount *)account andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
 	if (self) {
@@ -41,7 +44,7 @@
 	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
 	self.loginField.text = self.account.login;
 	self.endpointField.text = self.account.endpoint;
-    [self checkPushState];
+    [self checkPushStateForPushToken:self.account.pushToken];
     [self.removeButton useRedDeleteStyle];
     self.removeButton.hidden = self.index == NSNotFound;
 }
@@ -98,23 +101,27 @@
 	}];
 }
 
-- (void)checkPushState {
-	if (self.hasDeviceToken && self.hasPushToken) {
+- (void)checkPushStateForPushToken:(NSString *)pushToken {
+	if (self.hasDeviceToken && !pushToken.isEmpty) {
 		self.pushSwitch.enabled = NO;
-		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
-			[self.pushSwitch setOn:YES animated:YES];
-			self.pushSwitch.enabled = YES;
+		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:pushToken success:^(id json) {
+            self.account.pushToken = pushToken;
+            [self saveAccount];
+            [self.pushSwitch setOn:YES animated:YES];
+            self.pushSwitch.enabled = YES;
+            self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 		} failure:^(NSError *error) {
-			self.account.pushToken = @"";
-			[self saveAccount];
-			[self.pushSwitch setOn:NO animated:YES];
-			self.pushSwitch.enabled = YES;
+            self.account.pushToken = @"";
+            [self saveAccount];
+            [self.pushSwitch setOn:NO animated:YES];
+            self.pushSwitch.enabled = YES;
+            self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 		}];
 	} else {
 		self.pushSwitch.on = NO;
 		self.pushSwitch.enabled = self.hasDeviceToken && self.hasAuthToken ? YES : NO;
+        self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 	}
-	self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 }
 
 #pragma mark Actions
@@ -131,10 +138,9 @@
         [iOctocat reportError:@"Duplicate account" with:@"This account already exists"];
 		return;
     }
-	NSString *note = @"iOctocat: Application";
 	NSArray	*scopes = @[@"user", @"repo", @"gist", @"notifications"];
 	[SVProgressHUD showWithStatus:@"Authenticating" maskType:SVProgressHUDMaskTypeGradient];
-	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
+	[self.apiClient saveAuthorizationWithNote:AuthNote scopes:scopes success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Authenticated"];
         [self.view endEditing:NO];
 		// update
@@ -142,7 +148,12 @@
 		self.account.endpoint = endpoint;
 		self.account.authToken = [json safeStringForKey:@"token"];
 		[self saveAccount];
-        [self checkPushState];
+        [self.apiClient findAuthorizationWithNote:PushNote success:^(id json) {
+            NSString *pushToken = [json safeStringForKey:@"token"];
+            [self checkPushStateForPushToken:pushToken];
+        } failure:^(NSError *error) {
+            [self checkPushStateForPushToken:@""];
+        }];
 	} failure:^(NSError *error) {
 		[SVProgressHUD showErrorWithStatus:@"Authentication failed"];
 	}];
@@ -190,10 +201,9 @@
 - (void)enablePush {
     NSString *login = self.loginValue;
     NSString *endpoint = self.endpointValue;
-	NSString *note = @"iOctocat: Push Notifications";
 	NSArray *scopes = @[@"notifications"];
 	[SVProgressHUD showWithStatus:@"Enabling push notifications" maskType:SVProgressHUDMaskTypeGradient];
-	[self.apiClient saveAuthorizationWithNote:note scopes:scopes success:^(id json) {
+	[self.apiClient saveAuthorizationWithNote:PushNote scopes:scopes success:^(id json) {
 		NSString *token = [json safeStringForKey:@"token"];
 		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token endpoint:endpoint login:login success:^(id json) {
 			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];

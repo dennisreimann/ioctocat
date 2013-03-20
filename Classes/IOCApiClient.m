@@ -28,7 +28,7 @@
 
 // heavily inspired by Orbiter: https://github.com/mattt/Orbiter
 
-static NSString * IOCNormalizedDeviceToken(id deviceToken) {
+static NSString *IOCNormalizedDeviceToken(id deviceToken) {
     return [[[[deviceToken description] uppercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 

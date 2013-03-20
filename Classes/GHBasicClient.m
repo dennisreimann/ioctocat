@@ -35,7 +35,7 @@
 // callback is triggered in case an authorization could be found or there is
 // not an authorization with the given note - the latter case returns nil.
 // the failure callback gets triggered if there is an authentication error.
-- (void)findAuthorizationWithNote:(NSString *)note success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+- (void)findAuthorizationWithNote:(NSString *)note success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
 	NSString *path = kAuthorizationsFormat;
 	D3JLog(@"Find authorization: %@", note);
 	[self getPath:path parameters:nil success:^(AFHTTPRequestOperation *operation, id json) {

@@ -16,7 +16,6 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [self keyForPath:path account:account];
 	[defaults setValue:date forKey:key];
-	[defaults synchronize];
 }
 
 + (NSString *)keyForPath:(NSString *)path account:(GHAccount *)account {

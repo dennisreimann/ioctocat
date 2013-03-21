@@ -2,6 +2,7 @@
 #import "iOctocat.h"
 #import "IOCApiClient.h"
 #import "IOCAvatarCache.h"
+#import "IOCDefaultsPersistence.h"
 #import "IOCAuthenticationService.h"
 #import "GHOAuthClient.h"
 #import "GHAccount.h"
@@ -47,8 +48,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	self.deviceToken = @"";
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-	[self deactivateURLCache];
+	[self registerForRemoteNotifications];
+    [self deactivateURLCache];
 	[self setupHockeySDK];
     [self setupAccounts];
 	self.slidingViewController.anchorRightRevealAmount = 230;
@@ -59,15 +60,27 @@
 	return YES;
 }
 
-- (GHAccount *)accountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
-    NSUInteger idx = [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
-        if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
-            *stop = YES;
-            return YES;
-        }
-        return NO;
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    if ([IOCDefaultsPersistence grantedRemoteNotificationsPermission]) {
+        // Reregister for remote notifications so that we always deal
+        // with fresh data like the current device token and badge
+        [self registerForRemoteNotifications];
+    }
+	[self checkAvatarCache];
+	[self checkGitHubSystemStatus];
+}
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    // store the fact that the user granted remote notifications access
+    [IOCDefaultsPersistence storeRemoteNotificationsPermission:@YES];
+    // save device token for later registration of accounts for that device
+    NSString *alias = self.accounts.count > 0 ? [(GHAccount *)self.accounts[0] accountId] : nil;
+	[[[IOCApiClient alloc] init] registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
+        DJLog(@"Remote Notifications Registration Success: %@", responseObject);
+		self.deviceToken = [responseObject safeStringForKey:@"token"];
+    } failure:^(NSError *error) {
+        DJLog(@"Remote Notifications Registration Error: %@", error);
     }];
-    return (idx == NSNotFound) ? nil : self.accounts[idx];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
@@ -114,35 +127,6 @@
     }
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-	[self checkAvatarCache];
-	[self checkGitHubSystemStatus];
-}
-
-- (void)setCurrentAccount:(GHAccount *)account {
-	[self clearUserObjectCache];
-	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
-	_currentAccount = account;
-	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	NSInteger unread = self.currentAccount.user.notifications.unreadCount;
-	[self setBadge:unread];
-	if (!self.currentAccount) {
-		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
-		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
-		[self.slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:YES animations:^{
-			CGFloat width = UIInterfaceOrientationIsPortrait(self.menuNavController.interfaceOrientation) ? self.window.frame.size.width :
-				self.window.frame.size.height;
-			CGRect viewFrame = self.menuNavController.view.frame;
-			viewFrame.size.width = width;
-			self.menuNavController.view.frame = viewFrame;
-			self.slidingViewController.underLeftWidthLayout = ECFullWidth;
-		} onComplete:^{
-			[self.slidingViewController setTopViewController:nil];
-			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
-		}];
-	}
-}
-
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
 	BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
 	if (isMenuVisible && [self isGitHubURL:url]) {
@@ -152,17 +136,6 @@
 	} else {
 		return NO;
 	}
-}
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    NSString *alias = self.accounts.count > 0 ? [(GHAccount *)self.accounts[0] accountId] : nil;
-	[[[IOCApiClient alloc] init] registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
-        DJLog(@"Registration Success: %@", responseObject);
-		// save device token for later registration of accounts for that device
-		self.deviceToken = [responseObject safeStringForKey:@"token"];
-    } failure:^(NSError *error) {
-        DJLog(@"Registration Error: %@", error);
-    }];
 }
 
 #pragma mark External resources
@@ -257,6 +230,41 @@
 }
 
 #pragma mark Helpers
+
+- (GHAccount *)accountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
+    NSUInteger idx = [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
+        if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
+            *stop = YES;
+            return YES;
+        }
+        return NO;
+    }];
+    return (idx == NSNotFound) ? nil : self.accounts[idx];
+}
+
+- (void)setCurrentAccount:(GHAccount *)account {
+	[self clearUserObjectCache];
+	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
+	_currentAccount = account;
+	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	NSInteger unread = self.currentAccount.user.notifications.unreadCount;
+	[self setBadge:unread];
+	if (!self.currentAccount) {
+		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
+		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
+		[self.slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:YES animations:^{
+			CGFloat width = UIInterfaceOrientationIsPortrait(self.menuNavController.interfaceOrientation) ? self.window.frame.size.width :
+            self.window.frame.size.height;
+			CGRect viewFrame = self.menuNavController.view.frame;
+			viewFrame.size.width = width;
+			self.menuNavController.view.frame = viewFrame;
+			self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+		} onComplete:^{
+			[self.slidingViewController setTopViewController:nil];
+			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
+		}];
+	}
+}
 
 + (void)reportError:(NSString *)title with:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"DropdownError.png"];
@@ -361,6 +369,10 @@
 			}
 		}
 	}
+}
+
+- (void)registerForRemoteNotifications {
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 
 #pragma mark Autorotation

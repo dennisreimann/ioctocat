@@ -6,16 +6,14 @@
 @implementation IOCDefaultsPersistence
 
 + (NSDate *)lastUpdateForPath:(NSString *)path account:(GHAccount *)account {
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [self keyForPath:path account:account];
-	NSDate *date = [userDefaults objectForKey:key];
+	NSDate *date = [[NSUserDefaults standardUserDefaults] objectForKey:key];
 	return date;
 }
 
 + (void)setLastUpate:(NSDate *)date forPath:(NSString *)path account:(GHAccount *)account {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSString *key = [self keyForPath:path account:account];
-	[defaults setValue:date forKey:key];
+	[[NSUserDefaults standardUserDefaults] setValue:date forKey:key];
 }
 
 + (NSString *)keyForPath:(NSString *)path account:(GHAccount *)account {
@@ -25,6 +23,14 @@
 	if (!endpoint) endpoint = @"github.com";
 	NSString *key = [NSString stringWithFormat:@"lastReadingDate:%@:%@:%@", endpoint, login, path];
 	return key;
+}
+
++ (void)storeRemoteNotificationsPermission:(NSNumber *)granted {
+	[[NSUserDefaults standardUserDefaults] setValue:granted forKey:@"remoteNotificationsPermission"];
+}
+
++ (BOOL)grantedRemoteNotificationsPermission {
+	return !![[NSUserDefaults standardUserDefaults] objectForKey:@"remoteNotificationsPermission"];
 }
 
 @end

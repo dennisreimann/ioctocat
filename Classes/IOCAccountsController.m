@@ -137,6 +137,7 @@
 	GHAccount *account = self.accounts[idx];
 	[iOctocat sharedInstance].currentAccount = account;
 	[IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
+        [iOctocat sharedInstance].currentAccount = account;
 		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
         [self.navigationController pushViewController:menuController animated:YES];
     } failure:^(GHAccount *account) {

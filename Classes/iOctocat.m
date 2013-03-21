@@ -84,7 +84,6 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
-    // if (application.applicationState == UIApplicationStateActive) return;
     NSDictionary *info = [remoteNotification safeDictForKey:@"ioc"];
     NSString *login = [info safeStringForKey:@"a"];
     NSString *endpoint = [info safeStringForKey:@"b"];
@@ -114,13 +113,14 @@
         // we need to open the account
         self.currentAccount = account;
         [IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
+            self.currentAccount = account;
             MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
-            [self.menuNavController pushViewController:menuController animated:YES];
             if (notificationId) {
                 [menuController openNotificationControllerWithId:notificationId url:url];
             } else {
                 [menuController openNotificationsController];
             }
+            [self.menuNavController pushViewController:menuController animated:YES];
         } failure:^(GHAccount *account) {
             [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
         }];
@@ -247,8 +247,6 @@
 	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
 	_currentAccount = account;
 	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	NSInteger unread = self.currentAccount.user.notifications.unreadCount;
-	[self setBadge:unread];
 	if (!self.currentAccount) {
 		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
 		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
@@ -264,6 +262,7 @@
 			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
 		}];
 	}
+	[self setBadge:self.currentAccount.user.notifications.unreadCount];
 }
 
 + (void)reportError:(NSString *)title with:(NSString *)message {

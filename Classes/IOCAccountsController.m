@@ -10,7 +10,7 @@
 #import "NSDictionary+Extensions.h"
 #import "NSMutableArray+Extensions.h"
 #import "iOctocat.h"
-#import "IOCAuthenticationController.h"
+#import "IOCAuthenticationService.h"
 #import "IOCTableViewSectionHeader.h"
 
 
@@ -136,7 +136,7 @@
 - (void)authenticateAccountAtIndex:(NSUInteger)idx {
 	GHAccount *account = self.accounts[idx];
 	[iOctocat sharedInstance].currentAccount = account;
-	[IOCAuthenticationController authenticateAccount:account success:^(GHAccount *account) {
+	[IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
 		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
         [self.navigationController pushViewController:menuController animated:YES];
     } failure:^(GHAccount *account) {

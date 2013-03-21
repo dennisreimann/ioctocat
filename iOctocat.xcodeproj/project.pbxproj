@@ -238,7 +238,7 @@
 		6F612468167D0410001A3E05 /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
 		6F612469167D0410001A3E05 /* IOCAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* IOCAccountsController.m */; };
 		6F61246A167D0410001A3E05 /* IOCAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */; };
-		6F61246B167D0410001A3E05 /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
+		6F61246B167D0410001A3E05 /* IOCAuthenticationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */; };
 		6F61246C167D0410001A3E05 /* EventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF8D1649AEB200337EBE /* EventsController.m */; };
 		6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE4D870F7FE16A00451D6E /* MyEventsController.m */; };
 		6F61246E167D0410001A3E05 /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
@@ -739,7 +739,7 @@
 		6FCAA43E167B52C800C816FA /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
 		6FCAA43F167B52C800C816FA /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
 		6FCAA440167B52C800C816FA /* IOCPullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */; };
-		6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
+		6FCAA441167B52C800C816FA /* IOCAuthenticationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */; };
 		6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4CF0FB0F20B00C3A8E0 /* IOCUsersController.m */; };
 		6FCAA443167B52C800C816FA /* UserObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C53B4D60FB0F32600C3A8E0 /* UserObjectCell.m */; };
 		6FCAA445167B52C800C816FA /* GHSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F358C5B0FB1EEC4004D2828 /* GHSearch.m */; };
@@ -861,7 +861,7 @@
 		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
 		6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
 		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
-		6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */; };
+		6FE91E4C0FAD13D500749370 /* IOCAuthenticationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */; };
 		6FED82970FACA1E700BE5C81 /* IOCPullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */; };
 		6FEDE40E16E2A1A500459B5C /* ToolbarLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FEDE40A16E2A1A500459B5C /* ToolbarLeft.png */; };
 		6FEDE40F16E2A1A500459B5C /* ToolbarLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FEDE40A16E2A1A500459B5C /* ToolbarLeft.png */; };
@@ -1455,8 +1455,8 @@
 		6FE7D2B411568951004B4D68 /* GHIssueComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComments.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
 		6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
-		6FE91E4A0FAD13D500749370 /* IOCAuthenticationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAuthenticationController.h; sourceTree = "<group>"; };
-		6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAuthenticationController.m; sourceTree = "<group>"; };
+		6FE91E4A0FAD13D500749370 /* IOCAuthenticationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAuthenticationService.h; sourceTree = "<group>"; };
+		6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAuthenticationService.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IOCPullRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCPullRequestsController.h; sourceTree = "<group>"; };
 		6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCPullRequestsController.m; sourceTree = "<group>"; };
 		6FEDE40A16E2A1A500459B5C /* ToolbarLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarLeft.png; sourceTree = "<group>"; };
@@ -1590,6 +1590,7 @@
 				6F5E9AA21119A96000752560 /* External */,
 				6FE931D30FC7242A008545A2 /* Utils */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
+				2E11E70416FB13080012ACDA /* Services */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
 				6F1DC52B0F7E725500FCD26D /* View */,
 			);
@@ -1667,6 +1668,15 @@
 				6F48DB71166C07B600F8FF16 /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2E11E70416FB13080012ACDA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6FE91E4A0FAD13D500749370 /* IOCAuthenticationService.h */,
+				6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */,
+			);
+			name = Services;
 			sourceTree = "<group>";
 		};
 		2E88193316F8F8B300ACA2EB /* Sounds */ = {
@@ -2163,8 +2173,6 @@
 				6F27CD0F159113D900E15B34 /* IOCAccountsController.m */,
 				6F27CD1D15911E4700E15B34 /* IOCAccountFormController.h */,
 				6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */,
-				6FE91E4A0FAD13D500749370 /* IOCAuthenticationController.h */,
-				6FE91E4B0FAD13D500749370 /* IOCAuthenticationController.m */,
 			);
 			name = Account;
 			sourceTree = "<group>";
@@ -3374,7 +3382,7 @@
 				8C6A9EA30FABF1D900A99483 /* IssueObjectCell.m in Sources */,
 				8C6AA15F0FAC22B000A99483 /* IOCIssueController.m in Sources */,
 				6FED82970FACA1E700BE5C81 /* IOCPullRequestsController.m in Sources */,
-				6FE91E4C0FAD13D500749370 /* IOCAuthenticationController.m in Sources */,
+				6FE91E4C0FAD13D500749370 /* IOCAuthenticationService.m in Sources */,
 				8C53B4D00FB0F20B00C3A8E0 /* IOCUsersController.m in Sources */,
 				8C53B4D70FB0F32600C3A8E0 /* UserObjectCell.m in Sources */,
 				6F358C5C0FB1EEC4004D2828 /* GHSearch.m in Sources */,
@@ -3466,7 +3474,7 @@
 				6F612468167D0410001A3E05 /* GradientButton.m in Sources */,
 				6F612469167D0410001A3E05 /* IOCAccountsController.m in Sources */,
 				6F61246A167D0410001A3E05 /* IOCAccountFormController.m in Sources */,
-				6F61246B167D0410001A3E05 /* IOCAuthenticationController.m in Sources */,
+				6F61246B167D0410001A3E05 /* IOCAuthenticationService.m in Sources */,
 				6F61246C167D0410001A3E05 /* EventsController.m in Sources */,
 				6F61246D167D0410001A3E05 /* MyEventsController.m in Sources */,
 				6F61246E167D0410001A3E05 /* IOCUsersController.m in Sources */,
@@ -3596,7 +3604,7 @@
 				6FCAA43E167B52C800C816FA /* IssueObjectCell.m in Sources */,
 				6FCAA43F167B52C800C816FA /* IOCIssueController.m in Sources */,
 				6FCAA440167B52C800C816FA /* IOCPullRequestsController.m in Sources */,
-				6FCAA441167B52C800C816FA /* IOCAuthenticationController.m in Sources */,
+				6FCAA441167B52C800C816FA /* IOCAuthenticationService.m in Sources */,
 				6FCAA442167B52C800C816FA /* IOCUsersController.m in Sources */,
 				6FCAA443167B52C800C816FA /* UserObjectCell.m in Sources */,
 				6FCAA445167B52C800C816FA /* GHSearch.m in Sources */,

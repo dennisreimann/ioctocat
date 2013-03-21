@@ -1,10 +1,10 @@
-#import "IOCAuthenticationController.h"
+#import "IOCAuthenticationService.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "SVProgressHUD.h"
 
 
-@implementation IOCAuthenticationController
+@implementation IOCAuthenticationService
 
 + (void)authenticateAccount:(GHAccount *)account success:(void (^)(GHAccount *))success failure:(void (^)(GHAccount *))failure {
 	[account.user loadWithParams:nil start:^(GHResource *instance) {

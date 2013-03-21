@@ -2,7 +2,7 @@
 #import "iOctocat.h"
 #import "IOCApiClient.h"
 #import "IOCAvatarCache.h"
-#import "IOCAuthenticationController.h"
+#import "IOCAuthenticationService.h"
 #import "GHOAuthClient.h"
 #import "GHAccount.h"
 #import "GHUser.h"
@@ -100,7 +100,7 @@
         if (isMenuVisible) [self.menuNavController popToRootViewControllerAnimated:NO];
         // we need to open the account
         self.currentAccount = account;
-        [IOCAuthenticationController authenticateAccount:account success:^(GHAccount *account) {
+        [IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
             MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
             [self.menuNavController pushViewController:menuController animated:YES];
             if (notificationId) {

@@ -2,7 +2,6 @@
 #import "GHEvent.h"
 #import "GHCommits.h"
 #import "GHUser.h"
-#import "IOCAvatarLoader.h"
 #import "GHRepository.h"
 #import "GHCommit.h"
 #import "GHGist.h"

@@ -11,7 +11,6 @@
 #import "LabeledCell.h"
 #import "RepositoryCell.h"
 #import "UserObjectCell.h"
-#import "IOCAvatarLoader.h"
 #import "iOctocat.h"
 #import "IOCUsersController.h"
 #import "EventsController.h"

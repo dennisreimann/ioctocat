@@ -8,15 +8,10 @@
 #import "GHGists.h"
 #import "GHResource.h"
 #import "GHNotifications.h"
-#import "IOCAvatarLoader.h"
+#import "IOCGravatarService.h"
 #import "IOCAvatarCache.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
-
-
-@interface GHUser ()
-@property(nonatomic,strong)IOCAvatarLoader *gravatarLoader;
-@end
 
 
 @implementation GHUser
@@ -46,8 +41,9 @@
 - (void)setGravatarURL:(NSURL *)url {
 	_gravatarURL = url;
 	if (self.gravatarURL && !self.gravatar) {
-		self.gravatarLoader = [IOCAvatarLoader loaderWithTarget:self andHandle:@selector(setGravatar:)];
-		[self.gravatarLoader loadURL:self.gravatarURL];
+		[IOCGravatarService loadWithURL:self.gravatarURL success:^(UIImage *gravatar) {
+            self.gravatar = gravatar;
+        } failure:nil];
 	}
 }
 

@@ -228,7 +228,7 @@
 		6F61245C167D02A2001A3E05 /* GHRepoComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FD1DE2A158FCCA900D72A3D /* GHRepoComment.m */; };
 		6F61245D167D02A2001A3E05 /* GHGistComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AD1623772300CE95D0 /* GHGistComments.m */; };
 		6F61245E167D02A2001A3E05 /* GHGistComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0879AB1623772300CE95D0 /* GHGistComment.m */; };
-		6F61245F167D02C9001A3E05 /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
+		6F61245F167D02C9001A3E05 /* IOCGravatarService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCGravatarService.m */; };
 		6F612461167D02C9001A3E05 /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AA132EC90D00C9446E /* GHResource.m */; };
 		6F612462167D02C9001A3E05 /* GHCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA1329A16772F3B001C0804 /* GHCollection.m */; };
 		6F612463167D02C9001A3E05 /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
@@ -728,7 +728,7 @@
 		6FCAA433167B52C800C816FA /* GHRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F35BD530F88B06200E978CD /* GHRepository.m */; };
 		6FCAA434167B52C800C816FA /* IOCUserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC95F1E0F8905F500FC0968 /* IOCUserController.m */; };
 		6FCAA435167B52C800C816FA /* LabeledCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC9610B0F8935DC00FC0968 /* LabeledCell.m */; };
-		6FCAA436167B52C800C816FA /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
+		6FCAA436167B52C800C816FA /* IOCGravatarService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCGravatarService.m */; };
 		6FCAA437167B52C800C816FA /* IOCRepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */; };
 		6FCAA438167B52C800C816FA /* TextCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A420D0F90CE0500427ED7 /* TextCell.m */; };
 		6FCAA439167B52C800C816FA /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
@@ -813,7 +813,7 @@
 		6FCAA48F167B52C800C816FA /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F6F176F11E316F3008B319F /* SystemConfiguration.framework */; };
 		6FCAA490167B52C800C816FA /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 		6FCAA491167B52C800C816FA /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67ECF03BCF254C88A027B814 /* libPods.a */; };
-		6FCAF1660F895756005E1173 /* IOCAvatarLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */; };
+		6FCAF1660F895756005E1173 /* IOCGravatarService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FCAF1650F895756005E1173 /* IOCGravatarService.m */; };
 		6FCD1B5716AC26AA00D843EA /* Forks.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5316AC26AA00D843EA /* Forks.png */; };
 		6FCD1B5816AC26AA00D843EA /* Forks.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5316AC26AA00D843EA /* Forks.png */; };
 		6FCD1B5916AC26AA00D843EA /* Forks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FCD1B5416AC26AA00D843EA /* Forks@2x.png */; };
@@ -1398,8 +1398,8 @@
 		6FC9610A0F8935DC00FC0968 /* LabeledCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabeledCell.h; sourceTree = "<group>"; };
 		6FC9610B0F8935DC00FC0968 /* LabeledCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabeledCell.m; sourceTree = "<group>"; };
 		6FCAA496167B52C800C816FA /* iOctocatBeta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOctocatBeta.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		6FCAF1640F895756005E1173 /* IOCAvatarLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAvatarLoader.h; sourceTree = "<group>"; };
-		6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAvatarLoader.m; sourceTree = "<group>"; };
+		6FCAF1640F895756005E1173 /* IOCGravatarService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCGravatarService.h; sourceTree = "<group>"; };
+		6FCAF1650F895756005E1173 /* IOCGravatarService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCGravatarService.m; sourceTree = "<group>"; };
 		6FCD1B5316AC26AA00D843EA /* Forks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forks.png; sourceTree = "<group>"; };
 		6FCD1B5416AC26AA00D843EA /* Forks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Forks@2x.png"; sourceTree = "<group>"; };
 		6FCD1B5516AC26AA00D843EA /* Stars.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stars.png; sourceTree = "<group>"; };
@@ -1588,7 +1588,6 @@
 			children = (
 				6F5E9A971119A96000752560 /* Extensions */,
 				6F5E9AA21119A96000752560 /* External */,
-				6FE931D30FC7242A008545A2 /* Utils */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				2E11E70416FB13080012ACDA /* Services */,
 				6F1DC4A30F7E5D2200FCD26D /* Controller */,
@@ -1675,6 +1674,12 @@
 			children = (
 				6FE91E4A0FAD13D500749370 /* IOCAuthenticationService.h */,
 				6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */,
+				6FCAF1640F895756005E1173 /* IOCGravatarService.h */,
+				6FCAF1650F895756005E1173 /* IOCGravatarService.m */,
+				6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */,
+				6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */,
+				6FBA29FF16A4978C003F02A4 /* IOCDefaultsPersistence.h */,
+				6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -2310,19 +2315,6 @@
 			);
 			name = Menu;
 			path = Images/Menu;
-			sourceTree = "<group>";
-		};
-		6FE931D30FC7242A008545A2 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				6FCAF1640F895756005E1173 /* IOCAvatarLoader.h */,
-				6FCAF1650F895756005E1173 /* IOCAvatarLoader.m */,
-				6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */,
-				6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */,
-				6FBA29FF16A4978C003F02A4 /* IOCDefaultsPersistence.h */,
-				6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */,
-			);
-			name = Utils;
 			sourceTree = "<group>";
 		};
 		6FECA89915906CD000878A74 /* Comments */ = {
@@ -3371,7 +3363,7 @@
 				6F35BD540F88B06200E978CD /* GHRepository.m in Sources */,
 				6FC95F1F0F8905F500FC0968 /* IOCUserController.m in Sources */,
 				6FC9610C0F8935DC00FC0968 /* LabeledCell.m in Sources */,
-				6FCAF1660F895756005E1173 /* IOCAvatarLoader.m in Sources */,
+				6FCAF1660F895756005E1173 /* IOCGravatarService.m in Sources */,
 				6F5A41750F90C38300427ED7 /* IOCRepositoryController.m in Sources */,
 				6F5A420E0F90CE0500427ED7 /* TextCell.m in Sources */,
 				6F5652E10F99C85C001B6703 /* IOCMyRepositoriesController.m in Sources */,
@@ -3510,7 +3502,7 @@
 				6F612490167D0410001A3E05 /* FilesCell.m in Sources */,
 				6F612491167D0410001A3E05 /* CommentCell.m in Sources */,
 				6F612492167D0410001A3E05 /* MenuCell.m in Sources */,
-				6F61245F167D02C9001A3E05 /* IOCAvatarLoader.m in Sources */,
+				6F61245F167D02C9001A3E05 /* IOCGravatarService.m in Sources */,
 				6F612461167D02C9001A3E05 /* GHResource.m in Sources */,
 				6F612462167D02C9001A3E05 /* GHCollection.m in Sources */,
 				6F612463167D02C9001A3E05 /* GHAccount.m in Sources */,
@@ -3593,7 +3585,7 @@
 				6FCAA433167B52C800C816FA /* GHRepository.m in Sources */,
 				6FCAA434167B52C800C816FA /* IOCUserController.m in Sources */,
 				6FCAA435167B52C800C816FA /* LabeledCell.m in Sources */,
-				6FCAA436167B52C800C816FA /* IOCAvatarLoader.m in Sources */,
+				6FCAA436167B52C800C816FA /* IOCGravatarService.m in Sources */,
 				6FCAA437167B52C800C816FA /* IOCRepositoryController.m in Sources */,
 				6FCAA438167B52C800C816FA /* TextCell.m in Sources */,
 				6FCAA439167B52C800C816FA /* IOCMyRepositoriesController.m in Sources */,

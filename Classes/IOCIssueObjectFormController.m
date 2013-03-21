@@ -225,17 +225,19 @@
                 self.scrollView.contentOffset = CGPointZero;
                 NSUInteger index = 0;
                 NSArray *subviews = [self.scrollView subviews];
+                NSUInteger count = [subviews count];
                 CGFloat m = 5.0f;
                 CGFloat h = self.scrollView.frame.size.height - m * 2.0f;
                 CGFloat x = self.scrollView.bounds.origin.x + m;
                 for (NSString *login in filteredLoginArray) {
                     GradientButton *button = nil;
-                    while (!button && index < [subviews count]) {
+                    while (index < count) {
                         UIView *subview = subviews[index];
+                        index++;
                         if ([subview isKindOfClass:[GradientButton class]]) {
                             button = (GradientButton *)subview;
+                            break;
                         }
-                        index++;
                     }
                     UIImageView *imageView = nil;
                     if (!button) {
@@ -260,7 +262,7 @@
                     imageView.image = user.gravatar ? user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
                     x += button.frame.size.width + m;
                 }
-                while (index < [subviews count]) {
+                while (index < count) {
                     UIView *subview = subviews[index];
                     if ([subview isKindOfClass:[GradientButton class]]) {
                         [subview removeFromSuperview];

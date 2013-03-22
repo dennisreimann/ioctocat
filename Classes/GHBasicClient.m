@@ -56,7 +56,7 @@
 }
 
 // tries to find an existing authorization with the given note, so that an
-// eventually existing one can be updated. it is important to look taht up
+// eventually existing one can be updated. it is important to look that up
 // first, so that existing authorizations can be shared across the users
 // devices, so that one does not have to create an authorization per device.
 - (void)saveAuthorizationWithNote:(NSString *)note scopes:(NSArray *)scopes success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {

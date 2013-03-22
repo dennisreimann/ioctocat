@@ -249,21 +249,6 @@
 	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
 	_currentAccount = account;
 	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	if (!self.currentAccount) {
-		UIBarButtonItem *btnItem = self.menuNavController.topViewController.navigationItem.rightBarButtonItem;
-		self.menuNavController.topViewController.navigationItem.rightBarButtonItem = nil;
-		[self.slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:YES animations:^{
-			CGFloat width = UIInterfaceOrientationIsPortrait(self.menuNavController.interfaceOrientation) ? self.window.frame.size.width :
-            self.window.frame.size.height;
-			CGRect viewFrame = self.menuNavController.view.frame;
-			viewFrame.size.width = width;
-			self.menuNavController.view.frame = viewFrame;
-			self.slidingViewController.underLeftWidthLayout = ECFullWidth;
-		} onComplete:^{
-			[self.slidingViewController setTopViewController:nil];
-			self.menuNavController.topViewController.navigationItem.rightBarButtonItem = btnItem;
-		}];
-	}
 	[self setBadge:self.currentAccount.user.notifications.unreadCount];
 }
 

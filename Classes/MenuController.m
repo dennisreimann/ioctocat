@@ -99,6 +99,19 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	}
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:YES animations:^{
+        CGFloat width = UIInterfaceOrientationIsPortrait(self.navigationController.interfaceOrientation) ? [iOctocat sharedInstance].window.frame.size.width : [iOctocat sharedInstance].window.frame.size.height;
+        CGRect viewFrame = self.navigationController.view.frame;
+        viewFrame.size.width = width;
+        self.navigationController.view.frame = viewFrame;
+        self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+    } onComplete:^{
+        [self.slidingViewController setTopViewController:nil];
+    }];
+}
+
 - (void)addOrganizationObservers {
 	for (GHOrganization *org in self.user.organizations.items) {
 		[org addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];

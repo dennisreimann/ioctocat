@@ -39,6 +39,16 @@
 	});
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+	self.navigationItem.rightBarButtonItem = nil;
+}
+
 - (NSMutableArray *)accounts {
     return [iOctocat sharedInstance].accounts;
 }

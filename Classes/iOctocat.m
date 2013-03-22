@@ -46,18 +46,17 @@
 #pragma mark Application Events
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-	self.deviceToken = @"";
+    self.deviceToken = @"";
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-	[self registerForRemoteNotifications];
+    [self registerForRemoteNotifications];
     [self deactivateURLCache];
-	[self setupHockeySDK];
+    [self setupHockeySDK];
     [self setupAccounts];
-	self.slidingViewController.anchorRightRevealAmount = 230;
-	self.slidingViewController.underLeftViewController = self.menuNavController;
-	[self.window makeKeyAndVisible];
+    [self setupSlidingViewController];
+    [self.window makeKeyAndVisible];
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification) [self application:application didReceiveRemoteNotification:remoteNotification];
-	return YES;
+    return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -355,6 +354,11 @@
 			}
 		}
 	}
+}
+
+- (void)setupSlidingViewController {
+    self.slidingViewController.anchorRightRevealAmount = 230;
+    self.slidingViewController.underLeftViewController = self.menuNavController;
 }
 
 - (void)registerForRemoteNotifications {

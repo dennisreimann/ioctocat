@@ -12,6 +12,7 @@
 #import "iOctocat.h"
 #import "IOCAuthenticationService.h"
 #import "IOCTableViewSectionHeader.h"
+#import "ECSlidingViewController.h"
 
 
 @interface IOCAccountsController () <IOCAccountFormControllerDelegate>
@@ -23,7 +24,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	if ([iOctocat sharedInstance].currentAccount) {
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuMovedOff) name:ECSlidingViewTopDidAnchorRight object:nil];
+    if ([iOctocat sharedInstance].currentAccount) {
 		[iOctocat sharedInstance].currentAccount = nil;
 	}
 	[self handleAccountsChange];
@@ -47,6 +49,11 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	self.navigationItem.rightBarButtonItem = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ECSlidingViewTopDidAnchorRight object:nil];
+}
+
+- (void)menuMovedOff {
+    self.slidingViewController.topViewController = nil;
 }
 
 - (NSMutableArray *)accounts {

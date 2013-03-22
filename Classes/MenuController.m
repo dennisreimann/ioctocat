@@ -108,7 +108,9 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
         self.navigationController.view.frame = viewFrame;
         self.slidingViewController.underLeftWidthLayout = ECFullWidth;
     } onComplete:^{
-        [self.slidingViewController setTopViewController:nil];
+        // this somehow does not seem to work, that's why we catch the anchor
+        // event via the notifications received in IOCAccountsController
+        self.slidingViewController.topViewController = nil;
     }];
 }
 
@@ -251,12 +253,14 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (void)toggleTopView {
-	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
-	if ([self.slidingViewController underLeftShowing]) {
-		[self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
-	} else {
-		[self.slidingViewController anchorTopViewTo:ECRight];
-	}
+    self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
+    if (self.slidingViewController.underLeftShowing) {
+        // actually this does not get called when the top view screenshot is enabled
+        // because the screenshot intercepts the touches on the toggle button
+        [self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
+    } else {
+        [self.slidingViewController anchorTopViewTo:ECRight animateChange:2.0 animations:nil onComplete:nil];
+    }
 }
 
 #pragma mark TableView

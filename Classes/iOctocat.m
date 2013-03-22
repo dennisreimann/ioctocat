@@ -83,6 +83,11 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
+    if (application.applicationState == UIApplicationStateActive) {
+        // TODO: Figure out a way to handle incoming remote
+        // notifications when the app is in foreground
+        return;
+    }
     NSDictionary *info = [remoteNotification safeDictForKey:@"ioc"];
     NSString *login = [info safeStringForKey:@"a"];
     NSString *endpoint = [info safeStringForKey:@"b"];

@@ -151,6 +151,7 @@
 }
 
 - (void)setupHockeySDK {
+#ifndef CONFIGURATION_Debug
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
 	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
@@ -159,6 +160,7 @@
 		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
 		[[BITHockeyManager sharedHockeyManager] startManager];
 	}
+#endif
 }
 
 - (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {

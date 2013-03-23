@@ -23,6 +23,10 @@ In order to build iOctocat on your own, install the following prerequisites:
 
         pod install
 
+  * Create the `iOctocatAPI.plist` file by copying the sample:
+
+        cp iOctocatAPI{.sample,}.plist
+
   * Create the `HockeySDK.plist` file by copying the sample:
 
         cp HockeySDK{.sample,}.plist

@@ -7,7 +7,7 @@
 @property(nonatomic,readonly)NSMutableDictionary *users;
 @property(nonatomic,readonly)NSMutableArray *accounts;
 
-+ (iOctocat *)sharedInstance;
++ (instancetype)sharedInstance;
 + (void)reportWarning:(NSString *)title with:(NSString *)message;
 + (void)reportError:(NSString *)title with:(NSString *)message;
 + (void)reportLoadingError:(NSString *)message;

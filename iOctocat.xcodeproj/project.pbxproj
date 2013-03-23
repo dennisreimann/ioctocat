@@ -29,6 +29,8 @@
 		2E88193D16F8F8B300ACA2EB /* c.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193616F8F8B300ACA2EB /* c.caf */; };
 		2E88193E16F8F8B300ACA2EB /* d.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193716F8F8B300ACA2EB /* d.caf */; };
 		2E88193F16F8F8B300ACA2EB /* d.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193716F8F8B300ACA2EB /* d.caf */; };
+		2EAD8B0316FE36CD00F08EFC /* iOctocatAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */; };
+		2EAD8B0416FE36CD00F08EFC /* iOctocatAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */; };
 		2ECFBAB216EA8A020092EE67 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D716E28F24003293BD /* MenuOctocat.png */; };
 		2ECFBAB316EA8A020092EE67 /* MenuOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D816E28F24003293BD /* MenuOctocat@2x.png */; };
 		2ECFBAB416EA8A020092EE67 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D716E28F24003293BD /* MenuOctocat.png */; };
@@ -985,6 +987,7 @@
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
 		2E88193716F8F8B300ACA2EB /* d.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = d.caf; sourceTree = "<group>"; };
+		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
 		367F8AD116F64DBF008F8054 /* MessageEntryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageEntryBG.png; path = Images/MessageEntryBG.png; sourceTree = "<group>"; };
 		367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MessageEntryBG@2x.png"; path = "Images/MessageEntryBG@2x.png"; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1645,6 +1648,7 @@
 				6F7DFBE3169A33BE00ED47B6 /* Info-Beta.plist */,
 				6F0B11201670A2BD00375136 /* Menu.plist */,
 				6F552DAE1678915D00698524 /* HockeySDK.plist */,
+				2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -2933,6 +2937,7 @@
 				2E88193A16F8F8B300ACA2EB /* b.caf in Resources */,
 				2E88193C16F8F8B300ACA2EB /* c.caf in Resources */,
 				2E88193E16F8F8B300ACA2EB /* d.caf in Resources */,
+				2EAD8B0316FE36CD00F08EFC /* iOctocatAPI.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3259,6 +3264,7 @@
 				2E88193B16F8F8B300ACA2EB /* b.caf in Resources */,
 				2E88193D16F8F8B300ACA2EB /* c.caf in Resources */,
 				2E88193F16F8F8B300ACA2EB /* d.caf in Resources */,
+				2EAD8B0416FE36CD00F08EFC /* iOctocatAPI.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3860,7 +3866,10 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = iOctocat_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					CONFIGURATION_Beta,
+				);
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "$(SRCROOT)/Info-Beta.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;

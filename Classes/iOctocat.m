@@ -35,8 +35,8 @@
 
 @implementation iOctocat
 
-+ (id)sharedInstance {
-	return [[UIApplication sharedApplication] delegate];
++ (instancetype)sharedInstance {
+	return (iOctocat *)[[UIApplication sharedApplication] delegate];
 }
 
 - (void)dealloc {
@@ -74,7 +74,7 @@
     [IOCDefaultsPersistence storeRemoteNotificationsPermission:@YES];
     // save device token for later registration of accounts for that device
     NSString *alias = self.accounts.count > 0 ? [(GHAccount *)self.accounts[0] accountId] : nil;
-	[[[IOCApiClient alloc] init] registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
+	[IOCApiClient.sharedInstance registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
         DJLog(@"Remote Notifications Registration Success: %@", responseObject);
 		self.deviceToken = [responseObject safeStringForKey:@"token"];
     } failure:^(NSError *error) {

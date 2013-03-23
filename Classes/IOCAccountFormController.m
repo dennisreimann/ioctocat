@@ -104,7 +104,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 - (void)checkPushStateForPushToken:(NSString *)pushToken {
 	if (self.hasDeviceToken && !pushToken.isEmpty) {
 		self.pushSwitch.enabled = NO;
-		[[[IOCApiClient alloc] init] checkPushNotificationsForDevice:self.deviceToken accessToken:pushToken success:^(id json) {
+		[IOCApiClient.sharedInstance checkPushNotificationsForDevice:self.deviceToken accessToken:pushToken success:^(id json) {
             self.account.pushToken = pushToken;
             [self saveAccount];
             [self.pushSwitch setOn:YES animated:YES];
@@ -181,7 +181,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
         if (self.hasDeviceToken && self.hasPushToken) {
-            [[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
+            [IOCApiClient.sharedInstance disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
                 [self.delegate removeAccountAtIndex:self.index callback:^(NSUInteger idx) {
                     [self.navigationController popViewControllerAnimated:YES];
                 }];
@@ -205,7 +205,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 	[SVProgressHUD showWithStatus:@"Enabling push notifications" maskType:SVProgressHUDMaskTypeGradient];
 	[self.apiClient saveAuthorizationWithNote:PushNote scopes:scopes success:^(id json) {
 		NSString *token = [json safeStringForKey:@"token"];
-		[[[IOCApiClient alloc] init] enablePushNotificationsForDevice:self.deviceToken accessToken:token endpoint:endpoint login:login success:^(id json) {
+		[IOCApiClient.sharedInstance enablePushNotificationsForDevice:self.deviceToken accessToken:token endpoint:endpoint login:login success:^(id json) {
 			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];
             self.account.login = login;
             self.account.endpoint = endpoint;
@@ -224,7 +224,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 // call the ioctocat backend to remove the access token for this account.
 - (void)disablePush {
 	[SVProgressHUD showWithStatus:@"Disabling push notifications" maskType:SVProgressHUDMaskTypeGradient];
-	[[[IOCApiClient alloc] init] disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
+	[IOCApiClient.sharedInstance disablePushNotificationsForDevice:self.deviceToken accessToken:self.account.pushToken success:^(id json) {
 		[SVProgressHUD showSuccessWithStatus:@"Disabled push notifications"];
 		self.account.pushToken = @"";
 		[self saveAccount];

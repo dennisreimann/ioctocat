@@ -25,8 +25,8 @@
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuMovedOff) name:ECSlidingViewTopDidAnchorRight object:nil];
-    if ([iOctocat sharedInstance].currentAccount) {
-		[iOctocat sharedInstance].currentAccount = nil;
+    if (iOctocat.sharedInstance.currentAccount) {
+		iOctocat.sharedInstance.currentAccount = nil;
 	}
 	[self handleAccountsChange];
 	[self.tableView reloadData];
@@ -152,9 +152,9 @@
 
 - (void)authenticateAccountAtIndex:(NSUInteger)idx {
 	GHAccount *account = self.accounts[idx];
-	[iOctocat sharedInstance].currentAccount = account;
+	iOctocat.sharedInstance.currentAccount = account;
 	[IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
-        [iOctocat sharedInstance].currentAccount = account;
+        iOctocat.sharedInstance.currentAccount = account;
 		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
         [self.navigationController pushViewController:menuController animated:YES];
     } failure:^(GHAccount *account) {

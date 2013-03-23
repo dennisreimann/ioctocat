@@ -1,26 +1,19 @@
 #import "MenuController.h"
 #import "MyEventsController.h"
+#import "IOCViewControllerRepository.h"
+#import "IOCNotificationsController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCRepositoriesController.h"
 #import "IOCMyRepositoriesController.h"
 #import "IOCOrganizationsController.h"
 #import "IOCOrganizationRepositoriesController.h"
-#import "IOCIssueController.h"
 #import "IOCIssuesController.h"
-#import "IOCPullRequestController.h"
 #import "IOCPullRequestsController.h"
-#import "IOCGistController.h"
 #import "IOCGistsController.h"
 #import "IOCSearchController.h"
-#import "IOCCommitController.h"
-#import "IOCNotificationsController.h"
 #import "GHUser.h"
-#import "GHGist.h"
-#import "GHCommit.h"
-#import "GHIssue.h"
 #import "GHIssues.h"
-#import "GHPullRequest.h"
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHNotifications.h"
@@ -29,11 +22,8 @@
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
 #import "MenuCell.h"
-#import "WebController.h"
-#import "NSURL+Extensions.h"
 
 
-#define kCellHeight 44.0f
 #define kSectionHeaderHeight 24.0f
 
 @interface MenuController ()
@@ -67,7 +57,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.versionLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-	self.tableView.rowHeight = kCellHeight;
+	self.tableView.rowHeight = 44.0f;
 	self.tableView.backgroundColor = self.darkBackgroundColor;
 	self.tableView.separatorColor = self.lightBackgroundColor;
     self.tableView.tableFooterView = self.footerView;
@@ -404,7 +394,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 			
 		case 5:
 			if (row == 0) {
-				viewController = [[IOCSearchController alloc] initWithUser:self.user];
+				viewController = [[IOCSearchController alloc] init];
 				viewController.title = @"Search";
 			} else if (row == 1) {
 				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];

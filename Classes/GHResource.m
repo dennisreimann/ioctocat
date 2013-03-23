@@ -30,11 +30,11 @@
 #pragma mark API
 
 - (GHAccount *)account {
-	return [[iOctocat sharedInstance] currentAccount];
+	return iOctocat.sharedInstance.currentAccount;
 }
 
 - (GHOAuthClient *)apiClient {
-	return [iOctocat sharedInstance].currentAccount.apiClient;
+	return iOctocat.sharedInstance.currentAccount.apiClient;
 }
 
 - (NSString *)resourceContentType {

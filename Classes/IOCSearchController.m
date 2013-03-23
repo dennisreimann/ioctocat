@@ -21,7 +21,7 @@
 
 @implementation IOCSearchController
 
-- (id)initWithUser:(GHUser *)user {
+- (id)init {
 	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		_search = [[GHSearch alloc] initWithURLFormat:kUserSearchFormat];

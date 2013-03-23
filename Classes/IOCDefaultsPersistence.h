@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-
-
 @class GHAccount;
 
 @interface IOCDefaultsPersistence : NSObject

@@ -136,89 +136,34 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (BOOL)openViewControllerForGitHubURL:(NSURL *)url {
-	UIViewController *viewController = nil;
-	DJLog(@"%@", url.pathComponents);
-	// the first pathComponent is always "/"
-	if ([url.host isEqualToString:@"gist.github.com"]) {
-        if (url.pathComponents.count == 2) {
-			// Gists
-            NSString *login = [url.pathComponents objectAtIndex:1];
-            GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
-            viewController = [[IOCGistsController alloc] initWithGists:user.gists];
-        } else if (url.pathComponents.count == 3) {
-			// Gist
-            NSString *gistId = [url.pathComponents objectAtIndex:2];
-			GHGist *gist = [[GHGist alloc] initWithId:gistId];
-            gist.htmlURL = url;
-			viewController = [[IOCGistController alloc] initWithGist:gist];
-		}
-	} else if (url.pathComponents.count == 2) {
-        NSArray *staticPages = @[@"about", @"blog", @"contact", @"edu", @"plans"];
-		NSString *component = [url.pathComponents objectAtIndex:1];
-        if ([staticPages containsObject:component]) {
-            NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, component];
-            viewController = [[WebController alloc] initWithURL:pageURL];
-            [self openViewController:viewController];
-            return YES;
-        } else if ([component isEqualToString:@"notifications"]) {
-            IOCNotificationsController *viewController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
-            [self openViewController:viewController];
-            return YES;
-        } else {
-            // User (or Organization)
-            GHUser *user = [[iOctocat sharedInstance] userWithLogin:component];
-            user.htmlURL = url;
-            viewController = [[IOCUserController alloc] initWithUser:user];
-        }
-	} else if (url.pathComponents.count >= 3) {
-		// Repository
-		NSString *owner = [url.pathComponents objectAtIndex:1];
-		NSString *name = [url.pathComponents objectAtIndex:2];
-		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
-		if (url.pathComponents.count == 3) {
-            repo.htmlURL = url;
-			viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
-		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
-			// Issues
-			viewController = [[IOCIssuesController alloc] initWithRepository:repo];
-		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
-			// Pull Requests
-			viewController = [[IOCPullRequestsController alloc] initWithRepository:repo];
-		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
-			// Issue
-			GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
-			issue.num = [[url.pathComponents objectAtIndex:4] intValue];
-			viewController = [[IOCIssueController alloc] initWithIssue:issue];
-		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
-			// Pull Request
-			GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
-			pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
-			viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest];
-		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"commit"]) {
-			// Commit
-			NSString *sha = [url.pathComponents objectAtIndex:4];
-			GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
-			viewController = [[IOCCommitController alloc] initWithCommit:commit];
-		}
-	}
-	if (viewController) {
+	UIViewController *viewController = [IOCViewControllerRepository viewControllerForGitHubURL:url];
+    if (viewController) {
         [(UINavigationController *)self.slidingViewController.topViewController pushViewController:viewController animated:YES];
         return YES;
 	}
     return NO;
 }
 
-// clean up the old state and push the given controller wrapped in a navigation controller 
+// clean up the old state and push the given controller wrapped in a navigation controller.
+// in case the given view controller is already a navigation controller it used it directly.
 - (void)openViewController:(UIViewController *)viewController {
+    // unset the current navigation controller
 	UINavigationController *currentController = (UINavigationController *)self.slidingViewController.topViewController;
-	UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithImage:[self.class menuButtonImage] style:UIBarButtonItemStylePlain target:self action:@selector(toggleTopView)];
+	[currentController popToRootViewControllerAnimated:NO];
+	// prepare the new navigation controller
+    UINavigationController *navController = nil;
+    if ([viewController isKindOfClass:UINavigationController.class]) {
+        navController = (UINavigationController *)viewController;
+    } else {
+        navController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    }
 	navController.view.layer.shadowOpacity = 0.8f;
 	navController.view.layer.shadowRadius = 5;
 	navController.view.layer.shadowColor = [UIColor blackColor].CGColor;
-	viewController.navigationItem.leftBarButtonItem = buttonItem;
-	[currentController popToRootViewControllerAnimated:NO];
-	[self.slidingViewController setTopViewController:navController];
+	// give the root view controller the toggle bar button item
+    [(UIViewController *)navController.viewControllers[0] navigationItem].leftBarButtonItem = self.toggleBarButtonItem;
+	// set the navigation controller as the new top view and bring it on
+    [self.slidingViewController setTopViewController:navController];
 	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
 	[self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
 }
@@ -235,9 +180,16 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 // opens the notification with the given id and url in the context of the
 // notifications controller, so that the user can pop back to that context.
 // also marks the notificaton as read.
-- (void)openNotificationControllerWithId:(NSInteger)notificationId url:(NSURL *)itemURL {
-    [self openNotificationsController];
-    [self openViewControllerForGitHubURL:itemURL];
+- (void)openNotificationControllerWithId:(NSInteger)notificationId url:(NSURL *)subjectURL {
+    IOCNotificationsController *notificationsController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
+    UIViewController *notificationController = [IOCViewControllerRepository viewControllerForGitHubURL:subjectURL];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:notificationsController];
+    [navController pushViewController:notificationController animated:NO];
+    if (self.isViewLoaded) {
+        [self openViewController:navController];
+    } else {
+        self.initialViewController = navController;
+    }
     GHNotification *notification = [[GHNotification alloc] initWithNotificationId:notificationId];
     [notification markAsReadStart:nil success:nil failure:nil];
 }
@@ -410,7 +362,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - Icon
+#pragma mark Toggle Button
 
 + (UIImage *)menuButtonImage {
 	static UIImage *menuButtonImage = nil;
@@ -433,6 +385,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		
 	});
     return menuButtonImage;
+}
+
+- (UIBarButtonItem *)toggleBarButtonItem {
+    return [[UIBarButtonItem alloc] initWithImage:self.class.menuButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleTopView)];
 }
 
 #pragma mark Menu Colors

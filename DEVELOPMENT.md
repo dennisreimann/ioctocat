@@ -15,21 +15,16 @@ In order to build iOctocat on your own, install the following prerequisites:
         git clone git://github.com/dennisreimann/ioctocat.git
         cd ioctocat
 
-  * Install the submodules:
+  * Run the bootstrap shell script:
 
-        git submodule update --init
+        ./bootstrap.sh
 
-  * Install the dependencies
+    This does the following things you can otherwise do manually:
 
-        pod install
-
-  * Create the `iOctocatAPI.plist` file by copying the sample:
-
-        cp iOctocatAPI{.sample,}.plist
-
-  * Create the `HockeySDK.plist` file by copying the sample:
-
-        cp HockeySDK{.sample,}.plist
+      * Install the submodules
+      * Install the dependencies
+      * Create the `iOctocatAPI.plist` file by copying the sample
+      * Create the `HockeySDK.plist` file by copying the sample
 
   * Open the project in Xcode
 

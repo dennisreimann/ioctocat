@@ -57,36 +57,38 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.versionLabel.text = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
-	self.tableView.rowHeight = 44.0f;
-	self.tableView.backgroundColor = self.darkBackgroundColor;
-	self.tableView.separatorColor = self.lightBackgroundColor;
+    self.tableView.rowHeight = 44.0f;
+    self.tableView.backgroundColor = self.darkBackgroundColor;
+    self.tableView.separatorColor = self.lightBackgroundColor;
     self.tableView.tableFooterView = self.footerView;
     UIEdgeInsets inset = UIEdgeInsetsZero;
     inset.bottom -= self.tableView.tableFooterView.frame.size.height;
     self.tableView.contentInset = inset;
-	// disable scroll-to-top for the menu, so that the main controller receives the event
-	self.tableView.scrollsToTop = NO;
-	// open first view controller
-	[self.slidingViewController anchorTopViewOffScreenTo:ECRight];
-	[self openViewController:self.initialViewController];
-	// load resources
-	[self.user.notifications loadWithSuccess:^(GHResource *instance, id data) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-	}];
-	if (self.user.organizations.isUnloaded) {
-		[self removeOrganizationObservers];
-		// success is handled by the KVO hook
-		[self.user.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
-			[self addOrganizationObservers];
-			NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
-			[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-		} failure:^(GHResource *instance, NSError *error) {
-			[iOctocat reportLoadingError:@"Could not load the organizations"];
-		}];
-	} else {
-		[self addOrganizationObservers];
-	}
+    // disable scroll-to-top for the menu, so that the main controller receives the event
+    self.tableView.scrollsToTop = NO;
+    // open first view controller
+    [self.slidingViewController anchorTopViewOffScreenTo:ECRight];
+    [self openViewController:self.initialViewController];
+    // load resources
+    if (![self.initialViewController isKindOfClass:IOCNotificationsController.class]) {
+        [self.user.notifications loadWithSuccess:^(GHResource *instance, id data) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }
+    if (self.user.organizations.isUnloaded) {
+        [self removeOrganizationObservers];
+        // success is handled by the KVO hook
+        [self.user.organizations loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+            [self addOrganizationObservers];
+            NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
+            [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+        } failure:^(GHResource *instance, NSError *error) {
+            [iOctocat reportLoadingError:@"Could not load the organizations"];
+        }];
+    } else {
+        [self addOrganizationObservers];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

@@ -50,6 +50,8 @@
 		367F8AD416F64DBF008F8054 /* MessageEntryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD116F64DBF008F8054 /* MessageEntryBG.png */; };
 		367F8AD516F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */; };
 		367F8AD616F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */; };
+		36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A36E5B16FF70A30070AC46 /* MAXCompletion.m */; };
+		36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A36E5B16FF70A30070AC46 /* MAXCompletion.m */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -995,6 +997,8 @@
 		2EAD8B0616FE515700F08EFC /* IOCViewControllerRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerRepository.m; sourceTree = "<group>"; };
 		367F8AD116F64DBF008F8054 /* MessageEntryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageEntryBG.png; path = Images/MessageEntryBG.png; sourceTree = "<group>"; };
 		367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MessageEntryBG@2x.png"; path = "Images/MessageEntryBG@2x.png"; sourceTree = "<group>"; };
+		36A36E5A16FF70A30070AC46 /* MAXCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAXCompletion.h; sourceTree = "<group>"; };
+		36A36E5B16FF70A30070AC46 /* MAXCompletion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MAXCompletion.m; sourceTree = "<group>"; };
 		67ECF03BCF254C88A027B814 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F00F4A216B2864A0057F0FE /* Remove@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Remove@2x.png"; sourceTree = "<group>"; };
 		6F08799A1623635E00CE95D0 /* ToolbarGist.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarGist.png; sourceTree = "<group>"; };
@@ -1988,6 +1992,8 @@
 		6F5E9AA21119A96000752560 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				36A36E5A16FF70A30070AC46 /* MAXCompletion.h */,
+				36A36E5B16FF70A30070AC46 /* MAXCompletion.m */,
 				01554A3314FBF02E00AE08EC /* GradientButton.h */,
 				01554A3414FBF02E00AE08EC /* GradientButton.m */,
 			);
@@ -3469,7 +3475,11 @@
 				6FA00D6C16E2A7BB004194A8 /* IOCApiClient.m in Sources */,
 				6FA00D7316E2A7F0004194A8 /* GHBasicClient.m in Sources */,
 				6FA00D7616E2A7F0004194A8 /* GHOAuthClient.m in Sources */,
+<<<<<<< HEAD
 				2EAD8B0716FE515700F08EFC /* IOCViewControllerRepository.m in Sources */,
+=======
+				36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */,
+>>>>>>> Refactoring: MAXCompletion
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3693,7 +3703,11 @@
 				6FA00D6D16E2A7BB004194A8 /* IOCApiClient.m in Sources */,
 				6FA00D7416E2A7F0004194A8 /* GHBasicClient.m in Sources */,
 				6FA00D7716E2A7F0004194A8 /* GHOAuthClient.m in Sources */,
+<<<<<<< HEAD
 				2EAD8B0816FE515700F08EFC /* IOCViewControllerRepository.m in Sources */,
+=======
+				36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */,
+>>>>>>> Refactoring: MAXCompletion
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

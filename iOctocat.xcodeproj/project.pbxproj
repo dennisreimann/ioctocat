@@ -3475,11 +3475,8 @@
 				6FA00D6C16E2A7BB004194A8 /* IOCApiClient.m in Sources */,
 				6FA00D7316E2A7F0004194A8 /* GHBasicClient.m in Sources */,
 				6FA00D7616E2A7F0004194A8 /* GHOAuthClient.m in Sources */,
-<<<<<<< HEAD
 				2EAD8B0716FE515700F08EFC /* IOCViewControllerRepository.m in Sources */,
-=======
 				36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */,
->>>>>>> Refactoring: MAXCompletion
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3703,11 +3700,8 @@
 				6FA00D6D16E2A7BB004194A8 /* IOCApiClient.m in Sources */,
 				6FA00D7416E2A7F0004194A8 /* GHBasicClient.m in Sources */,
 				6FA00D7716E2A7F0004194A8 /* GHOAuthClient.m in Sources */,
-<<<<<<< HEAD
 				2EAD8B0816FE515700F08EFC /* IOCViewControllerRepository.m in Sources */,
-=======
 				36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */,
->>>>>>> Refactoring: MAXCompletion
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

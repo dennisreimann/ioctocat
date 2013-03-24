@@ -91,7 +91,7 @@
 	// mark as read, remove notification, and eventually the associated repo key
 	[self.notifications markAsRead:notification start:nil success:^(GHResource *instance, id data) {
 		if ([(GHNotifications *)instance unreadCount] == 0) {
-			[self.tableView triggerPullToRefresh];
+			[self refreshIfRequired];
 		}
 	} failure:nil];
 	[self.notifications removeObject:notification];
@@ -120,9 +120,9 @@
 		[self.notificationsByRepository removeAllObjects];
 		[self markedAllAsRead];
 	} success:^(GHResource *notifications, id data) {
-		[self.tableView triggerPullToRefresh];
+		[self refreshIfRequired];
 	} failure:^(GHResource *notifications, id data) {
-		[self.tableView triggerPullToRefresh];
+		[self refreshIfRequired];
 	}];
 }
 
@@ -131,7 +131,7 @@
 	NSInteger section = [self.notificationsByRepository.allKeys indexOfObject:repoId];
 	[self.notifications markAllAsReadForRepoId:repoId start:nil success:^(GHResource *instance, id data) {
 		if ([(GHNotifications *)instance unreadCount] == 0) {
-			[self.tableView triggerPullToRefresh];
+			[self refreshIfRequired];
 		}
 	} failure:nil];
 	[self.notificationsByRepository removeObjectForKey:repoId];
@@ -282,42 +282,47 @@
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		if (!weakSelf.notifications.isLoading && weakSelf.notifications.canReload) {
-			[weakSelf.notifications loadWithParams:nil start:^(GHResource *instance) {
-				[weakSelf setupActions];
-			} success:^(GHResource *instance, id data) {
-				[weakSelf refreshLastUpdate];
-				[weakSelf rebuildByRepository];
-				[weakSelf setupActions];
-                dispatch_async(dispatch_get_main_queue(),^ {
-                    [weakSelf.tableView reloadData];
-                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
-                });
-			} failure:^(GHResource *instance, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(),^ {
-                    [weakSelf.tableView reloadData];
-                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
-                });
-				[iOctocat reportLoadingError:@"Could not load the notifications"];
-			}];
-		} else if (!weakSelf.notifications.canReload) {
+        if (weakSelf.notifications.isLoading) {
             dispatch_async(dispatch_get_main_queue(),^ {
                 [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
             });
-			NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
-			[iOctocat reportWarning:@"Please wait" with:message];
-		}
-	}];
-	[self refreshLastUpdate];
+        } else if (!weakSelf.notifications.canReload) {
+            dispatch_async(dispatch_get_main_queue(),^ {
+                [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+            });
+            NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
+            [iOctocat reportWarning:@"Please wait" with:message];
+        } else {
+            [weakSelf.notifications loadWithParams:nil start:^(GHResource *instance) {
+                [weakSelf setupActions];
+            } success:^(GHResource *instance, id data) {
+                [weakSelf refreshLastUpdate];
+                [weakSelf rebuildByRepository];
+                [weakSelf setupActions];
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                });
+            } failure:^(GHResource *instance, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                });
+                [iOctocat reportLoadingError:@"Could not load the notifications"];
+            }];
+        }
+    }];
+    [self refreshLastUpdate];
 }
 
 // refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {
-	if (!self.notifications.canReload) return;
-	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if (!self.resourceHasData || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
-		[self.tableView triggerPullToRefresh];
-	}
+    if (!self.notifications.isLoading && self.notifications.canReload) {
+        NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
+        if (!self.resourceHasData || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
+            [self.tableView triggerPullToRefresh];
+        }
+    }
 }
 
 - (void)refreshLastUpdate {

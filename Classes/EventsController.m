@@ -161,22 +161,26 @@
 - (void)setupPullToRefresh {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addPullToRefreshWithActionHandler:^{
-		if (!weakSelf.events.isLoading) {
-			weakSelf.selectedCell = nil;
-			weakSelf.selectedIndexPath = nil;
-			[weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+        if (weakSelf.events.isLoading) {
+            dispatch_async(dispatch_get_main_queue(),^ {
+                [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+            });
+        } else {
+            weakSelf.selectedCell = nil;
+            weakSelf.selectedIndexPath = nil;
+            [weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf refreshLastUpdate];
                     [weakSelf.tableView reloadData];
                     [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
                 });
-			} failure:^(GHResource *instance, NSError *error) {
+            } failure:^(GHResource *instance, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
                     [iOctocat reportLoadingError:@"Could not load the feed"];
                 });
-			}];
-		}
+            }];
+        }
 	}];
 	[self refreshLastUpdate];
 }
@@ -189,11 +193,12 @@
 }
 
 - (void)refreshIfRequired {
-	NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
-	if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
-		// the feed was loaded before this application became active again, refresh it
-		[self.tableView triggerPullToRefresh];
-	}
+    if (self.events.isLoading) return;
+    NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
+    if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
+        // the feed was loaded before this application became active again, refresh it
+        [self.tableView triggerPullToRefresh];
+    }
 }
 
 @end

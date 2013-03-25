@@ -334,6 +334,16 @@
 	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
 		D3JLog(@"System status request finished: %@", json);
 		NSString *status = [json safeStringForKey:@"status"];
+        //switch (arc4random() % 3) {
+        //    case 1:
+        //        status = @"minor";
+        //        break;
+        //    case 2:
+        //        status = @"major";
+        //        break;
+        //    default:
+        //        break;
+        //}
 		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
 			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
 			NSString *body = [json safeStringForKey:@"body"];
@@ -349,17 +359,17 @@
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
         } else {
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-            self.statusWindow = nil;
-            [self.statusView removeFromSuperview];
+            [_statusView removeFromSuperview];
             self.statusView = nil;
+            self.statusWindow = nil;
         }
 	};
 	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		D3JLog(@"System status request failed: %@", error);
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-        self.statusWindow = nil;
-        [self.statusView removeFromSuperview];
+        [_statusView removeFromSuperview];
         self.statusView = nil;
+        self.statusWindow = nil;
 	};
 	D3JLog(@"System status request: %@ %@", method, path);
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];

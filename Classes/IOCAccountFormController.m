@@ -10,6 +10,7 @@
 #import "SVProgressHUD.h"
 #import "GHAccount.h"
 
+#define kLoginPreferenceTypeKey @"preferEmailForLogin"
 
 @interface IOCAccountFormController () <UITextFieldDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)GHAccount *account;
@@ -42,6 +43,16 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(defaultsChanged) name:NSUserDefaultsDidChangeNotification object:nil];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([defaults boolForKey:kLoginPreferenceTypeKey]) {
+        self.loginField.keyboardType = UIKeyboardTypeEmailAddress;
+    }
+    else {
+        self.loginField.keyboardType = UIKeyboardTypeDefault;
+    }
+    
 	self.loginField.text = self.account.login;
 	self.endpointField.text = self.account.endpoint;
     [self checkPushStateForPushToken:self.account.pushToken];
@@ -125,6 +136,16 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 }
 
 #pragma mark Actions
+
+- (void)defaultsChanged {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	if ([defaults boolForKey:kLoginPreferenceTypeKey]) {
+        self.loginField.keyboardType = UIKeyboardTypeEmailAddress;
+    }
+    else {
+        self.loginField.keyboardType = UIKeyboardTypeDefault;
+    }
+}
 
 - (IBAction)saveAccount:(id)sender {
 	NSString *login = self.loginValue;

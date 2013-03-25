@@ -17,6 +17,7 @@ Additions:
 
 Changes:
 
+* Improved GitHub Status handling. By @iosdeveloper
 * Better handling of accounts
 * Better icon for forked repo in event cell
 * Scrollable account form

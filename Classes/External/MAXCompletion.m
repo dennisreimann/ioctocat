@@ -169,6 +169,7 @@
                 NSArray *filteredKeyArray = [self.keyArray filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@", key]];
                 if ([filteredKeyArray count] > 0) {
                     self.scrollView.contentOffset = CGPointZero;
+                    self.scrollView.contentSize = CGSizeZero;
                     NSUInteger index = 0;
                     NSUInteger count = [self.buttonArray count];
                     CGFloat m = 5.0f;

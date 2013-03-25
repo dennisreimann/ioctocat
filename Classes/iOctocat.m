@@ -18,6 +18,7 @@
 #import "ECSlidingViewController.h"
 #import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
+#import "MAXStatusWindow.h"
 
 
 #define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
@@ -30,6 +31,8 @@
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
 @property(nonatomic,strong)IBOutlet ECSlidingViewController *slidingViewController;
+@property(nonatomic,strong)UIView *statusView;
+@property(nonatomic,strong)MAXStatusWindow *statusWindow;
 @end
 
 
@@ -41,6 +44,34 @@
 
 - (void)dealloc {
 	[self clearUserObjectCache];
+}
+
+- (UIView *)statusView {
+    if (!_statusView) {
+        CGRect windowFrame = [_window convertRect:[UIApplication sharedApplication].statusBarFrame fromWindow:nil];
+        CGRect viewFrame = [_window.rootViewController.view convertRect:windowFrame fromView:nil];
+        UIView *statusView = [[UIView alloc] initWithFrame:viewFrame];
+        statusView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
+        [_window.rootViewController.view addSubview:statusView];
+        _statusView = statusView;
+    }
+    return _statusView;
+}
+
+- (MAXStatusWindow *)statusWindow {
+    if (!_statusWindow) {
+        MAXStatusWindow *statusWindow = [[MAXStatusWindow alloc] initWithFrame:[UIApplication sharedApplication].statusBarFrame];
+        [statusWindow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
+        statusWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
+        _statusWindow = statusWindow;
+    }
+    return _statusWindow;
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state == UIGestureRecognizerStateEnded) {
+        [self checkGitHubSystemStatus:YES];
+    }
 }
 
 #pragma mark Application Events
@@ -66,7 +97,7 @@
         [self registerForRemoteNotifications];
     }
 	[self checkAvatarCache];
-	[self checkGitHubSystemStatus];
+    [self checkGitHubSystemStatus:NO];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -294,7 +325,7 @@
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
 }
 
-- (void)checkGitHubSystemStatus {
+- (void)checkGitHubSystemStatus:(BOOL)report {
 	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
 	NSString *path = @"/api/last-message.json";
 	NSString *method = kRequestMethodGet;
@@ -308,14 +339,27 @@
 			NSString *body = [json safeStringForKey:@"body"];
 			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
 			if ([status isEqualToString:@"major"]) {
-				[iOctocat reportError:@"GitHub System Error" with:message];
+                self.statusView.backgroundColor = [UIColor redColor];
+                if (report) [iOctocat reportError:@"GitHub System Error" with:message];
 			} else {
-				[iOctocat reportWarning:@"GitHub System Warning" with:message];
+                self.statusView.backgroundColor = [UIColor yellowColor];
+                if (report) [iOctocat reportWarning:@"GitHub System Warning" with:message];
 			}
-		}
+            self.statusWindow.hidden = NO;
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+            self.statusWindow = nil;
+            [self.statusView removeFromSuperview];
+            self.statusView = nil;
+        }
 	};
 	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		D3JLog(@"System status request failed: %@", error);
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+        self.statusWindow = nil;
+        [self.statusView removeFromSuperview];
+        self.statusView = nil;
 	};
 	D3JLog(@"System status request: %@ %@", method, path);
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];

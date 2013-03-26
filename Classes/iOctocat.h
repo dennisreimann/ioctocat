@@ -11,6 +11,7 @@
 + (void)reportError:(NSString *)title with:(NSString *)message;
 + (void)reportLoadingError:(NSString *)message;
 - (BOOL)openURL:(NSURL *)url;
+- (void)bringStatusViewToFront;
 - (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)login;
 - (GHOrganization *)organizationWithLogin:(NSString *)login;

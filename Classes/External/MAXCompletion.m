@@ -136,8 +136,6 @@
     NSString *string = [NSString stringWithFormat:@"@%@ ", sender.currentTitle];
     self.textView.text = [text stringByReplacingCharactersInRange:range withString:string];
     self.textView.selectedRange = NSMakeRange(range.location + [string length], 0);
-    self.textView.inputAccessoryView = nil;
-    [self.textView reloadInputViews];
 }
 
 #pragma mark TextView

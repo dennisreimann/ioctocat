@@ -29,6 +29,8 @@
 @interface MenuController ()
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *menu;
+@property(nonatomic,strong)ECSlidingViewController *fallbackForSlidingViewController;
+@property(nonatomic,strong)UINavigationController *fallbackForNavigationController;
 @property(nonatomic,strong)IBOutlet UIView *footerView;
 @property(nonatomic,weak)IBOutlet UILabel *versionLabel;
 @end
@@ -66,6 +68,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
     self.tableView.contentInset = inset;
     // disable scroll-to-top for the menu, so that the main controller receives the event
     self.tableView.scrollsToTop = NO;
+    // save controllers as fallback for iOS 5 to use them in viewWillDisappear
+    // TODO: remove this once our deployment target is > iOS 5
+    self.fallbackForNavigationController = self.navigationController;
+    self.fallbackForSlidingViewController = self.slidingViewController;
     // open first view controller
     [self.slidingViewController anchorTopViewOffScreenTo:ECRight];
     [self openViewController:self.initialViewController];
@@ -93,16 +99,25 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:YES animations:^{
-        CGFloat width = UIInterfaceOrientationIsPortrait(self.navigationController.interfaceOrientation) ? [iOctocat sharedInstance].window.frame.size.width : [iOctocat sharedInstance].window.frame.size.height;
-        CGRect viewFrame = self.navigationController.view.frame;
+    // weird fallback handling for iOS 5
+    // TODO: remove this once our deployment target is > iOS 5
+    UINavigationController *navController = self.navigationController;
+    ECSlidingViewController *slidingViewController = self.slidingViewController;
+    CGFloat width = UIInterfaceOrientationIsPortrait(self.navigationController.interfaceOrientation) ? iOctocat.sharedInstance.window.frame.size.width : iOctocat.sharedInstance.window.frame.size.height;
+    if (!navController || !slidingViewController) {
+        navController = self.fallbackForNavigationController;
+        slidingViewController = self.fallbackForSlidingViewController;
+        width = iOctocat.sharedInstance.window.frame.size.width;
+    }
+    [slidingViewController anchorTopViewOffScreenTo:ECRight animateChange:2 animations:^{
+        CGRect viewFrame = navController.view.frame;
         viewFrame.size.width = width;
-        self.navigationController.view.frame = viewFrame;
-        self.slidingViewController.underLeftWidthLayout = ECFullWidth;
+        navController.view.frame = viewFrame;
+        slidingViewController.underLeftWidthLayout = ECFullWidth;
     } onComplete:^{
         // this somehow does not seem to work, that's why we catch the anchor
         // event via the notifications received in IOCAccountsController
-        self.slidingViewController.topViewController = nil;
+        slidingViewController.topViewController = nil;
     }];
 }
 

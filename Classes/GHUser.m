@@ -43,13 +43,14 @@
 	if (self.gravatarURL && !self.gravatar) {
 		[IOCGravatarService loadWithURL:self.gravatarURL success:^(UIImage *gravatar) {
             self.gravatar = gravatar;
+            [IOCAvatarCache cacheGravatar:gravatar forIdentifier:self.login];
         } failure:nil];
 	}
 }
 
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKey:@"login"];
-	if (!login.isEmpty && ![self.login isEqualToString:login]) {
+	if ((!login.isEmpty && ![self.login isEqualToString:login]) || (!login.isEmpty && !self.gravatar)) {
 		self.login = login;
 	}
 	// TODO: Remove email check once the API change is done.

@@ -223,7 +223,6 @@
 	GHUser *user = self.users[login];
 	if (user == nil) {
 		user = [[GHUser alloc] initWithLogin:login];
-		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		self.users[login] = user;
 	}
 	return user;
@@ -235,32 +234,18 @@
 	GHOrganization *organization = self.organizations[login];
 	if (organization == nil) {
 		organization = [[GHOrganization alloc] initWithLogin:login];
-		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		self.organizations[login] = organization;
 	}
 	return organization;
 }
 
 - (void)clearUserObjectCache {
-	for (GHOrganization *org in self.organizations.allValues) {
-		[org removeObserver:self forKeyPath:kGravatarKeyPath];
-	}
 	self.organizations = nil;
-	for (GHUser *user in self.users.allValues) {
-		[user removeObserver:self forKeyPath:kGravatarKeyPath];
-	}
 	self.users = nil;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath]) {
-		// might be a GHUser or GHOrganization instance,
-		// both respond to gravatar, so this is okay
-		GHUser *user = (GHUser *)object;
-		if (user.gravatar) {
-			[IOCAvatarCache cacheGravatar:user.gravatar forIdentifier:user.login];
-		}
-	} else if ([keyPath isEqualToString:kUserNotificationsCountKeyPath]) {
+    if ([keyPath isEqualToString:kUserNotificationsCountKeyPath]) {
 		NSInteger unread = [change safeIntegerForKey:@"new"];
 		[self setBadge:unread];
 	}

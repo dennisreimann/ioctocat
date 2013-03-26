@@ -40,6 +40,7 @@
 	if (self.gravatarURL && !self.gravatar) {
         [IOCGravatarService loadWithURL:self.gravatarURL success:^(UIImage *gravatar) {
             self.gravatar = gravatar;
+            [IOCAvatarCache cacheGravatar:gravatar forIdentifier:self.login];
         } failure:nil];
 	}
 }

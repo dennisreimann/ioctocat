@@ -1,6 +1,6 @@
 #import "MenuController.h"
 #import "MyEventsController.h"
-#import "IOCViewControllerRepository.h"
+#import "IOCViewControllerFactory.h"
 #import "IOCNotificationsController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
@@ -138,7 +138,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (BOOL)openViewControllerForGitHubURL:(NSURL *)url {
-	UIViewController *viewController = [IOCViewControllerRepository viewControllerForGitHubURL:url];
+	UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
     if (viewController) {
         [(UINavigationController *)self.slidingViewController.topViewController pushViewController:viewController animated:YES];
         return YES;
@@ -184,7 +184,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 // also marks the notificaton as read.
 - (void)openNotificationControllerWithId:(NSInteger)notificationId url:(NSURL *)subjectURL {
     IOCNotificationsController *notificationsController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
-    UIViewController *notificationController = [IOCViewControllerRepository viewControllerForGitHubURL:subjectURL];
+    UIViewController *notificationController = [IOCViewControllerFactory viewControllerForGitHubURL:subjectURL];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:notificationsController];
     [navController pushViewController:notificationController animated:NO];
     if (self.isViewLoaded) {

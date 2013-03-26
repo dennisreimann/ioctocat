@@ -1,4 +1,4 @@
-#import "IOCViewControllerRepository.h"
+#import "IOCViewControllerFactory.h"
 #import "WebController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
@@ -25,7 +25,7 @@
 #import "NSURL+Extensions.h"
 
 
-@implementation IOCViewControllerRepository
+@implementation IOCViewControllerFactory
 
 + (UIViewController *)viewControllerForGitHubURL:(NSURL *)url {
 	UIViewController *viewController = nil;

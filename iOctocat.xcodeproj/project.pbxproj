@@ -2003,12 +2003,12 @@
 		6F5E9AA21119A96000752560 /* External */ = {
 			isa = PBXGroup;
 			children = (
-				36A36E661700E9960070AC46 /* MAXStatusWindow.h */,
-				36A36E671700E9960070AC46 /* MAXStatusWindow.m */,
-				36A36E5A16FF70A30070AC46 /* MAXCompletion.h */,
-				36A36E5B16FF70A30070AC46 /* MAXCompletion.m */,
 				01554A3314FBF02E00AE08EC /* GradientButton.h */,
 				01554A3414FBF02E00AE08EC /* GradientButton.m */,
+				36A36E5A16FF70A30070AC46 /* MAXCompletion.h */,
+				36A36E5B16FF70A30070AC46 /* MAXCompletion.m */,
+				36A36E661700E9960070AC46 /* MAXStatusWindow.h */,
+				36A36E671700E9960070AC46 /* MAXStatusWindow.m */,
 			);
 			path = External;
 			sourceTree = "<group>";

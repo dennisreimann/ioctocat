@@ -47,8 +47,12 @@
         CGRect viewFrame = [_window.rootViewController.view convertRect:windowFrame fromView:nil];
         UIView *statusView = [[UIView alloc] initWithFrame:viewFrame];
         statusView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
-        [_window.rootViewController.view addSubview:statusView];
         _statusView = statusView;
+    }
+    if (!_statusView.superview) {
+        [_window.rootViewController.view addSubview:_statusView];
+    } else {
+        [_window.rootViewController.view bringSubviewToFront:_statusView];
     }
     return _statusView;
 }
@@ -92,7 +96,7 @@
         [self registerForRemoteNotifications];
     }
 	[self checkAvatarCache];
-    [self checkGitHubSystemStatus:NO];
+    [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? [self checkGitHubSystemStatus:YES] : [self checkGitHubSystemStatus:NO];
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -320,16 +324,14 @@
         } else {
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
             [_statusView removeFromSuperview];
-            self.statusView = nil;
-            self.statusWindow = nil;
+            _statusWindow.hidden = YES;
         }
 	};
 	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		D3JLog(@"System status request failed: %@", error);
         [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
         [_statusView removeFromSuperview];
-        self.statusView = nil;
-        self.statusWindow = nil;
+        _statusWindow.hidden = YES;
 	};
 	D3JLog(@"System status request: %@ %@", method, path);
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];

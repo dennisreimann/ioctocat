@@ -24,7 +24,7 @@
         _enabled = YES;
         _prefix = @"@";
         _charSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-        CGRect frame = CGRectMake(0.0f, 0.0f, 1.0f, 40.0f);
+        CGRect frame = CGRectMake(0.0f, 0.0f, 8.0f, 40.0f);
         UIViewAutoresizing autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
         UIView *accessoryView = [[UIView alloc] initWithFrame:frame];
         accessoryView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MessageEntryBG.png"]];
@@ -44,10 +44,7 @@
 }
 
 - (void)dealloc {
-    if (_textView) {
-        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:_textView];
-        [_textView removeObserver:self forKeyPath:@"selectedTextRange"];
-    }
+    [self removeObservers:_textView];
 }
 
 - (BOOL)enabled {
@@ -65,14 +62,10 @@
 
 - (void)setTextView:(UITextView *)textView {
     if (textView != _textView) {
-        if (_textView) {
-            [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:_textView];
-            [_textView removeObserver:self forKeyPath:@"selectedTextRange"];
-        }
+        [self removeObservers:_textView];
         _textView = textView;
+        [self addObservers:_textView];
         if (_textView) {
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewTextDidChange:) name:UITextViewTextDidChangeNotification object:_textView];
-            [_textView addObserver:self forKeyPath:@"selectedTextRange" options:NSKeyValueObservingOptionNew context:NULL];
             [self textViewDidChange:_textView];
         }
     }
@@ -114,7 +107,19 @@
 
 #pragma mark Helpers
 
+- (void)addObservers:(id)object {
+    if (object) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewTextDidChange:) name:UITextViewTextDidChangeNotification object:object];
+        [object addObserver:self forKeyPath:@"selectedTextRange" options:NSKeyValueObservingOptionNew context:NULL];
+    }
+}
 
+- (void)removeObservers:(id)object {
+    if (object) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:object];
+        [object removeObserver:self forKeyPath:@"selectedTextRange"];
+    }
+}
 
 #pragma mark Actions
 
@@ -192,6 +197,7 @@
                             button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
                             button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                             [button useDarkGithubStyle];
+                            button.layer.borderColor = [UIColor colorWithWhite:0.65f alpha:1.0f].CGColor;
                             [self.buttonArray addObject:button];
                         }
                         if (!imageView) {

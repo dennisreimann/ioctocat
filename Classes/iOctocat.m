@@ -22,10 +22,6 @@
 #import "MAXStatusWindow.h"
 
 
-#define kClearAvatarCacheDefaultsKey @"clearAvatarCache"
-#define kUserNotificationsCountKeyPath @"user.notifications.unreadCount"
-
-
 @interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
@@ -36,6 +32,10 @@
 
 
 @implementation iOctocat
+
+static NSString *const ClearAvatarCacheDefaultsKey = @"clearAvatarCache";
+static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
+static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unreadCount";
 
 + (instancetype)sharedInstance {
 	return (iOctocat *)UIApplication.sharedApplication.delegate;
@@ -84,8 +84,12 @@
     [self setupAccounts];
     [self setupSlidingViewController];
     [self.window makeKeyAndVisible];
+    // remote notifications
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification) [self application:application didReceiveRemoteNotification:remoteNotification];
+    // migrate avatar cache
+    // TODO: can be removed some time in the future
+    [self migrateAvatarCache];
     return YES;
 }
 
@@ -226,7 +230,7 @@
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kUserNotificationsCountKeyPath]) {
+	if ([keyPath isEqualToString:UserNotificationsCountKeyPath]) {
 		NSInteger unread = [change safeIntegerForKey:@"new"];
 		[self setBadge:unread];
 	}
@@ -246,9 +250,9 @@
 }
 
 - (void)setCurrentAccount:(GHAccount *)account {
-	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
+	[_currentAccount removeObserver:self forKeyPath:UserNotificationsCountKeyPath];
 	_currentAccount = account;
-	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[_currentAccount addObserver:self forKeyPath:UserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self setBadge:self.currentAccount.user.notifications.unreadCount];
 }
 
@@ -339,11 +343,19 @@
 	[operation start];
 }
 
+- (void)migrateAvatarCache {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if (![defaults boolForKey:MigratedAvatarCacheDefaultsKey]) {
+        [IOCAvatarCache migrateAvatarCache];
+        [defaults setValue:@YES forKey:MigratedAvatarCacheDefaultsKey];
+    }
+}
+
 - (void)checkAvatarCache {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
+    if ([defaults boolForKey:ClearAvatarCacheDefaultsKey]) {
         [IOCAvatarCache clearAvatarCache];
-        [defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+        [defaults setValue:@NO forKey:ClearAvatarCacheDefaultsKey];
     }
 }
 

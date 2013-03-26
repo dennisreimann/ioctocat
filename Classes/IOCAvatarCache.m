@@ -3,10 +3,21 @@
 
 @implementation IOCAvatarCache
 
-+ (void)clearAvatarCache {
++ (NSString *)avatarsPath {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+	NSString *cachesPath = paths[0];
+    NSString *avatarsPath = [cachesPath stringByAppendingPathComponent:@"Avatars"];
+    return avatarsPath;
+}
+
+// migrates the old approach of avatar caching to the new one.
+// we used to store the images inside the NSDocumentDirectory
+// which is not the right place. that is why we moved this to
+// a separate avatars folder inside the NSCachesDirectory
++ (void)migrateAvatarCache {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsPath = paths[0];
-	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
 	for (NSString *path in documents) {
 		if ([path hasSuffix:@".png"]) {
@@ -14,18 +25,24 @@
 			[fileManager removeItemAtPath:imagePath error:NULL];
 		}
 	}
+    // create new directory
+    [fileManager createDirectoryAtPath:self.avatarsPath withIntermediateDirectories:NO attributes:nil error:nil];
+}
+
++ (void)clearAvatarCache {
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:self.avatarsPath error:nil];
 }
 
 + (NSString *)gravatarPathForIdentifier:(NSString *)string {
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = paths[0];
 	NSString *imageName = [NSString stringWithFormat:@"%@.png", string];
-	return [documentsPath stringByAppendingPathComponent:imageName];
+	return [self.avatarsPath stringByAppendingPathComponent:imageName];
 }
 
 + (UIImage *)cachedGravatarForIdentifier:(NSString *)string {
 	NSString *path = [self gravatarPathForIdentifier:string];
-	return [UIImage imageWithContentsOfFile:path];
+    UIImage *image = [UIImage imageWithContentsOfFile:path];
+	return image;
 }
 
 + (void)cacheGravatar:(UIImage *)image forIdentifier:(NSString *)string {

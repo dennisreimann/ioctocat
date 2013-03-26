@@ -1,5 +1,7 @@
 #import "IOCIssueObjectFormController.h"
 #import "GHIssue.h"
+#import "GHAccount.h"
+#import "GHUserObjectsRepository.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
@@ -48,7 +50,7 @@
 	}
     MAXCompletion *usernameCompletion = [[MAXCompletion alloc] init];
     usernameCompletion.textView = self.bodyField;
-    usernameCompletion.dataSource = [iOctocat sharedInstance].users;
+    usernameCompletion.dataSource = [iOctocat sharedInstance].currentAccount.userObjects.users;
     self.usernameCompletion = usernameCompletion;
 }
 

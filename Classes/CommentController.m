@@ -1,6 +1,8 @@
 #import "CommentController.h"
 #import "NSString+Extensions.h"
 #import "GHComment.h"
+#import "GHAccount.h"
+#import "GHUserObjectsRepository.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "MAXCompletion.h"
@@ -34,7 +36,7 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
     MAXCompletion *usernameCompletion = [[MAXCompletion alloc] init];
     usernameCompletion.textView = self.bodyView;
-    usernameCompletion.dataSource = [iOctocat sharedInstance].users;
+    usernameCompletion.dataSource = [iOctocat sharedInstance].currentAccount.userObjects.users;
     self.usernameCompletion = usernameCompletion;
 }
 

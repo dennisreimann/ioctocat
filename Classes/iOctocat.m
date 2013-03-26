@@ -90,6 +90,7 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     // migrate avatar cache
     // TODO: can be removed some time in the future
     [self migrateAvatarCache];
+    [self checkAvatarCache];
     return YES;
 }
 
@@ -100,7 +101,6 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
         // with fresh data like the current device token and badge
         [self registerForRemoteNotifications];
     }
-	[self checkAvatarCache];
     [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad ? [self checkGitHubSystemStatus:YES] : [self checkGitHubSystemStatus:NO];
 }
 

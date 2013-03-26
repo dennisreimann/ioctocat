@@ -31,7 +31,9 @@
 
 + (void)clearAvatarCache {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
+    // remove old directory and entries, then create new directory
     [fileManager removeItemAtPath:self.avatarsPath error:nil];
+    [fileManager createDirectoryAtPath:self.avatarsPath withIntermediateDirectories:NO attributes:nil error:nil];
 }
 
 + (NSString *)gravatarPathForIdentifier:(NSString *)string {

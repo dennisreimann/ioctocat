@@ -43,7 +43,8 @@
 
 + (UIImage *)cachedGravatarForIdentifier:(NSString *)string {
 	NSString *path = [self gravatarPathForIdentifier:string];
-    UIImage *image = [UIImage imageWithContentsOfFile:path];
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    UIImage *image = [UIImage imageWithData:data];
 	return image;
 }
 

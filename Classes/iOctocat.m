@@ -5,6 +5,7 @@
 #import "IOCDefaultsPersistence.h"
 #import "IOCAuthenticationService.h"
 #import "GHOAuthClient.h"
+#import "GHUserObjectsRepository.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOrganization.h"
@@ -26,8 +27,6 @@
 
 
 @interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
-@property(nonatomic,strong)NSMutableDictionary *users;
-@property(nonatomic,strong)NSMutableDictionary *organizations;
 @property(nonatomic,strong)NSMutableArray *accounts;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
 @property(nonatomic,strong)IBOutlet ECSlidingViewController *slidingViewController;
@@ -39,16 +38,12 @@
 @implementation iOctocat
 
 + (instancetype)sharedInstance {
-	return (iOctocat *)[[UIApplication sharedApplication] delegate];
-}
-
-- (void)dealloc {
-	[self clearUserObjectCache];
+	return (iOctocat *)UIApplication.sharedApplication.delegate;
 }
 
 - (UIView *)statusView {
     if (!_statusView) {
-        CGRect windowFrame = [_window convertRect:[UIApplication sharedApplication].statusBarFrame fromWindow:nil];
+        CGRect windowFrame = [_window convertRect:UIApplication.sharedApplication.statusBarFrame fromWindow:nil];
         CGRect viewFrame = [_window.rootViewController.view convertRect:windowFrame fromView:nil];
         UIView *statusView = [[UIView alloc] initWithFrame:viewFrame];
         statusView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin;
@@ -60,7 +55,7 @@
 
 - (MAXStatusWindow *)statusWindow {
     if (!_statusWindow) {
-        MAXStatusWindow *statusWindow = [[MAXStatusWindow alloc] initWithFrame:[UIApplication sharedApplication].statusBarFrame];
+        MAXStatusWindow *statusWindow = [[MAXStatusWindow alloc] initWithFrame:UIApplication.sharedApplication.statusBarFrame];
         [statusWindow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
         statusWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
         _statusWindow = statusWindow;
@@ -78,7 +73,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.deviceToken = @"";
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [UIApplication.sharedApplication setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self registerForRemoteNotifications];
     [self deactivateURLCache];
     [self setupHockeySDK];
@@ -218,49 +213,15 @@
 }
 
 - (GHUser *)userWithLogin:(NSString *)login {
-	if (!login || [login isEmpty]) return nil;
-	if (!self.users) self.users = [NSMutableDictionary dictionary];
-	GHUser *user = self.users[login];
-	if (user == nil) {
-		user = [[GHUser alloc] initWithLogin:login];
-		[user addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		self.users[login] = user;
-	}
-	return user;
+    return [self.currentAccount.userObjects userWithLogin:login];
 }
 
 - (GHOrganization *)organizationWithLogin:(NSString *)login {
-	if (!login || [login isEmpty]) return nil;
-	if (!self.organizations) self.organizations = [NSMutableDictionary dictionary];
-	GHOrganization *organization = self.organizations[login];
-	if (organization == nil) {
-		organization = [[GHOrganization alloc] initWithLogin:login];
-		[organization addObserver:self forKeyPath:kGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		self.organizations[login] = organization;
-	}
-	return organization;
-}
-
-- (void)clearUserObjectCache {
-	for (GHOrganization *org in self.organizations.allValues) {
-		[org removeObserver:self forKeyPath:kGravatarKeyPath];
-	}
-	self.organizations = nil;
-	for (GHUser *user in self.users.allValues) {
-		[user removeObserver:self forKeyPath:kGravatarKeyPath];
-	}
-	self.users = nil;
+    return [self.currentAccount.userObjects organizationWithLogin:login];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:kGravatarKeyPath]) {
-		// might be a GHUser or GHOrganization instance,
-		// both respond to gravatar, so this is okay
-		GHUser *user = (GHUser *)object;
-		if (user.gravatar) {
-			[IOCAvatarCache cacheGravatar:user.gravatar forIdentifier:user.login];
-		}
-	} else if ([keyPath isEqualToString:kUserNotificationsCountKeyPath]) {
+	if ([keyPath isEqualToString:kUserNotificationsCountKeyPath]) {
 		NSInteger unread = [change safeIntegerForKey:@"new"];
 		[self setBadge:unread];
 	}
@@ -280,7 +241,6 @@
 }
 
 - (void)setCurrentAccount:(GHAccount *)account {
-	[self clearUserObjectCache];
 	[_currentAccount removeObserver:self forKeyPath:kUserNotificationsCountKeyPath];
 	_currentAccount = account;
 	[_currentAccount addObserver:self forKeyPath:kUserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];

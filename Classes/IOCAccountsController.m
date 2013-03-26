@@ -198,7 +198,7 @@
 	}
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];
 	GHAccount *account = self.accounts[idx];
-	cell.userObject = [[iOctocat sharedInstance] userWithLogin:account.login];
+	cell.userObject = account.user;
 	return cell;
 }
 

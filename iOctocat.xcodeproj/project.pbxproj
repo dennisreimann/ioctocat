@@ -29,6 +29,9 @@
 		2E88193D16F8F8B300ACA2EB /* c.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193616F8F8B300ACA2EB /* c.caf */; };
 		2E88193E16F8F8B300ACA2EB /* d.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193716F8F8B300ACA2EB /* d.caf */; };
 		2E88193F16F8F8B300ACA2EB /* d.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193716F8F8B300ACA2EB /* d.caf */; };
+		2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
+		2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
+		2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2EAD8B0316FE36CD00F08EFC /* iOctocatAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */; };
 		2EAD8B0416FE36CD00F08EFC /* iOctocatAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */; };
 		2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
@@ -994,6 +997,8 @@
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
 		2E88193716F8F8B300ACA2EB /* d.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = d.caf; sourceTree = "<group>"; };
+		2E9E53881701AB50000961BD /* GHUserObjectsRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserObjectsRepository.h; sourceTree = "<group>"; };
+		2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserObjectsRepository.m; sourceTree = "<group>"; };
 		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
 		2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactory.h; sourceTree = "<group>"; };
 		2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactory.m; sourceTree = "<group>"; };
@@ -1699,6 +1704,8 @@
 				6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */,
 				2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */,
 				2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */,
+				2E9E53881701AB50000961BD /* GHUserObjectsRepository.h */,
+				2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -3484,6 +3491,7 @@
 				2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
 				36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */,
 				36A36E681700E9960070AC46 /* MAXStatusWindow.m in Sources */,
+				2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3599,6 +3607,7 @@
 				2ECFBABC16EA8AF50092EE67 /* IOCBlobsController.m in Sources */,
 				2ECFBABD16EA8B050092EE67 /* IOCNotificationsController.m in Sources */,
 				2EAD8B0916FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
+				2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3710,6 +3719,7 @@
 				2EAD8B0816FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
 				36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */,
 				36A36E691700E9960070AC46 /* MAXStatusWindow.m in Sources */,
+				2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

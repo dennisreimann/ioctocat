@@ -1,5 +1,6 @@
 #import "GHAccount.h"
 #import "GHOAuthClient.h"
+#import "GHUserObjectsRepository.h"
 #import "GHUser.h"
 #import "GHGists.h"
 #import "GHEvents.h"
@@ -7,11 +8,15 @@
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHNotifications.h"
-#import "iOctocat.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "AFOAuth2Client.h"
+
+
+@interface GHAccount ()
+@property(nonatomic,strong)GHUserObjectsRepository *userObjects;
+@end
 
 
 @implementation GHAccount
@@ -22,10 +27,11 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 - (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {
-		self.login = [dict safeStringForKey:kLoginDefaultsKey];
-		self.endpoint = [dict safeStringForKey:kEndpointDefaultsKey];
-		self.authToken = [dict safeStringForKey:kAuthTokenDefaultsKey];
-		self.pushToken = [dict safeStringForKey:kPushTokenDefaultsKey];
+		self.userObjects = [[GHUserObjectsRepository alloc] init];
+		self.login       = [dict safeStringForKey:kLoginDefaultsKey];
+		self.endpoint    = [dict safeStringForKey:kEndpointDefaultsKey];
+		self.authToken   = [dict safeStringForKey:kAuthTokenDefaultsKey];
+		self.pushToken   = [dict safeStringForKey:kPushTokenDefaultsKey];
 	}
 	return self;
 }
@@ -69,7 +75,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
     // construct user with authenticated URLs
     NSString *receivedEventsPath = [NSString stringWithFormat:kUserAuthenticatedReceivedEventsFormat, self.login];
     NSString *eventsPath = [NSString stringWithFormat:kUserAuthenticatedEventsFormat, self.login];
-    self.user = [[iOctocat sharedInstance] userWithLogin:self.login];
+    self.user = [self.userObjects userWithLogin:self.login];
     self.user.resourcePath = kUserAuthenticatedFormat;
     self.user.repositories.resourcePath = kUserAuthenticatedReposFormat;
     self.user.organizations.resourcePath = kUserAuthenticatedOrgsFormat;

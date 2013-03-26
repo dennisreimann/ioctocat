@@ -5,6 +5,12 @@
 
 @implementation IOCDefaultsPersistence
 
++ (void)updateLastActivationDate {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
+	[defaults synchronize];
+}
+
 + (NSDate *)lastUpdateForPath:(NSString *)path account:(GHAccount *)account {
 	NSString *key = [self keyForPath:path account:account];
 	NSDate *date = [[NSUserDefaults standardUserDefaults] objectForKey:key];

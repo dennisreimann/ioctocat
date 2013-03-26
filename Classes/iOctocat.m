@@ -90,6 +90,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [IOCDefaultsPersistence updateLastActivationDate];
     if ([IOCDefaultsPersistence grantedRemoteNotificationsPermission]) {
         // Reregister for remote notifications so that we always deal
         // with fresh data like the current device token and badge
@@ -339,13 +340,11 @@
 }
 
 - (void)checkAvatarCache {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
-	if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
-		[IOCAvatarCache clearAvatarCache];
-		[defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
-	}
-	[defaults synchronize];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:kClearAvatarCacheDefaultsKey]) {
+        [IOCAvatarCache clearAvatarCache];
+        [defaults setValue:NO forKey:kClearAvatarCacheDefaultsKey];
+    }
 }
 
 // NSURLCache seems to have a problem with Cache-Control="private" headers.

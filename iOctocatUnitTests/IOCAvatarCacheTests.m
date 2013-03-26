@@ -12,9 +12,9 @@
 
 - (void)setUp {
     [super setUp];
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 	self.gravatar = [UIImage imageNamed:@"Icon.png"];
-	self.gravatarPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"gravatar.png"];
+	self.gravatarPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Avatars/gravatar.png"];
 }
 
 - (void)tearDown {

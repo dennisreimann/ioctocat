@@ -1324,10 +1324,6 @@
 		6FA381D816E28F24003293BD /* MenuOctocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOctocat@2x.png"; sourceTree = "<group>"; };
 		6FA381E116E28F24003293BD /* MenuPullRequests.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuPullRequests.png; sourceTree = "<group>"; };
 		6FA381E216E28F24003293BD /* MenuPullRequests@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuPullRequests@2x.png"; sourceTree = "<group>"; };
-		6FA3822516E2903C003293BD /* ToolbarLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarLeft.png; sourceTree = "<group>"; };
-		6FA3822616E2903C003293BD /* ToolbarLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarLeft@2x.png"; sourceTree = "<group>"; };
-		6FA3822716E2903C003293BD /* ToolbarRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarRight.png; sourceTree = "<group>"; };
-		6FA3822816E2903C003293BD /* ToolbarRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarRight@2x.png"; sourceTree = "<group>"; };
 		6FA512F11332659000C16D95 /* IOCAppConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAppConstants.h; sourceTree = "<group>"; };
 		6FA92AFD0FACD51A001B1D1D /* Issue.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Issue.xib; path = IBFiles/Issue.xib; sourceTree = "<group>"; };
 		6FA92B1A0FACD648001B1D1D /* issue_closed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = issue_closed.png; path = Images/Icons/issue_closed.png; sourceTree = "<group>"; };
@@ -2058,10 +2054,6 @@
 				6F3616B6166184200098AE4A /* ToolbarUserOn@2x.png */,
 				6F3616B7166184200098AE4A /* ToolbarUsersOn.png */,
 				6F3616B8166184200098AE4A /* ToolbarUsersOn@2x.png */,
-				6FA3822516E2903C003293BD /* ToolbarLeft.png */,
-				6FA3822616E2903C003293BD /* ToolbarLeft@2x.png */,
-				6FA3822716E2903C003293BD /* ToolbarRight.png */,
-				6FA3822816E2903C003293BD /* ToolbarRight@2x.png */,
 			);
 			name = Toolbar;
 			path = Images/Toolbar;
@@ -2070,8 +2062,6 @@
 		6F74DD750FA76C4200FD90AB /* Backgrounds */ = {
 			isa = PBXGroup;
 			children = (
-				367F8AD116F64DBF008F8054 /* MessageEntryBG.png */,
-				367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */,
 				6F61F538139E43FB005DBE67 /* AvatarBackground32.png */,
 				6F61F539139E43FB005DBE67 /* AvatarBackground32@2x.png */,
 				6F61F53A139E43FC005DBE67 /* AvatarBackground50.png */,
@@ -2080,6 +2070,8 @@
 				6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */,
 				6F5B58FB164FC252009ADE17 /* CellBackground.png */,
 				6F5B58FC164FC252009ADE17 /* CellBackground@2x.png */,
+				367F8AD116F64DBF008F8054 /* MessageEntryBG.png */,
+				367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */,
 			);
 			name = Backgrounds;
 			sourceTree = "<group>";

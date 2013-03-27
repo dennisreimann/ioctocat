@@ -10,11 +10,21 @@
 #import "SVProgressHUD.h"
 #import "GHAccount.h"
 
+typedef enum {
+	IOCAccountTypeUnspecified = 0,
+	IOCAccountTypeGitHubCom   = 1,
+	IOCAccountTypeEnterprise  = 2
+} IOCAccountType;
+
 
 @interface IOCAccountFormController () <UITextFieldDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)GHAccount *account;
+@property(nonatomic,assign)IOCAccountType accountType;
 @property(nonatomic,assign)NSUInteger index;
 @property(nonatomic,readonly)NSString *deviceToken;
+@property(nonatomic,weak)IBOutlet UIView *accountTypeView;
+@property(nonatomic,weak)IBOutlet UIView *accountFormView;
+@property(nonatomic,weak)IBOutlet UIView *accountInputsView;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
@@ -35,6 +45,11 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 	if (self) {
 		self.index = idx;
 		self.account = account;
+        if (self.index == NSNotFound) {
+            self.accountType = IOCAccountTypeUnspecified;
+        } else {
+            self.accountType = self.account.endpoint.isEmpty ? IOCAccountTypeGitHubCom : IOCAccountTypeEnterprise;
+        }
 	}
 	return self;
 }
@@ -47,6 +62,9 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
     [self checkPushStateForPushToken:self.account.pushToken];
     [self.removeButton useRedDeleteStyle];
     self.removeButton.hidden = self.index == NSNotFound;
+    [self prepareForm];
+    self.accountTypeView.hidden = self.accountType != IOCAccountTypeUnspecified;
+    self.accountFormView.hidden = self.accountType == IOCAccountTypeUnspecified;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -124,7 +142,26 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 	}
 }
 
+- (void)prepareForm {
+    BOOL isGitHub = self.accountType == IOCAccountTypeGitHubCom;
+    CGRect frame = self.accountInputsView.frame;
+    CGFloat y = self.endpointField.frame.origin.y;
+    frame.origin.y = isGitHub ? y : y + 44.0f;
+    self.accountInputsView.frame = frame;
+    self.endpointField.enabled = !isGitHub;
+}
+
 #pragma mark Actions
+
+- (IBAction)selectAccountType:(UIButton *)sender {
+    self.accountType = sender.tag;
+    [self prepareForm];
+    UIViewAnimationOptions flip = self.accountType == IOCAccountTypeGitHubCom ?
+        UIViewAnimationOptionTransitionFlipFromRight :
+        UIViewAnimationOptionTransitionFlipFromLeft;
+    UIViewAnimationOptions opts = (UIViewAnimationOptionShowHideTransitionViews | flip);
+    [UIView transitionFromView:self.accountTypeView toView:self.accountFormView duration:0.4f options:opts completion:nil];
+}
 
 - (IBAction)saveAccount:(id)sender {
 	NSString *login = self.loginValue;

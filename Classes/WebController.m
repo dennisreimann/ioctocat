@@ -6,12 +6,12 @@
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,strong)NSString *html;
 @property(nonatomic,strong)NSURLRequest *request;
+@property(nonatomic,strong)UIActivityIndicatorView *activityView;
 @property(nonatomic,weak)IBOutlet UIWebView *webView;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *leftButton;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *rightButton;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *actionButton;
 @property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
-@property(nonatomic,strong)IBOutlet UIActivityIndicatorView *activityView;
 - (IBAction)leftButtonTapped:(id)sender;
 - (IBAction)rightButtonTapped:(id)sender;
 - (IBAction)actionButtonTapped:(id)sender;
@@ -46,6 +46,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:[UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
 
 	self.webView.scrollView.bounces = NO;

@@ -82,10 +82,8 @@
 
 - (void)setDataSource:(NSDictionary *)dataSource {
     if (dataSource != _dataSource) {
-        if (_buttonArray) {
-            for (UIView *button in _buttonArray) {
-                [button removeFromSuperview];
-            }
+        for (UIView *button in _buttonArray) {
+            [button removeFromSuperview];
         }
         _dataSource = dataSource;
         NSArray *allKeys = nil;

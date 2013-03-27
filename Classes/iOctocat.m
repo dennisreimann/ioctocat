@@ -19,16 +19,14 @@
 #import "ECSlidingViewController.h"
 #import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
-#import "MAXStatusView.h"
-#import "MAXStatusWindow.h"
 
 
 @interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
 @property(nonatomic,strong)NSMutableArray *accounts;
+@property(nonatomic,strong)UIView *statusView;
+@property(nonatomic,strong)UIWindow *statusWindow;
 @property(nonatomic,strong)IBOutlet UINavigationController *menuNavController;
 @property(nonatomic,strong)IBOutlet ECSlidingViewController *slidingViewController;
-@property(nonatomic,strong)MAXStatusView *statusView;
-@property(nonatomic,strong)MAXStatusWindow *statusWindow;
 @end
 
 
@@ -40,37 +38,6 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 
 + (instancetype)sharedInstance {
 	return (iOctocat *)UIApplication.sharedApplication.delegate;
-}
-
-- (MAXStatusView *)statusView {
-    if (!_statusView) {
-        CGRect windowFrame = [_window convertRect:UIApplication.sharedApplication.statusBarFrame fromWindow:nil];
-        CGRect viewFrame = [_window.rootViewController.view convertRect:windowFrame fromView:nil];
-        MAXStatusView *statusView = [[MAXStatusView alloc] initWithFrame:viewFrame];
-        [_window.rootViewController.view addSubview:statusView];
-        _statusView = statusView;
-    }
-    return _statusView;
-}
-
-- (MAXStatusWindow *)statusWindow {
-    if (!_statusWindow) {
-        MAXStatusWindow *statusWindow = [[MAXStatusWindow alloc] initWithFrame:UIApplication.sharedApplication.statusBarFrame];
-        [statusWindow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
-        statusWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
-        _statusWindow = statusWindow;
-    }
-    return _statusWindow;
-}
-
-- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
-    if (tapGesture.state == UIGestureRecognizerStateEnded) {
-        [self checkGitHubSystemStatus:YES report:YES];
-    }
-}
-
-- (void)bringStatusViewToFront {
-    [_statusView.superview bringSubviewToFront:_statusView];
 }
 
 #pragma mark Application Events
@@ -176,6 +143,15 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 	} else {
 		return NO;
 	}
+}
+
+- (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame {
+    _statusWindow.frame = newStatusBarFrame;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect windowFrame = [_statusView.window convertRect:newStatusBarFrame fromWindow:nil];
+        CGRect viewFrame = [_statusView.superview convertRect:windowFrame fromView:nil];
+        _statusView.frame = viewFrame;
+    });
 }
 
 #pragma mark External resources
@@ -295,64 +271,6 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
 }
 
-// TODO: Improve UX on iPad
-- (void)checkGitHubSystemStatus:(BOOL)isPhone report:(BOOL)report {
-	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
-	NSString *path = @"/api/last-message.json";
-	NSString *method = kRequestMethodGet;
-	GHOAuthClient *apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
-	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:nil];
-	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-		D3JLog(@"System status request finished: %@", json);
-		NSString *status = [json safeStringForKey:@"status"];
-        //switch (arc4random() % 3) {
-        //    case 1:
-        //        status = @"minor";
-        //        break;
-        //    case 2:
-        //        status = @"major";
-        //        break;
-        //    default:
-        //        break;
-        //}
-		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
-			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
-			NSString *body = [json safeStringForKey:@"body"];
-			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
-			if ([status isEqualToString:@"major"]) {
-                if (isPhone) self.statusView.backgroundColor = [UIColor redColor];
-                if (report) [iOctocat reportError:@"GitHub System Error" with:message];
-			} else {
-                if (isPhone) self.statusView.backgroundColor = [UIColor yellowColor];
-                if (report) [iOctocat reportWarning:@"GitHub System Warning" with:message];
-			}
-            if (isPhone) {
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
-                self.statusWindow.hidden = NO;
-            }
-        } else {
-            if (isPhone) {
-                self.statusWindow = nil;
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-                [_statusView removeFromSuperview];
-                self.statusView = nil;
-            }
-        }
-	};
-	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-		D3JLog(@"System status request failed: %@", error);
-        if (isPhone) {
-            self.statusWindow = nil;
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-            [_statusView removeFromSuperview];
-            self.statusView = nil;
-        }
-	};
-	D3JLog(@"System status request: %@ %@", method, path);
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
-	[operation start];
-}
-
 - (void)migrateAvatarCache {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if (![defaults boolForKey:MigratedAvatarCacheDefaultsKey]) {
@@ -405,6 +323,86 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 
 - (void)registerForRemoteNotifications {
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
+#pragma mark GitHub System Status
+
+- (UIView *)statusView {
+    if (!_statusView) {
+        CGRect windowFrame = [_window convertRect:UIApplication.sharedApplication.statusBarFrame fromWindow:nil];
+        CGRect viewFrame = [_window.rootViewController.view convertRect:windowFrame fromView:nil];
+        UIView *statusView = [[UIView alloc] initWithFrame:viewFrame];
+        [_window.rootViewController.view addSubview:statusView];
+        _statusView = statusView;
+    }
+    return _statusView;
+}
+
+- (UIWindow *)statusWindow {
+    if (!_statusWindow) {
+        UIWindow *statusWindow = [[UIWindow alloc] initWithFrame:UIApplication.sharedApplication.statusBarFrame];
+        [statusWindow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
+        statusWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
+        _statusWindow = statusWindow;
+    }
+    return _statusWindow;
+}
+
+- (void)checkGitHubSystemStatus:(BOOL)isPhone report:(BOOL)report {
+	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
+	NSString *path = @"/api/last-message.json";
+	NSString *method = kRequestMethodGet;
+	GHOAuthClient *apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
+	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:nil];
+	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
+		D3JLog(@"System status request finished: %@", json);
+		NSString *status = [json safeStringForKey:@"status"];
+		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
+			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
+			NSString *body = [json safeStringForKey:@"body"];
+			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
+			if ([status isEqualToString:@"major"]) {
+                if (isPhone) self.statusView.backgroundColor = [UIColor redColor];
+                if (report) [iOctocat reportError:@"GitHub System Error" with:message];
+			} else {
+                if (isPhone) self.statusView.backgroundColor = [UIColor yellowColor];
+                if (report) [iOctocat reportWarning:@"GitHub System Warning" with:message];
+			}
+            if (isPhone) {
+                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+                self.statusWindow.hidden = NO;
+            }
+        } else {
+            if (isPhone) {
+                self.statusWindow = nil;
+                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+                [_statusView removeFromSuperview];
+                self.statusView = nil;
+            }
+        }
+	};
+	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		D3JLog(@"System status request failed: %@", error);
+        if (isPhone) {
+            self.statusWindow = nil;
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+            [_statusView removeFromSuperview];
+            self.statusView = nil;
+        }
+	};
+	D3JLog(@"System status request: %@ %@", method, path);
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
+	[operation start];
+}
+
+- (void)bringStatusViewToFront {
+    [_statusView.superview bringSubviewToFront:_statusView];
+}
+
+- (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
+    if (tapGesture.state == UIGestureRecognizerStateEnded) {
+        [self checkGitHubSystemStatus:YES report:YES];
+    }
 }
 
 #pragma mark Autorotation

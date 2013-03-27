@@ -98,6 +98,9 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    // return immediately if this hook gets called when presenting a modal
+    // view controller, because that is not the case we want to react to
+    if (self.presentedViewController) return;
     [super viewWillDisappear:animated];
     // weird fallback handling for iOS 5
     // TODO: remove this once our deployment target is > iOS 5

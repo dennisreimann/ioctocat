@@ -51,7 +51,7 @@
 
 	self.webView.scrollView.bounces = NO;
 	if (self.url) {
-        self.title = [self.url host];
+        self.title = self.title ? self.title : [self.url host];
         self.request = [NSURLRequest requestWithURL:self.url];
         [self.webView loadRequest:self.request];
         self.actionButton.enabled = YES;
@@ -112,8 +112,14 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSString *host = [[request URL] host];
+        NSURL *url = [request URL];
+        NSString *host = [url host];
         if (host) {
+            if (self.html) {
+                WebController *webController = [[WebController alloc] initWithURL:url];
+                [self.navigationController pushViewController:webController animated:YES];
+                return NO;
+            }
             self.title = host;
         }
     }

@@ -43,6 +43,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
     [super viewDidLoad];
 	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
 	self.loginField.text = self.account.login;
+    self.loginField.keyboardType = UIKeyboardTypeEmailAddress;
 	self.endpointField.text = self.account.endpoint;
     [self checkPushStateForPushToken:self.account.pushToken];
     [self.removeButton useRedDeleteStyle];

@@ -6,6 +6,7 @@ Additions:
 
 * Hopefully push notifications ;)
 * @username completion. By @iosdeveloper
+* #Issue completion. By @iosdeveloper
 * Copy SHA of a commit. Thanks @iosdeveloper
 * Internal web browser: Basic navigation, Open in Safari, Copy URL. Thanks @iosdeveloper
 * Open all URLs highlighted in issues/comments internally (experimental). Thanks @iosdeveloper
@@ -14,6 +15,7 @@ Additions:
 * Browse gist forks
 * Handle static pages and notifications when opening a GitHub.com URL
 * Option to disable avatar loading. Thanks @mazanma3
+* Show a commit on GitHub. By @iosdeveloper
 
 Changes:
 

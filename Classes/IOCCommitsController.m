@@ -9,15 +9,6 @@
 #import "SVProgressHUD.h"
 
 
-@interface CopyMenuItem : UIMenuItem
-@property(nonatomic,strong)NSIndexPath *indexPath;
-@end
-
-
-@implementation CopyMenuItem
-@end
-
-
 @interface IOCCommitsController ()
 @property(nonatomic,strong)GHCommits *commits;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -75,27 +66,6 @@
 	}];
 }
 
-- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressRecognizer {
-    if (longPressRecognizer.state == UIGestureRecognizerStateBegan) {
-        NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:[longPressRecognizer locationInView:self.tableView]];
-        if (indexPath && indexPath.row != NSNotFound && indexPath.section != NSNotFound) {
-            CopyMenuItem *menuItem = [[CopyMenuItem alloc] initWithTitle:@"Copy" action:@selector(copyMenuButtonPressed:)];
-            menuItem.indexPath = indexPath;
-            [UIMenuController sharedMenuController].menuItems = @[menuItem];
-            [[UIMenuController sharedMenuController] setTargetRect:[self.tableView rectForRowAtIndexPath:indexPath] inView:self.tableView];
-            [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
-        }
-    }
-}
-
-- (void)copyMenuButtonPressed:(UIMenuController *)menuController {
-    CopyMenuItem *menuItem = menuController.menuItems[0];
-    if (menuItem.indexPath) {
-        GHCommit *commit = self.commits[menuItem.indexPath.row];
-        [UIPasteboard generalPasteboard].string = commit.shortenedSha;
-    }
-}
-
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -109,11 +79,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.commits.isEmpty) return self.statusCell;
 	IOCCommitCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommitCellIdentifier];
-    if (cell == nil) {
-        cell = [IOCCommitCell cell];
-        UILongPressGestureRecognizer *longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-        [cell addGestureRecognizer:longPressRecognizer];
-    }
+	if (cell == nil) cell = [IOCCommitCell cell];
 	cell.commit = self.commits[indexPath.row];
 	return cell;
 }
@@ -123,6 +89,22 @@
 	GHCommit *commit = self.commits[indexPath.row];
 	IOCCommitController *viewController = [[IOCCommitController alloc] initWithCommit:commit];
 	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return !self.commits.isEmpty;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    if (action == @selector(copy:)) {
+        return YES;
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    GHCommit *commit = self.commits[indexPath.row];
+    [UIPasteboard generalPasteboard].string = commit.shortenedSha;
 }
 
 #pragma mark Responder

@@ -159,11 +159,17 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 - (BOOL)openURL:(NSURL *)url {
     UIViewController *menuController = self.menuNavController.topViewController;
     BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (!(isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url])) {
-        WebController *webController = [[WebController alloc] initWithURL:url];
-        [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
+    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+        return YES;
+    } else {
+        NSString *scheme = [url scheme];
+        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+            WebController *webController = [[WebController alloc] initWithURL:url];
+            [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
+            return YES;
+        }
     }
-    return YES;
+    return NO;
 }
 
 - (void)setupHockeySDK {

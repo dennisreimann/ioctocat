@@ -1,6 +1,11 @@
 #import "CommentController.h"
 #import "NSString+Extensions.h"
+#import "GHRepository.h"
+#import "GHIssues.h"
+#import "GHIssue.h"
 #import "GHComment.h"
+#import "GHIssueComment.h"
+#import "GHRepoComment.h"
 #import "GHAccount.h"
 #import "GHUserObjectsRepository.h"
 #import "iOctocat.h"
@@ -12,6 +17,8 @@
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,weak)id comments;
 @property(nonatomic,strong)MAXCompletion *usernameCompletion;
+@property(nonatomic,strong)MAXCompletion *issueCompletion;
+@property(nonatomic,strong)NSDictionary *issueCompletionDataSource;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 - (IBAction)postComment:(id)sender;
 @end
@@ -38,6 +45,36 @@
     usernameCompletion.textView = self.bodyView;
     usernameCompletion.dataSource = [iOctocat sharedInstance].currentAccount.userObjects.users;
     self.usernameCompletion = usernameCompletion;
+    GHRepository *repo = nil;
+    if ([self.comment respondsToSelector:@selector(repository)]) {
+        repo = [(GHRepoComment *)self.comment repository];
+    } else if ([self.comment respondsToSelector:@selector(parent)] && [[(GHIssueComment *)self.comment parent] respondsToSelector:@selector(repository)]) {
+        repo = [[(GHIssueComment *)self.comment parent] repository];
+    }
+    if (repo) {
+        MAXCompletion *issueCompletion = [[MAXCompletion alloc] init];
+        issueCompletion.textView = self.bodyView;
+        issueCompletion.prefix = @"#";
+        issueCompletion.comparator = ^NSComparisonResult(id obj1, id obj2) {
+            if ([obj1 isOpen] > [obj2 isOpen]) return NSOrderedAscending;
+            if ([obj1 isOpen] < [obj2 isOpen]) return NSOrderedDescending;
+            if ([obj1 num] > [obj2 num]) return NSOrderedAscending;
+            if ([obj1 num] < [obj2 num]) return NSOrderedDescending;
+            return NSOrderedSame;
+        };
+        NSArray *open = repo.openIssues.items;
+        NSArray *closed = repo.closedIssues.items;
+        NSArray *items = @[open, closed];
+        NSMutableDictionary *dataSource = [NSMutableDictionary dictionaryWithCapacity:[open count] + [closed count]];
+        for (NSArray *issues in items) {
+            for (GHIssue *issue in issues) {
+                dataSource[[NSString stringWithFormat:@"%d", issue.num]] = issue;
+            }
+        }
+        self.issueCompletionDataSource = dataSource;
+        issueCompletion.dataSource = self.issueCompletionDataSource;
+        self.issueCompletion = issueCompletion;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {

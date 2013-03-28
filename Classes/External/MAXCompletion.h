@@ -6,5 +6,6 @@
 @property(nonatomic,assign)BOOL enabled;
 @property(nonatomic,weak)UITextView *textView;
 @property(nonatomic,strong)NSString *prefix;
+@property(nonatomic,copy)NSComparator comparator;
 @property(nonatomic,weak)NSDictionary *dataSource;
 @end

@@ -162,13 +162,17 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy SHA", @"Add comment", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy SHA", @"Add comment", @"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) [UIPasteboard generalPasteboard].string = self.commit.commitID;
     else if (buttonIndex == 1) [self addComment:nil];
+    else if (buttonIndex == 2) {
+        WebController *webController = [[WebController alloc] initWithURL:self.commit.htmlURL];
+        [self.navigationController pushViewController:webController animated:YES];
+    }
 }
 
 - (IBAction)addComment:(id)sender {

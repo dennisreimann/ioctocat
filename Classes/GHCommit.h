@@ -12,6 +12,7 @@
 @property(nonatomic,strong)NSString *committerEmail;
 @property(nonatomic,strong)NSDate *committedDate;
 @property(nonatomic,strong)NSDate *authoredDate;
+@property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,strong)GHFiles *added;
 @property(nonatomic,strong)GHFiles *modified;
 @property(nonatomic,strong)GHFiles *removed;

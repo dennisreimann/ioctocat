@@ -43,6 +43,7 @@
 	self.committedDate = [dict safeDateForKeyPath:@"commit.committer.date"];
 	self.message = [dict safeStringForKeyPath:@"commit.message"];
 	if (self.message.isEmpty) self.message = [dict safeStringForKey:@"message"];
+    self.htmlURL = [dict safeURLForKey:@"html_url"];
 	// files
 	self.added = [[GHFiles alloc] init];
 	self.removed = [[GHFiles alloc] init];

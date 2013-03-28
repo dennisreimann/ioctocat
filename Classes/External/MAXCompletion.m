@@ -114,7 +114,7 @@
                 NSArray *allKeys = [_dataSource allKeys];
                 sortedKeyArray = [allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
             }
-            buttonArray = [NSMutableArray arrayWithCapacity:[_dataSource count]];
+            buttonArray = [NSMutableArray arrayWithCapacity:[sortedKeyArray count]];
         }
         _sortedKeyArray = sortedKeyArray;
         _buttonArray = buttonArray;

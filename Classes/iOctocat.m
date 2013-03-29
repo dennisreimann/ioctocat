@@ -135,14 +135,12 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-	BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
-	if (isMenuVisible && [self isGitHubURL:url]) {
-		MenuController *menuController = (MenuController *)self.menuNavController.topViewController;
-		[menuController openViewControllerForGitHubURL:url];
+    UIViewController *menuController = self.menuNavController.topViewController;
+    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
+    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
 		return YES;
-	} else {
-		return NO;
 	}
+    return NO;
 }
 
 - (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame {

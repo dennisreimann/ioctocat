@@ -68,19 +68,14 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self layoutCommentButton];
     self.title = self.commit.shortenedSha;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
     self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:@"commit"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:@"comments"];
+	[self layoutTableHeader];
+	[self layoutTableFooter];
 	[self displayCommit];
-	// header
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
-	self.gravatarView.layer.cornerRadius = 3;
-	self.gravatarView.layer.masksToBounds = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -145,18 +140,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
-	[self layoutCommentButton];
-}
-
-// ugly fix for the problem described here:
-// https://github.com/dennisreimann/ioctocat/issues/264
-- (void)layoutCommentButton {
-	CGRect btnFrame = self.commentButton.frame;
-	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
-	CGFloat width = self.view.frame.size.width - margin * 2;
-	btnFrame.origin.x = margin;
-	btnFrame.size.width = width;
-	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Actions
@@ -211,14 +194,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	return (section == 2) ? @"Comments" : @"";
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	if (section == 2) {
-		return self.tableFooterView;
-	} else {
-		return nil;
-	}
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.commit.isEmpty) return self.statusCell;
 	NSInteger section = indexPath.section;
@@ -259,10 +234,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	return 44;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	return (section == 2) ? 56 : 0;
-}
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.commit.isEmpty) return;
 	NSInteger section = indexPath.section;
@@ -290,6 +261,24 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
+}
+
+- (void)layoutTableHeader {
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
+	self.gravatarView.layer.cornerRadius = 3;
+	self.gravatarView.layer.masksToBounds = YES;
+}
+
+- (void)layoutTableFooter {
+	self.tableView.tableFooterView = self.tableFooterView;
+	CGRect btnFrame = self.commentButton.frame;
+	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
+	CGFloat width = self.view.frame.size.width - margin * 2;
+	btnFrame.origin.x = margin;
+	btnFrame.size.width = width;
+	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Responder

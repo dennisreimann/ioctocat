@@ -56,18 +56,15 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	[self layoutCommentButton];
 	self.title = self.title ? self.title : @"Gist";
     self.navigationItem.titleView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist name:@"gist"];
 	self.filesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.files name:@"files"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.comments name:@"comments"];
+	[self layoutTableHeader];
+	[self layoutTableFooter];
 	[self displayGist];
-	// header
-	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
-	self.tableHeaderView.backgroundColor = background;
-	self.tableView.tableHeaderView = self.tableHeaderView;
 	// check starring state
 	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
 		self.isStarring = YES;
@@ -125,18 +122,6 @@
 		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
 		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
 	}
-	[self layoutCommentButton];
-}
-
-// ugly fix for the problem described here:
-// https://github.com/dennisreimann/ioctocat/issues/264
-- (void)layoutCommentButton {
-	CGRect btnFrame = self.commentButton.frame;
-	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
-	CGFloat width = self.view.frame.size.width - margin * 2;
-	btnFrame.origin.x = margin;
-	btnFrame.size.width = width;
-	self.commentButton.frame = btnFrame;
 }
 
 #pragma mark Actions
@@ -253,24 +238,12 @@
 	return cell;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-	return section == 3 ? self.tableFooterView : nil;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 3 && !self.gist.comments.isEmpty) {
 		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
 	return 44;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	if (section == 3) {
-		return 56;
-	} else {
-		return 0;
-	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -294,6 +267,22 @@
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];
     }
+}
+
+- (void)layoutTableHeader {
+	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
+	self.tableHeaderView.backgroundColor = background;
+	self.tableView.tableHeaderView = self.tableHeaderView;
+}
+
+- (void)layoutTableFooter {
+	self.tableView.tableFooterView = self.tableFooterView;
+	CGRect btnFrame = self.commentButton.frame;
+	CGFloat margin = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 10 : 45;
+	CGFloat width = self.view.frame.size.width - margin * 2;
+	btnFrame.origin.x = margin;
+	btnFrame.size.width = width;
+	self.commentButton.frame = btnFrame;
 }
 
 @end

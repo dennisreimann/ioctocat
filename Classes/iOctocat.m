@@ -92,11 +92,12 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
-    NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
     if (application.applicationState == UIApplicationStateActive) {
         NSDictionary *aps = [remoteNotification safeDictForKey:@"aps"];
+        NSString *body = [aps safeStringForKey:@"alert"];
         // TODO: Figure out a way to handle incoming remote
         // notifications when the app is in foreground
+        //[YRDropdownView showDropdownInView:self.window title:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] detail:body image:<#(UIImage *)#> textColor:<#(UIColor *)#> backgroundColor:<#(UIColor *)#> animated:YES hideAfter:5.0f];
         NSString *sound = [aps safeStringOrNilForKey:@"sound"];
         if (sound) {
             NSURL *url = [[NSBundle mainBundle] URLForResource:sound withExtension:nil];
@@ -109,6 +110,7 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
         }
         return;
     }
+    NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
     NSString *login = [ioc safeStringForKey:@"a"];
     NSString *endpoint = [ioc safeStringForKey:@"b"];
     GHAccount *account = [self accountWithLogin:login endpoint:endpoint];

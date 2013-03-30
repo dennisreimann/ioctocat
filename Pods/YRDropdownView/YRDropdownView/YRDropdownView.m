@@ -122,6 +122,13 @@ static BOOL isQueuing = NO; // keep queuing property here - gregwym
     }
 }
 
+- (dispatch_queue_t)tapQueue {
+    if (!_tapQueue) {
+        return dispatch_get_main_queue();
+    }
+    return _tapQueue;
+}
+
 #pragma mark - Initializers
 - (id)init {
     return [self initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
@@ -486,6 +493,9 @@ static BOOL isQueuing = NO; // keep queuing property here - gregwym
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (self.tapBlock) {
+        dispatch_async(self.tapQueue, self.tapBlock);
+    }
     [self hide:self.shouldAnimate];
 }
 

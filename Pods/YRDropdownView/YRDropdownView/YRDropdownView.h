@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+typedef void (^YRTapBlock)(void);
+
 @interface YRDropdownView : UIView
 
 @property (weak, nonatomic, readonly) NSString *titleText;
 @property (weak, nonatomic, readonly) NSString *detailText;
+
+@property (nonatomic, copy) YRTapBlock tapBlock;
+@property (nonatomic, assign) dispatch_queue_t tapQueue;
 
 #pragma mark - View methods
 

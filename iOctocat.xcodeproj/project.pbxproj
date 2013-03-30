@@ -55,6 +55,8 @@
 		367F8AD616F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */; };
 		36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A36E5B16FF70A30070AC46 /* MAXCompletion.m */; };
 		36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A36E5B16FF70A30070AC46 /* MAXCompletion.m */; };
+		36ED094917074A0400CCEFCD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B011119AB1900752560 /* AudioToolbox.framework */; };
+		36ED094A17074A1200CCEFCD /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B011119AB1900752560 /* AudioToolbox.framework */; };
 		6F00F4A316B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F00F4A416B2864A0057F0FE /* Remove@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F00F4A216B2864A0057F0FE /* Remove@2x.png */; };
 		6F08799C1623635E00CE95D0 /* ToolbarGist.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F08799A1623635E00CE95D0 /* ToolbarGist.png */; };
@@ -1545,6 +1547,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36ED094917074A0400CCEFCD /* AudioToolbox.framework in Frameworks */,
 				6F3FD69A1675E80700E90A6E /* Security.framework in Frameworks */,
 				6F6F177411E316FE008B319F /* MobileCoreServices.framework in Frameworks */,
 				01117CDC13E87CBF004F4E09 /* libz.dylib in Frameworks */,
@@ -1579,6 +1582,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36ED094A17074A1200CCEFCD /* AudioToolbox.framework in Frameworks */,
 				6FCAA487167B52C800C816FA /* Security.framework in Frameworks */,
 				6FCAA488167B52C800C816FA /* MobileCoreServices.framework in Frameworks */,
 				6FCAA489167B52C800C816FA /* libz.dylib in Frameworks */,

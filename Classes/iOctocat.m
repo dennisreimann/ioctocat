@@ -1,3 +1,4 @@
+#import <AudioToolbox/AudioServices.h>
 #import <HockeySDK/HockeySDK.h>
 #import "iOctocat.h"
 #import "IOCApiClient.h"
@@ -85,13 +86,28 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     }];
 }
 
+void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
+    AudioServicesRemoveSystemSoundCompletion(ssID);
+    AudioServicesDisposeSystemSoundID(ssID);
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
+    NSDictionary *info = [remoteNotification safeDictForKey:@"ioc"];
     if (application.applicationState == UIApplicationStateActive) {
         // TODO: Figure out a way to handle incoming remote
         // notifications when the app is in foreground
+        NSString *sound = [info safeStringForKey:@"sound"];
+        if (!sound.isEmpty) {
+            NSURL *url = [[NSBundle mainBundle] URLForResource:sound withExtension:nil];
+            if (url) {
+                SystemSoundID ssID;
+                AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &ssID);
+                AudioServicesAddSystemSoundCompletion(ssID, NULL, NULL, SystemSoundCallback, NULL);
+                AudioServicesPlayAlertSound(ssID);
+            }
+        }
         return;
     }
-    NSDictionary *info = [remoteNotification safeDictForKey:@"ioc"];
     NSString *login = [info safeStringForKey:@"a"];
     NSString *endpoint = [info safeStringForKey:@"b"];
     GHAccount *account = [self accountWithLogin:login endpoint:endpoint];

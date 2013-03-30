@@ -92,12 +92,13 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
-    NSDictionary *info = [remoteNotification safeDictForKey:@"ioc"];
+    NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
     if (application.applicationState == UIApplicationStateActive) {
+        NSDictionary *aps = [remoteNotification safeDictForKey:@"aps"];
         // TODO: Figure out a way to handle incoming remote
         // notifications when the app is in foreground
-        NSString *sound = [info safeStringForKey:@"sound"];
-        if (!sound.isEmpty) {
+        NSString *sound = [aps safeStringOrNilForKey:@"sound"];
+        if (sound) {
             NSURL *url = [[NSBundle mainBundle] URLForResource:sound withExtension:nil];
             if (url) {
                 SystemSoundID ssID;
@@ -108,8 +109,8 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
         }
         return;
     }
-    NSString *login = [info safeStringForKey:@"a"];
-    NSString *endpoint = [info safeStringForKey:@"b"];
+    NSString *login = [ioc safeStringForKey:@"a"];
+    NSString *endpoint = [ioc safeStringForKey:@"b"];
     GHAccount *account = [self accountWithLogin:login endpoint:endpoint];
     if (!account) {
         NSString *actualEndpoint = endpoint.isEmpty ? kGitHubComURL : endpoint;
@@ -118,8 +119,8 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
         [iOctocat reportError:@"Missing account" with:msg];
         return;
     }
-    NSURL *url = [NSURL smartURLFromString:[info safeStringForKey:@"c"]];
-    NSInteger notificationId = [info safeIntegerForKey:@"d"];
+    NSURL *url = [NSURL smartURLFromString:[ioc safeStringForKey:@"c"]];
+    NSInteger notificationId = [ioc safeIntegerForKey:@"d"];
     // open the account respecting the current state of the app
     BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
     if (self.currentAccount == account && isMenuVisible) {

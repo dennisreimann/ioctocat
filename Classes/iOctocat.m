@@ -121,22 +121,24 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     NSString *type = [ioc safeStringOrNilForKey:@"e"];
     NSString *sound = [aps safeStringOrNilForKey:@"sound"];
     NSString *message = [aps safeStringForKey:@"alert"];
-    NSString *title = login;
+    NSString *title = self.accounts.count > 1 ? login : @"New notification";
     if (!type) type = @"Notifications";
     if (sound) [iOctocat playSound:sound];
-    NSString *imageName = [NSString stringWithFormat:@"Type%@.png", type];
+    NSString *imageName = [NSString stringWithFormat:@"Type%@On.png", type];
 	UIImage *image = [UIImage imageNamed:imageName];
-	UIColor *bgColor = [UIColor lightGrayColor];
-	UIColor *textColor = [UIColor darkGrayColor];
-	YRDropdownView *dropdown = [YRDropdownView showDropdownInView:iOctocat.sharedInstance.window
-                                                            title:title
-                                                           detail:message
-                                                            image:image
-                                                        textColor:textColor
-                                                  backgroundColor:bgColor
-                                                         animated:YES
-                                                        hideAfter:6.5];
-    dropdown.tapBlock = ^{ [self openNotification:remoteNotification]; };
+    
+	YRDropdownView *dropdown = [YRDropdownView dropdownInView:iOctocat.sharedInstance.window title:title detail:message image:image animated:YES];
+    dropdown.titleTextColor = dropdown.textColor = [UIColor whiteColor];
+    dropdown.titleTextShadowColor = dropdown.textShadowColor = [UIColor darkGrayColor];
+    dropdown.backgroundColors = @[
+                                  [UIColor colorWithRed:0.000 green:0.265 blue:0.509 alpha:1.000],
+                                  [UIColor colorWithRed:0.000 green:0.509 blue:0.747 alpha:1.000],
+                                  [UIColor colorWithRed:0.055 green:0.400 blue:0.698 alpha:1.000],
+                                  [UIColor colorWithRed:0.034 green:0.332 blue:0.586 alpha:1.000]];
+	dropdown.backgroundColorPositions = @[@0.0f, @0.05, @0.985, @1.0f];
+    dropdown.hideAfter = 6.5;
+    dropdown.tapBlock= ^{ [self openNotification:remoteNotification]; };
+    [YRDropdownView presentDropdown:dropdown];
 }
 
 - (void)openNotification:(NSDictionary *)remoteNotification {
@@ -312,30 +314,30 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 
 + (void)reportError:(NSString *)title with:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"DropdownError.png"];
-	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
-	UIColor *textColor = [UIColor whiteColor];
-	[YRDropdownView showDropdownInView:iOctocat.sharedInstance.window
-								 title:title
-								detail:message
-								 image:image
-							 textColor:textColor
-					   backgroundColor:bgColor
-							  animated:YES
-							 hideAfter:5.0];
+	YRDropdownView *dropdown = [YRDropdownView dropdownInView:iOctocat.sharedInstance.window title:title detail:message image:image animated:YES];
+	dropdown.titleTextColor = dropdown.textColor = [UIColor whiteColor];
+	dropdown.backgroundColors = @[
+                               [UIColor colorWithRed:0.243 green:0.020 blue:0.039 alpha:1.000],
+                               [UIColor colorWithRed:0.780 green:0.141 blue:0.196 alpha:1.000],
+                               [UIColor colorWithRed:0.600 green:0.071 blue:0.004 alpha:1.000],
+                               [UIColor colorWithRed:0.525 green:0.055 blue:0.000 alpha:1.000]];
+	dropdown.backgroundColorPositions = @[@0.0f, @0.03, @0.95, @1.0f];
+	dropdown.hideAfter = 5.0;
+    [YRDropdownView presentDropdown:dropdown];
 }
 
 + (void)reportWarning:(NSString *)title with:(NSString *)message {
 	UIImage *image = [UIImage imageNamed:@"DropdownWarning.png"];
-	UIColor *bgColor = [UIColor yellowColor];
-	UIColor *textColor = [UIColor darkGrayColor];
-	[YRDropdownView showDropdownInView:iOctocat.sharedInstance.window
-								 title:title
-								detail:message
-								 image:image
-							 textColor:textColor
-					   backgroundColor:bgColor
-							  animated:YES
-							 hideAfter:5.0];
+	YRDropdownView *dropdown = [YRDropdownView dropdownInView:iOctocat.sharedInstance.window title:title detail:message image:image animated:YES];
+    dropdown.titleTextColor = dropdown.textColor = [UIColor darkGrayColor];
+    dropdown.backgroundColors = @[
+                                  [UIColor colorWithRed:0.773 green:0.682 blue:0.000 alpha:1.000],
+                                  [UIColor colorWithRed:0.875 green:0.820 blue:0.000 alpha:1.000],
+                                  [UIColor colorWithRed:0.992 green:0.980 blue:0.000 alpha:1.000],
+                                  [UIColor colorWithRed:0.906 green:0.894 blue:0.000 alpha:1.000]];
+	dropdown.backgroundColorPositions = @[@0.0f, @0.01, @0.95, @1.0f];
+    dropdown.hideAfter = 5.0;
+    [YRDropdownView presentDropdown:dropdown];
 }
 
 #pragma mark GitHub System Status

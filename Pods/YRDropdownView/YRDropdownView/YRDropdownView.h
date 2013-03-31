@@ -16,60 +16,30 @@ typedef void (^YRTapBlock)(void);
 @property (weak, nonatomic, readonly) NSString *titleText;
 @property (weak, nonatomic, readonly) NSString *detailText;
 
+@property (nonatomic, strong) NSArray * backgroundColors;
+@property (nonatomic, strong) NSArray * backgroundColorPositions;
+@property (nonatomic, strong) UIColor * titleTextColor;
+@property (nonatomic, strong) UIColor * textColor;
+@property (nonatomic, strong) UIColor * titleTextShadowColor;
+@property (nonatomic, strong) UIColor * textShadowColor;
+
+@property (nonatomic) float hideAfter;
 @property (nonatomic, copy) YRTapBlock tapBlock;
 @property (nonatomic, assign) dispatch_queue_t tapQueue;
 
 #pragma mark - View methods
 
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title;
++ (YRDropdownView *)dropdownInView:(UIView *)view
+                             title:(NSString *)title
+                            detail:(NSString *)detail
+                             image:(UIImage *)image
+                          animated:(BOOL)animated;
 
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-                              animated:(BOOL)animated;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-                                 image:(UIImage *)image
-                              animated:(BOOL)animated;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-                                 image:(UIImage *)image
-                              animated:(BOOL)animated
-                             hideAfter:(float)delay;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-                                 image:(UIImage *)image
-							 textColor:(UIColor *)textColor
-					   backgroundColor:(UIColor *)bgColor
-							  animated:(BOOL)animated
-                             hideAfter:(float)delay;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-						 accessoryView:(UIView *)accessoryView
-                              animated:(BOOL)animated
-                             hideAfter:(float)delay;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-						 accessoryView:(UIView *)accessoryView
-							 textColor:(UIColor *)textColor
-					   backgroundColor:(UIColor *)bgColor
-                              animated:(BOOL)animated
-                             hideAfter:(float)delay;
++ (YRDropdownView *)dropdownInView:(UIView *)view
+                             title:(NSString *)title
+                            detail:(NSString *)detail
+                     accessoryView:(UIView *)view
+                          animated:(BOOL)animated;
 
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;

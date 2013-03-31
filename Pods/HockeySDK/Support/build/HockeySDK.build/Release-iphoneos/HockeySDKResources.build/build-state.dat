@@ -3,36 +3,36 @@ v5
 r1
 cCheck dependencies
 cProcessInfoPlistFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/Info.plist ../Resources/HockeySDK-Info.plist
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/authorize_denied@2x.png ../Resources/authorize_denied@2x.png
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/authorize_request.png ../Resources/authorize_request.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/authorize_denied.png ../Resources/authorize_denied.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/authorize_denied@2x.png ../Resources/authorize_denied@2x.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/authorize_request@2x.png ../Resources/authorize_request@2x.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/authorize_request.png ../Resources/authorize_request.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/bg.png ../Resources/bg.png
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonHighlight@2x.png ../Resources/buttonHighlight@2x.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonHighlight.png ../Resources/buttonHighlight.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/IconGradient.png ../Resources/IconGradient.png
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/feedbackActivity@2x~ipad.png ../Resources/feedbackActivity@2x~ipad.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonHighlight@2x.png ../Resources/buttonHighlight@2x.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/IconGradient@2x.png ../Resources/IconGradient@2x.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/feedbackActivity@2x~ipad.png ../Resources/feedbackActivity@2x~ipad.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/feedbackActivity~ipad.png ../Resources/feedbackActivity~ipad.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/feedbackActiviy.png ../Resources/feedbackActiviy.png
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedDelete@2x.png ../Resources/buttonRoundedDelete@2x.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/feedbackActiviy@2x.png ../Resources/feedbackActiviy@2x.png
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedDeleteHighlighted.png ../Resources/buttonRoundedDeleteHighlighted.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedDelete.png ../Resources/buttonRoundedDelete.png
-cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedRegular.png ../Resources/buttonRoundedRegular.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedDelete@2x.png ../Resources/buttonRoundedDelete@2x.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedDeleteHighlighted.png ../Resources/buttonRoundedDeleteHighlighted.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedDeleteHighlighted@2x.png ../Resources/buttonRoundedDeleteHighlighted@2x.png
+cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedRegular.png ../Resources/buttonRoundedRegular.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedRegular@2x.png ../Resources/buttonRoundedRegular@2x.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedRegularHighlighted.png ../Resources/buttonRoundedRegularHighlighted.png
 cCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/buttonRoundedRegularHighlighted@2x.png ../Resources/buttonRoundedRegularHighlighted@2x.png
-cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/es.lproj/HockeySDK.strings ../Resources/es.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/de.lproj/HockeySDK.strings ../Resources/de.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/fr.lproj/HockeySDK.strings ../Resources/fr.lproj/HockeySDK.strings
-cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/ja.lproj/HockeySDK.strings ../Resources/ja.lproj/HockeySDK.strings
-cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/pt.lproj/HockeySDK.strings ../Resources/pt.lproj/HockeySDK.strings
+cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/es.lproj/HockeySDK.strings ../Resources/es.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/it.lproj/HockeySDK.strings ../Resources/it.lproj/HockeySDK.strings
+cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/ja.lproj/HockeySDK.strings ../Resources/ja.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/ru.lproj/HockeySDK.strings ../Resources/ru.lproj/HockeySDK.strings
-cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/hr.lproj/HockeySDK.strings ../Resources/hr.lproj/HockeySDK.strings
+cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/pt.lproj/HockeySDK.strings ../Resources/pt.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/pt-PT.lproj/HockeySDK.strings ../Resources/pt-PT.lproj/HockeySDK.strings
+cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/hr.lproj/HockeySDK.strings ../Resources/hr.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/en.lproj/HockeySDK.strings ../Resources/en.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/zh-Hans.lproj/HockeySDK.strings ../Resources/zh-Hans.lproj/HockeySDK.strings
 cCopyStringsFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/ro.lproj/HockeySDK.strings ../Resources/ro.lproj/HockeySDK.strings
@@ -360,7 +360,7 @@ s5884
 
 CCheck dependencies
 r0
-lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciesed99f173a007b741^db88fb73a007b741^---0#1#0#--18"Check dependencies36"587C91BE-0F17-4D60-AB9D-715A7D76F2FE-
+lSLF05#21%IDEActivityLogSection1@2#32"com.apple.dt.IDE.BuildLogSection18"Check dependenciese9985bffe308b741^789969ffe308b741^---0#1#0#--18"Check dependencies36"46751327-18D7-4B67-AA13-F08505E7E643-
 
 CCopyPNGFile /Users/dennisreimann/Sources/ioctocat-ios/Pods/HockeySDK/Support/../Resources/HockeySDKResources.bundle/IconGradient.png ../Resources/IconGradient.png
 s385126293.238386

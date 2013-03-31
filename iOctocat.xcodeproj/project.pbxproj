@@ -37,6 +37,10 @@
 		2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
 		2EAD8B0816FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
 		2EAD8B0916FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
+		2EC1DD3C1708C238001C2FA1 /* TypeNotifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */; };
+		2EC1DD3D1708C238001C2FA1 /* TypeNotifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */; };
+		2EC1DD3F1708C242001C2FA1 /* TypeNotifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */; };
+		2EC1DD401708C242001C2FA1 /* TypeNotifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */; };
 		2ECFBAB216EA8A020092EE67 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D716E28F24003293BD /* MenuOctocat.png */; };
 		2ECFBAB316EA8A020092EE67 /* MenuOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D816E28F24003293BD /* MenuOctocat@2x.png */; };
 		2ECFBAB416EA8A020092EE67 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D716E28F24003293BD /* MenuOctocat.png */; };
@@ -1002,6 +1006,8 @@
 		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
 		2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactory.h; sourceTree = "<group>"; };
 		2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactory.m; sourceTree = "<group>"; };
+		2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeNotifications.png; sourceTree = "<group>"; };
+		2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeNotifications@2x.png"; sourceTree = "<group>"; };
 		367F8AD116F64DBF008F8054 /* MessageEntryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageEntryBG.png; path = Images/MessageEntryBG.png; sourceTree = "<group>"; };
 		367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MessageEntryBG@2x.png"; path = "Images/MessageEntryBG@2x.png"; sourceTree = "<group>"; };
 		36A36E5A16FF70A30070AC46 /* MAXCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAXCompletion.h; sourceTree = "<group>"; };
@@ -1720,6 +1726,8 @@
 		6F11AE2A16A35CAE002D9741 /* Types */ = {
 			isa = PBXGroup;
 			children = (
+				2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */,
+				2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */,
 				6F11AE4416A36048002D9741 /* TypeCommit.png */,
 				6F11AE4516A36048002D9741 /* TypeCommit@2x.png */,
 				6F11AE4616A36048002D9741 /* TypeCommitOn.png */,
@@ -2954,6 +2962,8 @@
 				2E88193C16F8F8B300ACA2EB /* c.caf in Resources */,
 				2E88193E16F8F8B300ACA2EB /* d.caf in Resources */,
 				2EAD8B0316FE36CD00F08EFC /* iOctocatAPI.plist in Resources */,
+				2EC1DD3C1708C238001C2FA1 /* TypeNotifications.png in Resources */,
+				2EC1DD3F1708C242001C2FA1 /* TypeNotifications@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3281,6 +3291,8 @@
 				2E88193D16F8F8B300ACA2EB /* c.caf in Resources */,
 				2E88193F16F8F8B300ACA2EB /* d.caf in Resources */,
 				2EAD8B0416FE36CD00F08EFC /* iOctocatAPI.plist in Resources */,
+				2EC1DD3D1708C238001C2FA1 /* TypeNotifications.png in Resources */,
+				2EC1DD401708C242001C2FA1 /* TypeNotifications@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

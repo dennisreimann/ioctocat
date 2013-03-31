@@ -73,6 +73,26 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     [self checkGitHubSystemStatus:isPhone report:!isPhone];
 }
 
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    UIViewController *menuController = self.menuNavController.topViewController;
+    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
+    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+		return YES;
+	}
+    return NO;
+}
+
+- (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame {
+    _statusWindow.frame = newStatusBarFrame;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        CGRect windowFrame = [_statusView.window convertRect:newStatusBarFrame fromWindow:nil];
+        CGRect viewFrame = [_statusView.superview convertRect:windowFrame fromView:nil];
+        _statusView.frame = viewFrame;
+    });
+}
+
+#pragma mark Remote Notifications
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // store the fact that the user granted remote notifications access
     [IOCDefaultsPersistence storeRemoteNotificationsPermission:@YES];
@@ -86,33 +106,40 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     }];
 }
 
-void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
-    AudioServicesRemoveSystemSoundCompletion(ssID);
-    AudioServicesDisposeSystemSoundID(ssID);
-}
-
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
     if (application.applicationState == UIApplicationStateActive) {
-        NSDictionary *aps = [remoteNotification safeDictForKey:@"aps"];
-        //NSString *body = [aps safeStringForKey:@"alert"];
-        // TODO: Figure out a way to handle incoming remote
-        // notifications when the app is in foreground
-        //YRDropdownView *dropdown = [YRDropdownView showDropdownInView:self.window title:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] detail:body image:<#(UIImage *)#> textColor:<#(UIColor *)#> backgroundColor:<#(UIColor *)#> animated:YES hideAfter:5.0f];
-        //dropdown.tapBlock = ^{
-        //    // TODO: Open notification(s) controller
-        //};
-        NSString *sound = [aps safeStringOrNilForKey:@"sound"];
-        if (sound) {
-            NSURL *url = [[NSBundle mainBundle] URLForResource:sound withExtension:nil];
-            if (url) {
-                SystemSoundID ssID;
-                AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &ssID);
-                AudioServicesAddSystemSoundCompletion(ssID, NULL, NULL, SystemSoundCallback, NULL);
-                AudioServicesPlayAlertSound(ssID);
-            }
-        }
-        return;
+        [self reportNotification:remoteNotification];
+    } else {
+        [self openNotification:remoteNotification];
     }
+}
+
+- (void)reportNotification:(NSDictionary *)remoteNotification {
+    NSDictionary *aps = [remoteNotification safeDictForKey:@"aps"];
+    NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
+    NSString *login = [ioc safeStringForKey:@"a"];
+    NSString *type = [ioc safeStringOrNilForKey:@"e"];
+    NSString *sound = [aps safeStringOrNilForKey:@"sound"];
+    NSString *message = [aps safeStringForKey:@"alert"];
+    NSString *title = login;
+    if (!type) type = @"Notifications";
+    if (sound) [iOctocat playSound:sound];
+    NSString *imageName = [NSString stringWithFormat:@"Type%@.png", type];
+	UIImage *image = [UIImage imageNamed:imageName];
+	UIColor *bgColor = [UIColor lightGrayColor];
+	UIColor *textColor = [UIColor darkGrayColor];
+	YRDropdownView *dropdown = [YRDropdownView showDropdownInView:iOctocat.sharedInstance.window
+                                                            title:title
+                                                           detail:message
+                                                            image:image
+                                                        textColor:textColor
+                                                  backgroundColor:bgColor
+                                                         animated:YES
+                                                        hideAfter:6.5];
+    dropdown.tapBlock = ^{ [self openNotification:remoteNotification]; };
+}
+
+- (void)openNotification:(NSDictionary *)remoteNotification {
     NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
     NSString *login = [ioc safeStringForKey:@"a"];
     NSString *endpoint = [ioc safeStringForKey:@"b"];
@@ -156,68 +183,6 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
     }
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    UIViewController *menuController = self.menuNavController.topViewController;
-    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
-		return YES;
-	}
-    return NO;
-}
-
-- (void)application:(UIApplication *)application willChangeStatusBarFrame:(CGRect)newStatusBarFrame {
-    _statusWindow.frame = newStatusBarFrame;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        CGRect windowFrame = [_statusView.window convertRect:newStatusBarFrame fromWindow:nil];
-        CGRect viewFrame = [_statusView.superview convertRect:windowFrame fromView:nil];
-        _statusView.frame = viewFrame;
-    });
-}
-
-#pragma mark External resources
-
-- (BOOL)openURL:(NSURL *)url {
-    UIViewController *menuController = self.menuNavController.topViewController;
-    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
-        return YES;
-    } else {
-        NSString *scheme = [url scheme];
-        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-            WebController *webController = [[WebController alloc] initWithURL:url];
-            [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
-            return YES;
-        }
-    }
-    return NO;
-}
-
-- (void)setupHockeySDK {
-#ifndef CONFIGURATION_Debug
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
-	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
-	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
-	if (betaId || liveId) {
-		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
-		[[BITHockeyManager sharedHockeyManager] startManager];
-	}
-#endif
-}
-
-- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
-#ifndef CONFIGURATION_Release
-	if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {
-		return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-	}
-#endif
-	return nil;
-}
-
-- (BOOL)isGitHubURL:(NSURL *)url {
-	return [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
-}
-
 #pragma mark Users
 
 - (GHUser *)currentUser {
@@ -257,38 +222,6 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 	_currentAccount = account;
 	[_currentAccount addObserver:self forKeyPath:UserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self setBadge:self.currentAccount.user.notifications.unreadCount];
-}
-
-+ (void)reportError:(NSString *)title with:(NSString *)message {
-	UIImage *image = [UIImage imageNamed:@"DropdownError.png"];
-	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
-	UIColor *textColor = [UIColor whiteColor];
-	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:title
-								detail:message
-								 image:image
-							 textColor:textColor
-					   backgroundColor:bgColor
-							  animated:YES
-							 hideAfter:5.0];
-}
-
-+ (void)reportWarning:(NSString *)title with:(NSString *)message {
-	UIImage *image = [UIImage imageNamed:@"DropdownWarning.png"];
-	UIColor *bgColor = [UIColor yellowColor];
-	UIColor *textColor = [UIColor darkGrayColor];
-	[YRDropdownView showDropdownInView:[iOctocat sharedInstance].window
-								 title:title
-								detail:message
-								 image:image
-							 textColor:textColor
-					   backgroundColor:bgColor
-							  animated:YES
-							 hideAfter:5.0];
-}
-
-+ (void)reportLoadingError:(NSString *)message {
-	[self reportError:@"Loading error" with:message];
 }
 
 - (void)setBadge:(NSInteger)number {
@@ -349,6 +282,60 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 
 - (void)registerForRemoteNotifications {
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
+- (BOOL)isGitHubURL:(NSURL *)url {
+	return [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
+}
+
+- (BOOL)openURL:(NSURL *)url {
+    UIViewController *menuController = self.menuNavController.topViewController;
+    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
+    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+        return YES;
+    } else {
+        NSString *scheme = [url scheme];
+        if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
+            WebController *webController = [[WebController alloc] initWithURL:url];
+            [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
+            return YES;
+        }
+    }
+    return NO;
+}
+
+#pragma mark Dropdowns
+
++ (void)reportLoadingError:(NSString *)message {
+	[self reportError:@"Loading error" with:message];
+}
+
++ (void)reportError:(NSString *)title with:(NSString *)message {
+	UIImage *image = [UIImage imageNamed:@"DropdownError.png"];
+	UIColor *bgColor = [UIColor colorWithRed:0.592 green:0.0 blue:0.0 alpha:1.0];
+	UIColor *textColor = [UIColor whiteColor];
+	[YRDropdownView showDropdownInView:iOctocat.sharedInstance.window
+								 title:title
+								detail:message
+								 image:image
+							 textColor:textColor
+					   backgroundColor:bgColor
+							  animated:YES
+							 hideAfter:5.0];
+}
+
++ (void)reportWarning:(NSString *)title with:(NSString *)message {
+	UIImage *image = [UIImage imageNamed:@"DropdownWarning.png"];
+	UIColor *bgColor = [UIColor yellowColor];
+	UIColor *textColor = [UIColor darkGrayColor];
+	[YRDropdownView showDropdownInView:iOctocat.sharedInstance.window
+								 title:title
+								detail:message
+								 image:image
+							 textColor:textColor
+					   backgroundColor:bgColor
+							  animated:YES
+							 hideAfter:5.0];
 }
 
 #pragma mark GitHub System Status
@@ -429,6 +416,47 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
     if (tapGesture.state == UIGestureRecognizerStateEnded) {
         [self checkGitHubSystemStatus:YES report:YES];
     }
+}
+
+#pragma mark Sound
+
+void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
+    AudioServicesRemoveSystemSoundCompletion(ssID);
+    AudioServicesDisposeSystemSoundID(ssID);
+}
+
++ (void)playSound:(NSString *)fileName {
+    NSURL *url = [[NSBundle mainBundle] URLForResource:fileName withExtension:nil];
+    if (url) {
+        SystemSoundID ssID;
+        AudioServicesCreateSystemSoundID((__bridge CFURLRef)url, &ssID);
+        AudioServicesAddSystemSoundCompletion(ssID, NULL, NULL, SystemSoundCallback, NULL);
+        AudioServicesPlayAlertSound(ssID);
+    }
+}
+
+#pragma mark Hockey
+
+- (void)setupHockeySDK {
+#ifndef CONFIGURATION_Debug
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
+	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
+	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
+	if (betaId || liveId) {
+		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
+		[[BITHockeyManager sharedHockeyManager] startManager];
+	}
+#endif
+}
+
+- (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
+#ifndef CONFIGURATION_Release
+	if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {
+		return [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+	}
+#endif
+	return nil;
 }
 
 #pragma mark Autorotation

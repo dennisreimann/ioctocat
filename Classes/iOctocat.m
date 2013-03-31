@@ -94,10 +94,13 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
     if (application.applicationState == UIApplicationStateActive) {
         NSDictionary *aps = [remoteNotification safeDictForKey:@"aps"];
-        NSString *body = [aps safeStringForKey:@"alert"];
+        //NSString *body = [aps safeStringForKey:@"alert"];
         // TODO: Figure out a way to handle incoming remote
         // notifications when the app is in foreground
-        //[YRDropdownView showDropdownInView:self.window title:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] detail:body image:<#(UIImage *)#> textColor:<#(UIColor *)#> backgroundColor:<#(UIColor *)#> animated:YES hideAfter:5.0f];
+        //YRDropdownView *dropdown = [YRDropdownView showDropdownInView:self.window title:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"] detail:body image:<#(UIImage *)#> textColor:<#(UIColor *)#> backgroundColor:<#(UIColor *)#> animated:YES hideAfter:5.0f];
+        //dropdown.tapBlock = ^{
+        //    // TODO: Open notification(s) controller
+        //};
         NSString *sound = [aps safeStringOrNilForKey:@"sound"];
         if (sound) {
             NSURL *url = [[NSBundle mainBundle] URLForResource:sound withExtension:nil];

@@ -4,7 +4,7 @@
 
 Additions:
 
-* Hopefully push notifications ;)
+* Push notifications
 * @username completion. By @iosdeveloper
 * #Issue completion. By @iosdeveloper
 * Copy SHA of a commit. Thanks @iosdeveloper

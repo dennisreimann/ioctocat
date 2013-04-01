@@ -177,10 +177,6 @@
 		self.commits.resourcePath = @""; // empty out resourcePath, because it's a custom list of commits
 		[self.commits setValues:commits];
 		[self.commits markAsLoaded];
-		// set the author, because this isn't provided in the api json
-		for (GHCommit *commit in self.commits.items) {
-			commit.author = self.user;
-		}
 	}
 
 	// Commit Comment

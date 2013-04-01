@@ -447,8 +447,10 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
 	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
 	if (betaId || liveId) {
-		[[BITHockeyManager sharedHockeyManager] configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
-		[[BITHockeyManager sharedHockeyManager] startManager];
+        [BITHockeyManager.sharedHockeyManager configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
+        [BITHockeyManager.sharedHockeyManager startManager];
+        BITHockeyManager.sharedHockeyManager.feedbackManager.requireUserName = BITFeedbackUserDataElementRequired;
+        BITHockeyManager.sharedHockeyManager.feedbackManager.requireUserEmail = BITFeedbackUserDataElementRequired;
 	}
 #endif
 }

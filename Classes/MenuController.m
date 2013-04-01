@@ -22,6 +22,8 @@
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
 #import "MenuCell.h"
+#import "BITHockeyManager.h"
+#import "BITFeedbackManager.h"
 
 
 #define kSectionHeaderHeight 24.0f
@@ -370,9 +372,13 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 				viewController = [[IOCSearchController alloc] init];
 				viewController.title = @"Search";
 			} else if (row == 1) {
-				GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
-				viewController = [[IOCIssuesController alloc] initWithRepository:repo];
-				viewController.title = @"Issues";
+#ifdef CONFIGURATION_Debug
+                GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
+                viewController = [[IOCIssuesController alloc] initWithRepository:repo];
+                viewController.title = @"Issues";
+#else
+                viewController = [[BITHockeyManager sharedHockeyManager].feedbackManager feedbackListViewController:NO];
+#endif
 			}
 			break;
 	}

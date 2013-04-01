@@ -35,7 +35,6 @@
 
 static NSString *const ClearAvatarCacheDefaultsKey = @"clearAvatarCache";
 static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
-static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unreadCount";
 
 + (instancetype)sharedInstance {
 	return (iOctocat *)UIApplication.sharedApplication.delegate;
@@ -46,6 +45,7 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.deviceToken = @"";
     [UIApplication.sharedApplication setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self setBadge:0];
     [self registerForRemoteNotifications];
     [self deactivateURLCache];
     [self setupHockeySDK];
@@ -63,6 +63,7 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [self setBadge:0];
     [IOCDefaultsPersistence updateLastActivationDate];
     if ([IOCDefaultsPersistence grantedRemoteNotificationsPermission]) {
         // Reregister for remote notifications so that we always deal
@@ -89,6 +90,10 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
         CGRect viewFrame = [_statusView.superview convertRect:windowFrame fromView:nil];
         _statusView.frame = viewFrame;
     });
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+    [self setBadge:0];
 }
 
 #pragma mark Remote Notifications
@@ -200,13 +205,6 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     return [self.currentAccount.userObjects organizationWithLogin:login];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:UserNotificationsCountKeyPath]) {
-		NSInteger unread = [change safeIntegerForKey:@"new"];
-		[self setBadge:unread];
-	}
-}
-
 #pragma mark Helpers
 
 - (GHAccount *)accountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
@@ -220,16 +218,8 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     return (idx == NSNotFound) ? nil : self.accounts[idx];
 }
 
-- (void)setCurrentAccount:(GHAccount *)account {
-	[_currentAccount removeObserver:self forKeyPath:UserNotificationsCountKeyPath];
-	_currentAccount = account;
-	[_currentAccount addObserver:self forKeyPath:UserNotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	[self setBadge:self.currentAccount.user.notifications.unreadCount];
-}
-
 - (void)setBadge:(NSInteger)number {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if (![[defaults valueForKey:kUnreadBadgeDefaultsKey] boolValue]) number = 0;
+	if (![[[NSUserDefaults standardUserDefaults] valueForKey:kUnreadBadgeDefaultsKey] boolValue]) number = 0;
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
 }
 

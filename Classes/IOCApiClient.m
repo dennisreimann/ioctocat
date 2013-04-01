@@ -45,21 +45,23 @@ static NSString *IOCNormalizedDeviceToken(id deviceToken) {
 }
 
 - (void)registerPushNotificationsForDevice:(id)deviceToken alias:(NSString *)alias success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
-    NSString *badge = [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]];
-	NSMutableDictionary *params = [NSMutableDictionary dictionary];
-	[params setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL useBadge = [[defaults valueForKey:kUnreadBadgeDefaultsKey] boolValue];
+    NSString *badge = useBadge ? [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]] : [NSNull null];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
     [params setValue:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];
     [params setValue:[[NSTimeZone defaultTimeZone] name] forKey:@"timezone"];
     [params setValue:badge forKey:@"badge"];
     if (alias) [params setValue:alias forKey:@"alias"];
     NSString *path = [NSString stringWithFormat:PushBackendDeviceFormat, IOCNormalizedDeviceToken(deviceToken)];
-	D3JLog(@"Registering device for push notifications: %@\n\nParams:\n%@\n", path, params);
-	[self putPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-		D3JLog(@"Registered device for push notifications: %@", responseObject);
-		if (success) success(responseObject);
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		D3JLog(@"Registering device for push notifications failed: %@", error);
-		if (failure) failure(error);
+    D3JLog(@"Registering device for push notifications: %@\n\nParams:\n%@\n", path, params);
+    [self putPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        D3JLog(@"Registered device for push notifications: %@", responseObject);
+        if (success) success(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        D3JLog(@"Registering device for push notifications failed: %@", error);
+        if (failure) failure(error);
 	}];
 }
 

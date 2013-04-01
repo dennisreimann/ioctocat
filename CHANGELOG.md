@@ -27,6 +27,7 @@ Changes:
 * Moved account removal to account form view
 * Prevent creation of duplicate accounts
 * Start with adding a new account if there is none
+* Badge is now used to indicate number of unseen push notifications
 
 Bugfixes:
 

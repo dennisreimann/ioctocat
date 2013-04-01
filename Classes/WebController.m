@@ -48,7 +48,6 @@
 	[super viewDidLoad];
     self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:[UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? UIActivityIndicatorViewStyleWhite : UIActivityIndicatorViewStyleGray];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.activityView];
-
 	self.webView.scrollView.bounces = NO;
 	if (self.url) {
         self.title = self.title ? self.title : [self.url host];
@@ -65,6 +64,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+	self.webView.delegate = self;
     [self layoutForInterfaceOrientation:self.interfaceOrientation];
 }
 

@@ -37,9 +37,9 @@
 }
 
 - (void)dealloc {
-    self.webView.delegate = nil;
-    [self.webView stopLoading];
-    [self webViewDidFinishLoad:self.webView];
+    _webView.delegate = nil;
+    [_webView stopLoading];
+    [self webView:_webView didFailLoadWithError:nil];
 }
 
 #pragma mark View Events
@@ -55,23 +55,28 @@
         [self.webView loadRequest:self.request];
         self.actionButton.enabled = YES;
 	} else if (self.html) {
-		NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
-		NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-		NSString *contentHTML = [NSString stringWithFormat:format, self.html];
-		[self.webView loadHTMLString:contentHTML baseURL:nil];
+        [self loadHtml];
 	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-	self.webView.delegate = self;
+    if (!self.webView.delegate) self.webView.delegate = self;
+    if (!self.webView.loading) {
+        if (self.url) {
+            [self.webView reload];
+        } else if (self.html) {
+            [self loadHtml];
+        }
+    }
     [self layoutForInterfaceOrientation:self.interfaceOrientation];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-	[self.webView stopLoading];
-	self.webView.delegate = nil;
-	[super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
+    self.webView.delegate = nil;
+    [self.webView stopLoading];
+    [self webView:self.webView didFailLoadWithError:nil];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration {
@@ -79,6 +84,13 @@
 }
 
 #pragma mark Helpers
+
+- (void)loadHtml {
+    NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+    NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
+    NSString *contentHTML = [NSString stringWithFormat:format, self.html];
+    [self.webView loadHTMLString:contentHTML baseURL:nil];
+}
 
 // Adjust the toolbar height depending on the screen orientation,
 // see: http://stackoverflow.com/a/12111810/1104404
@@ -113,13 +125,16 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
-        NSString *host = [url host];
-        if (host) {
-            if (self.html) {
+        if (self.html) {
+            NSString *scheme = [url scheme];
+            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
                 WebController *webController = [[WebController alloc] initWithURL:url];
                 [self.navigationController pushViewController:webController animated:YES];
                 return NO;
             }
+        }
+        NSString *host = [url host];
+        if (host) {
             self.title = host;
         }
     }

@@ -47,7 +47,7 @@ static NSString *IOCNormalizedDeviceToken(id deviceToken) {
 - (void)registerPushNotificationsForDevice:(id)deviceToken alias:(NSString *)alias success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL useBadge = [[defaults valueForKey:kUnreadBadgeDefaultsKey] boolValue];
-    NSString *badge = useBadge ? [NSString stringWithFormat:@"%d", [[UIApplication sharedApplication] applicationIconBadgeNumber]] : [NSNull null];
+    id badge = useBadge ? [NSString stringWithFormat:@"%d", [UIApplication sharedApplication].applicationIconBadgeNumber] : [NSNull null];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setValue:[[NSLocale currentLocale] identifier] forKey:@"locale"];
     [params setValue:[[NSLocale preferredLanguages] objectAtIndex:0] forKey:@"language"];

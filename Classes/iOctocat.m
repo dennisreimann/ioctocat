@@ -107,6 +107,7 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
+    DJLog(@"Remote Notifications received: %@", remoteNotification);
     if (application.applicationState == UIApplicationStateActive) {
         [self reportNotification:remoteNotification];
     } else {
@@ -125,9 +126,9 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
     if (!type) type = @"Notifications";
     if (sound) [iOctocat playSound:sound];
     NSString *imageName = [NSString stringWithFormat:@"Type%@On.png", type];
-	UIImage *image = [UIImage imageNamed:imageName];
-    
-	YRDropdownView *dropdown = [YRDropdownView dropdownInView:iOctocat.sharedInstance.window title:title detail:message image:image animated:YES];
+    UIImage *image = [UIImage imageNamed:imageName];
+    // present dropdown
+    YRDropdownView *dropdown = [YRDropdownView dropdownInView:iOctocat.sharedInstance.window title:title detail:message image:image animated:YES];
     dropdown.titleTextColor = dropdown.textColor = [UIColor whiteColor];
     dropdown.titleTextShadowColor = dropdown.textShadowColor = [UIColor darkGrayColor];
     dropdown.backgroundColors = @[
@@ -135,7 +136,7 @@ static NSString *const UserNotificationsCountKeyPath  = @"user.notifications.unr
                                   [UIColor colorWithRed:0.000 green:0.509 blue:0.747 alpha:1.000],
                                   [UIColor colorWithRed:0.055 green:0.400 blue:0.698 alpha:1.000],
                                   [UIColor colorWithRed:0.034 green:0.332 blue:0.586 alpha:1.000]];
-	dropdown.backgroundColorPositions = @[@0.0f, @0.05, @0.985, @1.0f];
+    dropdown.backgroundColorPositions = @[@0.0f, @0.05, @0.985, @1.0f];
     dropdown.hideAfter = 6.5;
     dropdown.tapBlock= ^{ [self openNotification:remoteNotification]; };
     [YRDropdownView presentDropdown:dropdown];

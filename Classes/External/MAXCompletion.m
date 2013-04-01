@@ -101,26 +101,8 @@
 
 - (void)setDataSource:(NSDictionary *)dataSource {
     if (dataSource != _dataSource) {
-        for (UIView *button in _buttonArray) {
-            [button removeFromSuperview];
-        }
         _dataSource = dataSource;
-        NSArray *sortedKeyArray = nil;
-        NSMutableArray *buttonArray = nil;
-        if (_dataSource) {
-            if (_comparator) {
-                sortedKeyArray = [_dataSource keysSortedByValueUsingComparator:_comparator];
-            } else {
-                NSArray *allKeys = [_dataSource allKeys];
-                sortedKeyArray = [allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-            }
-            buttonArray = [NSMutableArray arrayWithCapacity:[sortedKeyArray count]];
-        }
-        _sortedKeyArray = sortedKeyArray;
-        _buttonArray = buttonArray;
-        if (_textView) {
-            [self textViewDidChange:_textView];
-        }
+        [self reloadData];
     }
 }
 
@@ -144,6 +126,28 @@
     if (object) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextViewTextDidChangeNotification object:object];
         [object removeObserver:self forKeyPath:@"selectedTextRange"];
+    }
+}
+
+- (void)reloadData {
+    for (UIView *button in _buttonArray) {
+        [button removeFromSuperview];
+    }
+    NSArray *sortedKeyArray = nil;
+    NSMutableArray *buttonArray = nil;
+    if (_dataSource) {
+        if (_comparator) {
+            sortedKeyArray = [_dataSource keysSortedByValueUsingComparator:_comparator];
+        } else {
+            NSArray *allKeys = [_dataSource allKeys];
+            sortedKeyArray = [allKeys sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+        }
+        buttonArray = [NSMutableArray arrayWithCapacity:[sortedKeyArray count]];
+    }
+    _sortedKeyArray = sortedKeyArray;
+    _buttonArray = buttonArray;
+    if (_textView) {
+        [self textViewDidChange:_textView];
     }
 }
 

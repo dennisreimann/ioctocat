@@ -18,7 +18,7 @@
 @property(nonatomic,weak)id comments;
 @property(nonatomic,strong)MAXCompletion *usernameCompletion;
 @property(nonatomic,strong)MAXCompletion *issueCompletion;
-@property(nonatomic,strong)NSDictionary *issueCompletionDataSource;
+@property(nonatomic,strong)NSMutableDictionary *issueCompletionDataSource;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 - (IBAction)postComment:(id)sender;
 @end
@@ -62,16 +62,23 @@
             if ([obj1 num] < [obj2 num]) return NSOrderedDescending;
             return NSOrderedSame;
         };
-        NSArray *open = repo.openIssues.items;
-        NSArray *closed = repo.closedIssues.items;
-        NSArray *items = @[open, closed];
-        NSMutableDictionary *dataSource = [NSMutableDictionary dictionaryWithCapacity:[open count] + [closed count]];
-        for (NSArray *issues in items) {
-            for (GHIssue *issue in issues) {
-                dataSource[[NSString stringWithFormat:@"%d", issue.num]] = issue;
-            }
+        self.issueCompletionDataSource = [NSMutableDictionary dictionary];
+        if (repo.openIssues.isLoaded) {
+            [self setIssuesForNums:repo.openIssues.items];
+        } else {
+            [repo.openIssues loadWithSuccess:^(GHResource *instance, id data) {
+                [self setIssuesForNums:repo.openIssues.items];
+                [issueCompletion reloadData];
+            }];
         }
-        self.issueCompletionDataSource = dataSource;
+        if (repo.closedIssues.isLoaded) {
+            [self setIssuesForNums:repo.closedIssues.items];
+        } else {
+            [repo.closedIssues loadWithSuccess:^(GHResource *instance, id data) {
+                [self setIssuesForNums:repo.closedIssues.items];
+                [issueCompletion reloadData];
+            }];
+        }
         issueCompletion.dataSource = self.issueCompletionDataSource;
         self.issueCompletion = issueCompletion;
     }
@@ -93,6 +100,14 @@
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [self.bodyView resignFirstResponder];
+}
+
+#pragma mark Helpers
+
+- (void)setIssuesForNums:(NSArray *)issues {
+    for (GHIssue *issue in issues) {
+        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.num]] = issue;
+    }
 }
 
 #pragma mark Actions

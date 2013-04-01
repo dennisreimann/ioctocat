@@ -4,11 +4,10 @@
 #define kEndpointDefaultsKey            @"endpoint"
 #define kPushTokenDefaultsKey           @"pushToken"
 #define kAccountsDefaultsKey            @"accounts"
-#define kLastActivatedDateDefaulsKey    @"lastActivatedDate"
+#define kLastActivatedDateDefaultsKey   @"lastActivatedDate"
 #define kLineNumbersDefaultsKey         @"lineNumbers"
 #define kThemeDefaultsKey               @"theme"
 #define kUnreadBadgeDefaultsKey         @"unreadBadge"
-
 
 // API
 #define kRequestMethodGet               @"GET"

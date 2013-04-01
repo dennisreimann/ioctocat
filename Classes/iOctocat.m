@@ -45,6 +45,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.deviceToken = @"";
     [UIApplication.sharedApplication setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    [self registerDefaultsFromSettingsBundle];
     [self setBadge:0];
     [self registerForRemoteNotifications];
     [self deactivateURLCache];
@@ -206,6 +207,30 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 #pragma mark Helpers
+
+// taken from http://ijure.org/wp/archives/179
+- (void)registerDefaultsFromSettingsBundle {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults synchronize];
+    NSString *settingsBundle = [[NSBundle mainBundle] pathForResource:@"Settings" ofType:@"bundle"];
+    if (!settingsBundle) return;
+    NSDictionary *settings = [NSDictionary dictionaryWithContentsOfFile:[settingsBundle stringByAppendingPathComponent:@"Root.plist"]];
+    NSArray *preferences = [settings objectForKey:@"PreferenceSpecifiers"];
+    NSMutableDictionary *defaultsToRegister = [[NSMutableDictionary alloc] initWithCapacity:preferences.count];
+    for (NSDictionary *prefSpecification in preferences) {
+        NSString *key = [prefSpecification objectForKey:@"Key"];
+        if (key) {
+            // check if value is present in userDefaults and set it in case it is not
+            id currentObject = [defaults objectForKey:key];
+            if (currentObject == nil) {
+                id objectToSet = [prefSpecification objectForKey:@"DefaultValue"];
+                [defaultsToRegister setObject:objectToSet forKey:key];
+            }
+        }
+    }
+    [defaults registerDefaults:defaultsToRegister];
+    [defaults synchronize];
+}
 
 - (GHAccount *)accountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
     NSUInteger idx = [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {

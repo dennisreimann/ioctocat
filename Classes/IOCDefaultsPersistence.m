@@ -7,7 +7,7 @@
 
 + (void)updateLastActivationDate {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaulsKey];
+	[defaults setObject:[NSDate date] forKey:kLastActivatedDateDefaultsKey];
 	[defaults synchronize];
 }
 

@@ -318,7 +318,7 @@
 // refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {
     if (!self.notifications.isLoading && self.notifications.canReload) {
-        NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaulsKey];
+        NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaultsKey];
         if (!self.resourceHasData || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
             [self.tableView triggerPullToRefresh];
         }

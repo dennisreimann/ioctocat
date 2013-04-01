@@ -28,6 +28,7 @@
 @implementation IOCViewControllerFactory
 
 + (UIViewController *)viewControllerForGitHubURL:(NSURL *)url {
+    NSArray *staticPages = @[@"about", @"blog", @"contact", @"edu", @"plans"];
 	UIViewController *viewController = nil;
 	DJLog(@"%@", url.pathComponents);
 	// the first pathComponent is always "/"
@@ -44,50 +45,52 @@
             gist.htmlURL = url;
 			viewController = [[IOCGistController alloc] initWithGist:gist];
 		}
-	} else if (url.pathComponents.count == 2) {
-        NSArray *staticPages = @[@"about", @"blog", @"contact", @"edu", @"plans"];
-		NSString *component = [url.pathComponents objectAtIndex:1];
-        if ([staticPages containsObject:component]) {
-            NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, component];
+	} else {
+        BOOL isStatic = url.pathComponents.count == 1 || (url.pathComponents.count >= 2 && [staticPages containsObject:[url.pathComponents objectAtIndex:1]]);
+        if (isStatic) {
+            NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, url.path];
             viewController = [[WebController alloc] initWithURL:pageURL];
-        } else if ([component isEqualToString:@"search"]) {
-            viewController = [[IOCSearchController alloc] init];
-        } else{
-            // User (or Organization)
-            GHUser *user = [[iOctocat sharedInstance] userWithLogin:component];
-            user.htmlURL = url;
-            viewController = [[IOCUserController alloc] initWithUser:user];
+        } else if (url.pathComponents.count == 2) {
+            NSString *component = [url.pathComponents objectAtIndex:1];
+            if ([component isEqualToString:@"search"]) {
+                viewController = [[IOCSearchController alloc] init];
+            } else{
+                // User (or Organization)
+                GHUser *user = [[iOctocat sharedInstance] userWithLogin:component];
+                user.htmlURL = url;
+                viewController = [[IOCUserController alloc] initWithUser:user];
+            }
+        } else if (url.pathComponents.count >= 3) {
+            // Repository
+            NSString *owner = [url.pathComponents objectAtIndex:1];
+            NSString *name = [url.pathComponents objectAtIndex:2];
+            GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
+            if (url.pathComponents.count == 3) {
+                repo.htmlURL = url;
+                viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
+            } else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
+                // Issues
+                viewController = [[IOCIssuesController alloc] initWithRepository:repo];
+            } else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
+                // Pull Requests
+                viewController = [[IOCPullRequestsController alloc] initWithRepository:repo];
+            } else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
+                // Issue
+                GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
+                issue.num = [[url.pathComponents objectAtIndex:4] intValue];
+                viewController = [[IOCIssueController alloc] initWithIssue:issue];
+            } else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
+                // Pull Request
+                GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
+                pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
+                viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest];
+            } else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"commit"]) {
+                // Commit
+                NSString *sha = [url.pathComponents objectAtIndex:4];
+                GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
+                viewController = [[IOCCommitController alloc] initWithCommit:commit];
+            }
         }
-	} else if (url.pathComponents.count >= 3) {
-		// Repository
-		NSString *owner = [url.pathComponents objectAtIndex:1];
-		NSString *name = [url.pathComponents objectAtIndex:2];
-		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
-		if (url.pathComponents.count == 3) {
-            repo.htmlURL = url;
-			viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
-		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
-			// Issues
-			viewController = [[IOCIssuesController alloc] initWithRepository:repo];
-		} else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
-			// Pull Requests
-			viewController = [[IOCPullRequestsController alloc] initWithRepository:repo];
-		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
-			// Issue
-			GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
-			issue.num = [[url.pathComponents objectAtIndex:4] intValue];
-			viewController = [[IOCIssueController alloc] initWithIssue:issue];
-		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
-			// Pull Request
-			GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
-			pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
-			viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest];
-		} else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"commit"]) {
-			// Commit
-			NSString *sha = [url.pathComponents objectAtIndex:4];
-			GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
-			viewController = [[IOCCommitController alloc] initWithCommit:commit];
-		}
 	}
 	return viewController;
 }

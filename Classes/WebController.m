@@ -126,12 +126,8 @@
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
         if (self.html) {
-            NSString *scheme = [url scheme];
-            if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-                WebController *webController = [[WebController alloc] initWithURL:url];
-                [self.navigationController pushViewController:webController animated:YES];
-                return NO;
-            }
+            [[UIApplication sharedApplication] openURL:url];
+            return NO;
         }
         NSString *host = [url host];
         if (host) {

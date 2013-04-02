@@ -46,7 +46,6 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     self.deviceToken = @"";
     [UIApplication.sharedApplication setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self registerDefaultsFromSettingsBundle];
-    [self setBadge:0];
     [self registerForRemoteNotifications];
     [self deactivateURLCache];
     [self setupHockeySDK];
@@ -64,13 +63,9 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [self setBadge:0];
     [IOCDefaultsPersistence updateLastActivationDate];
-    if ([IOCDefaultsPersistence grantedRemoteNotificationsPermission]) {
-        // Reregister for remote notifications so that we always deal
-        // with fresh data like the current device token and badge
-        [self registerForRemoteNotifications];
-    }
+    [self setBadge:0];
+    [self syncDeviceInformationWithServer];
     BOOL isPhone = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
     [self checkGitHubSystemStatus:isPhone report:!isPhone];
 }
@@ -94,7 +89,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    [self setBadge:0];
+    [self syncDeviceInformationWithServer];
 }
 
 #pragma mark Remote Notifications
@@ -320,6 +315,14 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
         }
     }
     return NO;
+}
+
+- (void)syncDeviceInformationWithServer {
+    if ([IOCDefaultsPersistence grantedRemoteNotificationsPermission]) {
+        // Reregister for remote notifications so that we always deal
+        // with fresh data like the current device token and badge
+        [self registerForRemoteNotifications];
+    }
 }
 
 #pragma mark Dropdowns

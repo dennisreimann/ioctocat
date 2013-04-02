@@ -6,6 +6,8 @@
 
 @interface GHResource ()
 @property(nonatomic,strong)NSDictionary *data;
+@property(nonatomic,strong)NSMutableArray *successArray;
+@property(nonatomic,strong)NSMutableArray *failureArray;
 @property(nonatomic,assign)GHResourceStatus resourceStatus;
 @end
 
@@ -16,6 +18,8 @@
 	self = [super init];
 	if (self) {
 		self.resourcePath = path;
+        _successArray = [NSMutableArray array];
+        _failureArray = [NSMutableArray array];
 		self.resourceStatus = GHResourceStatusUnloaded;
 	}
 	return self;
@@ -50,6 +54,12 @@
 }
 
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    if (self.isLoading) {
+        if (success) [self.successArray addObject:[success copy]];
+        if (failure) [self.failureArray addObject:[failure copy]];
+        if (start) start(self);
+        return;
+    }
 	self.error = nil;
 	self.resourceStatus = GHResourceStatusLoading;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
@@ -63,6 +73,9 @@
 		[self setValues:data];
 		self.resourceStatus = GHResourceStatusLoaded;
 		if (success) success(self, data);
+        for (void (^block)() in self.successArray) {
+            block(self, data);
+        }
 	};
 	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSDictionary *headers = operation.response.allHeaderFields;
@@ -71,6 +84,9 @@
 		self.error = error;
 		self.resourceStatus = GHResourceStatusFailed;
 		if (failure) failure(self, error);
+        for (void (^block)() in self.failureArray) {
+            block(self, error);
+        }
 	};
 	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
     [self.apiClient enqueueHTTPRequestOperation:operation];

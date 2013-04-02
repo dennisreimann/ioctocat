@@ -61,6 +61,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self layoutForInterfaceOrientation:self.interfaceOrientation];
     if (!self.webView.delegate) self.webView.delegate = self;
     if (!self.webView.loading) {
         if (self.url) {
@@ -69,11 +70,14 @@
             [self loadHtml];
         }
     }
-    [self layoutForInterfaceOrientation:self.interfaceOrientation];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
     self.webView.delegate = nil;
     [self.webView stopLoading];
     [self webView:self.webView didFailLoadWithError:nil];
@@ -120,18 +124,31 @@
     else if (buttonIndex == 1) [UIPasteboard generalPasteboard].string = [[self.request URL] absoluteString];
 }
 
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+    self.webView.delegate = self;
+    if (self.url) {
+        [self.webView reload];
+    } else if (self.html) {
+        [self loadHtml];
+    }
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    self.webView.delegate = nil;
+    [self.webView stopLoading];
+    [self webView:self.webView didFailLoadWithError:nil];
+}
+
 #pragma mark WebView
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
         NSURL *url = [request URL];
-        if (self.html) {
+        if (self.url) {
+            self.title = [url host];
+        } else if (self.html) {
             [[UIApplication sharedApplication] openURL:url];
             return NO;
-        }
-        NSString *host = [url host];
-        if (host) {
-            self.title = host;
         }
     }
     return YES;
@@ -145,15 +162,11 @@
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview {
-    NSString *host = [[webview.request URL] host];
-    self.request = webview.request;
     self.leftButton.enabled = [webview canGoBack];
     self.rightButton.enabled = [webview canGoForward];
-    if (host) {
+    if (self.url) {
         self.title = [webview stringByEvaluatingJavaScriptFromString:@"document.title"];
-        self.actionButton.enabled = YES;
-    } else {
-        self.actionButton.enabled = NO;
+        self.request = webview.request;
     }
 	[self.activityView stopAnimating];
 	[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;

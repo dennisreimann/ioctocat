@@ -76,6 +76,7 @@
         for (void (^block)() in self.successArray) {
             block(self, data);
         }
+        [self.successArray removeAllObjects];
 	};
 	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSDictionary *headers = operation.response.allHeaderFields;
@@ -87,6 +88,7 @@
         for (void (^block)() in self.failureArray) {
             block(self, error);
         }
+        [self.failureArray removeAllObjects];
 	};
 	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
     [self.apiClient enqueueHTTPRequestOperation:operation];

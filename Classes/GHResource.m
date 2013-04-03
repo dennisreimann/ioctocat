@@ -6,8 +6,8 @@
 
 @interface GHResource ()
 @property(nonatomic,strong)NSDictionary *data;
-@property(nonatomic,strong)NSMutableArray *successArray;
-@property(nonatomic,strong)NSMutableArray *failureArray;
+@property(nonatomic,strong)NSMutableArray *successBlocks;
+@property(nonatomic,strong)NSMutableArray *failureBlocks;
 @property(nonatomic,assign)GHResourceStatus resourceStatus;
 @end
 
@@ -18,8 +18,6 @@
 	self = [super init];
 	if (self) {
 		self.resourcePath = path;
-        _successArray = [NSMutableArray array];
-        _failureArray = [NSMutableArray array];
 		self.resourceStatus = GHResourceStatusUnloaded;
 	}
 	return self;
@@ -45,6 +43,16 @@
 	return kResourceContentTypeDefault;
 }
 
+- (NSMutableArray *)successBlocks {
+    if (!_successBlocks) _successBlocks = [NSMutableArray array];
+    return _successBlocks;
+}
+
+- (NSMutableArray *)failureBlocks {
+    if (!_failureBlocks) _failureBlocks = [NSMutableArray array];
+    return _failureBlocks;
+}
+
 - (void)loadWithSuccess:(resourceSuccess)success {
 	[self loadWithParams:nil path:self.resourcePath method:kRequestMethodGet start:nil success:success failure:nil];
 }
@@ -55,8 +63,8 @@
 
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
     if (self.isLoading) {
-        if (success) [self.successArray addObject:[success copy]];
-        if (failure) [self.failureArray addObject:[failure copy]];
+        if (success) [self.successBlocks addObject:[success copy]];
+        if (failure) [self.successBlocks addObject:[failure copy]];
         if (start) start(self);
         return;
     }
@@ -73,10 +81,10 @@
 		[self setValues:data];
 		self.resourceStatus = GHResourceStatusLoaded;
 		if (success) success(self, data);
-        for (void (^block)() in self.successArray) {
+        for (void (^block)() in self.successBlocks) {
             block(self, data);
         }
-        [self.successArray removeAllObjects];
+        [self.successBlocks removeAllObjects];
 	};
 	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSDictionary *headers = operation.response.allHeaderFields;
@@ -85,10 +93,10 @@
 		self.error = error;
 		self.resourceStatus = GHResourceStatusFailed;
 		if (failure) failure(self, error);
-        for (void (^block)() in self.failureArray) {
+        for (void (^block)() in self.failureBlocks) {
             block(self, error);
         }
-        [self.failureArray removeAllObjects];
+        [self.failureBlocks removeAllObjects];
 	};
 	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
     [self.apiClient enqueueHTTPRequestOperation:operation];

@@ -204,7 +204,21 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 // notifications controller, so that the user can pop back to that context.
 // also marks the notificaton as read.
 - (void)openNotificationControllerWithId:(NSInteger)notificationId url:(NSURL *)subjectURL {
-    IOCNotificationsController *notificationsController = [[IOCNotificationsController alloc] initWithNotifications:self.user.notifications];
+    GHNotifications *notifications = self.user.notifications;
+    [notifications loadWithSuccess:^(GHResource *instance, id data) {
+        // load notificatons in advance, so that we can mark the accessed
+        // notification as read, so that it is marked when going back
+        NSUInteger idx = [notifications.items indexOfObjectPassingTest:^(GHNotification *notification, NSUInteger idx, BOOL *stop) {
+            if (notification.notificationId == notificationId) {
+                *stop = YES;
+                return YES;
+            }
+            return NO;
+        }];
+        GHNotification *notification = (idx == NSNotFound) ? nil : notifications.items[idx];
+        [notification markAsReadStart:nil success:nil failure:nil];
+    }];
+    IOCNotificationsController *notificationsController = [[IOCNotificationsController alloc] initWithNotifications:notifications];
     UIViewController *notificationController = [IOCViewControllerFactory viewControllerForGitHubURL:subjectURL];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:notificationsController];
     [navController pushViewController:notificationController animated:NO];
@@ -213,8 +227,6 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
     } else {
         self.initialViewController = navController;
     }
-    GHNotification *notification = [[GHNotification alloc] initWithNotificationId:notificationId];
-    [notification markAsReadStart:nil success:nil failure:nil];
 }
 
 - (void)toggleTopView {

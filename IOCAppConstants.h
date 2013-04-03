@@ -128,7 +128,7 @@
 #define kBlobFormat                     @"repos/%@/%@/git/blobs/%@"
 #define kCommitFormat                   @"repos/%@/%@/git/commits/%@"
 #define kTreeFormat                     @"repos/%@/%@/git/trees/%@"
-#define kTreeRecursiveFormat            @"repos/%@/%@/git/trees/%@?recursive=1"
+#define kRepoContentFormat              @"repos/%@/%@/contents/%@?ref=%@"
 
 // Search
 #define kUserSearchFormat               @"legacy/user/search/%@"

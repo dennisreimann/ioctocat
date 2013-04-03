@@ -16,6 +16,7 @@ Additions:
 * Handle static pages and notifications when opening a GitHub.com URL
 * Option to disable avatar loading. Thanks @mazanma3
 * Show a commit on GitHub. By @iosdeveloper
+* Open trees and blobs from GitHub URL
 
 Changes:
 

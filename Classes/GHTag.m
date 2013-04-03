@@ -8,7 +8,7 @@
 
 @implementation GHTag
 
-- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha {
+- (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha {
 	self = [super init];
 	if (self) {
 		self.repository = repo;

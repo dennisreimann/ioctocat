@@ -10,8 +10,12 @@
 #import "IOCGistsController.h"
 #import "IOCCommitController.h"
 #import "IOCSearchController.h"
+#import "IOCTreeController.h"
+#import "IOCBlobsController.h"
 #import "GHUser.h"
 #import "GHGist.h"
+#import "GHBlob.h"
+#import "GHTree.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
@@ -23,35 +27,37 @@
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "NSURL+Extensions.h"
+#import "NSDictionary+Extensions.h"
 
 
 @implementation IOCViewControllerFactory
 
 + (UIViewController *)viewControllerForGitHubURL:(NSURL *)url {
     NSArray *staticPages = @[@"about", @"blog", @"contact", @"edu", @"plans"];
+    NSArray *comps = url.pathComponents;
 	UIViewController *viewController = nil;
-	DJLog(@"%@", url.pathComponents);
+	DJLog(@"%@", comps);
 	// the first pathComponent is always "/"
 	if ([url.host isEqualToString:@"gist.github.com"]) {
-        if (url.pathComponents.count == 2) {
+        if (comps.count == 2) {
 			// Gists
-            NSString *login = [url.pathComponents objectAtIndex:1];
+            NSString *login = comps[1];
             GHUser *user = [iOctocat.sharedInstance userWithLogin:login];
             viewController = [[IOCGistsController alloc] initWithGists:user.gists];
-        } else if (url.pathComponents.count == 3) {
+        } else if (comps.count == 3) {
 			// Gist
-            NSString *gistId = [url.pathComponents objectAtIndex:2];
+            NSString *gistId = comps[2];
 			GHGist *gist = [[GHGist alloc] initWithId:gistId];
             gist.htmlURL = url;
 			viewController = [[IOCGistController alloc] initWithGist:gist];
 		}
 	} else {
-        BOOL isStatic = url.pathComponents.count == 1 || (url.pathComponents.count >= 2 && [staticPages containsObject:[url.pathComponents objectAtIndex:1]]);
+        BOOL isStatic = comps.count == 1 || (comps.count >= 2 && [staticPages containsObject:comps[1]]);
         if (isStatic) {
             NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, url.path];
             viewController = [[WebController alloc] initWithURL:pageURL];
-        } else if (url.pathComponents.count == 2) {
-            NSString *component = [url.pathComponents objectAtIndex:1];
+        } else if (comps.count == 2) {
+            NSString *component = comps[1];
             if ([component isEqualToString:@"search"]) {
                 viewController = [[IOCSearchController alloc] init];
             } else{
@@ -60,35 +66,48 @@
                 user.htmlURL = url;
                 viewController = [[IOCUserController alloc] initWithUser:user];
             }
-        } else if (url.pathComponents.count >= 3) {
+        } else if (comps.count >= 3) {
             // Repository
-            NSString *owner = [url.pathComponents objectAtIndex:1];
-            NSString *name = [url.pathComponents objectAtIndex:2];
+            NSString *owner = comps[1];
+            NSString *name = comps[2];
             GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
-            if (url.pathComponents.count == 3) {
+            if (comps.count == 3) {
                 repo.htmlURL = url;
                 viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
-            } else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
+            } else if (comps.count == 4 && [comps[3] isEqualToString:@"issues"]) {
                 // Issues
                 viewController = [[IOCIssuesController alloc] initWithRepository:repo];
-            } else if (url.pathComponents.count == 4 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
+            } else if (comps.count == 4 && [comps[3] isEqualToString:@"pull"]) {
                 // Pull Requests
                 viewController = [[IOCPullRequestsController alloc] initWithRepository:repo];
-            } else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"issues"]) {
+            } else if (comps.count == 5 && [comps[3] isEqualToString:@"issues"]) {
                 // Issue
                 GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
-                issue.num = [[url.pathComponents objectAtIndex:4] intValue];
+                issue.num = [comps[4] intValue];
                 viewController = [[IOCIssueController alloc] initWithIssue:issue];
-            } else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"pull"]) {
+            } else if (comps.count == 5 && [comps[3] isEqualToString:@"pull"]) {
                 // Pull Request
                 GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
-                pullRequest.num = [[url.pathComponents objectAtIndex:4] intValue];
+                pullRequest.num = [comps[4] intValue];
                 viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest];
-            } else if (url.pathComponents.count == 5 && [[url.pathComponents objectAtIndex:3] isEqualToString:@"commit"]) {
+            } else if (comps.count == 5 && [comps[3] isEqualToString:@"commit"]) {
                 // Commit
-                NSString *sha = [url.pathComponents objectAtIndex:4];
+                NSString *sha = comps[4];
                 GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
                 viewController = [[IOCCommitController alloc] initWithCommit:commit];
+            } else if (comps.count >= 4) {
+                NSString *type = comps[3];
+                NSString *ref = comps[4];
+                NSString *path = [[comps subarrayWithRange:NSMakeRange(5, comps.count - 5)] componentsJoinedByString:@"/"];
+                if ([type isEqualToString:@"tree"]) {
+                    // Tree
+                    GHTree *tree = [[GHTree alloc] initWithRepo:repo path:path ref:ref];
+                    viewController = [[IOCTreeController alloc] initWithTree:tree];
+                } else if ([type isEqualToString:@"blob"]) {
+                    // Blob
+                    GHBlob *blob = [[GHBlob alloc] initWithRepo:repo path:path ref:ref];
+                    viewController = [[IOCBlobsController alloc] initWithBlob:blob];
+                }
             }
         }
 	}

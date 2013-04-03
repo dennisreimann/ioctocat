@@ -8,7 +8,17 @@
 
 @implementation GHBlob
 
-- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha {
+- (id)initWithRepo:(GHRepository *)repo path:(NSString *)path ref:(NSString*)ref {
+	self = [super init];
+	if (self) {
+		self.repository = repo;
+		self.path = path;
+		self.resourcePath = [NSString stringWithFormat:kRepoContentFormat, self.repository.owner, self.repository.name, self.path, ref];
+	}
+	return self;
+}
+
+- (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha {
 	self = [super init];
 	if (self) {
 		self.repository = repo;

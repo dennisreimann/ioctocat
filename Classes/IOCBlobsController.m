@@ -35,6 +35,10 @@
 	return self;
 }
 
+- (id)initWithBlob:(GHBlob *)blob {
+	return [self initWithBlobs:@[blob] currentIndex:0];
+}
+
 #pragma mark View Events
 
 - (void)viewDidLoad {

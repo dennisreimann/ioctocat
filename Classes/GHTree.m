@@ -8,7 +8,17 @@
 
 @implementation GHTree
 
-- (id)initWithRepo:(GHRepository *)repo andSha:(NSString *)sha {
+- (id)initWithRepo:(GHRepository *)repo path:(NSString *)path ref:(NSString*)ref {
+	self = [super init];
+	if (self) {
+		self.repository = repo;
+		self.path = path;
+		self.resourcePath = [NSString stringWithFormat:kRepoContentFormat, self.repository.owner, self.repository.name, self.path, ref];
+	}
+	return self;
+}
+
+- (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha {
 	self = [super init];
 	if (self) {
 		self.repository = repo;
@@ -20,22 +30,25 @@
 
 #pragma mark Loading
 
-- (void)setValues:(id)dict {
+- (void)setValues:(id)values {
 	self.trees = [NSMutableArray array];
 	self.blobs = [NSMutableArray array];
-	for (NSDictionary *item in [dict valueForKey:@"tree"]) {
-		NSString *type = [item safeStringForKey:@"type"];
-		NSString *path = [item safeStringForKey:@"path"];
-		NSString *mode = [item safeStringForKey:@"mode"];
+    // handle different responses from the tree and repo content APIs
+    NSArray *tree = [values isKindOfClass:NSArray.class] ? values : [values safeArrayForKey:@"tree"];
+	for (NSDictionary *item in tree) {
 		NSString *sha = [item safeStringForKey:@"sha"];
-		if ([type isEqualToString:@"tree"]) {
-			GHTree *obj = [[GHTree alloc] initWithRepo:self.repository andSha:sha];
-			obj.path = path;
+		NSString *type = [item safeStringForKey:@"type"];
+		NSString *mode = [item safeStringOrNilForKey:@"mode"];
+		NSString *name = [item safeStringOrNilForKey:@"name"];
+		if (!name) name = [item safeStringForKey:@"path"];
+		if ([type isEqualToString:@"tree"] || [type isEqualToString:@"dir"]) {
+			GHTree *obj = [[GHTree alloc] initWithRepo:self.repository sha:sha];
+			obj.path = name;
 			obj.mode = mode;
 			[self.trees addObject:obj];
-		} else if ([type isEqualToString:@"blob"]) {
-			GHBlob *obj = [[GHBlob alloc] initWithRepo:self.repository andSha:sha];
-			obj.path = path;
+		} else if ([type isEqualToString:@"blob"] || [type isEqualToString:@"file"]) {
+			GHBlob *obj = [[GHBlob alloc] initWithRepo:self.repository sha:sha];
+			obj.path = name;
 			obj.mode = mode;
 			obj.size = [item safeIntegerForKey:@"size"];
 			[self.blobs addObject:obj];

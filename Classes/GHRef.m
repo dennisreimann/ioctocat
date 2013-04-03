@@ -26,7 +26,7 @@
 	if ([type isEqualToString:@"commit"]) {
 		self.object = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 	} else if ([type isEqualToString:@"tag"]) {
-		self.object = [[GHTag alloc] initWithRepo:self.repository andSha:sha];
+		self.object = [[GHTag alloc] initWithRepo:self.repository sha:sha];
 	}
 }
 

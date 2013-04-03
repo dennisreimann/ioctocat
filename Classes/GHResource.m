@@ -53,6 +53,14 @@
     return _failureBlocks;
 }
 
+- (void)whenLoaded:(resourceSuccess)success {
+    if (self.isLoaded) {
+        success(self, nil);
+    } else {
+        [self.successBlocks addObject:[success copy]];
+    }
+}
+
 - (void)loadWithSuccess:(resourceSuccess)success {
 	[self loadWithParams:nil path:self.resourcePath method:kRequestMethodGet start:nil success:success failure:nil];
 }

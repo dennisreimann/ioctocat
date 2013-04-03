@@ -32,6 +32,7 @@ typedef void (^resourceFailure)(GHResource *instance, NSError *error);
 - (void)markAsChanged;
 - (void)setHeaderValues:(NSDictionary *)values;
 - (void)setValues:(id)response;
+- (void)whenLoaded:(resourceSuccess)success;
 - (void)loadWithSuccess:(resourceSuccess)success;
 - (void)loadWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;

@@ -232,9 +232,11 @@
 		viewController = [[IOCCommitController alloc] initWithCommit:(GHCommit *)notification.subject];
 	}
 	if (viewController) {
-		[self markAsRead:indexPath];
-		[self.navigationController pushViewController:viewController animated:YES];
-		[self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [notification.subject whenLoaded:^(GHResource *instance, id data) {
+            [self markAsRead:indexPath];
+            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+        [self.navigationController pushViewController:viewController animated:YES];
 	}
 }
 

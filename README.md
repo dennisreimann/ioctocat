@@ -9,6 +9,8 @@ Your [participation is welcome](CONTRIBUTING.md). Feel free to fork,
 [add missing features](DEVELOPMENT.md) or
 [report issues](http://github.com/dennisreimann/ioctocat/issues) :)
 
+[![Build Status](https://travis-ci.org/dennisreimann/ioctocat.png?branch=master)](https://travis-ci.org/dennisreimann/ioctocat)
+
 ## Attribution
 
 iOctocat uses some third party components and libraries:

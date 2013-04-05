@@ -1,18 +1,27 @@
 #!/bin/bash
 set -e
 
+echo "Installing dependencies..."
+
 # Install the submodules
 git submodule update --init
 
 # Install the dependencies
-gem install bundler
+which bundle >/dev/null 2>&1 || gem install bundler
 bundle
 bundle exec pod install
+which ios-sim >/dev/null 2>&1 || brew install ios-sim
 
 # Create the iOctocatAPI.plist file by copying the sample
-cp iOctocatAPI{.sample,}.plist
+if [ ! -f iOctocatAPI.plist  ]
+then
+  cp iOctocatAPI{.sample,}.plist
+fi
 
 # Create the HockeySDK.plist file by copying the sample:
-cp HockeySDK{.sample,}.plist
+if [ ! -f HockeySDK.plist  ]
+then
+  cp HockeySDK{.sample,}.plist
+fi
 
-echo "Done, now open iOctocat.xcworkspace :)"
+echo "Installed dependencies :)"

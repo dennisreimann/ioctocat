@@ -1550,7 +1550,6 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AF3277203FA741D781C82A88 /* libPods-iOctocat Unit Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOctocat Unit Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AF9BC03C3BAD4C1CB01AE9F4 /* Pods-iOctocat Unit Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOctocat Unit Tests.xcconfig"; path = "Pods/Pods-iOctocat Unit Tests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
 		E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1651,7 +1650,6 @@
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				6F1DC39A0F7E52F000FCD26D /* Settings.bundle */,
 				0356A753731743C6B44D0C91 /* Pods.xcconfig */,
-				AF9BC03C3BAD4C1CB01AE9F4 /* Pods-iOctocat Unit Tests.xcconfig */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";

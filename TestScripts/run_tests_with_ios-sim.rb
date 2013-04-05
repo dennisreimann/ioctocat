@@ -4,7 +4,7 @@
 # Reference: http://stackoverflow.com/questions/5403991/xcode-4-run-tests-from-the-command-line-xcodebuild
 
 if ENV['TEST_VIA_CLI'] then
-  launcher_path = "/usr/local/bin/ios-sim"
+  launcher_path = `which ios-sim`.strip
   test_bundle_path= File.join(ENV['BUILT_PRODUCTS_DIR'], "#{ENV['PRODUCT_NAME']}.#{ENV['WRAPPER_EXTENSION']}")
 
   environment = {

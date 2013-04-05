@@ -1,0 +1,3 @@
+language: objective-c
+before_install: ./bootstrap.sh
+script: ./TestScripts/run_tests_from_cli.rb

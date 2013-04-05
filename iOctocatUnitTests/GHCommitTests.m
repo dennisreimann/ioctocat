@@ -3,6 +3,8 @@
 #import "GHCommit.h"
 #import "GHFiles.h"
 #import "GHRepository.h"
+#import "GHAccount.h"
+#import "iOctocat.h"
 
 
 @interface GHCommitTests ()
@@ -14,6 +16,7 @@
 
 - (void)setUp {
     [super setUp];
+    iOctocat.sharedInstance.currentAccount = [[GHAccount alloc] initWithDict:@{}];
 	GHRepository *repo = [[GHRepository alloc] initWithOwner:@"dennisreimann" andName:@"iOctocat"];
 	self.commit = [[GHCommit alloc] initWithRepository:repo andCommitID:@"thelongsha123"];
 }
@@ -31,7 +34,7 @@
 }
 
 - (void)testShortenedSHA {
-	expect(self.commit.shortenedSha).to.equal(@"thelon");
+	expect(self.commit.shortenedSha).to.equal(@"thelong");
 }
 
 - (void)testShortenedMessage {

@@ -7,6 +7,8 @@
 #import "GHRepository.h"
 #import "GHPullRequest.h"
 #import "GHOrganization.h"
+#import "GHAccount.h"
+#import "iOctocat.h"
 
 
 @interface GHEventTests ()
@@ -18,6 +20,7 @@
 
 - (void)setUp {
     [super setUp];
+    iOctocat.sharedInstance.currentAccount = [[GHAccount alloc] initWithDict:@{}];
 	self.event = [[GHEvent alloc] initWithDict:@{
 		@"id": @"123",
 		@"public": @1,

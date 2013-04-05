@@ -36,8 +36,8 @@ SPEC CHECKSUMS:
   Base64: eaac9f2088ba659c5db1db960576eb0f2969ebaf
   ECSlidingViewController: fc6f2d9fa30bdc8dc2cc8a7c810e23cd2f3ad70b
   Expecta: d46fb1bd78c90a83da0158b9b1e108de106e369f
-  HockeySDK: 062b7bd6d9fd3c4712d494c13db5a462877fac2d
-  SVProgressHUD: 98935fbafaf0031df4a9cafca3c66eaf3da06967
+  HockeySDK: ffb5d1bc7b6fef6a2ffd7a614504665c377607e8
+  SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   TPKeyboardAvoiding: 7289409b17dc2193a3f324672283c542f17c1bb1
   YRDropdownView: 44695ba38ba7f03d9eae1b8c6eef7145db023c6a

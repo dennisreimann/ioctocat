@@ -1,4 +1,3 @@
-
 //
 //  YRDropdownView.m
 //  YRDropdownViewExample
@@ -10,35 +9,28 @@
 #import "YRDropdownView.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface UILabel (YRDropdownView)
-- (void)sizeToFitFixedWidth:(CGFloat)fixedWidth;
-@end
-
 @implementation UILabel (YRDropdownView)
 
-
-- (void)sizeToFitFixedWidth:(CGFloat)fixedWidth
-{
+- (void)sizeToFitFixedWidth:(CGFloat)fixedWidth {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, fixedWidth, 0);
     self.lineBreakMode = NSLineBreakByWordWrapping;
     self.numberOfLines = 0;
     [self sizeToFit];
 }
+
 @end
 
 @interface YRDropdownView ()
-
-@property (nonatomic) float minHeight;
-@property (nonatomic) SEL onTouch;
-@property (nonatomic) BOOL shouldAnimate;
-
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *detailLabel;
-@property (nonatomic, strong) UIView *accessoryView;
-
-@property (nonatomic, unsafe_unretained) UIView * parentView;
-@property (nonatomic) BOOL isView;
-@property (nonatomic) float dropdownHeight;
+@property(nonatomic)float minHeight;
+@property(nonatomic)SEL onTouch;
+@property(nonatomic)BOOL shouldAnimate;
+@property(nonatomic,strong)UILabel *titleLabel;
+@property(nonatomic,strong)UILabel *detailLabel;
+@property(nonatomic,strong)UIView *accessoryView;
+@property(nonatomic,assign)dispatch_queue_t tapQueue;
+@property(nonatomic,unsafe_unretained) UIView *parentView;
+@property(nonatomic)BOOL isView;
+@property(nonatomic)float dropdownHeight;
 
 + (UIImageView *)imageViewWithImage:(UIImage *)image;
 - (void)updateTitleLabel:(NSString *)newText;
@@ -50,7 +42,7 @@
 
 @implementation YRDropdownView
 
-//Using this prevents two alerts to ever appear on the screen at the same time
+// Using this prevents two alerts to ever appear on the screen at the same time
 static YRDropdownView *currentDropdown = nil;
 static NSMutableArray *viewQueue = nil; // for queuing - danielgindi@gmail.com
 static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
@@ -324,6 +316,10 @@ static BOOL isQueuing = NO; // keep queuing property here - gregwym
 	[dropdownView flipViewToOrientation:nil];
 }
 
++ (BOOL)isCurrentlyShowing {
+    return currentDropdown != nil;
+}
+
 #pragma mark - Methods
 
 - (void)show:(BOOL)animated
@@ -405,6 +401,10 @@ static BOOL isQueuing = NO; // keep queuing property here - gregwym
         currentDropdown = viewQueue[0];
         [viewQueue removeObjectAtIndex:0];
 		[YRDropdownView presentDropdown:currentDropdown];
+    }
+    else
+    {
+        currentDropdown = nil;
     }
 }
 

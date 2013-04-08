@@ -9,7 +9,7 @@ PODS:
   - SVProgressHUD (0.9)
   - SVPullToRefresh (0.4.1)
   - TPKeyboardAvoiding (0.0.1)
-  - YRDropdownView (0.2.0)
+  - YRDropdownView (0.2.1)
 
 DEPENDENCIES:
   - AFNetworking (= 1.2)
@@ -39,6 +39,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 03d4845ec8e64591726428a08236c6a5489d45f8
   SVPullToRefresh: 61a0e4bd12bd6f8e3465909810b0fbeb1a28d5f2
   TPKeyboardAvoiding: 7289409b17dc2193a3f324672283c542f17c1bb1
-  YRDropdownView: 44695ba38ba7f03d9eae1b8c6eef7145db023c6a
+  YRDropdownView: 2a824eee75b10dd70fe21f9693c46a8309f9cc6e
 
-COCOAPODS: 0.17.2
+COCOAPODS: 0.18.0

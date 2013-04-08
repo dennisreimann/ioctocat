@@ -25,7 +25,6 @@ typedef void (^YRTapBlock)(void);
 
 @property (nonatomic) float hideAfter;
 @property (nonatomic, copy) YRTapBlock tapBlock;
-@property (nonatomic, assign) dispatch_queue_t tapQueue;
 
 #pragma mark - View methods
 
@@ -43,7 +42,7 @@ typedef void (^YRTapBlock)(void);
 
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
-
++ (BOOL)isCurrentlyShowing;
 + (void)presentDropdown:(YRDropdownView *)dropdownView;
 + (void)toggleRtl:(BOOL)rtl;
 + (void)toggleQueuing:(BOOL)queuing;

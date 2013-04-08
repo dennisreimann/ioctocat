@@ -403,20 +403,17 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
             self.statusWindow.hidden = NO;
         }
     } good:^(NSString *message) {
-        if (isPhone) {
-            self.statusWindow = nil;
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-            [_statusView removeFromSuperview];
-            self.statusView = nil;
-        }
+        if (isPhone) [self resetStatusBar];
     } failure:^(NSError *error) {
-        if (isPhone) {
-            self.statusWindow = nil;
-            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-            [_statusView removeFromSuperview];
-            self.statusView = nil;
-        }
+        if (isPhone) [self resetStatusBar];
     }];
+}
+
+- (void)resetStatusBar {
+    self.statusWindow = nil;
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+    [_statusView removeFromSuperview];
+    self.statusView = nil;
 }
 
 - (void)bringStatusViewToFront {

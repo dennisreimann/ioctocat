@@ -12,6 +12,7 @@
 @property(nonatomic,strong)NSString *authToken;
 @property(nonatomic,strong)NSString *pushToken;
 @property(nonatomic,readonly)NSString *accountId;
+@property(nonatomic,readonly)BOOL isGitHub;
 
 - (id)initWithDict:(NSDictionary *)dict;
 @end

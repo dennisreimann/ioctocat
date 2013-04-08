@@ -67,8 +67,11 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     [IOCDefaultsPersistence updateLastActivationDate];
     [self setBadge:0];
     [self syncDeviceInformationWithServer];
-    BOOL isPhone = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
-    [self checkGitHubSystemStatus:isPhone report:!isPhone];
+    // if the current account is a GitHub.com account, check the system status
+    if (self.currentAccount.isGitHub) {
+        BOOL isPhone = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
+        [self checkGitHubSystemStatus:isPhone report:!isPhone];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -189,6 +192,17 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 #pragma mark Users
+
+- (void)setCurrentAccount:(GHAccount *)account {
+    _currentAccount = account;
+    // if the current account is a GitHub.com account, check the system status
+    if (_currentAccount.isGitHub) {
+        BOOL isPhone = [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone;
+        [self checkGitHubSystemStatus:isPhone report:!isPhone];
+    } else {
+        [self resetStatusBar];
+    }
+}
 
 - (GHUser *)currentUser {
 	return self.currentAccount.user;

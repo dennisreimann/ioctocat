@@ -29,6 +29,7 @@ Changes:
 * Prevent creation of duplicate accounts
 * Start with adding a new account if there is none
 * Badge is now used to indicate number of unseen push notifications
+* Check system status only for github.com accounts
 
 Bugfixes:
 

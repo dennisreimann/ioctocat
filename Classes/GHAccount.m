@@ -113,6 +113,10 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	}
 }
 
+- (BOOL)isGitHub {
+    return !self.endpoint || self.endpoint.isEmpty;
+}
+
 #pragma mark Coding
 
 - (void)encodeWithCoder:(NSCoder *)encoder {

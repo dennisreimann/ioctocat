@@ -360,6 +360,10 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     [YRDropdownView presentDropdown:dropdown];
 }
 
++ (void)hideDropdown {
+    [YRDropdownView hideDropdownInView:iOctocat.sharedInstance.window];
+}
+
 #pragma mark GitHub System Status
 
 - (UIView *)statusView {
@@ -421,7 +425,11 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)tapGesture {
     if (tapGesture.state == UIGestureRecognizerStateEnded) {
-        [self checkGitHubSystemStatus:YES report:YES];
+        if ([YRDropdownView isCurrentlyShowing]) {
+            [iOctocat hideDropdown];
+        } else {
+            [self checkGitHubSystemStatus:YES report:YES];
+        }
     }
 }
 

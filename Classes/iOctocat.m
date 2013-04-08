@@ -20,6 +20,7 @@
 #import "ECSlidingViewController.h"
 #import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
+#import "GHSystemStatusService.h"
 
 
 @interface iOctocat () <UIApplicationDelegate, BITHockeyManagerDelegate, BITCrashManagerDelegate, BITUpdateManagerDelegate>
@@ -383,50 +384,35 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 - (void)checkGitHubSystemStatus:(BOOL)isPhone report:(BOOL)report {
-	NSURL *apiURL = [NSURL URLWithString:@"https://status.github.com/"];
-	NSString *path = @"/api/last-message.json";
-	NSString *method = kRequestMethodGet;
-	GHOAuthClient *apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
-	NSMutableURLRequest *request = [apiClient requestWithMethod:method path:path parameters:nil];
-	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
-		D3JLog(@"System status request finished: %@", json);
-		NSString *status = [json safeStringForKey:@"status"];
-		if ([status isEqualToString:@"minor"] || [status isEqualToString:@"major"]) {
-			NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
-			NSString *body = [json safeStringForKey:@"body"];
-			NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
-			if ([status isEqualToString:@"major"]) {
-                if (isPhone) self.statusView.backgroundColor = [UIColor redColor];
-                if (report) [iOctocat reportError:@"GitHub System Error" with:message];
-			} else {
-                if (isPhone) self.statusView.backgroundColor = [UIColor yellowColor];
-                if (report) [iOctocat reportWarning:@"GitHub System Warning" with:message];
-			}
-            if (isPhone) {
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
-                self.statusWindow.hidden = NO;
-            }
-        } else {
-            if (isPhone) {
-                self.statusWindow = nil;
-                [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
-                [_statusView removeFromSuperview];
-                self.statusView = nil;
-            }
+	[GHSystemStatusService checkWithMajor:^(NSString *message) {
+        if (isPhone) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+            self.statusView.backgroundColor = [UIColor redColor];
+            self.statusWindow.hidden = NO;
         }
-	};
-	void (^onFailure)()  = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-		D3JLog(@"System status request failed: %@", error);
+        if (report) [iOctocat reportError:@"GitHub System Error" with:message];
+    } minor:^(NSString *message) {
+        if (report) [iOctocat reportWarning:@"GitHub System Warning" with:message];
+        if (isPhone) {
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+            self.statusView.backgroundColor = [UIColor yellowColor];
+            self.statusWindow.hidden = NO;
+        }
+    } good:^(NSString *message) {
         if (isPhone) {
             self.statusWindow = nil;
             [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
             [_statusView removeFromSuperview];
             self.statusView = nil;
         }
-	};
-	D3JLog(@"System status request: %@ %@", method, path);
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
-	[operation start];
+    } failure:^(NSError *error) {
+        if (isPhone) {
+            self.statusWindow = nil;
+            [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+            [_statusView removeFromSuperview];
+            self.statusView = nil;
+        }
+    }];
 }
 
 - (void)bringStatusViewToFront {

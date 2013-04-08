@@ -61,6 +61,9 @@
 		2ECFBABB16EA8AEB0092EE67 /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3816B16E28A0E003293BD /* IOCCodeController.m */; };
 		2ECFBABC16EA8AF50092EE67 /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3816916E28A0E003293BD /* IOCBlobsController.m */; };
 		2ECFBABD16EA8B050092EE67 /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3815F16E28986003293BD /* IOCNotificationsController.m */; };
+		2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
+		2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
+		2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		367F8AD316F64DBF008F8054 /* MessageEntryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD116F64DBF008F8054 /* MessageEntryBG.png */; };
 		367F8AD416F64DBF008F8054 /* MessageEntryBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD116F64DBF008F8054 /* MessageEntryBG.png */; };
 		367F8AD516F64DBF008F8054 /* MessageEntryBG@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */; };
@@ -1015,6 +1018,8 @@
 		2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeNotifications@2x.png"; sourceTree = "<group>"; };
 		2EC1DD411708DEB8001C2FA1 /* TypeNotificationsOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeNotificationsOn.png; sourceTree = "<group>"; };
 		2EC1DD421708DEB8001C2FA1 /* TypeNotificationsOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeNotificationsOn@2x.png"; sourceTree = "<group>"; };
+		2EF1C0381713515C00096DC1 /* GHSystemStatusService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSystemStatusService.h; sourceTree = "<group>"; };
+		2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSystemStatusService.m; sourceTree = "<group>"; };
 		367F8AD116F64DBF008F8054 /* MessageEntryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageEntryBG.png; path = Images/MessageEntryBG.png; sourceTree = "<group>"; };
 		367F8AD216F64DBF008F8054 /* MessageEntryBG@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "MessageEntryBG@2x.png"; path = "Images/MessageEntryBG@2x.png"; sourceTree = "<group>"; };
 		36A36E5A16FF70A30070AC46 /* MAXCompletion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MAXCompletion.h; sourceTree = "<group>"; };
@@ -1717,6 +1722,8 @@
 				2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */,
 				2E9E53881701AB50000961BD /* GHUserObjectsRepository.h */,
 				2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */,
+				2EF1C0381713515C00096DC1 /* GHSystemStatusService.h */,
+				2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -3508,6 +3515,7 @@
 				2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
 				36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */,
 				2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
+				2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3622,6 +3630,7 @@
 				2ECFBABD16EA8B050092EE67 /* IOCNotificationsController.m in Sources */,
 				2EAD8B0916FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
 				2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
+				2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3733,6 +3742,7 @@
 				2EAD8B0816FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
 				36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */,
 				2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
+				2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

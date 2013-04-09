@@ -49,6 +49,14 @@
 		2EC1DD441708DEB8001C2FA1 /* TypeNotificationsOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD411708DEB8001C2FA1 /* TypeNotificationsOn.png */; };
 		2EC1DD451708DEB8001C2FA1 /* TypeNotificationsOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD421708DEB8001C2FA1 /* TypeNotificationsOn@2x.png */; };
 		2EC1DD461708DEB8001C2FA1 /* TypeNotificationsOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD421708DEB8001C2FA1 /* TypeNotificationsOn@2x.png */; };
+		2EC346B01714AE5600B2366F /* PointerDownRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AC1714AE5600B2366F /* PointerDownRight.png */; };
+		2EC346B11714AE5600B2366F /* PointerDownRight.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AC1714AE5600B2366F /* PointerDownRight.png */; };
+		2EC346B21714AE5600B2366F /* PointerDownRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AD1714AE5600B2366F /* PointerDownRight@2x.png */; };
+		2EC346B31714AE5600B2366F /* PointerDownRight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AD1714AE5600B2366F /* PointerDownRight@2x.png */; };
+		2EC346B41714AE5600B2366F /* PointerUpLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AE1714AE5600B2366F /* PointerUpLeft.png */; };
+		2EC346B51714AE5600B2366F /* PointerUpLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AE1714AE5600B2366F /* PointerUpLeft.png */; };
+		2EC346B61714AE5600B2366F /* PointerUpLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AF1714AE5600B2366F /* PointerUpLeft@2x.png */; };
+		2EC346B71714AE5600B2366F /* PointerUpLeft@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC346AF1714AE5600B2366F /* PointerUpLeft@2x.png */; };
 		2ECFBAB216EA8A020092EE67 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D716E28F24003293BD /* MenuOctocat.png */; };
 		2ECFBAB316EA8A020092EE67 /* MenuOctocat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D816E28F24003293BD /* MenuOctocat@2x.png */; };
 		2ECFBAB416EA8A020092EE67 /* MenuOctocat.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA381D716E28F24003293BD /* MenuOctocat.png */; };
@@ -61,14 +69,14 @@
 		2ECFBABB16EA8AEB0092EE67 /* IOCCodeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3816B16E28A0E003293BD /* IOCCodeController.m */; };
 		2ECFBABC16EA8AF50092EE67 /* IOCBlobsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3816916E28A0E003293BD /* IOCBlobsController.m */; };
 		2ECFBABD16EA8B050092EE67 /* IOCNotificationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3815F16E28986003293BD /* IOCNotificationsController.m */; };
+		2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
+		2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
+		2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		2EFEB8B9170352D200BCA7EC /* AccountTypeEnterprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B5170352D200BCA7EC /* AccountTypeEnterprise.png */; };
 		2EFEB8BA170352D200BCA7EC /* AccountTypeEnterprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B5170352D200BCA7EC /* AccountTypeEnterprise.png */; };
 		2EFEB8BB170352D200BCA7EC /* AccountTypeEnterprise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B6170352D200BCA7EC /* AccountTypeEnterprise@2x.png */; };
 		2EFEB8BC170352D200BCA7EC /* AccountTypeEnterprise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B6170352D200BCA7EC /* AccountTypeEnterprise@2x.png */; };
 		2EFEB8BD170352D200BCA7EC /* AccountTypeGithub.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B7170352D200BCA7EC /* AccountTypeGithub.png */; };
-		2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
-		2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
-		2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		2EFEB8BE170352D200BCA7EC /* AccountTypeGithub.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B7170352D200BCA7EC /* AccountTypeGithub.png */; };
 		2EFEB8BF170352D200BCA7EC /* AccountTypeGithub@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B8170352D200BCA7EC /* AccountTypeGithub@2x.png */; };
 		2EFEB8C0170352D200BCA7EC /* AccountTypeGithub@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B8170352D200BCA7EC /* AccountTypeGithub@2x.png */; };
@@ -1026,10 +1034,14 @@
 		2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeNotifications@2x.png"; sourceTree = "<group>"; };
 		2EC1DD411708DEB8001C2FA1 /* TypeNotificationsOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeNotificationsOn.png; sourceTree = "<group>"; };
 		2EC1DD421708DEB8001C2FA1 /* TypeNotificationsOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeNotificationsOn@2x.png"; sourceTree = "<group>"; };
+		2EC346AC1714AE5600B2366F /* PointerDownRight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PointerDownRight.png; sourceTree = "<group>"; };
+		2EC346AD1714AE5600B2366F /* PointerDownRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PointerDownRight@2x.png"; sourceTree = "<group>"; };
+		2EC346AE1714AE5600B2366F /* PointerUpLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PointerUpLeft.png; sourceTree = "<group>"; };
+		2EC346AF1714AE5600B2366F /* PointerUpLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PointerUpLeft@2x.png"; sourceTree = "<group>"; };
 		2EF1C0381713515C00096DC1 /* GHSystemStatusService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSystemStatusService.h; sourceTree = "<group>"; };
+		2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSystemStatusService.m; sourceTree = "<group>"; };
 		2EFEB8B5170352D200BCA7EC /* AccountTypeEnterprise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AccountTypeEnterprise.png; sourceTree = "<group>"; };
 		2EFEB8B6170352D200BCA7EC /* AccountTypeEnterprise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AccountTypeEnterprise@2x.png"; sourceTree = "<group>"; };
-		2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSystemStatusService.m; sourceTree = "<group>"; };
 		2EFEB8B7170352D200BCA7EC /* AccountTypeGithub.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AccountTypeGithub.png; sourceTree = "<group>"; };
 		2EFEB8B8170352D200BCA7EC /* AccountTypeGithub@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AccountTypeGithub@2x.png"; sourceTree = "<group>"; };
 		367F8AD116F64DBF008F8054 /* MessageEntryBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MessageEntryBG.png; path = Images/MessageEntryBG.png; sourceTree = "<group>"; };
@@ -1751,6 +1763,18 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		2EC346AB1714AE5600B2366F /* Pointer */ = {
+			isa = PBXGroup;
+			children = (
+				2EC346AC1714AE5600B2366F /* PointerDownRight.png */,
+				2EC346AD1714AE5600B2366F /* PointerDownRight@2x.png */,
+				2EC346AE1714AE5600B2366F /* PointerUpLeft.png */,
+				2EC346AF1714AE5600B2366F /* PointerUpLeft@2x.png */,
+			);
+			name = Pointer;
+			path = Images/Pointer;
+			sourceTree = "<group>";
+		};
 		2EFEB8B4170352D200BCA7EC /* AccountTypes */ = {
 			isa = PBXGroup;
 			children = (
@@ -2272,6 +2296,7 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2EC346AB1714AE5600B2366F /* Pointer */,
 				2EFEB8B4170352D200BCA7EC /* AccountTypes */,
 				6FEDE41C16E2A21C00459B5C /* Gist */,
 				6FEDE42916E2A21C00459B5C /* Repo */,
@@ -3013,6 +3038,10 @@
 				2EFEB8BB170352D200BCA7EC /* AccountTypeEnterprise@2x.png in Resources */,
 				2EFEB8BD170352D200BCA7EC /* AccountTypeGithub.png in Resources */,
 				2EFEB8BF170352D200BCA7EC /* AccountTypeGithub@2x.png in Resources */,
+				2EC346B01714AE5600B2366F /* PointerDownRight.png in Resources */,
+				2EC346B21714AE5600B2366F /* PointerDownRight@2x.png in Resources */,
+				2EC346B41714AE5600B2366F /* PointerUpLeft.png in Resources */,
+				2EC346B61714AE5600B2366F /* PointerUpLeft@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3348,6 +3377,10 @@
 				2EFEB8BC170352D200BCA7EC /* AccountTypeEnterprise@2x.png in Resources */,
 				2EFEB8BE170352D200BCA7EC /* AccountTypeGithub.png in Resources */,
 				2EFEB8C0170352D200BCA7EC /* AccountTypeGithub@2x.png in Resources */,
+				2EC346B11714AE5600B2366F /* PointerDownRight.png in Resources */,
+				2EC346B31714AE5600B2366F /* PointerDownRight@2x.png in Resources */,
+				2EC346B51714AE5600B2366F /* PointerUpLeft.png in Resources */,
+				2EC346B71714AE5600B2366F /* PointerUpLeft@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

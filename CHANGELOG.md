@@ -17,6 +17,7 @@ Additions:
 * Option to disable avatar loading. Thanks @mazanma3
 * Show a commit on GitHub. By @iosdeveloper
 * Open trees and blobs from GitHub URL
+* Choose the type of account (GitHub.com or Enterprise) before adding a new account
 
 Changes:
 

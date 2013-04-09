@@ -109,13 +109,15 @@
 }
 - (void)useRedDeleteStyle
 {
+    
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
-    UIColor *color = [UIColor colorWithRed:0.745 green:0.359 blue:0.326 alpha:1.000];
+    UIColor *color = [UIColor colorWithRed:0.525 green:0.055 blue:0.000 alpha:1.000];
     [colors addObject:(id)[color CGColor]];
-    color = [UIColor colorWithRed:0.802 green:0.415 blue:0.382 alpha:1.000];
+    color = [UIColor colorWithRed:0.780 green:0.161 blue:0.196 alpha:1.000];
     [colors addObject:(id)[color CGColor]];
+    
     self.normalGradientColors = colors;
-    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.101f, nil];
+    self.normalGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.0f, nil];
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:2];
     color = [UIColor colorWithRed:0.574 green:0.237 blue:0.209 alpha:1.000];

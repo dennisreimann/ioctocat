@@ -395,9 +395,10 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     if (!_statusWindow) {
         UIWindow *statusWindow = [[UIWindow alloc] initWithFrame:UIApplication.sharedApplication.statusBarFrame];
         [statusWindow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
-        statusWindow.windowLevel = UIWindowLevelStatusBar + 1.0f;
+        statusWindow.windowLevel = UIWindowLevelStatusBar;
         _statusWindow = statusWindow;
     }
+    [self.window makeKeyWindow];
     return _statusWindow;
 }
 

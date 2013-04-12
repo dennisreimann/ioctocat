@@ -54,8 +54,25 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:NotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
         self.initialViewController = [[MyEventsController alloc] initWithUser:self.user];
-	}
+	    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuWillAppear:) name:ECSlidingViewUnderLeftWillAppear object:nil];
+    }
 	return self;
+}
+
+- (void)dealloc {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:ECSlidingViewUnderLeftWillAppear object:nil];
+	if (self.user.organizations.isLoaded) {
+		[self removeOrganizationObservers];
+	}
+	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
+	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
+	[self.user removeObserver:self forKeyPath:NotificationsCountKeyPath];
+}
+
+- (void)menuWillAppear:(id)notification {
+    UINavigationController *navController = (UINavigationController *)self.slidingViewController.topViewController;
+    UIViewController *viewController = navController.visibleViewController;
+    [viewController.view endEditing:YES];
 }
 
 - (void)viewDidLoad {
@@ -136,15 +153,6 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	for (GHOrganization *org in self.user.organizations.items) {
 		[org removeObserver:self forKeyPath:GravatarKeyPath];
 	}
-}
-
-- (void)dealloc {
-	if (self.user.organizations.isLoaded) {
-		[self removeOrganizationObservers];
-	}
-	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
-	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
-	[self.user removeObserver:self forKeyPath:NotificationsCountKeyPath];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

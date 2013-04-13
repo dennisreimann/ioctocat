@@ -2,6 +2,7 @@
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
+// heavily inspired by Orbiter: https://github.com/mattt/Orbiter
 
 @implementation IOCApiClient
 
@@ -36,13 +37,17 @@ static NSString *const PushBackendAccessTokenFormat = @"devices/%@/accounts/%@";
     return sharedInstance;
 }
 
-#pragma mark Push Notifications
-
-// heavily inspired by Orbiter: https://github.com/mattt/Orbiter
+#pragma mark Device Token
 
 static NSString *IOCNormalizedDeviceToken(id deviceToken) {
     return [[[[deviceToken description] uppercaseString] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]] stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
+
++ (NSString *)normalizeDeviceToken:(id)deviceToken {
+    return IOCNormalizedDeviceToken(deviceToken);
+}
+
+#pragma mark Push Notifications
 
 - (void)registerPushNotificationsForDevice:(id)deviceToken alias:(NSString *)alias success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

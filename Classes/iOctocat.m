@@ -47,7 +47,6 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     self.deviceToken = @"";
     [UIApplication.sharedApplication setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
     [self registerDefaultsFromSettingsBundle];
-    [self registerForRemoteNotifications];
     [self deactivateURLCache];
     [self setupHockeySDK];
     [self setupAccounts];
@@ -98,17 +97,29 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 
 #pragma mark Remote Notifications
 
+- (void)registerForRemoteNotifications {
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // store the fact that the user granted remote notifications access
     [IOCDefaultsPersistence storeRemoteNotificationsPermission:@YES];
     // save device token for later registration of accounts for that device
+    self.deviceToken = [IOCApiClient normalizeDeviceToken:deviceToken];
     NSString *alias = self.accounts.count > 0 ? [(GHAccount *)self.accounts[0] accountId] : nil;
 	[IOCApiClient.sharedInstance registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
-        DJLog(@"Remote Notifications Registration Success: %@", responseObject);
-		self.deviceToken = [responseObject safeStringForKey:@"token"];
-    } failure:^(NSError *error) {
-        DJLog(@"Remote Notifications Registration Error: %@", error);
-    }];
+        self.deviceToken = [responseObject safeStringForKey:@"token"];
+    } failure:nil];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    D3JLog(@"Registering device for push notifications failed: %@", error);
+    // only display the error to the user when the initial registeration fails.
+    // do not display the error in case the permission has been granted before
+    // and this is a failed attempt of re-registration.
+    if ([IOCDefaultsPersistence grantedRemoteNotificationsPermission]) return;
+    NSString *message = [NSString stringWithFormat:@"Could not register for remote notifications: %@", error.localizedDescription];
+    [iOctocat reportError:@"Registration failed" with:message];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)remoteNotification {
@@ -306,10 +317,6 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 - (void)setupSlidingViewController {
     self.slidingViewController.anchorRightRevealAmount = 230;
     self.slidingViewController.underLeftViewController = self.menuNavController;
-}
-
-- (void)registerForRemoteNotifications {
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 }
 
 - (BOOL)isGitHubURL:(NSURL *)url {

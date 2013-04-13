@@ -75,7 +75,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 #pragma mark Helpers
 
 - (NSString *)deviceToken {
-    return [iOctocat sharedInstance].deviceToken;
+    return iOctocat.sharedInstance.deviceToken;
 }
 
 - (NSString *)loginValue {
@@ -121,24 +121,17 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 
 - (void)checkPushStateForPushToken:(NSString *)pushToken {
 	if (self.hasDeviceToken && !pushToken.isEmpty) {
-		self.pushSwitch.enabled = NO;
 		[IOCApiClient.sharedInstance checkPushNotificationsForDevice:self.deviceToken accessToken:pushToken success:^(id json) {
             self.account.pushToken = pushToken;
             [self saveAccount];
             [self.pushSwitch setOn:YES animated:YES];
-            self.pushSwitch.enabled = YES;
-            self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 		} failure:^(NSError *error) {
             self.account.pushToken = @"";
             [self saveAccount];
             [self.pushSwitch setOn:NO animated:YES];
-            self.pushSwitch.enabled = YES;
-            self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 		}];
 	} else {
 		self.pushSwitch.on = NO;
-		self.pushSwitch.enabled = self.hasDeviceToken && self.hasAuthToken ? YES : NO;
-        self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 	}
 }
 
@@ -199,7 +192,12 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 - (IBAction)changePushNotifications:(id)sender {
 	[self.view endEditing:NO];
 	if (self.pushSwitch.on) {
-		if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
+        if (!self.hasDeviceToken) {
+            // in case there is no device token yet, we have to ask the
+            // users permissions to receive remote notifications first
+            [iOctocat.sharedInstance registerForRemoteNotifications];
+            [self.pushSwitch setOn:NO animated:YES];
+        } else if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
 			[iOctocat reportError:@"Credentials required" with:@"Please enter your login and password"];
 			[self.pushSwitch setOn:NO animated:YES];
 		} else {
@@ -250,6 +248,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 			[self saveAccount];
 		} failure:^(NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Enabling push notifications failed"];
+            [iOctocat reportError:@"Remote server error" with:error.localizedDescription];
 			[self.pushSwitch setOn:NO animated:YES];
 		}];
 	} failure:^(NSError *error) {

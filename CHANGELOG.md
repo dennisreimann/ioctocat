@@ -2,6 +2,13 @@
 
 ## v1.8.0
 
+This version brings you push notifications for your GitHub notifications, along with lots of nice improvements.
+Special thanks again to @iosdeveloper, who helped out with a lot of things, his contributions are invaluable!
+
+Push notifications work on a per account basis: To enable this feature, go to your account management view (via the blue arrow on the right of the accounts list), enter your password and enable the push feature.
+
+And now: Enjoy this release as much as we do :)
+
 Additions:
 
 * Push notifications

@@ -12,6 +12,7 @@
 + (void)reportLoadingError:(NSString *)message;
 - (BOOL)openURL:(NSURL *)url;
 - (void)bringStatusViewToFront;
+- (void)registerForRemoteNotifications;
 - (GHUser *)currentUser;
 - (GHUser *)userWithLogin:(NSString *)login;
 - (GHOrganization *)organizationWithLogin:(NSString *)login;

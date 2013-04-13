@@ -8,10 +8,9 @@
 
 - (id)initWithEndpoint:(NSString *)endpoint username:(NSString *)username password:(NSString *)password {
 	// construct endpoint URL
-	NSURL *url = [NSURL URLWithString:kGitHubApiURL];
-	if (endpoint && !endpoint.isEmpty) {
-		url = [[NSURL smartURLFromString:endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
-	}
+	NSURL *url = (!endpoint || endpoint.isEmpty || [endpoint isEqualToString:kGitHubComURL]) ?
+        [NSURL URLWithString:kGitHubApiURL] :
+        [[NSURL smartURLFromString:endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
 	// initialize
 	self = [super initWithBaseURL:url];
 	if (self) {

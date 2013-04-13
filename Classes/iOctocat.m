@@ -162,10 +162,10 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
     NSString *login = [ioc safeStringForKey:@"a"];
     NSString *endpoint = [ioc safeStringForKey:@"b"];
+    if (endpoint.isEmpty) endpoint = kGitHubComURL;
     GHAccount *account = [self accountWithLogin:login endpoint:endpoint];
     if (!account) {
-        NSString *actualEndpoint = endpoint.isEmpty ? kGitHubComURL : endpoint;
-        NSString *host = [[NSURL smartURLFromString:actualEndpoint] host];
+        NSString *host = [[NSURL smartURLFromString:endpoint] host];
         NSString *msg = [NSString stringWithFormat:@"Could not find account %@ for %@", login, host];
         [iOctocat reportError:@"Missing account" with:msg];
         return;

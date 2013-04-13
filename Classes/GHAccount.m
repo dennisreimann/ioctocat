@@ -44,10 +44,9 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 // constructs endpoint URL and sets up API client
 - (GHOAuthClient *)apiClient {
     if (!_apiClient) {
-        NSURL *apiURL = [NSURL URLWithString:kGitHubApiURL];
-        if (self.endpoint && !self.endpoint.isEmpty) {
-            apiURL = [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
-        }
+        NSURL *apiURL = self.isGitHub ?
+            [NSURL URLWithString:kGitHubApiURL] :
+            [[NSURL URLWithString:self.endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
         self.apiClient = [[GHOAuthClient alloc] initWithBaseURL:apiURL];
         [_apiClient setAuthorizationHeaderWithToken:self.authToken];
     }
@@ -114,7 +113,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 }
 
 - (BOOL)isGitHub {
-    return !self.endpoint || self.endpoint.isEmpty;
+    return !self.endpoint || self.endpoint.isEmpty || [self.endpoint isEqualToString:kGitHubComURL];
 }
 
 #pragma mark Coding
@@ -131,9 +130,10 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	NSString *endpoint = [decoder decodeObjectForKey:kEndpointDefaultsKey];
 	NSString *authToken = [decoder decodeObjectForKey:kAuthTokenDefaultsKey];
 	NSString *pushToken = [decoder decodeObjectForKey:kPushTokenDefaultsKey];
+    if (!endpoint || endpoint.isEmpty) endpoint = kGitHubComURL;
 	self = [self initWithDict:@{
+		 kEndpointDefaultsKey: endpoint,
 			kLoginDefaultsKey: login ? login : @"",
-		 kEndpointDefaultsKey: endpoint ? endpoint : @"",
 		kAuthTokenDefaultsKey: authToken ? authToken : @"",
 		kPushTokenDefaultsKey: pushToken ? pushToken : @"" }];
 	return self;

@@ -24,7 +24,6 @@ typedef enum {
 @property(nonatomic,readonly)NSString *deviceToken;
 @property(nonatomic,weak)IBOutlet UIView *accountTypeView;
 @property(nonatomic,weak)IBOutlet UIView *accountFormView;
-@property(nonatomic,weak)IBOutlet UIView *accountInputsView;
 @property(nonatomic,weak)IBOutlet UITextField *loginField;
 @property(nonatomic,weak)IBOutlet UITextField *passwordField;
 @property(nonatomic,weak)IBOutlet UITextField *endpointField;
@@ -48,7 +47,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
         if (self.index == NSNotFound) {
             self.accountType = IOCAccountTypeUnspecified;
         } else {
-            self.accountType = self.account.endpoint.isEmpty ? IOCAccountTypeGitHubCom : IOCAccountTypeEnterprise;
+            self.accountType = self.account.isGitHub ? IOCAccountTypeGitHubCom : IOCAccountTypeEnterprise;
         }
 	}
 	return self;
@@ -137,11 +136,9 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 
 - (void)prepareForm {
     BOOL isGitHub = self.accountType == IOCAccountTypeGitHubCom;
-    CGRect frame = self.accountInputsView.frame;
-    CGFloat y = self.endpointField.frame.origin.y;
-    frame.origin.y = isGitHub ? y : y + 44.0f;
-    self.accountInputsView.frame = frame;
+    self.endpointField.text = isGitHub ? kGitHubComURL : @"";
     self.endpointField.enabled = !isGitHub;
+    self.endpointField.textColor = self.endpointField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 }
 
 #pragma mark Actions
@@ -274,9 +271,9 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
-	if (textField == self.loginField) [self.passwordField becomeFirstResponder];
-    if (textField == self.passwordField) [self.endpointField becomeFirstResponder];
-    if (textField == self.endpointField) [self saveAccount:nil];
+	if (textField == self.endpointField) [self.loginField becomeFirstResponder];
+    if (textField == self.loginField) [self.passwordField becomeFirstResponder];
+    if (textField == self.passwordField) [self saveAccount:nil];
 	return YES;
 }
 

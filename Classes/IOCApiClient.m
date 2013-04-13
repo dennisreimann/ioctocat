@@ -86,8 +86,7 @@ static NSString *IOCNormalizedDeviceToken(id deviceToken) {
 
 - (void)enablePushNotificationsForDevice:(id)deviceToken accessToken:(NSString *)accessToken endpoint:(NSString *)endpoint login:(NSString *)login success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
 	NSString *path = [NSString stringWithFormat:PushBackendAccessTokenFormat, IOCNormalizedDeviceToken(deviceToken), accessToken];
-    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObject:login forKey:@"login"];
-    if (endpoint && !endpoint.isEmpty) params[@"endpoint"] = endpoint;
+    NSDictionary *params = @{@"endpoint": endpoint, @"login": login};
     D3JLog(@"Enabling push notifications: %@\n\nParams:\n%@\n", path, params);
 	[self putPath:path parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
 		D3JLog(@"Enabled push notifications: %@", responseObject);

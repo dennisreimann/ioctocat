@@ -19,6 +19,7 @@ Additions:
 * Open all URLs highlighted in issues/comments internally (experimental). Thanks @iosdeveloper
 * Forks link to the original repository
 * Comments link to the user profile. Thanks @iosdeveloper
+* 1Password integration
 * Browse gist forks
 * Handle static pages and notifications when opening a GitHub.com URL
 * Option to disable avatar loading. Thanks @mazanma3

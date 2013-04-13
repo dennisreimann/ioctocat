@@ -25,6 +25,10 @@
 		2E2BB56716E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */; };
 		2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
+		2E5D54FA171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
+		2E5D54FB171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
+		2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
+		2E5D54FD171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
 		2E88193816F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193916F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193A16F8F8B300ACA2EB /* b.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193516F8F8B300ACA2EB /* b.caf */; };
@@ -1021,6 +1025,8 @@
 		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
 		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
 		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
+		2E5D54F8171A00530046086D /* Button1P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button1P.png; sourceTree = "<group>"; };
+		2E5D54F9171A00530046086D /* Button1P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button1P@2x.png"; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
@@ -1752,6 +1758,16 @@
 			name = Services;
 			sourceTree = "<group>";
 		};
+		2E5D54F7171A00530046086D /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				2E5D54F8171A00530046086D /* Button1P.png */,
+				2E5D54F9171A00530046086D /* Button1P@2x.png */,
+			);
+			name = Buttons;
+			path = Images/Buttons;
+			sourceTree = "<group>";
+		};
 		2E88193316F8F8B300ACA2EB /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -2296,6 +2312,7 @@
 		6FB7FE9F0F7E2C3800E8D702 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2E5D54F7171A00530046086D /* Buttons */,
 				2EC346AB1714AE5600B2366F /* Pointer */,
 				2EFEB8B4170352D200BCA7EC /* AccountTypes */,
 				6FEDE41C16E2A21C00459B5C /* Gist */,
@@ -3042,6 +3059,8 @@
 				2EC346B21714AE5600B2366F /* PointerDownRight@2x.png in Resources */,
 				2EC346B41714AE5600B2366F /* PointerUpLeft.png in Resources */,
 				2EC346B61714AE5600B2366F /* PointerUpLeft@2x.png in Resources */,
+				2E5D54FA171A00530046086D /* Button1P.png in Resources */,
+				2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3381,6 +3400,8 @@
 				2EC346B31714AE5600B2366F /* PointerDownRight@2x.png in Resources */,
 				2EC346B51714AE5600B2366F /* PointerUpLeft.png in Resources */,
 				2EC346B71714AE5600B2366F /* PointerUpLeft@2x.png in Resources */,
+				2E5D54FB171A00530046086D /* Button1P.png in Resources */,
+				2E5D54FD171A00530046086D /* Button1P@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

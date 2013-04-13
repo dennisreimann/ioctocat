@@ -20,7 +20,7 @@
 - (CGRect)textRectForBounds:(CGRect)bounds {
 	return CGRectMake(bounds.origin.x + self.paddingHorizontal,
 					  bounds.origin.y + self.paddingVertical,
-					  bounds.size.width - self.paddingHorizontal * 2,
+					  bounds.size.width - self.paddingHorizontal * 2 - self.textRectSubtractOnRight,
 					  bounds.size.height - self.paddingVertical * 2);
 }
 
@@ -28,6 +28,13 @@
     CGRect editRect = [self textRectForBounds:bounds];
     editRect.size.width -= 20;
     return editRect;
+}
+
+- (CGRect)clearButtonRectForBounds:(CGRect)bounds {
+    CGRect editRect = [self editingRectForBounds:bounds];
+    CGRect clearRect = [super clearButtonRectForBounds:bounds];
+    clearRect.origin.x = editRect.origin.x + editRect.size.width;
+    return clearRect;
 }
 
 @end

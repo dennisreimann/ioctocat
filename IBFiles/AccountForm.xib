@@ -311,7 +311,7 @@
 										<string key="NSFrame">{{20, 108}, {280, 36}}</string>
 										<reference key="NSSuperview" ref="191373211"/>
 										<reference key="NSWindow"/>
-										<reference key="NSNextKeyView" ref="909484153"/>
+										<reference key="NSNextKeyView" ref="880382275"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -334,6 +334,51 @@
 										<reference key="IBUIFontDescription" ref="307145924"/>
 										<reference key="IBUIFont" ref="955582856"/>
 									</object>
+									<object class="IBUIButton" id="880382275">
+										<reference key="NSNextResponder" ref="191373211"/>
+										<int key="NSvFlags">289</int>
+										<string key="NSFrame">{{172, 108}, {128, 36}}</string>
+										<reference key="NSSuperview" ref="191373211"/>
+										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView" ref="909484153"/>
+										<bool key="IBUIOpaque">NO</bool>
+										<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
+										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+										<int key="IBUIContentHorizontalAlignment">0</int>
+										<int key="IBUIContentVerticalAlignment">0</int>
+										<int key="IBUIButtonType">1</int>
+										<string key="IBUINormalTitle"> 1Password</string>
+										<object class="NSColor" key="IBUIHighlightedTitleColor" id="456276104">
+											<int key="NSColorSpace">1</int>
+											<bytes key="NSRGB">MSAxIDEAA</bytes>
+										</object>
+										<object class="NSColor" key="IBUINormalTitleColor">
+											<int key="NSColorSpace">1</int>
+											<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
+										</object>
+										<object class="NSColor" key="IBUINormalTitleShadowColor" id="1018610125">
+											<int key="NSColorSpace">3</int>
+											<bytes key="NSWhite">MAA</bytes>
+										</object>
+										<object class="NSCustomResource" key="IBUIHighlightedImage" id="107755293">
+											<string key="NSClassName">NSImage</string>
+											<string key="NSResourceName">Button1P.png</string>
+										</object>
+										<reference key="IBUIDisabledImage" ref="107755293"/>
+										<reference key="IBUISelectedImage" ref="107755293"/>
+										<reference key="IBUINormalImage" ref="107755293"/>
+										<object class="IBUIFontDescription" key="IBUIFontDescription">
+											<string key="name">Helvetica-Bold</string>
+											<string key="family">Helvetica</string>
+											<int key="traits">2</int>
+											<double key="pointSize">14</double>
+										</object>
+										<object class="NSFont" key="IBUIFont">
+											<string key="NSName">Helvetica-Bold</string>
+											<double key="NSSize">14</double>
+											<int key="NSfFlags">16</int>
+										</object>
+									</object>
 									<object class="IBUIButton" id="909484153">
 										<reference key="NSNextResponder" ref="191373211"/>
 										<int key="NSvFlags">290</int>
@@ -348,18 +393,12 @@
 										<int key="IBUIContentVerticalAlignment">0</int>
 										<int key="IBUIButtonType">1</int>
 										<string key="IBUINormalTitle">Save</string>
-										<object class="NSColor" key="IBUIHighlightedTitleColor" id="456276104">
-											<int key="NSColorSpace">1</int>
-											<bytes key="NSRGB">MSAxIDEAA</bytes>
-										</object>
+										<reference key="IBUIHighlightedTitleColor" ref="456276104"/>
 										<object class="NSColor" key="IBUINormalTitleColor">
 											<int key="NSColorSpace">1</int>
 											<bytes key="NSRGB">MC4xOTYwNzg0MyAwLjMwOTgwMzkzIDAuNTIxNTY4NjYAA</bytes>
 										</object>
-										<object class="NSColor" key="IBUINormalTitleShadowColor" id="1018610125">
-											<int key="NSColorSpace">3</int>
-											<bytes key="NSWhite">MAA</bytes>
-										</object>
+										<reference key="IBUINormalTitleShadowColor" ref="1018610125"/>
 										<object class="IBUIFontDescription" key="IBUIFontDescription" id="61685829">
 											<string key="name">Helvetica-Bold</string>
 											<string key="family">Helvetica</string>
@@ -448,6 +487,7 @@
 										<string key="NSFrame">{{20, 335}, {280, 36}}</string>
 										<reference key="NSSuperview" ref="191373211"/>
 										<reference key="NSWindow"/>
+										<reference key="NSNextKeyView"/>
 										<bool key="IBUIOpaque">NO</bool>
 										<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 										<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -592,6 +632,14 @@
 					<int key="connectionID">36</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">onePasswordButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="880382275"/>
+					</object>
+					<int key="connectionID">66</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">saveAccount:</string>
 						<reference key="source" ref="909484153"/>
@@ -659,6 +707,15 @@
 						<int key="IBEventType">7</int>
 					</object>
 					<int key="connectionID">63</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">openOnePassword:</string>
+						<reference key="source" ref="880382275"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">67</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -754,6 +811,7 @@
 							<reference ref="20719735"/>
 							<reference ref="909484153"/>
 							<reference ref="423272794"/>
+							<reference ref="880382275"/>
 						</array>
 						<reference key="parent" ref="1057915340"/>
 					</object>
@@ -797,6 +855,11 @@
 						<reference key="object" ref="348987934"/>
 						<reference key="parent" ref="191373211"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">64</int>
+						<reference key="object" ref="880382275"/>
+						<reference key="parent" ref="191373211"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -830,12 +893,15 @@
 				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="6.CustomClassName">IOCTextField</string>
 				<string key="6.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="64.CustomClassName">GradientButton</string>
+				<string key="64.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<real value="3" key="64.IBUIButtonInspectorSelectedStateConfigurationMetadataKey"/>
 			</dictionary>
 			<dictionary class="NSMutableDictionary" key="unlocalizedProperties"/>
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">63</int>
+			<int key="maxID">67</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -852,6 +918,7 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="changePushNotifications:">id</string>
+						<string key="openOnePassword:">UIButton</string>
 						<string key="removeAccount:">id</string>
 						<string key="saveAccount:">id</string>
 						<string key="selectAccountType:">UIButton</string>
@@ -860,6 +927,10 @@
 						<object class="IBActionInfo" key="changePushNotifications:">
 							<string key="name">changePushNotifications:</string>
 							<string key="candidateClassName">id</string>
+						</object>
+						<object class="IBActionInfo" key="openOnePassword:">
+							<string key="name">openOnePassword:</string>
+							<string key="candidateClassName">UIButton</string>
 						</object>
 						<object class="IBActionInfo" key="removeAccount:">
 							<string key="name">removeAccount:</string>
@@ -877,9 +948,10 @@
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="accountFormView">UIView</string>
 						<string key="accountTypeView">UIView</string>
-						<string key="endpointField">UITextField</string>
-						<string key="loginField">UITextField</string>
-						<string key="passwordField">UITextField</string>
+						<string key="endpointField">IOCTextField</string>
+						<string key="loginField">IOCTextField</string>
+						<string key="onePasswordButton">GradientButton</string>
+						<string key="passwordField">IOCTextField</string>
 						<string key="pushLabel">UILabel</string>
 						<string key="pushSwitch">UISwitch</string>
 						<string key="removeButton">GradientButton</string>
@@ -896,15 +968,19 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="endpointField">
 							<string key="name">endpointField</string>
-							<string key="candidateClassName">UITextField</string>
+							<string key="candidateClassName">IOCTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="loginField">
 							<string key="name">loginField</string>
-							<string key="candidateClassName">UITextField</string>
+							<string key="candidateClassName">IOCTextField</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="onePasswordButton">
+							<string key="name">onePasswordButton</string>
+							<string key="candidateClassName">GradientButton</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="passwordField">
 							<string key="name">passwordField</string>
-							<string key="candidateClassName">UITextField</string>
+							<string key="candidateClassName">IOCTextField</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="pushLabel">
 							<string key="name">pushLabel</string>
@@ -953,6 +1029,7 @@
 		<dictionary class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
 			<string key="AccountTypeEnterprise.png">{130, 130}</string>
 			<string key="AccountTypeGithub.png">{130, 130}</string>
+			<string key="Button1P.png">{36, 36}</string>
 		</dictionary>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>

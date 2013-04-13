@@ -1,6 +1,7 @@
 #import "IOCAccountFormController.h"
 #import "IOCAccountsController.h"
 #import "IOCApiClient.h"
+#import "IOCTextField.h"
 #import "GHBasicClient.h"
 #import "GradientButton.h"
 #import "iOctocat.h"
@@ -24,11 +25,12 @@ typedef enum {
 @property(nonatomic,readonly)NSString *deviceToken;
 @property(nonatomic,weak)IBOutlet UIView *accountTypeView;
 @property(nonatomic,weak)IBOutlet UIView *accountFormView;
-@property(nonatomic,weak)IBOutlet UITextField *loginField;
-@property(nonatomic,weak)IBOutlet UITextField *passwordField;
-@property(nonatomic,weak)IBOutlet UITextField *endpointField;
+@property(nonatomic,weak)IBOutlet IOCTextField *loginField;
+@property(nonatomic,weak)IBOutlet IOCTextField *passwordField;
+@property(nonatomic,weak)IBOutlet IOCTextField *endpointField;
 @property(nonatomic,weak)IBOutlet UISwitch *pushSwitch;
 @property(nonatomic,weak)IBOutlet UILabel *pushLabel;
+@property(nonatomic,weak)IBOutlet GradientButton *onePasswordButton;
 @property(nonatomic,weak)IBOutlet GradientButton *saveButton;
 @property(nonatomic,weak)IBOutlet GradientButton *removeButton;
 @end
@@ -39,7 +41,7 @@ typedef enum {
 static NSString *const AuthNote = @"iOctocat: Application";
 static NSString *const PushNote = @"iOctocat: Push Notifications";
 
-- (id)initWithAccount:(GHAccount *)account andIndex:(NSUInteger)idx {
+ - (id)initWithAccount:(GHAccount *)account andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
 	if (self) {
 		self.index = idx;
@@ -64,6 +66,8 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
     [self prepareForm];
     self.accountTypeView.hidden = self.accountType != IOCAccountTypeUnspecified;
     self.accountFormView.hidden = self.accountType == IOCAccountTypeUnspecified;
+    self.onePasswordButton.hidden = ![UIApplication.sharedApplication canOpenURL:self.onePasswordURL];
+    self.passwordField.textRectSubtractOnRight = self.onePasswordButton.hidden ? 0.0f : self.onePasswordButton.frame.size.width;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -141,7 +145,17 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
     self.endpointField.textColor = self.endpointField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
 }
 
+- (NSURL *)onePasswordURL {
+    NSString *query = self.endpointValue.isEmpty ? @"" : [[NSURL smartURLFromString:self.endpointValue] host];
+    return [NSURL URLWithFormat:@"onepassword://search/%@", query];
+}
+
 #pragma mark Actions
+
+- (IBAction)openOnePassword:(UIButton *)sender {
+    [self.passwordField becomeFirstResponder];
+    [[UIApplication sharedApplication] openURL:self.onePasswordURL];
+}
 
 - (IBAction)selectAccountType:(UIButton *)sender {
     self.accountType = sender.tag;

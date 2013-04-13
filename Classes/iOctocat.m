@@ -397,8 +397,8 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
         [statusWindow addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)]];
         statusWindow.windowLevel = UIWindowLevelStatusBar;
         _statusWindow = statusWindow;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowDidBecomeKey:) name:UIWindowDidBecomeKeyNotification object:_statusWindow];
     }
-    [self.window makeKeyWindow];
     return _statusWindow;
 }
 
@@ -425,6 +425,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 - (void)resetStatusBar {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIWindowDidBecomeKeyNotification object:self.statusWindow];
     self.statusWindow = nil;
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
     [_statusView removeFromSuperview];
@@ -443,6 +444,10 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
             [self checkGitHubSystemStatus:YES report:YES];
         }
     }
+}
+
+- (void)windowDidBecomeKey:(NSNotification *)notification {
+    [self.window makeKeyWindow];
 }
 
 #pragma mark Sound

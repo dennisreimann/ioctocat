@@ -40,7 +40,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="8298493">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -49,7 +49,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{15, 26}, {16, 16}}</string>
 						<reference key="NSSuperview" ref="8298493"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="326744483"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -62,7 +61,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{40, 8}, {260, 52}}</string>
 						<reference key="NSSuperview" ref="8298493"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -94,8 +92,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 80}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="163586074"/>
 				<reference key="IBUIBackgroundColor" ref="559892232"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -783,7 +779,6 @@
 								<int key="NSvFlags">266</int>
 								<string key="NSFrame">{{10, 117}, {300, 40}}</string>
 								<reference key="NSSuperview" ref="435425833"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -835,7 +830,7 @@
 				<string key="IBUIReuseIdentifier">MergeCell</string>
 			</object>
 			<object class="IBUIView" id="613869351">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -844,8 +839,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{10, 0}, {300, 40}}</string>
 						<reference key="NSSuperview" ref="613869351"/>
-						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -864,8 +857,6 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{320, 60}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="14860592"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>

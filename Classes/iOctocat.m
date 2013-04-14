@@ -329,7 +329,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
         return YES;
     } else {
-        NSString *scheme = [url scheme];
+        NSString *scheme = url.scheme;
         if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
             WebController *webController = [[WebController alloc] initWithURL:url];
             [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];

@@ -17,7 +17,7 @@
 #define kRequestMethodDelete            @"DELETE"
 #define kGitHubComURL                   @"https://github.com"
 #define kGitHubApiURL                   @"https://api.github.com"
-#define kEnterpriseApiPath              @"api/v3/"
+#define kEnterpriseApiPath              @"api/v3"
 #define kIssueStateOpen                 @"open"
 #define kIssueStateClosed               @"closed"
 #define kIssueFilterAssigned            @"assigned"

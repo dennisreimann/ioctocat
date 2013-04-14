@@ -6,6 +6,7 @@
 #import "GHUser.h"
 #import "GHOAuthClient.h"
 #import "UserObjectCell.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "NSMutableArray+Extensions.h"
@@ -87,9 +88,9 @@
 
 - (NSUInteger)indexOfAccountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
     // compare the hosts, because there might be slight differences in the full URL notation
-    NSString *endpointHost = [[NSURL URLWithString:endpoint] host];
+    NSString *endpointHost = [[NSURL smartURLFromString:endpoint] host];
     return [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
-        NSString *accountHost = [[NSURL URLWithString:account.endpoint] host];
+        NSString *accountHost = [[NSURL smartURLFromString:account.endpoint] host];
         if ([login isEqualToString:account.login] && [endpointHost isEqualToString:accountHost]) {
             *stop = YES;
             return YES;

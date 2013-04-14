@@ -13,15 +13,18 @@
 }
 
 + (NSURL *)smartURLFromString:(NSString *)string {
-	if (!string || [string isKindOfClass:NSNull.class] || [string isEmpty]) {
+    return [self smartURLFromString:string defaultScheme:@"http"];
+}
+
++ (NSURL *)smartURLFromString:(NSString *)string defaultScheme:(NSString *)defaultScheme {
+	if (!string || [string isKindOfClass:NSNull.class] || string.isEmpty) {
 		return nil;
 	} else {
 		NSURL *url = [NSURL URLWithString:string];
-		if ([url scheme]) {
+		if (url.scheme) {
 			return url;
 		} else {
-			string = [@"http://" stringByAppendingString:string];
-			return [NSURL URLWithString:string];
+			return [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", defaultScheme, string]];
 		}
 	}
 }
@@ -87,6 +90,24 @@
 	}
 
 	return [NSURL URLWithString:absoluteString];
+}
+
+// Taken from https://github.com/ReactiveCocoa/ReactiveCocoaIO/blob/master/ReactiveCocoaIO/NSURL%2BTrailingSlash.m
+
+- (BOOL)hasTrailingSlash {
+	return [self.absoluteString hasSuffix:@"/"];
+}
+
+- (NSURL *)URLByAppendingTrailingSlash {
+	NSURL *url = self;
+	if (!self.hasTrailingSlash) url = [NSURL URLWithString:[self.absoluteString stringByAppendingString:@"/"]];
+	return url;
+}
+
+- (NSURL *)URLByDeletingTrailingSlash {
+	NSURL *url = self;
+	if (self.hasTrailingSlash) url = [NSURL URLWithString:[self.absoluteString substringToIndex:self.absoluteString.length - 1]];
+	return url;
 }
 
 @end

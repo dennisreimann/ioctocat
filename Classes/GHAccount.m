@@ -55,7 +55,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 
 // invalidates the apiClient when the endpoint changes
 - (void)setEndpoint:(NSString *)endpoint {
-    _endpoint = endpoint;
+    _endpoint = [[[NSURL smartURLFromString:endpoint defaultScheme:@"https"] URLByDeletingTrailingSlash] absoluteString];
     self.apiClient = nil;
 }
 
@@ -130,10 +130,11 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	NSString *endpoint = [decoder decodeObjectForKey:kEndpointDefaultsKey];
 	NSString *authToken = [decoder decodeObjectForKey:kAuthTokenDefaultsKey];
 	NSString *pushToken = [decoder decodeObjectForKey:kPushTokenDefaultsKey];
+    // for backwards compatibility: assign github.com if endpoint is empty
     if (!endpoint || endpoint.isEmpty) endpoint = kGitHubComURL;
 	self = [self initWithDict:@{
-		 kEndpointDefaultsKey: endpoint,
 			kLoginDefaultsKey: login ? login : @"",
+		 kEndpointDefaultsKey: endpoint ? endpoint : @"",
 		kAuthTokenDefaultsKey: authToken ? authToken : @"",
 		kPushTokenDefaultsKey: pushToken ? pushToken : @"" }];
 	return self;

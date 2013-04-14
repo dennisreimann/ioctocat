@@ -10,7 +10,7 @@
 	// construct endpoint URL
 	NSURL *url = (!endpoint || endpoint.isEmpty || [endpoint isEqualToString:kGitHubComURL]) ?
         [NSURL URLWithString:kGitHubApiURL] :
-        [[NSURL smartURLFromString:endpoint] URLByAppendingPathComponent:kEnterpriseApiPath];
+        [[NSURL smartURLFromString:endpoint defaultScheme:@"https"] URLByAppendingPathComponent:kEnterpriseApiPath];
 	// initialize
 	self = [super initWithBaseURL:url];
 	if (self) {

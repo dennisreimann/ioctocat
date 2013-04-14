@@ -46,7 +46,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 	if (self) {
 		self.index = idx;
 		self.account = account;
-        if (self.index == NSNotFound) {
+        if (self.isNewAccount) {
             self.accountType = IOCAccountTypeUnspecified;
         } else {
             self.accountType = self.account.isGitHub ? IOCAccountTypeGitHubCom : IOCAccountTypeEnterprise;
@@ -57,12 +57,10 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	self.title = [NSString stringWithFormat:@"%@ Account", self.index == NSNotFound ? @"New" : @"Edit"];
 	self.loginField.text = self.account.login;
 	self.endpointField.text = self.account.endpoint;
     [self checkPushStateForPushToken:self.account.pushToken];
     [self.removeButton useRedDeleteStyle];
-    self.removeButton.hidden = self.index == NSNotFound;
     [self prepareForm];
     self.accountTypeView.hidden = self.accountType != IOCAccountTypeUnspecified;
     self.accountFormView.hidden = self.accountType == IOCAccountTypeUnspecified;
@@ -76,6 +74,10 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 }
 
 #pragma mark Helpers
+
+- (BOOL)isNewAccount {
+    return self.index == NSNotFound;
+}
 
 - (NSString *)deviceToken {
     return iOctocat.sharedInstance.deviceToken;
@@ -118,7 +120,7 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 - (void)saveAccount {
 	[self.delegate updateAccount:self.account atIndex:self.index callback:^(NSUInteger idx) {
 		self.index = idx;
-        self.removeButton.hidden = self.index == NSNotFound;
+        [self prepareForm];
 	}];
 }
 
@@ -139,10 +141,17 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 }
 
 - (void)prepareForm {
-    BOOL isGitHub = self.accountType == IOCAccountTypeGitHubCom;
-    self.endpointField.text = isGitHub ? kGitHubComURL : @"";
-    self.endpointField.enabled = !isGitHub;
+    BOOL isEnterprise = self.accountType == IOCAccountTypeEnterprise;
+    self.title = [NSString stringWithFormat:@"%@ Account", self.isNewAccount ? @"New" : @"Edit"];
+    // endpoint
+    self.endpointField.text = isEnterprise ? self.account.endpoint : kGitHubComURL;
+    self.endpointField.enabled = self.isNewAccount && isEnterprise;
     self.endpointField.textColor = self.endpointField.enabled ? [UIColor blackColor] : [UIColor lightGrayColor];
+    // push
+    self.pushSwitch.enabled = self.hasAuthToken;
+    self.pushLabel.textColor = self.pushSwitch.enabled ? [UIColor darkGrayColor] : [UIColor lightGrayColor];
+    // remove
+    self.removeButton.hidden = self.isNewAccount;
 }
 
 - (NSURL *)onePasswordURL {

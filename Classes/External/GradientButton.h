@@ -28,6 +28,7 @@
     CGGradientRef   normalGradient;
     CGGradientRef   highlightGradient;
 }
+
 @property (nonatomic, strong) NSArray *normalGradientColors;
 @property (nonatomic, strong) NSArray *normalGradientLocations;
 @property (nonatomic, strong) NSArray *highlightGradientColors;

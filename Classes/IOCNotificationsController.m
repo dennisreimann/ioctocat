@@ -191,6 +191,8 @@
 		button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 		button.titleLabel.font = btnFont;
 		[button useDarkGithubStyle];
+		button.layer.borderWidth = 1;
+		button.layer.borderColor = [UIColor colorWithWhite:0.78 alpha:1.000].CGColor;
 		[button addTarget:self action:@selector(markAllAsReadInSection:) forControlEvents:UIControlEventTouchUpInside];
 		[button setTitle:btnTitle forState:UIControlStateNormal];
 		[header addSubview:button];

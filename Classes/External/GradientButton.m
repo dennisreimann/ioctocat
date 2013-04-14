@@ -11,9 +11,10 @@
 @property (nonatomic, readonly) CGGradientRef highlightGradient;
 - (void)hesitateUpdate; // Used to catch and fix problem where quick taps don't get updated back to normal state
 @end
-#pragma mark -
+
 
 @implementation GradientButton
+
 @synthesize normalGradientColors;
 @synthesize normalGradientLocations;
 @synthesize highlightGradientColors;
@@ -21,9 +22,10 @@
 @synthesize cornerRadius;
 @synthesize strokeWeight, strokeColor;
 @synthesize normalGradient, highlightGradient;
+
 #pragma mark -
-- (CGGradientRef)normalGradient
-{
+
+- (CGGradientRef)normalGradient {
     if (normalGradient == NULL)
     {
         int locCount = [normalGradientLocations count];
@@ -40,9 +42,8 @@
     }
     return normalGradient;
 }
-- (CGGradientRef)highlightGradient
-{
-    
+
+- (CGGradientRef)highlightGradient {
     if (highlightGradient == NULL)
     {
         CGFloat locations[[highlightGradientLocations count]];
@@ -58,7 +59,9 @@
     }
     return highlightGradient;
 }
+
 #pragma mark -
+
 - (id)initWithFrame:(CGRect)frame
 {
 	self = [super initWithFrame:frame];
@@ -69,11 +72,10 @@
 	}
 	return self;
 }
-#pragma mark -
+
 #pragma mark Appearances
 
-- (void)useAlertStyle
-{
+- (void)useAlertStyle {
     // Oddly enough, if I create the color array using arrayWithObjects:, it
     // doesn't work - the gradient comes back NULL
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:3];
@@ -102,14 +104,13 @@
                                        @1.0f,
                                        @0.51f,
                                        @0.654f];
-    self.cornerRadius = 7.0f;
+    
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
     
 }
-- (void)useRedDeleteStyle
-{
-    
+
+- (void)useRedDeleteStyle {
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
     UIColor *color = [UIColor colorWithRed:0.525 green:0.055 blue:0.000 alpha:1.000];
     [colors addObject:(id)[color CGColor]];
@@ -127,13 +128,13 @@
     
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.1f, nil];
-    self.cornerRadius = 5.f;
+    
     self.strokeColor = [UIColor colorWithRed:0.745 green:0.359 blue:0.326 alpha:1.000];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
 }
-- (void)useGithubStyle
-{
+
+- (void)useGithubStyle {
     NSMutableArray *colors = [NSMutableArray arrayWithCapacity:2];
 	UIColor *color = [UIColor colorWithWhite:0.9 alpha:1.000];
 	[colors addObject:(id)[color CGColor]];
@@ -149,8 +150,8 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
+    self.strokeColor = [UIColor colorWithWhite:0.853 alpha:1.000];
     
-    self.cornerRadius = 5.f;
     [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 }
@@ -172,11 +173,8 @@
 	[colors2 addObject:(id)[color CGColor]];
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
-
-    self.cornerRadius = 3.f;
-	self.layer.cornerRadius = 3;
-	self.layer.borderWidth = 1;
-	self.layer.borderColor = [UIColor colorWithWhite:0.78 alpha:1.000].CGColor;
+    self.strokeColor = [UIColor colorWithWhite:0.78 alpha:1.000];
+    
     [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 }
@@ -211,7 +209,6 @@
                                        @0.601f,
                                        nil];
     
-    self.cornerRadius = 9.f;
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
 }
@@ -233,7 +230,6 @@
                                     @0.548f,
                                     @0.462f,
                                     nil];
-    self.cornerRadius = 9.0f;
     
     NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:4];
 	color = [UIColor colorWithRed:0.199 green:0.199 blue:0.199 alpha:1.0];
@@ -296,7 +292,6 @@
                                        @0.812f,
                                        nil];
     
-    self.cornerRadius = 9.f;
     [self setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
 }
@@ -318,7 +313,6 @@
                                     @0.548f,
                                     @0.462f,
                                     nil];
-    self.cornerRadius = 9.0f;
     
 	NSMutableArray *colors2 = [NSMutableArray arrayWithCapacity:7];
 	color = [UIColor colorWithRed:0.033 green:0.251 blue:0.673 alpha:1.0];
@@ -375,7 +369,6 @@
                                        @0.498f,
                                        nil];
     
-    self.cornerRadius = 9.f;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 - (void)useGreenConfirmStyle
@@ -420,7 +413,9 @@
                                        @0.513f,
                                        @0.445f,
                                        nil];
-    self.cornerRadius = 9.f;
+    
+    self.strokeColor = [UIColor clearColor];
+    self.strokeWeight = 0.0f;
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
 }
@@ -574,8 +569,9 @@
         [self setNormalGradientLocations:[decoder decodeObjectForKey:@"normalGradientLocations"]];
         [self setHighlightGradientColors:[decoder decodeObjectForKey:@"highlightGradientColors"]];
         [self setHighlightGradientLocations:[decoder decodeObjectForKey:@"highlightGradientLocations"]];
+        self.cornerRadius = 5.f;
+        self.strokeWeight = 1.f;
         self.strokeColor = [UIColor colorWithWhite:0.853 alpha:1.000];
-        self.strokeWeight = 1.0;
     
         if (self.normalGradientColors == nil)
             [self useGithubStyle];

@@ -86,8 +86,11 @@
 }
 
 - (NSUInteger)indexOfAccountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
+    // compare the hosts, because there might be slight differences in the full URL notation
+    NSString *endpointHost = [[NSURL URLWithString:endpoint] host];
     return [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
-        if ([login isEqualToString:account.login] && [endpoint isEqualToString:account.endpoint]) {
+        NSString *accountHost = [[NSURL URLWithString:account.endpoint] host];
+        if ([login isEqualToString:account.login] && [endpointHost isEqualToString:accountHost]) {
             *stop = YES;
             return YES;
         }
@@ -106,7 +109,8 @@
 	// update cache for presenting the accounts
 	self.accountsByEndpoint = [NSMutableDictionary dictionary];
 	for (GHAccount *account in self.accounts) {
-		NSString *endpoint = account.endpoint;
+        // use hosts as key, because there might be slight differences in the full URL notation
+        NSString *endpoint = [[NSURL URLWithString:account.endpoint] host];
 		if (!self.accountsByEndpoint[endpoint]) {
 			self.accountsByEndpoint[endpoint] = [NSMutableArray array];
 		}
@@ -183,10 +187,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	NSArray *keys = self.accountsByEndpoint.allKeys;
-	NSString *endpoint = keys[section];
-	NSURL *url = [NSURL URLWithString:endpoint];
-	return url.host;
+	return self.accountsByEndpoint.allKeys[section];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

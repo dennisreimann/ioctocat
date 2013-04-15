@@ -26,6 +26,7 @@ Additions:
 * Show a commit on GitHub. By @iosdeveloper
 * Open trees and blobs from GitHub URL
 * Choose the type of account (GitHub.com or Enterprise) before adding a new account
+* New code highlighting languages and themes
 
 Changes:
 

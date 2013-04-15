@@ -40,13 +40,19 @@
 				<string>Arta</string>
 				<string>Ascetic</string>
 				<string>Dark</string>
+				<string>Docco</string>
 				<string>Far</string>
+				<string>Foundation</string>
 				<string>GitHub</string>
 				<string>Google Code</string>
 				<string>Idea</string>
 				<string>IR Black</string>
 				<string>Magula</string>
+				<string>Mono Blue</string>
 				<string>Monokai</string>
+				<string>Monokai Sublime</string>
+				<string>Obsidian</string>
+				<string>Railscasts</string>
 				<string>Rainbow</string>
 				<string>Solarized Dark</string>
 				<string>Solarized Light</string>
@@ -65,13 +71,19 @@
 				<string>arta</string>
 				<string>ascetic</string>
 				<string>dark</string>
+				<string>docco</string>
 				<string>far</string>
+				<string>foundation</string>
 				<string>github</string>
 				<string>googlecode</string>
 				<string>idea</string>
 				<string>ir_black</string>
 				<string>magula</string>
+				<string>mono-blue</string>
 				<string>monokai</string>
+				<string>monokai_sublime</string>
+				<string>obsidian</string>
+				<string>railscasts</string>
 				<string>rainbow</string>
 				<string>solarized_dark</string>
 				<string>solarized_light</string>

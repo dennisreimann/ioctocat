@@ -174,6 +174,7 @@
     self.highlightGradientColors = colors2;
     self.highlightGradientLocations = [NSMutableArray arrayWithObjects:@0.0f, @1.0f, @0.601f, nil];
     self.strokeColor = [UIColor colorWithWhite:0.78 alpha:1.000];
+    self.strokeWeight = 1.f;
     
     [self setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];

@@ -226,7 +226,8 @@
                             button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
                             button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                             [button useDarkGithubStyle];
-                            button.layer.borderColor = [UIColor colorWithWhite:0.65f alpha:1.0f].CGColor;
+                            button.cornerRadius = 3.0f;
+                            button.strokeColor = [UIColor colorWithWhite:0.65 alpha:1.000];
                             [self.buttonArray addObject:button];
                             index++;
                         }

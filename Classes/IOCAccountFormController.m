@@ -86,19 +86,19 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 - (NSString *)loginValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSString *value = [self.loginField.text stringByTrimmingCharactersInSet:trimSet];
-    return value ? value : @"";
+    return value.length > 0 ? value : @"";
 }
 
 - (NSString *)passwordValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSString *value = [self.passwordField.text stringByTrimmingCharactersInSet:trimSet];
-    return value ? value : @"";
+    return value.length > 0 ? value : @"";
 }
 
 - (NSString *)endpointValue {
 	NSCharacterSet *trimSet = [NSCharacterSet whitespaceAndNewlineCharacterSet];
     NSString *value = [self.endpointField.text stringByTrimmingCharactersInSet:trimSet];
-    return value ? value : @"";
+    return value.length > 0 ? value : @"";
 }
 
 - (BOOL)hasDeviceToken {
@@ -181,8 +181,8 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 	NSString *endpoint = self.endpointValue;
 	NSString *password = self.passwordValue;
     NSUInteger accountIdx = self.delegate ? [self.delegate indexOfAccountWithLogin:login endpoint:endpoint] : NSNotFound;
-	if (login.isEmpty || password.isEmpty) {
-		[iOctocat reportError:@"Validation failed" with:@"Please enter your login and password"];
+	if (endpoint.isEmpty || login.isEmpty || password.isEmpty) {
+		[iOctocat reportError:@"Validation failed" with:@"Please enter the domain, your login and password"];
 		return;
 	} else if (accountIdx != self.index) {
         [iOctocat reportError:@"Duplicate account" with:@"This account already exists"];

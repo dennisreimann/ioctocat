@@ -110,12 +110,17 @@
 	// update cache for presenting the accounts
 	self.accountsByEndpoint = [NSMutableDictionary dictionary];
 	for (GHAccount *account in self.accounts) {
+        NSString *endpoint = account.endpoint;
+        // FIXME This is only here to stay compatible with old versions upgrading
+        // to >= v1.8, because empty endpoints got deprecated with that update.
+        // Should get removed once v1.9 gets released.
+		if (!endpoint || endpoint.isEmpty) endpoint = kGitHubComURL;
         // use hosts as key, because there might be slight differences in the full URL notation
-        NSString *endpoint = [[NSURL URLWithString:account.endpoint] host];
-		if (!self.accountsByEndpoint[endpoint]) {
-			self.accountsByEndpoint[endpoint] = [NSMutableArray array];
+        NSString *host = [[NSURL URLWithString:endpoint] host];
+		if (!self.accountsByEndpoint[host]) {
+			self.accountsByEndpoint[host] = [NSMutableArray array];
 		}
-		[self.accountsByEndpoint[endpoint] addObject:account];
+		[self.accountsByEndpoint[host] addObject:account];
 	}
 	// update UI
 	self.navigationItem.rightBarButtonItem = (self.accounts.count > 0) ? self.editButtonItem : nil;

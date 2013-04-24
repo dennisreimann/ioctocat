@@ -8,6 +8,10 @@ Additions:
 
 * Pre-fill user information for feedback form
 
+Bugfixes:
+
+* Fixed account migration for older versions upgrading to v1.8.x
+
 ## v1.8.0
 
 This version brings you push notifications for your GitHub notifications, along with lots of nice improvements.

@@ -97,7 +97,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "open -a HockeyApp &quot;${ARCHIVE_PATH}&quot; --args openVersionPage setLive">
+               scriptText = "open -a HockeyApp &quot;${ARCHIVE_PATH}&quot; --args openVersionPage setLive ignoreExistingVersion">
             </ActionContent>
          </ExecutionAction>
       </PostActions>

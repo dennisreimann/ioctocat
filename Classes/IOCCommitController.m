@@ -134,12 +134,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (void)displayCommentsChange {
 	if (self.commit.isEmpty) return;
-	if (self.commit.comments.isEmpty) {
-		[self.tableView reloadData];
-	} else {
-		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-	}
+	[self.tableView reloadData];
 }
 
 #pragma mark Actions

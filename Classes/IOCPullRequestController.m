@@ -170,12 +170,7 @@
 
 - (void)displayCommentsChange {
 	if (self.pullRequest.isEmpty) return;
-	if (self.pullRequest.comments.isEmpty) {
-		[self.tableView reloadData];
-	} else {
-		NSIndexSet *sections = [NSIndexSet indexSetWithIndex:2];
-		[self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
-	}
+	[self.tableView reloadData];
 }
 
 #pragma mark Actions

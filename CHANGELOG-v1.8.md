@@ -12,6 +12,7 @@ Bugfixes:
 
 * Fixed account migration for older versions upgrading to v1.8.x
 * Fixed crashes caused by incorrect observer handling
+* Fixed unread badge count when opening notification from push
 
 ## v1.8.0
 

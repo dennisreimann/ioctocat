@@ -229,7 +229,9 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
             return NO;
         }];
         GHNotification *notification = (idx == NSNotFound) ? nil : notifications.items[idx];
-        [notification markAsReadStart:nil success:nil failure:nil];
+        if (notification) {
+            [notifications markAsRead:notification start:nil success:nil failure:nil];
+        }
     }];
     IOCNotificationsController *notificationsController = [[IOCNotificationsController alloc] initWithNotifications:notifications];
     UIViewController *notificationController = [IOCViewControllerFactory viewControllerForGitHubURL:subjectURL];

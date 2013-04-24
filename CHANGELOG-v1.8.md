@@ -11,6 +11,7 @@ Additions:
 Bugfixes:
 
 * Fixed account migration for older versions upgrading to v1.8.x
+* Fixed crashes caused by incorrect observer handling
 
 ## v1.8.0
 

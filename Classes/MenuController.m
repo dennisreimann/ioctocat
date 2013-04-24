@@ -156,11 +156,12 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
-	if ([keyPath isEqualToString:GravatarKeyPath]) {
-        NSIndexSet *sections = [NSIndexSet indexSetWithIndex:1];
-        [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationNone];
-	} else if ([keyPath isEqualToString:NotificationsCountKeyPath]) {
-        NSIndexSet *sections = [NSIndexSet indexSetWithIndex:0];
+	if ([keyPath isEqualToString:GravatarKeyPath] || [keyPath isEqualToString:NotificationsCountKeyPath]) {
+        // handle both kinds of changes in one update, because it is possible that they occur
+        // in parallel, like when the notifications update happens and the orgs got loaded in
+        // the meanwhile to, which would lead to an NSInternalInconsistencyException if we'd
+        // handle the section updates separately. See #385 for details on that.
+        NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 2)];
         [self.tableView reloadSections:sections withRowAnimation:UITableViewRowAnimationNone];
 	}
 }

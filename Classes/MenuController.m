@@ -33,6 +33,7 @@
 @property(nonatomic,strong)NSArray *menu;
 @property(nonatomic,strong)ECSlidingViewController *fallbackForSlidingViewController;
 @property(nonatomic,strong)UINavigationController *fallbackForNavigationController;
+@property(nonatomic,assign)BOOL isObservingOrganizations;
 @property(nonatomic,strong)IBOutlet UIView *footerView;
 @property(nonatomic,weak)IBOutlet UILabel *versionLabel;
 @end
@@ -50,6 +51,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		NSString *menuPath = [[NSBundle mainBundle] pathForResource:@"Menu" ofType:@"plist"];
 		self.menu = [NSArray arrayWithContentsOfFile:menuPath];
 		self.user = user;
+		self.isObservingOrganizations = NO;
 		[self.user addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:NotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
@@ -61,9 +63,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (void)dealloc {
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:ECSlidingViewUnderLeftWillAppear object:nil];
-	if (self.user.organizations.isLoaded) {
-		[self removeOrganizationObservers];
-	}
+	[self removeOrganizationObservers];
 	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
 	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 	[self.user removeObserver:self forKeyPath:NotificationsCountKeyPath];
@@ -144,15 +144,19 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (void)addOrganizationObservers {
+	if (self.isObservingOrganizations) return;
 	for (GHOrganization *org in self.user.organizations.items) {
 		[org addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
+	self.isObservingOrganizations = YES;
 }
 
 - (void)removeOrganizationObservers {
+	if (!self.isObservingOrganizations) return;
 	for (GHOrganization *org in self.user.organizations.items) {
 		[org removeObserver:self forKeyPath:GravatarKeyPath];
 	}
+	self.isObservingOrganizations = NO;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

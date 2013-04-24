@@ -8,6 +8,10 @@ Additions:
 
 * Pre-fill user information for feedback form
 
+Changes:
+
+* Improved text fields with long texts
+
 Bugfixes:
 
 * Fixed account migration for older versions upgrading to v1.8.x

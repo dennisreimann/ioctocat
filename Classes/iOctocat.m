@@ -491,6 +491,14 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 #endif
 }
 
+- (NSString *)userNameForHockeyManager:(BITHockeyManager *)hockeyManager componentManager:(BITHockeyBaseManager *)componentManager {
+    return self.currentUser.login;
+}
+
+- (NSString *)userEmailForHockeyManager:(BITHockeyManager *)hockeyManager componentManager:(BITHockeyBaseManager *)componentManager {
+    return self.currentUser.email;
+}
+
 - (NSString *)customDeviceIdentifierForUpdateManager:(BITUpdateManager *)updateManager {
 #ifndef CONFIGURATION_Release
 	if ([[UIDevice currentDevice] respondsToSelector:@selector(uniqueIdentifier)]) {

@@ -1,5 +1,13 @@
 # CHANGELOG for v1.8
 
+## v1.8.1
+
+This is a bugfix and enhancement release.
+
+Additions:
+
+* Pre-fill user information for feedback form
+
 ## v1.8.0
 
 This version brings you push notifications for your GitHub notifications, along with lots of nice improvements.

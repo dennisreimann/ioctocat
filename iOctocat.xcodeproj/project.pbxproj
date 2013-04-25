@@ -37,6 +37,12 @@
 		2E88193D16F8F8B300ACA2EB /* c.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193616F8F8B300ACA2EB /* c.caf */; };
 		2E88193E16F8F8B300ACA2EB /* d.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193716F8F8B300ACA2EB /* d.caf */; };
 		2E88193F16F8F8B300ACA2EB /* d.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193716F8F8B300ACA2EB /* d.caf */; };
+		2E9AE315172AB97B008C3B72 /* GHLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AE314172AB97B008C3B72 /* GHLabels.m */; };
+		2E9AE316172AB97B008C3B72 /* GHLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AE314172AB97B008C3B72 /* GHLabels.m */; };
+		2E9AE317172AB97B008C3B72 /* GHLabels.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AE314172AB97B008C3B72 /* GHLabels.m */; };
+		2E9AE319172ABA85008C3B72 /* GHMilestones.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AE318172ABA84008C3B72 /* GHMilestones.m */; };
+		2E9AE31A172ABA85008C3B72 /* GHMilestones.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AE318172ABA84008C3B72 /* GHMilestones.m */; };
+		2E9AE31B172ABA85008C3B72 /* GHMilestones.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9AE318172ABA84008C3B72 /* GHMilestones.m */; };
 		2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
@@ -45,6 +51,12 @@
 		2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
 		2EAD8B0816FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
 		2EAD8B0916FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
+		2EBBB7B91729387500A7ABAA /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B61729387500A7ABAA /* GHLabel.m */; };
+		2EBBB7BA1729387500A7ABAA /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B61729387500A7ABAA /* GHLabel.m */; };
+		2EBBB7BB1729387500A7ABAA /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B61729387500A7ABAA /* GHLabel.m */; };
+		2EBBB7BC1729387500A7ABAA /* GHMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B81729387500A7ABAA /* GHMilestone.m */; };
+		2EBBB7BD1729387500A7ABAA /* GHMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B81729387500A7ABAA /* GHMilestone.m */; };
+		2EBBB7BE1729387500A7ABAA /* GHMilestone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B81729387500A7ABAA /* GHMilestone.m */; };
 		2EC1DD3C1708C238001C2FA1 /* TypeNotifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */; };
 		2EC1DD3D1708C238001C2FA1 /* TypeNotifications.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */; };
 		2EC1DD3F1708C242001C2FA1 /* TypeNotifications@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */; };
@@ -1043,11 +1055,19 @@
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
 		2E88193716F8F8B300ACA2EB /* d.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = d.caf; sourceTree = "<group>"; };
+		2E9AE313172AB972008C3B72 /* GHLabels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHLabels.h; sourceTree = "<group>"; };
+		2E9AE314172AB97B008C3B72 /* GHLabels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHLabels.m; sourceTree = "<group>"; };
+		2E9AE318172ABA84008C3B72 /* GHMilestones.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMilestones.m; sourceTree = "<group>"; };
+		2E9AE31C172ABA92008C3B72 /* GHMilestones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestones.h; sourceTree = "<group>"; };
 		2E9E53881701AB50000961BD /* GHUserObjectsRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserObjectsRepository.h; sourceTree = "<group>"; };
 		2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserObjectsRepository.m; sourceTree = "<group>"; };
 		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
 		2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactory.h; sourceTree = "<group>"; };
 		2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactory.m; sourceTree = "<group>"; };
+		2EBBB7B51729387500A7ABAA /* GHLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHLabel.h; sourceTree = "<group>"; };
+		2EBBB7B61729387500A7ABAA /* GHLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHLabel.m; sourceTree = "<group>"; };
+		2EBBB7B71729387500A7ABAA /* GHMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestone.h; sourceTree = "<group>"; };
+		2EBBB7B81729387500A7ABAA /* GHMilestone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHMilestone.m; sourceTree = "<group>"; };
 		2EC1DD3B1708C238001C2FA1 /* TypeNotifications.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeNotifications.png; sourceTree = "<group>"; };
 		2EC1DD3E1708C242001C2FA1 /* TypeNotifications@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "TypeNotifications@2x.png"; sourceTree = "<group>"; };
 		2EC1DD411708DEB8001C2FA1 /* TypeNotificationsOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TypeNotificationsOn.png; sourceTree = "<group>"; };
@@ -1797,6 +1817,59 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
+		2EBBB7B41729385A00A7ABAA /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				2E9AE313172AB972008C3B72 /* GHLabels.h */,
+				2E9AE314172AB97B008C3B72 /* GHLabels.m */,
+				2EBBB7B51729387500A7ABAA /* GHLabel.h */,
+				2EBBB7B61729387500A7ABAA /* GHLabel.m */,
+				2E9AE31C172ABA92008C3B72 /* GHMilestones.h */,
+				2E9AE318172ABA84008C3B72 /* GHMilestones.m */,
+				2EBBB7B71729387500A7ABAA /* GHMilestone.h */,
+				2EBBB7B81729387500A7ABAA /* GHMilestone.m */,
+				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
+				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
+				8C6A99E60FABD01500A99483 /* GHIssue.h */,
+				8C6A99E70FABD01500A99483 /* GHIssue.m */,
+				6FA1329E16774147001C0804 /* GHPullRequests.h */,
+				6FA1329F16774158001C0804 /* GHPullRequests.m */,
+				6FDD214E165194FF0017E8BA /* GHPullRequest.h */,
+				6FDD214F165194FF0017E8BA /* GHPullRequest.m */,
+			);
+			name = Issues;
+			sourceTree = "<group>";
+		};
+		2EBBB7BF1729388100A7ABAA /* Users */ = {
+			isa = PBXGroup;
+			children = (
+				6F879AE60FB61C7A00EBD9BD /* GHUsers.h */,
+				6F879AE70FB61C7A00EBD9BD /* GHUsers.m */,
+				6F7961AB132EC90D00C9446E /* GHUser.h */,
+				6F7961AC132EC90D00C9446E /* GHUser.m */,
+				6F9DD8791334B99C00D1E35E /* GHOrganizations.h */,
+				6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */,
+				6F35BD370F88B01900E978CD /* GHOrganization.h */,
+				6F35BD380F88B01900E978CD /* GHOrganization.m */,
+			);
+			name = Users;
+			sourceTree = "<group>";
+		};
+		2EBBB7C01729389C00A7ABAA /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
+				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
+				6F35BD520F88B06200E978CD /* GHRepository.h */,
+				6F35BD530F88B06200E978CD /* GHRepository.m */,
+				8CE686730FB8C56700A3D625 /* GHForks.h */,
+				8CE686720FB8C56700A3D625 /* GHForks.m */,
+				6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */,
+				6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */,
+			);
+			name = Repositories;
+			sourceTree = "<group>";
+		};
 		2EC346AB1714AE5600B2366F /* Pointer */ = {
 			isa = PBXGroup;
 			children = (
@@ -1862,8 +1935,11 @@
 			isa = PBXGroup;
 			children = (
 				6FC7C22716C94EFD00FC78C8 /* API Clients */,
-				6FECA89B15906D2D00878A74 /* GitHub */,
+				2EBBB7C01729389C00A7ABAA /* Repositories */,
 				6FECA89A15906D0700878A74 /* Git */,
+				2EBBB7B41729385A00A7ABAA /* Issues */,
+				2EBBB7BF1729388100A7ABAA /* Users */,
+				6FECA89B15906D2D00878A74 /* Gists */,
 				6F2C7D7616A3625200F824EF /* Events */,
 				6FECA89915906CD000878A74 /* Comments */,
 				6F7961A9132EC90D00C9446E /* GHResource.h */,
@@ -1872,6 +1948,8 @@
 				6FA1329A16772F3B001C0804 /* GHCollection.m */,
 				6F27CD151591188D00E15B34 /* GHAccount.h */,
 				6F27CD161591188D00E15B34 /* GHAccount.m */,
+				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
+				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
 			);
 			name = Domain;
 			sourceTree = "<group>";
@@ -2500,41 +2578,15 @@
 			name = Git;
 			sourceTree = "<group>";
 		};
-		6FECA89B15906D2D00878A74 /* GitHub */ = {
+		6FECA89B15906D2D00878A74 /* Gists */ = {
 			isa = PBXGroup;
 			children = (
 				6F182C7C161C54A500E705CF /* GHGists.h */,
 				6F182C7D161C54A600E705CF /* GHGists.m */,
 				6F182C7A161C54A500E705CF /* GHGist.h */,
 				6F182C7B161C54A500E705CF /* GHGist.m */,
-				6FDC151F0FC6BCA700089FB5 /* GHRepositories.h */,
-				6FDC15200FC6BCA700089FB5 /* GHRepositories.m */,
-				6F35BD520F88B06200E978CD /* GHRepository.h */,
-				6F35BD530F88B06200E978CD /* GHRepository.m */,
-				8CE686730FB8C56700A3D625 /* GHForks.h */,
-				8CE686720FB8C56700A3D625 /* GHForks.m */,
-				6F358C5A0FB1EEC4004D2828 /* GHSearch.h */,
-				6F358C5B0FB1EEC4004D2828 /* GHSearch.m */,
-				6F879AE60FB61C7A00EBD9BD /* GHUsers.h */,
-				6F879AE70FB61C7A00EBD9BD /* GHUsers.m */,
-				6F7961AB132EC90D00C9446E /* GHUser.h */,
-				6F7961AC132EC90D00C9446E /* GHUser.m */,
-				6F9DD8791334B99C00D1E35E /* GHOrganizations.h */,
-				6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */,
-				6F35BD370F88B01900E978CD /* GHOrganization.h */,
-				6F35BD380F88B01900E978CD /* GHOrganization.m */,
-				8C6A9AE40FABDB0100A99483 /* GHIssues.h */,
-				8C6A9AE50FABDB0100A99483 /* GHIssues.m */,
-				8C6A99E60FABD01500A99483 /* GHIssue.h */,
-				8C6A99E70FABD01500A99483 /* GHIssue.m */,
-				6FA1329E16774147001C0804 /* GHPullRequests.h */,
-				6FA1329F16774158001C0804 /* GHPullRequests.m */,
-				6FDD214E165194FF0017E8BA /* GHPullRequest.h */,
-				6FDD214F165194FF0017E8BA /* GHPullRequest.m */,
-				6F7C821D15B2B4BB00D37EE8 /* GHReadme.h */,
-				6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */,
 			);
-			name = GitHub;
+			name = Gists;
 			sourceTree = "<group>";
 		};
 		6FECA89C159070FE00878A74 /* Git */ = {
@@ -3639,6 +3691,10 @@
 				36A36E5C16FF70A30070AC46 /* MAXCompletion.m in Sources */,
 				2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
 				2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */,
+				2EBBB7B91729387500A7ABAA /* GHLabel.m in Sources */,
+				2EBBB7BC1729387500A7ABAA /* GHMilestone.m in Sources */,
+				2E9AE315172AB97B008C3B72 /* GHLabels.m in Sources */,
+				2E9AE319172ABA85008C3B72 /* GHMilestones.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3754,6 +3810,10 @@
 				2EAD8B0916FE515700F08EFC /* IOCViewControllerFactory.m in Sources */,
 				2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
 				2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */,
+				2EBBB7BB1729387500A7ABAA /* GHLabel.m in Sources */,
+				2EBBB7BE1729387500A7ABAA /* GHMilestone.m in Sources */,
+				2E9AE317172AB97B008C3B72 /* GHLabels.m in Sources */,
+				2E9AE31B172ABA85008C3B72 /* GHMilestones.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3866,6 +3926,10 @@
 				36A36E5D16FF70A30070AC46 /* MAXCompletion.m in Sources */,
 				2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */,
 				2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */,
+				2EBBB7BA1729387500A7ABAA /* GHLabel.m in Sources */,
+				2EBBB7BD1729387500A7ABAA /* GHMilestone.m in Sources */,
+				2E9AE316172AB97B008C3B72 /* GHLabels.m in Sources */,
+				2E9AE31A172ABA85008C3B72 /* GHMilestones.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

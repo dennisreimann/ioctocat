@@ -27,10 +27,6 @@
 	return [self.state isEqualToString:kIssueStateOpen];
 }
 
-- (BOOL)isClosed {
-	return [self.state isEqualToString:kIssueStateClosed];
-}
-
 - (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance

@@ -38,10 +38,6 @@
 	return [self.state isEqualToString:kIssueStateOpen];
 }
 
-- (BOOL)isClosed {
-	return [self.state isEqualToString:kIssueStateClosed];
-}
-
 - (GHIssueComments *)comments {
     if (!_comments) {
         _comments = [[GHIssueComments alloc] initWithParent:self];

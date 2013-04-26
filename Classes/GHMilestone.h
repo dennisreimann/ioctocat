@@ -10,7 +10,6 @@
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *body;
 @property(nonatomic,strong)NSString *state;
-@property(nonatomic,strong)NSURL *apiURL;
 @property(nonatomic,strong)NSDate *createdAt;
 @property(nonatomic,strong)NSDate *dueAt;
 @property(nonatomic,assign)NSInteger number;

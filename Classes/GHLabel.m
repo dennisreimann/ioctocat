@@ -31,7 +31,6 @@
 - (void)setValues:(id)dict {
 	self.name = [dict safeStringForKey:@"name"];
 	self.hexColor = [dict safeStringForKey:@"color"];
-	self.apiURL = [dict safeURLForKey:@"url"];
 }
 
 #pragma mark Saving

@@ -40,7 +40,6 @@
 	self.body = [dict safeStringForKey:@"description"];
 	self.state = [dict safeStringForKey:@"state"];
 	self.number = [dict safeIntegerForKey:@"number"];
-	self.apiURL = [dict safeURLForKey:@"url"];
 }
 
 #pragma mark Saving

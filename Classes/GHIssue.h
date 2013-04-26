@@ -2,16 +2,18 @@
 #import "GHResource.h"
 
 
-@class GHIssueComments, GHRepository, GHUser;
+@class GHIssueComments, GHRepository, GHUser, GHMilestone, GHLabels;
 
 @interface GHIssue : GHResource
 @property(nonatomic,strong)GHUser *user;
+@property(nonatomic,strong)GHUser *assignee;
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHIssueComments *comments;
+@property(nonatomic,strong)GHMilestone *milestone;
+@property(nonatomic,strong)GHLabels *labels;
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *body;
 @property(nonatomic,strong)NSString *state;
-@property(nonatomic,strong)NSArray *labels;
 @property(nonatomic,strong)NSDate *createdAt;
 @property(nonatomic,strong)NSDate *updatedAt;
 @property(nonatomic,strong)NSDate *closedAt;

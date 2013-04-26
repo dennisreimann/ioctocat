@@ -10,7 +10,7 @@
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
 		NSString *login = [dict safeStringForKey:@"login"];
-		GHUser *user = [[iOctocat sharedInstance] userWithLogin:login];
+		GHUser *user = [iOctocat.sharedInstance userWithLogin:login];
 		[user setValues:dict];
 		[self addObject:user];
 	}

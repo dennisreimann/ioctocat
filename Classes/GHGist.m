@@ -51,7 +51,7 @@
     if (![dict isKindOfClass:NSDictionary.class]) return;
 	NSDictionary *userDict = [dict safeDictForKey:@"user"];
 	NSString *userLogin = [userDict safeStringForKey:@"login"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:userLogin];
+	self.user = [iOctocat.sharedInstance userWithLogin:userLogin];
 	self.gistId = [dict safeStringForKey:@"id"];
 	self.files = [[GHFiles alloc] init];
 	[self.files setValues:[[dict safeDictForKey:@"files"] allValues]];

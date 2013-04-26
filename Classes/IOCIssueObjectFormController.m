@@ -54,7 +54,7 @@
 	}
     MAXCompletion *usernameCompletion = [[MAXCompletion alloc] init];
     usernameCompletion.textView = self.bodyField;
-    usernameCompletion.dataSource = [iOctocat sharedInstance].currentAccount.userObjects.users;
+    usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
     self.usernameCompletion = usernameCompletion;
     MAXCompletion *issueCompletion = [[MAXCompletion alloc] init];
     issueCompletion.textView = self.bodyField;

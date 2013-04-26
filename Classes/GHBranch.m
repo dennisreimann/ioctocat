@@ -26,7 +26,7 @@
 	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
 	if ([authorLogin isEmpty]) authorLogin = [dict safeStringForKeyPath:@"user.login"];
 	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
-	self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+	self.author = [iOctocat.sharedInstance userWithLogin:authorLogin];
 }
 
 @end

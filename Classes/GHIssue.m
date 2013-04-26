@@ -44,7 +44,7 @@
 
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKeyPath:@"user.login"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:login];
+	self.user = [iOctocat.sharedInstance userWithLogin:login];
 	self.createdAt = [dict safeDateForKey:@"created_at"];
 	self.updatedAt = [dict safeDateForKey:@"updated_at"];
 	self.closedAt = [dict safeDateForKey:@"closed_at"];

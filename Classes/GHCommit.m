@@ -29,11 +29,11 @@
 	NSString *authorLogin = [authorDict safeStringForKey:@"login"];
 	NSString *committerLogin = [committerDict safeStringForKey:@"login"];
 	if (!authorLogin.isEmpty) {
-		self.author = [[iOctocat sharedInstance] userWithLogin:authorLogin];
+		self.author = [iOctocat.sharedInstance userWithLogin:authorLogin];
 		if (self.author.isUnloaded) [self.author setValues:authorDict];
 	}
 	if (!committerLogin.isEmpty) {
-		self.committer = [[iOctocat sharedInstance] userWithLogin:committerLogin];
+		self.committer = [iOctocat.sharedInstance userWithLogin:committerLogin];
 		if (self.committer.isUnloaded) [self.committer setValues:committerDict];
 	}
 	// info

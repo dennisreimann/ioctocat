@@ -43,7 +43,7 @@
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
     MAXCompletion *usernameCompletion = [[MAXCompletion alloc] init];
     usernameCompletion.textView = self.bodyView;
-    usernameCompletion.dataSource = [iOctocat sharedInstance].currentAccount.userObjects.users;
+    usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
     self.usernameCompletion = usernameCompletion;
     GHRepository *repo = nil;
     if ([self.comment respondsToSelector:@selector(repository)]) {

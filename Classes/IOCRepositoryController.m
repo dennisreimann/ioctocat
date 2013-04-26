@@ -126,7 +126,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 #pragma mark Helpers
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return iOctocat.sharedInstance.currentUser;
 }
 
 - (void)displayRepository {

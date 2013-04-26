@@ -63,7 +63,7 @@
 
 	// User
 	if (!actorLogin.isEmpty) {
-		self.user = [[iOctocat sharedInstance] userWithLogin:actorLogin];
+		self.user = [iOctocat.sharedInstance userWithLogin:actorLogin];
 		if (!self.user.gravatarURL) {
 			self.user.gravatarURL = [dict safeURLForKeyPath:@"actor.avatar_url"];
 		}
@@ -71,7 +71,7 @@
 
 	// Organization
 	if (!orgLogin.isEmpty) {
-		self.organization = [[iOctocat sharedInstance] organizationWithLogin:orgLogin];
+		self.organization = [iOctocat.sharedInstance organizationWithLogin:orgLogin];
 		if (!self.organization.gravatarURL) {
 			self.organization.gravatarURL = [dict safeURLForKeyPath:@"org.avatar_url"];
 		}
@@ -89,7 +89,7 @@
 		otherUserLogin = [otherUserDict safeStringForKey:@"login"];
 	}
 	if (!otherUserLogin.isEmpty) {
-		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];
+		self.otherUser = [iOctocat.sharedInstance userWithLogin:otherUserLogin];
 		if (!self.otherUser.gravatarURL) {
 			self.otherUser.gravatarURL = [otherUserDict safeURLForKeyPath:@"avatar_url"];
 		}

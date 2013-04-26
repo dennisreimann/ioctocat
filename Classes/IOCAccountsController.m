@@ -58,7 +58,7 @@
 }
 
 - (NSMutableArray *)accounts {
-    return [iOctocat sharedInstance].accounts;
+    return iOctocat.sharedInstance.accounts;
 }
 
 #pragma mark IOCAccountFormControllerDelegate

@@ -62,7 +62,7 @@
                 viewController = [[IOCSearchController alloc] init];
             } else{
                 // User (or Organization)
-                GHUser *user = [[iOctocat sharedInstance] userWithLogin:component];
+                GHUser *user = [iOctocat.sharedInstance userWithLogin:component];
                 user.htmlURL = url;
                 viewController = [[IOCUserController alloc] initWithUser:user];
             }

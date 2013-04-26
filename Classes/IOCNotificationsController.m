@@ -77,9 +77,10 @@
 
 // marks the notification as read, but keeps the cell
 - (void)markAsRead:(NSIndexPath *)indexPath {
-	NSInteger section = indexPath.section;
-	GHNotification *notification = [self notificationsInSection:section][indexPath.row];
-	[self.notifications markAsRead:notification start:nil success:nil failure:nil];
+    NSArray *notifications = [self notificationsInSection:indexPath.section];
+    if (indexPath.row >= notifications.count) return;
+    GHNotification *notification = notifications[indexPath.row];
+    [self.notifications markAsRead:notification start:nil success:nil failure:nil];
 }
 
 // marks the notification as read and removes the cell

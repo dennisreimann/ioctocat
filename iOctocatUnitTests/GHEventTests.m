@@ -88,7 +88,7 @@
 	NSDictionary *dict = [IOCTestHelper jsonFixture:@"PullRequestReviewCommentEvent"];
 	[self.event setValues:dict];
 	expect(self.event.pullRequest).notTo.beNil();
-	expect(self.event.pullRequest.num).to.equal(194);
+	expect(self.event.pullRequest.number).to.equal(194);
 }
 
 - (void)testIssueCommentEventWithoutPullRequest {

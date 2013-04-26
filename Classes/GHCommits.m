@@ -50,7 +50,7 @@
 		return _resourcePath;
 	} else if (self.pullRequest) {
 		GHRepository *repo = self.pullRequest.repository;
-		return [NSString stringWithFormat:kPullRequestCommitsFormat, repo.owner, repo.name, self.pullRequest.num];
+		return [NSString stringWithFormat:kPullRequestCommitsFormat, repo.owner, repo.name, self.pullRequest.number];
 	} else if (self.sha) {
 		return [NSString stringWithFormat:kRepoShaCommitsFormat, self.repository.owner, self.repository.name, self.sha];
 	} else {

@@ -20,7 +20,7 @@
 }
 
 - (BOOL)isNew {
-	return !self.num ? YES : NO;
+	return !self.number ? YES : NO;
 }
 
 - (BOOL)isOpen {
@@ -34,7 +34,7 @@
 - (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
-	return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.num];
+	return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.number];
 }
 
 - (GHIssueComments *)comments {
@@ -49,14 +49,14 @@
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKeyPath:@"user.login"];
 	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [dict safeDateForKey:@"created_at"];
-	self.updated = [dict safeDateForKey:@"updated_at"];
-	self.closed = [dict safeDateForKey:@"closed_at"];
+	self.createdAt = [dict safeDateForKey:@"created_at"];
+	self.updatedAt = [dict safeDateForKey:@"updated_at"];
+	self.closedAt = [dict safeDateForKey:@"closed_at"];
 	self.title = [dict safeStringForKey:@"title"];
 	self.body = [dict safeStringForKey:@"body"];
 	self.state = [dict safeStringForKey:@"state"];
 	self.labels = [dict safeArrayForKey:@"labels"];
-	self.num = [dict safeIntegerForKey:@"number"];
+	self.number = [dict safeIntegerForKey:@"number"];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	if (!self.repository) {
 		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
@@ -76,7 +76,7 @@
 		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
 		method = kRequestMethodPost;
 	} else {
-		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
+		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.number];
 		method = kRequestMethodPatch;
 	}
 	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {

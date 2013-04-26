@@ -10,9 +10,9 @@
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *body;
 @property(nonatomic,strong)NSString *state;
-@property(nonatomic,strong)NSDate *created;
-@property(nonatomic,strong)NSDate *due;
 @property(nonatomic,strong)NSURL *apiURL;
+@property(nonatomic,strong)NSDate *createdAt;
+@property(nonatomic,strong)NSDate *dueAt;
 @property(nonatomic,assign)NSInteger number;
 @property(nonatomic,assign)NSInteger openIssueCount;
 @property(nonatomic,assign)NSInteger closedIssueCount;

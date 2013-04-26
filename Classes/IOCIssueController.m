@@ -65,7 +65,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.num];
+	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.number];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
 	[self layoutTableHeader];
@@ -116,8 +116,8 @@
 	self.titleLabel.text = self.issue.title;
 	self.repoCell.contentText = self.issue.repository.repoId;
 	self.authorCell.contentText = self.issue.user.login;
-	self.createdCell.contentText = [self.issue.created prettyDate];
-	self.updatedCell.contentText = [self.issue.updated prettyDate];
+	self.createdCell.contentText = [self.issue.createdAt prettyDate];
+	self.updatedCell.contentText = [self.issue.updatedAt prettyDate];
 	self.descriptionCell.contentText = self.issue.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;

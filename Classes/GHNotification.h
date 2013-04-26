@@ -7,8 +7,8 @@
 @interface GHNotification : GHResource
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHResource *subject;
-@property(nonatomic,strong)NSDate *updatedAtDate;
-@property(nonatomic,strong)NSDate *lastReadAtDate;
+@property(nonatomic,strong)NSDate *updatedAt;
+@property(nonatomic,strong)NSDate *lastReadAt;
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *subjectType;
 @property(nonatomic,readwrite)NSInteger notificationId;

@@ -38,8 +38,8 @@
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKeyPath:@"creator.login"];
 	self.creator = [iOctocat.sharedInstance userWithLogin:login];
-	self.created = [dict safeDateForKey:@"created_at"];
-	self.due = [dict safeDateForKey:@"due_at"];
+	self.createdAt = [dict safeDateForKey:@"created_at"];
+	self.dueAt = [dict safeDateForKey:@"due_at"];
 	self.title = [dict safeStringForKey:@"title"];
 	self.body = [dict safeStringForKey:@"description"];
 	self.state = [dict safeStringForKey:@"state"];

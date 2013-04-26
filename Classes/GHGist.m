@@ -60,8 +60,8 @@
 	self.isPrivate = ![dict safeBoolForKey:@"public"];
 	self.forksCount = [dict safeArrayForKey:@"forks"].count;
 	self.commentsCount = [dict safeIntegerForKey:@"comments"];
-	self.createdAtDate = [dict safeDateForKey:@"created_at"];
-	self.updatedAtDate = [dict safeDateForKey:@"updated_at"];
+	self.createdAt = [dict safeDateForKey:@"created_at"];
+	self.updatedAt = [dict safeDateForKey:@"updated_at"];
     // unfortunately atm the gist api does not state the fork
 	// status of a gist, but in the future this might work
     self.isFork = [dict safeBoolForKey:@"fork"];

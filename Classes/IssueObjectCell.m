@@ -44,7 +44,7 @@
     NSString *userInfo = self.object.user ? [NSString stringWithFormat:@"by %@ ", self.object.user.login] : @"";
 	self.imageView.image = [UIImage imageNamed:imageName];
     self.textLabel.text = self.object.title;
-    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@- %@", self.object.num, userInfo, [_displayRepo ? self.object.updated : self.object.created prettyDate]];
+    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@- %@", self.object.number, userInfo, [_displayRepo ? self.object.updatedAt : self.object.createdAt prettyDate]];
     self.repoLabel.text = _displayRepo ? self.object.repository.repoId : @"";
 }
 

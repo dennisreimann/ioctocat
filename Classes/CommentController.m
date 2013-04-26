@@ -58,8 +58,8 @@
         issueCompletion.comparator = ^NSComparisonResult(id obj1, id obj2) {
             if ([obj1 isOpen] > [obj2 isOpen]) return NSOrderedAscending;
             if ([obj1 isOpen] < [obj2 isOpen]) return NSOrderedDescending;
-            if ([obj1 num] > [obj2 num]) return NSOrderedAscending;
-            if ([obj1 num] < [obj2 num]) return NSOrderedDescending;
+            if ([obj1 number] > [obj2 number]) return NSOrderedAscending;
+            if ([obj1 number] < [obj2 number]) return NSOrderedDescending;
             return NSOrderedSame;
         };
         self.issueCompletionDataSource = [NSMutableDictionary dictionary];
@@ -106,7 +106,7 @@
 
 - (void)setIssuesForNums:(NSArray *)issues {
     for (GHIssue *issue in issues) {
-        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.num]] = issue;
+        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.number]] = issue;
     }
 }
 

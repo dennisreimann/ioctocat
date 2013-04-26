@@ -30,7 +30,7 @@
 - (void)setNotification:(GHNotification *)notification {
 	_notification = notification;
 	self.textLabel.text = notification.title;
-	self.detailTextLabel.text = [notification.updatedAtDate prettyDate];
+	self.detailTextLabel.text = [notification.updatedAt prettyDate];
 	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Type%@.png", notification.subjectType]];
 	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Type%@On.png", notification.subjectType]];
 }

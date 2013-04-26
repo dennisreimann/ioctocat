@@ -83,12 +83,12 @@
             } else if (comps.count == 5 && [comps[3] isEqualToString:@"issues"]) {
                 // Issue
                 GHIssue *issue = [[GHIssue alloc] initWithRepository:repo];
-                issue.num = [comps[4] intValue];
+                issue.number = [comps[4] intValue];
                 viewController = [[IOCIssueController alloc] initWithIssue:issue];
             } else if (comps.count == 5 && [comps[3] isEqualToString:@"pull"]) {
                 // Pull Request
                 GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:repo];
-                pullRequest.num = [comps[4] intValue];
+                pullRequest.number = [comps[4] intValue];
                 viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest];
             } else if (comps.count == 5 && [comps[3] isEqualToString:@"commit"]) {
                 // Commit

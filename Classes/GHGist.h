@@ -9,8 +9,8 @@
 @property(nonatomic,strong)GHGists *forks;
 @property(nonatomic,strong)GHGistComments *comments;
 @property(nonatomic,strong)NSURL *htmlURL;
-@property(nonatomic,strong)NSDate *createdAtDate;
-@property(nonatomic,strong)NSDate *updatedAtDate;
+@property(nonatomic,strong)NSDate *createdAt;
+@property(nonatomic,strong)NSDate *updatedAt;
 @property(nonatomic,strong)NSString *descriptionText;
 @property(nonatomic,strong)GHFiles *files;
 @property(nonatomic,strong)GHUser *user;

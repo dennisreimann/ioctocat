@@ -25,7 +25,7 @@
 - (NSString *)resourcePath {
 	if (self.pullRequest) {
 		GHRepository *repo = self.pullRequest.repository;
-		return [NSString stringWithFormat:kPullRequestFilesFormat, repo.owner, repo.name, self.pullRequest.num];
+		return [NSString stringWithFormat:kPullRequestFilesFormat, repo.owner, repo.name, self.pullRequest.number];
 	} else {
 		return [super resourcePath];
 	}

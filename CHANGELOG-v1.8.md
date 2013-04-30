@@ -18,6 +18,8 @@ Bugfixes:
 * Fixed crashes caused by incorrect observer handling
 * Fixed unread badge count when opening notification from push
 
+[Commits](/dennisreimann/ioctocat/compare/v1.8.0...v1.8.1)
+
 ## v1.8.0
 
 This version brings you push notifications for your GitHub notifications, along with lots of nice improvements.
@@ -63,3 +65,5 @@ Bugfixes:
 
 * Last refresh dates were shared across accounts
 * Gists were not handled properly via the URL scheme. Thanks @iosdeveloper
+
+[Commits](/dennisreimann/ioctocat/compare/v1.7.8...v1.8.0)

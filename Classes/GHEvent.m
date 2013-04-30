@@ -63,7 +63,7 @@
 
 	// User
 	if (!actorLogin.isEmpty) {
-		self.user = [[iOctocat sharedInstance] userWithLogin:actorLogin];
+		self.user = [iOctocat.sharedInstance userWithLogin:actorLogin];
 		if (!self.user.gravatarURL) {
 			self.user.gravatarURL = [dict safeURLForKeyPath:@"actor.avatar_url"];
 		}
@@ -71,7 +71,7 @@
 
 	// Organization
 	if (!orgLogin.isEmpty) {
-		self.organization = [[iOctocat sharedInstance] organizationWithLogin:orgLogin];
+		self.organization = [iOctocat.sharedInstance organizationWithLogin:orgLogin];
 		if (!self.organization.gravatarURL) {
 			self.organization.gravatarURL = [dict safeURLForKeyPath:@"org.avatar_url"];
 		}
@@ -89,7 +89,7 @@
 		otherUserLogin = [otherUserDict safeStringForKey:@"login"];
 	}
 	if (!otherUserLogin.isEmpty) {
-		self.otherUser = [[iOctocat sharedInstance] userWithLogin:otherUserLogin];
+		self.otherUser = [iOctocat.sharedInstance userWithLogin:otherUserLogin];
 		if (!self.otherUser.gravatarURL) {
 			self.otherUser.gravatarURL = [otherUserDict safeURLForKeyPath:@"avatar_url"];
 		}
@@ -123,7 +123,7 @@
 	NSInteger issueNumber = [issueDict safeIntegerForKey:@"number"];
 	if (issueDict && issueNumber) {
 		self.issue = [[GHIssue alloc] initWithRepository:self.repository];
-		self.issue.num = issueNumber;
+		self.issue.number = issueNumber;
 		[self.issue setValues:issueDict];
 	}
 
@@ -141,8 +141,8 @@
 		if (pullPayload) {
 			[self.pullRequest setValues:pullPayload];
 		}
-		if (!self.pullRequest.num) {
-			self.pullRequest.num = self.issue.num;
+		if (!self.pullRequest.number) {
+			self.pullRequest.number = self.issue.number;
 		}
 	} else if ([self.eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
 		// currently there is no separate number for a PullRequestReviewCommentEvent,
@@ -151,7 +151,7 @@
 		NSInteger pullNumber = [[pullURL lastPathComponent] intValue];
 		if (!!pullNumber) {
 			self.pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
-			self.pullRequest.num = pullNumber;
+			self.pullRequest.number = pullNumber;
 		}
 	}
 
@@ -265,13 +265,13 @@
 		else if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
 			id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
 			NSString *parentType = self.pullRequest ? @"pull request" : @"issue";
-			NSUInteger num = [(GHIssue *)issueCommentParent num];
+			NSUInteger num = [(GHIssue *)issueCommentParent number];
 			self.title = [NSString stringWithFormat:@"%@ commented on %@ %@#%d", self.user.login, parentType, self.repoName, num];
 		}
 
 		else if ([self.eventType isEqualToString:@"IssuesEvent"]) {
 			NSString *action = [self.payload safeStringForKey:@"action"];
-			self.title = [NSString stringWithFormat:@"%@ %@ issue %@#%d", self.user.login, action, self.repoName, self.issue.num];
+			self.title = [NSString stringWithFormat:@"%@ %@ issue %@#%d", self.user.login, action, self.repoName, self.issue.number];
 		}
 
 		else if ([self.eventType isEqualToString:@"MemberEvent"]) {
@@ -285,11 +285,11 @@
 		else if ([self.eventType isEqualToString:@"PullRequestEvent"]) {
 			NSString *action = [self.payload safeStringForKey:@"action"];
 			if ([action isEqualToString:@"closed"] && self.pullRequest.isMerged) action = @"merged";
-			self.title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", self.user.login, action, self.repoName, self.pullRequest.num];
+			self.title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", self.user.login, action, self.repoName, self.pullRequest.number];
 		}
 
 		else if ([self.eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
-			self.title = [NSString stringWithFormat:@"%@ commented on pull request %@#%d", self.user.login, self.repoName, self.pullRequest.num];
+			self.title = [NSString stringWithFormat:@"%@ commented on pull request %@#%d", self.user.login, self.repoName, self.pullRequest.number];
 		}
 
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {

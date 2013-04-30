@@ -19,7 +19,7 @@
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
 		NSString *login = [dict safeStringForKey:@"login"];
-		GHOrganization *org = [[iOctocat sharedInstance] organizationWithLogin:login];
+		GHOrganization *org = [iOctocat.sharedInstance organizationWithLogin:login];
 		[org setValues:dict];
 		[self addObject:org];
 	}

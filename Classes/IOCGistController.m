@@ -96,7 +96,7 @@
 #pragma mark Helpers
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return iOctocat.sharedInstance.currentUser;
 }
 
 - (void)displayGist {
@@ -104,8 +104,8 @@
 	self.descriptionLabel.text = self.gist.title;
 	self.forksIconView.hidden = !self.gist.isLoaded;
 	self.ownerCell.contentText = self.gist.user.login;
-	self.createdCell.contentText = [self.gist.createdAtDate prettyDate];
-	self.updatedCell.contentText = [self.gist.updatedAtDate prettyDate];
+	self.createdCell.contentText = [self.gist.createdAt prettyDate];
+	self.updatedCell.contentText = [self.gist.updatedAt prettyDate];
 	self.forksCountLabel.text = self.gist.isLoaded ? [NSString stringWithFormat:@"%d %@", self.gist.forksCount, self.gist.forksCount == 1 ? @"fork" : @"forks"] : nil;
 }
 

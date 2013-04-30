@@ -36,7 +36,7 @@
 	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", img]];
 	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@On.png", img]];
 	self.textLabel.text = gist.title;
-	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [gist.createdAtDate prettyDate]];
+	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [gist.createdAt prettyDate]];
 }
 
 - (void)hideUser {

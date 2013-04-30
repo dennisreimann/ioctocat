@@ -51,7 +51,7 @@
     if (![dict isKindOfClass:NSDictionary.class]) return;
 	NSDictionary *userDict = [dict safeDictForKey:@"user"];
 	NSString *userLogin = [userDict safeStringForKey:@"login"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:userLogin];
+	self.user = [iOctocat.sharedInstance userWithLogin:userLogin];
 	self.gistId = [dict safeStringForKey:@"id"];
 	self.files = [[GHFiles alloc] init];
 	[self.files setValues:[[dict safeDictForKey:@"files"] allValues]];
@@ -60,8 +60,8 @@
 	self.isPrivate = ![dict safeBoolForKey:@"public"];
 	self.forksCount = [dict safeArrayForKey:@"forks"].count;
 	self.commentsCount = [dict safeIntegerForKey:@"comments"];
-	self.createdAtDate = [dict safeDateForKey:@"created_at"];
-	self.updatedAtDate = [dict safeDateForKey:@"updated_at"];
+	self.createdAt = [dict safeDateForKey:@"created_at"];
+	self.updatedAt = [dict safeDateForKey:@"updated_at"];
     // unfortunately atm the gist api does not state the fork
 	// status of a gist, but in the future this might work
     self.isFork = [dict safeBoolForKey:@"fork"];

@@ -15,17 +15,16 @@
 @property(nonatomic,strong)NSString *state;
 @property(nonatomic,strong)NSString *mergeableState;
 @property(nonatomic,strong)NSArray *labels;
-@property(nonatomic,strong)NSDate *created;
-@property(nonatomic,strong)NSDate *updated;
-@property(nonatomic,strong)NSDate *closed;
-@property(nonatomic,strong)NSDate *merged;
+@property(nonatomic,strong)NSDate *createdAt;
+@property(nonatomic,strong)NSDate *updatedAt;
+@property(nonatomic,strong)NSDate *closedAt;
+@property(nonatomic,strong)NSDate *mergedAt;
 @property(nonatomic,strong)NSURL *htmlURL;
-@property(nonatomic,assign)NSInteger num;
+@property(nonatomic,assign)NSInteger number;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isMerged;
 @property(nonatomic,readonly)BOOL isMergeable;
-@property(nonatomic,readonly)BOOL isClosed;
 
 - (id)initWithRepository:(GHRepository *)repo;
 - (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;

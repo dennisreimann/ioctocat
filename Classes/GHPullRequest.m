@@ -31,15 +31,11 @@
 }
 
 - (BOOL)isNew {
-	return !self.num ? YES : NO;
+	return !self.number ? YES : NO;
 }
 
 - (BOOL)isOpen {
 	return [self.state isEqualToString:kIssueStateOpen];
-}
-
-- (BOOL)isClosed {
-	return [self.state isEqualToString:kIssueStateClosed];
 }
 
 - (GHIssueComments *)comments {
@@ -69,7 +65,7 @@
 	if (_resourcePath) {
 		return _resourcePath;
 	} else {
-		return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.num];
+		return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.number];
 	}
 }
 
@@ -77,16 +73,16 @@
 
 - (void)setValues:(id)dict {
 	NSString *login = [dict safeStringForKeyPath:@"user.login"];
-	self.user = [[iOctocat sharedInstance] userWithLogin:login];
-	self.created = [dict safeDateForKey:@"created_at"];
-	self.updated = [dict safeDateForKey:@"updated_at"];
-	self.merged = [dict safeDateForKey:@"merged_at"];
-	self.closed = [dict safeDateForKey:@"closed_at"];
+	self.user = [iOctocat.sharedInstance userWithLogin:login];
+	self.createdAt = [dict safeDateForKey:@"created_at"];
+	self.updatedAt = [dict safeDateForKey:@"updated_at"];
+	self.mergedAt = [dict safeDateForKey:@"merged_at"];
+	self.closedAt = [dict safeDateForKey:@"closed_at"];
 	self.title = [dict safeStringForKey:@"title"];
 	self.body = [dict safeStringForKey:@"body"];
 	self.state = [dict safeStringForKey:@"state"];
 	self.labels = [dict safeArrayForKey:@"labels"];
-	self.num = [dict safeIntegerForKey:@"number"];
+	self.number = [dict safeIntegerForKey:@"number"];
 	self.htmlURL = [dict safeURLForKey:@"html_url"];
 	self.isMerged = [dict safeBoolForKey:@"merged"];
 	self.isMergeable = [dict safeBoolForKey:@"mergeable"];
@@ -110,18 +106,18 @@
 
 - (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	if (self.isMergeable) {
-		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.num];
+		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.number];
 		NSDictionary *params = @{@"commit_message": commitMessage};
 		[self saveWithParams:params path:path method:kRequestMethodPut start:start success:^(GHResource *instance, id data) {
 			self.isMerged = [data safeBoolForKey:@"merged"];
 			// set values manually that are not part of the response
 			if (self.isMerged) {
 				self.state = kIssueStateClosed;
-				self.merged = self.closed = self.updated = [NSDate date];
+				self.mergedAt = self.closedAt = self.updatedAt = [NSDate date];
 				self.isMergeable = NO;
 			} else {
 				self.state = kIssueStateOpen;
-				self.merged = self.closed = nil;
+				self.mergedAt = self.closedAt = nil;
 			}
 			if (success) success(self, data);
 		} failure:^(GHResource *instance, NSError *error) {
@@ -139,7 +135,7 @@
 		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
 		method = kRequestMethodPost;
 	} else {
-		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.num];
+		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.number];
 		method = kRequestMethodPatch;
 	}
 	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {

@@ -55,7 +55,7 @@
 #pragma mark Helpers
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return iOctocat.sharedInstance.currentUser;
 }
 
 #pragma mark Actions

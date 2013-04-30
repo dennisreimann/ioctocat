@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
 
 # use cocoapods for handling project dependencies
-gem 'cocoapods', '0.18.1'
+gem 'cocoapods', '0.19.1'
 
 # guard and the following gems are used to run
 # tests on file change and give growl output

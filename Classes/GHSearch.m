@@ -38,7 +38,7 @@
 		GHResource *resource = nil;
 		if (usersSearch) {
 			NSString *login = [dict safeStringForKey:@"login"];
-			resource = [[iOctocat sharedInstance] userWithLogin:login];
+			resource = [iOctocat.sharedInstance userWithLogin:login];
 			[resource setValues:dict];
 		} else {
 			NSString *owner = [dict safeStringForKey:@"owner"];

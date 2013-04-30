@@ -45,7 +45,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	_comment = comment;
 	// Text
 	self.userLabel.text = self.comment.user.login;
-    self.dateLabel.text = [self.comment.created prettyDate];
+    self.dateLabel.text = [self.comment.createdAt prettyDate];
 	[self setContentText:self.comment.body];
 	// Gravatar
 	[self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];

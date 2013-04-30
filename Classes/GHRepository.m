@@ -55,7 +55,7 @@
 }
 
 - (GHUser *)user {
-	return [[iOctocat sharedInstance] userWithLogin:self.owner];
+	return [iOctocat.sharedInstance userWithLogin:self.owner];
 }
 
 - (int)compareByRepoId:(GHRepository *)otherRepo {

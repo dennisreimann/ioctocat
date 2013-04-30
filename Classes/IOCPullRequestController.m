@@ -75,7 +75,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.num];
+	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.number];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
 	[self displayPullRequest];
@@ -113,7 +113,7 @@
 #pragma mark Helpers
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return iOctocat.sharedInstance.currentUser;
 }
 
 - (BOOL)pullRequestEditableByCurrentUser {
@@ -130,12 +130,12 @@
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.pullRequest.title;
 	self.commitTextView.text = self.pullRequest.title;
-	self.commitTitleLabel.text = [NSString stringWithFormat:@"Merge pull request #%d from %@/%@", self.pullRequest.num, self.pullRequest.head.repository.owner, self.pullRequest.head.name];
+	self.commitTitleLabel.text = [NSString stringWithFormat:@"Merge pull request #%d from %@/%@", self.pullRequest.number, self.pullRequest.head.repository.owner, self.pullRequest.head.name];
 	self.repoCell.contentText = self.pullRequest.repository.repoId;
 	self.authorCell.contentText = self.pullRequest.user.login;
-	self.createdCell.contentText = [self.pullRequest.created prettyDate];
-	self.updatedCell.contentText = [self.pullRequest.updated prettyDate];
-	self.closedCell.contentText = [self.pullRequest.closed prettyDate];
+	self.createdCell.contentText = [self.pullRequest.createdAt prettyDate];
+	self.updatedCell.contentText = [self.pullRequest.updatedAt prettyDate];
+	self.closedCell.contentText = [self.pullRequest.closedAt prettyDate];
 	self.descriptionCell.contentText = self.pullRequest.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;

@@ -81,7 +81,7 @@
 }
 
 - (GHUser *)currentUser {
-	return [[iOctocat sharedInstance] currentUser];
+	return iOctocat.sharedInstance.currentUser;
 }
 
 - (GHRepositories *)repositoriesInSection:(NSInteger)section {

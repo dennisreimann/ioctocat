@@ -201,7 +201,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
     [self.slidingViewController setTopViewController:navController];
 	self.slidingViewController.underLeftWidthLayout = ECFixedRevealWidth;
 	[self.slidingViewController resetTopViewAnimateChange:2.0 animations:nil onComplete:nil];
-    [[iOctocat sharedInstance] bringStatusViewToFront];
+    [iOctocat.sharedInstance bringStatusViewToFront];
 }
 
 - (void)openNotificationsController {

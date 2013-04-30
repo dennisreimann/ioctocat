@@ -34,7 +34,7 @@ Bugfixes:
 * Fixed crash when automatically reloading notifications
 * Prevent opening unloaded/non-existing repos
 
-[Commits](/dennisreimann/ioctocat/compare/v1.7.7...v1.7.8)
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.7.7...v1.7.8)
 
 ## v1.7.7
 
@@ -63,7 +63,7 @@ Bugfixes:
 * No more empty cell when there are no private or public repos
 * Automatically reload changed issues
 
-[Commits](/dennisreimann/ioctocat/compare/v1.7.6...v1.7.7)
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.7.6...v1.7.7)
 
 ## v1.7.6
 
@@ -89,7 +89,7 @@ Bugfixes:
 * Fix for gists that wrongly appeared in some events
 * Handle list changes in parent controllers
 
-[Commits](/dennisreimann/ioctocat/compare/v1.7.5...v1.7.6)
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.7.5...v1.7.6)
 
 ## v1.7.5
 
@@ -118,7 +118,7 @@ Bugfixes:
 * Fixed display error for writing comments in landscape mode
 * Fixed indefinitely loading case for repository view
 
-[Commits](/dennisreimann/ioctocat/compare/v1.7.1...v1.7.5)
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.7.1...v1.7.5)
 
 ## v1.7.1
 
@@ -144,7 +144,7 @@ Bugfixes:
 * Fixed crash in user controller (when tapping on cell in empty orgs and repo lists)
 * Fixed crash for certain issue events
 
-[Commits](/dennisreimann/ioctocat/compare/v1.7.0...v1.7.1)
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.7.0...v1.7.1)
 
 ## v1.7.0
 
@@ -165,4 +165,4 @@ Bugfixes:
 * Fixed maximum avatar size
 * Proper theme default
 
-[Commits](/dennisreimann/ioctocat/compare/v1.6.3...v1.7.0)
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.6.3...v1.7.0)

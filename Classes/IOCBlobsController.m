@@ -8,6 +8,7 @@
 @interface IOCBlobsController () <UIWebViewDelegate, UIDocumentInteractionControllerDelegate> {
     CGRect _popupFrame;
 }
+
 @property(nonatomic,strong)GHBlob *blob;
 @property(nonatomic,strong)NSArray *blobs;
 @property(nonatomic,assign)NSUInteger index;
@@ -18,6 +19,7 @@
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *actionButton;
 @property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
 @property(nonatomic,strong)IBOutlet UIView *popupView;
+
 - (IBAction)leftButtonTapped:(id)sender;
 - (IBAction)rightButtonTapped:(id)sender;
 - (IBAction)actionButtonTapped:(id)sender;
@@ -68,13 +70,13 @@
 
 - (void)displayCode:(NSString *)code {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
-	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];
-	NSString *highlightJsPath = [[NSBundle mainBundle] pathForResource:@"highlight.pack" ofType:@"js"];
-	NSString *themeCssPath = [[NSBundle mainBundle] pathForResource:theme ofType:@"css"];
-	NSString *codeCssPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"css"];
+	NSString *formatPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"html"];
+	NSString *highlightJsPath = [NSBundle.mainBundle pathForResource:@"highlight.pack" ofType:@"js"];
+	NSString *themeCssPath = [NSBundle.mainBundle pathForResource:theme ofType:@"css"];
+	NSString *codeCssPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"css"];
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *lang = @"";
@@ -91,7 +93,7 @@
 		[self.contentView loadData:data MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
 		[self.contentView setScalesPageToFit:YES];
 	} else {
-		NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+		NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
 		[iOctocat reportError:@"Unknown content" with:message];
 		[self.contentView loadHTMLString:@"" baseURL:baseUrl];
@@ -228,7 +230,7 @@
 }
 
 - (void)documentInteractionController:(UIDocumentInteractionController *)controller didEndSendingToApplication:(NSString *)application {
-    [[NSFileManager defaultManager] removeItemAtURL:[controller URL] error:nil];
+    [NSFileManager.defaultManager removeItemAtURL:[controller URL] error:nil];
 }
 
 @end

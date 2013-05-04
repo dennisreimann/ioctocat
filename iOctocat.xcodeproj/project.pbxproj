@@ -46,6 +46,9 @@
 		2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
+		2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E9141731A7F60058744F /* GHSubmodule.m */; };
+		2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E9141731A7F60058744F /* GHSubmodule.m */; };
+		2EA4E9171731A7F60058744F /* GHSubmodule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E9141731A7F60058744F /* GHSubmodule.m */; };
 		2EAD8B0316FE36CD00F08EFC /* iOctocatAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */; };
 		2EAD8B0416FE36CD00F08EFC /* iOctocatAPI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */; };
 		2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
@@ -1061,6 +1064,8 @@
 		2E9AE31C172ABA92008C3B72 /* GHMilestones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestones.h; sourceTree = "<group>"; };
 		2E9E53881701AB50000961BD /* GHUserObjectsRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserObjectsRepository.h; sourceTree = "<group>"; };
 		2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserObjectsRepository.m; sourceTree = "<group>"; };
+		2EA4E9131731A7EB0058744F /* GHSubmodule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSubmodule.h; sourceTree = "<group>"; };
+		2EA4E9141731A7F60058744F /* GHSubmodule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSubmodule.m; sourceTree = "<group>"; };
 		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
 		2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactory.h; sourceTree = "<group>"; };
 		2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactory.m; sourceTree = "<group>"; };
@@ -2570,6 +2575,8 @@
 				6F7F08261624A3C10074839B /* GHTree.m */,
 				6F7F08281624A6F60074839B /* GHBlob.h */,
 				6F7F08291624A6F60074839B /* GHBlob.m */,
+				2EA4E9131731A7EB0058744F /* GHSubmodule.h */,
+				2EA4E9141731A7F60058744F /* GHSubmodule.m */,
 				6F7F082B1624A9D20074839B /* GHTag.h */,
 				6F7F082C1624A9D20074839B /* GHTag.m */,
 				6F7F082E1624AC990074839B /* GHRef.h */,
@@ -3695,6 +3702,7 @@
 				2EBBB7BC1729387500A7ABAA /* GHMilestone.m in Sources */,
 				2E9AE315172AB97B008C3B72 /* GHLabels.m in Sources */,
 				2E9AE319172ABA85008C3B72 /* GHMilestones.m in Sources */,
+				2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3814,6 +3822,7 @@
 				2EBBB7BE1729387500A7ABAA /* GHMilestone.m in Sources */,
 				2E9AE317172AB97B008C3B72 /* GHLabels.m in Sources */,
 				2E9AE31B172ABA85008C3B72 /* GHMilestones.m in Sources */,
+				2EA4E9171731A7F60058744F /* GHSubmodule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3930,6 +3939,7 @@
 				2EBBB7BD1729387500A7ABAA /* GHMilestone.m in Sources */,
 				2E9AE316172AB97B008C3B72 /* GHLabels.m in Sources */,
 				2E9AE31A172ABA85008C3B72 /* GHMilestones.m in Sources */,
+				2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

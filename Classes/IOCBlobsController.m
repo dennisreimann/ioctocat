@@ -113,7 +113,7 @@
     [self hidePopupView];
 	_blob = blob;
 	[self.contentView stopLoading];
-	self.title = self.blob.path;
+	self.title = [self.blob.path lastPathComponent];
 	if (self.blob.isLoaded) {
 		[self displayBlob:blob];
 	} else {

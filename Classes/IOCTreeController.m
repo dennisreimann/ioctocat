@@ -5,6 +5,7 @@
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "NSString+Extensions.h"
 
 
 @interface IOCTreeController ()
@@ -27,7 +28,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.tree.path ? self.tree.path : self.tree.sha;
+    NSString *title = self.tree.path.isEmpty ? self.tree.ref : [self.tree.path lastPathComponent];
+    if (title.isEmpty) title = self.tree.sha;
+	self.navigationItem.title = title;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.tree name:@"entries"];
 }
@@ -88,11 +91,11 @@
 	}
 	if (section == 0) {
 		GHTree *obj = (GHTree *)self.tree.trees[row];
-		cell.textLabel.text = obj.path;
+		cell.textLabel.text = [obj.path lastPathComponent];
 		cell.imageView.image = [UIImage imageNamed:@"folder.png"];
 	} else {
 		GHBlob *obj = (GHBlob *)self.tree.blobs[row];
-		cell.textLabel.text = obj.path;
+		cell.textLabel.text = [obj.path lastPathComponent];
 		cell.imageView.image = [UIImage imageNamed:@"file.png"];
 	}
 	return cell;

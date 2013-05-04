@@ -15,5 +15,4 @@
 @property(nonatomic,assign)NSUInteger size;
 
 - (id)initWithRepo:(GHRepository *)repo path:(NSString *)path ref:(NSString*)ref;
-- (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha;
 @end

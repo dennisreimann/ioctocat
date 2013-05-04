@@ -343,7 +343,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	} else if (section == 2) {
 		if (row < self.repository.branches.count) {
 			GHBranch *branch = self.repository.branches[row];
-			GHTree *tree = [[GHTree alloc] initWithRepo:self.repository sha:branch.name];
+			GHTree *tree = [[GHTree alloc] initWithRepo:self.repository path:@"" ref:branch.name];
 			viewController = [[IOCTreeController alloc] initWithTree:tree];
 		}
 	} else if (section == 3) {

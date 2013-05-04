@@ -13,17 +13,8 @@
 	if (self) {
 		self.repository = repo;
 		self.path = path;
-		self.resourcePath = [NSString stringWithFormat:kRepoContentFormat, self.repository.owner, self.repository.name, self.path, ref];
-	}
-	return self;
-}
-
-- (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha {
-	self = [super init];
-	if (self) {
-		self.repository = repo;
-		self.sha = sha;
-		self.resourcePath = [NSString stringWithFormat:kTreeFormat, self.repository.owner, self.repository.name, [self.sha stringByEscapingForURLArgument]];
+		self.ref = ref;
+		self.resourcePath = [NSString stringWithFormat:kRepoContentFormat, self.repository.owner, self.repository.name, self.path, self.ref];
 	}
 	return self;
 }
@@ -36,21 +27,20 @@
     // handle different responses from the tree and repo content APIs
     NSArray *tree = [values isKindOfClass:NSArray.class] ? values : [values safeArrayForKey:@"tree"];
 	for (NSDictionary *item in tree) {
-		NSString *sha = [item safeStringForKey:@"sha"];
+		NSInteger size = [item safeIntegerForKey:@"size"];
+		NSString *sha  = [item safeStringForKey:@"sha"];
 		NSString *type = [item safeStringForKey:@"type"];
 		NSString *mode = [item safeStringOrNilForKey:@"mode"];
 		NSString *name = [item safeStringOrNilForKey:@"name"];
-		if (!name) name = [item safeStringForKey:@"path"];
+		NSString *path = [item safeStringOrNilForKey:@"path"];
 		if ([type isEqualToString:@"tree"] || [type isEqualToString:@"dir"]) {
-			GHTree *obj = [[GHTree alloc] initWithRepo:self.repository sha:sha];
-			obj.path = name;
+			GHTree *obj = [[GHTree alloc] initWithRepo:self.repository path:path ref:self.ref];
 			obj.mode = mode;
 			[self.trees addObject:obj];
 		} else if ([type isEqualToString:@"blob"] || [type isEqualToString:@"file"]) {
-			GHBlob *obj = [[GHBlob alloc] initWithRepo:self.repository sha:sha];
-			obj.path = name;
+			GHBlob *obj = [[GHBlob alloc] initWithRepo:self.repository path:path ref:self.ref];
 			obj.mode = mode;
-			obj.size = [item safeIntegerForKey:@"size"];
+			obj.size = size;
 			[self.blobs addObject:obj];
 		}
 	}

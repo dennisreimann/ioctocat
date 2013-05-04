@@ -18,16 +18,6 @@
 	return self;
 }
 
-- (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha {
-	self = [super init];
-	if (self) {
-		self.repository = repo;
-		self.sha = sha;
-		self.resourcePath = [NSString stringWithFormat:kBlobFormat, self.repository.owner, self.repository.name, [self.sha stringByEscapingForURLArgument]];
-	}
-	return self;
-}
-
 #pragma mark Loading
 
 - (void)setValues:(id)dict {

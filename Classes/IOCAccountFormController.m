@@ -22,6 +22,7 @@ typedef enum {
 @property(nonatomic,strong)GHAccount *account;
 @property(nonatomic,assign)IOCAccountType accountType;
 @property(nonatomic,assign)NSUInteger index;
+@property(nonatomic,assign)BOOL wantsPushNeedsDeviceToken;
 @property(nonatomic,readonly)NSString *deviceToken;
 @property(nonatomic,weak)IBOutlet UIView *accountTypeView;
 @property(nonatomic,weak)IBOutlet UIView *accountFormView;
@@ -40,6 +41,7 @@ typedef enum {
 
 static NSString *const AuthNote = @"iOctocat: Application";
 static NSString *const PushNote = @"iOctocat: Push Notifications";
+static NSString *const DeviceTokenKeyPath = @"deviceToken";
 
  - (id)initWithAccount:(GHAccount *)account andIndex:(NSUInteger)idx {
     self = [super initWithNibName:@"AccountForm" bundle:nil];
@@ -66,6 +68,16 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
     self.accountFormView.hidden = self.accountType == IOCAccountTypeUnspecified;
     self.onePasswordButton.hidden = ![UIApplication.sharedApplication canOpenURL:self.onePasswordURL];
     self.passwordField.textRectSubtractOnRight = self.onePasswordButton.hidden ? 0.0f : self.onePasswordButton.frame.size.width;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [iOctocat.sharedInstance addObserver:self forKeyPath:DeviceTokenKeyPath options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [iOctocat.sharedInstance removeObserver:self forKeyPath:DeviceTokenKeyPath];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -159,6 +171,12 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
     return [NSURL URLWithFormat:@"onepassword://search/%@", query];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+	if ([keyPath isEqualToString:DeviceTokenKeyPath] && self.deviceToken && self.wantsPushNeedsDeviceToken) {
+        [self changePushNotifications:nil];
+	}
+}
+
 #pragma mark Actions
 
 - (IBAction)openOnePassword:(UIButton *)sender {
@@ -210,22 +228,23 @@ static NSString *const PushNote = @"iOctocat: Push Notifications";
 }
 
 - (IBAction)changePushNotifications:(id)sender {
-	[self.view endEditing:NO];
-	if (self.pushSwitch.on) {
+    [self.view endEditing:NO];
+    self.wantsPushNeedsDeviceToken = NULL;
+    if (self.pushSwitch.on) {
         if (!self.hasDeviceToken) {
             // in case there is no device token yet, we have to ask the
             // users permissions to receive remote notifications first
+            self.wantsPushNeedsDeviceToken = YES;
             [iOctocat.sharedInstance registerForRemoteNotifications];
-            [self.pushSwitch setOn:NO animated:YES];
         } else if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
 			[iOctocat reportError:@"Credentials required" with:@"Please enter your login and password"];
 			[self.pushSwitch setOn:NO animated:YES];
 		} else {
 			[self enablePush];
 		}
-	} else {
+    } else {
 		[self disablePush];
-	}
+    }
 }
 
 - (IBAction)removeAccount:(id)sender {

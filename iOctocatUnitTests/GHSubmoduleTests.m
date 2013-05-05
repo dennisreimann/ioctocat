@@ -28,7 +28,7 @@
 }
 
 - (void)testShortenedSHA {
-	expect(self.submodule.shortenedSha).to.equal(@"4c8f9e");
+	expect(self.submodule.shortenedSha).to.equal(@"4c8f9ec");
 }
 
 @end

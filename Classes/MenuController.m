@@ -42,7 +42,6 @@
 @implementation MenuController
 
 static NSString *const GravatarKeyPath = kGravatarKeyPath;
-static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (id)initWithUser:(GHUser *)user {
@@ -53,7 +52,6 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		self.user = user;
 		self.isObservingOrganizations = NO;
 		[self.user addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-		[self.user addObserver:self forKeyPath:OrgsLoadingKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:NotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
         self.initialViewController = [[MyEventsController alloc] initWithUser:self.user];
 	    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuWillAppear:) name:ECSlidingViewUnderLeftWillAppear object:nil];
@@ -65,7 +63,6 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:ECSlidingViewUnderLeftWillAppear object:nil];
 	[self removeOrganizationObservers];
 	[self.user removeObserver:self forKeyPath:GravatarKeyPath];
-	[self.user removeObserver:self forKeyPath:OrgsLoadingKeyPath];
 	[self.user removeObserver:self forKeyPath:NotificationsCountKeyPath];
 }
 

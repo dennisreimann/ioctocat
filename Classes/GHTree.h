@@ -12,6 +12,8 @@
 @property(nonatomic,strong)NSString *mode;
 @property(nonatomic,strong)NSMutableArray *trees;
 @property(nonatomic,strong)NSMutableArray *blobs;
+@property(nonatomic,strong)NSMutableArray *submodules;
+@property(nonatomic,readonly)NSString *shortenedSha;
 
 - (id)initWithRepo:(GHRepository *)repo path:(NSString *)path ref:(NSString*)ref;
 @end

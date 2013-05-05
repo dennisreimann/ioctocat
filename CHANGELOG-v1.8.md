@@ -1,5 +1,13 @@
 # CHANGELOG for v1.8
 
+## v1.8.2
+
+Additions:
+
+* Support for submodules
+
+[Commits](https://github.com/dennisreimann/ioctocat/compare/v1.8.1...HEAD)
+
 ## v1.8.1
 
 This is a bugfix and enhancement release.

@@ -17,6 +17,13 @@
 		2E1A05B5170F460C00C05026 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B011119AB1900752560 /* AudioToolbox.framework */; };
 		2E1A05B6170F462900C05026 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 01117CDB13E87CBF004F4E09 /* libz.dylib */; };
 		2E1A05B7170F464C00C05026 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
+		2E1FD6551735B0A8007E051D /* submodule.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1FD6531735B0A8007E051D /* submodule.png */; };
+		2E1FD6561735B0A8007E051D /* submodule.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1FD6531735B0A8007E051D /* submodule.png */; };
+		2E1FD6571735B0A8007E051D /* submodule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1FD6541735B0A8007E051D /* submodule@2x.png */; };
+		2E1FD6581735B0A8007E051D /* submodule@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E1FD6541735B0A8007E051D /* submodule@2x.png */; };
+		2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FD65917362D1B007E051D /* GHTreeTests.m */; };
+		2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */; };
+		2E1FD66017363353007E051D /* RepoContents.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E1FD65F17363353007E051D /* RepoContents.json */; };
 		2E2BB56216E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */; };
 		2E2BB56316E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */; };
 		2E2BB56416E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */; };
@@ -1048,6 +1055,13 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* iOctocat_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iOctocat_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2E1FD6531735B0A8007E051D /* submodule.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = submodule.png; path = Images/Icons/submodule.png; sourceTree = "<group>"; };
+		2E1FD6541735B0A8007E051D /* submodule@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "submodule@2x.png"; path = "Images/Icons/submodule@2x.png"; sourceTree = "<group>"; };
+		2E1FD65917362D1B007E051D /* GHTreeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHTreeTests.m; sourceTree = "<group>"; };
+		2E1FD65B17362D26007E051D /* GHTreeTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHTreeTests.h; sourceTree = "<group>"; };
+		2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSubmoduleTests.m; sourceTree = "<group>"; };
+		2E1FD65E17362EA7007E051D /* GHSubmoduleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSubmoduleTests.h; sourceTree = "<group>"; };
+		2E1FD65F17363353007E051D /* RepoContents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepoContents.json; sourceTree = "<group>"; };
 		2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepository.png; sourceTree = "<group>"; };
 		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
 		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
@@ -2035,6 +2049,8 @@
 				6F7F08341624B8970074839B /* file@2x.png */,
 				6F7F08351624B8970074839B /* folder.png */,
 				6F7F08361624B8970074839B /* folder@2x.png */,
+				2E1FD6531735B0A8007E051D /* submodule.png */,
+				2E1FD6541735B0A8007E051D /* submodule@2x.png */,
 				6F7C822415B3483300D37EE8 /* readme.png */,
 				6F7C822515B3483300D37EE8 /* readme@2x.png */,
 				6F1DC5BE0F7E7F4600FCD26D /* comment.png */,
@@ -2129,6 +2145,10 @@
 				6F612432167D00A3001A3E05 /* GHEventTests.m */,
 				6F4EB36D167D2B37001C1DEA /* GHCommitTests.h */,
 				6F4EB36B167D2B0E001C1DEA /* GHCommitTests.m */,
+				2E1FD65B17362D26007E051D /* GHTreeTests.h */,
+				2E1FD65917362D1B007E051D /* GHTreeTests.m */,
+				2E1FD65E17362EA7007E051D /* GHSubmoduleTests.h */,
+				2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */,
 			);
 			name = "Unit Tests";
 			path = iOctocatUnitTests;
@@ -2148,6 +2168,7 @@
 		6F4EB354167D1B76001C1DEA /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				2E1FD65F17363353007E051D /* RepoContents.json */,
 				6FC40F6B168A39DF0035927E /* CommitCommentEvent.json */,
 				6FC40F6C168A39DF0035927E /* MemberEvent.json */,
 				6F40851116AD585100C77089 /* TeamAddEvent-User.json */,
@@ -3150,6 +3171,8 @@
 				2EEB19BB171C979A0058CF68 /* monokai_sublime.css in Resources */,
 				2EEB19BD171C979A0058CF68 /* obsidian.css in Resources */,
 				2EEB19BF171C979A0058CF68 /* railscasts.css in Resources */,
+				2E1FD6551735B0A8007E051D /* submodule.png in Resources */,
+				2E1FD6571735B0A8007E051D /* submodule@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3175,6 +3198,7 @@
 				6F680B50169E13F600C7BAB9 /* GollumEvent-NewPage.json in Resources */,
 				6F680B51169E13F600C7BAB9 /* PullRequestReviewCommentEvent.json in Resources */,
 				6F40851216AD585100C77089 /* TeamAddEvent-User.json in Resources */,
+				2E1FD66017363353007E051D /* RepoContents.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3497,6 +3521,8 @@
 				2EEB19BC171C979A0058CF68 /* monokai_sublime.css in Resources */,
 				2EEB19BE171C979A0058CF68 /* obsidian.css in Resources */,
 				2EEB19C0171C979A0058CF68 /* railscasts.css in Resources */,
+				2E1FD6561735B0A8007E051D /* submodule.png in Resources */,
+				2E1FD6581735B0A8007E051D /* submodule@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3823,6 +3849,8 @@
 				2E9AE317172AB97B008C3B72 /* GHLabels.m in Sources */,
 				2E9AE31B172ABA85008C3B72 /* GHMilestones.m in Sources */,
 				2EA4E9171731A7F60058744F /* GHSubmodule.m in Sources */,
+				2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */,
+				2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

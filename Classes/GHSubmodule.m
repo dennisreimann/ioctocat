@@ -26,7 +26,7 @@
 }
 
 - (NSString *)shortenedSha {
-    return [self.sha substringToIndex:6];
+    return [self.sha substringToIndex:7];
 }
 
 - (GHTree *)tree {

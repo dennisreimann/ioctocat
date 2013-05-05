@@ -31,7 +31,7 @@
 
 - (void)testShortenedSHA {
     self.tree.sha = @"4c8f9eca94857c4647ea6988491c9cec0a2f42c7";
-	expect(self.tree.shortenedSha).to.equal(@"4c8f9e");
+	expect(self.tree.shortenedSha).to.equal(@"4c8f9ec");
 }
 
 @end

@@ -18,10 +18,15 @@
 - (void)setValues:(id)values {
 	self.items = [NSMutableArray array];
 	for (NSDictionary *dict in values) {
-		NSString *login = [dict safeStringForKey:@"login"];
-		GHOrganization *org = [iOctocat.sharedInstance organizationWithLogin:login];
-		[org setValues:dict];
-		[self addObject:org];
+        NSString *login = [dict safeStringForKey:@"login"];
+        GHOrganization *org = [iOctocat.sharedInstance organizationWithLogin:login];
+        // check for the existence of the object, because it gets fetched
+        // from the cache associated with the current account, which is
+        // unset in case the user logged out before the resource got loaded.
+        if (org) {
+            [org setValues:dict];
+            [self addObject:org];
+        }
 	}
 	[self sortUsingSelector:@selector(compareByName:)];
 }

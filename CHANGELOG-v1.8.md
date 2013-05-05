@@ -6,6 +6,10 @@ Additions:
 
 * Support for submodules
 
+Bugfixes:
+
+* Prevent crash caused by logout while user objects are loading
+
 [Commits](https://github.com/dennisreimann/ioctocat/compare/v1.8.1...HEAD)
 
 ## v1.8.1

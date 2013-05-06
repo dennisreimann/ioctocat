@@ -208,8 +208,7 @@
 	@try {
 		if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
 			GHCommit *commit = self.commits[0];
-			NSString *commitId = commit.shortenedSha;
-			self.title = [NSString stringWithFormat:@"%@ commented on %@ at %@", self.user.login, commitId, self.repoName];
+			self.title = [NSString stringWithFormat:@"%@ commented on %@ at %@", self.user.login, commit.shortenedSha, self.repoName];
 		}
 
 		else if ([self.eventType isEqualToString:@"CreateEvent"]) {
@@ -265,13 +264,12 @@
 		else if ([self.eventType isEqualToString:@"IssueCommentEvent"]) {
 			id issueCommentParent = self.pullRequest ? self.pullRequest : self.issue;
 			NSString *parentType = self.pullRequest ? @"pull request" : @"issue";
-			NSUInteger num = [(GHIssue *)issueCommentParent number];
-			self.title = [NSString stringWithFormat:@"%@ commented on %@ %@#%d", self.user.login, parentType, self.repoName, num];
+			self.title = [NSString stringWithFormat:@"%@ commented on %@ %@", self.user.login, parentType, [(GHIssue *)issueCommentParent repoIdWithIssueNumber]];
 		}
 
 		else if ([self.eventType isEqualToString:@"IssuesEvent"]) {
 			NSString *action = [self.payload safeStringForKey:@"action"];
-			self.title = [NSString stringWithFormat:@"%@ %@ issue %@#%d", self.user.login, action, self.repoName, self.issue.number];
+			self.title = [NSString stringWithFormat:@"%@ %@ issue %@", self.user.login, action, self.issue.repoIdWithIssueNumber];
 		}
 
 		else if ([self.eventType isEqualToString:@"MemberEvent"]) {
@@ -285,11 +283,11 @@
 		else if ([self.eventType isEqualToString:@"PullRequestEvent"]) {
 			NSString *action = [self.payload safeStringForKey:@"action"];
 			if ([action isEqualToString:@"closed"] && self.pullRequest.isMerged) action = @"merged";
-			self.title = [NSString stringWithFormat:@"%@ %@ pull request %@#%d", self.user.login, action, self.repoName, self.pullRequest.number];
+			self.title = [NSString stringWithFormat:@"%@ %@ pull request %@", self.user.login, action, self.pullRequest.repoIdWithIssueNumber];
 		}
 
 		else if ([self.eventType isEqualToString:@"PullRequestReviewCommentEvent"]) {
-			self.title = [NSString stringWithFormat:@"%@ commented on pull request %@#%d", self.user.login, self.repoName, self.pullRequest.number];
+			self.title = [NSString stringWithFormat:@"%@ commented on pull request %@", self.user.login, self.pullRequest.repoIdWithIssueNumber];
 		}
 
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {
@@ -363,7 +361,7 @@
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {
 			NSMutableArray *messages = [NSMutableArray arrayWithCapacity:self.commits.count];
 			for (GHCommit *commit in self.commits.items) {
-				NSString *formatted = [NSString stringWithFormat:@"• %@", commit.shortenedMessage];
+				NSString *formatted = [NSString stringWithFormat:@"%@ %@", commit.shortenedSha, commit.shortenedMessage];
 				[messages addObject:formatted];
 			}
 			self.content = [messages componentsJoinedByString:@"\n"];

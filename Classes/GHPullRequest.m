@@ -7,6 +7,7 @@
 #import "GHFiles.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -67,6 +68,17 @@
 	} else {
 		return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.number];
 	}
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/pull/%d", self.repository.owner, self.repository.name, self.number];
+    }
+    return _htmlURL;
+}
+
+- (NSString *)repoIdWithIssueNumber {
+	return [NSString stringWithFormat:@"%@#%d", self.repository.repoId, self.number];
 }
 
 #pragma mark Loading

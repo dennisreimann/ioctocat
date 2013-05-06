@@ -4,6 +4,7 @@
 #import "GHRepository.h"
 #import "GHRepoComments.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -62,6 +63,13 @@
 	[self.added markAsLoaded];
 	[self.removed markAsLoaded];
 	[self.modified markAsLoaded];
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/commit/%@", self.repository.owner, self.repository.name, self.commitID];
+    }
+    return _htmlURL;
 }
 
 - (GHRepoComments *)comments {

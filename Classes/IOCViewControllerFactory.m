@@ -97,16 +97,19 @@
                 viewController = [[IOCCommitController alloc] initWithCommit:commit];
             } else if (comps.count >= 4) {
                 NSString *type = comps[3];
-                NSString *ref = comps[4];
+                NSString *ident = comps[4];
                 NSString *path = [[comps subarrayWithRange:NSMakeRange(5, comps.count - 5)] componentsJoinedByString:@"/"];
                 if ([type isEqualToString:@"tree"]) {
                     // Tree
-                    GHTree *tree = [[GHTree alloc] initWithRepo:repo path:path ref:ref];
+                    GHTree *tree = [[GHTree alloc] initWithRepo:repo path:path ref:ident];
                     viewController = [[IOCTreeController alloc] initWithTree:tree];
                 } else if ([type isEqualToString:@"blob"]) {
                     // Blob
-                    GHBlob *blob = [[GHBlob alloc] initWithRepo:repo path:path ref:ref];
+                    GHBlob *blob = [[GHBlob alloc] initWithRepo:repo path:path ref:ident];
                     viewController = [[IOCBlobsController alloc] initWithBlob:blob];
+                } else if ([type isEqualToString:@"wiki"]) {
+                    // Wiki
+                    viewController = [[WebController alloc] initWithURL:url];
                 }
             }
         }

@@ -6,6 +6,7 @@
 #import "GHLabels.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -33,6 +34,17 @@
 	// Dynamic resourcePath, because it depends on the
 	// num which isn't always available in advance
 	return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.number];
+}
+
+- (NSString *)repoIdWithIssueNumber {
+	return [NSString stringWithFormat:@"%@#%d", self.repository.repoId, self.number];
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/issues/%d", self.repository.owner, self.repository.name, self.number];
+    }
+    return _htmlURL;
 }
 
 - (GHIssueComments *)comments {

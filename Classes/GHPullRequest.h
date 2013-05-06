@@ -21,6 +21,7 @@
 @property(nonatomic,strong)NSDate *mergedAt;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,assign)NSInteger number;
+@property(nonatomic,readonly)NSString *repoIdWithIssueNumber;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isMerged;

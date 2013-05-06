@@ -23,15 +23,14 @@
 #import "NSDate+Nibware.h"
 #import "NSDictionary+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
+#import "IOCViewControllerFactory.h"
 
 #define kEventCellIdentifier @"EventCell"
 
 
 @interface EventsController () <EventCellDelegate>
 @property(nonatomic,strong)GHEvents *events;
-@property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
-@property(nonatomic,strong)IBOutlet EventCell *selectedCell;
 @property(nonatomic,strong)IBOutlet EventCell *eventCell;
 @end
 
@@ -73,38 +72,9 @@
 
 #pragma mark Actions
 
-- (void)openEventItem:(id)eventItem {
-	UIViewController *viewController = nil;
-	if ([eventItem isKindOfClass:GHUser.class]) {
-		viewController = [[IOCUserController alloc] initWithUser:eventItem];
-	} else if ([eventItem isKindOfClass:GHOrganization.class]) {
-		viewController = [[IOCOrganizationController alloc] initWithOrganization:eventItem];
-	} else if ([eventItem isKindOfClass:GHRepository.class]) {
-		viewController = [[IOCRepositoryController alloc] initWithRepository:eventItem];
-	} else if ([eventItem isKindOfClass:GHIssue.class]) {
-		viewController = [[IOCIssueController alloc] initWithIssue:eventItem];
-	} else if ([eventItem isKindOfClass:GHCommit.class]) {
-		viewController = [[IOCCommitController alloc] initWithCommit:eventItem];
-	} else if ([eventItem isKindOfClass:GHGist.class]) {
-		viewController = [[IOCGistController alloc] initWithGist:eventItem];
-	} else if ([eventItem isKindOfClass:GHPullRequest.class]) {
-		viewController = [[IOCPullRequestController alloc] initWithPullRequest:eventItem];
-	} else if ([eventItem isKindOfClass:NSDictionary.class]) {
-		NSURL *url = [eventItem safeURLForKey:@"html_url"];
-		if (url) {
-			viewController = [[WebController alloc] initWithURL:url];
-			viewController.title = [eventItem safeStringForKey:@"page_name"];
-		}
-	} else if ([eventItem isKindOfClass:GHCommits.class]) {
-		id firstEntry = eventItem[0];
-		if ([firstEntry isKindOfClass:GHCommit.class]) {
-			viewController = [[IOCCommitsController alloc] initWithCommits:eventItem];
-		}
-	}
-	if (viewController) {
-		[self.navigationController pushViewController:viewController animated:YES];
-		[self.selectedCell setHighlighted:NO];
-	}
+- (void)openEventItemWithGitHubURL:(NSURL *)url {
+    UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+    if (viewController) [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark TableView
@@ -122,10 +92,8 @@
 	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
-		UIImage *bgImage = [[UIImage imageNamed:@"CellBackground.png"] stretchableImageWithLeftCapWidth:0.0f topCapHeight:10.0f];
 		cell = _eventCell;
 		cell.delegate = self;
-		cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:bgImage];
 	}
 	GHEvent *event = self.events[indexPath.row];
 	cell.event = event;
@@ -133,27 +101,15 @@
 	return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	return [(EventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] heightForTableView:tableView];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.events.isEmpty) return;
 	[self.tableView beginUpdates];
-	if ([self.selectedIndexPath isEqual:indexPath]) {
-		self.selectedCell = nil;
-		self.selectedIndexPath = nil;
-		[tableView deselectRowAtIndexPath:indexPath animated:YES];
-	} else {
-		self.selectedCell = (EventCell *)[tableView cellForRowAtIndexPath:indexPath];
-		self.selectedIndexPath = indexPath;
-		[self.selectedCell markAsRead];
-	}
+	[(EventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] markAsRead];
 	[self.tableView endUpdates];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if ([indexPath isEqual:self.selectedIndexPath]) {
-		return [self.selectedCell heightForTableView:tableView];
-	} else {
-		return 70.0f;
-	}
 }
 
 #pragma mark Helpers
@@ -166,8 +122,6 @@
                 [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
             });
         } else {
-            weakSelf.selectedCell = nil;
-            weakSelf.selectedIndexPath = nil;
             [weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf refreshLastUpdate];

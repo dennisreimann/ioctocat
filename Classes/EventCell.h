@@ -2,16 +2,18 @@
 
 
 @protocol EventCellDelegate <NSObject>
-- (void)openEventItem:(id)eventItem;
+- (void)openEventItemWithGitHubURL:(id)eventItem;
 @end
 
 
 @class GHEvent;
 
-@interface EventCell : TextCell
+@interface EventCell : UITableViewCell
 @property(nonatomic,weak)id<EventCellDelegate> delegate;
 @property(nonatomic,strong)GHEvent *event;
 
 - (void)markAsNew;
 - (void)markAsRead;
+- (CGFloat)heightForTableView:(UITableView *)tableView;
+
 @end

@@ -253,11 +253,9 @@
         viewController.title = @"Forks";
     } else if (section == 2) {
         viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
-    } else if (section == 3) {
-        if (!self.gist.comments.isEmpty) {
-            GHComment *comment = self.gist.comments[row];
-            viewController = [[IOCUserController alloc] initWithUser:comment.user];
-        }
+    } else if (section == 3 && !self.gist.comments.isEmpty) {
+        GHComment *comment = self.gist.comments[row];
+        viewController = [[IOCUserController alloc] initWithUser:comment.user];
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

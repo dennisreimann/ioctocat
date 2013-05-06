@@ -6,6 +6,10 @@ Additions:
 
 * Support for submodules
 
+Changes:
+
+* Links in event items instead of buttons
+
 Bugfixes:
 
 * Prevent crash caused by logout while user objects are loading

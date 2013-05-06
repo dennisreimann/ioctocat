@@ -10,6 +10,7 @@
 #import "GHNotifications.h"
 #import "IOCGravatarService.h"
 #import "IOCAvatarCache.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -26,6 +27,13 @@
 
 - (NSUInteger)hash {
 	return [[self.login lowercaseString] hash];
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@", self.login];
+    }
+    return _htmlURL;
 }
 
 - (int)compareByName:(GHUser *)otherUser {

@@ -5,6 +5,7 @@
 #import "GHFiles.h"
 #import "GHGistComments.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -28,6 +29,13 @@
 	} else {
 		return [NSString stringWithFormat:@"Gist %@", self.gistId];
 	}
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"https://gist.github.com/%@/%@", self.user.login, self.gistId];
+    }
+    return _htmlURL;
 }
 
 - (GHGists *)forks {

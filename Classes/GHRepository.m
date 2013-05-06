@@ -8,6 +8,7 @@
 #import "GHEvents.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
+#import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
@@ -47,6 +48,13 @@
 	// Dynamic path, because it depends on the owner and
 	// name which are not always available in advance
 	return [NSString stringWithFormat:kRepoFormat, self.owner, self.name];
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@", self.owner, self.name];
+    }
+    return _htmlURL;
 }
 
 - (void)setOwner:(NSString *)owner andName:(NSString *)name {

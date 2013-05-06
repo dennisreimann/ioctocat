@@ -42,6 +42,12 @@
 #define COCOAPODS_VERSION_MINOR_HockeySDK 0
 #define COCOAPODS_VERSION_PATCH_HockeySDK 0
 
+// NSStringEmojize
+#define COCOAPODS_POD_AVAILABLE_NSStringEmojize
+#define COCOAPODS_VERSION_MAJOR_NSStringEmojize 0
+#define COCOAPODS_VERSION_MINOR_NSStringEmojize 1
+#define COCOAPODS_VERSION_PATCH_NSStringEmojize 0
+
 // SVProgressHUD
 #define COCOAPODS_POD_AVAILABLE_SVProgressHUD
 #define COCOAPODS_VERSION_MAJOR_SVProgressHUD 0
@@ -59,6 +65,12 @@
 #define COCOAPODS_VERSION_MAJOR_TPKeyboardAvoiding 0
 #define COCOAPODS_VERSION_MINOR_TPKeyboardAvoiding 0
 #define COCOAPODS_VERSION_PATCH_TPKeyboardAvoiding 1
+
+// TTTAttributedLabel
+#define COCOAPODS_POD_AVAILABLE_TTTAttributedLabel
+#define COCOAPODS_VERSION_MAJOR_TTTAttributedLabel 1
+#define COCOAPODS_VERSION_MINOR_TTTAttributedLabel 6
+#define COCOAPODS_VERSION_PATCH_TTTAttributedLabel 3
 
 // YRDropdownView
 #define COCOAPODS_POD_AVAILABLE_YRDropdownView

@@ -236,7 +236,7 @@
 	if (viewController) {
         [notification.subject whenLoaded:^(GHResource *instance, id data) {
             [self markAsRead:indexPath];
-            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView reloadData];
         }];
         [self.navigationController pushViewController:viewController animated:YES];
 	}

@@ -15,5 +15,4 @@
 - (void)markAsNew;
 - (void)markAsRead;
 - (CGFloat)heightForTableView:(UITableView *)tableView;
-
 @end

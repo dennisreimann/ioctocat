@@ -22,7 +22,7 @@
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *titleLabel;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
-@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
+@property(nonatomic,weak)IBOutlet UIButton *gravatarButton;
 @end
 
 
@@ -32,8 +32,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)awakeFromNib {
     UIColor *linkColor = [UIColor colorWithRed:0.203 green:0.441 blue:0.768 alpha:1.000];
-	self.gravatarView.layer.cornerRadius = 3;
-	self.gravatarView.layer.masksToBounds = YES;
+	self.gravatarButton.layer.cornerRadius = 3;
+	self.gravatarButton.layer.masksToBounds = YES;
     self.titleLabel.delegate = self;
     self.contentLabel.delegate = self;
     self.titleLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
@@ -66,8 +66,9 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
 	[self.event addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.gravatarView.image = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
-	// actions
+	UIImage *gravatar = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+    [self setGravatar:gravatar];
+    // actions
     if (self.event.user) {
         NSRange range = [self.titleLabel.text rangeOfString:self.event.user.login];
         [self.titleLabel addLinkToURL:self.event.user.htmlURL withRange:range];
@@ -139,7 +140,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:UserGravatarKeyPath] && self.event.user.gravatar) {
-		self.gravatarView.image = self.event.user.gravatar;
+		[self setGravatar:self.event.user.gravatar];
 	}
 }
 
@@ -194,10 +195,21 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	return size.height + marginV;
 }
 
+- (void)setGravatar:(UIImage *)gravatar {
+    [self.gravatarButton setImage:gravatar forState:UIControlStateNormal];
+    [self.gravatarButton setImage:gravatar forState:UIControlStateHighlighted];
+    [self.gravatarButton setImage:gravatar forState:UIControlStateSelected];
+    [self.gravatarButton setImage:gravatar forState:UIControlStateDisabled];
+}
+
 #pragma mark Actions
 
 - (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
     if (self.delegate && url) [self.delegate openEventItemWithGitHubURL:url];
+}
+
+- (IBAction)openActor:(id)sender {
+    if (self.delegate) [self.delegate openEventItemWithGitHubURL:self.event.user.htmlURL];
 }
 
 @end

@@ -13,6 +13,7 @@
 		<object class="NSArray" key="IBDocument.IntegratedClassDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<string>IBProxyObject</string>
+			<string>IBUIButton</string>
 			<string>IBUIImageView</string>
 			<string>IBUILabel</string>
 			<string>IBUITableViewCell</string>
@@ -57,23 +58,45 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 							</object>
-							<object class="IBUIImageView" id="21216944">
+							<object class="IBUIButton" id="767615552">
 								<reference key="NSNextResponder" ref="110279202"/>
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{8, 30}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="579488512"/>
-								<object class="NSColor" key="IBUIBackgroundColor">
+								<string key="NSReuseIdentifierKey">_NS:9</string>
+								<bool key="IBUIOpaque">NO</bool>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIContentHorizontalAlignment">0</int>
+								<int key="IBUIContentVerticalAlignment">0</int>
+								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
 								</object>
-								<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
-								<bool key="IBUIUserInteractionEnabled">NO</bool>
-								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<object class="NSCustomResource" key="IBUIImage">
+								<object class="NSColor" key="IBUINormalTitleColor">
+									<int key="NSColorSpace">1</int>
+									<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
+								</object>
+								<object class="NSColor" key="IBUINormalTitleShadowColor">
+									<int key="NSColorSpace">3</int>
+									<bytes key="NSWhite">MC41AA</bytes>
+								</object>
+								<object class="NSCustomResource" key="IBUIHighlightedImage" id="828580160">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">AvatarBackground32.png</string>
+								</object>
+								<reference key="IBUIDisabledImage" ref="828580160"/>
+								<reference key="IBUISelectedImage" ref="828580160"/>
+								<reference key="IBUINormalImage" ref="828580160"/>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">2</int>
+									<double key="pointSize">15</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">15</double>
+									<int key="NSfFlags">16</int>
 								</object>
 							</object>
 							<object class="IBUILabel" id="813831787">
@@ -82,7 +105,7 @@
 								<string key="NSFrame">{{50, 5}, {263, 21}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="21216944"/>
+								<reference key="NSNextKeyView" ref="767615552"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -246,19 +269,28 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">gravatarView</string>
-						<reference key="source" ref="597012738"/>
-						<reference key="destination" ref="21216944"/>
-					</object>
-					<int key="connectionID">14</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">contentLabel</string>
 						<reference key="source" ref="597012738"/>
 						<reference key="destination" ref="63189725"/>
 					</object>
 					<int key="connectionID">83</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">gravatarButton</string>
+						<reference key="source" ref="597012738"/>
+						<reference key="destination" ref="767615552"/>
+					</object>
+					<int key="connectionID">87</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">openActor:</string>
+						<reference key="source" ref="767615552"/>
+						<reference key="destination" ref="597012738"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">86</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -289,10 +321,10 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="455427023"/>
-							<reference ref="21216944"/>
 							<reference ref="579488512"/>
 							<reference ref="813831787"/>
 							<reference ref="63189725"/>
+							<reference ref="767615552"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -314,15 +346,15 @@
 						<string key="objectName">Label: Date</string>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">13</int>
-						<reference key="object" ref="21216944"/>
-						<reference key="parent" ref="597012738"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">82</int>
 						<reference key="object" ref="63189725"/>
 						<reference key="parent" ref="597012738"/>
 						<string key="objectName">Label: Content</string>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">84</int>
+						<reference key="object" ref="767615552"/>
+						<reference key="parent" ref="597012738"/>
 					</object>
 				</object>
 			</object>
@@ -335,7 +367,6 @@
 					<string>-2.CustomClassName</string>
 					<string>-2.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
-					<string>13.IBPluginDependency</string>
 					<string>3.CustomClassName</string>
 					<string>3.IBPluginDependency</string>
 					<string>6.CustomClassName</string>
@@ -343,13 +374,14 @@
 					<string>7.IBPluginDependency</string>
 					<string>82.CustomClassName</string>
 					<string>82.IBPluginDependency</string>
+					<string>84.IBPluginDependency</string>
+					<string>84.IBUIButtonInspectorSelectedStateConfigurationMetadataKey</string>
 				</object>
 				<object class="NSArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>MyEventsController</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>UIResponder</string>
-					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>EventCell</string>
@@ -359,6 +391,8 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>TTTAttributedLabel</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<real value="3"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -373,7 +407,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">83</int>
+			<int key="maxID">87</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -381,6 +415,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">EventCell</string>
 					<string key="superclassName">UITableViewCell</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">openActor:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">openActor:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">openActor:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
@@ -388,7 +433,7 @@
 							<string>actionsView</string>
 							<string>contentLabel</string>
 							<string>dateLabel</string>
-							<string>gravatarView</string>
+							<string>gravatarButton</string>
 							<string>iconView</string>
 							<string>titleLabel</string>
 						</object>
@@ -397,7 +442,7 @@
 							<string>UIView</string>
 							<string>TTTAttributedLabel</string>
 							<string>UILabel</string>
-							<string>UIImageView</string>
+							<string>UIButton</string>
 							<string>UIImageView</string>
 							<string>TTTAttributedLabel</string>
 						</object>
@@ -409,7 +454,7 @@
 							<string>actionsView</string>
 							<string>contentLabel</string>
 							<string>dateLabel</string>
-							<string>gravatarView</string>
+							<string>gravatarButton</string>
 							<string>iconView</string>
 							<string>titleLabel</string>
 						</object>
@@ -428,8 +473,8 @@
 								<string key="candidateClassName">UILabel</string>
 							</object>
 							<object class="IBToOneOutletInfo">
-								<string key="name">gravatarView</string>
-								<string key="candidateClassName">UIImageView</string>
+								<string key="name">gravatarButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">iconView</string>

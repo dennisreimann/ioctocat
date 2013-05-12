@@ -76,7 +76,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     UIViewController *menuController = self.menuNavController.topViewController;
     BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+    if (isMenuVisible && url.isGitHubURL && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
 		return YES;
 	}
     return NO;
@@ -319,14 +319,10 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     self.slidingViewController.underLeftViewController = self.menuNavController;
 }
 
-- (BOOL)isGitHubURL:(NSURL *)url {
-	return [url.host isEqualToString:@"github.com"] || [url.host isEqualToString:@"gist.github.com"];
-}
-
 - (BOOL)openURL:(NSURL *)url {
     UIViewController *menuController = self.menuNavController.topViewController;
     BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (isMenuVisible && [self isGitHubURL:url] && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+    if (isMenuVisible && url.isGitHubURL && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
         return YES;
     } else {
         NSString *scheme = url.scheme;

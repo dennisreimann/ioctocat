@@ -9,4 +9,5 @@
 - (NSURL *)URLByAppendingTrailingSlash;
 - (NSURL *)URLByDeletingTrailingSlash;
 - (BOOL)hasTrailingSlash;
+- (BOOL)isGitHubURL;
 @end

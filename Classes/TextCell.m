@@ -1,89 +1,112 @@
 #import "TextCell.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
+#import "TTTAttributedLabel.h"
 
 
-@interface TextCell ()
-@property(nonatomic,weak)IBOutlet UITextView *contentTextView;
-
-- (void)adjustTextViewHeight;
-- (CGFloat)textInset;
-- (CGFloat)marginTop;
-- (CGFloat)marginRight;
-- (CGFloat)marginBottom;
-- (CGFloat)marginLeft;
+@interface TextCell () <TTTAttributedLabelDelegate>
+@property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
 @end
 
 
 @implementation TextCell
 
-- (void)setContentText:(NSString *)text {
-	self.contentTextView.text = text;
-	[self adjustTextViewHeight];
-}
-
-- (BOOL)hasContent {
-	return !(self.contentTextView.text == nil || self.contentTextView.text.isEmpty);
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    UIColor *linkColor = [UIColor colorWithRed:0.203 green:0.441 blue:0.768 alpha:1.000];
+    self.linksEnabled = YES;
+    self.emojiEnabled = YES;
+    self.markdownEnabled = YES;
+    self.truncationLength = 0;
+	self.contentLabel.numberOfLines = 0;
+    self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.contentLabel.delegate = self;
+    self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor], [UIFont fontWithName:@"Courier" size:14.0f]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName, (NSString *)kCTFontAttributeName]];
+    self.contentLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)[linkColor CGColor], [UIFont fontWithName:@"Courier" size:14.0f]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName, (NSString *)kCTFontAttributeName]];
 }
 
 - (void)layoutSubviews {
 	[super layoutSubviews];
-	[self adjustTextViewHeight];
+	[self adjustContentTextHeight];
 }
 
-- (void)adjustTextViewHeight {
-	CGRect frame = self.contentTextView.frame;
-	frame.size.height = self.hasContent ? self.contentTextView.contentSize.height + self.textInset : 0.0f;
-	self.contentTextView.frame = frame;
+- (void)setLinksEnabled:(BOOL)linksEnabled {
+    _linksEnabled = linksEnabled;
+    self.contentLabel.dataDetectorTypes = linksEnabled ? UIDataDetectorTypeLink : UIDataDetectorTypeNone;
+}
+
+- (void)setContentText:(NSString *)text {
+    if (self.emojiEnabled) text = [text emojizedString];
+    // TODO: if (self.markdownEnabled) text = [text markedString];
+    if (self.truncationLength && text.length > self.truncationLength) {
+		NSRange range = {0, self.truncationLength};
+        text = [NSString stringWithFormat:@"%@…", [text substringWithRange:range]];
+	}
+	self.contentLabel.text = text;
+	[self adjustContentTextHeight];
+}
+
+- (BOOL)hasContent {
+	return self.contentLabel.text != nil && ![self.contentLabel.text isEmpty];
+}
+
+#pragma mark Actions
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if ([self.delegate respondsToSelector:@selector(openURL:)] && url) {
+        [self.delegate openURL:url];
+    }
 }
 
 #pragma mark Layout
 
-- (CGFloat)textInset {
-	return 8.0f; // UITextView has an inset of 8px on each side
-}
 
-- (CGFloat)marginTop {
+- (CGFloat)heightWithoutContentText {
 	return 0.0f;
 }
 
-- (CGFloat)marginRight {
-	return 5.0f;
+- (CGFloat)contentTextMarginTop {
+	return 10.0f;
 }
 
-- (CGFloat)marginBottom {
-	return 0.0f;
+- (CGFloat)contentTextMarginRight {
+	return 10.0f;
 }
 
-- (CGFloat)marginLeft {
-	return 5.0f;
+- (CGFloat)contentTextMarginBottom {
+	return 10.0f;
 }
 
-- (CGFloat)textWidthForOuterWidth:(CGFloat)outerWidth {
-	CGFloat textInset = self.textInset * 2;
-	CGFloat marginH  = self.marginLeft + self.marginRight;
-	CGFloat width = outerWidth - marginH;
-	CGFloat textWidth = width - textInset;
-	return textWidth;
+- (CGFloat)contentTextMarginLeft {
+	return 10.0f;
+}
+
+- (void)adjustContentTextHeight {
+	CGRect frame = self.contentLabel.frame;
+	frame.size.height = [self contentTextHeightForWidth:frame.size.width];
+	self.contentLabel.frame = frame;
+}
+
+- (CGFloat)contentTextHeightForWidth:(CGFloat)width {
+    CGFloat maxHeight = 50000.0f;
+	CGSize constraint = CGSizeMake(width, maxHeight);
+    CGSize size = [self.contentLabel.text sizeWithFont:self.contentLabel.font constrainedToSize:constraint lineBreakMode:self.contentLabel.lineBreakMode];
+    return size.height;
 }
 
 - (CGFloat)heightForTableView:(UITableView *)tableView {
-	if (!self.hasContent) return 0;
-	// calculate the outer width of the cell based on the tableView style
-	CGFloat outerWidth = tableView.frame.size.width;
+    if (!self.hasContent) return self.heightWithoutContentText;
+    // calculate the outer width of the cell based on the tableView style
+	CGFloat width = tableView.frame.size.width;
 	if (tableView.style == UITableViewStyleGrouped) {
 		// on the iPhone the inset is 20px, on the iPad 90px
-		outerWidth -= [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 20.0f : 90.0f;
+		width -= [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 20.0f : 90.0f;
 	}
-	CGFloat maxHeight = 50000.0f;
-	CGFloat textInset = self.textInset * 2;
-	CGFloat marginV  = self.marginTop + self.marginBottom;
-	CGFloat textWidth = [self textWidthForOuterWidth:outerWidth];
-	CGSize constraint = CGSizeMake(textWidth, maxHeight);
-	CGSize size = [self.contentTextView.text sizeWithFont:self.contentTextView.font
-	constrainedToSize:constraint
-	lineBreakMode:UILineBreakModeWordWrap];
-	CGFloat height = size.height + textInset + marginV;
-	return height;
+    CGFloat marginH = self.contentTextMarginLeft + self.contentTextMarginRight;
+	CGFloat marginV = self.contentTextMarginTop + self.contentTextMarginBottom;
+    width -= marginH;
+	CGFloat contentTextHeight = [self contentTextHeightForWidth:width];
+	return self.heightWithoutContentText + contentTextHeight + marginV;
 }
 
 @end

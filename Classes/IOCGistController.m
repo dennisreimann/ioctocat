@@ -17,10 +17,12 @@
 #import "SVProgressHUD.h"
 #import "LabeledCell.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
+#import "NSURL+Extensions.h"
 
 
-@interface IOCGistController () <UIActionSheetDelegate>
+@interface IOCGistController () <UIActionSheetDelegate, TextCellDelegate>
 @property(nonatomic,strong)GHGist *gist;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *filesStatusCell;
@@ -121,6 +123,13 @@
 
 #pragma mark Actions
 
+- (void)openURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), @"Add comment", @"Show on GitHub", nil];
 	[actionSheet showInView:self.view];
@@ -193,9 +202,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
-	UITableViewCell *cell = nil;
 	if (self.gist.isEmpty) return self.statusCell;
 	if (section == 0) {
+        UITableViewCell *cell = nil;
 		switch (row) {
 			case 0: cell = self.ownerCell; break;
 			case 1: cell = self.createdCell; break;
@@ -205,12 +214,13 @@
 		BOOL isSelectable = row == 0 && [(LabeledCell *)cell hasContent];
 		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-	} else if (section == 1) {
+        return cell;
+    } else if (section == 1) {
 		return self.forkCell;
 	} else if (section == 2) {
         if (self.gist.files.isEmpty) return self.filesStatusCell;
 		static NSString *CellIdentifier = @"FileCell";
-		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell == nil) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			cell.textLabel.font = [UIFont systemFontOfSize:15.0];
@@ -220,17 +230,19 @@
 		cell.textLabel.text = [file safeStringForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-	} else if (section == 3) {
+        return cell;
+    } else {
 		if (self.gist.comments.isEmpty) return self.commentsStatusCell;
-		cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+		CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (cell == nil) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 			cell = self.commentCell;
 		}
+		cell.delegate = self;
 		GHComment *comment = self.gist.comments[indexPath.row];
-		[(CommentCell *)cell setComment:comment];
+		cell.comment = comment;
+        return cell;
 	}
-	return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -253,9 +265,6 @@
         viewController.title = @"Forks";
     } else if (section == 2) {
         viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
-    } else if (section == 3 && !self.gist.comments.isEmpty) {
-        GHComment *comment = self.gist.comments[row];
-        viewController = [[IOCUserController alloc] initWithUser:comment.user];
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

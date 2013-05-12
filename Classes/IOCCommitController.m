@@ -16,10 +16,12 @@
 #import "CommentController.h"
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
+#import "NSURL+Extensions.h"
 
 
-@interface IOCCommitController () <UIActionSheetDelegate>
+@interface IOCCommitController () <UIActionSheetDelegate, TextCellDelegate>
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)UILongPressGestureRecognizer *longPressGesture;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -73,6 +75,10 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:@"commit"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:@"comments"];
+	self.messageCell.delegate = self;
+	self.messageCell.linksEnabled = YES;
+	self.messageCell.emojiEnabled = YES;
+	self.messageCell.markdownEnabled = YES;
 	[self layoutTableHeader];
 	[self layoutTableFooter];
 	[self displayCommit];
@@ -138,6 +144,13 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 #pragma mark Actions
+
+- (void)openURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
 
 - (IBAction)showActions:(id)sender {
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy SHA", @"Add comment", @"Show on GitHub", nil];
@@ -212,8 +225,9 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
+	cell.delegate = self;
 	GHRepoComment *comment = self.commit.comments[indexPath.row];
-	[cell setComment:comment];
+	cell.comment = comment;
 	return cell;
 }
 
@@ -247,13 +261,8 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
 			[self.navigationController pushViewController:filesController animated:YES];
 		}
-    } else if (section == 2) {
-        if (!self.commit.comments.isEmpty) {
-            GHRepoComment *comment = self.commit.comments[row];
-            viewController = [[IOCUserController alloc] initWithUser:comment.user];
-        }
     }
-	if (viewController) {
+    if (viewController) {
 		[self.navigationController pushViewController:viewController animated:YES];
 	}
 }

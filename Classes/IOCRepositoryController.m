@@ -25,9 +25,11 @@
 #import "IOCTreeController.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCViewControllerFactory.h"
+#import "NSURL+Extensions.h"
 
 
-@interface IOCRepositoryController () <UIActionSheetDelegate>
+@interface IOCRepositoryController () <UIActionSheetDelegate, TextCellDelegate>
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *branchesStatusCell;
@@ -74,7 +76,11 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	self.navigationItem.title = self.title ? self.title : self.repository.name;
     self.navigationItem.titleView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:@"repository"];
+	self.descriptionCell.linksEnabled = NO;
+    self.descriptionCell.emojiEnabled = NO;
+    self.descriptionCell.markdownEnabled = NO;
+    self.descriptionCell.delegate = self;
+    self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:@"repository"];
 	self.branchesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository.branches name:@"branches"];
 	[self displayRepository];
 	// header
@@ -168,6 +174,13 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 #pragma mark Actions
+
+- (void)openURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), (self.isWatching ? @"Unwatch" : @"Watch"), @"Show on GitHub", nil];
@@ -310,14 +323,22 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	NSInteger section = indexPath.section;
 	NSInteger row = indexPath.row;
 	if (section == 0) {
+        NSInteger homepageRow = 1;
+        NSInteger readmeRow = 2;
+        if (self.forkedCell.hasContent) {
+            homepageRow += 1;
+            readmeRow += 1;
+        }
+        if (self.descriptionCell.hasContent) {
+            readmeRow += 1;
+        }
 		if (row == 0 && self.repository.user) {
 			viewController = [[IOCUserController alloc] initWithUser:self.repository.user];
 		} else if (row == 1 && self.forkedCell.hasContent) {
 			viewController = [[IOCRepositoryController alloc] initWithRepository:self.repository.parent];
-        } else if (row == (self.forkedCell.hasContent ? 2 : 1) && self.repository.homepageURL) {
+        } else if (row == homepageRow && self.repository.homepageURL) {
 			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
-        } else if (row >= (self.forkedCell.hasContent ? 3 : 2)) {
-			if (!self.repository.readme.isLoaded) return;
+        } else if (row == readmeRow && self.repository.readme.isLoaded) {
 			viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
 			viewController.title = @"README";
 		}

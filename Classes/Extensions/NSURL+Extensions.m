@@ -92,12 +92,17 @@
 	return [NSURL URLWithString:absoluteString];
 }
 
-// Taken from https://github.com/ReactiveCocoa/ReactiveCocoaIO/blob/master/ReactiveCocoaIO/NSURL%2BTrailingSlash.m
+// Checks the host to see whether or not this is a GitHub URL.
+// Assumes that relative links are also GitHubcom URLs.
+- (BOOL)isGitHubURL {
+	return !self.host || ([self.host isEqualToString:@"github.com"] || [self.host isEqualToString:@"gist.github.com"]);
+}
 
+
+// Taken from https://github.com/ReactiveCocoa/ReactiveCocoaIO/blob/master/ReactiveCocoaIO/NSURL%2BTrailingSlash.m
 - (BOOL)hasTrailingSlash {
 	return [self.absoluteString hasSuffix:@"/"];
 }
-
 - (NSURL *)URLByAppendingTrailingSlash {
 	NSURL *url = self;
 	if (!self.hasTrailingSlash) url = [NSURL URLWithString:[self.absoluteString stringByAppendingString:@"/"]];

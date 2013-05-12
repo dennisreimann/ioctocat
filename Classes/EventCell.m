@@ -10,7 +10,6 @@
 #import "GHPullRequest.h"
 #import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
-#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "TTTAttributedLabel.h"
@@ -19,10 +18,10 @@
 @interface EventCell () <TTTAttributedLabelDelegate>
 @property(nonatomic,weak)IBOutlet UIView *actionsView;
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
+@property(nonatomic,weak)IBOutlet UIButton *gravatarButton;
+@property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *titleLabel;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
-@property(nonatomic,weak)IBOutlet UIImageView *iconView;
-@property(nonatomic,weak)IBOutlet UIButton *gravatarButton;
 @end
 
 
@@ -31,15 +30,16 @@
 static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
+    self.linksEnabled = NO;
+    self.emojiEnabled = YES;
+    self.markdownEnabled = NO;
     UIColor *linkColor = [UIColor colorWithRed:0.203 green:0.441 blue:0.768 alpha:1.000];
-	self.gravatarButton.layer.cornerRadius = 3;
-	self.gravatarButton.layer.masksToBounds = YES;
+    self.gravatarButton.layer.cornerRadius = 3;
+    self.gravatarButton.layer.masksToBounds = YES;
     self.titleLabel.delegate = self;
-    self.contentLabel.delegate = self;
-    self.titleLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
-    self.titleLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)[linkColor CGColor]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];;
-    self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor], [UIFont fontWithName:@"Courier" size:14.0f]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName, (NSString *)kCTFontAttributeName]];
-    self.contentLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)[linkColor CGColor], [UIFont fontWithName:@"Courier" size:14.0f]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName, (NSString *)kCTFontAttributeName]];
+    self.titleLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)linkColor.CGColor] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+    self.titleLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)linkColor.CGColor] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
 }
 
 - (void)dealloc {
@@ -52,22 +52,13 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	_event = event;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
-	// Truncate long comments
-	NSString *text = [self.event.content emojizedString];
-    if (self.event.isCommentEvent) {
-		NSInteger truncateLength = 160;
-		if (text.length > truncateLength) {
-			NSRange range = {0, truncateLength};
-			text = [NSString stringWithFormat:@"%@…", [self.event.content substringWithRange:range]];
-		}
-	}
-    self.contentLabel.text = text;
-    [self adjustContentTextHeight];
+    self.truncationLength = self.event.isCommentEvent ? 160 : 0;
+    self.contentText = self.event.content;
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
-	[self.event addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	UIImage *gravatar = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
-    [self setGravatar:gravatar];
+    [self.event addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	[self setGravatar:gravatar];
     // actions
     if (self.event.user) {
         NSRange range = [self.titleLabel.text rangeOfString:self.event.user.login];
@@ -120,79 +111,28 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     }
 }
 
-- (void)setCustomBackgroundColor:(UIColor *)color {
-	if (!self.backgroundView) {
-		self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
-	}
-	self.backgroundView.backgroundColor = color;
-}
-
-- (void)markAsNew {
-	UIColor *highlightColor = [UIColor colorWithHue:0.6 saturation:0.09 brightness:1.0 alpha:1.0];
-	[self setCustomBackgroundColor:highlightColor];
-}
-
-- (void)markAsRead {
-	UIColor *normalColor = [UIColor whiteColor];
-	[self setCustomBackgroundColor:normalColor];
-	[self.event markAsRead];
-}
-
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:UserGravatarKeyPath] && self.event.user.gravatar) {
 		[self setGravatar:self.event.user.gravatar];
 	}
 }
 
-- (void)adjustContentTextHeight {
-	CGRect frame = self.contentLabel.frame;
-    CGSize size = [self contentTextSizeForWidth:frame.size.width];
-	frame.size.height = size.height;
-	self.contentLabel.frame = frame;
+#pragma mark Helpers
+
+- (void)markAsNew {
+	UIColor *color = [UIColor colorWithHue:0.6 saturation:0.09 brightness:1.0 alpha:1.0];
+	[self setCustomBackgroundColor:color];
 }
 
-#pragma mark Layout
-
-- (void)layoutSubviews {
-	[super layoutSubviews];
-	[self adjustContentTextHeight];
+- (void)markAsRead {
+	UIColor *color = [UIColor whiteColor];
+	[self setCustomBackgroundColor:color];
+	[self.event markAsRead];
 }
 
-- (CGFloat)marginTop {
-	return 73.0f;
-}
-
-- (CGFloat)marginRight {
-	return 9.0f;
-}
-
-- (CGFloat)marginBottom {
-	return 10.0f;
-}
-
-- (CGFloat)marginLeft {
-	return 9.0f;
-}
-
-- (CGSize)contentTextSizeForWidth:(CGFloat)width {
-    CGFloat maxHeight = 50000.0f;
-	CGSize constraint = CGSizeMake(width, maxHeight);
-    return [self.contentLabel.text sizeWithFont:self.contentLabel.font constrainedToSize:constraint lineBreakMode:self.contentLabel.lineBreakMode];
-}
-
-- (CGFloat)heightForTableView:(UITableView *)tableView {
-    if ([self.contentLabel.text isEmpty]) return 70.0f;
-    // calculate the outer width of the cell based on the tableView style
-	CGFloat width = tableView.frame.size.width;
-	if (tableView.style == UITableViewStyleGrouped) {
-		// on the iPhone the inset is 20px, on the iPad 90px
-		width -= [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPhone ? 20.0f : 90.0f;
-	}
-    CGFloat marginH = self.marginLeft + self.marginRight;
-	CGFloat marginV = self.marginTop + self.marginBottom;
-    width -= marginH;
-	CGSize size = [self contentTextSizeForWidth:width];
-	return size.height + marginV;
+- (void)setCustomBackgroundColor:(UIColor *)color {
+	if (!self.backgroundView) self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
+	self.backgroundView.backgroundColor = color;
 }
 
 - (void)setGravatar:(UIImage *)gravatar {
@@ -204,12 +144,20 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 #pragma mark Actions
 
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
-    if (self.delegate && url) [self.delegate openEventItemWithGitHubURL:url];
+- (IBAction)openActor:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(openURL:)]) {
+        [self.delegate openURL:self.event.user.htmlURL];
+    }
 }
 
-- (IBAction)openActor:(id)sender {
-    if (self.delegate) [self.delegate openEventItemWithGitHubURL:self.event.user.htmlURL];
+#pragma mark Layout
+
+- (CGFloat)heightWithoutContentText {
+	return 70.0f;
+}
+
+- (CGFloat)contentTextMarginTop {
+	return 0.0f;
 }
 
 @end

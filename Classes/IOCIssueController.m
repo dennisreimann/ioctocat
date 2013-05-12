@@ -12,16 +12,18 @@
 #import "GHIssueComment.h"
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
+#import "NSURL+Extensions.h"
 #import "iOctocat.h"
 #import "GHUser.h"
 #import "GHIssue.h"
 #import "GHRepository.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, TextCellDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -68,7 +70,11 @@
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.number];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
-	[self layoutTableHeader];
+	self.descriptionCell.delegate = self;
+	self.descriptionCell.linksEnabled = YES;
+	self.descriptionCell.emojiEnabled = YES;
+	self.descriptionCell.markdownEnabled = YES;
+    [self layoutTableHeader];
 	[self layoutTableFooter];
 	[self displayIssue];
 	// check assignment state
@@ -136,6 +142,13 @@
 }
 
 #pragma mark Actions
+
+- (void)openURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = nil;
@@ -235,6 +248,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
+	cell.delegate = self;
 	GHComment *comment = self.issue.comments[row];
 	cell.comment = comment;
 	return cell;
@@ -258,11 +272,6 @@
 		} else if (indexPath.row == 1 && self.issue.user) {
             viewController = [[IOCUserController alloc] initWithUser:self.issue.user];
 		}
-    } else if (indexPath.section == 1) {
-        if (!self.issue.comments.isEmpty) {
-            GHComment *comment = self.issue.comments[indexPath.row];
-            viewController = [[IOCUserController alloc] initWithUser:comment.user];
-        }
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

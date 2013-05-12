@@ -24,11 +24,12 @@
 #import "NSDictionary+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "IOCViewControllerFactory.h"
+#import "NSURL+Extensions.h"
 
 #define kEventCellIdentifier @"EventCell"
 
 
-@interface EventsController () <EventCellDelegate>
+@interface EventsController () <TextCellDelegate>
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
 @property(nonatomic,strong)IBOutlet EventCell *eventCell;
@@ -72,9 +73,11 @@
 
 #pragma mark Actions
 
-- (void)openEventItemWithGitHubURL:(NSURL *)url {
-    UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
-    if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+- (void)openURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+    }
 }
 
 #pragma mark TableView
@@ -106,10 +109,13 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.events.isEmpty) return;
-	[self.tableView beginUpdates];
-	[(EventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] markAsRead];
-	[self.tableView endUpdates];
+    if (self.events.isEmpty) return;
+    GHEvent *event = self.events[indexPath.row];
+    if (!event.read) {
+        [(EventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] markAsRead];
+        [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark Helpers

@@ -2,11 +2,13 @@
 #import "GHComment.h"
 #import "NSDate+Nibware.h"
 #import "GHUser.h"
+#import "TTTAttributedLabel.h"
 
 
-@interface CommentCell ()
-@property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
-@property(nonatomic,weak)IBOutlet UILabel *userLabel;
+
+@interface CommentCell () <TTTAttributedLabelDelegate>
+@property(nonatomic,weak)IBOutlet UIButton *gravatarButton;
+@property(nonatomic,weak)IBOutlet UIButton *userButton;
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @end
 
@@ -16,50 +18,66 @@
 static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)awakeFromNib {
-	self.gravatarView.layer.cornerRadius = 3;
-	self.gravatarView.layer.masksToBounds = YES;
+    [super awakeFromNib];
+    self.linksEnabled = YES;
+    self.emojiEnabled = YES;
+    self.markdownEnabled = YES;
+    self.gravatarButton.layer.cornerRadius = 3;
+    self.gravatarButton.layer.masksToBounds = YES;
 }
 
 - (void)dealloc {
 	[self.comment removeObserver:self forKeyPath:UserGravatarKeyPath];
 }
 
-- (CGFloat)marginTop {
-	return 0.0f;
-}
-
-- (CGFloat)marginRight {
-	return 1.0f;
-}
-
-- (CGFloat)marginBottom {
-	return 3.0f;
-}
-
-- (CGFloat)marginLeft {
-	return 1.0f;
-}
-
 - (void)setComment:(GHComment *)comment {
 	[self.comment removeObserver:self forKeyPath:UserGravatarKeyPath];
 	_comment = comment;
-	// Text
-	self.userLabel.text = self.comment.user.login;
-    self.dateLabel.text = [self.comment.createdAt prettyDate];
-	[self setContentText:self.comment.body];
-	// Gravatar
-	[self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.gravatarView.image = self.comment.user.gravatar ? self.comment.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+    [self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
+	self.dateLabel.text = self.comment.createdAt.prettyDate;
+	self.contentText = self.comment.body;
+	self.userLogin = self.comment.user.login;
+	self.gravatar = self.comment.user.gravatar ? self.comment.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
 	if ([keyPath isEqualToString:UserGravatarKeyPath] && self.comment.user.gravatar) {
-		self.gravatarView.image = self.comment.user.gravatar;
+		self.gravatar = self.comment.user.gravatar;
 	}
 }
 
-- (CGFloat)heightForTableView:(UITableView *)tableView {
-	return [super heightForTableView:tableView] + 30.0f; // the header is 30px high
+#pragma mark Helpers
+
+- (void)setGravatar:(UIImage *)gravatar {
+    [self.gravatarButton setImage:gravatar forState:UIControlStateNormal];
+    [self.gravatarButton setImage:gravatar forState:UIControlStateHighlighted];
+    [self.gravatarButton setImage:gravatar forState:UIControlStateSelected];
+    [self.gravatarButton setImage:gravatar forState:UIControlStateDisabled];
+}
+
+- (void)setUserLogin:(NSString *)login {
+    [self.userButton setTitle:login forState:UIControlStateNormal];
+    [self.userButton setTitle:login forState:UIControlStateHighlighted];
+    [self.userButton setTitle:login forState:UIControlStateSelected];
+    [self.userButton setTitle:login forState:UIControlStateDisabled];
+}
+
+#pragma mark Actions
+
+- (IBAction)openAuthor:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(openURL:)]) {
+        [self.delegate openURL:self.comment.user.htmlURL];
+    }
+}
+
+#pragma mark Layout
+
+- (CGFloat)heightWithoutContentText {
+	return 32.0f;
+}
+
+- (CGFloat)contentTextMarginTop {
+	return 0.0f;
 }
 
 @end

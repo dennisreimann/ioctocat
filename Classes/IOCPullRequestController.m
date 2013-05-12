@@ -22,9 +22,11 @@
 #import "GradientButton.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCViewControllerFactory.h"
+#import "NSURL+Extensions.h"
 
 
-@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate>
+@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, TextCellDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)IOCPullRequestsController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -78,6 +80,10 @@
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.number];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
+	self.descriptionCell.delegate = self;
+	self.descriptionCell.linksEnabled = YES;
+	self.descriptionCell.emojiEnabled = YES;
+	self.descriptionCell.markdownEnabled = YES;
 	[self displayPullRequest];
 	[self layoutTableHeader];
 	[self layoutTableFooter];
@@ -136,7 +142,7 @@
 	self.createdCell.contentText = [self.pullRequest.createdAt prettyDate];
 	self.updatedCell.contentText = [self.pullRequest.updatedAt prettyDate];
 	self.closedCell.contentText = [self.pullRequest.closedAt prettyDate];
-	self.descriptionCell.contentText = self.pullRequest.body;
+    self.descriptionCell.contentText = self.pullRequest.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
@@ -174,6 +180,13 @@
 }
 
 #pragma mark Actions
+
+- (void)openURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
 
 - (IBAction)mergePullRequest:(id)sender {
 	if (self.pullRequestMergeableByCurrentUser) {
@@ -297,6 +310,7 @@
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
 	}
+	cell.delegate = self;
 	GHComment *comment = self.pullRequest.comments[row];
 	cell.comment = comment;
 	return cell;
@@ -331,11 +345,6 @@
 		} else if (row == 1) {
             viewController = [[IOCFilesController alloc] initWithFiles:self.pullRequest.files];
 		}
-    } else if (section == 2) {
-        if (!self.pullRequest.comments.isEmpty) {
-            GHComment *comment = self.pullRequest.comments[row];
-            viewController = [[IOCUserController alloc] initWithUser:comment.user];
-        }
     }
     if (viewController) {
         [self.navigationController pushViewController:viewController animated:YES];

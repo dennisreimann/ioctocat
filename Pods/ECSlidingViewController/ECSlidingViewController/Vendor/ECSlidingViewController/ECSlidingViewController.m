@@ -351,6 +351,13 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
         if (complete) {
             complete();
         }
+        UIView *underView = nil;
+        if (side == ECLeft) {
+            underView = self.underRightView;
+        } else if (side == ECRight) {
+            underView = self.underLeftView;
+        }
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, underView);
         _topViewIsOffScreen = NO;
         [self addTopViewSnapshot];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -388,6 +395,13 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
         if (complete) {
             complete();
         }
+        UIView *underView = nil;
+        if (side == ECLeft) {
+            underView = self.underRightView;
+        } else if (side == ECRight) {
+            underView = self.underLeftView;
+        }
+        UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, underView);
         _topViewIsOffScreen = YES;
         [self addTopViewSnapshot];
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -419,6 +433,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 		if (complete) {
 			complete();
 		}
+		UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, self.topView);
 		[self topViewHorizontalCenterDidChange:self.resettedCenter];
 	}];
 }

@@ -168,7 +168,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (BOOL)openViewControllerForGitHubURL:(NSURL *)url {
-	UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
+	UIViewController *viewController = [IOCViewControllerFactory viewControllerForURL:url];
     if (viewController) {
         [(UINavigationController *)self.slidingViewController.topViewController pushViewController:viewController animated:YES];
         return YES;
@@ -231,7 +231,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
         }
     }];
     IOCNotificationsController *notificationsController = [[IOCNotificationsController alloc] initWithNotifications:notifications];
-    UIViewController *notificationController = [IOCViewControllerFactory viewControllerForGitHubURL:subjectURL];
+    UIViewController *notificationController = [IOCViewControllerFactory viewControllerForURL:subjectURL];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:notificationsController];
     [navController pushViewController:notificationController animated:NO];
     if (self.isViewLoaded) {

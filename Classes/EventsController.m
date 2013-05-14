@@ -74,10 +74,8 @@
 #pragma mark Actions
 
 - (void)openURL:(NSURL *)url {
-    if (url.isGitHubURL) {
-        UIViewController *viewController = [IOCViewControllerFactory viewControllerForGitHubURL:url];
-        if (viewController) [self.navigationController pushViewController:viewController animated:YES];
-    }
+    UIViewController *viewController = [IOCViewControllerFactory viewControllerForURL:url];
+    if (viewController) [self.navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark TableView

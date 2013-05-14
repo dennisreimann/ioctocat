@@ -9,6 +9,7 @@ Additions:
 Changes:
 
 * Links in event items instead of buttons
+* Improved handling of GitHub.com URLs opened from external application
 
 Bugfixes:
 

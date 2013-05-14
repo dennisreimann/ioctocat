@@ -9,6 +9,7 @@
 #import "IOCGistController.h"
 #import "IOCGistsController.h"
 #import "IOCCommitController.h"
+#import "IOCCommitsController.h"
 #import "IOCSearchController.h"
 #import "IOCTreeController.h"
 #import "IOCBlobsController.h"
@@ -17,6 +18,7 @@
 #import "GHBlob.h"
 #import "GHTree.h"
 #import "GHCommit.h"
+#import "GHCommits.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
 #import "GHPullRequest.h"
@@ -31,6 +33,14 @@
 
 
 @implementation IOCViewControllerFactory
+
++ (UIViewController *)viewControllerForURL:(NSURL *)url {
+    if (url.isGitHubURL) {
+        return [self viewControllerForGitHubURL:url];
+    } else {
+        return [[WebController alloc] initWithURL:url];
+    }
+}
 
 + (UIViewController *)viewControllerForGitHubURL:(NSURL *)url {
     NSArray *staticPages = @[@"about", @"blog", @"contact", @"edu", @"plans"];
@@ -95,6 +105,11 @@
                 NSString *sha = comps[4];
                 GHCommit *commit = [[GHCommit alloc] initWithRepository:repo andCommitID:sha];
                 viewController = [[IOCCommitController alloc] initWithCommit:commit];
+            } else if (comps.count == 5 && [comps[3] isEqualToString:@"commits"]) {
+                // Commitss
+                NSString *sha = comps[4];
+                GHCommits *commits = [[GHCommits alloc] initWithRepository:repo sha:sha];
+                viewController = [[IOCCommitsController alloc] initWithCommits:commits];
             } else if (comps.count >= 4) {
                 NSString *type = comps[3];
                 NSString *ident = comps[4];

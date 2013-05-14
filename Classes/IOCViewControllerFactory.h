@@ -1,3 +1,3 @@
 @interface IOCViewControllerFactory : NSObject
-+ (UIViewController *)viewControllerForGitHubURL:(NSURL *)url;
++ (UIViewController *)viewControllerForURL:(NSURL *)url;
 @end

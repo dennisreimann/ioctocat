@@ -32,6 +32,7 @@
 		2E2BB56716E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */; };
 		2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
+		2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */; };
 		2E5D54FA171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FB171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
@@ -1066,6 +1067,8 @@
 		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
 		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
 		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
+		2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactoryTests.h; sourceTree = "<group>"; };
+		2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactoryTests.m; sourceTree = "<group>"; };
 		2E5D54F8171A00530046086D /* Button1P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button1P.png; sourceTree = "<group>"; };
 		2E5D54F9171A00530046086D /* Button1P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button1P@2x.png"; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
@@ -2137,6 +2140,8 @@
 			children = (
 				6F4EB354167D1B76001C1DEA /* Fixtures */,
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
+				2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */,
+				2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */,
 				6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */,
 				6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */,
 				6FD07B9116A49CE7000BF998 /* IOCDefaultsPersistenceTests.h */,
@@ -3851,6 +3856,7 @@
 				2EA4E9171731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */,
 				2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */,
+				2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

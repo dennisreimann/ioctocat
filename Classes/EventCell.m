@@ -40,6 +40,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     self.titleLabel.delegate = self;
     self.titleLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)linkColor.CGColor] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
     self.titleLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)linkColor.CGColor] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+    self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor], [UIFont fontWithName:@"Courier" size:14.0f]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName, (NSString *)kCTFontAttributeName]];
+    self.contentLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)[linkColor CGColor], [UIFont fontWithName:@"Courier" size:14.0f]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName, (NSString *)kCTFontAttributeName]];
 }
 
 - (void)dealloc {

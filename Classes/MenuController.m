@@ -439,7 +439,10 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 }
 
 - (UIBarButtonItem *)toggleBarButtonItem {
-    return [[UIBarButtonItem alloc] initWithImage:self.class.menuButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleTopView)];
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:self.class.menuButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(toggleTopView)];
+    item.accessibilityLabel = NSLocalizedString(@"Menu", nil);
+    item.accessibilityHint = NSLocalizedString(@"Double-tap to reveal menu on the left. If you need to close the menu without choosing its item, find the menu button in top-right corner (slightly to the left) and double-tap it again.", nil);
+    return item;
 }
 
 #pragma mark Menu Colors

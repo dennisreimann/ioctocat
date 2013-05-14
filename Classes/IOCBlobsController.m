@@ -47,6 +47,8 @@
 	[super viewDidLoad];
     _popupFrame = self.popupView.frame;
 	self.contentView.scrollView.bounces = NO;
+    self.leftButton.accessibilityLabel = NSLocalizedString(@"Previous File", nil);
+    self.rightButton.accessibilityLabel = NSLocalizedString(@"Next File", nil);
 }
 
 - (void)viewWillAppear:(BOOL)animated {

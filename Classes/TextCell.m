@@ -1,10 +1,9 @@
 #import "TextCell.h"
 #import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
-#import "TTTAttributedLabel.h"
 
 
-@interface TextCell () <TTTAttributedLabelDelegate>
+@interface TextCell ()
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
 @end
 

@@ -147,9 +147,15 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 #pragma mark Actions
 
 - (IBAction)openActor:(id)sender {
+    if (!self.event.read) [self markAsRead];
     if ([self.delegate respondsToSelector:@selector(openURL:)]) {
         [self.delegate openURL:self.event.user.htmlURL];
     }
+}
+
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    if (!self.event.read) [self markAsRead];
+    [super attributedLabel:label didSelectLinkWithURL:url];
 }
 
 #pragma mark Layout

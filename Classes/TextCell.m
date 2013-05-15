@@ -1,6 +1,8 @@
 #import "TextCell.h"
 #import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
+#import "NSString+GHFMarkdown.h"
+#import "TTTAttributedLabel.h"
 
 
 @interface TextCell ()
@@ -20,8 +22,8 @@
 	self.contentLabel.numberOfLines = 0;
     self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.contentLabel.delegate = self;
-    self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor], ] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
-    self.contentLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)[linkColor CGColor], ] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+    self.contentLabel.linkAttributes = [NSDictionary dictionaryWithObjects:@[@NO, (id)[linkColor CGColor]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+    self.contentLabel.activeLinkAttributes = [NSDictionary dictionaryWithObjects:@[@YES, (id)[linkColor CGColor]] forKeys:@[(NSString *)kCTUnderlineStyleAttributeName, (NSString *)kCTForegroundColorAttributeName]];
 }
 
 - (void)layoutSubviews {
@@ -36,13 +38,23 @@
 
 - (void)setContentText:(NSString *)text {
     if (self.emojiEnabled) text = [text emojizedString];
-    // TODO: if (self.markdownEnabled) text = [text markedString];
     if (self.truncationLength && text.length > self.truncationLength) {
-		NSRange range = {0, self.truncationLength};
+        NSRange range = {0, self.truncationLength};
         text = [NSString stringWithFormat:@"%@…", [text substringWithRange:range]];
-	}
-	self.contentLabel.text = text;
-	[self adjustContentTextHeight];
+    }
+    if (self.markdownEnabled) {
+        NSArray *links = [text markdownLinks];
+        self.contentLabel.text = [text attributedStringFromMarkdownWithAttributes:self.defaultAttributes];
+        for (NSDictionary *link in [links reverseObjectEnumerator]) {
+            NSString *title = link[@"title"];
+            NSURL *url = link[@"url"];
+            NSRange range = [self.contentLabel.text rangeOfString:title];
+            [self.contentLabel addLinkToURL:url withRange:range];
+        }
+    } else {
+        self.contentLabel.text = text;
+    }
+    [self adjustContentTextHeight];
 }
 
 - (BOOL)hasContent {
@@ -105,6 +117,31 @@
     width -= marginH;
 	CGFloat contentTextHeight = [self contentTextHeightForWidth:width];
 	return self.heightWithoutContentText + contentTextHeight + marginV;
+}
+
+- (NSMutableDictionary *)defaultAttributes {
+    TTTAttributedLabel *label = self.contentLabel;
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    if (NSMutableParagraphStyle.class) {
+        [attrs setObject:label.font forKey:(NSString *)kCTFontAttributeName];
+        [attrs setObject:label.textColor forKey:(NSString *)kCTForegroundColorAttributeName];
+        NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+        style.alignment = label.textAlignment;
+        style.lineSpacing = label.leading;
+        style.lineHeightMultiple = label.lineHeightMultiple;
+        style.firstLineHeadIndent = label.firstLineIndent;
+        style.paragraphSpacingBefore = label.textInsets.top;
+        style.paragraphSpacing = label.textInsets.bottom;
+        style.headIndent = label.textInsets.left;
+        style.tailIndent = label.textInsets.right;
+        if (label.numberOfLines == 1) {
+            style.lineBreakMode = label.lineBreakMode;
+        } else {
+            style.lineBreakMode = NSLineBreakByWordWrapping;
+        }
+        [attrs setObject:style forKey:(NSString *)kCTParagraphStyleAttributeName];
+    }
+    return attrs;
 }
 
 @end

@@ -1,5 +1,4 @@
 #import "CommentController.h"
-#import "NSString+Extensions.h"
 #import "GHRepository.h"
 #import "GHIssues.h"
 #import "GHIssue.h"
@@ -11,6 +10,8 @@
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "MAXCompletion.h"
+#import "NSString+Emojize.h"
+#import "NSString+Extensions.h"
 
 
 @interface CommentController () <UITextFieldDelegate>
@@ -18,6 +19,7 @@
 @property(nonatomic,weak)id comments;
 @property(nonatomic,strong)MAXCompletion *usernameCompletion;
 @property(nonatomic,strong)MAXCompletion *issueCompletion;
+@property(nonatomic,strong)MAXCompletion *emojiCompletion;
 @property(nonatomic,strong)NSMutableDictionary *issueCompletionDataSource;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
 - (IBAction)postComment:(id)sender;
@@ -41,10 +43,13 @@
 	[super viewDidLoad];
 	self.title = @"Post comment";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
-    MAXCompletion *usernameCompletion = [[MAXCompletion alloc] init];
-    usernameCompletion.textView = self.bodyView;
-    usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
-    self.usernameCompletion = usernameCompletion;
+    self.usernameCompletion = [[MAXCompletion alloc] init];
+    self.usernameCompletion.textView = self.bodyView;
+    self.usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
+    self.emojiCompletion = [[MAXCompletion alloc] init];
+    self.emojiCompletion.textView = self.bodyView;
+    self.emojiCompletion.prefix = @":";
+    self.emojiCompletion.dataSource = [NSString.class emojiAliases];
     GHRepository *repo = nil;
     if ([self.comment respondsToSelector:@selector(repository)]) {
         repo = [(GHRepoComment *)self.comment repository];
@@ -52,10 +57,10 @@
         repo = [[(GHIssueComment *)self.comment parent] repository];
     }
     if (repo) {
-        MAXCompletion *issueCompletion = [[MAXCompletion alloc] init];
-        issueCompletion.textView = self.bodyView;
-        issueCompletion.prefix = @"#";
-        issueCompletion.comparator = ^NSComparisonResult(id obj1, id obj2) {
+        self.issueCompletion = [[MAXCompletion alloc] init];
+        self.issueCompletion.textView = self.bodyView;
+        self.issueCompletion.prefix = @"#";
+        self.issueCompletion.comparator = ^NSComparisonResult(id obj1, id obj2) {
             if ([obj1 isOpen] > [obj2 isOpen]) return NSOrderedAscending;
             if ([obj1 isOpen] < [obj2 isOpen]) return NSOrderedDescending;
             if ([obj1 number] > [obj2 number]) return NSOrderedAscending;
@@ -68,7 +73,7 @@
         } else {
             [repo.openIssues loadWithSuccess:^(GHResource *instance, id data) {
                 [self setIssuesForNums:repo.openIssues.items];
-                [issueCompletion reloadData];
+                [self.issueCompletion reloadData];
             }];
         }
         if (repo.closedIssues.isLoaded) {
@@ -76,11 +81,10 @@
         } else {
             [repo.closedIssues loadWithSuccess:^(GHResource *instance, id data) {
                 [self setIssuesForNums:repo.closedIssues.items];
-                [issueCompletion reloadData];
+                [self.issueCompletion reloadData];
             }];
         }
-        issueCompletion.dataSource = self.issueCompletionDataSource;
-        self.issueCompletion = issueCompletion;
+        self.issueCompletion.dataSource = self.issueCompletionDataSource;
     }
 }
 

@@ -5,6 +5,7 @@
 Additions:
 
 * Support for submodules
+* Support for emojis (including autocompletion)
 
 Changes:
 

@@ -32,10 +32,6 @@
         UIView *accessoryView = [[UIView alloc] initWithFrame:frame];
         accessoryView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MessageEntryBG.png"]];
         accessoryView.autoresizingMask = autoresizingMask;
-        //UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"MessageEntryBG.png"]];
-        //imageView.frame = frame;
-        //imageView.autoresizingMask = autoresizingMask;
-        //[accessoryView addSubview:imageView];
         UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:frame];
         scrollView.autoresizingMask = autoresizingMask;
         scrollView.showsHorizontalScrollIndicator = NO;
@@ -164,7 +160,8 @@
     NSRange charFromSetRange = [text rangeOfCharacterFromSet:self.whitespaceAndNewline options:0 range:NSMakeRange(range.location + range.length, textLength - (range.location + range.length))];
     range = NSMakeRange(range.location, charFromSetRange.location == NSNotFound ? textLength - range.location : charFromSetRange.location - range.location);
     NSString *key = self.filteredKeyArray[sender.tag];
-    NSString *string = [NSString stringWithFormat:@"%@%@ ", self.prefix, key];
+    NSString *pre = [key hasPrefix:self.prefix] ? @"" : self.prefix;
+    NSString *string = [NSString stringWithFormat:@"%@%@ ", pre, key];
     self.textView.text = [text stringByReplacingCharactersInRange:range withString:string];
     self.textView.selectedRange = NSMakeRange(range.location + [string length], 0);
 }
@@ -215,16 +212,19 @@
                             index++;
                             break;
                         }
+                        id object = self.dataSource[key];
                         UIImageView *imageView = nil;
+                        UIImage *image = nil;
+                        if ([object respondsToSelector:@selector(gravatar)]) {
+                            UIImage *gravatar = [object gravatar];
+                            image = gravatar ? gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
+                        } else if ([object respondsToSelector:@selector(state)]) {
+                            image = [UIImage imageNamed:[NSString stringWithFormat:@"issue_%@.png", [(GHIssue *)object state]]];
+                        }
                         if (!button) {
                             button = [GradientButton buttonWithType:UIButtonTypeCustom];
-                            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(m, m, h - m * 2, h - m * 2)];
-                            imageView.layer.masksToBounds = YES;
-                            imageView.layer.cornerRadius = 3.0f;
-                            [button insertSubview:imageView atIndex:0];
                             [button addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
                             button.titleLabel.font = [UIFont systemFontOfSize:13.0f];
-                            button.contentEdgeInsets = UIEdgeInsetsMake(m, h, m, m);
                             [button useDarkGithubStyle];
                             button.cornerRadius = 3.0f;
                             button.strokeColor = [UIColor colorWithWhite:0.65 alpha:1.000];
@@ -232,8 +232,26 @@
                             index++;
                         }
                         button.tag = index - 1;
-                        id object = self.dataSource[key];
-                        NSString *title = [NSString stringWithFormat:@"%@%@", self.prefix, key];
+                        // image
+                        if (image) {
+                            if (!imageView) {
+                                id firstSubview = [button subviews][0];
+                                if ([firstSubview isKindOfClass:UIImageView.class]) {
+                                    imageView = firstSubview;
+                                } else {
+                                    imageView = [[UIImageView alloc] initWithFrame:CGRectMake(m, m, h - m * 2, h - m * 2)];
+                                    imageView.layer.masksToBounds = YES;
+                                    imageView.layer.cornerRadius = 3.0f;
+                                    [button insertSubview:imageView atIndex:0];
+                                }
+                            }
+                            imageView.image = image;
+                        }
+                        button.contentEdgeInsets = UIEdgeInsetsMake(m, imageView.image ? h : m, m, m);
+                        // title
+                        NSString *pre = [key hasPrefix:self.prefix] ? @"" : self.prefix;
+                        NSString *label = [object isKindOfClass:NSString.class] ? [NSString stringWithFormat:@"%@ ", object] : @"";
+                        NSString *title = [NSString stringWithFormat:@"%@%@%@", pre, label, key];
                         if ([object respondsToSelector:@selector(title)]) {
                             title = [NSString stringWithFormat:@"%@: %@", title, [object title]];
                             NSArray *components = [title componentsSeparatedByCharactersInSet:self.whitespace];
@@ -245,17 +263,6 @@
                         [button setTitle:title forState:UIControlStateNormal];
                         [button sizeToFit];
                         button.frame = CGRectMake(x, m, button.frame.size.width, h);
-                        if (!imageView) {
-                            imageView = [button subviews][0];
-                        }
-                        UIImage *image = nil;
-                        if ([object respondsToSelector:@selector(gravatar)]) {
-                            UIImage *gravatar = [object gravatar];
-                            image = gravatar ? gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
-                        } else if ([object respondsToSelector:@selector(state)]) {
-                            image = [UIImage imageNamed:[NSString stringWithFormat:@"issue_%@.png", [(GHIssue *)object state]]];
-                        }
-                        imageView.image = image;
                         if (!button.superview) {
                             [self.scrollView addSubview:button];
                         }

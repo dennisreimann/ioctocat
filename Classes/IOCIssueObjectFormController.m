@@ -4,10 +4,11 @@
 #import "GHIssue.h"
 #import "GHAccount.h"
 #import "GHUserObjectsRepository.h"
-#import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "MAXCompletion.h"
+#import "NSString+Emojize.h"
+#import "NSString+Extensions.h"
 
 
 @interface IOCIssueObjectFormController () <UITextFieldDelegate>
@@ -18,6 +19,7 @@
 @property(nonatomic,strong)UITapGestureRecognizer *tapGesture;
 @property(nonatomic,strong)MAXCompletion *usernameCompletion;
 @property(nonatomic,strong)MAXCompletion *issueCompletion;
+@property(nonatomic,strong)MAXCompletion *emojiCompletion;
 @property(nonatomic,strong)NSMutableDictionary *issueCompletionDataSource;
 @property(nonatomic,weak)IBOutlet UITextField *titleField;
 @property(nonatomic,weak)IBOutlet UITextView *bodyField;
@@ -52,14 +54,17 @@
 		self.bodyField.text = self.object.body;
         self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
-    MAXCompletion *usernameCompletion = [[MAXCompletion alloc] init];
-    usernameCompletion.textView = self.bodyField;
-    usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
-    self.usernameCompletion = usernameCompletion;
-    MAXCompletion *issueCompletion = [[MAXCompletion alloc] init];
-    issueCompletion.textView = self.bodyField;
-    issueCompletion.prefix = @"#";
-    issueCompletion.comparator = ^NSComparisonResult(id obj1, id obj2) {
+    self.usernameCompletion = [[MAXCompletion alloc] init];
+    self.usernameCompletion.textView = self.bodyField;
+    self.usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
+    self.emojiCompletion = [[MAXCompletion alloc] init];
+    self.emojiCompletion.textView = self.bodyField;
+    self.emojiCompletion.prefix = @":";
+    self.emojiCompletion.dataSource = [NSString.class emojiAliases];
+    self.issueCompletion = [[MAXCompletion alloc] init];
+    self.issueCompletion.textView = self.bodyField;
+    self.issueCompletion.prefix = @"#";
+    self.issueCompletion.comparator = ^NSComparisonResult(id obj1, id obj2) {
         if ([obj1 isOpen] > [obj2 isOpen]) return NSOrderedAscending;
         if ([obj1 isOpen] < [obj2 isOpen]) return NSOrderedDescending;
         if ([obj1 number] > [obj2 number]) return NSOrderedAscending;
@@ -73,7 +78,7 @@
     } else {
         [repo.openIssues loadWithSuccess:^(GHResource *instance, id data) {
             [self setIssuesForNums:repo.openIssues.items];
-            [issueCompletion reloadData];
+            [self.issueCompletion reloadData];
         }];
     }
     if (repo.closedIssues.isLoaded) {
@@ -81,11 +86,10 @@
     } else {
         [repo.closedIssues loadWithSuccess:^(GHResource *instance, id data) {
             [self setIssuesForNums:repo.closedIssues.items];
-            [issueCompletion reloadData];
+            [self.issueCompletion reloadData];
         }];
     }
-    issueCompletion.dataSource = self.issueCompletionDataSource;
-    self.issueCompletion = issueCompletion;
+    self.issueCompletion.dataSource = self.issueCompletionDataSource;
 }
 
 - (void)viewWillAppear:(BOOL)animated {

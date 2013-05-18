@@ -57,6 +57,9 @@
 		2E9E538A1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2E9E538B1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
 		2E9E538C1701AB5B000961BD /* GHUserObjectsRepository.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */; };
+		2EA49A4117473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA49A4017473FA500A33F4D /* IOCNotificationsSectionHeader.m */; };
+		2EA49A4217473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA49A4017473FA500A33F4D /* IOCNotificationsSectionHeader.m */; };
+		2EA49A4317473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA49A4017473FA500A33F4D /* IOCNotificationsSectionHeader.m */; };
 		2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E9141731A7F60058744F /* GHSubmodule.m */; };
 		2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E9141731A7F60058744F /* GHSubmodule.m */; };
 		2EA4E9171731A7F60058744F /* GHSubmodule.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EA4E9141731A7F60058744F /* GHSubmodule.m */; };
@@ -1087,6 +1090,8 @@
 		2E9AE31C172ABA92008C3B72 /* GHMilestones.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestones.h; sourceTree = "<group>"; };
 		2E9E53881701AB50000961BD /* GHUserObjectsRepository.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHUserObjectsRepository.h; sourceTree = "<group>"; };
 		2E9E53891701AB5B000961BD /* GHUserObjectsRepository.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUserObjectsRepository.m; sourceTree = "<group>"; };
+		2EA49A4017473FA500A33F4D /* IOCNotificationsSectionHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCNotificationsSectionHeader.m; sourceTree = "<group>"; };
+		2EA49A4417473FAF00A33F4D /* IOCNotificationsSectionHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCNotificationsSectionHeader.h; sourceTree = "<group>"; };
 		2EA4E9131731A7EB0058744F /* GHSubmodule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSubmodule.h; sourceTree = "<group>"; };
 		2EA4E9141731A7F60058744F /* GHSubmodule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSubmodule.m; sourceTree = "<group>"; };
 		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
@@ -2014,6 +2019,8 @@
 				6F308A1316CD958200BA00A1 /* IOCTextView.m */,
 				6FA0AE1416C01494007308A6 /* IOCTableViewSectionHeader.h */,
 				6FA0AE1516C014AD007308A6 /* IOCTableViewSectionHeader.m */,
+				2EA49A4417473FAF00A33F4D /* IOCNotificationsSectionHeader.h */,
+				2EA49A4017473FA500A33F4D /* IOCNotificationsSectionHeader.m */,
 				6F814CD216BEF755006B6D0E /* IOCResourceStatusCell.h */,
 				6F814CD316BEF767006B6D0E /* IOCResourceStatusCell.m */,
 				8C53B4D50FB0F32600C3A8E0 /* UserObjectCell.h */,
@@ -3747,6 +3754,7 @@
 				2E9AE319172ABA85008C3B72 /* GHMilestones.m in Sources */,
 				2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E27C38C17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
+				2EA49A4117473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3872,6 +3880,7 @@
 				2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */,
 				2E27C38E17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EB4D89C17441BE3005A2781 /* NSString+GHFMarkdownTests.m in Sources */,
+				2EA49A4317473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3990,6 +3999,7 @@
 				2E9AE31A172ABA85008C3B72 /* GHMilestones.m in Sources */,
 				2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E27C38D17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
+				2EA49A4217473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

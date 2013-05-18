@@ -7,7 +7,7 @@
 
 @implementation IOCTableViewSectionHeader
 
-+ (IOCTableViewSectionHeader *)headerForTableView:(UITableView *)tableView title:(NSString *)title {
++ (instancetype)headerForTableView:(UITableView *)tableView title:(NSString *)title {
 	CGFloat width = tableView.frame.size.width;
 	CGFloat height = 24;
 	IOCTableViewSectionHeader *view = [[super alloc] initWithFrame:CGRectMake(0, 0, width, height)];

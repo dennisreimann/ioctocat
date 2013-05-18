@@ -15,7 +15,7 @@
 #import "IOCDefaultsPersistence.h"
 #import "NotificationCell.h"
 #import "GHRepository.h"
-#import "IOCTableViewSectionHeader.h"
+#import "IOCNotificationsSectionHeader.h"
 #import "GradientButton.h"
 
 
@@ -176,26 +176,8 @@
     if (!title) {
 		return nil;
 	} else {
-		IOCTableViewSectionHeader *header = [IOCTableViewSectionHeader headerForTableView:tableView title:title];
-		UIFont *btnFont = [UIFont systemFontOfSize:13];
-		NSString *repo = [title lastPathComponent];
-		NSString *btnTitle = [NSString stringWithFormat:@"Mark %@ as read", repo];
-		CGSize btnSize = [btnTitle sizeWithFont:btnFont];
-		CGFloat btnWidth = btnSize.width + 16;
-		CGFloat btnHeight = btnSize.height + 8;
-		CGFloat btnMargin = 5;
-		CGFloat maxWidth = tableView.frame.size.width - header.titleLabel.frame.size.width - 25;
-		if (btnWidth > maxWidth) btnWidth = maxWidth;
-		GradientButton *button = [[GradientButton alloc] initWithFrame:CGRectMake(header.frame.size.width - btnWidth - btnMargin, btnMargin, btnWidth, btnHeight)];
-		button.identifierTag = [self repoIdForSection:section];
-		button.contentEdgeInsets = UIEdgeInsetsMake(2, 4, 2, 4);
-		button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-		button.titleLabel.font = btnFont;
-		[button useDarkGithubStyle];
-		button.cornerRadius = 3.f;
-		[button addTarget:self action:@selector(markAllAsReadInSection:) forControlEvents:UIControlEventTouchUpInside];
-		[button setTitle:btnTitle forState:UIControlStateNormal];
-		[header addSubview:button];
+		IOCNotificationsSectionHeader *header = [IOCNotificationsSectionHeader headerForTableView:tableView title:title];
+		header.markReadButton.identifierTag = [self repoIdForSection:section];
 		return header;
 	} 
 }

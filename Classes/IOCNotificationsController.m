@@ -11,6 +11,7 @@
 #import "IOCCommitController.h"
 #import "IOCIssueController.h"
 #import "IOCPullRequestController.h"
+#import "IOCRepositoryController.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "IOCDefaultsPersistence.h"
 #import "NotificationCell.h"
@@ -153,6 +154,16 @@
 	[self.tableView reloadData];
 }
 
+- (void)openRepoForSection:(GradientButton *)sender {
+	NSString *repoId = sender.identifierTag;
+    NSArray *comps = [repoId componentsSeparatedByString:@"/"];
+    if (comps.count == 2) {
+        GHRepository *repo = [[GHRepository alloc] initWithOwner:comps[0] andName:comps[1]];
+        IOCRepositoryController *viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+}
+
 #pragma mark TableView
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -177,8 +188,12 @@
 		return nil;
 	} else {
 		IOCNotificationsSectionHeader *header = [IOCNotificationsSectionHeader headerForTableView:tableView title:title];
-		header.markReadButton.identifierTag = [self repoIdForSection:section];
-		return header;
+        NSString *repoId = [self repoIdForSection:section];
+        header.titleButton.identifierTag = repoId;
+        header.markReadButton.identifierTag = repoId;
+        [header.titleButton addTarget:self action:@selector(openRepoForSection:) forControlEvents:UIControlEventTouchUpInside];
+        [header.markReadButton addTarget:self action:@selector(markAllAsReadInSection:) forControlEvents:UIControlEventTouchUpInside];
+        return header;
 	} 
 }
 

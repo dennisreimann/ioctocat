@@ -14,7 +14,7 @@
 @property(nonatomic,assign)BOOL markdownEnabled;
 @property(nonatomic,assign)BOOL markdownLinksEnabled;
 @property(nonatomic,readonly)BOOL hasContent;
+@property(nonatomic,strong)NSString *contentText;
 
 - (CGFloat)heightForTableView:(UITableView *)tableView;
-- (void)setContentText:(NSString *)text;
 @end

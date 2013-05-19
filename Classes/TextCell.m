@@ -38,6 +38,9 @@
 }
 
 - (void)setContentText:(NSString *)text {
+    if ([self.contentText isEqualToString:text]) return;
+    _contentText = text;
+    // parse and modify label text
     if (self.emojiEnabled) text = [text emojizedString];
     if (self.truncationLength && text.length > self.truncationLength) {
         NSRange range = {0, self.truncationLength};

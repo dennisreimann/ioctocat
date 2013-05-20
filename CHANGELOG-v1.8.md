@@ -6,6 +6,7 @@ Additions:
 
 * Support for submodules
 * Support for emojis (including autocompletion)
+* Markdown rendering in issues and comments
 
 Changes:
 

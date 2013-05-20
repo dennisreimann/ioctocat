@@ -11,5 +11,8 @@
 @interface NSString (GHFMarkdown)
 - (NSAttributedString *)attributedStringFromMarkdown;
 - (NSAttributedString *)attributedStringFromMarkdownWithAttributes:(NSDictionary *)attrs;
-- (NSArray *)markdownLinks;
+- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
+- (NSArray *)linksFromGHFMarkdownLinks;
+- (NSArray *)linksFromGHFMarkdownUsernames;
+- (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;
 @end

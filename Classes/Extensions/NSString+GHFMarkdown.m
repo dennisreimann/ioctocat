@@ -27,7 +27,7 @@
     CTFontRef italicFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
     NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
     // links
-    NSEnumerator *links = [[string markdownLinks] reverseObjectEnumerator];
+    NSEnumerator *links = [[string linksFromGHFMarkdownLinks] reverseObjectEnumerator];
     for (NSDictionary *link in links) {
         NSRange range = [link[@"range"] rangeValue];
         NSString *title = link[@"title"];
@@ -91,7 +91,7 @@
 }
 
 // also takes care of images
-- (NSArray *)markdownLinks {
+- (NSArray *)linksFromGHFMarkdownLinks {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"!?\\[(.*?)\\]\\((\\S+)(\\s+(\"|\')(.*?)(\"|\'))?\\)" options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
@@ -107,6 +107,63 @@
          @"url": [NSURL URLWithString:url]}];
 	}
     return results;
+}
+
+- (NSArray *)linksFromGHFMarkdownUsernames {
+    NSString *string = self;
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"@{1}(\\w+)" options:NSRegularExpressionCaseInsensitive error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange titleRange = match.range;
+        NSRange loginRange = [match rangeAtIndex:1];
+        NSString *title = [string substringWithRange:titleRange];
+        NSString *login = [string substringWithRange:loginRange];
+        [results addObject:@{
+         @"title": title,
+         @"login": login,
+         @"range": [NSValue valueWithRange:match.range],
+         @"url": [NSURL URLWithString:[NSString stringWithFormat:@"/%@", login]]}];
+	}
+    return results;
+}
+
+- (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId {
+    NSString *string = self;
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"(\\w+/\\w+)?#{1}(\\d+)" options:NSRegularExpressionCaseInsensitive error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange titleRange = match.range;
+        NSRange repoRange = [match rangeAtIndex:1];
+        NSRange numRange = [match rangeAtIndex:2];
+        NSString *title = [string substringWithRange:titleRange];
+        NSString *repo = repoRange.location == NSNotFound ? repoId : [string substringWithRange:repoRange];
+        NSString *num = [string substringWithRange:numRange];
+        [results addObject: repo ? @{
+         @"title": title,
+         @"repo": repo,
+         @"number": num,
+         @"range": [NSValue valueWithRange:match.range],
+         @"url": [NSURL URLWithString:[NSString stringWithFormat:@"/%@/issues/%@", repo, num]]} :
+         @{
+         @"title": title,
+         @"number": num,
+         @"range": [NSValue valueWithRange:match.range] }];
+	}
+    return results;
+}
+
+- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId {
+    NSString *string = self;
+    NSArray *links = [string linksFromGHFMarkdownLinks];
+    NSArray *users = [string linksFromGHFMarkdownUsernames];
+    NSArray *issues = [string linksFromGHFMarkdownIssuesWithContextRepoId:repoId];
+    NSMutableArray *all = [NSMutableArray arrayWithCapacity:links.count + users.count + issues.count];
+    [all addObjectsFromArray:links];
+    [all addObjectsFromArray:users];
+    [all addObjectsFromArray:issues];
+    return all;
 }
 
 @end

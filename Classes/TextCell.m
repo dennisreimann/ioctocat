@@ -47,14 +47,12 @@
         text = [NSString stringWithFormat:@"%@…", [text substringWithRange:range]];
     }
     if (self.markdownEnabled) {
-        NSArray *links = [text markdownLinks];
         self.contentLabel.text = [text attributedStringFromMarkdownWithAttributes:self.defaultAttributes];
         if (self.markdownLinksEnabled) {
+            NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
             for (NSDictionary *link in [links reverseObjectEnumerator]) {
-                NSString *title = link[@"title"];
-                NSURL *url = link[@"url"];
-                NSRange range = [self.contentLabel.text rangeOfString:title];
-                [self.contentLabel addLinkToURL:url withRange:range];
+                NSRange range = [self.contentLabel.text rangeOfString:link[@"title"]];
+                [self.contentLabel addLinkToURL:link[@"url"] withRange:range];
             }
         }
     } else {

@@ -6,6 +6,7 @@
 #import "GHRepoComments.h"
 #import "GHRepoComment.h"
 #import "LabeledCell.h"
+#import "TextCell.h"
 #import "FilesCell.h"
 #import "CommentCell.h"
 #import "NSDate+Nibware.h"
@@ -79,6 +80,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.messageCell.linksEnabled = YES;
 	self.messageCell.emojiEnabled = YES;
 	self.messageCell.markdownEnabled = YES;
+	self.messageCell.contextRepoId = self.commit.repository.repoId;
 	[self layoutTableHeader];
 	[self layoutTableFooter];
 	[self displayCommit];
@@ -222,6 +224,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
+        cell.contextRepoId = self.commit.repository.repoId;
 	}
 	cell.delegate = self;
 	GHRepoComment *comment = self.commit.comments[indexPath.row];

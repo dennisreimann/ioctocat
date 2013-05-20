@@ -141,10 +141,11 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	self.iconView.image = [UIImage imageNamed:img];
 	self.nameLabel.text = self.repository.name;
 	self.iconView.hidden = self.starsIconView.hidden = self.forksIconView.hidden = !self.repository.isLoaded;
-	[self.ownerCell setContentText:self.repository.owner];
-    [self.forkedCell setContentText:self.repository.parent.repoId];
-	[self.websiteCell setContentText:[self.repository.homepageURL host]];
-	[self.descriptionCell setContentText:self.repository.descriptionText];
+	self.ownerCell.contentText = self.repository.owner;
+    self.forkedCell.contentText = self.repository.parent.repoId;
+	self.websiteCell.contentText = self.repository.homepageURL.host;
+	self.descriptionCell.contentText = self.repository.descriptionText;
+	self.descriptionCell.contextRepoId = self.repository.repoId;
 	if (self.repository.isLoaded) {
 		self.starsCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars"];
 		self.forksCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"];

@@ -5,9 +5,9 @@
 - (void)openURL:(NSURL *)url;
 @end
 
-
 @interface TextCell : UITableViewCell <TTTAttributedLabelDelegate>
 @property(nonatomic,weak)id<TextCellDelegate> delegate;
+@property(nonatomic,weak)NSString *contextRepoId;
 @property(nonatomic,assign)NSInteger truncationLength;
 @property(nonatomic,assign)BOOL linksEnabled;
 @property(nonatomic,assign)BOOL emojiEnabled;

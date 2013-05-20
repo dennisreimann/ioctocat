@@ -84,6 +84,7 @@
 	self.descriptionCell.linksEnabled = YES;
 	self.descriptionCell.emojiEnabled = YES;
 	self.descriptionCell.markdownEnabled = YES;
+	self.descriptionCell.contextRepoId = self.pullRequest.repository.repoId;
 	[self displayPullRequest];
 	[self layoutTableHeader];
 	[self layoutTableFooter];
@@ -307,6 +308,7 @@
 	if (cell == nil) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
+        cell.contextRepoId = self.pullRequest.repository.repoId;
 	}
 	cell.delegate = self;
 	GHComment *comment = self.pullRequest.comments[row];

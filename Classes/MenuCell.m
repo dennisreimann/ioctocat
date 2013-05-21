@@ -13,7 +13,7 @@
         self.textLabel.font = [UIFont systemFontOfSize:15];
 		self.textLabel.textColor = [UIColor whiteColor];
 		self.badgeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		self.badgeLabel.textAlignment = UITextAlignmentCenter;
+		self.badgeLabel.textAlignment = NSTextAlignmentCenter;
 		self.badgeLabel.textColor = [UIColor whiteColor];
 		self.badgeLabel.font = [UIFont systemFontOfSize:15];
 		self.badgeLabel.layer.cornerRadius = 15;

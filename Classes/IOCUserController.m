@@ -280,7 +280,7 @@
             MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
             mailComposer.mailComposeDelegate = self;
             [mailComposer setToRecipients:@[self.user.email]];
-            [self presentModalViewController:mailComposer animated:YES];
+            [self presentViewController:mailComposer animated:YES completion:NULL];
         }
 	} else if (section == 1) {
         if (row == 0) {
@@ -316,8 +316,8 @@
 
 #pragma mark MessageComposer Delegate
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
-	[self dismissModalViewControllerAnimated:YES];
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error {
+	[self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

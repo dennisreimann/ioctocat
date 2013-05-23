@@ -16,6 +16,25 @@
     self.codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:15], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
 }
 
+- (void)testAttributedStringFromMarkdownWithHeadlines {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"Headline\n\nThis is text.\n\nSecond Headline\n\nMore text.\n\nThird Headline\n\nLast paragraph."];
+    CGFloat baseSize = 15;
+    CGFloat h1Size = 20;
+    CGFloat h2Size = 19;
+    CGFloat h3Size = 18;
+    UIFont *font = [UIFont boldSystemFontOfSize:baseSize];
+    CTFontRef h1Ref = CTFontCreateWithName((__bridge CFStringRef)font.fontName, h1Size, NULL);
+    CTFontRef h2Ref = CTFontCreateWithName((__bridge CFStringRef)font.fontName, h2Size, NULL);
+    CTFontRef h3Ref = CTFontCreateWithName((__bridge CFStringRef)font.fontName, h3Size, NULL);
+    NSDictionary *h1Attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(h1Ref) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *h2Attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(h2Ref) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *h3Attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(h3Ref) forKey:(NSString *)kCTFontAttributeName];
+    [expected addAttributes:h1Attributes range:NSMakeRange(0, 8)];
+    [expected addAttributes:h2Attributes range:NSMakeRange(25, 15)];
+    [expected addAttributes:h3Attributes range:NSMakeRange(54, 14)];
+    expect([NSAttributedString attributedStringFromMarkdown:@"# Headline\n\nThis is text.\n\n## Second Headline ##\n\nMore text.\n\n### Third Headline\n\nLast paragraph."]).to.equal(expected);
+}
+
 - (void)testAttributedStringFromMarkdownWithBold {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold."];
     UIFont *font = [UIFont boldSystemFontOfSize:15];

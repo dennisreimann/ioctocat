@@ -39,6 +39,7 @@ static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|<
     NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
     [string substituteMarkdownLinks];
     [string substituteMarkdownTasks];
+    [output substituteHeadlinesWithBaseFont:font];
     [output substitutePattern:MarkdownBoldItalicRegex andAddAttributes:boldItalicAttributes];
     [output substitutePattern:MarkdownBoldRegex andAddAttributes:boldAttributes];
     [output substitutePattern:MarkdownItalicRegex andAddAttributes:italicAttributes];

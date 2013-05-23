@@ -16,8 +16,8 @@
 static NSString *const MarkdownBoldItalicRegex = @"[*_]{3}(.+?)[*_]{3}";
 static NSString *const MarkdownBoldRegex = @"[*_]{2}(.+?)[*_]{2}";
 static NSString *const MarkdownItalicRegex = @"[*_]{1}(.+?)[*_]{1}";
-static NSString *const MarkdownCodeBlockRegex = @"`{3}(.+?)`{3}";
-static NSString *const MarkdownCodeInlineRegex = @"`{1}(.+?)`{1}";
+static NSString *const MarkdownCodeBlockRegex = @"(?:`{3}|<pre>)(.+?)(?:`{3}|</pre>)";
+static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</code>)";
 
 + (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdownString {
     return [self attributedStringFromMarkdown:markdownString attributes:nil];

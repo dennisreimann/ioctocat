@@ -2,6 +2,7 @@
 #import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSString+GHFMarkdown.h"
+#import "NSAttributedString+GHFMarkdown.h"
 #import "TTTAttributedLabel.h"
 
 
@@ -47,7 +48,7 @@
         text = [NSString stringWithFormat:@"%@…", [text substringWithRange:range]];
     }
     if (self.markdownEnabled) {
-        self.contentLabel.text = [text attributedStringFromMarkdownWithAttributes:self.defaultAttributes];
+        self.contentLabel.text = [NSAttributedString attributedStringFromMarkdown:text attributes:self.defaultAttributes];
         if (self.markdownLinksEnabled) {
             NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
             for (NSDictionary *link in [links reverseObjectEnumerator]) {

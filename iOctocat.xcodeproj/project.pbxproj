@@ -36,10 +36,22 @@
 		2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */; };
+		2E52B62A174E4DFD00F1294D /* NSAttributedString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */; };
+		2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
+		2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
+		2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
+		2E52B634174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */; };
+		2E52B637174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */; };
+		2E52B638174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */; };
+		2E52B639174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */; };
+		2E52B63C174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */; };
 		2E5D54FA171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FB171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
 		2E5D54FD171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
+		2E5F1230174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
+		2E5F1231174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
+		2E5F1232174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
 		2E88193816F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193916F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193A16F8F8B300ACA2EB /* b.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193516F8F8B300ACA2EB /* b.caf */; };
@@ -1078,8 +1090,20 @@
 		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
 		2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactoryTests.h; sourceTree = "<group>"; };
 		2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactoryTests.m; sourceTree = "<group>"; };
+		2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+GHFMarkdown.h"; sourceTree = "<group>"; };
+		2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
+		2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
+		2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+GHFMarkdown.h"; sourceTree = "<group>"; };
+		2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E52B63A174E5F5000F1294D /* NSMutableAttributedString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
+		2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
 		2E5D54F8171A00530046086D /* Button1P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button1P.png; sourceTree = "<group>"; };
 		2E5D54F9171A00530046086D /* Button1P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button1P@2x.png"; sourceTree = "<group>"; };
+		2E5F122B174E48790010AC6A /* NSAttributedString+GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+GHFMarkdown.h"; sourceTree = "<group>"; };
+		2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
+		2E5F1238174E4A9D0010AC6A /* NSAttributedString+GHFMarkdownTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
@@ -1685,6 +1709,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6F48DB72166C07B600F8FF16 /* SenTestingKit.framework in Frameworks */,
 				2E1A05B5170F460C00C05026 /* AudioToolbox.framework in Frameworks */,
 				6F612467167D038C001A3E05 /* Security.framework in Frameworks */,
 				6F612464167D02FB001A3E05 /* MobileCoreServices.framework in Frameworks */,
@@ -1696,7 +1721,6 @@
 				6F48DBD4166C0FEB00F8FF16 /* QuartzCore.framework in Frameworks */,
 				6F612465167D0302001A3E05 /* SystemConfiguration.framework in Frameworks */,
 				6F612493167D0429001A3E05 /* MessageUI.framework in Frameworks */,
-				6F48DB72166C07B600F8FF16 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2171,6 +2195,12 @@
 				2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */,
 				2EB4D89A17441BD9005A2781 /* NSString+GHFMarkdownTests.h */,
 				2EB4D89B17441BE3005A2781 /* NSString+GHFMarkdownTests.m */,
+				2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */,
+				2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */,
+				2E5F1238174E4A9D0010AC6A /* NSAttributedString+GHFMarkdownTests.h */,
+				2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */,
+				2E52B63A174E5F5000F1294D /* NSMutableAttributedString+GHFMarkdownTests.h */,
+				2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */,
 			);
 			name = "Unit Tests";
 			path = iOctocatUnitTests;
@@ -2228,6 +2258,12 @@
 				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
 				2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */,
 				2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */,
+				2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */,
+				2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */,
+				2E5F122B174E48790010AC6A /* NSAttributedString+GHFMarkdown.h */,
+				2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */,
+				2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */,
+				2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3755,6 +3791,9 @@
 				2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E27C38C17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EA49A4117473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
+				2E5F1230174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */,
+				2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
+				2E52B637174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3878,9 +3917,15 @@
 				2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */,
 				2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */,
 				2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */,
+				2E5F1232174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */,
 				2E27C38E17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EB4D89C17441BE3005A2781 /* NSString+GHFMarkdownTests.m in Sources */,
 				2EA49A4317473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
+				2E52B62A174E4DFD00F1294D /* NSAttributedString+GHFMarkdownTests.m in Sources */,
+				2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
+				2E52B634174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m in Sources */,
+				2E52B639174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
+				2E52B63C174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4000,6 +4045,9 @@
 				2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E27C38D17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EA49A4217473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
+				2E5F1231174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */,
+				2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
+				2E52B638174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

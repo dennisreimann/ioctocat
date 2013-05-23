@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (GHFMarkdown)
-- (NSAttributedString *)attributedStringFromMarkdown;
-- (NSAttributedString *)attributedStringFromMarkdownWithAttributes:(NSDictionary *)attrs;
 - (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownLinks;
 - (NSArray *)linksFromGHFMarkdownUsernames;
 - (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;
+- (NSArray *)tasksFromGHFMarkdown;
 @end

@@ -44,6 +44,27 @@
     expect([NSAttributedString attributedStringFromMarkdown:@"_This_ is _italic_"]).to.equal(expected);
 }
 
+- (void)testAttributedStringFromMarkdownWithBoldItalic {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic."];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
+    CTFontRef boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
+    CTFontRef boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(boldFontRef, boldFont.pointSize, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
+    [expected addAttributes:attributes range:NSMakeRange(5, 2)];
+    expect([NSAttributedString attributedStringFromMarkdown:@"This ***is*** bold italic."]).to.equal(expected);
+}
+
+- (void)testAttributedStringFromMarkdownWithBoldItalicAtStringBounds {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic"];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
+    CTFontRef boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
+    CTFontRef boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(boldFontRef, boldFont.pointSize, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
+    [expected addAttributes:attributes range:NSMakeRange(0, 4)];
+    [expected addAttributes:attributes range:NSMakeRange(8, 11)];
+    expect([NSAttributedString attributedStringFromMarkdown:@"___This___ is ___bold italic___"]).to.equal(expected);
+}
+
 - (void)testAttributedStringFromMarkdownWithCodeInline {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code."];
     NSDictionary *attributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:15], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];

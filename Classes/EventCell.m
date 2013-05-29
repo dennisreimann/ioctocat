@@ -136,6 +136,11 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 - (void)setCustomBackgroundColor:(UIColor *)color {
 	if (!self.backgroundView) self.backgroundView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.backgroundView.backgroundColor = color;
+    self.iconView.backgroundColor = color;
+    self.gravatarButton.backgroundColor = color;
+    self.contentLabel.backgroundColor = color;
+    self.titleLabel.backgroundColor = color;
+    self.dateLabel.backgroundColor = color;
 }
 
 - (void)setGravatar:(UIImage *)gravatar {

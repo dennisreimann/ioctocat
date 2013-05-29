@@ -24,6 +24,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     self.markdownEnabled = YES;
     self.gravatarButton.layer.cornerRadius = 3;
     self.gravatarButton.layer.masksToBounds = YES;
+    self.userButton.titleLabel.opaque = YES;
+    self.userButton.titleLabel.backgroundColor = self.backgroundColor;
 }
 
 - (void)dealloc {

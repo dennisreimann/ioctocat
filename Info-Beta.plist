@@ -50,7 +50,6 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>ioc</string>
-				<string>ioctocat</string>
 			</array>
 		</dict>
 	</array>

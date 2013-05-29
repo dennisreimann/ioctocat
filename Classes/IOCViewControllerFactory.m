@@ -47,6 +47,9 @@
     NSArray *comps = url.pathComponents;
 	UIViewController *viewController = nil;
 	DJLog(@"%@", comps);
+    if ([url.scheme isEqualToString:@"ioc"]) {
+        url = [[NSURL alloc] initWithString:[url.absoluteString stringByReplacingOccurrencesOfString:@"ioc://" withString:@"https://"]];
+    }
 	// the first pathComponent is always "/"
 	if ([url.host isEqualToString:@"gist.github.com"]) {
         if (comps.count == 2) {
@@ -83,7 +86,12 @@
             GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
             if (comps.count == 3) {
                 repo.htmlURL = url;
-                viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
+                // README
+                if (url.fragment) {
+                    viewController = [[WebController alloc] initWithURL:url];
+                } else {
+                    viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
+                }
             } else if (comps.count == 4 && [comps[3] isEqualToString:@"issues"]) {
                 // Issues
                 viewController = [[IOCIssuesController alloc] initWithRepository:repo];

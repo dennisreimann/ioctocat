@@ -30,6 +30,12 @@
 	expect(viewController).beKindOf(IOCRepositoryController.class);
 }
 
+- (void)testWithReadmeURL {
+	NSURL *url = [NSURL URLWithString:@"ioc://github.com/dennisreimann/ioctocat#attribution"];
+    id viewController = [IOCViewControllerFactory viewControllerForURL:url];
+	expect(viewController).beKindOf(WebController.class);
+}
+
 - (void)testWithSearchURL {
 	NSURL *url = [NSURL URLWithString:@"https://github.com/search"];
     id viewController = [IOCViewControllerFactory viewControllerForURL:url];

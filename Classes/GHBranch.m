@@ -3,6 +3,7 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -16,6 +17,13 @@
 		self.name = name;
 	}
 	return self;
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/tree/%@", self.repository.owner, self.repository.name, self.name];
+    }
+    return _htmlURL;
 }
 
 #pragma mark Loading

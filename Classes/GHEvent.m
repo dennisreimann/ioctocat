@@ -1,5 +1,7 @@
 #import "GHEvent.h"
 #import "GHRepository.h"
+#import "GHBranch.h"
+#import "GHTag.h"
 #import "GHCommits.h"
 #import "GHCommit.h"
 #import "GHIssue.h"
@@ -104,6 +106,17 @@
 		if (!!rOwner && !!rName && ![rOwner isEmpty] && ![rName isEmpty]) {
 			self.repository = [[GHRepository alloc] initWithOwner:rOwner andName:rName];
 			self.repository.descriptionText = [self.payload safeStringForKey:@"description"];
+            // Branches and Tags
+            self.ref = [self.payload safeStringOrNilForKey:@"ref"];
+            self.refType = [self.payload safeStringOrNilForKey:@"ref_type"];
+            if ([self.refType isEqualToString:@"branch"]) {
+                self.branch = [[GHBranch alloc] initWithRepository:self.repository andName:self.ref];
+            } else if ([self.refType isEqualToString:@"tag"]) {
+                self.tag = [[GHTag alloc] initWithRepo:self.repository sha:self.ref];
+            } else if ([self.eventType isEqualToString:@"PushEvent"] && self.ref) {
+                self.ref = [self shortenRef:self.ref];
+                self.branch = [[GHBranch alloc] initWithRepository:self.repository andName:self.ref];
+            }
 		}
 	}
 
@@ -208,23 +221,19 @@
 	@try {
 		if ([self.eventType isEqualToString:@"CommitCommentEvent"]) {
 			GHCommit *commit = self.commits[0];
-			self.title = [NSString stringWithFormat:@"%@ commented on %@ at %@", self.user.login, commit.shortenedSha, self.repoName];
+			self.title = [NSString stringWithFormat:@"%@ commented on %@ at %@", self.user.login, commit.shortenedSha, self.repository.repoId];
 		}
 
 		else if ([self.eventType isEqualToString:@"CreateEvent"]) {
-			NSString *ref = [self.payload safeStringForKey:@"ref"];
-			NSString *refType = [self.payload safeStringForKey:@"ref_type"];
-			if ([refType isEqualToString:@"repository"]) { // created repository
-				self.title = [NSString stringWithFormat:@"%@ created %@ %@", self.user.login, refType, self.repository.name];
+			if ([self.refType isEqualToString:@"repository"]) { // created repository
+				self.title = [NSString stringWithFormat:@"%@ created %@ %@", self.user.login, self.refType, self.repository.name];
 			} else { // created branch or tag
-				self.title = [NSString stringWithFormat:@"%@ created %@ %@ at %@", self.user.login, refType, ref, self.repoName];
+				self.title = [NSString stringWithFormat:@"%@ created %@ %@ at %@", self.user.login, self.refType, self.ref, self.repository.name];
 			}
 		}
 
 		else if ([self.eventType isEqualToString:@"DeleteEvent"]) {
-			NSString *ref = [self.payload safeStringForKey:@"ref"];
-			NSString *refType = [self.payload safeStringForKey:@"ref_type"];
-			self.title = [NSString stringWithFormat:@"%@ deleted %@ %@ at %@", self.user.login, refType, ref, self.repoName];
+			self.title = [NSString stringWithFormat:@"%@ deleted %@ %@ at %@", self.user.login, self.refType, self.ref, self.repository.repoId];
 		}
 
 		else if ([self.eventType isEqualToString:@"DownloadEvent"]) {
@@ -273,7 +282,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"MemberEvent"]) {
-			self.title = [NSString stringWithFormat:@"%@ added %@ to %@", self.user.login, self.otherUser.login, self.repoName];
+			self.title = [NSString stringWithFormat:@"%@ added %@ to %@", self.user.login, self.otherUser.login, self.repository.name];
 		}
 
 		else if ([self.eventType isEqualToString:@"PublicEvent"]) {
@@ -291,8 +300,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"PushEvent"]) {
-			NSString *ref = [self shortenRef:[self.payload safeStringForKey:@"ref"]];
-			self.title = [NSString stringWithFormat:@"%@ pushed to %@ at %@", self.user.login, ref, self.repoName];
+			self.title = [NSString stringWithFormat:@"%@ pushed to %@ at %@", self.user.login, self.ref, self.repository.repoId];
 		}
 
 		else if ([self.eventType isEqualToString:@"TeamAddEvent"]) {
@@ -303,7 +311,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"WatchEvent"]) {
-			self.title = [NSString stringWithFormat:@"%@ starred %@", self.user.login, self.repoName];
+			self.title = [NSString stringWithFormat:@"%@ starred %@", self.user.login, self.repository.repoId];
 		}
 
 	}

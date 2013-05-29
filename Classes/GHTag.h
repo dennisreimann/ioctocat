@@ -12,6 +12,7 @@
 @property(nonatomic,strong)NSString *taggerName;
 @property(nonatomic,strong)NSString *taggerEmail;
 @property(nonatomic,strong)NSDate *taggerDate;
+@property(nonatomic,strong)NSURL *htmlURL;
 
 - (id)initWithRepo:(GHRepository *)repo sha:(NSString *)sha;
 @end

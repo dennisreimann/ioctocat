@@ -3,6 +3,7 @@
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
+#import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
@@ -16,6 +17,13 @@
 		self.resourcePath = [NSString stringWithFormat:kTagFormat, self.repository.owner, self.repository.name, self.sha];
 	}
 	return self;
+}
+
+- (NSURL *)htmlURL {
+    if (!_htmlURL) {
+        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/tree/%@", self.repository.owner, self.repository.name, self.sha];
+    }
+    return _htmlURL;
 }
 
 #pragma mark Loading

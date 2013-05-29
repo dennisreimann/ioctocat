@@ -1,4 +1,4 @@
-@class GHUser, GHOrganization, GHRepository, GHGist, GHCommits, GHIssue, GHPullRequest, GHComment;
+@class GHUser, GHOrganization, GHRepository, GHGist, GHCommits, GHIssue, GHPullRequest, GHComment, GHBranch, GHTag;
 
 @interface GHEvent : NSObject
 @property(nonatomic,strong)NSString *eventID;
@@ -6,6 +6,8 @@
 @property(nonatomic,strong)NSDate *date;
 @property(nonatomic,strong)NSDictionary *payload;
 @property(nonatomic,strong)NSString *repoName;
+@property(nonatomic,strong)NSString *ref;
+@property(nonatomic,strong)NSString *refType;
 @property(nonatomic,strong)GHGist *gist;
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)GHComment *comment;
@@ -17,6 +19,8 @@
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)GHUser *otherUser;
 @property(nonatomic,strong)GHOrganization *organization;
+@property(nonatomic,strong)GHBranch *branch;
+@property(nonatomic,strong)GHTag *tag;
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *content;
 @property(nonatomic,readonly)NSString *extendedEventType;

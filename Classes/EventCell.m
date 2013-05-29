@@ -4,6 +4,8 @@
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "GHRepository.h"
+#import "GHBranch.h"
+#import "GHTag.h"
 #import "GHCommit.h"
 #import "GHGist.h"
 #import "GHIssue.h"
@@ -77,6 +79,11 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     }
     if (self.event.repository) {
         NSRange range = [self.titleLabel.text rangeOfString:self.event.repository.repoId];
+        if (range.location == NSNotFound && ([self.event.eventType isEqualToString:@"MemberEvent"] || [self.event.eventType isEqualToString:@"DownloadEvent"] || [self.event.eventType isEqualToString:@"CreateEvent"])) {
+            NSUInteger afterLogin = self.event.user.login.length + 1;
+            NSRange subrange = NSMakeRange(afterLogin, [self.titleLabel.text length] - afterLogin);
+            range = [self.titleLabel.text rangeOfString:self.event.repository.name options:NULL range:subrange];
+        }
         [self.titleLabel addLinkToURL:self.event.repository.htmlURL withRange:range];
     }
     if (self.event.otherRepository) {
@@ -111,6 +118,14 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
         NSURL *htmlURL = [wiki safeURLForKey:@"html_url"];
         NSRange range = [self.titleLabel.text rangeOfString:[NSString stringWithFormat:@"\"%@\"", pageName]];
         [self.titleLabel addLinkToURL:htmlURL withRange:range];
+    }
+    if (self.event.branch) {
+        NSRange range = [self.titleLabel.text rangeOfString:self.event.ref];
+        [self.titleLabel addLinkToURL:self.event.branch.htmlURL withRange:range];
+    }
+    if (self.event.tag) {
+        NSRange range = [self.titleLabel.text rangeOfString:self.event.ref];
+        [self.titleLabel addLinkToURL:self.event.tag.htmlURL withRange:range];
     }
 }
 

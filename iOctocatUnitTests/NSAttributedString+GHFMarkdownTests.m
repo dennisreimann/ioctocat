@@ -26,9 +26,9 @@
     CTFontRef h1Ref = CTFontCreateWithName((__bridge CFStringRef)font.fontName, h1Size, NULL);
     CTFontRef h2Ref = CTFontCreateWithName((__bridge CFStringRef)font.fontName, h2Size, NULL);
     CTFontRef h3Ref = CTFontCreateWithName((__bridge CFStringRef)font.fontName, h3Size, NULL);
-    NSDictionary *h1Attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(h1Ref) forKey:(NSString *)kCTFontAttributeName];
-    NSDictionary *h2Attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(h2Ref) forKey:(NSString *)kCTFontAttributeName];
-    NSDictionary *h3Attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(h3Ref) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *h1Attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(h1Ref) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *h2Attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(h2Ref) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *h3Attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(h3Ref) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:h1Attributes range:NSMakeRange(0, 8)];
     [expected addAttributes:h2Attributes range:NSMakeRange(25, 15)];
     [expected addAttributes:h3Attributes range:NSMakeRange(54, 14)];
@@ -39,7 +39,7 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold."];
     UIFont *font = [UIFont boldSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
     expect([NSAttributedString attributedStringFromMarkdown:@"This **is** bold."]).to.equal(expected);
 }
@@ -48,7 +48,7 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold"];
     UIFont *font = [UIFont boldSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 4)];
     expect([NSAttributedString attributedStringFromMarkdown:@"__This__ is __bold__"]).to.equal(expected);
@@ -58,7 +58,7 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic."];
     UIFont *font = [UIFont italicSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
     expect([NSAttributedString attributedStringFromMarkdown:@"This *is* italic."]).to.equal(expected);
 }
@@ -67,7 +67,7 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic"];
     UIFont *font = [UIFont italicSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 6)];
     expect([NSAttributedString attributedStringFromMarkdown:@"_This_ is _italic_"]).to.equal(expected);
@@ -78,8 +78,9 @@
     UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
     CTFontRef boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
     CTFontRef boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(boldFontRef, boldFont.pointSize, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
+    CFRelease(boldFontRef);
     expect([NSAttributedString attributedStringFromMarkdown:@"This ***is*** bold italic."]).to.equal(expected);
 }
 
@@ -88,9 +89,10 @@
     UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
     CTFontRef boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
     CTFontRef boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(boldFontRef, boldFont.pointSize, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
-    NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 11)];
+    CFRelease(boldFontRef);
     expect([NSAttributedString attributedStringFromMarkdown:@"___This___ is ___bold italic___"]).to.equal(expected);
 }
 

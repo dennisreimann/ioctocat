@@ -43,7 +43,7 @@ static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
             NSRange textRange = [match rangeAtIndex:2];
             CGFloat headSize = headSize = baseSize + (6 - headRange.length);
             CTFontRef headRef = headRef = CTFontCreateCopyWithSymbolicTraits(baseRef, headSize, NULL, kCTFontBoldTrait, kCTFontBoldTrait);
-            NSDictionary *attributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(headRef) forKey:(NSString *)kCTFontAttributeName];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(headRef) forKey:(NSString *)kCTFontAttributeName];
             NSString *text = [string substringWithRange:textRange];
             NSArray *endMatches = [endRegex matchesInString:text options:NSMatchingReportCompletion range:NSMakeRange(0, text.length)];
             if (endMatches.count == 1) {
@@ -53,6 +53,7 @@ static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
             textRange = NSMakeRange(match.range.location, text.length);
             [self addAttributes:attributes range:textRange];
         }
+        CFRelease(baseRef);
     }
 }
 

@@ -33,10 +33,11 @@ static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|<
     CTFontRef boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, (kCTFontBoldTrait | kCTFontItalicTrait), (kCTFontBoldTrait | kCTFontItalicTrait));
     CTFontRef boldFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, kCTFontBoldTrait, kCTFontBoldTrait);
     CTFontRef italicFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, kCTFontItalicTrait, kCTFontItalicTrait);
-    NSDictionary *boldItalicAttributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
-    NSDictionary *boldAttributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(boldFontRef) forKey:(NSString *)kCTFontAttributeName];
-    NSDictionary *italicAttributes = [NSDictionary dictionaryWithObject:(id)CFBridgingRelease(italicFontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *boldItalicAttributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *boldAttributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(boldFontRef) forKey:(NSString *)kCTFontAttributeName];
+    NSDictionary *italicAttributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(italicFontRef) forKey:(NSString *)kCTFontAttributeName];
     NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+    CFRelease(fontRef);
     [string substituteMarkdownLinks];
     [string substituteMarkdownTasks];
     [output substituteHeadlinesWithBaseFont:font];

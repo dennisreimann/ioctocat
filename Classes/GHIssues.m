@@ -3,6 +3,12 @@
 #import "GHRepository.h"
 
 
+@interface GHIssues ()
+@property(nonatomic,weak)GHRepository *repository;
+@property(nonatomic,strong)NSString *issueState;
+@end
+
+
 @implementation GHIssues
 
 - (id)initWithResourcePath:(NSString *)path {

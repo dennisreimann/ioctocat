@@ -6,7 +6,7 @@
 
 
 @interface GHFiles ()
-@property(nonatomic,strong)GHPullRequest *pullRequest;
+@property(nonatomic,weak)GHPullRequest *pullRequest;
 @end
 
 

@@ -3,6 +3,12 @@
 #import "GHRepository.h"
 
 
+@interface GHPullRequests ()
+@property(nonatomic,weak)GHRepository *repository;
+@property(nonatomic,strong)NSString *pullState;
+@end
+
+
 @implementation GHPullRequests
 
 - (id)initWithResourcePath:(NSString *)path {

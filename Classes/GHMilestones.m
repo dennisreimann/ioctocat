@@ -4,6 +4,11 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHMilestones ()
+@property(nonatomic,weak)GHRepository *repository;
+@end
+
+
 @implementation GHMilestones
 
 - (id)initWithResourcePath:(NSString *)path {

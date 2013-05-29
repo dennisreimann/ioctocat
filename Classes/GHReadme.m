@@ -4,6 +4,11 @@
 #import "iOctocat.h"
 
 
+@interface GHReadme ()
+@property(nonatomic,weak)GHRepository *repository;
+@end
+
+
 @implementation GHReadme
 
 - (id)initWithRepository:(GHRepository *)repo {

@@ -7,7 +7,7 @@
 
 @interface GHCommits ()
 @property(nonatomic,strong)GHRepository *repository;
-@property(nonatomic,strong)GHPullRequest *pullRequest;
+@property(nonatomic,weak)GHPullRequest *pullRequest;
 @property(nonatomic,strong)NSString *sha;
 @end
 

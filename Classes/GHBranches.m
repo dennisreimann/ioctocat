@@ -4,6 +4,11 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHBranches ()
+@property(nonatomic,weak)GHRepository *repository;
+@end
+
+
 @implementation GHBranches
 
 - (id)initWithRepository:(GHRepository *)repo {

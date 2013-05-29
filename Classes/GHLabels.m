@@ -4,6 +4,11 @@
 #import "NSDictionary+Extensions.h"
 
 
+@interface GHLabels  ()
+@property(nonatomic,weak)GHRepository *repository;
+@end
+
+
 @implementation GHLabels
 
 - (id)initWithResourcePath:(NSString *)path {

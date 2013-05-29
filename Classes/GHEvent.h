@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-
-
 @class GHUser, GHOrganization, GHRepository, GHGist, GHCommits, GHIssue, GHPullRequest, GHComment;
 
 @interface GHEvent : NSObject

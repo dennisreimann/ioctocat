@@ -1,4 +1,3 @@
-#import <Foundation/Foundation.h>
 #import "GHResource.h"
 #import "GHComment.h"
 

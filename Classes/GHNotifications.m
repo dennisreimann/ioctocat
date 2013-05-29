@@ -1,4 +1,3 @@
-#import "AFHTTPRequestOperation.h"
 #import "GHNotifications.h"
 #import "GHNotification.h"
 #import "GHRepository.h"

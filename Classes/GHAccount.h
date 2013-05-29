@@ -1,6 +1,3 @@
-#import <Foundation/Foundation.h>
-
-
 @class GHOAuthClient, GHUserObjectsRepository, GHUser;
 
 @interface GHAccount : NSObject <NSCoding>

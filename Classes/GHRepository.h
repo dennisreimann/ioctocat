@@ -1,7 +1,7 @@
 #import "GHResource.h"
 
 
-@class GHIssues, GHPullRequests, GHForks, GHBranches, GHMilestones, GHLabels, GHUser, GHReadme, GHEvents, GHUsers;
+@class GHIssues, GHPullRequests, GHForks, GHTags, GHBranches, GHMilestones, GHLabels, GHUser, GHReadme, GHEvents, GHUsers;
 
 @interface GHRepository : GHResource
 @property(nonatomic,strong)NSString *name;
@@ -19,6 +19,7 @@
 @property(nonatomic,strong)GHMilestones *milestones;
 @property(nonatomic,strong)GHLabels *labels;
 @property(nonatomic,strong)GHForks *forks;
+@property(nonatomic,strong)GHTags *tags;
 @property(nonatomic,strong)GHBranches *branches;
 @property(nonatomic,strong)GHReadme *readme;
 @property(nonatomic,strong)GHEvents *events;

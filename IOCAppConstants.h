@@ -43,6 +43,7 @@
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
 #define kIssueObjectCellIdentifier      @"IssueObjectCell"
+#define kTagCellIdentifier              @"TagCell"
 #define kGistCellIdentifier             @"GistCell"
 #define kNotificationCellIdentifier     @"NotificationCell"
 
@@ -103,6 +104,7 @@
 #define kRepoForksFormat                @"repos/%@/%@/forks"
 #define kRepoContributorsFormat         @"repos/%@/%@/contributors"
 #define kRepoStargazersFormat           @"repos/%@/%@/stargazers"
+#define kRepoTagsFormat                 @"repos/%@/%@/tags"
 #define kRepoCommitsFormat              @"repos/%@/%@/commits"
 #define kRepoShaCommitsFormat           @"repos/%@/%@/commits?sha=%@"
 #define kRepoCommitFormat               @"repos/%@/%@/commits/%@"

@@ -15,6 +15,7 @@
 #import "IOCUsersController.h"
 #import "WebController.h"
 #import "iOctocat.h"
+#import "IOCTagsController.h"
 #import "IOCCommitsController.h"
 #import "IOCIssueController.h"
 #import "IssueObjectCell.h"
@@ -52,6 +53,7 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *contributorsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *stargazersCell;
+@property(nonatomic,strong)IBOutlet UITableViewCell *tagsCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *forkedCell;
 @property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
@@ -252,7 +254,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		if (self.repository.readme.isLoaded) rows += 1;
 		return rows;
 	} else if (section == 1) {
-		return self.repository.hasIssues ? 6 : 5;
+		return self.repository.hasIssues ? 7 : 6;
 	} else {
 		return self.repository.branches.isEmpty ? 1 : self.repository.branches.count;
 	}
@@ -294,11 +296,12 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	} else if (section == 1) {
 		switch (row) {
 			case 0: cell = self.forkCell; break;
-			case 1: cell = self.eventsCell; break;
-			case 2: cell = self.contributorsCell; break;
-			case 3: cell = self.stargazersCell; break;
-			case 4: cell = self.pullRequestsCell; break;
-			case 5: cell = self.issuesCell; break;
+			case 1: cell = self.tagsCell; break;
+			case 2: cell = self.eventsCell; break;
+			case 3: cell = self.contributorsCell; break;
+			case 4: cell = self.stargazersCell; break;
+			case 5: cell = self.pullRequestsCell; break;
+			case 6: cell = self.issuesCell; break;
 		}
 	} else {
 		if (self.repository.branches.isEmpty) return self.branchesStatusCell;
@@ -345,17 +348,19 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		if (row == 0) {
 			viewController = [[IOCForksController alloc] initWithForks:self.repository.forks];
 		} else if (row == 1) {
+			viewController = [[IOCTagsController alloc] initWithTags:self.repository.tags];
+		} else if (row == 2) {
 			viewController = [[EventsController alloc] initWithEvents:self.repository.events];
             viewController.title = @"Recent Activity";
-		} else if (row == 2) {
+		} else if (row == 3) {
 			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];
 			viewController.title = @"Contributors";
-		} else if (row == 3) {
+		} else if (row == 4) {
             viewController = [[IOCUsersController alloc] initWithUsers:self.repository.stargazers];
 			viewController.title = @"Stargazers";
-		} else if (row == 4) {
+		} else if (row == 5) {
 			viewController = [[IOCPullRequestsController alloc] initWithRepository:self.repository];
-        } else if (row == 5) {
+        } else if (row == 6) {
 			viewController = [[IOCIssuesController alloc] initWithRepository:self.repository];
 		}
 	} else if (section == 2 && self.repository.branches.isEmpty) {

@@ -1,11 +1,12 @@
 #import "GHResource.h"
 
 
-@class GHRepository, GHCommit;
+@class GHRepository, GHCommit, GHTree;
 
 @interface GHTag : GHResource
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)GHCommit *commit;
+@property(nonatomic,readonly)GHTree *tree;
 @property(nonatomic,strong)NSString *sha;
 @property(nonatomic,strong)NSString *tag;
 @property(nonatomic,strong)NSString *message;

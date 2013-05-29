@@ -3,6 +3,7 @@
 #import "iOctocat.h"
 #import "GHIssues.h"
 #import "GHPullRequests.h"
+#import "GHTags.h"
 #import "GHForks.h"
 #import "GHUsers.h"
 #import "GHEvents.h"
@@ -79,6 +80,13 @@
 }
 
 #pragma mark Associations
+
+- (GHTags *)tags {
+	if (!_tags) {
+		_tags = [[GHTags alloc] initWithRepository:self];
+	}
+	return _tags;
+}
 
 - (GHForks *)forks {
 	if (!_forks) {

@@ -86,7 +86,7 @@
 - (GHOrganizations *)organizations {
 	if (!_organizations) {
 		NSString *organizationsPath = [NSString stringWithFormat:kUserOrganizationsFormat, self.login];
-		_organizations = [[GHOrganizations alloc] initWithUser:self andPath:organizationsPath];
+		_organizations = [[GHOrganizations alloc] initWithPath:organizationsPath];
 	}
 	return _organizations;
 }

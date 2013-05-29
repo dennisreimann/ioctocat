@@ -97,7 +97,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
         NSRange range = [self.titleLabel.text rangeOfString:[NSString stringWithFormat:@"gist %@", self.event.gist.gistId]];
         [self.titleLabel addLinkToURL:self.event.gist.htmlURL withRange:range];
     }
-    if (self.event.commits) {
+    if (self.event.commits && self.event.commits.count > 0) {
         GHCommit *commit = self.event.commits[0];
         NSRange range = [self.titleLabel.text rangeOfString:commit.shortenedSha];
         [self.titleLabel addLinkToURL:commit.htmlURL withRange:range];

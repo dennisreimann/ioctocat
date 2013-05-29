@@ -96,7 +96,7 @@
 	};
 	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
 		NSDictionary *headers = operation.response.allHeaderFields;
-		DJLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
+		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
 		[self setHeaderValues:headers];
 		self.error = error;
 		self.resourceStatus = GHResourceStatusFailed;
@@ -122,7 +122,7 @@
 	};
 	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
 		NSDictionary *headers = response.allHeaderFields;
-		DJLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
+		D2JLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
 		self.error = error;
 		if (failure) failure(self, error);
 	};

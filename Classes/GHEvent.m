@@ -226,9 +226,9 @@
 
 		else if ([self.eventType isEqualToString:@"CreateEvent"]) {
 			if ([self.refType isEqualToString:@"repository"]) { // created repository
-				self.title = [NSString stringWithFormat:@"%@ created %@ %@", self.user.login, self.refType, self.repository.name];
+				self.title = [NSString stringWithFormat:@"%@ created %@ %@", self.user.login, self.refType, self.repository.repoId];
 			} else { // created branch or tag
-				self.title = [NSString stringWithFormat:@"%@ created %@ %@ at %@", self.user.login, self.refType, self.ref, self.repository.name];
+				self.title = [NSString stringWithFormat:@"%@ created %@ %@ at %@", self.user.login, self.refType, self.ref, self.repository.repoId];
 			}
 		}
 
@@ -238,7 +238,7 @@
 
 		else if ([self.eventType isEqualToString:@"DownloadEvent"]) {
 			NSString *name = [self.payload safeStringForKeyPath:@"download.name"];
-			self.title = [NSString stringWithFormat:@"%@ created download %@ at %@", self.user.login, name, self.repository.name];
+			self.title = [NSString stringWithFormat:@"%@ created download %@ at %@", self.user.login, name, self.repository.repoId];
 		}
 
 		else if ([self.eventType isEqualToString:@"FollowEvent"]) {
@@ -282,7 +282,7 @@
 		}
 
 		else if ([self.eventType isEqualToString:@"MemberEvent"]) {
-			self.title = [NSString stringWithFormat:@"%@ added %@ to %@", self.user.login, self.otherUser.login, self.repository.name];
+			self.title = [NSString stringWithFormat:@"%@ added %@ to %@", self.user.login, self.otherUser.login, self.repository.repoId];
 		}
 
 		else if ([self.eventType isEqualToString:@"PublicEvent"]) {

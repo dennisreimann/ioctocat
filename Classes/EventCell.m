@@ -79,11 +79,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     }
     if (self.event.repository) {
         NSRange range = [self.titleLabel.text rangeOfString:self.event.repository.repoId];
-        if (range.location == NSNotFound && ([self.event.eventType isEqualToString:@"MemberEvent"] || [self.event.eventType isEqualToString:@"DownloadEvent"] || [self.event.eventType isEqualToString:@"CreateEvent"])) {
-            NSUInteger afterLogin = self.event.user.login.length + 1;
-            NSRange subrange = NSMakeRange(afterLogin, [self.titleLabel.text length] - afterLogin);
-            range = [self.titleLabel.text rangeOfString:self.event.repository.name options:NULL range:subrange];
-        }
         [self.titleLabel addLinkToURL:self.event.repository.htmlURL withRange:range];
     }
     if (self.event.otherRepository) {

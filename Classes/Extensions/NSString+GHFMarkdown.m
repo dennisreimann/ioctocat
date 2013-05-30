@@ -14,7 +14,7 @@
 static NSString *const MarkdownLinkAndImageRegex = @"!?\\[(.*?)\\]\\((\\S+)(\\s+(\"|\')(.*?)(\"|\'))?\\)";
 static NSString *const MarkdownShaRegex = @"(?:([\\w-]+)\\/)?(?:([\\w-]+)@)?(\\w{40})";
 static NSString *const MarkdownUsernameRegex = @"(?:^|\\s)+@{1}([\\w-]+)";
-static NSString *const MarkdownIssueRegex = @"([\\w-]+/[\\w-]+)?#{1}(\\d+)";
+static NSString *const MarkdownIssueRegex = @"(?:([\\w-]+)\\/)?([\\w-]+)?#{1}(\\d+)";
 static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
 
 // also takes care of images
@@ -100,6 +100,11 @@ static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
     return results;
 }
 
+// Possible matches
+//
+// * #Num
+// * User/#Num
+// * User/Project#Num
 - (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:MarkdownIssueRegex options:NSRegularExpressionCaseInsensitive error:NULL];
@@ -107,11 +112,27 @@ static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
     NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
     for (NSTextCheckingResult *match in matches) {
         NSRange titleRange = match.range;
-        NSRange repoRange = [match rangeAtIndex:1];
-        NSRange numRange = [match rangeAtIndex:2];
-        NSString *title = [string substringWithRange:titleRange];
-        NSString *repo = repoRange.location == NSNotFound ? repoId : [string substringWithRange:repoRange];
+        NSRange firstRange = [match rangeAtIndex:1];
+        NSRange secondRange = [match rangeAtIndex:2];
+        NSRange numRange = [match rangeAtIndex:3];
         NSString *num = [string substringWithRange:numRange];
+        NSString *title = [string substringWithRange:titleRange];
+        NSString *repoUser = firstRange.location == NSNotFound ? nil : [string substringWithRange:firstRange];
+        NSString *repoName = secondRange.location == NSNotFound ? nil : [string substringWithRange:secondRange];
+        // in case only the second group matched, this is the username
+        if (!repoUser && repoName) {
+            repoUser = repoName;
+            repoName = nil;
+        }
+        // construct the full repo reference, defaults to context repo
+        NSString *repo = repoId;
+        if (repoUser && repoName) {
+            repo = [NSString stringWithFormat:@"%@/%@", repoUser, repoName];
+        } else if (repoUser && repoId) {
+            // same repo, but different user
+            repoName = [repoId lastPathComponent];
+            repo = [NSString stringWithFormat:@"%@/%@", repoUser, repoName];
+        }
         [results addObject: repo ? @{
          @"title": title,
          @"repo": repo,

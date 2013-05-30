@@ -52,17 +52,21 @@
 }
 
 - (void)testGhfmarkdownIssuesWithContextRepoId {
-    NSString *string = @"This is an #123 issue reference and here's a full dennisreimann/ioctocat#456 reference.";
-    NSArray *issues = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/masq"];
+    NSString *string = @"This is an #123 issue reference and here's a full dennisreimann/masq#456 reference and iosdeveloper#789.";
+    NSArray *issues = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
     NSDictionary *issue1 = issues[0];
     NSDictionary *issue2 = issues[1];
-    expect(issues.count).to.equal(2);
+    NSDictionary *issue3 = issues[2];
+    expect(issues.count).to.equal(3);
     expect(issue1[@"title"]).to.equal(@"#123");
     expect(issue1[@"number"]).to.equal(@"123");
-    expect(issue1[@"url"]).to.equal([NSURL URLWithString:@"/dennisreimann/masq/issues/123"]);
-    expect(issue2[@"title"]).to.equal(@"dennisreimann/ioctocat#456");
+    expect(issue1[@"url"]).to.equal([NSURL URLWithString:@"/dennisreimann/ioctocat/issues/123"]);
+    expect(issue2[@"title"]).to.equal(@"dennisreimann/masq#456");
     expect(issue2[@"number"]).to.equal(@"456");
-    expect(issue2[@"url"]).to.equal([NSURL URLWithString:@"/dennisreimann/ioctocat/issues/456"]);
+    expect(issue2[@"url"]).to.equal([NSURL URLWithString:@"/dennisreimann/masq/issues/456"]);
+    expect(issue3[@"title"]).to.equal(@"iosdeveloper#789");
+    expect(issue3[@"number"]).to.equal(@"789");
+    expect(issue3[@"url"]).to.equal([NSURL URLWithString:@"/iosdeveloper/ioctocat/issues/789"]);
 }
 
 - (void)testGhfmarkdownIssuesWithoutContextRepoId {

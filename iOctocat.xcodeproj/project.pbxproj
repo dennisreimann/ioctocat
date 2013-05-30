@@ -34,6 +34,10 @@
 		2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FD65917362D1B007E051D /* GHTreeTests.m */; };
 		2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */; };
 		2E1FD66017363353007E051D /* RepoContents.json in Resources */ = {isa = PBXBuildFile; fileRef = 2E1FD65F17363353007E051D /* RepoContents.json */; };
+		2E1FFFA217577A4300CC19A2 /* IOCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA117577A4300CC19A2 /* IOCUtil.m */; };
+		2E1FFFA317577A4300CC19A2 /* IOCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA117577A4300CC19A2 /* IOCUtil.m */; };
+		2E1FFFA417577A4300CC19A2 /* IOCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA117577A4300CC19A2 /* IOCUtil.m */; };
+		2E1FFFA717577FE400CC19A2 /* IOCUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */; };
 		2E27C38C17440568008B849C /* NSString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */; };
 		2E27C38D17440568008B849C /* NSString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */; };
 		2E27C38E17440568008B849C /* NSString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */; };
@@ -1098,6 +1102,10 @@
 		2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSubmoduleTests.m; sourceTree = "<group>"; };
 		2E1FD65E17362EA7007E051D /* GHSubmoduleTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSubmoduleTests.h; sourceTree = "<group>"; };
 		2E1FD65F17363353007E051D /* RepoContents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RepoContents.json; sourceTree = "<group>"; };
+		2E1FFFA017577A3600CC19A2 /* IOCUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCUtil.h; sourceTree = "<group>"; };
+		2E1FFFA117577A4300CC19A2 /* IOCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUtil.m; sourceTree = "<group>"; };
+		2E1FFFA517577FCD00CC19A2 /* IOCUtilTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCUtilTests.h; sourceTree = "<group>"; };
+		2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUtilTests.m; sourceTree = "<group>"; };
 		2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GHFMarkdown.h"; sourceTree = "<group>"; };
 		2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GHFMarkdown.m"; sourceTree = "<group>"; };
 		2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepository.png; sourceTree = "<group>"; };
@@ -1851,6 +1859,8 @@
 		2E11E70416FB13080012ACDA /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2E1FFFA017577A3600CC19A2 /* IOCUtil.h */,
+				2E1FFFA117577A4300CC19A2 /* IOCUtil.m */,
 				6FE91E4A0FAD13D500749370 /* IOCAuthenticationService.h */,
 				6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */,
 				6FCAF1640F895756005E1173 /* IOCGravatarService.h */,
@@ -2193,6 +2203,8 @@
 			children = (
 				6F4EB354167D1B76001C1DEA /* Fixtures */,
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
+				2E1FFFA517577FCD00CC19A2 /* IOCUtilTests.h */,
+				2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */,
 				2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */,
 				2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */,
 				6F5C02911674A665005AC6FA /* IOCAvatarCacheTests.h */,
@@ -3818,6 +3830,7 @@
 				2E52B637174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
 				2E1CCAFA17568795009C0400 /* GHTags.m in Sources */,
 				2E1CCAFF17568878009C0400 /* IOCTagsController.m in Sources */,
+				2E1FFFA217577A4300CC19A2 /* IOCUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3952,6 +3965,8 @@
 				2E52B63C174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m in Sources */,
 				2E1CCAFC17568795009C0400 /* GHTags.m in Sources */,
 				2E1CCB0117568878009C0400 /* IOCTagsController.m in Sources */,
+				2E1FFFA417577A4300CC19A2 /* IOCUtil.m in Sources */,
+				2E1FFFA717577FE400CC19A2 /* IOCUtilTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4076,6 +4091,7 @@
 				2E52B638174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
 				2E1CCAFB17568795009C0400 /* GHTags.m in Sources */,
 				2E1CCB0017568878009C0400 /* IOCTagsController.m in Sources */,
+				2E1FFFA317577A4300CC19A2 /* IOCUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

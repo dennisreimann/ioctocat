@@ -1,4 +1,5 @@
 #import "IOCBlobsController.h"
+#import "IOCUtil.h"
 #import "GHBlob.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
@@ -70,7 +71,7 @@
 
 #pragma mark Helpers
 
-- (void)displayCode:(NSString *)code {
+- (void)displayCode:(NSString *)code filename:(NSString *)filename {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
@@ -81,13 +82,13 @@
 	NSString *codeCssPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"css"];
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *lang = @"";
+	NSString *lang = [IOCUtil highlightLanguageForFilename:filename];
 	NSString *escapedCode = [code escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
 	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
 }
 
-- (void)displayData:(NSData *)data withFilename:(NSString *)filename {
+- (void)displayData:(NSData *)data filename:(NSString *)filename {
 	NSString *ext = [filename pathExtension];
 	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
 	if ([imageTypes containsObject:ext]) {
@@ -105,8 +106,8 @@
 - (void)displayBlob:(GHBlob *)blob {
 	self.actionButton.enabled = YES;
 	// check what type of content we have and display it accordingly
-	if (self.blob.content) return [self displayCode:blob.content];
-	if (self.blob.contentData) return [self displayData:blob.contentData withFilename:blob.path];
+	if (self.blob.content) return [self displayCode:blob.content filename:blob.path];
+	if (self.blob.contentData) return [self displayData:blob.contentData filename:blob.path];
 }
 
 - (void)setBlob:(GHBlob *)blob {

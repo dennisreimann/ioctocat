@@ -1,4 +1,5 @@
 #import "IOCCodeController.h"
+#import "IOCUtil.h"
 #import "GHFiles.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -72,12 +73,13 @@
 	[self.contentView stopLoading];
 	NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];
 	NSString *fileContent = [self.file safeStringForKey:@"content"];
-	NSString *lang = [self.file safeStringForKey:@"language"];
+	NSString *lang = [[self.file safeStringForKey:@"language"] lowercaseString];
 	// if it's not a gist it must be a commit, so use the patch
 	if (fileContent.isEmpty) {
 		fileContent = [self.file safeStringForKey:@"patch"];
 		lang = @"diff";
 	}
+    if (lang.isEmpty) lang = [IOCUtil highlightLanguageForFilename:fileName];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];

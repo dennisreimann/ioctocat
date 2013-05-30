@@ -12,8 +12,9 @@
 @implementation NSString (GHFMarkdown)
 
 static NSString *const MarkdownLinkAndImageRegex = @"!?\\[(.*?)\\]\\((\\S+)(\\s+(\"|\')(.*?)(\"|\'))?\\)";
-static NSString *const MarkdownUsernameRegex = @"@{1}(\\w+)";
-static NSString *const MarkdownIssueRegex = @"(\\w+/\\w+)?#{1}(\\d+)";
+static NSString *const MarkdownShaRegex = @"(?:([\\w-]+)\\/)?(?:([\\w-]+)@)?(\\w{40})";
+static NSString *const MarkdownUsernameRegex = @"(?:^|\\s)+@{1}([\\w-]+)";
+static NSString *const MarkdownIssueRegex = @"([\\w-]+/[\\w-]+)?#{1}(\\d+)";
 static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
 
 // also takes care of images
@@ -41,15 +42,60 @@ static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
     NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
     for (NSTextCheckingResult *match in matches) {
-        NSRange titleRange = match.range;
         NSRange loginRange = [match rangeAtIndex:1];
-        NSString *title = [string substringWithRange:titleRange];
         NSString *login = [string substringWithRange:loginRange];
         [results addObject:@{
-         @"title": title,
+         @"title": [NSString stringWithFormat:@"@%@", login],
          @"login": login,
          @"range": [NSValue valueWithRange:match.range],
          @"url": [NSURL URLWithString:[NSString stringWithFormat:@"/%@", login]]}];
+	}
+    return results;
+}
+
+// Possible matches
+//
+// * SHA
+// * User@SHA
+// * User/Project@SHA
+- (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId {
+    NSString *string = self;
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:MarkdownShaRegex options:NSRegularExpressionCaseInsensitive error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange titleRange = match.range;
+        NSRange firstRange = [match rangeAtIndex:1];
+        NSRange secondRange = [match rangeAtIndex:2];
+        NSRange shaRange = [match rangeAtIndex:3];
+        NSString *sha = [string substringWithRange:shaRange];
+        NSString *title = [string substringWithRange:titleRange];
+        NSString *repoUser = firstRange.location == NSNotFound ? nil : [string substringWithRange:firstRange];
+        NSString *repoName = secondRange.location == NSNotFound ? nil : [string substringWithRange:secondRange];
+        // in case only the second group matched, this is the username
+        if (!repoUser && repoName) {
+            repoUser = repoName;
+            repoName = nil;
+        }
+        // construct the full repo reference, defaults to context repo
+        NSString *repo = repoId;
+        if (repoUser && repoName) {
+            repo = [NSString stringWithFormat:@"%@/%@", repoUser, repoName];
+        } else if (repoUser && repoId) {
+            // same repo, but different user
+            repoName = [repoId lastPathComponent];
+            repo = [NSString stringWithFormat:@"%@/%@", repoUser, repoName];
+        }
+        [results addObject: repo ? @{
+         @"title": title,
+         @"sha": sha,
+         @"repo": repo,
+         @"range": [NSValue valueWithRange:match.range],
+         @"url": [NSURL URLWithString:[NSString stringWithFormat:@"/%@/commit/%@", repo, sha]]} :
+         @{
+         @"title": title,
+         @"sha": sha,
+         @"range": [NSValue valueWithRange:match.range] }];
 	}
     return results;
 }
@@ -84,10 +130,12 @@ static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
     NSString *string = self;
     NSArray *links = [string linksFromGHFMarkdownLinks];
     NSArray *users = [string linksFromGHFMarkdownUsernames];
+    NSArray *shas = [string linksFromGHFMarkdownShasWithContextRepoId:repoId];
     NSArray *issues = [string linksFromGHFMarkdownIssuesWithContextRepoId:repoId];
     NSMutableArray *all = [NSMutableArray arrayWithCapacity:links.count + users.count + issues.count];
     [all addObjectsFromArray:links];
     [all addObjectsFromArray:users];
+    [all addObjectsFromArray:shas];
     [all addObjectsFromArray:issues];
     return all;
 }

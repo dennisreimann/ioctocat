@@ -12,6 +12,7 @@
 - (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownLinks;
 - (NSArray *)linksFromGHFMarkdownUsernames;
+- (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;
 - (NSArray *)tasksFromGHFMarkdown;
 @end

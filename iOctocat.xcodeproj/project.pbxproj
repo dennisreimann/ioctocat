@@ -140,6 +140,10 @@
 		2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
+		2EFCB0E31757386300EDAE32 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFCB0E11757386300EDAE32 /* star.png */; };
+		2EFCB0E41757386300EDAE32 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFCB0E11757386300EDAE32 /* star.png */; };
+		2EFCB0E61757386300EDAE32 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFCB0E21757386300EDAE32 /* star@2x.png */; };
+		2EFCB0E71757386300EDAE32 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFCB0E21757386300EDAE32 /* star@2x.png */; };
 		2EFEB8B9170352D200BCA7EC /* AccountTypeEnterprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B5170352D200BCA7EC /* AccountTypeEnterprise.png */; };
 		2EFEB8BA170352D200BCA7EC /* AccountTypeEnterprise.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B5170352D200BCA7EC /* AccountTypeEnterprise.png */; };
 		2EFEB8BB170352D200BCA7EC /* AccountTypeEnterprise@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EFEB8B6170352D200BCA7EC /* AccountTypeEnterprise@2x.png */; };
@@ -1155,6 +1159,8 @@
 		2EEB19B4171C979A0058CF68 /* railscasts.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = railscasts.css; sourceTree = "<group>"; };
 		2EF1C0381713515C00096DC1 /* GHSystemStatusService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSystemStatusService.h; sourceTree = "<group>"; };
 		2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSystemStatusService.m; sourceTree = "<group>"; };
+		2EFCB0E11757386300EDAE32 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = Images/Icons/star.png; sourceTree = "<group>"; };
+		2EFCB0E21757386300EDAE32 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "Images/Icons/star@2x.png"; sourceTree = "<group>"; };
 		2EFEB8B5170352D200BCA7EC /* AccountTypeEnterprise.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AccountTypeEnterprise.png; sourceTree = "<group>"; };
 		2EFEB8B6170352D200BCA7EC /* AccountTypeEnterprise@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AccountTypeEnterprise@2x.png"; sourceTree = "<group>"; };
 		2EFEB8B7170352D200BCA7EC /* AccountTypeGithub.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AccountTypeGithub.png; sourceTree = "<group>"; };
@@ -1477,8 +1483,6 @@
 		6FA3816D16E28A0E003293BD /* IOCCommitCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCCommitCell.m; sourceTree = "<group>"; };
 		6FA3816E16E28A0E003293BD /* IOCGistCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCGistCell.h; sourceTree = "<group>"; };
 		6FA3816F16E28A0E003293BD /* IOCGistCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCGistCell.m; sourceTree = "<group>"; };
-		6FA381CB16E28EE8003293BD /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = Images/Icons/star.png; sourceTree = "<group>"; };
-		6FA381CC16E28EE8003293BD /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "star@2x.png"; path = "Images/Icons/star@2x.png"; sourceTree = "<group>"; };
 		6FA381D716E28F24003293BD /* MenuOctocat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuOctocat.png; sourceTree = "<group>"; };
 		6FA381D816E28F24003293BD /* MenuOctocat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MenuOctocat@2x.png"; sourceTree = "<group>"; };
 		6FA381E116E28F24003293BD /* MenuPullRequests.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MenuPullRequests.png; sourceTree = "<group>"; };
@@ -2137,8 +2141,8 @@
 				6F536BBE16791F5000B5FD53 /* pull_request_closed@2x.png */,
 				6F536BBF16791F5000B5FD53 /* pull_request_open.png */,
 				6F536BC016791F5000B5FD53 /* pull_request_open@2x.png */,
-				6FA381CB16E28EE8003293BD /* star.png */,
-				6FA381CC16E28EE8003293BD /* star@2x.png */,
+				2EFCB0E11757386300EDAE32 /* star.png */,
+				2EFCB0E21757386300EDAE32 /* star@2x.png */,
 				2E1CCAF21756861C009C0400 /* tag.png */,
 				2E1CCAF31756861C009C0400 /* tag@2x.png */,
 				6F879A1C0FB60CB500EBD9BD /* user.png */,
@@ -3247,6 +3251,8 @@
 				2E1FD6571735B0A8007E051D /* submodule@2x.png in Resources */,
 				2E1CCAF41756861C009C0400 /* tag.png in Resources */,
 				2E1CCAF61756861C009C0400 /* tag@2x.png in Resources */,
+				2EFCB0E31757386300EDAE32 /* star.png in Resources */,
+				2EFCB0E61757386300EDAE32 /* star@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3597,6 +3603,8 @@
 				2E1FD6581735B0A8007E051D /* submodule@2x.png in Resources */,
 				2E1CCAF51756861C009C0400 /* tag.png in Resources */,
 				2E1CCAF71756861C009C0400 /* tag@2x.png in Resources */,
+				2EFCB0E41757386300EDAE32 /* star.png in Resources */,
+				2EFCB0E71757386300EDAE32 /* star@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

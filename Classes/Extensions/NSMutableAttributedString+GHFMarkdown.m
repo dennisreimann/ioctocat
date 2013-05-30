@@ -13,6 +13,11 @@
 
 static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
 
+// Performs substitution in the given pattern and adds the attributes to the resulting substitution.
+// I.e. you can use this to remove the stars/underscores surrounding bold and italic words.
+// The substitution pattern must have either one or two matches. In case it has two, it uses the first
+// match to replace its content with the content of the seconds match. If there is only one match, the
+// whole match will be replaced by the matched content.
 - (void)substitutePattern:(NSString *)pattern andAddAttributes:(NSDictionary *)attributes {
     NSMutableString *string = self.mutableString;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) error:NULL];
@@ -20,10 +25,12 @@ static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
     if (matches.count) {
         NSEnumerator *enumerator = [matches reverseObjectEnumerator];
         for (NSTextCheckingResult *match in enumerator) {
-            NSRange textRange = [match rangeAtIndex:1];
+            BOOL hasSubstitutionRange = match.numberOfRanges > 2;
+            NSRange substituteRange = hasSubstitutionRange ? [match rangeAtIndex:1] : match.range;
+            NSRange textRange = hasSubstitutionRange ? [match rangeAtIndex:2] : [match rangeAtIndex:1];
             NSString *text = [string substringWithRange:textRange];
-            [string replaceCharactersInRange:match.range withString:text];
-            textRange = NSMakeRange(match.range.location, text.length);
+            [string replaceCharactersInRange:substituteRange withString:text];
+            textRange = NSMakeRange(substituteRange.location, text.length);
             [self addAttributes:attributes range:textRange];
         }
     }

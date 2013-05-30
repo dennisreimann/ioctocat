@@ -13,9 +13,9 @@
 
 @implementation NSAttributedString (GHFMarkdown)
 
-static NSString *const MarkdownBoldItalicRegex = @"[*_]{3}(.+?)[*_]{3}";
-static NSString *const MarkdownBoldRegex = @"[*_]{2}(.+?)[*_]{2}";
-static NSString *const MarkdownItalicRegex = @"[*_]{1}(.+?)[*_]{1}";
+static NSString *const MarkdownBoldItalicRegex = @"(?:^|\\s)([*_]{3}(.+?)[*_]{3})(?:$|\\s)";
+static NSString *const MarkdownBoldRegex = @"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)";
+static NSString *const MarkdownItalicRegex = @"(?:^|\\s)([*_]{1}(.+?)[*_]{1})(?:$|\\s)";
 static NSString *const MarkdownCodeBlockRegex = @"(?:`{3}|<pre>)(.+?)(?:`{3}|</pre>)";
 static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</code>)";
 

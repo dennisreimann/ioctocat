@@ -83,6 +83,15 @@
     expect([NSAttributedString attributedStringFromMarkdown:@"_This_ is _italic_"]).to.equal(expected);
 }
 
+- (void)testAttributedStringFromMarkdownWithUnderscoreWhichIsNotItalic {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is a file_name.rb get_it? But here is an italic part okay?"];
+    UIFont *font = [UIFont italicSystemFontOfSize:15];
+    CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
+    [expected addAttributes:attributes range:NSMakeRange(46, 11)];
+    expect([NSAttributedString attributedStringFromMarkdown:@"This is a file_name.rb get_it? But here is an _italic part_ okay?"]).to.equal(expected);
+}
+
 - (void)testAttributedStringFromMarkdownWithBoldItalic {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic."];
     UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
@@ -143,18 +152,5 @@
     [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 11)];
     expect([NSAttributedString attributedStringFromMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."]).to.equal(expected);
 }
-
-//- (void)testAttributedStringFromMarkdownWithSha {
-//    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"SHA: 16c999e8c71134401a78d4d46435517b2271d6ac"];
-//    [expected addAttributes:self.codeAttributes range:NSMakeRange(5, 40)];
-//    expect([NSAttributedString attributedStringFromMarkdown:@"SHA: 16c999e8c71134401a78d4d46435517b2271d6ac"]).to.equal(expected);
-//}
-//
-
-//* User@SHA ref: mojombo@16c999e8c71134401a78d4d46435517b2271d6ac
-//* User/Project@SHA: mojombo/github-flavored-markdown@16c999e8c71134401a78d4d46435517b2271d6ac
-//* #Num: #1
-//* User/#Num: mojombo#1
-//* User/Project#Num: mojombo/github-flavored-markdown#1
 
 @end

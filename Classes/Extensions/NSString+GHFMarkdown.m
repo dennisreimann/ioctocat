@@ -13,7 +13,7 @@
 
 static NSString *const MarkdownLinkAndImageRegex = @"!?\\[(.*?)\\]\\((\\S+)(\\s+(\"|\')(.*?)(\"|\'))?\\)";
 static NSString *const MarkdownShaRegex = @"(?:([\\w-]+)\\/)?(?:([\\w-]+)@)?(\\w{40})";
-static NSString *const MarkdownUsernameRegex = @"(?:^|\\s)+@{1}([\\w-]+)";
+static NSString *const MarkdownUsernameRegex = @"(?:^|\\s)@{1}([\\w-]+)";
 static NSString *const MarkdownIssueRegex = @"(?:([\\w-]+)\\/)?([\\w-]+)?#{1}(\\d+)";
 static NSString *const MarkdownTaskRegex = @"(-\\s?\\[([\\sx])\\]){1}\\s(.+)";
 

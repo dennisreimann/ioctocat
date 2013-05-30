@@ -6,14 +6,25 @@
 
 @implementation NSMutableAttributedString_GHFMarkdownTests
 
-- (void)testSubstitutePatternAndAddAttributes {
+- (void)testSubstitutePatternAndAddAttributesWithSourroundingMatch {
     NSMutableAttributedString *actual = [[NSMutableAttributedString alloc] initWithString:@"This **is** bold."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold."];
     UIFont *font = [UIFont boldSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
-    [actual substitutePattern:@"[*_]{2}(.+?)[*_]{2}" andAddAttributes:attributes];
+    [actual substitutePattern:@"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)" andAddAttributes:attributes];
+    expect(actual).to.equal(expected);
+}
+
+- (void)testSubstitutePatternAndAddAttributesWithoutSourroundingMatch {
+    NSMutableAttributedString *actual = [[NSMutableAttributedString alloc] initWithString:@"This **is** bold."];
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"Thisisbold."];
+    UIFont *font = [UIFont boldSystemFontOfSize:15];
+    CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
+    NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
+    [expected addAttributes:attributes range:NSMakeRange(4, 2)];
+    [actual substitutePattern:@"(?:^|\\s)[*_]{2}(.+?)[*_]{2}(?:$|\\s)" andAddAttributes:attributes];
     expect(actual).to.equal(expected);
 }
 

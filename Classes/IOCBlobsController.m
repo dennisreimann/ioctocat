@@ -20,10 +20,6 @@
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *actionButton;
 @property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
 @property(nonatomic,strong)IBOutlet UIView *popupView;
-
-- (IBAction)leftButtonTapped:(id)sender;
-- (IBAction)rightButtonTapped:(id)sender;
-- (IBAction)actionButtonTapped:(id)sender;
 @end
 
 
@@ -55,7 +51,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self layoutForInterfaceOrientation:self.interfaceOrientation];
-	self.blob = self.blobs[self.index];
+    self.contentView.delegate = self;
+    self.blob = self.blobs[self.index];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -70,45 +67,6 @@
 }
 
 #pragma mark Helpers
-
-- (void)displayCode:(NSString *)code filename:(NSString *)filename {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
-	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
-	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
-	NSString *formatPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"html"];
-	NSString *highlightJsPath = [NSBundle.mainBundle pathForResource:@"highlight.pack" ofType:@"js"];
-	NSString *themeCssPath = [NSBundle.mainBundle pathForResource:theme ofType:@"css"];
-	NSString *codeCssPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"css"];
-	NSString *lineNums = lineNumbers ? @"true" : @"false";
-	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *lang = [IOCUtil highlightLanguageForFilename:filename];
-	NSString *escapedCode = [code escapeHTML];
-	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
-	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
-}
-
-- (void)displayData:(NSData *)data filename:(NSString *)filename {
-	NSString *ext = [filename pathExtension];
-	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
-	if ([imageTypes containsObject:ext]) {
-		NSString *mimeType = [NSString stringWithFormat:@"image/%@", ext];
-		[self.contentView loadData:data MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
-		[self.contentView setScalesPageToFit:YES];
-	} else {
-		NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
-		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
-		[iOctocat reportError:@"Unknown content" with:message];
-		[self.contentView loadHTMLString:@"" baseURL:baseUrl];
-	}
-}
-
-- (void)displayBlob:(GHBlob *)blob {
-	self.actionButton.enabled = YES;
-	// check what type of content we have and display it accordingly
-	if (self.blob.content) return [self displayCode:blob.content filename:blob.path];
-	if (self.blob.contentData) return [self displayData:blob.contentData filename:blob.path];
-}
 
 - (void)setBlob:(GHBlob *)blob {
 	if (blob == self.blob) return;
@@ -138,6 +96,54 @@
 	// Update navigation control
     self.leftButton.enabled = (self.index > 0);
     self.rightButton.enabled = (self.index < self.blobs.count-1);
+}
+
+- (void)displayBlob:(GHBlob *)blob {
+	self.actionButton.enabled = YES;
+	// check what type of content we have and display it accordingly
+	if (self.blob.contentHTML) return [self displayHTML];
+	if (self.blob.content) return [self displayCode];
+	if (self.blob.contentData) return [self displayData];
+}
+
+- (void)displayHTML {
+    NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
+    NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
+    NSString *html = [NSString stringWithFormat:format, self.blob.contentHTML];
+    [self.contentView loadHTMLString:html baseURL:self.blob.htmlURL];
+}
+
+- (void)displayCode {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
+	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
+	NSString *formatPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"html"];
+	NSString *highlightJsPath = [NSBundle.mainBundle pathForResource:@"highlight.pack" ofType:@"js"];
+	NSString *themeCssPath = [NSBundle.mainBundle pathForResource:theme ofType:@"css"];
+	NSString *codeCssPath = [NSBundle.mainBundle pathForResource:@"code" ofType:@"css"];
+	NSString *lineNums = lineNumbers ? @"true" : @"false";
+	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
+	NSString *lang = [IOCUtil highlightLanguageForFilename:self.blob.path];
+	NSString *escapedCode = [self.blob.content escapeHTML];
+	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
+	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
+	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
+}
+
+- (void)displayData {
+    NSString *filename = self.blob.path;
+	NSString *ext = [filename pathExtension];
+	NSArray *imageTypes = @[@"jpg", @"jpeg", @"gif", @"png", @"tif", @"tiff"];
+	if ([imageTypes containsObject:ext]) {
+		NSString *mimeType = [NSString stringWithFormat:@"image/%@", ext];
+		[self.contentView loadData:self.blob.contentData MIMEType:mimeType textEncodingName:@"utf-8" baseURL:nil];
+		[self.contentView setScalesPageToFit:YES];
+	} else {
+		NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
+		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
+		[iOctocat reportError:@"Unknown content" with:message];
+		[self.contentView loadHTMLString:@"" baseURL:baseUrl];
+	}
 }
 
 // Adjust the toolbar height depending on the screen orientation,
@@ -207,6 +213,17 @@
 }
 
 #pragma mark WebView
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+        NSURL *url = request.URL;
+        if (url) {
+            [[UIApplication sharedApplication] openURL:url];
+            return NO;
+        }
+    }
+    return YES;
+}
 
 - (void)webViewDidStartLoad:(UIWebView *)webView {
 	[SVProgressHUD show];

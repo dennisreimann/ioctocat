@@ -14,6 +14,7 @@ typedef void (^resourceFailure)(GHResource *instance, NSError *error);
 
 @interface GHResource : NSObject
 @property(nonatomic,strong)NSString *resourcePath;
+@property(nonatomic,strong)NSString *resourceContentType;
 @property(nonatomic,strong)NSError *error;
 @property(nonatomic,readonly)GHAccount *account;
 @property(nonatomic,readonly)BOOL isEmpty;

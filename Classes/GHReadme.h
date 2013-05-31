@@ -1,10 +1,8 @@
-#import "GHResource.h"
+#import "GHBlob.h"
 
 
 @class GHRepository;
 
-@interface GHReadme : GHResource
-@property(nonatomic,strong)NSString *bodyHTML;
-
+@interface GHReadme : GHBlob
 - (id)initWithRepository:(GHRepository *)repo;
 @end

@@ -120,8 +120,8 @@
                 viewController = [[IOCCommitsController alloc] initWithCommits:commits];
             } else if (comps.count >= 4) {
                 NSString *type = comps[3];
-                NSString *ident = comps[4];
-                NSString *path = [[comps subarrayWithRange:NSMakeRange(5, comps.count - 5)] componentsJoinedByString:@"/"];
+                NSString *ident = comps.count >= 5 ? comps[4] : nil;
+                NSString *path = ident ? [[comps subarrayWithRange:NSMakeRange(5, comps.count - 5)] componentsJoinedByString:@"/"] : nil;
                 if ([type isEqualToString:@"tree"]) {
                     // Tree
                     GHTree *tree = [[GHTree alloc] initWithRepo:repo path:path ref:ident];
@@ -130,8 +130,8 @@
                     // Blob
                     GHBlob *blob = [[GHBlob alloc] initWithRepo:repo path:path ref:ident];
                     viewController = [[IOCBlobsController alloc] initWithBlob:blob];
-                } else if ([type isEqualToString:@"wiki"]) {
-                    // Wiki
+                } else {
+                    // Wiki, Contributors, ...
                     viewController = [[WebController alloc] initWithURL:url];
                 }
             }

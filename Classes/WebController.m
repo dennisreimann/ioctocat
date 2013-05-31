@@ -12,6 +12,7 @@
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *rightButton;
 @property(nonatomic,weak)IBOutlet UIBarButtonItem *actionButton;
 @property(nonatomic,weak)IBOutlet UIToolbar *toolbar;
+
 - (IBAction)leftButtonTapped:(id)sender;
 - (IBAction)rightButtonTapped:(id)sender;
 - (IBAction)actionButtonTapped:(id)sender;
@@ -115,13 +116,13 @@
 }
 
 - (IBAction)actionButtonTapped:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:[[self.request URL] absoluteString] delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy URL", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:self.request.URL.absoluteString delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Open in Safari", @"Copy URL", nil];
     [actionSheet showFromToolbar:self.toolbar];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    if (buttonIndex == 0) [(IOCApplication *)[UIApplication sharedApplication] forceOpenURL:[self.request URL]];
-    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].string = [[self.request URL] absoluteString];
+    if (buttonIndex == 0) [(IOCApplication *)[UIApplication sharedApplication] forceOpenURL:self.request.URL];
+    else if (buttonIndex == 1) [UIPasteboard generalPasteboard].string = self.request.URL.absoluteString;
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
@@ -143,9 +144,9 @@
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     if (navigationType == UIWebViewNavigationTypeLinkClicked) {
-        NSURL *url = [request URL];
+        NSURL *url = request.URL;
         if (self.url) {
-            self.title = [url host];
+            self.title = url.host;
         } else if (self.html) {
             [[UIApplication sharedApplication] openURL:url];
             return NO;

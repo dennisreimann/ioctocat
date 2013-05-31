@@ -21,6 +21,7 @@
 #import "IssueObjectCell.h"
 #import "EventsController.h"
 #import "IOCIssuesController.h"
+#import "IOCBlobsController.h"
 #import "IOCPullRequestsController.h"
 #import "IOCForksController.h"
 #import "IOCTreeController.h"
@@ -341,7 +342,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
         } else if (row == homepageRow && self.repository.homepageURL) {
 			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
         } else if (row == readmeRow && self.repository.readme.isLoaded) {
-			viewController = [[WebController alloc] initWithHTML:self.repository.readme.bodyHTML];
+			viewController = [[IOCBlobsController alloc] initWithBlob:self.repository.readme];
 			viewController.title = @"README";
 		}
 	} else if (section == 1) {

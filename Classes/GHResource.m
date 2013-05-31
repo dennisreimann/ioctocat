@@ -40,7 +40,7 @@
 }
 
 - (NSString *)resourceContentType {
-	return kResourceContentTypeDefault;
+	return _resourceContentType ? _resourceContentType : kResourceContentTypeDefault;
 }
 
 - (NSMutableArray *)successBlocks {

@@ -10,8 +10,11 @@
 @property(nonatomic,strong)NSString *mode;
 @property(nonatomic,strong)NSString *encoding;
 @property(nonatomic,strong)NSString *content;
+@property(nonatomic,strong)NSString *contentHTML;
 @property(nonatomic,strong)NSData *contentData;
+@property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,assign)NSUInteger size;
 
 - (id)initWithRepo:(GHRepository *)repo path:(NSString *)path ref:(NSString*)ref;
+- (BOOL)isMarkdown;
 @end

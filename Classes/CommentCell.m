@@ -37,7 +37,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	_comment = comment;
     [self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.dateLabel.text = self.comment.createdAt.prettyDate;
-	self.contentText = self.comment.body;
+	self.contentText = self.comment.bodyWithoutEmailFooter;
 	self.userLogin = self.comment.user.login;
 	self.gravatar = self.comment.user.gravatar ? self.comment.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 }

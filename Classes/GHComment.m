@@ -16,6 +16,26 @@
 	}
 }
 
+- (NSString *)bodyWithoutEmailFooter {
+    if (!_bodyWithoutEmailFooter) {
+        NSString *text = self.body;
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"On .+ wrote:\\s?" options:NSRegularExpressionCaseInsensitive error:NULL];
+        NSTextCheckingResult *match = [regex firstMatchInString:text options:NSMatchingReportCompletion range:NSMakeRange(0, text.length)];
+        if (!match || match.range.location == NSNotFound) {
+            _bodyWithoutEmailFooter = text;
+        } else {
+            _bodyWithoutEmailFooter = [[text substringToIndex:match.range.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
+        DJLog(@"%@", _bodyWithoutEmailFooter);
+    }
+    return _bodyWithoutEmailFooter;
+}
+
+- (void)setBody:(NSString *)body {
+    _bodyWithoutEmailFooter = nil;
+    _body = body;
+}
+
 #pragma mark Saving
 
 // Implement this in the subclass

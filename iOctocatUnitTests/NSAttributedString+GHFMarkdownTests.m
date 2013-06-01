@@ -115,6 +115,11 @@
     expect([NSAttributedString attributedStringFromMarkdown:@"___This___ is ___bold italic___"]).to.equal(expected);
 }
 
+- (void)testAttributedStringFromMarkdownWithList {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is\n* a normal list\n* with two entries\nThat's it."];
+    expect([NSAttributedString attributedStringFromMarkdown:@"This is\n* a normal list\n* with two entries\nThat's it."]).to.equal(expected);
+}
+
 - (void)testAttributedStringFromMarkdownWithCodeInline {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code."];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(5, 2)];
@@ -151,6 +156,12 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nputs 'Test'\n\na pre block."];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 11)];
     expect([NSAttributedString attributedStringFromMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."]).to.equal(expected);
+}
+
+- (void)testAttributedStringFromMarkdownWithTasksAndLinks {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n☑ A task with a link\n◻ List\nwithin plus an image"];
+    NSAttributedString *actual = [NSAttributedString attributedStringFromMarkdown:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
+    expect(actual).to.equal(expected);
 }
 
 @end

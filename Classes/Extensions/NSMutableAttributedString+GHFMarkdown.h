@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableAttributedString (GHFMarkdown)
-- (void)substitutePattern:(NSString *)pattern andAddAttributes:(NSDictionary *)attributes;
+- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options andAddAttributes:(NSDictionary *)attributes;
 - (void)substituteHeadlinesWithBaseFont:(UIFont *)baseFont;
 @end

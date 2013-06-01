@@ -18,9 +18,9 @@ static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
 // The substitution pattern must have either one or two matches. In case it has two, it uses the first
 // match to replace its content with the content of the seconds match. If there is only one match, the
 // whole match will be replaced by the matched content.
-- (void)substitutePattern:(NSString *)pattern andAddAttributes:(NSDictionary *)attributes {
+- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options andAddAttributes:(NSDictionary *)attributes {
     NSMutableString *string = self.mutableString;
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) error:NULL];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:options error:NULL];
     NSArray *matches = matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
     if (matches.count) {
         NSEnumerator *enumerator = [matches reverseObjectEnumerator];

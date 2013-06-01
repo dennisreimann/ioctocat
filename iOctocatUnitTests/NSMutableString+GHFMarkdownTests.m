@@ -24,4 +24,11 @@
     expect(actual).to.equal(@"This has\n\n☑ A task\n◻ List\nwithin.");
 }
 
+- (void)testSubstituteMarkdownTasksAndLinks {
+    NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
+    [actual substituteMarkdownTasks];
+    [actual substituteMarkdownLinks];
+    expect(actual).to.equal(@"This has\n\n☑ A task with a link\n◻ List\nwithin plus an image");
+}
+
 @end

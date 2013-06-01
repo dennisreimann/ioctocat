@@ -41,11 +41,11 @@ static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|<
     [string substituteMarkdownLinks];
     [string substituteMarkdownTasks];
     [output substituteHeadlinesWithBaseFont:font];
-    [output substitutePattern:MarkdownBoldItalicRegex andAddAttributes:boldItalicAttributes];
-    [output substitutePattern:MarkdownBoldRegex andAddAttributes:boldAttributes];
-    [output substitutePattern:MarkdownItalicRegex andAddAttributes:italicAttributes];
-    [output substitutePattern:MarkdownCodeBlockRegex andAddAttributes:codeAttributes];
-    [output substitutePattern:MarkdownCodeInlineRegex andAddAttributes:codeAttributes];
+    [output substitutePattern:MarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldItalicAttributes];
+    [output substitutePattern:MarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldAttributes];
+    [output substitutePattern:MarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:italicAttributes];
+    [output substitutePattern:MarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) andAddAttributes:codeAttributes];
+    [output substitutePattern:MarkdownCodeInlineRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:codeAttributes];
     return output;
 }
 

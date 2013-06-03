@@ -55,9 +55,6 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     // remote notifications
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification) [self application:application didReceiveRemoteNotification:remoteNotification];
-    // migrate avatar cache
-    // TODO: can be removed some time in the future
-    [self migrateAvatarCache];
     [self checkAvatarCache];
     return YES;
 }
@@ -267,14 +264,6 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 - (void)setBadge:(NSInteger)number {
 	if (![[[NSUserDefaults standardUserDefaults] valueForKey:kUnreadBadgeDefaultsKey] boolValue]) number = 0;
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
-}
-
-- (void)migrateAvatarCache {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if (![defaults boolForKey:MigratedAvatarCacheDefaultsKey]) {
-        [IOCAvatarCache migrateAvatarCache];
-        [defaults setValue:@YES forKey:MigratedAvatarCacheDefaultsKey];
-    }
 }
 
 - (void)checkAvatarCache {

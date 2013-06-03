@@ -10,25 +10,6 @@
     return avatarsPath;
 }
 
-// migrates the old approach of avatar caching to the new one.
-// we used to store the images inside the NSDocumentDirectory
-// which is not the right place. that is why we moved this to
-// a separate avatars folder inside the NSCachesDirectory
-+ (void)migrateAvatarCache {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsPath = paths[0];
-	NSArray *documents = [fileManager contentsOfDirectoryAtPath:documentsPath error:NULL];
-	for (NSString *path in documents) {
-		if ([path hasSuffix:@".png"]) {
-			NSString *imagePath = [documentsPath stringByAppendingPathComponent:path];
-			[fileManager removeItemAtPath:imagePath error:NULL];
-		}
-	}
-    // create new directory
-    [fileManager createDirectoryAtPath:self.avatarsPath withIntermediateDirectories:NO attributes:nil error:nil];
-}
-
 + (void)clearAvatarCache {
 	NSFileManager *fileManager = [NSFileManager defaultManager];
     // remove old directory and entries, then create new directory

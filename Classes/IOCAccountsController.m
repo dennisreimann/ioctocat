@@ -1,4 +1,5 @@
 #import "IOCAccountsController.h"
+#import "IOCDefaultsPersistence.h"
 #import "MyEventsController.h"
 #import "MenuController.h"
 #import "IOCAccountFormController.h"
@@ -81,6 +82,8 @@
 
 - (void)removeAccountAtIndex:(NSUInteger)idx callback:(void (^)(NSUInteger idx))callback {
     if (idx == NSNotFound) return;
+    GHAccount *account = [self.accounts objectAtIndex:idx];
+    [IOCDefaultsPersistence removeAccount:account];
     [self.accounts removeObjectAtIndex:idx];
 	[self handleAccountsChange];
     if (callback) callback(idx);

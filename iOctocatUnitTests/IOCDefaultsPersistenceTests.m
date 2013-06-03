@@ -25,15 +25,23 @@
 }
 
 - (void)testLastUpdateForPath {
-	[self.defaults setValue:self.date forKey:@"lastReadingDate:enterprise.com:userlogin:user/orgs"];
+	[self.defaults setValue:@{@"lastReadingDate:user/orgs": self.date} forKey:@"account:enterprise.com:userlogin"];
 	[self.defaults synchronize];
 	expect([IOCDefaultsPersistence lastUpdateForPath:@"user/orgs" account:self.account]).to.equal(self.date);
 }
 
 - (void)testSetLastUpateForPath {
 	[IOCDefaultsPersistence setLastUpate:self.date forPath:@"user/repos" account:self.account];
-	NSDate *expected = [self.defaults objectForKey:@"lastReadingDate:enterprise.com:userlogin:user/orgs"];
-	expect([expected description]).to.equal([self.date description]);
+    NSDictionary *accountDict = [self.defaults objectForKey:@"account:enterprise.com:userlogin"];
+	NSDate *expected = [accountDict objectForKey:@"lastReadingDate:user/repos"];
+	expect(expected.description).to.equal(self.date.description);
+}
+
+- (void)testRemoveAccount {
+	[IOCDefaultsPersistence setLastUpate:self.date forPath:@"user/repos" account:self.account];
+	expect([IOCDefaultsPersistence lastUpdateForPath:@"user/orgs" account:self.account]).notTo.beNil();
+	[IOCDefaultsPersistence removeAccount:self.account];
+	expect([IOCDefaultsPersistence lastUpdateForPath:@"user/orgs" account:self.account]).to.beNil();
 }
 
 @end

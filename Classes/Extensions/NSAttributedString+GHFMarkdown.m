@@ -16,6 +16,7 @@
 static NSString *const MarkdownBoldItalicRegex = @"(?:^|\\s)([*_]{3}(.+?)[*_]{3})(?:$|\\s)";
 static NSString *const MarkdownBoldRegex = @"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)";
 static NSString *const MarkdownItalicRegex = @"(?:^|\\s)([*_]{1}(.+?)[*_]{1})(?:$|\\s)";
+static NSString *const MarkdownQuotedRegex = @"^>\\s+(.+)";
 static NSString *const MarkdownCodeBlockRegex = @"(?:`{3}|<pre>)(.+?)(?:`{3}|</pre>)";
 static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</code>)";
 
@@ -37,10 +38,12 @@ static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|<
     NSDictionary *boldAttributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(boldFontRef) forKey:(NSString *)kCTFontAttributeName];
     NSDictionary *italicAttributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(italicFontRef) forKey:(NSString *)kCTFontAttributeName];
     NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+    NSDictionary *quoteAttributes = [NSDictionary dictionaryWithObjects:@[(id)[[UIColor grayColor] CGColor]] forKeys:@[(NSString *)kCTForegroundColorAttributeName]];
     CFRelease(fontRef);
     [string substituteMarkdownLinks];
     [string substituteMarkdownTasks];
     [output substituteHeadlinesWithBaseFont:font];
+    [output substitutePattern:MarkdownQuotedRegex options:(NSRegularExpressionAnchorsMatchLines) andAddAttributes:quoteAttributes];
     [output substitutePattern:MarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldItalicAttributes];
     [output substitutePattern:MarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldAttributes];
     [output substitutePattern:MarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:italicAttributes];

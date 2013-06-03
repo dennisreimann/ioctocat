@@ -5,6 +5,7 @@
 
 
 @interface NSAttributedString_GHFMarkdownTests ()
+@property(nonatomic,strong)NSDictionary *quoteAttributes;
 @property(nonatomic,strong)NSDictionary *codeAttributes;
 @end
 
@@ -13,6 +14,7 @@
 
 - (void)setUp {
     [super setUp];
+    self.quoteAttributes = [NSDictionary dictionaryWithObjects:@[(id)[[UIColor grayColor] CGColor]] forKeys:@[(NSString *)kCTForegroundColorAttributeName]];
     self.codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:15], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
 }
 
@@ -162,6 +164,12 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n☑ A task with a link\n◻ List\nwithin plus an image"];
     NSAttributedString *actual = [NSAttributedString attributedStringFromMarkdown:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
     expect(actual).to.equal(expected);
+}
+
+- (void)testAttributedStringFromMarkdownWithQuote {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nQuoted text\n\nas a block."];
+    [expected addAttributes:self.quoteAttributes range:NSMakeRange(10, 11)];
+    expect([NSAttributedString attributedStringFromMarkdown:@"This has\n\n> Quoted text\n\nas a block."]).to.equal(expected);
 }
 
 @end

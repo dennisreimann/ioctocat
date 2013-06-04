@@ -14,6 +14,7 @@ Changes:
 * Links in event items instead of buttons
 * Improved handling of GitHub.com URLs opened from external application
 * Improve accessibility. Thanks @dusek
+* Mark events as read only when refreshing manually
 
 Bugfixes:
 

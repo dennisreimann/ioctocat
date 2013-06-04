@@ -126,7 +126,9 @@
                 [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
             });
         } else {
-            [weakSelf.events loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
+            BOOL manualReload = weakSelf.tableView.contentOffset.y < 0;
+            if (manualReload) [weakSelf.events markAllAsRead];
+            [weakSelf.events loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf refreshLastUpdate];
                     [weakSelf.tableView reloadData];
@@ -145,7 +147,7 @@
 
 - (void)refreshLastUpdate {
 	if (self.events.lastUpdate) {
-		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.events.lastUpdate prettyDate]];
+		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", self.events.lastUpdate.prettyDate];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
 }

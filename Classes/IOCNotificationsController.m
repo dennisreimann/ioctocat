@@ -328,7 +328,7 @@
 
 - (void)refreshLastUpdate {
 	if (self.notifications.lastUpdate) {
-		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", [self.notifications.lastUpdate prettyDate]];
+		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", self.notifications.lastUpdate.prettyDate];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
 }

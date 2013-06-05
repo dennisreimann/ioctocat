@@ -5,7 +5,6 @@
 
 
 @interface GHResource ()
-@property(nonatomic,strong)NSDictionary *data;
 @property(nonatomic,strong)NSMutableArray *successBlocks;
 @property(nonatomic,strong)NSMutableArray *failureBlocks;
 @property(nonatomic,assign)GHResourceStatus resourceStatus;
@@ -62,7 +61,7 @@
 }
 
 - (void)loadWithSuccess:(resourceSuccess)success {
-	[self loadWithParams:nil path:self.resourcePath method:kRequestMethodGet start:nil success:success failure:nil];
+	[self loadWithParams:nil path:self.resourcePath method:kRequestMethodGet start:NULL success:success failure:NULL];
 }
 
 - (void)loadWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
@@ -70,63 +69,45 @@
 }
 
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    if (success) [self.successBlocks addObject:[success copy]];
+    if (failure) [self.failureBlocks addObject:[failure copy]];
     if (self.isLoading) {
-        if (success) [self.successBlocks addObject:[success copy]];
-        if (failure) [self.successBlocks addObject:[failure copy]];
         if (start) start(self);
         return;
     }
-	self.error = nil;
 	self.resourceStatus = GHResourceStatusLoading;
 	[self.apiClient setDefaultHeader:@"Accept" value:self.resourceContentType];
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:params];
 	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@\n", self.class, path, request.allHTTPHeaderFields);
-	void (^onSuccess)() = ^(AFHTTPRequestOperation *operation, id data) {
+	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id data) {
 		NSDictionary *headers = operation.response.allHeaderFields;
 		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
 		[self setHeaderValues:headers];
 		[self setValues:data];
 		self.resourceStatus = GHResourceStatusLoaded;
-		if (success) success(self, data);
-        for (void (^block)() in self.successBlocks) {
-            block(self, data);
-        }
+        for (void (^block)() in self.successBlocks) block(self, data);
         [self.successBlocks removeAllObjects];
-	};
-	void (^onFailure)() = ^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSDictionary *headers = operation.response.allHeaderFields;
-		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
-		[self setHeaderValues:headers];
-		self.error = error;
+	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, operation.response.allHeaderFields, error);
 		self.resourceStatus = GHResourceStatusFailed;
-		if (failure) failure(self, error);
-        for (void (^block)() in self.failureBlocks) {
-            block(self, error);
-        }
+        for (void (^block)() in self.failureBlocks) block(self, error);
         [self.failureBlocks removeAllObjects];
-	};
-	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:onSuccess failure:onFailure];
+	}];
     [self.apiClient enqueueHTTPRequestOperation:operation];
 	if (start) start(self);
 }
 
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	self.error = nil;
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
 	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
-	void (^onSuccess)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, id data) {
-		NSDictionary *headers = response.allHeaderFields;
-		D3JLog(@"\n%@: Saving %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
+	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id data) {
+		D3JLog(@"\n%@: Saving %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, response.allHeaderFields, data);
 		if (success) success(self, data);
-	};
-	void (^onFailure)() = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
-		NSDictionary *headers = response.allHeaderFields;
-		D2JLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, headers, error);
-		self.error = error;
+	} failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id json) {
+		D2JLog(@"\n%@: Saving %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, response.allHeaderFields, error);
 		if (failure) failure(self, error);
-	};
-	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:onSuccess failure:onFailure];
+	}];
 	[operation start];
 	if (start) start(self);
 }

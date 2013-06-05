@@ -67,7 +67,7 @@
 		GHRepositories *repos = org.repositories;
 		if (!repos.isEmpty) {
 			[self displayRepositories:repos];
-		} else if (!repos.isLoading && !repos.error) {
+		} else if (!repos.isLoading && !repos.isFailed) {
 			[repos loadWithSuccess:^(GHResource *instance, id data) {
 				[self displayRepositories:(GHRepositories *)instance];
 			}];

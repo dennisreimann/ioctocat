@@ -52,7 +52,9 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
-	[self setupPullToRefresh];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MarkRead.png"] style:UIBarButtonItemStyleDone target:self action:@selector(markAllAsRead:)];
+	self.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Mark all as read", nil);
+    [self setupPullToRefresh];
 	[self setupInfiniteScrolling];
 	[self refreshLastUpdate];
 }
@@ -83,6 +85,11 @@
 - (void)openURL:(NSURL *)url {
     UIViewController *viewController = [IOCViewControllerFactory viewControllerForURL:url];
     if (viewController) [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (IBAction)markAllAsRead:(id)sender {
+    [self.events markAllAsRead];
+    [self.tableView reloadData];
 }
 
 #pragma mark TableView

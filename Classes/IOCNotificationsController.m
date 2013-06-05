@@ -20,7 +20,7 @@
 #import "GradientButton.h"
 
 
-@interface IOCNotificationsController () <UIActionSheetDelegate>
+@interface IOCNotificationsController ()
 @property(nonatomic,strong)GHNotifications *notifications;
 @property(nonatomic,strong)NSMutableDictionary *notificationsByRepository;
 @end
@@ -41,9 +41,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    UIBarButtonItem *actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-    actionButton.enabled = NO;
-    self.navigationItem.rightBarButtonItem = actionButton;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MarkRead.png"] style:UIBarButtonItemStyleDone target:self action:@selector(markAllAsRead:)];
+	self.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Mark all as read", nil);
+    self.navigationItem.rightBarButtonItem.enabled = NO;
 	[self setupPullToRefresh];
 }
 
@@ -66,15 +66,6 @@
 }
 
 #pragma mark Actions
-
-- (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Mark all as read" otherButtonTitles:nil];
-	[actionSheet showInView:self.view];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
-	if (buttonIndex == 0) [self markAllAsRead];
-}
 
 // marks the notification as read, but keeps the cell
 - (void)markAsRead:(NSIndexPath *)indexPath {
@@ -117,7 +108,7 @@
 	}
 }
 
-- (void)markAllAsRead {
+- (void)markAllAsRead:(id)sender {
 	[self.notifications markAllAsReadStart:^(GHResource *notifications) {
 		[self.notificationsByRepository removeAllObjects];
 		[self markedAllAsRead];

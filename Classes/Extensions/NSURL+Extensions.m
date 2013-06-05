@@ -92,6 +92,18 @@
 	return [NSURL URLWithString:absoluteString];
 }
 
+- (NSDictionary *)queryDictionary {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+	NSArray *components = [self.query componentsSeparatedByString:@"&"];
+	for (NSString *component in components) {
+        NSArray *comps = [component componentsSeparatedByString:@"="];
+        if (comps.count == 2) {
+            [dict setObject:comps[1] forKey:comps[0]];
+        }
+	}
+	return dict;
+}
+
 // Checks the host to see whether or not this is a GitHub URL.
 // Assumes that relative links are also GitHubcom URLs.
 - (BOOL)isGitHubURL {

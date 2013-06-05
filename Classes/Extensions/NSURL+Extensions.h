@@ -8,6 +8,7 @@
 - (NSURL *)URLByAppendingParams:(NSDictionary *)params;
 - (NSURL *)URLByAppendingTrailingSlash;
 - (NSURL *)URLByDeletingTrailingSlash;
+- (NSDictionary *)queryDictionary;
 - (BOOL)hasTrailingSlash;
 - (BOOL)isGitHubURL;
 @end

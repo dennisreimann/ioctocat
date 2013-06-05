@@ -20,7 +20,6 @@
             [self addObject:org];
         }
 	}
-	[self sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

@@ -308,7 +308,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	} else {
 		if (self.repository.branches.isEmpty) return self.branchesStatusCell;
 		cell = [tableView dequeueReusableCellWithIdentifier:BranchCellIdentifier];
-		if (cell == nil) {
+		if (!cell) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:BranchCellIdentifier];
 			cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

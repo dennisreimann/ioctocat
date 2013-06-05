@@ -3,7 +3,7 @@
 @interface NotificationCell : UITableViewCell
 @property(nonatomic,strong)GHNotification *notification;
 
-+ (id)cell;
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (void)markAsNew;
 - (void)markAsRead;
 @end

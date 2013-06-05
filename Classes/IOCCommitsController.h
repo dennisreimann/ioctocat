@@ -1,5 +1,7 @@
+#import "IOCCollectionController.h"
+
 @class GHCommits;
 
-@interface IOCCommitsController : UITableViewController
+@interface IOCCommitsController : IOCCollectionController
 - (id)initWithCommits:(GHCommits *)commits;
 @end

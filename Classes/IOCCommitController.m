@@ -221,7 +221,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	// comments
 	if (self.commit.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
-	if (cell == nil) {
+	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
         cell.contextRepoId = self.commit.repository.repoId;

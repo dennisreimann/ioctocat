@@ -1,5 +1,7 @@
+#import "IOCCollectionController.h"
+
 @class GHOrganizations;
 
-@interface IOCOrganizationsController : UITableViewController
+@interface IOCOrganizationsController : IOCCollectionController
 - (id)initWithOrganizations:(GHOrganizations *)organizations;
 @end

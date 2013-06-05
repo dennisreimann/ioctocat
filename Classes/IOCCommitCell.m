@@ -8,8 +8,8 @@
 
 static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
-+ (id)cell {
-	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kCommitCellIdentifier];
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

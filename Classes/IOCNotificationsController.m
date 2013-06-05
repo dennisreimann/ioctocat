@@ -191,7 +191,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (!self.resourceHasData) {
 		UITableViewCell *allReadCell = [tableView dequeueReusableCellWithIdentifier:@"AllReadCell"];
-		if (allReadCell == nil) {
+		if (!allReadCell) {
 			allReadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AllReadCell"];
 			allReadCell.selectionStyle = UITableViewCellSelectionStyleNone;
 			allReadCell.textLabel.font = [UIFont systemFontOfSize:15];
@@ -202,7 +202,7 @@
 		return allReadCell;
 	}
 	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
-	if (cell == nil) cell = [NotificationCell cell];
+	if (!cell) cell = [NotificationCell cellWithReuseIdentifier:kNotificationCellIdentifier];
 	NSArray *notifications = [self notificationsInSection:indexPath.section];
 	GHNotification *notification = notifications[indexPath.row];
 	cell.notification = notification;

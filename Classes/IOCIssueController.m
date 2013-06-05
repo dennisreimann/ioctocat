@@ -243,7 +243,7 @@
 	if (section == 0 && row == 4) return self.descriptionCell;
 	if (self.issue.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
-	if (cell == nil) {
+	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
         cell.contextRepoId = self.issue.repository.repoId;

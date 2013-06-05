@@ -305,7 +305,7 @@
 	if (section == 1 && row == 2) return self.mergeCell;
 	if (self.pullRequest.comments.isEmpty) return self.commentsStatusCell;
 	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
-	if (cell == nil) {
+	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
         cell.contextRepoId = self.pullRequest.repository.repoId;

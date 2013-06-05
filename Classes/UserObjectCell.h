@@ -1,5 +1,5 @@
 @interface UserObjectCell : UITableViewCell
 @property(nonatomic,strong)id userObject;
 
-+ (id)cell;
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier;
 @end

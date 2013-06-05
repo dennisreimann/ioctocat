@@ -3,86 +3,40 @@
 #import "IOCGistsController.h"
 #import "IOCGistController.h"
 #import "IOCGistCell.h"
-#import "NSString+Extensions.h"
-#import "iOctocat.h"
-#import "SVProgressHUD.h"
-#import "IOCResourceStatusCell.h"
-
-
-@interface IOCGistsController ()
-@property(nonatomic,strong)GHGists *gists;
-@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
-@end
 
 
 @implementation IOCGistsController
 
 - (id)initWithGists:(GHGists *)gists {
-	self = [super initWithStyle:UITableViewStylePlain];
+	self = [super initWithCollection:gists];
 	if (self) {
-		self.gists = gists;
 		self.hideUser = NO;
 	}
 	return self;
 }
 
-#pragma mark View Events
-
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	self.navigationItem.title = self.title ? self.title : @"Gists";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gists name:@"gists"];
+- (NSString *)collectionName {
+    return @"Gists";
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-	if (self.gists.isUnloaded) {
-		[self.gists loadWithSuccess:^(GHResource *instance, id data) {
-			[self.tableView reloadData];
-		}];
-	} else if (self.gists.isChanged) {
-		[self.tableView reloadData];
-	}
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[SVProgressHUD dismiss];
-}
-
-#pragma mark Actions
-
-- (IBAction)refresh:(id)sender {
-	if (self.gists.isLoading) return;
-	[self.gists loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
-	} success:^(GHResource *instance, id data) {
-		[SVProgressHUD dismiss];
-		[self.tableView reloadData];
-	} failure:^(GHResource *instance, NSError *error) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
-	}];
+- (NSString *)collectionCellIdentifier {
+    return kGistCellIdentifier;
 }
 
 #pragma mark TableView
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.gists.isEmpty ? 1 : self.gists.count;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.gists.isEmpty) return self.statusCell;
-	IOCGistCell *cell = (IOCGistCell *)[tableView dequeueReusableCellWithIdentifier:kGistCellIdentifier];
-	if (cell == nil) cell = [IOCGistCell cell];
+	if (self.collection.isEmpty) return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	IOCGistCell *cell = (IOCGistCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
+	if (!cell) cell = [IOCGistCell cellWithReuseIdentifier:self.collectionCellIdentifier];
 	if (self.hideUser) [cell hideUser];
-	cell.gist = self.gists[indexPath.row];
+	cell.gist = self.collection[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.gists.isEmpty) return;
-	GHGist *gist = self.gists[indexPath.row];
+	if (self.collection.isEmpty) return;
+	GHGist *gist = self.collection[indexPath.row];
 	IOCGistController *gistController = [[IOCGistController alloc] initWithGist:gist];
 	[self.navigationController pushViewController:gistController animated:YES];
 }

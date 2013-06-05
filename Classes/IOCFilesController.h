@@ -1,5 +1,7 @@
+#import "IOCCollectionController.h"
+
 @class GHFiles;
 
-@interface IOCFilesController : UITableViewController
+@interface IOCFilesController : IOCCollectionController
 - (id)initWithFiles:(GHFiles *)files;
 @end

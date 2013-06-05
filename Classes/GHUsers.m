@@ -19,7 +19,6 @@
             [self addObject:user];
         }
 	}
-	[self sortUsingSelector:@selector(compareByName:)];
 }
 
 @end

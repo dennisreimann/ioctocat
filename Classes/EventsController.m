@@ -107,7 +107,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.events.isEmpty) return self.noEntriesCell;
 	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
-	if (cell == nil) {
+	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
 		cell = _eventCell;
 		cell.delegate = self;

@@ -1,5 +1,7 @@
+#import "IOCCollectionController.h"
+
 @class GHRepositories;
 
-@interface IOCRepositoriesController : UITableViewController
+@interface IOCRepositoriesController : IOCCollectionController
 - (id)initWithRepositories:(GHRepositories *)repos;
 @end

@@ -13,6 +13,7 @@
 	self = [super init];
 	if (self) {
 		self.items = [NSMutableArray array];
+        self.nextPageURL = nil;
         self.resetItemsOnLoad = NO;
 	}
 	return self;
@@ -53,7 +54,7 @@
 }
 
 - (BOOL)hasNextPage {
-	return !!self.nextPageURL;
+	return self.nextPageURL != nil;
 }
 
 - (id)objectAtIndexedSubscript:(NSUInteger)idx {

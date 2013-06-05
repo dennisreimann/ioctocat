@@ -3,6 +3,6 @@
 @interface IOCGistCell : UITableViewCell
 @property(nonatomic,strong)GHGist *gist;
 
-+ (id)cell;
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier;
 - (void)hideUser;
 @end

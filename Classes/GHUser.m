@@ -36,10 +36,6 @@
     return _htmlURL;
 }
 
-- (int)compareByName:(GHUser *)otherUser {
-	return [self.login localizedCaseInsensitiveCompare:otherUser.login];
-}
-
 - (void)setLogin:(NSString *)login {
 	_login = login;
 	self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];

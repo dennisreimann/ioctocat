@@ -1,5 +1,7 @@
+#import "IOCCollectionController.h"
+
 @class GHTags;
 
-@interface IOCTagsController : UITableViewController
+@interface IOCTagsController : IOCCollectionController
 - (id)initWithTags:(GHTags *)tags;
 @end

@@ -141,7 +141,7 @@
 		cell = [[IOCResourceStatusCell alloc] initWithResource:repos name:@"repositories"];
 	} else {
 		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [RepositoryCell cell];
+		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
         GHRepository *repo = repos[indexPath.row];
         GHOrganization *org = self.user.organizations[indexPath.section];
         [(RepositoryCell *)cell setRepository:repo];

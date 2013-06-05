@@ -219,7 +219,7 @@
         if (self.gist.files.isEmpty) return self.filesStatusCell;
 		static NSString *CellIdentifier = @"FileCell";
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-		if (cell == nil) {
+		if (!cell) {
 			cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
 			cell.textLabel.font = [UIFont systemFontOfSize:15.0];
 		}
@@ -232,7 +232,7 @@
     } else {
 		if (self.gist.comments.isEmpty) return self.commentsStatusCell;
 		CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
-		if (cell == nil) {
+		if (!cell) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 			cell = self.commentCell;
 		}

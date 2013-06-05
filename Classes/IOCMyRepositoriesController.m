@@ -154,7 +154,7 @@
 		return self.statusCell;
 	}
 	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (cell == nil) cell = [RepositoryCell cell];
+	if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
     GHRepository *repo = repos[indexPath.row];
     cell.repository = repo;

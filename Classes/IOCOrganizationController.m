@@ -188,7 +188,7 @@
 	if (section == 2 && self.organization.repositories.isEmpty) return self.reposStatusCell;
 	if (section == 2) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [RepositoryCell cell];
+		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
         GHRepository *repo = self.organization.repositories[indexPath.row];
         cell.repository = repo;
         if ([self.organization.login isEqualToString:repo.owner]) [cell hideOwner];
@@ -197,10 +197,8 @@
 	if (section == 3 && self.organization.publicMembers.isEmpty) return self.membersStatusCell;
 	if (section == 3) {
 		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-		if (cell == nil) {
-			cell = [UserObjectCell cell];
-		}
-		cell.userObject = (self.organization.publicMembers)[indexPath.row];
+		if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+		cell.userObject = self.organization.publicMembers[indexPath.row];
 		return cell;
 	}
 	return nil;

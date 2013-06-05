@@ -201,8 +201,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-	if (cell == nil) {
-		cell = [UserObjectCell cell];
+	if (!cell) {
+		cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];

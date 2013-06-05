@@ -4,8 +4,8 @@
 
 @implementation RepositoryCell
 
-+ (id)cell {
-	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kRepositoryCellIdentifier];
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

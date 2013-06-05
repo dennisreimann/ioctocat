@@ -25,10 +25,6 @@
 	return [[self.login lowercaseString] hash];
 }
 
-- (int)compareByName:(GHOrganization *)otherOrg {
-	return [self.login localizedCaseInsensitiveCompare:otherOrg.login];
-}
-
 - (void)setLogin:(NSString *)login {
 	_login = login;
 	self.gravatar = [IOCAvatarCache cachedGravatarForIdentifier:self.login];

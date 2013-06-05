@@ -4,5 +4,5 @@
 @interface IOCCommitCell : UITableViewCell
 @property(nonatomic,strong)GHCommit *commit;
 
-+ (id)cell;
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier;
 @end

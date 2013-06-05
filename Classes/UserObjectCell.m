@@ -9,8 +9,8 @@
 
 @implementation UserObjectCell
 
-+ (id)cell {
-	return [[self.class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kUserObjectCellIdentifier];
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

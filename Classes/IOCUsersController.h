@@ -1,5 +1,7 @@
+#import "IOCCollectionController.h"
+
 @class GHUsers;
 
-@interface IOCUsersController : UITableViewController
+@interface IOCUsersController : IOCCollectionController
 - (id)initWithUsers:(GHUsers *)users;
 @end

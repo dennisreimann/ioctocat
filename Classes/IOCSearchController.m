@@ -87,14 +87,12 @@
 	id object = self.search[indexPath.row];
 	if ([object isKindOfClass:GHRepository.class]) {
 		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (cell == nil) cell = [RepositoryCell cell];
+		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:GHUser.class]) {
 		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-		if (cell == nil) {
-			cell = [UserObjectCell cell];
-		}
+		if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
 		cell.userObject = object;
 		return cell;
 	}

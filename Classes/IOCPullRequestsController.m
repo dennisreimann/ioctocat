@@ -107,7 +107,7 @@
 		return self.statusCell;
 	}
 	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
-	if (cell == nil) cell = [IssueObjectCell cell];
+	if (!cell) cell = [IssueObjectCell cellWithReuseIdentifier:kIssueObjectCellIdentifier];
 	if (self.repository) [cell hideRepo];
 	cell.issueObject = self.currentPullRequests[indexPath.row];
 	return cell;

@@ -285,7 +285,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"MenuCell";
 	MenuCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
+	if (!cell) {
 		cell = [[MenuCell alloc] initWithReuseIdentifier:CellIdentifier];
 		cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
 		cell.selectedBackgroundView.backgroundColor = self.highlightBackgroundColor;

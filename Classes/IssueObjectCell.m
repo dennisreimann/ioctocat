@@ -15,8 +15,8 @@
 
 @implementation IssueObjectCell
 
-+ (id)cell {
-	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kIssueObjectCellIdentifier];
++ (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
+	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {

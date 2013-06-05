@@ -73,6 +73,11 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void)displayEvents {
+    [self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.events.hasNextPage;
+}
+
 #pragma mark Actions
 
 - (void)openURL:(NSURL *)url {
@@ -133,7 +138,7 @@
             [weakSelf.events loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf refreshLastUpdate];
-                    [weakSelf.tableView reloadData];
+                    [weakSelf displayEvents];
                     [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
                 });
             } failure:^(GHResource *instance, NSError *error) {
@@ -157,7 +162,7 @@
         } else {
             [weakSelf.events loadNextWithStart:NULL success:^(GHResource *instance, id data) {
                 dispatch_async(dispatch_get_main_queue(),^ {
-                    [weakSelf.tableView reloadData];
+                    [weakSelf displayEvents];
                     [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
                 });
             } failure:^(GHResource *instance, NSError *error) {

@@ -23,17 +23,17 @@
 }
 
 - (void)setNextPageURLFromResponseHeaders:(NSDictionary *)headers {
+    NSURL *nextPageURL = nil;
     NSString *link = headers[@"Link"];
     if (link) {
         NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"<(.+)>; rel=\"next\"" options:NSRegularExpressionCaseInsensitive error:NULL];
         NSTextCheckingResult *match = [regex firstMatchInString:link options:NSMatchingReportCompletion range:NSMakeRange(0, link.length)];
         if (match && match.range.location != NSNotFound) {
             NSString *nextPage = [link substringWithRange:[match rangeAtIndex:1]];
-            self.nextPageURL = [NSURL URLWithString:nextPage];
+            nextPageURL = [NSURL URLWithString:nextPage];
         }
-    } else {
-        self.nextPageURL = nil;
     }
+    self.nextPageURL = nextPageURL;
 }
 
 - (void)setValues:(id)response {
@@ -50,6 +50,10 @@
 
 - (BOOL)isEmpty {
 	return self.count == 0;
+}
+
+- (BOOL)hasNextPage {
+	return !!self.nextPageURL;
 }
 
 - (id)objectAtIndexedSubscript:(NSUInteger)idx {

@@ -3,6 +3,7 @@
 
 @interface GHCollection : GHResource
 @property(nonatomic,readonly)BOOL isEmpty;
+@property(nonatomic,readonly)BOOL hasNextPage;
 @property(nonatomic,readonly)NSUInteger count;
 @property(nonatomic,strong)NSMutableArray *items;
 @property(nonatomic,strong)NSURL *nextPageURL;

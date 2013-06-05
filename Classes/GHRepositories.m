@@ -16,7 +16,6 @@
 		[repo setValues:dict];
 		[self addObject:repo];
 	}
-	[self sortUsingSelector:@selector(compareByName:)];
 }
 
 - (void)sortByPushedAt {

@@ -67,18 +67,6 @@
 	return [iOctocat.sharedInstance userWithLogin:self.owner];
 }
 
-- (int)compareByRepoId:(GHRepository *)otherRepo {
-    return [self.repoId localizedCaseInsensitiveCompare:otherRepo.repoId];
-}
-
-- (int)compareByRepoIdAndStatus:(GHRepository *)otherRepo {
-    return [self.repoIdAndStatus localizedCaseInsensitiveCompare:otherRepo.repoIdAndStatus];
-}
-
-- (int)compareByName:(GHRepository *)otherRepo {
-    return [self.name localizedCaseInsensitiveCompare:otherRepo.name];
-}
-
 #pragma mark Associations
 
 - (GHTags *)tags {

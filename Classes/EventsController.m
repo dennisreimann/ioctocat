@@ -164,23 +164,13 @@
 - (void)setupInfiniteScrolling {
 	__weak __typeof(&*self)weakSelf = self;
 	[self.tableView addInfiniteScrollingWithActionHandler:^{
-        if (weakSelf.events.isLoading) {
-            dispatch_async(dispatch_get_main_queue(),^ {
-                [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
-            });
-        } else {
-            [weakSelf.events loadNextWithStart:NULL success:^(GHResource *instance, id data) {
-                dispatch_async(dispatch_get_main_queue(),^ {
-                    [weakSelf displayEvents];
-                    [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
-                });
-            } failure:^(GHResource *instance, NSError *error) {
-                dispatch_async(dispatch_get_main_queue(),^ {
-                    [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
-                    [iOctocat reportLoadingError:@"Could not load more entries"];
-                });
-            }];
-        }
+        [weakSelf.events loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayEvents];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:@"Could not load more entries"];
+        }];
 	}];
 }
 

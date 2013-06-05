@@ -7,6 +7,7 @@
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface IOCRepositoriesController ()
@@ -32,16 +33,17 @@
 	self.navigationItem.title = self.title ? self.title : @"Repositories";
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repositories name:@"repositories"];
+	[self setupInfiniteScrolling];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.repositories.isUnloaded) {
 		[self.repositories loadWithSuccess:^(GHResource *instance, id data) {
-			[self.tableView reloadData];
+            [self displayRepositories];
 		}];
 	} else if (self.repositories.isChanged) {
-		[self.tableView reloadData];
+		[self displayRepositories];
 	}
 }
 
@@ -50,17 +52,37 @@
 	[SVProgressHUD dismiss];
 }
 
+#pragma mark Helpers
+
+- (void)displayRepositories {
+    [self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.repositories.hasNextPage;
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf.repositories loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayRepositories];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:@"Could not load more entries"];
+        }];
+	}];
+}
+
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
 	if (self.repositories.isLoading) return;
 	[self.repositories loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
+		instance.isEmpty ? [self displayRepositories] : [SVProgressHUD showWithStatus:@"Reloading"];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
-		[self.tableView reloadData];
+		[self displayRepositories];
 	} failure:^(GHResource *instance, NSError *error) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self displayRepositories] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

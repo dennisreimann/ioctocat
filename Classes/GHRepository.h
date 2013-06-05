@@ -37,8 +37,5 @@
 
 - (id)initWithOwner:(NSString *)owner andName:(NSString *)name;
 - (void)setOwner:(NSString *)owner andName:(NSString *)name;
-- (int)compareByName:(GHRepository*)repo;
-- (int)compareByRepoId:(GHRepository*)repo;
-- (int)compareByRepoIdAndStatus:(GHRepository*)repo;
 - (NSString *)repoId;
 @end

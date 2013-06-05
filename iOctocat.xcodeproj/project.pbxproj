@@ -376,7 +376,6 @@
 		6F612477167D0410001A3E05 /* IOCGistController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C89161CB77600E705CF /* IOCGistController.m */; };
 		6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5652E00F99C85C001B6703 /* IOCMyRepositoriesController.m */; };
 		6F61247A167D0410001A3E05 /* IOCRepositoryController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */; };
-		6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F76CDC016628FF500A2353E /* IOCCommitsController.m */; };
 		6F61247D167D0410001A3E05 /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
 		6F61247E167D0410001A3E05 /* IOCPullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */; };
@@ -870,7 +869,6 @@
 		6FCAA446167B52C800C816FA /* RepositoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB93A950FB2231E002B43AD /* RepositoryCell.m */; };
 		6FCAA447167B52C800C816FA /* GHUsers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F879AE70FB61C7A00EBD9BD /* GHUsers.m */; };
 		6FCAA448167B52C800C816FA /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
-		6FCAA449167B52C800C816FA /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		6FCAA44A167B52C800C816FA /* GHRepositories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FDC15200FC6BCA700089FB5 /* GHRepositories.m */; };
 		6FCAA44B167B52C800C816FA /* IOCIssueObjectFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0AEFBC100CF5DB00FB323E /* IOCIssueObjectFormController.m */; };
 		6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F0BEB3F11108C9E00E95E5A /* GHBranches.m */; };
@@ -1064,7 +1062,6 @@
 		8C6A9EA30FABF1D900A99483 /* IssueObjectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6A9EA20FABF1D900A99483 /* IssueObjectCell.m */; };
 		8C6AA15F0FAC22B000A99483 /* IOCIssueController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */; };
 		8CE686760FB8C56700A3D625 /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
-		8CE6867D0FB8C58400A3D625 /* IOCForksController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE6867B0FB8C58400A3D625 /* IOCForksController.m */; };
 		8CFBCFB30FAB8A6300A2C37A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
 		E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
@@ -1706,8 +1703,6 @@
 		8C6AA15E0FAC22B000A99483 /* IOCIssueController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCIssueController.m; sourceTree = "<group>"; };
 		8CE686720FB8C56700A3D625 /* GHForks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHForks.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		8CE686730FB8C56700A3D625 /* GHForks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHForks.h; sourceTree = "<group>"; };
-		8CE6867B0FB8C58400A3D625 /* IOCForksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCForksController.m; sourceTree = "<group>"; };
-		8CE6867C0FB8C58400A3D625 /* IOCForksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCForksController.h; sourceTree = "<group>"; };
 		8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -2755,8 +2750,6 @@
 				6F4CBD3116431D6300D587FB /* IOCOrganizationRepositoriesController.m */,
 				6F5A41730F90C38300427ED7 /* IOCRepositoryController.h */,
 				6F5A41740F90C38300427ED7 /* IOCRepositoryController.m */,
-				8CE6867C0FB8C58400A3D625 /* IOCForksController.h */,
-				8CE6867B0FB8C58400A3D625 /* IOCForksController.m */,
 				2E1CCAFD1756885B009C0400 /* IOCTagsController.h */,
 				2E1CCAFE17568878009C0400 /* IOCTagsController.m */,
 				6F76CDBF16628FF500A2353E /* IOCCommitsController.h */,
@@ -3756,7 +3749,6 @@
 				6FB93A960FB2231E002B43AD /* RepositoryCell.m in Sources */,
 				6F879AE80FB61C7A00EBD9BD /* GHUsers.m in Sources */,
 				8CE686760FB8C56700A3D625 /* GHForks.m in Sources */,
-				8CE6867D0FB8C58400A3D625 /* IOCForksController.m in Sources */,
 				6FDC15210FC6BCA700089FB5 /* GHRepositories.m in Sources */,
 				6F0AEFBE100CF5DB00FB323E /* IOCIssueObjectFormController.m in Sources */,
 				6F0BEB4011108C9E00E95E5A /* GHBranches.m in Sources */,
@@ -3875,7 +3867,6 @@
 				6F612477167D0410001A3E05 /* IOCGistController.m in Sources */,
 				6F612479167D0410001A3E05 /* IOCMyRepositoriesController.m in Sources */,
 				6F61247A167D0410001A3E05 /* IOCRepositoryController.m in Sources */,
-				6F61247B167D0410001A3E05 /* IOCForksController.m in Sources */,
 				6F61247C167D0410001A3E05 /* IOCCommitsController.m in Sources */,
 				6F61247D167D0410001A3E05 /* IOCCommitController.m in Sources */,
 				6F61247E167D0410001A3E05 /* IOCPullRequestsController.m in Sources */,
@@ -4018,7 +4009,6 @@
 				6FCAA446167B52C800C816FA /* RepositoryCell.m in Sources */,
 				6FCAA447167B52C800C816FA /* GHUsers.m in Sources */,
 				6FCAA448167B52C800C816FA /* GHForks.m in Sources */,
-				6FCAA449167B52C800C816FA /* IOCForksController.m in Sources */,
 				6FCAA44A167B52C800C816FA /* GHRepositories.m in Sources */,
 				6FCAA44B167B52C800C816FA /* IOCIssueObjectFormController.m in Sources */,
 				6FCAA44C167B52C800C816FA /* GHBranches.m in Sources */,

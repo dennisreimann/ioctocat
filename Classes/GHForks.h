@@ -1,8 +1,8 @@
-#import "GHCollection.h"
+#import "GHRepositories.h"
 
 
 @class GHRepository;
 
-@interface GHForks : GHCollection
+@interface GHForks : GHRepositories
 - (id)initWithRepository:(GHRepository *)repo;
 @end

@@ -8,6 +8,7 @@
 #import "GHTree.h"
 #import "GHCommit.h"
 #import "GHCommits.h"
+#import "GHForks.h"
 #import "LabeledCell.h"
 #import "TextCell.h"
 #import "IOCRepositoryController.h"
@@ -23,7 +24,7 @@
 #import "IOCIssuesController.h"
 #import "IOCBlobsController.h"
 #import "IOCPullRequestsController.h"
-#import "IOCForksController.h"
+#import "IOCRepositoriesController.h"
 #import "IOCTreeController.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -347,7 +348,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		}
 	} else if (section == 1) {
 		if (row == 0) {
-			viewController = [[IOCForksController alloc] initWithForks:self.repository.forks];
+			viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.repository.forks];
+            viewController.title = @"Forks";
 		} else if (row == 1) {
 			viewController = [[IOCTagsController alloc] initWithTags:self.repository.tags];
 		} else if (row == 2) {

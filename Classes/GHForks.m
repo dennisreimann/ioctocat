@@ -20,15 +20,4 @@
 	return self;
 }
 
-- (void)setValues:(id)values {
-    [super setValues:values];
-	for (NSDictionary *dict in values) {
-		NSString *owner = [dict safeStringForKeyPath:@"owner.login"];
-		NSString *name = [dict safeStringForKey:@"name"];
-		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
-		[repo setValues:dict];
-		[self addObject:repo];
-	}
-}
-
 @end

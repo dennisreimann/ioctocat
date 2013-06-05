@@ -29,7 +29,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		GHMilestone *milestone = [[GHMilestone alloc] initWithRepository:self.repository];
 		[milestone setValues:dict];

@@ -6,7 +6,7 @@
 @implementation GHGists
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (id dict in values) {
 		if ([dict isKindOfClass:NSDictionary.class]) {
 			GHGist *resource = [[GHGist alloc] initWithId:[dict safeStringForKey:@"id"]];

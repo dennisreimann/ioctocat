@@ -30,7 +30,7 @@
 }
 
 - (void)setValues:(NSDictionary *)dict {
-	self.items = [NSMutableArray array];
+    [super setValues:dict];
 	NSArray *objects = [dict safeArrayForKey:@"users"];
 	BOOL usersSearch = objects ? YES : NO;
 	if (!objects) objects = [dict safeArrayForKey:@"repositories"];

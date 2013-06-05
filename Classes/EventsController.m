@@ -23,6 +23,7 @@
 #import "NSDate+Nibware.h"
 #import "NSDictionary+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 #import "IOCViewControllerFactory.h"
 #import "NSURL+Extensions.h"
 
@@ -52,6 +53,7 @@
 	[super viewDidLoad];
 	self.clearsSelectionOnViewWillAppear = NO;
 	[self setupPullToRefresh];
+	[self setupInfiniteScrolling];
 	[self refreshLastUpdate];
 }
 
@@ -143,6 +145,29 @@
         }
 	}];
 	[self refreshLastUpdate];
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        if (weakSelf.events.isLoading) {
+            dispatch_async(dispatch_get_main_queue(),^ {
+                [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+            });
+        } else {
+            [weakSelf.events loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView reloadData];
+                    [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                });
+            } failure:^(GHResource *instance, NSError *error) {
+                dispatch_async(dispatch_get_main_queue(),^ {
+                    [weakSelf.tableView.infiniteScrollingView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
+                    [iOctocat reportLoadingError:@"Could not load more entries"];
+                });
+            }];
+        }
+	}];
 }
 
 - (void)refreshLastUpdate {

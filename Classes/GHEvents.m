@@ -31,7 +31,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		GHEvent *event = [[GHEvent alloc] initWithDict:dict];
 		if (self.lastRead && [event.date compare:self.lastRead] != NSOrderedDescending) {

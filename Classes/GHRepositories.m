@@ -8,7 +8,7 @@
 @implementation GHRepositories
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		NSString *owner = [dict safeStringForKeyPath:@"owner.login"];
 		NSString *name = [dict safeStringForKey:@"name"];

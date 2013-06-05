@@ -25,7 +25,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
 		[comment setValues:dict];

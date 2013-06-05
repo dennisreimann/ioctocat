@@ -1,7 +1,9 @@
 #import "GHCollection.h"
+#import "NSURL+Extensions.h"
 
 
 @interface GHCollection ()
+@property(nonatomic,assign)BOOL resetItemsOnLoad;
 @end
 
 
@@ -11,9 +13,36 @@
 	self = [super init];
 	if (self) {
 		self.items = [NSMutableArray array];
+        self.resetItemsOnLoad = NO;
 	}
 	return self;
 }
+
+- (void)setHeaderValues:(NSDictionary *)headers {
+    [self setNextPageURLFromResponseHeaders:headers];
+}
+
+- (void)setNextPageURLFromResponseHeaders:(NSDictionary *)headers {
+    NSString *link = headers[@"Link"];
+    if (link) {
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:@"<(.+)>; rel=\"next\"" options:NSRegularExpressionCaseInsensitive error:NULL];
+        NSTextCheckingResult *match = [regex firstMatchInString:link options:NSMatchingReportCompletion range:NSMakeRange(0, link.length)];
+        if (match && match.range.location != NSNotFound) {
+            NSString *nextPage = [link substringWithRange:[match rangeAtIndex:1]];
+            self.nextPageURL = [NSURL URLWithString:nextPage];
+        }
+    } else {
+        self.nextPageURL = nil;
+    }
+}
+
+- (void)setValues:(id)response {
+    if (self.resetItemsOnLoad) {
+        [self.items removeAllObjects];
+    }
+}
+
+#pragma mark Enumarable
 
 - (NSUInteger)count {
 	return self.items.count;
@@ -49,6 +78,18 @@
 
 - (void)sortUsingSelector:(SEL)cmptr {
 	[self.items sortUsingSelector:cmptr];
+}
+
+#pragma mark API
+
+- (void)loadNextWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    self.resetItemsOnLoad = NO;
+    [super loadWithParams:self.nextPageURL.queryDictionary path:self.nextPageURL.path method:kRequestMethodGet start:start success:success failure:failure];
+}
+
+- (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    self.resetItemsOnLoad = YES;
+    [super loadWithParams:params path:path method:method start:start success:success failure:failure];
 }
 
 @end

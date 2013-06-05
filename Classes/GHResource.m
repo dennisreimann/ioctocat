@@ -15,7 +15,7 @@
 @implementation GHResource
 
 - (id)initWithPath:(NSString *)path {
-	self = [super init];
+	self = [self init];
 	if (self) {
 		self.resourcePath = path;
 		self.resourceStatus = GHResourceStatusUnloaded;

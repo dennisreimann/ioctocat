@@ -8,7 +8,7 @@
 @implementation GHOrganizations
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
         NSString *login = [dict safeStringForKey:@"login"];
         GHOrganization *org = [iOctocat.sharedInstance organizationWithLogin:login];

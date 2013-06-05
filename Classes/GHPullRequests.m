@@ -30,7 +30,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		GHPullRequest *pullRequest = [[GHPullRequest alloc] initWithRepository:self.repository];
 		[pullRequest setValues:dict];

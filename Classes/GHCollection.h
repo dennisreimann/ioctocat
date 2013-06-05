@@ -5,6 +5,7 @@
 @property(nonatomic,readonly)BOOL isEmpty;
 @property(nonatomic,readonly)NSUInteger count;
 @property(nonatomic,strong)NSMutableArray *items;
+@property(nonatomic,strong)NSURL *nextPageURL;
 
 - (id)objectAtIndexedSubscript:(NSUInteger)idx;
 - (BOOL)containsObject:(id)object;
@@ -13,4 +14,5 @@
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
 - (void)sortUsingComparator:(NSComparator)cmptr;
 - (void)sortUsingSelector:(SEL)cmptr;
+- (void)loadNextWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

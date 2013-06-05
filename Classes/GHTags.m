@@ -21,7 +21,7 @@
 }
 
 - (void)setValues:(id)values {
-    self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
         NSString *sha = [dict safeStringForKey:@"sha"];
 		GHTag *tag = [[GHTag alloc] initWithRepo:self.repository sha:sha];

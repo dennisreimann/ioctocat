@@ -27,7 +27,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.parent];
 		[comment setValues:dict];

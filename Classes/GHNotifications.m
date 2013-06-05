@@ -33,7 +33,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (id dict in values) {
 		GHNotification *notification = [[GHNotification alloc] initWithDict:dict];
 		[self addObject:notification];

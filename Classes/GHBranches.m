@@ -21,7 +21,7 @@
 }
 
 - (void)setValues:(id)values {
-    self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
         NSString *name = [dict safeStringForKey:@"name"];
 		GHBranch *branch = [[GHBranch alloc] initWithRepository:self.repository andName:name];

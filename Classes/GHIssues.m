@@ -30,7 +30,7 @@
 }
 
 - (void)setValues:(id)values {
-	self.items = [NSMutableArray array];
+    [super setValues:values];
 	for (NSDictionary *dict in values) {
 		GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
 		[issue setValues:dict];

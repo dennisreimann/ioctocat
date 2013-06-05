@@ -41,7 +41,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MarkRead.png"] style:UIBarButtonItemStyleDone target:self action:@selector(markAllAsRead:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MarkRead.png"] style:UIBarButtonItemStylePlain target:self action:@selector(markAllAsRead:)];
 	self.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Mark all as read", nil);
     self.navigationItem.rightBarButtonItem.enabled = NO;
 	[self setupPullToRefresh];

@@ -64,7 +64,7 @@
 	self.selectedCell = nil;
 	self.selectedIndexPath = nil;
 	[self.tableView setContentOffset:CGPointZero animated:NO];
-	[self.tableView reloadData];
+	[self displayEvents];
 	[self refreshIfRequired];
 }
 

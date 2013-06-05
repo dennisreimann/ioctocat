@@ -8,6 +8,7 @@ Additions:
 * Support for emojis (including autocompletion)
 * Markdown rendering in issues and comments
 * List tags for repository
+* Pagination for events, commits and repositories
 
 Changes:
 

@@ -7,6 +7,7 @@
 #import "NSString+Extensions.h"
 #import "IOCResourceStatusCell.h"
 #import "SVProgressHUD.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface IOCCommitsController ()
@@ -34,16 +35,17 @@
 		self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	}
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commits name:@"commits"];
+    [self setupInfiniteScrolling];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	if (self.commits.isUnloaded) {
 		[self.commits loadWithSuccess:^(GHResource *instance, id data) {
-			[self.tableView reloadData];
+            [self displayCommits];
 		}];
 	} else if (self.commits.isChanged) {
-		[self.tableView reloadData];
+		[self displayCommits];
 	}
 }
 
@@ -52,17 +54,37 @@
 	[SVProgressHUD dismiss];
 }
 
+#pragma mark Helpers
+
+- (void)displayCommits {
+    [self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.commits.hasNextPage;
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf.commits loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayCommits];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:@"Could not load more entries"];
+        }];
+	}];
+}
+
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
 	if (self.commits.isLoading) return;
 	[self.commits loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
+		instance.isEmpty ? [self displayCommits] : [SVProgressHUD showWithStatus:@"Reloading"];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
-		[self.tableView reloadData];
+		[self displayCommits];
 	} failure:^(GHResource *instance, NSError *error) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self displayCommits] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
 	}];
 }
 

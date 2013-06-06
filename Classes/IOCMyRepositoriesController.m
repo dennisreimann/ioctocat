@@ -103,12 +103,12 @@
 - (IBAction)refresh:(id)sender {
 	if (self.user.repositories.isLoading) return;
 	[self.user.repositories loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:NSLocalizedString(@"Reloading", @"Progress HUD hint: Reloading")];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self displayRepositories];
 	} failure:^(GHResource *instance, NSError *error) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
+		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Reloading failed", @"Progress HUD hint: Reloading failed")];
 	}];
 }
 

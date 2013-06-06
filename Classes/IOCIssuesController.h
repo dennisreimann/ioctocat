@@ -1,6 +1,8 @@
+#import "IOCCollectionController.h"
+
 @class GHRepository, GHUser;
 
-@interface IOCIssuesController : UITableViewController
+@interface IOCIssuesController : IOCCollectionController
 - (id)initWithRepository:(GHRepository *)repo;
 - (id)initWithUser:(GHUser *)user;
 - (void)reloadIssues;

@@ -20,7 +20,7 @@
 }
 
 - (NSString *)collectionCellIdentifier {
-    return kGistCellIdentifier;
+    return @"GistCell";
 }
 
 #pragma mark TableView

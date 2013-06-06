@@ -18,7 +18,7 @@
 }
 
 - (NSString *)collectionCellIdentifier {
-    return kTagCellIdentifier;
+    return @"TagCell";
 }
 
 #pragma mark TableView

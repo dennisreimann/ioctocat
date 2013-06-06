@@ -8,7 +8,6 @@
 
 @interface IOCCollectionController ()
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
-@property(nonatomic,assign)BOOL canReload;
 @end
 
 
@@ -23,7 +22,7 @@
 }
 
 - (NSString *)collectionName {
-    return @"Items";
+    return NSLocalizedString(@"Items", nil);
 }
 
 - (NSString *)collectionCellIdentifier {
@@ -34,26 +33,26 @@
     return YES;
 }
 
+- (IOCResourceStatusCell *)statusCell {
+    if (!_statusCell) {
+        _statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.collection name:self.collectionName.lowercaseString];
+    }
+    return _statusCell;
+}
+
 #pragma mark View Events
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.collectionName;
 	if (self.canReload) self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.collection name:self.collectionName.lowercaseString];
 	[self setupInfiniteScrolling];
     [self displayCollection];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	if (self.collection.isUnloaded) {
-		[self.collection loadWithSuccess:^(GHResource *instance, id data) {
-            [self displayCollection];
-		}];
-	} else if (self.collection.isChanged) {
-		[self displayCollection];
-	}
+    [self loadCollection];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -66,6 +65,20 @@
 - (void)displayCollection {
     [self.tableView reloadData];
     self.tableView.showsInfiniteScrolling = self.collection.hasNextPage;
+}
+
+- (void)loadCollection {
+	if (self.collection.isUnloaded) {
+		[self.collection loadWithParams:nil start:^(GHResource *instance) {
+            [self displayCollection];
+        } success:^(GHResource *instance, id data) {
+            [self displayCollection];
+        } failure:^(GHResource *instance, NSError *error) {
+            [self displayCollection];
+		}];
+	} else if (self.collection.isChanged) {
+		[self displayCollection];
+	}
 }
 
 - (void)setupInfiniteScrolling {
@@ -84,14 +97,14 @@
 #pragma mark Actions
 
 - (IBAction)refresh:(id)sender {
-	if (self.collection.isLoading) return;
+	if (!self.canReload || self.collection.isLoading) return;
 	[self.collection loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self displayCollection] : [SVProgressHUD showWithStatus:NSLocalizedString(@"Reloading", nil)];
+		instance.isEmpty ? [self displayCollection] : [SVProgressHUD showWithStatus:NSLocalizedString(@"Reloading", @"Progress HUD hint: Reloading")];
 	} success:^(GHResource *instance, id data) {
 		[SVProgressHUD dismiss];
 		[self displayCollection];
 	} failure:^(GHResource *instance, NSError *error) {
-		instance.isEmpty ? [self displayCollection] : [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Reloading failed", nil)];
+		instance.isEmpty ? [self displayCollection] : [SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Reloading failed", @"Progress HUD hint: Reloading failed")];
 	}];
 }
 

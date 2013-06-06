@@ -1,18 +1,14 @@
 #import "IOCPullRequestsController.h"
 #import "IOCPullRequestController.h"
+#import "IOCIssueObjectCell.h"
+#import "IOCResourceStatusCell.h"
 #import "GHPullRequest.h"
 #import "GHPullRequests.h"
 #import "GHRepository.h"
-#import "IOCIssueObjectCell.h"
-#import "iOctocat.h"
-#import "SVProgressHUD.h"
-#import "IOCResourceStatusCell.h"
 
 
 @interface IOCPullRequestsController ()
-@property(nonatomic,readonly)GHPullRequests *currentPullRequests;
 @property(nonatomic,strong)GHRepository *repository;
-@property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)NSArray *objects;
 @property(nonatomic,strong)UISegmentedControl *pullRequestsControl;
 @end
@@ -21,7 +17,7 @@
 @implementation IOCPullRequestsController
 
 - (id)initWithRepository:(GHRepository *)repo {
-	self = [super initWithStyle:UITableViewStylePlain];
+	self = [super initWithCollection:nil];
 	if (self) {
 		self.repository = repo;
 		self.objects = @[self.repository.openPullRequests, self.repository.closedPullRequests];
@@ -29,66 +25,44 @@
 	return self;
 }
 
+- (NSString *)collectionName {
+    return NSLocalizedString(@"Pull Requests", nil);
+}
+
+- (NSString *)collectionCellIdentifier {
+    return @"IssueObjectCell";
+}
+
+- (GHIssues *)collection {
+	NSInteger idx = self.pullRequestsControl.selectedSegmentIndex;
+	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
+}
+
+- (IOCResourceStatusCell *)statusCell {
+    return [[IOCResourceStatusCell alloc] initWithResource:self.collection name:self.collectionName.lowercaseString];
+}
+
 #pragma mark View Events
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.pullRequestsControl = [[UISegmentedControl alloc] initWithItems:@[@"Open", @"Closed"]];
+	self.pullRequestsControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"Open", @"Issue/Pull Request state: Open"), NSLocalizedString(@"Closed", @"Issue/Pull Request state: Closed")]];
 	self.pullRequestsControl.selectedSegmentIndex = 0;
 	self.pullRequestsControl.segmentedControlStyle = UISegmentedControlStyleBar;
 	[self.pullRequestsControl addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
 	CGRect controlFrame = self.pullRequestsControl.frame;
 	controlFrame.size.width = 200;
 	self.pullRequestsControl.frame = controlFrame;
-	self.navigationItem.title = self.title ? self.title : @"Pull Requests";
 	self.navigationItem.titleView = self.pullRequestsControl;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self loadCurrentPullRequests];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[SVProgressHUD dismiss];
-}
-
-#pragma mark Helpers
-
-- (GHIssues *)currentPullRequests {
-	NSInteger idx = self.pullRequestsControl.selectedSegmentIndex;
-	return idx == UISegmentedControlNoSegment ? nil : self.objects[idx];
-}
-
-- (void)loadCurrentPullRequests {
-	if (self.currentPullRequests.isLoaded) return;
-	[self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
-		[self.tableView reloadData];
-	} success:^(GHResource *instance, id data) {
-		[self.tableView reloadData];
-	} failure:nil];
 }
 
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-	[self.tableView reloadData];
+	[self displayCollection];
 	[self.tableView setContentOffset:CGPointZero animated:NO];
-	[self loadCurrentPullRequests];
-}
-
-- (IBAction)refresh:(id)sender {
-	if (self.currentPullRequests.isLoading) return;
-	[self.currentPullRequests loadWithParams:nil start:^(GHResource *instance) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showWithStatus:@"Reloading"];
-	} success:^(GHResource *instance, id data) {
-		[SVProgressHUD dismiss];
-		[self.tableView reloadData];
-	} failure:^(GHResource *instance, NSError *error) {
-		instance.isEmpty ? [self.tableView reloadData] : [SVProgressHUD showErrorWithStatus:@"Reloading failed"];
-	}];
+	[self loadCollection];
 }
 
 - (void)reloadPullRequests {
@@ -97,25 +71,18 @@
 
 #pragma mark TableView
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	return self.currentPullRequests.isEmpty ? 1 : self.currentPullRequests.count;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentPullRequests.isEmpty) {
-		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentPullRequests name:@"pull requests"];
-		return self.statusCell;
-	}
-	IOCIssueObjectCell *cell = (IOCIssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
-	if (!cell) cell = [IOCIssueObjectCell cellWithReuseIdentifier:kIssueObjectCellIdentifier];
+	if (self.collection.isEmpty) return self.statusCell;
+	IOCIssueObjectCell *cell = (IOCIssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
+	if (!cell) cell = [IOCIssueObjectCell cellWithReuseIdentifier:self.collectionCellIdentifier];
 	if (self.repository) [cell hideRepo];
-	cell.issueObject = self.currentPullRequests[indexPath.row];
+	cell.issueObject = self.collection[indexPath.row];
 	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.currentPullRequests.isEmpty) return;
-	GHPullRequest *pullRequest = self.currentPullRequests[indexPath.row];
+	if (self.collection.isEmpty) return;
+	GHPullRequest *pullRequest = self.collection[indexPath.row];
 	IOCPullRequestController *viewController = [[IOCPullRequestController alloc] initWithPullRequest:pullRequest andListController:self];
 	[self.navigationController pushViewController:viewController animated:YES];
 }

@@ -42,10 +42,6 @@
 #define kRepositoryCellIdentifier       @"RepositoryCell"
 #define kCommentCellIdentifier          @"CommentCell"
 #define kCommitCellIdentifier           @"CommitCell"
-#define kIssueObjectCellIdentifier      @"IssueObjectCell"
-#define kTagCellIdentifier              @"TagCell"
-#define kGistCellIdentifier             @"GistCell"
-#define kNotificationCellIdentifier     @"NotificationCell"
 
 // Events
 #define kUserAuthenticatedReceivedEventsFormat  @"users/%@/received_events"

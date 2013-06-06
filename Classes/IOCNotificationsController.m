@@ -201,8 +201,8 @@
 		}
 		return allReadCell;
 	}
-	IOCNotificationCell *cell = (IOCNotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
-	if (!cell) cell = [IOCNotificationCell cellWithReuseIdentifier:kNotificationCellIdentifier];
+	IOCNotificationCell *cell = (IOCNotificationCell *)[tableView dequeueReusableCellWithIdentifier:@"NotificationCell"];
+	if (!cell) cell = [IOCNotificationCell cellWithReuseIdentifier:@"NotificationCell"];
 	NSArray *notifications = [self notificationsInSection:indexPath.section];
 	GHNotification *notification = notifications[indexPath.row];
 	cell.notification = notification;

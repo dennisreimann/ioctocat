@@ -108,9 +108,8 @@
 }
 
 - (CGFloat)contentTextHeightForWidth:(CGFloat)width {
-    CGFloat maxHeight = 50000.0f;
-	CGSize constraint = CGSizeMake(width, maxHeight);
-    CGSize size = [self.contentLabel.text sizeWithFont:self.contentLabel.font constrainedToSize:constraint lineBreakMode:self.contentLabel.lineBreakMode];
+    CGSize constraint = CGSizeMake(width, CGFLOAT_MAX);
+    CGSize size = [self.contentLabel sizeThatFits:constraint];
     return size.height;
 }
 

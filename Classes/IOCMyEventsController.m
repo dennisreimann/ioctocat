@@ -1,11 +1,11 @@
-#import "MyEventsController.h"
-#import "WebController.h"
+#import "IOCMyEventsController.h"
+#import "IOCWebController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCIssueController.h"
 #import "IOCGistController.h"
 #import "IOCCommitController.h"
-#import "EventCell.h"
+#import "IOCEventCell.h"
 #import "GHEvent.h"
 #import "GHUser.h"
 #import "GHEvents.h"
@@ -18,23 +18,24 @@
 #import "UIScrollView+SVPullToRefresh.h"
 
 
-@interface MyEventsController ()
+@interface IOCMyEventsController ()
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *feeds;
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @property(nonatomic,weak,readonly)GHEvents *events;
-@property(nonatomic,strong)IBOutlet EventCell *selectedCell;
+@property(nonatomic,strong)IBOutlet IOCEventCell *selectedCell;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 @end
 
 
-@implementation MyEventsController
+@implementation IOCMyEventsController
 
 - (id)initWithUser:(GHUser *)user {
-	self = [super initWithNibName:@"MyEvents" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
 		self.user = user;
 		self.feeds = @[self.user.receivedEvents, self.user.events];
+		self.title = NSLocalizedString(@"My Events", nil);
 	}
 	return self;
 }
@@ -51,9 +52,14 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = @"My Events";
+	self.navigationItem.title = self.title;
+    // feed control
+    self.feedControl = [[UISegmentedControl alloc] initWithItems:@[NSLocalizedString(@"News", nil), NSLocalizedString(@"Activity", nil)]];
+	self.feedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    [self.feedControl addTarget:self action:@selector(switchChanged:) forControlEvents:UIControlEventValueChanged];
+    self.feedControl.frame = CGRectMake(self.feedControl.frame.origin.x - 20, self.feedControl.frame.origin.y, self.feedControl.frame.size.width + 40, self.feedControl.frame.size.height);
 	self.navigationItem.titleView = self.feedControl;
-	// Start loading the first feed
+	// start loading the first feed
 	self.feedControl.selectedSegmentIndex = 0;
 }
 

@@ -1,5 +1,5 @@
 #import "IOCViewControllerFactory.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCIssueController.h"
@@ -38,7 +38,7 @@
     if (url.isGitHubURL) {
         return [self viewControllerForGitHubURL:url];
     } else {
-        return [[WebController alloc] initWithURL:url];
+        return [[IOCWebController alloc] initWithURL:url];
     }
 }
 
@@ -68,7 +68,7 @@
         BOOL isStatic = comps.count == 1 || (comps.count >= 2 && [staticPages containsObject:comps[1]]);
         if (isStatic) {
             NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, url.path];
-            viewController = [[WebController alloc] initWithURL:pageURL];
+            viewController = [[IOCWebController alloc] initWithURL:pageURL];
         } else if (comps.count == 2) {
             NSString *component = comps[1];
             if ([component isEqualToString:@"search"]) {
@@ -88,7 +88,7 @@
                 repo.htmlURL = url;
                 // README
                 if (url.fragment) {
-                    viewController = [[WebController alloc] initWithURL:url];
+                    viewController = [[IOCWebController alloc] initWithURL:url];
                 } else {
                     viewController = [[IOCRepositoryController alloc] initWithRepository:repo];
                 }
@@ -132,7 +132,7 @@
                     viewController = [[IOCBlobsController alloc] initWithBlob:blob];
                 } else {
                     // Wiki, Contributors, ...
-                    viewController = [[WebController alloc] initWithURL:url];
+                    viewController = [[IOCWebController alloc] initWithURL:url];
                 }
             }
         }

@@ -3,7 +3,7 @@
 #import "IOCIssueObjectFormController.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
-#import "IssueObjectCell.h"
+#import "IOCIssueObjectCell.h"
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
@@ -143,9 +143,9 @@
 		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentIssues name:@"issues"];
 		return self.statusCell;
 	}
-	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
+	IOCIssueObjectCell *cell = (IOCIssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
 	if (!cell) {
-		cell = [IssueObjectCell cellWithReuseIdentifier:kIssueObjectCellIdentifier];
+		cell = [IOCIssueObjectCell cellWithReuseIdentifier:kIssueObjectCellIdentifier];
 		if (self.repository) [cell hideRepo];
 	}
 	cell.issueObject = self.currentIssues[indexPath.row];

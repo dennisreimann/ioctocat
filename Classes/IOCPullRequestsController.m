@@ -3,7 +3,7 @@
 #import "GHPullRequest.h"
 #import "GHPullRequests.h"
 #import "GHRepository.h"
-#import "IssueObjectCell.h"
+#import "IOCIssueObjectCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -106,8 +106,8 @@
 		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.currentPullRequests name:@"pull requests"];
 		return self.statusCell;
 	}
-	IssueObjectCell *cell = (IssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
-	if (!cell) cell = [IssueObjectCell cellWithReuseIdentifier:kIssueObjectCellIdentifier];
+	IOCIssueObjectCell *cell = (IOCIssueObjectCell *)[tableView dequeueReusableCellWithIdentifier:kIssueObjectCellIdentifier];
+	if (!cell) cell = [IOCIssueObjectCell cellWithReuseIdentifier:kIssueObjectCellIdentifier];
 	if (self.repository) [cell hideRepo];
 	cell.issueObject = self.currentPullRequests[indexPath.row];
 	return cell;

@@ -1,4 +1,4 @@
-#import "CommentCell.h"
+#import "IOCCommentCell.h"
 #import "GHComment.h"
 #import "NSDate+Nibware.h"
 #import "GHUser.h"
@@ -6,14 +6,14 @@
 
 
 
-@interface CommentCell () <TTTAttributedLabelDelegate>
+@interface IOCCommentCell () <TTTAttributedLabelDelegate>
 @property(nonatomic,weak)IBOutlet UIButton *gravatarButton;
 @property(nonatomic,weak)IBOutlet UIButton *userButton;
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @end
 
 
-@implementation CommentCell
+@implementation IOCCommentCell
 
 static NSString *const UserGravatarKeyPath = @"user.gravatar";
 

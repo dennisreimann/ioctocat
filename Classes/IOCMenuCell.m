@@ -1,7 +1,7 @@
-#import "MenuCell.h"
+#import "IOCMenuCell.h"
 
 
-@implementation MenuCell
+@implementation IOCMenuCell
 
 - (id)initWithReuseIdentifier:(NSString *)reuseIdentifier {
     self = [super initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];

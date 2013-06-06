@@ -1,15 +1,15 @@
-#import "LabeledCell.h"
+#import "IOCLabeledCell.h"
 #import "NSString+Extensions.h"
 
 
-@interface LabeledCell ()
+@interface IOCLabeledCell ()
 @property(nonatomic,assign)BOOL hasContent;
 @property(nonatomic,weak)IBOutlet UILabel *label;
 @property(nonatomic,weak)IBOutlet UILabel *content;
 @end
 
 
-@implementation LabeledCell
+@implementation IOCLabeledCell
 
 - (void)setLabelText:(NSString *)text {
 	self.label.text = text;

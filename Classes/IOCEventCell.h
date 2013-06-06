@@ -1,9 +1,9 @@
-#import "TextCell.h"
+#import "IOCTextCell.h"
 
 
 @class GHEvent;
 
-@interface EventCell : TextCell
+@interface IOCEventCell : IOCTextCell
 @property(nonatomic,strong)GHEvent *event;
 
 - (void)markAsNew;

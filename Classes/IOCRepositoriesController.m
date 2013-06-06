@@ -2,7 +2,7 @@
 #import "IOCRepositoryController.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
-#import "RepositoryCell.h"
+#import "IOCRepositoryCell.h"
 #import "NSString+Extensions.h"
 
 
@@ -24,8 +24,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.collection.isEmpty) return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
-	if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:self.collectionCellIdentifier];
+	IOCRepositoryCell *cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
+	if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:self.collectionCellIdentifier];
 	cell.repository = self.collection[indexPath.row];
 	return cell;
 }

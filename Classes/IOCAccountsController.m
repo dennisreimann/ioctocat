@@ -1,12 +1,12 @@
 #import "IOCAccountsController.h"
 #import "IOCDefaultsPersistence.h"
-#import "MyEventsController.h"
-#import "MenuController.h"
+#import "IOCMyEventsController.h"
+#import "IOCMenuController.h"
 #import "IOCAccountFormController.h"
 #import "GHAccount.h"
 #import "GHUser.h"
 #import "GHOAuthClient.h"
-#import "UserObjectCell.h"
+#import "IOCUserObjectCell.h"
 #import "NSURL+Extensions.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -167,7 +167,7 @@
 	iOctocat.sharedInstance.currentAccount = account;
 	[IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
         iOctocat.sharedInstance.currentAccount = account;
-		MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
+		IOCMenuController *menuController = [[IOCMenuController alloc] initWithUser:account.user];
         [self.navigationController pushViewController:menuController animated:YES];
     } failure:^(GHAccount *account) {
         [iOctocat reportError:@"Authentication failed" with:@"Please ensure that you are connected to the internet and that your credentials are correct"];
@@ -200,9 +200,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
+	IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
 	if (!cell) {
-		cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+		cell = [IOCUserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
 		cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
 	}
 	NSUInteger idx = [self accountIndexFromIndexPath:indexPath];

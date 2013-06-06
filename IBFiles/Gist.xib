@@ -36,7 +36,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="1002873168">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIImageView" id="705617526">
@@ -44,7 +44,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{14, 13}, {21, 21}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="1013829266"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -57,7 +56,6 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{44, 10}, {262, 29}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="75862205"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -89,7 +87,6 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{23, 45}, {14, 14}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
-						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="295839297"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -104,7 +101,6 @@
 						<int key="NSvFlags">294</int>
 						<string key="NSFrame">{{44, 43}, {120, 20}}</string>
 						<reference key="NSSuperview" ref="1002873168"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -132,8 +128,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 80}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="705617526"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -484,7 +478,7 @@
 				<string key="IBUIReuseIdentifier">ForksCell</string>
 			</object>
 			<object class="IBUIView" id="669130325">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="911388272">
@@ -492,7 +486,6 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{10, 0}, {300, 40}}</string>
 						<reference key="NSSuperview" ref="669130325"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -523,8 +516,6 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="911388272"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -869,13 +860,13 @@
 				<string key="14.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="140.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="141.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="143.CustomClassName">LabeledCell</string>
+				<string key="143.CustomClassName">IOCLabeledCell</string>
 				<string key="143.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="144.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="145.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="148.CustomClassName">LabeledCell</string>
+				<string key="148.CustomClassName">IOCLabeledCell</string>
 				<string key="148.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="149.CustomClassName">LabeledCell</string>
+				<string key="149.CustomClassName">IOCLabeledCell</string>
 				<string key="149.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="150.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="151.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>

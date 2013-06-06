@@ -1,5 +1,5 @@
 @class GHComment;
 
-@interface CommentController : UIViewController
+@interface IOCCommentController : UIViewController
 - (id)initWithComment:(GHComment *)comment andComments:(id)comments;
 @end

@@ -1,6 +1,6 @@
 #import "IOCOrganizationsController.h"
 #import "IOCOrganizationController.h"
-#import "UserObjectCell.h"
+#import "IOCUserObjectCell.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
 
@@ -23,8 +23,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.collection.isEmpty) return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
-	if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:self.collectionCellIdentifier];
+	IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
+	if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:self.collectionCellIdentifier];
     cell.userObject = self.collection[indexPath.row];
 	return cell;
 }

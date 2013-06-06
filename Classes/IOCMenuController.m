@@ -1,5 +1,5 @@
-#import "MenuController.h"
-#import "MyEventsController.h"
+#import "IOCMenuController.h"
+#import "IOCMyEventsController.h"
 #import "IOCViewControllerFactory.h"
 #import "IOCNotificationsController.h"
 #import "IOCUserController.h"
@@ -21,14 +21,14 @@
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "ECSlidingViewController.h"
-#import "MenuCell.h"
+#import "IOCMenuCell.h"
 #import "BITHockeyManager.h"
 #import "BITFeedbackManager.h"
 
 
 #define kSectionHeaderHeight 24.0f
 
-@interface MenuController ()
+@interface IOCMenuController ()
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *menu;
 @property(nonatomic,assign)BOOL isObservingOrganizations;
@@ -37,7 +37,7 @@
 @end
 
 
-@implementation MenuController
+@implementation IOCMenuController
 
 static NSString *const GravatarKeyPath = kGravatarKeyPath;
 static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
@@ -51,7 +51,7 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 		self.isObservingOrganizations = NO;
 		[self.user addObserver:self forKeyPath:GravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 		[self.user addObserver:self forKeyPath:NotificationsCountKeyPath options:NSKeyValueObservingOptionNew context:nil];
-        self.initialViewController = [[MyEventsController alloc] initWithUser:self.user];
+        self.initialViewController = [[IOCMyEventsController alloc] initWithUser:self.user];
 	    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(menuWillAppear:) name:ECSlidingViewUnderLeftWillAppear object:nil];
     }
 	return self;
@@ -284,9 +284,9 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"MenuCell";
-	MenuCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	IOCMenuCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (!cell) {
-		cell = [[MenuCell alloc] initWithReuseIdentifier:CellIdentifier];
+		cell = [[IOCMenuCell alloc] initWithReuseIdentifier:CellIdentifier];
 		cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
 		cell.selectedBackgroundView.backgroundColor = self.highlightBackgroundColor;
 	}
@@ -327,11 +327,11 @@ static NSString *const NotificationsCountKeyPath = @"notifications.unreadCount";
 
 		case 1:
 			if (row == 0) {
-				viewController = [[MyEventsController alloc] initWithUser:self.user];
+				viewController = [[IOCMyEventsController alloc] initWithUser:self.user];
 				viewController.title = @"My Events";
 			} else {
 				GHOrganization *org = self.user.organizations[row - 1];
-				viewController = [[EventsController alloc] initWithEvents:org.events];
+				viewController = [[IOCEventsController alloc] initWithEvents:org.events];
 				viewController.title = org.login;
 			}
 			break;

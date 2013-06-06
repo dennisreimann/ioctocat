@@ -1,4 +1,4 @@
-#import "CommentController.h"
+#import "IOCCommentController.h"
 #import "GHRepository.h"
 #import "GHIssues.h"
 #import "GHIssue.h"
@@ -14,7 +14,7 @@
 #import "NSString+Extensions.h"
 
 
-@interface CommentController () <UITextFieldDelegate>
+@interface IOCCommentController () <UITextFieldDelegate>
 @property(nonatomic,strong)GHComment *comment;
 @property(nonatomic,weak)id comments;
 @property(nonatomic,strong)MAXCompletion *usernameCompletion;
@@ -26,7 +26,7 @@
 @end
 
 
-@implementation CommentController
+@implementation IOCCommentController
 
 - (id)initWithComment:(GHComment *)comment andComments:(id)comments {
 	self = [super initWithNibName:@"Comment" bundle:nil];

@@ -1,4 +1,4 @@
-#import "EventsController.h"
+#import "IOCEventsController.h"
 #import "GHEvent.h"
 #import "GHEvents.h"
 #import "IOCUserController.h"
@@ -7,7 +7,7 @@
 #import "IOCPullRequestController.h"
 #import "IOCCommitController.h"
 #import "IOCGistController.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "IOCCommitsController.h"
 #import "IOCOrganizationController.h"
 #import "GHUser.h"
@@ -19,7 +19,7 @@
 #import "GHGist.h"
 #import "GHPullRequest.h"
 #import "iOctocat.h"
-#import "EventCell.h"
+#import "IOCEventCell.h"
 #import "NSDate+Nibware.h"
 #import "NSDictionary+Extensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
@@ -30,18 +30,18 @@
 #define kEventCellIdentifier @"EventCell"
 
 
-@interface EventsController () <TextCellDelegate>
+@interface IOCEventsController () <IOCTextCellDelegate>
 @property(nonatomic,strong)GHEvents *events;
-@property(nonatomic,strong)IBOutlet UITableViewCell *noEntriesCell;
-@property(nonatomic,strong)IBOutlet EventCell *eventCell;
+@property(nonatomic,strong)IBOutlet IOCEventCell *eventCell;
 @end
 
 
-@implementation EventsController
+@implementation IOCEventsController
 
 - (id)initWithEvents:(GHEvents *)events {
-	self = [super initWithNibName:@"Events" bundle:nil];
+	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
+		self.title = NSLocalizedString(@"Events", nil);
 		self.events = events;
 	}
 	return self;
@@ -105,8 +105,19 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (self.events.isEmpty) return self.noEntriesCell;
-	EventCell *cell = (EventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
+    if (self.events.isEmpty) {
+		UITableViewCell *noEntriesCell = [tableView dequeueReusableCellWithIdentifier:@"NoEntriesCell"];
+		if (!noEntriesCell) {
+			noEntriesCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoEntriesCell"];
+			noEntriesCell.selectionStyle = UITableViewCellSelectionStyleNone;
+			noEntriesCell.textLabel.font = [UIFont systemFontOfSize:15];
+			noEntriesCell.textLabel.text = @"No entries, yet";
+			noEntriesCell.textLabel.textColor = [UIColor grayColor];
+			noEntriesCell.textLabel.textAlignment = NSTextAlignmentCenter;
+		}
+		return noEntriesCell;
+	}
+	IOCEventCell *cell = (IOCEventCell *)[tableView dequeueReusableCellWithIdentifier:kEventCellIdentifier];
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"EventCell" owner:self options:nil];
 		cell = _eventCell;
@@ -119,14 +130,15 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return [(EventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] heightForTableView:tableView];
+	if (self.events.isEmpty) return 44.0f;
+    return [(IOCEventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] heightForTableView:tableView];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.events.isEmpty) return;
     GHEvent *event = self.events[indexPath.row];
     if (!event.read) {
-        [(EventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] markAsRead];
+        [(IOCEventCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath] markAsRead];
         [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];

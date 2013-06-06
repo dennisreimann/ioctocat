@@ -49,7 +49,7 @@
 #pragma mark last update
 
 + (NSString *)lastUpdateKeyForPath:(NSString *)path {
-	return [NSString stringWithFormat:@"lastUpate:%@", path];
+	return [NSString stringWithFormat:@"lastUpdate:%@", path];
 }
 
 + (NSDate *)lastUpdateForPath:(NSString *)path account:(GHAccount *)account {

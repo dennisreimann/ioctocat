@@ -1,6 +1,6 @@
 @class GHEvents;
 
-@interface EventsController : UITableViewController
+@interface IOCEventsController : UITableViewController
 - (id)initWithEvents:(GHEvents *)events;
 - (void)refreshLastUpdate;
 - (void)refreshIfRequired;

@@ -5,16 +5,16 @@
 #import "GHRepository.h"
 #import "GHRepoComments.h"
 #import "GHRepoComment.h"
-#import "LabeledCell.h"
-#import "TextCell.h"
-#import "FilesCell.h"
-#import "CommentCell.h"
+#import "IOCLabeledCell.h"
+#import "IOCTextCell.h"
+#import "IOCFilesCell.h"
+#import "IOCCommentCell.h"
 #import "NSDate+Nibware.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "IOCFilesController.h"
-#import "CommentController.h"
+#import "IOCCommentController.h"
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
@@ -22,7 +22,7 @@
 #import "NSURL+Extensions.h"
 
 
-@interface IOCCommitController () <UIActionSheetDelegate, TextCellDelegate>
+@interface IOCCommitController () <UIActionSheetDelegate, IOCTextCellDelegate>
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)UILongPressGestureRecognizer *longPressGesture;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -32,15 +32,15 @@
 @property(nonatomic,weak)IBOutlet GradientButton *commentButton;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *authoredCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *committedCell;
-@property(nonatomic,strong)IBOutlet TextCell *messageCell;
-@property(nonatomic,strong)IBOutlet FilesCell *addedCell;
-@property(nonatomic,strong)IBOutlet FilesCell *modifiedCell;
-@property(nonatomic,strong)IBOutlet FilesCell *removedCell;
-@property(nonatomic,strong)IBOutlet CommentCell *commentCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *repoCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *authorCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *authoredCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *committedCell;
+@property(nonatomic,strong)IBOutlet IOCTextCell *messageCell;
+@property(nonatomic,strong)IBOutlet IOCFilesCell *addedCell;
+@property(nonatomic,strong)IBOutlet IOCFilesCell *modifiedCell;
+@property(nonatomic,strong)IBOutlet IOCFilesCell *removedCell;
+@property(nonatomic,strong)IBOutlet IOCCommentCell *commentCell;
 @end
 
 
@@ -161,7 +161,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     if (buttonIndex == 0) [UIPasteboard generalPasteboard].string = self.commit.commitID;
     else if (buttonIndex == 1) [self addComment:nil];
     else if (buttonIndex == 2) {
-        WebController *webController = [[WebController alloc] initWithURL:self.commit.htmlURL];
+        IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.commit.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
     }
 }
@@ -170,7 +170,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
 	comment.user = self.currentUser;
 	comment.commitID = self.commit.commitID;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.commit.comments];
+	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.commit.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -220,7 +220,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	}
 	// comments
 	if (self.commit.comments.isEmpty) return self.commentsStatusCell;
-	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	IOCCommentCell *cell = (IOCCommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
@@ -238,7 +238,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (section == 0 && row == 4) {
 		return [self.messageCell heightForTableView:tableView];
 	} else if (section == 2 && !self.commit.comments.isEmpty) {
-		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		IOCCommentCell *cell = (IOCCommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
 	return 44;
@@ -256,7 +256,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 			viewController = [[IOCUserController alloc] initWithUser:self.commit.author];
 		}
 	} else if (section == 1) {
-		FilesCell *cell = (FilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		IOCFilesCell *cell = (IOCFilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		if (!cell.files.isEmpty) {
 			IOCFilesController *filesController = [[IOCFilesController alloc] initWithFiles:cell.files];
 			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];

@@ -1,6 +1,6 @@
 @class GHNotification;
 
-@interface NotificationCell : UITableViewCell
+@interface IOCNotificationCell : UITableViewCell
 @property(nonatomic,strong)GHNotification *notification;
 
 + (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier;

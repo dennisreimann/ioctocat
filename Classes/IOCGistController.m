@@ -4,25 +4,25 @@
 #import "GHFiles.h"
 #import "GHGistComment.h"
 #import "GHGistComments.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "IOCGistController.h"
 #import "IOCGistsController.h"
 #import "IOCCodeController.h"
 #import "IOCUserController.h"
-#import "CommentController.h"
-#import "CommentCell.h"
+#import "IOCCommentController.h"
+#import "IOCCommentCell.h"
 #import "iOctocat.h"
 #import "NSDictionary+Extensions.h"
 #import "NSDate+Nibware.h"
 #import "SVProgressHUD.h"
-#import "LabeledCell.h"
+#import "IOCLabeledCell.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
 #import "NSURL+Extensions.h"
 
 
-@interface IOCGistController () <UIActionSheetDelegate, TextCellDelegate>
+@interface IOCGistController () <UIActionSheetDelegate, IOCTextCellDelegate>
 @property(nonatomic,strong)GHGist *gist;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *filesStatusCell;
@@ -37,10 +37,10 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *forkCell;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
-@property(nonatomic,strong)IBOutlet CommentCell *commentCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *ownerCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *createdCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *updatedCell;
+@property(nonatomic,strong)IBOutlet IOCCommentCell *commentCell;
 @end
 
 
@@ -139,7 +139,7 @@
 	} else if (buttonIndex == 1) {
 		[self addComment:nil];
 	} else if (buttonIndex == 2) {
-		WebController *webController = [[WebController alloc] initWithURL:self.gist.htmlURL];
+		IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.gist.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -147,7 +147,7 @@
 - (IBAction)addComment:(id)sender {
 	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
 	comment.user = self.currentUser;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.gist.comments];
+	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.gist.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -209,7 +209,7 @@
 			case 2: cell = self.updatedCell; break;
 			default: cell = nil;
 		}
-		BOOL isSelectable = row == 0 && [(LabeledCell *)cell hasContent];
+		BOOL isSelectable = row == 0 && [(IOCLabeledCell *)cell hasContent];
 		cell.selectionStyle = isSelectable ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = isSelectable ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
         return cell;
@@ -231,7 +231,7 @@
         return cell;
     } else {
 		if (self.gist.comments.isEmpty) return self.commentsStatusCell;
-		CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+		IOCCommentCell *cell = [tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 		if (!cell) {
 			[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 			cell = self.commentCell;
@@ -245,7 +245,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 3 && !self.gist.comments.isEmpty) {
-		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		IOCCommentCell *cell = (IOCCommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
 	return 44;

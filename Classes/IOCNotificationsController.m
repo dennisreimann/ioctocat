@@ -14,7 +14,7 @@
 #import "IOCRepositoryController.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "IOCDefaultsPersistence.h"
-#import "NotificationCell.h"
+#import "IOCNotificationCell.h"
 #import "GHRepository.h"
 #import "IOCNotificationsSectionHeader.h"
 #import "GradientButton.h"
@@ -201,8 +201,8 @@
 		}
 		return allReadCell;
 	}
-	NotificationCell *cell = (NotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
-	if (!cell) cell = [NotificationCell cellWithReuseIdentifier:kNotificationCellIdentifier];
+	IOCNotificationCell *cell = (IOCNotificationCell *)[tableView dequeueReusableCellWithIdentifier:kNotificationCellIdentifier];
+	if (!cell) cell = [IOCNotificationCell cellWithReuseIdentifier:kNotificationCellIdentifier];
 	NSArray *notifications = [self notificationsInSection:indexPath.section];
 	GHNotification *notification = notifications[indexPath.row];
 	cell.notification = notification;

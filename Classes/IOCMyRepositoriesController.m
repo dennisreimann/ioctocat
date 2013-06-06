@@ -3,7 +3,7 @@
 #import "GHUser.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
-#import "RepositoryCell.h"
+#import "IOCRepositoryCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -153,8 +153,8 @@
 		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
 		return self.statusCell;
 	}
-	RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-	if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
+	IOCRepositoryCell *cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+	if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
     GHRepository *repo = repos[indexPath.row];
     cell.repository = repo;

@@ -1,8 +1,8 @@
-#import "RepositoryCell.h"
+#import "IOCRepositoryCell.h"
 #import "NSString+Extensions.h"
 
 
-@implementation RepositoryCell
+@implementation IOCRepositoryCell
 
 + (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
 	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];

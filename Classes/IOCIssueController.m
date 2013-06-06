@@ -1,9 +1,9 @@
 #import "IOCIssueController.h"
-#import "CommentController.h"
-#import "WebController.h"
-#import "TextCell.h"
-#import "LabeledCell.h"
-#import "CommentCell.h"
+#import "IOCCommentController.h"
+#import "IOCWebController.h"
+#import "IOCTextCell.h"
+#import "IOCLabeledCell.h"
+#import "IOCCommentCell.h"
 #import "IOCIssuesController.h"
 #import "IOCIssueObjectFormController.h"
 #import "IOCUserController.h"
@@ -23,7 +23,7 @@
 #import "GradientButton.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, TextCellDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, IOCTextCellDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -36,12 +36,12 @@
 @property(nonatomic,weak)IBOutlet GradientButton *commentButton;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UIView *tableFooterView;
-@property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
-@property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
-@property(nonatomic,strong)IBOutlet CommentCell *commentCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *repoCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *authorCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *createdCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *updatedCell;
+@property(nonatomic,strong)IBOutlet IOCTextCell *descriptionCell;
+@property(nonatomic,strong)IBOutlet IOCCommentCell *commentCell;
 @end
 
 
@@ -178,7 +178,7 @@
     } else if ([buttonTitle isEqualToString:@"Add comment"]) {
         [self addComment:nil];
     } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
-        WebController *webController = [[WebController alloc] initWithURL:self.issue.htmlURL];
+        IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.issue.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
     }
 }
@@ -186,7 +186,7 @@
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
 	comment.user = self.currentUser;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.issue.comments];
+	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.issue.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -242,7 +242,7 @@
 	if (section == 0 && row == 3) return self.updatedCell;
 	if (section == 0 && row == 4) return self.descriptionCell;
 	if (self.issue.comments.isEmpty) return self.commentsStatusCell;
-	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	IOCCommentCell *cell = (IOCCommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
@@ -257,7 +257,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section == 0 && indexPath.row == 4) return [self.descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && self.issue.comments.isLoaded && !self.issue.comments.isEmpty) {
-		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		IOCCommentCell *cell = (IOCCommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
 	return 44;

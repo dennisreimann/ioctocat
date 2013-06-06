@@ -3,8 +3,8 @@
 #import "IOCUserController.h"
 #import "GHUser.h"
 #import "GHSearch.h"
-#import "RepositoryCell.h"
-#import "UserObjectCell.h"
+#import "IOCRepositoryCell.h"
+#import "IOCUserObjectCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -12,7 +12,7 @@
 
 @interface IOCSearchController () <UISearchBarDelegate>
 @property(nonatomic,strong)GHSearch *search;
-@property(nonatomic,strong)UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IOCUserObjectCell *userObjectCell;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)UISearchBar *searchBar;
 @property(nonatomic,strong)UISegmentedControl *searchControl;
@@ -86,13 +86,13 @@
 	}
 	id object = self.search[indexPath.row];
 	if ([object isKindOfClass:GHRepository.class]) {
-		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
+		IOCRepositoryCell *cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
 		cell.repository = (GHRepository *)object;
 		return cell;
 	} else if ([object isKindOfClass:GHUser.class]) {
-		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-		if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+		IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
+		if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
 		cell.userObject = object;
 		return cell;
 	}

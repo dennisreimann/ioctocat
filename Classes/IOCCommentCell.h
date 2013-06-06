@@ -1,8 +1,8 @@
-#import "TextCell.h"
+#import "IOCTextCell.h"
 
 
 @class GHComment;
 
-@interface CommentCell : TextCell
+@interface IOCCommentCell : IOCTextCell
 @property(nonatomic,strong)GHComment *comment;
 @end

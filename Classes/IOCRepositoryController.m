@@ -9,18 +9,18 @@
 #import "GHCommit.h"
 #import "GHCommits.h"
 #import "GHForks.h"
-#import "LabeledCell.h"
-#import "TextCell.h"
+#import "IOCLabeledCell.h"
+#import "IOCTextCell.h"
 #import "IOCRepositoryController.h"
 #import "IOCUserController.h"
 #import "IOCUsersController.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "iOctocat.h"
 #import "IOCTagsController.h"
 #import "IOCCommitsController.h"
 #import "IOCIssueController.h"
-#import "IssueObjectCell.h"
-#import "EventsController.h"
+#import "IOCIssueObjectCell.h"
+#import "IOCEventsController.h"
 #import "IOCIssuesController.h"
 #import "IOCBlobsController.h"
 #import "IOCPullRequestsController.h"
@@ -32,7 +32,7 @@
 #import "NSURL+Extensions.h"
 
 
-@interface IOCRepositoryController () <UIActionSheetDelegate, TextCellDelegate>
+@interface IOCRepositoryController () <UIActionSheetDelegate, IOCTextCellDelegate>
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *branchesStatusCell;
@@ -56,10 +56,10 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *eventsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *stargazersCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *tagsCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *ownerCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *forkedCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *websiteCell;
-@property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *ownerCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *forkedCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *websiteCell;
+@property(nonatomic,strong)IBOutlet IOCTextCell *descriptionCell;
 @end
 
 
@@ -196,7 +196,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	} else if (buttonIndex == 1) {
 		[self toggleRepositoryWatching];
 	} else if (buttonIndex == 2) {
-		WebController *webController = [[WebController alloc] initWithURL:self.repository.htmlURL];
+		IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.repository.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -291,9 +291,9 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
                 case 3: cell = self.readmeCell; break;
             }
         }
-        if ([cell isKindOfClass:LabeledCell.class]) {
-            cell.selectionStyle = [(LabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
-            cell.accessoryType = [(LabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+        if ([cell isKindOfClass:IOCLabeledCell.class]) {
+            cell.selectionStyle = [(IOCLabeledCell *)cell hasContent] ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+            cell.accessoryType = [(IOCLabeledCell *)cell hasContent] ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
         }
 	} else if (section == 1) {
 		switch (row) {
@@ -341,7 +341,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		} else if (row == 1 && self.forkedCell.hasContent) {
 			viewController = [[IOCRepositoryController alloc] initWithRepository:self.repository.parent];
         } else if (row == homepageRow && self.repository.homepageURL) {
-			viewController = [[WebController alloc] initWithURL:self.repository.homepageURL];
+			viewController = [[IOCWebController alloc] initWithURL:self.repository.homepageURL];
         } else if (row == readmeRow && self.repository.readme.isLoaded) {
 			viewController = [[IOCBlobsController alloc] initWithBlob:self.repository.readme];
 			viewController.title = @"README";
@@ -353,7 +353,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 		} else if (row == 1) {
 			viewController = [[IOCTagsController alloc] initWithTags:self.repository.tags];
 		} else if (row == 2) {
-			viewController = [[EventsController alloc] initWithEvents:self.repository.events];
+			viewController = [[IOCEventsController alloc] initWithEvents:self.repository.events];
             viewController.title = @"Recent Activity";
 		} else if (row == 3) {
 			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];

@@ -1,8 +1,8 @@
-#import "FilesCell.h"
+#import "IOCFilesCell.h"
 #import "GHFiles.h"
 
 
-@implementation FilesCell
+@implementation IOCFilesCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
 	self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

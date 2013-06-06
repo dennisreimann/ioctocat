@@ -2,16 +2,16 @@
 #import "IOCOrganizationController.h"
 #import "IOCRepositoryController.h"
 #import "IOCUserController.h"
-#import "WebController.h"
-#import "EventsController.h"
+#import "IOCWebController.h"
+#import "IOCEventsController.h"
 #import "GHOrganization.h"
 #import "GHUser.h"
 #import "GHUsers.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
-#import "LabeledCell.h"
-#import "RepositoryCell.h"
-#import "UserObjectCell.h"
+#import "IOCLabeledCell.h"
+#import "IOCRepositoryCell.h"
+#import "IOCUserObjectCell.h"
 #import "NSString+Extensions.h"
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
@@ -30,10 +30,10 @@
 @property(nonatomic,weak)IBOutlet UILabel *emailLabel;
 @property(nonatomic,strong)IBOutlet UIView *tableHeaderView;
 @property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
-@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *locationCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *blogCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *emailCell;
+@property(nonatomic,strong)IBOutlet IOCUserObjectCell *userObjectCell;
 @end
 
 
@@ -141,7 +141,7 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
 	if (buttonIndex == 0) {
-		WebController *webController = [[WebController alloc] initWithURL:self.organization.htmlURL];
+		IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.organization.htmlURL];
 		[self.navigationController pushViewController:webController animated:YES];
 	}
 }
@@ -172,7 +172,7 @@
 	NSInteger row = indexPath.row;
 	if (self.organization.isEmpty) return self.organizationStatusCell;
 	if (section == 0) {
-		LabeledCell *cell;
+		IOCLabeledCell *cell;
 		switch (row) {
 			case 0: cell = self.locationCell; break;
 			case 1: cell = self.blogCell; break;
@@ -187,8 +187,8 @@
 	if (section == 1) return self.recentActivityCell;
 	if (section == 2 && self.organization.repositories.isEmpty) return self.reposStatusCell;
 	if (section == 2) {
-		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
+		IOCRepositoryCell *cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
         GHRepository *repo = self.organization.repositories[indexPath.row];
         cell.repository = repo;
         if ([self.organization.login isEqualToString:repo.owner]) [cell hideOwner];
@@ -196,8 +196,8 @@
 	}
 	if (section == 3 && self.organization.publicMembers.isEmpty) return self.membersStatusCell;
 	if (section == 3) {
-		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-		if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+		IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
+		if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
 		cell.userObject = self.organization.publicMembers[indexPath.row];
 		return cell;
 	}
@@ -210,7 +210,7 @@
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.organization.blogURL) {
-		viewController = [[WebController alloc] initWithURL:self.organization.blogURL];
+		viewController = [[IOCWebController alloc] initWithURL:self.organization.blogURL];
     } else if (section == 0 && row == 2 && self.organization.email && !self.organization.email.isEmpty) {
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
@@ -219,7 +219,7 @@
             [self presentViewController:mailComposer animated:YES completion:NULL];
         }
 	} else if (section == 1) {
-		viewController = [[EventsController alloc] initWithEvents:self.organization.events];
+		viewController = [[IOCEventsController alloc] initWithEvents:self.organization.events];
 		viewController.title = @"Recent Activity";
 	} else if (section == 2 && !self.organization.repositories.isEmpty) {
 		GHRepository *repo = self.organization.repositories[row];

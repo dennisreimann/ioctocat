@@ -1,4 +1,4 @@
-@interface IssueObjectCell : UITableViewCell
+@interface IOCIssueObjectCell : UITableViewCell
 @property(nonatomic,strong)id issueObject;
 
 + (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier;

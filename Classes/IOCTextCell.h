@@ -1,12 +1,12 @@
 #import "TTTAttributedLabel.h"
 
-@protocol TextCellDelegate <NSObject>
+@protocol IOCTextCellDelegate <NSObject>
 @optional
 - (void)openURL:(NSURL *)url;
 @end
 
-@interface TextCell : UITableViewCell <TTTAttributedLabelDelegate>
-@property(nonatomic,weak)id<TextCellDelegate> delegate;
+@interface IOCTextCell : UITableViewCell <TTTAttributedLabelDelegate>
+@property(nonatomic,weak)id<IOCTextCellDelegate> delegate;
 @property(nonatomic,weak)NSString *contextRepoId;
 @property(nonatomic,assign)NSInteger truncationLength;
 @property(nonatomic,assign)BOOL linksEnabled;

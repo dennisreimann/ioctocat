@@ -28,7 +28,7 @@
 
 - (void)testCacheGravatarForIdentifier {
 	[IOCAvatarCache cacheGravatar:self.gravatar forIdentifier:@"gravatar"];
-	expect([[NSFileManager defaultManager] fileExistsAtPath:self.gravatarPath]).to.beTruthy();
+	expect([NSFileManager.defaultManager fileExistsAtPath:self.gravatarPath]).to.beTruthy();
 }
 
 - (void)testCachedGravatarForIdentifier {

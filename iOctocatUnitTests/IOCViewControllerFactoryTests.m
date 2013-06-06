@@ -13,7 +13,7 @@
 #import "IOCCommitController.h"
 #import "IOCTreeController.h"
 #import "IOCBlobsController.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 
 
 @implementation IOCViewControllerFactoryTests
@@ -33,7 +33,7 @@
 - (void)testWithReadmeURL {
 	NSURL *url = [NSURL URLWithString:@"ioc://github.com/dennisreimann/ioctocat#attribution"];
     id viewController = [IOCViewControllerFactory viewControllerForURL:url];
-	expect(viewController).beKindOf(WebController.class);
+	expect(viewController).beKindOf(IOCWebController.class);
 }
 
 - (void)testWithSearchURL {
@@ -45,7 +45,7 @@
 - (void)testWithStaticURL {
 	NSURL *url = [NSURL URLWithString:@"https://github.com/blog"];
     id viewController = [IOCViewControllerFactory viewControllerForURL:url];
-	expect(viewController).beKindOf(WebController.class);
+	expect(viewController).beKindOf(IOCWebController.class);
 }
 
 - (void)testWithGistsURL {
@@ -117,7 +117,7 @@
 - (void)testWithExternalURL {
 	NSURL *url = [NSURL URLWithString:@"http://ioctocat.com"];
     id viewController = [IOCViewControllerFactory viewControllerForURL:url];
-	expect(viewController).beKindOf(WebController.class);
+	expect(viewController).beKindOf(IOCWebController.class);
 }
 
 @end

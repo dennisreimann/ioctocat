@@ -14,8 +14,8 @@
 #import "GHNotifications.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
-#import "MenuController.h"
-#import "WebController.h"
+#import "IOCMenuController.h"
+#import "IOCWebController.h"
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
 #import "NSDate+Nibware.h"
@@ -72,8 +72,8 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     UIViewController *menuController = self.menuNavController.topViewController;
-    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (isMenuVisible && url.isGitHubURL && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+    BOOL isMenuVisible = [menuController isKindOfClass:IOCMenuController.class];
+    if (isMenuVisible && url.isGitHubURL && [(IOCMenuController *)menuController openViewControllerForGitHubURL:url]) {
 		return YES;
 	}
     return NO;
@@ -170,10 +170,10 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     NSURL *url = [NSURL smartURLFromString:[ioc safeStringForKey:@"c"]];
     NSInteger notificationId = [ioc safeIntegerForKey:@"d"];
     // open the account respecting the current state of the app
-    BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:MenuController.class];
+    BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:IOCMenuController.class];
     if (self.currentAccount == account && isMenuVisible) {
         // the account is already open
-        MenuController *menuController = (MenuController *)self.menuNavController.topViewController;
+        IOCMenuController *menuController = (IOCMenuController *)self.menuNavController.topViewController;
 		if (notificationId) {
             [menuController openNotificationControllerWithId:notificationId url:url];
         } else {
@@ -186,7 +186,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
         self.currentAccount = account;
         [IOCAuthenticationService authenticateAccount:account success:^(GHAccount *account) {
             self.currentAccount = account;
-            MenuController *menuController = [[MenuController alloc] initWithUser:account.user];
+            IOCMenuController *menuController = [[IOCMenuController alloc] initWithUser:account.user];
             if (notificationId) {
                 [menuController openNotificationControllerWithId:notificationId url:url];
             } else {
@@ -310,13 +310,13 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 
 - (BOOL)openURL:(NSURL *)url {
     UIViewController *menuController = self.menuNavController.topViewController;
-    BOOL isMenuVisible = [menuController isKindOfClass:MenuController.class];
-    if (isMenuVisible && url.isGitHubURL && [(MenuController *)menuController openViewControllerForGitHubURL:url]) {
+    BOOL isMenuVisible = [menuController isKindOfClass:IOCMenuController.class];
+    if (isMenuVisible && url.isGitHubURL && [(IOCMenuController *)menuController openViewControllerForGitHubURL:url]) {
         return YES;
     } else {
         NSString *scheme = url.scheme;
         if ([scheme isEqualToString:@"http"] || [scheme isEqualToString:@"https"]) {
-            WebController *webController = [[WebController alloc] initWithURL:url];
+            IOCWebController *webController = [[IOCWebController alloc] initWithURL:url];
             [(UINavigationController *)self.slidingViewController.topViewController pushViewController:webController animated:YES];
             return YES;
         }

@@ -1,13 +1,13 @@
-#import "UserObjectCell.h"
+#import "IOCUserObjectCell.h"
 #import "GHUser.h"
 
 
-@interface UserObjectCell ()
+@interface IOCUserObjectCell ()
 @property(nonatomic,readonly)GHUser *object;
 @end
 
 
-@implementation UserObjectCell
+@implementation IOCUserObjectCell
 
 + (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
 	return [[self.class alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:reuseIdentifier];

@@ -1,7 +1,7 @@
 #import "IOCUsersController.h"
 #import "IOCUserController.h"
 #import "GHUsers.h"
-#import "UserObjectCell.h"
+#import "IOCUserObjectCell.h"
 #import "NSString+Extensions.h"
 
 
@@ -23,8 +23,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.collection.isEmpty) return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-	if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+	IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
+	if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
     cell.userObject = self.collection[indexPath.row];
 	return cell;
 }

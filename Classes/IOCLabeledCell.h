@@ -1,4 +1,4 @@
-@interface LabeledCell : UITableViewCell
+@interface IOCLabeledCell : UITableViewCell
 @property(nonatomic,readonly)BOOL hasContent;
 
 - (void)setLabelText:(NSString *)text;

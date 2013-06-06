@@ -1,4 +1,4 @@
-#import "IssueObjectCell.h"
+#import "IOCIssueObjectCell.h"
 #import "GHPullRequest.h"
 #import "GHIssue.h"
 #import "GHUser.h"
@@ -6,14 +6,14 @@
 #import "NSDate+Nibware.h"
 
 
-@interface IssueObjectCell ()
+@interface IOCIssueObjectCell ()
 @property(nonatomic,readonly)GHIssue *object;
 @property(nonatomic,assign)BOOL displayRepo;
 @property(nonatomic,strong)UILabel *repoLabel;
 @end
 
 
-@implementation IssueObjectCell
+@implementation IOCIssueObjectCell
 
 + (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
 	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];

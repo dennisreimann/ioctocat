@@ -2,18 +2,18 @@
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCOrganizationController.h"
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "GHUsers.h"
 #import "GHUser.h"
 #import "GHOrganizations.h"
 #import "GHRepository.h"
 #import "GHRepositories.h"
-#import "LabeledCell.h"
-#import "RepositoryCell.h"
-#import "UserObjectCell.h"
+#import "IOCLabeledCell.h"
+#import "IOCRepositoryCell.h"
+#import "IOCUserObjectCell.h"
 #import "iOctocat.h"
 #import "IOCUsersController.h"
-#import "EventsController.h"
+#import "IOCEventsController.h"
 #import "NSString+Extensions.h"
 #import "IOCGistsController.h"
 #import "SVProgressHUD.h"
@@ -40,10 +40,10 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *gistsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *recentActivityCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *starredReposCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *locationCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *blogCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *emailCell;
-@property(nonatomic,strong)IBOutlet UserObjectCell *userObjectCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *locationCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *blogCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *emailCell;
+@property(nonatomic,strong)IBOutlet IOCUserObjectCell *userObjectCell;
 @end
 
 
@@ -173,7 +173,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
-        WebController *webController = [[WebController alloc] initWithURL:self.user.htmlURL];
+        IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.user.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
     } else if ([buttonTitle isEqualToString:@"Unfollow"] || [buttonTitle isEqualToString:@"Follow"]) {
         [self toggleUserFollowing];
@@ -223,7 +223,7 @@
 	NSInteger row = indexPath.row;
 	if (self.user.isEmpty) return self.userStatusCell;
 	if (section == 0) {
-		LabeledCell *cell;
+		IOCLabeledCell *cell;
 		switch (row) {
 			case 0: cell = self.locationCell; break;
 			case 1: cell = self.blogCell; break;
@@ -249,8 +249,8 @@
     }
 	if (section == 2 && self.user.repositories.isEmpty) return self.reposStatusCell;
 	if (section == 2) {
-		RepositoryCell *cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
+		IOCRepositoryCell *cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
         GHRepository *repo = self.user.repositories[indexPath.row];
         cell.repository = repo;
         if ([self.user.login isEqualToString:repo.owner]) [cell hideOwner];
@@ -258,8 +258,8 @@
 	}
 	if (section == 3 && self.user.organizations.isEmpty) return self.organizationsStatusCell;
 	if (section == 3) {
-		UserObjectCell *cell = (UserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-		if (!cell) cell = [UserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+		IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
+		if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
 		cell.userObject = self.user.organizations[indexPath.row];
 		return cell;
 	}
@@ -272,7 +272,7 @@
 	NSInteger row = indexPath.row;
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.user.blogURL) {
-		viewController = [[WebController alloc] initWithURL:self.user.blogURL];
+		viewController = [[IOCWebController alloc] initWithURL:self.user.blogURL];
     } else if (section == 0 && row == 2 && self.user.email && !self.user.email.isEmpty) {
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
@@ -282,7 +282,7 @@
         }
 	} else if (section == 1) {
         if (row == 0) {
-            viewController = [[EventsController alloc] initWithEvents:self.user.events];
+            viewController = [[IOCEventsController alloc] initWithEvents:self.user.events];
             viewController.title = @"Recent Activity";
         } else if (row == 1) {
             viewController = [[IOCUsersController alloc] initWithUsers:self.user.following];

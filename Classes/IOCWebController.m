@@ -1,8 +1,8 @@
-#import "WebController.h"
+#import "IOCWebController.h"
 #import "IOCApplication.h"
 
 
-@interface WebController () <UIWebViewDelegate, UIActionSheetDelegate>
+@interface IOCWebController () <UIWebViewDelegate, UIActionSheetDelegate>
 @property(nonatomic,strong)NSURL *url;
 @property(nonatomic,strong)NSString *html;
 @property(nonatomic,strong)NSURLRequest *request;
@@ -19,7 +19,7 @@
 @end
 
 
-@implementation WebController
+@implementation IOCWebController
 
 - (id)initWithURL:(NSURL *)url {
 	self = [super initWithNibName:@"WebView" bundle:nil];

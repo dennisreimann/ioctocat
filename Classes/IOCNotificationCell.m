@@ -1,9 +1,9 @@
-#import "NotificationCell.h"
+#import "IOCNotificationCell.h"
 #import "GHNotification.h"
 #import "NSDate+Nibware.h"
 
 
-@implementation NotificationCell
+@implementation IOCNotificationCell
 
 + (id)cellWithReuseIdentifier:(NSString *)reuseIdentifier {
 	return [[self.class alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:reuseIdentifier];

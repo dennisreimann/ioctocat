@@ -5,7 +5,7 @@
 #import "GHRepositories.h"
 #import "GHOrganizations.h"
 #import "GHOrganization.h"
-#import "RepositoryCell.h"
+#import "IOCRepositoryCell.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -140,12 +140,12 @@
 	if (repos.isEmpty) {
 		cell = [[IOCResourceStatusCell alloc] initWithResource:repos name:@"repositories"];
 	} else {
-		cell = (RepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
-		if (!cell) cell = [RepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
+		cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
+		if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];
         GHRepository *repo = repos[indexPath.row];
         GHOrganization *org = self.user.organizations[indexPath.section];
-        [(RepositoryCell *)cell setRepository:repo];
-        if ([org.login isEqualToString:repo.owner]) [(RepositoryCell *)cell hideOwner];
+        [(IOCRepositoryCell *)cell setRepository:repo];
+        if ([org.login isEqualToString:repo.owner]) [(IOCRepositoryCell *)cell hideOwner];
 	}
 	return cell;
 }

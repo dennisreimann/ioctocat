@@ -1,6 +1,6 @@
 @class GHUser;
 
-@interface MenuController : UITableViewController
+@interface IOCMenuController : UITableViewController
 @property(nonatomic,strong)UIViewController *initialViewController;
 
 - (id)initWithUser:(GHUser *)user;

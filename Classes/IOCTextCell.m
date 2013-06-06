@@ -1,4 +1,4 @@
-#import "TextCell.h"
+#import "IOCTextCell.h"
 #import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSString+GHFMarkdown.h"
@@ -6,12 +6,12 @@
 #import "TTTAttributedLabel.h"
 
 
-@interface TextCell ()
+@interface IOCTextCell ()
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
 @end
 
 
-@implementation TextCell
+@implementation IOCTextCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

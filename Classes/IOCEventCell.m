@@ -1,4 +1,4 @@
-#import "EventCell.h"
+#import "IOCEventCell.h"
 #import "GHEvent.h"
 #import "GHCommits.h"
 #import "GHUser.h"
@@ -17,7 +17,7 @@
 #import "TTTAttributedLabel.h"
 
 
-@interface EventCell () <TTTAttributedLabelDelegate>
+@interface IOCEventCell () <TTTAttributedLabelDelegate>
 @property(nonatomic,weak)IBOutlet UIView *actionsView;
 @property(nonatomic,weak)IBOutlet UILabel *dateLabel;
 @property(nonatomic,weak)IBOutlet UIButton *gravatarButton;
@@ -27,7 +27,7 @@
 @end
 
 
-@implementation EventCell
+@implementation IOCEventCell
 
 static NSString *const UserGravatarKeyPath = @"user.gravatar";
 

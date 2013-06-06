@@ -1,9 +1,9 @@
 #import "IOCPullRequestController.h"
-#import "CommentController.h"
-#import "WebController.h"
-#import "TextCell.h"
-#import "LabeledCell.h"
-#import "CommentCell.h"
+#import "IOCCommentController.h"
+#import "IOCWebController.h"
+#import "IOCTextCell.h"
+#import "IOCLabeledCell.h"
+#import "IOCCommentCell.h"
 #import "IOCPullRequestsController.h"
 #import "IOCIssueObjectFormController.h"
 #import "IOCUserController.h"
@@ -26,7 +26,7 @@
 #import "NSURL+Extensions.h"
 
 
-@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, TextCellDelegate>
+@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, IOCTextCellDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)IOCPullRequestsController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -45,13 +45,13 @@
 @property(nonatomic,strong)IBOutlet UITableViewCell *mergeCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *commitsCell;
 @property(nonatomic,strong)IBOutlet UITableViewCell *filesCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *repoCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *authorCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *createdCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *updatedCell;
-@property(nonatomic,strong)IBOutlet LabeledCell *closedCell;
-@property(nonatomic,strong)IBOutlet TextCell *descriptionCell;
-@property(nonatomic,strong)IBOutlet CommentCell *commentCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *repoCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *authorCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *createdCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *updatedCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *closedCell;
+@property(nonatomic,strong)IBOutlet IOCTextCell *descriptionCell;
+@property(nonatomic,strong)IBOutlet IOCCommentCell *commentCell;
 @end
 
 
@@ -228,7 +228,7 @@
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
 	comment.user = self.currentUser;
-	CommentController *viewController = [[CommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
+	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
 	[self.navigationController pushViewController:viewController animated:YES];
 }
 
@@ -244,7 +244,7 @@
     } else if ([buttonTitle isEqualToString:@"Add comment"]) {
         [self addComment:nil];
     } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
-        WebController *webController = [[WebController alloc] initWithURL:self.pullRequest.htmlURL];
+        IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.pullRequest.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
     }
 }
@@ -304,7 +304,7 @@
 	if (section == 1 && row == 1) return self.filesCell;
 	if (section == 1 && row == 2) return self.mergeCell;
 	if (self.pullRequest.comments.isEmpty) return self.commentsStatusCell;
-	CommentCell *cell = (CommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
+	IOCCommentCell *cell = (IOCCommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
@@ -322,7 +322,7 @@
 	if (section == 0 && row == (self.closedCell.hasContent ? 5 : 4)) return [self.descriptionCell heightForTableView:tableView];
 	if (section == 1 && row == 2) return 168;
 	if (section == 2 && self.pullRequest.comments.isLoaded && !self.pullRequest.comments.isEmpty) {
-		CommentCell *cell = (CommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
+		IOCCommentCell *cell = (IOCCommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
 	}
 	return 44;

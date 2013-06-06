@@ -21,6 +21,7 @@
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, IOCTextCellDelegate>
@@ -77,6 +78,7 @@
     self.descriptionCell.contextRepoId = self.issue.repository.repoId;
     [self layoutTableHeader];
 	[self layoutTableFooter];
+	[self setupInfiniteScrolling];
 	[self displayIssue];
 	// check assignment state
 	[self.currentUser checkRepositoryAssignment:self.issue.repository success:^(GHResource *instance, id data) {
@@ -130,6 +132,7 @@
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+    self.tableView.showsInfiniteScrolling = self.issue.comments.hasNextPage;
 }
 
 - (void)displayIssueChange {
@@ -140,6 +143,20 @@
 - (void)displayCommentsChange {
 	if (self.issue.isEmpty) return;
 	[self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.issue.comments.hasNextPage;
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf.issue.comments loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayCommentsChange];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:error.localizedDescription];
+        }];
+	}];
 }
 
 #pragma mark Actions

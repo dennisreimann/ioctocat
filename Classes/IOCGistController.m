@@ -20,6 +20,7 @@
 #import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
 #import "NSURL+Extensions.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface IOCGistController () <UIActionSheetDelegate, IOCTextCellDelegate>
@@ -66,6 +67,7 @@
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.comments name:NSLocalizedString(@"comments", nil)];
 	[self layoutTableHeader];
 	[self layoutTableFooter];
+	[self setupInfiniteScrolling];
 	[self displayGist];
 	// check starring state
 	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
@@ -106,8 +108,9 @@
 	self.descriptionLabel.text = self.gist.title;
 	self.forksIconView.hidden = !self.gist.isLoaded;
 	self.ownerCell.contentText = self.gist.user.login;
-	self.createdCell.contentText = [self.gist.createdAt prettyDate];
-	self.updatedCell.contentText = [self.gist.updatedAt prettyDate];
+	self.createdCell.contentText = self.gist.createdAt.prettyDate;
+	self.updatedCell.contentText = self.gist.updatedAt.prettyDate;
+    self.tableView.showsInfiniteScrolling = self.gist.comments.hasNextPage;
     if (self.gist.isLoaded) {
         self.forksCountLabel.text = [NSString stringWithFormat:self.gist.forksCount == 1 ? NSLocalizedString(@"%d fork", @"Single fork") : NSLocalizedString(@"%d forks", @"Multiple forks"), self.gist.forksCount];
     } else {
@@ -123,6 +126,20 @@
 - (void)displayCommentsChange {
 	if (self.gist.isEmpty) return;
 	[self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.gist.comments.hasNextPage;
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf.gist.comments loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayCommentsChange];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:error.localizedDescription];
+        }];
+	}];
 }
 
 #pragma mark Actions

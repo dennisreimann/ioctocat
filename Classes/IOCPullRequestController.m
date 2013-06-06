@@ -24,6 +24,7 @@
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
 #import "NSURL+Extensions.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, IOCTextCellDelegate>
@@ -85,9 +86,10 @@
 	self.descriptionCell.emojiEnabled = YES;
 	self.descriptionCell.markdownEnabled = YES;
 	self.descriptionCell.contextRepoId = self.pullRequest.repository.repoId;
-	[self displayPullRequest];
 	[self layoutTableHeader];
 	[self layoutTableFooter];
+	[self setupInfiniteScrolling];
+	[self displayPullRequest];
 	// check assignment state
 	[self.currentUser checkRepositoryAssignment:self.pullRequest.repository success:^(GHResource *instance, id data) {
 		self.isAssignee = YES;
@@ -148,6 +150,7 @@
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+    self.tableView.showsInfiniteScrolling = self.pullRequest.comments.hasNextPage;
     // merge button
     if (self.pullRequest.isMergeable) {
         [self.mergeButton setTitle:NSLocalizedString(@"Merge pull request", @"Pull Request Button: Merge pull request") forState:UIControlStateNormal];
@@ -178,6 +181,20 @@
 - (void)displayCommentsChange {
 	if (self.pullRequest.isEmpty) return;
 	[self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.pullRequest.comments.hasNextPage;
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf.pullRequest.comments loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayCommentsChange];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:error.localizedDescription];
+        }];
+	}];
 }
 
 #pragma mark Actions

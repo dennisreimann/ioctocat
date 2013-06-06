@@ -20,6 +20,7 @@
 #import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
 #import "NSURL+Extensions.h"
+#import "UIScrollView+SVInfiniteScrolling.h"
 
 
 @interface IOCCommitController () <UIActionSheetDelegate, IOCTextCellDelegate>
@@ -83,6 +84,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.messageCell.contextRepoId = self.commit.repository.repoId;
 	[self layoutTableHeader];
 	[self layoutTableFooter];
+	[self setupInfiniteScrolling];
 	[self displayCommit];
 }
 
@@ -127,9 +129,10 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.authorCell.contentText = self.commit.author.login;
 	self.authorCell.selectionStyle = self.commit.author ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.commit.author ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-	self.authoredCell.contentText = [self.commit.authoredDate prettyDate];
-	self.committedCell.contentText = [self.commit.committedDate prettyDate];
+	self.authoredCell.contentText = self.commit.authoredDate.prettyDate;
+	self.committedCell.contentText = self.commit.committedDate.prettyDate;
 	self.messageCell.contentText = self.commit.message;
+    self.tableView.showsInfiniteScrolling = self.commit.comments.hasNextPage;
 	[self.addedCell setFiles:self.commit.added description:@"added"];
 	[self.removedCell setFiles:self.commit.removed description:@"removed"];
 	[self.modifiedCell setFiles:self.commit.modified description:@"modified"];
@@ -143,6 +146,20 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (void)displayCommentsChange {
 	if (self.commit.isEmpty) return;
 	[self.tableView reloadData];
+    self.tableView.showsInfiniteScrolling = self.commit.comments.hasNextPage;
+}
+
+- (void)setupInfiniteScrolling {
+	__weak __typeof(&*self)weakSelf = self;
+	[self.tableView addInfiniteScrollingWithActionHandler:^{
+        [weakSelf.commit.comments loadNextWithStart:NULL success:^(GHResource *instance, id data) {
+            [weakSelf displayCommentsChange];
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+        } failure:^(GHResource *instance, NSError *error) {
+            [weakSelf.tableView.infiniteScrollingView stopAnimating];
+            [iOctocat reportLoadingError:error.localizedDescription];
+        }];
+	}];
 }
 
 #pragma mark Actions

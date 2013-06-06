@@ -64,9 +64,9 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.organization.login;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.organizationStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization name:@"organization"];
-	self.reposStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization.repositories name:@"repositories"];
-	self.membersStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization.publicMembers name:@"members"];
+	self.organizationStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization name:NSLocalizedString(@"organization", nil)];
+	self.reposStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization.repositories name:NSLocalizedString(@"repositories", nil)];
+	self.membersStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.organization.publicMembers name:NSLocalizedString(@"members", nil)];
 	[self displayOrganization];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -135,7 +135,7 @@
 #pragma mark Actions
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	[actionSheet showInView:self.view];
 }
 

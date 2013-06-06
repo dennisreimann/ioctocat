@@ -78,8 +78,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.pullRequest.number];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:@"pull request"];
-	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:@"comments"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:NSLocalizedString(@"pull request", nil)];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:NSLocalizedString(@"comments", nil)];
 	self.descriptionCell.delegate = self;
 	self.descriptionCell.linksEnabled = YES;
 	self.descriptionCell.emojiEnabled = YES;
@@ -137,12 +137,12 @@
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.pullRequest.title;
 	self.commitTextView.text = self.pullRequest.title;
-	self.commitTitleLabel.text = [NSString stringWithFormat:@"Merge pull request #%d from %@/%@", self.pullRequest.number, self.pullRequest.head.repository.owner, self.pullRequest.head.name];
+	self.commitTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Merge pull request #%d from %@", @"Pull Request Commit: Title with NUMBER and REPO"), self.pullRequest.number, self.pullRequest.head.repository.repoId];
 	self.repoCell.contentText = self.pullRequest.repository.repoId;
 	self.authorCell.contentText = self.pullRequest.user.login;
-	self.createdCell.contentText = [self.pullRequest.createdAt prettyDate];
-	self.updatedCell.contentText = [self.pullRequest.updatedAt prettyDate];
-	self.closedCell.contentText = [self.pullRequest.closedAt prettyDate];
+	self.createdCell.contentText = self.pullRequest.createdAt.prettyDate;
+	self.updatedCell.contentText = self.pullRequest.updatedAt.prettyDate;
+	self.closedCell.contentText = self.pullRequest.closedAt.prettyDate;
     self.descriptionCell.contentText = self.pullRequest.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
@@ -150,15 +150,15 @@
 	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
     // merge button
     if (self.pullRequest.isMergeable) {
-        [self.mergeButton setTitle:@"Merge pull request" forState:UIControlStateNormal];
+        [self.mergeButton setTitle:NSLocalizedString(@"Merge pull request", @"Pull Request Button: Merge pull request") forState:UIControlStateNormal];
         [self.mergeButton useGreenConfirmStyle];
         self.mergeButton.enabled = YES;
     } else if (!self.pullRequest.mergeableState) {
-        [self.mergeButton setTitle:@"Mergeable state unknown" forState:UIControlStateNormal];
+        [self.mergeButton setTitle:NSLocalizedString(@"Mergeable state unknown", @"Pull Request Button: Mergeable state unknown") forState:UIControlStateNormal];
         [self.mergeButton useGithubStyle];
         self.mergeButton.enabled = YES;
     } else {
-        [self.mergeButton setTitle:@"Cannot be automatically merged" forState:UIControlStateNormal];
+        [self.mergeButton setTitle:NSLocalizedString(@"Cannot be automatically merged", @"Pull Request Button: Cannot be automatically merged") forState:UIControlStateNormal];
         [self.mergeButton useDarkGithubStyle];
         self.mergeButton.enabled = NO;
     }
@@ -190,13 +190,13 @@
 - (IBAction)mergePullRequest:(id)sender {
 	if (self.pullRequestMergeableByCurrentUser) {
 		[self.pullRequest mergePullRequest:self.commitTextView.text start:^(GHResource *instance) {
-			[SVProgressHUD showWithStatus:@"Merging pull request" maskType:SVProgressHUDMaskTypeGradient];
+			[SVProgressHUD showWithStatus:NSLocalizedString(@"Merging pull request", @"Progress HUD: Merging pull request") maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
-			[SVProgressHUD showSuccessWithStatus:@"Merged pull request"];
+			[SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Merged pull request", @"Progress HUD: Merged pull request")];
 			[self displayPullRequestChange];
 			[self.listController reloadPullRequests];
 		} failure:^(GHResource *instance, NSError *error) {
-			[SVProgressHUD showErrorWithStatus:@"Merging pull request failed"];
+			[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Merging pull request failed", @"Progress HUD: Merging pull request failed")];
 		}];
 	}
 }
@@ -204,23 +204,23 @@
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = nil;
 	if (self.pullRequestMergeableByCurrentUser) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
 												  delegate:self
-										 cancelButtonTitle:@"Cancel"
+										 cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
 									destructiveButtonTitle:nil
-										 otherButtonTitles:@"Edit", @"Merge", (self.pullRequest.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:NSLocalizedString(@"Edit", @"Action Sheet: Edit"), NSLocalizedString(@"Merge", @"Action Sheet: Merge"), (self.pullRequest.isOpen ? NSLocalizedString(@"Close", @"Action Sheet: Close") : NSLocalizedString(@"Reopen", @"Action Sheet: Reopen")), NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	} else if (self.pullRequestEditableByCurrentUser) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
 												  delegate:self
-										 cancelButtonTitle:@"Cancel"
+										 cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
 									destructiveButtonTitle:nil
-										 otherButtonTitles:@"Edit", (self.pullRequest.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:NSLocalizedString(@"Edit", @"Action Sheet: Edit"), (self.pullRequest.isOpen ? NSLocalizedString(@"Close", @"Action Sheet: Close") : NSLocalizedString(@"Reopen", @"Action Sheet: Reopen")), NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	} else {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
 												  delegate:self
-										 cancelButtonTitle:@"Cancel"
+										 cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
 									destructiveButtonTitle:nil
-										 otherButtonTitles:@"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	}
 	[actionSheet showInView:self.view];
 }
@@ -234,16 +234,16 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Edit"]) {
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"Edit", @"Action Sheet: Edit")]) {
         IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
         [self.navigationController pushViewController:formController animated:YES];
-    } else if ([buttonTitle isEqualToString:@"Merge"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Merge", @"Action Sheet: Merge")]) {
         [self mergePullRequest:nil];
-    } else if ([buttonTitle isEqualToString:@"Close"] || [buttonTitle isEqualToString:@"Reopen"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Close", @"Action Sheet: Close")] || [buttonTitle isEqualToString:NSLocalizedString(@"Reopen", @"Action Sheet: Reopen")]) {
         [self togglePullRequestState];
-    } else if ([buttonTitle isEqualToString:@"Add comment"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Add comment", @"Action Sheet: Add comment")]) {
         [self addComment:nil];
-    } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub")]) {
         IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.pullRequest.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
     }
@@ -287,7 +287,7 @@
 	}}
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == 2 ? @"Comments" : @"";
+	return section == 2 ? NSLocalizedString(@"Comments", nil) : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

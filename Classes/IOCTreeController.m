@@ -35,7 +35,7 @@
     if (!title || title.isEmpty) title = self.tree.shortenedSha;
     self.navigationItem.title = title;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-    self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.tree name:@"entries"];
+    self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.tree name:NSLocalizedString(@"entries", nil)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

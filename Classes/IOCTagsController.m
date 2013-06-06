@@ -14,7 +14,7 @@
 }
 
 - (NSString *)collectionName {
-    return @"Tags";
+    return NSLocalizedString(@"Tags", nil);
 }
 
 - (NSString *)collectionCellIdentifier {

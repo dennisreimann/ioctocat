@@ -68,8 +68,8 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : [NSString stringWithFormat:@"#%d", self.issue.number];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:@"issue"];
-	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:@"comments"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:NSLocalizedString(@"issue", nil)];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:NSLocalizedString(@"comments", nil)];
 	self.descriptionCell.delegate = self;
 	self.descriptionCell.linksEnabled = YES;
 	self.descriptionCell.emojiEnabled = YES;
@@ -152,32 +152,32 @@
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = nil;
 	if (self.issueEditableByCurrentUser) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
 												  delegate:self
-										 cancelButtonTitle:@"Cancel"
+										 cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
 									destructiveButtonTitle:nil
-										 otherButtonTitles:@"Edit", (self.issue.isOpen ? @"Close" : @"Reopen"), @"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:NSLocalizedString(@"Edit", @"Action Sheet: Edit"), (self.issue.isOpen ? NSLocalizedString(@"Close", @"Action Sheet: Close") : NSLocalizedString(@"Reopen", @"Action Sheet: Reopen")), NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	} else {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions"
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
 												  delegate:self
-										 cancelButtonTitle:@"Cancel"
+										 cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
 									destructiveButtonTitle:nil
-										 otherButtonTitles:@"Add comment", @"Show on GitHub", nil];
+										 otherButtonTitles:NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	}
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Edit"]) {
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"Edit", @"Action Sheet: Edit")]) {
         IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.issue];
         formController.delegate = self;
         [self.navigationController pushViewController:formController animated:YES];
-    } else if ([buttonTitle isEqualToString:@"Close"] || [buttonTitle isEqualToString:@"Reopen"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Close", @"Action Sheet: Close")] || [buttonTitle isEqualToString:NSLocalizedString(@"Reopen", @"Action Sheet: Reopen")]) {
         [self toggleIssueState];
-    } else if ([buttonTitle isEqualToString:@"Add comment"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Add comment", @"Action Sheet: Add comment")]) {
         [self addComment:nil];
-    } else if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub")]) {
         IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.issue.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
     }
@@ -229,7 +229,7 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return section == 1 ? @"Comments" : @"";
+	return section == 1 ? NSLocalizedString(@"Comments", nil) : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

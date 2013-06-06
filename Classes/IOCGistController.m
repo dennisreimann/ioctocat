@@ -58,12 +58,12 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.title = self.title ? self.title : @"Gist";
+	self.title = self.title ? self.title : NSLocalizedString(@"Gist", nil);
     self.navigationItem.titleView = [[UIView alloc] initWithFrame:CGRectZero];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist name:@"gist"];
-	self.filesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.files name:@"files"];
-	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.comments name:@"comments"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist name:NSLocalizedString(@"gist", nil)];
+	self.filesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.files name:NSLocalizedString(@"files", nil)];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.gist.comments name:NSLocalizedString(@"comments", nil)];
 	[self layoutTableHeader];
 	[self layoutTableFooter];
 	[self displayGist];
@@ -108,7 +108,11 @@
 	self.ownerCell.contentText = self.gist.user.login;
 	self.createdCell.contentText = [self.gist.createdAt prettyDate];
 	self.updatedCell.contentText = [self.gist.updatedAt prettyDate];
-	self.forksCountLabel.text = self.gist.isLoaded ? [NSString stringWithFormat:@"%d %@", self.gist.forksCount, self.gist.forksCount == 1 ? @"fork" : @"forks"] : nil;
+    if (self.gist.isLoaded) {
+        self.forksCountLabel.text = [NSString stringWithFormat:self.gist.forksCount == 1 ? NSLocalizedString(@"%d fork", @"Single fork") : NSLocalizedString(@"%d forks", @"Multiple forks"), self.gist.forksCount];
+    } else {
+        self.forksCountLabel.text = nil;
+    }
 }
 
 - (void)displayGistChange {
@@ -129,7 +133,11 @@
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), @"Add comment", @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
+                                                             delegate:self
+                                                    cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
+                                               destructiveButtonTitle:nil
+                                                    otherButtonTitles:(self.isStarring ? NSLocalizedString(@"Unstar", @"Action Sheet: Unstar") : NSLocalizedString(@"Star", @"Action Sheet: Star")), NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	[actionSheet showInView:self.view];
 }
 
@@ -153,17 +161,14 @@
 
 - (void)toggleGistStarring {
 	BOOL state = !self.isStarring;
-	NSString *action = state ? @"Starring" : @"Unstarring";
-	NSString *status = [NSString stringWithFormat:@"%@ gist", action];
+	NSString *status = state ? NSLocalizedString(@"Starring gist", @"Progress HUD: Starring gist") : NSLocalizedString(@"Unstarring gist", @"Progress HUD: Unstarring gist");
 	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	[self.currentUser setStarring:state forGist:self.gist success:^(GHResource *instance, id data) {
-		NSString *action = state ? @"Starred" : @"Unstarred";
-		NSString *status = [NSString stringWithFormat:@"%@ gist", action];
+		NSString *status = state ? NSLocalizedString(@"Starred gist", @"Progress HUD: Starred gist") : NSLocalizedString(@"Unstarred gist", @"Progress HUD: Unstarred gist");
 		self.isStarring = state;
 		[SVProgressHUD showSuccessWithStatus:status];
 	} failure:^(GHResource *instance, NSError *error) {
-		NSString *action = state ? @"Starring" : @"Unstarring";
-		NSString *status = [NSString stringWithFormat:@"%@ gist failed", action];
+		NSString *status = state ? NSLocalizedString(@"Starring gist failed", @"Progress HUD: Starring gist failed") : NSLocalizedString(@"Unstarring gist failed", @"Progress HUD: Unstarring gist failed");
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
 }
@@ -189,9 +194,9 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 2) {
-		return @"Files";
+		return NSLocalizedString(@"Files", nil);
 	} else if (section == 3) {
-		return @"Comments";
+		return NSLocalizedString(@"Comments", nil);
 	} else {
 		return nil;
 	}
@@ -260,7 +265,7 @@
         viewController = [[IOCUserController alloc] initWithUser:self.gist.user];
     } else if (section == 1) {
         viewController = [[IOCGistsController alloc] initWithGists:self.gist.forks];
-        viewController.title = @"Forks";
+        viewController.title = NSLocalizedString(@"Forks", nil);
     } else if (section == 2) {
         viewController = [[IOCCodeController alloc] initWithFiles:self.gist.files currentIndex:row];
     }

@@ -74,9 +74,9 @@
 	[super viewDidLoad];
 	self.navigationItem.title = self.title ? self.title : self.user.login;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	self.userStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user name:@"user"];
-	self.reposStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
-	self.organizationsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:@"organizations"];
+	self.userStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user name:NSLocalizedString(@"user", nil)];
+	self.reposStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:NSLocalizedString(@"repositories", nil)];
+	self.organizationsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:NSLocalizedString(@"organizations", nil)];
 	[self displayUser];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -134,7 +134,7 @@
 
 - (void)displayUser {
 	self.nameLabel.text = (!self.user.name || self.user.name.isEmpty) ? self.user.login : self.user.name;
-	self.companyLabel.text = (!self.user.company || self.user.company.isEmpty) ? [NSString stringWithFormat:@"%d followers", self.user.followersCount] : self.user.company;
+	self.companyLabel.text = (!self.user.company || self.user.company.isEmpty) ? [NSString stringWithFormat:self.user.followersCount == 1 ? NSLocalizedString(@"%d follower", @"User: Single follower") : NSLocalizedString(@"%d followers", @"User: Multiple followers"), self.user.followersCount] : self.user.company;
 	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
 	[self.locationCell setContentText:self.user.location];
 	[self.blogCell setContentText:self.user.blogURL.host];
@@ -163,36 +163,36 @@
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = nil;
 	if (self.isProfile) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Show on GitHub",  nil];
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"),  nil];
 	} else {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isFollowing ? @"Unfollow" : @"Follow"), @"Show on GitHub",  nil];
+		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel") destructiveButtonTitle:nil otherButtonTitles:(self.isFollowing ? NSLocalizedString(@"Unfollow", @"Action Sheet: Unfollow") : NSLocalizedString(@"Follow", @"Action Sheet: Follow")), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"),  nil];
 	}
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
-    if ([buttonTitle isEqualToString:@"Show on GitHub"]) {
+    if ([buttonTitle isEqualToString:NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub")]) {
         IOCWebController *webController = [[IOCWebController alloc] initWithURL:self.user.htmlURL];
         [self.navigationController pushViewController:webController animated:YES];
-    } else if ([buttonTitle isEqualToString:@"Unfollow"] || [buttonTitle isEqualToString:@"Follow"]) {
+    } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Unfollow", @"Action Sheet: Unfollow")] || [buttonTitle isEqualToString:NSLocalizedString(@"Follow", @"Action Sheet: Follow")]) {
         [self toggleUserFollowing];
     }
 }
 
 - (void)toggleUserFollowing {
 	BOOL state = !self.isFollowing;
-	NSString *action = state ? @"Following" : @"Unfollowing";
-	NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.user.login];
+	NSString *action = state ? NSLocalizedString(@"Following %@", @"Progress HUD: Following USER") : NSLocalizedString(@"Unfollowing %@", @"Progress HUD: Unfollowing USER");
+	NSString *status = [NSString stringWithFormat:action, self.user.login];
 	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	[self.currentUser setFollowing:state forUser:self.user success:^(GHResource *instance, id data) {
-		NSString *action = state ? @"Followed" : @"Unfollowed";
+		NSString *action = state ? NSLocalizedString(@"Followed %@", @"Progress HUD: Followed USER") : NSLocalizedString(@"Unfollowed %@", @"Progress HUD: Unfollowed USER");
 		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.user.login];
 		self.isFollowing = state;
 		[SVProgressHUD showSuccessWithStatus:status];
 	} failure:^(GHResource *instance, NSError *error) {
-		NSString *action = state ? @"Following" : @"Unfollowing";
-		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.user.login];
+		NSString *action = state ? NSLocalizedString(@"Following %@ failed", @"Progress HUD: Following USER failed") : NSLocalizedString(@"Unfollowing %@ failed", @"Progress HUD: Unfollowing USER failed");
+		NSString *status = [NSString stringWithFormat:action, self.user.login];
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
 }
@@ -213,8 +213,8 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 2) return @"Repositories";
-	if (section == 3) return @"Organizations";
+	if (section == 2) return NSLocalizedString(@"Repositories", nil);
+	if (section == 3) return NSLocalizedString(@"Organizations", nil);
 	return @"";
 }
 
@@ -283,20 +283,20 @@
 	} else if (section == 1) {
         if (row == 0) {
             viewController = [[IOCEventsController alloc] initWithEvents:self.user.events];
-            viewController.title = @"Recent Activity";
+            viewController.title = NSLocalizedString(@"Recent Activity", nil);
         } else if (row == 1) {
             viewController = [[IOCUsersController alloc] initWithUsers:self.user.following];
-            viewController.title = @"Following";
+            viewController.title = NSLocalizedString(@"Following", nil);
         }  else if (row == 2) {
             viewController = [[IOCUsersController alloc] initWithUsers:self.user.followers];
-            viewController.title = @"Followers";
+            viewController.title = NSLocalizedString(@"Followers", nil);
         } else if (row == 3) {
             viewController = [[IOCGistsController alloc] initWithGists:self.user.gists];
-            viewController.title = @"Gists";
+            viewController.title = NSLocalizedString(@"Gists", nil);
             [(IOCGistsController *)viewController setHideUser:YES];
         } else if (row == 4) {
             viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.user.starredRepositories];
-            viewController.title = @"Starred Repos";
+            viewController.title = NSLocalizedString(@"Starred Repos", nil);
         }
     } else if (section == 2 && !self.user.repositories.isEmpty) {
 		GHRepository *repo = self.user.repositories[row];

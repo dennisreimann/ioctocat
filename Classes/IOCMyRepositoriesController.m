@@ -33,7 +33,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title ? self.title : @"Personal Repos";
+	self.navigationItem.title = self.title ? self.title : NSLocalizedString(@"Personal Repos", nil);
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
 	if (self.user.repositories.isLoaded) {
 		[self displayRepositories];
@@ -135,22 +135,22 @@
 	if (self.user.repositories.isEmpty) return nil;
 	if ([[self repositoriesInSection:section] isEmpty]) return nil;
 	if (section == 0) {
-		return @"Private";
+		return NSLocalizedString(@"Private", @"Repositories: Private");
 	} else if (section == 1) {
-		return @"Private Member";
+		return NSLocalizedString(@"Private Member", @"Repositories: Private Member");
 	} else if (section == 2) {
-		return @"Public";
+		return NSLocalizedString(@"Public", @"Repositories: Public");
 	} else if (section == 3) {
-		return @"Public Member";
+		return NSLocalizedString(@"Public Member", @"Repositories: Public Member");
 	} else if (section == 4) {
-		return @"Forked";
+		return NSLocalizedString(@"Forked", @"Repositories: Forked");
 	}
 	return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.user.repositories.isEmpty) {
-		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:@"repositories"];
+		self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.repositories name:NSLocalizedString(@"repositories", nil)];
 		return self.statusCell;
 	}
 	IOCRepositoryCell *cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];

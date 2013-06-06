@@ -84,8 +84,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
     self.descriptionCell.emojiEnabled = NO;
     self.descriptionCell.markdownEnabled = NO;
     self.descriptionCell.delegate = self;
-    self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:@"repository"];
-	self.branchesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository.branches name:@"branches"];
+    self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository name:NSLocalizedString(@"repository", nil)];
+	self.branchesStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.repository.branches name:NSLocalizedString(@"branches", nil)];
 	[self displayRepository];
 	// header
 	UIColor *background = [UIColor colorWithPatternImage:[UIImage imageNamed:@"HeadBackground80.png"]];
@@ -151,8 +151,8 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	self.descriptionCell.contentText = self.repository.descriptionText;
 	self.descriptionCell.contextRepoId = self.repository.repoId;
 	if (self.repository.isLoaded) {
-		self.starsCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.watcherCount, self.repository.watcherCount == 1 ? @"star" : @"stars"];
-		self.forksCountLabel.text = [NSString stringWithFormat:@"%d %@", self.repository.forkCount, self.repository.forkCount == 1 ? @"fork" : @"forks"];
+		self.starsCountLabel.text = [NSString stringWithFormat:self.repository.watcherCount == 1 ? NSLocalizedString(@"%d star", @"Single star") : NSLocalizedString(@"%d stars", @"Multiple stars"), self.repository.watcherCount];
+		self.forksCountLabel.text = [NSString stringWithFormat:self.repository.forkCount == 1 ? NSLocalizedString(@"%d fork", @"Single fork") : NSLocalizedString(@"%d forks", @"Multiple forks"), self.repository.forkCount];
 	} else {
 		self.starsCountLabel.text = nil;
 		self.forksCountLabel.text = nil;
@@ -186,7 +186,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (IBAction)showActions:(id)sender {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? @"Unstar" : @"Star"), (self.isWatching ? @"Unwatch" : @"Watch"), @"Show on GitHub", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel") destructiveButtonTitle:nil otherButtonTitles:(self.isStarring ? NSLocalizedString(@"Unstar", @"Action Sheet: Unstar") : NSLocalizedString(@"Star", @"Action Sheet: Star")), (self.isWatching ? NSLocalizedString(@"Unwatch", @"Action Sheet: Unwatch") : NSLocalizedString(@"Watch", @"Action Sheet: Watch")), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	[actionSheet showInView:self.view];
 }
 
@@ -203,34 +203,34 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 
 - (void)toggleRepositoryStarring {
 	BOOL state = !self.isStarring;
-	NSString *action = state ? @"Starring" : @"Unstarring";
-	NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+	NSString *action = state ? NSLocalizedString(@"Starring %@", @"Progress HUD: Starring REPO_ID") : NSLocalizedString(@"Unstarring %@", @"Progress HUD: Unstarring REPO_ID");
+	NSString *status = [NSString stringWithFormat:action, self.repository.repoId];
 	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	[self.currentUser setStarring:state forRepository:self.repository success:^(GHResource *instance, id data) {
-		NSString *action = state ? @"Starred" : @"Unstarred";
-		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+		NSString *action = state ? NSLocalizedString(@"Starred %@", @"Progress HUD: Starred REPO_ID") : NSLocalizedString(@"Unstarred %@", @"Progress HUD: Unstarred REPO_ID");
+		NSString *status = [NSString stringWithFormat:action, self.repository.repoId];
 		self.isStarring = state;
 		[SVProgressHUD showSuccessWithStatus:status];
 	} failure:^(GHResource *instance, NSError *error) {
-		NSString *action = state ? @"Starring" : @"Unstarring";
-		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.repository.repoId];
+		NSString *action = state ? NSLocalizedString(@"Starring %@ failed", @"Progress HUD: Starring REPO_ID failed") : NSLocalizedString(@"Unstarring %@ failed", @"Progress HUD: Unstarring REPO_ID failed");
+		NSString *status = [NSString stringWithFormat:action, self.repository.repoId];
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
 }
 
 - (void)toggleRepositoryWatching {
 	BOOL state = !self.isWatching;
-	NSString *action = state ? @"Watching" : @"Unwatching";
-	NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+	NSString *action = state ? NSLocalizedString(@"Watching %@", @"Progress HUD: Watching REPO_ID") : NSLocalizedString(@"Unwatching %@", @"Progress HUD: Unwatching REPO_ID");
+	NSString *status = [NSString stringWithFormat:action, self.repository.repoId];
 	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	[self.currentUser setWatching:state forRepository:self.repository success:^(GHResource *instance, id data) {
-		NSString *action = state ? @"Watched" : @"Unwatched";
+		NSString *action = state ? NSLocalizedString(@"Watched %@", @"Progress HUD: Watched REPO_ID") : NSLocalizedString(@"Unwatched %@", @"Progress HUD: Unwatched REPO_ID");
 		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
 		self.isWatching = state;
 		[SVProgressHUD showSuccessWithStatus:status];
 	} failure:^(GHResource *instance, NSError *error) {
-		NSString *action = state ? @"Watching" : @"Unwatching";
-		NSString *status = [NSString stringWithFormat:@"%@ %@ failed", action, self.repository.repoId];
+		NSString *action = state ? NSLocalizedString(@"Watching %@ failed", @"Progress HUD: Watching REPO_ID failed") : NSLocalizedString(@"Unwatching %@ failed", @"Progress HUD: Unwatching REPO_ID failed");
+		NSString *status = [NSString stringWithFormat:action, self.repository.repoId];
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
 }
@@ -263,9 +263,9 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 2 &&  self.repository.branches.isEmpty) return @"Branches";
-	if (section == 2 && !self.repository.branches.isEmpty) return @"Code";
-	if (section == 3 && !self.repository.branches.isEmpty) return @"Commits";
+	if (section == 2 &&  self.repository.branches.isEmpty) return NSLocalizedString(@"Branches", nil);
+	if (section == 2 && !self.repository.branches.isEmpty) return NSLocalizedString(@"Code", nil);
+	if (section == 3 && !self.repository.branches.isEmpty) return NSLocalizedString(@"Commits", nil);
 	return nil;
 }
 
@@ -344,23 +344,23 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 			viewController = [[IOCWebController alloc] initWithURL:self.repository.homepageURL];
         } else if (row == readmeRow && self.repository.readme.isLoaded) {
 			viewController = [[IOCBlobsController alloc] initWithBlob:self.repository.readme];
-			viewController.title = @"README";
+			viewController.title = NSLocalizedString(@"README", nil);
 		}
 	} else if (section == 1) {
 		if (row == 0) {
 			viewController = [[IOCRepositoriesController alloc] initWithRepositories:self.repository.forks];
-            viewController.title = @"Forks";
+            viewController.title = NSLocalizedString(@"Forks", nil);
 		} else if (row == 1) {
 			viewController = [[IOCTagsController alloc] initWithTags:self.repository.tags];
 		} else if (row == 2) {
 			viewController = [[IOCEventsController alloc] initWithEvents:self.repository.events];
-            viewController.title = @"Recent Activity";
+            viewController.title = NSLocalizedString(@"Recent Activity", nil);
 		} else if (row == 3) {
 			viewController = [[IOCUsersController alloc] initWithUsers:self.repository.contributors];
-			viewController.title = @"Contributors";
+			viewController.title = NSLocalizedString(@"Contributors", nil);
 		} else if (row == 4) {
             viewController = [[IOCUsersController alloc] initWithUsers:self.repository.stargazers];
-			viewController.title = @"Stargazers";
+			viewController.title = NSLocalizedString(@"Stargazers", nil);
 		} else if (row == 5) {
 			viewController = [[IOCPullRequestsController alloc] initWithRepository:self.repository];
         } else if (row == 6) {

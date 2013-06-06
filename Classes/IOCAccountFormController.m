@@ -154,7 +154,7 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 
 - (void)prepareForm {
     BOOL isEnterprise = self.accountType == IOCAccountTypeEnterprise;
-    self.title = [NSString stringWithFormat:@"%@ Account", self.isNewAccount ? @"New" : @"Edit"];
+    self.title = self.isNewAccount ? NSLocalizedString(@"New Account", @"Title: New Account") : NSLocalizedString(@"Edit Account", @"Title: Edit Account");
     // endpoint
     self.endpointField.text = isEnterprise ? self.account.endpoint : kGitHubComURL;
     self.endpointField.enabled = self.isNewAccount && isEnterprise;

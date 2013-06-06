@@ -111,7 +111,7 @@
 			noEntriesCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoEntriesCell"];
 			noEntriesCell.selectionStyle = UITableViewCellSelectionStyleNone;
 			noEntriesCell.textLabel.font = [UIFont systemFontOfSize:15];
-			noEntriesCell.textLabel.text = @"No entries, yet";
+			noEntriesCell.textLabel.text = NSLocalizedString(@"No entries, yet", @"Events: No entries");
 			noEntriesCell.textLabel.textColor = [UIColor grayColor];
 			noEntriesCell.textLabel.textAlignment = NSTextAlignmentCenter;
 		}
@@ -165,7 +165,7 @@
             } failure:^(GHResource *instance, NSError *error) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
-                    [iOctocat reportLoadingError:@"Could not load the feed"];
+                    [iOctocat reportLoadingError:error.localizedDescription];
                 });
             }];
         }
@@ -181,14 +181,14 @@
             [weakSelf.tableView.infiniteScrollingView stopAnimating];
         } failure:^(GHResource *instance, NSError *error) {
             [weakSelf.tableView.infiniteScrollingView stopAnimating];
-            [iOctocat reportLoadingError:@"Could not load more entries"];
+            [iOctocat reportLoadingError:error.localizedDescription];
         }];
 	}];
 }
 
 - (void)refreshLastUpdate {
 	if (self.events.lastUpdate) {
-		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", self.events.lastUpdate.prettyDate];
+		NSString *lastRefresh = [NSString stringWithFormat:NSLocalizedString(@"Last refresh %@", @"Notifications/Events: Last refresh shown in header"), self.events.lastUpdate.prettyDate];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
 }

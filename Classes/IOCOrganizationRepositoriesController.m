@@ -25,7 +25,6 @@
 - (id)initWithUser:(GHUser *)user {
 	self = [super initWithStyle:UITableViewStylePlain];
 	if (self) {
-		self.title = @"Organization Repos";
 		self.user = user;
 		self.organizationRepositories = [NSMutableArray array];
 	}
@@ -36,9 +35,9 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = self.title ? self.title : @"Organization Repos";
+	self.navigationItem.title = self.title ? self.title : NSLocalizedString(@"Organization Repos", nil);
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:@"organizations"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.user.organizations name:NSLocalizedString(@"organizations", nil)];
 	// organizations
 	if (self.user.organizations.isLoaded) {
 		[self loadOrganizationRepositories];
@@ -138,7 +137,7 @@
 	GHRepositories *repos = [self repositoriesInSection:indexPath.section];
 	UITableViewCell *cell;
 	if (repos.isEmpty) {
-		cell = [[IOCResourceStatusCell alloc] initWithResource:repos name:@"repositories"];
+		cell = [[IOCResourceStatusCell alloc] initWithResource:repos name:NSLocalizedString(@"repositories", nil)];
 	} else {
 		cell = (IOCRepositoryCell *)[tableView dequeueReusableCellWithIdentifier:kRepositoryCellIdentifier];
 		if (!cell) cell = [IOCRepositoryCell cellWithReuseIdentifier:kRepositoryCellIdentifier];

@@ -13,7 +13,7 @@
 }
 
 - (NSString *)collectionName {
-    return @"Repositories";
+    return NSLocalizedString(@"Repositories", nil);
 }
 
 - (NSString *)collectionCellIdentifier {

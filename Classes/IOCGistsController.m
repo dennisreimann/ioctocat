@@ -16,7 +16,7 @@
 }
 
 - (NSString *)collectionName {
-    return @"Gists";
+    return NSLocalizedString(@"Gists", nil);
 }
 
 - (NSString *)collectionCellIdentifier {

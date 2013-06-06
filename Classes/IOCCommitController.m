@@ -74,8 +74,8 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     self.title = self.commit.shortenedSha;
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
     self.longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handleLongPress:)];
-	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:@"commit"];
-	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:@"comments"];
+	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:NSLocalizedString(@"commit", nil)];
+	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:NSLocalizedString(@"comments", nil)];
 	self.messageCell.delegate = self;
 	self.messageCell.linksEnabled = YES;
 	self.messageCell.emojiEnabled = YES;
@@ -130,9 +130,9 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.authoredCell.contentText = [self.commit.authoredDate prettyDate];
 	self.committedCell.contentText = [self.commit.committedDate prettyDate];
 	self.messageCell.contentText = self.commit.message;
-	[self.addedCell setFiles:self.commit.added andDescription:@"added"];
-	[self.removedCell setFiles:self.commit.removed andDescription:@"removed"];
-	[self.modifiedCell setFiles:self.commit.modified andDescription:@"modified"];
+	[self.addedCell setFiles:self.commit.added description:@"added"];
+	[self.removedCell setFiles:self.commit.removed description:@"removed"];
+	[self.modifiedCell setFiles:self.commit.modified description:@"modified"];
 }
 
 - (void)displayCommitChange {
@@ -153,7 +153,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (IBAction)showActions:(id)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"Actions" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Copy SHA", @"Add comment", @"Show on GitHub", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title") delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Copy SHA", @"Action Sheet: Copy SHA"), NSLocalizedString(@"Add comment", @"Action Sheet: Add comment"), NSLocalizedString(@"Show on GitHub", @"Action Sheet: Show on GitHub"), nil];
 	[actionSheet showInView:self.view];
 }
 
@@ -199,7 +199,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	return (section == 2) ? @"Comments" : @"";
+	return section == 2 ? NSLocalizedString(@"Comments", nil) : @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -259,7 +259,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		IOCFilesCell *cell = (IOCFilesCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		if (!cell.files.isEmpty) {
 			IOCFilesController *filesController = [[IOCFilesController alloc] initWithFiles:cell.files];
-			filesController.title = [NSString stringWithFormat:@"%@ files", [cell.description capitalizedString]];
+			filesController.title = NSLocalizedString(cell.description, nil).capitalizedString;
 			[self.navigationController pushViewController:filesController animated:YES];
 		}
     }

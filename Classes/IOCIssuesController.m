@@ -42,7 +42,7 @@
 }
 
 - (NSString *)collectionName {
-    return @"Issues";
+    return NSLocalizedString(@"Issues", nil);
 }
 
 - (NSString *)collectionCellIdentifier {

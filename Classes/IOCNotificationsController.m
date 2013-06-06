@@ -195,7 +195,7 @@
 			allReadCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AllReadCell"];
 			allReadCell.selectionStyle = UITableViewCellSelectionStyleNone;
 			allReadCell.textLabel.font = [UIFont systemFontOfSize:15];
-			allReadCell.textLabel.text = @"Inbox Zero, good job!";
+			allReadCell.textLabel.text = NSLocalizedString(@"Inbox Zero, good job!", @"Notifications: Inbox Zero");
 			allReadCell.textLabel.textColor = [UIColor grayColor];
 			allReadCell.textLabel.textAlignment = NSTextAlignmentCenter;
 		}
@@ -282,8 +282,8 @@
             dispatch_async(dispatch_get_main_queue(),^ {
                 [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
             });
-            NSString *message = [NSString stringWithFormat:@"Notifications currently can be reloaded every %d seconds", weakSelf.notifications.pollInterval];
-            [iOctocat reportWarning:@"Please wait" with:message];
+            NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Notifications currently can be reloaded every %d seconds", @"Notifications: Reload throttle message"), weakSelf.notifications.pollInterval];
+            [iOctocat reportWarning:NSLocalizedString(@"Please wait", @"Notifications: Reload throttle title") with:message];
         } else {
             [weakSelf.notifications loadWithParams:nil start:^(GHResource *instance) {
                 [weakSelf setupActions];
@@ -300,7 +300,7 @@
                     [weakSelf.tableView reloadData];
                     [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
                 });
-                [iOctocat reportLoadingError:@"Could not load the notifications"];
+                [iOctocat reportLoadingError:error.localizedDescription];
             }];
         }
     }];
@@ -319,7 +319,7 @@
 
 - (void)refreshLastUpdate {
 	if (self.notifications.lastUpdate) {
-		NSString *lastRefresh = [NSString stringWithFormat:@"Last refresh %@", self.notifications.lastUpdate.prettyDate];
+		NSString *lastRefresh = [NSString stringWithFormat:NSLocalizedString(@"Last refresh %@", @"Notifications/Events: Last refresh shown in header"), self.notifications.lastUpdate.prettyDate];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
 }

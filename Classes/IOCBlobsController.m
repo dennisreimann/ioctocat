@@ -89,7 +89,7 @@
             }
 		} failure:^(GHResource *instance, NSError *error) {
 			if (blob == self.blob) {
-				[iOctocat reportLoadingError:@"Could not load the file"];
+				[iOctocat reportLoadingError:NSLocalizedString(@"Could not load the file", @"File loading error message")];
 			}
 		}];
 	}
@@ -140,8 +140,8 @@
 		[self.contentView setScalesPageToFit:YES];
 	} else {
 		NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
-		NSString *message = [NSString stringWithFormat:@"Cannot display %@", filename];
-		[iOctocat reportError:@"Unknown content" with:message];
+		NSString *message = [NSString stringWithFormat:NSLocalizedString(@"Cannot display %@", @"File display error message with FILENAME"), filename];
+		[iOctocat reportError:NSLocalizedString(@"Unknown content", @"File display error title") with:message];
 		[self.contentView loadHTMLString:@"" baseURL:baseUrl];
 	}
 }

@@ -4,6 +4,7 @@
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 #import "MF_Base64Additions.h"
+#import "AFHTTPRequestOperation.h"
 
 
 @implementation GHBlob
@@ -14,18 +15,6 @@
 		self.repository = repo;
 		self.path = path;
 		self.resourcePath = [NSString stringWithFormat:kRepoContentFormat, self.repository.owner, self.repository.name, self.path, ref];
-        // prepare to fetch rendered markdown
-        __weak __typeof(&*self)weakSelf = self;
-        [self whenLoaded:^(GHResource *instance, id data) {
-            if (!weakSelf.isMarkdown) return;
-            GHResource *resource = [[GHResource alloc] initWithPath:weakSelf.resourcePath];
-            resource.resourceContentType = kResourceContentTypeHTML;
-            [resource loadWithSuccess:^(GHResource *instance, id data) {
-                // the response is not a dictionary, because we requested
-                // the html mime type which returns the HTML representation
-                weakSelf.contentHTML = [[NSString alloc] initWithData:(NSData *)data encoding:NSUTF8StringEncoding];
-            }];
-        }];
     }
 	return self;
 }
@@ -34,20 +23,51 @@
     return [self.path hasSuffix:@".md"] || [self.path hasSuffix:@".markdown"];
 }
 
+- (loadSuccess)onLoadSuccess {
+    return ^(AFHTTPRequestOperation *operation, id data) {
+        if ([data isKindOfClass:NSDictionary.class]) {
+            self.path = [data safeStringForKey:@"path"];
+        }
+        if (self.isMarkdown) {
+            // set initial data without marking as loaded
+            // and running the success blocks
+            NSDictionary *headers = operation.response.allHeaderFields;
+            NSURL *url = operation.response.URL;
+            D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, url, headers, data);
+            [self setHeaderValues:headers];
+            [self setValues:data];
+            // then fetch rendered markdown
+            GHResource *resource = [[GHResource alloc] initWithPath:self.resourcePath];
+            resource.resourceContentType = kResourceContentTypeHTML;
+            [resource loadWithSuccess:^(GHResource *instance, id data) {
+                super.onLoadSuccess(operation, data);
+            }];
+        } else {
+            super.onLoadSuccess(operation, data);
+        }
+	};
+}
+
 #pragma mark Loading
 
-- (void)setValues:(id)dict {
-	self.path = [dict safeStringForKey:@"path"];
-	self.size = [dict safeIntegerForKey:@"size"];
-    self.htmlURL = [dict safeURLForKey:@"html_url"];
-	self.encoding = [dict safeStringForKey:@"encoding"];
-	if ([self.encoding isEqualToString:@"utf-8"]) {
-		self.content = [dict safeStringForKey:@"content"];
-	} else if ([self.encoding isEqualToString:@"base64"]) {
-		NSString *cont = [dict safeStringForKey:@"content"];
-		self.content = [NSString stringFromBase64String:cont];
-		self.contentData = [NSData dataWithBase64String:cont];
-	}
+- (void)setValues:(id)response {
+    if ([response isKindOfClass:NSDictionary.class]) {
+        self.path = [response safeStringForKey:@"path"];
+        self.size = [response safeIntegerForKey:@"size"];
+        self.htmlURL = [response safeURLForKey:@"html_url"];
+        self.encoding = [response safeStringForKey:@"encoding"];
+        if ([self.encoding isEqualToString:@"utf-8"]) {
+            self.content = [response safeStringForKey:@"content"];
+        } else if ([self.encoding isEqualToString:@"base64"]) {
+            NSString *cont = [response safeStringForKey:@"content"];
+            self.content = [NSString stringFromBase64String:cont];
+            self.contentData = [NSData dataWithBase64String:cont];
+        }
+    } else if ([response isKindOfClass:NSData.class]) {
+        // the response is not a dictionary, because we requested
+        // the html mime type which returns the HTML representation
+        self.contentHTML = [[NSString alloc] initWithData:(NSData *)response encoding:NSUTF8StringEncoding];
+    }
 }
 
 @end

@@ -81,7 +81,7 @@
 	}
     if (lang.isEmpty) lang = [IOCUtil highlightLanguageForFilename:fileName];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	NSURL *baseUrl = [NSURL fileURLWithPath:[[NSBundle mainBundle] bundlePath]];
+	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
 	NSString *theme = [defaults valueForKey:kThemeDefaultsKey];
 	NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"html"];

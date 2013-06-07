@@ -110,7 +110,8 @@
     NSString *formatPath = [[NSBundle mainBundle] pathForResource:@"format" ofType:@"html"];
     NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
     NSString *html = [NSString stringWithFormat:format, self.blob.contentHTML];
-    [self.contentView loadHTMLString:html baseURL:self.blob.htmlURL];
+    NSURL *baseURL = [self.blob.htmlURL URLByDeletingLastPathComponent];
+    [self.contentView loadHTMLString:html baseURL:baseURL];
 }
 
 - (void)displayCode {

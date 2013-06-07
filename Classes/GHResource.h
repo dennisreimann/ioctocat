@@ -1,4 +1,4 @@
-@class GHAccount, GHResource;
+@class GHAccount, GHResource, AFHTTPRequestOperation;
 
 typedef enum {
 	GHResourceStatusFailed   = -1,
@@ -11,6 +11,8 @@ typedef enum {
 typedef void (^resourceStart)(GHResource *instance);
 typedef void (^resourceSuccess)(GHResource *instance, id data);
 typedef void (^resourceFailure)(GHResource *instance, NSError *error);
+typedef void (^loadSuccess)(AFHTTPRequestOperation *operation, id data);
+typedef void (^loadFailure)(AFHTTPRequestOperation *operation, NSError *error);
 
 @interface GHResource : NSObject
 @property(nonatomic,strong)NSString *resourcePath;
@@ -22,6 +24,8 @@ typedef void (^resourceFailure)(GHResource *instance, NSError *error);
 @property(nonatomic,readonly)BOOL isLoaded;
 @property(nonatomic,readonly)BOOL isLoading;
 @property(nonatomic,readonly)BOOL isChanged;
+@property(nonatomic,readonly)loadSuccess onLoadSuccess;
+@property(nonatomic,readonly)loadFailure onLoadFailure;
 
 - (id)initWithPath:(NSString *)path;
 - (void)markAsUnloaded;

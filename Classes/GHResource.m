@@ -80,20 +80,7 @@
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:params];
 	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
     D3JLog(@"\n%@: Loading %@ started.\n\nHeaders:\n%@\n", self.class, path, request.allHTTPHeaderFields);
-	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id data) {
-		NSDictionary *headers = operation.response.allHeaderFields;
-		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, headers, data);
-		[self setHeaderValues:headers];
-		[self setValues:data];
-		self.resourceStatus = GHResourceStatusLoaded;
-        for (void (^block)() in self.successBlocks) block(self, data);
-        [self.successBlocks removeAllObjects];
-	} failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, path, operation.response.allHeaderFields, error);
-		self.resourceStatus = GHResourceStatusFailed;
-        for (void (^block)() in self.failureBlocks) block(self, error);
-        [self.failureBlocks removeAllObjects];
-	}];
+	AFHTTPRequestOperation *operation = [self.apiClient HTTPRequestOperationWithRequest:request success:self.onLoadSuccess failure:self.onLoadFailure];
     [self.apiClient enqueueHTTPRequestOperation:operation];
 	if (start) start(self);
 }
@@ -110,6 +97,30 @@
 	}];
 	[operation start];
 	if (start) start(self);
+}
+
+- (loadSuccess)onLoadSuccess {
+    return ^(AFHTTPRequestOperation *operation, id data) {
+		NSDictionary *headers = operation.response.allHeaderFields;
+		NSURL *url = operation.response.URL;
+		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, url, headers, data);
+		[self setHeaderValues:headers];
+		[self setValues:data];
+		self.resourceStatus = GHResourceStatusLoaded;
+        for (void (^block)() in self.successBlocks) block(self, data);
+        [self.successBlocks removeAllObjects];
+	};
+}
+
+- (loadFailure)onLoadFailure {
+    return ^(AFHTTPRequestOperation *operation, NSError *error) {
+		NSDictionary *headers = operation.response.allHeaderFields;
+		NSURL *url = operation.response.URL;
+		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, url, headers, error);
+		self.resourceStatus = GHResourceStatusFailed;
+        for (void (^block)() in self.failureBlocks) block(self, error);
+        [self.failureBlocks removeAllObjects];
+	};
 }
 
 #pragma mark Status

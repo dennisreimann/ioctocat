@@ -26,7 +26,6 @@
         } else {
             _bodyWithoutEmailFooter = [[text substringToIndex:match.range.location] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         }
-        DJLog(@"%@", _bodyWithoutEmailFooter);
     }
     return _bodyWithoutEmailFooter;
 }

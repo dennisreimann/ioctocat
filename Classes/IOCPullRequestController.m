@@ -135,7 +135,7 @@
 
 - (void)displayPullRequest {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	NSString *icon = [NSString stringWithFormat:@"pull_request_%@.png", self.pullRequest.state];
+	NSString *icon = self.pullRequest.isLoaded ? [NSString stringWithFormat:@"pull_request_%@.png", self.pullRequest.state] : @"pull_request.png";
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.pullRequest.title;
 	self.commitTextView.text = self.pullRequest.title;

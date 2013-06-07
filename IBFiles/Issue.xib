@@ -36,7 +36,7 @@
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="8298493">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUILabel" id="326744483">
@@ -44,6 +44,8 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{40, 8}, {260, 52}}</string>
 						<reference key="NSSuperview" ref="8298493"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -78,15 +80,22 @@
 						<int key="NSvFlags">292</int>
 						<string key="NSFrame">{{15, 26}, {16, 16}}</string>
 						<reference key="NSSuperview" ref="8298493"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="326744483"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<int key="IBUIContentMode">4</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+						<object class="NSCustomResource" key="IBUIImage">
+							<string key="NSClassName">NSImage</string>
+							<string key="NSResourceName">issue.png</string>
+						</object>
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 80}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="163586074"/>
 				<reference key="IBUIBackgroundColor" ref="559892232"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -288,7 +297,7 @@
 				<string key="IBUIReuseIdentifier">CreatedCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="814017486">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="819889366">
@@ -300,6 +309,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{10, 12}, {53, 21}}</string>
 								<reference key="NSSuperview" ref="819889366"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="830096274"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -326,6 +336,8 @@
 								<int key="NSvFlags">294</int>
 								<string key="NSFrame">{{71, 11}, {220, 21}}</string>
 								<reference key="NSSuperview" ref="819889366"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -342,6 +354,7 @@
 						</array>
 						<string key="NSFrameSize">{300, 43}</string>
 						<reference key="NSSuperview" ref="814017486"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="505295406"/>
 						<reference key="IBUIBackgroundColor" ref="636256357"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -352,6 +365,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="819889366"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -432,7 +447,7 @@
 				<string key="IBUIReuseIdentifier">UpdatedCell</string>
 			</object>
 			<object class="IBUITableViewCell" id="562197120">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIView" id="919336481">
@@ -444,6 +459,8 @@
 								<int key="NSvFlags">274</int>
 								<string key="NSFrame">{{10, 10}, {300, 24}}</string>
 								<reference key="NSSuperview" ref="919336481"/>
+								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -470,6 +487,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 43}</string>
 						<reference key="NSSuperview" ref="562197120"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="677632109"/>
 						<reference key="IBUIBackgroundColor" ref="636256357"/>
 						<bool key="IBUIOpaque">NO</bool>
@@ -480,6 +498,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 44}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="919336481"/>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -488,7 +508,7 @@
 				<string key="IBUIReuseIdentifier">DescriptionCell</string>
 			</object>
 			<object class="IBUIView" id="613869351">
-				<nil key="NSNextResponder"/>
+				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">290</int>
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="14860592">
@@ -496,6 +516,8 @@
 						<int key="NSvFlags">290</int>
 						<string key="NSFrame">{{10, 0}, {300, 40}}</string>
 						<reference key="NSSuperview" ref="613869351"/>
+						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -526,6 +548,8 @@
 					</object>
 				</array>
 				<string key="NSFrameSize">{320, 60}</string>
+				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="14860592"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
@@ -924,8 +948,16 @@
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
 				<object class="IBPartialClassDescription">
-					<string key="className">CommentCell</string>
-					<string key="superclassName">TextCell</string>
+					<string key="className">GradientButton</string>
+					<string key="superclassName">UIButton</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/GradientButton.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">IOCCommentCell</string>
+					<string key="superclassName">IOCTextCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="dateLabel">UILabel</string>
 						<string key="gravatarButton">UIButton</string>
@@ -947,39 +979,31 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/CommentCell.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">GradientButton</string>
-					<string key="superclassName">UIButton</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/GradientButton.h</string>
+						<string key="minorKey">./Classes/IOCCommentCell.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">IOCIssueController</string>
 					<string key="superclassName">UITableViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="authorCell">LabeledCell</string>
+						<string key="authorCell">IOCLabeledCell</string>
 						<string key="commentButton">GradientButton</string>
-						<string key="commentCell">CommentCell</string>
-						<string key="createdCell">LabeledCell</string>
+						<string key="commentCell">IOCCommentCell</string>
+						<string key="createdCell">IOCLabeledCell</string>
 						<string key="createdLabel">UILabel</string>
-						<string key="descriptionCell">TextCell</string>
+						<string key="descriptionCell">IOCTextCell</string>
 						<string key="iconView">UIImageView</string>
-						<string key="repoCell">LabeledCell</string>
+						<string key="repoCell">IOCLabeledCell</string>
 						<string key="tableFooterView">UIView</string>
 						<string key="tableHeaderView">UIView</string>
 						<string key="titleLabel">UILabel</string>
-						<string key="updatedCell">LabeledCell</string>
+						<string key="updatedCell">IOCLabeledCell</string>
 						<string key="updatedLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="authorCell">
 							<string key="name">authorCell</string>
-							<string key="candidateClassName">LabeledCell</string>
+							<string key="candidateClassName">IOCLabeledCell</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="commentButton">
 							<string key="name">commentButton</string>
@@ -987,11 +1011,11 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="commentCell">
 							<string key="name">commentCell</string>
-							<string key="candidateClassName">CommentCell</string>
+							<string key="candidateClassName">IOCCommentCell</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="createdCell">
 							<string key="name">createdCell</string>
-							<string key="candidateClassName">LabeledCell</string>
+							<string key="candidateClassName">IOCLabeledCell</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="createdLabel">
 							<string key="name">createdLabel</string>
@@ -999,7 +1023,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="descriptionCell">
 							<string key="name">descriptionCell</string>
-							<string key="candidateClassName">TextCell</string>
+							<string key="candidateClassName">IOCTextCell</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="iconView">
 							<string key="name">iconView</string>
@@ -1007,7 +1031,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="repoCell">
 							<string key="name">repoCell</string>
-							<string key="candidateClassName">LabeledCell</string>
+							<string key="candidateClassName">IOCLabeledCell</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="tableFooterView">
 							<string key="name">tableFooterView</string>
@@ -1023,7 +1047,7 @@
 						</object>
 						<object class="IBToOneOutletInfo" key="updatedCell">
 							<string key="name">updatedCell</string>
-							<string key="candidateClassName">LabeledCell</string>
+							<string key="candidateClassName">IOCLabeledCell</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="updatedLabel">
 							<string key="name">updatedLabel</string>
@@ -1036,7 +1060,7 @@
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">LabeledCell</string>
+					<string key="className">IOCLabeledCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="content">UILabel</string>
@@ -1054,19 +1078,11 @@
 					</dictionary>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/LabeledCell.h</string>
+						<string key="minorKey">./Classes/IOCLabeledCell.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">
-					<string key="className">TTTAttributedLabel</string>
-					<string key="superclassName">UILabel</string>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TTTAttributedLabel.h</string>
-					</object>
-				</object>
-				<object class="IBPartialClassDescription">
-					<string key="className">TextCell</string>
+					<string key="className">IOCTextCell</string>
 					<string key="superclassName">UITableViewCell</string>
 					<object class="NSMutableDictionary" key="outlets">
 						<string key="NS.key.0">contentLabel</string>
@@ -1081,7 +1097,15 @@
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/TextCell.h</string>
+						<string key="minorKey">./Classes/IOCTextCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TTTAttributedLabel</string>
+					<string key="superclassName">UILabel</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TTTAttributedLabel.h</string>
 					</object>
 				</object>
 			</array>
@@ -1094,6 +1118,10 @@
 		</object>
 		<bool key="IBDocument.PluginDeclaredDependenciesTrackSystemTargetVersion">YES</bool>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
+		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
+			<string key="NS.key.0">issue.png</string>
+			<string key="NS.object.0">{16, 16}</string>
+		</object>
 		<string key="IBCocoaTouchPluginVersion">2083</string>
 	</data>
 </archive>

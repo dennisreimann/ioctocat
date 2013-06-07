@@ -120,7 +120,7 @@
 
 - (void)displayIssue {
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(showActions:)];
-	NSString *icon = [NSString stringWithFormat:@"issue_%@.png", self.issue.state];
+	NSString *icon = self.issue.isLoaded ? [NSString stringWithFormat:@"issue_%@.png", self.issue.state] : @"issue.png";
 	self.iconView.image = [UIImage imageNamed:icon];
 	self.titleLabel.text = self.issue.title;
 	self.repoCell.contentText = self.issue.repository.repoId;

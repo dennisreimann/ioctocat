@@ -18,6 +18,7 @@ typedef void (^loadFailure)(AFHTTPRequestOperation *operation, NSError *error);
 @property(nonatomic,strong)NSString *resourcePath;
 @property(nonatomic,strong)NSString *resourceContentType;
 @property(nonatomic,readonly)GHAccount *account;
+@property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isEmpty;
 @property(nonatomic,readonly)BOOL isFailed;
 @property(nonatomic,readonly)BOOL isUnloaded;
@@ -37,6 +38,8 @@ typedef void (^loadFailure)(AFHTTPRequestOperation *operation, NSError *error);
 - (void)loadWithSuccess:(resourceSuccess)success;
 - (void)loadWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)deleteWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (NSString *)resourceContentType;
 @end

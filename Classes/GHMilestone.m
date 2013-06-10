@@ -24,9 +24,11 @@
 }
 
 - (NSString *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// number which isn't always available in advance
-	return [NSString stringWithFormat:kMilestoneFormat, self.repository.owner, self.repository.name, self.number];
+	if (self.isNew) {
+		return [NSString stringWithFormat:kMilestonesFormat, self.repository.owner, self.repository.name];
+	} else {
+        return [NSString stringWithFormat:kMilestoneFormat, self.repository.owner, self.repository.name, self.number];
+	}
 }
 
 #pragma mark Loading
@@ -40,26 +42,6 @@
 	self.body = [dict safeStringForKey:@"description"];
 	self.state = [dict safeStringForKey:@"state"];
 	self.number = [dict safeIntegerForKey:@"number"];
-}
-
-#pragma mark Saving
-
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	NSString *path = nil;
-	NSString *method = nil;
-	if (self.isNew) {
-		path = [NSString stringWithFormat:kMilestonesFormat, self.repository.owner, self.repository.name];
-		method = kRequestMethodPost;
-	} else {
-		path = [NSString stringWithFormat:kMilestoneFormat, self.repository.owner, self.repository.name, self.number];
-		method = kRequestMethodPatch;
-	}
-	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {
-		[self setValues:data];
-		if (success) success(self, data);
-	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
-	}];
 }
 
 @end

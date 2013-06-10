@@ -22,8 +22,6 @@
 }
 
 - (NSString *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// searchTerm which isn't always available in advance
 	NSString *encodedSearchTerm = [self.searchTerm stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *path = [NSString stringWithFormat:self.urlFormat, encodedSearchTerm];
 	return path;

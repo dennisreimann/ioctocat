@@ -20,12 +20,9 @@
 	return self;
 }
 
-// Dynamic resourcePath, because it depends on the
-// num which isn't always available in advance
 - (NSString *)resourcePath {
 	if (self.pullRequest) {
-		GHRepository *repo = self.pullRequest.repository;
-		return [NSString stringWithFormat:kPullRequestFilesFormat, repo.owner, repo.name, self.pullRequest.number];
+		return [NSString stringWithFormat:kPullRequestFilesFormat, self.pullRequest.repository.owner, self.pullRequest.repository.name, self.pullRequest.number];
 	} else {
 		return [super resourcePath];
 	}

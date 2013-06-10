@@ -10,5 +10,4 @@
 @property(nonatomic,strong)NSString *name;
 
 - (id)initWithRepository:(GHRepository *)repo name:(NSString *)name;
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

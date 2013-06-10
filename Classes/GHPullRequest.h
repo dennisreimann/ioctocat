@@ -29,5 +29,4 @@
 
 - (id)initWithRepository:(GHRepository *)repo;
 - (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

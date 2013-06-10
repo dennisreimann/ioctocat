@@ -11,6 +11,4 @@
 @property(nonatomic,strong)NSDate *createdAt;
 @property(nonatomic,strong)NSDate *updatedAt;
 @property(nonatomic,readonly)BOOL isNew;
-
-- (void)saveWithParams:(NSDictionary *)values start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

@@ -18,9 +18,8 @@
 	return self;
 }
 
+// Dynamic resourcePath, because it depends on the issue num which isn't always available in advance
 - (NSURL *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// issue num which isn't always available in advance
 	GHRepository *repo = [(GHIssue *)self.parent repository];
 	NSUInteger num = [(GHIssue *)self.parent number];
 	return [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];

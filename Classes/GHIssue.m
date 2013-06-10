@@ -31,9 +31,11 @@
 }
 
 - (NSString *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// num which isn't always available in advance
-	return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.number];
+    if (self.isNew) {
+		return [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
+	} else {
+		return [NSString stringWithFormat:kIssueFormat, self.repository.owner, self.repository.name, self.number];
+	}
 }
 
 - (NSString *)repoIdWithIssueNumber {
@@ -85,26 +87,6 @@
     NSDictionary *milestoneDict = [dict safeDictForKey:@"milestone"];
     self.milestone = [[GHMilestone alloc] initWithRepository:self.repository];
     [self.milestone setValues:milestoneDict];
-}
-
-#pragma mark Saving
-
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	NSString *path = nil;
-	NSString *method = nil;
-	if (self.isNew) {
-		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
-		method = kRequestMethodPost;
-	} else {
-		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.number];
-		method = kRequestMethodPatch;
-	}
-	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {
-		[self setValues:data];
-		if (success) success(self, data);
-	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
-	}];
 }
 
 @end

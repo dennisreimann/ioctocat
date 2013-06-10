@@ -45,12 +45,6 @@
     return [NSString stringWithFormat:@"%@/%@/%@", self.owner, self.isPrivate ? @"private" : @"public", self.name];
 }
 
-- (NSString *)resourcePath {
-	// Dynamic path, because it depends on the owner and
-	// name which are not always available in advance
-	return [NSString stringWithFormat:kRepoFormat, self.owner, self.name];
-}
-
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
         self.htmlURL = [NSURL URLWithFormat:@"/%@/%@", self.owner, self.name];
@@ -61,6 +55,7 @@
 - (void)setOwner:(NSString *)owner andName:(NSString *)name {
 	self.owner = owner;
 	self.name = name;
+    self.resourcePath = [NSString stringWithFormat:kRepoFormat, self.owner, self.name];
 }
 
 - (GHUser *)user {

@@ -43,10 +43,10 @@
 	return self;
 }
 
-// Dynamic resourcePath, because it depends on the
-// num which isn't always available in advance
 - (NSString *)resourcePath {
 	if (_resourcePath) {
+        // in events there is no resourcePath that could be referenced, so we clear
+        // out the resourcePath with an empty string which should be returned then
 		return _resourcePath;
 	} else if (self.pullRequest) {
 		GHRepository *repo = self.pullRequest.repository;

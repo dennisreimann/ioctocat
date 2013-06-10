@@ -25,7 +25,7 @@
 		if (!repo2.pushedAtDate) return NSOrderedAscending;
 		return (NSInteger)[repo2.pushedAtDate compare:repo1.pushedAtDate];
 	};
-	[self sortUsingComparator:compareRepositories];
+	[self.items sortUsingComparator:compareRepositories];
 }
 
 @end

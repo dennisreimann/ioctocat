@@ -20,8 +20,6 @@
 
 @implementation GHPullRequest
 
-@synthesize resourcePath = _resourcePath;
-
 - (id)initWithRepository:(GHRepository *)repo {
 	self = [super init];
 	if (self) {
@@ -60,13 +58,11 @@
     return _files;
 }
 
-// Dynamic resourcePath, because it depends on the
-// num which isn't always available in advance
 - (NSString *)resourcePath {
-	if (_resourcePath) {
-		return _resourcePath;
+	if (self.isNew) {
+		return [NSString stringWithFormat:kPullRequestOpenFormat, self.repository.owner, self.repository.name];
 	} else {
-		return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.number];
+        return [NSString stringWithFormat:kPullRequestFormat, self.repository.owner, self.repository.name, self.number];
 	}
 }
 
@@ -117,41 +113,19 @@
 #pragma mark State toggling
 
 - (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	if (self.isMergeable) {
-		NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.number];
-		NSDictionary *params = @{@"commit_message": commitMessage};
-		[self saveWithParams:params path:path method:kRequestMethodPut start:start success:^(GHResource *instance, id data) {
-			self.isMerged = [data safeBoolForKey:@"merged"];
-			// set values manually that are not part of the response
-			if (self.isMerged) {
-				self.state = kIssueStateClosed;
-				self.mergedAt = self.closedAt = self.updatedAt = [NSDate date];
-				self.isMergeable = NO;
-			} else {
-				self.state = kIssueStateOpen;
-				self.mergedAt = self.closedAt = nil;
-			}
-			if (success) success(self, data);
-		} failure:^(GHResource *instance, NSError *error) {
-			if (failure) failure(self, error);
-		}];
-	}
-}
-
-#pragma mark Saving
-
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	NSString *path = nil;
-	NSString *method = nil;
-	if (self.isNew) {
-		path = [NSString stringWithFormat:kIssueOpenFormat, self.repository.owner, self.repository.name];
-		method = kRequestMethodPost;
-	} else {
-		path = [NSString stringWithFormat:kIssueEditFormat, self.repository.owner, self.repository.name, self.number];
-		method = kRequestMethodPatch;
-	}
-	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {
-		[self setValues:data];
+	NSString *path = [NSString stringWithFormat:kPullRequestMergeFormat, self.repository.owner, self.repository.name, self.number];
+	NSDictionary *params = @{@"commit_message": commitMessage};
+	[self saveWithParams:params path:path method:kRequestMethodPut start:start success:^(GHResource *instance, id data) {
+		self.isMerged = [data safeBoolForKey:@"merged"];
+		// set values manually that are not part of the response
+		if (self.isMerged) {
+			self.state = kIssueStateClosed;
+			self.mergedAt = self.closedAt = self.updatedAt = [NSDate date];
+			self.isMergeable = NO;
+		} else {
+			self.state = kIssueStateOpen;
+			self.mergedAt = self.closedAt = nil;
+		}
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);

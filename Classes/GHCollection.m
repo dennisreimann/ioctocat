@@ -57,6 +57,10 @@
 	return self.nextPageURL != nil;
 }
 
+- (NSUInteger)indexOfObject:(id)object {
+	return [self.items indexOfObject:object];
+}
+
 - (id)objectAtIndexedSubscript:(NSUInteger)idx {
 	return self.items[idx];
 }
@@ -77,14 +81,6 @@
 	[self.items insertObject:object atIndex:idx];
 }
 
-- (void)sortUsingComparator:(NSComparator)cmptr {
-	[self.items sortUsingComparator:cmptr];
-}
-
-- (void)sortUsingSelector:(SEL)cmptr {
-	[self.items sortUsingSelector:cmptr];
-}
-
 #pragma mark API
 
 - (void)loadNextWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
@@ -95,6 +91,23 @@
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
     self.resetItemsOnLoad = YES;
     [super loadWithParams:params path:path method:method start:start success:success failure:failure];
+}
+
+- (void)saveObject:(GHResource *)object params:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    BOOL newItem = object.isNew;
+    [object saveWithParams:params start:start success:^(GHResource *instance, id data) {
+        if (newItem) [self addObject:instance];
+        [self markAsChanged];
+        if (success) success(self, data);
+    } failure:failure];
+}
+
+- (void)deleteObject:(GHResource *)object start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    [object deleteWithStart:start success:^(GHResource *instance, id data) {
+        [self removeObject:instance];
+        [self markAsChanged];
+        if (success) success(self, data);
+    } failure:failure];
 }
 
 @end

@@ -13,7 +13,8 @@
 - (void)addObject:(id)object;
 - (void)removeObject:(id)object;
 - (void)insertObject:(id)anObject atIndex:(NSUInteger)index;
-- (void)sortUsingComparator:(NSComparator)cmptr;
-- (void)sortUsingSelector:(SEL)cmptr;
+- (NSUInteger)indexOfObject:(id)object;
 - (void)loadNextWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)saveObject:(GHResource *)object params:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)deleteObject:(GHResource *)object start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;
 @end

@@ -18,12 +18,9 @@
 	return self;
 }
 
+// Dynamic resourcePath, because it depends on the issue num which isn't always available in advance
 - (NSURL *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// issue num which isn't always available in advance
-	GHRepository *repo = self.parent.repository;
-	NSUInteger num = self.parent.number;
-	return [NSString stringWithFormat:kGHPullRequestCommentsFormat, repo.owner, repo.name, num];
+	return [NSString stringWithFormat:kGHPullRequestCommentsFormat, self.parent.repository.owner, self.parent.repository.name, self.parent.number];
 }
 
 - (void)setValues:(id)values {

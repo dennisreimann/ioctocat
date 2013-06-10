@@ -18,7 +18,7 @@
 }
 
 - (BOOL)isNew {
-    return !self.commentID ? YES : NO;;
+    return !self.commentID ? YES : NO;
 }
 
 - (NSString *)bodyWithoutEmailFooter {
@@ -38,17 +38,6 @@
 - (void)setBody:(NSString *)body {
     _bodyWithoutEmailFooter = nil;
     _body = body;
-}
-
-#pragma mark Saving
-
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPost start:start success:^(GHResource *instance, id data) {
-		[self setValues:data];
-		if (success) success(self, data);
-	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
-	}];
 }
 
 @end

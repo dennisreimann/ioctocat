@@ -85,6 +85,16 @@
 	if (start) start(self);
 }
 
+- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+    NSString *method = self.isNew ? kRequestMethodPost : kRequestMethodPatch;
+	[self saveWithParams:params path:self.resourcePath method:method start:start success:^(GHResource *instance, id data) {
+		[self setValues:data];
+		if (success) success(self, data);
+	} failure:^(GHResource *instance, NSError *error) {
+		if (failure) failure(self, error);
+	}];
+}
+
 - (void)saveWithParams:(NSDictionary *)values path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
 	NSMutableURLRequest *request = [self.apiClient requestWithMethod:method path:path parameters:values];
 	D3JLog(@"\n%@: Saving %@ (%@) started.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, path, method, request.allHTTPHeaderFields, values);
@@ -121,6 +131,10 @@
         for (void (^block)() in self.failureBlocks) block(self, error);
         [self.failureBlocks removeAllObjects];
 	};
+}
+
+- (void)deleteWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
+	[self saveWithParams:nil path:self.resourcePath method:kRequestMethodDelete start:start success:success failure:failure];
 }
 
 #pragma mark Status
@@ -163,6 +177,11 @@
 
 - (BOOL)isEmpty {
 	return self.resourceStatus <= GHResourceStatusLoading;
+}
+
+// override in subclass with more meaningful semantics
+- (BOOL)isNew {
+    return self.isUnloaded;
 }
 
 @end

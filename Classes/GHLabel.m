@@ -21,6 +21,14 @@
 	return YES;
 }
 
+- (NSString *)resourcePath {
+	if (self.isNew) {
+		return [NSString stringWithFormat:kLabelsFormat, self.repository.owner, self.repository.name];
+	} else {
+        return [NSString stringWithFormat:kLabelFormat, self.repository.owner, self.repository.name, self.name];
+	}
+}
+
 - (void)setHexColor:(NSString *)hexColor {
     _hexColor = hexColor;
     self.color = _hexColor ? [self colorWithHexString:_hexColor] : nil;
@@ -31,26 +39,6 @@
 - (void)setValues:(id)dict {
 	self.name = [dict safeStringForKey:@"name"];
 	self.hexColor = [dict safeStringForKey:@"color"];
-}
-
-#pragma mark Saving
-
-- (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	NSString *path = nil;
-	NSString *method = nil;
-	if (self.isNew) {
-		path = [NSString stringWithFormat:kLabelsFormat, self.repository.owner, self.repository.name];
-		method = kRequestMethodPost;
-	} else {
-		path = [NSString stringWithFormat:kLabelFormat, self.repository.owner, self.repository.name, self.name];
-		method = kRequestMethodPatch;
-	}
-	[self saveWithParams:params path:path method:method start:start success:^(GHResource *instance, id data) {
-		[self setValues:data];
-		if (success) success(self, data);
-	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
-	}];
 }
 
 #pragma mark Helpers

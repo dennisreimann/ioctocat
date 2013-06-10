@@ -46,6 +46,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{26, 9}, {16, 16}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="813831787"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="66551194">
 									<int key="NSColorSpace">3</int>
@@ -61,6 +62,7 @@
 								<int key="NSvFlags">292</int>
 								<string key="NSFrame">{{10, 30}, {32, 32}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="579488512"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="66551194"/>
@@ -101,6 +103,7 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{50, 5}, {260, 21}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="767615552"/>
 								<reference key="IBUIBackgroundColor" ref="66551194"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -135,6 +138,7 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{50, 24}, {260, 43}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
+								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="63189725"/>
 								<reference key="IBUIBackgroundColor" ref="66551194"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -171,6 +175,7 @@
 								<int key="NSvFlags">290</int>
 								<string key="NSFrame">{{10, 70}, {300, 30}}</string>
 								<reference key="NSSuperview" ref="110279202"/>
+								<reference key="NSWindow"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<reference key="IBUIBackgroundColor" ref="66551194"/>
 								<bool key="IBUIClipsSubviews">YES</bool>
@@ -200,6 +205,7 @@
 						</array>
 						<string key="NSFrameSize">{320, 109}</string>
 						<reference key="NSSuperview" ref="597012738"/>
+						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="455427023"/>
 						<object class="NSColor" key="IBUIBackgroundColor">
 							<int key="NSColorSpace">3</int>
@@ -214,6 +220,7 @@
 				</array>
 				<string key="NSFrameSize">{320, 110}</string>
 				<reference key="NSSuperview"/>
+				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="110279202"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
@@ -366,7 +373,123 @@
 			<nil key="sourceID"/>
 			<int key="maxID">87</int>
 		</object>
-		<object class="IBClassDescriber" key="IBDocument.Classes"/>
+		<object class="IBClassDescriber" key="IBDocument.Classes">
+			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
+				<object class="IBPartialClassDescription">
+					<string key="className">IOCEventCell</string>
+					<string key="superclassName">IOCTextCell</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="actionsView">UIView</string>
+						<string key="contentLabel">TTTAttributedLabel</string>
+						<string key="dateLabel">UILabel</string>
+						<string key="gravatarButton">UIButton</string>
+						<string key="iconView">UIImageView</string>
+						<string key="titleLabel">TTTAttributedLabel</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="actionsView">
+							<string key="name">actionsView</string>
+							<string key="candidateClassName">UIView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="contentLabel">
+							<string key="name">contentLabel</string>
+							<string key="candidateClassName">TTTAttributedLabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="dateLabel">
+							<string key="name">dateLabel</string>
+							<string key="candidateClassName">UILabel</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="gravatarButton">
+							<string key="name">gravatarButton</string>
+							<string key="candidateClassName">UIButton</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="iconView">
+							<string key="name">iconView</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="titleLabel">
+							<string key="name">titleLabel</string>
+							<string key="candidateClassName">TTTAttributedLabel</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/IOCEventCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">IOCEventsController</string>
+					<string key="superclassName">UITableViewController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="eventCell">IOCEventCell</string>
+						<string key="noEntriesCell">UITableViewCell</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="eventCell">
+							<string key="name">eventCell</string>
+							<string key="candidateClassName">IOCEventCell</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="noEntriesCell">
+							<string key="name">noEntriesCell</string>
+							<string key="candidateClassName">UITableViewCell</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/IOCEventsController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">IOCMyEventsController</string>
+					<string key="superclassName">IOCEventsController</string>
+					<dictionary class="NSMutableDictionary" key="outlets">
+						<string key="feedControl">UISegmentedControl</string>
+						<string key="selectedCell">IOCEventCell</string>
+					</dictionary>
+					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<object class="IBToOneOutletInfo" key="feedControl">
+							<string key="name">feedControl</string>
+							<string key="candidateClassName">UISegmentedControl</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="selectedCell">
+							<string key="name">selectedCell</string>
+							<string key="candidateClassName">IOCEventCell</string>
+						</object>
+					</dictionary>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/IOCMyEventsController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">IOCTextCell</string>
+					<string key="superclassName">UITableViewCell</string>
+					<object class="NSMutableDictionary" key="outlets">
+						<string key="NS.key.0">contentLabel</string>
+						<string key="NS.object.0">TTTAttributedLabel</string>
+					</object>
+					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
+						<string key="NS.key.0">contentLabel</string>
+						<object class="IBToOneOutletInfo" key="NS.object.0">
+							<string key="name">contentLabel</string>
+							<string key="candidateClassName">TTTAttributedLabel</string>
+						</object>
+					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/IOCTextCell.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">TTTAttributedLabel</string>
+					<string key="superclassName">UILabel</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/TTTAttributedLabel.h</string>
+					</object>
+				</object>
+			</array>
+		</object>
 		<int key="IBDocument.localizationMode">0</int>
 		<string key="IBDocument.TargetRuntimeIdentifier">IBCocoaTouchFramework</string>
 		<object class="NSMutableDictionary" key="IBDocument.PluginDeclaredDependencies">

@@ -12,6 +12,7 @@
 @property(nonatomic,assign)BOOL linksEnabled;
 @property(nonatomic,assign)BOOL emojiEnabled;
 @property(nonatomic,assign)BOOL markdownEnabled;
+@property(nonatomic,assign)BOOL markdownLinksEnabled;
 @property(nonatomic,readonly)BOOL hasContent;
 @property(nonatomic,strong)NSString *contentText;
 

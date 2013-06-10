@@ -1,6 +1,5 @@
 #import "GHRepoComment.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
 #import "NSDictionary+Extensions.h"
 
 
@@ -21,13 +20,17 @@
 - (void)setValues:(id)dict {
 	[super setValues:dict];
 	self.commitID = [dict safeStringForKey:@"commit_id"];
-	self.path = [dict safeStringForKey:@"path"];
-	self.line = [dict safeIntegerForKey:@"line"];
 	self.position = [dict safeIntegerForKey:@"position"];
+	self.line = [dict safeIntegerForKey:@"line"];
+	self.path = [dict safeStringForKey:@"path"];
 }
 
-- (NSString *)savePath {
-	return [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
+- (NSString *)resourcePath {
+    if (self.isNew) {
+        return [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];
+    } else {
+        return [NSString stringWithFormat:kRepoCommentFormat, self.repository.owner, self.repository.name, self.commentID];
+    }
 }
 
 @end

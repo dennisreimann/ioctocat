@@ -7,6 +7,7 @@
 @implementation GHComment
 
 - (void)setValues:(id)dict {
+	self.commentID = [dict safeIntegerForKey:@"id"];
 	self.body = [dict safeStringForKey:@"body"];
 	self.createdAt = [dict safeDateForKey:@"created_at"];
 	self.updatedAt = [dict safeDateForKey:@"updated_at"];
@@ -14,6 +15,10 @@
 	if (!self.user.gravatarURL) {
 		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
 	}
+}
+
+- (BOOL)isNew {
+    return !self.commentID ? YES : NO;;
 }
 
 - (NSString *)bodyWithoutEmailFooter {
@@ -37,13 +42,8 @@
 
 #pragma mark Saving
 
-// Implement this in the subclass
-- (NSString *)savePath {
-	return nil;
-}
-
 - (void)saveWithParams:(NSDictionary *)params start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
-	[self saveWithParams:params path:self.savePath method:kRequestMethodPost start:start success:^(GHResource *instance, id data) {
+	[self saveWithParams:params path:self.resourcePath method:kRequestMethodPost start:start success:^(GHResource *instance, id data) {
 		[self setValues:data];
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {

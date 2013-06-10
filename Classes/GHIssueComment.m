@@ -2,8 +2,6 @@
 #import "GHIssue.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
-#import "iOctocat.h"
-#import "NSDictionary+Extensions.h"
 
 
 @interface GHIssueComment ()
@@ -20,10 +18,16 @@
 	return self;
 }
 
-- (NSString *)savePath {
-	GHRepository *repo = [(GHIssue *)self.parent repository];
-	NSUInteger num = [(GHIssue *)self.parent number];
-	return [NSString stringWithFormat:kIssueCommentsFormat, repo.owner, repo.name, num];
+- (NSString *)resourcePath {
+    if (self.isNew) {
+        return [NSString stringWithFormat:kIssueCommentsFormat, self.repository.owner, self.repository.name, [(GHIssue *)self.parent number]];
+    } else {
+        return [NSString stringWithFormat:kIssueCommentFormat, self.repository.owner, self.repository.name, self.commentID];
+    }
+}
+
+- (GHRepository *)repository {
+    return [(GHIssue *)self.parent repository];
 }
 
 @end

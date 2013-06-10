@@ -66,6 +66,12 @@
 		2E5F1230174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
 		2E5F1231174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
 		2E5F1232174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
+		2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
+		2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
+		2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
+		2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
+		2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
+		2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
 		2E88193816F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193916F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193A16F8F8B300ACA2EB /* b.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193516F8F8B300ACA2EB /* b.caf */; };
@@ -1129,6 +1135,10 @@
 		2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
 		2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
 		2E5F1238174E4A9D0010AC6A /* NSAttributedString+GHFMarkdownTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
+		2E67140B1765DDAE00778D11 /* GHPullRequestReviewComments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComments.h; sourceTree = "<group>"; };
+		2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComments.m; sourceTree = "<group>"; };
+		2E6714101765DDF600778D11 /* GHPullRequestReviewComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComment.h; sourceTree = "<group>"; };
+		2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComment.m; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
@@ -2654,6 +2664,10 @@
 			children = (
 				6FD1DE2F158FD14000D72A3D /* GHComment.h */,
 				6FD1DE30158FD14000D72A3D /* GHComment.m */,
+				2E67140B1765DDAE00778D11 /* GHPullRequestReviewComments.h */,
+				2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */,
+				2E6714101765DDF600778D11 /* GHPullRequestReviewComment.h */,
+				2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */,
 				6FE7D2B311568951004B4D68 /* GHIssueComments.h */,
 				6FE7D2B411568951004B4D68 /* GHIssueComments.m */,
 				6FE7D14411557E8C004B4D68 /* GHIssueComment.h */,
@@ -3836,6 +3850,8 @@
 				2E1CCAFF17568878009C0400 /* IOCTagsController.m in Sources */,
 				2E1FFFA217577A4300CC19A2 /* IOCUtil.m in Sources */,
 				2E97C7FC175FD26B00563074 /* IOCCollectionController.m in Sources */,
+				2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
+				2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3973,6 +3989,8 @@
 				2E1FFFA717577FE400CC19A2 /* IOCUtilTests.m in Sources */,
 				2E8E6EA91758D5D4000C378B /* GHCommentTests.m in Sources */,
 				2E97C7FE175FD26B00563074 /* IOCCollectionController.m in Sources */,
+				2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
+				2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4098,6 +4116,8 @@
 				2E1CCB0017568878009C0400 /* IOCTagsController.m in Sources */,
 				2E1FFFA317577A4300CC19A2 /* IOCUtil.m in Sources */,
 				2E97C7FD175FD26B00563074 /* IOCCollectionController.m in Sources */,
+				2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
+				2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

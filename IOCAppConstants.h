@@ -78,6 +78,7 @@
 #define kStarredGistsFormat             @"gists/starred" // not implemented, yet (currently endpoint for gists of authenticated user)
 #define kGistForksFormat                @"gists/%@/forks"
 #define kGistCommentsFormat             @"gists/%@/comments"
+#define kGistCommentFormat              @"gists/%@/comments/%d"
 
 // Users
 #define kUserOrganizationsFormat        @"users/%@/orgs"
@@ -104,16 +105,18 @@
 #define kRepoCommitsFormat              @"repos/%@/%@/commits"
 #define kRepoShaCommitsFormat           @"repos/%@/%@/commits?sha=%@"
 #define kRepoCommitFormat               @"repos/%@/%@/commits/%@"
-#define kRepoCommentsFormat             @"repos/%@/%@/commits/%@/comments?per_page=100"
+#define kRepoCommentsFormat             @"repos/%@/%@/commits/%@/comments"
+#define kRepoCommentFormat              @"repos/%@/%@/comments/%d"
 #define kRepoAssigneesFormat            @"repos/%@/%@/assignees"
 #define kRepoAssigneeFormat             @"repos/%@/%@/assignees/%@"
 #define kLabelsFormat                   @"repos/%@/%@/labels"
 #define kLabelFormat                    @"repos/%@/%@/labels/%@"
-#define kIssuesFormat                   @"repos/%@/%@/issues?per_page=100&state=%@"
+#define kIssuesFormat                   @"repos/%@/%@/issues?state=%@"
 #define kIssueFormat                    @"repos/%@/%@/issues/%d"
 #define kIssueOpenFormat                @"repos/%@/%@/issues"
 #define kIssueEditFormat                @"repos/%@/%@/issues/%d"
-#define kIssueCommentsFormat            @"repos/%@/%@/issues/%d/comments?per_page=100"
+#define kIssueCommentsFormat            @"repos/%@/%@/issues/%d/comments"
+#define kIssueCommentFormat             @"repos/%@/%@/issues/comments/%d"
 #define kMilestoneFormat                @"repos/%@/%@/milestones/%d"
 #define kMilestonesFormat               @"repos/%@/%@/milestones"
 #define kPullRequestsFormat             @"repos/%@/%@/pulls?state=%@"
@@ -121,6 +124,8 @@
 #define kPullRequestCommitsFormat       @"repos/%@/%@/pulls/%d/commits"
 #define kPullRequestFilesFormat         @"repos/%@/%@/pulls/%d/files"
 #define kPullRequestMergeFormat         @"repos/%@/%@/pulls/%d/merge"
+#define kGHPullRequestCommentsFormat    @"repos/%@/%@/pulls/%d/comments"
+#define kGHPullRequestCommentFormat     @"repos/%@/%@/pulls/comments/%d"
 
 // Code
 #define kRefFormat                      @"repos/%@/%@/git/refs/%@"

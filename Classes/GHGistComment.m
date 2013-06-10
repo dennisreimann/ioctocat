@@ -19,8 +19,12 @@
 	return self;
 }
 
-- (NSString *)savePath {
-	return [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
+- (NSString *)resourcePath {
+    if (self.isNew) {
+        return [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
+    } else {
+        return [NSString stringWithFormat:kGistCommentFormat, self.gist.gistId, self.commentID];
+    }
 }
 
 @end

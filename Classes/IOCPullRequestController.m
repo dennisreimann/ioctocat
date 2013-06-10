@@ -27,7 +27,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
-@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, IOCTextCellDelegate>
+@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)IOCPullRequestsController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;

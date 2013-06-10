@@ -23,7 +23,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
-@interface IOCGistController () <UIActionSheetDelegate, IOCTextCellDelegate>
+@interface IOCGistController () <UIActionSheetDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
 @property(nonatomic,strong)GHGist *gist;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *filesStatusCell;

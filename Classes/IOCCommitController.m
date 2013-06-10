@@ -23,7 +23,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
-@interface IOCCommitController () <UIActionSheetDelegate, IOCTextCellDelegate>
+@interface IOCCommitController () <UIActionSheetDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)UILongPressGestureRecognizer *longPressGesture;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;

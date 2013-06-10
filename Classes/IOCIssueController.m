@@ -24,7 +24,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, IOCTextCellDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -86,6 +86,12 @@
 	} failure:^(GHResource *instance, NSError *error) {
 		self.isAssignee = NO;
 	}];
+    // comment menu
+    UIMenuController.sharedMenuController.menuItems = @[
+                       [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) action:@selector(editComment:)],
+                       [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(deleteComment:)]];
+    [UIMenuController.sharedMenuController update];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -202,9 +208,23 @@
 
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
-	comment.user = self.currentUser;
-	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.issue.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
+	[self editComment:comment];
+}
+
+- (void)editComment:(GHComment *)comment {
+    IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.issue.comments];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)deleteComment:(GHComment *)comment {
+    [self.issue.comments deleteObject:comment start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
+    } success:^(GHResource *instance, id data) {
+		[SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Deleted comment", nil)];
+        [self displayCommentsChange];
+    } failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Deleting comment failed", nil)];
+    }];
 }
 
 - (void)toggleIssueState {
@@ -309,6 +329,21 @@
 	btnFrame.origin.x = margin;
 	btnFrame.size.width = width;
 	self.commentButton.frame = btnFrame;
+}
+
+#pragma mark Menu
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:IOCTextCell.class];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell isKindOfClass:IOCTextCell.class] && action == @selector(copy:);
+}
+
+- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    return YES;
 }
 
 @end

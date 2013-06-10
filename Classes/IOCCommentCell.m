@@ -72,6 +72,27 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     }
 }
 
+- (void)editComment:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(editComment:)]) {
+        [self.delegate editComment:self.comment];
+    }
+}
+
+- (void)deleteComment:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(deleteComment:)]) {
+        [self.delegate deleteComment:self.comment];
+    }
+}
+
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(copy:)) {
+        return YES;
+    } else if (action == @selector(editComment:) || action == @selector(deleteComment:)) {
+        return self.delegate.currentUser == self.comment.user && [self.delegate respondsToSelector:action];
+    }
+    return NO;
+}
+
 #pragma mark Layout
 
 - (CGFloat)heightWithoutContentText {

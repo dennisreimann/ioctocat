@@ -22,6 +22,7 @@
 @property(nonatomic,strong)MAXCompletion *emojiCompletion;
 @property(nonatomic,strong)NSMutableDictionary *issueCompletionDataSource;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
+
 - (IBAction)postComment:(id)sender;
 @end
 
@@ -40,9 +41,40 @@
 #pragma mark View Events
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
-	self.title = @"Post comment";
-	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
+    [super viewDidLoad];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@ comment", self.comment.isNew ? @"New" : @"Edit"];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
+    self.bodyView.text = self.comment.body;
+    [self setupCompletion];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [self.bodyView becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.bodyView resignFirstResponder];
+}
+
+#pragma mark Helpers
+
+- (void)setIssuesForNums:(NSArray *)issues {
+    for (GHIssue *issue in issues) {
+        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.number]] = issue;
+    }
+}
+
+- (void)setupCompletion {
     self.usernameCompletion = [[MAXCompletion alloc] init];
     self.usernameCompletion.textView = self.bodyView;
     self.usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
@@ -88,45 +120,17 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-	[self.bodyView becomeFirstResponder];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self.bodyView resignFirstResponder];
-}
-
-#pragma mark Helpers
-
-- (void)setIssuesForNums:(NSArray *)issues {
-    for (GHIssue *issue in issues) {
-        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.number]] = issue;
-    }
-}
-
 #pragma mark Actions
 
 - (IBAction)postComment:(id)sender {
-	if ([self.bodyView.text isEmpty]) {
+	if (self.bodyView.text.isEmpty) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
 	} else {
 		NSDictionary *params = @{@"body": self.bodyView.text};
-		[self.comment saveWithParams:params start:^(GHResource *instance) {
+		[self.comments saveObject:self.comment params:params start:^(GHResource *instance) {
 			[SVProgressHUD showWithStatus:@"Posting comment" maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];
-			[self.comments addObject:(GHComment *)instance];
-			[self.comments markAsUnloaded];
 			[self.navigationController popViewControllerAnimated:YES];
 		} failure:^(GHResource *instance, NSError *error) {
 			[SVProgressHUD showErrorWithStatus:@"Commenting failed"];
@@ -151,7 +155,6 @@
 		self.bodyView.frame = newTextViewFrame;
 	}];
 }
-
 
 - (void)keyboardWillHide:(NSNotification *)notification {
 	NSDictionary *userInfo = [notification userInfo];

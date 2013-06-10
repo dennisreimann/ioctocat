@@ -54,6 +54,38 @@
 		self.bodyField.text = self.object.body;
         self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
+    [self setupCompletion];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+    [self.view addGestureRecognizer:self.tapGesture];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    self.object.isNew ? [self.titleField becomeFirstResponder] : [self.bodyField becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
+    [self.view removeGestureRecognizer:self.tapGesture];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.view endEditing:NO];
+}
+
+#pragma mark Helpers
+
+- (void)setIssuesForNums:(NSArray *)issues {
+    for (GHIssue *issue in issues) {
+        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.number]] = issue;
+    }
+}
+
+- (void)setupCompletion {
     self.usernameCompletion = [[MAXCompletion alloc] init];
     self.usernameCompletion.textView = self.bodyField;
     self.usernameCompletion.dataSource = iOctocat.sharedInstance.currentAccount.userObjects.users;
@@ -90,34 +122,6 @@
         }];
     }
     self.issueCompletion.dataSource = self.issueCompletionDataSource;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-    [self.view addGestureRecognizer:self.tapGesture];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.object.isNew ? [self.titleField becomeFirstResponder] : [self.bodyField becomeFirstResponder];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-	[super viewWillDisappear:animated];
-    [self.view removeGestureRecognizer:self.tapGesture];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    [self.view endEditing:NO];
-}
-
-#pragma mark Helpers
-
-- (void)setIssuesForNums:(NSArray *)issues {
-    for (GHIssue *issue in issues) {
-        self.issueCompletionDataSource[[NSString stringWithFormat:@"%d", issue.number]] = issue;
-    }
 }
 
 #pragma mark Actions

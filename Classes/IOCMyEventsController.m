@@ -5,7 +5,6 @@
 #import "IOCIssueController.h"
 #import "IOCGistController.h"
 #import "IOCCommitController.h"
-#import "IOCEventCell.h"
 #import "GHEvent.h"
 #import "GHUser.h"
 #import "GHEvents.h"
@@ -21,9 +20,7 @@
 @interface IOCMyEventsController ()
 @property(nonatomic,strong)GHUser *user;
 @property(nonatomic,strong)NSArray *feeds;
-@property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @property(nonatomic,weak,readonly)GHEvents *events;
-@property(nonatomic,strong)IBOutlet IOCEventCell *selectedCell;
 @property(nonatomic,strong)IBOutlet UISegmentedControl *feedControl;
 @end
 
@@ -67,8 +64,6 @@
 
 - (IBAction)switchChanged:(id)sender {
 	[self refreshLastUpdate];
-	self.selectedCell = nil;
-	self.selectedIndexPath = nil;
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	[self displayEvents];
 	[self refreshIfRequired];

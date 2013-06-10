@@ -140,11 +140,7 @@
         style.paragraphSpacing = label.textInsets.bottom;
         style.headIndent = label.textInsets.left;
         style.tailIndent = label.textInsets.right;
-        if (label.numberOfLines == 1) {
-            style.lineBreakMode = label.lineBreakMode;
-        } else {
-            style.lineBreakMode = NSLineBreakByWordWrapping;
-        }
+        style.lineBreakMode = (label.numberOfLines == 1) ? label.lineBreakMode : NSLineBreakByWordWrapping;
         [attrs setObject:style forKey:(NSString *)kCTParagraphStyleAttributeName];
     }
     return attrs;

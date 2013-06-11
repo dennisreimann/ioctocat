@@ -32,8 +32,7 @@
             // set initial data without marking as loaded
             // and running the success blocks
             NSDictionary *headers = operation.response.allHeaderFields;
-            NSURL *url = operation.response.URL;
-            D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, url, headers, data);
+            D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, operation.response.URL, headers, data);
             [self setHeaderValues:headers];
             [self setValues:data];
             // then fetch rendered markdown

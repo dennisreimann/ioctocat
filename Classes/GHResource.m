@@ -112,8 +112,7 @@
 - (loadSuccess)onLoadSuccess {
     return ^(AFHTTPRequestOperation *operation, id data) {
 		NSDictionary *headers = operation.response.allHeaderFields;
-		NSURL *url = operation.response.URL;
-		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, url, headers, data);
+		D3JLog(@"\n%@: Loading %@ finished.\n\nHeaders:\n%@\n\nData:\n%@\n", self.class, operation.response.URL, headers, data);
 		[self setHeaderValues:headers];
 		[self setValues:data];
 		self.resourceStatus = GHResourceStatusLoaded;
@@ -124,9 +123,7 @@
 
 - (loadFailure)onLoadFailure {
     return ^(AFHTTPRequestOperation *operation, NSError *error) {
-		NSDictionary *headers = operation.response.allHeaderFields;
-		NSURL *url = operation.response.URL;
-		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, url, headers, error);
+		D2JLog(@"\n%@: Loading %@ failed.\n\nHeaders:\n%@\n\nError:\n%@\n", self.class, operation.response.URL, operation.response.allHeaderFields, error);
 		self.resourceStatus = GHResourceStatusFailed;
         for (void (^block)() in self.failureBlocks) block(self, error);
         [self.failureBlocks removeAllObjects];

@@ -24,6 +24,18 @@
     }
 }
 
+- (void)substituteGHFMarkdownImages {
+    NSArray *images = [self linksFromGHFMarkdownImages];
+    if (images.count) {
+        NSEnumerator *enumerator = [images reverseObjectEnumerator];
+        for (NSDictionary *image in enumerator) {
+            NSRange range = [image[@"range"] rangeValue];
+            NSString *title = image[@"title"];
+            [self replaceCharactersInRange:range withString:title];
+        }
+    }
+}
+
 - (void)substituteGHFMarkdownTasks {
     NSArray *tasks = [self tasksFromGHFMarkdown];
     if (tasks.count) {
@@ -70,6 +82,7 @@
 }
 
 - (void)substituteGHFMarkdown {
+    [self substituteGHFMarkdownImages];
     [self substituteGHFMarkdownLinks];
     [self substituteGHFMarkdownTasks];
     [self substituteGHFMarkdownHeadlines];

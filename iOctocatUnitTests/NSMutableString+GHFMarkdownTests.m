@@ -12,9 +12,15 @@
     expect(actual).to.equal(@"This is a link.");
 }
 
-- (void)testSubstituteGHFMarkdownLinksWithImage {
+- (void)testSubstituteGHFMarkdownImages {
     NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This ![is an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)."];
-    [actual substituteGHFMarkdownLinks];
+    [actual substituteGHFMarkdownImages];
+    expect(actual).to.equal(@"This is an image.");
+}
+
+- (void)testSubstituteGHFMarkdownWithImageLink {
+    NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This [![is an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)](http://ioctocat.com)."];
+    [actual substituteGHFMarkdown];
     expect(actual).to.equal(@"This is an image.");
 }
 
@@ -27,6 +33,7 @@
 - (void)testSubstituteGHFMarkdownTasksAndLinks {
     NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
     [actual substituteGHFMarkdownTasks];
+    [actual substituteGHFMarkdownImages];
     [actual substituteGHFMarkdownLinks];
     expect(actual).to.equal(@"This has\n\n☑ A task with a link\n◻ List\nwithin plus an image");
 }

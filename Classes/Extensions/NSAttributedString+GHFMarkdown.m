@@ -34,6 +34,7 @@
     NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
     NSDictionary *quoteAttributes = [NSDictionary dictionaryWithObjects:@[(id)[[UIColor grayColor] CGColor]] forKeys:@[(NSString *)kCTForegroundColorAttributeName]];
     CFRelease(fontRef);
+    [string substituteGHFMarkdownImages];
     [string substituteGHFMarkdownLinks];
     [string substituteGHFMarkdownTasks];
     [output substituteGHFMarkdownHeadlinesWithBaseFont:font];

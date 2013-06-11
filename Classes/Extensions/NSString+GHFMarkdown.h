@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString *const GHFMarkdownLinkAndImageRegex;
+extern NSString *const GHFMarkdownLinkRegex;
+extern NSString *const GHFMarkdownImageRegex;
 extern NSString *const GHFMarkdownShaRegex;
 extern NSString *const GHFMarkdownUsernameRegex;
 extern NSString *const GHFMarkdownIssueRegex;
@@ -24,6 +25,7 @@ extern NSString *const GHFMarkdownCodeInlineRegex;
 @interface NSString (GHFMarkdown)
 - (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownLinks;
+- (NSArray *)linksFromGHFMarkdownImages;
 - (NSArray *)linksFromGHFMarkdownUsernames;
 - (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;

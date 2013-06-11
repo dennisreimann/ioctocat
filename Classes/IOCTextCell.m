@@ -19,6 +19,7 @@
     self.linksEnabled = YES;
     self.emojiEnabled = YES;
     self.markdownEnabled = YES;
+    self.markdownLinksEnabled = YES;
     self.truncationLength = 0;
 	self.contentLabel.numberOfLines = 0;
     self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -53,10 +54,12 @@
     }
     if (self.markdownEnabled) {
         self.contentLabel.text = [NSAttributedString attributedStringFromMarkdown:text attributes:self.defaultAttributes];
-        NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
-        for (NSDictionary *link in [links reverseObjectEnumerator]) {
-            NSRange range = [self.contentLabel.text rangeOfString:link[@"title"]];
-            [self.contentLabel addLinkToURL:link[@"url"] withRange:range];
+        if (self.markdownLinksEnabled) {
+            NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
+            for (NSDictionary *link in [links reverseObjectEnumerator]) {
+                NSRange range = [self.contentLabel.text rangeOfString:link[@"title"]];
+                [self.contentLabel addLinkToURL:link[@"url"] withRange:range];
+            }
         }
     } else {
         self.contentLabel.text = text;

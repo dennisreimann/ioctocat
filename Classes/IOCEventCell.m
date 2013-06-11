@@ -36,6 +36,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     self.linksEnabled = NO;
     self.emojiEnabled = YES;
     self.markdownEnabled = YES;
+    self.markdownLinksEnabled = NO;
     UIColor *linkColor = [UIColor colorWithRed:0.203 green:0.441 blue:0.768 alpha:1.000];
     self.gravatarButton.layer.cornerRadius = 3;
     self.gravatarButton.layer.masksToBounds = YES;

@@ -19,8 +19,6 @@
     self.linksEnabled = YES;
     self.emojiEnabled = YES;
     self.markdownEnabled = YES;
-    self.markdownLinksEnabled = YES;
-    self.truncationLength = 0;
 	self.contentLabel.numberOfLines = 0;
     self.contentLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.contentLabel.delegate = self;
@@ -48,18 +46,12 @@
     }
     // parse and modify label text
     if (self.emojiEnabled) text = [text emojizedString];
-    if (self.truncationLength && text.length > self.truncationLength) {
-        NSRange range = {0, self.truncationLength};
-        text = [NSString stringWithFormat:@"%@…", [text substringWithRange:range]];
-    }
     if (self.markdownEnabled) {
-        self.contentLabel.text = [NSAttributedString attributedStringFromMarkdown:text attributes:self.defaultAttributes];
-        if (self.markdownLinksEnabled) {
-            NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
-            for (NSDictionary *link in [links reverseObjectEnumerator]) {
-                NSRange range = [self.contentLabel.text rangeOfString:link[@"title"]];
-                [self.contentLabel addLinkToURL:link[@"url"] withRange:range];
-            }
+        self.contentLabel.text = [NSAttributedString attributedStringFromGHFMarkdown:text attributes:self.defaultAttributes];
+        NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
+        for (NSDictionary *link in [links reverseObjectEnumerator]) {
+            NSRange range = [self.contentLabel.text rangeOfString:link[@"title"]];
+            [self.contentLabel addLinkToURL:link[@"url"] withRange:range];
         }
     } else {
         self.contentLabel.text = text;

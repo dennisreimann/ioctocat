@@ -12,7 +12,11 @@
 #import "GHPullRequest.h"
 #import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
+#import "NSString+GHFMarkdown.h"
+#import "NSMutableString+GHFMarkdown.h"
+#import "NSAttributedString+GHFMarkdown.h"
 #import "NSDictionary+Extensions.h"
 #import "TTTAttributedLabel.h"
 
@@ -24,10 +28,13 @@
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *titleLabel;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
+@property(nonatomic,assign)NSInteger truncationLength;
 @end
 
 
 @implementation IOCEventCell
+
+@synthesize contentText = _contentText;
 
 static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
@@ -36,7 +43,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     self.linksEnabled = NO;
     self.emojiEnabled = YES;
     self.markdownEnabled = YES;
-    self.markdownLinksEnabled = NO;
     UIColor *linkColor = [UIColor colorWithRed:0.203 green:0.441 blue:0.768 alpha:1.000];
     self.gravatarButton.layer.cornerRadius = 3;
     self.gravatarButton.layer.masksToBounds = YES;
@@ -128,6 +134,26 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	if ([keyPath isEqualToString:UserGravatarKeyPath] && self.event.user.gravatar) {
 		[self setGravatar:self.event.user.gravatar];
 	}
+}
+
+- (void)setContentText:(NSString *)text {
+    if ([self.contentText isEqualToString:text]) return;
+    _contentText = text;
+    // return on nil
+    if (!_contentText) {
+        self.contentLabel.text = nil;
+        return;
+    }
+    // parse and modify label text
+    if (self.emojiEnabled) text = [text emojizedString];
+    NSMutableString *mutableText = [text mutableCopy];
+    [mutableText substituteGHFMarkdown];
+    if (self.truncationLength && mutableText.length > self.truncationLength) {
+        NSRange range = {self.truncationLength, mutableText.length - self.truncationLength};
+        [mutableText replaceCharactersInRange:range withString:@"…"];
+    }
+    self.contentLabel.text = [[NSAttributedString alloc] initWithString:mutableText attributes:self.defaultAttributes];
+    [self adjustContentTextHeight];
 }
 
 #pragma mark Helpers

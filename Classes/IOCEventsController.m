@@ -50,14 +50,12 @@
 #pragma mark View Events
 
 - (void)viewDidLoad {
-	[super viewDidLoad];
-	self.clearsSelectionOnViewWillAppear = NO;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"MarkRead.png"] style:UIBarButtonItemStylePlain target:self action:@selector(markAllAsRead:)];
-	self.navigationItem.rightBarButtonItem.accessibilityLabel = NSLocalizedString(@"Mark all as read", nil);
+    [super viewDidLoad];
+    self.clearsSelectionOnViewWillAppear = NO;
     [self setupPullToRefresh];
-	[self setupInfiniteScrolling];
-	[self refreshLastUpdate];
-	[self displayEvents];
+    [self setupInfiniteScrolling];
+    [self refreshLastUpdate];
+    [self displayEvents];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,7 +77,6 @@
 - (void)displayEvents {
     [self.tableView reloadData];
     self.tableView.showsInfiniteScrolling = self.events.hasNextPage;
-    self.navigationItem.rightBarButtonItem.enabled = !self.events.isEmpty;
 }
 
 #pragma mark Actions
@@ -87,11 +84,6 @@
 - (void)openURL:(NSURL *)url {
     UIViewController *viewController = [IOCViewControllerFactory viewControllerForURL:url];
     if (viewController) [self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (IBAction)markAllAsRead:(id)sender {
-    [self.events markAllAsRead];
-    [self.tableView reloadData];
 }
 
 #pragma mark TableView
@@ -154,8 +146,6 @@
                 [weakSelf.tableView.pullToRefreshView performSelector:@selector(stopAnimating) withObject:nil afterDelay:.25];
             });
         } else {
-            BOOL manualReload = weakSelf.tableView.contentOffset.y < 0;
-            if (manualReload) [weakSelf.events markAllAsRead];
             [weakSelf.events loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
                 dispatch_async(dispatch_get_main_queue(),^ {
                     [weakSelf refreshLastUpdate];
@@ -195,9 +185,10 @@
 
 - (void)refreshIfRequired {
     if (self.events.isLoading) return;
+    NSTimeInterval refreshInterval = 15 * 60; // automatically refresh every 15 minutes
+    NSDate *refreshThreshold = [self.events.lastUpdate dateByAddingTimeInterval:refreshInterval];
     NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaultsKey];
-    if (!self.events.isLoaded || [self.events.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
-        // the feed was loaded before this application became active again, refresh it
+    if (!self.events.isLoaded || [refreshThreshold compare:lastActivatedDate] == NSOrderedAscending) {
         [self.tableView triggerPullToRefresh];
     }
 }

@@ -307,11 +307,12 @@
     [self refreshLastUpdate];
 }
 
-// refreshes the feed, in case it was loaded before the app became active again
 - (void)refreshIfRequired {
     if (!self.notifications.isLoading && self.notifications.canReload) {
+        NSTimeInterval refreshInterval = 15 * 60; // automatically refresh every 15 minutes
+        NSDate *refreshThreshold = [self.notifications.lastUpdate dateByAddingTimeInterval:refreshInterval];
         NSDate *lastActivatedDate = [[NSUserDefaults standardUserDefaults] objectForKey:kLastActivatedDateDefaultsKey];
-        if (!self.resourceHasData || [self.notifications.lastUpdate compare:lastActivatedDate] == NSOrderedAscending) {
+        if (!self.resourceHasData || [refreshThreshold compare:lastActivatedDate] == NSOrderedAscending) {
             [self.tableView triggerPullToRefresh];
         }
     }

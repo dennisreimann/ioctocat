@@ -152,7 +152,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
         NSRange range = {self.truncationLength, mutableText.length - self.truncationLength};
         [mutableText replaceCharactersInRange:range withString:@"…"];
     }
-    self.contentLabel.text = [[NSAttributedString alloc] initWithString:mutableText attributes:self.defaultAttributes];
+    text = [[mutableText stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.contentLabel.text = [[NSAttributedString alloc] initWithString:text attributes:self.defaultAttributes];
     [self adjustContentTextHeight];
 }
 

@@ -10,5 +10,5 @@
 
 @interface NSMutableAttributedString (GHFMarkdown)
 - (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options andAddAttributes:(NSDictionary *)attributes;
-- (void)substituteHeadlinesWithBaseFont:(UIFont *)baseFont;
+- (void)substituteGHFMarkdownHeadlinesWithBaseFont:(UIFont *)baseFont;
 @end

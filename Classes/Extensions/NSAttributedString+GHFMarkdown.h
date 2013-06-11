@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSAttributedString (GHFMarkdown)
-+ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdownString;
-+ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdownString attributes:(NSDictionary *)attributes;
++ (NSAttributedString *)attributedStringFromGHFMarkdown:(NSString *)markdownString;
++ (NSAttributedString *)attributedStringFromGHFMarkdown:(NSString *)markdownString attributes:(NSDictionary *)attributes;
 @end

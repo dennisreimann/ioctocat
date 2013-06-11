@@ -18,7 +18,7 @@
     self.codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:15], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
 }
 
-- (void)testAttributedStringFromMarkdownWithHeadlines {
+- (void)testAttributedStringFromGHFMarkdownWithHeadlines {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"Headline\n\nThis is text.\n\nSecond Headline\n\nMore text.\n\nThird Headline\n\nLast paragraph."];
     CGFloat baseSize = 15;
     CGFloat h1Size = 20;
@@ -34,67 +34,67 @@
     [expected addAttributes:h1Attributes range:NSMakeRange(0, 8)];
     [expected addAttributes:h2Attributes range:NSMakeRange(25, 15)];
     [expected addAttributes:h3Attributes range:NSMakeRange(54, 14)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"# Headline\n\nThis is text.\n\n## Second Headline ##\n\nMore text.\n\n### Third Headline\n\nLast paragraph."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"# Headline\n\nThis is text.\n\n## Second Headline ##\n\nMore text.\n\n### Third Headline\n\nLast paragraph."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithBold {
+- (void)testAttributedStringFromGHFMarkdownWithBold {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold."];
     UIFont *font = [UIFont boldSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This **is** bold."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This **is** bold."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithBoldAtStringBounds {
+- (void)testAttributedStringFromGHFMarkdownWithBoldAtStringBounds {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold"];
     UIFont *font = [UIFont boldSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 4)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"__This__ is __bold__"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"__This__ is __bold__"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithItalic {
+- (void)testAttributedStringFromGHFMarkdownWithItalic {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic."];
     UIFont *font = [UIFont italicSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This *is* italic."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This *is* italic."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithItalicAtStringBounds {
+- (void)testAttributedStringFromGHFMarkdownWithItalicAtStringBounds {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic"];
     UIFont *font = [UIFont italicSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 6)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"_This_ is _italic_"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"_This_ is _italic_"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithItalicAndNormalUnderscores {
+- (void)testAttributedStringFromGHFMarkdownWithItalicAndNormalUnderscores {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic"];
     UIFont *font = [UIFont italicSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 6)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"_This_ is _italic_"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"_This_ is _italic_"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithUnderscoreWhichIsNotItalic {
+- (void)testAttributedStringFromGHFMarkdownWithUnderscoreWhichIsNotItalic {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is a file_name.rb get_it? But here is an italic part okay?"];
     UIFont *font = [UIFont italicSystemFontOfSize:15];
     CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, font.pointSize, NULL);
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(fontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(46, 11)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This is a file_name.rb get_it? But here is an _italic part_ okay?"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This is a file_name.rb get_it? But here is an _italic part_ okay?"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithBoldItalic {
+- (void)testAttributedStringFromGHFMarkdownWithBoldItalic {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic."];
     UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
     CTFontRef boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
@@ -102,10 +102,10 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(boldItalicFontRef) forKey:(NSString *)kCTFontAttributeName];
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
     CFRelease(boldFontRef);
-    expect([NSAttributedString attributedStringFromMarkdown:@"This ***is*** bold italic."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This ***is*** bold italic."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithBoldItalicAtStringBounds {
+- (void)testAttributedStringFromGHFMarkdownWithBoldItalicAtStringBounds {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic"];
     UIFont *boldFont = [UIFont boldSystemFontOfSize:15];
     CTFontRef boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, boldFont.pointSize, NULL);
@@ -114,62 +114,62 @@
     [expected addAttributes:attributes range:NSMakeRange(0, 4)];
     [expected addAttributes:attributes range:NSMakeRange(8, 11)];
     CFRelease(boldFontRef);
-    expect([NSAttributedString attributedStringFromMarkdown:@"___This___ is ___bold italic___"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"___This___ is ___bold italic___"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithList {
+- (void)testAttributedStringFromGHFMarkdownWithList {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is\n* a normal list\n* with two entries\nThat's it."];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This is\n* a normal list\n* with two entries\nThat's it."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This is\n* a normal list\n* with two entries\nThat's it."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithCodeInline {
+- (void)testAttributedStringFromGHFMarkdownWithCodeInline {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code."];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(5, 2)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This `is` code."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This `is` code."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithCodeInlineAtStringBounds {
+- (void)testAttributedStringFromGHFMarkdownWithCodeInlineAtStringBounds {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code inline"];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(0, 4)];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(8, 11)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"`This` is `code inline`"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"`This` is `code inline`"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithCodeInlineAsCodeHtml {
+- (void)testAttributedStringFromGHFMarkdownWithCodeInlineAsCodeHtml {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code"];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(5, 2)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This <code>is</code> code"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This <code>is</code> code"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithCodeBlock {
+- (void)testAttributedStringFromGHFMarkdownWithCodeBlock {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nruby\nputs 'Test'\n\n\na code block."];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 17)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This has\n\n```ruby\nputs 'Test'\n```\n\na code block."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n```ruby\nputs 'Test'\n```\n\na code block."]).to.equal(expected);
 }
 
 - (void)testAttributedStringFromMarkdownWithCodeBlocksAtStringBounds {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"ruby\nputs 'Test'\n\n\na code block\n\njavascript\nalert('Test');\n"];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(0, 17)];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(33, 26)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"```ruby\nputs 'Test'\n```\n\na code block\n\n```javascript\nalert('Test');\n```"]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"```ruby\nputs 'Test'\n```\n\na code block\n\n```javascript\nalert('Test');\n```"]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithCodeBlockAsPreHtml {
+- (void)testAttributedStringFromGHFMarkdownWithCodeBlockAsPreHtml {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nputs 'Test'\n\na pre block."];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 11)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."]).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithTasksAndLinks {
+- (void)testAttributedStringFromGHFMarkdownWithTasksAndLinks {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n☑ A task with a link\n◻ List\nwithin plus an image"];
-    NSAttributedString *actual = [NSAttributedString attributedStringFromMarkdown:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
+    NSAttributedString *actual = [NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
     expect(actual).to.equal(expected);
 }
 
-- (void)testAttributedStringFromMarkdownWithQuote {
+- (void)testAttributedStringFromGHFMarkdownWithQuote {
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nQuoted text\n\nas a block."];
     [expected addAttributes:self.quoteAttributes range:NSMakeRange(10, 11)];
-    expect([NSAttributedString attributedStringFromMarkdown:@"This has\n\n> Quoted text\n\nas a block."]).to.equal(expected);
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n\nas a block."]).to.equal(expected);
 }
 
 @end

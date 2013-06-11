@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface NSMutableString (GHFMarkdown)
-- (void)substituteMarkdownLinks;
-- (void)substituteMarkdownTasks;
+- (void)substituteGHFMarkdown;
+- (void)substituteGHFMarkdownLinks;
+- (void)substituteGHFMarkdownTasks;
+- (void)substituteGHFMarkdownHeadlines;
+- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 @end

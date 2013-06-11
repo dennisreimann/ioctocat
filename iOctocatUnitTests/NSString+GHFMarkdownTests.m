@@ -107,4 +107,32 @@
     expect(sha[@"url"]).to.beNil();
 }
 
+- (void)testGhfmarkdownHeadlines {
+    NSString *string = @"Text\n\n# Headline\n\nMore Text";
+    NSArray *headlines = [string headlinesFromGHFMarkdown];
+    expect(headlines.count).to.equal(1);
+    NSDictionary *head = headlines[0];
+    expect(head[@"title"]).to.equal(@"Headline");
+    expect(head[@"headline"]).to.equal(@"# Headline");
+    expect(head[@"level"]).to.equal(1);
+}
+
+- (void)testGhfmarkdownHeadlinesAtStringBounds {
+    NSString *string = @"# First Headline #\n\nText\n\n## Second Headline\n\nMore Text\n\n### Third Headline ###";
+    NSArray *headlines = [string headlinesFromGHFMarkdown];
+    expect(headlines.count).to.equal(3);
+    NSDictionary *head1 = headlines[0];
+    NSDictionary *head2 = headlines[1];
+    NSDictionary *head3 = headlines[2];
+    expect(head1[@"title"]).to.equal(@"First Headline");
+    expect(head1[@"headline"]).to.equal(@"# First Headline #");
+    expect(head1[@"level"]).to.equal(1);
+    expect(head2[@"title"]).to.equal(@"Second Headline");
+    expect(head2[@"headline"]).to.equal(@"## Second Headline");
+    expect(head2[@"level"]).to.equal(2);
+    expect(head3[@"title"]).to.equal(@"Third Headline");
+    expect(head3[@"headline"]).to.equal(@"### Third Headline ###");
+    expect(head3[@"level"]).to.equal(3);
+}
+
 @end

@@ -8,10 +8,9 @@
 
 #import <CoreText/CoreText.h>
 #import "NSMutableAttributedString+GHFMarkdown.h"
+#import "NSString+GHFMarkdown.h"
 
 @implementation NSMutableAttributedString (GHFMarkdown)
-
-static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
 
 // Performs substitution in the given pattern and adds the attributes to the resulting substitution.
 // I.e. you can use this to remove the stars/underscores surrounding bold and italic words.
@@ -36,29 +35,22 @@ static NSString *const MarkdownHeadlineRegex = @"^(#{1,6})\\s++(.+)$";
     }
 }
 
-- (void)substituteHeadlinesWithBaseFont:(UIFont *)baseFont {
+- (void)substituteGHFMarkdownHeadlinesWithBaseFont:(UIFont *)baseFont {
     NSMutableString *string = self.mutableString;
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:MarkdownHeadlineRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
-    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
-    if (matches.count) {
-        NSRegularExpression *endRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s+#{1,6}\\s*$" options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
-        NSEnumerator *enumerator = [matches reverseObjectEnumerator];
+    NSArray *headlines = [string headlinesFromGHFMarkdown];
+    if (headlines.count) {
         CGFloat baseSize = baseFont.pointSize;
         CTFontRef baseRef = CTFontCreateWithName((__bridge CFStringRef)baseFont.fontName, baseSize, NULL);
-        for (NSTextCheckingResult *match in enumerator) {
-            NSRange headRange = [match rangeAtIndex:1];
-            NSRange textRange = [match rangeAtIndex:2];
-            CGFloat headSize = headSize = baseSize + (6 - headRange.length);
-            CTFontRef headRef = headRef = CTFontCreateCopyWithSymbolicTraits(baseRef, headSize, NULL, kCTFontBoldTrait, kCTFontBoldTrait);
+        NSEnumerator *enumerator = [headlines reverseObjectEnumerator];
+        for (NSDictionary *headline in enumerator) {
+            NSString *title = headline[@"title"];
+            NSRange range = [headline[@"range"] rangeValue];
+            NSInteger level = [headline[@"level"] integerValue];
+            CGFloat headSize =  baseSize + (6 - level);
+            CTFontRef headRef = CTFontCreateCopyWithSymbolicTraits(baseRef, headSize, NULL, kCTFontBoldTrait, kCTFontBoldTrait);
             NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(headRef) forKey:(NSString *)kCTFontAttributeName];
-            NSString *text = [string substringWithRange:textRange];
-            NSArray *endMatches = [endRegex matchesInString:text options:NSMatchingReportCompletion range:NSMakeRange(0, text.length)];
-            if (endMatches.count == 1) {
-                text = [text substringWithRange:NSMakeRange(0, text.length - [(NSTextCheckingResult *)endMatches[0] rangeAtIndex:0].length)];
-            }
-            [string replaceCharactersInRange:match.range withString:text];
-            textRange = NSMakeRange(match.range.location, text.length);
-            [self addAttributes:attributes range:textRange];
+            [self addAttributes:attributes range:range];
+            [string replaceCharactersInRange:range withString:title];
         }
         CFRelease(baseRef);
     }

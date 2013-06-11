@@ -10,21 +10,15 @@
 #import "NSAttributedString+GHFMarkdown.h"
 #import "NSMutableAttributedString+GHFMarkdown.h"
 #import "NSMutableString+GHFMarkdown.h"
+#import "NSString+GHFMarkdown.h"
 
 @implementation NSAttributedString (GHFMarkdown)
 
-static NSString *const MarkdownBoldItalicRegex = @"(?:^|\\s)([*_]{3}(.+?)[*_]{3})(?:$|\\s)";
-static NSString *const MarkdownBoldRegex = @"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)";
-static NSString *const MarkdownItalicRegex = @"(?:^|\\s)([*_]{1}(.+?)[*_]{1})(?:$|\\s)";
-static NSString *const MarkdownQuotedRegex = @"(?:^>\\s?)(.+)";
-static NSString *const MarkdownCodeBlockRegex = @"(?:`{3}|<pre>)(.+?)(?:`{3}|</pre>)";
-static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</code>)";
-
-+ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdownString {
-    return [self attributedStringFromMarkdown:markdownString attributes:nil];
++ (NSAttributedString *)attributedStringFromGHFMarkdown:(NSString *)markdownString {
+    return [self attributedStringFromGHFMarkdown:markdownString attributes:nil];
 }
 
-+ (NSAttributedString *)attributedStringFromMarkdown:(NSString *)markdownString attributes:(NSDictionary *)attributes {
++ (NSAttributedString *)attributedStringFromGHFMarkdown:(NSString *)markdownString attributes:(NSDictionary *)attributes {
     NSMutableAttributedString *output = [[NSMutableAttributedString alloc] initWithString:markdownString attributes:attributes];
     NSMutableString *string = output.mutableString;
     UIFont *font = [attributes valueForKey:(NSString *)kCTFontAttributeName];
@@ -40,15 +34,15 @@ static NSString *const MarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|<
     NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
     NSDictionary *quoteAttributes = [NSDictionary dictionaryWithObjects:@[(id)[[UIColor grayColor] CGColor]] forKeys:@[(NSString *)kCTForegroundColorAttributeName]];
     CFRelease(fontRef);
-    [string substituteMarkdownLinks];
-    [string substituteMarkdownTasks];
-    [output substituteHeadlinesWithBaseFont:font];
-    [output substitutePattern:MarkdownQuotedRegex options:(NSRegularExpressionAnchorsMatchLines) andAddAttributes:quoteAttributes];
-    [output substitutePattern:MarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldItalicAttributes];
-    [output substitutePattern:MarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldAttributes];
-    [output substitutePattern:MarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:italicAttributes];
-    [output substitutePattern:MarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) andAddAttributes:codeAttributes];
-    [output substitutePattern:MarkdownCodeInlineRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:codeAttributes];
+    [string substituteGHFMarkdownLinks];
+    [string substituteGHFMarkdownTasks];
+    [output substituteGHFMarkdownHeadlinesWithBaseFont:font];
+    [output substitutePattern:GHFMarkdownQuotedRegex options:(NSRegularExpressionAnchorsMatchLines) andAddAttributes:quoteAttributes];
+    [output substitutePattern:GHFMarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldItalicAttributes];
+    [output substitutePattern:GHFMarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:boldAttributes];
+    [output substitutePattern:GHFMarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:italicAttributes];
+    [output substitutePattern:GHFMarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) andAddAttributes:codeAttributes];
+    [output substitutePattern:GHFMarkdownCodeInlineRegex options:(NSRegularExpressionCaseInsensitive) andAddAttributes:codeAttributes];
     return output;
 }
 

@@ -48,9 +48,15 @@
             NSInteger level = [headline[@"level"] integerValue];
             CGFloat headSize =  baseSize + (6 - level);
             CTFontRef headRef = CTFontCreateCopyWithSymbolicTraits(baseRef, headSize, NULL, kCTFontBoldTrait, kCTFontBoldTrait);
-            NSDictionary *attributes = [NSDictionary dictionaryWithObject:CFBridgingRelease(headRef) forKey:(NSString *)kCTFontAttributeName];
+            // fix for cases in that font ref variants cannot be resolved - looking at you, HelveticaNeue!
+            if (!headRef) {
+                UIFont *boldFont = [UIFont boldSystemFontOfSize:headSize];
+                headRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, headSize, NULL);
+            }
+            NSDictionary *attributes = [NSDictionary dictionaryWithObject:(__bridge id)(headRef) forKey:(NSString *)kCTFontAttributeName];
             [self addAttributes:attributes range:range];
             [string replaceCharactersInRange:range withString:title];
+            CFRelease(headRef);
         }
         CFRelease(baseRef);
     }

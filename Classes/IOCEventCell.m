@@ -139,11 +139,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 - (void)setContentText:(NSString *)text {
     if ([self.contentText isEqualToString:text]) return;
     _contentText = text;
-    // return on nil
-    if (!_contentText) {
-        self.contentLabel.text = nil;
-        return;
-    }
     // parse and modify label text
     if (self.emojiEnabled) text = [text emojizedString];
     NSMutableString *mutableText = [text mutableCopy];

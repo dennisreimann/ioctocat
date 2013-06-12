@@ -19,6 +19,7 @@
 }
 
 + (NSAttributedString *)attributedStringFromGHFMarkdown:(NSString *)markdownString attributes:(NSDictionary *)attributes {
+    if (!markdownString) return nil;
     NSMutableAttributedString *output = [[NSMutableAttributedString alloc] initWithString:markdownString attributes:attributes];
     NSMutableString *string = output.mutableString;
     UIFont *font = [attributes valueForKey:(NSString *)kCTFontAttributeName];

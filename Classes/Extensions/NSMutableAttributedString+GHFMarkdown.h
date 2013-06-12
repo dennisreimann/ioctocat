@@ -7,8 +7,3 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface NSMutableAttributedString (GHFMarkdown)
-- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options andAddAttributes:(NSDictionary *)attributes;
-- (void)substituteGHFMarkdownHeadlinesWithBaseFont:(UIFont *)baseFont;
-@end

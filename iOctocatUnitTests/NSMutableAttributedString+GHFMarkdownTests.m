@@ -2,6 +2,7 @@
 #import "IOCTestHelper.h"
 #import "NSMutableAttributedString+GHFMarkdownTests.h"
 #import "NSMutableAttributedString+GHFMarkdown.h"
+#import "GHFMarkdown+Private.h"
 
 
 @implementation NSMutableAttributedString_GHFMarkdownTests

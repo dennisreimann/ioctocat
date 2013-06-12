@@ -72,6 +72,9 @@
 		2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
 		2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
 		2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
+		2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
+		2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
+		2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
 		2E88193816F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193916F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193A16F8F8B300ACA2EB /* b.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193516F8F8B300ACA2EB /* b.caf */; };
@@ -1139,6 +1142,8 @@
 		2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComments.m; sourceTree = "<group>"; };
 		2E6714101765DDF600778D11 /* GHPullRequestReviewComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComment.h; sourceTree = "<group>"; };
 		2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComment.m; sourceTree = "<group>"; };
+		2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GHFMarkdown+Private.h"; sourceTree = "<group>"; };
+		2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHFMarkdown+Private.m"; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
@@ -2299,6 +2304,8 @@
 				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
 				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
 				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
+				2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */,
+				2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */,
 				2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */,
 				2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */,
 				2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */,
@@ -3852,6 +3859,7 @@
 				2E97C7FC175FD26B00563074 /* IOCCollectionController.m in Sources */,
 				2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
+				2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3991,6 +3999,7 @@
 				2E97C7FE175FD26B00563074 /* IOCCollectionController.m in Sources */,
 				2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
+				2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4118,6 +4127,7 @@
 				2E97C7FD175FD26B00563074 /* IOCCollectionController.m in Sources */,
 				2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
+				2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

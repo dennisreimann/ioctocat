@@ -11,6 +11,8 @@
 #import "NSMutableAttributedString+GHFMarkdown.h"
 #import "NSMutableString+GHFMarkdown.h"
 #import "NSString+GHFMarkdown.h"
+#import "GHFMarkdown+Private.h"
+
 
 @implementation NSAttributedString (GHFMarkdown)
 

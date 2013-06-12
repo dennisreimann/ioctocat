@@ -50,7 +50,6 @@
 		2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */; };
-		2E52B62A174E4DFD00F1294D /* NSAttributedString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */; };
 		2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
 		2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
 		2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
@@ -63,9 +62,6 @@
 		2E5D54FB171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
 		2E5D54FD171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
-		2E5F1230174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
-		2E5F1231174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
-		2E5F1232174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */; };
 		2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
 		2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
 		2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
@@ -75,6 +71,9 @@
 		2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
 		2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
 		2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
+		2E840A7C17691EDD00F646B7 /* GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */; };
+		2E840A7D17691EDD00F646B7 /* GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */; };
+		2E840A7E17691EDD00F646B7 /* GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */; };
 		2E88193816F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193916F8F8B300ACA2EB /* a.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193416F8F8B300ACA2EB /* a.caf */; };
 		2E88193A16F8F8B300ACA2EB /* b.caf in Resources */ = {isa = PBXBuildFile; fileRef = 2E88193516F8F8B300ACA2EB /* b.caf */; };
@@ -1116,34 +1115,32 @@
 		2E1FFFA117577A4300CC19A2 /* IOCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUtil.m; sourceTree = "<group>"; };
 		2E1FFFA517577FCD00CC19A2 /* IOCUtilTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCUtilTests.h; sourceTree = "<group>"; };
 		2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUtilTests.m; sourceTree = "<group>"; };
-		2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+GHFMarkdown.h"; path = "Extensions/NSString+GHFMarkdown.h"; sourceTree = "<group>"; };
+		2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+GHFMarkdown.m"; path = "Extensions/NSString+GHFMarkdown.m"; sourceTree = "<group>"; };
 		2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepository.png; sourceTree = "<group>"; };
 		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
 		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
 		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
 		2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactoryTests.h; sourceTree = "<group>"; };
 		2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactoryTests.m; sourceTree = "<group>"; };
-		2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSMutableString+GHFMarkdown.h"; path = "Extensions/NSMutableString+GHFMarkdown.h"; sourceTree = "<group>"; };
+		2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableString+GHFMarkdown.m"; path = "Extensions/NSMutableString+GHFMarkdown.m"; sourceTree = "<group>"; };
 		2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
 		2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
-		2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+GHFMarkdown.h"; path = "Extensions/NSMutableAttributedString+GHFMarkdown.h"; sourceTree = "<group>"; };
+		2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+GHFMarkdown.m"; path = "Extensions/NSMutableAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
 		2E52B63A174E5F5000F1294D /* NSMutableAttributedString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
 		2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
 		2E5D54F8171A00530046086D /* Button1P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button1P.png; sourceTree = "<group>"; };
 		2E5D54F9171A00530046086D /* Button1P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button1P@2x.png"; sourceTree = "<group>"; };
-		2E5F122B174E48790010AC6A /* NSAttributedString+GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
-		2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
-		2E5F1238174E4A9D0010AC6A /* NSAttributedString+GHFMarkdownTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
 		2E67140B1765DDAE00778D11 /* GHPullRequestReviewComments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComments.h; sourceTree = "<group>"; };
 		2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComments.m; sourceTree = "<group>"; };
 		2E6714101765DDF600778D11 /* GHPullRequestReviewComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComment.h; sourceTree = "<group>"; };
 		2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComment.m; sourceTree = "<group>"; };
-		2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GHFMarkdown+Private.h"; sourceTree = "<group>"; };
-		2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GHFMarkdown+Private.m"; sourceTree = "<group>"; };
+		2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GHFMarkdown+Private.h"; path = "Extensions/GHFMarkdown+Private.h"; sourceTree = "<group>"; };
+		2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GHFMarkdown+Private.m"; path = "Extensions/GHFMarkdown+Private.m"; sourceTree = "<group>"; };
+		2E840A7A17691B2300F646B7 /* GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GHFMarkdown.h; path = Extensions/GHFMarkdown.h; sourceTree = "<group>"; };
+		2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHFMarkdown.m; path = Extensions/GHFMarkdown.m; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
 		2E88193516F8F8B300ACA2EB /* b.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = b.caf; sourceTree = "<group>"; };
 		2E88193616F8F8B300ACA2EB /* c.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = c.caf; sourceTree = "<group>"; };
@@ -1790,6 +1787,7 @@
 			isa = PBXGroup;
 			children = (
 				6F5E9A971119A96000752560 /* Extensions */,
+				2E840A7F17691FAA00F646B7 /* Markdown */,
 				6F5E9AA21119A96000752560 /* External */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				2E11E70416FB13080012ACDA /* Services */,
@@ -1905,6 +1903,23 @@
 			);
 			name = Buttons;
 			path = Images/Buttons;
+			sourceTree = "<group>";
+		};
+		2E840A7F17691FAA00F646B7 /* Markdown */ = {
+			isa = PBXGroup;
+			children = (
+				2E840A7A17691B2300F646B7 /* GHFMarkdown.h */,
+				2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */,
+				2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */,
+				2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */,
+				2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */,
+				2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */,
+				2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */,
+				2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */,
+				2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */,
+				2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */,
+			);
+			name = Markdown;
 			sourceTree = "<group>";
 		};
 		2E88193316F8F8B300ACA2EB /* Sounds */ = {
@@ -2245,8 +2260,6 @@
 				2EB4D89B17441BE3005A2781 /* NSString+GHFMarkdownTests.m */,
 				2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */,
 				2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */,
-				2E5F1238174E4A9D0010AC6A /* NSAttributedString+GHFMarkdownTests.h */,
-				2E5F1233174E49C10010AC6A /* NSAttributedString+GHFMarkdownTests.m */,
 				2E52B63A174E5F5000F1294D /* NSMutableAttributedString+GHFMarkdownTests.h */,
 				2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */,
 			);
@@ -2304,16 +2317,6 @@
 				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
 				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
 				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
-				2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */,
-				2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */,
-				2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */,
-				2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */,
-				2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */,
-				2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */,
-				2E5F122B174E48790010AC6A /* NSAttributedString+GHFMarkdown.h */,
-				2E5F122C174E48850010AC6A /* NSAttributedString+GHFMarkdown.m */,
-				2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */,
-				2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3850,7 +3853,6 @@
 				2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E27C38C17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EA49A4117473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
-				2E5F1230174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */,
 				2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
 				2E52B637174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
 				2E1CCAFA17568795009C0400 /* GHTags.m in Sources */,
@@ -3860,6 +3862,7 @@
 				2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
 				2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
+				2E840A7C17691EDD00F646B7 /* GHFMarkdown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3982,11 +3985,9 @@
 				2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */,
 				2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */,
 				2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */,
-				2E5F1232174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */,
 				2E27C38E17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EB4D89C17441BE3005A2781 /* NSString+GHFMarkdownTests.m in Sources */,
 				2EA49A4317473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
-				2E52B62A174E4DFD00F1294D /* NSAttributedString+GHFMarkdownTests.m in Sources */,
 				2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
 				2E52B634174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m in Sources */,
 				2E52B639174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
@@ -4000,6 +4001,7 @@
 				2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
 				2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
+				2E840A7E17691EDD00F646B7 /* GHFMarkdown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4118,7 +4120,6 @@
 				2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */,
 				2E27C38D17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
 				2EA49A4217473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
-				2E5F1231174E48B00010AC6A /* NSAttributedString+GHFMarkdown.m in Sources */,
 				2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
 				2E52B638174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
 				2E1CCAFB17568795009C0400 /* GHTags.m in Sources */,
@@ -4128,6 +4129,7 @@
 				2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
 				2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
+				2E840A7D17691EDD00F646B7 /* GHFMarkdown.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

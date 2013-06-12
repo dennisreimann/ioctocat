@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSString (GHFMarkdown)
-- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
+- (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId;
+- (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes;
 @end

@@ -1,7 +1,7 @@
 #import <CoreText/CoreText.h>
 #import "IOCTestHelper.h"
 #import "NSString+GHFMarkdownTests.h"
-#import "NSString+GHFMarkdown.h"
+#import "GHFMarkdown.h"
 #import "GHFMarkdown+Private.h"
 
 

@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 
 extern NSString *const GHFMarkdownLinkRegex;
 extern NSString *const GHFMarkdownImageRegex;
@@ -22,25 +23,30 @@ extern NSString *const GHFMarkdownQuotedRegex;
 extern NSString *const GHFMarkdownCodeBlockRegex;
 extern NSString *const GHFMarkdownCodeInlineRegex;
 
+NSString *GHFMarkdownMD5(NSString *string);
+
 @interface NSString (GHFMarkdown_Private)
-- (NSArray *)linksFromGHFMarkdownLinks;
-- (NSArray *)linksFromGHFMarkdownUsernames;
-- (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId;
-- (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;
 - (NSArray *)tasksFromGHFMarkdown;
 - (NSArray *)headlinesFromGHFMarkdown;
+- (NSArray *)linksFromGHFMarkdownLinks;
+- (NSArray *)linksFromGHFMarkdownUsernames;
+- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
+- (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId;
+- (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;
 @end
 
 @interface NSMutableString (GHFMarkdown_Private)
+- (void)substituteGHFMarkdownHeadlines;
 - (void)substituteGHFMarkdownLinks;
 - (void)substituteGHFMarkdownTasks;
-- (void)substituteGHFMarkdownHeadlines;
 - (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
 - (NSDictionary *)extractAndSubstituteGHFMarkdownCodeBlocks;
 - (void)insertSubstitutedGHFMarkdownCodeBlocks:(NSDictionary *)codeBlocks;
 @end
 
 @interface NSMutableAttributedString (GHFMarkdown_Private)
-- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options andAddAttributes:(NSDictionary *)attributes;
-- (void)substituteGHFMarkdownHeadlinesWithBaseFont:(UIFont *)baseFont;
+- (void)substituteGHFMarkdownLinksWithContextRepoId:(NSString *)contextRepoId;
+- (void)substituteGHFMarkdownTasks;
+- (void)substituteGHFMarkdownHeadlines;
+- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options addAttributes:(NSDictionary *)attributes;
 @end

@@ -7,3 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
+@interface NSMutableAttributedString (GHFMarkdown)
++ (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString;
++ (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString contextRepoId:(NSString *)contextRepoId;
++ (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString contextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes;
+- (void)applyAttributes:(NSDictionary *)attributes;
+@end

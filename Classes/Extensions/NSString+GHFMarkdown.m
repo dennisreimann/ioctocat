@@ -7,12 +7,63 @@
 //
 
 #import <CoreText/CoreText.h>
-#import "NSString+GHFMarkdown.h"
-#import "NSMutableString+GHFMarkdown.h"
+#import "GHFMarkdown.h"
 #import "GHFMarkdown+Private.h"
 
 
 @implementation NSString (GHFMarkdown)
+
+- (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId {
+    return [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:self contextRepoId:contextRepoId];
+}
+
+- (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes {
+    return [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:self contextRepoId:contextRepoId attributes:attributes];
+}
+
+- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId {
+    NSMutableString *string = self.mutableCopy;
+    NSDictionary *codeBlocks = [string extractAndSubstituteGHFMarkdownCodeBlocks];
+    NSArray *links = [string linksFromGHFMarkdownLinks];
+    NSArray *users = [string linksFromGHFMarkdownUsernames];
+    NSArray *shas = [string linksFromGHFMarkdownShasWithContextRepoId:repoId];
+    NSArray *issues = [string linksFromGHFMarkdownIssuesWithContextRepoId:repoId];
+    [string insertSubstitutedGHFMarkdownCodeBlocks:codeBlocks];
+    NSMutableArray *all = [NSMutableArray arrayWithCapacity:links.count + users.count + shas.count + issues.count];
+    [all addObjectsFromArray:links];
+    [all addObjectsFromArray:users];
+    [all addObjectsFromArray:shas];
+    [all addObjectsFromArray:issues];
+    return all;
+}
+
+- (NSArray *)headlinesFromGHFMarkdown {
+    NSString *string = self;
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownHeadlineRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    if (!matches.count) return @[];
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    NSRegularExpression *endRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s+#{1,6}\\s*$" options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange headRange = [match rangeAtIndex:1];
+        NSUInteger level = headRange.length;
+        NSRange titleRange = [match rangeAtIndex:2];
+        NSString *title = [string substringWithRange:titleRange];
+        NSString *headline = [string substringWithRange:match.range];
+        NSArray *endMatches = [endRegex matchesInString:title options:NSMatchingReportCompletion range:NSMakeRange(0, title.length)];
+        if (endMatches.count == 1) {
+            titleRange = NSMakeRange(0, title.length - [(NSTextCheckingResult *)endMatches[0] rangeAtIndex:0].length);
+            title = [title substringWithRange:titleRange];
+        }
+        [results addObject:@{
+         @"title": title,
+         @"headline": headline,
+         @"level": [NSNumber numberWithInteger:level],
+         @"titleRange": [NSValue valueWithRange:titleRange],
+         @"range": [NSValue valueWithRange:match.range]}];
+    }
+    return results;
+}
 
 - (NSArray *)linksFromGHFMarkdownLinks {
     NSString *string = self;
@@ -33,6 +84,29 @@
     return results;
 }
 
+- (NSArray *)tasksFromGHFMarkdown {
+    NSString *string = self;
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownTaskRegex options:NSRegularExpressionCaseInsensitive error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    if (!matches.count) return @[];
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange markRange = [match rangeAtIndex:1];
+        NSRange checkRange = [match rangeAtIndex:2];
+        NSRange titleRange = [match rangeAtIndex:3];
+        NSString *check = [string substringWithRange:checkRange];
+        NSString *title = [string substringWithRange:titleRange];
+        BOOL checked = [check isEqualToString:@"x"];
+        [results addObject:@{
+         @"title": title,
+         @"checked": [NSNumber numberWithBool:checked],
+         @"titleRange": [NSValue valueWithRange:titleRange],
+         @"markRange": [NSValue valueWithRange:markRange],
+         @"range": [NSValue valueWithRange:match.range]}];
+	}
+    return results;
+}
+
 - (NSArray *)linksFromGHFMarkdownUsernames {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownUsernameRegex options:NSRegularExpressionCaseInsensitive error:NULL];
@@ -40,12 +114,13 @@
     if (!matches.count) return @[];
     NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
     for (NSTextCheckingResult *match in matches) {
-        NSRange loginRange = [match rangeAtIndex:1];
-        NSString *login = [string substringWithRange:loginRange];
+        NSRange titleRange = [match rangeAtIndex:1];
+        NSString *title = [string substringWithRange:titleRange];
+        NSString *login = [title substringFromIndex:1];
         [results addObject:@{
-         @"title": [NSString stringWithFormat:@"@%@", login],
+         @"title": title,
          @"login": login,
-         @"range": [NSValue valueWithRange:match.range],
+         @"range": [NSValue valueWithRange:titleRange],
          @"url": [NSURL URLWithString:[NSString stringWithFormat:@"/%@", login]]}];
 	}
     return results;
@@ -144,73 +219,6 @@
          @"number": num,
          @"range": [NSValue valueWithRange:match.range] }];
 	}
-    return results;
-}
-
-- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId {
-    NSMutableString *string = self.mutableCopy;
-    [string extractAndSubstituteGHFMarkdownCodeBlocks];
-    NSArray *links = [string linksFromGHFMarkdownLinks];
-    NSArray *users = [string linksFromGHFMarkdownUsernames];
-    NSArray *shas = [string linksFromGHFMarkdownShasWithContextRepoId:repoId];
-    NSArray *issues = [string linksFromGHFMarkdownIssuesWithContextRepoId:repoId];
-    NSMutableArray *all = [NSMutableArray arrayWithCapacity:links.count + users.count + issues.count];
-    [all addObjectsFromArray:links];
-    [all addObjectsFromArray:users];
-    [all addObjectsFromArray:shas];
-    [all addObjectsFromArray:issues];
-    return all;
-}
-
-- (NSArray *)tasksFromGHFMarkdown {
-    NSString *string = self;
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownTaskRegex options:NSRegularExpressionCaseInsensitive error:NULL];
-    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
-    if (!matches.count) return @[];
-    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
-    for (NSTextCheckingResult *match in matches) {
-        NSRange markRange = [match rangeAtIndex:1];
-        NSRange checkRange = [match rangeAtIndex:2];
-        NSRange titleRange = [match rangeAtIndex:3];
-        NSString *check = [string substringWithRange:checkRange];
-        NSString *title = [string substringWithRange:titleRange];
-        BOOL checked = [check isEqualToString:@"x"];
-        NSString *mark = checked ? @"\U00002611" : @"\U000025FB";
-        [results addObject:@{
-         @"title": title,
-         @"mark": mark,
-         @"titleRange": [NSValue valueWithRange:titleRange],
-         @"markRange": [NSValue valueWithRange:markRange],
-         @"range": [NSValue valueWithRange:match.range]}];
-	}
-    return results;
-}
-
-- (NSArray *)headlinesFromGHFMarkdown {
-    NSString *string = self;
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownHeadlineRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
-    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
-    if (!matches.count) return @[];
-    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
-    NSRegularExpression *endRegex = [[NSRegularExpression alloc] initWithPattern:@"\\s+#{1,6}\\s*$" options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
-    for (NSTextCheckingResult *match in matches) {
-        NSRange headRange = [match rangeAtIndex:1];
-        NSUInteger level = headRange.length;
-        NSRange titleRange = [match rangeAtIndex:2];
-        NSString *title = [string substringWithRange:titleRange];
-        NSString *headline = [string substringWithRange:match.range];
-        NSArray *endMatches = [endRegex matchesInString:title options:NSMatchingReportCompletion range:NSMakeRange(0, title.length)];
-        if (endMatches.count == 1) {
-            titleRange = NSMakeRange(0, title.length - [(NSTextCheckingResult *)endMatches[0] rangeAtIndex:0].length);
-            title = [title substringWithRange:titleRange];
-        }
-        [results addObject:@{
-         @"title": title,
-         @"headline": headline,
-         @"level": [NSNumber numberWithInteger:level],
-         @"titleRange": [NSValue valueWithRange:titleRange],
-         @"range": [NSValue valueWithRange:match.range]}];
-    }
     return results;
 }
 

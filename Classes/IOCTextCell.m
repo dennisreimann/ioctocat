@@ -1,8 +1,7 @@
 #import "IOCTextCell.h"
 #import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
-#import "NSString+GHFMarkdown.h"
-#import "NSAttributedString+GHFMarkdown.h"
+#import "GHFMarkdown.h"
 #import "TTTAttributedLabel.h"
 
 
@@ -42,12 +41,62 @@
     // parse and modify label text
     if (self.emojiEnabled) text = [text emojizedString];
     if (self.markdownEnabled) {
-        self.contentLabel.text = [NSAttributedString attributedStringFromGHFMarkdown:text attributes:self.defaultAttributes];
-        NSArray *links = [text linksFromGHFMarkdownWithContextRepoId:self.contextRepoId];
-        for (NSDictionary *link in [links reverseObjectEnumerator]) {
-            NSRange range = [self.contentLabel.text rangeOfString:link[@"title"]];
-            [self.contentLabel addLinkToURL:link[@"url"] withRange:range];
+        NSMutableAttributedString *attributedText = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.contextRepoId attributes:self.defaultAttributes];
+        // set up attributes
+        UIFont *font = self.contentLabel.font;
+        CGFloat fontSize = font.pointSize;
+        CTFontRef fontRef = CTFontCreateWithName((__bridge CFStringRef)font.fontName, fontSize, NULL);
+        CTFontRef boldFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, kCTFontBoldTrait, (kCTFontBoldTrait | kCTFontItalicTrait));
+        CTFontRef italicFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, kCTFontItalicTrait, (kCTFontBoldTrait | kCTFontItalicTrait));
+        CTFontRef boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(fontRef, fontSize, NULL, (kCTFontBoldTrait | kCTFontItalicTrait), (kCTFontBoldTrait | kCTFontItalicTrait));
+        // fix for cases in that font ref variants cannot be resolved - looking at you, HelveticaNeue!
+        if (!boldItalicFontRef || !italicFontRef) {
+            UIFont *boldFont = [UIFont boldSystemFontOfSize:fontSize];
+            UIFont *italicFont = [UIFont italicSystemFontOfSize:fontSize];
+            if (!boldFontRef) boldFontRef = CTFontCreateWithName((__bridge CFStringRef)boldFont.fontName, fontSize, NULL);
+            if (!italicFontRef) italicFontRef = CTFontCreateWithName((__bridge CFStringRef)italicFont.fontName, fontSize, NULL);
+            if (!boldItalicFontRef) boldItalicFontRef = CTFontCreateCopyWithSymbolicTraits(italicFontRef, fontSize, NULL, kCTFontBoldTrait, kCTFontBoldTrait);
         }
+        CTFontRef h1FontRef = CTFontCreateCopyWithAttributes(boldFontRef, fontSize + 6, NULL, NULL);
+        CTFontRef h2FontRef = CTFontCreateCopyWithAttributes(boldFontRef, fontSize + 4, NULL, NULL);
+        CTFontRef h3FontRef = CTFontCreateCopyWithAttributes(boldFontRef, fontSize + 2, NULL, NULL);
+        NSDictionary *h1Attributes = [NSDictionary dictionaryWithObject:(__bridge id)h1FontRef forKey:(NSString *)kCTFontAttributeName];
+        NSDictionary *h2Attributes = [NSDictionary dictionaryWithObject:(__bridge id)h2FontRef forKey:(NSString *)kCTFontAttributeName];
+        NSDictionary *h3Attributes = [NSDictionary dictionaryWithObject:(__bridge id)h3FontRef forKey:(NSString *)kCTFontAttributeName];
+        NSDictionary *boldAttributes = [NSDictionary dictionaryWithObject:(__bridge id)boldFontRef forKey:(NSString *)kCTFontAttributeName];
+        NSDictionary *italicAttributes = [NSDictionary dictionaryWithObject:(__bridge id)italicFontRef forKey:(NSString *)kCTFontAttributeName];
+        NSDictionary *boldItalicAttributes = [NSDictionary dictionaryWithObject:(__bridge id)boldItalicFontRef forKey:(NSString *)kCTFontAttributeName];
+        NSDictionary *codeAttributes = [NSDictionary dictionaryWithObjects:@[[UIFont fontWithName:@"Courier" size:fontSize], (id)[[UIColor darkGrayColor] CGColor]] forKeys:@[(NSString *)kCTFontAttributeName, (NSString *)kCTForegroundColorAttributeName]];
+        NSDictionary *quoteAttributes = [NSDictionary dictionaryWithObjects:@[(id)[[UIColor grayColor] CGColor]] forKeys:@[(NSString *)kCTForegroundColorAttributeName]];
+        // apply attributes
+        [attributedText applyAttributes:@{
+         @"GHFMarkdown_Headline1": h1Attributes,
+         @"GHFMarkdown_Headline2": h2Attributes,
+         @"GHFMarkdown_Headline3": h3Attributes,
+         @"GHFMarkdown_Headline4": boldAttributes,
+         @"GHFMarkdown_Headline5": boldAttributes,
+         @"GHFMarkdown_Headline6": boldAttributes,
+         @"GHFMarkdown_Bold": boldAttributes,
+         @"GHFMarkdown_Italic": italicAttributes,
+         @"GHFMarkdown_BoldItalic": boldItalicAttributes,
+         @"GHFMarkdown_CodeBlock": codeAttributes,
+         @"GHFMarkdown_CodeInline": codeAttributes,
+         @"GHFMarkdown_Quote": quoteAttributes}];
+        // set text
+        self.contentLabel.text = attributedText;
+        // add links
+        NSRange range = NSMakeRange(0, attributedText.length);
+        [attributedText enumerateAttribute:@"GHFMarkdown_Link" inRange:range options:NULL usingBlock:^(id url, NSRange range, BOOL *stop) {
+            if (url) [self.contentLabel addLinkToURL:url withRange:range];
+        }];
+        // release font refs
+        CFRelease(fontRef);
+        CFRelease(h1FontRef);
+        CFRelease(h2FontRef);
+        CFRelease(h3FontRef);
+        CFRelease(boldFontRef);
+        CFRelease(italicFontRef);
+        CFRelease(boldItalicFontRef);
     } else {
         self.contentLabel.text = text;
     }

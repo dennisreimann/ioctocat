@@ -14,9 +14,7 @@
 #import "NSURL+Extensions.h"
 #import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
-#import "NSString+GHFMarkdown.h"
-#import "NSMutableString+GHFMarkdown.h"
-#import "NSAttributedString+GHFMarkdown.h"
+#import "GHFMarkdown.h"
 #import "NSDictionary+Extensions.h"
 #import "TTTAttributedLabel.h"
 

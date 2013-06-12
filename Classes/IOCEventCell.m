@@ -28,7 +28,6 @@
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *titleLabel;
 @property(nonatomic,weak)IBOutlet TTTAttributedLabel *contentLabel;
-@property(nonatomic,assign)NSInteger truncationLength;
 @end
 
 
@@ -63,7 +62,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	_event = event;
 	self.titleLabel.text = self.event.title;
 	self.dateLabel.text = [self.event.date prettyDate];
-    self.truncationLength = self.event.isCommentEvent ? 160 : 0;
+    self.contentLabel.lineBreakMode = self.event.isCommentEvent ? NSLineBreakByTruncatingTail : NSLineBreakByWordWrapping;
+	self.contentLabel.numberOfLines = self.event.isCommentEvent ? 3 : 0;
     self.contentText = self.event.content;
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
@@ -143,10 +143,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     if (self.emojiEnabled) text = [text emojizedString];
     NSMutableString *mutableText = [text mutableCopy];
     [mutableText substituteGHFMarkdown];
-    if (self.truncationLength && mutableText.length > self.truncationLength) {
-        NSRange range = {self.truncationLength, mutableText.length - self.truncationLength};
-        [mutableText replaceCharactersInRange:range withString:@"…"];
-    }
     text = [[mutableText stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.contentLabel.text = [[NSAttributedString alloc] initWithString:text attributes:self.defaultAttributes];
     [self adjustContentTextHeight];

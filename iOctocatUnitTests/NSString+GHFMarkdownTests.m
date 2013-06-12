@@ -137,6 +137,14 @@
     expect(sha[@"url"]).to.beNil();
 }
 
+- (void)testLinksFromGHFMarkdownWithContextRepoIdAndImagesInCodeBlocks {
+    NSString *string = @"This is an #123 issue reference and this\n\n```\ncode block [has a link](http://ioctocat.com) and this is an ![image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)\n```\n\nwithin a code block.";
+    NSArray *links = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
+    expect(links.count).to.equal(1);
+    NSDictionary *link = links[0];
+    expect(link[@"title"]).to.equal(@"#123");
+}
+
 - (void)testGhfmarkdownHeadlines {
     NSString *string = @"Text\n\n# Headline\n\nMore Text";
     NSArray *headlines = [string headlinesFromGHFMarkdown];

@@ -14,4 +14,6 @@
 - (void)substituteGHFMarkdownTasks;
 - (void)substituteGHFMarkdownHeadlines;
 - (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
+- (NSDictionary *)extractAndSubstituteGHFMarkdownCodeBlocks;
+- (void)insertSubstitutedGHFMarkdownCodeBlocks:(NSDictionary *)codeBlocks;
 @end

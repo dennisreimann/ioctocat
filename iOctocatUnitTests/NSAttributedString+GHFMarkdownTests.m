@@ -142,15 +142,15 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeBlock {
-    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nruby\nputs 'Test'\n\n\na code block."];
-    [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 17)];
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nputs 'Test'\n\n\na code block."];
+    [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 12)];
     expect([NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n```ruby\nputs 'Test'\n```\n\na code block."]).to.equal(expected);
 }
 
 - (void)testAttributedStringFromMarkdownWithCodeBlocksAtStringBounds {
-    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"ruby\nputs 'Test'\n\n\na code block\n\njavascript\nalert('Test');\n"];
-    [expected addAttributes:self.codeAttributes range:NSMakeRange(0, 17)];
-    [expected addAttributes:self.codeAttributes range:NSMakeRange(33, 26)];
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"puts 'Test'\n\n\na code block\n\nalert('Test');\n"];
+    [expected addAttributes:self.codeAttributes range:NSMakeRange(0, 12)];
+    [expected addAttributes:self.codeAttributes range:NSMakeRange(28, 15)];
     expect([NSAttributedString attributedStringFromGHFMarkdown:@"```ruby\nputs 'Test'\n```\n\na code block\n\n```javascript\nalert('Test');\n```"]).to.equal(expected);
 }
 
@@ -158,6 +158,12 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nputs 'Test'\n\na pre block."];
     [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 11)];
     expect([NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."]).to.equal(expected);
+}
+
+- (void)testAttributedStringFromGHFMarkdownWithCodeBlockAndContainingStuff {
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n**bold** *italic* [leave this alone](http://link.com) test\n\n\na code block."];
+    [expected addAttributes:self.codeAttributes range:NSMakeRange(10, 59)];
+    expect([NSAttributedString attributedStringFromGHFMarkdown:@"This has\n\n```**bold** *italic* [leave this alone](http://link.com) test\n```\n\na code block."]).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithTasksAndLinks {

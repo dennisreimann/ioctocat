@@ -7,6 +7,7 @@
 //
 
 #import <CoreText/CoreText.h>
+#import <CommonCrypto/CommonDigest.h>
 #import "NSMutableString+GHFMarkdown.h"
 #import "NSString+GHFMarkdown.h"
 
@@ -58,7 +59,7 @@
 - (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options {
     NSMutableString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:options error:NULL];
-    NSArray *matches = matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
     if (matches.count) {
         NSEnumerator *enumerator = [matches reverseObjectEnumerator];
         for (NSTextCheckingResult *match in enumerator) {
@@ -72,6 +73,7 @@
 }
 
 - (void)substituteGHFMarkdown {
+    NSDictionary *codeBlocks = [self extractAndSubstituteGHFMarkdownCodeBlocks];
     [self substituteGHFMarkdownLinks];
     [self substituteGHFMarkdownTasks];
     [self substituteGHFMarkdownHeadlines];
@@ -79,8 +81,43 @@
     [self substitutePattern:GHFMarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive)];
     [self substitutePattern:GHFMarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive)];
     [self substitutePattern:GHFMarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive)];
-    [self substitutePattern:GHFMarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators)];
     [self substitutePattern:GHFMarkdownCodeInlineRegex options:(NSRegularExpressionCaseInsensitive)];
+    [self insertSubstitutedGHFMarkdownCodeBlocks:codeBlocks];
+    [self substitutePattern:GHFMarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators)];
+}
+
+- (NSDictionary *)extractAndSubstituteGHFMarkdownCodeBlocks {
+    NSMutableString *string = self;
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    NSMutableDictionary *codeBlocks = [NSMutableDictionary dictionaryWithCapacity:matches.count];
+    if (matches.count) {
+        NSEnumerator *enumerator = [matches reverseObjectEnumerator];
+        for (NSTextCheckingResult *match in enumerator) {
+            NSString *text = [string substringWithRange:match.range];
+            const char *cStr = [text UTF8String];
+            unsigned char result[16];
+            CC_MD5(cStr, strlen(cStr), result);
+            NSString *key = [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+                             result[0], result[1], result[2], result[3],
+                             result[4], result[5], result[6], result[7],
+                             result[8], result[9], result[10], result[11],
+                             result[12], result[13], result[14], result[15]
+                             ];
+            NSString *substitute = [NSString stringWithFormat:@"{gfm-extraction-%@}", key];
+            [string replaceCharactersInRange:match.range withString:substitute];
+            [codeBlocks setObject:text forKey:key];
+        }
+    }
+    return codeBlocks;
+}
+
+- (void)insertSubstitutedGHFMarkdownCodeBlocks:(NSDictionary *)codeBlocks {
+    NSMutableString *string = self;
+    [codeBlocks enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        NSString *substitute = [NSString stringWithFormat:@"{gfm-extraction-%@}", key];
+        [string replaceOccurrencesOfString:substitute withString:obj options:NULL range:NSMakeRange(0, string.length)];
+    }];
 }
 
 @end

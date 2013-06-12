@@ -22,7 +22,7 @@ NSString *const GHFMarkdownBoldItalicRegex = @"(?:^|\\s)([*_]{3}(.+?)[*_]{3})(?:
 NSString *const GHFMarkdownBoldRegex = @"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)";
 NSString *const GHFMarkdownItalicRegex = @"(?:^|\\s)([*_]{1}(.+?)[*_]{1})(?:$|\\s)";
 NSString *const GHFMarkdownQuotedRegex = @"(?:^>\\s?)(.+)";
-NSString *const GHFMarkdownCodeBlockRegex = @"(?:`{3}|<pre>)(.+?)(?:`{3}|</pre>)";
+NSString *const GHFMarkdownCodeBlockRegex = @"(?:`{3}(?:\\w+\n)?|<pre>)(.+?)(?:`{3}|</pre>)";
 NSString *const GHFMarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</code>)";
 
 - (NSArray *)linksFromGHFMarkdownLinks {
@@ -159,7 +159,8 @@ NSString *const GHFMarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</cod
 }
 
 - (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId {
-    NSString *string = self;
+    NSMutableString *string = self.mutableCopy;
+    [string extractAndSubstituteGHFMarkdownCodeBlocks];
     NSArray *links = [string linksFromGHFMarkdownLinks];
     NSArray *users = [string linksFromGHFMarkdownUsernames];
     NSArray *shas = [string linksFromGHFMarkdownShasWithContextRepoId:repoId];

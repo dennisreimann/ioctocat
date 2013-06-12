@@ -12,8 +12,7 @@
 
 @implementation NSString (GHFMarkdown)
 
-NSString *const GHFMarkdownImageRegex = @"!\\[([^\\[\\]]+?)\\]\\((.+?)\\)";
-NSString *const GHFMarkdownLinkRegex = @"\\[([^\\[\\]]+?)\\]\\((.+?)\\)";
+NSString *const GHFMarkdownLinkRegex = @"!?\\[([^\\[\\]]+?)\\]\\(([^\\s\\]]+)(\\s+(\"|\')(.+?)(\"|\'))?\\)";
 NSString *const GHFMarkdownShaRegex = @"(?:([\\w-]+)\\/)?(?:([\\w-]+)@)?(\\w{40})";
 NSString *const GHFMarkdownUsernameRegex = @"(?:^|\\s)@{1}([\\w-]+)";
 NSString *const GHFMarkdownIssueRegex = @"(?:([\\w-]+)\\/)?([\\w-]+)?#{1}(\\d+)";
@@ -31,26 +30,7 @@ NSString *const GHFMarkdownCodeInlineRegex = @"(?:`{1}|<code>)(.+?)(?:`{1}|</cod
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownLinkRegex options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
     if (!matches.count) return @[];
-    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
-    for (NSTextCheckingResult *match in matches) {
-        NSRange titleRange = [match rangeAtIndex:1];
-        NSRange urlRange = [match rangeAtIndex:2];
-        NSString *title = [string substringWithRange:titleRange];
-        NSString *url = [string substringWithRange:urlRange];
-        [results addObject:@{
-         @"title": title,
-         @"range": [NSValue valueWithRange:match.range],
-         @"url": [NSURL URLWithString:url]}];
-	}
-    return results;
-}
-
-- (NSArray *)linksFromGHFMarkdownImages {
-    NSString *string = self;
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownImageRegex options:NSRegularExpressionCaseInsensitive error:NULL];
-    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
-    if (!matches.count) return @[];
-    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    NSMutableArray *results = [[NSMutableArray alloc] init];
     for (NSTextCheckingResult *match in matches) {
         NSRange titleRange = [match rangeAtIndex:1];
         NSRange urlRange = [match rangeAtIndex:2];

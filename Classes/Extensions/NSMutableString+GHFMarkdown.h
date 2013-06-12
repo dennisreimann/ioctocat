@@ -10,7 +10,6 @@
 
 @interface NSMutableString (GHFMarkdown)
 - (void)substituteGHFMarkdown;
-- (void)substituteGHFMarkdownImages;
 - (void)substituteGHFMarkdownLinks;
 - (void)substituteGHFMarkdownTasks;
 - (void)substituteGHFMarkdownHeadlines;

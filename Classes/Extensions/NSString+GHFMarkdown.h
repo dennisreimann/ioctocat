@@ -25,7 +25,6 @@ extern NSString *const GHFMarkdownCodeInlineRegex;
 @interface NSString (GHFMarkdown)
 - (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownLinks;
-- (NSArray *)linksFromGHFMarkdownImages;
 - (NSArray *)linksFromGHFMarkdownUsernames;
 - (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId;
 - (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId;

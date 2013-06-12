@@ -9,8 +9,8 @@
 - (void)testGhfmarkdownLinks {
     NSString *string = @"This [is a link](http://ioctocat.com) and this text.";
     NSArray *links = [string linksFromGHFMarkdownLinks];
-    NSDictionary *link = links[0];
     expect(links.count).to.equal(1);
+    NSDictionary *link = links[0];
     expect(link[@"title"]).to.equal(@"is a link");
     expect(link[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com"]);
 }
@@ -18,9 +18,9 @@
 - (void)testGhfmarkdownLinksAtStringBounds {
     NSString *string = @"[Link at start](http://ioctocat.com) and a [link at the end](https://github.com/)";
     NSArray *links = [string linksFromGHFMarkdownLinks];
+    expect(links.count).to.equal(2);
     NSDictionary *link1 = links[0];
     NSDictionary *link2 = links[1];
-    expect(links.count).to.equal(2);
     expect(link1[@"title"]).to.equal(@"Link at start");
     expect(link1[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com"]);
     expect(link2[@"title"]).to.equal(@"link at the end");
@@ -29,23 +29,35 @@
 
 - (void)testGhfmarkdownImages {
     NSString *string = @"This is ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png).";
-    NSArray *images = [string linksFromGHFMarkdownImages];
-    NSDictionary *image = images[0];
+    NSArray *images = [string linksFromGHFMarkdownLinks];
     expect(images.count).to.equal(1);
+    NSDictionary *image = images[0];
     expect(image[@"title"]).to.equal(@"an image");
     expect(image[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com/img/iOctocat-GitHub_iOS.png"]);
 }
 
 - (void)testGhfmarkdownImagesAtStringBounds {
     NSString *string = @"![Image at start](http://ioctocat.com/img/iOctocat.png) and an ![image at the end](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)";
-    NSArray *images = [string linksFromGHFMarkdownImages];
+    NSArray *images = [string linksFromGHFMarkdownLinks];
+    expect(images.count).to.equal(2);
     NSDictionary *img1 = images[0];
     NSDictionary *img2 = images[1];
-    expect(images.count).to.equal(2);
     expect(img1[@"title"]).to.equal(@"Image at start");
     expect(img1[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com/img/iOctocat.png"]);
     expect(img2[@"title"]).to.equal(@"image at the end");
     expect(img2[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com/img/iOctocat-GitHub_iOS.png"]);
+}
+
+- (void)testGhfmarkdownLinksAndImages {
+    NSString *string = @"This [is a link](http://ioctocat.com) and this an ![image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png).";
+    NSArray *links = [string linksFromGHFMarkdownLinks];
+    expect(links.count).to.equal(2);
+    NSDictionary *link = links[0];
+    NSDictionary *image = links[1];
+    expect(link[@"title"]).to.equal(@"is a link");
+    expect(link[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com"]);
+    expect(image[@"title"]).to.equal(@"image");
+    expect(image[@"url"]).to.equal([NSURL URLWithString:@"http://ioctocat.com/img/iOctocat-GitHub_iOS.png"]);
 }
 
 - (void)testGhfmarkdownUsernames {
@@ -72,10 +84,10 @@
 - (void)testGhfmarkdownIssuesWithContextRepoId {
     NSString *string = @"This is an #123 issue reference and here's a full dennisreimann/masq#456 reference and iosdeveloper#789.";
     NSArray *issues = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
+    expect(issues.count).to.equal(3);
     NSDictionary *issue1 = issues[0];
     NSDictionary *issue2 = issues[1];
     NSDictionary *issue3 = issues[2];
-    expect(issues.count).to.equal(3);
     expect(issue1[@"title"]).to.equal(@"#123");
     expect(issue1[@"number"]).to.equal(@"123");
     expect(issue1[@"url"]).to.equal([NSURL URLWithString:@"/dennisreimann/ioctocat/issues/123"]);
@@ -90,8 +102,8 @@
 - (void)testGhfmarkdownIssuesWithoutContextRepoId {
     NSString *string = @"This is an #123 issue reference.";
     NSArray *issues = [string linksFromGHFMarkdownWithContextRepoId:nil];
-    NSDictionary *issue = issues[0];
     expect(issues.count).to.equal(1);
+    NSDictionary *issue = issues[0];
     expect(issue[@"title"]).to.equal(@"#123");
     expect(issue[@"number"]).to.equal(@"123");
     expect(issue[@"url"]).to.beNil();
@@ -100,10 +112,10 @@
 - (void)testGhfmarkdownShasWithContextRepoId {
     NSString *string = @"ed46435517b28c7112401a78d41d6ac16c999734 and dennisreimann/masq@16c999e8c71134401a78d4d46435517b2271d6ac and iosdeveloper@c71134401a78d4d464316c999e85517b2271d6ac.";
     NSArray *shas = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
+    expect(shas.count).to.equal(3);
     NSDictionary *sha1 = shas[0];
     NSDictionary *sha2 = shas[1];
     NSDictionary *sha3 = shas[2];
-    expect(shas.count).to.equal(3);
     expect(sha1[@"title"]).to.equal(@"ed46435517b28c7112401a78d41d6ac16c999734");
     expect(sha1[@"sha"]).to.equal(@"ed46435517b28c7112401a78d41d6ac16c999734");
     expect(sha1[@"url"]).to.equal([NSURL URLWithString:@"/dennisreimann/ioctocat/commit/ed46435517b28c7112401a78d41d6ac16c999734"]);
@@ -118,8 +130,8 @@
 - (void)testGhfmarkdownShasWithoutContextRepoId {
     NSString *string = @"ed46435517b28c7112401a78d41d6ac16c999734 and no more";
     NSArray *shas = [string linksFromGHFMarkdownWithContextRepoId:nil];
-    NSDictionary *sha = shas[0];
     expect(shas.count).to.equal(1);
+    NSDictionary *sha = shas[0];
     expect(sha[@"title"]).to.equal(@"ed46435517b28c7112401a78d41d6ac16c999734");
     expect(sha[@"sha"]).to.equal(@"ed46435517b28c7112401a78d41d6ac16c999734");
     expect(sha[@"url"]).to.beNil();

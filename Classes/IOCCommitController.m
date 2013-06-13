@@ -18,6 +18,7 @@
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
+#import "SVProgressHUD.h"
 #import "GradientButton.h"
 #import "NSURL+Extensions.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
@@ -90,6 +91,11 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     [self.commit.repository checkAssignment:self.currentUser usingBlock:^(BOOL isAssignee) {
         self.isAssignee = isAssignee;
     }];
+    // comment menu
+    UIMenuController.sharedMenuController.menuItems = @[
+                                                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) action:@selector(editComment:)],
+                                                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(deleteComment:)]];
+    [UIMenuController.sharedMenuController update];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -108,7 +114,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 		[self.commit.comments loadWithSuccess:^(GHResource *instance, id data) {
 			[self displayCommentsChange];
 		}];
-	} else if (self.commit.isChanged) {
+	} else if (self.commit.comments.isChanged) {
 		[self displayCommentsChange];
 	}
 }
@@ -168,6 +174,13 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 #pragma mark Actions
 
+- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture {
+    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
+        [[UIMenuController sharedMenuController] setTargetRect:self.navigationController.navigationBar.frame inView:self.navigationController.view];
+        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
+    }
+}
+
 - (void)openURL:(NSURL *)url {
     UIViewController *viewController = [IOCViewControllerFactory viewControllerForURL:url];
     if (viewController) [self.navigationController pushViewController:viewController animated:YES];
@@ -189,17 +202,28 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 
 - (IBAction)addComment:(id)sender {
 	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
-	comment.user = self.currentUser;
 	comment.commitID = self.commit.commitID;
-	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.commit.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
+	[self editComment:comment];
 }
 
-- (void)handleLongPress:(UILongPressGestureRecognizer *)longPressGesture {
-    if (longPressGesture.state == UIGestureRecognizerStateBegan) {
-        [[UIMenuController sharedMenuController] setTargetRect:self.navigationController.navigationBar.frame inView:self.navigationController.view];
-        [[UIMenuController sharedMenuController] setMenuVisible:YES animated:YES];
-    }
+- (void)editComment:(GHComment *)comment {
+    IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.commit.comments];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)deleteComment:(GHComment *)comment {
+    [self.commit.comments deleteObject:comment start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
+    } success:^(GHResource *instance, id data) {
+		[SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Deleted comment", nil)];
+        [self displayCommentsChange];
+    } failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Deleting comment failed", nil)];
+    }];
+}
+
+- (BOOL)canManageComment:(GHComment *)comment {
+    return self.isAssignee || comment.user == self.currentUser;
 }
 
 #pragma mark TableView
@@ -307,6 +331,21 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.commentButton.frame = btnFrame;
 }
 
+#pragma mark Menu
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:IOCTextCell.class];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell isKindOfClass:IOCTextCell.class] && action == @selector(copy:);
+}
+
+- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    return YES;
+}
+
 #pragma mark Responder
 
 - (BOOL)canBecomeFirstResponder {
@@ -323,5 +362,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (void)copy:(id)sender {
     [UIPasteboard generalPasteboard].string = self.commit.shortenedSha;
 }
+
+
 
 @end

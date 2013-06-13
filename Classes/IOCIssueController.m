@@ -161,6 +161,11 @@
 	}];
 }
 
+// displaying the new data gets done via viewWillAppear
+- (void)savedIssueObject:(id)object	{
+	[self.listController reloadIssues];
+}
+
 #pragma mark Actions
 
 - (void)openURL:(NSURL *)url {
@@ -202,6 +207,24 @@
     }
 }
 
+- (void)toggleIssueState {
+	NSDictionary *params = @{@"state": self.issue.isOpen ? kIssueStateClosed : kIssueStateOpen};
+	NSString *action = self.issue.isOpen ? @"Closing" : @"Reopening";
+	[self.issue saveWithParams:params start:^(GHResource *instance) {
+		NSString *status = [NSString stringWithFormat:@"%@ issue", action];
+		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
+	} success:^(GHResource *instance, id data) {
+		NSString *action = self.issue.isOpen ? @"Reopened" : @"Closed";
+		NSString *status = [NSString stringWithFormat:@"%@ issue", action];
+		[SVProgressHUD showSuccessWithStatus:status];
+		[self displayIssue];
+		[self.listController reloadIssues];
+	} failure:^(GHResource *instance, NSError *error) {
+		NSString *status = [NSString stringWithFormat:@"%@ issue failed", action];
+		[SVProgressHUD showErrorWithStatus:status];
+	}];
+}
+
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
 	[self editComment:comment];
@@ -223,27 +246,8 @@
     }];
 }
 
-- (void)toggleIssueState {
-	NSDictionary *params = @{@"state": self.issue.isOpen ? kIssueStateClosed : kIssueStateOpen};
-	NSString *action = self.issue.isOpen ? @"Closing" : @"Reopening";
-	[self.issue saveWithParams:params start:^(GHResource *instance) {
-		NSString *status = [NSString stringWithFormat:@"%@ issue", action];
-		[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
-	} success:^(GHResource *instance, id data) {
-		NSString *action = self.issue.isOpen ? @"Reopened" : @"Closed";
-		NSString *status = [NSString stringWithFormat:@"%@ issue", action];
-		[SVProgressHUD showSuccessWithStatus:status];
-		[self displayIssue];
-		[self.listController reloadIssues];
-	} failure:^(GHResource *instance, NSError *error) {
-		NSString *status = [NSString stringWithFormat:@"%@ issue failed", action];
-		[SVProgressHUD showErrorWithStatus:status];
-	}];
-}
-
-// displaying the new data gets done via viewWillAppear
-- (void)savedIssueObject:(id)object	{
-	[self.listController reloadIssues];
+- (BOOL)canManageComment:(GHComment *)comment {
+    return self.isAssignee || comment.user == self.currentUser;
 }
 
 #pragma mark TableView

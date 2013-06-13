@@ -72,6 +72,11 @@
     [self.currentUser checkGistStarring:self.gist usingBlock:^(BOOL isStarring) {
         self.isStarring = isStarring;
     }];
+    // comment menu
+    UIMenuController.sharedMenuController.menuItems = @[
+                                                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) action:@selector(editComment:)],
+                                                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(deleteComment:)]];
+    [UIMenuController.sharedMenuController update];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -166,13 +171,6 @@
 	}
 }
 
-- (IBAction)addComment:(id)sender {
-	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
-	comment.user = self.currentUser;
-	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.gist.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)toggleGistStarring {
 	BOOL state = !self.isStarring;
 	NSString *status = state ? NSLocalizedString(@"Starring gist", @"Progress HUD: Starring gist") : NSLocalizedString(@"Unstarring gist", @"Progress HUD: Unstarring gist");
@@ -185,6 +183,31 @@
 		NSString *status = state ? NSLocalizedString(@"Starring gist failed", @"Progress HUD: Starring gist failed") : NSLocalizedString(@"Unstarring gist failed", @"Progress HUD: Unstarring gist failed");
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
+}
+
+- (IBAction)addComment:(id)sender {
+	GHGistComment *comment = [[GHGistComment alloc] initWithGist:self.gist];
+	[self editComment:comment];
+}
+
+- (void)editComment:(GHComment *)comment {
+    IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.gist.comments];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)deleteComment:(GHComment *)comment {
+    [self.gist.comments deleteObject:comment start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
+    } success:^(GHResource *instance, id data) {
+		[SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Deleted comment", nil)];
+        [self displayCommentsChange];
+    } failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Deleting comment failed", nil)];
+    }];
+}
+
+- (BOOL)canManageComment:(GHComment *)comment {
+    return self.gist.user == self.currentUser || comment.user == self.currentUser;
 }
 
 #pragma mark TableView
@@ -302,6 +325,21 @@
 	btnFrame.origin.x = margin;
 	btnFrame.size.width = width;
 	self.commentButton.frame = btnFrame;
+}
+
+#pragma mark Menu
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:IOCTextCell.class];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell isKindOfClass:IOCTextCell.class] && action == @selector(copy:);
+}
+
+- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    return YES;
 }
 
 @end

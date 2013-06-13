@@ -93,6 +93,11 @@
     [self.pullRequest.repository checkAssignment:self.currentUser usingBlock:^(BOOL isAssignee) {
         self.isAssignee = isAssignee;
     }];
+    // comment menu
+    UIMenuController.sharedMenuController.menuItems = @[
+                                                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) action:@selector(editComment:)],
+                                                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(deleteComment:)]];
+    [UIMenuController.sharedMenuController update];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -238,13 +243,6 @@
 	[actionSheet showInView:self.view];
 }
 
-- (IBAction)addComment:(id)sender {
-	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
-	comment.user = self.currentUser;
-	IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
-	[self.navigationController pushViewController:viewController animated:YES];
-}
-
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:NSLocalizedString(@"Edit", @"Action Sheet: Edit")]) {
@@ -278,6 +276,31 @@
 		NSString *status = [NSString stringWithFormat:@"%@ pull request failed", action];
 		[SVProgressHUD showErrorWithStatus:status];
 	}];
+}
+
+- (IBAction)addComment:(id)sender {
+	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
+    [self editComment:comment];
+}
+
+- (void)editComment:(GHComment *)comment {
+    IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
+    [self.navigationController pushViewController:viewController animated:YES];
+}
+
+- (void)deleteComment:(GHComment *)comment {
+    [self.pullRequest.comments deleteObject:comment start:^(GHResource *instance) {
+		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
+    } success:^(GHResource *instance, id data) {
+		[SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"Deleted comment", nil)];
+        [self displayCommentsChange];
+    } failure:^(GHResource *instance, NSError *error) {
+		[SVProgressHUD showErrorWithStatus:NSLocalizedString(@"Deleting comment failed", nil)];
+    }];
+}
+
+- (BOOL)canManageComment:(GHComment *)comment {
+    return self.isAssignee || comment.user == self.currentUser;
 }
 
 #pragma mark TableView
@@ -378,6 +401,21 @@
 	btnFrame.origin.x = margin;
 	btnFrame.size.width = width;
 	self.commentButton.frame = btnFrame;
+}
+
+#pragma mark Menu
+
+- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [[self tableView:tableView cellForRowAtIndexPath:indexPath] isKindOfClass:IOCTextCell.class];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
+    return [cell isKindOfClass:IOCTextCell.class] && action == @selector(copy:);
+}
+
+- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+    return YES;
 }
 
 @end

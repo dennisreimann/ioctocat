@@ -1,11 +1,10 @@
 #import "IOCTextCell.h"
 
 
-@class GHComment, GHUser;
+@class GHComment;
 
 @protocol IOCCommentCellDelegate <NSObject>
-- (GHUser *)currentUser;
-@optional
+- (BOOL)canManageComment:(GHComment *)comment;
 - (void)editComment:(GHComment *)comment;
 - (void)deleteComment:(GHComment *)comment;
 @end

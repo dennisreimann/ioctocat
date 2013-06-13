@@ -22,8 +22,6 @@
 @property(nonatomic,strong)MAXCompletion *emojiCompletion;
 @property(nonatomic,strong)NSMutableDictionary *issueCompletionDataSource;
 @property(nonatomic,weak)IBOutlet UITextView *bodyView;
-
-- (IBAction)postComment:(id)sender;
 @end
 
 

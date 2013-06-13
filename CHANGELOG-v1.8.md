@@ -9,6 +9,7 @@ Additions:
 * Markdown rendering in issues and comments
 * List tags for repository
 * Pagination for lists
+* Copy, edit and delete comments (via long press on the comment)
 
 Changes:
 

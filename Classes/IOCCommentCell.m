@@ -84,13 +84,12 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     }
 }
 
--(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
-    if (action == @selector(copy:)) {
-        return YES;
-    } else if (action == @selector(editComment:) || action == @selector(deleteComment:)) {
-        return self.delegate.currentUser == self.comment.user && [self.delegate respondsToSelector:action];
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(editComment:) || action == @selector(deleteComment:)) {
+        return [self.delegate canManageComment:self.comment];
+    } else {
+        return [super canPerformAction:action withSender:sender];
     }
-    return NO;
 }
 
 #pragma mark Layout

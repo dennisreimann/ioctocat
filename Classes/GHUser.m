@@ -161,13 +161,13 @@
 
 #pragma mark User Following
 
-- (void)checkUserFollowing:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)checkUserFollowing:(GHUser *)user usingBlock:(void (^)(BOOL isStarring))block {
 	NSString *path = [NSString stringWithFormat:kUserFollowFormat, user.login];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
-		if (success) success(self, data);
+	[resource loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
+		if (block) block(YES);
 	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
+		if (block) block(NO);
 	}];
 }
 
@@ -175,7 +175,7 @@
 	NSString *path = [NSString stringWithFormat:kUserFollowFormat, user.login];
 	NSString *method = follow ? kRequestMethodPut : kRequestMethodDelete;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:nil path:path method:method start:nil success:^(GHResource *instance, id data) {
+	[resource saveWithParams:nil path:path method:method start:NULL success:^(GHResource *instance, id data) {
 		if (follow) {
 			[self.following addObject:user];
 		} else {
@@ -190,13 +190,13 @@
 
 #pragma mark Gist Stars
 
-- (void)checkGistStarring:(GHGist *)gist success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)checkGistStarring:(GHGist *)gist usingBlock:(void (^)(BOOL isStarring))block {
 	NSString *path = [NSString stringWithFormat:kGistStarFormat, gist.gistId];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil path:path method:kRequestMethodGet start:nil success:^(GHResource *instance, id data) {
-		if (success) success(self, data);
+	[resource loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
+		if (block) block(YES);
 	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
+		if (block) block(NO);
 	}];
 }
 
@@ -204,7 +204,7 @@
 	NSString *path = [NSString stringWithFormat:kGistStarFormat, gist.gistId];
 	NSString *method = starred ? kRequestMethodPut : kRequestMethodDelete;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:nil path:path method:method start:nil success:^(GHResource *instance, id data) {
+	[resource saveWithParams:nil path:path method:method start:NULL success:^(GHResource *instance, id data) {
 		if (starred) {
 			[self.starredGists addObject:gist];
 		} else {
@@ -219,13 +219,13 @@
 
 #pragma mark Repo Stars
 
-- (void)checkRepositoryStarring:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)checkRepositoryStarring:(GHRepository *)repo usingBlock:(void (^)(BOOL isStarring))block {
 	NSString *path = [NSString stringWithFormat:kRepoStarFormat, repo.owner, repo.name];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil start:nil success:^(GHResource *instance, id data) {
-		if (success) success(self, data);
+	[resource loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
+		if (block) block(YES);
 	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
+		if (block) block(NO);
 	}];
 }
 
@@ -233,7 +233,7 @@
 	NSString *path = [NSString stringWithFormat:kRepoStarFormat, repo.owner, repo.name];
 	NSString *method = starred ? kRequestMethodPut : kRequestMethodDelete;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:nil path:path method:method start:nil success:^(GHResource *instance, id data) {
+	[resource saveWithParams:nil path:path method:method start:NULL success:^(GHResource *instance, id data) {
 		if (starred) {
 			[self.starredRepositories addObject:repo];
 		} else {
@@ -248,13 +248,13 @@
 
 #pragma mark Repo Watching
 
-- (void)checkRepositoryWatching:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
+- (void)checkRepositoryWatching:(GHRepository *)repo usingBlock:(void (^)(BOOL isStarring))block {
 	NSString *path = [NSString stringWithFormat:kRepoWatchFormat, repo.owner, repo.name];
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil path:path method:kRequestMethodGet start:nil success:^(GHResource *instance, id data) {
-		if (success) success(self, data);
+	[resource loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
+		if (block) block(YES);
 	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
+		if (block) block(NO);
 	}];
 }
 
@@ -263,25 +263,13 @@
 	NSString *method = watched ? kRequestMethodPut : kRequestMethodDelete;
 	NSDictionary *params = watched ? @{@"subscribed": @"true"} : nil;
 	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource saveWithParams:params path:path method:method start:nil success:^(GHResource *instance, id data) {
+	[resource saveWithParams:params path:path method:method start:NULL success:^(GHResource *instance, id data) {
 		if (watched) {
 			[self.watchedRepositories addObject:repo];
 		} else {
 			[self.watchedRepositories removeObject:repo];
 		}
 		[self.watchedRepositories markAsChanged];
-		if (success) success(self, data);
-	} failure:^(GHResource *instance, NSError *error) {
-		if (failure) failure(self, error);
-	}];
-}
-
-#pragma mark Repo Assignment
-
-- (void)checkRepositoryAssignment:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure {
-	NSString *path = [NSString stringWithFormat:kRepoAssigneeFormat, repo.owner, repo.name, self.login];
-	GHResource *resource = [[GHResource alloc] initWithPath:path];
-	[resource loadWithParams:nil path:path method:kRequestMethodGet start:nil success:^(GHResource *instance, id data) {
 		if (success) success(self, data);
 	} failure:^(GHResource *instance, NSError *error) {
 		if (failure) failure(self, error);

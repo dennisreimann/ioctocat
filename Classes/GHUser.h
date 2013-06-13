@@ -36,9 +36,8 @@
 - (void)setWatching:(BOOL)watch forRepository:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)setStarring:(BOOL)starred forRepository:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
 - (void)setStarring:(BOOL)starred forGist:(GHGist *)gist success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)checkUserFollowing:(GHUser *)user success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)checkRepositoryStarring:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)checkRepositoryWatching:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)checkGistStarring:(GHGist *)gist success:(resourceSuccess)success failure:(resourceFailure)failure;
-- (void)checkRepositoryAssignment:(GHRepository *)repo success:(resourceSuccess)success failure:(resourceFailure)failure;
+- (void)checkRepositoryStarring:(GHRepository *)repo usingBlock:(void (^)(BOOL isStarring))block;
+- (void)checkRepositoryWatching:(GHRepository *)repo usingBlock:(void (^)(BOOL isWatching))block;
+- (void)checkUserFollowing:(GHUser *)user usingBlock:(void (^)(BOOL isFollowing))block;
+- (void)checkGistStarring:(GHGist *)gist usingBlock:(void (^)(BOOL isStarring))block;
 @end

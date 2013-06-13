@@ -90,13 +90,9 @@
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
 	[self displayPullRequest];
-	// check assignment state
-	[self.currentUser checkRepositoryAssignment:self.pullRequest.repository success:^(GHResource *instance, id data) {
-		self.isAssignee = YES;
-		[self displayAssignmentChange];
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isAssignee = NO;
-	}];
+    [self.pullRequest.repository checkAssignment:self.currentUser usingBlock:^(BOOL isAssignee) {
+        self.isAssignee = isAssignee;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

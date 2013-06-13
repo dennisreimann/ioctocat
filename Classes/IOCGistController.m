@@ -69,12 +69,9 @@
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
 	[self displayGist];
-	// check starring state
-	[self.currentUser checkGistStarring:self.gist success:^(GHResource *instance, id data) {
-		self.isStarring = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isStarring = NO;
-	}];
+    [self.currentUser checkGistStarring:self.gist usingBlock:^(BOOL isStarring) {
+        self.isStarring = isStarring;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -80,18 +80,14 @@
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
 	[self displayIssue];
-	// check assignment state
-	[self.currentUser checkRepositoryAssignment:self.issue.repository success:^(GHResource *instance, id data) {
-		self.isAssignee = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isAssignee = NO;
-	}];
+    [self.issue.repository checkAssignment:self.currentUser usingBlock:^(BOOL isAssignee) {
+        self.isAssignee = isAssignee;
+    }];
     // comment menu
     UIMenuController.sharedMenuController.menuItems = @[
                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Edit", nil) action:@selector(editComment:)],
                        [[UIMenuItem alloc] initWithTitle:NSLocalizedString(@"Delete", nil) action:@selector(deleteComment:)]];
     [UIMenuController.sharedMenuController update];
-
 }
 
 - (void)viewWillAppear:(BOOL)animated {

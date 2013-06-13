@@ -28,6 +28,7 @@
 @property(nonatomic,strong)UILongPressGestureRecognizer *longPressGesture;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
+@property(nonatomic,readwrite)BOOL isAssignee;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *gravatarView;
 @property(nonatomic,weak)IBOutlet GradientButton *commentButton;
@@ -86,6 +87,9 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
 	[self displayCommit];
+    [self.commit.repository checkAssignment:self.currentUser usingBlock:^(BOOL isAssignee) {
+        self.isAssignee = isAssignee;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

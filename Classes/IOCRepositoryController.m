@@ -92,17 +92,13 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	self.tableHeaderView.backgroundColor = background;
 	self.tableView.tableHeaderView = self.tableHeaderView;
 	// check starring state
-	[self.currentUser checkRepositoryStarring:self.repository success:^(GHResource *instance, id data) {
-		self.isStarring = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isStarring = NO;
-	}];
+	[self.currentUser checkRepositoryStarring:self.repository usingBlock:^(BOOL isStarring) {
+        self.isStarring = isStarring;
+    }];
 	// check watching state
-	[self.currentUser checkRepositoryWatching:self.repository success:^(GHResource *instance, id data) {
-		self.isWatching = YES;
-	} failure:^(GHResource *instance, NSError *error) {
-		self.isWatching = NO;
-	}];
+	[self.currentUser checkRepositoryWatching:self.repository usingBlock:^(BOOL isWatching) {
+        self.isWatching = isWatching;
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

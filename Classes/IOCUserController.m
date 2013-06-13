@@ -86,11 +86,9 @@
 	self.gravatarView.layer.masksToBounds = YES;
 	// check following state
 	if (!self.isProfile) {
-		[self.currentUser checkUserFollowing:self.user success:^(GHResource *instance, id data) {
-			self.isFollowing = YES;
-		} failure:^(GHResource *instance, NSError *error) {
-			self.isFollowing = NO;
-		}];
+        [self.currentUser checkUserFollowing:self.user usingBlock:^(BOOL isFollowing) {
+            self.isFollowing = isFollowing;
+        }];
 	}
 }
 

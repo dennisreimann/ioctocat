@@ -127,6 +127,14 @@
 	return _closedPullRequests;
 }
 
+- (GHUsers *)assignees {
+	if (!_assignees) {
+		NSString *path = [NSString stringWithFormat:kRepoAssigneesFormat, self.owner, self.name];
+		_assignees = [[GHUsers alloc] initWithPath:path];
+	}
+	return _assignees;
+}
+
 - (GHUsers *)contributors {
 	if (!_contributors) {
 		NSString *path = [NSString stringWithFormat:kRepoContributorsFormat, self.owner, self.name];
@@ -171,6 +179,21 @@
         NSString *owner = [parentDict safeStringForKeyPath:@"owner.login"];
         NSString *name = [parentDict safeStringForKey:@"name"];
         self.parent = [[GHRepository alloc] initWithOwner:owner andName:name];
+    }
+}
+
+#pragma mark Repo Assignment
+
+- (void)checkAssignment:(GHUser *)user usingBlock:(void (^)(BOOL isAssignee))block {
+	if (self.assignees.isLoaded) {
+        BOOL isAssignee = [self.assignees containsObject:user];
+        if (block) block(isAssignee);
+    } else {
+        [self.assignees loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
+            if (block) block(YES);
+        } failure:^(GHResource *instance, NSError *error) {
+            if (block) block(NO);
+        }];
     }
 }
 

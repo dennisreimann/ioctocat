@@ -4,6 +4,7 @@
 @class GHIssues, GHPullRequests, GHForks, GHTags, GHBranches, GHMilestones, GHLabels, GHUser, GHReadme, GHEvents, GHUsers;
 
 @interface GHRepository : GHResource
+@property(nonatomic,readonly)NSString *repoId;
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *owner;
 @property(nonatomic,strong)NSString *descriptionText;
@@ -25,6 +26,7 @@
 @property(nonatomic,strong)GHEvents *events;
 @property(nonatomic,strong)GHUsers *contributors;
 @property(nonatomic,strong)GHUsers *stargazers;
+@property(nonatomic,strong)GHUsers *assignees;
 @property(nonatomic,readonly)GHUser *user;
 @property(nonatomic,readonly)GHRepository *parent;
 @property(nonatomic,readwrite)NSInteger forkCount;
@@ -37,5 +39,5 @@
 
 - (id)initWithOwner:(NSString *)owner andName:(NSString *)name;
 - (void)setOwner:(NSString *)owner andName:(NSString *)name;
-- (NSString *)repoId;
+- (void)checkAssignment:(GHUser *)user usingBlock:(void (^)(BOOL isAssignee))block;
 @end

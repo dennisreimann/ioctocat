@@ -104,6 +104,15 @@
 	return dict;
 }
 
+- (NSURL *)URLByAppendingFragment:(NSString *)fragment {
+    NSString *oldFragment = self.fragment;
+    NSString *absoluteString = self.absoluteString;
+    if (oldFragment) [absoluteString substringWithRange:NSMakeRange(0, absoluteString.length - oldFragment.length + 1)];
+    absoluteString = [absoluteString stringByAppendingString:@"#"];
+    absoluteString = [absoluteString stringByAppendingString:fragment];
+    return [NSURL URLWithString:absoluteString];
+}
+
 // Checks the host to see whether or not this is a GitHub URL.
 // Assumes that relative links are also GitHubcom URLs.
 - (BOOL)isGitHubURL {

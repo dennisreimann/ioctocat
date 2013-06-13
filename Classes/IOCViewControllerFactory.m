@@ -13,6 +13,7 @@
 #import "IOCSearchController.h"
 #import "IOCTreeController.h"
 #import "IOCBlobsController.h"
+#import "GHAccount.h"
 #import "GHUser.h"
 #import "GHGist.h"
 #import "GHBlob.h"
@@ -66,14 +67,19 @@
 		}
 	} else {
         BOOL isStatic = comps.count == 1 || (comps.count >= 2 && [staticPages containsObject:comps[1]]);
+        if (!url.host) {
+            NSString *currentEndpoint = iOctocat.sharedInstance.currentAccount.endpoint;
+            NSString *fragment = url.fragment;
+            url = [[NSURL URLWithString:currentEndpoint] URLByAppendingPathComponent:url.path];
+            if (fragment) url = [url URLByAppendingFragment:fragment];
+        }
         if (isStatic) {
-            NSURL *pageURL = [NSURL URLWithFormat:@"%@%@", kGitHubComURL, url.path];
-            viewController = [[IOCWebController alloc] initWithURL:pageURL];
+            viewController = [[IOCWebController alloc] initWithURL:url];
         } else if (comps.count == 2) {
             NSString *component = comps[1];
             if ([component isEqualToString:@"search"]) {
                 viewController = [[IOCSearchController alloc] init];
-            } else{
+            } else {
                 // User (or Organization)
                 GHUser *user = [iOctocat.sharedInstance userWithLogin:component];
                 user.htmlURL = url;

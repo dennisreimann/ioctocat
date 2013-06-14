@@ -342,8 +342,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     return [cell isKindOfClass:IOCTextCell.class] && action == @selector(copy:);
 }
 
-- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    return YES;
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 }
 
 #pragma mark Responder

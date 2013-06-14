@@ -18,9 +18,8 @@
 	return self;
 }
 
-- (NSURL *)resourcePath {
-	// Dynamic resourcePath, because it depends on the
-	// gist id which isn't always available in advance
+- (NSString *)resourcePath {
+	// Dynamic resourcePath, because it depends on the gist id which isn't always available in advance
 	return [NSString stringWithFormat:kGistCommentsFormat, self.gist.gistId];
 }
 

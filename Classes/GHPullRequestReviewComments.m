@@ -19,7 +19,7 @@
 }
 
 // Dynamic resourcePath, because it depends on the issue num which isn't always available in advance
-- (NSURL *)resourcePath {
+- (NSString *)resourcePath {
 	return [NSString stringWithFormat:kGHPullRequestCommentsFormat, self.parent.repository.owner, self.parent.repository.name, self.parent.number];
 }
 

@@ -110,9 +110,9 @@
 	self.nameLabel.text = (!self.organization.name || self.organization.name.isEmpty) ? self.organization.login : self.organization.name;
 	self.reposCountLabel.text = [NSString stringWithFormat:@"%d repositories", self.organization.publicRepoCount];
 	if (self.organization.gravatar) self.gravatarView.image = self.organization.gravatar;
-	[self.locationCell setContentText:self.organization.location];
-	[self.blogCell setContentText:[self.organization.blogURL host]];
-	[self.emailCell setContentText:self.organization.email];
+	self.locationCell.contentText = self.organization.location;
+	self.blogCell.contentText = self.organization.blogURL.host;
+	self.emailCell.contentText = self.organization.email;
 }
 
 - (void)displayOrganizationChange {

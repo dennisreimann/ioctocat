@@ -134,9 +134,9 @@
 	self.nameLabel.text = (!self.user.name || self.user.name.isEmpty) ? self.user.login : self.user.name;
 	self.companyLabel.text = (!self.user.company || self.user.company.isEmpty) ? [NSString stringWithFormat:self.user.followersCount == 1 ? NSLocalizedString(@"%d follower", @"User: Single follower") : NSLocalizedString(@"%d followers", @"User: Multiple followers"), self.user.followersCount] : self.user.company;
 	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
-	[self.locationCell setContentText:self.user.location];
-	[self.blogCell setContentText:self.user.blogURL.host];
-	[self.emailCell setContentText:self.user.email];
+	self.locationCell.contentText = self.user.location;
+	self.blogCell.contentText = self.user.blogURL.host;
+	self.emailCell.contentText = self.user.email;
 }
 
 - (void)displayUserChange {

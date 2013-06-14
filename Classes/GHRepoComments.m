@@ -19,7 +19,7 @@
 	return self;
 }
 
-- (NSURL *)resourcePath {
+- (NSString *)resourcePath {
 	// Dynamic resourcePath, because it depends on the
 	// SHA which isn't always available in advance
 	return [NSString stringWithFormat:kRepoCommentsFormat, self.repository.owner, self.repository.name, self.commitID];

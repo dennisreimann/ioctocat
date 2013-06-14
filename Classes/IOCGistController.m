@@ -338,8 +338,7 @@
     return [cell isKindOfClass:IOCTextCell.class] && action == @selector(copy:);
 }
 
-- (BOOL)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-    return YES;
+- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 }
 
 @end

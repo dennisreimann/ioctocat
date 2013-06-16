@@ -1,5 +1,8 @@
 #import "GHComment.h"
 #import "GHUser.h"
+#import "GHRepository.h"
+#import "GHFMarkdown.h"
+#import "NSString+Emojize.h"
 #import "NSDictionary+Extensions.h"
 #import "iOctocat.h"
 
@@ -15,6 +18,10 @@
 	if (!self.user.gravatarURL) {
 		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
 	}
+}
+
+- (GHRepository *)repository {
+    return _repository;
 }
 
 - (BOOL)isNew {
@@ -37,7 +44,17 @@
 
 - (void)setBody:(NSString *)body {
     _bodyWithoutEmailFooter = nil;
+    _attributedBody = nil;
     _body = body;
+}
+
+- (NSMutableAttributedString *)attributedBody {
+    if (!_attributedBody) {
+        NSString *text = self.bodyWithoutEmailFooter;
+        text = [text emojizedString];
+        _attributedBody = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+    }
+    return _attributedBody;
 }
 
 @end

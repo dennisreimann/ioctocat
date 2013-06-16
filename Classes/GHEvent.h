@@ -23,6 +23,7 @@
 @property(nonatomic,strong)GHTag *tag;
 @property(nonatomic,strong)NSString *title;
 @property(nonatomic,strong)NSString *content;
+@property(nonatomic,readonly)NSString *contentForDisplay;
 @property(nonatomic,readonly)NSString *extendedEventType;
 @property(nonatomic,readonly)BOOL isCommentEvent;
 @property(nonatomic,readonly)BOOL read;

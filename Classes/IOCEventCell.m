@@ -12,9 +12,7 @@
 #import "GHPullRequest.h"
 #import "NSDate+Nibware.h"
 #import "NSURL+Extensions.h"
-#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
-#import "GHFMarkdown.h"
 #import "NSDictionary+Extensions.h"
 #import "TTTAttributedLabel.h"
 
@@ -38,8 +36,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.linksEnabled = NO;
-    self.emojiEnabled = YES;
-    self.markdownEnabled = YES;
     UIColor *linkColor = [UIColor colorWithRed:0.203 green:0.441 blue:0.768 alpha:1.000];
     self.gravatarButton.layer.cornerRadius = 3;
     self.gravatarButton.layer.masksToBounds = YES;
@@ -62,7 +58,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	self.dateLabel.text = [self.event.date prettyDate];
     self.contentLabel.lineBreakMode = self.event.isCommentEvent ? NSLineBreakByTruncatingTail : NSLineBreakByWordWrapping;
 	self.contentLabel.numberOfLines = self.event.isCommentEvent ? 3 : 0;
-    self.contentText = self.event.content;
+    self.contentText = self.event.contentForDisplay;
 	NSString *icon = [NSString stringWithFormat:@"%@.png", self.event.extendedEventType];
 	self.iconView.image = [UIImage imageNamed:icon];
 	UIImage *gravatar = self.event.user.gravatar ? self.event.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
@@ -137,12 +133,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 - (void)setContentText:(NSString *)text {
     if ([self.contentText isEqualToString:text]) return;
     _contentText = text;
-    // parse and modify label text
-    if (self.emojiEnabled) text = [text emojizedString];
-    NSMutableString *mutableText = [text mutableCopy];
-    [mutableText substituteGHFMarkdown];
-    text = [[mutableText stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.contentLabel.text = [[NSAttributedString alloc] initWithString:text attributes:self.defaultAttributes];
+    self.contentLabel.text = text;
     [self adjustContentTextHeight];
 }
 

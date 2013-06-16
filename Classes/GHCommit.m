@@ -4,9 +4,16 @@
 #import "GHRepository.h"
 #import "GHRepoComments.h"
 #import "iOctocat.h"
+#import "GHFMarkdown.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+
+
+@interface GHCommit ()
+@property(nonatomic,strong)NSMutableAttributedString *attributedMessage;
+@end
 
 
 @implementation GHCommit
@@ -77,6 +84,15 @@
         _comments = [[GHRepoComments alloc] initWithRepo:self.repository andCommitID:self.commitID];
     }
     return _comments;
+}
+
+- (NSMutableAttributedString *)attributedMessage {
+    if (!_attributedMessage) {
+        NSString *text = self.message;
+        text = [text emojizedString];
+        _attributedMessage = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+    }
+    return _attributedMessage;
 }
 
 - (NSString *)shortenedSha {

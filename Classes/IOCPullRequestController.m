@@ -82,10 +82,6 @@
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest name:NSLocalizedString(@"pull request", nil)];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.pullRequest.comments name:NSLocalizedString(@"comments", nil)];
 	self.descriptionCell.delegate = self;
-	self.descriptionCell.linksEnabled = YES;
-	self.descriptionCell.emojiEnabled = YES;
-	self.descriptionCell.markdownEnabled = YES;
-	self.descriptionCell.contextRepoId = self.pullRequest.repository.repoId;
 	[self layoutTableHeader];
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
@@ -146,7 +142,8 @@
 	self.createdCell.contentText = self.pullRequest.createdAt.prettyDate;
 	self.updatedCell.contentText = self.pullRequest.updatedAt.prettyDate;
 	self.closedCell.contentText = self.pullRequest.closedAt.prettyDate;
-    self.descriptionCell.contentText = self.pullRequest.body;
+    self.descriptionCell.contentText = self.pullRequest.attributedBody;
+    self.descriptionCell.rawContentText = self.pullRequest.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
@@ -344,7 +341,6 @@
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
-        cell.contextRepoId = self.pullRequest.repository.repoId;
 	}
 	cell.delegate = self;
 	GHComment *comment = self.pullRequest.comments[row];

@@ -26,6 +26,7 @@
 @property(nonatomic,readonly)BOOL isOpen;
 @property(nonatomic,readonly)BOOL isMerged;
 @property(nonatomic,readonly)BOOL isMergeable;
+@property(nonatomic,readonly)NSMutableAttributedString *attributedBody;
 
 - (id)initWithRepository:(GHRepository *)repo;
 - (void)mergePullRequest:(NSString *)commitMessage start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure;

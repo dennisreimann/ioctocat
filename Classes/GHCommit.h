@@ -23,6 +23,7 @@
 @property(nonatomic,readonly)NSString *shortenedSha;
 @property(nonatomic,readonly)NSString *shortenedMessage;
 @property(nonatomic,readonly)NSString *extendedMessage;
+@property(nonatomic,readonly)NSMutableAttributedString *attributedMessage;
 @property(nonatomic,readonly)BOOL hasExtendedMessage;
 
 - (id)initWithRepository:(GHRepository *)repo andCommitID:(NSString *)commitID;

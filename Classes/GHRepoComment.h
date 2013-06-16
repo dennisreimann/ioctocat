@@ -9,7 +9,6 @@
 @property(nonatomic,strong)NSString *path;
 @property(nonatomic,assign)NSUInteger position;
 @property(nonatomic,assign)NSUInteger line;
-@property(nonatomic,readonly)GHRepository *repository;
 
 - (id)initWithRepo:(GHRepository *)repo;
 @end

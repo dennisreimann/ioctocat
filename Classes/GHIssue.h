@@ -21,6 +21,7 @@
 @property(nonatomic,readonly)NSString *repoIdWithIssueNumber;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
+@property(nonatomic,readonly)NSMutableAttributedString *attributedBody;
 
 - (id)initWithRepository:(GHRepository *)repo;
 @end

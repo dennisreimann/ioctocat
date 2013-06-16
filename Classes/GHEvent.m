@@ -13,12 +13,15 @@
 #import "GHRepoComment.h"
 #import "GHIssueComment.h"
 #import "iOctocat.h"
+#import "GHFMarkdown.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
 
 @interface GHEvent ()
 @property(nonatomic,readwrite)BOOL read;
+@property(nonatomic,strong)NSString *contentForDisplay;
 @end
 
 
@@ -44,6 +47,17 @@
 		return [action isEqualToString:@"closed"] ? @"PullRequestClosedEvent" : @"PullRequestOpenedEvent";
 	}
 	return self.eventType;
+}
+
+- (NSString *)contentForDisplay {
+    if (!_contentForDisplay && self.content) {
+        NSString *text = [self.content emojizedString];
+        NSMutableString *mutableText = [text mutableCopy];
+        [mutableText substituteGHFMarkdown];
+        text = [[mutableText stringByReplacingOccurrencesOfString:@"\n\n" withString:@" "] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        _contentForDisplay = text;
+    }
+    return _contentForDisplay;
 }
 
 - (void)markAsRead {

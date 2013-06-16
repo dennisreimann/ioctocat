@@ -6,9 +6,16 @@
 #import "GHLabels.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "GHFMarkdown.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
+
+
+@interface GHIssue ()
+@property(nonatomic,strong)NSMutableAttributedString *attributedBody;
+@end
 
 
 @implementation GHIssue
@@ -47,6 +54,15 @@
         self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/issues/%d", self.repository.owner, self.repository.name, self.number];
     }
     return _htmlURL;
+}
+
+- (NSMutableAttributedString *)attributedBody {
+    if (!_attributedBody) {
+        NSString *text = self.body;
+        text = [text emojizedString];
+        _attributedBody = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+    }
+    return _attributedBody;
 }
 
 - (GHIssueComments *)comments {

@@ -3,10 +3,6 @@
 #import "NSDictionary+Extensions.h"
 
 
-@interface GHRepoComment ()
-@property(nonatomic,weak)GHRepository *repository;
-@end
-
 @implementation GHRepoComment
 
 - (id)initWithRepo:(GHRepository *)repo {

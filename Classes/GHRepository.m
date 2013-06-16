@@ -9,6 +9,7 @@
 #import "GHEvents.h"
 #import "GHReadme.h"
 #import "GHBranches.h"
+#import "GHFMarkdown.h"
 #import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -16,6 +17,7 @@
 
 @interface GHRepository ()
 @property(nonatomic,strong)GHRepository *parent;
+@property(nonatomic,strong)NSMutableAttributedString *attributedDescriptionText;
 @end
 
 
@@ -43,6 +45,18 @@
 
 - (NSString *)repoIdAndStatus {
     return [NSString stringWithFormat:@"%@/%@/%@", self.owner, self.isPrivate ? @"private" : @"public", self.name];
+}
+
+- (void)setDescriptionText:(NSString *)descriptionText {
+    _attributedDescriptionText = nil;
+    _descriptionText = descriptionText;
+}
+
+- (NSMutableAttributedString *)attributedDescriptionText {
+    if (!_attributedDescriptionText) {
+        _attributedDescriptionText = [self.descriptionText mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repoId];
+    }
+    return _attributedDescriptionText;
 }
 
 - (NSURL *)htmlURL {

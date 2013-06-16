@@ -7,7 +7,9 @@
 #import "GHFiles.h"
 #import "GHUser.h"
 #import "iOctocat.h"
+#import "GHFMarkdown.h"
 #import "NSURL+Extensions.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
 
@@ -15,6 +17,7 @@
 @interface GHPullRequest ()
 @property(nonatomic,assign)BOOL isMerged;
 @property(nonatomic,assign)BOOL isMergeable;
+@property(nonatomic,strong)NSMutableAttributedString *attributedBody;
 @end
 
 
@@ -75,6 +78,15 @@
 
 - (NSString *)repoIdWithIssueNumber {
 	return [NSString stringWithFormat:@"%@#%d", self.repository.repoId, self.number];
+}
+
+- (NSMutableAttributedString *)attributedBody {
+    if (!_attributedBody) {
+        NSString *text = self.body;
+        text = [text emojizedString];
+        _attributedBody = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+    }
+    return _attributedBody;
 }
 
 #pragma mark Loading

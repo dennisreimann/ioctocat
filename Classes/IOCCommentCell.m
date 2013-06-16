@@ -19,9 +19,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.linksEnabled = YES;
-    self.emojiEnabled = YES;
-    self.markdownEnabled = YES;
     self.gravatarButton.layer.cornerRadius = 3;
     self.gravatarButton.layer.masksToBounds = YES;
     self.userButton.titleLabel.opaque = YES;
@@ -37,7 +34,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	_comment = comment;
     [self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	self.dateLabel.text = self.comment.createdAt.prettyDate;
-	self.contentText = self.comment.bodyWithoutEmailFooter;
+	self.contentText = self.comment.attributedBody;
+	self.rawContentText = self.comment.body;
 	self.userLogin = self.comment.user.login;
 	self.gravatar = self.comment.user.gravatar ? self.comment.user.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 }

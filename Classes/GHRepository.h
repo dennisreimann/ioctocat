@@ -5,6 +5,7 @@
 
 @interface GHRepository : GHResource
 @property(nonatomic,readonly)NSString *repoId;
+@property(nonatomic,readonly)NSMutableAttributedString *attributedDescriptionText;
 @property(nonatomic,strong)NSString *name;
 @property(nonatomic,strong)NSString *owner;
 @property(nonatomic,strong)NSString *descriptionText;

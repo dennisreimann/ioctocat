@@ -72,10 +72,6 @@
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:NSLocalizedString(@"issue", nil)];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:NSLocalizedString(@"comments", nil)];
 	self.descriptionCell.delegate = self;
-	self.descriptionCell.linksEnabled = YES;
-	self.descriptionCell.emojiEnabled = YES;
-	self.descriptionCell.markdownEnabled = YES;
-    self.descriptionCell.contextRepoId = self.issue.repository.repoId;
     [self layoutTableHeader];
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
@@ -129,7 +125,8 @@
 	self.authorCell.contentText = self.issue.user.login;
 	self.createdCell.contentText = [self.issue.createdAt prettyDate];
 	self.updatedCell.contentText = [self.issue.updatedAt prettyDate];
-	self.descriptionCell.contentText = self.issue.body;
+	self.descriptionCell.contentText = self.issue.attributedBody;
+	self.descriptionCell.rawContentText = self.issue.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
@@ -283,7 +280,6 @@
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
-        cell.contextRepoId = self.issue.repository.repoId;
 	}
 	cell.delegate = self;
 	GHComment *comment = self.issue.comments[row];

@@ -80,10 +80,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit name:NSLocalizedString(@"commit", nil)];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.commit.comments name:NSLocalizedString(@"comments", nil)];
 	self.messageCell.delegate = self;
-	self.messageCell.linksEnabled = YES;
-	self.messageCell.emojiEnabled = YES;
-	self.messageCell.markdownEnabled = YES;
-	self.messageCell.contextRepoId = self.commit.repository.repoId;
 	[self layoutTableHeader];
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
@@ -141,7 +137,8 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.authorCell.accessoryType = self.commit.author ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	self.authoredCell.contentText = self.commit.authoredDate.prettyDate;
 	self.committedCell.contentText = self.commit.committedDate.prettyDate;
-	self.messageCell.contentText = self.commit.message;
+	self.messageCell.contentText = self.commit.attributedMessage;
+	self.messageCell.rawContentText = self.commit.message;
     self.tableView.showsInfiniteScrolling = self.commit.comments.hasNextPage;
 	[self.addedCell setFiles:self.commit.added description:@"added"];
 	[self.removedCell setFiles:self.commit.removed description:@"removed"];
@@ -269,7 +266,6 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
-        cell.contextRepoId = self.commit.repository.repoId;
 	}
 	cell.delegate = self;
 	GHRepoComment *comment = self.commit.comments[indexPath.row];

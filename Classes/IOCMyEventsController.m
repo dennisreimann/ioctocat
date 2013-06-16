@@ -67,6 +67,9 @@
 	[self.tableView setContentOffset:CGPointZero animated:NO];
 	[self displayEvents];
 	[self refreshIfRequired];
+    if (self.events.isLoading) {
+        [self.tableView.pullToRefreshView startAnimating];
+    }
 }
 
 @end

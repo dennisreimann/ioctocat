@@ -199,14 +199,17 @@
 #pragma mark Repo Assignment
 
 - (void)checkAssignment:(GHUser *)user usingBlock:(void (^)(BOOL isAssignee))block {
-	if (self.assignees.isLoaded) {
+    void(^answer)(void) = ^{
         BOOL isAssignee = [self.assignees containsObject:user];
         if (block) block(isAssignee);
+    };
+	if (self.assignees.isLoaded) {
+        answer();
     } else {
         [self.assignees loadWithParams:nil start:NULL success:^(GHResource *instance, id data) {
-            if (block) block(YES);
+            answer();
         } failure:^(GHResource *instance, NSError *error) {
-            if (block) block(NO);
+            answer();
         }];
     }
 }

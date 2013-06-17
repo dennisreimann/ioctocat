@@ -1,7 +1,7 @@
 #import "GHResource.h"
 
 
-@class GHIssues, GHPullRequests, GHForks, GHTags, GHBranches, GHMilestones, GHLabels, GHUser, GHReadme, GHEvents, GHUsers;
+@class GHIssues, GHPullRequests, GHForks, GHTags, GHBranches, GHMilestones, GHMilestone, GHLabels, GHUser, GHReadme, GHEvents, GHUsers;
 
 @interface GHRepository : GHResource
 @property(nonatomic,readonly)NSString *repoId;
@@ -19,6 +19,7 @@
 @property(nonatomic,strong)GHPullRequests *openPullRequests;
 @property(nonatomic,strong)GHPullRequests *closedPullRequests;
 @property(nonatomic,strong)GHMilestones *milestones;
+@property(nonatomic,strong)GHMilestone *milestone;
 @property(nonatomic,strong)GHLabels *labels;
 @property(nonatomic,strong)GHForks *forks;
 @property(nonatomic,strong)GHTags *tags;
@@ -28,6 +29,7 @@
 @property(nonatomic,strong)GHUsers *contributors;
 @property(nonatomic,strong)GHUsers *stargazers;
 @property(nonatomic,strong)GHUsers *assignees;
+@property(nonatomic,strong)GHUser *assignee;
 @property(nonatomic,readonly)GHUser *user;
 @property(nonatomic,readonly)GHRepository *parent;
 @property(nonatomic,readwrite)NSInteger forkCount;

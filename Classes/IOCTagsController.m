@@ -2,9 +2,6 @@
 #import "GHTags.h"
 #import "GHTag.h"
 #import "IOCTreeController.h"
-#import "iOctocat.h"
-#import "SVProgressHUD.h"
-#import "IOCResourceStatusCell.h"
 
 
 @implementation IOCTagsController

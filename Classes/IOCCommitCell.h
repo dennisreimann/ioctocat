@@ -1,5 +1,4 @@
-#import "GHCommit.h"
-
+@class GHCommit;
 
 @interface IOCCommitCell : UITableViewCell
 @property(nonatomic,strong)GHCommit *commit;

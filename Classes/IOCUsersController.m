@@ -16,15 +16,15 @@
 }
 
 - (NSString *)collectionCellIdentifier {
-    return kRepositoryCellIdentifier;
+    return kUserObjectCellIdentifier;
 }
 
 #pragma mark TableView
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (self.collection.isEmpty) return [super tableView:tableView cellForRowAtIndexPath:indexPath];
-	IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:kUserObjectCellIdentifier];
-	if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:kUserObjectCellIdentifier];
+	IOCUserObjectCell *cell = (IOCUserObjectCell *)[tableView dequeueReusableCellWithIdentifier:self.collectionCellIdentifier];
+	if (!cell) cell = [IOCUserObjectCell cellWithReuseIdentifier:self.collectionCellIdentifier];
     cell.userObject = self.collection[indexPath.row];
 	return cell;
 }

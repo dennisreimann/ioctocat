@@ -1,5 +1,6 @@
 #import "IOCCommitCell.h"
 #import "GHUser.h"
+#import "GHCommit.h"
 #import "NSDate+Nibware.h"
 #import "NSString+Extensions.h"
 

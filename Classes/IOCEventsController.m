@@ -88,10 +88,6 @@
 
 #pragma mark TableView
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	return self.events.isLoaded && self.events.isEmpty ? 1 : self.events.count;
 }

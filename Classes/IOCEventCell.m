@@ -29,8 +29,6 @@
 
 @implementation IOCEventCell
 
-@synthesize contentText = _contentText;
-
 static NSString *const UserGravatarKeyPath = @"user.gravatar";
 
 - (void)awakeFromNib {
@@ -131,8 +129,6 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 }
 
 - (void)setContentText:(NSString *)text {
-    if ([self.contentText isEqualToString:text]) return;
-    _contentText = text;
     self.contentLabel.text = text;
     [self adjustContentTextHeight];
 }

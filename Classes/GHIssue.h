@@ -18,9 +18,9 @@
 @property(nonatomic,strong)NSDate *closedAt;
 @property(nonatomic,strong)NSURL *htmlURL;
 @property(nonatomic,assign)NSInteger number;
-@property(nonatomic,readonly)NSString *repoIdWithIssueNumber;
 @property(nonatomic,readonly)BOOL isNew;
 @property(nonatomic,readonly)BOOL isOpen;
+@property(nonatomic,readonly)NSString *repoIdWithIssueNumber;
 @property(nonatomic,readonly)NSMutableAttributedString *attributedBody;
 
 - (id)initWithRepository:(GHRepository *)repo;

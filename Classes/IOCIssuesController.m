@@ -1,8 +1,9 @@
 #import "IOCIssuesController.h"
 #import "IOCIssueController.h"
 #import "IOCIssueObjectFormController.h"
-#import "IOCIssueObjectCell.h"
+#import "IOCIssueManagementDelegate.h"
 #import "IOCResourceStatusCell.h"
+#import "IOCIssueObjectCell.h"
 #import "GHIssue.h"
 #import "GHIssues.h"
 #import "GHRepository.h"
@@ -11,7 +12,7 @@
 #define kIssueSortUpdated @"updated"
 
 
-@interface IOCIssuesController () <IOCIssueObjectFormControllerDelegate>
+@interface IOCIssuesController () <IOCIssueManagementDelegate>
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSArray *objects;
 @property(nonatomic,strong)UISegmentedControl *issuesControl;

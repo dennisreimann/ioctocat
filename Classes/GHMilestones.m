@@ -20,7 +20,7 @@
 }
 
 - (id)initWithRepository:(GHRepository *)repo {
-	NSString *path = [NSString stringWithFormat:kLabelsFormat, repo.owner, repo.name];
+	NSString *path = [NSString stringWithFormat:kMilestonesFormat, repo.owner, repo.name];
 	self = [self initWithResourcePath:path];
 	if (self) {
 		self.repository = repo;

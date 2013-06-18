@@ -8,7 +8,9 @@
 #import "GHUsers.h"
 #import "GHEvents.h"
 #import "GHReadme.h"
+#import "GHLabels.h"
 #import "GHBranches.h"
+#import "GHMilestones.h"
 #import "GHFMarkdown.h"
 #import "NSURL+Extensions.h"
 #import "NSDictionary+Extensions.h"
@@ -90,6 +92,20 @@
 		_forks = [[GHForks alloc] initWithRepository:self];
 	}
 	return _forks;
+}
+
+- (GHMilestones *)milestones {
+	if (!_milestones) {
+		_milestones = [[GHMilestones alloc] initWithRepository:self];
+	}
+	return _milestones;
+}
+
+- (GHLabels *)labels {
+	if (!_labels) {
+		_labels = [[GHLabels alloc] initWithRepository:self];
+	}
+	return _labels;
 }
 
 - (GHReadme *)readme {

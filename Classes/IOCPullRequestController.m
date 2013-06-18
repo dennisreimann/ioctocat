@@ -33,8 +33,6 @@
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
-@property(nonatomic,weak)IBOutlet UILabel *createdLabel;
-@property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet UILabel *commitTitleLabel;

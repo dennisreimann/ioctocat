@@ -1,4 +1,5 @@
 #import "IOCIssueController.h"
+#import "IOCIssueManagementDelegate.h"
 #import "IOCCommentController.h"
 #import "IOCWebController.h"
 #import "IOCTextCell.h"
@@ -8,30 +9,31 @@
 #import "IOCIssueObjectFormController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
-#import "GHIssueComments.h"
-#import "GHIssueComment.h"
-#import "NSDate+Nibware.h"
-#import "NSString+Extensions.h"
-#import "NSURL+Extensions.h"
-#import "iOctocat.h"
-#import "GHUser.h"
-#import "GHIssue.h"
-#import "GHRepository.h"
-#import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
+#import "IOCMilestonesController.h"
+#import "IOCAssigneesController.h"
+#import "GHUser.h"
+#import "GHIssue.h"
+#import "GHMilestone.h"
+#import "GHRepository.h"
+#import "GHIssueComment.h"
+#import "GHIssueComments.h"
+#import "iOctocat.h"
+#import "SVProgressHUD.h"
 #import "GradientButton.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
+#import "NSDate+Nibware.h"
+#import "NSURL+Extensions.h"
+#import "NSString+Extensions.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueObjectFormControllerDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueManagementDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
 @property(nonatomic,strong)IOCResourceStatusCell *commentsStatusCell;
 @property(nonatomic,readwrite)BOOL isAssignee;
-@property(nonatomic,weak)IBOutlet UILabel *createdLabel;
-@property(nonatomic,weak)IBOutlet UILabel *updatedLabel;
 @property(nonatomic,weak)IBOutlet UILabel *titleLabel;
 @property(nonatomic,weak)IBOutlet UIImageView *iconView;
 @property(nonatomic,weak)IBOutlet GradientButton *commentButton;
@@ -41,6 +43,8 @@
 @property(nonatomic,strong)IBOutlet IOCLabeledCell *authorCell;
 @property(nonatomic,strong)IBOutlet IOCLabeledCell *createdCell;
 @property(nonatomic,strong)IBOutlet IOCLabeledCell *updatedCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *assigneeCell;
+@property(nonatomic,strong)IBOutlet IOCLabeledCell *milestoneCell;
 @property(nonatomic,strong)IBOutlet IOCTextCell *descriptionCell;
 @property(nonatomic,strong)IBOutlet IOCCommentCell *commentCell;
 @end
@@ -72,6 +76,7 @@
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:NSLocalizedString(@"issue", nil)];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:NSLocalizedString(@"comments", nil)];
 	self.descriptionCell.delegate = self;
+    self.isAssignee = NO;
     [self layoutTableHeader];
 	[self layoutTableFooter];
 	[self setupInfiniteScrolling];
@@ -113,7 +118,15 @@
 }
 
 - (BOOL)issueEditableByCurrentUser {
-	return self.isAssignee || [self.issue.user.login isEqualToString:self.currentUser.login];
+	return self.isAssignee || self.currentUser == self.issue.user;
+}
+
+- (void)setIsAssignee:(BOOL)isAssignee {
+    _isAssignee = isAssignee;
+    self.assigneeCell.accessoryType = self.isAssignee ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+	self.assigneeCell.selectionStyle = self.isAssignee ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.milestoneCell.accessoryType = self.isAssignee ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
+    self.milestoneCell.selectionStyle = self.isAssignee ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 }
 
 - (void)displayIssue {
@@ -123,15 +136,17 @@
 	self.titleLabel.text = self.issue.title;
 	self.repoCell.contentText = self.issue.repository.repoId;
 	self.authorCell.contentText = self.issue.user.login;
-	self.createdCell.contentText = [self.issue.createdAt prettyDate];
-	self.updatedCell.contentText = [self.issue.updatedAt prettyDate];
+	self.createdCell.contentText = self.issue.createdAt.prettyDate;
+	self.updatedCell.contentText = self.issue.updatedAt.prettyDate;
+    self.assigneeCell.contentText = self.issue.assignee.login;
+    self.milestoneCell.contentText = self.issue.milestone.title;
 	self.descriptionCell.contentText = self.issue.attributedBody;
 	self.descriptionCell.rawContentText = self.issue.body;
-	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.repoCell.accessoryType = self.repoCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-	self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.authorCell.hasContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-    self.tableView.showsInfiniteScrolling = self.issue.comments.hasNextPage;
+    self.authorCell.selectionStyle = self.authorCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
+	self.tableView.showsInfiniteScrolling = self.issue.comments.hasNextPage;
 }
 
 - (void)displayIssueChange {
@@ -160,6 +175,7 @@
 
 // displaying the new data gets done via viewWillAppear
 - (void)savedIssueObject:(id)object	{
+    [self displayIssueChange];
 	[self.listController reloadIssues];
 }
 
@@ -256,7 +272,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.issue.isEmpty) return 1;
 	if (section == 0) {
-		return self.issue.body.isEmpty ? 4 : 5;
+		return self.issue.body.isEmpty ? 6 : 7;
 	} else {
 		return self.issue.comments.isEmpty ? 1 : self.issue.comments.count;
 	}
@@ -272,9 +288,11 @@
 	NSInteger row = indexPath.row;
 	if (section == 0 && row == 0) return self.repoCell;
 	if (section == 0 && row == 1) return self.authorCell;
-	if (section == 0 && row == 2) return self.createdCell;
-	if (section == 0 && row == 3) return self.updatedCell;
-	if (section == 0 && row == 4) return self.descriptionCell;
+	if (section == 0 && row == 2) return self.assigneeCell;
+	if (section == 0 && row == 3) return self.milestoneCell;
+	if (section == 0 && row == 4) return self.createdCell;
+	if (section == 0 && row == 5) return self.updatedCell;
+	if (section == 0 && row == 6) return self.descriptionCell;
 	if (self.issue.comments.isEmpty) return self.commentsStatusCell;
 	IOCCommentCell *cell = (IOCCommentCell *)[tableView dequeueReusableCellWithIdentifier:kCommentCellIdentifier];
 	if (!cell) {
@@ -288,7 +306,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0 && indexPath.row == 4) return [self.descriptionCell heightForTableView:tableView];
+	if (indexPath.section == 0 && indexPath.row == 6) return [self.descriptionCell heightForTableView:tableView];
 	if (indexPath.section == 1 && self.issue.comments.isLoaded && !self.issue.comments.isEmpty) {
 		IOCCommentCell *cell = (IOCCommentCell *)[self tableView:tableView cellForRowAtIndexPath:indexPath];
 		return [cell heightForTableView:tableView];
@@ -304,6 +322,12 @@
             viewController = [[IOCRepositoryController alloc] initWithRepository:self.issue.repository];
 		} else if (indexPath.row == 1 && self.issue.user) {
             viewController = [[IOCUserController alloc] initWithUser:self.issue.user];
+		} else if (indexPath.row == 2 && self.isAssignee) {
+            viewController = [[IOCAssigneesController alloc] initWithIssue:self.issue];
+            [(IOCAssigneesController *)viewController setDelegate:self];
+		} else if (indexPath.row == 3 && self.isAssignee) {
+            viewController = [[IOCMilestonesController alloc] initWithIssue:self.issue];
+            [(IOCMilestonesController *)viewController setDelegate:self];
 		}
     }
     if (viewController) {

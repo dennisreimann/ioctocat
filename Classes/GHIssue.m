@@ -72,6 +72,13 @@
     return _comments;
 }
 
+- (GHLabels *)labels {
+    if (!_labels) {
+        _labels = [[GHLabels alloc] initWithRepository:self.repository];
+    }
+    return _labels;
+}
+
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
@@ -97,12 +104,16 @@
 	}
     // labels
     NSArray *labels = [dict safeArrayForKey:@"labels"];
-    self.labels = [[GHLabels alloc] initWithRepository:self.repository];
-    [self.labels setValues:labels];
+    if (labels) {
+        self.labels = [[GHLabels alloc] initWithRepository:self.repository];
+        [self.labels setValues:labels];
+    }
     // milestone
     NSDictionary *milestoneDict = [dict safeDictForKey:@"milestone"];
-    self.milestone = [[GHMilestone alloc] initWithRepository:self.repository];
-    [self.milestone setValues:milestoneDict];
+    if (milestoneDict) {
+        self.milestone = [[GHMilestone alloc] initWithRepository:self.repository];
+        [self.milestone setValues:milestoneDict];
+    }
 }
 
 @end

@@ -80,26 +80,28 @@
 #pragma mark Actions
 
 - (IBAction)switchChanged:(id)sender {
-	[self displayCollection];
-	[self.tableView setContentOffset:CGPointZero animated:NO];
-	[self loadCollection];
+    [self displayCollection];
+    [self.tableView setContentOffset:CGPointZero animated:NO];
+    [self loadCollection];
 }
 
 - (IBAction)createIssue:(id)sender {
-	GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
-	IOCTitleBodyFormController *formController = [[IOCTitleBodyFormController alloc] initWithResource:issue name:@"issue"];
-	formController.delegate = self;
-	[self.navigationController pushViewController:formController animated:YES];
+    GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
+    IOCTitleBodyFormController *formController = [[IOCTitleBodyFormController alloc] initWithResource:issue name:@"issue"];
+    formController.delegate = self;
+    [self.navigationController pushViewController:formController animated:YES];
 }
 
 - (void)reloadIssues {
-	for (GHIssues *issues in self.objects) [issues markAsUnloaded];
+    for (GHIssues *issues in self.objects) [issues markAsUnloaded];
 }
 
 // delegation method for newly created issues
 - (void)savedResource:(id)resource {
-	[[self.objects objectAtIndex:0] insertObject:resource atIndex:0];
-	[self.tableView reloadData];
+    GHIssues *openIssues = self.objects[0];
+    [openIssues insertObject:resource atIndex:0];
+    [openIssues markAsChanged];
+    [self.tableView reloadData];
 }
 
 #pragma mark TableView

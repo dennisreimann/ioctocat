@@ -1,8 +1,14 @@
 #import "GHMilestone.h"
 #import "GHRepository.h"
+#import "iOctocat.h"
+#import "NSString+Emojize.h"
 #import "NSString+Extensions.h"
 #import "NSDictionary+Extensions.h"
-#import "iOctocat.h"
+
+
+@interface GHMilestone ()
+@property(nonatomic,strong)NSString *bodyForDisplay;
+@end
 
 
 @implementation GHMilestone
@@ -36,6 +42,13 @@
     float percentPerIssue = 100.0f / issuesTotal;
     NSInteger percentDone = lroundf(self.closedIssueCount * percentPerIssue);
     return percentDone;
+}
+
+- (NSString *)bodyForDisplay {
+    if (!_bodyForDisplay && self.body) {
+        _bodyForDisplay = [self.body emojizedString];
+    }
+    return _bodyForDisplay;
 }
 
 #pragma mark Loading

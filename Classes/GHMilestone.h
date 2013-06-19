@@ -16,6 +16,7 @@
 @property(nonatomic,assign)NSInteger closedIssueCount;
 @property(nonatomic,readonly)NSInteger percentDone;
 @property(nonatomic,readonly)BOOL isNew;
+@property(nonatomic,readonly)NSString *bodyForDisplay;
 
 - (id)initWithRepository:(GHRepository *)repo;
 @end

@@ -79,7 +79,7 @@
         due = [NSString stringWithFormat:@"Due on %@ (%@)", formattedDate, prettyDate];
     }
     // detail
-    NSString *body = [self.milestone.body stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *body = [self.milestone.bodyForDisplay stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *detail = [NSString stringWithFormat:@"%@\n\n%@\nIssues: %d open, %d closed - %d%% done", body, due, milestone.openIssueCount, milestone.closedIssueCount, milestone.percentDone];
     self.detailLabel.text = [detail stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     // progress

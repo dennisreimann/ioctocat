@@ -1,4 +1,4 @@
-#import "IOCAssigneesController.h"
+#import "IOCAssigneeSelectionController.h"
 #import "IOCUserObjectCell.h"
 #import "GHRepository.h"
 #import "GHIssue.h"
@@ -7,13 +7,13 @@
 #import "SVProgressHUD.h"
 
 
-@interface IOCAssigneesController ()
+@interface IOCAssigneeSelectionController ()
 @property(nonatomic,weak)GHIssue *issue;
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @end
 
 
-@implementation IOCAssigneesController
+@implementation IOCAssigneeSelectionController
 
 - (id)initWithIssue:(GHIssue *)issue {
 	self = [super initWithCollection:issue.repository.assignees];
@@ -61,7 +61,7 @@
             [SVProgressHUD showSuccessWithStatus:@"Saved assignee"];
             self.issue.assignee = newAssignee;
             [self.issue markAsChanged];
-            [self.delegate performSelector:@selector(savedIssueObject:) withObject:self.issue];
+            [self.delegate performSelector:@selector(savedResource:) withObject:self.issue];
             [self.navigationController popViewControllerAnimated:YES];
         } failure:^(GHResource *instance, NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"Saving assignee failed"];

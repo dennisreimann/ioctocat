@@ -1,8 +1,9 @@
-#import "IOCIssueObjectFormController.h"
+#import "IOCTitleBodyFormController.h"
 #import "GHRepository.h"
+#import "GHResource.h"
+#import "GHAccount.h"
 #import "GHIssues.h"
 #import "GHIssue.h"
-#import "GHAccount.h"
 #import "GHUserObjectsRepository.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
@@ -11,11 +12,10 @@
 #import "NSString+Extensions.h"
 
 
-@interface IOCIssueObjectFormController () <UITextFieldDelegate>
-@property(nonatomic,readonly)GHIssue *object;
+@interface IOCTitleBodyFormController () <UITextFieldDelegate>
 @property(nonatomic,readwrite)CGFloat keyboardHeight;
-@property(nonatomic,strong)id issueObject;
-@property(nonatomic,strong)NSString *issueObjectType;
+@property(nonatomic,strong)GHResource *resource;
+@property(nonatomic,strong)NSString *resourceName;
 @property(nonatomic,strong)UITapGestureRecognizer *tapGesture;
 @property(nonatomic,strong)MAXCompletion *usernameCompletion;
 @property(nonatomic,strong)MAXCompletion *issueCompletion;
@@ -26,32 +26,33 @@
 @end
 
 
-@implementation IOCIssueObjectFormController
+@implementation IOCTitleBodyFormController
 
-- (id)initWithIssueObject:(id)object {
-	self = [super initWithNibName:@"IssueObjectForm" bundle:nil];
+- (id)initWithResource:(GHResource *)resource name:(NSString *)resourceName {
+	self = [super initWithNibName:@"TitleBodyForm" bundle:nil];
 	if (self) {
-		self.issueObject = object;
-		self.issueObjectType = [self.issueObject isKindOfClass:GHIssue.class] ? @"issue" : @"pull request";
+		self.resource = resource;
+		self.resourceName = resourceName;
 		self.keyboardHeight = 0;
+        self.titleAttributeName = @"title";
+        self.bodyAttributeName = @"body";
 	}
 	return self;
-}
-
-- (GHIssue *)object {
-	return self.issueObject;
 }
 
 #pragma mark View Events
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.object.isNew ? @"New" : @"Edit", self.issueObjectType];
+	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.resource.isNew ? @"New" : @"Edit", self.resourceName];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveIssue:)];
     self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-	if (!self.object.isNew) {
-		self.titleField.text = self.object.title;
-		self.bodyField.text = self.object.body;
+	if (!self.resource.isNew) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+		self.titleField.text = [self.resource performSelector:NSSelectorFromString(self.titleAttributeName)];
+		self.bodyField.text = [self.resource performSelector:NSSelectorFromString(self.bodyAttributeName)];
+#pragma clang diagnostic pop
         self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
     [self setupCompletion];
@@ -62,7 +63,7 @@
     [self.view addGestureRecognizer:self.tapGesture];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    self.object.isNew ? [self.titleField becomeFirstResponder] : [self.bodyField becomeFirstResponder];
+    [(self.resource.isNew ? self.titleField : self.bodyField) becomeFirstResponder];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -93,6 +94,7 @@
     self.emojiCompletion.textView = self.bodyField;
     self.emojiCompletion.prefix = @":";
     self.emojiCompletion.dataSource = [NSString.class emojiAliases];
+    if (![self.resource respondsToSelector:@selector(repository)]) return;
     self.issueCompletion = [[MAXCompletion alloc] init];
     self.issueCompletion.textView = self.bodyField;
     self.issueCompletion.prefix = @"#";
@@ -103,7 +105,7 @@
         if ([obj1 number] < [obj2 number]) return NSOrderedDescending;
         return NSOrderedSame;
     };
-    GHRepository *repo = self.object.repository;
+    GHRepository *repo = [(GHIssue *)self.resource repository];
     self.issueCompletionDataSource = [NSMutableDictionary dictionary];
     if (repo.openIssues.isLoaded) {
         [self setIssuesForNums:repo.openIssues.items];
@@ -132,19 +134,21 @@
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a title"];
 	} else {
 		self.navigationItem.rightBarButtonItem.enabled = NO;
-		NSDictionary *params = @{@"title": self.titleField.text, @"body": self.bodyField.text};
-		[self.object saveWithParams:params start:^(GHResource *instance) {
-			NSString *status = [NSString stringWithFormat:@"Saving %@", self.issueObjectType];
+		NSDictionary *params = @{
+                           self.titleAttributeName: self.titleField.text,
+                           self.bodyAttributeName: self.bodyField.text};
+		[self.resource saveWithParams:params start:^(GHResource *instance) {
+			NSString *status = [NSString stringWithFormat:@"Saving %@", self.resourceName];
 			[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
-			NSString *status = [NSString stringWithFormat:@"Saved %@", self.issueObjectType];
+			NSString *status = [NSString stringWithFormat:@"Saved %@", self.resourceName];
 			[SVProgressHUD showSuccessWithStatus:status];
-			[self.object markAsChanged];
-			[self.delegate performSelector:@selector(savedIssueObject:) withObject:self.object];
+			[self.resource markAsChanged];
+			[self.delegate performSelector:@selector(savedResource:) withObject:self.resource];
 			[self.navigationController popViewControllerAnimated:YES];
 			self.navigationItem.rightBarButtonItem.enabled = YES;
 		} failure:^(GHResource *instance, NSError *error) {
-			NSString *status = [NSString stringWithFormat:@"Saving %@ failed", self.issueObjectType];
+			NSString *status = [NSString stringWithFormat:@"Saving %@ failed", self.resourceName];
 			[SVProgressHUD showErrorWithStatus:status];
 			self.navigationItem.rightBarButtonItem.enabled = YES;
 		}];

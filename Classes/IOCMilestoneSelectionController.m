@@ -1,4 +1,4 @@
-#import "IOCMilestonesController.h"
+#import "IOCMilestoneSelectionController.h"
 #import "IOCMilestoneCell.h"
 #import "GHRepository.h"
 #import "GHMilestones.h"
@@ -7,13 +7,13 @@
 #import "SVProgressHUD.h"
 
 
-@interface IOCMilestonesController ()
+@interface IOCMilestoneSelectionController ()
 @property(nonatomic,weak)GHIssue *issue;
 @property(nonatomic,strong)NSIndexPath *selectedIndexPath;
 @end
 
 
-@implementation IOCMilestonesController
+@implementation IOCMilestoneSelectionController
 
 - (id)initWithIssue:(GHIssue *)issue {
 	self = [super initWithCollection:issue.repository.milestones];
@@ -62,7 +62,7 @@
             [SVProgressHUD showSuccessWithStatus:@"Saved milestone"];
             self.issue.milestone = newMilestone;
             [self.issue markAsChanged];
-            [self.delegate performSelector:@selector(savedIssueObject:) withObject:self.issue];
+            [self.delegate performSelector:@selector(savedResource:) withObject:self.issue];
             [self.navigationController popViewControllerAnimated:YES];
         } failure:^(GHResource *instance, NSError *error) {
             [SVProgressHUD showErrorWithStatus:@"Saving milestone failed"];

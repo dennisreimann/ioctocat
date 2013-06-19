@@ -5,7 +5,7 @@
 #import "IOCLabeledCell.h"
 #import "IOCCommentCell.h"
 #import "IOCPullRequestsController.h"
-#import "IOCIssueObjectFormController.h"
+#import "IOCTitleBodyFormController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCCommitsController.h"
@@ -241,7 +241,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:NSLocalizedString(@"Edit", @"Action Sheet: Edit")]) {
-        IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.pullRequest];
+        IOCTitleBodyFormController *formController = [[IOCTitleBodyFormController alloc] initWithResource:self.pullRequest name:@"pull request"];
         [self.navigationController pushViewController:formController animated:YES];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Merge", @"Action Sheet: Merge")]) {
         [self mergePullRequest:nil];

@@ -1,7 +1,7 @@
 #import "IOCIssuesController.h"
 #import "IOCIssueController.h"
-#import "IOCIssueObjectFormController.h"
-#import "IOCIssueManagementDelegate.h"
+#import "IOCTitleBodyFormController.h"
+#import "IOCResourceEditingDelegate.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCIssueObjectCell.h"
 #import "GHIssue.h"
@@ -12,7 +12,7 @@
 #define kIssueSortUpdated @"updated"
 
 
-@interface IOCIssuesController () <IOCIssueManagementDelegate>
+@interface IOCIssuesController () <IOCResourceEditingDelegate>
 @property(nonatomic,strong)GHRepository *repository;
 @property(nonatomic,strong)NSArray *objects;
 @property(nonatomic,strong)UISegmentedControl *issuesControl;
@@ -72,7 +72,7 @@
 	self.issuesControl.frame = controlFrame;
 	self.navigationItem.titleView = self.issuesControl;
     if (self.repository) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createNewIssue:)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(createIssue:)];
     }
 	self.issuesControl.selectedSegmentIndex = 0;
 }
@@ -85,9 +85,9 @@
 	[self loadCollection];
 }
 
-- (IBAction)createNewIssue:(id)sender {
+- (IBAction)createIssue:(id)sender {
 	GHIssue *issue = [[GHIssue alloc] initWithRepository:self.repository];
-	IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:issue];
+	IOCTitleBodyFormController *formController = [[IOCTitleBodyFormController alloc] initWithResource:issue name:@"issue"];
 	formController.delegate = self;
 	[self.navigationController pushViewController:formController animated:YES];
 }
@@ -97,8 +97,8 @@
 }
 
 // delegation method for newly created issues
-- (void)savedIssueObject:(id)object {
-	[[self.objects objectAtIndex:0] insertObject:object atIndex:0];
+- (void)savedResource:(id)resource {
+	[[self.objects objectAtIndex:0] insertObject:resource atIndex:0];
 	[self.tableView reloadData];
 }
 

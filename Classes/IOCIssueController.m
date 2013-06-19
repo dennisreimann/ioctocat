@@ -1,18 +1,18 @@
 #import "IOCIssueController.h"
-#import "IOCIssueManagementDelegate.h"
+#import "IOCResourceEditingDelegate.h"
 #import "IOCCommentController.h"
 #import "IOCWebController.h"
 #import "IOCTextCell.h"
 #import "IOCLabeledCell.h"
 #import "IOCCommentCell.h"
 #import "IOCIssuesController.h"
-#import "IOCIssueObjectFormController.h"
+#import "IOCTitleBodyFormController.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
-#import "IOCMilestonesController.h"
-#import "IOCAssigneesController.h"
+#import "IOCMilestoneSelectionController.h"
+#import "IOCAssigneeSelectionController.h"
 #import "GHUser.h"
 #import "GHIssue.h"
 #import "GHMilestone.h"
@@ -28,7 +28,7 @@
 #import "NSString+Extensions.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IOCIssueManagementDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCResourceEditingDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -174,7 +174,7 @@
 }
 
 // displaying the new data gets done via viewWillAppear
-- (void)savedIssueObject:(id)object	{
+- (void)savedResource:(id)object	{
     [self displayIssueChange];
 	[self.listController reloadIssues];
 }
@@ -207,7 +207,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex {
     NSString *buttonTitle = [actionSheet buttonTitleAtIndex:buttonIndex];
     if ([buttonTitle isEqualToString:NSLocalizedString(@"Edit", @"Action Sheet: Edit")]) {
-        IOCIssueObjectFormController *formController = [[IOCIssueObjectFormController alloc] initWithIssueObject:self.issue];
+        IOCTitleBodyFormController *formController = [[IOCTitleBodyFormController alloc] initWithResource:self.issue name:@"issue"];
         formController.delegate = self;
         [self.navigationController pushViewController:formController animated:YES];
     } else if ([buttonTitle isEqualToString:NSLocalizedString(@"Close", @"Action Sheet: Close")] || [buttonTitle isEqualToString:NSLocalizedString(@"Reopen", @"Action Sheet: Reopen")]) {
@@ -323,11 +323,11 @@
 		} else if (indexPath.row == 1 && self.issue.user) {
             viewController = [[IOCUserController alloc] initWithUser:self.issue.user];
 		} else if (indexPath.row == 2 && self.isAssignee) {
-            viewController = [[IOCAssigneesController alloc] initWithIssue:self.issue];
-            [(IOCAssigneesController *)viewController setDelegate:self];
+            viewController = [[IOCAssigneeSelectionController alloc] initWithIssue:self.issue];
+            [(IOCAssigneeSelectionController *)viewController setDelegate:self];
 		} else if (indexPath.row == 3 && self.isAssignee) {
-            viewController = [[IOCMilestonesController alloc] initWithIssue:self.issue];
-            [(IOCMilestonesController *)viewController setDelegate:self];
+            viewController = [[IOCMilestoneSelectionController alloc] initWithIssue:self.issue];
+            [(IOCMilestoneSelectionController *)viewController setDelegate:self];
 		}
     }
     if (viewController) {

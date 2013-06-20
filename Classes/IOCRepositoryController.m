@@ -218,7 +218,7 @@ static NSString *const BranchCellIdentifier = @"BranchCell";
 	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	[self.currentUser setWatching:state forRepository:self.repository success:^(GHResource *instance, id data) {
 		NSString *action = state ? NSLocalizedString(@"Watched %@", @"Progress HUD: Watched REPO_ID") : NSLocalizedString(@"Unwatched %@", @"Progress HUD: Unwatched REPO_ID");
-		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.repository.repoId];
+		NSString *status = [NSString stringWithFormat:action, self.repository.repoId];
 		self.isWatching = state;
 		[SVProgressHUD showSuccessWithStatus:status];
 	} failure:^(GHResource *instance, NSError *error) {

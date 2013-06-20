@@ -185,7 +185,7 @@
 	[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 	[self.currentUser setFollowing:state forUser:self.user success:^(GHResource *instance, id data) {
 		NSString *action = state ? NSLocalizedString(@"Followed %@", @"Progress HUD: Followed USER") : NSLocalizedString(@"Unfollowed %@", @"Progress HUD: Unfollowed USER");
-		NSString *status = [NSString stringWithFormat:@"%@ %@", action, self.user.login];
+		NSString *status = [NSString stringWithFormat:action, self.user.login];
 		self.isFollowing = state;
 		[SVProgressHUD showSuccessWithStatus:status];
 	} failure:^(GHResource *instance, NSError *error) {

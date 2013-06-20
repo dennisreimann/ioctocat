@@ -29,6 +29,14 @@
 	return [self.state isEqualToString:kIssueStateOpen];
 }
 
+- (BOOL)isEqual:(id)object {
+    return [object isKindOfClass:self.class] && [[object title] isEqualToString:self.title];
+}
+
+- (NSUInteger)hash {
+	return [[self.title lowercaseString] hash];
+}
+
 - (NSString *)resourcePath {
 	if (self.isNew) {
 		return [NSString stringWithFormat:kMilestonesFormat, self.repository.owner, self.repository.name];
@@ -39,6 +47,7 @@
 
 - (NSInteger)percentDone {
     NSInteger issuesTotal = self.openIssueCount + self.closedIssueCount;
+    if (issuesTotal == 0) return 0;
     float percentPerIssue = 100.0f / issuesTotal;
     NSInteger percentDone = lroundf(self.closedIssueCount * percentPerIssue);
     return percentDone;
@@ -49,6 +58,11 @@
         _bodyForDisplay = [self.body emojizedString];
     }
     return _bodyForDisplay;
+}
+
+- (void)setBody:(NSString *)body {
+    _bodyForDisplay = nil;
+    _body = body;
 }
 
 #pragma mark Loading

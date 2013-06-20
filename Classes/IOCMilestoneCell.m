@@ -87,6 +87,28 @@
     [self adjustContentLayout];
 }
 
+#pragma mark Actions
+
+- (void)editMilestone:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(editResource:)]) {
+        [self.delegate editResource:self.milestone];
+    }
+}
+
+- (void)deleteMilestone:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(deleteResource:)]) {
+        [self.delegate deleteResource:self.milestone];
+    }
+}
+
+- (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(editMilestone:) || action == @selector(deleteMilestone:)) {
+        return [self.delegate canManageResource:self.milestone];
+    } else {
+        return [super canPerformAction:action withSender:sender];
+    }
+}
+
 #pragma mark Layout
 
 - (void)layoutSubviews {

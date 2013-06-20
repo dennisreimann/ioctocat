@@ -166,6 +166,9 @@
 		2EEE879C1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEE879B1770DC9C00C43A14 /* IOCMilestoneCell.m */; };
 		2EEE879D1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEE879B1770DC9C00C43A14 /* IOCMilestoneCell.m */; };
 		2EEE879E1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEE879B1770DC9C00C43A14 /* IOCMilestoneCell.m */; };
+		2EEE87A417732EB700C43A14 /* UIViewController_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEE87A017732BF300C43A14 /* UIViewController_IOCExtensions.m */; };
+		2EEE87A517732EB700C43A14 /* UIViewController_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEE87A017732BF300C43A14 /* UIViewController_IOCExtensions.m */; };
+		2EEE87A617732EB800C43A14 /* UIViewController_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EEE87A017732BF300C43A14 /* UIViewController_IOCExtensions.m */; };
 		2EF1C03A1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		2EF1C03B1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
 		2EF1C03C1713516A00096DC1 /* GHSystemStatusService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */; };
@@ -1200,6 +1203,8 @@
 		2EEE8793176FAABB00C43A14 /* IOCResourceEditingDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCResourceEditingDelegate.h; sourceTree = "<group>"; };
 		2EEE879A1770DC9000C43A14 /* IOCMilestoneCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCMilestoneCell.h; sourceTree = "<group>"; };
 		2EEE879B1770DC9C00C43A14 /* IOCMilestoneCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCMilestoneCell.m; sourceTree = "<group>"; };
+		2EEE879F17732BAC00C43A14 /* UIViewController_IOCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewController_IOCExtensions.h; sourceTree = "<group>"; };
+		2EEE87A017732BF300C43A14 /* UIViewController_IOCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewController_IOCExtensions.m; sourceTree = "<group>"; };
 		2EF1C0381713515C00096DC1 /* GHSystemStatusService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHSystemStatusService.h; sourceTree = "<group>"; };
 		2EF1C0391713516A00096DC1 /* GHSystemStatusService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHSystemStatusService.m; sourceTree = "<group>"; };
 		2EFCB0E11757386300EDAE32 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = star.png; path = Images/Icons/star.png; sourceTree = "<group>"; };
@@ -2335,6 +2340,8 @@
 				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
 				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
 				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
+				2EEE879F17732BAC00C43A14 /* UIViewController_IOCExtensions.h */,
+				2EEE87A017732BF300C43A14 /* UIViewController_IOCExtensions.m */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3889,6 +3896,7 @@
 				2EEE878A176F904400C43A14 /* IOCMilestoneSelectionController.m in Sources */,
 				2EEE8790176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
 				2EEE879C1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */,
+				2EEE87A417732EB700C43A14 /* UIViewController_IOCExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4031,6 +4039,7 @@
 				2EEE878C176F904400C43A14 /* IOCMilestoneSelectionController.m in Sources */,
 				2EEE8792176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
 				2EEE879E1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */,
+				2EEE87A617732EB800C43A14 /* UIViewController_IOCExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4162,6 +4171,7 @@
 				2EEE878B176F904400C43A14 /* IOCMilestoneSelectionController.m in Sources */,
 				2EEE8791176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
 				2EEE879D1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */,
+				2EEE87A517732EB700C43A14 /* UIViewController_IOCExtensions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

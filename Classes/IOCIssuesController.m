@@ -104,6 +104,10 @@
     [self.tableView reloadData];
 }
 
+- (BOOL)canManageResource:(GHResource *)resource {
+    return YES;
+}
+
 #pragma mark TableView
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

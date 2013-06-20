@@ -28,7 +28,7 @@
 #import "NSString+Extensions.h"
 
 
-@interface IOCIssueController () <UIActionSheetDelegate, IOCResourceEditingDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
+@interface IOCIssueController () <UIActionSheetDelegate, IOCResourceEditingDelegate, IOCTextCellDelegate>
 @property(nonatomic,strong)GHIssue *issue;
 @property(nonatomic,strong)IOCIssuesController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -76,6 +76,7 @@
 	self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue name:NSLocalizedString(@"issue", nil)];
 	self.commentsStatusCell = [[IOCResourceStatusCell alloc] initWithResource:self.issue.comments name:NSLocalizedString(@"comments", nil)];
 	self.descriptionCell.delegate = self;
+    self.assigneeCell.emptyText = self.milestoneCell.emptyText = NSLocalizedString(@"none", @"Labeled Cell: none (indicates no content)");
     self.isAssignee = NO;
     [self layoutTableHeader];
 	[self layoutTableFooter];
@@ -115,10 +116,6 @@
 
 - (GHUser *)currentUser {
 	return iOctocat.sharedInstance.currentUser;
-}
-
-- (BOOL)issueEditableByCurrentUser {
-	return self.isAssignee || self.currentUser == self.issue.user;
 }
 
 - (void)setIsAssignee:(BOOL)isAssignee {
@@ -188,7 +185,7 @@
 
 - (IBAction)showActions:(id)sender {
 	UIActionSheet *actionSheet = nil;
-	if (self.issueEditableByCurrentUser) {
+	if ([self canManageResource:self.issue]) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"Actions", @"Action Sheet title")
 												  delegate:self
 										 cancelButtonTitle:NSLocalizedString(@"Cancel", @"Action Sheet: Cancel")
@@ -240,15 +237,15 @@
 
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.issue];
-	[self editComment:comment];
+	[self editResource:comment];
 }
 
-- (void)editComment:(GHComment *)comment {
+- (void)editResource:(GHComment *)comment {
     IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.issue.comments];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)deleteComment:(GHComment *)comment {
+- (void)deleteResource:(GHComment *)comment {
     [self.issue.comments deleteObject:comment start:^(GHResource *instance) {
 		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
     } success:^(GHResource *instance, id data) {
@@ -259,7 +256,7 @@
     }];
 }
 
-- (BOOL)canManageComment:(GHComment *)comment {
+- (BOOL)canManageResource:(GHComment *)comment {
     return self.isAssignee || comment.user == self.currentUser;
 }
 
@@ -298,8 +295,8 @@
 	if (!cell) {
 		[[NSBundle mainBundle] loadNibNamed:@"CommentCell" owner:self options:nil];
 		cell = self.commentCell;
+        cell.delegate = self;
 	}
-	cell.delegate = self;
 	GHComment *comment = self.issue.comments[row];
 	cell.comment = comment;
 	return cell;
@@ -322,10 +319,10 @@
             viewController = [[IOCRepositoryController alloc] initWithRepository:self.issue.repository];
 		} else if (indexPath.row == 1 && self.issue.user) {
             viewController = [[IOCUserController alloc] initWithUser:self.issue.user];
-		} else if (indexPath.row == 2 && self.isAssignee) {
+		} else if (indexPath.row == 2 && [self canManageResource:self.issue]) {
             viewController = [[IOCAssigneeSelectionController alloc] initWithIssue:self.issue];
             [(IOCAssigneeSelectionController *)viewController setDelegate:self];
-		} else if (indexPath.row == 3 && self.isAssignee) {
+		} else if (indexPath.row == 3 && [self canManageResource:self.issue]) {
             viewController = [[IOCMilestoneSelectionController alloc] initWithIssue:self.issue];
             [(IOCMilestoneSelectionController *)viewController setDelegate:self];
 		}

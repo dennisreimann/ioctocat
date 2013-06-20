@@ -34,8 +34,8 @@
 		self.resource = resource;
 		self.resourceName = resourceName;
 		self.keyboardHeight = 0;
-        self.titleAttributeName = @"title";
-        self.bodyAttributeName = @"body";
+        self.resourceTitleAttributeName = self.apiTitleAttributeName = @"title";
+        self.resourceBodyAttributeName = self.apiBodyAttributeName = @"body";
 	}
 	return self;
 }
@@ -50,8 +50,8 @@
 	if (!self.resource.isNew) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-		self.titleField.text = [self.resource performSelector:NSSelectorFromString(self.titleAttributeName)];
-		self.bodyField.text = [self.resource performSelector:NSSelectorFromString(self.bodyAttributeName)];
+		self.titleField.text = [self.resource performSelector:NSSelectorFromString(self.resourceTitleAttributeName)];
+		self.bodyField.text = [self.resource performSelector:NSSelectorFromString(self.resourceBodyAttributeName)];
 #pragma clang diagnostic pop
         self.bodyField.selectedRange = NSMakeRange(0, 0);
 	}
@@ -135,8 +135,8 @@
 	} else {
 		self.navigationItem.rightBarButtonItem.enabled = NO;
 		NSDictionary *params = @{
-                           self.titleAttributeName: self.titleField.text,
-                           self.bodyAttributeName: self.bodyField.text};
+                           self.apiTitleAttributeName: self.titleField.text,
+                           self.apiBodyAttributeName: self.bodyField.text};
 		[self.resource saveWithParams:params start:^(GHResource *instance) {
 			NSString *status = [NSString stringWithFormat:@"Saving %@", self.resourceName];
 			[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];

@@ -27,7 +27,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
-@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
+@interface IOCPullRequestController () <UIActionSheetDelegate, UITextFieldDelegate, IOCTextCellDelegate, IOCResourceEditingDelegate>
 @property(nonatomic,strong)GHPullRequest *pullRequest;
 @property(nonatomic,strong)IOCPullRequestsController *listController;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -275,15 +275,15 @@
 
 - (IBAction)addComment:(id)sender {
 	GHIssueComment *comment = [[GHIssueComment alloc] initWithParent:self.pullRequest];
-    [self editComment:comment];
+    [self editResource:comment];
 }
 
-- (void)editComment:(GHComment *)comment {
+- (void)editResource:(GHComment *)comment {
     IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.pullRequest.comments];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)deleteComment:(GHComment *)comment {
+- (void)deleteResource:(GHComment *)comment {
     [self.pullRequest.comments deleteObject:comment start:^(GHResource *instance) {
 		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
     } success:^(GHResource *instance, id data) {
@@ -294,7 +294,7 @@
     }];
 }
 
-- (BOOL)canManageComment:(GHComment *)comment {
+- (BOOL)canManageResource:(GHComment *)comment {
     return self.isAssignee || comment.user == self.currentUser;
 }
 

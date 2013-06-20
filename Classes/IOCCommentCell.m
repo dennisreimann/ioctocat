@@ -71,20 +71,20 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 }
 
 - (void)editComment:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(editComment:)]) {
-        [self.delegate editComment:self.comment];
+    if ([self.delegate respondsToSelector:@selector(editResource:)]) {
+        [self.delegate editResource:self.comment];
     }
 }
 
 - (void)deleteComment:(id)sender {
-    if ([self.delegate respondsToSelector:@selector(deleteComment:)]) {
-        [self.delegate deleteComment:self.comment];
+    if ([self.delegate respondsToSelector:@selector(deleteResource:)]) {
+        [self.delegate deleteResource:self.comment];
     }
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(editComment:) || action == @selector(deleteComment:)) {
-        return [self.delegate canManageComment:self.comment];
+        return [self.delegate canManageResource:self.comment];
     } else {
         return [super canPerformAction:action withSender:sender];
     }

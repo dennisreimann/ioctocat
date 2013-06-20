@@ -62,6 +62,10 @@
 
 #pragma mark Helpers
 
+- (GHUser *)currentUser {
+	return iOctocat.sharedInstance.currentUser;
+}
+
 - (void)displayCollection {
     [self.tableView reloadData];
     self.tableView.showsInfiniteScrolling = self.collection.hasNextPage;

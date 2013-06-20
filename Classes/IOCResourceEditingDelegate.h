@@ -1,3 +1,9 @@
+@class GHResource;
+
 @protocol IOCResourceEditingDelegate <NSObject>
-- (void)savedResource:(id)object;
+- (BOOL)canManageResource:(GHResource *)resource;
+@optional
+- (void)savedResource:(GHResource *)resource;
+- (void)editResource:(GHResource *)resource;
+- (void)deleteResource:(GHResource *)resource;
 @end

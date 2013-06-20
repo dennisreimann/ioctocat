@@ -24,7 +24,7 @@
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
-@interface IOCCommitController () <UIActionSheetDelegate, IOCTextCellDelegate, IOCCommentCellDelegate>
+@interface IOCCommitController () <UIActionSheetDelegate, IOCTextCellDelegate, IOCResourceEditingDelegate>
 @property(nonatomic,strong)GHCommit *commit;
 @property(nonatomic,strong)UILongPressGestureRecognizer *longPressGesture;
 @property(nonatomic,strong)IOCResourceStatusCell *statusCell;
@@ -200,15 +200,15 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 - (IBAction)addComment:(id)sender {
 	GHRepoComment *comment = [[GHRepoComment alloc] initWithRepo:self.commit.repository];
 	comment.commitID = self.commit.commitID;
-	[self editComment:comment];
+	[self editResource:comment];
 }
 
-- (void)editComment:(GHComment *)comment {
+- (void)editResource:(GHComment *)comment {
     IOCCommentController *viewController = [[IOCCommentController alloc] initWithComment:comment andComments:self.commit.comments];
     [self.navigationController pushViewController:viewController animated:YES];
 }
 
-- (void)deleteComment:(GHComment *)comment {
+- (void)deleteResource:(GHComment *)comment {
     [self.commit.comments deleteObject:comment start:^(GHResource *instance) {
 		[SVProgressHUD showWithStatus:NSLocalizedString(@"Deleting comment", nil) maskType:SVProgressHUDMaskTypeGradient];
     } success:^(GHResource *instance, id data) {
@@ -219,7 +219,7 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
     }];
 }
 
-- (BOOL)canManageComment:(GHComment *)comment {
+- (BOOL)canManageResource:(GHComment *)comment {
     return self.isAssignee || comment.user == self.currentUser;
 }
 

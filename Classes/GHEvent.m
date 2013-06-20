@@ -27,6 +27,8 @@
 
 @implementation GHEvent
 
+@synthesize content = _content;
+
 - (id)initWithDict:(NSDictionary *)dict {
 	self = [super init];
 	if (self) {
@@ -58,6 +60,11 @@
         _contentForDisplay = text;
     }
     return _contentForDisplay;
+}
+
+- (void)setContent:(NSString *)content {
+    _contentForDisplay = nil;
+    _content = content;
 }
 
 - (void)markAsRead {

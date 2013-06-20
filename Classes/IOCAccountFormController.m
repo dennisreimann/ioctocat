@@ -192,6 +192,12 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
         UIViewAnimationOptionTransitionFlipFromLeft;
     UIViewAnimationOptions opts = (UIViewAnimationOptionShowHideTransitionViews | flip);
     [UIView transitionFromView:self.accountTypeView toView:self.accountFormView duration:0.4f options:opts completion:nil];
+	
+    if (self.accountType == IOCAccountTypeGitHubCom) {
+        [self.loginField becomeFirstResponder];
+    } else {
+        [self.endpointField becomeFirstResponder];
+    }
 }
 
 - (IBAction)saveAccount:(id)sender {

@@ -3,7 +3,7 @@
 … is a GitHub app for your iOS devices (iPad, iPhone and iPod Touch).
 It is open source and [available on the App Store](http://itunes.com/apps/ioctocat).
 
-For further information visit the [project website](http://dennisreimann.github.com/ioctocat).
+For further information visit the [project website](http://ioctocat.com).
 
 Your participation is welcome. Feel free to fork, add missing features or report issues :)
 

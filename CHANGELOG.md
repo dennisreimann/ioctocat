@@ -1,1 +1,1 @@
-CHANGELOG-v1.8.md
+CHANGELOG-v2.md

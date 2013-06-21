@@ -22,11 +22,14 @@ extern NSString *const GHFMarkdownItalicRegex;
 extern NSString *const GHFMarkdownQuotedRegex;
 extern NSString *const GHFMarkdownCodeBlockRegex;
 extern NSString *const GHFMarkdownCodeInlineRegex;
+extern NSString *const GHFMarkdownSubstitutionFormat;
+extern NSString *const GHFMarkdownQuoteNewlinePadding;
 
 NSString *GHFMarkdownMD5(NSString *string);
 
 @interface NSString (GHFMarkdown_Private)
 - (NSArray *)tasksFromGHFMarkdown;
+- (NSArray *)quotesFromGHFMarkdown;
 - (NSArray *)headlinesFromGHFMarkdown;
 - (NSArray *)linksFromGHFMarkdownLinks;
 - (NSArray *)linksFromGHFMarkdownUsernames;
@@ -37,6 +40,7 @@ NSString *GHFMarkdownMD5(NSString *string);
 
 @interface NSMutableString (GHFMarkdown_Private)
 - (void)substituteGHFMarkdownHeadlines;
+- (void)substituteGHFMarkdownQuotes;
 - (void)substituteGHFMarkdownLinks;
 - (void)substituteGHFMarkdownTasks;
 - (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options;
@@ -47,6 +51,7 @@ NSString *GHFMarkdownMD5(NSString *string);
 @interface NSMutableAttributedString (GHFMarkdown_Private)
 - (void)substituteGHFMarkdownLinksWithContextRepoId:(NSString *)contextRepoId;
 - (void)substituteGHFMarkdownTasks;
+- (void)substituteGHFMarkdownQuotes;
 - (void)substituteGHFMarkdownHeadlines;
 - (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options addAttributes:(NSDictionary *)attributes;
 @end

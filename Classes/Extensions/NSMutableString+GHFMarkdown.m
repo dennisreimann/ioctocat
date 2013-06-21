@@ -13,8 +13,6 @@
 
 @implementation NSMutableString (GHFMarkdown)
 
-static NSString *const GHFMarkdownSubstitutionFormat = @"{GHFMarkdownSubstitution-%@}";
-
 - (void)substituteGHFMarkdownHeadlines {
     NSArray *headlines = [self headlinesFromGHFMarkdown];
     if (headlines.count) {
@@ -50,6 +48,27 @@ static NSString *const GHFMarkdownSubstitutionFormat = @"{GHFMarkdownSubstitutio
             BOOL checked = [task[@"checked"] boolValue];
             NSString *mark = checked ? @"[x]" : @"[ ]";
             [self replaceCharactersInRange:markRange withString:mark];
+        }
+    }
+}
+
+- (void)substituteGHFMarkdownQuotes {
+    NSArray *quotes = [self quotesFromGHFMarkdown];
+    if (quotes.count) {
+        NSEnumerator *enumerator = [quotes reverseObjectEnumerator];
+        for (NSDictionary *quote in enumerator) {
+            NSRange newlinesBeforeRange = [quote[@"newlinesBeforeRange"] rangeValue];
+            NSRange newlinesAfterRange = [quote[@"newlinesAfterRange"] rangeValue];
+            // take into account the hack in which quotesFromGHFMarkdown
+            // appends some extra newlines at the end of the string to
+            // find a quote at the end of the original string
+            BOOL isAppendedNewlines = newlinesAfterRange.location == self.length;
+            if (newlinesAfterRange.length == 1 && !isAppendedNewlines) {
+                [self replaceCharactersInRange:newlinesAfterRange withString:GHFMarkdownQuoteNewlinePadding];
+            }
+            if (newlinesBeforeRange.length == 1) {
+                [self replaceCharactersInRange:newlinesBeforeRange withString:GHFMarkdownQuoteNewlinePadding];
+            }
         }
     }
 }

@@ -161,8 +161,22 @@
 
 - (void)testAttributedStringFromGHFMarkdownWithQuote {
     NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n\nas a block."];
-    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nQuoted text\n\nas a block."];
-    [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 11)];
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n> Quoted text\n\nas a block."];
+    [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 13)];
+    expect(actual).to.equal(expected);
+}
+
+- (void)testAttributedStringFromGHFMarkdownWithMultilineQuote {
+    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
+    [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 29)];
+    expect(actual).to.equal(expected);
+}
+
+- (void)testAttributedStringFromGHFMarkdownWithMultilineQuoteAndMissingLinebreaks {
+    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n> Quoted text\n> And some more\nas a block."];
+    NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
+    [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 29)];
     expect(actual).to.equal(expected);
 }
 

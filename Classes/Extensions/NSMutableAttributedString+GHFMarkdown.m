@@ -28,8 +28,8 @@
     NSDictionary *codeBlocks = [string extractAndSubstituteGHFMarkdownCodeBlocks];
     [output substituteGHFMarkdownLinksWithContextRepoId:contextRepoId];
     [output substituteGHFMarkdownHeadlines];
+    [output substituteGHFMarkdownQuotes];
     [output substituteGHFMarkdownTasks];
-    [output substitutePattern:GHFMarkdownQuotedRegex options:(NSRegularExpressionAnchorsMatchLines) addAttributes:@{@"GHFMarkdown_Quote": @YES}];
     [output substitutePattern:GHFMarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_BoldItalic": @YES}];
     [output substitutePattern:GHFMarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_Bold": @YES}];
     [output substitutePattern:GHFMarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_Italic": @YES}];
@@ -92,6 +92,31 @@
             NSDictionary *attributes = [NSDictionary dictionaryWithObjects:@[level, @YES] forKeys:@[@"GHFMarkdown_Headline", [NSString stringWithFormat:@"GHFMarkdown_Headline%d", [level integerValue]]]];
             [self addAttributes:attributes range:range];
             [string replaceCharactersInRange:range withString:title];
+        }
+    }
+}
+
+- (void)substituteGHFMarkdownQuotes {
+    NSMutableString *string = self.mutableString;
+    NSArray *quotes = [string quotesFromGHFMarkdown];
+    if (quotes.count) {
+        NSEnumerator *enumerator = [quotes reverseObjectEnumerator];
+        for (NSDictionary *quote in enumerator) {
+            NSRange newlinesBeforeRange = [quote[@"newlinesBeforeRange"] rangeValue];
+            NSRange newlinesAfterRange = [quote[@"newlinesAfterRange"] rangeValue];
+            NSRange range = [quote[@"titleRange"] rangeValue];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObject:@YES forKey:@"GHFMarkdown_Quote"];
+            [self addAttributes:attributes range:range];
+            // take into account the hack in which quotesFromGHFMarkdown
+            // appends some extra newlines at the end of the string to
+            // find a quote at the end of the original string
+            BOOL isAppendedNewlines = newlinesAfterRange.location == self.length;
+            if (newlinesAfterRange.length == 1 && !isAppendedNewlines) {
+                [string replaceCharactersInRange:newlinesAfterRange withString:GHFMarkdownQuoteNewlinePadding];
+            }
+            if (newlinesBeforeRange.length == 1) {
+                [string replaceCharactersInRange:newlinesBeforeRange withString:GHFMarkdownQuoteNewlinePadding];
+            }
         }
     }
 }

@@ -65,6 +65,29 @@
     return results;
 }
 
+- (NSArray *)quotesFromGHFMarkdown {
+    // hack: tappends some extra newlines at the end of the string
+    // to also find a quote at the end of the original string
+    NSString *string = [self stringByAppendingString:GHFMarkdownQuoteNewlinePadding];
+    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownQuotedRegex options:(NSRegularExpressionAnchorsMatchLines|NSRegularExpressionDotMatchesLineSeparators) error:NULL];
+    NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
+    if (!matches.count) return @[];
+    NSMutableArray *results = [[NSMutableArray alloc] initWithCapacity:matches.count];
+    for (NSTextCheckingResult *match in matches) {
+        NSRange newlinesBeforeRange = [match rangeAtIndex:1];
+        NSRange titleRange = [match rangeAtIndex:2];
+        NSRange newlinesAfterRange = [match rangeAtIndex:3];
+        NSString *title = [string substringWithRange:titleRange];
+        [results addObject:@{
+         @"title": title,
+         @"titleRange": [NSValue valueWithRange:titleRange],
+         @"newlinesAfterRange": [NSValue valueWithRange:newlinesAfterRange],
+         @"newlinesBeforeRange": [NSValue valueWithRange:newlinesBeforeRange],
+         @"range": [NSValue valueWithRange:match.range]}];
+    }
+    return results;
+}
+
 - (NSArray *)linksFromGHFMarkdownLinks {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownLinkRegex options:NSRegularExpressionCaseInsensitive error:NULL];

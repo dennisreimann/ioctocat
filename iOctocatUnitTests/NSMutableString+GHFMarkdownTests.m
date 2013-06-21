@@ -44,6 +44,30 @@
     expect(actual).to.equal(@"This has a headline\n\nAnd text\n\nAnd a subline\nAnd more text.");
 }
 
+- (void)testSubstituteGHFMarkdownQuotes {
+    NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This has\n\n> Quoted text\n\nas a block."];
+    [actual substituteGHFMarkdownQuotes];
+    expect(actual).to.equal(@"This has\n\n> Quoted text\n\nas a block.");
+}
+
+- (void)testSubstituteGHFMarkdownQuotesWithMultilineQuote {
+    NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
+    [actual substituteGHFMarkdownQuotes];
+    expect(actual).to.equal(@"This has\n\n> Quoted text\n> And some more\n\nas a block.");
+}
+
+- (void)testSubstituteGHFMarkdownQuotesWithMultilineQuoteAndMissingLinebreaks {
+    NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This has\n> Quoted text\n> And some more\nas a block."];
+    [actual substituteGHFMarkdownQuotes];
+    expect(actual).to.equal(@"This has\n\n> Quoted text\n> And some more\n\nas a block.");
+}
+
+- (void)testSubstituteGHFMarkdownQuotesAtStringBounds {
+    NSMutableString *actual = [[NSMutableString alloc] initWithString:@"> Quoted text\n\nNormal text\n> And some more"];
+    [actual substituteGHFMarkdownQuotes];
+    expect(actual).to.equal(@"> Quoted text\n\nNormal text\n\n> And some more");
+}
+
 - (void)testSubstitutePatternWithSourroundingMatch {
     NSMutableString *actual = [[NSMutableString alloc] initWithString:@"This **is** bold."];
     NSMutableString *expected = [[NSMutableString alloc] initWithString:@"This is bold."];

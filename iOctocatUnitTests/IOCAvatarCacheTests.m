@@ -12,6 +12,7 @@
 
 - (void)setUp {
     [super setUp];
+    [IOCAvatarCache ensureAvatarCacheDirectory];
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 	self.gravatar = [UIImage imageNamed:@"Icon.png"];
 	self.gravatarPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"Avatars/gravatar.png"];
@@ -19,7 +20,7 @@
 
 - (void)tearDown {
     [super tearDown];
-	[[NSFileManager defaultManager] removeItemAtPath:self.gravatarPath error:NULL];
+    [IOCAvatarCache removeAvatarCacheDirectory];
 }
 
 - (void)testGravatarPathForIdentifier {

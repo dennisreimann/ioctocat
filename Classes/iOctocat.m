@@ -50,12 +50,12 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     [self deactivateURLCache];
     [self setupHockeySDK];
     [self setupAccounts];
+    [self setupAvatarCache];
     [self setupSlidingViewController];
     [self.window makeKeyAndVisible];
     // remote notifications
     NSDictionary *remoteNotification = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (remoteNotification) [self application:application didReceiveRemoteNotification:remoteNotification];
-    [self checkAvatarCache];
     return YES;
 }
 
@@ -266,12 +266,13 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 	[[UIApplication sharedApplication] setApplicationIconBadgeNumber:number];
 }
 
-- (void)checkAvatarCache {
+- (void)setupAvatarCache {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     if ([defaults boolForKey:ClearAvatarCacheDefaultsKey]) {
         [IOCAvatarCache clearAvatarCache];
         [defaults setValue:@NO forKey:ClearAvatarCacheDefaultsKey];
     }
+    [IOCAvatarCache ensureAvatarCacheDirectory];
 }
 
 // NSURLCache seems to have a problem with Cache-Control="private" headers.

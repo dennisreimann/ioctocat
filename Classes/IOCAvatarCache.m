@@ -10,11 +10,18 @@
     return avatarsPath;
 }
 
+// removes old directory and entries, then creates new directory
 + (void)clearAvatarCache {
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-    // remove old directory and entries, then create new directory
-    [fileManager removeItemAtPath:self.avatarsPath error:nil];
-    [fileManager createDirectoryAtPath:self.avatarsPath withIntermediateDirectories:NO attributes:nil error:nil];
+    [self removeAvatarCacheDirectory];
+    [self ensureAvatarCacheDirectory];
+}
+
++ (void)ensureAvatarCacheDirectory {
+    [[NSFileManager defaultManager] createDirectoryAtPath:self.avatarsPath withIntermediateDirectories:NO attributes:nil error:nil];
+}
+
++ (void)removeAvatarCacheDirectory {
+    [[NSFileManager defaultManager] removeItemAtPath:self.avatarsPath error:nil];
 }
 
 + (NSString *)gravatarPathForIdentifier:(NSString *)string {

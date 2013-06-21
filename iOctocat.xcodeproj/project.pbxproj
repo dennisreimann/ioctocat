@@ -64,6 +64,7 @@
 		2E5D54FB171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
 		2E5D54FD171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
+		2E65D5611774E5B2004C27F5 /* NSURL+ExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65D5601774E5B2004C27F5 /* NSURL+ExtensionsTests.m */; };
 		2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
 		2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
 		2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
@@ -1152,6 +1153,8 @@
 		2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
 		2E5D54F8171A00530046086D /* Button1P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button1P.png; sourceTree = "<group>"; };
 		2E5D54F9171A00530046086D /* Button1P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button1P@2x.png"; sourceTree = "<group>"; };
+		2E65D55F1774E5A1004C27F5 /* NSURL+ExtensionsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+ExtensionsTests.h"; sourceTree = "<group>"; };
+		2E65D5601774E5B2004C27F5 /* NSURL+ExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+ExtensionsTests.m"; sourceTree = "<group>"; };
 		2E67140B1765DDAE00778D11 /* GHPullRequestReviewComments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComments.h; sourceTree = "<group>"; };
 		2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComments.m; sourceTree = "<group>"; };
 		2E6714101765DDF600778D11 /* GHPullRequestReviewComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComment.h; sourceTree = "<group>"; };
@@ -2291,6 +2294,8 @@
 				2E1FD65917362D1B007E051D /* GHTreeTests.m */,
 				2E1FD65E17362EA7007E051D /* GHSubmoduleTests.h */,
 				2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */,
+				2E65D55F1774E5A1004C27F5 /* NSURL+ExtensionsTests.h */,
+				2E65D5601774E5B2004C27F5 /* NSURL+ExtensionsTests.m */,
 				2EB4D89A17441BD9005A2781 /* NSString+GHFMarkdownTests.h */,
 				2EB4D89B17441BE3005A2781 /* NSString+GHFMarkdownTests.m */,
 				2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */,
@@ -4055,6 +4060,7 @@
 				2EEE87A617732EB800C43A14 /* UIViewController_IOCExtensions.m in Sources */,
 				2E519DEE1774CB09001EDE0A /* IOCResourceDraftsTests.m in Sources */,
 				2E519DF11774CBB0001EDE0A /* IOCResourceDrafts.m in Sources */,
+				2E65D5611774E5B2004C27F5 /* NSURL+ExtensionsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

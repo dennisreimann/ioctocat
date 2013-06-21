@@ -116,9 +116,8 @@
 // Checks the host to see whether or not this is a GitHub URL.
 // Assumes that relative links are also GitHubcom URLs.
 - (BOOL)isGitHubURL {
-	return !self.host || ([self.host isEqualToString:@"github.com"] || [self.host isEqualToString:@"gist.github.com"]);
+	return (!self.host && !self.scheme) || ([self.host isEqualToString:@"github.com"] || [self.host isEqualToString:@"gist.github.com"]);
 }
-
 
 // Taken from https://github.com/ReactiveCocoa/ReactiveCocoaIO/blob/master/ReactiveCocoaIO/NSURL%2BTrailingSlash.m
 - (BOOL)hasTrailingSlash {

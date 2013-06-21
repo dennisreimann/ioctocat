@@ -1,4 +1,5 @@
 #import "IOCTitleBodyFormController.h"
+#import "IOCResourceDrafts.h"
 #import "GHRepository.h"
 #import "GHResource.h"
 #import "GHAccount.h"
@@ -47,15 +48,14 @@
 	self.navigationItem.title = [NSString stringWithFormat:@"%@ %@", self.resource.isNew ? @"New" : @"Edit", self.resourceName];
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveIssue:)];
     self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
-	if (!self.resource.isNew) {
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-		self.titleField.text = [self.resource performSelector:NSSelectorFromString(self.resourceTitleAttributeName)];
-		self.bodyField.text = [self.resource performSelector:NSSelectorFromString(self.resourceBodyAttributeName)];
+    self.titleField.text = [self.resource performSelector:NSSelectorFromString(self.resourceTitleAttributeName)];
+    self.bodyField.text = [self.resource performSelector:NSSelectorFromString(self.resourceBodyAttributeName)];
 #pragma clang diagnostic pop
-        self.bodyField.selectedRange = NSMakeRange(0, 0);
-	}
+    if (!self.resource.isNew) self.bodyField.selectedRange = NSMakeRange(0, 0);
     [self setupCompletion];
+    [self applyDraft];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -68,6 +68,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
+    if (self.resource.isNew) [self saveDraft];
     [self.view removeGestureRecognizer:self.tapGesture];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
@@ -126,18 +127,39 @@
     self.issueCompletion.dataSource = self.issueCompletionDataSource;
 }
 
+- (void)applyDraft {
+    NSDictionary *draft = [IOCResourceDrafts draftForKey:self.resource.resourcePath];
+    if (draft) {
+        self.titleField.text = draft[self.resourceTitleAttributeName];
+        self.bodyField.text = draft[self.resourceBodyAttributeName];
+    }
+}
+
+- (void)saveDraft {
+    NSDictionary *draft = self.fields;
+    if (draft.allKeys.count > 0) {
+        [IOCResourceDrafts saveDraft:draft forKey:self.resource.resourcePath];
+    }
+}
+
+- (NSMutableDictionary *)fields {
+    NSString *title = self.titleField.text;
+    NSString *body = self.bodyField.text;
+    NSMutableDictionary *fields = [NSMutableDictionary dictionary];
+    if (title.length) fields[self.resourceTitleAttributeName] = title;
+    if (body.length) fields[self.resourceBodyAttributeName] = body;
+    return fields;
+}
+
 #pragma mark Actions
 
 - (IBAction)saveIssue:(id)sender {
 	// validate
-	if (self.titleField.text.isEmpty) {
+	if (!self.titleField.text.length) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a title"];
 	} else {
 		self.navigationItem.rightBarButtonItem.enabled = NO;
-		NSDictionary *params = @{
-                           self.apiTitleAttributeName: self.titleField.text,
-                           self.apiBodyAttributeName: self.bodyField.text};
-		[self.resource saveWithParams:params start:^(GHResource *instance) {
+		[self.resource saveWithParams:self.fields start:^(GHResource *instance) {
 			NSString *status = [NSString stringWithFormat:@"Saving %@", self.resourceName];
 			[SVProgressHUD showWithStatus:status maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {

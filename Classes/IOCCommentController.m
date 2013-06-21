@@ -1,4 +1,5 @@
 #import "IOCCommentController.h"
+#import "IOCResourceDrafts.h"
 #import "GHRepository.h"
 #import "GHIssues.h"
 #import "GHIssue.h"
@@ -44,6 +45,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(postComment:)];
     self.bodyView.text = self.comment.body;
     [self setupCompletion];
+    [self applyDraft];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -55,6 +57,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    if (self.comment.isNew) [self saveDraft];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
@@ -118,14 +121,32 @@
     }
 }
 
+- (void)applyDraft {
+    NSDictionary *draft = [IOCResourceDrafts draftForKey:self.comment.resourcePath];
+    if (draft) {
+        self.bodyView.text = draft[@"body"];
+    }
+}
+
+- (void)saveDraft {
+    NSDictionary *draft = self.fields;
+    if (draft.allKeys.count > 0) {
+        [IOCResourceDrafts saveDraft:draft forKey:self.comment.resourcePath];
+    }
+}
+
+- (NSDictionary *)fields {
+    NSString *body = self.bodyView.text;
+    return body.length ? @{@"body": body} : nil;
+}
+
 #pragma mark Actions
 
 - (IBAction)postComment:(id)sender {
-	if (self.bodyView.text.isEmpty) {
+	if (!self.bodyView.text.length) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter a text"];
 	} else {
-		NSDictionary *params = @{@"body": self.bodyView.text};
-		[self.comments saveObject:self.comment params:params start:^(GHResource *instance) {
+		[self.comments saveObject:self.comment params:self.fields start:^(GHResource *instance) {
 			[SVProgressHUD showWithStatus:@"Posting comment" maskType:SVProgressHUDMaskTypeGradient];
 		} success:^(GHResource *instance, id data) {
 			[SVProgressHUD showSuccessWithStatus:@"Comment saved"];

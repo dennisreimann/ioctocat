@@ -50,6 +50,8 @@
 		2E2BB56816E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E2BB56916E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */; };
 		2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */; };
+		2E519DEE1774CB09001EDE0A /* IOCResourceDraftsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DED1774CB09001EDE0A /* IOCResourceDraftsTests.m */; };
+		2E519DF11774CBB0001EDE0A /* IOCResourceDrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */; };
 		2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
 		2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
 		2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
@@ -68,6 +70,8 @@
 		2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
 		2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
 		2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
+		2E741AED1774D56E00F3FD06 /* IOCResourceDrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */; };
+		2E741AEE1774D56F00F3FD06 /* IOCResourceDrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */; };
 		2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
 		2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
 		2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
@@ -1135,6 +1139,9 @@
 		2E2BB56116E7DE2D00EACE46 /* ToolbarOtherRepositoryOn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepositoryOn@2x.png"; sourceTree = "<group>"; };
 		2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactoryTests.h; sourceTree = "<group>"; };
 		2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactoryTests.m; sourceTree = "<group>"; };
+		2E519DED1774CB09001EDE0A /* IOCResourceDraftsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCResourceDraftsTests.m; sourceTree = "<group>"; };
+		2E519DEF1774CBA2001EDE0A /* IOCResourceDrafts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCResourceDrafts.h; sourceTree = "<group>"; };
+		2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCResourceDrafts.m; sourceTree = "<group>"; };
 		2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSMutableString+GHFMarkdown.h"; path = "Extensions/NSMutableString+GHFMarkdown.h"; sourceTree = "<group>"; };
 		2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableString+GHFMarkdown.m"; path = "Extensions/NSMutableString+GHFMarkdown.m"; sourceTree = "<group>"; };
 		2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
@@ -1190,6 +1197,7 @@
 		2EC346AD1714AE5600B2366F /* PointerDownRight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PointerDownRight@2x.png"; sourceTree = "<group>"; };
 		2EC346AE1714AE5600B2366F /* PointerUpLeft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PointerUpLeft.png; sourceTree = "<group>"; };
 		2EC346AF1714AE5600B2366F /* PointerUpLeft@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "PointerUpLeft@2x.png"; sourceTree = "<group>"; };
+		2EE5C42A1774CAF200D6E9EA /* IOCResourceDraftsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCResourceDraftsTests.h; sourceTree = "<group>"; };
 		2EEB19AF171C979A0058CF68 /* docco.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = docco.css; sourceTree = "<group>"; };
 		2EEB19B0171C979A0058CF68 /* foundation.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = foundation.css; sourceTree = "<group>"; };
 		2EEB19B1171C979A0058CF68 /* mono-blue.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = "mono-blue.css"; sourceTree = "<group>"; };
@@ -1904,6 +1912,8 @@
 				6FCAF1650F895756005E1173 /* IOCGravatarService.m */,
 				6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */,
 				6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */,
+				2E519DEF1774CBA2001EDE0A /* IOCResourceDrafts.h */,
+				2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */,
 				6FBA29FF16A4978C003F02A4 /* IOCDefaultsPersistence.h */,
 				6FBA2A0116A4979A003F02A4 /* IOCDefaultsPersistence.m */,
 				2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */,
@@ -2261,6 +2271,8 @@
 			children = (
 				6F4EB354167D1B76001C1DEA /* Fixtures */,
 				6F48DB62166C03F900F8FF16 /* Supporting Files */,
+				2EE5C42A1774CAF200D6E9EA /* IOCResourceDraftsTests.h */,
+				2E519DED1774CB09001EDE0A /* IOCResourceDraftsTests.m */,
 				2E1FFFA517577FCD00CC19A2 /* IOCUtilTests.h */,
 				2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */,
 				2E36A6621742B47A00D8588C /* IOCViewControllerFactoryTests.h */,
@@ -3897,6 +3909,7 @@
 				2EEE8790176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
 				2EEE879C1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */,
 				2EEE87A417732EB700C43A14 /* UIViewController_IOCExtensions.m in Sources */,
+				2E741AEE1774D56F00F3FD06 /* IOCResourceDrafts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4040,6 +4053,8 @@
 				2EEE8792176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
 				2EEE879E1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */,
 				2EEE87A617732EB800C43A14 /* UIViewController_IOCExtensions.m in Sources */,
+				2E519DEE1774CB09001EDE0A /* IOCResourceDraftsTests.m in Sources */,
+				2E519DF11774CBB0001EDE0A /* IOCResourceDrafts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4172,6 +4187,7 @@
 				2EEE8791176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
 				2EEE879D1770DC9C00C43A14 /* IOCMilestoneCell.m in Sources */,
 				2EEE87A517732EB700C43A14 /* UIViewController_IOCExtensions.m in Sources */,
+				2E741AED1774D56E00F3FD06 /* IOCResourceDrafts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

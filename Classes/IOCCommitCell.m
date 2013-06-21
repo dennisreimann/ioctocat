@@ -1,8 +1,8 @@
 #import "IOCCommitCell.h"
 #import "GHUser.h"
 #import "GHCommit.h"
-#import "NSDate+Nibware.h"
-#import "NSString+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @implementation IOCCommitCell
@@ -51,9 +51,9 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.imageView.image = self.commit.author.gravatar ? self.commit.author.gravatar : [UIImage imageNamed:@"AvatarBackground32.png"];
 	self.textLabel.text = self.commit.shortenedMessage;
 	NSString *userName = self.commit.author ? self.commit.author.login : self.commit.authorName;
-	NSString *dateInfo = self.commit.authoredDate ? [self.commit.authoredDate prettyDate] : @"";
-    NSString *userInfo = !userName.isEmpty ? userName : @"";
-    NSString *format = userInfo.isEmpty || dateInfo.isEmpty ? @"%@ - %@%@" : @"%@ - %@ - %@";
+	NSString *dateInfo = self.commit.authoredDate ? [self.commit.authoredDate ioc_prettyDate] : @"";
+    NSString *userInfo = ![userName ioc_isEmpty] ? userName : @"";
+    NSString *format = [userInfo ioc_isEmpty] || [dateInfo ioc_isEmpty] ? @"%@ - %@%@" : @"%@ - %@ - %@";
     self.detailTextLabel.text = [NSString stringWithFormat:format, self.commit.shortenedSha, userInfo, dateInfo];
 }
 

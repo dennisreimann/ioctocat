@@ -7,8 +7,8 @@
 #import "GHRepositories.h"
 #import "IOCGravatarService.h"
 #import "IOCAvatarCache.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHOrganization
@@ -41,25 +41,25 @@
 }
 
 - (void)setValues:(id)dict {
-	NSDictionary *resource = [dict safeDictForKey:@"organization"] ? [dict safeDictForKey:@"organization"] : dict;
-	NSString *login = [resource safeStringForKey:@"login"];
+	NSDictionary *resource = [dict ioc_dictForKey:@"organization"] ? [dict ioc_dictForKey:@"organization"] : dict;
+	NSString *login = [resource ioc_stringForKey:@"login"];
 	// TODO: Remove email check once the API change is done.
-	id email = [dict valueForKeyPath:@"email" defaultsTo:nil];
+	id email = [dict ioc_valueForKeyPath:@"email" defaultsTo:nil];
 	if ([email isKindOfClass:NSDictionary.class]) {
-		NSString *state = [email safeStringForKey:@"state"];
-		email = [state isEqualToString:@"verified"] ? [dict safeStringForKey:@"email"] : nil;
+		NSString *state = [email ioc_stringForKey:@"state"];
+		email = [state isEqualToString:@"verified"] ? [dict ioc_stringForKey:@"email"] : nil;
 	}
 	// Check the values before setting them, because the organizations list does
 	// not include all fields. This unsets some fields when reloading the orgs,
 	// after an org has already been fully loaded (because the orgs are cached).
-	NSString *name = [resource safeStringOrNilForKey:@"name"];
-	NSString *location = [resource safeStringOrNilForKey:@"location"];
-	NSURL *blogURL = [resource safeURLForKey:@"blog"];
-	NSURL *htmlURL = [resource safeURLForKey:@"html_url"];
-	NSURL *gravatarURL = [resource safeURLForKey:@"avatar_url"];
-	NSInteger publicRepoCount = [resource safeIntegerForKey:@"public_repos"];
-	NSInteger privateRepoCount = [resource safeIntegerForKey:@"total_private_repos"];
-	if (!login.isEmpty && ![self.login isEqualToString:login]) self.login = login;
+	NSString *name = [resource ioc_stringOrNilForKey:@"name"];
+	NSString *location = [resource ioc_stringOrNilForKey:@"location"];
+	NSURL *blogURL = [resource ioc_URLForKey:@"blog"];
+	NSURL *htmlURL = [resource ioc_URLForKey:@"html_url"];
+	NSURL *gravatarURL = [resource ioc_URLForKey:@"avatar_url"];
+	NSInteger publicRepoCount = [resource ioc_integerForKey:@"public_repos"];
+	NSInteger privateRepoCount = [resource ioc_integerForKey:@"total_private_repos"];
+	if (!login.ioc_isEmpty && ![self.login isEqualToString:login]) self.login = login;
 	if (name) self.name = name;
 	if (email) self.email = email;
 	if (blogURL) self.location = location;

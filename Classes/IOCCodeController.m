@@ -1,8 +1,8 @@
 #import "IOCCodeController.h"
 #import "IOCUtil.h"
 #import "GHFiles.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "SVProgressHUD.h"
 
 
@@ -71,15 +71,15 @@
     [self hidePopupView];
 	_file = file;
 	[self.contentView stopLoading];
-	NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];
-	NSString *fileContent = [self.file safeStringForKey:@"content"];
-	NSString *lang = [[self.file safeStringForKey:@"language"] lowercaseString];
+	NSString *fileName = [[self.file ioc_stringForKey:@"filename"] lastPathComponent];
+	NSString *fileContent = [self.file ioc_stringForKey:@"content"];
+	NSString *lang = [[self.file ioc_stringForKey:@"language"] lowercaseString];
 	// if it's not a gist it must be a commit, so use the patch
-	if (fileContent.isEmpty) {
-		fileContent = [self.file safeStringForKey:@"patch"];
+	if ([fileContent ioc_isEmpty]) {
+		fileContent = [self.file ioc_stringForKey:@"patch"];
 		lang = @"diff";
 	}
-    if (lang.isEmpty) lang = [IOCUtil highlightLanguageForFilename:fileName];
+    if ([lang ioc_isEmpty]) lang = [IOCUtil highlightLanguageForFilename:fileName];
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 	BOOL lineNumbers = [[defaults valueForKey:kLineNumbersDefaultsKey] boolValue];
@@ -90,7 +90,7 @@
 	NSString *codeCssPath = [[NSBundle mainBundle] pathForResource:@"code" ofType:@"css"];
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
-	NSString *escapedCode = [fileContent escapeHTML];
+	NSString *escapedCode = [fileContent ioc_escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
 	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];
 	self.title = fileName;
@@ -140,7 +140,7 @@
 }
 
 - (IBAction)actionButtonTapped:(id)sender {
-    NSString *fileName = [[self.file safeStringForKey:@"filename"] lastPathComponent];
+    NSString *fileName = [[self.file ioc_stringForKey:@"filename"] lastPathComponent];
     NSURL *url = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:fileName]];
     if (!self.docInteractionController) {
         self.docInteractionController = [UIDocumentInteractionController interactionControllerWithURL:url];
@@ -184,9 +184,9 @@
 #pragma mark DocumentInteractionController
 
 - (void)documentInteractionController:(UIDocumentInteractionController *)controller willBeginSendingToApplication:(NSString *)application {
-    NSString *fileContent = [self.file safeStringForKey:@"content"];
-    if (fileContent.isEmpty) {
-        fileContent = [self.file safeStringForKey:@"patch"];
+    NSString *fileContent = [self.file ioc_stringForKey:@"content"];
+    if ([fileContent ioc_isEmpty]) {
+        fileContent = [self.file ioc_stringForKey:@"patch"];
     }
     [[fileContent dataUsingEncoding:NSUTF8StringEncoding] writeToURL:[controller URL] atomically:YES];
 }

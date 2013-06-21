@@ -2,7 +2,7 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHRepositories
@@ -10,8 +10,8 @@
 - (void)setValues:(id)values {
     [super setValues:values];
 	for (NSDictionary *dict in values) {
-		NSString *owner = [dict safeStringForKeyPath:@"owner.login"];
-		NSString *name = [dict safeStringForKey:@"name"];
+		NSString *owner = [dict ioc_stringForKeyPath:@"owner.login"];
+		NSString *name = [dict ioc_stringForKey:@"name"];
 		GHRepository *repo = [[GHRepository alloc] initWithOwner:owner andName:name];
 		[repo setValues:dict];
 		[self addObject:repo];

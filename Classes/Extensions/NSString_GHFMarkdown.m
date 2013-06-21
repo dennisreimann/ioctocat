@@ -1,5 +1,5 @@
 //
-//  NSString+GHFMarkdown.m
+//  NSString_GHFMarkdown.m
 //  iOctocat
 //
 //  Created by Dennis Reimann on 05/15/13.
@@ -8,27 +8,27 @@
 
 #import <CoreText/CoreText.h>
 #import "GHFMarkdown.h"
-#import "GHFMarkdown+Private.h"
+#import "GHFMarkdown_Private.h"
 
 
 @implementation NSString (GHFMarkdown)
 
-- (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId {
-    return [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:self contextRepoId:contextRepoId];
+- (NSMutableAttributedString *)ghf_ghf_mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId {
+    return [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:self contextRepoId:contextRepoId];
 }
 
-- (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes {
-    return [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:self contextRepoId:contextRepoId attributes:attributes];
+- (NSMutableAttributedString *)ghf_ghf_mutableAttributedStringFromGHFMarkdownWithContextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes {
+    return [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:self contextRepoId:contextRepoId attributes:attributes];
 }
 
-- (NSArray *)linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId {
+- (NSArray *)ghf_linksFromGHFMarkdownWithContextRepoId:(NSString *)repoId {
     NSMutableString *string = self.mutableCopy;
-    NSDictionary *codeBlocks = [string extractAndSubstituteGHFMarkdownCodeBlocks];
-    NSArray *links = [string linksFromGHFMarkdownLinks];
-    NSArray *users = [string linksFromGHFMarkdownUsernames];
-    NSArray *shas = [string linksFromGHFMarkdownShasWithContextRepoId:repoId];
-    NSArray *issues = [string linksFromGHFMarkdownIssuesWithContextRepoId:repoId];
-    [string insertSubstitutedGHFMarkdownCodeBlocks:codeBlocks];
+    NSDictionary *codeBlocks = [string ghf_extractAndSubstituteGHFMarkdownCodeBlocks];
+    NSArray *links = [string ghf_linksFromGHFMarkdownLinks];
+    NSArray *users = [string ghf_linksFromGHFMarkdownUsernames];
+    NSArray *shas = [string ghf_linksFromGHFMarkdownShasWithContextRepoId:repoId];
+    NSArray *issues = [string ghf_linksFromGHFMarkdownIssuesWithContextRepoId:repoId];
+    [string ghf_insertSubstitutedGHFMarkdownCodeBlocks:codeBlocks];
     NSMutableArray *all = [NSMutableArray arrayWithCapacity:links.count + users.count + shas.count + issues.count];
     [all addObjectsFromArray:links];
     [all addObjectsFromArray:users];
@@ -37,7 +37,7 @@
     return all;
 }
 
-- (NSArray *)headlinesFromGHFMarkdown {
+- (NSArray *)ghf_headlinesFromGHFMarkdown {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownHeadlineRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionAnchorsMatchLines) error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
@@ -65,7 +65,7 @@
     return results;
 }
 
-- (NSArray *)quotesFromGHFMarkdown {
+- (NSArray *)ghf_quotesFromGHFMarkdown {
     // hack: tappends some extra newlines at the end of the string
     // to also find a quote at the end of the original string
     NSString *string = [self stringByAppendingString:GHFMarkdownQuoteNewlinePadding];
@@ -88,7 +88,7 @@
     return results;
 }
 
-- (NSArray *)linksFromGHFMarkdownLinks {
+- (NSArray *)ghf_linksFromGHFMarkdownLinks {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownLinkRegex options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
@@ -107,7 +107,7 @@
     return results;
 }
 
-- (NSArray *)tasksFromGHFMarkdown {
+- (NSArray *)ghf_tasksFromGHFMarkdown {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownTaskRegex options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
@@ -130,7 +130,7 @@
     return results;
 }
 
-- (NSArray *)linksFromGHFMarkdownUsernames {
+- (NSArray *)ghf_linksFromGHFMarkdownUsernames {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownUsernameRegex options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
@@ -154,7 +154,7 @@
 // * SHA
 // * User@SHA
 // * User/Project@SHA
-- (NSArray *)linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId {
+- (NSArray *)ghf_linksFromGHFMarkdownShasWithContextRepoId:(NSString *)repoId {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownShaRegex options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
@@ -202,7 +202,7 @@
 // * #Num
 // * User/#Num
 // * User/Project#Num
-- (NSArray *)linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId {
+- (NSArray *)ghf_linksFromGHFMarkdownIssuesWithContextRepoId:(NSString *)repoId {
     NSString *string = self;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:GHFMarkdownIssueRegex options:NSRegularExpressionCaseInsensitive error:NULL];
     NSArray *matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];

@@ -3,7 +3,7 @@
 #import "GHCommit.h"
 #import "GHTag.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHRef
@@ -21,8 +21,8 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSString *type = [dict safeStringForKeyPath:@"object.type"];
-	NSString *sha = [dict safeStringForKey:@"sha"];
+	NSString *type = [dict ioc_stringForKeyPath:@"object.type"];
+	NSString *sha = [dict ioc_stringForKey:@"sha"];
 	if ([type isEqualToString:@"commit"]) {
 		self.object = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 	} else if ([type isEqualToString:@"tag"]) {

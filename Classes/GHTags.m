@@ -1,7 +1,7 @@
 #import "GHTags.h"
 #import "GHTag.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHTags ()
@@ -23,7 +23,7 @@
 - (void)setValues:(id)values {
     [super setValues:values];
 	for (NSDictionary *dict in values) {
-        NSString *sha = [dict safeStringForKey:@"sha"];
+        NSString *sha = [dict ioc_stringForKey:@"sha"];
 		GHTag *tag = [[GHTag alloc] initWithRepo:self.repository sha:sha];
 		[tag setValues:dict];
 		[self addObject:tag];

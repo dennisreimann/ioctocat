@@ -3,9 +3,9 @@
 #import "GHRepository.h"
 #import "GHUser.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHBranch
@@ -21,7 +21,7 @@
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/tree/%@", self.repository.owner, self.repository.name, self.name];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"/%@/%@/tree/%@", self.repository.owner, self.repository.name, self.name];
     }
     return _htmlURL;
 }
@@ -30,9 +30,9 @@
 
 - (void)setValues:(id)dict {
 	// handle different formats in repo and pull request api
-	NSString *sha = [dict safeStringForKey:@"sha"];
-	NSString *authorLogin = [dict safeStringForKeyPath:@"author.login"];
-	if ([authorLogin isEmpty]) authorLogin = [dict safeStringForKeyPath:@"user.login"];
+	NSString *sha = [dict ioc_stringForKey:@"sha"];
+	NSString *authorLogin = [dict ioc_stringForKeyPath:@"author.login"];
+	if ([authorLogin ioc_isEmpty]) authorLogin = [dict ioc_stringForKeyPath:@"user.login"];
 	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 	self.author = [iOctocat.sharedInstance userWithLogin:authorLogin];
 }

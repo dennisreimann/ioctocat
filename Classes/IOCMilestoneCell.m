@@ -1,7 +1,7 @@
 #import "IOCMilestoneCell.h"
 #import "GHMilestone.h"
-#import "NSDate+Nibware.h"
-#import "NSString+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface IOCMilestoneCell ()
@@ -75,7 +75,7 @@
     NSString *due = @"No due date";
     if (milestone.dueOn) {
         NSString *formattedDate = [self.dateFormatter stringFromDate:milestone.dueOn];
-        NSString *prettyDate = milestone.dueOn.prettyDate;
+        NSString *prettyDate = [milestone.dueOn ioc_prettyDate];
         due = [NSString stringWithFormat:@"Due on %@ (%@)", formattedDate, prettyDate];
     }
     // detail

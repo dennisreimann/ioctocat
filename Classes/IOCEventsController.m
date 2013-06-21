@@ -20,12 +20,12 @@
 #import "GHPullRequest.h"
 #import "iOctocat.h"
 #import "IOCEventCell.h"
-#import "NSDate+Nibware.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 #import "IOCViewControllerFactory.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 
 #define kEventCellIdentifier @"EventCell"
 
@@ -174,7 +174,7 @@
 
 - (void)refreshLastUpdate {
 	if (self.events.lastUpdate) {
-		NSString *lastRefresh = [NSString stringWithFormat:NSLocalizedString(@"Last refresh %@", @"Notifications/Events: Last refresh shown in header"), self.events.lastUpdate.prettyDate];
+		NSString *lastRefresh = [NSString stringWithFormat:NSLocalizedString(@"Last refresh %@", @"Notifications/Events: Last refresh shown in header"), [self.events.lastUpdate ioc_prettyDate]];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
 }

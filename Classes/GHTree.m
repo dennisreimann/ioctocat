@@ -3,9 +3,9 @@
 #import "GHBlob.h"
 #import "GHSubmodule.h"
 #import "GHRepository.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHTree
@@ -32,19 +32,19 @@
 	self.blobs = [NSMutableArray array];
 	self.submodules = [NSMutableArray array];
     // handle different responses from the tree and repo content APIs
-    NSArray *tree = [values isKindOfClass:NSArray.class] ? values : [values safeArrayForKey:@"tree"];
+    NSArray *tree = [values isKindOfClass:NSArray.class] ? values : [values ioc_arrayForKey:@"tree"];
 	for (NSDictionary *item in tree) {
-		NSInteger size = [item safeIntegerForKey:@"size"];
-		NSString *sha  = [item safeStringForKey:@"sha"];
-		NSString *type = [item safeStringForKey:@"type"];
-		NSString *mode = [item safeStringOrNilForKey:@"mode"];
-		NSString *name = [item safeStringOrNilForKey:@"name"];
-		NSString *path = [item safeStringOrNilForKey:@"path"];
+		NSInteger size = [item ioc_integerForKey:@"size"];
+		NSString *sha  = [item ioc_stringForKey:@"sha"];
+		NSString *type = [item ioc_stringForKey:@"type"];
+		NSString *mode = [item ioc_stringOrNilForKey:@"mode"];
+		NSString *name = [item ioc_stringOrNilForKey:@"name"];
+		NSString *path = [item ioc_stringOrNilForKey:@"path"];
         // eventually correct the type: workaround for a limitation in the GitHub API v3, see
         // https://github.com/github/developer.github.com/commit/1b329b04cece9f3087faa7b1e0382317a9b93490
         GHRepository *submoduleRepo = nil;
         if ([type isEqualToString:@"submodule"] || ([type isEqualToString:@"file"] && size == 0)) {
-            NSURL *gitURL = [NSURL smartURLFromString:[item safeStringOrNilForKey:@"git_url"]];
+            NSURL *gitURL = [NSURL ioc_smartURLFromString:[item ioc_stringOrNilForKey:@"git_url"]];
             NSArray *comps = [gitURL pathComponents];
             if (comps.count > 3) {
                 NSString *submoduleOwner = [comps objectAtIndex:2];

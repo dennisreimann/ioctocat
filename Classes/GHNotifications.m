@@ -1,7 +1,7 @@
 #import "GHNotifications.h"
 #import "GHNotification.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "IOCDefaultsPersistence.h"
 
 
@@ -45,7 +45,7 @@
 
 - (void)setHeaderValues:(NSDictionary *)values {
 	[super setHeaderValues:values];
-	self.pollInterval = [values safeIntegerForKey:@"X-Poll-Interval"];
+	self.pollInterval = [values ioc_integerForKey:@"X-Poll-Interval"];
 }
 
 - (void)markAsRead:(GHNotification *)notification start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {

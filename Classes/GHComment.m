@@ -3,20 +3,20 @@
 #import "GHRepository.h"
 #import "GHFMarkdown.h"
 #import "NSString+Emojize.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "iOctocat.h"
 
 
 @implementation GHComment
 
 - (void)setValues:(id)dict {
-	self.commentID = [dict safeIntegerForKey:@"id"];
-	self.body = [dict safeStringForKey:@"body"];
-	self.createdAt = [dict safeDateForKey:@"created_at"];
-	self.updatedAt = [dict safeDateForKey:@"updated_at"];
-	self.user = [iOctocat.sharedInstance userWithLogin:[dict safeStringForKeyPath:@"user.login"]];
+	self.commentID = [dict ioc_integerForKey:@"id"];
+	self.body = [dict ioc_stringForKey:@"body"];
+	self.createdAt = [dict ioc_dateForKey:@"created_at"];
+	self.updatedAt = [dict ioc_dateForKey:@"updated_at"];
+	self.user = [iOctocat.sharedInstance userWithLogin:[dict ioc_stringForKeyPath:@"user.login"]];
 	if (!self.user.gravatarURL) {
-		self.user.gravatarURL = [dict safeURLForKeyPath:@"user.avatar_url"];
+		self.user.gravatarURL = [dict ioc_URLForKeyPath:@"user.avatar_url"];
 	}
 }
 
@@ -52,7 +52,7 @@
     if (!_attributedBody) {
         NSString *text = self.bodyWithoutEmailFooter;
         text = [text emojizedString];
-        _attributedBody = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+        _attributedBody = [text ghf_ghf_mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
     }
     return _attributedBody;
 }

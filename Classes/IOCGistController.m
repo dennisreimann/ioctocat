@@ -12,14 +12,14 @@
 #import "IOCCommentController.h"
 #import "IOCCommentCell.h"
 #import "iOctocat.h"
-#import "NSDictionary+Extensions.h"
-#import "NSDate+Nibware.h"
+#import "NSDictionary_IOCExtensions.h"
+#import "NSDate_IOCExtensions.h"
 #import "SVProgressHUD.h"
 #import "IOCLabeledCell.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
 #import "GradientButton.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
@@ -110,8 +110,8 @@
 	self.descriptionLabel.text = self.gist.title;
 	self.forksIconView.hidden = !self.gist.isLoaded;
 	self.ownerCell.contentText = self.gist.user.login;
-	self.createdCell.contentText = self.gist.createdAt.prettyDate;
-	self.updatedCell.contentText = self.gist.updatedAt.prettyDate;
+	self.createdCell.contentText = [self.gist.createdAt ioc_prettyDate];
+	self.updatedCell.contentText = [self.gist.updatedAt ioc_prettyDate];
     self.tableView.showsInfiniteScrolling = self.gist.comments.hasNextPage;
     if (self.gist.isLoaded) {
         self.forksCountLabel.text = [NSString stringWithFormat:self.gist.forksCount == 1 ? NSLocalizedString(@"%d fork", @"Single fork") : NSLocalizedString(@"%d forks", @"Multiple forks"), self.gist.forksCount];
@@ -266,8 +266,8 @@
 			cell.textLabel.font = [UIFont systemFontOfSize:15.0];
 		}
 		NSDictionary *file = self.gist.files[row];
-		NSString *fileContent = [file safeStringForKey:@"content"];
-		cell.textLabel.text = [file safeStringForKey:@"filename"];
+		NSString *fileContent = [file ioc_stringForKey:@"content"];
+		cell.textLabel.text = [file ioc_stringForKey:@"filename"];
 		cell.selectionStyle = fileContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 		cell.accessoryType = fileContent ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
         return cell;

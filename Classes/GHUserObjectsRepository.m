@@ -2,7 +2,7 @@
 #import "GHUser.h"
 #import "GHOrganization.h"
 #import "IOCAvatarCache.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface GHUserObjectsRepository ()
@@ -36,7 +36,7 @@ static NSString *const GravatarKeyPath = kGravatarKeyPath;
 }
 
 - (GHUser *)userWithLogin:(NSString *)login {
-	if (!login || login.isEmpty) return nil;
+	if (!login || [login ioc_isEmpty]) return nil;
 	GHUser *user = self.users[login];
 	if (user == nil) {
 		user = [[GHUser alloc] initWithLogin:login];
@@ -47,7 +47,7 @@ static NSString *const GravatarKeyPath = kGravatarKeyPath;
 }
 
 - (GHOrganization *)organizationWithLogin:(NSString *)login {
-	if (!login || login.isEmpty) return nil;
+	if (!login || [login ioc_isEmpty]) return nil;
 	GHOrganization *organization = self.organizations[login];
 	if (organization == nil) {
 		organization = [[GHOrganization alloc] initWithLogin:login];

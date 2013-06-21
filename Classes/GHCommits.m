@@ -2,7 +2,7 @@
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "GHPullRequest.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHCommits ()
@@ -61,7 +61,7 @@
 - (void)setValues:(id)values {
     [super setValues:values];
 	for (NSDictionary *dict in values) {
-        NSString *sha = [dict safeStringForKey:@"sha"];
+        NSString *sha = [dict ioc_stringForKey:@"sha"];
 		GHCommit *commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 		[commit setValues:dict];
 		[self addObject:commit];

@@ -10,10 +10,10 @@
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "GHPullRequest.h"
-#import "NSDate+Nibware.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "TTTAttributedLabel.h"
 
 
@@ -53,7 +53,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	[self.event removeObserver:self forKeyPath:UserGravatarKeyPath];
 	_event = event;
 	self.titleLabel.text = self.event.title;
-	self.dateLabel.text = [self.event.date prettyDate];
+	self.dateLabel.text = [self.event.date ioc_prettyDate];
     self.contentLabel.lineBreakMode = self.event.isCommentEvent ? NSLineBreakByTruncatingTail : NSLineBreakByWordWrapping;
 	self.contentLabel.numberOfLines = self.event.isCommentEvent ? 3 : 0;
     self.contentText = self.event.contentForDisplay;
@@ -107,8 +107,8 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     }
     if (self.event.pages) {
         NSDictionary *wiki = self.event.pages[0];
-        NSString *pageName = [wiki safeStringForKey:@"page_name"];
-        NSURL *htmlURL = [wiki safeURLForKey:@"html_url"];
+        NSString *pageName = [wiki ioc_stringForKey:@"page_name"];
+        NSURL *htmlURL = [wiki ioc_URLForKey:@"html_url"];
         NSRange range = [self.titleLabel.text rangeOfString:[NSString stringWithFormat:@"\"%@\"", pageName]];
         [self.titleLabel addLinkToURL:htmlURL withRange:range];
     }

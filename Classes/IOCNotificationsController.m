@@ -1,9 +1,9 @@
 #import "GHNotifications.h"
 #import "GHNotification.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 #import "IOCNotificationsController.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "iOctocat.h"
 #import "GHPullRequest.h"
 #import "GHIssue.h"
@@ -320,7 +320,7 @@
 
 - (void)refreshLastUpdate {
 	if (self.notifications.lastUpdate) {
-		NSString *lastRefresh = [NSString stringWithFormat:NSLocalizedString(@"Last refresh %@", @"Notifications/Events: Last refresh shown in header"), self.notifications.lastUpdate.prettyDate];
+		NSString *lastRefresh = [NSString stringWithFormat:NSLocalizedString(@"Last refresh %@", @"Notifications/Events: Last refresh shown in header"), [self.notifications.lastUpdate ioc_prettyDate]];
 		[self.tableView.pullToRefreshView setSubtitle:lastRefresh forState:SVPullToRefreshStateAll];
 	}
 }

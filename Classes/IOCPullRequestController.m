@@ -11,8 +11,8 @@
 #import "IOCCommitsController.h"
 #import "GHIssueComments.h"
 #import "GHIssueComment.h"
-#import "NSDate+Nibware.h"
-#import "NSString+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
 #import "iOctocat.h"
 #import "GHUser.h"
 #import "GHBranch.h"
@@ -23,7 +23,7 @@
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
@@ -137,9 +137,9 @@
 	self.commitTitleLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Merge pull request #%d from %@", @"Pull Request Commit: Title with NUMBER and REPO"), self.pullRequest.number, self.pullRequest.head.repository.repoId];
 	self.repoCell.contentText = self.pullRequest.repository.repoId;
 	self.authorCell.contentText = self.pullRequest.user.login;
-	self.createdCell.contentText = self.pullRequest.createdAt.prettyDate;
-	self.updatedCell.contentText = self.pullRequest.updatedAt.prettyDate;
-	self.closedCell.contentText = self.pullRequest.closedAt.prettyDate;
+	self.createdCell.contentText = [self.pullRequest.createdAt ioc_prettyDate];
+	self.updatedCell.contentText = [self.pullRequest.updatedAt ioc_prettyDate];
+	self.closedCell.contentText = [self.pullRequest.closedAt ioc_prettyDate];
     self.descriptionCell.contentText = self.pullRequest.attributedBody;
     self.descriptionCell.rawContentText = self.pullRequest.body;
 	self.repoCell.selectionStyle = self.repoCell.hasContent ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;

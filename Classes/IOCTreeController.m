@@ -7,7 +7,7 @@
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface IOCTreeController ()
@@ -31,8 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSString *title = self.title;
-    if (!title || title.isEmpty) title = self.tree.path.isEmpty ? self.tree.ref : [self.tree.path lastPathComponent];
-    if (!title || title.isEmpty) title = self.tree.shortenedSha;
+    if (!title || [title ioc_isEmpty]) title = [self.tree.path ioc_isEmpty] ? self.tree.ref : [self.tree.path lastPathComponent];
+    if (!title || [title ioc_isEmpty]) title = self.tree.shortenedSha;
     self.navigationItem.title = title;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refresh:)];
     self.statusCell = [[IOCResourceStatusCell alloc] initWithResource:self.tree name:NSLocalizedString(@"entries", nil)];

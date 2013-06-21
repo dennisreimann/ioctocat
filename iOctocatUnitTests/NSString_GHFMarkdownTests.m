@@ -1,15 +1,15 @@
 #import <CoreText/CoreText.h>
 #import "IOCTestHelper.h"
-#import "NSString+GHFMarkdownTests.h"
+#import "NSString_GHFMarkdownTests.h"
 #import "GHFMarkdown.h"
-#import "GHFMarkdown+Private.h"
+#import "GHFMarkdown_Private.h"
 
 
 @implementation NSString_GHFMarkdownTests
 
 - (void)testGhfmarkdownLinks {
     NSString *string = @"This [is a link](http://ioctocat.com) and this text.";
-    NSArray *links = [string linksFromGHFMarkdownLinks];
+    NSArray *links = [string ghf_linksFromGHFMarkdownLinks];
     expect(links.count).to.equal(1);
     NSDictionary *link = links[0];
     expect(link[@"title"]).to.equal(@"is a link");
@@ -18,7 +18,7 @@
 
 - (void)testGhfmarkdownLinksAtStringBounds {
     NSString *string = @"[Link at start](http://ioctocat.com) and a [link at the end](https://github.com/)";
-    NSArray *links = [string linksFromGHFMarkdownLinks];
+    NSArray *links = [string ghf_linksFromGHFMarkdownLinks];
     expect(links.count).to.equal(2);
     NSDictionary *link1 = links[0];
     NSDictionary *link2 = links[1];
@@ -30,7 +30,7 @@
 
 - (void)testGhfmarkdownImages {
     NSString *string = @"This is ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png).";
-    NSArray *images = [string linksFromGHFMarkdownLinks];
+    NSArray *images = [string ghf_linksFromGHFMarkdownLinks];
     expect(images.count).to.equal(1);
     NSDictionary *image = images[0];
     expect(image[@"title"]).to.equal(@"an image");
@@ -39,7 +39,7 @@
 
 - (void)testGhfmarkdownImagesAtStringBounds {
     NSString *string = @"![Image at start](http://ioctocat.com/img/iOctocat.png) and an ![image at the end](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)";
-    NSArray *images = [string linksFromGHFMarkdownLinks];
+    NSArray *images = [string ghf_linksFromGHFMarkdownLinks];
     expect(images.count).to.equal(2);
     NSDictionary *img1 = images[0];
     NSDictionary *img2 = images[1];
@@ -51,7 +51,7 @@
 
 - (void)testGhfmarkdownLinksAndImages {
     NSString *string = @"This [is a link](http://ioctocat.com) and this an ![image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png).";
-    NSArray *links = [string linksFromGHFMarkdownLinks];
+    NSArray *links = [string ghf_linksFromGHFMarkdownLinks];
     expect(links.count).to.equal(2);
     NSDictionary *link = links[0];
     NSDictionary *image = links[1];
@@ -63,7 +63,7 @@
 
 - (void)testGhfmarkdownUsernames {
     NSString *string = @"This is an @user reference";
-    NSArray *users = [string linksFromGHFMarkdownUsernames];
+    NSArray *users = [string ghf_linksFromGHFMarkdownUsernames];
     expect(users.count).to.equal(1);
     NSDictionary *user = users[0];
     expect(user[@"title"]).to.equal(@"@user");
@@ -72,7 +72,7 @@
 
 - (void)testGhfmarkdownUsernamesAtStringBounds {
     NSString *string = @"@user_1 and @user-2";
-    NSArray *users = [string linksFromGHFMarkdownUsernames];
+    NSArray *users = [string ghf_linksFromGHFMarkdownUsernames];
     expect(users.count).to.equal(2);
     NSDictionary *user1 = users[0];
     NSDictionary *user2 = users[1];
@@ -84,7 +84,7 @@
 
 - (void)testGhfmarkdownIssuesWithContextRepoId {
     NSString *string = @"This is an #123 issue reference and here's a full dennisreimann/masq#456 reference and iosdeveloper#789.";
-    NSArray *issues = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
+    NSArray *issues = [string ghf_linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
     expect(issues.count).to.equal(3);
     NSDictionary *issue1 = issues[0];
     NSDictionary *issue2 = issues[1];
@@ -102,7 +102,7 @@
 
 - (void)testGhfmarkdownIssuesWithoutContextRepoId {
     NSString *string = @"This is an #123 issue reference.";
-    NSArray *issues = [string linksFromGHFMarkdownWithContextRepoId:nil];
+    NSArray *issues = [string ghf_linksFromGHFMarkdownWithContextRepoId:nil];
     expect(issues.count).to.equal(1);
     NSDictionary *issue = issues[0];
     expect(issue[@"title"]).to.equal(@"#123");
@@ -112,7 +112,7 @@
 
 - (void)testGhfmarkdownShasWithContextRepoId {
     NSString *string = @"ed46435517b28c7112401a78d41d6ac16c999734 and dennisreimann/masq@16c999e8c71134401a78d4d46435517b2271d6ac and iosdeveloper@c71134401a78d4d464316c999e85517b2271d6ac.";
-    NSArray *shas = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
+    NSArray *shas = [string ghf_linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
     expect(shas.count).to.equal(3);
     NSDictionary *sha1 = shas[0];
     NSDictionary *sha2 = shas[1];
@@ -130,7 +130,7 @@
 
 - (void)testGhfmarkdownShasWithoutContextRepoId {
     NSString *string = @"ed46435517b28c7112401a78d41d6ac16c999734 and no more";
-    NSArray *shas = [string linksFromGHFMarkdownWithContextRepoId:nil];
+    NSArray *shas = [string ghf_linksFromGHFMarkdownWithContextRepoId:nil];
     expect(shas.count).to.equal(1);
     NSDictionary *sha = shas[0];
     expect(sha[@"title"]).to.equal(@"ed46435517b28c7112401a78d41d6ac16c999734");
@@ -138,9 +138,9 @@
     expect(sha[@"url"]).to.beNil();
 }
 
-- (void)testLinksFromGHFMarkdownWithContextRepoIdAndImagesInCodeBlocks {
+- (void)testghf_linksFromGHFMarkdownWithContextRepoIdAndImagesInCodeBlocks {
     NSString *string = @"This is an #123 issue reference and this\n\n```\ncode block [has a link](http://ioctocat.com) and this is an ![image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)\n```\n\nwithin a code block.";
-    NSArray *links = [string linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
+    NSArray *links = [string ghf_linksFromGHFMarkdownWithContextRepoId:@"dennisreimann/ioctocat"];
     expect(links.count).to.equal(1);
     NSDictionary *link = links[0];
     expect(link[@"title"]).to.equal(@"#123");
@@ -148,7 +148,7 @@
 
 - (void)testGhfmarkdownHeadlines {
     NSString *string = @"Text\n\n# Headline\n\nMore Text";
-    NSArray *headlines = [string headlinesFromGHFMarkdown];
+    NSArray *headlines = [string ghf_headlinesFromGHFMarkdown];
     expect(headlines.count).to.equal(1);
     NSDictionary *head = headlines[0];
     expect(head[@"title"]).to.equal(@"Headline");
@@ -158,7 +158,7 @@
 
 - (void)testGhfmarkdownHeadlinesAtStringBounds {
     NSString *string = @"# First Headline #\n\nText\n\n## Second Headline\n\nMore Text\n\n### Third Headline ###";
-    NSArray *headlines = [string headlinesFromGHFMarkdown];
+    NSArray *headlines = [string ghf_headlinesFromGHFMarkdown];
     expect(headlines.count).to.equal(3);
     NSDictionary *head1 = headlines[0];
     NSDictionary *head2 = headlines[1];

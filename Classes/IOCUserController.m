@@ -14,7 +14,7 @@
 #import "iOctocat.h"
 #import "IOCUsersController.h"
 #import "IOCEventsController.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 #import "IOCGistsController.h"
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
@@ -131,8 +131,8 @@
 }
 
 - (void)displayUser {
-	self.nameLabel.text = (!self.user.name || self.user.name.isEmpty) ? self.user.login : self.user.name;
-	self.companyLabel.text = (!self.user.company || self.user.company.isEmpty) ? [NSString stringWithFormat:self.user.followersCount == 1 ? NSLocalizedString(@"%d follower", @"User: Single follower") : NSLocalizedString(@"%d followers", @"User: Multiple followers"), self.user.followersCount] : self.user.company;
+	self.nameLabel.text = (!self.user.name || [self.user.name ioc_isEmpty]) ? self.user.login : self.user.name;
+	self.companyLabel.text = (!self.user.company || [self.user.company ioc_isEmpty]) ? [NSString stringWithFormat:self.user.followersCount == 1 ? NSLocalizedString(@"%d follower", @"User: Single follower") : NSLocalizedString(@"%d followers", @"User: Multiple followers"), self.user.followersCount] : self.user.company;
 	if (self.user.gravatar) self.gravatarView.image = self.user.gravatar;
 	self.locationCell.contentText = self.user.location;
 	self.blogCell.contentText = self.user.blogURL.host;
@@ -271,7 +271,7 @@
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.user.blogURL) {
 		viewController = [[IOCWebController alloc] initWithURL:self.user.blogURL];
-    } else if (section == 0 && row == 2 && self.user.email && !self.user.email.isEmpty) {
+    } else if (section == 0 && row == 2 && self.user.email && ![self.user.email ioc_isEmpty]) {
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
             mailComposer.mailComposeDelegate = self;

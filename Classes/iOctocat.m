@@ -12,14 +12,14 @@
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHNotifications.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "IOCMenuController.h"
 #import "IOCWebController.h"
 #import "YRDropdownView.h"
 #import "ECSlidingViewController.h"
-#import "NSDate+Nibware.h"
-#import "NSURL+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSURL_IOCExtensions.h"
 #import "GHSystemStatusService.h"
 
 
@@ -73,7 +73,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     UIViewController *menuController = self.menuNavController.topViewController;
     BOOL isMenuVisible = [menuController isKindOfClass:IOCMenuController.class];
-    if (isMenuVisible && url.isGitHubURL && [(IOCMenuController *)menuController openViewControllerForGitHubURL:url]) {
+    if (isMenuVisible && url.ioc_isGitHubURL && [(IOCMenuController *)menuController openViewControllerForGitHubURL:url]) {
 		return YES;
 	}
     return NO;
@@ -105,7 +105,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
     self.deviceToken = [IOCApiClient normalizeDeviceToken:deviceToken];
     NSString *alias = self.accounts.count > 0 ? [(GHAccount *)self.accounts[0] accountId] : nil;
 	[IOCApiClient.sharedInstance registerPushNotificationsForDevice:deviceToken alias:alias success:^(id responseObject) {
-        self.deviceToken = [responseObject safeStringForKey:@"token"];
+        self.deviceToken = [responseObject ioc_stringForKey:@"token"];
     } failure:nil];
 }
 
@@ -129,12 +129,12 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 - (void)reportNotification:(NSDictionary *)remoteNotification {
-    NSDictionary *aps = [remoteNotification safeDictForKey:@"aps"];
-    NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
-    NSString *login = [ioc safeStringForKey:@"a"];
-    NSString *type = [ioc safeStringOrNilForKey:@"e"];
-    NSString *sound = [aps safeStringOrNilForKey:@"sound"];
-    NSString *message = [aps safeStringForKey:@"alert"];
+    NSDictionary *aps = [remoteNotification ioc_dictForKey:@"aps"];
+    NSDictionary *ioc = [remoteNotification ioc_dictForKey:@"ioc"];
+    NSString *login = [ioc ioc_stringForKey:@"a"];
+    NSString *type = [ioc ioc_stringOrNilForKey:@"e"];
+    NSString *sound = [aps ioc_stringOrNilForKey:@"sound"];
+    NSString *message = [aps ioc_stringForKey:@"alert"];
     NSString *title = self.accounts.count > 1 ? login : @"New notification";
     if (!type) type = @"Notifications";
     if (sound) [iOctocat playSound:sound];
@@ -156,19 +156,19 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 }
 
 - (void)openNotification:(NSDictionary *)remoteNotification {
-    NSDictionary *ioc = [remoteNotification safeDictForKey:@"ioc"];
-    NSString *login = [ioc safeStringForKey:@"a"];
-    NSString *endpoint = [ioc safeStringForKey:@"b"];
-    if (endpoint.isEmpty) endpoint = kGitHubComURL;
+    NSDictionary *ioc = [remoteNotification ioc_dictForKey:@"ioc"];
+    NSString *login = [ioc ioc_stringForKey:@"a"];
+    NSString *endpoint = [ioc ioc_stringForKey:@"b"];
+    if ([endpoint ioc_isEmpty]) endpoint = kGitHubComURL;
     GHAccount *account = [self accountWithLogin:login endpoint:endpoint];
     if (!account) {
-        NSString *host = [[NSURL smartURLFromString:endpoint] host];
+        NSString *host = [[NSURL ioc_smartURLFromString:endpoint] host];
         NSString *msg = [NSString stringWithFormat:@"Could not find account %@ for %@", login, host];
         [iOctocat reportError:@"Missing account" with:msg];
         return;
     }
-    NSURL *url = [NSURL smartURLFromString:[ioc safeStringForKey:@"c"]];
-    NSInteger notificationId = [ioc safeIntegerForKey:@"d"];
+    NSURL *url = [NSURL ioc_smartURLFromString:[ioc ioc_stringForKey:@"c"]];
+    NSInteger notificationId = [ioc ioc_integerForKey:@"d"];
     // open the account respecting the current state of the app
     BOOL isMenuVisible = [self.menuNavController.topViewController isKindOfClass:IOCMenuController.class];
     if (self.currentAccount == account && isMenuVisible) {
@@ -312,7 +312,7 @@ static NSString *const MigratedAvatarCacheDefaultsKey = @"migratedAvatarCache";
 - (BOOL)openURL:(NSURL *)url {
     UIViewController *menuController = self.menuNavController.topViewController;
     BOOL isMenuVisible = [menuController isKindOfClass:IOCMenuController.class];
-    if (isMenuVisible && url.isGitHubURL && [(IOCMenuController *)menuController openViewControllerForGitHubURL:url]) {
+    if (isMenuVisible && url.ioc_isGitHubURL && [(IOCMenuController *)menuController openViewControllerForGitHubURL:url]) {
         return YES;
     } else {
         NSString *scheme = url.scheme;
@@ -466,8 +466,8 @@ void SystemSoundCallback(SystemSoundID ssID, void *clientData) {
 #ifndef CONFIGURATION_Debug
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"HockeySDK" ofType:@"plist"];
 	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-	NSString *betaId = [dict valueForKey:@"beta_identifier" defaultsTo:nil];
-	NSString *liveId = [dict valueForKey:@"live_identifier" defaultsTo:nil];
+	NSString *betaId = [dict ioc_valueForKey:@"beta_identifier" defaultsTo:nil];
+	NSString *liveId = [dict ioc_valueForKey:@"live_identifier" defaultsTo:nil];
 	if (betaId || liveId) {
         [BITHockeyManager.sharedHockeyManager configureWithBetaIdentifier:betaId liveIdentifier:liveId delegate:self];
         [BITHockeyManager.sharedHockeyManager startManager];

@@ -1,6 +1,6 @@
 #import "IOCCommentCell.h"
 #import "GHComment.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 #import "GHUser.h"
 #import "TTTAttributedLabel.h"
 
@@ -33,7 +33,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 	[self.comment removeObserver:self forKeyPath:UserGravatarKeyPath];
 	_comment = comment;
     [self.comment addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
-	self.dateLabel.text = self.comment.createdAt.prettyDate;
+	self.dateLabel.text = [self.comment.createdAt ioc_prettyDate];
 	self.contentText = self.comment.attributedBody;
 	self.rawContentText = self.comment.body;
 	self.userLogin = self.comment.user.login;

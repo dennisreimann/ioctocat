@@ -9,7 +9,7 @@
 #import "IOCTextCell.h"
 #import "IOCFilesCell.h"
 #import "IOCCommentCell.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 #import "IOCUserController.h"
 #import "IOCRepositoryController.h"
 #import "IOCWebController.h"
@@ -20,7 +20,7 @@
 #import "IOCViewControllerFactory.h"
 #import "SVProgressHUD.h"
 #import "GradientButton.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
 
 
@@ -135,8 +135,8 @@ static NSString *const AuthorGravatarKeyPath = @"author.gravatar";
 	self.authorCell.contentText = self.commit.author.login;
 	self.authorCell.selectionStyle = self.commit.author ? UITableViewCellSelectionStyleBlue : UITableViewCellSelectionStyleNone;
 	self.authorCell.accessoryType = self.commit.author ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
-	self.authoredCell.contentText = self.commit.authoredDate.prettyDate;
-	self.committedCell.contentText = self.commit.committedDate.prettyDate;
+	self.authoredCell.contentText = [self.commit.authoredDate ioc_prettyDate];
+	self.committedCell.contentText = [self.commit.committedDate ioc_prettyDate];
 	self.messageCell.contentText = self.commit.attributedMessage;
 	self.messageCell.rawContentText = self.commit.message;
     self.tableView.showsInfiniteScrolling = self.commit.comments.hasNextPage;

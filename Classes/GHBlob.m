@@ -1,8 +1,8 @@
 #import "GHResource.h"
 #import "GHBlob.h"
 #import "GHRepository.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "MF_Base64Additions.h"
 #import "AFHTTPRequestOperation.h"
 
@@ -26,7 +26,7 @@
 - (loadSuccess)onLoadSuccess {
     return ^(AFHTTPRequestOperation *operation, id data) {
         if ([data isKindOfClass:NSDictionary.class]) {
-            self.path = [data safeStringForKey:@"path"];
+            self.path = [data ioc_stringForKey:@"path"];
         }
         if (self.isMarkdown) {
             // set initial data without marking as loaded
@@ -51,14 +51,14 @@
 
 - (void)setValues:(id)response {
     if ([response isKindOfClass:NSDictionary.class]) {
-        self.path = [response safeStringForKey:@"path"];
-        self.size = [response safeIntegerForKey:@"size"];
-        self.htmlURL = [response safeURLForKey:@"html_url"];
-        self.encoding = [response safeStringForKey:@"encoding"];
+        self.path = [response ioc_stringForKey:@"path"];
+        self.size = [response ioc_integerForKey:@"size"];
+        self.htmlURL = [response ioc_URLForKey:@"html_url"];
+        self.encoding = [response ioc_stringForKey:@"encoding"];
         if ([self.encoding isEqualToString:@"utf-8"]) {
-            self.content = [response safeStringForKey:@"content"];
+            self.content = [response ioc_stringForKey:@"content"];
         } else if ([self.encoding isEqualToString:@"base64"]) {
-            NSString *cont = [response safeStringForKey:@"content"];
+            NSString *cont = [response ioc_stringForKey:@"content"];
             self.content = [NSString stringFromBase64String:cont];
             self.contentData = [NSData dataWithBase64String:cont];
         }

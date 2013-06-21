@@ -1,8 +1,8 @@
 #import <CoreText/CoreText.h>
 #import "IOCTestHelper.h"
-#import "NSMutableAttributedString+GHFMarkdownTests.h"
+#import "NSMutableAttributedString_GHFMarkdownTests.h"
 #import "GHFMarkdown.h"
-#import "GHFMarkdown+Private.h"
+#import "GHFMarkdown_Private.h"
 
 
 @interface NSMutableAttributedString_GHFMarkdownTests ()
@@ -18,7 +18,7 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold."];
     NSDictionary *attributes = @{@"BOLD": @YES};
     [expected addAttributes:attributes range:NSMakeRange(5, 2)];
-    [actual substitutePattern:@"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)" options:(NSRegularExpressionCaseInsensitive) addAttributes:attributes];
+    [actual ghf_substitutePattern:@"(?:^|\\s)([*_]{2}(.+?)[*_]{2})(?:$|\\s)" options:(NSRegularExpressionCaseInsensitive) addAttributes:attributes];
     expect(actual).to.equal(expected);
 }
 
@@ -27,12 +27,12 @@
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"Thisisbold."];
     NSDictionary *attributes = @{@"BOLD": @YES};
     [expected addAttributes:attributes range:NSMakeRange(4, 2)];
-    [actual substitutePattern:@"(?:^|\\s)[*_]{2}(.+?)[*_]{2}(?:$|\\s)" options:(NSRegularExpressionCaseInsensitive) addAttributes:attributes];
+    [actual ghf_substitutePattern:@"(?:^|\\s)[*_]{2}(.+?)[*_]{2}(?:$|\\s)" options:(NSRegularExpressionCaseInsensitive) addAttributes:attributes];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithHeadlines {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"# Headline\n\nThis is text.\n\n## Second Headline ##\n\nMore text.\n\n### Third Headline\n\nLast paragraph."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"# Headline\n\nThis is text.\n\n## Second Headline ##\n\nMore text.\n\n### Third Headline\n\nLast paragraph."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"Headline\n\nThis is text.\n\nSecond Headline\n\nMore text.\n\nThird Headline\n\nLast paragraph."];
     [expected addAttributes:@{@"GHFMarkdown_Headline": @1, @"GHFMarkdown_Headline1": @YES} range:NSMakeRange(0, 8)];
     [expected addAttributes:@{@"GHFMarkdown_Headline": @2, @"GHFMarkdown_Headline2": @YES} range:NSMakeRange(25, 15)];
@@ -41,14 +41,14 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithBold {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This **is** bold."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This **is** bold."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold."];
     [expected addAttributes:@{@"GHFMarkdown_Bold": @YES} range:NSMakeRange(5, 2)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithBoldAtStringBounds {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"__This__ is __bold__"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"__This__ is __bold__"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold"];
     [expected addAttributes:@{@"GHFMarkdown_Bold": @YES} range:NSMakeRange(0, 4)];
     [expected addAttributes:@{@"GHFMarkdown_Bold": @YES} range:NSMakeRange(8, 4)];
@@ -56,14 +56,14 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithItalic {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This *is* italic."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This *is* italic."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic."];
     [expected addAttributes:@{@"GHFMarkdown_Italic": @YES} range:NSMakeRange(5, 2)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithItalicAtStringBounds {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"_This_ is _italic_"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"_This_ is _italic_"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is italic"];
     [expected addAttributes:@{@"GHFMarkdown_Italic": @YES} range:NSMakeRange(0, 4)];
     [expected addAttributes:@{@"GHFMarkdown_Italic": @YES} range:NSMakeRange(8, 6)];
@@ -71,21 +71,21 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithUnderscoreWhichIsNotItalic {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This is a file_name.rb get_it? But here is an _italic part_ okay?"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This is a file_name.rb get_it? But here is an _italic part_ okay?"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is a file_name.rb get_it? But here is an italic part okay?"];
     [expected addAttributes:@{@"GHFMarkdown_Italic": @YES} range:NSMakeRange(46, 11)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithBoldItalic {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This ***is*** bold italic."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This ***is*** bold italic."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic."];
     [expected addAttributes:@{@"GHFMarkdown_BoldItalic": @YES} range:NSMakeRange(5, 2)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithBoldItalicAtStringBounds {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"___This___ is ___bold italic___"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"___This___ is ___bold italic___"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is bold italic"];
     [expected addAttributes:@{@"GHFMarkdown_BoldItalic": @YES} range:NSMakeRange(0, 4)];
     [expected addAttributes:@{@"GHFMarkdown_BoldItalic": @YES} range:NSMakeRange(8, 11)];
@@ -93,20 +93,20 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithList {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This is\n* a normal list\n* with two entries\nThat's it."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This is\n* a normal list\n* with two entries\nThat's it."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is\n* a normal list\n* with two entries\nThat's it."];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeInline {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This `is` code."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This `is` code."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code."];
     [expected addAttributes:@{@"GHFMarkdown_CodeInline": @YES} range:NSMakeRange(5, 2)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeInlineAtStringBounds {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"`This` is `code inline`"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"`This` is `code inline`"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code inline"];
     [expected addAttributes:@{@"GHFMarkdown_CodeInline": @YES} range:NSMakeRange(0, 4)];
     [expected addAttributes:@{@"GHFMarkdown_CodeInline": @YES} range:NSMakeRange(8, 11)];
@@ -114,21 +114,21 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeInlineAsCodeHtml {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This <code>is</code> code"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This <code>is</code> code"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This is code"];
     [expected addAttributes:@{@"GHFMarkdown_CodeInline": @YES} range:NSMakeRange(5, 2)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeBlock {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n```ruby\nputs 'Test'\n```\n\na code block."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n\n```ruby\nputs 'Test'\n```\n\na code block."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nputs 'Test'\n\n\na code block."];
     [expected addAttributes:@{@"GHFMarkdown_CodeBlock": @YES} range:NSMakeRange(10, 12)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromMarkdownWithCodeBlocksAtStringBounds {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"```ruby\nputs 'Test'\n```\n\na code block\n\n```javascript\nalert('Test');\n```"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"```ruby\nputs 'Test'\n```\n\na code block\n\n```javascript\nalert('Test');\n```"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"puts 'Test'\n\n\na code block\n\nalert('Test');\n"];
     [expected addAttributes:@{@"GHFMarkdown_CodeBlock": @YES} range:NSMakeRange(0, 12)];
     [expected addAttributes:@{@"GHFMarkdown_CodeBlock": @YES} range:NSMakeRange(28, 15)];
@@ -136,21 +136,21 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeBlockAsPreHtml {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n\n<pre>puts 'Test'</pre>\n\na pre block."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\nputs 'Test'\n\na pre block."];
     [expected addAttributes:@{@"GHFMarkdown_CodeBlock": @YES} range:NSMakeRange(10, 11)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithCodeBlockAndContainingStuff {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n```**bold** *italic* [leave this alone](http://link.com) test\n```\n\na code block."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n\n```**bold** *italic* [leave this alone](http://link.com) test\n```\n\na code block."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n**bold** *italic* [leave this alone](http://link.com) test\n\n\na code block."];
     [expected addAttributes:@{@"GHFMarkdown_CodeBlock": @YES} range:NSMakeRange(10, 59)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithTasksAndLinks {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n\n- [x] A task with [a link](http://ioctocat.com)\n- [ ] List\nwithin plus ![an image](http://ioctocat.com/img/iOctocat-GitHub_iOS.png)"];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n☑ A task with a link\n◻ List\nwithin plus an image"];
     [expected addAttributes:@{@"GHFMarkdown_Task": @YES} range:NSMakeRange(10, 20)];
     [expected addAttributes:@{@"GHFMarkdown_Link": [NSURL URLWithString:@"http://ioctocat.com"]} range:NSMakeRange(24, 6)];
@@ -160,21 +160,21 @@
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithQuote {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n\nas a block."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n\nas a block."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n> Quoted text\n\nas a block."];
     [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 13)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithMultilineQuote {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
     [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 29)];
     expect(actual).to.equal(expected);
 }
 
 - (void)testAttributedStringFromGHFMarkdownWithMultilineQuoteAndMissingLinebreaks {
-    NSMutableAttributedString *actual = [NSMutableAttributedString mutableAttributedStringFromGHFMarkdown:@"This has\n> Quoted text\n> And some more\nas a block."];
+    NSMutableAttributedString *actual = [NSMutableAttributedString ghf_mutableAttributedStringFromGHFMarkdown:@"This has\n> Quoted text\n> And some more\nas a block."];
     NSMutableAttributedString *expected = [[NSMutableAttributedString alloc] initWithString:@"This has\n\n> Quoted text\n> And some more\n\nas a block."];
     [expected addAttributes:@{@"GHFMarkdown_Quote": @YES} range:NSMakeRange(10, 29)];
     expect(actual).to.equal(expected);

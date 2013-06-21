@@ -1,7 +1,7 @@
 #import "GHLabel.h"
 #import "GHRepository.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHLabel
@@ -37,8 +37,8 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	self.name = [dict safeStringForKey:@"name"];
-	self.hexColor = [dict safeStringForKey:@"color"];
+	self.name = [dict ioc_stringForKey:@"name"];
+	self.hexColor = [dict ioc_stringForKey:@"color"];
 }
 
 #pragma mark Helpers

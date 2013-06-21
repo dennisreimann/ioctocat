@@ -1,7 +1,7 @@
 #import "IOCGistCell.h"
 #import "GHGist.h"
 #import "GHUser.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 
 
 @interface IOCGistCell ()
@@ -36,7 +36,7 @@
 	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", img]];
 	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@On.png", img]];
 	self.textLabel.text = gist.title;
-	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, gist.createdAt.prettyDate];
+	self.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", userInfo, [gist.createdAt ioc_prettyDate]];
 }
 
 - (void)hideUser {

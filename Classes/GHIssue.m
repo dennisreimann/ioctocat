@@ -7,10 +7,10 @@
 #import "GHUser.h"
 #import "iOctocat.h"
 #import "GHFMarkdown.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 #import "NSString+Emojize.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHIssue ()
@@ -51,7 +51,7 @@
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/issues/%d", self.repository.owner, self.repository.name, self.number];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"/%@/%@/issues/%d", self.repository.owner, self.repository.name, self.number];
     }
     return _htmlURL;
 }
@@ -60,7 +60,7 @@
     if (!_attributedBody) {
         NSString *text = self.body;
         text = [text emojizedString];
-        _attributedBody = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+        _attributedBody = [text ghf_ghf_mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
     }
     return _attributedBody;
 }
@@ -82,34 +82,34 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSString *userLogin = [dict safeStringForKeyPath:@"user.login"];
-	NSString *assigneeLogin = [dict safeStringForKeyPath:@"assignee.login"];
+	NSString *userLogin = [dict ioc_stringForKeyPath:@"user.login"];
+	NSString *assigneeLogin = [dict ioc_stringForKeyPath:@"assignee.login"];
 	self.user = [iOctocat.sharedInstance userWithLogin:userLogin];
 	self.assignee = [iOctocat.sharedInstance userWithLogin:assigneeLogin];
-	self.createdAt = [dict safeDateForKey:@"created_at"];
-	self.updatedAt = [dict safeDateForKey:@"updated_at"];
-	self.closedAt = [dict safeDateForKey:@"closed_at"];
-	self.title = [dict safeStringForKey:@"title"];
-	self.body = [dict safeStringForKey:@"body"];
-	self.state = [dict safeStringForKey:@"state"];
-	self.number = [dict safeIntegerForKey:@"number"];
-	self.htmlURL = [dict safeURLForKey:@"html_url"];
+	self.createdAt = [dict ioc_dateForKey:@"created_at"];
+	self.updatedAt = [dict ioc_dateForKey:@"updated_at"];
+	self.closedAt = [dict ioc_dateForKey:@"closed_at"];
+	self.title = [dict ioc_stringForKey:@"title"];
+	self.body = [dict ioc_stringForKey:@"body"];
+	self.state = [dict ioc_stringForKey:@"state"];
+	self.number = [dict ioc_integerForKey:@"number"];
+	self.htmlURL = [dict ioc_URLForKey:@"html_url"];
     // repo
 	if (!self.repository) {
-		NSString *owner = [dict safeStringForKeyPath:@"repository.owner.login"];
-		NSString *name = [dict safeStringForKeyPath:@"repository.name"];
-		if (!owner.isEmpty && !name.isEmpty) {
+		NSString *owner = [dict ioc_stringForKeyPath:@"repository.owner.login"];
+		NSString *name = [dict ioc_stringForKeyPath:@"repository.name"];
+		if (![owner ioc_isEmpty] && ![name ioc_isEmpty]) {
 			self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 		}
 	}
     // labels
-    NSArray *labels = [dict safeArrayForKey:@"labels"];
+    NSArray *labels = [dict ioc_arrayForKey:@"labels"];
     if (labels) {
         self.labels = [[GHLabels alloc] initWithRepository:self.repository];
         [self.labels setValues:labels];
     }
     // milestone
-    NSDictionary *milestoneDict = [dict safeDictForKey:@"milestone"];
+    NSDictionary *milestoneDict = [dict ioc_dictForKey:@"milestone"];
     if (milestoneDict) {
         self.milestone = [[GHMilestone alloc] initWithRepository:self.repository];
         [self.milestone setValues:milestoneDict];

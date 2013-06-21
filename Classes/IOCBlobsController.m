@@ -1,7 +1,7 @@
 #import "IOCBlobsController.h"
 #import "IOCUtil.h"
 #import "GHBlob.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 #import "iOctocat.h"
 #import "SVProgressHUD.h"
 
@@ -125,7 +125,7 @@
 	NSString *lineNums = lineNumbers ? @"true" : @"false";
 	NSString *format = [NSString stringWithContentsOfFile:formatPath encoding:NSUTF8StringEncoding error:nil];
 	NSString *lang = [IOCUtil highlightLanguageForFilename:self.blob.path];
-	NSString *escapedCode = [self.blob.content escapeHTML];
+	NSString *escapedCode = [self.blob.content ioc_escapeHTML];
 	NSString *contentHTML = [NSString stringWithFormat:format, themeCssPath, codeCssPath, highlightJsPath, lineNums, lang, escapedCode];
 	NSURL *baseUrl = [NSURL fileURLWithPath:NSBundle.mainBundle.bundlePath];
 	[self.contentView loadHTMLString:contentHTML baseURL:baseUrl];

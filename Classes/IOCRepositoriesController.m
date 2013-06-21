@@ -3,7 +3,7 @@
 #import "GHRepository.h"
 #import "GHRepositories.h"
 #import "IOCRepositoryCell.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @implementation IOCRepositoriesController

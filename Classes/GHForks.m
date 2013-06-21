@@ -1,7 +1,7 @@
 #import "GHForks.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHForks ()

@@ -1,7 +1,7 @@
 #import "GHPullRequestReviewComment.h"
 #import "GHPullRequest.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHPullRequestReviewComment ()
@@ -20,10 +20,10 @@
 
 - (void)setValues:(id)dict {
 	[super setValues:dict];
-	self.inReplyTo = [dict safeIntegerForKey:@"in_reply_to"];
-	self.commitID = [dict safeStringForKey:@"commit_id"];
-	self.position = [dict safeIntegerForKey:@"position"];
-	self.path = [dict safeStringForKey:@"path"];
+	self.inReplyTo = [dict ioc_integerForKey:@"in_reply_to"];
+	self.commitID = [dict ioc_stringForKey:@"commit_id"];
+	self.position = [dict ioc_integerForKey:@"position"];
+	self.path = [dict ioc_stringForKey:@"path"];
 }
 
 - (NSString *)resourcePath {

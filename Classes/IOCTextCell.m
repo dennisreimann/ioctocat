@@ -1,7 +1,7 @@
 #import "IOCTextCell.h"
 #import "TTTAttributedLabel.h"
 #import "GHFMarkdown.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface IOCTextCell ()
@@ -56,7 +56,7 @@
 }
 
 - (BOOL)hasContent {
-	return self.rawContentText != nil && !self.rawContentText.isEmpty;
+	return self.rawContentText != nil && ![self.rawContentText ioc_isEmpty];
 }
 
 #pragma mark Actions
@@ -180,7 +180,7 @@
 }
 
 - (NSMutableAttributedString *)applyMarkdownAttributes:(NSMutableAttributedString *)string {
-    [string applyAttributes:self.markdownAttributes];
+    [string ghf_applyAttributes:self.markdownAttributes];
     return string;
 }
 

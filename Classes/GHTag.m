@@ -4,8 +4,8 @@
 #import "GHCommit.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHTag () {
@@ -29,7 +29,7 @@
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/tree/%@", self.repository.owner, self.repository.name, self.tag];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"/%@/%@/tree/%@", self.repository.owner, self.repository.name, self.tag];
     }
     return _htmlURL;
 }
@@ -44,15 +44,15 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSString *tag = [dict safeStringOrNilForKey:@"tag"];
-	NSString *sha = [dict safeStringOrNilForKeyPath:@"object.sha"];
-	if (!tag) tag = [dict safeStringOrNilForKey:@"name"];
-	if (!sha) sha = [dict safeStringOrNilForKeyPath:@"commit.sha"];
+	NSString *tag = [dict ioc_stringOrNilForKey:@"tag"];
+	NSString *sha = [dict ioc_stringOrNilForKeyPath:@"object.sha"];
+	if (!tag) tag = [dict ioc_stringOrNilForKey:@"name"];
+	if (!sha) sha = [dict ioc_stringOrNilForKeyPath:@"commit.sha"];
 	self.tag = tag;
-	self.message = [dict safeStringForKey:@"message"];
-	self.taggerName = [dict safeStringForKeyPath:@"tagger.name"];
-	self.taggerEmail = [dict safeStringForKeyPath:@"tagger.email"];
-	self.taggerDate = [dict safeDateForKeyPath:@"tagger.date"];
+	self.message = [dict ioc_stringForKey:@"message"];
+	self.taggerName = [dict ioc_stringForKeyPath:@"tagger.name"];
+	self.taggerEmail = [dict ioc_stringForKeyPath:@"tagger.email"];
+	self.taggerDate = [dict ioc_dateForKeyPath:@"tagger.date"];
 	self.commit = [[GHCommit alloc] initWithRepository:self.repository andCommitID:sha];
 }
 

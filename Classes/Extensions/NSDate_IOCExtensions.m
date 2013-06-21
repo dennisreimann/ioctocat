@@ -1,17 +1,11 @@
-//
-//  NSDate+Nibware.m
-//  Inspired by John Resig's pretty.js
-//
+#import "NSDate_IOCExtensions.h"
+
+
+@implementation NSDate (IOCExtensions)
+
 //  Created by robertsanders on 1/19/09.
 //  Copyright 2009 Robert Sanders. All rights reserved.
-//
-
-#import "NSDate+Nibware.h"
-
-
-@implementation NSDate (Nibware)
-
-- (NSString *)prettyDateWithReference:(NSDate *)reference {
+- (NSString *)ioc_prettyDateWithReference:(NSDate *)reference {
     NSString *inTime = @"ago";
 	float diff = [reference timeIntervalSinceDate:self];
     if (diff < 0) {
@@ -41,8 +35,8 @@
 	return self.description;
 }
 
-- (NSString *)prettyDate {
-	return [self prettyDateWithReference:NSDate.date];
+- (NSString *)ioc_prettyDate {
+	return [self ioc_prettyDateWithReference:NSDate.date];
 }
 
 @end

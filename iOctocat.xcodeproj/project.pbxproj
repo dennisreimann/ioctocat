@@ -38,9 +38,9 @@
 		2E1FFFA317577A4300CC19A2 /* IOCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA117577A4300CC19A2 /* IOCUtil.m */; };
 		2E1FFFA417577A4300CC19A2 /* IOCUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA117577A4300CC19A2 /* IOCUtil.m */; };
 		2E1FFFA717577FE400CC19A2 /* IOCUtilTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */; };
-		2E27C38C17440568008B849C /* NSString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */; };
-		2E27C38D17440568008B849C /* NSString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */; };
-		2E27C38E17440568008B849C /* NSString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */; };
+		2E27C38C17440568008B849C /* NSString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString_GHFMarkdown.m */; };
+		2E27C38D17440568008B849C /* NSString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString_GHFMarkdown.m */; };
+		2E27C38E17440568008B849C /* NSString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E27C38B17440568008B849C /* NSString_GHFMarkdown.m */; };
 		2E2BB56216E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */; };
 		2E2BB56316E7DE2D00EACE46 /* ToolbarOtherRepository.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */; };
 		2E2BB56416E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */; };
@@ -52,19 +52,19 @@
 		2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E36A6631742B48900D8588C /* IOCViewControllerFactoryTests.m */; };
 		2E519DEE1774CB09001EDE0A /* IOCResourceDraftsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DED1774CB09001EDE0A /* IOCResourceDraftsTests.m */; };
 		2E519DF11774CBB0001EDE0A /* IOCResourceDrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */; };
-		2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
-		2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
-		2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */; };
-		2E52B634174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */; };
-		2E52B637174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */; };
-		2E52B638174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */; };
-		2E52B639174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */; };
-		2E52B63C174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */; };
+		2E52B62F174E509D00F1294D /* NSMutableString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString_GHFMarkdown.m */; };
+		2E52B630174E509D00F1294D /* NSMutableString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString_GHFMarkdown.m */; };
+		2E52B631174E509D00F1294D /* NSMutableString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B62E174E509D00F1294D /* NSMutableString_GHFMarkdown.m */; };
+		2E52B634174E51F300F1294D /* NSMutableString_GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B633174E51F300F1294D /* NSMutableString_GHFMarkdownTests.m */; };
+		2E52B637174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m */; };
+		2E52B638174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m */; };
+		2E52B639174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B636174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m */; };
+		2E52B63C174E5F6000F1294D /* NSMutableAttributedString_GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E52B63B174E5F6000F1294D /* NSMutableAttributedString_GHFMarkdownTests.m */; };
 		2E5D54FA171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FB171A00530046086D /* Button1P.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F8171A00530046086D /* Button1P.png */; };
 		2E5D54FC171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
 		2E5D54FD171A00530046086D /* Button1P@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2E5D54F9171A00530046086D /* Button1P@2x.png */; };
-		2E65D5611774E5B2004C27F5 /* NSURL+ExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65D5601774E5B2004C27F5 /* NSURL+ExtensionsTests.m */; };
+		2E65D5611774E5B2004C27F5 /* NSURL_IOCExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E65D5601774E5B2004C27F5 /* NSURL_IOCExtensionsTests.m */; };
 		2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
 		2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
 		2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */; };
@@ -73,9 +73,9 @@
 		2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */; };
 		2E741AED1774D56E00F3FD06 /* IOCResourceDrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */; };
 		2E741AEE1774D56F00F3FD06 /* IOCResourceDrafts.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */; };
-		2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
-		2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
-		2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */; };
+		2E840A771768A30E00F646B7 /* GHFMarkdown_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown_Private.m */; };
+		2E840A781768A30E00F646B7 /* GHFMarkdown_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown_Private.m */; };
+		2E840A791768A30E00F646B7 /* GHFMarkdown_Private.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A761768A30E00F646B7 /* GHFMarkdown_Private.m */; };
 		2E840A7C17691EDD00F646B7 /* GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */; };
 		2E840A7D17691EDD00F646B7 /* GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */; };
 		2E840A7E17691EDD00F646B7 /* GHFMarkdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */; };
@@ -115,7 +115,7 @@
 		2EAD8B0716FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
 		2EAD8B0816FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
 		2EAD8B0916FE515700F08EFC /* IOCViewControllerFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */; };
-		2EB4D89C17441BE3005A2781 /* NSString+GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4D89B17441BE3005A2781 /* NSString+GHFMarkdownTests.m */; };
+		2EB4D89C17441BE3005A2781 /* NSString_GHFMarkdownTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EB4D89B17441BE3005A2781 /* NSString_GHFMarkdownTests.m */; };
 		2EBBB7B91729387500A7ABAA /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B61729387500A7ABAA /* GHLabel.m */; };
 		2EBBB7BA1729387500A7ABAA /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B61729387500A7ABAA /* GHLabel.m */; };
 		2EBBB7BB1729387500A7ABAA /* GHLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EBBB7B61729387500A7ABAA /* GHLabel.m */; };
@@ -338,17 +338,17 @@
 		6F5C02941674A67D005AC6FA /* IOCAvatarCacheTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */; };
 		6F5C03F31674A76A005AC6FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
 		6F5C03F41674A76A005AC6FA /* IOCAvatarCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */; };
-		6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
+		6F5E9ABD1119A96000752560 /* NSDate_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate_IOCExtensions.m */; };
 		6F5E9B631119AD2100752560 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9B621119AD2100752560 /* CoreGraphics.framework */; };
 		6F5E9B6E1119AD5B00752560 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5E9AFB1119AACC00752560 /* QuartzCore.framework */; };
 		6F5E9C7E1119D4AF00752560 /* ToolbarIssue.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7C1119D4AF00752560 /* ToolbarIssue.png */; };
 		6F5E9C7F1119D4AF00752560 /* ToolbarUser.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F5E9C7D1119D4AF00752560 /* ToolbarUser.png */; };
 		6F612433167D00A3001A3E05 /* GHEventTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F612432167D00A3001A3E05 /* GHEventTests.m */; };
-		6F612437167D023C001A3E05 /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
-		6F612439167D023C001A3E05 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
-		6F61243B167D023C001A3E05 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
-		6F61243D167D023C001A3E05 /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
-		6F61243F167D023C001A3E05 /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
+		6F612437167D023C001A3E05 /* NSURL_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL_IOCExtensions.m */; };
+		6F612439167D023C001A3E05 /* NSString_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString_IOCExtensions.m */; };
+		6F61243B167D023C001A3E05 /* NSMutableArray_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray_IOCExtensions.m */; };
+		6F61243D167D023C001A3E05 /* NSDate_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate_IOCExtensions.m */; };
+		6F61243F167D023C001A3E05 /* NSDictionary_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary_IOCExtensions.m */; };
 		6F612440167D026A001A3E05 /* GHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF891649AE2500337EBE /* GHEvent.m */; };
 		6F612441167D02A1001A3E05 /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
 		6F612442167D02A1001A3E05 /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
@@ -553,7 +553,7 @@
 		6F9DD8631334A5D000D1E35E /* WatchEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD8491334A5D000D1E35E /* WatchEvent@2x.png */; };
 		6F9DD8641334A5D000D1E35E /* GollumEvent@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F9DD84A1334A5D000D1E35E /* GollumEvent@2x.png */; };
 		6F9DD87B1334B99C00D1E35E /* GHOrganizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */; };
-		6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
+		6F9DD87E1334BDB200D1E35E /* NSURL_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL_IOCExtensions.m */; };
 		6F9DD8981334E1BA00D1E35E /* IOCOrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */; };
 		6FA00D6C16E2A7BB004194A8 /* IOCApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA00D6B16E2A7BB004194A8 /* IOCApiClient.m */; };
 		6FA00D6D16E2A7BB004194A8 /* IOCApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA00D6B16E2A7BB004194A8 /* IOCApiClient.m */; };
@@ -611,7 +611,7 @@
 		6FAF87A1165AD63900248E11 /* vs.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8784165AD63900248E11 /* vs.css */; };
 		6FAF87A2165AD63900248E11 /* xcode.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8785165AD63900248E11 /* xcode.css */; };
 		6FAF87A3165AD63900248E11 /* zenburn.css in Resources */ = {isa = PBXBuildFile; fileRef = 6FAF8786165AD63900248E11 /* zenburn.css */; };
-		6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
+		6FAF9D291592729800997A28 /* NSMutableArray_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray_IOCExtensions.m */; };
 		6FB1CF881649A6B100337EBE /* GHEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF871649A6B100337EBE /* GHEvents.m */; };
 		6FB1CF8A1649AE2500337EBE /* GHEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF891649AE2500337EBE /* GHEvent.m */; };
 		6FB1CF8E1649AEB200337EBE /* IOCEventsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB1CF8D1649AEB200337EBE /* IOCEventsController.m */; };
@@ -738,7 +738,7 @@
 		6FCAA37A167B52C800C816FA /* HeadBackground80.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53C139E43FC005DBE67 /* HeadBackground80.png */; };
 		6FCAA37B167B52C800C816FA /* HeadBackground80@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F61F53D139E43FC005DBE67 /* HeadBackground80@2x.png */; };
 		6FCAA384167B52C800C816FA /* AccountForm.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6F27CD2215911E7E00E15B34 /* AccountForm.xib */; };
-		6FCAA38C167B52C800C816FA /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
+		6FCAA38C167B52C800C816FA /* NSDictionary_IOCExtensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary_IOCExtensions.h */; };
 		6FCAA38D167B52C800C816FA /* ToolbarIssue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16715A76C35006D4083 /* ToolbarIssue@2x.png */; };
 		6FCAA38E167B52C800C816FA /* ToolbarRepository@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FC6C16815A76C35006D4083 /* ToolbarRepository@2x.png */; };
 		6FCAA38F167B52C800C816FA /* ToolbarUser@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA97E4715B0BF64000004F1 /* ToolbarUser@2x.png */; };
@@ -901,16 +901,16 @@
 		6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F797C5C1110E2BE007E5A8D /* IOCCommitController.m */; };
 		6FCAA44F167B52C800C816FA /* IOCFilesController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F2C77281114F430002665DA /* IOCFilesController.m */; };
 		6FCAA450167B52C800C816FA /* IOCFilesCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FF09E64111589D600925109 /* IOCFilesCell.m */; };
-		6FCAA451167B52C800C816FA /* NSDate+Nibware.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */; };
+		6FCAA451167B52C800C816FA /* NSDate_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E9A9D1119A96000752560 /* NSDate_IOCExtensions.m */; };
 		6FCAA452167B52C800C816FA /* GHIssueComment.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D14511557E8C004B4D68 /* GHIssueComment.m */; };
 		6FCAA453167B52C800C816FA /* IOCCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* IOCCommentCell.m */; };
 		6FCAA454167B52C800C816FA /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
-		6FCAA455167B52C800C816FA /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
+		6FCAA455167B52C800C816FA /* NSString_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString_IOCExtensions.m */; };
 		6FCAA456167B52C800C816FA /* IOCCommentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC0D429115819E400511B7F /* IOCCommentController.m */; };
 		6FCAA457167B52C800C816FA /* GHResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AA132EC90D00C9446E /* GHResource.m */; };
 		6FCAA458167B52C800C816FA /* GHUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7961AC132EC90D00C9446E /* GHUser.m */; };
 		6FCAA459167B52C800C816FA /* GHOrganizations.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */; };
-		6FCAA45A167B52C800C816FA /* NSURL+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */; };
+		6FCAA45A167B52C800C816FA /* NSURL_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD87D1334BDB200D1E35E /* NSURL_IOCExtensions.m */; };
 		6FCAA45B167B52C800C816FA /* IOCOrganizationsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */; };
 		6FCAA45C167B52C800C816FA /* IOCOrganizationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FB9CBE2133543FD00C8DE29 /* IOCOrganizationController.m */; };
 		6FCAA45D167B52C800C816FA /* GradientButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 01554A3414FBF02E00AE08EC /* GradientButton.m */; };
@@ -920,8 +920,8 @@
 		6FCAA461167B52C800C816FA /* IOCAccountsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD0F159113D900E15B34 /* IOCAccountsController.m */; };
 		6FCAA462167B52C800C816FA /* GHAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD161591188D00E15B34 /* GHAccount.m */; };
 		6FCAA463167B52C800C816FA /* IOCAccountFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F27CD1E15911E4700E15B34 /* IOCAccountFormController.m */; };
-		6FCAA464167B52C800C816FA /* NSMutableArray+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */; };
-		6FCAA465167B52C800C816FA /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
+		6FCAA464167B52C800C816FA /* NSMutableArray_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FAF9D281592729800997A28 /* NSMutableArray_IOCExtensions.m */; };
+		6FCAA465167B52C800C816FA /* NSDictionary_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary_IOCExtensions.m */; };
 		6FCAA466167B52C800C816FA /* GHReadme.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F7C821E15B2B4BB00D37EE8 /* GHReadme.m */; };
 		6FCAA467167B52C800C816FA /* GHGist.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7B161C54A500E705CF /* GHGist.m */; };
 		6FCAA468167B52C800C816FA /* GHGists.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F182C7D161C54A600E705CF /* GHGists.m */; };
@@ -1006,7 +1006,7 @@
 		6FE7D1BE115622D1004B4D68 /* IOCCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D1BD115622D1004B4D68 /* IOCCommentCell.m */; };
 		6FE7D1CA11562498004B4D68 /* CommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FE7D1C911562498004B4D68 /* CommentCell.xib */; };
 		6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D2B411568951004B4D68 /* GHIssueComments.m */; };
-		6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */; };
+		6FE7D35A1156AE16004B4D68 /* NSString_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE7D3591156AE16004B4D68 /* NSString_IOCExtensions.m */; };
 		6FE91E4C0FAD13D500749370 /* IOCAuthenticationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */; };
 		6FED82970FACA1E700BE5C81 /* IOCPullRequestsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FED82960FACA1E700BE5C81 /* IOCPullRequestsController.m */; };
 		6FEDE40E16E2A1A500459B5C /* ToolbarLeft.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FEDE40A16E2A1A500459B5C /* ToolbarLeft.png */; };
@@ -1088,8 +1088,8 @@
 		8CE686760FB8C56700A3D625 /* GHForks.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CE686720FB8C56700A3D625 /* GHForks.m */; };
 		8CFBCFB30FAB8A6300A2C37A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CFBCFB20FAB8A6300A2C37A /* CFNetwork.framework */; };
 		A0C19D01131973C300045E04 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0C19D00131973C300045E04 /* MessageUI.framework */; };
-		E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */; };
-		E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */; };
+		E019D5CE15A6F2D000D5334D /* NSDictionary_IOCExtensions.h in Resources */ = {isa = PBXBuildFile; fileRef = E019D5CD15A6F2D000D5334D /* NSDictionary_IOCExtensions.h */; };
+		E019D5D115A6F2F500D5334D /* NSDictionary_IOCExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = E019D5D015A6F2F500D5334D /* NSDictionary_IOCExtensions.m */; };
 		EF7248196E634C6AB69D25C9 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67ECF03BCF254C88A027B814 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -1132,8 +1132,8 @@
 		2E1FFFA117577A4300CC19A2 /* IOCUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUtil.m; sourceTree = "<group>"; };
 		2E1FFFA517577FCD00CC19A2 /* IOCUtilTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCUtilTests.h; sourceTree = "<group>"; };
 		2E1FFFA617577FE400CC19A2 /* IOCUtilTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCUtilTests.m; sourceTree = "<group>"; };
-		2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+GHFMarkdown.h"; path = "Extensions/NSString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+GHFMarkdown.m"; path = "Extensions/NSString+GHFMarkdown.m"; sourceTree = "<group>"; };
+		2E27C38A17440502008B849C /* NSString_GHFMarkdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSString_GHFMarkdown.h; path = Extensions/NSString_GHFMarkdown.h; sourceTree = "<group>"; };
+		2E27C38B17440568008B849C /* NSString_GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSString_GHFMarkdown.m; path = Extensions/NSString_GHFMarkdown.m; sourceTree = "<group>"; };
 		2E2BB55E16E7DE2D00EACE46 /* ToolbarOtherRepository.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepository.png; sourceTree = "<group>"; };
 		2E2BB55F16E7DE2D00EACE46 /* ToolbarOtherRepository@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ToolbarOtherRepository@2x.png"; sourceTree = "<group>"; };
 		2E2BB56016E7DE2D00EACE46 /* ToolbarOtherRepositoryOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ToolbarOtherRepositoryOn.png; sourceTree = "<group>"; };
@@ -1143,24 +1143,24 @@
 		2E519DED1774CB09001EDE0A /* IOCResourceDraftsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCResourceDraftsTests.m; sourceTree = "<group>"; };
 		2E519DEF1774CBA2001EDE0A /* IOCResourceDrafts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IOCResourceDrafts.h; sourceTree = "<group>"; };
 		2E519DF01774CBB0001EDE0A /* IOCResourceDrafts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCResourceDrafts.m; sourceTree = "<group>"; };
-		2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSMutableString+GHFMarkdown.h"; path = "Extensions/NSMutableString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableString+GHFMarkdown.m"; path = "Extensions/NSMutableString+GHFMarkdown.m"; sourceTree = "<group>"; };
-		2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
-		2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
-		2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "NSMutableAttributedString+GHFMarkdown.h"; path = "Extensions/NSMutableAttributedString+GHFMarkdown.h"; sourceTree = "<group>"; };
-		2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableAttributedString+GHFMarkdown.m"; path = "Extensions/NSMutableAttributedString+GHFMarkdown.m"; sourceTree = "<group>"; };
-		2E52B63A174E5F5000F1294D /* NSMutableAttributedString+GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
-		2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
+		2E52B62D174E509200F1294D /* NSMutableString_GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSMutableString_GHFMarkdown.h; path = Extensions/NSMutableString_GHFMarkdown.h; sourceTree = "<group>"; };
+		2E52B62E174E509D00F1294D /* NSMutableString_GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSMutableString_GHFMarkdown.m; path = Extensions/NSMutableString_GHFMarkdown.m; sourceTree = "<group>"; };
+		2E52B632174E51E400F1294D /* NSMutableString_GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMutableString_GHFMarkdownTests.h; sourceTree = "<group>"; };
+		2E52B633174E51F300F1294D /* NSMutableString_GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableString_GHFMarkdownTests.m; sourceTree = "<group>"; };
+		2E52B635174E581F00F1294D /* NSMutableAttributedString_GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NSMutableAttributedString_GHFMarkdown.h; path = Extensions/NSMutableAttributedString_GHFMarkdown.h; sourceTree = "<group>"; };
+		2E52B636174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSMutableAttributedString_GHFMarkdown.m; path = Extensions/NSMutableAttributedString_GHFMarkdown.m; sourceTree = "<group>"; };
+		2E52B63A174E5F5000F1294D /* NSMutableAttributedString_GHFMarkdownTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSMutableAttributedString_GHFMarkdownTests.h; sourceTree = "<group>"; };
+		2E52B63B174E5F6000F1294D /* NSMutableAttributedString_GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableAttributedString_GHFMarkdownTests.m; sourceTree = "<group>"; };
 		2E5D54F8171A00530046086D /* Button1P.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Button1P.png; sourceTree = "<group>"; };
 		2E5D54F9171A00530046086D /* Button1P@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Button1P@2x.png"; sourceTree = "<group>"; };
-		2E65D55F1774E5A1004C27F5 /* NSURL+ExtensionsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSURL+ExtensionsTests.h"; sourceTree = "<group>"; };
-		2E65D5601774E5B2004C27F5 /* NSURL+ExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+ExtensionsTests.m"; sourceTree = "<group>"; };
+		2E65D55F1774E5A1004C27F5 /* NSURL_IOCExtensionsTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSURL_IOCExtensionsTests.h; sourceTree = "<group>"; };
+		2E65D5601774E5B2004C27F5 /* NSURL_IOCExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURL_IOCExtensionsTests.m; sourceTree = "<group>"; };
 		2E67140B1765DDAE00778D11 /* GHPullRequestReviewComments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComments.h; sourceTree = "<group>"; };
 		2E67140C1765DDC600778D11 /* GHPullRequestReviewComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComments.m; sourceTree = "<group>"; };
 		2E6714101765DDF600778D11 /* GHPullRequestReviewComment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHPullRequestReviewComment.h; sourceTree = "<group>"; };
 		2E6714111765DE0600778D11 /* GHPullRequestReviewComment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHPullRequestReviewComment.m; sourceTree = "<group>"; };
-		2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "GHFMarkdown+Private.h"; path = "Extensions/GHFMarkdown+Private.h"; sourceTree = "<group>"; };
-		2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "GHFMarkdown+Private.m"; path = "Extensions/GHFMarkdown+Private.m"; sourceTree = "<group>"; };
+		2E840A751768A1BD00F646B7 /* GHFMarkdown_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GHFMarkdown_Private.h; path = Extensions/GHFMarkdown_Private.h; sourceTree = "<group>"; };
+		2E840A761768A30E00F646B7 /* GHFMarkdown_Private.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHFMarkdown_Private.m; path = Extensions/GHFMarkdown_Private.m; sourceTree = "<group>"; };
 		2E840A7A17691B2300F646B7 /* GHFMarkdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GHFMarkdown.h; path = Extensions/GHFMarkdown.h; sourceTree = "<group>"; };
 		2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHFMarkdown.m; path = Extensions/GHFMarkdown.m; sourceTree = "<group>"; };
 		2E88193416F8F8B300ACA2EB /* a.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = a.caf; sourceTree = "<group>"; };
@@ -1186,8 +1186,8 @@
 		2EAD8B0216FE36CD00F08EFC /* iOctocatAPI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iOctocatAPI.plist; sourceTree = "<group>"; };
 		2EAD8B0516FE514500F08EFC /* IOCViewControllerFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCViewControllerFactory.h; sourceTree = "<group>"; };
 		2EAD8B0616FE515700F08EFC /* IOCViewControllerFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCViewControllerFactory.m; sourceTree = "<group>"; };
-		2EB4D89A17441BD9005A2781 /* NSString+GHFMarkdownTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GHFMarkdownTests.h"; sourceTree = "<group>"; };
-		2EB4D89B17441BE3005A2781 /* NSString+GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GHFMarkdownTests.m"; sourceTree = "<group>"; };
+		2EB4D89A17441BD9005A2781 /* NSString_GHFMarkdownTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_GHFMarkdownTests.h; sourceTree = "<group>"; };
+		2EB4D89B17441BE3005A2781 /* NSString_GHFMarkdownTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_GHFMarkdownTests.m; sourceTree = "<group>"; };
 		2EBBB7B51729387500A7ABAA /* GHLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHLabel.h; sourceTree = "<group>"; };
 		2EBBB7B61729387500A7ABAA /* GHLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHLabel.m; sourceTree = "<group>"; };
 		2EBBB7B71729387500A7ABAA /* GHMilestone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHMilestone.h; sourceTree = "<group>"; };
@@ -1376,8 +1376,8 @@
 		6F5C02931674A67D005AC6FA /* IOCAvatarCacheTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAvatarCacheTests.m; sourceTree = "<group>"; };
 		6F5C03F11674A76A005AC6FA /* IOCAvatarCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAvatarCache.h; sourceTree = "<group>"; };
 		6F5C03F21674A76A005AC6FA /* IOCAvatarCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAvatarCache.m; sourceTree = "<group>"; };
-		6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Nibware.h"; sourceTree = "<group>"; };
-		6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Nibware.m"; sourceTree = "<group>"; };
+		6F5E9A9C1119A96000752560 /* NSDate_IOCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDate_IOCExtensions.h; sourceTree = "<group>"; };
+		6F5E9A9D1119A96000752560 /* NSDate_IOCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDate_IOCExtensions.m; sourceTree = "<group>"; };
 		6F5E9AFB1119AACC00752560 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		6F5E9B011119AB1900752560 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6F5E9B621119AD2100752560 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1513,8 +1513,8 @@
 		6F9DD84A1334A5D000D1E35E /* GollumEvent@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "GollumEvent@2x.png"; path = "Images/Icons/GollumEvent@2x.png"; sourceTree = "<group>"; };
 		6F9DD8791334B99C00D1E35E /* GHOrganizations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHOrganizations.h; sourceTree = "<group>"; };
 		6F9DD87A1334B99C00D1E35E /* GHOrganizations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHOrganizations.m; sourceTree = "<group>"; };
-		6F9DD87C1334BDB200D1E35E /* NSURL+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURL+Extensions.h"; sourceTree = "<group>"; };
-		6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURL+Extensions.m"; sourceTree = "<group>"; };
+		6F9DD87C1334BDB200D1E35E /* NSURL_IOCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSURL_IOCExtensions.h; sourceTree = "<group>"; };
+		6F9DD87D1334BDB200D1E35E /* NSURL_IOCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSURL_IOCExtensions.m; sourceTree = "<group>"; };
 		6F9DD8961334E1AB00D1E35E /* IOCOrganizationsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCOrganizationsController.h; sourceTree = "<group>"; };
 		6F9DD8971334E1AF00D1E35E /* IOCOrganizationsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCOrganizationsController.m; sourceTree = "<group>"; };
 		6FA00D6A16E2A7BB004194A8 /* IOCApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCApiClient.h; sourceTree = "<group>"; };
@@ -1578,8 +1578,8 @@
 		6FAF8784165AD63900248E11 /* vs.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = vs.css; sourceTree = "<group>"; };
 		6FAF8785165AD63900248E11 /* xcode.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = xcode.css; sourceTree = "<group>"; };
 		6FAF8786165AD63900248E11 /* zenburn.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = zenburn.css; sourceTree = "<group>"; };
-		6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableArray+Extensions.h"; sourceTree = "<group>"; };
-		6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSMutableArray+Extensions.m"; sourceTree = "<group>"; };
+		6FAF9D271592729800997A28 /* NSMutableArray_IOCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSMutableArray_IOCExtensions.h; sourceTree = "<group>"; };
+		6FAF9D281592729800997A28 /* NSMutableArray_IOCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSMutableArray_IOCExtensions.m; sourceTree = "<group>"; };
 		6FB1CF851649A6A700337EBE /* GHEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHEvents.h; sourceTree = "<group>"; };
 		6FB1CF871649A6B100337EBE /* GHEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHEvents.m; sourceTree = "<group>"; };
 		6FB1CF891649AE2500337EBE /* GHEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHEvent.m; sourceTree = "<group>"; };
@@ -1686,8 +1686,8 @@
 		6FE7D1C911562498004B4D68 /* CommentCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CommentCell.xib; path = IBFiles/CommentCell.xib; sourceTree = "<group>"; };
 		6FE7D2B311568951004B4D68 /* GHIssueComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHIssueComments.h; sourceTree = "<group>"; };
 		6FE7D2B411568951004B4D68 /* GHIssueComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GHIssueComments.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extensions.h"; sourceTree = "<group>"; };
-		6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extensions.m"; sourceTree = "<group>"; };
+		6FE7D3581156AE16004B4D68 /* NSString_IOCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSString_IOCExtensions.h; sourceTree = "<group>"; };
+		6FE7D3591156AE16004B4D68 /* NSString_IOCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSString_IOCExtensions.m; sourceTree = "<group>"; };
 		6FE91E4A0FAD13D500749370 /* IOCAuthenticationService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCAuthenticationService.h; sourceTree = "<group>"; };
 		6FE91E4B0FAD13D500749370 /* IOCAuthenticationService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOCAuthenticationService.m; sourceTree = "<group>"; };
 		6FED82950FACA1E700BE5C81 /* IOCPullRequestsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCPullRequestsController.h; sourceTree = "<group>"; };
@@ -1750,8 +1750,8 @@
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0C19D00131973C300045E04 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		AF3277203FA741D781C82A88 /* libPods-iOctocat Unit Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOctocat Unit Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Extensions.h"; sourceTree = "<group>"; };
-		E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Extensions.m"; sourceTree = "<group>"; };
+		E019D5CD15A6F2D000D5334D /* NSDictionary_IOCExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_IOCExtensions.h; sourceTree = "<group>"; };
+		E019D5D015A6F2F500D5334D /* NSDictionary_IOCExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_IOCExtensions.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1819,7 +1819,6 @@
 			isa = PBXGroup;
 			children = (
 				6F5E9A971119A96000752560 /* Extensions */,
-				2E840A7F17691FAA00F646B7 /* Markdown */,
 				6F5E9AA21119A96000752560 /* External */,
 				6F1DC4410F7E5A7E00FCD26D /* Domain */,
 				2E11E70416FB13080012ACDA /* Services */,
@@ -1944,16 +1943,17 @@
 			children = (
 				2E840A7A17691B2300F646B7 /* GHFMarkdown.h */,
 				2E840A7B17691EDD00F646B7 /* GHFMarkdown.m */,
-				2E840A751768A1BD00F646B7 /* GHFMarkdown+Private.h */,
-				2E840A761768A30E00F646B7 /* GHFMarkdown+Private.m */,
-				2E27C38A17440502008B849C /* NSString+GHFMarkdown.h */,
-				2E27C38B17440568008B849C /* NSString+GHFMarkdown.m */,
-				2E52B62D174E509200F1294D /* NSMutableString+GHFMarkdown.h */,
-				2E52B62E174E509D00F1294D /* NSMutableString+GHFMarkdown.m */,
-				2E52B635174E581F00F1294D /* NSMutableAttributedString+GHFMarkdown.h */,
-				2E52B636174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m */,
+				2E840A751768A1BD00F646B7 /* GHFMarkdown_Private.h */,
+				2E840A761768A30E00F646B7 /* GHFMarkdown_Private.m */,
+				2E27C38A17440502008B849C /* NSString_GHFMarkdown.h */,
+				2E27C38B17440568008B849C /* NSString_GHFMarkdown.m */,
+				2E52B62D174E509200F1294D /* NSMutableString_GHFMarkdown.h */,
+				2E52B62E174E509D00F1294D /* NSMutableString_GHFMarkdown.m */,
+				2E52B635174E581F00F1294D /* NSMutableAttributedString_GHFMarkdown.h */,
+				2E52B636174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m */,
 			);
 			name = Markdown;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		2E88193316F8F8B300ACA2EB /* Sounds */ = {
@@ -2294,14 +2294,14 @@
 				2E1FD65917362D1B007E051D /* GHTreeTests.m */,
 				2E1FD65E17362EA7007E051D /* GHSubmoduleTests.h */,
 				2E1FD65C17362E9D007E051D /* GHSubmoduleTests.m */,
-				2E65D55F1774E5A1004C27F5 /* NSURL+ExtensionsTests.h */,
-				2E65D5601774E5B2004C27F5 /* NSURL+ExtensionsTests.m */,
-				2EB4D89A17441BD9005A2781 /* NSString+GHFMarkdownTests.h */,
-				2EB4D89B17441BE3005A2781 /* NSString+GHFMarkdownTests.m */,
-				2E52B632174E51E400F1294D /* NSMutableString+GHFMarkdownTests.h */,
-				2E52B633174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m */,
-				2E52B63A174E5F5000F1294D /* NSMutableAttributedString+GHFMarkdownTests.h */,
-				2E52B63B174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m */,
+				2E65D55F1774E5A1004C27F5 /* NSURL_IOCExtensionsTests.h */,
+				2E65D5601774E5B2004C27F5 /* NSURL_IOCExtensionsTests.m */,
+				2EB4D89A17441BD9005A2781 /* NSString_GHFMarkdownTests.h */,
+				2EB4D89B17441BE3005A2781 /* NSString_GHFMarkdownTests.m */,
+				2E52B632174E51E400F1294D /* NSMutableString_GHFMarkdownTests.h */,
+				2E52B633174E51F300F1294D /* NSMutableString_GHFMarkdownTests.m */,
+				2E52B63A174E5F5000F1294D /* NSMutableAttributedString_GHFMarkdownTests.h */,
+				2E52B63B174E5F6000F1294D /* NSMutableAttributedString_GHFMarkdownTests.m */,
 			);
 			name = "Unit Tests";
 			path = iOctocatUnitTests;
@@ -2347,18 +2347,19 @@
 		6F5E9A971119A96000752560 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6F9DD87C1334BDB200D1E35E /* NSURL+Extensions.h */,
-				6F9DD87D1334BDB200D1E35E /* NSURL+Extensions.m */,
-				6FE7D3581156AE16004B4D68 /* NSString+Extensions.h */,
-				6FE7D3591156AE16004B4D68 /* NSString+Extensions.m */,
-				6FAF9D271592729800997A28 /* NSMutableArray+Extensions.h */,
-				6FAF9D281592729800997A28 /* NSMutableArray+Extensions.m */,
-				6F5E9A9C1119A96000752560 /* NSDate+Nibware.h */,
-				6F5E9A9D1119A96000752560 /* NSDate+Nibware.m */,
-				E019D5CD15A6F2D000D5334D /* NSDictionary+Extensions.h */,
-				E019D5D015A6F2F500D5334D /* NSDictionary+Extensions.m */,
+				6F9DD87C1334BDB200D1E35E /* NSURL_IOCExtensions.h */,
+				6F9DD87D1334BDB200D1E35E /* NSURL_IOCExtensions.m */,
+				6FE7D3581156AE16004B4D68 /* NSString_IOCExtensions.h */,
+				6FE7D3591156AE16004B4D68 /* NSString_IOCExtensions.m */,
+				6FAF9D271592729800997A28 /* NSMutableArray_IOCExtensions.h */,
+				6FAF9D281592729800997A28 /* NSMutableArray_IOCExtensions.m */,
+				6F5E9A9C1119A96000752560 /* NSDate_IOCExtensions.h */,
+				6F5E9A9D1119A96000752560 /* NSDate_IOCExtensions.m */,
+				E019D5CD15A6F2D000D5334D /* NSDictionary_IOCExtensions.h */,
+				E019D5D015A6F2F500D5334D /* NSDictionary_IOCExtensions.m */,
 				2EEE879F17732BAC00C43A14 /* UIViewController_IOCExtensions.h */,
 				2EEE87A017732BF300C43A14 /* UIViewController_IOCExtensions.m */,
+				2E840A7F17691FAA00F646B7 /* Markdown */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -3098,7 +3099,7 @@
 				6F61F542139E43FD005DBE67 /* HeadBackground80.png in Resources */,
 				6F61F543139E43FD005DBE67 /* HeadBackground80@2x.png in Resources */,
 				6F27CD2315911E7E00E15B34 /* AccountForm.xib in Resources */,
-				E019D5CE15A6F2D000D5334D /* NSDictionary+Extensions.h in Resources */,
+				E019D5CE15A6F2D000D5334D /* NSDictionary_IOCExtensions.h in Resources */,
 				6FC6C16915A76C35006D4083 /* ToolbarIssue@2x.png in Resources */,
 				6FC6C16A15A76C35006D4083 /* ToolbarRepository@2x.png in Resources */,
 				6FA97E4915B0BF64000004F1 /* ToolbarUser@2x.png in Resources */,
@@ -3450,7 +3451,7 @@
 				6FCAA37A167B52C800C816FA /* HeadBackground80.png in Resources */,
 				6FCAA37B167B52C800C816FA /* HeadBackground80@2x.png in Resources */,
 				6FCAA384167B52C800C816FA /* AccountForm.xib in Resources */,
-				6FCAA38C167B52C800C816FA /* NSDictionary+Extensions.h in Resources */,
+				6FCAA38C167B52C800C816FA /* NSDictionary_IOCExtensions.h in Resources */,
 				6FCAA38D167B52C800C816FA /* ToolbarIssue@2x.png in Resources */,
 				6FCAA38E167B52C800C816FA /* ToolbarRepository@2x.png in Resources */,
 				6FCAA38F167B52C800C816FA /* ToolbarUser@2x.png in Resources */,
@@ -3822,16 +3823,16 @@
 				6F797C5D1110E2BE007E5A8D /* IOCCommitController.m in Sources */,
 				6F2C77291114F430002665DA /* IOCFilesController.m in Sources */,
 				6FF09E65111589D600925109 /* IOCFilesCell.m in Sources */,
-				6F5E9ABD1119A96000752560 /* NSDate+Nibware.m in Sources */,
+				6F5E9ABD1119A96000752560 /* NSDate_IOCExtensions.m in Sources */,
 				6FE7D14611557E8C004B4D68 /* GHIssueComment.m in Sources */,
 				6FE7D1BE115622D1004B4D68 /* IOCCommentCell.m in Sources */,
 				6FE7D2B511568951004B4D68 /* GHIssueComments.m in Sources */,
-				6FE7D35A1156AE16004B4D68 /* NSString+Extensions.m in Sources */,
+				6FE7D35A1156AE16004B4D68 /* NSString_IOCExtensions.m in Sources */,
 				6FC0D42A115819E400511B7F /* IOCCommentController.m in Sources */,
 				6F7961AE132EC90D00C9446E /* GHResource.m in Sources */,
 				6F7961AF132EC90D00C9446E /* GHUser.m in Sources */,
 				6F9DD87B1334B99C00D1E35E /* GHOrganizations.m in Sources */,
-				6F9DD87E1334BDB200D1E35E /* NSURL+Extensions.m in Sources */,
+				6F9DD87E1334BDB200D1E35E /* NSURL_IOCExtensions.m in Sources */,
 				6F9DD8981334E1BA00D1E35E /* IOCOrganizationsController.m in Sources */,
 				6FB9CBE3133543FD00C8DE29 /* IOCOrganizationController.m in Sources */,
 				01554A3514FBF02E00AE08EC /* GradientButton.m in Sources */,
@@ -3841,8 +3842,8 @@
 				6F27CD11159113D900E15B34 /* IOCAccountsController.m in Sources */,
 				6F27CD171591188D00E15B34 /* GHAccount.m in Sources */,
 				6F27CD2015911E4700E15B34 /* IOCAccountFormController.m in Sources */,
-				6FAF9D291592729800997A28 /* NSMutableArray+Extensions.m in Sources */,
-				E019D5D115A6F2F500D5334D /* NSDictionary+Extensions.m in Sources */,
+				6FAF9D291592729800997A28 /* NSMutableArray_IOCExtensions.m in Sources */,
+				E019D5D115A6F2F500D5334D /* NSDictionary_IOCExtensions.m in Sources */,
 				6F7C821F15B2B4BB00D37EE8 /* GHReadme.m in Sources */,
 				6F182C7E161C54A600E705CF /* GHGist.m in Sources */,
 				6F182C7F161C54A600E705CF /* GHGists.m in Sources */,
@@ -3898,17 +3899,17 @@
 				2E9AE315172AB97B008C3B72 /* GHLabels.m in Sources */,
 				2E9AE319172ABA85008C3B72 /* GHMilestones.m in Sources */,
 				2EA4E9151731A7F60058744F /* GHSubmodule.m in Sources */,
-				2E27C38C17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
+				2E27C38C17440568008B849C /* NSString_GHFMarkdown.m in Sources */,
 				2EA49A4117473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
-				2E52B62F174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
-				2E52B637174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
+				2E52B62F174E509D00F1294D /* NSMutableString_GHFMarkdown.m in Sources */,
+				2E52B637174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m in Sources */,
 				2E1CCAFA17568795009C0400 /* GHTags.m in Sources */,
 				2E1CCAFF17568878009C0400 /* IOCTagsController.m in Sources */,
 				2E1FFFA217577A4300CC19A2 /* IOCUtil.m in Sources */,
 				2E97C7FC175FD26B00563074 /* IOCCollectionController.m in Sources */,
 				2E67140D1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714121765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
-				2E840A771768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
+				2E840A771768A30E00F646B7 /* GHFMarkdown_Private.m in Sources */,
 				2E840A7C17691EDD00F646B7 /* GHFMarkdown.m in Sources */,
 				2EEE878A176F904400C43A14 /* IOCMilestoneSelectionController.m in Sources */,
 				2EEE8790176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
@@ -3997,11 +3998,11 @@
 				6F61245C167D02A2001A3E05 /* GHRepoComment.m in Sources */,
 				6F61245D167D02A2001A3E05 /* GHGistComments.m in Sources */,
 				6F61245E167D02A2001A3E05 /* GHGistComment.m in Sources */,
-				6F612437167D023C001A3E05 /* NSURL+Extensions.m in Sources */,
-				6F612439167D023C001A3E05 /* NSString+Extensions.m in Sources */,
-				6F61243B167D023C001A3E05 /* NSMutableArray+Extensions.m in Sources */,
-				6F61243D167D023C001A3E05 /* NSDate+Nibware.m in Sources */,
-				6F61243F167D023C001A3E05 /* NSDictionary+Extensions.m in Sources */,
+				6F612437167D023C001A3E05 /* NSURL_IOCExtensions.m in Sources */,
+				6F612439167D023C001A3E05 /* NSString_IOCExtensions.m in Sources */,
+				6F61243B167D023C001A3E05 /* NSMutableArray_IOCExtensions.m in Sources */,
+				6F61243D167D023C001A3E05 /* NSDate_IOCExtensions.m in Sources */,
+				6F61243F167D023C001A3E05 /* NSDictionary_IOCExtensions.m in Sources */,
 				6F5C02941674A67D005AC6FA /* IOCAvatarCacheTests.m in Sources */,
 				6F5C03F41674A76A005AC6FA /* IOCAvatarCache.m in Sources */,
 				6F612433167D00A3001A3E05 /* GHEventTests.m in Sources */,
@@ -4037,13 +4038,13 @@
 				2E1FD65A17362D1B007E051D /* GHTreeTests.m in Sources */,
 				2E1FD65D17362E9D007E051D /* GHSubmoduleTests.m in Sources */,
 				2E36A6641742B48900D8588C /* IOCViewControllerFactoryTests.m in Sources */,
-				2E27C38E17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
-				2EB4D89C17441BE3005A2781 /* NSString+GHFMarkdownTests.m in Sources */,
+				2E27C38E17440568008B849C /* NSString_GHFMarkdown.m in Sources */,
+				2EB4D89C17441BE3005A2781 /* NSString_GHFMarkdownTests.m in Sources */,
 				2EA49A4317473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
-				2E52B631174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
-				2E52B634174E51F300F1294D /* NSMutableString+GHFMarkdownTests.m in Sources */,
-				2E52B639174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
-				2E52B63C174E5F6000F1294D /* NSMutableAttributedString+GHFMarkdownTests.m in Sources */,
+				2E52B631174E509D00F1294D /* NSMutableString_GHFMarkdown.m in Sources */,
+				2E52B634174E51F300F1294D /* NSMutableString_GHFMarkdownTests.m in Sources */,
+				2E52B639174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m in Sources */,
+				2E52B63C174E5F6000F1294D /* NSMutableAttributedString_GHFMarkdownTests.m in Sources */,
 				2E1CCAFC17568795009C0400 /* GHTags.m in Sources */,
 				2E1CCB0117568878009C0400 /* IOCTagsController.m in Sources */,
 				2E1FFFA417577A4300CC19A2 /* IOCUtil.m in Sources */,
@@ -4052,7 +4053,7 @@
 				2E97C7FE175FD26B00563074 /* IOCCollectionController.m in Sources */,
 				2E67140F1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714141765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
-				2E840A791768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
+				2E840A791768A30E00F646B7 /* GHFMarkdown_Private.m in Sources */,
 				2E840A7E17691EDD00F646B7 /* GHFMarkdown.m in Sources */,
 				2EEE878C176F904400C43A14 /* IOCMilestoneSelectionController.m in Sources */,
 				2EEE8792176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,
@@ -4060,7 +4061,7 @@
 				2EEE87A617732EB800C43A14 /* UIViewController_IOCExtensions.m in Sources */,
 				2E519DEE1774CB09001EDE0A /* IOCResourceDraftsTests.m in Sources */,
 				2E519DF11774CBB0001EDE0A /* IOCResourceDrafts.m in Sources */,
-				2E65D5611774E5B2004C27F5 /* NSURL+ExtensionsTests.m in Sources */,
+				2E65D5611774E5B2004C27F5 /* NSURL_IOCExtensionsTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4101,16 +4102,16 @@
 				6FCAA44E167B52C800C816FA /* IOCCommitController.m in Sources */,
 				6FCAA44F167B52C800C816FA /* IOCFilesController.m in Sources */,
 				6FCAA450167B52C800C816FA /* IOCFilesCell.m in Sources */,
-				6FCAA451167B52C800C816FA /* NSDate+Nibware.m in Sources */,
+				6FCAA451167B52C800C816FA /* NSDate_IOCExtensions.m in Sources */,
 				6FCAA452167B52C800C816FA /* GHIssueComment.m in Sources */,
 				6FCAA453167B52C800C816FA /* IOCCommentCell.m in Sources */,
 				6FCAA454167B52C800C816FA /* GHIssueComments.m in Sources */,
-				6FCAA455167B52C800C816FA /* NSString+Extensions.m in Sources */,
+				6FCAA455167B52C800C816FA /* NSString_IOCExtensions.m in Sources */,
 				6FCAA456167B52C800C816FA /* IOCCommentController.m in Sources */,
 				6FCAA457167B52C800C816FA /* GHResource.m in Sources */,
 				6FCAA458167B52C800C816FA /* GHUser.m in Sources */,
 				6FCAA459167B52C800C816FA /* GHOrganizations.m in Sources */,
-				6FCAA45A167B52C800C816FA /* NSURL+Extensions.m in Sources */,
+				6FCAA45A167B52C800C816FA /* NSURL_IOCExtensions.m in Sources */,
 				6FCAA45B167B52C800C816FA /* IOCOrganizationsController.m in Sources */,
 				6FCAA45C167B52C800C816FA /* IOCOrganizationController.m in Sources */,
 				6FCAA45D167B52C800C816FA /* GradientButton.m in Sources */,
@@ -4120,8 +4121,8 @@
 				6FCAA461167B52C800C816FA /* IOCAccountsController.m in Sources */,
 				6FCAA462167B52C800C816FA /* GHAccount.m in Sources */,
 				6FCAA463167B52C800C816FA /* IOCAccountFormController.m in Sources */,
-				6FCAA464167B52C800C816FA /* NSMutableArray+Extensions.m in Sources */,
-				6FCAA465167B52C800C816FA /* NSDictionary+Extensions.m in Sources */,
+				6FCAA464167B52C800C816FA /* NSMutableArray_IOCExtensions.m in Sources */,
+				6FCAA465167B52C800C816FA /* NSDictionary_IOCExtensions.m in Sources */,
 				6FCAA466167B52C800C816FA /* GHReadme.m in Sources */,
 				6FCAA467167B52C800C816FA /* GHGist.m in Sources */,
 				6FCAA468167B52C800C816FA /* GHGists.m in Sources */,
@@ -4177,17 +4178,17 @@
 				2E9AE316172AB97B008C3B72 /* GHLabels.m in Sources */,
 				2E9AE31A172ABA85008C3B72 /* GHMilestones.m in Sources */,
 				2EA4E9161731A7F60058744F /* GHSubmodule.m in Sources */,
-				2E27C38D17440568008B849C /* NSString+GHFMarkdown.m in Sources */,
+				2E27C38D17440568008B849C /* NSString_GHFMarkdown.m in Sources */,
 				2EA49A4217473FA500A33F4D /* IOCNotificationsSectionHeader.m in Sources */,
-				2E52B630174E509D00F1294D /* NSMutableString+GHFMarkdown.m in Sources */,
-				2E52B638174E584200F1294D /* NSMutableAttributedString+GHFMarkdown.m in Sources */,
+				2E52B630174E509D00F1294D /* NSMutableString_GHFMarkdown.m in Sources */,
+				2E52B638174E584200F1294D /* NSMutableAttributedString_GHFMarkdown.m in Sources */,
 				2E1CCAFB17568795009C0400 /* GHTags.m in Sources */,
 				2E1CCB0017568878009C0400 /* IOCTagsController.m in Sources */,
 				2E1FFFA317577A4300CC19A2 /* IOCUtil.m in Sources */,
 				2E97C7FD175FD26B00563074 /* IOCCollectionController.m in Sources */,
 				2E67140E1765DDC700778D11 /* GHPullRequestReviewComments.m in Sources */,
 				2E6714131765DE0600778D11 /* GHPullRequestReviewComment.m in Sources */,
-				2E840A781768A30E00F646B7 /* GHFMarkdown+Private.m in Sources */,
+				2E840A781768A30E00F646B7 /* GHFMarkdown_Private.m in Sources */,
 				2E840A7D17691EDD00F646B7 /* GHFMarkdown.m in Sources */,
 				2EEE878B176F904400C43A14 /* IOCMilestoneSelectionController.m in Sources */,
 				2EEE8791176F926600C43A14 /* IOCAssigneeSelectionController.m in Sources */,

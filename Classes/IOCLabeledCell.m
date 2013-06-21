@@ -1,5 +1,5 @@
 #import "IOCLabeledCell.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface IOCLabeledCell ()
@@ -23,7 +23,7 @@
 }
 
 - (void)setContentText:(NSString *)text {
-	self.hasContent = (![text isKindOfClass:NSNull.class] && text != nil && !text.isEmpty);
+	self.hasContent = (![text isKindOfClass:NSNull.class] && text != nil && ![text ioc_isEmpty]);
 	self.content.text = self.hasContent ? text : self.emptyText;
 	self.content.textColor = self.hasContent ? [UIColor blackColor] : [UIColor grayColor];
 	self.content.highlightedTextColor = [UIColor whiteColor];

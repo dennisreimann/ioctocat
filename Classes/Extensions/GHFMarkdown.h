@@ -6,6 +6,6 @@
 //  http://dennisreimann.de
 //
 
-#import <NSString+GHFMarkdown.h>
-#import <NSMutableString+GHFMarkdown.h>
-#import <NSMutableAttributedString+GHFMarkdown.h>
+#import <NSString_GHFMarkdown.h>
+#import <NSMutableString_GHFMarkdown.h>
+#import <NSMutableAttributedString_GHFMarkdown.h>

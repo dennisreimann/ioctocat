@@ -1,9 +1,9 @@
-#import "NSMutableArray+Extensions.h"
+#import "NSMutableArray_IOCExtensions.h"
 
 
-@implementation NSMutableArray (Extensions)
+@implementation NSMutableArray (IOCExtensions)
 
-- (void)moveObjectFromIndex:(NSUInteger)from toIndex:(NSUInteger)to {
+- (void)ioc_moveObjectFromIndex:(NSUInteger)from toIndex:(NSUInteger)to {
 	if (to != from) {
 		id obj = self[from];
 		[self removeObjectAtIndex:from];

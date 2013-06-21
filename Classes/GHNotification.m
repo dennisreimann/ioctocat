@@ -4,7 +4,7 @@
 #import "GHPullRequest.h"
 #import "GHIssue.h"
 #import "GHCommit.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHNotification ()
@@ -47,17 +47,17 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSDictionary *repoDict = [dict safeDictForKey:@"repository"];
-	NSString *owner = [repoDict safeStringForKeyPath:@"owner.login"];
-	NSString *name = [repoDict safeStringForKey:@"name"];
-	NSURL *subjectURL = [dict safeURLForKeyPath:@"subject.url"];
-	self.notificationId = [dict safeIntegerForKey:@"id"];
+	NSDictionary *repoDict = [dict ioc_dictForKey:@"repository"];
+	NSString *owner = [repoDict ioc_stringForKeyPath:@"owner.login"];
+	NSString *name = [repoDict ioc_stringForKey:@"name"];
+	NSURL *subjectURL = [dict ioc_URLForKeyPath:@"subject.url"];
+	self.notificationId = [dict ioc_integerForKey:@"id"];
 	self.resourcePath = [NSString stringWithFormat:kNotificationThreadFormat, self.notificationId];
-	self.updatedAt = [dict safeDateForKey:@"updated_at"];
-	self.lastReadAt = [dict safeDateForKey:@"last_read_at"];
-	self.read = [dict safeBoolForKey:@"unread"] ? ![dict safeBoolForKey:@"unread"] : NO;
-	self.title = [dict safeStringForKeyPath:@"subject.title"];
-	self.subjectType = [dict safeStringForKeyPath:@"subject.type"];
+	self.updatedAt = [dict ioc_dateForKey:@"updated_at"];
+	self.lastReadAt = [dict ioc_dateForKey:@"last_read_at"];
+	self.read = [dict ioc_boolForKey:@"unread"] ? ![dict ioc_boolForKey:@"unread"] : NO;
+	self.title = [dict ioc_stringForKeyPath:@"subject.title"];
+	self.subjectType = [dict ioc_stringForKeyPath:@"subject.type"];
 	self.repository = [[GHRepository alloc] initWithOwner:owner andName:name];
 	[self.repository setValues:repoDict];
 	if ([self.subjectType isEqualToString:@"PullRequest"]) {

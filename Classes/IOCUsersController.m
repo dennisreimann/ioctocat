@@ -2,7 +2,7 @@
 #import "IOCUserController.h"
 #import "GHUsers.h"
 #import "IOCUserObjectCell.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @implementation IOCUsersController

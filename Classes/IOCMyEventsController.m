@@ -13,7 +13,7 @@
 #import "GHGist.h"
 #import "GHIssue.h"
 #import "iOctocat.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 #import "UIScrollView+SVPullToRefresh.h"
 
 

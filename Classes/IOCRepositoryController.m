@@ -29,7 +29,7 @@
 #import "SVProgressHUD.h"
 #import "IOCResourceStatusCell.h"
 #import "IOCViewControllerFactory.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 
 
 @interface IOCRepositoryController () <UIActionSheetDelegate, IOCTextCellDelegate>

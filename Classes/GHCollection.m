@@ -1,5 +1,5 @@
 #import "GHCollection.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 
 
 @interface GHCollection ()
@@ -85,7 +85,7 @@
 
 - (void)loadNextWithStart:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {
     self.resetItemsOnLoad = NO;
-    [super loadWithParams:self.nextPageURL.queryDictionary path:self.nextPageURL.path method:kRequestMethodGet start:start success:success failure:failure];
+    [super loadWithParams:[self.nextPageURL ioc_queryDictionary] path:self.nextPageURL.path method:kRequestMethodGet start:start success:success failure:failure];
 }
 
 - (void)loadWithParams:(NSDictionary *)params path:(NSString *)path method:(NSString *)method start:(resourceStart)start success:(resourceSuccess)success failure:(resourceFailure)failure {

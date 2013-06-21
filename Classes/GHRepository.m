@@ -12,8 +12,8 @@
 #import "GHBranches.h"
 #import "GHMilestones.h"
 #import "GHFMarkdown.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 
@@ -56,14 +56,14 @@
 
 - (NSMutableAttributedString *)attributedDescriptionText {
     if (!_attributedDescriptionText) {
-        _attributedDescriptionText = [self.descriptionText mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repoId];
+        _attributedDescriptionText = [self.descriptionText ghf_ghf_mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repoId];
     }
     return _attributedDescriptionText;
 }
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@", self.owner, self.name];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"/%@/%@", self.owner, self.name];
     }
     return _htmlURL;
 }
@@ -184,30 +184,30 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSDictionary *repoDict = [dict safeDictForKey:@"repository"];
+	NSDictionary *repoDict = [dict ioc_dictForKey:@"repository"];
     NSDictionary *resource = repoDict ? repoDict : dict;
-    self.htmlURL = [resource safeURLForKey:@"html_url"];
-    self.homepageURL = [resource safeURLForKey:@"homepage"];
-    self.descriptionText = [resource safeStringForKey:@"description"];
-    self.language = [resource safeStringForKey:@"language"];
-	self.isFork = [resource safeBoolForKey:@"fork"];
-    self.isPrivate = [resource safeBoolForKey:@"private"];
-    self.hasIssues = [resource safeBoolForKey:@"has_issues"];
-    self.hasWiki = [resource safeBoolForKey:@"has_wiki"];
-    self.hasDownloads = [resource safeBoolForKey:@"has_downloads"];
-    self.forkCount = [resource safeIntegerForKey:@"forks"];
-    self.watcherCount = [resource safeIntegerForKey:@"watchers"];
-    self.pushedAtDate = [resource safeDateForKey:@"pushed_at"];
+    self.htmlURL = [resource ioc_URLForKey:@"html_url"];
+    self.homepageURL = [resource ioc_URLForKey:@"homepage"];
+    self.descriptionText = [resource ioc_stringForKey:@"description"];
+    self.language = [resource ioc_stringForKey:@"language"];
+	self.isFork = [resource ioc_boolForKey:@"fork"];
+    self.isPrivate = [resource ioc_boolForKey:@"private"];
+    self.hasIssues = [resource ioc_boolForKey:@"has_issues"];
+    self.hasWiki = [resource ioc_boolForKey:@"has_wiki"];
+    self.hasDownloads = [resource ioc_boolForKey:@"has_downloads"];
+    self.forkCount = [resource ioc_integerForKey:@"forks"];
+    self.watcherCount = [resource ioc_integerForKey:@"watchers"];
+    self.pushedAtDate = [resource ioc_dateForKey:@"pushed_at"];
     // TODO: Remove master_branch once the API change is done.
-    self.mainBranch = [resource valueForKeyPath:@"master_branch" defaultsTo:nil] ?
-        [resource valueForKeyPath:@"master_branch" defaultsTo:@"master"] :
-        [resource valueForKeyPath:@"default_branch" defaultsTo:@"master"];
+    self.mainBranch = [resource ioc_valueForKeyPath:@"master_branch" defaultsTo:nil] ?
+        [resource ioc_valueForKeyPath:@"master_branch" defaultsTo:@"master"] :
+        [resource ioc_valueForKeyPath:@"default_branch" defaultsTo:@"master"];
     // if this is a fork, parent or source should be present
-    NSDictionary *parentDict = [dict safeDictForKey:@"parent"];
-    if (!parentDict) parentDict = [dict safeDictForKey:@"source"];
+    NSDictionary *parentDict = [dict ioc_dictForKey:@"parent"];
+    if (!parentDict) parentDict = [dict ioc_dictForKey:@"source"];
     if (parentDict) {
-        NSString *owner = [parentDict safeStringForKeyPath:@"owner.login"];
-        NSString *name = [parentDict safeStringForKey:@"name"];
+        NSString *owner = [parentDict ioc_stringForKeyPath:@"owner.login"];
+        NSString *name = [parentDict ioc_stringForKey:@"name"];
         self.parent = [[GHRepository alloc] initWithOwner:owner andName:name];
     }
 }

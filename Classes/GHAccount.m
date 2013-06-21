@@ -8,9 +8,9 @@
 #import "GHOrganization.h"
 #import "GHOrganizations.h"
 #import "GHNotifications.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "AFOAuth2Client.h"
 
 
@@ -28,10 +28,10 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	self = [super init];
 	if (self) {
 		self.userObjects = [[GHUserObjectsRepository alloc] init];
-		self.login       = [dict safeStringForKey:kLoginDefaultsKey];
-		self.endpoint    = [dict safeStringForKey:kEndpointDefaultsKey];
-		self.authToken   = [dict safeStringForKey:kAuthTokenDefaultsKey];
-		self.pushToken   = [dict safeStringForKey:kPushTokenDefaultsKey];
+		self.login       = [dict ioc_stringForKey:kLoginDefaultsKey];
+		self.endpoint    = [dict ioc_stringForKey:kEndpointDefaultsKey];
+		self.authToken   = [dict ioc_stringForKey:kAuthTokenDefaultsKey];
+		self.pushToken   = [dict ioc_stringForKey:kPushTokenDefaultsKey];
 	}
 	return self;
 }
@@ -55,7 +55,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 
 // invalidates the apiClient when the endpoint changes
 - (void)setEndpoint:(NSString *)endpoint {
-    _endpoint = [[[NSURL smartURLFromString:endpoint defaultScheme:@"https"] URLByDeletingTrailingSlash] absoluteString];
+    _endpoint = [[[NSURL ioc_smartURLFromString:endpoint defaultScheme:@"https"] ioc_URLByDeletingTrailingSlash] absoluteString];
     self.apiClient = nil;
 }
 
@@ -90,7 +90,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 }
 
 - (NSString *)accountId {
-    NSURL *url = [NSURL smartURLFromString:self.endpoint];
+    NSURL *url = [NSURL ioc_smartURLFromString:self.endpoint];
 	if (!url) url = [NSURL URLWithString:kGitHubComURL];
     return [NSString stringWithFormat:@"%@/%@", url.host, self.login];
 }
@@ -113,7 +113,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 }
 
 - (BOOL)isGitHub {
-    return !self.endpoint || self.endpoint.isEmpty || [self.endpoint isEqualToString:kGitHubComURL];
+    return !self.endpoint || [self.endpoint ioc_isEmpty] || [self.endpoint isEqualToString:kGitHubComURL];
 }
 
 #pragma mark Coding
@@ -131,7 +131,7 @@ static NSString *const OrgsLoadingKeyPath = @"organizations.resourceStatus";
 	NSString *authToken = [decoder decodeObjectForKey:kAuthTokenDefaultsKey];
 	NSString *pushToken = [decoder decodeObjectForKey:kPushTokenDefaultsKey];
     // for backwards compatibility: assign github.com if endpoint is empty
-    if (!endpoint || endpoint.isEmpty) endpoint = kGitHubComURL;
+    if (!endpoint || [endpoint ioc_isEmpty]) endpoint = kGitHubComURL;
 	self = [self initWithDict:@{
 			kLoginDefaultsKey: login ? login : @"",
 		 kEndpointDefaultsKey: endpoint ? endpoint : @"",

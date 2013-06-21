@@ -10,9 +10,9 @@
 #import "GHNotifications.h"
 #import "IOCGravatarService.h"
 #import "IOCAvatarCache.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHUser
@@ -31,7 +31,7 @@
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"/%@", self.login];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"/%@", self.login];
     }
     return _htmlURL;
 }
@@ -52,29 +52,29 @@
 }
 
 - (void)setValues:(id)dict {
-	NSString *login = [dict safeStringForKey:@"login"];
-	if (!login.isEmpty && ![self.login isEqualToString:login]) {
+	NSString *login = [dict ioc_stringForKey:@"login"];
+	if (![login ioc_isEmpty] && ![self.login isEqualToString:login]) {
 		self.login = login;
 	}
 	// TODO: Remove email check once the API change is done.
-	id email = [dict valueForKeyPath:@"email" defaultsTo:nil];
+	id email = [dict ioc_valueForKeyPath:@"email" defaultsTo:nil];
 	if ([email isKindOfClass:NSDictionary.class]) {
-		NSString *state = [email safeStringForKey:@"state"];
-		email = [state isEqualToString:@"verified"] ? [dict safeStringForKey:@"email"] : nil;
+		NSString *state = [email ioc_stringForKey:@"state"];
+		email = [state isEqualToString:@"verified"] ? [dict ioc_stringForKey:@"email"] : nil;
 	}
-	self.name = [dict safeStringForKey:@"name"];
+	self.name = [dict ioc_stringForKey:@"name"];
 	self.email = email;
-	self.company = [dict safeStringForKey:@"company"];
-	self.location = [dict safeStringForKey:@"location"];
-	self.blogURL = [dict safeURLForKey:@"blog"];
-	self.htmlURL = [dict safeURLForKey:@"html_url"];
-	self.gravatarURL = [dict safeURLForKey:@"avatar_url"];
-	self.publicGistCount = [dict safeIntegerForKey:@"public_gists"];
-	self.privateGistCount = [dict safeIntegerForKey:@"private_gists"];
-	self.publicRepoCount = [dict safeIntegerForKey:@"public_repos"];
-	self.privateRepoCount = [dict safeIntegerForKey:@"total_private_repos"];
-	self.followersCount = [dict safeIntegerForKey:@"followers"];
-	self.followingCount = [dict safeIntegerForKey:@"following"];
+	self.company = [dict ioc_stringForKey:@"company"];
+	self.location = [dict ioc_stringForKey:@"location"];
+	self.blogURL = [dict ioc_URLForKey:@"blog"];
+	self.htmlURL = [dict ioc_URLForKey:@"html_url"];
+	self.gravatarURL = [dict ioc_URLForKey:@"avatar_url"];
+	self.publicGistCount = [dict ioc_integerForKey:@"public_gists"];
+	self.privateGistCount = [dict ioc_integerForKey:@"private_gists"];
+	self.publicRepoCount = [dict ioc_integerForKey:@"public_repos"];
+	self.privateRepoCount = [dict ioc_integerForKey:@"total_private_repos"];
+	self.followersCount = [dict ioc_integerForKey:@"followers"];
+	self.followingCount = [dict ioc_integerForKey:@"following"];
 }
 
 #pragma mark Associations

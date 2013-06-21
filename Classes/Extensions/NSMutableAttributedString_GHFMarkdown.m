@@ -1,5 +1,5 @@
 //
-//  NSMutableAttributedString+GHFMarkdown.m
+//  NSMutableAttributedString_GHFMarkdown.m
 //  iOctocat
 //
 //  Created by Dennis Reimann on 05/15/13.
@@ -8,38 +8,38 @@
 
 #import <CoreText/CoreText.h>
 #import "GHFMarkdown.h"
-#import "GHFMarkdown+Private.h"
+#import "GHFMarkdown_Private.h"
 
 
 @implementation NSMutableAttributedString (GHFMarkdown)
 
-+ (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString {
-    return [self mutableAttributedStringFromGHFMarkdown:markdownString contextRepoId:nil attributes:nil];
++ (NSMutableAttributedString *)ghf_mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString {
+    return [self ghf_mutableAttributedStringFromGHFMarkdown:markdownString contextRepoId:nil attributes:nil];
 }
 
-+ (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString contextRepoId:(NSString *)contextRepoId {
-    return [self mutableAttributedStringFromGHFMarkdown:markdownString contextRepoId:contextRepoId attributes:nil];
++ (NSMutableAttributedString *)ghf_mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString contextRepoId:(NSString *)contextRepoId {
+    return [self ghf_mutableAttributedStringFromGHFMarkdown:markdownString contextRepoId:contextRepoId attributes:nil];
 }
 
-+ (NSMutableAttributedString *)mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString contextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes {
++ (NSMutableAttributedString *)ghf_mutableAttributedStringFromGHFMarkdown:(NSString *)markdownString contextRepoId:(NSString *)contextRepoId attributes:(NSDictionary *)attributes {
     if (!markdownString) return nil;
     NSMutableAttributedString *output = [[NSMutableAttributedString alloc] initWithString:markdownString attributes:attributes];
     NSMutableString *string = output.mutableString;
-    NSDictionary *codeBlocks = [string extractAndSubstituteGHFMarkdownCodeBlocks];
-    [output substituteGHFMarkdownLinksWithContextRepoId:contextRepoId];
-    [output substituteGHFMarkdownHeadlines];
-    [output substituteGHFMarkdownQuotes];
-    [output substituteGHFMarkdownTasks];
-    [output substitutePattern:GHFMarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_BoldItalic": @YES}];
-    [output substitutePattern:GHFMarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_Bold": @YES}];
-    [output substitutePattern:GHFMarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_Italic": @YES}];
-    [output substitutePattern:GHFMarkdownCodeInlineRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_CodeInline": @YES}];
-    [string insertSubstitutedGHFMarkdownCodeBlocks:codeBlocks];
-    [output substitutePattern:GHFMarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) addAttributes:@{@"GHFMarkdown_CodeBlock": @YES}];
+    NSDictionary *codeBlocks = [string ghf_extractAndSubstituteGHFMarkdownCodeBlocks];
+    [output ghf_substituteGHFMarkdownLinksWithContextRepoId:contextRepoId];
+    [output ghf_substituteGHFMarkdownHeadlines];
+    [output ghf_substituteGHFMarkdownQuotes];
+    [output ghf_substituteGHFMarkdownTasks];
+    [output ghf_substitutePattern:GHFMarkdownBoldItalicRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_BoldItalic": @YES}];
+    [output ghf_substitutePattern:GHFMarkdownBoldRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_Bold": @YES}];
+    [output ghf_substitutePattern:GHFMarkdownItalicRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_Italic": @YES}];
+    [output ghf_substitutePattern:GHFMarkdownCodeInlineRegex options:(NSRegularExpressionCaseInsensitive) addAttributes:@{@"GHFMarkdown_CodeInline": @YES}];
+    [string ghf_insertSubstitutedGHFMarkdownCodeBlocks:codeBlocks];
+    [output ghf_substitutePattern:GHFMarkdownCodeBlockRegex options:(NSRegularExpressionCaseInsensitive|NSRegularExpressionDotMatchesLineSeparators) addAttributes:@{@"GHFMarkdown_CodeBlock": @YES}];
     return output;
 }
 
-- (void)applyAttributes:(NSDictionary *)attributes {
+- (void)ghf_applyAttributes:(NSDictionary *)attributes {
     NSRange range = NSMakeRange(0, self.length);
     [attributes enumerateKeysAndObjectsUsingBlock:^(id attributeKey, id attributeValues, BOOL *stop) {
         [self enumerateAttribute:attributeKey inRange:range options:NULL usingBlock:^(id value, NSRange range, BOOL *stop) {
@@ -48,9 +48,9 @@
     }];
 }
 
-- (void)substituteGHFMarkdownLinksWithContextRepoId:(NSString *)contextRepoId {
+- (void)ghf_substituteGHFMarkdownLinksWithContextRepoId:(NSString *)contextRepoId {
     NSMutableString *string = self.mutableString;
-    NSArray *links = [string linksFromGHFMarkdownWithContextRepoId:contextRepoId];
+    NSArray *links = [string ghf_linksFromGHFMarkdownWithContextRepoId:contextRepoId];
     if (links.count) {
         NSEnumerator *enumerator = [links reverseObjectEnumerator];
         for (NSDictionary *link in enumerator) {
@@ -63,9 +63,9 @@
     }
 }
 
-- (void)substituteGHFMarkdownTasks {
+- (void)ghf_substituteGHFMarkdownTasks {
     NSMutableString *string = self.mutableString;
-    NSArray *tasks = [string tasksFromGHFMarkdown];
+    NSArray *tasks = [string ghf_tasksFromGHFMarkdown];
     if (tasks.count) {
         NSEnumerator *enumerator = [tasks reverseObjectEnumerator];
         for (NSDictionary *task in enumerator) {
@@ -80,9 +80,9 @@
     }
 }
 
-- (void)substituteGHFMarkdownHeadlines {
+- (void)ghf_substituteGHFMarkdownHeadlines {
     NSMutableString *string = self.mutableString;
-    NSArray *headlines = [string headlinesFromGHFMarkdown];
+    NSArray *headlines = [string ghf_headlinesFromGHFMarkdown];
     if (headlines.count) {
         NSEnumerator *enumerator = [headlines reverseObjectEnumerator];
         for (NSDictionary *headline in enumerator) {
@@ -96,9 +96,9 @@
     }
 }
 
-- (void)substituteGHFMarkdownQuotes {
+- (void)ghf_substituteGHFMarkdownQuotes {
     NSMutableString *string = self.mutableString;
-    NSArray *quotes = [string quotesFromGHFMarkdown];
+    NSArray *quotes = [string ghf_quotesFromGHFMarkdown];
     if (quotes.count) {
         NSEnumerator *enumerator = [quotes reverseObjectEnumerator];
         for (NSDictionary *quote in enumerator) {
@@ -107,7 +107,7 @@
             NSRange range = [quote[@"titleRange"] rangeValue];
             NSDictionary *attributes = [NSDictionary dictionaryWithObject:@YES forKey:@"GHFMarkdown_Quote"];
             [self addAttributes:attributes range:range];
-            // take into account the hack in which quotesFromGHFMarkdown
+            // take into account the hack in which ghf_quotesFromGHFMarkdown
             // appends some extra newlines at the end of the string to
             // find a quote at the end of the original string
             BOOL isAppendedNewlines = newlinesAfterRange.location == self.length;
@@ -126,7 +126,7 @@
 // The substitution pattern must have either one or two matches. In case it has two, it uses the first
 // match to replace its content with the content of the seconds match. If there is only one match, the
 // whole match will be replaced by the matched content.
-- (void)substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options addAttributes:(NSDictionary *)attributes {
+- (void)ghf_substitutePattern:(NSString *)pattern options:(NSRegularExpressionOptions)options addAttributes:(NSDictionary *)attributes {
     NSMutableString *string = self.mutableString;
     NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:options error:NULL];
     NSArray *matches = matches = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];

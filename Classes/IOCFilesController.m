@@ -1,8 +1,8 @@
 #import "IOCFilesController.h"
 #import "IOCCodeController.h"
 #import "GHFiles.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation IOCFilesController
@@ -33,10 +33,10 @@
 		cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 	}
 	NSDictionary *fileInfo = self.collection[indexPath.row];
-	NSString *patch = [fileInfo safeStringForKeyPath:@"patch"];
-	cell.textLabel.text = [fileInfo safeStringForKeyPath:@"filename"];
-	cell.selectionStyle = patch.isEmpty ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleBlue;
-	cell.accessoryType = patch.isEmpty ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
+	NSString *patch = [fileInfo ioc_stringForKeyPath:@"patch"];
+	cell.textLabel.text = [fileInfo ioc_stringForKeyPath:@"filename"];
+	cell.selectionStyle = patch.ioc_isEmpty ? UITableViewCellSelectionStyleNone : UITableViewCellSelectionStyleBlue;
+	cell.accessoryType = patch.ioc_isEmpty ? UITableViewCellAccessoryNone : UITableViewCellAccessoryDisclosureIndicator;
 	return cell;
 }
 

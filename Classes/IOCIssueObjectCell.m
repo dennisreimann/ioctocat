@@ -3,7 +3,7 @@
 #import "GHIssue.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 
 
 @interface IOCIssueObjectCell ()
@@ -44,7 +44,7 @@
     NSString *userInfo = self.object.user ? [NSString stringWithFormat:@"by %@ ", self.object.user.login] : @"";
 	self.imageView.image = [UIImage imageNamed:imageName];
     self.textLabel.text = self.object.title;
-    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@- %@", self.object.number, userInfo, [_displayRepo ? self.object.updatedAt : self.object.createdAt prettyDate]];
+    self.detailTextLabel.text = [NSString stringWithFormat:@"#%d %@- %@", self.object.number, userInfo, [_displayRepo ? self.object.updatedAt : self.object.createdAt ioc_prettyDate]];
     self.repoLabel.text = _displayRepo ? self.object.repository.repoId : @"";
 }
 

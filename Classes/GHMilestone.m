@@ -2,8 +2,8 @@
 #import "GHRepository.h"
 #import "iOctocat.h"
 #import "NSString+Emojize.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHMilestone ()
@@ -68,16 +68,16 @@
 #pragma mark Loading
 
 - (void)setValues:(id)dict {
-	NSString *login = [dict safeStringForKeyPath:@"creator.login"];
+	NSString *login = [dict ioc_stringForKeyPath:@"creator.login"];
 	self.creator = [iOctocat.sharedInstance userWithLogin:login];
-	self.number = [dict safeIntegerForKey:@"number"];
-	self.title = [dict safeStringForKey:@"title"];
-	self.state = [dict safeStringForKey:@"state"];
-	self.body = [dict safeStringForKey:@"description"];
-	self.dueOn = [dict safeDateForKey:@"due_on"];
-	self.createdAt = [dict safeDateForKey:@"created_at"];
-	self.openIssueCount = [dict safeIntegerForKey:@"open_issues"];
-	self.closedIssueCount = [dict safeIntegerForKey:@"closed_issues"];
+	self.number = [dict ioc_integerForKey:@"number"];
+	self.title = [dict ioc_stringForKey:@"title"];
+	self.state = [dict ioc_stringForKey:@"state"];
+	self.body = [dict ioc_stringForKey:@"description"];
+	self.dueOn = [dict ioc_dateForKey:@"due_on"];
+	self.createdAt = [dict ioc_dateForKey:@"created_at"];
+	self.openIssueCount = [dict ioc_integerForKey:@"open_issues"];
+	self.closedIssueCount = [dict ioc_integerForKey:@"closed_issues"];
 }
 
 @end

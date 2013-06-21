@@ -1,12 +1,12 @@
 //
-//  GHFMarkdown+Private.m
+//  GHFMarkdown_Private.m
 //  iOctocat
 //
 //  Created by Dennis Reimann on 05/15/13.
 //  http://dennisreimann.de
 //
 
-#import "GHFMarkdown+Private.h"
+#import "GHFMarkdown_Private.h"
 
 NSString *const GHFMarkdownLinkRegex = @"!?\\[([^\\[\\]]+?)\\]\\(([^\\s\\]]+)(\\s+(\"|\')(.+?)(\"|\'))?\\)";
 NSString *const GHFMarkdownShaRegex = @"(?:([\\w-]+)\\/)?(?:([\\w-]+)@)?(\\w{40})";

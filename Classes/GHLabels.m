@@ -1,7 +1,7 @@
 #import "GHLabels.h"
 #import "GHLabel.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHLabels  ()
@@ -31,7 +31,7 @@
 - (void)setValues:(id)values {
     [super setValues:values];
 	for (NSDictionary *dict in values) {
-        NSString *name = [dict safeStringForKey:@"name"];
+        NSString *name = [dict ioc_stringForKey:@"name"];
 		GHLabel *label = [[GHLabel alloc] initWithRepository:self.repository name:name];
 		[label setValues:dict];
 		[self addObject:label];

@@ -12,7 +12,7 @@
 #import "SVProgressHUD.h"
 #import "MAXCompletion.h"
 #import "NSString+Emojize.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface IOCCommentController () <UITextFieldDelegate>

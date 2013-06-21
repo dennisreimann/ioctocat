@@ -1,6 +1,6 @@
 #import "IOCDefaultsPersistence.h"
 #import "GHAccount.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 
 
 @implementation IOCDefaultsPersistence
@@ -28,7 +28,7 @@
     NSString *endpoint = account.endpoint;
     if (!login) login = @"";
 	if (!endpoint) endpoint = kGitHubComURL;
-	NSString *host = [[NSURL smartURLFromString:endpoint] host];
+	NSString *host = [[NSURL ioc_smartURLFromString:endpoint] host];
 	return [NSString stringWithFormat:@"account:%@:%@", host, login];
 }
 

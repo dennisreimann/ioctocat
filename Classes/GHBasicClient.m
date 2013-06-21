@@ -1,16 +1,16 @@
 #import "GHBasicClient.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHBasicClient
 
 - (id)initWithEndpoint:(NSString *)endpoint username:(NSString *)username password:(NSString *)password {
 	// construct endpoint URL
-	NSURL *url = (!endpoint || endpoint.isEmpty || [endpoint isEqualToString:kGitHubComURL]) ?
+	NSURL *url = (!endpoint || [endpoint ioc_isEmpty] || [endpoint isEqualToString:kGitHubComURL]) ?
         [NSURL URLWithString:kGitHubApiURL] :
-        [[NSURL smartURLFromString:endpoint defaultScheme:@"https"] URLByAppendingPathComponent:kEnterpriseApiPath];
+        [[NSURL ioc_smartURLFromString:endpoint defaultScheme:@"https"] URLByAppendingPathComponent:kEnterpriseApiPath];
 	// initialize
 	self = [super initWithBaseURL:url];
 	if (self) {
@@ -41,7 +41,7 @@
 		D3JLog(@"Finding authorization finished: %@", json);
 		NSDictionary *existingAuth = nil;
 		for (NSDictionary *auth in json) {
-			NSString *authNote = [auth safeStringForKey:@"note"];
+			NSString *authNote = [auth ioc_stringForKey:@"note"];
 			if ([authNote isEqualToString:note]) {
 				existingAuth = auth;
 				break;
@@ -60,7 +60,7 @@
 // devices, so that one does not have to create an authorization per device.
 - (void)saveAuthorizationWithNote:(NSString *)note scopes:(NSArray *)scopes success:(void (^)(id json))success failure:(void (^)(NSError *error))failure {
 	[self findAuthorizationWithNote:note success:^(id json) {
-		NSInteger authId = [json safeIntegerForKey:@"id"];
+		NSInteger authId = [json ioc_integerForKey:@"id"];
 		NSString *path = authId ? [NSString stringWithFormat:kAuthorizationFormat, authId] : kAuthorizationsFormat;
 		NSString *method = authId ? kRequestMethodPatch : kRequestMethodPost;
 		NSDictionary *params = @{@"scopes": scopes, @"note": note, @"note_url": @"http://ioctocat.com"};

@@ -5,9 +5,9 @@
 #import "GHFiles.h"
 #import "GHGistComments.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation GHGist
@@ -22,7 +22,7 @@
 }
 
 - (NSString *)title {
-	if (!self.descriptionText.isEmpty) {
+	if (![self.descriptionText ioc_isEmpty]) {
 		return self.descriptionText;
 	} else if (!self.files.isEmpty) {
 		return self.files[0][@"filename"];
@@ -33,7 +33,7 @@
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"https://gist.github.com/%@/%@", self.user.login, self.gistId];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"https://gist.github.com/%@/%@", self.user.login, self.gistId];
     }
     return _htmlURL;
 }
@@ -57,22 +57,22 @@
 
 - (void)setValues:(id)dict {
     if (![dict isKindOfClass:NSDictionary.class]) return;
-	NSDictionary *userDict = [dict safeDictForKey:@"user"];
-	NSString *userLogin = [userDict safeStringForKey:@"login"];
+	NSDictionary *userDict = [dict ioc_dictForKey:@"user"];
+	NSString *userLogin = [userDict ioc_stringForKey:@"login"];
 	self.user = [iOctocat.sharedInstance userWithLogin:userLogin];
-	self.gistId = [dict safeStringForKey:@"id"];
+	self.gistId = [dict ioc_stringForKey:@"id"];
 	self.files = [[GHFiles alloc] init];
-	[self.files setValues:[[dict safeDictForKey:@"files"] allValues]];
-	self.htmlURL = [dict safeURLForKey:@"html_url"];
-	self.descriptionText = [dict safeStringForKey:@"description"];
-	self.isPrivate = ![dict safeBoolForKey:@"public"];
-	self.forksCount = [dict safeArrayForKey:@"forks"].count;
-	self.commentsCount = [dict safeIntegerForKey:@"comments"];
-	self.createdAt = [dict safeDateForKey:@"created_at"];
-	self.updatedAt = [dict safeDateForKey:@"updated_at"];
+	[self.files setValues:[[dict ioc_dictForKey:@"files"] allValues]];
+	self.htmlURL = [dict ioc_URLForKey:@"html_url"];
+	self.descriptionText = [dict ioc_stringForKey:@"description"];
+	self.isPrivate = ![dict ioc_boolForKey:@"public"];
+	self.forksCount = [dict ioc_arrayForKey:@"forks"].count;
+	self.commentsCount = [dict ioc_integerForKey:@"comments"];
+	self.createdAt = [dict ioc_dateForKey:@"created_at"];
+	self.updatedAt = [dict ioc_dateForKey:@"updated_at"];
     // unfortunately atm the gist api does not state the fork
 	// status of a gist, but in the future this might work
-    self.isFork = [dict safeBoolForKey:@"fork"];
+    self.isFork = [dict ioc_boolForKey:@"fork"];
 }
 
 @end

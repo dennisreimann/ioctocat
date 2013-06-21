@@ -1,7 +1,7 @@
 #import "GHGistComment.h"
 #import "GHGist.h"
 #import "iOctocat.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHGistComment ()

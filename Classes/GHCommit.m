@@ -5,10 +5,10 @@
 #import "GHRepoComments.h"
 #import "iOctocat.h"
 #import "GHFMarkdown.h"
-#import "NSURL+Extensions.h"
+#import "NSURL_IOCExtensions.h"
 #import "NSString+Emojize.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHCommit ()
@@ -30,35 +30,35 @@
 
 - (void)setValues:(id)dict {
 	// users
-	NSDictionary *authorDict = [dict safeDictForKey:@"author"];
-	NSDictionary *committerDict = [dict safeDictForKey:@"committer"];
-	if (!authorDict) authorDict = [dict safeDictForKeyPath:@"commit.author"];
-	if (!committerDict) committerDict = [dict safeDictForKeyPath:@"commit.committer"];
-	NSString *authorLogin = [authorDict safeStringForKey:@"login"];
-	NSString *committerLogin = [committerDict safeStringForKey:@"login"];
-	if (!authorLogin.isEmpty) {
+	NSDictionary *authorDict = [dict ioc_dictForKey:@"author"];
+	NSDictionary *committerDict = [dict ioc_dictForKey:@"committer"];
+	if (!authorDict) authorDict = [dict ioc_dictForKeyPath:@"commit.author"];
+	if (!committerDict) committerDict = [dict ioc_dictForKeyPath:@"commit.committer"];
+	NSString *authorLogin = [authorDict ioc_stringForKey:@"login"];
+	NSString *committerLogin = [committerDict ioc_stringForKey:@"login"];
+	if (![authorLogin ioc_isEmpty]) {
 		self.author = [iOctocat.sharedInstance userWithLogin:authorLogin];
 		if (self.author.isUnloaded) [self.author setValues:authorDict];
 	}
-	if (!committerLogin.isEmpty) {
+	if (![committerLogin ioc_isEmpty]) {
 		self.committer = [iOctocat.sharedInstance userWithLogin:committerLogin];
 		if (self.committer.isUnloaded) [self.committer setValues:committerDict];
 	}
 	// info
-	self.authorEmail = [authorDict safeStringForKey:@"email"];
-	self.authorName = [authorDict safeStringForKey:@"name"];
-	self.authoredDate = [dict safeDateForKeyPath:@"commit.author.date"];
-	self.committedDate = [dict safeDateForKeyPath:@"commit.committer.date"];
-	self.message = [dict safeStringForKeyPath:@"commit.message"];
-	if (self.message.isEmpty) self.message = [dict safeStringForKey:@"message"];
-    self.htmlURL = [dict safeURLForKey:@"html_url"];
+	self.authorEmail = [authorDict ioc_stringForKey:@"email"];
+	self.authorName = [authorDict ioc_stringForKey:@"name"];
+	self.authoredDate = [dict ioc_dateForKeyPath:@"commit.author.date"];
+	self.committedDate = [dict ioc_dateForKeyPath:@"commit.committer.date"];
+	self.message = [dict ioc_stringForKeyPath:@"commit.message"];
+	if ([self.message ioc_isEmpty]) self.message = [dict ioc_stringForKey:@"message"];
+    self.htmlURL = [dict ioc_URLForKey:@"html_url"];
 	// files
 	self.added = [[GHFiles alloc] init];
 	self.removed = [[GHFiles alloc] init];
 	self.modified = [[GHFiles alloc] init];
-	NSArray *files = [dict safeArrayForKey:@"files"];
+	NSArray *files = [dict ioc_arrayForKey:@"files"];
 	for (NSDictionary *file in files) {
-		NSString *status = [file safeStringForKey:@"status"];
+		NSString *status = [file ioc_stringForKey:@"status"];
 		if ([status isEqualToString:@"removed"]) {
 			[self.removed addObject:file];
 		} else if ([status isEqualToString:@"added"]) {
@@ -74,7 +74,7 @@
 
 - (NSURL *)htmlURL {
     if (!_htmlURL) {
-        self.htmlURL = [NSURL URLWithFormat:@"/%@/%@/commit/%@", self.repository.owner, self.repository.name, self.commitID];
+        self.htmlURL = [NSURL ioc_URLWithFormat:@"/%@/%@/commit/%@", self.repository.owner, self.repository.name, self.commitID];
     }
     return _htmlURL;
 }
@@ -90,7 +90,7 @@
     if (!_attributedMessage) {
         NSString *text = self.message;
         text = [text emojizedString];
-        _attributedMessage = [text mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
+        _attributedMessage = [text ghf_ghf_mutableAttributedStringFromGHFMarkdownWithContextRepoId:self.repository.repoId];
     }
     return _attributedMessage;
 }

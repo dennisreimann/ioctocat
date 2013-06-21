@@ -1,8 +1,8 @@
 #import "GHSystemStatusService.h"
 #import "GHOAuthClient.h"
 #import "GHOAuthClient.h"
-#import "NSDictionary+Extensions.h"
-#import "NSDate+Nibware.h"
+#import "NSDictionary_IOCExtensions.h"
+#import "NSDate_IOCExtensions.h"
 
 
 @implementation GHSystemStatusService
@@ -16,9 +16,9 @@
 	D3JLog(@"System status request: %@ %@", method, path);
 	AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id json) {
 		D3JLog(@"System status request finished: %@", json);
-		NSString *status = [json safeStringForKey:@"status"];
-        NSString *date = [[json safeDateForKey:@"created_on"] prettyDate];
-        NSString *body = [json safeStringForKey:@"body"];
+		NSString *status = [json ioc_stringForKey:@"status"];
+        NSString *date = [[json ioc_dateForKey:@"created_on"] ioc_prettyDate];
+        NSString *body = [json ioc_stringForKey:@"body"];
         NSString *message = [NSString stringWithFormat:@"%@: %@", date, body];
         if ([status isEqualToString:@"major"] && onMajor) {
             onMajor(message);

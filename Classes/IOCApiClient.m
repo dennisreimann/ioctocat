@@ -1,6 +1,6 @@
 #import "IOCApiClient.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 // heavily inspired by Orbiter: https://github.com/mattt/Orbiter
 
@@ -19,14 +19,14 @@ static NSString *const PushBackendAccessTokenFormat = @"devices/%@/accounts/%@";
         // iOctocat API
         NSDictionary *apiDict = nil;
         #ifdef CONFIGURATION_Release
-        apiDict = [dict safeDictForKey:@"release"];
+        apiDict = [dict ioc_dictForKey:@"release"];
         #elif CONFIGURATION_Beta
-        apiDict = [dict safeDictForKey:@"beta"];
+        apiDict = [dict ioc_dictForKey:@"beta"];
         #else
-        apiDict = [dict safeDictForKey:@"debug"];
+        apiDict = [dict ioc_dictForKey:@"debug"];
         #endif
         // initialize
-        NSURL *baseURL = [apiDict safeURLForKey:@"apiBase"];
+        NSURL *baseURL = [apiDict ioc_URLForKey:@"apiBase"];
         if (baseURL) {
             sharedInstance = [[super alloc] initWithBaseURL:baseURL];
             [sharedInstance setDefaultHeader:@"Accept" value:@"application/json"];

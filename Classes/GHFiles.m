@@ -2,7 +2,7 @@
 #import "GHResource.h"
 #import "GHRepository.h"
 #import "GHPullRequest.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHFiles ()

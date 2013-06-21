@@ -29,14 +29,14 @@
 #import "GHNotification.h"
 #import "GHRepository.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @implementation IOCViewControllerFactory
 
 + (UIViewController *)viewControllerForURL:(NSURL *)url {
-    if (url.isGitHubURL) {
+    if (url.ioc_isGitHubURL) {
         return [self viewControllerForGitHubURL:url];
     } else {
         return [[IOCWebController alloc] initWithURL:url];
@@ -71,7 +71,7 @@
             NSString *currentEndpoint = iOctocat.sharedInstance.currentAccount.endpoint;
             NSString *fragment = url.fragment;
             url = [[NSURL URLWithString:currentEndpoint] URLByAppendingPathComponent:url.path];
-            if (fragment) url = [url URLByAppendingFragment:fragment];
+            if (fragment) url = [url ioc_URLByAppendingFragment:fragment];
         }
         if (isStatic) {
             viewController = [[IOCWebController alloc] initWithURL:url];

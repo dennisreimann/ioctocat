@@ -7,10 +7,10 @@
 #import "GHUser.h"
 #import "GHOAuthClient.h"
 #import "IOCUserObjectCell.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
-#import "NSMutableArray+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
+#import "NSMutableArray_IOCExtensions.h"
 #import "iOctocat.h"
 #import "IOCAuthenticationService.h"
 #import "IOCTableViewSectionHeader.h"
@@ -91,9 +91,9 @@
 
 - (NSUInteger)indexOfAccountWithLogin:(NSString *)login endpoint:(NSString *)endpoint {
     // compare the hosts, because there might be slight differences in the full URL notation
-    NSString *endpointHost = [[NSURL smartURLFromString:endpoint] host];
+    NSString *endpointHost = [[NSURL ioc_smartURLFromString:endpoint] host];
     return [self.accounts indexOfObjectPassingTest:^(GHAccount *account, NSUInteger idx, BOOL *stop) {
-        NSString *accountHost = [[NSURL smartURLFromString:account.endpoint] host];
+        NSString *accountHost = [[NSURL ioc_smartURLFromString:account.endpoint] host];
         if ([login isEqualToString:account.login] && [endpointHost isEqualToString:accountHost]) {
             *stop = YES;
             return YES;
@@ -117,7 +117,7 @@
         // FIXME This is only here to stay compatible with old versions upgrading
         // to >= v1.8, because empty endpoints got deprecated with that update.
         // Should get removed once v1.9 gets released.
-		if (!endpoint || endpoint.isEmpty) endpoint = kGitHubComURL;
+		if (!endpoint || [endpoint ioc_isEmpty]) endpoint = kGitHubComURL;
         // use hosts as key, because there might be slight differences in the full URL notation
         NSString *host = [[NSURL URLWithString:endpoint] host];
 		if (!self.accountsByEndpoint[host]) {
@@ -232,7 +232,7 @@
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromPath toIndexPath:(NSIndexPath *)toPath {
     if (toPath.row != fromPath.row) {
-        [self.accounts moveObjectFromIndex:fromPath.row toIndex:toPath.row];
+        [self.accounts ioc_moveObjectFromIndex:fromPath.row toIndex:toPath.row];
         [self handleAccountsChange];
     }
 }

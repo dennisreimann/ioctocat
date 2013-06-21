@@ -2,8 +2,8 @@
 #import "GHSubmodule.h"
 #import "GHRepository.h"
 #import "GHTree.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 
 
 @interface GHSubmodule () {
@@ -39,9 +39,9 @@
 #pragma mark Loading
 
 - (void)setValues:(id)values {
-	self.sha = [values safeStringForKey:@"sha"];
-	self.path = [values safeStringForKey:@"path"];
-	self.name = [values safeStringOrNilForKey:@"name"];
+	self.sha = [values ioc_stringForKey:@"sha"];
+	self.path = [values ioc_stringForKey:@"path"];
+	self.name = [values ioc_stringOrNilForKey:@"name"];
 }
 
 @end

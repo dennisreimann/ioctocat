@@ -23,9 +23,9 @@
 #import "SVProgressHUD.h"
 #import "GradientButton.h"
 #import "UIScrollView+SVInfiniteScrolling.h"
-#import "NSDate+Nibware.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
+#import "NSDate_IOCExtensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @interface IOCIssueController () <UIActionSheetDelegate, IOCResourceEditingDelegate, IOCTextCellDelegate>
@@ -133,8 +133,8 @@
 	self.titleLabel.text = self.issue.title;
 	self.repoCell.contentText = self.issue.repository.repoId;
 	self.authorCell.contentText = self.issue.user.login;
-	self.createdCell.contentText = self.issue.createdAt.prettyDate;
-	self.updatedCell.contentText = self.issue.updatedAt.prettyDate;
+	self.createdCell.contentText = [self.issue.createdAt ioc_prettyDate];
+	self.updatedCell.contentText = [self.issue.updatedAt ioc_prettyDate];
     self.assigneeCell.contentText = self.issue.assignee.login;
     self.milestoneCell.contentText = self.issue.milestone.title;
 	self.descriptionCell.contentText = self.issue.attributedBody;
@@ -269,7 +269,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (self.issue.isEmpty) return 1;
 	if (section == 0) {
-		return self.issue.body.isEmpty ? 6 : 7;
+		return [self.issue.body ioc_isEmpty] ? 6 : 7;
 	} else {
 		return self.issue.comments.isEmpty ? 1 : self.issue.comments.count;
 	}

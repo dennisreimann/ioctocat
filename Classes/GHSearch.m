@@ -1,7 +1,7 @@
 #import "GHSearch.h"
 #import "GHUser.h"
 #import "GHRepository.h"
-#import "NSDictionary+Extensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "iOctocat.h"
 
 
@@ -29,18 +29,18 @@
 
 - (void)setValues:(NSDictionary *)dict {
     [super setValues:dict];
-	NSArray *objects = [dict safeArrayForKey:@"users"];
+	NSArray *objects = [dict ioc_arrayForKey:@"users"];
 	BOOL usersSearch = objects ? YES : NO;
-	if (!objects) objects = [dict safeArrayForKey:@"repositories"];
+	if (!objects) objects = [dict ioc_arrayForKey:@"repositories"];
 	for (NSDictionary *dict in objects) {
 		GHResource *resource = nil;
 		if (usersSearch) {
-			NSString *login = [dict safeStringForKey:@"login"];
+			NSString *login = [dict ioc_stringForKey:@"login"];
 			resource = [iOctocat.sharedInstance userWithLogin:login];
 			[resource setValues:dict];
 		} else {
-			NSString *owner = [dict safeStringForKey:@"owner"];
-			NSString *name = [dict safeStringForKey:@"name"];
+			NSString *owner = [dict ioc_stringForKey:@"owner"];
+			NSString *name = [dict ioc_stringForKey:@"name"];
 			resource = [[GHRepository alloc] initWithOwner:owner andName:name];
 			[resource setValues:dict];
 		}

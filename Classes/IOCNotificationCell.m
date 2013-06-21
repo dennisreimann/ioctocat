@@ -1,6 +1,6 @@
 #import "IOCNotificationCell.h"
 #import "GHNotification.h"
-#import "NSDate+Nibware.h"
+#import "NSDate_IOCExtensions.h"
 
 
 @implementation IOCNotificationCell
@@ -30,7 +30,7 @@
 - (void)setNotification:(GHNotification *)notification {
 	_notification = notification;
 	self.textLabel.text = notification.title;
-	self.detailTextLabel.text = [notification.updatedAt prettyDate];
+	self.detailTextLabel.text = [notification.updatedAt ioc_prettyDate];
 	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"Type%@.png", notification.subjectType]];
 	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"Type%@On.png", notification.subjectType]];
 }

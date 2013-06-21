@@ -12,7 +12,7 @@
 #import "IOCLabeledCell.h"
 #import "IOCRepositoryCell.h"
 #import "IOCUserObjectCell.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 #import "iOctocat.h"
 #import "IOCResourceStatusCell.h"
 
@@ -107,7 +107,7 @@
 #pragma mark Helpers
 
 - (void)displayOrganization {
-	self.nameLabel.text = (!self.organization.name || self.organization.name.isEmpty) ? self.organization.login : self.organization.name;
+	self.nameLabel.text = (!self.organization.name || [self.organization.name ioc_isEmpty]) ? self.organization.login : self.organization.name;
 	self.reposCountLabel.text = [NSString stringWithFormat:@"%d repositories", self.organization.publicRepoCount];
 	if (self.organization.gravatar) self.gravatarView.image = self.organization.gravatar;
 	self.locationCell.contentText = self.organization.location;
@@ -211,7 +211,7 @@
 	UIViewController *viewController = nil;
 	if (section == 0 && row == 1 && self.organization.blogURL) {
 		viewController = [[IOCWebController alloc] initWithURL:self.organization.blogURL];
-    } else if (section == 0 && row == 2 && self.organization.email && !self.organization.email.isEmpty) {
+    } else if (section == 0 && row == 2 && self.organization.email && ![self.organization.email ioc_isEmpty]) {
         if ([MFMailComposeViewController canSendMail]) {
             MFMailComposeViewController *mailComposer = [[MFMailComposeViewController alloc] init];
             mailComposer.mailComposeDelegate = self;

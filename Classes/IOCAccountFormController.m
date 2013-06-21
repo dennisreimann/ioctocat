@@ -5,9 +5,9 @@
 #import "GHBasicClient.h"
 #import "GradientButton.h"
 #import "iOctocat.h"
-#import "NSURL+Extensions.h"
-#import "NSString+Extensions.h"
-#import "NSDictionary+Extensions.h"
+#import "NSURL_IOCExtensions.h"
+#import "NSString_IOCExtensions.h"
+#import "NSDictionary_IOCExtensions.h"
 #import "SVProgressHUD.h"
 #import "GHAccount.h"
 
@@ -114,15 +114,15 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 }
 
 - (BOOL)hasDeviceToken {
-    return self.deviceToken && !self.deviceToken.isEmpty;
+    return self.deviceToken && ![self.deviceToken ioc_isEmpty];
 }
 
 - (BOOL)hasAuthToken {
-    return self.account.authToken && !self.account.authToken.isEmpty;
+    return self.account.authToken && ![self.account.authToken ioc_isEmpty];
 }
 
 - (BOOL)hasPushToken {
-    return self.account.pushToken && !self.account.pushToken.isEmpty;
+    return self.account.pushToken && ![self.account.pushToken ioc_isEmpty];
 }
 
 - (GHBasicClient *)apiClient {
@@ -137,7 +137,7 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 }
 
 - (void)checkPushStateForPushToken:(NSString *)pushToken {
-	if (self.hasDeviceToken && !pushToken.isEmpty) {
+	if (self.hasDeviceToken && ![pushToken ioc_isEmpty]) {
 		[IOCApiClient.sharedInstance checkPushNotificationsForDevice:self.deviceToken accessToken:pushToken success:^(id json) {
             self.account.pushToken = pushToken;
             [self saveAccount];
@@ -167,8 +167,8 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 }
 
 - (NSURL *)onePasswordURL {
-    NSString *query = self.endpointValue.isEmpty ? @"" : [[NSURL smartURLFromString:self.endpointValue] host];
-    return [NSURL URLWithFormat:@"onepassword://search/%@", query];
+    NSString *query = [self.endpointValue ioc_isEmpty] ? @"" : [[NSURL ioc_smartURLFromString:self.endpointValue] host];
+    return [NSURL ioc_URLWithFormat:@"onepassword://search/%@", query];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -205,7 +205,7 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 	NSString *endpoint = self.endpointValue;
 	NSString *password = self.passwordValue;
     NSUInteger accountIdx = self.delegate ? [self.delegate indexOfAccountWithLogin:login endpoint:endpoint] : NSNotFound;
-	if (endpoint.isEmpty || login.isEmpty || password.isEmpty) {
+	if ([endpoint ioc_isEmpty] || [login ioc_isEmpty] || [password ioc_isEmpty]) {
 		[iOctocat reportError:@"Validation failed" with:@"Please enter the domain, your login and password"];
 		return;
 	} else if (accountIdx != self.index) {
@@ -220,10 +220,10 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 		// update
 		self.account.login = login;
 		self.account.endpoint = endpoint;
-		self.account.authToken = [json safeStringForKey:@"token"];
+		self.account.authToken = [json ioc_stringForKey:@"token"];
 		[self saveAccount];
         [self.apiClient findAuthorizationWithNote:PushNote success:^(id json) {
-            NSString *pushToken = [json safeStringForKey:@"token"];
+            NSString *pushToken = [json ioc_stringForKey:@"token"];
             [self checkPushStateForPushToken:pushToken];
         } failure:^(NSError *error) {
             [self checkPushStateForPushToken:@""];
@@ -242,7 +242,7 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
             // users permissions to receive remote notifications first
             self.wantsPushNeedsDeviceToken = YES;
             [iOctocat.sharedInstance registerForRemoteNotifications];
-        } else if (self.loginValue.isEmpty || self.passwordValue.isEmpty) {
+        } else if ([self.loginValue ioc_isEmpty] || [self.passwordValue ioc_isEmpty]) {
 			[iOctocat reportError:@"Credentials required" with:@"Please enter your login and password"];
 			[self.pushSwitch setOn:NO animated:YES];
 		} else {
@@ -284,7 +284,7 @@ static NSString *const DeviceTokenKeyPath = @"deviceToken";
 	NSArray *scopes = @[@"notifications"];
 	[SVProgressHUD showWithStatus:@"Enabling push notifications" maskType:SVProgressHUDMaskTypeGradient];
 	[self.apiClient saveAuthorizationWithNote:PushNote scopes:scopes success:^(id json) {
-		NSString *token = [json safeStringForKey:@"token"];
+		NSString *token = [json ioc_stringForKey:@"token"];
 		[IOCApiClient.sharedInstance enablePushNotificationsForDevice:self.deviceToken accessToken:token endpoint:endpoint login:login success:^(id json) {
 			[SVProgressHUD showSuccessWithStatus:@"Enabled push notifications"];
             self.account.login = login;

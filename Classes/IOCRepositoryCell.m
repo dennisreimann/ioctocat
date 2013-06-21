@@ -1,5 +1,5 @@
 #import "IOCRepositoryCell.h"
-#import "NSString+Extensions.h"
+#import "NSString_IOCExtensions.h"
 
 
 @implementation IOCRepositoryCell
@@ -22,7 +22,7 @@
 - (void)setRepository:(GHRepository *)repo {
 	_repository = repo;
 	NSString *img = @"RepoPrivate";
-    NSString *language = self.repository.language.isEmpty ? @"" : [NSString stringWithFormat:@"%@ - ", self.repository.language];
+    NSString *language = [self.repository.language ioc_isEmpty] ? @"" : [NSString stringWithFormat:@"%@ - ", self.repository.language];
 	if (!self.repository.isPrivate) img = self.repository.isFork ? @"RepoPublicFork" : @"RepoPublic";
 	self.imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", img]];
 	self.imageView.highlightedImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@On.png", img]];

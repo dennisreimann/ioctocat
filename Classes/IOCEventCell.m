@@ -63,63 +63,7 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
     [self.event addObserver:self forKeyPath:UserGravatarKeyPath options:NSKeyValueObservingOptionNew context:nil];
 	[self setGravatar:gravatar];
     // actions
-    if (self.event.user) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.user.login];
-        [self.titleLabel addLinkToURL:self.event.user.htmlURL withRange:range];
-    }
-    if (self.event.organization) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.organization.login];
-        [self.titleLabel addLinkToURL:self.event.organization.htmlURL withRange:range];
-    }
-    if (self.event.otherUser) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.otherUser.login];
-        [self.titleLabel addLinkToURL:self.event.otherUser.htmlURL withRange:range];
-    }
-    if (self.event.repository) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.repository.repoId];
-        [self.titleLabel addLinkToURL:self.event.repository.htmlURL withRange:range];
-    }
-    if (self.event.otherRepository) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.otherRepository.repoId];
-        [self.titleLabel addLinkToURL:self.event.otherRepository.htmlURL withRange:range];
-    }
-    if (self.event.issue && !self.event.pullRequest) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.issue.repoIdWithIssueNumber];
-        [self.titleLabel addLinkToURL:self.event.issue.htmlURL withRange:range];
-    }
-    if (self.event.pullRequest) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.pullRequest.repoIdWithIssueNumber];
-        [self.titleLabel addLinkToURL:self.event.pullRequest.htmlURL withRange:range];
-    }
-    if (self.event.gist) {
-        NSRange range = [self.titleLabel.text rangeOfString:[NSString stringWithFormat:@"gist %@", self.event.gist.gistId]];
-        [self.titleLabel addLinkToURL:self.event.gist.htmlURL withRange:range];
-    }
-    if (self.event.commits && self.event.commits.count > 0) {
-        GHCommit *commit = self.event.commits[0];
-        NSRange range = [self.titleLabel.text rangeOfString:commit.shortenedSha];
-        [self.titleLabel addLinkToURL:commit.htmlURL withRange:range];
-        // commits
-        for (GHCommit *commit in self.event.commits.items) {
-            NSRange range = [self.contentLabel.text rangeOfString:commit.shortenedSha];
-            [self.contentLabel addLinkToURL:commit.htmlURL withRange:range];
-        }
-    }
-    if (self.event.pages) {
-        NSDictionary *wiki = self.event.pages[0];
-        NSString *pageName = [wiki ioc_stringForKey:@"page_name"];
-        NSURL *htmlURL = [wiki ioc_URLForKey:@"html_url"];
-        NSRange range = [self.titleLabel.text rangeOfString:[NSString stringWithFormat:@"\"%@\"", pageName]];
-        [self.titleLabel addLinkToURL:htmlURL withRange:range];
-    }
-    if (self.event.branch) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.ref];
-        [self.titleLabel addLinkToURL:self.event.branch.htmlURL withRange:range];
-    }
-    if (self.event.tag) {
-        NSRange range = [self.titleLabel.text rangeOfString:self.event.ref];
-        [self.titleLabel addLinkToURL:self.event.tag.htmlURL withRange:range];
-    }
+    [self linkEventItems];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -134,6 +78,61 @@ static NSString *const UserGravatarKeyPath = @"user.gravatar";
 }
 
 #pragma mark Helpers
+
+- (void)linkEventItems {
+    void (^addLinkToTitle)(NSString *, NSURL *);
+    addLinkToTitle = ^(NSString *linkText, NSURL *linkUrl) {
+        linkText = [NSString stringWithFormat:@"^%1$@\\s|\\s%1$@\\s|\\s%1$@$", linkText];
+        NSRange range = [self.titleLabel.text rangeOfString:linkText options:NSRegularExpressionSearch];
+        [self.titleLabel addLinkToURL:linkUrl withRange:range];
+    };
+
+    if (self.event.user) {
+        addLinkToTitle(self.event.user.login, self.event.user.htmlURL);
+    }
+    if (self.event.organization) {
+        addLinkToTitle(self.event.organization.login, self.event.organization.htmlURL);
+    }
+    if (self.event.otherUser) {
+        addLinkToTitle(self.event.otherUser.login, self.event.otherUser.htmlURL);
+    }
+    if (self.event.repository) {
+        addLinkToTitle(self.event.repository.repoId, self.event.repository.htmlURL);
+    }
+    if (self.event.otherRepository) {
+        addLinkToTitle(self.event.otherRepository.repoId, self.event.otherRepository.htmlURL);
+    }
+    if (self.event.issue && !self.event.pullRequest) {
+        addLinkToTitle(self.event.issue.repoIdWithIssueNumber, self.event.issue.htmlURL);
+    }
+    if (self.event.pullRequest) {
+        addLinkToTitle(self.event.pullRequest.repoIdWithIssueNumber, self.event.pullRequest.htmlURL);
+    }
+    if (self.event.gist) {
+        addLinkToTitle([NSString stringWithFormat:@"gist %@", self.event.gist.gistId], self.event.gist.htmlURL);
+    }
+    if (self.event.commits && self.event.commits.count > 0) {
+        GHCommit *commit = self.event.commits[0];
+        addLinkToTitle(commit.shortenedSha, commit.htmlURL);
+        //commits
+        for (GHCommit *commit in self.event.commits.items) {
+            NSRange range = [self.contentLabel.text rangeOfString:commit.shortenedSha];
+            [self.contentLabel addLinkToURL:commit.htmlURL withRange:range];
+        }
+    }
+    if (self.event.pages) {
+        NSDictionary *wiki = self.event.pages[0];
+        NSString *pageName = [wiki ioc_stringForKey:@"page_name"];
+        NSURL *htmlURL = [wiki ioc_URLForKey:@"html_url"];
+        addLinkToTitle([NSString stringWithFormat:@"\"%@\"", pageName], htmlURL);
+    }
+    if (self.event.branch) {
+        addLinkToTitle(self.event.ref, self.event.branch.htmlURL);
+    }
+    if (self.event.tag) {
+        addLinkToTitle(self.event.ref, self.event.tag.htmlURL);
+    }
+}
 
 - (void)markAsNew {
 	UIColor *color = [UIColor colorWithHue:0.6 saturation:0.09 brightness:1.0 alpha:1.0];

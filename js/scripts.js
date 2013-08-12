@@ -1,5 +1,5 @@
 // redirect to official page from GitHub pages
-if (window.location.host == "dennisreimann.github.com") {
+if (window.location.host !== "ioctocat.com") {
   window.location = 'http://ioctocat.com';
 }
 

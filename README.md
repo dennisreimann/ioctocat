@@ -1,7 +1,7 @@
 # iOctocat [![Build Status](https://travis-ci.org/dennisreimann/ioctocat.png?branch=master)](https://travis-ci.org/dennisreimann/ioctocat)
 
 … is a GitHub app for your iOS devices (iPad, iPhone and iPod Touch).
-It is open source and [available on the App Store](http://itunes.com/apps/ioctocat).
+It is open source and [available on the App Store](http://ioctocat.com/appstore-iphone).
 
 For further information visit the [project website](http://ioctocat.com).
 

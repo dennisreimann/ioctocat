@@ -7,19 +7,6 @@ up the thing you would like to mention before. Oftentimes you will not only find
 you are searching for, but also the current state of a feature we are working on or
 existing discussion about bugs and feature requests.
 
-## Providing debug information
-
-Here are some tips for providing debugging information along with issues. If you are
-able to [set up the development environment](DEVELOPMENT.md), this helps a lot,
-because you can provide log output for all API calls and additional debugging output.
-
-So, after being able to build the project...
-
-  * Activate the debug console by selecting "View > Debug Area > Activate Console"
-  * Clear the console (Cmd + K)
-  * Move to where the error occurs
-  * Copy the output in the console and attach it to your bug report
-
 ## Debugging API responses
 
 In the Debug directory is a ruby script to check the returned JSON of the

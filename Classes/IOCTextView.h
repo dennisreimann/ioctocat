@@ -1,2 +1,0 @@
-@interface IOCTextView : UITextView
-@end
